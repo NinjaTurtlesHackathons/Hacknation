@@ -1,0 +1,633 @@
+{
+ "domain": "optscale",
+ "wissen": [
+  {
+   "text": "Unter diskretem Gradientenabstieg brechen die Erhaltungsgrößen von ReLU-Netzen, wobei die Gesamtdrift mit η^α mit α etwa 1,1–1,6 skaliert.",
+   "zitat": "these laws break with total drift scaling as eta^alpha where alpha is approximately 1.1-1.6 depending on architecture, loss function, and width",
+   "quelle": "arXiv:2604.07405v1",
+   "typ": "ergebnis",
+   "url": "http://arxiv.org/abs/2604.07405v1"
+  },
+  {
+   "text": "Bei Cross-Entropy komprimiert die Softmax-Konzentration das Hesse-Spektrum exponentiell mit einer von der Trainingsmengengröße unabhängigen Zeitskala Θ(1/η), was den Driftexponenten nahe 1 selbstregularisiert.",
+   "zitat": "softmax probability concentration drives exponential Hessian spectral compression with timescale tau = Theta(1/eta) independent of training set size",
+   "quelle": "arXiv:2604.07405v1",
+   "typ": "ergebnis",
+   "url": "http://arxiv.org/abs/2604.07405v1"
+  },
+  {
+   "text": "Das spektrale Schrittweitenprofil zeigt einen volatilen Kopf an der Stabilitätsgrenze und einen toleranten Bulk, was erklärt, warum Muon Adam und Adam SGD übertrifft.",
+   "zitat": "a volatile head operating at the Edge-of-Stability supports a much smaller step size than the tolerant bulk",
+   "quelle": "arXiv:2608.25990v1",
+   "typ": "ergebnis",
+   "url": "http://arxiv.org/abs/2608.25990v1"
+  },
+  {
+   "text": "SAMuon verstärkt den Bulk über einen statischen spektralen Prior und benötigt 13,3 % bis 24,0 % weniger Trainings-Tokens als Muon.",
+   "zitat": "SAMuon requires 13.3% to 24.0% fewer training tokens to reach the same validation loss as Muon",
+   "quelle": "arXiv:2608.25990v1",
+   "typ": "ergebnis",
+   "url": "http://arxiv.org/abs/2608.25990v1"
+  },
+  {
+   "text": "Die Dichotomie zwischen Feature-Learning und Kernelverhalten gilt auch für allgemeine Optimierer wie Adam, mit nichtlinearem Kernelbegriff, und liefert NTK- und Maximal-Update-Limites für beliebige Architekturen.",
+   "zitat": "The same dichotomy between feature learning and kernel behaviors (as in SGD) holds for general optimizers as well",
+   "quelle": "arXiv:2308.01814v2",
+   "typ": "ergebnis",
+   "url": "http://arxiv.org/abs/2308.01814v2"
+  },
+  {
+   "text": "Die neue Tensor-Program-Sprache NEXORT erlaubt es, auszudrücken, wie adaptive Optimierer Gradienten in Updates verarbeiten.",
+   "zitat": "A new Tensor Program language, NEXORT, that can express how adaptive optimizers process gradients into updates",
+   "quelle": "arXiv:2308.01814v2",
+   "typ": "methode",
+   "url": "http://arxiv.org/abs/2308.01814v2"
+  },
+  {
+   "text": "Die Quantile der Singulärwerte der Momentum-Matrizen stabilisieren sich nach kurzem Burn-in und folgen sauberen Potenzgesetzen in der Modellgröße mit schichtabhängigen Exponenten (bis M^-0,96).",
+   "zitat": "These stabilization values follow remarkably clean power laws in model size, with layer-dependent exponents.",
+   "quelle": "arXiv:2606.04058v2",
+   "typ": "ergebnis",
+   "url": "http://arxiv.org/abs/2606.04058v2"
+  },
+  {
+   "text": "Im linearen Assoziativspeicher-Modell mit Potenzgesetz-Frequenzspektrum leitet die Arbeit ein Skalierungsgesetz für Muon her und zeigt dessen bessere Skalierungseffizienz gegenüber GD.",
+   "zitat": "in the noisy case with a power-law frequency spectrum, we derive Muon's scaling law and demonstrate its superior scaling efficiency over GD",
+   "quelle": "arXiv:2602.05725v3",
+   "typ": "ergebnis",
+   "url": "http://arxiv.org/abs/2602.05725v3"
+  },
+  {
+   "text": "GD lernt Frequenzkomponenten mit stark unausgewogenen Raten, während Muon dieses Ungleichgewicht abmildert und im rauschfreien Fall exponentiell schneller konvergiert.",
+   "zitat": "in the noiseless case, Muon achieves an exponential speedup over GD",
+   "quelle": "arXiv:2602.05725v3",
+   "typ": "ergebnis",
+   "url": "http://arxiv.org/abs/2602.05725v3"
+  },
+  {
+   "text": "Durch Minimierung von Konvergenzschranken für LMO-basierte Verfahren (normalisiertes SGD, signSGD, Muon) ergeben sich geschlossene Potenzgesetz-Schedules für Lernrate, Momentum und Batchgröße.",
+   "zitat": "yields closed-form power-law schedules for learning rate, momentum, and batch size as functions of the iteration or token budget",
+   "quelle": "arXiv:2603.15958v1",
+   "typ": "methode",
+   "url": "http://arxiv.org/abs/2603.15958v1"
+  },
+  {
+   "text": "Offen bleibt die Wechselwirkung zwischen Momentum- und Batchgrößen-Skalierung, die mehrere optimale Skalierungsstrategien nahelegt.",
+   "zitat": "suggesting that optimal performance may be achieved with several scaling strategies",
+   "quelle": "arXiv:2603.15958v1",
+   "typ": "offene_frage",
+   "url": "http://arxiv.org/abs/2603.15958v1"
+  },
+  {
+   "text": "Shampoo (mit Potenz 1/2) ist äquivalent zu Adafactor, das in der Eigenbasis des Shampoo-Präkonditionierers läuft, was zum Algorithmus SOAP führt.",
+   "zitat": "showing that Shampoo is equivalent to running Adafactor in the eigenbasis of Shampoo's preconditioner",
+   "quelle": "arXiv:2409.11321v2",
+   "typ": "ergebnis",
+   "url": "http://arxiv.org/abs/2409.11321v2"
+  },
+  {
+   "text": "Seltenere Eigenzerlegungen verschlechtern Shampoo empirisch, während SOAP durch kontinuierliche Aktualisierung des zweiten Moments in der langsam wechselnden Basis diese Degradation abmildert.",
+   "zitat": "SOAP mitigates this degradation by continually updating the running average of the second moment",
+   "quelle": "arXiv:2409.11321v2",
+   "typ": "methode",
+   "url": "http://arxiv.org/abs/2409.11321v2"
+  },
+  {
+   "text": "Stabiles EoS-Training entsteht durch eine Flip-Bifurkation in Normalrichtung, bestimmt durch das Vorzeichen des ersten Lyapunov-Koeffizienten, und es wird Konvergenz zur Minimierer-Mannigfaltigkeit bewiesen.",
+   "zitat": "we show that stable EoS training arises from a flip bifurcation in the normal direction",
+   "quelle": "arXiv:2606.15551v1",
+   "typ": "ergebnis",
+   "url": "http://arxiv.org/abs/2606.15551v1"
+  },
+  {
+   "text": "Im EoS-Regime führt GD aufgrund nicht-glatter Verlustlandschaft zu einem deterministischen Fluss auf der Mannigfaltigkeit minimalen Verlusts, der die größte Hesse-Eigenwert minimiert.",
+   "zitat": "Both provably enter the Edge of Stability, with the associated flow on the manifold minimizing",
+   "quelle": "arXiv:2205.09745v3",
+   "typ": "ergebnis",
+   "url": "http://arxiv.org/abs/2205.09745v3"
+  },
+  {
+   "text": "Für Adam mit Schrittweite η und β1 = 0.9 liegt die Stabilitätsschwelle des präkonditionierten Hesse-Eigenwerts empirisch bei 38/η.",
+   "zitat": "For Adam with step size $η$ and $β_1 = 0.9$, this stability threshold is $38/η$.",
+   "quelle": "arXiv:2207.14484v2",
+   "typ": "ergebnis",
+   "url": "http://arxiv.org/abs/2207.14484v2"
+  },
+  {
+   "text": "Adaptive Verfahren am Adaptive Edge of Stability können im Gegensatz zu nicht-adaptiven Methoden weiter in Regionen hoher Krümmung vordringen, indem sie den Präkonditionierer anpassen.",
+   "zitat": "adaptive gradient methods at the AEoS can keep advancing into high-curvature regions",
+   "quelle": "arXiv:2207.14484v2",
+   "typ": "ergebnis",
+   "url": "http://arxiv.org/abs/2207.14484v2"
+  },
+  {
+   "text": "Für SignSGD und Lion werden unter einer verallgemeinerten Heavy-Tail-Rauschbedingung scharfe Konvergenzraten gezeigt, und die Analyse wird erstmals auf Muon (Matrixoptimierung) ausgedehnt.",
+   "zitat": "providing what is, to our knowledge, the first rigorous analysis of matrix optimization under heavy-tailed stochasticity",
+   "quelle": "arXiv:2602.07425v2",
+   "typ": "ergebnis",
+   "url": "http://arxiv.org/abs/2602.07425v2"
+  },
+  {
+   "text": "Batched NSGDM erreicht ohne Gradient Clipping die optimale Rate O(T^((1-p)/(3p-2))) unter heavy-tailed Rauschen und relaxierter Glattheit.",
+   "zitat": "we prove that Batched NSGDM can achieve the optimal",
+   "quelle": "arXiv:2412.19529v4",
+   "typ": "ergebnis",
+   "url": "http://arxiv.org/abs/2412.19529v4"
+  },
+  {
+   "text": "Für unbekannten Tail-Index p wird erstmals eine Rate von O(T^((1-p)/(2p))) ohne Clipping gezeigt, die also schlechter als die optimale Rate bei bekanntem p ist.",
+   "zitat": "we also establish the first $\\mathcal{O}(T^{\\frac{1-\\mathfrak{p}}{2\\mathfrak{p}}})$ convergence rate in the case where the tail index",
+   "quelle": "arXiv:2412.19529v4",
+   "typ": "ergebnis",
+   "url": "http://arxiv.org/abs/2412.19529v4"
+  },
+  {
+   "text": "Eine algorithmusabhängige untere Schranke zeigt, dass die minimax-optimale Rate für heavy-tailed Optimierung von AdaGrad nicht erreichbar ist.",
+   "zitat": "suggesting that the existing minimax rate for heavy-tailed optimization is not attainable by",
+   "quelle": "arXiv:2605.18694v2",
+   "typ": "ergebnis",
+   "url": "http://arxiv.org/abs/2605.18694v2"
+  },
+  {
+   "text": "Lion und Muon mit Weight Decay werden als Spezialfälle von Stochastic Frank-Wolfe interpretiert, mit Konvergenzgarantien bezüglich der Frank-Wolfe-Lücke.",
+   "zitat": "we show that Lion and Muon with weight decay can be viewed as special instances of a Stochastic Frank-Wolfe",
+   "quelle": "arXiv:2506.04192v4",
+   "typ": "ergebnis",
+   "url": "http://arxiv.org/abs/2506.04192v4"
+  },
+  {
+   "text": "Zwei robuste Frank-Wolfe-Varianten für heavy-tailed Rauschen ohne große Batchgröße liefern neue Lion- und Muon-Varianten.",
+   "zitat": "we extend Stochastic Frank-Wolfe to settings with heavy-tailed noise by developing two robust variants",
+   "quelle": "arXiv:2506.04192v4",
+   "typ": "methode",
+   "url": "http://arxiv.org/abs/2506.04192v4"
+  },
+  {
+   "text": "Für den reinen vektorförmigen Adam werden erstmals Konvergenzgarantien unter heavy-tailed Rauschen mit beschränktem p-ten zentralen Moment bewiesen.",
+   "zitat": "We establish the first convergence guarantees for the plain vector-form Adam optimizer under heavy-tailed stochastic noise.",
+   "quelle": "arXiv:2607.27383v2",
+   "typ": "ergebnis",
+   "url": "http://arxiv.org/abs/2607.27383v2"
+  },
+  {
+   "text": "Adams Iterationskomplexität ist ohne bekannten Domänenradius suboptimal (ε^{-13/2} bei p=2), mit bekanntem Radius wird die optimale Komplexität (ε^{-7/2}) erreicht.",
+   "zitat": "which simplifies to $T=\\mathrm{O}(ε^{-13/2})$ when $p=2$",
+   "quelle": "arXiv:2607.27383v2",
+   "typ": "ergebnis",
+   "url": "http://arxiv.org/abs/2607.27383v2"
+  },
+  {
+   "text": "Für SGD werden Hochwahrscheinlichkeitsschranken unter β-heavy-tailed Rauschen (Young-Funktionen, inkl. lognormal) hergeleitet, die den Einfluss von Rauschenden und Lernraten-Schedules explizit machen.",
+   "zitat": "make explicit the effects of noise tails and learning-rate schedules",
+   "quelle": "arXiv:2609.32195v1",
+   "typ": "ergebnis",
+   "url": "http://arxiv.org/abs/2609.32195v1"
+  },
+  {
+   "text": "OptMuon kombiniert Muon-Orthogonalisierung mit einem AdaGrad-Norm-artigen Koeffizienten und erreicht rauschadaptive Raten, die im rauschfreien Fall auf Õ(T^{-1/2}) reduzieren.",
+   "zitat": "both bounds automatically reduce to a nearly optimal deterministic first-order rate",
+   "quelle": "arXiv:2606.08783v2",
+   "typ": "ergebnis",
+   "url": "http://arxiv.org/abs/2606.08783v2"
+  },
+  {
+   "text": "Mit μP wird eine Parametrisierung für Fourier Neural Operators abgeleitet, die Zero-Shot-Hyperparameter-Transfer über verschiedene Anzahlen von Fourier-Moden erlaubt.",
+   "zitat": "we mathematically derive a parametrization scheme that facilitates the transfer of optimal hyperparameters",
+   "quelle": "arXiv:2506.19396v1",
+   "typ": "methode",
+   "url": "http://arxiv.org/abs/2506.19396v1"
+  },
+  {
+   "text": "In μP bleiben viele optimale Hyperparameter über Modellgrößen stabil, was zero-shot Hyperparameter-Transfer (μTransfer) von kleinen auf große Modelle ermöglicht.",
+   "zitat": "in the recently discovered Maximal Update Parametrization (muP), many optimal HPs remain stable even as model size changes",
+   "quelle": "arXiv:2203.03466v2",
+   "typ": "ergebnis",
+   "url": "http://arxiv.org/abs/2203.03466v2"
+  },
+  {
+   "text": "Der Transfer von einem Modell mit 40M Parametern übertrifft veröffentlichte Werte von GPT-3 6.7B bei nur 7% der Pretraining-Kosten.",
+   "zitat": "by transferring from 40M parameters, we outperform published numbers of the 6.7B GPT-3 model",
+   "quelle": "arXiv:2203.03466v2",
+   "typ": "ergebnis",
+   "url": "http://arxiv.org/abs/2203.03466v2"
+  },
+  {
+   "text": "Standard- und NTK-Parametrisierung lassen keine Unendlich-Breite-Limiten mit Feature Learning zu; jede Parametrisierung hat entweder Feature Learning oder kernelartige Dynamik, nicht beides.",
+   "zitat": "any parametrization in this space either admits feature learning or has an infinite-width training dynamics given by kernel gradient descent, but not both",
+   "quelle": "arXiv:2011.14522v3",
+   "typ": "ergebnis",
+   "url": "http://arxiv.org/abs/2011.14522v3"
+  },
+  {
+   "text": "Mit der Tensor-Programs-Technik lassen sich die Unendlich-Breite-Limiten mit Feature Learning für den gesamten Parametrisierungsraum berechnen.",
+   "zitat": "any such infinite-width limit can be computed using the Tensor Programs technique",
+   "quelle": "arXiv:2011.14522v3",
+   "typ": "methode",
+   "url": "http://arxiv.org/abs/2011.14522v3"
+  },
+  {
+   "text": "Für Resnets mit einer Schicht pro Block gibt es eine eindeutige optimale Tiefen-Parametrisierung (Depth-μP), die empirisch Hyperparameter-Transfer über die Tiefe erlaubt.",
+   "zitat": "we identify a unique optimal parametrization, called Depth-$μ$P that extends $μ$P",
+   "quelle": "arXiv:2310.02244v5",
+   "typ": "ergebnis",
+   "url": "http://arxiv.org/abs/2310.02244v5"
+  },
+  {
+   "text": "Bei tieferen Blöcken (wie in modernen Transformern) zeigen alle möglichen Unendlich-Tiefe-Limiten grundlegende Einschränkungen, was eine offene Herausforderung darstellt.",
+   "zitat": "we find fundamental limitations in all possible infinite-depth limits of such parametrizations",
+   "quelle": "arXiv:2310.02244v5",
+   "typ": "offene_frage",
+   "url": "http://arxiv.org/abs/2310.02244v5"
+  },
+  {
+   "text": "Unter μP lernt SGD in L-Schicht-Netzen mit unendlicher Breite linear unabhängige Features, die stark von der Initialisierung abweichen, und jeder Konvergenzpunkt ist ein globales Minimum.",
+   "zitat": "ensures that any convergent point of the training process is a global minimum",
+   "quelle": "arXiv:2503.09565v2",
+   "typ": "ergebnis",
+   "url": "http://arxiv.org/abs/2503.09565v2"
+  },
+  {
+   "text": "Beim Random-Feature-Modell mit Monom-Aktivierung erbt das Eigenwertspektrum den Potenzgesetz-Exponenten α exakt von der Eingabekovarianz, modifiziert nur durch logarithmische Korrekturen.",
+   "zitat": "the power-law exponent $α$ is inherited exactly from the input covariance",
+   "quelle": "arXiv:2603.14578v1",
+   "typ": "ergebnis",
+   "url": "http://arxiv.org/abs/2603.14578v1"
+  },
+  {
+   "text": "Der Beweis kombiniert eine dyadische Kopf-Schwanz-Zerlegung mit Wick-Chaos-Entwicklungen und Konzentrationsungleichungen für Zufallsmatrizen.",
+   "zitat": "The proof combines a dyadic head-tail decomposition with Wick chaos expansions",
+   "quelle": "arXiv:2603.14578v1",
+   "typ": "methode",
+   "url": "http://arxiv.org/abs/2603.14578v1"
+  },
+  {
+   "text": "Beim Phase Retrieval mit Potenzgesetz-Kovarianz zeigt die Dynamik drei Phasen, aus denen explizite Skalierungsgesetze für den MSE abgeleitet werden.",
+   "zitat": "We develop a tractable reduction that reveals a three-phase trajectory",
+   "quelle": "arXiv:2511.18661v1",
+   "typ": "ergebnis",
+   "url": "http://arxiv.org/abs/2511.18661v1"
+  },
+  {
+   "text": "Ein polynomieller Abfall im Spektrum der Datenkovarianz führt in der Kernel-Regression zu einem Potenzgesetz des Excess Risk mit Exponent α = 2s/(2s+1/β), der somit von der Datenredundanz abhängt und nicht universell ist.",
+   "zitat": "a polynomial tail in the data covariance spectrum yields an excess risk power law with exponent alpha = 2s / (2s + 1/beta)",
+   "quelle": "arXiv:2509.20721v2",
+   "typ": "ergebnis",
+   "url": "http://arxiv.org/abs/2509.20721v2"
+  },
+  {
+   "text": "Die Gültigkeit des Redundanzgesetzes wird als universell gegenüber beschränkt invertierbaren Transformationen, multimodalen Mischungen, endlicher Breite und Transformer-Architekturen im NTK- und Feature-Learning-Regime gezeigt.",
+   "zitat": "We establish the law's universality across boundedly invertible transformations, multi-modal mixtures, finite-width approximations, and Transformer architectures",
+   "quelle": "arXiv:2509.20721v2",
+   "typ": "ergebnis",
+   "url": "http://arxiv.org/abs/2509.20721v2"
+  },
+  {
+   "text": "Für verrauschtes Online-SGD mit linearen Random Features trennt eine exakte Volterra-Gleichung eine Forcing-Komponente (unaufgelöster Zielfehler) von einem Memory-Kernel (stochastische Fehlereinträge).",
+   "zitat": "an exact Volterra equation separates two response components: a forcing term that propagates unresolved target error",
+   "quelle": "arXiv:2609.40148v1",
+   "typ": "methode",
+   "url": "http://arxiv.org/abs/2609.40148v1"
+  },
+  {
+   "text": "Jede der beiden Komponenten folgt genau dann einem Potenzgesetz, wenn ihre kumulative gewichtete Spektralmasse die entsprechende Skalierung im Niederspektrum hat, ohne dass einzelne Eigenwerte koordinatenweise Potenzgesetze erfüllen müssen.",
+   "zitat": "either component follows a power law if and only if its cumulative weighted spectral mass has the corresponding low-spectrum scaling",
+   "quelle": "arXiv:2609.40148v1",
+   "typ": "ergebnis",
+   "url": "http://arxiv.org/abs/2609.40148v1"
+  },
+  {
+   "text": "Lernraten- und Batchgrößen-Schedules wirken über die intrinsische Zeit und das Verhältnis B/η, und liefern scharfe Bedingungen, unter denen ein Schedule das reine Potenzgesetz erhält, verändert oder zerstört.",
+   "zitat": "Their interaction yields sharp conditions under which a schedule preserves, changes, or destroys the clean power law",
+   "quelle": "arXiv:2609.40148v1",
+   "typ": "ergebnis",
+   "url": "http://arxiv.org/abs/2609.40148v1"
+  },
+  {
+   "text": "Die Theorie unterscheidet vier Skalierungsregime (varianzlimitiert und auflösungslimitiert, jeweils für Datensatz- und Modellgröße), wobei das varianzlimitierte Regime aus der Existenz wohldefinierter Grenzwerte für unendliche Daten bzw. Breite folgt.",
+   "zitat": "We identify variance-limited and resolution-limited scaling behavior for both dataset and model size, for a total of four scaling regimes.",
+   "quelle": "arXiv:2102.06701v2",
+   "typ": "ergebnis",
+   "url": "http://arxiv.org/abs/2102.06701v2"
+  },
+  {
+   "text": "Im Limes großer Breite lassen sich die auflösungslimitierten Exponenten aus dem Kernelspektrum ableiten, und es gibt Evidenz für eine Dualität zwischen Daten- und Modellgrößen-Exponenten.",
+   "zitat": "we present evidence that large width and large dataset resolution-limited scaling exponents are related by a duality",
+   "quelle": "arXiv:2102.06701v2",
+   "typ": "ergebnis",
+   "url": "http://arxiv.org/abs/2102.06701v2"
+  },
+  {
+   "text": "Die exakte Asymptotik der Random-Fourier-Features-Regression im proportionalen Regime von n, p und N liefert eine präzise Phasenübergangs-Charakterisierung und leitet daraus die Double-Descent-Testfehlerkurve ab.",
+   "zitat": "the corresponding double descent test error curve is derived from this phase transition behavior",
+   "quelle": "arXiv:2006.05013v2",
+   "typ": "ergebnis",
+   "url": "http://arxiv.org/abs/2006.05013v2"
+  },
+  {
+   "text": "Anstelle separater, schlecht konditionierter Chinchilla-Gesetze pro Optimierer wird ein robusteres Skalierungsgesetz mit gemeinsamen Potenzgesetz-Exponenten und optimierer-spezifischen Skalierungsfaktoren vorgeschlagen.",
+   "zitat": "we propose a more robust law with shared power-law exponents and optimizer-specific rescaling factors",
+   "quelle": "arXiv:2602.07712v2",
+   "typ": "ergebnis",
+   "url": "http://arxiv.org/abs/2602.07712v2"
+  },
+  {
+   "text": "Für ein konvexes quadratisches Proxy-Problem entstehen Chinchilla-artige Skalierungsgesetze natürlich aus der Zerlegung des Verlusts in irreduziblen, Approximations- und Optimierungsfehler.",
+   "zitat": "Chinchilla-style scaling laws emerge naturally as a result of loss decomposition into irreducible, approximation, and optimization errors",
+   "quelle": "arXiv:2602.07712v2",
+   "typ": "ergebnis",
+   "url": "http://arxiv.org/abs/2602.07712v2"
+  },
+  {
+   "text": "Bei gleicher Architektur zeigt Muon lineare spektrale Skalierung des Hard-Rank auf seltenen Tokens (β=1,02), AdamW nur schwache (β=0,44), also einen 2,3-fach größeren Exponenten.",
+   "zitat": "whereas Muon achieves linear scaling ($β$=1.02) in the same regimes, a $2.3\\times$ increase in the scaling exponent",
+   "quelle": "arXiv:2605.21803v1",
+   "typ": "ergebnis",
+   "url": "http://arxiv.org/abs/2605.21803v1"
+  },
+  {
+   "text": "Gleicher Validierungsverlust impliziert nicht gleiche Repräsentationsstruktur, da AdamW trotz vergleichbarer Perplexität eine deutlich andere spektrale Geometrie aufweist.",
+   "zitat": "demonstrating that matched loss does not imply matched representation structure",
+   "quelle": "arXiv:2605.21803v1",
+   "typ": "ergebnis",
+   "url": "http://arxiv.org/abs/2605.21803v1"
+  },
+  {
+   "text": "Die iterative Orthogonalisierung in Muon könnte bei großem Maßstab problematisch werden, weil die Singulärwerte zufälliger Matrizen mit der Skala schrumpfen; eine Abhilfe wird nicht angegeben.",
+   "zitat": "the singular values of random matrices shrink with scale",
+   "quelle": "arXiv:2505.04005v2",
+   "typ": "offene_frage",
+   "url": "http://arxiv.org/abs/2505.04005v2"
+  },
+  {
+   "text": "NGD-T zeigt, dass der natürliche Gradientenfluss die momentane irreversible Dissipation bei fester Verlustabnahme eindeutig minimiert, und setzt dies in einen dissipationsbewussten Schrittweitenregler mit Fisher-Präkonditionierung um.",
+   "zitat": "Natural Gradient Flow uniquely minimizes instantaneous irreversible dissipation for a fixed loss decrease",
+   "quelle": "doi:10.1038/s41598-026-49556-2",
+   "typ": "methode",
+   "url": "https://doi.org/10.1038/s41598-026-49556-2"
+  },
+  {
+   "text": "Beim Training von PINNs wird eine dritte Phase, das „Diffusionsgleichgewicht“, mit abrupter Ausrichtung der samplewise Gradienten (SNR-Anstieg) und stabiler Konvergenz identifiziert.",
+   "zitat": "This phase is marked by an abrupt (first-order) transition, where sample-wise gradients align",
+   "quelle": "doi:10.1016/j.neunet.2025.107983",
+   "typ": "ergebnis",
+   "url": "https://doi.org/10.1016/j.neunet.2025.107983"
+  },
+  {
+   "text": "Muon lässt sich mit Weight Decay und angepasster Update-Skalierung pro Parameter ohne Hyperparameter-Tuning skalieren und erreicht in Skalierungsgesetz-Experimenten etwa doppelte Recheneffizienz gegenüber AdamW.",
+   "zitat": "Scaling law experiments indicate that Muon achieves $\\sim\\!2\\times$ computational efficiency compared to AdamW with compute optimal training.",
+   "quelle": "arXiv:2502.16982v1",
+   "typ": "ergebnis",
+   "url": "http://arxiv.org/abs/2502.16982v1"
+  },
+  {
+   "text": "Im linearen Assoziativspeicher-Modell mit Potenzgesetz-Häufigkeiten übertrifft die Speicherkapazität von Muon nach einem Schritt die von SGD deutlich und entspricht der des Newton-Verfahrens.",
+   "zitat": "We show that the storage capacity of Muon significantly exceeds that of SGD, and even matches Newton's method while only using first-order information.",
+   "quelle": "arXiv:2603.26554v2",
+   "typ": "ergebnis",
+   "url": "http://arxiv.org/abs/2603.26554v2"
+  },
+  {
+   "text": "Die Mehrschritt-Dynamik zeigt, dass Muon anfangs schneller rekonstruiert als SGD, beide aber letztlich mit vergleichbarer Geschwindigkeit die informationstheoretische Grenze erreichen.",
+   "zitat": "Muon achieves a substantially faster initial recovery rate than SGD, while both methods eventually converge to the information-theoretic limit at comparable speeds.",
+   "quelle": "arXiv:2603.26554v2",
+   "typ": "ergebnis",
+   "url": "http://arxiv.org/abs/2603.26554v2"
+  },
+  {
+   "text": "Im Teacher-Student-Modell sind die dynamischen Exponenten optimizerspezifisch (SGD nahe 1/3, Adam stark getrennt), während der optimale Datenexponent über Optimizer hinweg bei 1/3 liegt.",
+   "zitat": "We show that the first, a dynamic exponent, is optimizer-specific while the second, an optimal data exponent, converges to $1/3$ across optimizers.",
+   "quelle": "arXiv:2609.37745v1",
+   "typ": "ergebnis",
+   "url": "http://arxiv.org/abs/2609.37745v1"
+  },
+  {
+   "text": "Eine stochastische Dynamikanalyse liefert die Relation 2α_r + α_t = 1 für die dynamischen Exponenten, die den optimalen Datenexponenten auf 1/3 festlegt.",
+   "zitat": "they all fall on a single dynamic exponent relation, $2α_{r}+ α_{t} = 1$, which fixes the optimal data exponent at $1/3$",
+   "quelle": "arXiv:2609.37745v1",
+   "typ": "methode",
+   "url": "http://arxiv.org/abs/2609.37745v1"
+  },
+  {
+   "text": "Die relative Optimizer-Performance und optimale Hyperparameter hängen stark vom Trainingshorizont ab; u. a. skaliert der beste Weight Decay etwa mit sqrt(OT) und längere Horizonte begünstigen längeres Gedächtnis.",
+   "zitat": "the best weight decay coefficient scales approximately as sqrt(OT), and longer horizons generally favor longer fixed memory",
+   "quelle": "arXiv:2609.04577v1",
+   "typ": "ergebnis",
+   "url": "http://arxiv.org/abs/2609.04577v1"
+  },
+  {
+   "text": "Muon und SOAP bieten über den Großteil des Bereichs einen etwa konstanten Token-Effizienzvorteil gegenüber AdamW, während ADANA mit einem Exponentenvorteil nahe der DANA-Theorie auf Power-Law-Random-Features aufholt.",
+   "zitat": "Muon and SOAP instead provide roughly constant token-efficiency advantages over AdamW across most of the measured range",
+   "quelle": "arXiv:2609.04577v1",
+   "typ": "ergebnis",
+   "url": "http://arxiv.org/abs/2609.04577v1"
+  },
+  {
+   "text": "Logarithmische Zeitschedules für (β1, β2, λ), die die Potenzgesetz-Struktur von Sprachdaten ausnutzen, ergeben in ADANA bis zu 40 % Recheneffizienzgewinn gegenüber getuntem AdamW.",
+   "zitat": "ADANA achieves up to 40% compute efficiency relative to a tuned AdamW, with gains that persist--and even improve--as model scale increases.",
+   "quelle": "arXiv:2602.05298v2",
+   "typ": "ergebnis",
+   "url": "http://arxiv.org/abs/2602.05298v2"
+  },
+  {
+   "text": "Naive Varianten wachsender Gradienten-Gedächtnishorizonte sind instabil; erst geeignete Dämpfungsmechanismen stellen die Stabilität bei erhaltenem Nutzen wieder her.",
+   "zitat": "Although naive variants of this are unstable, we show that suitable damping mechanisms restore stability while preserving the benefits of longer memory.",
+   "quelle": "arXiv:2602.05298v2",
+   "typ": "methode",
+   "url": "http://arxiv.org/abs/2602.05298v2"
+  },
+  {
+   "text": "Eine erste detaillierte Analyse zeigt, wie die Matrixskalierung die Konvergenz von Shampoo entscheidend beeinflusst; DASH beschleunigt Shampoo durch gestapelte Blockpräkonditionierer und schnellere Inverse-Wurzel-Solver.",
+   "zitat": "we provide a first in-depth analysis of how matrix scaling critically affects Shampoo convergence",
+   "quelle": "arXiv:2602.02016v2",
+   "typ": "methode",
+   "url": "http://arxiv.org/abs/2602.02016v2"
+  },
+  {
+   "text": "Die Übertragung der Skalierungsgesetz-Analyse auf realistischere Sprachmodellierungsaufgaben und weitere Optimizer bleibt offen.",
+   "zitat": "lays the groundwork for establishing scaling laws across more practical language modeling tasks and optimizers",
+   "quelle": "arXiv:2603.26554v2",
+   "typ": "offene_frage",
+   "url": "http://arxiv.org/abs/2603.26554v2"
+  },
+  {
+   "text": "Mousse führt die Newton-Schulz-Orthogonalisierung von Muon in einem durch Shampoo-Kronecker-Statistiken gewichteten (whitened) Koordinatensystem aus und reduziert so die nötigen Trainingsschritte gegenüber Muon um etwa 12 %.",
+   "zitat": "Mousse consistently outperforms Muon, achieving around $\\sim$12\\% reduction in training steps with negligible computational overhead",
+   "quelle": "arXiv:2603.09697v2",
+   "typ": "ergebnis",
+   "url": "http://arxiv.org/abs/2603.09697v2"
+  },
+  {
+   "text": "Mousse wird als spektrale Steepest-Descent-Lösung unter einer anisotropen Trust Region formuliert, deren optimales Update über die Polarzerlegung des gewhiteten Gradienten folgt.",
+   "zitat": "the optimal update is derived via the polar decomposition of the whitened gradient",
+   "quelle": "arXiv:2603.09697v2",
+   "typ": "methode",
+   "url": "http://arxiv.org/abs/2603.09697v2"
+  },
+  {
+   "text": "Die kritische Schärfe ist ein mit weniger als zehn Forward-Passes berechenbares Krümmungsmaß, das Progressive Sharpening und Edge of Stability bis 7B Parametern in OLMo-2 nachweisbar macht.",
+   "zitat": "we provide the first demonstration of these sharpness phenomena at scale, up to $7$B parameters",
+   "quelle": "arXiv:2601.16979v2",
+   "typ": "ergebnis",
+   "url": "http://arxiv.org/abs/2601.16979v2"
+  },
+  {
+   "text": "Für tiefe lineare Netze folgt der Verlust jenseits der Edge of Stability einer Periodenverdopplung zum Chaos, wobei die Oszillationen in einem durch die Lernrate bestimmten kleinen Unterraum stattfinden.",
+   "zitat": "loss oscillations beyond EOS follow a period-doubling route to chaos",
+   "quelle": "arXiv:2502.20531v1",
+   "typ": "ergebnis",
+   "url": "http://arxiv.org/abs/2502.20531v1"
+  },
+  {
+   "text": "Das Brechen des Erhaltungsgesetzes (Balancing Gap der Singulärwerte zwischen Schichten) am EOS ist der Kern der Analyse und erklärt, warum flache Modelle nicht immer EOS zeigen.",
+   "zitat": "breaks at EOS and decays monotonically to zero",
+   "quelle": "arXiv:2502.20531v1",
+   "typ": "ergebnis",
+   "url": "http://arxiv.org/abs/2502.20531v1"
+  },
+  {
+   "text": "Für SGD und SGDM im nichtkonvexen Fall sowie für SMD und ASMD im konvexen Fall werden In-Expectation-Konvergenzergebnisse unter heavy-tailed Rauschen ohne Algorithmusänderung und ohne beschränkte Domäne gezeigt.",
+   "zitat": "our results not only hold without algorithmic changes but also avoid restrictive assumptions",
+   "quelle": "arXiv:2606.00520v1",
+   "typ": "ergebnis",
+   "url": "http://arxiv.org/abs/2606.00520v1"
+  },
+  {
+   "text": "Standard-SGD konvergiert unter Hölder-Glattheit und heavy-tailed Rauschen mit Rate O(T^{-s/(1+s)}), sofern α ≥ 1+s gilt.",
+   "zitat": "standard SGD converges at rate $O(T^{-s/(1+s)})$ whenever $α\\ge1+s$",
+   "quelle": "arXiv:2609.12785v1",
+   "typ": "ergebnis",
+   "url": "http://arxiv.org/abs/2609.12785v1"
+  },
+  {
+   "text": "Für Gradient Clipping wird im sehr heavy-tailed Regime α < 1+s die erste Konvergenzgarantie für ein stochastisches Gradientenverfahren überhaupt gezeigt.",
+   "zitat": "the first convergence guarantee in this regime for any stochastic gradient based method",
+   "quelle": "arXiv:2609.12785v1",
+   "typ": "ergebnis",
+   "url": "http://arxiv.org/abs/2609.12785v1"
+  },
+  {
+   "text": "AHTSGD passt die Schwere des injizierten Rauschens an die Schärfeentwicklung (Edge of Stability) an, zeigt aber nur empirische Evidenz auf kleinen Benchmarks ohne Konvergenztheorie.",
+   "zitat": "injects heavier-tailed noise into the optimizer during the early stages of training to enhance exploration",
+   "quelle": "arXiv:2508.21353v1",
+   "typ": "methode",
+   "url": "http://arxiv.org/abs/2508.21353v1"
+  },
+  {
+   "text": "Mit einem Trunkierungsargument werden Generalisierungsschranken über algorithmische Stabilität unter heavy-tailed Rauschen mit beschränktem p-tem zentralem Moment (p in (1,2]) hergeleitet.",
+   "zitat": "we introduce a truncation argument to achieve the generalization error bound based on the algorithmic stability",
+   "quelle": "arXiv:2601.19730v1",
+   "typ": "methode",
+   "url": "http://arxiv.org/abs/2601.19730v1"
+  },
+  {
+   "text": "Die Stabilitäts- und Generalisierungsanalyse wird auf geclipptes und normalisiertes SGD sowie deren Mini-Batch- und Momentum-Varianten ausgedehnt.",
+   "zitat": "including clipped and normalized stochastic gradient descent, as well as their mini-batch and momentum variants",
+   "quelle": "arXiv:2601.19730v1",
+   "typ": "ergebnis",
+   "url": "http://arxiv.org/abs/2601.19730v1"
+  },
+  {
+   "text": "GALA wählt die Lernrate als eindimensionales Online-Lernproblem anhand der Ausrichtung aufeinanderfolgender Gradienten und erreicht für normalisiertes SGD eine datenadaptive Konvergenzrate im glatten nichtkonvexen Fall.",
+   "zitat": "We establish a data-adaptive convergence rate for normalized SGD equipped with GALA in the smooth, nonconvex setting.",
+   "quelle": "arXiv:2506.08419v1",
+   "typ": "ergebnis",
+   "url": "http://arxiv.org/abs/2506.08419v1"
+  },
+  {
+   "text": "WNGrad liefert eine nichtlineare Lernraten-Update-Regel, die robust gegenüber der Wahl der Lipschitz-Konstante ist und nahezu optimale Konvergenzraten erreicht.",
+   "zitat": "The proposed method is shown to achieve robustness to the relationship between the learning rate and the Lipschitz constant",
+   "quelle": "arXiv:1803.02865v2",
+   "typ": "ergebnis",
+   "url": "http://arxiv.org/abs/1803.02865v2"
+  },
+  {
+   "text": "AdaGrad-Norm konvergiert im nichtkonvexen stochastischen Fall mit Rate O(log(N)/sqrt(N)) und ist robust gegenüber allen Hyperparametern.",
+   "zitat": "converges to a stationary point at the $\\mathcal{O}(\\log(N)/\\sqrt{N})$ rate in the stochastic setting",
+   "quelle": "arXiv:1806.01811v8",
+   "typ": "ergebnis",
+   "url": "http://arxiv.org/abs/1806.01811v8"
+  },
+  {
+   "text": "Optimale Lernprotokolle werden als Optimalsteuerungsproblem auf den ODEs der Ordnungsparameter von Online-SGD im hochdimensionalen Limes formuliert.",
+   "zitat": "We formulate the design of learning protocols as an optimal control problem directly on the dynamics of the order parameters",
+   "quelle": "doi:10.1093/pnasnexus/pgag182",
+   "typ": "methode",
+   "url": "https://doi.org/10.1093/pnasnexus/pgag182"
+  },
+  {
+   "text": "Unter μP-artigen Stabilisierungsbedingungen und einem Maximal-Update-Kriterium fällt die optimale Lernrate mit der effektiven Tiefe nach einem universellen Potenzgesetz mit Exponent -3/2.",
+   "zitat": "the optimal learning rate decays with effective depth following a universal -3/2 power law",
+   "quelle": "arXiv:2602.07494v2",
+   "typ": "ergebnis",
+   "url": "http://arxiv.org/abs/2602.07494v2"
+  },
+  {
+   "text": "Die Tiefenskalierung von Hyperparametern ist für moderne Architekturen mit mehreren parallelen Pfaden und Residual-Aggregation theoretisch weniger verstanden als die Breitenskalierung.",
+   "zitat": "Yet depth scaling is less understood for modern architectures",
+   "quelle": "arXiv:2602.07494v2",
+   "typ": "offene_frage",
+   "url": "http://arxiv.org/abs/2602.07494v2"
+  },
+  {
+   "text": "Die μP von gängigen Diffusion-Transformern (U-ViT, DiT, PixArt-α, MMDiT) stimmt mit der des Vanilla-Transformers überein, sodass bestehende μP-Methoden direkt anwendbar sind.",
+   "zitat": "we rigorously prove that $μ$P of mainstream diffusion Transformers, including U-ViT, DiT, PixArt-$α$, and MMDiT, aligns with that of the vanilla Transformer",
+   "quelle": "arXiv:2505.15270v3",
+   "typ": "ergebnis",
+   "url": "http://arxiv.org/abs/2505.15270v3"
+  },
+  {
+   "text": "DiT-XL-2 mit μP und transferierter Lernrate konvergiert 2,9-mal schneller als das Original, und der Tuning-Aufwand bleibt bei der Skalierung bis 18B Parametern gering.",
+   "zitat": "DiT-XL-2-$μ$P with transferred learning rate achieves 2.9 times faster convergence than the original DiT-XL-2",
+   "quelle": "arXiv:2505.15270v3",
+   "typ": "ergebnis",
+   "url": "http://arxiv.org/abs/2505.15270v3"
+  },
+  {
+   "text": "Der Unendlich-Breite-Limes einer einzelnen Attention-Schicht mit Standard-1/√n-Skalierung ist nicht gaußsch, sondern hierarchisch aufgebaut (gaußsch bedingt auf zufällige Ähnlichkeitswerte).",
+   "zitat": "This limiting distribution exhibits non-Gaussianity from a hierarchical structure, being Gaussian conditional on the random similarity scores.",
+   "quelle": "arXiv:2506.00846v3",
+   "typ": "ergebnis",
+   "url": "http://arxiv.org/abs/2506.00846v3"
+  },
+  {
+   "text": "Die Analyse mit Tensor Programs soll als Grundlage für eine einheitliche Unendlich-Breite-Theorie tiefer Transformer dienen, die noch aussteht.",
+   "zitat": "our findings lay the groundwork for developing a unified theory of deep Transformer architectures in the infinite-width regime",
+   "quelle": "arXiv:2506.00846v3",
+   "typ": "offene_frage",
+   "url": "http://arxiv.org/abs/2506.00846v3"
+  },
+  {
+   "text": "Es werden quantitative Wasserstein-Konvergenzraten der Ordnung inverse Wurzel der Breite zwischen endlichen Netzen und ihren Gauß-Prozess-Limites bewiesen, auch für Weight-Sharing wie in Transformern.",
+   "zitat": "explicit finite-width error bounds, of order inverse square-root of the widths between finite-network executions and their Gaussian-process limits",
+   "quelle": "arXiv:2607.06290v1",
+   "typ": "ergebnis",
+   "url": "http://arxiv.org/abs/2607.06290v1"
+  },
+  {
+   "text": "Der NTK eines zufällig initialisierten Netzes beliebiger Architektur konvergiert bei wachsender Breite gegen einen deterministischen Grenzwert, und die Gradient-Independence-Annahme ist unter einer einfachen Bedingung korrekt.",
+   "zitat": "We prove that a randomly initialized neural network of *any architecture* has its Tangent Kernel (NTK) converge to a deterministic limit",
+   "quelle": "arXiv:2006.14548v4",
+   "typ": "ergebnis",
+   "url": "http://arxiv.org/abs/2006.14548v4"
+  },
+  {
+   "text": "Standard-SAM reduziert sich in breiten Netzen effektiv auf SAM nur in der letzten Schicht; die schichtweise Perturbationsskalierung μP² erlaubt dagegen Feature Learning und Perturbation in allen Schichten sowie Transfer von Lernrate und Radius.",
+   "zitat": "the dynamics of standard SAM effectively reduce to applying SAM solely in the last layer in wide neural networks, even with optimal hyperparameters",
+   "quelle": "arXiv:2411.00075v2",
+   "typ": "ergebnis",
+   "url": "http://arxiv.org/abs/2411.00075v2"
+  },
+  {
+   "text": "Bei starker Anisotropie (α>1) ist die effektive Dimension konstant, und der Bias zerfällt oberhalb einer Schwelle als Potenzgesetz, das die klassischen Source-/Capacity-Raten reproduziert.",
+   "zitat": "above it, the bias decays as a power law that recovers the classical source and capacity rates",
+   "quelle": "arXiv:2608.28564v1",
+   "typ": "ergebnis",
+   "url": "http://arxiv.org/abs/2608.28564v1"
+  }
+ ],
+ "fragen": [],
+ "claims": [],
+ "widerlegt": [],
+ "runden": [],
+ "kosten_usd": 0.612779
+}
