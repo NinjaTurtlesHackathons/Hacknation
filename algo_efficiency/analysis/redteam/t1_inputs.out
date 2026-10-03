@@ -1,0 +1,25 @@
+PASS | scaled lambda=-1 acceptance -1 (negative probability) | exact acceptance of scaled = -1
+PASS | scaled lambda=-1 unbiased True | exact output distribution of scaled: TV to p = 0
+PASS | scaled lambda=0 acceptance 0 | exact acceptance of scaled = 0
+PASS | standard with k=4 acceptance = single-draft value | exact acceptance of standard = 13/20
+PASS | standard with k=0 | exact acceptance of standard = 13/20
+PASS | standard with k=-3 | exact acceptance of standard = 13/20
+PASS | standard with lambda=5 unbiased | exact output distribution of standard: TV to p = 0
+PASS | rrs_iid k=2.9 (truncated to 2) | exact acceptance of rrs_iid = 77/100
+PASS | rrs_iid k=True (bool -> 1) | exact acceptance of rrs_iid = 13/20
+PASS | gamma 8.7 (truncated to 8) | argmax g = [8], speedup 3.092080 (exact; no g > 12 can do better)
+PASS | exp_min_degree d=4.99 | min degree = 4: degree 4 achieves rigorous sup error <= 5.063864e-04 <= eps; every degree-3 polynomial has sup error >= 5.003884e-03 > eps (
+PASS | multidraft k=2.5 | optimal acceptance = 43/50 (exact max-flow = min-cut, cut set [0])
+fail | multidraft mode='WOR' (typo) | check not executable: ValueError: unknown mode WOR
+PASS | scheme_optimal extra lambda | rrs_iid acceptance 13/20 vs optimal 13/20 (certified)
+PASS | unbiased given as string 'false' | exact output distribution of standard: TV to p = 0
+fail | optimal given as string 'false' | rrs_iid acceptance 77/100 vs optimal 43/50 (certified)
+fail | key 'Tolerance' (case) | rule violation: the claim may not set ['tolerance'] (verifier-owned)
+PASS | rrs_wor k=4 V=3 | exact acceptance of rrs_wor = 1
+PASS | multidraft wor k=4 V=3 value 1 | optimal acceptance = 1 (exact max-flow = min-cut, cut set [])
+PASS | float probabilities 0.1/0.2/0.7 | exact acceptance sum min(p,q) = 2/5
+PASS | q zero where p>0 | exact output distribution of rrs_wor: TV to p = 0
+describe() of the 'standard with lambda=5' claim: For p = ["1/2", "1/4", "1/4"], q = ["1/5", "3/5", "1/5"], rule standard (k = 1, lambda = 5) is lossless: its output distribution equals p (exact).
+describe() of 'standard with k=4': For p = ["1/2", "1/4", "1/4"], q = ["1/5", "3/5", "1/5"], rule standard with k = 4 accepts with probability exactly 13/20 (exact).
+describe() of 'gamma 8.7': With i.i.d. acceptance alpha = 4/5 and cost ratio c = 1/20, draft length 8.7 maximises the expected speedup over all g >= 0 (exact, tail-certified).
+describe() of 'unbiased string false': For p = ["1/2", "1/4", "1/4"], q = ["1/5", "3/5", "1/5"], rule standard (k = 1) is lossless: its output distribution equals p (exact).

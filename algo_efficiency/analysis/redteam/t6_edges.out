@@ -1,0 +1,13 @@
+B= 1/100 d= 0 relative: L=0.00999966667999946 U=0.009999666680000248 remez=0.00999966667999946 L<=U: True  (0.2s)
+B= 1/100 d= 3 relative: L=5.208312500039641e-11 U=5.211905845366894e-11 remez=5.208312500039641e-11 L<=U: True  (0.4s)
+B=     1 d= 0 relative: L=0.7615941559557649 U=None remez=0.7615941559557649 L<=U: None  (0.1s)
+B=     1 d= 0 absolute: L=1.1752011936438014 U=None remez=1.1752011936438014 L<=U: None  (0.0s)
+B=    32 d= 0 relative: L=1.0 U=None remez=1.0 L<=U: None  (0.1s)
+B=    32 d=20 relative: L=0.9999828842182348 U=None remez=0.9999828842182348 L<=U: None  (10.4s)
+B=    32 d=40 relative: L=0.0023055250708720687 U=0.22926807936664934 remez=0.0023055250708720687 L<=U: True  (31.7s)
+B=    32 d=48 absolute: L=0.04808611652623125 U=None remez=0.04808611652623125 L<=U: None  (4.2s)
+B=   1/3 d= 2 absolute: L=0.0015566488507393354 U=None remez=0.0015566488507393354 L<=U: None  (0.2s)
+degree-0 relative exact minimax = tanh(B): B=1 -> 0.7615941559557649 ; B=32 -> 1.0
+(False, 'upper certificate failed at degree 0: {\'reason\': "verifier\'s own minimax error 0.761594 is not below eps", \'remez_level\': 0.7615941559557649}', {'upper': {'reason': "verifier's own minimax error 0.761594 is not below eps", 'remez_level': 0.7615941559557649}})
+(False, 'upper certificate (degree 0): {\'reason\': "verifier\'s own minimax error 0.761594 is not below eps", \'remez_level\': 0.7615941559557649}', {'reason': "verifier's own minimax error 0.761594 is not below eps", 'remez_level': 0.7615941559557649})
+(True, "upper certificate (degree 48): {'upper_bound': 0.4937123629293621, 'remez_level': 0.04808611652623125, 'boxes': 48}", {'upper_bound': 0.4937123629293621, 'remez_level': 0.04808611652623125, 'boxes': 48})

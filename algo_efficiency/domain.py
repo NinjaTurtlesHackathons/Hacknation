@@ -16,6 +16,7 @@ from . import kv, polyexp as PE, spec as S
 
 FORBIDDEN_KEYS = {"tolerance", "toleranz", "tol", "precision", "genauigkeit", "dps", "seeds", "alpha_level", "margin"}
 RULES = ("standard", "scaled", "rrs_iid", "rrs_wor")
+KV_PREREG = (1024, 128)          # the only configuration at which kv_compare is checked (prereg.md, H-AE1)
 
 
 def _num(x, name, lo=None, hi=None):
@@ -31,8 +32,37 @@ def _exp_args(p):
     return B, eps, kind
 
 
+def strict_int(x, name):
+    """Integers only: no bool, no non-integral float, no truncation (red-team bug 2)."""
+    if isinstance(x, bool): raise ValueError(f"{name} must be an integer, not a boolean")
+    if isinstance(x, int): return x
+    if isinstance(x, str) and x.strip().lstrip("-").isdigit(): return int(x)
+    raise ValueError(f"{name} must be an integer, got {x!r}")
+
+
+def strict_bool(x, name):
+    if isinstance(x, bool): return x
+    raise ValueError(f"{name} must be true or false (JSON boolean), got {x!r}")
+
+
+def rule_args(p, rule):
+    """k only for rrs rules (1..4), lambda only (and > 0) for the scaled rule."""
+    if rule in ("standard", "scaled"):
+        if "k" in p and strict_int(p["k"], "k") != 1: raise ValueError(f"rule {rule} uses exactly one draft; k must be 1 or absent")
+        k = 1
+    else:
+        k = strict_int(p.get("k", 1), "k")
+        if not 1 <= k <= S.K_MAX: raise ValueError(f"k must be in [1, {S.K_MAX}]")
+    if rule == "scaled":
+        lam = S.frac(p.get("lambda", 1))
+        if lam <= 0: raise ValueError("lambda must be > 0")
+    elif "lambda" in p: raise ValueError("lambda is only allowed for rule 'scaled'")
+    else: lam = 1
+    return k, lam
+
+
 def _degree(d):
-    d = int(d)
+    d = strict_int(d, "d")
     if not 0 <= d <= PE.D_MAX: raise ValueError(f"degree must be in [0, {PE.D_MAX}]")
     return d
 
@@ -71,7 +101,7 @@ class AlgoEfficiencyDomain(Domain):
         "couplings between the k drafts and the output, of P(output is one of the drafts). Draft length: with i.i.d. acceptance alpha and cost "
         "ratio c (draft call / target call), the expected walltime speedup of drafting g tokens is (1 - alpha^(g+1)) / ((1 - alpha)(g c + 1)).\n"
         "(C) KV-cache compression on an explicit synthetic attention model (attention sinks, heavy hitters, locality; NOT a language model). "
-        "Policies keep a budget of cached tokens: recent, sink_recent, h2o, random, oracle (oracle uses future queries: a lower bound).\n"
+        "Policies keep a budget of cached tokens: recent, sink_recent, h2o, random, oracle (oracle uses future queries; a reference, not a guaranteed lower bound).\n"
         "Probabilities must be given as exact decimals or fractions 'a/b' summing exactly to 1. Exact values should be stated as 'a/b'.")
     primitive_doc = """Available experiments (JSON {"op": ..., "args": {...}}):
 - random_instance {V, seed, family: "dirichlet"|"zipf", conc}: random (p, q) with exact rational entries (denominator 1000).
@@ -83,18 +113,18 @@ class AlgoEfficiencyDomain(Domain):
 - taylor_degree {B, eps, error}: degree the Taylor polynomial at 0 needs (grid estimate), as a baseline.
 - rank {h, d}: C(h+d, d), the rank of the degree-d polynomial-method factorisation for head dimension h.
 - attention_spectrum {n, h, B, seed, ranks: [...]}: best rank-r relative Frobenius error of exp(B * cos-similarity matrix) for random unit vectors (numerical).
-- kv_evaluate {policy, n, budget, seed}: mean relative output error of a KV eviction policy on the synthetic model (one seed)."""
+- kv_evaluate {policy, n, budget, seed}: mean relative output error of a KV eviction policy on the synthetic model (one seed; seeds 1000-1019 are held out for the verifier)."""
     claim_doc = """Check types (the verifier recomputes independently; tolerances, precision and seeds are set by the verifier only):
 - {"typ": "acceptance_rate", "p": [...], "q": [...], "value": "a/b"}: single-draft standard acceptance equals value exactly.
-- {"typ": "scheme_acceptance", "p", "q", "rule": "standard"|"scaled"|"rrs_iid"|"rrs_wor", "k": int, "lambda": num (scaled only), "value": "a/b"}: exact acceptance of the rule.
+- {"typ": "scheme_acceptance", "p", "q", "rule": "standard"|"scaled"|"rrs_iid"|"rrs_wor", "k": int (rrs rules only), "lambda": num > 0 (scaled only), "value": "a/b"}: exact acceptance of the rule, defined as the probability that some draft is accepted by the rule's accept step.
 - {"typ": "unbiased", "p", "q", "rule", "k"?, "lambda"?, "unbiased": true|false}: the rule's exact output distribution equals p (true) or differs from p (false).
 - {"typ": "multidraft_optimal", "p", "q", "k": 1..4, "mode": "iid"|"wor", "value": "a/b"}: optimal lossless acceptance with k drafts equals value (exact max-flow = min-cut certificate).
 - {"typ": "scheme_optimal", "p", "q", "k", "rule": "rrs_iid"|"rrs_wor", "optimal": true|false}: the rule attains (true) or misses (false) the optimal acceptance for its draft mode (rrs_iid ~ iid, rrs_wor ~ wor), exactly.
 - {"typ": "optimal_gamma", "alpha": "a/b", "c": "a/b", "gamma": int}: gamma maximises the expected speedup over all draft lengths g >= 0 (exact, with tail certificate).
 - {"typ": "exp_degree", "B": num, "eps": num, "error": "relative"|"absolute", "bound": "upper"|"lower", "d": int}: upper = some polynomial of degree <= d reaches sup error <= eps on [-B,B]; lower = every polynomial of degree <= d has sup error > eps. Rigorous (interval arithmetic). 0.01 <= B <= 32, 1e-30 <= eps <= 0.99, d <= 48.
 - {"typ": "exp_min_degree", "B", "eps", "error", "d"}: d*(B, eps) = d exactly (upper certificate at d, lower certificate at d-1).
-- {"typ": "polymethod_rank", "h": int, "B", "eps", "error", "rank": int}: rank = C(h+d*, d*) with d* the certified minimal degree.
-- {"typ": "kv_compare", "policy_a", "policy_b", "n": int, "budget": int, "better": "a"}: policy_a has lower mean error than policy_b on the synthetic model over the verifier's 20 fixed seeds (paired permutation test p < 0.05 and bootstrap 95% CI of err_b/err_a above 1). Statistical."""
+- {"typ": "polymethod_rank", "h": int, "B", "eps", "error", "rank": int}: rank = C(h+d*, d*), the number of features of the polynomial-method factorisation (an upper bound on the matrix rank) built from the certified minimal degree d*.
+- {"typ": "kv_compare", "policy_a", "policy_b", "n": int, "budget": int, "better": "a"}: policy_a has lower mean error than policy_b on the synthetic model over the verifier's 20 held-out seeds (paired permutation test p < 0.05 and bootstrap 95% CI of err_b/err_a above 1). Only at the preregistered configuration n = 1024, budget = 128. Statistical."""
 
     # ---------- experiments ----------
     def run_op(self, op, args):
@@ -126,6 +156,7 @@ class AlgoEfficiencyDomain(Domain):
                 return kv.attention_spectrum(n=min(int(a.get("n", 256)), 1024), h=int(a.get("h", 16)), B=float(S.frac(a.get("B", 4))),
                                              seed=int(a.get("seed", 0)), ranks=tuple(int(r) for r in a.get("ranks", (1, 4, 16, 64))))
             if op == "kv_evaluate":
+                if int(a.get("seed", 0)) in kv.VERIFIER_SEEDS: return {"fehler": "seeds 1000-1019 are held out for the verifier; use other seeds"}
                 return kv.evaluate(a["policy"], n=min(int(a.get("n", 512)), 2048), budget=int(a.get("budget", 64)), seed=int(a.get("seed", 0)))
             return {"fehler": f"unknown op {op}"}
         except Exception as e:
@@ -145,24 +176,29 @@ class AlgoEfficiencyDomain(Domain):
             if t in ("scheme_acceptance", "unbiased"):
                 rule = p.get("rule", "standard")
                 if rule not in RULES: return False, f"unknown rule {rule}", {}
-                out, a = S.step_output(P, Q, rule, k=int(p.get("k", 1)), lam=p.get("lambda", 1))
+                k, lam = rule_args(p, rule)
+                if t == "unbiased": want = strict_bool(p["unbiased"], "unbiased")
+                out, a = S.step_output(P, Q, rule, k=k, lam=lam)
                 if t == "scheme_acceptance":
                     return a == S.frac(p["value"]), f"exact acceptance of {rule} = {S.fstr(a)}", {"acceptance": S.fstr(a)}
                 is_unb = out == P; tv = sum(abs(x - y) for x, y in zip(out, P)) / 2
-                return is_unb == bool(p["unbiased"]), f"exact output distribution of {rule}: TV to p = {S.fstr(tv)}", {"output": [S.fstr(x) for x in out]}
+                return is_unb == want, f"exact output distribution of {rule}: TV to p = {S.fstr(tv)}", {"output": [S.fstr(x) for x in out]}
             if t == "multidraft_optimal":
-                mode = p.get("mode", "iid"); v, cert = S.optimal_multidraft(P, Q, int(p["k"]), mode)
+                mode = p.get("mode", "iid"); k = strict_int(p["k"], "k")
+                if mode not in ("iid", "wor"): return False, "mode must be iid or wor", {}
+                v, cert = S.optimal_multidraft(P, Q, k, mode)
                 if not cert["certified"]: return False, f"internal: flow {cert['flow']} != cut {cert['cut']}", {}
                 return v == S.frac(p["value"]), f"optimal acceptance = {S.fstr(v)} (exact max-flow = min-cut, cut set {cert['cut_set']})", {"value": S.fstr(v)}
             if t == "scheme_optimal":
                 rule = p["rule"]; mode = {"rrs_iid": "iid", "rrs_wor": "wor"}.get(rule)
                 if mode is None: return False, "rule must be rrs_iid or rrs_wor", {}
-                k = int(p["k"]); v, cert = S.optimal_multidraft(P, Q, k, mode); _, a = S.step_output(P, Q, rule, k=k)
-                return (a == v) == bool(p["optimal"]), f"{rule} acceptance {S.fstr(a)} vs optimal {S.fstr(v)} (certified)", {"scheme": S.fstr(a), "optimal": S.fstr(v)}
+                k = strict_int(p["k"], "k"); want = strict_bool(p["optimal"], "optimal")
+                v, cert = S.optimal_multidraft(P, Q, k, mode); _, a = S.step_output(P, Q, rule, k=k)
+                return (a == v) == want, f"{rule} acceptance {S.fstr(a)} vs optimal {S.fstr(v)} (certified)", {"scheme": S.fstr(a), "optimal": S.fstr(v)}
             if t == "optimal_gamma":
                 arg, best, G = S.optimal_gamma(p["alpha"], p["c"])
                 if arg is None: return False, "not certified: tail bound not reached", {}
-                return int(p["gamma"]) in arg, f"argmax g = {arg}, speedup {float(best):.6f} (exact; no g > {G} can do better)", {"argmax": arg}
+                return strict_int(p["gamma"], "gamma") in arg, f"argmax g = {arg}, speedup {float(best):.6f} (exact; no g > {G} can do better)", {"argmax": arg}
             if t in ("exp_degree", "exp_min_degree", "polymethod_rank"):
                 B, eps, kind = _exp_args(p)
             if t == "exp_degree":
@@ -175,16 +211,16 @@ class AlgoEfficiencyDomain(Domain):
             if t == "exp_min_degree":
                 return check_min_degree(B, eps, kind, _degree(p["d"]))
             if t == "polymethod_rank":
-                h = int(p["h"]); r = int(p["rank"])
+                h = strict_int(p["h"], "h"); r = strict_int(p["rank"], "rank")
                 if not 1 <= h <= 512: return False, "h must be in [1, 512]", {}
                 d = next((d for d in range(PE.D_MAX + 1) if math.comb(h + d, d) == r), None)
                 if d is None: return False, f"{r} is not C({h}+d, d) for any d <= {PE.D_MAX}", {}
                 ok, why, ev = check_min_degree(B, eps, kind, d)
                 return ok, f"rank {r} = C({h}+{d},{d}); " + why, ev
             if t == "kv_compare":
-                a, b = p["policy_a"], p["policy_b"]; n, bud = int(p["n"]), int(p["budget"])
+                a, b = p["policy_a"], p["policy_b"]; n, bud = strict_int(p["n"], "n"), strict_int(p["budget"], "budget")
                 if a not in kv.POLICIES or b not in kv.POLICIES or a == b: return False, "unknown or identical policies", {}
-                if not (64 <= n <= 1024 and 8 <= bud < n): return False, "need 64 <= n <= 1024 and 8 <= budget < n", {}
+                if (n, bud) != KV_PREREG: return False, f"kv_compare is only checked at the preregistered configuration n = {KV_PREREG[0]}, budget = {KV_PREREG[1]} (no forking paths)", {}
                 if p.get("better") != "a": return False, "state the claim with the better policy as policy_a and better = 'a'", {}
                 r = kv.compare(a, b, n, bud); ok = r["p_a_better"] < 0.05 and r["ci95"][0] > 1
                 return ok, (f"20 fixed seeds: mean error {a} {r['err_a']:.4f} vs {b} {r['err_b']:.4f}, ratio {r['ratio_b_over_a']:.3f} "
@@ -196,6 +232,8 @@ class AlgoEfficiencyDomain(Domain):
     def level(self, p): return "statistical" if p.get("typ") == "kv_compare" else "computed_rigorous"
 
     def consistent(self, antwort, p):
+        """A verified check only answers the question if the agent actually gives an answer (round-1 loophole, AE14)."""
+        if str(antwort.get("antwort", "")).strip().lower() in ("", "unbekannt", "unknown", "none", "n/a"): return False
         z = antwort.get("zahl")
         if z is None: return True
         try:
@@ -232,7 +270,7 @@ class AlgoEfficiencyDomain(Domain):
             return f"The minimal degree of a polynomial approximating e^x on [-{p['B']}, {p['B']}] with {err()} at most {p['eps']} is exactly {p['d']} (rigorous upper and lower certificates)."
         if t == "polymethod_rank":
             return (f"For head dimension h = {p['h']}, logits bounded by {p['B']} and entrywise {err()} {p['eps']}, the polynomial-method factorisation built "
-                    f"from the minimal-degree approximation of e^x has rank exactly {p['rank']} (certified minimal degree).")
+                    f"from the minimal-degree approximation of e^x uses exactly {p['rank']} features (so its rank is at most {p['rank']}; certified minimal degree).")
         if t == "kv_compare":
             return (f"On the synthetic attention model (n = {p['n']}, budget = {p['budget']}, 20 fixed seeds), KV policy {p['policy_a']} has lower mean "
                     f"relative output error than {p['policy_b']} (paired permutation test p < 0.05, bootstrap CI of the error ratio above 1).")
@@ -241,7 +279,13 @@ class AlgoEfficiencyDomain(Domain):
     def widerspricht(self, p, q):
         """Two passed checks that cannot both be true."""
         if not (isinstance(p, dict) and isinstance(q, dict)): return False
-        same = lambda *ks: all(json.dumps(p.get(k)) == json.dumps(q.get(k)) for k in ks)
+        def canon(v):
+            try:
+                if isinstance(v, (list, tuple)): return tuple(S.frac(x) for x in v)
+                if isinstance(v, bool) or v is None: return v
+                return S.frac(v)
+            except (ValueError, ZeroDivisionError): return json.dumps(v)
+        same = lambda *ks: all(canon(p.get(k)) == canon(q.get(k)) for k in ks)
         tp, tq = p.get("typ"), q.get("typ")
         if tp == tq and "value" in p and "value" in q and same("p", "q", "rule", "k", "mode", "lambda"):
             try: return S.frac(p["value"]) != S.frac(q["value"])
@@ -288,10 +332,20 @@ class AlgoEfficiencyDomain(Domain):
             ({"typ": "exp_degree", "B": 1, "eps": "0.7623557501", "error": "relative", "bound": "lower", "d": 0}, False),
             # regression case for AE4 (coefficients re-rounded to 15 digits made this certificate fail): must pass
             ({"typ": "exp_degree", "B": 16, "eps": "3.32e-7", "error": "relative", "bound": "upper", "d": 30}, True),   # E_30 = 3.2847e-7
+            # red-team bug 1 (53-bit rounding of interval endpoints let these FALSE lower claims pass; the true minimax error is below eps)
+            ({"typ": "exp_degree", "B": 3, "eps": "16261597033865690494757609911142691810705190951382508367/16000000000000000000000000000000000000000000000000000000000", "error": "relative", "bound": "lower", "d": 7}, False),
+            ({"typ": "exp_degree", "B": 2, "eps": "20891090096516259258780506515443759313727132322707863831/6400000000000000000000000000000000000000000000000000000000", "error": "absolute", "bound": "lower", "d": 5}, False),
+            # red-team bug 2 (field validation)
+            ({"typ": "scheme_acceptance", "p": ["1/2", "1/4", "1/4"], "q": ["1/5", "3/5", "1/5"], "rule": "scaled", "lambda": -1, "value": "-1"}, False),
+            ({"typ": "optimal_gamma", "alpha": "4/5", "c": "1/20", "gamma": 8.7}, False),
+            ({"typ": "scheme_acceptance", "p": ["1/2", "1/4", "1/4"], "q": ["1/5", "3/5", "1/5"], "rule": "rrs_iid", "k": 2.5, "value": "77/100"}, False),
+            ({"typ": "unbiased", "p": ["1/2", "1/4", "1/4"], "q": ["1/5", "3/5", "1/5"], "rule": "standard", "unbiased": "true"}, False),
+            ({"typ": "exp_min_degree", "B": 1, "eps": "5.1e-4", "error": "relative", "d": 4.99}, False),
             ({"typ": "polymethod_rank", "h": 8, "B": 1, "eps": "1e-3", "error": "relative", "rank": math.comb(12, 4)}, True),
             ({"typ": "polymethod_rank", "h": 8, "B": 1, "eps": "1e-3", "error": "relative", "rank": math.comb(13, 5)}, False),
-            ({"typ": "kv_compare", "policy_a": "oracle", "policy_b": "random", "n": 256, "budget": 32, "better": "a"}, True),
-            ({"typ": "kv_compare", "policy_a": "random", "policy_b": "oracle", "n": 256, "budget": 32, "better": "a"}, False),
+            ({"typ": "kv_compare", "policy_a": "oracle", "policy_b": "random", "n": 1024, "budget": 128, "better": "a"}, True),
+            ({"typ": "kv_compare", "policy_a": "random", "policy_b": "oracle", "n": 1024, "budget": 128, "better": "a"}, False),
+            ({"typ": "kv_compare", "policy_a": "oracle", "policy_b": "random", "n": 256, "budget": 32, "better": "a"}, False),   # not the preregistered configuration
         ]
 
 

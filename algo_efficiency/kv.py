@@ -12,7 +12,8 @@ Policies keep `budget` of the first n tokens for the next m queries:
   h2o          tokens with the largest accumulated attention from the n prefix queries (heavy-hitter oracle pattern),
                half of the budget reserved for the most recent tokens
   random       uniform random subset (seeded)
-  oracle       top tokens by attention mass of the evaluated queries themselves (lower bound; uses future information)
+  oracle       top tokens by attention mass of the evaluated queries themselves (uses future information; a reference, NOT a
+               guaranteed lower bound on the error)
 Metric: mean relative L2 error of the attention output of the next m queries versus the full cache.
 """
 import numpy as np
@@ -66,10 +67,12 @@ def compare(policy_a, policy_b, n, budget, seeds=VERIFIER_SEEDS, structured=True
     """Paired comparison over fixed seeds: errors of a and b, one-sided paired permutation p-value for 'a has lower error',
     and the bootstrap CI of the error ratio b/a (>1 means a is better)."""
     from asd.stats import perm_test, ratio_ci
+    B = 20000
     ea = [evaluate(policy_a, n=n, budget=budget, seed=s, structured=structured)["rel_error"] for s in seeds]
     eb = [evaluate(policy_b, n=n, budget=budget, seed=s, structured=structured)["rel_error"] for s in seeds]
     ratio, ci = ratio_ci(eb, ea)
-    return {"err_a": float(np.mean(ea)), "err_b": float(np.mean(eb)), "raw_a": ea, "raw_b": eb, "p_a_better": perm_test(ea, eb), "ratio_b_over_a": ratio, "ci95": ci}
+    return {"err_a": float(np.mean(ea)), "err_b": float(np.mean(eb)), "raw_a": ea, "raw_b": eb, "p_a_better": (perm_test(ea, eb, B=B) * B + 1) / (B + 1),     # (count + 1) / (B + 1), never 0
+            "ratio_b_over_a": ratio, "ci95": ci}
 
 
 def attention_spectrum(n=256, h=16, B=4.0, seed=0, ranks=(1, 4, 16, 64)):

@@ -46,6 +46,11 @@ def claims():
             p = c.get("pruefung") or {}
             contra = any(r["bestanden"] and D.widerspricht(p, r["pruefung"]) for r in c.get("red_team", []))
             status = "contested (logical contradiction)" if contra else "confirmed"
+            if str(c.get("interpretation_ungeprueft", "")).strip().lower() in ("", "unbekannt", "unknown", "none"):
+                add(f"C-{c['id']}", f"Lab round {c['runde']}: the agent's verified check ({D.describe(p)}) is true but gives no answer to the question "
+                    f"'{c['frage']}' (agent answer: unknown); counted as a NEGATIVE result for this question (loophole closed afterwards, see decisions AE14).",
+                    "observed", "confirmed", [f"lab-R{c['runde']}"])
+                continue
             add(f"C-{c['id']}", f"Lab round {c['runde']}. Question: {c['frage']} Verified result: {D.describe(p)} Verifier: {c['grund']}",
                 c["level"], status, [f"lab-R{c['runde']}"])
             add(f"C-{c['id']}-I", f"Uninspected interpretation by the agent for {c['id']} (not a result): {c.get('interpretation_ungeprueft')}", "hypothesis", "open")

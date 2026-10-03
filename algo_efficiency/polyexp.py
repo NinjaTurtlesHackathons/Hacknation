@@ -110,6 +110,19 @@ def cheb_to_monomial(c):
 def _ivq(x): return iv.mpf(x.numerator) / iv.mpf(x.denominator)
 
 
+def _raw_to_frac(t):
+    s, man, ex, _ = t; v = Fraction(int(man)) * (Fraction(2) ** ex); return -v if s else v
+
+
+def iv_lo(x):
+    """Exact lower endpoint of an mpmath interval (no rounding to the working precision; red-team bug 1)."""
+    return _raw_to_frac(x._mpi_[0])
+
+
+def iv_hi(x):
+    return _raw_to_frac(x._mpi_[1])
+
+
 def _poly_exact(pm, t): return sum(a * t ** i for i, a in enumerate(pm))
 
 
@@ -128,11 +141,11 @@ def certify_lower(B, eps, n, kind="relative"):
         for t in pts:
             ti = _ivq(t); w = iv.mpf(1) if kind == "absolute" else iv.exp(-Bi * ti)
             errs.append(w * (iv.exp(Bi * ti) - _ivq(_poly_exact(pm, t))))
-        signs = [1 if e.a > 0 else (-1 if e.b < 0 else 0) for e in errs]
+        los, his = [iv_lo(e) for e in errs], [iv_hi(e) for e in errs]
+        signs = [1 if lo > 0 else (-1 if hi < 0 else 0) for lo, hi in zip(los, his)]
         if 0 in signs or any(s1 == s2 for s1, s2 in zip(signs, signs[1:])):
             return False, {"reason": "error does not alternate strictly (rigorously)"}
-        m = min(min(abs(e.a), abs(e.b)) for e in errs)
-        lower = mpf_to_frac(mp.mpf(m))
+        lower = min(lo if sg > 0 else -hi for lo, hi, sg in zip(los, his, signs))   # exact lower end of |error|
     return lower > eps, {"lower_bound": float(lower), "remez_level": float(E), "points": len(pts)}
 
 
@@ -192,7 +205,7 @@ def rigorous_sup(pm, B, eps, kind, max_boxes=MAX_BOXES):
         while stack:
             c, h = stack.pop(); boxes += 1
             if boxes > max_boxes: return False, None, boxes
-            ub = mpf_to_frac(mp.mpf(_box_bound(pi, Bi, c, h, kind).b))
+            ub = iv_hi(_box_bound(pi, Bi, c, h, kind))                              # exact upper endpoint
             if ub <= eps: worst = max(worst, ub); continue
             if h < Fraction(1, 2 ** 40): return False, float(ub), boxes
             stack += [(c - h / 2, h / 2), (c + h / 2, h / 2)]
