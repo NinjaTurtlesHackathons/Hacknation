@@ -1,0 +1,11 @@
+primary h2o sink_recent 0.7902 1.0809 0.0
+secondary_a sink_recent recent 1.0809 1.2057 0.0
+secondary_b h2o random 0.7902 1.2011 0.0
+secondary_c oracle h2o 0.1223 0.7902 0.0
+negctl_recent recent random 1.7379 1.7359 0.54195
+negctl_sink_recent sink_recent random 1.7422 1.7359 0.62465
+negctl_h2o h2o random 1.6237 1.7359 0.0
+T1 True 2.3717600824858076
+T2 {'cells': 15, 'passed': True, 'violations': []}
+H_AE2 {'tested': 5000, 'counterexamples_S1': 0, 'counterexamples_S2': 0, 'min_margin': {'S1': '0', 'S2': '0'}} T3 {'instances': 5000, 'violations': 0, 'passed': True}
+saved algo_efficiency/results/confirmatory.json

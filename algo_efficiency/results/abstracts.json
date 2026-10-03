@@ -1,0 +1,147 @@
+{
+ "2309.17453": {
+  "title": "Efficient Streaming Language Models with Attention Sinks",
+  "authors": [
+   "Guangxuan Xiao",
+   "Yuandong Tian",
+   "Beidi Chen",
+   "Song Han",
+   "Mike Lewis"
+  ],
+  "year": "2023",
+  "abstract": "Deploying Large Language Models (LLMs) in streaming applications such as multi-round dialogue, where long interactions are expected, is urgently needed but poses two major challenges. Firstly, during the decoding stage, caching previous tokens' Key and Value states (KV) consumes extensive memory. Secondly, popular LLMs cannot generalize to longer texts than the training sequence length. Window attention, where only the most recent KVs are cached, is a natural approach -- but we show that it fails when the text length surpasses the cache size. We observe an interesting phenomenon, namely attention sink, that keeping the KV of initial tokens will largely recover the performance of window attention. In this paper, we first demonstrate that the emergence of attention sink is due to the strong attention scores towards initial tokens as a \"sink\" even if they are not semantically important. Based on the above analysis, we introduce StreamingLLM, an efficient framework that enables LLMs trained with a finite length attention window to generalize to infinite sequence lengths without any fine-tuning. We show that StreamingLLM can enable Llama-2, MPT, Falcon, and Pythia to perform stable and efficient language modeling with up to 4 million tokens and more. In addition, we discover that adding a placeholder token as a dedicated attention sink during pre-training can further improve streaming deployment. In streaming settings, StreamingLLM outperforms the sliding window recomputation baseline by up to 22.2x speedup. Code and datasets are provided at https://github.com/mit-han-lab/streaming-llm."
+ },
+ "2209.04881": {
+  "title": "On The Computational Complexity of Self-Attention",
+  "authors": [
+   "Feyza Duman Keles",
+   "Pruthuvi Mahesakya Wijewardena",
+   "Chinmay Hegde"
+  ],
+  "year": "2022",
+  "abstract": "Transformer architectures have led to remarkable progress in many state-of-art applications. However, despite their successes, modern transformers rely on the self-attention mechanism, whose time- and space-complexity is quadratic in the length of the input. Several approaches have been proposed to speed up self-attention mechanisms to achieve sub-quadratic running time; however, the large majority of these works are not accompanied by rigorous error guarantees. In this work, we establish lower bounds on the computational complexity of self-attention in a number of scenarios. We prove that the time complexity of self-attention is necessarily quadratic in the input length, unless the Strong Exponential Time Hypothesis (SETH) is false. This argument holds even if the attention computation is performed only approximately, and for a variety of attention mechanisms. As a complement to our lower bounds, we show that it is indeed possible to approximate dot-product self-attention using finite Taylor series in linear-time, at the cost of having an exponential dependence on the polynomial order."
+ },
+ "2502.18779": {
+  "title": "Towards Optimal Multi-draft Speculative Decoding",
+  "authors": [
+   "Zhengmian Hu",
+   "Tong Zheng",
+   "Vignesh Viswanathan",
+   "Ziyi Chen",
+   "Ryan A. Rossi",
+   "Yihan Wu",
+   "Dinesh Manocha",
+   "Heng Huang"
+  ],
+  "year": "2025",
+  "abstract": "Large Language Models (LLMs) have become an indispensable part of natural language processing tasks. However, autoregressive sampling has become an efficiency bottleneck. Multi-Draft Speculative Decoding (MDSD) is a recent approach where, when generating each token, a small draft model generates multiple drafts, and the target LLM verifies them in parallel, ensuring that the final output conforms to the target model distribution. The two main design choices in MDSD are the draft sampling method and the verification algorithm. For a fixed draft sampling method, the optimal acceptance rate is a solution to an optimal transport problem, but the complexity of this problem makes it difficult to solve for the optimal acceptance rate and measure the gap between existing verification algorithms and the theoretical upper bound. This paper discusses the dual of the optimal transport problem, providing a way to efficiently compute the optimal acceptance rate. For the first time, we measure the theoretical upper bound of MDSD efficiency for vocabulary sizes in the thousands and quantify the gap between existing verification algorithms and this bound. We also compare different draft sampling methods based on their optimal acceptance rates. Our results show that the draft sampling method strongly influences the optimal acceptance rate, with sampling without replacement outperforming sampling with replacement. Additionally, existing verification algorithms do not reach the theoretical upper bound for both without replacement and with replacement sampling. Our findings suggest that carefully designed draft sampling methods can potentially improve the optimal acceptance rate and enable the development of verification algorithms that closely match the theoretical upper bound."
+ },
+ "2211.17192": {
+  "title": "Fast Inference from Transformers via Speculative Decoding",
+  "authors": [
+   "Yaniv Leviathan",
+   "Matan Kalman",
+   "Yossi Matias"
+  ],
+  "year": "2022",
+  "abstract": "Inference from large autoregressive models like Transformers is slow - decoding K tokens takes K serial runs of the model. In this work we introduce speculative decoding - an algorithm to sample from autoregressive models faster without any changes to the outputs, by computing several tokens in parallel. At the heart of our approach lie the observations that (1) hard language-modeling tasks often include easier subtasks that can be approximated well by more efficient models, and (2) using speculative execution and a novel sampling method, we can make exact decoding from the large models faster, by running them in parallel on the outputs of the approximation models, potentially generating several tokens concurrently, and without changing the distribution. Our method can accelerate existing off-the-shelf models without retraining or architecture changes. We demonstrate it on T5-XXL and show a 2X-3X acceleration compared to the standard T5X implementation, with identical outputs."
+ },
+ "2306.14048": {
+  "title": "H$_2$O: Heavy-Hitter Oracle for Efficient Generative Inference of Large Language Models",
+  "authors": [
+   "Zhenyu Zhang",
+   "Ying Sheng",
+   "Tianyi Zhou",
+   "Tianlong Chen",
+   "Lianmin Zheng",
+   "Ruisi Cai",
+   "Zhao Song",
+   "Yuandong Tian",
+   "Christopher R\u00e9",
+   "Clark Barrett",
+   "Zhangyang Wang",
+   "Beidi Chen"
+  ],
+  "year": "2023",
+  "abstract": "Large Language Models (LLMs), despite their recent impressive accomplishments, are notably cost-prohibitive to deploy, particularly for applications involving long-content generation, such as dialogue systems and story writing. Often, a large amount of transient state information, referred to as the KV cache, is stored in GPU memory in addition to model parameters, scaling linearly with the sequence length and batch size. In this paper, we introduce a novel approach for implementing the KV cache which significantly reduces its memory footprint. Our approach is based on the noteworthy observation that a small portion of tokens contributes most of the value when computing attention scores. We call these tokens Heavy Hitters (H$_2$). Through a comprehensive investigation, we find that (i) the emergence of H$_2$ is natural and strongly correlates with the frequent co-occurrence of tokens in the text, and (ii) removing them results in significant performance degradation. Based on these insights, we propose Heavy Hitter Oracle (H$_2$O), a KV cache eviction policy that dynamically retains a balance of recent and H$_2$ tokens. We formulate the KV cache eviction as a dynamic submodular problem and prove (under mild assumptions) a theoretical guarantee for our novel eviction algorithm which could help guide future work. We validate the accuracy of our algorithm with OPT, LLaMA, and GPT-NeoX across a wide range of tasks. Our implementation of H$_2$O with 20% heavy hitters improves the throughput over three leading inference systems DeepSpeed Zero-Inference, Hugging Face Accelerate, and FlexGen by up to 29$\\times$, 29$\\times$, and 3$\\times$ on OPT-6.7B and OPT-30B. With the same batch size, H2O can reduce the latency by up to 1.9$\\times$. The code is available at https://github.com/FMInference/H2O."
+ },
+ "2402.14160": {
+  "title": "Recursive Speculative Decoding: Accelerating LLM Inference via Sampling Without Replacement",
+  "authors": [
+   "Wonseok Jeon",
+   "Mukul Gagrani",
+   "Raghavv Goel",
+   "Junyoung Park",
+   "Mingu Lee",
+   "Christopher Lott"
+  ],
+  "year": "2024",
+  "abstract": "Speculative decoding is an inference-acceleration method for large language models (LLMs) where a small language model generates a draft-token sequence which is further verified by the target LLM in parallel. Recent works have advanced this method by establishing a draft-token tree, achieving superior performance over a single-sequence speculative decoding. However, those works independently generate tokens at each level of the tree, not leveraging the tree's entire diversifiability. Besides, their empirical superiority has been shown for fixed length of sequences, implicitly granting more computational resource to LLM for the tree-based methods. None of the existing works has conducted empirical studies with fixed target computational budgets despite its importance to resource-bounded devices. We present Recursive Speculative Decoding (RSD), a novel tree-based method that samples draft tokens without replacement and maximizes the diversity of the tree. During RSD's drafting, the tree is built by either Gumbel-Top-$k$ trick that draws tokens without replacement in parallel or Stochastic Beam Search that samples sequences without replacement while early-truncating unlikely draft sequences and reducing the computational cost of LLM. We empirically evaluate RSD with Llama 2 and OPT models, showing that RSD outperforms the baseline methods, consistently for fixed draft sequence length and in most cases for fixed computational budgets at LLM."
+ },
+ "2310.15141": {
+  "title": "SpecTr: Fast Speculative Decoding via Optimal Transport",
+  "authors": [
+   "Ziteng Sun",
+   "Ananda Theertha Suresh",
+   "Jae Hun Ro",
+   "Ahmad Beirami",
+   "Himanshu Jain",
+   "Felix Yu"
+  ],
+  "year": "2023",
+  "abstract": "Autoregressive sampling from large language models has led to state-of-the-art results in several natural language tasks. However, autoregressive sampling generates tokens one at a time making it slow, and even prohibitive in certain tasks. One way to speed up sampling is $\\textit{speculative decoding}$: use a small model to sample a $\\textit{draft}$ (block or sequence of tokens), and then score all tokens in the draft by the large language model in parallel. A subset of the tokens in the draft are accepted (and the rest rejected) based on a statistical method to guarantee that the final output follows the distribution of the large model. In this work, we provide a principled understanding of speculative decoding through the lens of optimal transport (OT) with $\\textit{membership cost}$. This framework can be viewed as an extension of the well-known $\\textit{maximal-coupling}$ problem. This new formulation enables us to generalize the speculative decoding method to allow for a set of $k$ candidates at the token-level, which leads to an improved optimal membership cost. We show that the optimal draft selection algorithm (transport plan) can be computed via linear programming, whose best-known runtime is exponential in $k$. We then propose a valid draft selection algorithm whose acceptance probability is $(1-1/e)$-optimal multiplicatively. Moreover, it can be computed in time almost linear with size of domain of a single token. Using this $new draft selection$ algorithm, we develop a new autoregressive sampling algorithm called $\\textit{SpecTr}$, which provides speedup in decoding while ensuring that there is no quality degradation in the decoded output. We experimentally demonstrate that for state-of-the-art large language models, the proposed approach achieves a wall clock speedup of 2.13X, a further 1.37X speedup over speculative decoding on standard benchmarks."
+ },
+ "2305.09781": {
+  "title": "SpecInfer: Accelerating Generative Large Language Model Serving with Tree-based Speculative Inference and Verification",
+  "authors": [
+   "Xupeng Miao",
+   "Gabriele Oliaro",
+   "Zhihao Zhang",
+   "Xinhao Cheng",
+   "Zeyu Wang",
+   "Zhengxin Zhang",
+   "Rae Ying Yee Wong",
+   "Alan Zhu",
+   "Lijie Yang",
+   "Xiaoxiang Shi",
+   "Chunan Shi",
+   "Zhuoming Chen",
+   "Daiyaan Arfeen",
+   "Reyna Abhyankar",
+   "Zhihao Jia"
+  ],
+  "year": "2023",
+  "abstract": "This paper introduces SpecInfer, a system that accelerates generative large language model (LLM) serving with tree-based speculative inference and verification. The key idea behind SpecInfer is leveraging small speculative models to predict the LLM's outputs; the predictions are organized as a token tree, whose nodes each represent a candidate token sequence. The correctness of all candidate token sequences represented by a token tree is verified against the LLM in parallel using a novel tree-based parallel decoding mechanism. SpecInfer uses an LLM as a token tree verifier instead of an incremental decoder, which significantly reduces the end-to-end latency and computational requirement for serving generative LLMs while provably preserving model quality. Our evaluation shows that SpecInfer outperforms existing LLM serving systems by 1.5-2.8x for distributed LLM inference and by 2.6-3.5x for offloading-based LLM inference, while preserving the same generative performance. SpecInfer is publicly available at https://github.com/flexflow/FlexFlow/"
+ },
+ "2205.06249": {
+  "title": "Optimal-Degree Polynomial Approximations for Exponentials and Gaussian Kernel Density Estimation",
+  "authors": [
+   "Amol Aggarwal",
+   "Josh Alman"
+  ],
+  "year": "2022",
+  "abstract": "For any real numbers $B \\ge 1$ and $\u03b4\\in (0, 1)$ and function $f: [0, B] \\rightarrow \\mathbb{R}$, let $d_{B; \u03b4} (f) \\in \\mathbb{Z}_{&gt; 0}$ denote the minimum degree of a polynomial $p(x)$ satisfying $\\sup_{x \\in [0, B]} \\big| p(x) - f(x) \\big| &lt; \u03b4$. In this paper, we provide precise asymptotics for $d_{B; \u03b4} (e^{-x})$ and $d_{B; \u03b4} (e^{x})$ in terms of both $B$ and $\u03b4$, improving both the previously known upper bounds and lower bounds. In particular, we show $$d_{B; \u03b4} (e^{-x}) = \u0398\\left( \\max \\left\\{ \\sqrt{B \\log(\u03b4^{-1})}, \\frac{\\log(\u03b4^{-1}) }{ \\log(B^{-1} \\log(\u03b4^{-1}))} \\right\\}\\right), \\text{ and}$$ $$d_{B; \u03b4} (e^{x}) = \u0398\\left( \\max \\left\\{ B, \\frac{\\log(\u03b4^{-1}) }{ \\log(B^{-1} \\log(\u03b4^{-1}))} \\right\\}\\right).$$ Polynomial approximations for $e^{-x}$ and $e^x$ have applications to the design of algorithms for many problems, and our degree bounds show both the power and limitations of these algorithms. We focus in particular on the Batch Gaussian Kernel Density Estimation problem for $n$ sample points in $\u0398(\\log n)$ dimensions with error $\u03b4= n^{-\u0398(1)}$. We show that the running time one can achieve depends on the square of the diameter of the point set, $B$, with a transition at $B = \u0398(\\log n)$ mirroring the corresponding transition in $d_{B; \u03b4} (e^{-x})$: - When $B=o(\\log n)$, we give the first algorithm running in time $n^{1 + o(1)}$. - When $B = \u03ba\\log n$ for a small constant $\u03ba&gt;0$, we give an algorithm running in time $n^{1 + O(\\log \\log \u03ba^{-1} /\\log \u03ba^{-1})}$. The $\\log \\log \u03ba^{-1} /\\log \u03ba^{-1}$ term in the exponent comes from analyzing the behavior of the leading constant in our computation of $d_{B; \u03b4} (e^{-x})$. - When $B = \u03c9(\\log n)$, we show that time $n^{2 - o(1)}$ is necessary assuming SETH."
+ },
+ "2302.01318": {
+  "title": "Accelerating Large Language Model Decoding with Speculative Sampling",
+  "authors": [
+   "Charlie Chen",
+   "Sebastian Borgeaud",
+   "Geoffrey Irving",
+   "Jean-Baptiste Lespiau",
+   "Laurent Sifre",
+   "John Jumper"
+  ],
+  "year": "2023",
+  "abstract": "We present speculative sampling, an algorithm for accelerating transformer decoding by enabling the generation of multiple tokens from each transformer call. Our algorithm relies on the observation that the latency of parallel scoring of short continuations, generated by a faster but less powerful draft model, is comparable to that of sampling a single token from the larger target model. This is combined with a novel modified rejection sampling scheme which preserves the distribution of the target model within hardware numerics. We benchmark speculative sampling with Chinchilla, a 70 billion parameter language model, achieving a 2-2.5x decoding speedup in a distributed setup, without compromising the sample quality or making modifications to the model itself."
+ },
+ "2302.13214": {
+  "title": "Fast Attention Requires Bounded Entries",
+  "authors": [
+   "Josh Alman",
+   "Zhao Song"
+  ],
+  "year": "2023",
+  "abstract": "In modern machine learning, inner product attention computation is a fundamental task for training large language models such as Transformer, GPT-1, BERT, GPT-2, GPT-3 and ChatGPT. Formally, in this problem, one is given as input three matrices $Q, K, V \\in [-B,B]^{n \\times d}$, and the goal is to construct the matrix $\\mathrm{Att}(Q,K,V) := \\mathrm{diag}(A {\\bf 1}_n)^{-1} A V \\in \\mathbb{R}^{n \\times d}$, where $A = \\exp(QK^\\top/d)$ is the `attention matrix', and $\\exp$ is applied entry-wise. Straightforward methods for this problem explicitly compute the $n \\times n$ attention matrix $A$, and hence require time $\u03a9(n^2)$ even when $d = n^{o(1)}$ is small. In this paper, we investigate whether faster algorithms are possible by implicitly making use of the matrix $A$. We present two results, showing that there is a sharp transition at $B = \u0398(\\sqrt{\\log n})$. $\\bullet$ If $d = O(\\log n)$ and $B = o(\\sqrt{\\log n})$, there is an $n^{1+o(1)}$ time algorithm to approximate $\\mathrm{Att}(Q,K,V)$ up to $1/\\mathrm{poly}(n)$ additive error. $\\bullet$ If $d = O(\\log n)$ and $B = \u0398(\\sqrt{\\log n})$, assuming the Strong Exponential Time Hypothesis from fine-grained complexity theory, it is impossible to approximate $\\mathrm{Att}(Q,K,V)$ up to $1/\\mathrm{poly}(n)$ additive error in truly subquadratic time $n^{2 - \u03a9(1)}$. This gives a theoretical explanation for the phenomenon observed in practice that attention computation is much more efficient when the input matrices have smaller entries."
+ }
+}

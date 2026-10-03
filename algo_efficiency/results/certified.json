@@ -7387,5 +7387,393 @@
    "oracle": 0.15262852882908298
   },
   "m_tests": 10
- }
+ },
+ "degree": [
+  {
+   "claim": {
+    "typ": "exp_min_degree",
+    "B": 1,
+    "eps": "1e-2",
+    "error": "relative",
+    "d": 3
+   },
+   "passed": true,
+   "reason": "min degree = 3: degree 3 achieves rigorous sup error <= 5.013935e-03 <= eps; every degree-2 polynomial has sup error >= 3.974012e-02 > eps (de la Vallee Poussin)",
+   "level": "computed_rigorous",
+   "statement": "The minimal degree of a polynomial approximating e^x on [-1, 1] with relative error at most 1e-2 is exactly 3 (rigorous upper and lower certificates).",
+   "sec": 0.5,
+   "taylor_degree_estimate": 5
+  },
+  {
+   "claim": {
+    "typ": "exp_min_degree",
+    "B": 2,
+    "eps": "1e-2",
+    "error": "relative",
+    "d": 5
+   },
+   "passed": true,
+   "reason": "min degree = 5: degree 5 achieves rigorous sup error <= 2.540654e-03 <= eps; every degree-4 polynomial has sup error >= 1.449612e-02 > eps (de la Vallee Poussin)",
+   "level": "computed_rigorous",
+   "statement": "The minimal degree of a polynomial approximating e^x on [-2, 2] with relative error at most 1e-2 is exactly 5 (rigorous upper and lower certificates).",
+   "sec": 0.9,
+   "taylor_degree_estimate": 8
+  },
+  {
+   "claim": {
+    "typ": "exp_min_degree",
+    "B": 4,
+    "eps": "1e-2",
+    "error": "relative",
+    "d": 7
+   },
+   "passed": true,
+   "reason": "min degree = 7: degree 7 achieves rigorous sup error <= 8.995989e-03 <= eps; every degree-6 polynomial has sup error >= 3.258147e-02 > eps (de la Vallee Poussin)",
+   "level": "computed_rigorous",
+   "statement": "The minimal degree of a polynomial approximating e^x on [-4, 4] with relative error at most 1e-2 is exactly 7 (rigorous upper and lower certificates).",
+   "sec": 1.3,
+   "taylor_degree_estimate": 15
+  },
+  {
+   "claim": {
+    "typ": "exp_min_degree",
+    "B": 8,
+    "eps": "1e-2",
+    "error": "relative",
+    "d": 12
+   },
+   "passed": true,
+   "reason": "min degree = 12: degree 12 achieves rigorous sup error <= 9.952428e-03 <= eps; every degree-11 polynomial has sup error >= 2.168056e-02 > eps (de la Vallee Poussin)",
+   "level": "computed_rigorous",
+   "statement": "The minimal degree of a polynomial approximating e^x on [-8, 8] with relative error at most 1e-2 is exactly 12 (rigorous upper and lower certificates).",
+   "sec": 2.8,
+   "taylor_degree_estimate": 30
+  },
+  {
+   "claim": {
+    "typ": "exp_min_degree",
+    "B": 16,
+    "eps": "1e-2",
+    "error": "relative",
+    "d": 21
+   },
+   "passed": true,
+   "reason": "min degree = 21: degree 21 achieves rigorous sup error <= 9.961344e-03 <= eps; every degree-20 polynomial has sup error >= 1.909764e-02 > eps (de la Vallee Poussin)",
+   "level": "computed_rigorous",
+   "statement": "The minimal degree of a polynomial approximating e^x on [-16, 16] with relative error at most 1e-2 is exactly 21 (rigorous upper and lower certificates).",
+   "sec": 8.3,
+   "taylor_degree_estimate": 58
+  },
+  {
+   "claim": {
+    "typ": "exp_min_degree",
+    "B": 1,
+    "eps": "1e-3",
+    "error": "relative",
+    "d": 4
+   },
+   "passed": true,
+   "reason": "min degree = 4: degree 4 achieves rigorous sup error <= 5.063864e-04 <= eps; every degree-3 polynomial has sup error >= 5.003884e-03 > eps (de la Vallee Poussin)",
+   "level": "computed_rigorous",
+   "statement": "The minimal degree of a polynomial approximating e^x on [-1, 1] with relative error at most 1e-3 is exactly 4 (rigorous upper and lower certificates).",
+   "sec": 0.6,
+   "taylor_degree_estimate": 6
+  },
+  {
+   "claim": {
+    "typ": "exp_min_degree",
+    "B": 2,
+    "eps": "1e-3",
+    "error": "relative",
+    "d": 6
+   },
+   "passed": true,
+   "reason": "min degree = 6: degree 6 achieves rigorous sup error <= 3.930598e-04 <= eps; every degree-5 polynomial has sup error >= 2.456445e-03 > eps (de la Vallee Poussin)",
+   "level": "computed_rigorous",
+   "statement": "The minimal degree of a polynomial approximating e^x on [-2, 2] with relative error at most 1e-3 is exactly 6 (rigorous upper and lower certificates).",
+   "sec": 1.0,
+   "taylor_degree_estimate": 10
+  },
+  {
+   "claim": {
+    "typ": "exp_min_degree",
+    "B": 4,
+    "eps": "1e-3",
+    "error": "relative",
+    "d": 9
+   },
+   "passed": true,
+   "reason": "min degree = 9: degree 9 achieves rigorous sup error <= 8.674755e-04 <= eps; every degree-8 polynomial has sup error >= 1.960832e-03 > eps (de la Vallee Poussin)",
+   "level": "computed_rigorous",
+   "statement": "The minimal degree of a polynomial approximating e^x on [-4, 4] with relative error at most 1e-3 is exactly 9 (rigorous upper and lower certificates).",
+   "sec": 1.6,
+   "taylor_degree_estimate": 17
+  },
+  {
+   "claim": {
+    "typ": "exp_min_degree",
+    "B": 8,
+    "eps": "1e-3",
+    "error": "relative",
+    "d": 14
+   },
+   "passed": true,
+   "reason": "min degree = 14: degree 14 achieves rigorous sup error <= 9.099473e-04 <= eps; every degree-13 polynomial has sup error >= 2.218050e-03 > eps (de la Vallee Poussin)",
+   "level": "computed_rigorous",
+   "statement": "The minimal degree of a polynomial approximating e^x on [-8, 8] with relative error at most 1e-3 is exactly 14 (rigorous upper and lower certificates).",
+   "sec": 3.4,
+   "taylor_degree_estimate": 31
+  },
+  {
+   "claim": {
+    "typ": "exp_min_degree",
+    "B": 16,
+    "eps": "1e-3",
+    "error": "relative",
+    "d": 24
+   },
+   "passed": true,
+   "reason": "min degree = 24: degree 24 achieves rigorous sup error <= 8.679647e-04 <= eps; every degree-23 polynomial has sup error >= 1.164932e-03 > eps (de la Vallee Poussin)",
+   "level": "computed_rigorous",
+   "statement": "The minimal degree of a polynomial approximating e^x on [-16, 16] with relative error at most 1e-3 is exactly 24 (rigorous upper and lower certificates).",
+   "sec": 9.8,
+   "taylor_degree_estimate": 60
+  },
+  {
+   "claim": {
+    "typ": "exp_min_degree",
+    "B": 1,
+    "eps": "1e-6",
+    "error": "relative",
+    "d": 7
+   },
+   "passed": true,
+   "reason": "min degree = 7: degree 7 achieves rigorous sup error <= 2.104207e-07 <= eps; every degree-6 polynomial has sup error >= 3.016502e-06 > eps (de la Vallee Poussin)",
+   "level": "computed_rigorous",
+   "statement": "The minimal degree of a polynomial approximating e^x on [-1, 1] with relative error at most 1e-6 is exactly 7 (rigorous upper and lower certificates).",
+   "sec": 1.1,
+   "taylor_degree_estimate": 9
+  },
+  {
+   "claim": {
+    "typ": "exp_min_degree",
+    "B": 2,
+    "eps": "1e-6",
+    "error": "relative",
+    "d": 9
+   },
+   "passed": true,
+   "reason": "min degree = 9: degree 9 achieves rigorous sup error <= 7.951380e-07 <= eps; every degree-8 polynomial has sup error >= 5.035840e-06 > eps (de la Vallee Poussin)",
+   "level": "computed_rigorous",
+   "statement": "The minimal degree of a polynomial approximating e^x on [-2, 2] with relative error at most 1e-6 is exactly 9 (rigorous upper and lower certificates).",
+   "sec": 1.4,
+   "taylor_degree_estimate": 14
+  },
+  {
+   "claim": {
+    "typ": "exp_min_degree",
+    "B": 4,
+    "eps": "1e-6",
+    "error": "relative",
+    "d": 13
+   },
+   "passed": true,
+   "reason": "min degree = 13: degree 13 achieves rigorous sup error <= 5.406843e-07 <= eps; every degree-12 polynomial has sup error >= 2.014280e-06 > eps (de la Vallee Poussin)",
+   "level": "computed_rigorous",
+   "statement": "The minimal degree of a polynomial approximating e^x on [-4, 4] with relative error at most 1e-6 is exactly 13 (rigorous upper and lower certificates).",
+   "sec": 2.4,
+   "taylor_degree_estimate": 21
+  },
+  {
+   "claim": {
+    "typ": "exp_min_degree",
+    "B": 8,
+    "eps": "1e-6",
+    "error": "relative",
+    "d": 19
+   },
+   "passed": true,
+   "reason": "min degree = 19: degree 19 achieves rigorous sup error <= 9.564460e-07 <= eps; every degree-18 polynomial has sup error >= 2.088318e-06 > eps (de la Vallee Poussin)",
+   "level": "computed_rigorous",
+   "statement": "The minimal degree of a polynomial approximating e^x on [-8, 8] with relative error at most 1e-6 is exactly 19 (rigorous upper and lower certificates).",
+   "sec": 5.1,
+   "taylor_degree_estimate": 36
+  },
+  {
+   "claim": {
+    "typ": "exp_min_degree",
+    "B": 16,
+    "eps": "1e-6",
+    "error": "relative",
+    "d": 30
+   },
+   "passed": true,
+   "reason": "min degree = 30: degree 30 achieves rigorous sup error <= 7.693641e-07 <= eps; every degree-29 polynomial has sup error >= 1.191825e-06 > eps (de la Vallee Poussin)",
+   "level": "computed_rigorous",
+   "statement": "The minimal degree of a polynomial approximating e^x on [-16, 16] with relative error at most 1e-6 is exactly 30 (rigorous upper and lower certificates).",
+   "sec": 13.3,
+   "taylor_degree_estimate": 65
+  }
+ ],
+ "rank": [
+  {
+   "h": 16,
+   "B": 1,
+   "eps": "1e-3",
+   "d": 4,
+   "rank": 4845,
+   "derived_from": {
+    "typ": "exp_min_degree",
+    "B": 1,
+    "eps": "1e-3",
+    "error": "relative",
+    "d": 4
+   },
+   "level": "computed_rigorous",
+   "note": "C(h+d*, d*) with d* certified in the degree table; one representative re-checked as polymethod_rank"
+  },
+  {
+   "h": 64,
+   "B": 1,
+   "eps": "1e-3",
+   "d": 4,
+   "rank": 814385,
+   "derived_from": {
+    "typ": "exp_min_degree",
+    "B": 1,
+    "eps": "1e-3",
+    "error": "relative",
+    "d": 4
+   },
+   "level": "computed_rigorous",
+   "note": "C(h+d*, d*) with d* certified in the degree table; one representative re-checked as polymethod_rank"
+  },
+  {
+   "h": 128,
+   "B": 1,
+   "eps": "1e-3",
+   "d": 4,
+   "rank": 12082785,
+   "derived_from": {
+    "typ": "exp_min_degree",
+    "B": 1,
+    "eps": "1e-3",
+    "error": "relative",
+    "d": 4
+   },
+   "level": "computed_rigorous",
+   "note": "C(h+d*, d*) with d* certified in the degree table; one representative re-checked as polymethod_rank"
+  },
+  {
+   "h": 16,
+   "B": 4,
+   "eps": "1e-3",
+   "d": 9,
+   "rank": 2042975,
+   "derived_from": {
+    "typ": "exp_min_degree",
+    "B": 4,
+    "eps": "1e-3",
+    "error": "relative",
+    "d": 9
+   },
+   "level": "computed_rigorous",
+   "note": "C(h+d*, d*) with d* certified in the degree table; one representative re-checked as polymethod_rank"
+  },
+  {
+   "h": 64,
+   "B": 4,
+   "eps": "1e-3",
+   "d": 9,
+   "rank": 97082021465,
+   "derived_from": {
+    "typ": "exp_min_degree",
+    "B": 4,
+    "eps": "1e-3",
+    "error": "relative",
+    "d": 9
+   },
+   "level": "computed_rigorous",
+   "note": "C(h+d*, d*) with d* certified in the degree table; one representative re-checked as polymethod_rank"
+  },
+  {
+   "h": 128,
+   "B": 4,
+   "eps": "1e-3",
+   "d": 9,
+   "rank": 35823246375345,
+   "derived_from": {
+    "typ": "exp_min_degree",
+    "B": 4,
+    "eps": "1e-3",
+    "error": "relative",
+    "d": 9
+   },
+   "level": "computed_rigorous",
+   "note": "C(h+d*, d*) with d* certified in the degree table; one representative re-checked as polymethod_rank"
+  },
+  {
+   "h": 16,
+   "B": 16,
+   "eps": "1e-3",
+   "d": 24,
+   "rank": 62852101650,
+   "derived_from": {
+    "typ": "exp_min_degree",
+    "B": 16,
+    "eps": "1e-3",
+    "error": "relative",
+    "d": 24
+   },
+   "level": "computed_rigorous",
+   "note": "C(h+d*, d*) with d* certified in the degree table; one representative re-checked as polymethod_rank"
+  },
+  {
+   "h": 64,
+   "B": 16,
+   "eps": "1e-3",
+   "d": 24,
+   "rank": 2356029404781266567925,
+   "derived_from": {
+    "typ": "exp_min_degree",
+    "B": 16,
+    "eps": "1e-3",
+    "error": "relative",
+    "d": 24
+   },
+   "level": "computed_rigorous",
+   "note": "C(h+d*, d*) with d* certified in the degree table; one representative re-checked as polymethod_rank"
+  },
+  {
+   "h": 128,
+   "B": 16,
+   "eps": "1e-3",
+   "d": 24,
+   "rank": 5480853356994078959425864425,
+   "derived_from": {
+    "typ": "exp_min_degree",
+    "B": 16,
+    "eps": "1e-3",
+    "error": "relative",
+    "d": 24
+   },
+   "level": "computed_rigorous",
+   "note": "C(h+d*, d*) with d* certified in the degree table; one representative re-checked as polymethod_rank"
+  },
+  {
+   "claim": {
+    "typ": "polymethod_rank",
+    "h": 64,
+    "B": 4,
+    "eps": "1e-3",
+    "error": "relative",
+    "rank": 97082021465
+   },
+   "passed": true,
+   "reason": "rank 97082021465 = C(64+9,9); min degree = 9: degree 9 achieves rigorous sup error <= 8.674755e-04 <= eps; every degree-8 polynomial has sup error >= 1.960832e-03 > eps (de la Vallee Poussin)",
+   "level": "computed_rigorous",
+   "statement": "For head dimension h = 64, logits bounded by 4 and entrywise relative error 1e-3, the polynomial-method factorisation built from the minimal-degree approximation of e^x has rank exactly 97082021465 (certified minimal degree).",
+   "sec": 1.6
+  }
+ ]
 }
