@@ -8,7 +8,7 @@ Goal: a paper produced by the lab in which every statement is verified by code. 
 ## Pipeline (one path, rebuildable from code)
 ```bash
 pip install numpy scipy pandas mpmath scikit-learn
-python -m asd.selftest algo_efficiency                       # verifier self-test, must say BESTANDEN (24/24)
+python -m asd.selftest algo_efficiency                       # verifier self-test, must say BESTANDEN (36/36)
 python -m algo_efficiency.certify_tables                     # systematic certified tables -> results/certified.json (~5 min)
 python -m algo_efficiency.confirm                            # preregistered confirmatory runs (prereg.md) -> results/confirmatory.json
 python -m asd.lab_loop --domain algo_efficiency --recherche --runden 8 --budget-usd 5 --fragen algo_efficiency/questions.json
