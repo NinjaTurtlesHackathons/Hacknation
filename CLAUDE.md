@@ -58,8 +58,10 @@ Das Dashboard liest nur diese drei Tabellen, nie direkt aus dem Code.
 | RF + EI | 138,2 | 0,70 (0,40–1,23) | 0,85 |
 | GP + EI | 34,2 | 2,81 (1,56–5,02) | 0,006 |
 | Negativkontrolle GP | 125,8 | 0,94 (0,55–1,54) | 0,59 |
+| Hybrid (Sa 22:30, `python run.py`) | 27,8 | 3,47 (2,05–5,54); vs GP + EI 1,23 (0,84–1,67) | vs GP + EI 0,14 → H1 nicht belegt |
+| Hybrid neutral (Kontamination) | 31,2 | vs GP + EI 1,10 (0,82–1,40) | 0,27 |
 
-Rohdaten: `results_selftest.json`, Code: `lab.py`.
+Rohdaten: `results_selftest.json`, Code: `lab.py`. Volle Pipeline: `python run.py` → `tables/`, Gates und Claims dort (siehe README.md).
 Für „10×“ muss Hybrid etwa 3,5× besser sein als GP + EI, also im Mittel ~10 Experimente brauchen.
 
 ## Vier Pflicht-Prüfungen (laufen bei jedem Lauf automatisch)

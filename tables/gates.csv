@@ -1,0 +1,16 @@
+gate,passed,reason,ts
+G0_leck,True,Jeder Lauf: Zahl der Lab-Aufrufe = N,2026-10-03T19:59:56
+G1_theorie_zufall_echt,True,"gemessen 96.2, Theorie 98.4, z = -0.10 (Schranke |z| < 3, 20 Seeds)",2026-10-03T19:59:56
+G1_theorie_zufall_negativkontrolle,True,"gemessen 118.0, Theorie 98.4, z = 0.92 (Schranke |z| < 3, 20 Seeds)",2026-10-03T19:59:56
+G1_theorie_zufall_negativkontrolle_je_seed,True,"gemessen 75.1, Theorie 98.4, z = -1.09 (Schranke |z| < 3, 20 Seeds)",2026-10-03T19:59:56
+G2_reproduktion_selftest,True,"echt/random: gleich; echt/gp_ei: gleich; negativkontrolle/random: gleich; negativkontrolle/gp_ei: maschinenabhängig, Ø 118.8 statt 125.8 (nur berichtet)",2026-10-03T19:59:56
+G3_gp_ei_schlaegt_zufall,True,"gp_ei vs random (echt): Ø N 34.2 vs 96.2, Speedup 2.81 (95 %-KI 1.47–5.34), p = 0.0054, Seeds 20",2026-10-03T19:59:56
+G3_hybrid_schlaegt_zufall,True,"hybrid vs random (echt): Ø N 27.8 vs 96.2, Speedup 3.47 (95 %-KI 2.05–5.54), p = 0.0007, Seeds 20",2026-10-03T19:59:56
+H1_hybrid_schlaegt_gp_ei,False,"hybrid vs gp_ei (echt): Ø N 27.8 vs 34.2, Speedup 1.23 (95 %-KI 0.84–1.67), p = 0.1449, Seeds 20",2026-10-03T19:59:56
+G4_negativkontrolle_gp_ei,True,"Speedup 1.05 (KI 0.68–1.78), p = 0.432: kein Effekt, wie erwartet",2026-10-03T19:59:56
+G4_negativkontrolle_hybrid,True,"Speedup 0.89 (KI 0.57–1.56), p = 0.659: kein Effekt, wie erwartet",2026-10-03T19:59:56
+G4_negativkontrolle_hybrid_neutral,True,"Speedup 1.16 (KI 0.68–1.84), p = 0.291: kein Effekt, wie erwartet",2026-10-03T19:59:56
+G4_negativkontrolle_gp_ei_seed7,True,"Speedup 0.99 (KI 0.56–1.69), p = 0.513: kein Effekt, wie erwartet",2026-10-03T19:59:56
+G5_kontamination_H2,False,"hybrid_neutral vs gp_ei: Speedup 1.10 (KI 0.82–1.40), p = 0.2651; Ø N hybrid 27.8 vs hybrid_neutral 31.2 (Verhältnis 1.13, KI 0.92–1.36). Gegenüber gp_ei ist kein Gewinn belegt; wird offen berichtet.",2026-10-03T19:59:56
+G6_benjamini_hochberg,True,"m = 32 Tests, 16 nach BH (q = 0.1) signifikant; KI-Hypothesen bestätigt: 14/24",2026-10-03T19:59:56
+G7_lean_lemma,True,"lean lean/ENRandom.lean: Exit 0, Axiome: [propext, Quot.sound]",2026-10-03T19:59:58

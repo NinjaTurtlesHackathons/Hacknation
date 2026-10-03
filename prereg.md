@@ -16,3 +16,11 @@
 **Mehrfachtests:** Alle Hypothesen der KI laufen gemeinsam durch Benjamini-Hochberg mit $q=0{,}1$.
 
 Änderungen an dieser Datei nach dem ersten Lauf nur als neuer Abschnitt mit Datum und Grund.
+
+## Nachtrag 2026-10-03: Negativkontrolle je Seed (nach dem ersten vollen Lauf)
+
+**Was:** Zusätzlich zur präregistrierten Negativkontrolle (eine Vertauschung, Seed 7) läuft eine Negativkontrolle mit eigener Vertauschung je Seed (`np.random.default_rng([7, seed])`). Das Gate „Negativkontrolle“ wird auf dieser Variante ausgewertet. Die Seed-7-Variante wird weiter vollständig berichtet (Claims `C-neg-seed7*`), für GP + EI bleibt sie zusätzlich ein Gate.
+
+**Grund:** Hybrid nutzt ein festes KI-Vorwissen. Bei nur einer Vertauschung ordnet es die Kandidaten in allen 20 Seeds gleich. Liegt zufällig ein vertauschter Treffer weit oben im Vorwissen (hier: Rang 17 von 4132), findet Hybrid ihn in jedem Seed nach etwa 17 Schritten. Die 20 Seeds sind dann keine unabhängigen Wiederholungen, und der Test misst nur eine einzige Zufallsziehung. Im ersten Lauf ergab das scheinbar 5,9× Speedup auf Rauschen. Ein Leck ist ausgeschlossen: Der getroffene Kandidat ist in allen Seeds derselbe, und GP + EI ohne Vorwissen zeigt 0,99×.
+
+**Unverändert:** H1, H2, Metrik, Seeds, Budget, Tests, Erfolgskriterien, die Definition von Hybrid und die Hypothesen der KI. H1 und H2 werden nicht neu bewertet.

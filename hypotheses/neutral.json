@@ -1,0 +1,166 @@
+{
+ "view": "neutral",
+ "generator": "Claude-Subagent (Claude Code), blind: sah nur prompts/neutral.txt",
+ "ts": "2026-10-03T19:49:05",
+ "prompt_sha256": "8ad95bc8d188c71dd68799ef93b31097e662c7389306bd8d89fadcb1cb74a1c6",
+ "prompt": "Eine katalytische Kupplungsreaktion mit vier variablen Komponenten: ligand, base, aryl_halide (Substrat) und additive. Die Komponenten sind nur mit neutralen Codes und berechneten DFT-Deskriptoren angegeben (Ladungen in e, Orbitalenergien in Hartree, Dipol in Debye, NMR-Verschiebungen in ppm, Volumen in Å³, Masse in g/mol):\n{\n \"base\": [\n  {\n   \"level\": \"B1\",\n   \"*N1_electrostatic_charge\": -0.784,\n   \"E_HOMO\": -0.2148,\n   \"E_LUMO\": 0.0029,\n   \"dipole_moment\": 1.126227,\n   \"molecular_volume\": 214.2,\n   \"molecular_weight\": 171.288\n  },\n  {\n   \"level\": \"B2\",\n   \"*N1_electrostatic_charge\": -0.611,\n   \"E_HOMO\": -0.1913,\n   \"E_LUMO\": 0.0505,\n   \"dipole_moment\": 2.703408,\n   \"molecular_volume\": 170.58,\n   \"molecular_weight\": 153.229\n  },\n  {\n   \"level\": \"B3\",\n   \"*N1_electrostatic_charge\": -0.755,\n   \"E_HOMO\": -0.1703,\n   \"E_LUMO\": 0.0569,\n   \"dipole_moment\": 5.039158,\n   \"molecular_volume\": 376.47,\n   \"molecular_weight\": 339.409\n  }\n ],\n \"ligand\": [\n  {\n   \"level\": \"L1\",\n   \"*P1_electrostatic_charge\": -0.925,\n   \"*C1_NMR_shift\": 125.25,\n   \"*C1_electrostatic_charge\": 0.158,\n   \"dipole_moment\": 3.735286\n  },\n  {\n   \"level\": \"L2\",\n   \"*P1_electrostatic_charge\": -0.741,\n   \"*C1_NMR_shift\": 126.51,\n   \"*C1_electrostatic_charge\": 0.22,\n   \"dipole_moment\": 3.792624\n  },\n  {\n   \"level\": \"L3\",\n   \"*P1_electrostatic_charge\": -0.96,\n   \"*C1_NMR_shift\": 129.99,\n   \"*C1_electrostatic_charge\": 0.448,\n   \"dipole_moment\": 1.282615\n  },\n  {\n   \"level\": \"L4\",\n   \"*P1_electrostatic_charge\": -0.676,\n   \"*C1_NMR_shift\": 135.09,\n   \"*C1_electrostatic_charge\": 0.143,\n   \"dipole_moment\": 1.212924\n  }\n ],\n \"aryl_halide\": [\n  {\n   \"level\": \"H1\",\n   \"*C1_NMR_shift\": 134.48,\n   \"*C1_electrostatic_charge\": -0.127,\n   \"E_HOMO\": -0.2614,\n   \"E_LUMO\": -0.038,\n   \"dipole_moment\": 2.089781,\n   \"molecular_volume\": 106.61,\n   \"molecular_weight\": 113.547\n  },\n  {\n   \"level\": \"H2\",\n   \"*C1_NMR_shift\": -332.15,\n   \"*C1_electrostatic_charge\": -0.557,\n   \"E_HOMO\": -0.2495,\n   \"E_LUMO\": -0.0395,\n   \"dipole_moment\": 1.988625,\n   \"molecular_volume\": 118.02,\n   \"molecular_weight\": 204.994\n  },\n  {\n   \"level\": \"H3\",\n   \"*C1_NMR_shift\": 139.77,\n   \"*C1_electrostatic_charge\": 0.128,\n   \"E_HOMO\": -0.2648,\n   \"E_LUMO\": -0.0396,\n   \"dipole_moment\": 0.770806,\n   \"molecular_volume\": 145.02,\n   \"molecular_weight\": 180.556\n  },\n  {\n   \"level\": \"H4\",\n   \"*C1_NMR_shift\": -625.55,\n   \"*C1_electrostatic_charge\": -0.377,\n   \"E_HOMO\": -0.2176,\n   \"E_LUMO\": -0.0269,\n   \"dipole_moment\": 2.775967,\n   \"molecular_volume\": 151.48,\n   \"molecular_weight\": 234.032\n  },\n  {\n   \"level\": \"H5\",\n   \"*C1_NMR_shift\": 125.44,\n   \"*C1_electrostatic_charge\": -0.101,\n   \"E_HOMO\": -6.0,\n   \"E_LUMO\": -0.35,\n   \"dipole_moment\": 2.97534,\n   \"molecular_volume\": 144.61,\n   \"molecular_weight\": 187.036\n  },\n  {\n   \"level\": \"H6\",\n   \"*C1_NMR_shift\": 132.85,\n   \"*C1_electrostatic_charge\": -0.025,\n   \"E_HOMO\": -0.2364,\n   \"E_LUMO\": -0.0115,\n   \"dipole_moment\": 2.410215,\n   \"molecular_volume\": 154.31,\n   \"molecular_weight\": 185.069\n  },\n  {\n   \"level\": \"H7\",\n   \"*C1_NMR_shift\": 134.17,\n   \"*C1_electrostatic_charge\": 0.186,\n   \"E_HOMO\": -0.2373,\n   \"E_LUMO\": -0.0104,\n   \"dipole_moment\": 2.32974,\n   \"molecular_volume\": 149.79,\n   \"molecular_weight\": 140.613\n  },\n  {\n   \"level\": \"H8\",\n   \"*C1_NMR_shift\": 154.47,\n   \"*C1_electrostatic_charge\": 0.537,\n   \"E_HOMO\": -0.2614,\n   \"E_LUMO\": -0.0375,\n   \"dipole_moment\": 3.519084,\n   \"molecular_volume\": 106.57,\n   \"molecular_weight\": 113.547\n  },\n  {\n   \"level\": \"H9\",\n   \"*C1_NMR_shift\": 138.83,\n   \"*C1_electrostatic_charge\": -0.093,\n   \"E_HOMO\": -0.2616,\n   \"E_LUMO\": -0.0413,\n   \"dipole_moment\": 0.754193,\n   \"molecular_volume\": 149.53,\n   \"molecular_weight\": 225.012\n  },\n  {\n   \"level\": \"H10\",\n   \"*C1_NMR_shift\": 48.97,\n   \"*C1_electrostatic_charge\": -0.183,\n   \"E_HOMO\": -0.2525,\n   \"E_LUMO\": -0.0429,\n   \"dipole_moment\": 1.059432,\n   \"molecular_volume\": 156.41,\n   \"molecular_weight\": 272.003\n  },\n  {\n   \"level\": \"H11\",\n   \"*C1_NMR_shift\": 127.68,\n   \"*C1_electrostatic_charge\": 0.021,\n   \"E_HOMO\": -0.2202,\n   \"E_LUMO\": -0.0118,\n   \"dipole_moment\": 2.894904,\n   \"molecular_volume\": 140.11,\n   \"molecular_weight\": 142.585\n  },\n  {\n   \"level\": \"H12\",\n   \"*C1_NMR_shift\": 133.69,\n   \"*C1_electrostatic_charge\": -0.304,\n   \"E_HOMO\": -0.2585,\n   \"E_LUMO\": -0.039,\n   \"dipole_moment\": 2.086875,\n   \"molecular_volume\": 111.13,\n   \"molecular_weight\": 158.003\n  },\n  {\n   \"level\": \"H13\",\n   \"*C1_NMR_shift\": -1201.76,\n   \"*C1_electrostatic_charge\": 0.194,\n   \"E_HOMO\": -0.2465,\n   \"E_LUMO\": -0.0383,\n   \"dipole_moment\": 3.355629,\n   \"molecular_volume\": 118.1,\n   \"molecular_weight\": 204.994\n  },\n  {\n   \"level\": \"H14\",\n   \"*C1_NMR_shift\": -339.2,\n   \"*C1_electrostatic_charge\": -0.139,\n   \"E_HOMO\": -0.2309,\n   \"E_LUMO\": -0.0286,\n   \"dipole_moment\": 2.177715,\n   \"molecular_volume\": 161.18,\n   \"molecular_weight\": 232.06\n  },\n  {\n   \"level\": \"H15\",\n   \"*C1_NMR_shift\": 156.88,\n   \"*C1_electrostatic_charge\": 0.362,\n   \"E_HOMO\": -0.2576,\n   \"E_LUMO\": -0.0391,\n   \"dipole_moment\": 3.579429,\n   \"molecular_volume\": 111.15,\n   \"molecular_weight\": 158.003\n  }\n ],\n \"additive\": [\n  {\n   \"level\": \"A1\",\n   \"*N1_electrostatic_charge\": -0.367,\n   \"*O1_electrostatic_charge\": -0.113,\n   \"E_HOMO\": -0.2147,\n   \"E_LUMO\": -0.0191,\n   \"dipole_moment\": 3.387206,\n   \"molecular_volume\": 156.08,\n   \"molecular_weight\": 148.165\n  },\n  {\n   \"level\": \"A2\",\n   \"*N1_electrostatic_charge\": -0.322,\n   \"*O1_electrostatic_charge\": -0.096,\n   \"E_HOMO\": -0.264,\n   \"E_LUMO\": -0.0474,\n   \"dipole_moment\": 4.848261,\n   \"molecular_volume\": 155.89,\n   \"molecular_weight\": 155.153\n  },\n  {\n   \"level\": \"A3\",\n   \"*N1_electrostatic_charge\": -0.25,\n   \"*O1_electrostatic_charge\": -0.158,\n   \"E_HOMO\": -0.2485,\n   \"E_LUMO\": -0.0459,\n   \"dipole_moment\": 3.184221,\n   \"molecular_volume\": 121.96,\n   \"molecular_weight\": 119.123\n  },\n  {\n   \"level\": \"A4\",\n   \"*N1_electrostatic_charge\": -0.394,\n   \"*O1_electrostatic_charge\": -0.009,\n   \"E_HOMO\": -0.2233,\n   \"E_LUMO\": -0.0628,\n   \"dipole_moment\": 3.198581,\n   \"molecular_volume\": 122.07,\n   \"molecular_weight\": 119.123\n  },\n  {\n   \"level\": \"A5\",\n   \"*N1_electrostatic_charge\": -0.384,\n   \"*O1_electrostatic_charge\": -0.077,\n   \"E_HOMO\": -0.2612,\n   \"E_LUMO\": -0.0106,\n   \"dipole_moment\": 2.94125,\n   \"molecular_volume\": 88.98,\n   \"molecular_weight\": 83.09\n  },\n  {\n   \"level\": \"A6\",\n   \"*N1_electrostatic_charge\": -0.31,\n   \"*O1_electrostatic_charge\": -0.112,\n   \"E_HOMO\": -0.2671,\n   \"E_LUMO\": -0.0395,\n   \"dipole_moment\": 3.973089,\n   \"molecular_volume\": 155.65,\n   \"molecular_weight\": 155.153\n  },\n  {\n   \"level\": \"A7\",\n   \"*N1_electrostatic_charge\": -0.334,\n   \"*O1_electrostatic_charge\": -0.057,\n   \"E_HOMO\": -0.2317,\n   \"E_LUMO\": -0.0487,\n   \"dipole_moment\": 3.210447,\n   \"molecular_volume\": 154.41,\n   \"molecular_weight\": 145.161\n  },\n  {\n   \"level\": \"A8\",\n   \"*N1_electrostatic_charge\": -0.29,\n   \"*O1_electrostatic_charge\": -0.059,\n   \"E_HOMO\": -0.2806,\n   \"E_LUMO\": -0.0655,\n   \"dipole_moment\": 4.564313,\n   \"molecular_volume\": 118.95,\n   \"molecular_weight\": 127.099\n  },\n  {\n   \"level\": \"A9\",\n   \"*N1_electrostatic_charge\": -0.368,\n   \"*O1_electrostatic_charge\": -0.113,\n   \"E_HOMO\": -0.2069,\n   \"E_LUMO\": -0.0069,\n   \"dipole_moment\": 3.036368,\n   \"molecular_volume\": 289.15,\n   \"molecular_weight\": 264.328\n  },\n  {\n   \"level\": \"A10\",\n   \"*N1_electrostatic_charge\": -0.383,\n   \"*O1_electrostatic_charge\": -0.106,\n   \"E_HOMO\": -0.2605,\n   \"E_LUMO\": -0.0587,\n   \"dipole_moment\": 3.44567,\n   \"molecular_volume\": 164.92,\n   \"molecular_weight\": 171.152\n  },\n  {\n   \"level\": \"A11\",\n   \"*N1_electrostatic_charge\": -0.396,\n   \"*O1_electrostatic_charge\": -0.073,\n   \"E_HOMO\": -0.2272,\n   \"E_LUMO\": -0.0455,\n   \"dipole_moment\": 2.980515,\n   \"molecular_volume\": 172.8,\n   \"molecular_weight\": 159.188\n  },\n  {\n   \"level\": \"A12\",\n   \"hinweis\": \"keine Deskriptoren verfügbar\"\n  },\n  {\n   \"level\": \"A13\",\n   \"*N1_electrostatic_charge\": -0.313,\n   \"*O1_electrostatic_charge\": -0.067,\n   \"E_HOMO\": -0.2332,\n   \"E_LUMO\": -0.0323,\n   \"dipole_moment\": 3.268545,\n   \"molecular_volume\": 154.39,\n   \"molecular_weight\": 145.161\n  },\n  {\n   \"level\": \"A14\",\n   \"*N1_electrostatic_charge\": -0.342,\n   \"*O1_electrostatic_charge\": -0.097,\n   \"E_HOMO\": -0.2303,\n   \"E_LUMO\": -0.0633,\n   \"dipole_moment\": 3.85783,\n   \"molecular_volume\": 181.39,\n   \"molecular_weight\": 193.158\n  },\n  {\n   \"level\": \"A15\",\n   \"*N1_electrostatic_charge\": -0.364,\n   \"*O1_electrostatic_charge\": -0.087,\n   \"E_HOMO\": -0.2736,\n   \"E_LUMO\": -0.0589,\n   \"dipole_moment\": 4.695918,\n   \"molecular_volume\": 155.9,\n   \"molecular_weight\": 155.153\n  },\n  {\n   \"level\": \"A16\",\n   \"*N1_electrostatic_charge\": -0.379,\n   \"*O1_electrostatic_charge\": -0.089,\n   \"E_HOMO\": -0.2037,\n   \"E_LUMO\": -0.0161,\n   \"dipole_moment\": 3.974105,\n   \"molecular_volume\": 288.72,\n   \"molecular_weight\": 264.328\n  },\n  {\n   \"level\": \"A17\",\n   \"*N1_electrostatic_charge\": -0.278,\n   \"*O1_electrostatic_charge\": -0.049,\n   \"E_HOMO\": -0.2792,\n   \"E_LUMO\": -0.0443,\n   \"dipole_moment\": 2.703396,\n   \"molecular_volume\": 137.47,\n   \"molecular_weight\": 141.126\n  },\n  {\n   \"level\": \"A18\",\n   \"*N1_electrostatic_charge\": -0.321,\n   \"*O1_electrostatic_charge\": -0.112,\n   \"E_HOMO\": -0.2538,\n   \"E_LUMO\": -0.0088,\n   \"dipole_moment\": 3.203762,\n   \"molecular_volume\": 88.9,\n   \"molecular_weight\": 83.09\n  },\n  {\n   \"level\": \"A19\",\n   \"*N1_electrostatic_charge\": -0.357,\n   \"*O1_electrostatic_charge\": -0.073,\n   \"E_HOMO\": -0.2805,\n   \"E_LUMO\": -0.0568,\n   \"dipole_moment\": 2.516823,\n   \"molecular_volume\": 137.4,\n   \"molecular_weight\": 141.126\n  },\n  {\n   \"level\": \"A20\",\n   \"*N1_electrostatic_charge\": -0.332,\n   \"*O1_electrostatic_charge\": -0.081,\n   \"E_HOMO\": -0.2382,\n   \"E_LUMO\": -0.0385,\n   \"dipole_moment\": 2.752454,\n   \"molecular_volume\": 154.42,\n   \"molecular_weight\": 145.161\n  },\n  {\n   \"level\": \"A21\",\n   \"*N1_electrostatic_charge\": -0.398,\n   \"*O1_electrostatic_charge\": -0.128,\n   \"E_HOMO\": -0.2472,\n   \"E_LUMO\": -0.0049,\n   \"dipole_moment\": 3.059464,\n   \"molecular_volume\": 107.29,\n   \"molecular_weight\": 97.117\n  },\n  {\n   \"level\": \"A22\",\n   \"*N1_electrostatic_charge\": -0.35,\n   \"*O1_electrostatic_charge\": -0.068,\n   \"E_HOMO\": -0.2337,\n   \"E_LUMO\": -0.0696,\n   \"dipole_moment\": 3.719695,\n   \"molecular_volume\": 190.33,\n   \"molecular_weight\": 209.223\n  },\n  {\n   \"level\": \"A23\",\n   \"*N1_electrostatic_charge\": -0.339,\n   \"*O1_electrostatic_charge\": -0.052,\n   \"E_HOMO\": -0.2388,\n   \"E_LUMO\": -0.057,\n   \"dipole_moment\": 3.94018,\n   \"molecular_volume\": 163.12,\n   \"molecular_weight\": 181.141\n  }\n ]\n}\n\nAufgabe: Formuliere 6 bis 12 überprüfbare Hypothesen, welche Faktorstufen die Ausbeute erhöhen oder senken.\nDu kennst keine Messwerte. Stütze dich nur auf chemisches Vorwissen und die Angaben oben.\n\nAntworte ausschließlich mit JSON in genau diesem Format, ohne weiteren Text:\n{\"hypotheses\": [\n  {\"id\": \"H1\", \"text\": \"<ein Satz mit Begründung>\", \"effect\": {\"<faktor>=<stufe>\": <zahl>, ...}},\n  ...\n]}\nRegeln für \"effect\":\n- Schlüssel exakt als \"<faktor>=<stufe>\" mit faktor aus {ligand, base, aryl_halide, additive} und einer Stufe aus der Liste oben.\n- Zahl = erwartete Änderung der Ausbeute in Standardabweichungen gegenüber dem Durchschnitt, zwischen -2 und 2.\n- Eine Hypothese darf mehrere Stufen umfassen (z. B. alle Arylchloride negativ).\n",
+ "raw_response": "{\"hypotheses\": [\n  {\"id\": \"H1\", \"text\": \"Substrate mit der niedrigsten Masse in ihrer Serie (ca. 113, 140, 142, 180 g/mol) sind vermutlich Arylchloride, deren C-Cl-Bindung die oxidative Addition am Metall stark verlangsamt, daher sinkt die Ausbeute.\", \"effect\": {\"aryl_halide=H1\": -1.2, \"aryl_halide=H8\": -1.2, \"aryl_halide=H3\": -0.9, \"aryl_halide=H7\": -1.3, \"aryl_halide=H11\": -1.3}},\n  {\"id\": \"H2\", \"text\": \"Substrate mit stark negativen C1-NMR-Verschiebungen (Schweratomeffekt) bzw. der hoechsten Masse sind vermutlich Aryliodide, die am leichtesten oxidativ addieren und daher hoehere Ausbeuten liefern.\", \"effect\": {\"aryl_halide=H2\": 0.6, \"aryl_halide=H13\": 0.6, \"aryl_halide=H4\": 0.5, \"aryl_halide=H14\": 0.6, \"aryl_halide=H10\": 0.8}},\n  {\"id\": \"H3\", \"text\": \"Substrate mittlerer Masse (vermutlich Arylbromide) liegen zwischen Chloriden und Iodiden und liefern leicht ueberdurchschnittliche Ausbeuten.\", \"effect\": {\"aryl_halide=H12\": 0.4, \"aryl_halide=H15\": 0.4, \"aryl_halide=H9\": 0.7, \"aryl_halide=H6\": 0.2, \"aryl_halide=H5\": 0.3}},\n  {\"id\": \"H4\", \"text\": \"Elektronenarme Arylhalogenide (niedrigstes HOMO/LUMO, z. B. die schwerere aromatische Serie mit ca. 180/225/272 g/mol) addieren schneller oxidativ als elektronenreiche (hoeheres HOMO wie H4, H6, H7, H11, H14), was die Ausbeute erhoeht.\", \"effect\": {\"aryl_halide=H9\": 0.5, \"aryl_halide=H10\": 0.5, \"aryl_halide=H4\": -0.3, \"aryl_halide=H6\": -0.3, \"aryl_halide=H11\": -0.4}},\n  {\"id\": \"H5\", \"text\": \"Heteroaryl-Halogenide mit kleinem Volumen und hohem Dipol (H8, H15, H13) koennen ueber ein Ring-Stickstoffatom an das Metall koordinieren und den Katalysator teilweise vergiften, was die Ausbeute senkt.\", \"effect\": {\"aryl_halide=H8\": -0.5, \"aryl_halide=H15\": -0.4, \"aryl_halide=H13\": -0.3}},\n  {\"id\": \"H6\", \"text\": \"Die groesste und polarste Base B3 (vermutlich eine sehr starke Phosphazen-artige Base) deprotoniert den Nukleophil-Metall-Komplex am effizientesten und steigert die Ausbeute, waehrend die schwaechste, am wenigsten negativ geladene Base B2 die Ausbeute senkt.\", \"effect\": {\"base=B3\": 0.6, \"base=B1\": 0.2, \"base=B2\": -0.7}},\n  {\"id\": \"H7\", \"text\": \"Liganden mit stark negativ geladenem Phosphor (L1, L3) sind elektronenreicher, beschleunigen die oxidative Addition und erhoehen die Ausbeute, besonders bei Chloriden; L4 mit dem am wenigsten negativen Phosphor senkt sie.\", \"effect\": {\"ligand=L3\": 0.5, \"ligand=L1\": 0.4, \"ligand=L2\": -0.2, \"ligand=L4\": -0.6}},\n  {\"id\": \"H8\", \"text\": \"Der Ligand L4 mit der hoechsten C1-NMR-Verschiebung und geringem Dipol ist vermutlich sterisch/elektronisch am wenigsten passend fuer die reduktive Eliminierung und liefert die niedrigsten Ausbeuten.\", \"effect\": {\"ligand=L4\": -0.5}},\n  {\"id\": \"H9\", \"text\": \"Additive mit sehr niedrigem LUMO (stark elektrophile Heterocyclen, z. B. A8, A22, A14, A4) koennen selbst oxidativ addieren oder mit Base/Nukleophil reagieren und senken dadurch die Ausbeute.\", \"effect\": {\"additive=A8\": -0.6, \"additive=A22\": -0.5, \"additive=A14\": -0.4, \"additive=A4\": -0.4, \"additive=A10\": -0.3}},\n  {\"id\": \"H10\", \"text\": \"Additive mit hohem LUMO und relativ hohem HOMO (elektronenreich, wenig reaktiv, z. B. A9, A16, A21, A18, A5) stoeren den Katalysezyklus kaum und lassen die Ausbeute leicht ueberdurchschnittlich.\", \"effect\": {\"additive=A9\": 0.3, \"additive=A16\": 0.3, \"additive=A21\": 0.3, \"additive=A18\": 0.2, \"additive=A5\": 0.2}},\n  {\"id\": \"H11\", \"text\": \"Additive mit stark negativ geladenem Stickstoff (A11, A21, A4) koordinieren als Lewis-Basen am Metall und hemmen den Katalysator etwas, was die Ausbeute moderat senkt.\", \"effect\": {\"additive=A11\": -0.2, \"additive=A4\": -0.2, \"additive=A1\": -0.1}},\n  {\"id\": \"H12\", \"text\": \"Bei Arylchloriden verstaerkt sich der Basen-Effekt: die schwache Base B2 fuehrt hier zu besonders niedrigen Ausbeuten, waehrend B3 den Nachteil teilweise kompensiert.\", \"effect\": {\"base=B2\": -0.4, \"base=B3\": 0.3, \"aryl_halide=H7\": -0.3, \"aryl_halide=H11\": -0.3}}\n]}\n",
+ "hypotheses": [
+  {
+   "id": "neutral-H1",
+   "text": "Substrate mit der niedrigsten Masse in ihrer Serie (ca. 113, 140, 142, 180 g/mol) sind vermutlich Arylchloride, deren C-Cl-Bindung die oxidative Addition am Metall stark verlangsamt, daher sinkt die Ausbeute.",
+   "effect": {
+    "aryl_halide=H1": -1.2,
+    "aryl_halide=H8": -1.2,
+    "aryl_halide=H3": -0.9,
+    "aryl_halide=H7": -1.3,
+    "aryl_halide=H11": -1.3
+   },
+   "status": "offen",
+   "view": "neutral",
+   "meta": {}
+  },
+  {
+   "id": "neutral-H2",
+   "text": "Substrate mit stark negativen C1-NMR-Verschiebungen (Schweratomeffekt) bzw. der hoechsten Masse sind vermutlich Aryliodide, die am leichtesten oxidativ addieren und daher hoehere Ausbeuten liefern.",
+   "effect": {
+    "aryl_halide=H2": 0.6,
+    "aryl_halide=H13": 0.6,
+    "aryl_halide=H4": 0.5,
+    "aryl_halide=H14": 0.6,
+    "aryl_halide=H10": 0.8
+   },
+   "status": "offen",
+   "view": "neutral",
+   "meta": {}
+  },
+  {
+   "id": "neutral-H3",
+   "text": "Substrate mittlerer Masse (vermutlich Arylbromide) liegen zwischen Chloriden und Iodiden und liefern leicht ueberdurchschnittliche Ausbeuten.",
+   "effect": {
+    "aryl_halide=H12": 0.4,
+    "aryl_halide=H15": 0.4,
+    "aryl_halide=H9": 0.7,
+    "aryl_halide=H6": 0.2,
+    "aryl_halide=H5": 0.3
+   },
+   "status": "offen",
+   "view": "neutral",
+   "meta": {}
+  },
+  {
+   "id": "neutral-H4",
+   "text": "Elektronenarme Arylhalogenide (niedrigstes HOMO/LUMO, z. B. die schwerere aromatische Serie mit ca. 180/225/272 g/mol) addieren schneller oxidativ als elektronenreiche (hoeheres HOMO wie H4, H6, H7, H11, H14), was die Ausbeute erhoeht.",
+   "effect": {
+    "aryl_halide=H9": 0.5,
+    "aryl_halide=H10": 0.5,
+    "aryl_halide=H4": -0.3,
+    "aryl_halide=H6": -0.3,
+    "aryl_halide=H11": -0.4
+   },
+   "status": "offen",
+   "view": "neutral",
+   "meta": {}
+  },
+  {
+   "id": "neutral-H5",
+   "text": "Heteroaryl-Halogenide mit kleinem Volumen und hohem Dipol (H8, H15, H13) koennen ueber ein Ring-Stickstoffatom an das Metall koordinieren und den Katalysator teilweise vergiften, was die Ausbeute senkt.",
+   "effect": {
+    "aryl_halide=H8": -0.5,
+    "aryl_halide=H15": -0.4,
+    "aryl_halide=H13": -0.3
+   },
+   "status": "offen",
+   "view": "neutral",
+   "meta": {}
+  },
+  {
+   "id": "neutral-H6",
+   "text": "Die groesste und polarste Base B3 (vermutlich eine sehr starke Phosphazen-artige Base) deprotoniert den Nukleophil-Metall-Komplex am effizientesten und steigert die Ausbeute, waehrend die schwaechste, am wenigsten negativ geladene Base B2 die Ausbeute senkt.",
+   "effect": {
+    "base=B3": 0.6,
+    "base=B1": 0.2,
+    "base=B2": -0.7
+   },
+   "status": "offen",
+   "view": "neutral",
+   "meta": {}
+  },
+  {
+   "id": "neutral-H7",
+   "text": "Liganden mit stark negativ geladenem Phosphor (L1, L3) sind elektronenreicher, beschleunigen die oxidative Addition und erhoehen die Ausbeute, besonders bei Chloriden; L4 mit dem am wenigsten negativen Phosphor senkt sie.",
+   "effect": {
+    "ligand=L3": 0.5,
+    "ligand=L1": 0.4,
+    "ligand=L2": -0.2,
+    "ligand=L4": -0.6
+   },
+   "status": "offen",
+   "view": "neutral",
+   "meta": {}
+  },
+  {
+   "id": "neutral-H8",
+   "text": "Der Ligand L4 mit der hoechsten C1-NMR-Verschiebung und geringem Dipol ist vermutlich sterisch/elektronisch am wenigsten passend fuer die reduktive Eliminierung und liefert die niedrigsten Ausbeuten.",
+   "effect": {
+    "ligand=L4": -0.5
+   },
+   "status": "offen",
+   "view": "neutral",
+   "meta": {}
+  },
+  {
+   "id": "neutral-H9",
+   "text": "Additive mit sehr niedrigem LUMO (stark elektrophile Heterocyclen, z. B. A8, A22, A14, A4) koennen selbst oxidativ addieren oder mit Base/Nukleophil reagieren und senken dadurch die Ausbeute.",
+   "effect": {
+    "additive=A8": -0.6,
+    "additive=A22": -0.5,
+    "additive=A14": -0.4,
+    "additive=A4": -0.4,
+    "additive=A10": -0.3
+   },
+   "status": "offen",
+   "view": "neutral",
+   "meta": {}
+  },
+  {
+   "id": "neutral-H10",
+   "text": "Additive mit hohem LUMO und relativ hohem HOMO (elektronenreich, wenig reaktiv, z. B. A9, A16, A21, A18, A5) stoeren den Katalysezyklus kaum und lassen die Ausbeute leicht ueberdurchschnittlich.",
+   "effect": {
+    "additive=A9": 0.3,
+    "additive=A16": 0.3,
+    "additive=A21": 0.3,
+    "additive=A18": 0.2,
+    "additive=A5": 0.2
+   },
+   "status": "offen",
+   "view": "neutral",
+   "meta": {}
+  },
+  {
+   "id": "neutral-H11",
+   "text": "Additive mit stark negativ geladenem Stickstoff (A11, A21, A4) koordinieren als Lewis-Basen am Metall und hemmen den Katalysator etwas, was die Ausbeute moderat senkt.",
+   "effect": {
+    "additive=A11": -0.2,
+    "additive=A4": -0.2,
+    "additive=A1": -0.1
+   },
+   "status": "offen",
+   "view": "neutral",
+   "meta": {}
+  },
+  {
+   "id": "neutral-H12",
+   "text": "Bei Arylchloriden verstaerkt sich der Basen-Effekt: die schwache Base B2 fuehrt hier zu besonders niedrigen Ausbeuten, waehrend B3 den Nachteil teilweise kompensiert.",
+   "effect": {
+    "base=B2": -0.4,
+    "base=B3": 0.3,
+    "aryl_halide=H7": -0.3,
+    "aryl_halide=H11": -0.3
+   },
+   "status": "offen",
+   "view": "neutral",
+   "meta": {}
+  }
+ ]
+}

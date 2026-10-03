@@ -1,0 +1,204 @@
+Pd-katalysierte Buchwald-Hartwig-Aminierung von Arylhalogeniden mit p-Toluidin (Pd-Präkatalysator, DMSO, 60 °C). Variiert werden Ligand, Base, Arylhalogenid und ein Additiv (Isoxazole als mögliche Störstoffe). Komponenten mit Namen und SMILES:
+{
+ "base": [
+  {
+   "level": "BTMG",
+   "smiles": "CN(C)/C(N(C)C)=N\\C(C)(C)C"
+  },
+  {
+   "level": "MTBD",
+   "smiles": "CN1CCCN2CCCN=C12"
+  },
+  {
+   "level": "P2Et",
+   "smiles": "CN(C)P(N(C)C)(N(C)C)=NP(N(C)C)(N(C)C)=NCC"
+  }
+ ],
+ "ligand": [
+  {
+   "level": "AdBrettPhos",
+   "smiles": "CC(C1=C(C2=C(OC)C=CC(OC)=C2P(C34CC5CC(C4)CC(C5)C3)C67CC8CC(C7)CC(C8)C6)C(C(C)C)=CC(C(C)C)=C1)C"
+  },
+  {
+   "level": "XPhos",
+   "smiles": "CC(C)C1=CC(C(C)C)=CC(C(C)C)=C1C2=C(P(C3CCCCC3)C4CCCCC4)C=CC=C2"
+  },
+  {
+   "level": "t-BuBrettPhos",
+   "smiles": "CC(C)C1=CC(C(C)C)=CC(C(C)C)=C1C2=C(P(C(C)(C)C)C(C)(C)C)C(OC)=CC=C2OC"
+  },
+  {
+   "level": "t-BuXPhos",
+   "smiles": "CC(C)C(C=C(C(C)C)C=C1C(C)C)=C1C2=CC=CC=C2P(C(C)(C)C)C(C)(C)C"
+  }
+ ],
+ "aryl_halide": [
+  {
+   "level": "1-bromo-4-(trifluoromethyl)benzene",
+   "smiles": "FC(F)(F)c1ccc(Br)cc1"
+  },
+  {
+   "level": "1-bromo-4-ethylbenzene",
+   "smiles": "CCc1ccc(Br)cc1"
+  },
+  {
+   "level": "1-bromo-4-methoxybenzene",
+   "smiles": "COc1ccc(Br)cc1"
+  },
+  {
+   "level": "1-chloro-4-(trifluoromethyl)benzene",
+   "smiles": "FC(F)(F)c1ccc(Cl)cc1"
+  },
+  {
+   "level": "1-chloro-4-ethylbenzene",
+   "smiles": "CCc1ccc(Cl)cc1"
+  },
+  {
+   "level": "1-chloro-4-methoxybenzene",
+   "smiles": "COc1ccc(Cl)cc1"
+  },
+  {
+   "level": "1-ethyl-4-iodobenzene",
+   "smiles": "CCc1ccc(I)cc1"
+  },
+  {
+   "level": "1-iodo-4-(trifluoromethyl)benzene",
+   "smiles": "FC(F)(F)c1ccc(I)cc1"
+  },
+  {
+   "level": "1-iodo-4-methoxybenzene",
+   "smiles": "COc1ccc(I)cc1"
+  },
+  {
+   "level": "2-bromopyridine",
+   "smiles": "Brc1ccccn1"
+  },
+  {
+   "level": "2-chloropyridine",
+   "smiles": "Clc1ccccn1"
+  },
+  {
+   "level": "2-iodopyridine",
+   "smiles": "Ic1ccccn1"
+  },
+  {
+   "level": "3-bromopyridine",
+   "smiles": "Brc1cccnc1"
+  },
+  {
+   "level": "3-chloropyridine",
+   "smiles": "Clc1cccnc1"
+  },
+  {
+   "level": "3-iodopyridine",
+   "smiles": "Ic1cccnc1"
+  }
+ ],
+ "additive": [
+  {
+   "level": "3,5-dimethylisoxazole",
+   "smiles": "Cc1onc(C)c1"
+  },
+  {
+   "level": "3-methyl-5-phenylisoxazole",
+   "smiles": "Cc1cc(on1)c2ccccc2"
+  },
+  {
+   "level": "3-methylisoxazole",
+   "smiles": "Cc1ccon1"
+  },
+  {
+   "level": "3-phenylisoxazole",
+   "smiles": "o1ccc(n1)c2ccccc2"
+  },
+  {
+   "level": "4-phenylisoxazole",
+   "smiles": "o1cc(cn1)c2ccccc2"
+  },
+  {
+   "level": "5-(2,6-difluorophenyl)isoxazole",
+   "smiles": "Fc1cccc(F)c1c2oncc2"
+  },
+  {
+   "level": "5-Phenyl-1,2,4-oxadiazole",
+   "smiles": "c1ccc(-c2ncno2)cc1"
+  },
+  {
+   "level": "5-methyl-3-(1H-pyrrol-1-yl)isoxazole",
+   "smiles": "Cc1onc(c1)n2cccc2"
+  },
+  {
+   "level": "5-methylisoxazole",
+   "smiles": "Cc1oncc1"
+  },
+  {
+   "level": "5-phenylisoxazole",
+   "smiles": "o1nccc1c2ccccc2"
+  },
+  {
+   "level": "N,N-dibenzylisoxazol-3-amine",
+   "smiles": "C(N(Cc1ccccc1)c2ccon2)c3ccccc3"
+  },
+  {
+   "level": "N,N-dibenzylisoxazol-5-amine",
+   "smiles": "C(N(Cc1ccccc1)c2oncc2)c3ccccc3"
+  },
+  {
+   "level": "benzo[c]isoxazole",
+   "smiles": "o1cc2ccccc2n1"
+  },
+  {
+   "level": "benzo[d]isoxazole",
+   "smiles": "o1ncc2ccccc12"
+  },
+  {
+   "level": "ethyl-3-methoxyisoxazole-5-carboxylate",
+   "smiles": "CCOC(=O)c1onc(OC)c1"
+  },
+  {
+   "level": "ethyl-3-methylisoxazole-5-carboxylate",
+   "smiles": "CCOC(=O)c1onc(C)c1"
+  },
+  {
+   "level": "ethyl-5-methylisoxazole-3-carboxylate",
+   "smiles": "CCOC(=O)c1cc(C)on1"
+  },
+  {
+   "level": "ethyl-5-methylisoxazole-4-carboxylate",
+   "smiles": "CCOC(=O)c1cnoc1C"
+  },
+  {
+   "level": "ethyl-isoxazole-3-carboxylate",
+   "smiles": "CCOC(=O)c1ccon1"
+  },
+  {
+   "level": "ethyl-isoxazole-4-carboxylate",
+   "smiles": "CCOC(=O)c1conc1"
+  },
+  {
+   "level": "methyl-5-(furan-2-yl)isoxazole-3-carboxylate",
+   "smiles": "COC(=O)c1cc(on1)c2occc2"
+  },
+  {
+   "level": "methyl-5-(thiophen-2-yl)isoxazole-3-carboxylate",
+   "smiles": "COC(=O)c1cc(on1)c2sccc2"
+  },
+  {
+   "level": "methyl-isoxazole-5-carboxylate",
+   "smiles": "COC(=O)c1oncc1"
+  }
+ ]
+}
+
+Aufgabe: Formuliere 6 bis 12 überprüfbare Hypothesen, welche Faktorstufen die Ausbeute erhöhen oder senken.
+Du kennst keine Messwerte. Stütze dich nur auf chemisches Vorwissen und die Angaben oben.
+
+Antworte ausschließlich mit JSON in genau diesem Format, ohne weiteren Text:
+{"hypotheses": [
+  {"id": "H1", "text": "<ein Satz mit Begründung>", "effect": {"<faktor>=<stufe>": <zahl>, ...}},
+  ...
+]}
+Regeln für "effect":
+- Schlüssel exakt als "<faktor>=<stufe>" mit faktor aus {ligand, base, aryl_halide, additive} und einer Stufe aus der Liste oben.
+- Zahl = erwartete Änderung der Ausbeute in Standardabweichungen gegenüber dem Durchschnitt, zwischen -2 und 2.
+- Eine Hypothese darf mehrere Stufen umfassen (z. B. alle Arylchloride negativ).

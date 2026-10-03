@@ -1,0 +1,166 @@
+{
+ "view": "named",
+ "generator": "Claude-Subagent (Claude Code), blind: sah nur prompts/named.txt",
+ "ts": "2026-10-03T19:49:04",
+ "prompt_sha256": "cc4426ea8e10d65fd0c2a72c8431f50aeb401d01aa4fb98a5cb1cef3b0f248d7",
+ "prompt": "Pd-katalysierte Buchwald-Hartwig-Aminierung von Arylhalogeniden mit p-Toluidin (Pd-Präkatalysator, DMSO, 60 °C). Variiert werden Ligand, Base, Arylhalogenid und ein Additiv (Isoxazole als mögliche Störstoffe). Komponenten mit Namen und SMILES:\n{\n \"base\": [\n  {\n   \"level\": \"BTMG\",\n   \"smiles\": \"CN(C)/C(N(C)C)=N\\\\C(C)(C)C\"\n  },\n  {\n   \"level\": \"MTBD\",\n   \"smiles\": \"CN1CCCN2CCCN=C12\"\n  },\n  {\n   \"level\": \"P2Et\",\n   \"smiles\": \"CN(C)P(N(C)C)(N(C)C)=NP(N(C)C)(N(C)C)=NCC\"\n  }\n ],\n \"ligand\": [\n  {\n   \"level\": \"AdBrettPhos\",\n   \"smiles\": \"CC(C1=C(C2=C(OC)C=CC(OC)=C2P(C34CC5CC(C4)CC(C5)C3)C67CC8CC(C7)CC(C8)C6)C(C(C)C)=CC(C(C)C)=C1)C\"\n  },\n  {\n   \"level\": \"XPhos\",\n   \"smiles\": \"CC(C)C1=CC(C(C)C)=CC(C(C)C)=C1C2=C(P(C3CCCCC3)C4CCCCC4)C=CC=C2\"\n  },\n  {\n   \"level\": \"t-BuBrettPhos\",\n   \"smiles\": \"CC(C)C1=CC(C(C)C)=CC(C(C)C)=C1C2=C(P(C(C)(C)C)C(C)(C)C)C(OC)=CC=C2OC\"\n  },\n  {\n   \"level\": \"t-BuXPhos\",\n   \"smiles\": \"CC(C)C(C=C(C(C)C)C=C1C(C)C)=C1C2=CC=CC=C2P(C(C)(C)C)C(C)(C)C\"\n  }\n ],\n \"aryl_halide\": [\n  {\n   \"level\": \"1-bromo-4-(trifluoromethyl)benzene\",\n   \"smiles\": \"FC(F)(F)c1ccc(Br)cc1\"\n  },\n  {\n   \"level\": \"1-bromo-4-ethylbenzene\",\n   \"smiles\": \"CCc1ccc(Br)cc1\"\n  },\n  {\n   \"level\": \"1-bromo-4-methoxybenzene\",\n   \"smiles\": \"COc1ccc(Br)cc1\"\n  },\n  {\n   \"level\": \"1-chloro-4-(trifluoromethyl)benzene\",\n   \"smiles\": \"FC(F)(F)c1ccc(Cl)cc1\"\n  },\n  {\n   \"level\": \"1-chloro-4-ethylbenzene\",\n   \"smiles\": \"CCc1ccc(Cl)cc1\"\n  },\n  {\n   \"level\": \"1-chloro-4-methoxybenzene\",\n   \"smiles\": \"COc1ccc(Cl)cc1\"\n  },\n  {\n   \"level\": \"1-ethyl-4-iodobenzene\",\n   \"smiles\": \"CCc1ccc(I)cc1\"\n  },\n  {\n   \"level\": \"1-iodo-4-(trifluoromethyl)benzene\",\n   \"smiles\": \"FC(F)(F)c1ccc(I)cc1\"\n  },\n  {\n   \"level\": \"1-iodo-4-methoxybenzene\",\n   \"smiles\": \"COc1ccc(I)cc1\"\n  },\n  {\n   \"level\": \"2-bromopyridine\",\n   \"smiles\": \"Brc1ccccn1\"\n  },\n  {\n   \"level\": \"2-chloropyridine\",\n   \"smiles\": \"Clc1ccccn1\"\n  },\n  {\n   \"level\": \"2-iodopyridine\",\n   \"smiles\": \"Ic1ccccn1\"\n  },\n  {\n   \"level\": \"3-bromopyridine\",\n   \"smiles\": \"Brc1cccnc1\"\n  },\n  {\n   \"level\": \"3-chloropyridine\",\n   \"smiles\": \"Clc1cccnc1\"\n  },\n  {\n   \"level\": \"3-iodopyridine\",\n   \"smiles\": \"Ic1cccnc1\"\n  }\n ],\n \"additive\": [\n  {\n   \"level\": \"3,5-dimethylisoxazole\",\n   \"smiles\": \"Cc1onc(C)c1\"\n  },\n  {\n   \"level\": \"3-methyl-5-phenylisoxazole\",\n   \"smiles\": \"Cc1cc(on1)c2ccccc2\"\n  },\n  {\n   \"level\": \"3-methylisoxazole\",\n   \"smiles\": \"Cc1ccon1\"\n  },\n  {\n   \"level\": \"3-phenylisoxazole\",\n   \"smiles\": \"o1ccc(n1)c2ccccc2\"\n  },\n  {\n   \"level\": \"4-phenylisoxazole\",\n   \"smiles\": \"o1cc(cn1)c2ccccc2\"\n  },\n  {\n   \"level\": \"5-(2,6-difluorophenyl)isoxazole\",\n   \"smiles\": \"Fc1cccc(F)c1c2oncc2\"\n  },\n  {\n   \"level\": \"5-Phenyl-1,2,4-oxadiazole\",\n   \"smiles\": \"c1ccc(-c2ncno2)cc1\"\n  },\n  {\n   \"level\": \"5-methyl-3-(1H-pyrrol-1-yl)isoxazole\",\n   \"smiles\": \"Cc1onc(c1)n2cccc2\"\n  },\n  {\n   \"level\": \"5-methylisoxazole\",\n   \"smiles\": \"Cc1oncc1\"\n  },\n  {\n   \"level\": \"5-phenylisoxazole\",\n   \"smiles\": \"o1nccc1c2ccccc2\"\n  },\n  {\n   \"level\": \"N,N-dibenzylisoxazol-3-amine\",\n   \"smiles\": \"C(N(Cc1ccccc1)c2ccon2)c3ccccc3\"\n  },\n  {\n   \"level\": \"N,N-dibenzylisoxazol-5-amine\",\n   \"smiles\": \"C(N(Cc1ccccc1)c2oncc2)c3ccccc3\"\n  },\n  {\n   \"level\": \"benzo[c]isoxazole\",\n   \"smiles\": \"o1cc2ccccc2n1\"\n  },\n  {\n   \"level\": \"benzo[d]isoxazole\",\n   \"smiles\": \"o1ncc2ccccc12\"\n  },\n  {\n   \"level\": \"ethyl-3-methoxyisoxazole-5-carboxylate\",\n   \"smiles\": \"CCOC(=O)c1onc(OC)c1\"\n  },\n  {\n   \"level\": \"ethyl-3-methylisoxazole-5-carboxylate\",\n   \"smiles\": \"CCOC(=O)c1onc(C)c1\"\n  },\n  {\n   \"level\": \"ethyl-5-methylisoxazole-3-carboxylate\",\n   \"smiles\": \"CCOC(=O)c1cc(C)on1\"\n  },\n  {\n   \"level\": \"ethyl-5-methylisoxazole-4-carboxylate\",\n   \"smiles\": \"CCOC(=O)c1cnoc1C\"\n  },\n  {\n   \"level\": \"ethyl-isoxazole-3-carboxylate\",\n   \"smiles\": \"CCOC(=O)c1ccon1\"\n  },\n  {\n   \"level\": \"ethyl-isoxazole-4-carboxylate\",\n   \"smiles\": \"CCOC(=O)c1conc1\"\n  },\n  {\n   \"level\": \"methyl-5-(furan-2-yl)isoxazole-3-carboxylate\",\n   \"smiles\": \"COC(=O)c1cc(on1)c2occc2\"\n  },\n  {\n   \"level\": \"methyl-5-(thiophen-2-yl)isoxazole-3-carboxylate\",\n   \"smiles\": \"COC(=O)c1cc(on1)c2sccc2\"\n  },\n  {\n   \"level\": \"methyl-isoxazole-5-carboxylate\",\n   \"smiles\": \"COC(=O)c1oncc1\"\n  }\n ]\n}\n\nAufgabe: Formuliere 6 bis 12 überprüfbare Hypothesen, welche Faktorstufen die Ausbeute erhöhen oder senken.\nDu kennst keine Messwerte. Stütze dich nur auf chemisches Vorwissen und die Angaben oben.\n\nAntworte ausschließlich mit JSON in genau diesem Format, ohne weiteren Text:\n{\"hypotheses\": [\n  {\"id\": \"H1\", \"text\": \"<ein Satz mit Begründung>\", \"effect\": {\"<faktor>=<stufe>\": <zahl>, ...}},\n  ...\n]}\nRegeln für \"effect\":\n- Schlüssel exakt als \"<faktor>=<stufe>\" mit faktor aus {ligand, base, aryl_halide, additive} und einer Stufe aus der Liste oben.\n- Zahl = erwartete Änderung der Ausbeute in Standardabweichungen gegenüber dem Durchschnitt, zwischen -2 und 2.\n- Eine Hypothese darf mehrere Stufen umfassen (z. B. alle Arylchloride negativ).\n",
+ "raw_response": "{\"hypotheses\": [\n  {\"id\": \"H1\", \"text\": \"Arylchloride senken die Ausbeute, weil die oxidative Addition der starken C-Cl-Bindung bei nur 60 °C mit einer milden organischen Base geschwindigkeitsbestimmend und langsam ist.\", \"effect\": {\"aryl_halide=1-chloro-4-(trifluoromethyl)benzene\": -1.0, \"aryl_halide=1-chloro-4-ethylbenzene\": -1.5, \"aryl_halide=1-chloro-4-methoxybenzene\": -1.6, \"aryl_halide=2-chloropyridine\": -1.2, \"aryl_halide=3-chloropyridine\": -1.0}},\n  {\"id\": \"H2\", \"text\": \"Arylbromide und -iodide erhöhen die Ausbeute gegenüber dem Mittel, weil ihre schwächeren C-X-Bindungen eine schnelle oxidative Addition ermöglichen.\", \"effect\": {\"aryl_halide=1-bromo-4-(trifluoromethyl)benzene\": 0.9, \"aryl_halide=1-bromo-4-ethylbenzene\": 0.5, \"aryl_halide=1-iodo-4-(trifluoromethyl)benzene\": 0.8, \"aryl_halide=1-ethyl-4-iodobenzene\": 0.5, \"aryl_halide=3-bromopyridine\": 0.5, \"aryl_halide=3-iodopyridine\": 0.5}},\n  {\"id\": \"H3\", \"text\": \"Elektronenreiche Arylhalogenide (4-Methoxy) liefern geringere Ausbeuten als elektronenarme (4-CF3), da Elektronendonoren die oxidative Addition verlangsamen.\", \"effect\": {\"aryl_halide=1-bromo-4-methoxybenzene\": -0.3, \"aryl_halide=1-iodo-4-methoxybenzene\": -0.2, \"aryl_halide=1-bromo-4-(trifluoromethyl)benzene\": 0.4, \"aryl_halide=1-iodo-4-(trifluoromethyl)benzene\": 0.4}},\n  {\"id\": \"H4\", \"text\": \"2-Halogenpyridine senken die Ausbeute, weil der benachbarte Pyridin-Stickstoff nach oxidativer Addition stabile, chelatisierte bzw. verbrückte Pd-Spezies bildet, die den Katalysezyklus hemmen.\", \"effect\": {\"aryl_halide=2-bromopyridine\": -0.8, \"aryl_halide=2-iodopyridine\": -0.7, \"aryl_halide=2-chloropyridine\": -0.6}},\n  {\"id\": \"H5\", \"text\": \"Die sperrigen Liganden AdBrettPhos und t-BuXPhos erhöhen die Ausbeute, da sie monoligierte, reaktive L1Pd(0)-Spezies stabilisieren und die reduktive Eliminierung beschleunigen.\", \"effect\": {\"ligand=AdBrettPhos\": 0.5, \"ligand=t-BuXPhos\": 0.6, \"ligand=t-BuBrettPhos\": 0.2}},\n  {\"id\": \"H6\", \"text\": \"XPhos senkt die Ausbeute, weil der weniger sperrige, weniger elektronenreiche Dicyclohexylphosphin-Ligand mit primären Anilinen und schwachen Basen bei 60 °C eine weniger aktive Katalyse ergibt.\", \"effect\": {\"ligand=XPhos\": -0.9}},\n  {\"id\": \"H7\", \"text\": \"Die stärkeren Basen P2Et und BTMG erhöhen die Ausbeute gegenüber MTBD, da sie die Deprotonierung des Pd-gebundenen Amins effizienter bewirken.\", \"effect\": {\"base=P2Et\": 0.5, \"base=BTMG\": 0.4, \"base=MTBD\": -0.8}},\n  {\"id\": \"H8\", \"text\": \"Isoxazole mit elektronenziehenden Estergruppen senken die Ausbeute, weil ihre geschwächte N-O-Bindung oxidativ an Pd(0) addieren kann und so Katalysator verbraucht wird.\", \"effect\": {\"additive=ethyl-isoxazole-3-carboxylate\": -0.6, \"additive=ethyl-isoxazole-4-carboxylate\": -0.5, \"additive=ethyl-5-methylisoxazole-3-carboxylate\": -0.5, \"additive=ethyl-5-methylisoxazole-4-carboxylate\": -0.4, \"additive=ethyl-3-methylisoxazole-5-carboxylate\": -0.6, \"additive=ethyl-3-methoxyisoxazole-5-carboxylate\": -0.5, \"additive=methyl-isoxazole-5-carboxylate\": -0.7, \"additive=methyl-5-(furan-2-yl)isoxazole-3-carboxylate\": -0.4, \"additive=methyl-5-(thiophen-2-yl)isoxazole-3-carboxylate\": -0.5}},\n  {\"id\": \"H9\", \"text\": \"Isoxazole mit unsubstituierter C3-H-Position (5-substituiert) senken die Ausbeute, da sie unter Basenbedingungen zu Cyanoenolaten ringöffnen können, die an Pd koordinieren und es vergiften.\", \"effect\": {\"additive=5-methylisoxazole\": -0.4, \"additive=5-phenylisoxazole\": -0.4, \"additive=5-(2,6-difluorophenyl)isoxazole\": -0.5, \"additive=N,N-dibenzylisoxazol-5-amine\": -0.2, \"additive=benzo[d]isoxazole\": -0.6}},\n  {\"id\": \"H10\", \"text\": \"Sterisch abgeschirmte, elektronenreiche 3,5-disubstituierte Isoxazole stören kaum und liefern überdurchschnittliche Ausbeuten, weil ihre N-O-Bindung schwer zugänglich und wenig aktiviert ist.\", \"effect\": {\"additive=3,5-dimethylisoxazole\": 0.5, \"additive=3-methyl-5-phenylisoxazole\": 0.4, \"additive=5-methyl-3-(1H-pyrrol-1-yl)isoxazole\": 0.4, \"additive=N,N-dibenzylisoxazol-3-amine\": 0.4, \"additive=3-methylisoxazole\": 0.3, \"additive=3-phenylisoxazole\": 0.3}},\n  {\"id\": \"H11\", \"text\": \"Benzo[c]isoxazol (Anthranil) senkt die Ausbeute, da seine sehr labile N-O-Bindung leicht an Pd(0) addiert bzw. als Aminierungs-Elektrophil mit Konkurrenzreaktionen wirkt.\", \"effect\": {\"additive=benzo[c]isoxazole\": -0.7}},\n  {\"id\": \"H12\", \"text\": \"5-Phenyl-1,2,4-oxadiazol ist ein weniger koordinierendes und gegen Pd(0) robusteres Additiv und senkt die Ausbeute kaum, sodass es leicht überdurchschnittlich abschneidet.\", \"effect\": {\"additive=5-Phenyl-1,2,4-oxadiazole\": 0.2, \"additive=4-phenylisoxazole\": 0.2}}\n]}\n",
+ "hypotheses": [
+  {
+   "id": "named-H1",
+   "text": "Arylchloride senken die Ausbeute, weil die oxidative Addition der starken C-Cl-Bindung bei nur 60 °C mit einer milden organischen Base geschwindigkeitsbestimmend und langsam ist.",
+   "effect": {
+    "aryl_halide=1-chloro-4-(trifluoromethyl)benzene": -1.0,
+    "aryl_halide=1-chloro-4-ethylbenzene": -1.5,
+    "aryl_halide=1-chloro-4-methoxybenzene": -1.6,
+    "aryl_halide=2-chloropyridine": -1.2,
+    "aryl_halide=3-chloropyridine": -1.0
+   },
+   "status": "offen",
+   "view": "named",
+   "meta": {}
+  },
+  {
+   "id": "named-H2",
+   "text": "Arylbromide und -iodide erhöhen die Ausbeute gegenüber dem Mittel, weil ihre schwächeren C-X-Bindungen eine schnelle oxidative Addition ermöglichen.",
+   "effect": {
+    "aryl_halide=1-bromo-4-(trifluoromethyl)benzene": 0.9,
+    "aryl_halide=1-bromo-4-ethylbenzene": 0.5,
+    "aryl_halide=1-iodo-4-(trifluoromethyl)benzene": 0.8,
+    "aryl_halide=1-ethyl-4-iodobenzene": 0.5,
+    "aryl_halide=3-bromopyridine": 0.5,
+    "aryl_halide=3-iodopyridine": 0.5
+   },
+   "status": "offen",
+   "view": "named",
+   "meta": {}
+  },
+  {
+   "id": "named-H3",
+   "text": "Elektronenreiche Arylhalogenide (4-Methoxy) liefern geringere Ausbeuten als elektronenarme (4-CF3), da Elektronendonoren die oxidative Addition verlangsamen.",
+   "effect": {
+    "aryl_halide=1-bromo-4-methoxybenzene": -0.3,
+    "aryl_halide=1-iodo-4-methoxybenzene": -0.2,
+    "aryl_halide=1-bromo-4-(trifluoromethyl)benzene": 0.4,
+    "aryl_halide=1-iodo-4-(trifluoromethyl)benzene": 0.4
+   },
+   "status": "offen",
+   "view": "named",
+   "meta": {}
+  },
+  {
+   "id": "named-H4",
+   "text": "2-Halogenpyridine senken die Ausbeute, weil der benachbarte Pyridin-Stickstoff nach oxidativer Addition stabile, chelatisierte bzw. verbrückte Pd-Spezies bildet, die den Katalysezyklus hemmen.",
+   "effect": {
+    "aryl_halide=2-bromopyridine": -0.8,
+    "aryl_halide=2-iodopyridine": -0.7,
+    "aryl_halide=2-chloropyridine": -0.6
+   },
+   "status": "offen",
+   "view": "named",
+   "meta": {}
+  },
+  {
+   "id": "named-H5",
+   "text": "Die sperrigen Liganden AdBrettPhos und t-BuXPhos erhöhen die Ausbeute, da sie monoligierte, reaktive L1Pd(0)-Spezies stabilisieren und die reduktive Eliminierung beschleunigen.",
+   "effect": {
+    "ligand=AdBrettPhos": 0.5,
+    "ligand=t-BuXPhos": 0.6,
+    "ligand=t-BuBrettPhos": 0.2
+   },
+   "status": "offen",
+   "view": "named",
+   "meta": {}
+  },
+  {
+   "id": "named-H6",
+   "text": "XPhos senkt die Ausbeute, weil der weniger sperrige, weniger elektronenreiche Dicyclohexylphosphin-Ligand mit primären Anilinen und schwachen Basen bei 60 °C eine weniger aktive Katalyse ergibt.",
+   "effect": {
+    "ligand=XPhos": -0.9
+   },
+   "status": "offen",
+   "view": "named",
+   "meta": {}
+  },
+  {
+   "id": "named-H7",
+   "text": "Die stärkeren Basen P2Et und BTMG erhöhen die Ausbeute gegenüber MTBD, da sie die Deprotonierung des Pd-gebundenen Amins effizienter bewirken.",
+   "effect": {
+    "base=P2Et": 0.5,
+    "base=BTMG": 0.4,
+    "base=MTBD": -0.8
+   },
+   "status": "offen",
+   "view": "named",
+   "meta": {}
+  },
+  {
+   "id": "named-H8",
+   "text": "Isoxazole mit elektronenziehenden Estergruppen senken die Ausbeute, weil ihre geschwächte N-O-Bindung oxidativ an Pd(0) addieren kann und so Katalysator verbraucht wird.",
+   "effect": {
+    "additive=ethyl-isoxazole-3-carboxylate": -0.6,
+    "additive=ethyl-isoxazole-4-carboxylate": -0.5,
+    "additive=ethyl-5-methylisoxazole-3-carboxylate": -0.5,
+    "additive=ethyl-5-methylisoxazole-4-carboxylate": -0.4,
+    "additive=ethyl-3-methylisoxazole-5-carboxylate": -0.6,
+    "additive=ethyl-3-methoxyisoxazole-5-carboxylate": -0.5,
+    "additive=methyl-isoxazole-5-carboxylate": -0.7,
+    "additive=methyl-5-(furan-2-yl)isoxazole-3-carboxylate": -0.4,
+    "additive=methyl-5-(thiophen-2-yl)isoxazole-3-carboxylate": -0.5
+   },
+   "status": "offen",
+   "view": "named",
+   "meta": {}
+  },
+  {
+   "id": "named-H9",
+   "text": "Isoxazole mit unsubstituierter C3-H-Position (5-substituiert) senken die Ausbeute, da sie unter Basenbedingungen zu Cyanoenolaten ringöffnen können, die an Pd koordinieren und es vergiften.",
+   "effect": {
+    "additive=5-methylisoxazole": -0.4,
+    "additive=5-phenylisoxazole": -0.4,
+    "additive=5-(2,6-difluorophenyl)isoxazole": -0.5,
+    "additive=N,N-dibenzylisoxazol-5-amine": -0.2,
+    "additive=benzo[d]isoxazole": -0.6
+   },
+   "status": "offen",
+   "view": "named",
+   "meta": {}
+  },
+  {
+   "id": "named-H10",
+   "text": "Sterisch abgeschirmte, elektronenreiche 3,5-disubstituierte Isoxazole stören kaum und liefern überdurchschnittliche Ausbeuten, weil ihre N-O-Bindung schwer zugänglich und wenig aktiviert ist.",
+   "effect": {
+    "additive=3,5-dimethylisoxazole": 0.5,
+    "additive=3-methyl-5-phenylisoxazole": 0.4,
+    "additive=5-methyl-3-(1H-pyrrol-1-yl)isoxazole": 0.4,
+    "additive=N,N-dibenzylisoxazol-3-amine": 0.4,
+    "additive=3-methylisoxazole": 0.3,
+    "additive=3-phenylisoxazole": 0.3
+   },
+   "status": "offen",
+   "view": "named",
+   "meta": {}
+  },
+  {
+   "id": "named-H11",
+   "text": "Benzo[c]isoxazol (Anthranil) senkt die Ausbeute, da seine sehr labile N-O-Bindung leicht an Pd(0) addiert bzw. als Aminierungs-Elektrophil mit Konkurrenzreaktionen wirkt.",
+   "effect": {
+    "additive=benzo[c]isoxazole": -0.7
+   },
+   "status": "offen",
+   "view": "named",
+   "meta": {}
+  },
+  {
+   "id": "named-H12",
+   "text": "5-Phenyl-1,2,4-oxadiazol ist ein weniger koordinierendes und gegen Pd(0) robusteres Additiv und senkt die Ausbeute kaum, sodass es leicht überdurchschnittlich abschneidet.",
+   "effect": {
+    "additive=5-Phenyl-1,2,4-oxadiazole": 0.2,
+    "additive=4-phenylisoxazole": 0.2
+   },
+   "status": "offen",
+   "view": "named",
+   "meta": {}
+  }
+ ]
+}
