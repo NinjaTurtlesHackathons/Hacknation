@@ -665,8 +665,26 @@
    "neuheit": 0.7,
    "machbarkeit": 0.7,
    "id": "F10",
-   "status": "offen",
+   "status": "beantwortet",
    "aus_runde": 2
+  },
+  {
+   "frage": "Ab welchem p ist die NPA-Stufe 1+AB für a=b=[p,0] nicht mehr scharf, und wie groß ist die Lücke gegenüber dem See-saw-Wert bei d=2? Zeigt Stufe 2 oder 2+AAB bei p=0,7, 0,8 und 0,9 per 'luecke_npa' (1+AB) und 'quantenwert' (Stufe 2) eine geschlossene Schranke, und reichen Qubits (d=2 gegen d=3, 4)?",
+   "begruendung": "Der letzte Lauf zeigte, dass 1+AB ab p=0,7 über dem See-saw-Wert liegt (3,4327 gegenüber einem kleineren Wert). Ohne Klärung, ob die Lücke von der Hierarchiestufe oder von einer zu kleinen Dimension kommt, ist jeder 'formel'-Prüfauftrag aussichtslos, da er zweiseitigen Beweis an allen Stützstellen verlangt. Die Frage trennt beide Ursachen: Stufe 2 oder 2+AAB zeigen, ob die Schranke enger wird, d=3..4 zeigen, ob Qubits ausreichen.",
+   "neuheit": 0.6,
+   "machbarkeit": 0.85,
+   "id": "F11",
+   "status": "offen",
+   "aus_runde": 3
+  },
+  {
+   "frage": "Gilt für die Familie a=b=[p,0] mit p aus {0,1; 0,2; 0,3; 0,4; 0,5; 0,6} (dort ist 1+AB scharf) eine geschlossene Form? Teste per Fit und scan, ob Q(p)² bzw. Q(p) einer algebraischen Gleichung genügt (z. B. Ansatz Q² = 8 + c1·p² + c2·p⁴ oder eine Wurzel aus einem Polynom in p) und prüfe das Ergebnis mit dem Prüfertyp 'formel' auf diesem Bereich.",
+   "begruendung": "Der einfache Fit Q² = 8 + c·p² ist gescheitert, die zweiten Differenzen von Q² sind nicht null, aber fast konstant (0,0478 und 0,0466). Q² ist also fast, aber nicht exakt quadratisch in p. Ein Ansatz mit p⁴-Term oder eine Lösung einer Gleichung höheren Grades kann das erklären. Auf dem Bereich, in dem 1+AB scharf ist, sind zweiseitige Beweise möglich, sodass ein gültiger 'formel'-Nachweis dort erreichbar ist. Bei p=0 ergibt sich CHSH mit Q=2√2, bei p=0,5 der geprüfte Wert 3,13693731. Beides dient als Ankerpunkt.",
+   "neuheit": 0.7,
+   "machbarkeit": 0.6,
+   "id": "F12",
+   "status": "offen",
+   "aus_runde": 3
   }
  ],
  "claims": [
@@ -874,6 +892,109 @@
     }
    ],
    "runde": 2
+  },
+  {
+   "id": "bell-R3",
+   "frage": "Lässt sich Q(p) für die Familie a=b=[p,0] in geschlossener Form angeben (Prüfertyp 'formel')? Dazu Q an mindestens 5 rationalen p in [0.5, 0.95] zweiseitig beweisen, mit See-saw d=2 und NPA 1+AB, und Kandidaten wie sqrt(8+...)-artige Ausdrücke in p per Fit testen. Die Gegenprobe ist ein Vergleich mit dem bekannten Ergebnis bei p=1/2 (Q = 3.13693731) und mit d=3, um zu sehen, ob Qubits reichen.",
+   "text": "Der maximale Quantenwert von {\"korrelator\": {\"a\": [\"1/2\", 0], \"b\": [\"1/2\", 0], \"c\": [[1, 1], [1, -1]], \"konst\": 0}} ist Q = 3.136937311 bis auf 1e-6, zweiseitig zertifiziert (explizite Strategie und NPA-Dualzertifikat).",
+   "interpretation_ungeprueft": "unbekannt",
+   "pruefung": {
+    "typ": "quantenwert",
+    "ungleichung": {
+     "korrelator": {
+      "a": [
+       "1/2",
+       0
+      ],
+      "b": [
+       "1/2",
+       0
+      ],
+      "c": [
+       [
+        1,
+        1
+       ],
+       [
+        1,
+        -1
+       ]
+      ],
+      "konst": 0
+     }
+    },
+    "wert": 3.136937311
+   },
+   "grund": "Prüfer: 3.13693731130907 <= Q <= 3.13693732592937 (Lücke 1.46e-08, Strategie d=2, NPA 1+AB); bewiesen",
+   "level": "computed_rigorous",
+   "status": "bestätigt",
+   "red_team": [
+    {
+     "pruefung": {
+      "typ": "quanten_untere_schranke",
+      "ungleichung": {
+       "korrelator": {
+        "a": [
+         "1/2",
+         0
+        ],
+        "b": [
+         "1/2",
+         0
+        ],
+        "c": [
+         [
+          1,
+          1
+         ],
+         [
+          1,
+          -1
+         ]
+        ],
+        "konst": 0
+       }
+      },
+      "wert": 3.13694
+     },
+     "idee": "Der einzige als belegt angegebene Wert ist Q(1/2) = 3.136937311. Wenn eine Quantenstrategie, etwa mit d=3 oder mit komplexen Amplituden, einen Bell-Wert ≥ 3.13694 erreicht, dann ist dieser Wert zu klein und die Aussage 'Qubits reichen' falsch. Die Prüfung besteht nur, wenn das wahre Q echt größer ist als der behauptete Wert.",
+     "bestanden": false,
+     "grund": "Prüfer: eigene See-saw-Strategie Sb96804e9cb93 (d=2), exakter rationaler Bell-Wert = 3.13693731130907"
+    },
+    {
+     "pruefung": {
+      "typ": "quanten_obere_schranke",
+      "ungleichung": {
+       "korrelator": {
+        "a": [
+         "1/2",
+         0
+        ],
+        "b": [
+         "1/2",
+         0
+        ],
+        "c": [
+         [
+          1,
+          1
+         ],
+         [
+          1,
+          -1
+         ]
+        ],
+        "konst": 0
+       }
+      },
+      "wert": 3.13692
+     },
+     "idee": "Gegenrichtung: Wenn Q(1/2) tatsächlich unter 3.13692 liegt, ist der angegebene Wert 3.136937311 zu hoch und der Wert bei p=1/2 falsch. Das würde auch den Fit und die Folgerung zu 'keine geschlossene Form' infrage stellen, weil die Datenbasis nicht stimmt. Die Prüfung besteht nur, wenn die NPA-Obergrenze unter dem behaupteten Q liegt.",
+     "bestanden": false,
+     "grund": "Prüfer: NPA-Stufe 2+AAB, rational zertifizierte obere Schranke 3.13693731768845 (1+AB: 3.13693732593; 2: 3.13693731981; 2+AAB: 3.13693731769)"
+    }
+   ],
+   "runde": 3
   }
  ],
  "widerlegt": [],
@@ -1020,7 +1141,79 @@
     }
    ],
    "sek": 365.1
+  },
+  {
+   "runde": 3,
+   "frage": "F10",
+   "status": "beantwortet",
+   "red_team": [
+    {
+     "pruefung": {
+      "typ": "quanten_untere_schranke",
+      "ungleichung": {
+       "korrelator": {
+        "a": [
+         "1/2",
+         0
+        ],
+        "b": [
+         "1/2",
+         0
+        ],
+        "c": [
+         [
+          1,
+          1
+         ],
+         [
+          1,
+          -1
+         ]
+        ],
+        "konst": 0
+       }
+      },
+      "wert": 3.13694
+     },
+     "idee": "Der einzige als belegt angegebene Wert ist Q(1/2) = 3.136937311. Wenn eine Quantenstrategie, etwa mit d=3 oder mit komplexen Amplituden, einen Bell-Wert ≥ 3.13694 erreicht, dann ist dieser Wert zu klein und die Aussage 'Qubits reichen' falsch. Die Prüfung besteht nur, wenn das wahre Q echt größer ist als der behauptete Wert.",
+     "bestanden": false,
+     "grund": "Prüfer: eigene See-saw-Strategie Sb96804e9cb93 (d=2), exakter rationaler Bell-Wert = 3.13693731130907"
+    },
+    {
+     "pruefung": {
+      "typ": "quanten_obere_schranke",
+      "ungleichung": {
+       "korrelator": {
+        "a": [
+         "1/2",
+         0
+        ],
+        "b": [
+         "1/2",
+         0
+        ],
+        "c": [
+         [
+          1,
+          1
+         ],
+         [
+          1,
+          -1
+         ]
+        ],
+        "konst": 0
+       }
+      },
+      "wert": 3.13692
+     },
+     "idee": "Gegenrichtung: Wenn Q(1/2) tatsächlich unter 3.13692 liegt, ist der angegebene Wert 3.136937311 zu hoch und der Wert bei p=1/2 falsch. Das würde auch den Fit und die Folgerung zu 'keine geschlossene Form' infrage stellen, weil die Datenbasis nicht stimmt. Die Prüfung besteht nur, wenn die NPA-Obergrenze unter dem behaupteten Q liegt.",
+     "bestanden": false,
+     "grund": "Prüfer: NPA-Stufe 2+AAB, rational zertifizierte obere Schranke 3.13693731768845 (1+AB: 3.13693732593; 2: 3.13693731981; 2+AAB: 3.13693731769)"
+    }
+   ],
+   "sek": 525.2
   }
  ],
- "kosten_usd": 1.619723
+ "kosten_usd": 2.2279809999999998
 }

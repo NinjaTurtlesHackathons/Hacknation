@@ -1,0 +1,2404 @@
+{
+ "antwort": {
+  "antwort": "unbekannt",
+  "zahl": null,
+  "konfidenz": 0.2,
+  "pruefung": {
+   "typ": "quantenwert",
+   "ungleichung": {
+    "korrelator": {
+     "a": [
+      "1/2",
+      0
+     ],
+     "b": [
+      "1/2",
+      0
+     ],
+     "c": [
+      [
+       1,
+       1
+      ],
+      [
+       1,
+       -1
+      ]
+     ],
+     "konst": 0
+    }
+   },
+   "wert": 3.136937311
+  },
+  "begruendung": "Ich habe keine geschlossene Form für Q(p) gefunden. Der Fit 'Q² = 8 + c·p²' scheitert, denn (Q²−8)/p² liegt bei p=0,5 bei 7,36 und bei p=0,6 bei 7,54 und ist damit nicht konstant. Auch Q² ist nicht exakt quadratisch in p, die zweiten Differenzen liegen bei 0,0478 und 0,0466. Die Stufe 1+AB ist nur für p≤0,65 scharf. Ab p=0,7 liegt sie über dem See-saw-Wert (3,4327 gegenüber 3,4323), und erst Stufe 2 schließt die Lücke bis auf ca. 2e-8. Qutrits bringen nichts, denn d=3 ergibt bei allen geprüften p dieselben Werte wie d=2, also reichen Qubits. Belegt ist daher nur der Wert bei p=1/2, den ich als Prüfung angebe.",
+  "stimmen": "Stufe 3/4 (skeptiker, sonnet)"
+ },
+ "level": "computed (Code-Prüfer bestanden)",
+ "forscher": [
+  {
+   "strategie": "sparsam",
+   "runden": [
+    {
+     "ueberlegung": "Die Familie a=b=[p,0] mit implizierter Struktur c=[[1,1],[1,-1]],konst=0 wird systematisch vermessen. Ziel ist Q(p) für p ∈ [0.5, 0.95] zu charakterisieren und eine geschlossene Formel zu finden. Strategie: (1) Struktur verstehen via beschreibe, (2) Referenzpunkt p=1/2 validieren (sollte L und die bekannte Quantenmarke zeigen), (3) parallel 7 rationale p via Scan messen (See-saw d=2 + NPA 1+AB), um Q-Werte unter und oben einzugrenzen, (4) Dimensionstest d=3 bei p=1/2, um zu prüfen ob Qubits ausreichen. Nach Runde 1 folgt Datenanalyse (Fit-Kandidaten), ggf. zusätzliche Validierungspunkte, dann Formel-Zertifizierung.",
+     "plan": [
+      {
+       "op": "beschreibe",
+       "args": {
+        "ungleichung": {
+         "korrelator": {
+          "a": [
+           "p",
+           0
+          ],
+          "b": [
+           "p",
+           0
+          ],
+          "c": [
+           [
+            1,
+            1
+           ],
+           [
+            1,
+            -1
+           ]
+          ],
+          "konst": 0
+         }
+        }
+       }
+      },
+      {
+       "op": "lokal",
+       "args": {
+        "ungleichung": {
+         "korrelator": {
+          "a": [
+           "1/2",
+           0
+          ],
+          "b": [
+           "1/2",
+           0
+          ],
+          "c": [
+           [
+            1,
+            1
+           ],
+           [
+            1,
+            -1
+           ]
+          ],
+          "konst": 0
+         }
+        }
+       }
+      },
+      {
+       "op": "scan",
+       "args": {
+        "vorlage": {
+         "korrelator": {
+          "a": [
+           "p",
+           0
+          ],
+          "b": [
+           "p",
+           0
+          ],
+          "c": [
+           [
+            1,
+            1
+           ],
+           [
+            1,
+            -1
+           ]
+          ],
+          "konst": 0
+         }
+        },
+        "werte": [
+         "1/2",
+         "3/5",
+         "2/3",
+         "3/4",
+         "4/5",
+         "5/6",
+         "9/10"
+        ],
+        "d": 2,
+        "stufe": "1+AB"
+       }
+      },
+      {
+       "op": "seesaw",
+       "args": {
+        "ungleichung": {
+         "korrelator": {
+          "a": [
+           "1/2",
+           0
+          ],
+          "b": [
+           "1/2",
+           0
+          ],
+          "c": [
+           [
+            1,
+            1
+           ],
+           [
+            1,
+            -1
+           ]
+          ],
+          "konst": 0
+         }
+        },
+        "d": 3,
+        "starts": 20,
+        "seed": 12345
+       }
+      }
+     ]
+    },
+    {
+     "plan": [
+      {
+       "op": "scan",
+       "vorlage": {
+        "korrelator": {
+         "a": [
+          "p",
+          0
+         ],
+         "b": [
+          "p",
+          0
+         ],
+         "c": [
+          [
+           1,
+           1
+          ],
+          [
+           1,
+           -1
+          ]
+         ],
+         "konst": 0
+        }
+       },
+       "werte": [
+        "0.50",
+        "0.55",
+        "0.60",
+        "0.65",
+        "0.70",
+        "0.75",
+        "0.80",
+        "0.85",
+        "0.90",
+        "0.95"
+       ],
+       "d": 2,
+       "stufe": "1+AB"
+      }
+     ]
+    },
+    {
+     "antwort": "unbekannt",
+     "zahl": null,
+     "konfidenz": 0.0,
+     "begruendung": "Die verfügbaren Daten (E2: d=2, E3: p=1/2,d=3) sind noch unzureichend für eine gesicherte Fitformel. Mehrere kritische Fragen bleiben offen: (1) Reichen Qubits (d=2) für alle p≥3/5, oder braucht man d≥3? (2) Ist NPA 1+AB scharf, oder sind die sichtbaren Lücken (>1e-4 bei p≥2/3) fundamental? (3) Der funktionale Ansatz Q(p)=sqrt(...) oder Q(p)=2p+2+f(p) lässt sich mit nur 6 zertifizierten Punkten nicht eindeutig fitten.",
+     "pruefungen": [
+      {
+       "typ": "quanten_untere_schranke",
+       "ungleichung": {
+        "korrelator": {
+         "a": [
+          "3/5",
+          0
+         ],
+         "b": [
+          "3/5",
+          0
+         ],
+         "c": [
+          [
+           1,
+           1
+          ],
+          [
+           1,
+           -1
+          ]
+         ],
+         "konst": 0
+        }
+       },
+       "wert": 3.2734498848886444,
+       "strategie_id": "Sd41e9cc0cc6a",
+       "begründung": "See-saw d=2 aus E2 verknüpfen"
+      },
+      {
+       "typ": "quanten_obere_schranke",
+       "ungleichung": {
+        "korrelator": {
+         "a": [
+          "3/5",
+          0
+         ],
+         "b": [
+          "3/5",
+          0
+         ],
+         "c": [
+          [
+           1,
+           1
+          ],
+          [
+           1,
+           -1
+          ]
+         ],
+         "konst": 0
+        }
+       },
+       "wert": 3.2734498610500626,
+       "begründung": "NPA 1+AB aus E2"
+      },
+      {
+       "typ": "quanten_untere_schranke",
+       "ungleichung": {
+        "korrelator": {
+         "a": [
+          "1/2",
+          0
+         ],
+         "b": [
+          "1/2",
+          0
+         ],
+         "c": [
+          [
+           1,
+           1
+          ],
+          [
+           1,
+           -1
+          ]
+         ],
+         "konst": 0
+        }
+       },
+       "wert": 3.1369373113090733,
+       "strategie_id": "S98a423eb7eac",
+       "begründung": "See-saw d=3 aus E3: gleicher Wert wie d=2, Qubits reichen für p=1/2"
+      }
+     ],
+     "plan_fuer_geschlossene_form": {
+      "status": "unvollständig",
+      "erkenntnisse": [
+       "E2 zeigt Q(p) für p∈{1/2, 3/5, 2/3, 3/4, 4/5, 5/6, 9/10} mit d=2, NPA 1+AB",
+       "E3 bestätigt: d=2 ist für p=1/2 optimal (identisch mit d=3)",
+       "L(p)=2p+2 (klassische Schranke, verifiziert aus E1 und E2)",
+       "Lücken zwischen See-saw und NPA werden für p≥2/3 größer (bis ~1.5e-4), nicht unter 1e-6 Schwelle"
+      ],
+      "folgerung": "Die aktuellen Daten zertifizieren Q(p) zweiseitig (Lücke<1e-6) nur für p∈{1/2, 3/5}; für p≥2/3 ist NPA 1+AB nicht scharf genug oder d=2 nicht optimal. Ohne weitere d≥3 Messungen und/oder höhere NPA-Stufen (2, 2+AAB) ist keine verlässliche Fitformel möglich.",
+      "naechste_schritte_empfohlen": [
+       "See-saw d=3 für p∈{3/4, 4/5} um Dimension-Kompetenz zu prüfen",
+       "NPA Stufe 2 oder 2+AAB für p=1/2 um obere Schranke zu verschärfen",
+       "Erst dann Fitformel in der Form Q(p)=√(ap²+bp+c) oder Q(p)=2p+2+√(k(1−p)) testen"
+      ]
+     }
+    }
+   ],
+   "experimente": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ],
+   "final": {
+    "antwort": "unbekannt",
+    "zahl": null,
+    "konfidenz": 0.0,
+    "begruendung": "Die verfügbaren Daten (E2: d=2, E3: p=1/2,d=3) sind noch unzureichend für eine gesicherte Fitformel. Mehrere kritische Fragen bleiben offen: (1) Reichen Qubits (d=2) für alle p≥3/5, oder braucht man d≥3? (2) Ist NPA 1+AB scharf, oder sind die sichtbaren Lücken (>1e-4 bei p≥2/3) fundamental? (3) Der funktionale Ansatz Q(p)=sqrt(...) oder Q(p)=2p+2+f(p) lässt sich mit nur 6 zertifizierten Punkten nicht eindeutig fitten.",
+    "pruefungen": [
+     {
+      "typ": "quanten_untere_schranke",
+      "ungleichung": {
+       "korrelator": {
+        "a": [
+         "3/5",
+         0
+        ],
+        "b": [
+         "3/5",
+         0
+        ],
+        "c": [
+         [
+          1,
+          1
+         ],
+         [
+          1,
+          -1
+         ]
+        ],
+        "konst": 0
+       }
+      },
+      "wert": 3.2734498848886444,
+      "strategie_id": "Sd41e9cc0cc6a",
+      "begründung": "See-saw d=2 aus E2 verknüpfen"
+     },
+     {
+      "typ": "quanten_obere_schranke",
+      "ungleichung": {
+       "korrelator": {
+        "a": [
+         "3/5",
+         0
+        ],
+        "b": [
+         "3/5",
+         0
+        ],
+        "c": [
+         [
+          1,
+          1
+         ],
+         [
+          1,
+          -1
+         ]
+        ],
+        "konst": 0
+       }
+      },
+      "wert": 3.2734498610500626,
+      "begründung": "NPA 1+AB aus E2"
+     },
+     {
+      "typ": "quanten_untere_schranke",
+      "ungleichung": {
+       "korrelator": {
+        "a": [
+         "1/2",
+         0
+        ],
+        "b": [
+         "1/2",
+         0
+        ],
+        "c": [
+         [
+          1,
+          1
+         ],
+         [
+          1,
+          -1
+         ]
+        ],
+        "konst": 0
+       }
+      },
+      "wert": 3.1369373113090733,
+      "strategie_id": "S98a423eb7eac",
+      "begründung": "See-saw d=3 aus E3: gleicher Wert wie d=2, Qubits reichen für p=1/2"
+     }
+    ],
+    "plan_fuer_geschlossene_form": {
+     "status": "unvollständig",
+     "erkenntnisse": [
+      "E2 zeigt Q(p) für p∈{1/2, 3/5, 2/3, 3/4, 4/5, 5/6, 9/10} mit d=2, NPA 1+AB",
+      "E3 bestätigt: d=2 ist für p=1/2 optimal (identisch mit d=3)",
+      "L(p)=2p+2 (klassische Schranke, verifiziert aus E1 und E2)",
+      "Lücken zwischen See-saw und NPA werden für p≥2/3 größer (bis ~1.5e-4), nicht unter 1e-6 Schwelle"
+     ],
+     "folgerung": "Die aktuellen Daten zertifizieren Q(p) zweiseitig (Lücke<1e-6) nur für p∈{1/2, 3/5}; für p≥2/3 ist NPA 1+AB nicht scharf genug oder d=2 nicht optimal. Ohne weitere d≥3 Messungen und/oder höhere NPA-Stufen (2, 2+AAB) ist keine verlässliche Fitformel möglich.",
+     "naechste_schritte_empfohlen": [
+      "See-saw d=3 für p∈{3/4, 4/5} um Dimension-Kompetenz zu prüfen",
+      "NPA Stufe 2 oder 2+AAB für p=1/2 um obere Schranke zu verschärfen",
+      "Erst dann Fitformel in der Form Q(p)=√(ap²+bp+c) oder Q(p)=2p+2+√(k(1−p)) testen"
+     ]
+    }
+   },
+   "modell": "haiku",
+   "pruefung": {
+    "bestanden": false,
+    "grund": "Prüfer: Strategie Sd41e9cc0cc6a (d=2), exakter rationaler Bell-Wert = 3.27344988488864 | Prüfer: NPA-Stufe 1+AB, rational zertifizierte obere Schranke 3.27344990523753 (1+AB: 3.27344990524; 2: 3.27344991849; 2+AAB: 3.27344991275) | Prüfer: Strategie S98a423eb7eac (d=3), exakter rationaler Bell-Wert = 3.13693731130908"
+   }
+  },
+  {
+   "strategie": "numeriker",
+   "runden": [
+    {
+     "ueberlegung": "Untersuche die parametrische Familie a=b=[p,0], c=[[1,1],[1,-1]] für p ∈ [0.5, 0.95]. Bekannt (bell-R1): Bei p=1/2 ist Q ≈ 3.137, klassisch L unterscheidet sich deutlich. Ziel: Rekonstruiere Q(p) in geschlossener Form durch systematisches Scannen. Strategie: (1) Validiere p=1/2 gegen bell-R1. (2) Scanne 6 rationale p-Werte mit See-saw d=2 und NPA 1+AB, um Q(p) und L(p) zu bestimmen. (3) Teste d=3 an Stichproben, um zu prüfen, ob Qubits ausreichen. (4) Prüfe höhere NPA-Stufen (Stufe 2) zur Bestätigung der Schärfe von 1+AB. Kandidaten-Formeln nach dem Scan: rational, sqrt(a+b*p), Polynome, hyperbolisch. Erwartung: Q(p) ist glatt, möglicherweise mit Quantenverletzung, die gegen p→1 abnimmt.",
+     "plan": [
+      {
+       "op": "beschreibe",
+       "args": {
+        "ungleichung": {
+         "korrelator": {
+          "a": [
+           "1/2",
+           "0"
+          ],
+          "b": [
+           "1/2",
+           "0"
+          ],
+          "c": [
+           [
+            1,
+            1
+           ],
+           [
+            1,
+            -1
+           ]
+          ],
+          "konst": 0
+         }
+        }
+       }
+      },
+      {
+       "op": "lokal",
+       "args": {
+        "ungleichung": {
+         "korrelator": {
+          "a": [
+           "1/2",
+           "0"
+          ],
+          "b": [
+           "1/2",
+           "0"
+          ],
+          "c": [
+           [
+            1,
+            1
+           ],
+           [
+            1,
+            -1
+           ]
+          ],
+          "konst": 0
+         }
+        }
+       }
+      },
+      {
+       "op": "scan",
+       "args": {
+        "vorlage": {
+         "korrelator": {
+          "a": [
+           "p",
+           "0"
+          ],
+          "b": [
+           "p",
+           "0"
+          ],
+          "c": [
+           [
+            1,
+            1
+           ],
+           [
+            1,
+            -1
+           ]
+          ],
+          "konst": 0
+         }
+        },
+        "werte": [
+         "1/2",
+         "3/5",
+         "2/3",
+         "7/10",
+         "4/5",
+         "9/10"
+        ],
+        "d": 2,
+        "stufe": "1+AB"
+       }
+      },
+      {
+       "op": "seesaw",
+       "args": {
+        "ungleichung": {
+         "korrelator": {
+          "a": [
+           "1/2",
+           "0"
+          ],
+          "b": [
+           "1/2",
+           "0"
+          ],
+          "c": [
+           [
+            1,
+            1
+           ],
+           [
+            1,
+            -1
+           ]
+          ],
+          "konst": 0
+         }
+        },
+        "d": 3,
+        "starts": 20,
+        "seed": 42
+       }
+      },
+      {
+       "op": "seesaw",
+       "args": {
+        "ungleichung": {
+         "korrelator": {
+          "a": [
+           "7/10",
+           "0"
+          ],
+          "b": [
+           "7/10",
+           "0"
+          ],
+          "c": [
+           [
+            1,
+            1
+           ],
+           [
+            1,
+            -1
+           ]
+          ],
+          "konst": 0
+         }
+        },
+        "d": 3,
+        "starts": 20,
+        "seed": 43
+       }
+      },
+      {
+       "op": "npa",
+       "args": {
+        "ungleichung": {
+         "korrelator": {
+          "a": [
+           "4/5",
+           "0"
+          ],
+          "b": [
+           "4/5",
+           "0"
+          ],
+          "c": [
+           [
+            1,
+            1
+           ],
+           [
+            1,
+            -1
+           ]
+          ],
+          "konst": 0
+         }
+        },
+        "stufe": "2"
+       }
+      },
+      {
+       "op": "seesaw",
+       "args": {
+        "ungleichung": {
+         "korrelator": {
+          "a": [
+           "3/5",
+           "0"
+          ],
+          "b": [
+           "3/5",
+           "0"
+          ],
+          "c": [
+           [
+            1,
+            1
+           ],
+           [
+            1,
+            -1
+           ]
+          ],
+          "konst": 0
+         }
+        },
+        "d": 3,
+        "starts": 15,
+        "seed": 44
+       }
+      },
+      {
+       "op": "npa",
+       "args": {
+        "ungleichung": {
+         "korrelator": {
+          "a": [
+           "2/3",
+           "0"
+          ],
+          "b": [
+           "2/3",
+           "0"
+          ],
+          "c": [
+           [
+            1,
+            1
+           ],
+           [
+            1,
+            -1
+           ]
+          ],
+          "konst": 0
+         }
+        },
+        "stufe": "2"
+       }
+      }
+     ]
+    },
+    {
+     "plan": [
+      {
+       "op": "npa",
+       "ungleichung": {
+        "korrelator": {
+         "a": [
+          "1/2",
+          "0"
+         ],
+         "b": [
+          "1/2",
+          "0"
+         ],
+         "c": [
+          [
+           1,
+           1
+          ],
+          [
+           1,
+           -1
+          ]
+         ],
+         "konst": 0
+        }
+       },
+       "stufe": "2"
+      },
+      {
+       "op": "npa",
+       "ungleichung": {
+        "korrelator": {
+         "a": [
+          "3/5",
+          "0"
+         ],
+         "b": [
+          "3/5",
+          "0"
+         ],
+         "c": [
+          [
+           1,
+           1
+          ],
+          [
+           1,
+           -1
+          ]
+         ],
+         "konst": 0
+        }
+       },
+       "stufe": "2"
+      },
+      {
+       "op": "npa",
+       "ungleichung": {
+        "korrelator": {
+         "a": [
+          "7/10",
+          "0"
+         ],
+         "b": [
+          "7/10",
+          "0"
+         ],
+         "c": [
+          [
+           1,
+           1
+          ],
+          [
+           1,
+           -1
+          ]
+         ],
+         "konst": 0
+        }
+       },
+       "stufe": "2"
+      },
+      {
+       "op": "npa",
+       "ungleichung": {
+        "korrelator": {
+         "a": [
+          "9/10",
+          "0"
+         ],
+         "b": [
+          "9/10",
+          "0"
+         ],
+         "c": [
+          [
+           1,
+           1
+          ],
+          [
+           1,
+           -1
+          ]
+         ],
+         "konst": 0
+        }
+       },
+       "stufe": "2"
+      }
+     ]
+    },
+    {
+     "antwort": "unbekannt",
+     "zahl": null,
+     "konfidenz": 0.25,
+     "begruendung": "Aus den Daten lässt sich kein eindeutiges Muster erkennen, das auf eine einfache geschlossene Form deutet. Zwar lassen sich vier Punkte zweiseitig zertifizieren (p=1/2,3/5 mit NPA 1+AB; p=2/3,4/5 mit NPA 2), doch Versuche, diese durch elementare Funktionen (Polynome, sqrt-Ausdrücke, (1-p)^α) zu fitten, liefern keine konsistente Formel über alle Punkte. Die fünfte Stelle ist schwierig zu zertifizieren ohne zusätzliche NPA-Stufe-2-Berechnungen.",
+     "pruefungen": [
+      {
+       "typ": "quantenwert",
+       "ungleichung": {
+        "korrelator": {
+         "a": [
+          "1/2",
+          "0"
+         ],
+         "b": [
+          "1/2",
+          "0"
+         ],
+         "c": [
+          [
+           1,
+           1
+          ],
+          [
+           1,
+           -1
+          ]
+         ],
+         "konst": 0
+        }
+       },
+       "wert": 3.136937311
+      },
+      {
+       "typ": "quantenwert",
+       "ungleichung": {
+        "korrelator": {
+         "a": [
+          "3/5",
+          "0"
+         ],
+         "b": [
+          "3/5",
+          "0"
+         ],
+         "c": [
+          [
+           1,
+           1
+          ],
+          [
+           1,
+           -1
+          ]
+         ],
+         "konst": 0
+        }
+       },
+       "wert": 3.273449885
+      },
+      {
+       "typ": "quantenwert",
+       "ungleichung": {
+        "korrelator": {
+         "a": [
+          "2/3",
+          "0"
+         ],
+         "b": [
+          "2/3",
+          "0"
+         ],
+         "c": [
+          [
+           1,
+           1
+          ],
+          [
+           1,
+           -1
+          ]
+         ],
+         "konst": 0
+        }
+       },
+       "wert": 3.377073395
+      },
+      {
+       "typ": "quantenwert",
+       "ungleichung": {
+        "korrelator": {
+         "a": [
+          "4/5",
+          "0"
+         ],
+         "b": [
+          "4/5",
+          "0"
+         ],
+         "c": [
+          [
+           1,
+           1
+          ],
+          [
+           1,
+           -1
+          ]
+         ],
+         "konst": 0
+        }
+       },
+       "wert": 3.609952866
+      },
+      {
+       "typ": "luecke_npa",
+       "ungleichung": {
+        "korrelator": {
+         "a": [
+          "7/10",
+          "0"
+         ],
+         "b": [
+          "7/10",
+          "0"
+         ],
+         "c": [
+          [
+           1,
+           1
+          ],
+          [
+           1,
+           -1
+          ]
+         ],
+         "konst": 0
+        }
+       },
+       "stufe": "1+AB",
+       "mindestens": 0.0005
+      }
+     ]
+    }
+   ],
+   "experimente": [
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16
+   ],
+   "final": {
+    "antwort": "unbekannt",
+    "zahl": null,
+    "konfidenz": 0.25,
+    "begruendung": "Aus den Daten lässt sich kein eindeutiges Muster erkennen, das auf eine einfache geschlossene Form deutet. Zwar lassen sich vier Punkte zweiseitig zertifizieren (p=1/2,3/5 mit NPA 1+AB; p=2/3,4/5 mit NPA 2), doch Versuche, diese durch elementare Funktionen (Polynome, sqrt-Ausdrücke, (1-p)^α) zu fitten, liefern keine konsistente Formel über alle Punkte. Die fünfte Stelle ist schwierig zu zertifizieren ohne zusätzliche NPA-Stufe-2-Berechnungen.",
+    "pruefungen": [
+     {
+      "typ": "quantenwert",
+      "ungleichung": {
+       "korrelator": {
+        "a": [
+         "1/2",
+         "0"
+        ],
+        "b": [
+         "1/2",
+         "0"
+        ],
+        "c": [
+         [
+          1,
+          1
+         ],
+         [
+          1,
+          -1
+         ]
+        ],
+        "konst": 0
+       }
+      },
+      "wert": 3.136937311
+     },
+     {
+      "typ": "quantenwert",
+      "ungleichung": {
+       "korrelator": {
+        "a": [
+         "3/5",
+         "0"
+        ],
+        "b": [
+         "3/5",
+         "0"
+        ],
+        "c": [
+         [
+          1,
+          1
+         ],
+         [
+          1,
+          -1
+         ]
+        ],
+        "konst": 0
+       }
+      },
+      "wert": 3.273449885
+     },
+     {
+      "typ": "quantenwert",
+      "ungleichung": {
+       "korrelator": {
+        "a": [
+         "2/3",
+         "0"
+        ],
+        "b": [
+         "2/3",
+         "0"
+        ],
+        "c": [
+         [
+          1,
+          1
+         ],
+         [
+          1,
+          -1
+         ]
+        ],
+        "konst": 0
+       }
+      },
+      "wert": 3.377073395
+     },
+     {
+      "typ": "quantenwert",
+      "ungleichung": {
+       "korrelator": {
+        "a": [
+         "4/5",
+         "0"
+        ],
+        "b": [
+         "4/5",
+         "0"
+        ],
+        "c": [
+         [
+          1,
+          1
+         ],
+         [
+          1,
+          -1
+         ]
+        ],
+        "konst": 0
+       }
+      },
+      "wert": 3.609952866
+     },
+     {
+      "typ": "luecke_npa",
+      "ungleichung": {
+       "korrelator": {
+        "a": [
+         "7/10",
+         "0"
+        ],
+        "b": [
+         "7/10",
+         "0"
+        ],
+        "c": [
+         [
+          1,
+          1
+         ],
+         [
+          1,
+          -1
+         ]
+        ],
+        "konst": 0
+       }
+      },
+      "stufe": "1+AB",
+      "mindestens": 0.0005
+     }
+    ]
+   },
+   "modell": "haiku",
+   "pruefung": {
+    "bestanden": false,
+    "grund": "Prüfer: 3.13693731130907 <= Q <= 3.13693732592937 (Lücke 1.46e-08, Strategie d=2, NPA 1+AB); bewiesen | Prüfer: 3.27344988488863 <= Q <= 3.27344990523753 (Lücke 2.03e-08, Strategie d=3, NPA 1+AB); bewiesen | Prüfer: 3.37707339501513 <= Q <= 3.37707341656854 (Lücke 2.16e-08, Strategie d=4, NPA 2); bewiesen | Prüfer: 3.60995286572263 <= Q <= 3.60995288016457 (Lücke 1.44e-08, Strategie d=3, NPA 2); bewiesen | Prüfer: NPA-Stufe 1+AB erreicht >= 3.43269913668 (rationale zulässige Momentmatrix), beste eigene Strategie exakt 3.43232408763 (d<=2); Lücke >= 3.750e-04"
+   }
+  },
+  {
+   "strategie": "skeptiker",
+   "runden": [
+    {
+     "ueberlegung": "Plan: Zuerst Scan über 8 rationale p in [0.5,0.95] mit d=2 und NPA 1+AB, um See-saw-Werte und Lücken zu sehen. Hypothese (nicht vorab als wahr angenommen): Q(p) folgt einem sqrt-Ausdruck; Kandidat aus der Literatur (gekippte CHSH, Familie beta*<A1>+<B1>-artig, hier symmetrisch p*(A1+B1)+CHSH). Ich suche Gegenbeispiele: Prüfe, ob d=3 höher liegt als d=2 (dann reichen Qubits nicht), ob NPA 1+AB bei manchen p nicht scharf ist, und ob der Wert bei p=1/2 mit 3.13693731 übereinstimmt (Konsistenz). Danach Fit-Kandidaten an den Daten testen, z. B. Q^2 als rationale/algebraische Funktion in p. Verdacht: bei kleinem p könnte die Struktur anders sein als bei großem p (Phasenübergang, Fallunterscheidung), daher dichte Abtastung und Vergleich von L (stückweise linear) mit Q.",
+     "plan": [
+      {
+       "op": "scan",
+       "args": {
+        "vorlage": {
+         "korrelator": {
+          "a": [
+           "p",
+           0
+          ],
+          "b": [
+           "p",
+           0
+          ],
+          "c": [
+           [
+            1,
+            1
+           ],
+           [
+            1,
+            -1
+           ]
+          ],
+          "konst": 0
+         }
+        },
+        "werte": [
+         "1/2",
+         "11/20",
+         "3/5",
+         "13/20",
+         "7/10",
+         "3/4",
+         "4/5",
+         "17/20"
+        ],
+        "d": 2,
+        "stufe": "1+AB"
+       }
+      },
+      {
+       "op": "scan",
+       "args": {
+        "vorlage": {
+         "korrelator": {
+          "a": [
+           "p",
+           0
+          ],
+          "b": [
+           "p",
+           0
+          ],
+          "c": [
+           [
+            1,
+            1
+           ],
+           [
+            1,
+            -1
+           ]
+          ],
+          "konst": 0
+         }
+        },
+        "werte": [
+         "9/10",
+         "19/20",
+         "1/2",
+         "3/5",
+         "7/10",
+         "4/5"
+        ],
+        "d": 3,
+        "stufe": "1+AB"
+       }
+      },
+      {
+       "op": "scan",
+       "args": {
+        "vorlage": {
+         "korrelator": {
+          "a": [
+           "p",
+           0
+          ],
+          "b": [
+           "p",
+           0
+          ],
+          "c": [
+           [
+            1,
+            1
+           ],
+           [
+            1,
+            -1
+           ]
+          ],
+          "konst": 0
+         }
+        },
+        "werte": [
+         "1/2",
+         "7/10",
+         "19/20"
+        ],
+        "d": 2,
+        "stufe": "2"
+       }
+      },
+      {
+       "op": "seesaw",
+       "args": {
+        "ungleichung": {
+         "korrelator": {
+          "a": [
+           "1/2",
+           0
+          ],
+          "b": [
+           "1/2",
+           0
+          ],
+          "c": [
+           [
+            1,
+            1
+           ],
+           [
+            1,
+            -1
+           ]
+          ],
+          "konst": 0
+         }
+        },
+        "d": 3,
+        "starts": 40,
+        "seed": 1
+       }
+      },
+      {
+       "op": "lokal",
+       "args": {
+        "ungleichung": {
+         "korrelator": {
+          "a": [
+           "7/10",
+           0
+          ],
+          "b": [
+           "7/10",
+           0
+          ],
+          "c": [
+           [
+            1,
+            1
+           ],
+           [
+            1,
+            -1
+           ]
+          ],
+          "konst": 0
+         }
+        }
+       }
+      }
+     ]
+    },
+    {
+     "antwort": "unbekannt",
+     "zahl": null,
+     "konfidenz": 0.2,
+     "pruefung": {
+      "typ": "quantenwert",
+      "ungleichung": {
+       "korrelator": {
+        "a": [
+         "1/2",
+         0
+        ],
+        "b": [
+         "1/2",
+         0
+        ],
+        "c": [
+         [
+          1,
+          1
+         ],
+         [
+          1,
+          -1
+         ]
+        ],
+        "konst": 0
+       }
+      },
+      "wert": 3.136937311
+     },
+     "begruendung": "Ich habe keine geschlossene Form für Q(p) gefunden. Der Fit 'Q² = 8 + c·p²' scheitert, denn (Q²−8)/p² liegt bei p=0,5 bei 7,36 und bei p=0,6 bei 7,54 und ist damit nicht konstant. Auch Q² ist nicht exakt quadratisch in p, die zweiten Differenzen liegen bei 0,0478 und 0,0466. Die Stufe 1+AB ist nur für p≤0,65 scharf. Ab p=0,7 liegt sie über dem See-saw-Wert (3,4327 gegenüber 3,4323), und erst Stufe 2 schließt die Lücke bis auf ca. 2e-8. Qutrits bringen nichts, denn d=3 ergibt bei allen geprüften p dieselben Werte wie d=2, also reichen Qubits. Belegt ist daher nur der Wert bei p=1/2, den ich als Prüfung angebe."
+    }
+   ],
+   "experimente": [
+    17,
+    18,
+    19,
+    20,
+    21
+   ],
+   "final": {
+    "antwort": "unbekannt",
+    "zahl": null,
+    "konfidenz": 0.2,
+    "pruefung": {
+     "typ": "quantenwert",
+     "ungleichung": {
+      "korrelator": {
+       "a": [
+        "1/2",
+        0
+       ],
+       "b": [
+        "1/2",
+        0
+       ],
+       "c": [
+        [
+         1,
+         1
+        ],
+        [
+         1,
+         -1
+        ]
+       ],
+       "konst": 0
+      }
+     },
+     "wert": 3.136937311
+    },
+    "begruendung": "Ich habe keine geschlossene Form für Q(p) gefunden. Der Fit 'Q² = 8 + c·p²' scheitert, denn (Q²−8)/p² liegt bei p=0,5 bei 7,36 und bei p=0,6 bei 7,54 und ist damit nicht konstant. Auch Q² ist nicht exakt quadratisch in p, die zweiten Differenzen liegen bei 0,0478 und 0,0466. Die Stufe 1+AB ist nur für p≤0,65 scharf. Ab p=0,7 liegt sie über dem See-saw-Wert (3,4327 gegenüber 3,4323), und erst Stufe 2 schließt die Lücke bis auf ca. 2e-8. Qutrits bringen nichts, denn d=3 ergibt bei allen geprüften p dieselben Werte wie d=2, also reichen Qubits. Belegt ist daher nur der Wert bei p=1/2, den ich als Prüfung angebe."
+   },
+   "modell": "sonnet",
+   "pruefung": {
+    "bestanden": true,
+    "grund": "Prüfer: 3.13693731130907 <= Q <= 3.13693732592937 (Lücke 1.46e-08, Strategie d=2, NPA 1+AB); bewiesen"
+   }
+  }
+ ],
+ "experimente": [
+  {
+   "id": 0,
+   "wer": "forscher-sparsam",
+   "op": "beschreibe",
+   "args": {
+    "ungleichung": {
+     "korrelator": {
+      "a": [
+       "p",
+       0
+      ],
+      "b": [
+       "p",
+       0
+      ],
+      "c": [
+       [
+        1,
+        1
+       ],
+       [
+        1,
+        -1
+       ]
+      ],
+      "konst": 0
+     }
+    }
+   },
+   "ergebnis": {
+    "fehler": "ValueError: Invalid literal for Fraction: 'p'"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 1,
+   "wer": "forscher-sparsam",
+   "op": "lokal",
+   "args": {
+    "ungleichung": {
+     "korrelator": {
+      "a": [
+       "1/2",
+       0
+      ],
+      "b": [
+       "1/2",
+       0
+      ],
+      "c": [
+       [
+        1,
+        1
+       ],
+       [
+        1,
+        -1
+       ]
+      ],
+      "konst": 0
+     }
+    }
+   },
+   "ergebnis": {
+    "L": "3",
+    "L_float": 3.0,
+    "strategie_A": [
+     1,
+     1
+    ],
+    "strategie_B": [
+     1,
+     1
+    ],
+    "hinweis": "exakt"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 2,
+   "wer": "forscher-sparsam",
+   "op": "scan",
+   "args": {
+    "vorlage": {
+     "korrelator": {
+      "a": [
+       "p",
+       0
+      ],
+      "b": [
+       "p",
+       0
+      ],
+      "c": [
+       [
+        1,
+        1
+       ],
+       [
+        1,
+        -1
+       ]
+      ],
+      "konst": 0
+     }
+    },
+    "werte": [
+     "1/2",
+     "3/5",
+     "2/3",
+     "3/4",
+     "4/5",
+     "5/6",
+     "9/10"
+    ],
+    "d": 2,
+    "stufe": "1+AB"
+   },
+   "ergebnis": {
+    "punkte": [
+     {
+      "p": "1/2",
+      "L": 3.0,
+      "seesaw": 3.136937311309073,
+      "npa": 3.1369372945945018,
+      "strategie_id": "Sccaeda51e98f"
+     },
+     {
+      "p": "3/5",
+      "L": 3.2,
+      "seesaw": 3.2734498848886444,
+      "npa": 3.2734498610500626,
+      "strategie_id": "Sd41e9cc0cc6a"
+     },
+     {
+      "p": "2/3",
+      "L": 3.3333333333333335,
+      "seesaw": 3.3770733950150866,
+      "npa": 3.3771207436867714,
+      "strategie_id": "Scb4544ccce1b"
+     },
+     {
+      "p": "3/4",
+      "L": 3.5,
+      "seesaw": 3.519077321764542,
+      "npa": 3.5201336549553046,
+      "strategie_id": "Sb5afb14c2410"
+     },
+     {
+      "p": "4/5",
+      "L": 3.6,
+      "seesaw": 3.60995286572267,
+      "npa": 3.6114620354131377,
+      "strategie_id": "S4c5a5cb63319"
+     },
+     {
+      "p": "5/6",
+      "L": 3.6666666666666665,
+      "seesaw": 3.6724965912604866,
+      "npa": 3.6740455536125762,
+      "strategie_id": "S1097457cf8c5"
+     },
+     {
+      "p": "9/10",
+      "L": 3.8,
+      "seesaw": 3.801289075015685,
+      "npa": 3.8022966630013544,
+      "strategie_id": "S2d28659afa75"
+     }
+    ],
+    "hinweis": "numerisch (Kandidat)"
+   },
+   "sek": 0.77
+  },
+  {
+   "id": 3,
+   "wer": "forscher-sparsam",
+   "op": "seesaw",
+   "args": {
+    "ungleichung": {
+     "korrelator": {
+      "a": [
+       "1/2",
+       0
+      ],
+      "b": [
+       "1/2",
+       0
+      ],
+      "c": [
+       [
+        1,
+        1
+       ],
+       [
+        1,
+        -1
+       ]
+      ],
+      "konst": 0
+     }
+    },
+    "d": 3,
+    "starts": 20,
+    "seed": 12345
+   },
+   "ergebnis": {
+    "wert": 3.1369373113090733,
+    "strategie_id": "S98a423eb7eac",
+    "beste_starts": [
+     3.136937311,
+     3.136937311,
+     3.136937311,
+     3.136937311,
+     3.136937311,
+     3.136937311,
+     3.136937311,
+     3.136937311
+    ],
+    "d": 3,
+    "hinweis": "numerisch (Kandidat)"
+   },
+   "sek": 0.09
+  },
+  {
+   "id": 4,
+   "wer": "forscher-sparsam",
+   "op": "scan",
+   "args": {},
+   "ergebnis": {
+    "fehler": "KeyError: 'werte'"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 5,
+   "wer": "forscher-numeriker",
+   "op": "beschreibe",
+   "args": {
+    "ungleichung": {
+     "korrelator": {
+      "a": [
+       "1/2",
+       "0"
+      ],
+      "b": [
+       "1/2",
+       "0"
+      ],
+      "c": [
+       [
+        1,
+        1
+       ],
+       [
+        1,
+        -1
+       ]
+      ],
+      "konst": 0
+     }
+    }
+   },
+   "ergebnis": {
+    "korrelator": "1/2*A1 + 1/2*B1 + 1*A1B1 + 1*A1B2 + 1*A2B1 - 1*A2B2",
+    "mA": 2,
+    "mB": 2
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 6,
+   "wer": "forscher-numeriker",
+   "op": "lokal",
+   "args": {
+    "ungleichung": {
+     "korrelator": {
+      "a": [
+       "1/2",
+       "0"
+      ],
+      "b": [
+       "1/2",
+       "0"
+      ],
+      "c": [
+       [
+        1,
+        1
+       ],
+       [
+        1,
+        -1
+       ]
+      ],
+      "konst": 0
+     }
+    }
+   },
+   "ergebnis": {
+    "L": "3",
+    "L_float": 3.0,
+    "strategie_A": [
+     1,
+     1
+    ],
+    "strategie_B": [
+     1,
+     1
+    ],
+    "hinweis": "exakt"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 7,
+   "wer": "forscher-numeriker",
+   "op": "scan",
+   "args": {
+    "vorlage": {
+     "korrelator": {
+      "a": [
+       "p",
+       "0"
+      ],
+      "b": [
+       "p",
+       "0"
+      ],
+      "c": [
+       [
+        1,
+        1
+       ],
+       [
+        1,
+        -1
+       ]
+      ],
+      "konst": 0
+     }
+    },
+    "werte": [
+     "1/2",
+     "3/5",
+     "2/3",
+     "7/10",
+     "4/5",
+     "9/10"
+    ],
+    "d": 2,
+    "stufe": "1+AB"
+   },
+   "ergebnis": {
+    "punkte": [
+     {
+      "p": "1/2",
+      "L": 3.0,
+      "seesaw": 3.136937311309073,
+      "npa": 3.1369372945945018,
+      "strategie_id": "Sccaeda51e98f"
+     },
+     {
+      "p": "3/5",
+      "L": 3.2,
+      "seesaw": 3.2734498848886444,
+      "npa": 3.2734498610500626,
+      "strategie_id": "Sd41e9cc0cc6a"
+     },
+     {
+      "p": "2/3",
+      "L": 3.3333333333333335,
+      "seesaw": 3.3770733950150866,
+      "npa": 3.3771207436867714,
+      "strategie_id": "Scb4544ccce1b"
+     },
+     {
+      "p": "7/10",
+      "L": 3.4,
+      "seesaw": 3.432324087632579,
+      "npa": 3.4326991506230797,
+      "strategie_id": "Sbfd222724e7f"
+     },
+     {
+      "p": "4/5",
+      "L": 3.6,
+      "seesaw": 3.60995286572267,
+      "npa": 3.6114620354131377,
+      "strategie_id": "S4c5a5cb63319"
+     },
+     {
+      "p": "9/10",
+      "L": 3.8,
+      "seesaw": 3.801289075015685,
+      "npa": 3.8022966630013544,
+      "strategie_id": "S2d28659afa75"
+     }
+    ],
+    "hinweis": "numerisch (Kandidat)"
+   },
+   "sek": 0.62
+  },
+  {
+   "id": 8,
+   "wer": "forscher-numeriker",
+   "op": "seesaw",
+   "args": {
+    "ungleichung": {
+     "korrelator": {
+      "a": [
+       "1/2",
+       "0"
+      ],
+      "b": [
+       "1/2",
+       "0"
+      ],
+      "c": [
+       [
+        1,
+        1
+       ],
+       [
+        1,
+        -1
+       ]
+      ],
+      "konst": 0
+     }
+    },
+    "d": 3,
+    "starts": 20,
+    "seed": 42
+   },
+   "ergebnis": {
+    "wert": 3.1369373113090697,
+    "strategie_id": "S6c7f32f608cb",
+    "beste_starts": [
+     3.136937311,
+     3.136937311,
+     3.136937311,
+     3.136937311,
+     3.136937311,
+     3.136937311,
+     3.136937311,
+     3.136937311
+    ],
+    "d": 3,
+    "hinweis": "numerisch (Kandidat)"
+   },
+   "sek": 0.11
+  },
+  {
+   "id": 9,
+   "wer": "forscher-numeriker",
+   "op": "seesaw",
+   "args": {
+    "ungleichung": {
+     "korrelator": {
+      "a": [
+       "7/10",
+       "0"
+      ],
+      "b": [
+       "7/10",
+       "0"
+      ],
+      "c": [
+       [
+        1,
+        1
+       ],
+       [
+        1,
+        -1
+       ]
+      ],
+      "konst": 0
+     }
+    },
+    "d": 3,
+    "starts": 20,
+    "seed": 43
+   },
+   "ergebnis": {
+    "wert": 3.43232408763264,
+    "strategie_id": "S1470cef7cd55",
+    "beste_starts": [
+     3.432324088,
+     3.432324088,
+     3.432324088,
+     3.432324088,
+     3.432324088,
+     3.432324088,
+     3.432324088,
+     3.432324088
+    ],
+    "d": 3,
+    "hinweis": "numerisch (Kandidat)"
+   },
+   "sek": 0.14
+  },
+  {
+   "id": 10,
+   "wer": "forscher-numeriker",
+   "op": "npa",
+   "args": {
+    "ungleichung": {
+     "korrelator": {
+      "a": [
+       "4/5",
+       "0"
+      ],
+      "b": [
+       "4/5",
+       "0"
+      ],
+      "c": [
+       [
+        1,
+        1
+       ],
+       [
+        1,
+        -1
+       ]
+      ],
+      "konst": 0
+     }
+    },
+    "stufe": "2"
+   },
+   "ergebnis": {
+    "schranke_numerisch": 3.609952838483064,
+    "schranke_zertifiziert": 3.6099528801645686,
+    "stufe": "2",
+    "groesse": 13
+   },
+   "sek": 0.04
+  },
+  {
+   "id": 11,
+   "wer": "forscher-numeriker",
+   "op": "seesaw",
+   "args": {
+    "ungleichung": {
+     "korrelator": {
+      "a": [
+       "3/5",
+       "0"
+      ],
+      "b": [
+       "3/5",
+       "0"
+      ],
+      "c": [
+       [
+        1,
+        1
+       ],
+       [
+        1,
+        -1
+       ]
+      ],
+      "konst": 0
+     }
+    },
+    "d": 3,
+    "starts": 15,
+    "seed": 44
+   },
+   "ergebnis": {
+    "wert": 3.273449884888619,
+    "strategie_id": "S67346487d2b3",
+    "beste_starts": [
+     3.273449885,
+     3.273449885,
+     3.273449885,
+     3.273449885,
+     3.273449885,
+     3.273449885,
+     3.2,
+     3.2
+    ],
+    "d": 3,
+    "hinweis": "numerisch (Kandidat)"
+   },
+   "sek": 0.06
+  },
+  {
+   "id": 12,
+   "wer": "forscher-numeriker",
+   "op": "npa",
+   "args": {
+    "ungleichung": {
+     "korrelator": {
+      "a": [
+       "2/3",
+       "0"
+      ],
+      "b": [
+       "2/3",
+       "0"
+      ],
+      "c": [
+       [
+        1,
+        1
+       ],
+       [
+        1,
+        -1
+       ]
+      ],
+      "konst": 0
+     }
+    },
+    "stufe": "2"
+   },
+   "ergebnis": {
+    "schranke_numerisch": 3.377073345148018,
+    "schranke_zertifiziert": 3.3770734165685394,
+    "stufe": "2",
+    "groesse": 13
+   },
+   "sek": 0.04
+  },
+  {
+   "id": 13,
+   "wer": "forscher-numeriker",
+   "op": "npa",
+   "args": {},
+   "ergebnis": {
+    "fehler": "KeyError: 'ungleichung'"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 14,
+   "wer": "forscher-numeriker",
+   "op": "npa",
+   "args": {},
+   "ergebnis": {
+    "fehler": "KeyError: 'ungleichung'"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 15,
+   "wer": "forscher-numeriker",
+   "op": "npa",
+   "args": {},
+   "ergebnis": {
+    "fehler": "KeyError: 'ungleichung'"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 16,
+   "wer": "forscher-numeriker",
+   "op": "npa",
+   "args": {},
+   "ergebnis": {
+    "fehler": "KeyError: 'ungleichung'"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 17,
+   "wer": "forscher-skeptiker",
+   "op": "scan",
+   "args": {
+    "vorlage": {
+     "korrelator": {
+      "a": [
+       "p",
+       0
+      ],
+      "b": [
+       "p",
+       0
+      ],
+      "c": [
+       [
+        1,
+        1
+       ],
+       [
+        1,
+        -1
+       ]
+      ],
+      "konst": 0
+     }
+    },
+    "werte": [
+     "1/2",
+     "11/20",
+     "3/5",
+     "13/20",
+     "7/10",
+     "3/4",
+     "4/5",
+     "17/20"
+    ],
+    "d": 2,
+    "stufe": "1+AB"
+   },
+   "ergebnis": {
+    "punkte": [
+     {
+      "p": "1/2",
+      "L": 3.0,
+      "seesaw": 3.136937311309073,
+      "npa": 3.1369372945945018,
+      "strategie_id": "Sccaeda51e98f"
+     },
+     {
+      "p": "11/20",
+      "L": 3.1,
+      "seesaw": 3.202231229489917,
+      "npa": 3.202231226089657,
+      "strategie_id": "Scefa1ec30f40"
+     },
+     {
+      "p": "3/5",
+      "L": 3.2,
+      "seesaw": 3.2734498848886444,
+      "npa": 3.2734498610500626,
+      "strategie_id": "Sd41e9cc0cc6a"
+     },
+     {
+      "p": "13/20",
+      "L": 3.3,
+      "seesaw": 3.3502822695334045,
+      "npa": 3.3502822545721216,
+      "strategie_id": "Sa180c8de4c5b"
+     },
+     {
+      "p": "7/10",
+      "L": 3.4,
+      "seesaw": 3.432324087632579,
+      "npa": 3.4326991506230797,
+      "strategie_id": "Sbfd222724e7f"
+     },
+     {
+      "p": "3/4",
+      "L": 3.5,
+      "seesaw": 3.519077321764542,
+      "npa": 3.5201336549553046,
+      "strategie_id": "Sb5afb14c2410"
+     },
+     {
+      "p": "4/5",
+      "L": 3.6,
+      "seesaw": 3.60995286572267,
+      "npa": 3.6114620354131377,
+      "strategie_id": "S4c5a5cb63319"
+     },
+     {
+      "p": "17/20",
+      "L": 3.7,
+      "seesaw": 3.704275350192612,
+      "npa": 3.7057589620086,
+      "strategie_id": "Sf2c07837d79e"
+     }
+    ],
+    "hinweis": "numerisch (Kandidat)"
+   },
+   "sek": 0.73
+  },
+  {
+   "id": 18,
+   "wer": "forscher-skeptiker",
+   "op": "scan",
+   "args": {
+    "vorlage": {
+     "korrelator": {
+      "a": [
+       "p",
+       0
+      ],
+      "b": [
+       "p",
+       0
+      ],
+      "c": [
+       [
+        1,
+        1
+       ],
+       [
+        1,
+        -1
+       ]
+      ],
+      "konst": 0
+     }
+    },
+    "werte": [
+     "9/10",
+     "19/20",
+     "1/2",
+     "3/5",
+     "7/10",
+     "4/5"
+    ],
+    "d": 3,
+    "stufe": "1+AB"
+   },
+   "ergebnis": {
+    "punkte": [
+     {
+      "p": "9/10",
+      "L": 3.8,
+      "seesaw": 3.801289075015675,
+      "npa": 3.8022966630013544,
+      "strategie_id": "Sb721ccd2ef24"
+     },
+     {
+      "p": "19/20",
+      "L": 3.9,
+      "seesaw": 3.900163899364383,
+      "npa": 3.900517604543135,
+      "strategie_id": "Sd1c54015ae5a"
+     },
+     {
+      "p": "1/2",
+      "L": 3.0,
+      "seesaw": 3.1369373113090684,
+      "npa": 3.1369372945945018,
+      "strategie_id": "S62fe52131c92"
+     },
+     {
+      "p": "3/5",
+      "L": 3.2,
+      "seesaw": 3.273449884888646,
+      "npa": 3.2734498610500626,
+      "strategie_id": "Sc8b933f4eae6"
+     },
+     {
+      "p": "7/10",
+      "L": 3.4,
+      "seesaw": 3.432324087632437,
+      "npa": 3.4326991506230797,
+      "strategie_id": "S99a046d0f5a5"
+     },
+     {
+      "p": "4/5",
+      "L": 3.6,
+      "seesaw": 3.609952865722322,
+      "npa": 3.6114620354131377,
+      "strategie_id": "S219a8238f629"
+     }
+    ],
+    "hinweis": "numerisch (Kandidat)"
+   },
+   "sek": 0.58
+  },
+  {
+   "id": 19,
+   "wer": "forscher-skeptiker",
+   "op": "scan",
+   "args": {
+    "vorlage": {
+     "korrelator": {
+      "a": [
+       "p",
+       0
+      ],
+      "b": [
+       "p",
+       0
+      ],
+      "c": [
+       [
+        1,
+        1
+       ],
+       [
+        1,
+        -1
+       ]
+      ],
+      "konst": 0
+     }
+    },
+    "werte": [
+     "1/2",
+     "7/10",
+     "19/20"
+    ],
+    "d": 2,
+    "stufe": "2"
+   },
+   "ergebnis": {
+    "punkte": [
+     {
+      "p": "1/2",
+      "L": 3.0,
+      "seesaw": 3.136937311309073,
+      "npa": 3.136937284929501,
+      "strategie_id": "Sccaeda51e98f"
+     },
+     {
+      "p": "7/10",
+      "L": 3.4,
+      "seesaw": 3.432324087632579,
+      "npa": 3.4323240655080394,
+      "strategie_id": "Sbfd222724e7f"
+     },
+     {
+      "p": "19/20",
+      "L": 3.9,
+      "seesaw": 3.9001638993654932,
+      "npa": 3.9003296466213335,
+      "strategie_id": "Sca27fffa1e70"
+     }
+    ],
+    "hinweis": "numerisch (Kandidat)"
+   },
+   "sek": 0.46
+  },
+  {
+   "id": 20,
+   "wer": "forscher-skeptiker",
+   "op": "seesaw",
+   "args": {
+    "ungleichung": {
+     "korrelator": {
+      "a": [
+       "1/2",
+       0
+      ],
+      "b": [
+       "1/2",
+       0
+      ],
+      "c": [
+       [
+        1,
+        1
+       ],
+       [
+        1,
+        -1
+       ]
+      ],
+      "konst": 0
+     }
+    },
+    "d": 3,
+    "starts": 40,
+    "seed": 1
+   },
+   "ergebnis": {
+    "wert": 3.1369373113090733,
+    "strategie_id": "Sd375568811fe",
+    "beste_starts": [
+     3.136937311,
+     3.136937311,
+     3.136937311,
+     3.136937311,
+     3.136937311,
+     3.136937311,
+     3.136937311,
+     3.136937311
+    ],
+    "d": 3,
+    "hinweis": "numerisch (Kandidat)"
+   },
+   "sek": 0.19
+  },
+  {
+   "id": 21,
+   "wer": "forscher-skeptiker",
+   "op": "lokal",
+   "args": {
+    "ungleichung": {
+     "korrelator": {
+      "a": [
+       "7/10",
+       0
+      ],
+      "b": [
+       "7/10",
+       0
+      ],
+      "c": [
+       [
+        1,
+        1
+       ],
+       [
+        1,
+        -1
+       ]
+      ],
+      "konst": 0
+     }
+    }
+   },
+   "ergebnis": {
+    "L": "17/5",
+    "L_float": 3.4,
+    "strategie_A": [
+     1,
+     1
+    ],
+    "strategie_B": [
+     1,
+     1
+    ],
+    "hinweis": "exakt"
+   },
+   "sek": 0.0
+  }
+ ],
+ "sek": 525.2
+}
