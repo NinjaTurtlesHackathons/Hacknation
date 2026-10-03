@@ -52,3 +52,12 @@ Der Prüfer verwarf Intervalle der Breite genau 0,05 wegen Gleitkomma-Rundung (8
 **Referenz:** B kostete 7,42 USD für 36 Läufe (0,206 USD je Frage, aus dem LLM-Cache, `benchmarks/cost.py`).
 **H4a:** Kosten BK ≤ 30 % von B. **H4b:** Trefferquote BK ≥ 35/36 und höchstens 1 falsche Antwort. **H4c (Test):** Trefferquote BK > A2, gepaarter Vorzeichen-Flip-Permutationstest wie H3b.
 Ergebnis wird berichtet, egal wie es ausfällt.
+
+## H5 (2026-10-03, vor dem ersten Lauf): Literatur-Hypothesen als GP-Prior
+
+**Policy hybrid_lit:** identisch zu hybrid (GP + EI, Prior-Mittelwert a·m(x), a wird nach jeder Messung geschätzt). m(x) stammt aus `hypotheses/literature.json`: 8 Hypothesen des Recherche-Agenten, jede mit per Code bestätigten Literaturzitaten. Quellen zum Testdatensatz sind durch den Leck-Filter gesperrt (u. a. „Ahneman“, „Doyle“, „rxnpredict“, „machine learning“, „dataset“).
+**Neue Seeds:** 1020–1039 (bisher nicht verwendet), Budget 400, 5 zufällige Startexperimente.
+**H5a (primär):** hybrid_lit braucht weniger Experimente als gp_ei. Gepaarter Permutationstest, einseitig, 20 000 Permutationen; Erfolg bei p < 0,05 und KI-Untergrenze des Speedups > 1.
+**H5b (Replikation):** hybrid (Hypothesen ohne Literatur) vs gp_ei auf denselben neuen Seeds, gleicher Test.
+**Negativkontrolle:** hybrid_lit auf vertauschten Ausbeuten (eigene Vertauschung je Seed); erwartet: kein Speedup gegenüber Zufall.
+Ergebnis wird berichtet, egal wie es ausfällt.

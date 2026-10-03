@@ -65,6 +65,27 @@ def search_europepmc(q, n=25):
     return out
 
 
+def local_docs(folder="literature", chunk_words=250):
+    """Eigene Quellen des Teams (Markdown, Text, PDF via pdftotext) als zusätzliche Dokumente. Jeder Abschnitt wird wie ein
+    Abstract behandelt: gleiche Sichtung, gleiche Zitatprüfung, gleicher Leck-Filter."""
+    import subprocess
+    out = []
+    if not os.path.isdir(folder): return out
+    for fn in sorted(os.listdir(folder)):
+        path = os.path.join(folder, fn)
+        if fn.lower().endswith((".md", ".txt")): text = open(path, encoding="utf-8", errors="replace").read()
+        elif fn.lower().endswith(".pdf"):
+            try: text = subprocess.run(["pdftotext", path, "-"], capture_output=True, text=True, timeout=120).stdout
+            except (OSError, subprocess.TimeoutExpired): continue
+        else: continue
+        words = text.split()
+        for j in range(0, len(words), chunk_words):
+            part = " ".join(words[j:j + chunk_words])
+            out.append({"id": f"lokal:{fn}#{j // chunk_words}", "titel": f"{fn} (Abschnitt {j // chunk_words + 1})", "abstract": part,
+                        "jahr": "", "autoren": "", "url": f"literature/{fn}"})
+    return out
+
+
 def _norm(s):
     s = unicodedata.normalize("NFKC", s).lower()
     s = s.replace("‐", "-").replace("–", "-").replace("—", "-").replace("’", "'")
@@ -100,6 +121,8 @@ def run(topic, n_queries=10, per_query=25, keep=60, model_cheap="haiku", model_m
                 if k in seen: continue
                 seen.add(k); corpus[doc["id"]] = doc
             time.sleep(1.0)                                  # arXiv-Richtlinie: höflich abfragen
+    for doc in local_docs():                                  # eigene Dateien des Teams in literature/
+        corpus.setdefault(doc["id"], doc)
     gesperrt = {i: w for i, doc in corpus.items() if (w := blocked(doc, T["sperre"]))}
     pool = {i: doc for i, doc in corpus.items() if i not in gesperrt}
     stats.update(abgerufen=len(corpus), gesperrt=len(gesperrt)); log(f"{len(corpus)} Quellen, {len(gesperrt)} durch Leck-Filter gesperrt")
@@ -126,15 +149,36 @@ def run(topic, n_queries=10, per_query=25, keep=60, model_cheap="haiku", model_m
                      model=model_main, salt=f"research-{topic}-extract-{b}")
         facts += r.get("befunde", [])
     # 5. Zitat-Prüfer (Code)
-    for f in facts:
-        doc = pool.get(f.get("quelle")); f["verifiziert"] = bool(doc and quote_ok(f.get("zitat", ""), doc["abstract"]))
-        if doc: f.update(titel=doc["titel"], jahr=doc["jahr"], url=doc["url"])
-    ok = [f for f in facts if f["verifiziert"]]; stats.update(befunde=len(facts), verifiziert=len(ok))
+    ok = verify_facts(facts, pool); stats.update(befunde=len(facts), verifiziert=len(ok))
     log(f"{len(facts)} Befunde extrahiert, {len(ok)} Zitate per Code bestätigt, {len(facts) - len(ok)} verworfen")
     json.dump({"thema": topic, "ziel": T["ziel"], "suchanfragen": qs, "stats": stats, "gesperrt": gesperrt,
                "korpus": corpus, "scores": scores, "befunde": facts}, open(f"{d}/kb.json", "w"), ensure_ascii=False, indent=1)
     write_md(topic, T, qs, stats, ok, gesperrt, corpus)
     return ok, stats
+
+
+def _resolve(qid, pool):
+    """Quellen-ID robust zuordnen (das LLM lässt Präfixe wie 'doi:' oder 'arXiv:' gern weg)."""
+    qid = str(qid or "").strip().strip("<>")
+    for k in (qid, f"doi:{qid}", f"arXiv:{qid}", f"pmid:{qid}"):
+        if k in pool: return pool[k]
+    return next((d for k, d in pool.items() if k.split(":", 1)[-1] == qid.split(":", 1)[-1]), None)
+
+
+def verify_facts(facts, pool):
+    for f in facts:
+        doc = _resolve(f.get("quelle"), pool); f["verifiziert"] = bool(doc and quote_ok(f.get("zitat", ""), doc["abstract"]))
+        if doc: f.update(quelle=doc["id"], titel=doc["titel"], jahr=doc["jahr"], url=doc["url"])
+    return [f for f in facts if f["verifiziert"]]
+
+
+def reverify(topic):
+    """Zitatprüfung auf gespeicherten Befunden neu ausführen (ohne neue LLM-Aufrufe)."""
+    T = TOPICS[topic]; path = f"{KB}/{topic}/kb.json"; kb = json.load(open(path))
+    pool = {i: d for i, d in kb["korpus"].items() if i not in kb["gesperrt"]}
+    ok = verify_facts(kb["befunde"], pool); kb["stats"]["verifiziert"] = len(ok)
+    json.dump(kb, open(path, "w"), ensure_ascii=False, indent=1)
+    write_md(topic, T, kb["suchanfragen"], kb["stats"], ok, kb["gesperrt"], kb["korpus"]); return ok, kb["stats"]
 
 
 def write_md(topic, T, qs, stats, ok, gesperrt, corpus):
@@ -154,29 +198,32 @@ def write_md(topic, T, qs, stats, ok, gesperrt, corpus):
     open(f"{KB}/{topic}/wissensstand.md", "w").write("\n".join(L) + "\n")
 
 
-def literature_hypotheses(topic="buchwald", effect=0.5):
-    """Wandelt bestätigte, faktorbezogene Befunde in Hypothesen für den GP-Prior um (nur Stufen, die im Datensatz vorkommen)."""
-    from .data import load
-    from .hypotheses import Hypothesis, save
-    kb = json.load(open(f"{KB}/{topic}/kb.json")); ds = load(); hyps = []
-    levels = {f: {l.lower(): l for l in ds.table[f].unique()} for f in ("ligand", "base", "aryl_halide", "additive")}
-    for j, f in enumerate(b for b in kb["befunde"] if b.get("verifiziert") and b.get("faktor") in levels):
-        st = str(f.get("stufe", "")).lower(); lv = levels[f["faktor"]]
-        match = [orig for low, orig in lv.items() if st and (st == low or st in low or low in st)]
-        if f["faktor"] == "aryl_halide" and not match:            # Klassen wie "aryl chlorides" auf passende Stufen abbilden
-            for cls, key in (("chlor", "chloro"), ("brom", "bromo"), ("iod", "iodo"), ("pyrid", "pyridin")):
-                if cls in st: match = [orig for low, orig in lv.items() if key in low]
-        if not match: continue
-        try: r = float(f.get("richtung", 0))
-        except (TypeError, ValueError): r = 0
-        if r == 0: continue
-        hyps.append(Hypothesis(id=f"lit-H{j + 1}", text=f"{f['aussage']} [{f['quelle']}]",
-                               effect={f"{f['faktor']}={m}": effect * (1 if r > 0 else -1) for m in match}, view="named",
-                               meta={"zitat": f["zitat"], "quelle": f["quelle"], "url": f["url"]}))
-    os.makedirs("hypotheses", exist_ok=True)
-    json.dump({"view": "named", "generator": "Recherche-Agent (asd/research.py), nur Befunde mit per Code bestätigtem Zitat",
-               "hypotheses": [h.__dict__ for h in hyps]}, open("hypotheses/literature.json", "w"), ensure_ascii=False, indent=1)
-    return hyps
+def literature_hypotheses(topic="buchwald", model="sonnet"):
+    """Literaturgestützte Hypothesen für den GP-Prior: das LLM sieht nur per Code bestätigte Befunde [F..] und die exakten
+    Stufen des Datensatzes (keine Ausbeuten). Jede Hypothese muss Befund-IDs als Beleg nennen; der Code prüft Stufen und Belege."""
+    from .data import load, component_view
+    from .hypotheses import parse, Hypothesis
+    kb = json.load(open(f"{KB}/{topic}/kb.json")); ds = load()
+    facts = [f for f in kb["befunde"] if f.get("verifiziert")]; fid = {f"F{j + 1}": f for j, f in enumerate(facts)}
+    levels = {f: [r["level"] for r in rows] for f, rows in component_view(ds, "named").items()}
+    listing = "\n".join(f"[{k}] {f['aussage']} (Zitat: „{f['zitat']}“, {f['quelle']})" for k, f in fid.items())
+    prompt = (f"Datensatz-Stufen (exakte Namen):\n{json.dumps(levels, ensure_ascii=False)}\n\nBelegte Literaturbefunde:\n{listing}\n\n"
+              "Leite 4 bis 12 Hypothesen ab, welche dieser Stufen die Ausbeute einer Buchwald-Hartwig-Aminierung mit p-Toluidin erhöhen "
+              "oder senken. Nur Hypothesen, die sich direkt auf die Befunde stützen; jede nennt ihre Belege. Übertrage nichts, was "
+              "die Befunde nicht hergeben (andere Substrate, andere Katalysatoren nur mit Vorsicht und kleinerem Effekt).\n"
+              'JSON: {"hypotheses": [{"id": "H1", "text": "<ein Satz>", "belege": ["F3", ...], "effect": {"<faktor>=<stufe>": <Zahl -2..2>}}]}')
+    raw = ask_json(prompt, model=model, salt=f"lit-hyp-{topic}")
+    hyps = parse(json.dumps(raw), "named", ds); belege = {h.get("id"): h.get("belege", []) for h in raw.get("hypotheses", [])}
+    out = []
+    for h in hyps:
+        b = [x for x in belege.get(h.id.split("-", 1)[-1], []) if x in fid]
+        if not b: continue                                             # ohne gültigen Beleg keine Hypothese
+        out.append(Hypothesis(id=h.id.replace("named-", "lit-"), text=h.text, effect=h.effect, view="named",
+                              meta={"belege": [{"id": x, "quelle": fid[x]["quelle"], "zitat": fid[x]["zitat"], "url": fid[x]["url"]} for x in b]}))
+    json.dump({"view": "named", "generator": f"Recherche-Agent + Hypothesen-Schritt ({model}); nur per Code bestätigte Befunde",
+               "prompt": prompt, "raw_response": raw, "hypotheses": [h.__dict__ for h in out]},
+              open("hypotheses/literature.json", "w"), ensure_ascii=False, indent=1)
+    return out
 
 
 if __name__ == "__main__":

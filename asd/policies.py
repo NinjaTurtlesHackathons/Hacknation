@@ -73,7 +73,8 @@ def make_policy(name, ds, hyps=None):
     from .hypotheses import prior_mean
     if name == "random": return RandomPolicy(ds.n)
     if name == "gp_ei": return GPEI(ds.X)
-    if name in ("hybrid", "hybrid_neutral"):
-        view = "named" if name == "hybrid" else "neutral"
-        return GPEI(ds.X, prior=prior_mean(hyps[view], design_keys(ds, view)), name=name)
+    if name in ("hybrid", "hybrid_neutral", "hybrid_lit"):
+        view = {"hybrid": "named", "hybrid_neutral": "neutral", "hybrid_lit": "literature"}[name]
+        keys = design_keys(ds, "neutral" if view == "neutral" else "named")
+        return GPEI(ds.X, prior=prior_mean(hyps[view], keys), name=name)
     raise ValueError(name)
