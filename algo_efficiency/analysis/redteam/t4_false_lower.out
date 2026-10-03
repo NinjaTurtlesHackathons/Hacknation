@@ -1,0 +1,17 @@
+B=3 d=7 relative: eps=1.01634981461660567e-03  verifier 'lower' (no poly reaches <= eps) passes: True; exact-endpoint proof that the verifier's own poly reaches <= eps: True (U - eps = -3.445e-22, boxes 292)
+   => FALSE CLAIM PASSES: No polynomial of degree 7 approximates e^x on [-3, 3] with relative error at most 16261597033865690494757609911142691810...
+B=2 d=5 absolute: eps=3.26423282758066561e-03  verifier 'lower' (no poly reaches <= eps) passes: True; exact-endpoint proof that the verifier's own poly reaches <= eps: True (U - eps = -7.470e-21, boxes 198)
+   => FALSE CLAIM PASSES: No polynomial of degree 5 approximates e^x on [-2, 2] with absolute error at most 20891090096516259258780506515443759313...
+B=5 d=9 relative: eps=3.11067868099588118e-03  verifier 'lower' (no poly reaches <= eps) passes: True; exact-endpoint proof that the verifier's own poly reaches <= eps: True (U - eps = -3.503e-21, boxes 368)
+   => FALSE CLAIM PASSES: No polynomial of degree 9 approximates e^x on [-5, 5] with relative error at most 99541717791868194609763570826711578599...
+B=4 d=8 absolute: eps=4.34097004370746602e-03  verifier 'lower' (no poly reaches <= eps) passes: True; exact-endpoint proof that the verifier's own poly reaches <= eps: True (U - eps = -1.543e-20, boxes 302)
+   => FALSE CLAIM PASSES: No polynomial of degree 8 approximates e^x on [-4, 4] with absolute error at most 69455520699319453858921987727094446154...
+
+Reported upper_bound vs high-precision sup S of the verifier's polynomial (eps just above S):
+B= 1 d= 3 relative: passed=True; reported bound - S (relative) = +2.84e-16
+B= 1 d= 4 relative: passed=True; reported bound - S (relative) = +5.13e-16
+B= 2 d= 6 relative: passed=True; reported bound - S (relative) = +5.36e-16
+B= 4 d=10 relative: passed=True; reported bound - S (relative) = +7.63e-16
+B= 8 d=16 relative: passed=True; reported bound - S (relative) = +9.45e-16
+B= 1 d= 6 absolute: passed=True; reported bound - S (relative) = +4.18e-16
+B=16 d=30 relative: passed=True; reported bound - S (relative) = +9.52e-16

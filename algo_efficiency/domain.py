@@ -25,7 +25,7 @@ def _num(x, name, lo=None, hi=None):
 
 
 def _exp_args(p):
-    B = _num(p["B"], "B", Fraction(1, 100), PE.B_MAX); eps = _num(p["eps"], "eps", Fraction(1, 10 ** 30), Fraction(1, 2))
+    B = _num(p["B"], "B", Fraction(1, 100), PE.B_MAX); eps = _num(p["eps"], "eps", Fraction(1, 10 ** 30), Fraction(99, 100))
     kind = p.get("error", "relative")
     if kind not in ("relative", "absolute"): raise ValueError("error must be 'relative' or 'absolute'")
     return B, eps, kind
@@ -91,7 +91,7 @@ class AlgoEfficiencyDomain(Domain):
 - {"typ": "multidraft_optimal", "p", "q", "k": 1..4, "mode": "iid"|"wor", "value": "a/b"}: optimal lossless acceptance with k drafts equals value (exact max-flow = min-cut certificate).
 - {"typ": "scheme_optimal", "p", "q", "k", "rule": "rrs_iid"|"rrs_wor", "optimal": true|false}: the rule attains (true) or misses (false) the optimal acceptance for its draft mode (rrs_iid ~ iid, rrs_wor ~ wor), exactly.
 - {"typ": "optimal_gamma", "alpha": "a/b", "c": "a/b", "gamma": int}: gamma maximises the expected speedup over all draft lengths g >= 0 (exact, with tail certificate).
-- {"typ": "exp_degree", "B": num, "eps": num, "error": "relative"|"absolute", "bound": "upper"|"lower", "d": int}: upper = some polynomial of degree <= d reaches sup error <= eps on [-B,B]; lower = every polynomial of degree <= d has sup error > eps. Rigorous (interval arithmetic). B <= 32, d <= 48.
+- {"typ": "exp_degree", "B": num, "eps": num, "error": "relative"|"absolute", "bound": "upper"|"lower", "d": int}: upper = some polynomial of degree <= d reaches sup error <= eps on [-B,B]; lower = every polynomial of degree <= d has sup error > eps. Rigorous (interval arithmetic). 0.01 <= B <= 32, 1e-30 <= eps <= 0.99, d <= 48.
 - {"typ": "exp_min_degree", "B", "eps", "error", "d"}: d*(B, eps) = d exactly (upper certificate at d, lower certificate at d-1).
 - {"typ": "polymethod_rank", "h": int, "B", "eps", "error", "rank": int}: rank = C(h+d*, d*) with d* the certified minimal degree.
 - {"typ": "kv_compare", "policy_a", "policy_b", "n": int, "budget": int, "better": "a"}: policy_a has lower mean error than policy_b on the synthetic model over the verifier's 20 fixed seeds (paired permutation test p < 0.05 and bootstrap 95% CI of err_b/err_a above 1). Statistical."""
@@ -281,6 +281,11 @@ class AlgoEfficiencyDomain(Domain):
             ({"typ": "exp_degree", "B": 4, "eps": "7.46e-5", "error": "relative", "bound": "upper", "d": 10}, False),
             ({"typ": "exp_degree", "B": 4, "eps": "7.46e-5", "error": "relative", "bound": "lower", "d": 10}, True),
             ({"typ": "exp_degree", "B": 4, "eps": "7.62e-5", "error": "relative", "bound": "lower", "d": 10}, False),
+            # independent analytic ground truth: best constant for relative error on [-B, B] has error tanh(B); tanh(1) = 0.7615941560
+            ({"typ": "exp_degree", "B": 1, "eps": "0.7623557501", "error": "relative", "bound": "upper", "d": 0}, True),
+            ({"typ": "exp_degree", "B": 1, "eps": "0.7608325618", "error": "relative", "bound": "upper", "d": 0}, False),
+            ({"typ": "exp_degree", "B": 1, "eps": "0.7608325618", "error": "relative", "bound": "lower", "d": 0}, True),
+            ({"typ": "exp_degree", "B": 1, "eps": "0.7623557501", "error": "relative", "bound": "lower", "d": 0}, False),
             # regression case for AE4 (coefficients re-rounded to 15 digits made this certificate fail): must pass
             ({"typ": "exp_degree", "B": 16, "eps": "3.32e-7", "error": "relative", "bound": "upper", "d": 30}, True),   # E_30 = 3.2847e-7
             ({"typ": "polymethod_rank", "h": 8, "B": 1, "eps": "1e-3", "error": "relative", "rank": math.comb(12, 4)}, True),

@@ -1,0 +1,24 @@
+B= 1 d= 3 relative: (S - m)/S = 2.00e-15; rounding of m = +2.60e-17; window lower > S: False
+B= 1 d= 4 relative: (S - m)/S = 3.17e-14; rounding of m = -8.04e-17; window lower > S: False
+B= 1 d= 5 relative: (S - m)/S = 3.38e-13; rounding of m = -7.34e-17; window lower > S: False
+B= 2 d= 6 relative: (S - m)/S = 5.92e-16; rounding of m = +6.15e-17; window lower > S: False
+B= 4 d=10 relative: (S - m)/S = 4.64e-14; rounding of m = +6.02e-17; window lower > S: False
+B= 4 d= 8 absolute: (S - m)/S = 1.03e-17; rounding of m = +7.97e-17; window lower > S: True
+      eps = S + (lower - S)/2: lower claim passes=True, upper claim passes=False  <- both True = contradiction
+      lower reason: lower certificate (degree 8): {'lower_bound': 0.004340970043707466, 'remez_level': 0.004340970043707466, 'points': 10}
+      upper reason: upper certificate (degree 8): {'upper_bound': 0.004340970043707466, 'remez_level': 0.004340970043707466, 'boxes': 37}
+B= 3 d= 7 relative: (S - m)/S = 2.92e-21; rounding of m = +2.09e-17; window lower > S: True
+      eps = S + (lower - S)/2: lower claim passes=True, upper claim passes=False  <- both True = contradiction
+      lower reason: lower certificate (degree 7): {'lower_bound': 0.0010163498146166057, 'remez_level': 0.0010163498146166057, 'points': 9}
+      upper reason: upper certificate (degree 7): {'upper_bound': 0.0010163498146166057, 'remez_level': 0.0010163498146166057, 'boxes': 37}
+B= 8 d=16 relative: (S - m)/S = 5.30e-23; rounding of m = -4.54e-17; window lower > S: False
+B= 1 d= 6 absolute: (S - m)/S = 4.47e-13; rounding of m = -3.13e-17; window lower > S: False
+B= 2 d= 5 absolute: (S - m)/S = 2.30e-21; rounding of m = +6.35e-17; window lower > S: True
+      eps = S + (lower - S)/2: lower claim passes=True, upper claim passes=False  <- both True = contradiction
+      lower reason: lower certificate (degree 5): {'lower_bound': 0.0032642328275806656, 'remez_level': 0.0032642328275806656, 'points': 7}
+      upper reason: upper certificate (degree 5): {'upper_bound': 0.0032642328275806656, 'remez_level': 0.0032642328275806656, 'boxes': 37}
+B=16 d=30 relative: (S - m)/S = 1.04e-17; rounding of m = -4.80e-18; window lower > S: False
+B= 5 d= 9 relative: (S - m)/S = 1.48e-21; rounding of m = +6.40e-17; window lower > S: True
+      eps = S + (lower - S)/2: lower claim passes=True, upper claim passes=False  <- both True = contradiction
+      lower reason: lower certificate (degree 9): {'lower_bound': 0.003110678680995881, 'remez_level': 0.003110678680995881, 'points': 11}
+      upper reason: upper certificate (degree 9): {'upper_bound': 0.003110678680995881, 'remez_level': 0.003110678680995881, 'boxes': 37}
