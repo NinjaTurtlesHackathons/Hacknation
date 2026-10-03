@@ -337,6 +337,10 @@ class OptScaleDomain(Domain):
             ({"typ": "vergleich", "problem": heavy, "steps": 500, "a": {"optimizer": "sgd"}, "b": {"optimizer": "clip_sgd"}}, False),
             ({"typ": "eos", "width": 16, "lr": 0.1, "steps": 2000, "regime": "stabil"}, True),
             ({"typ": "eos", "width": 16, "lr": 0.1, "steps": 2000, "regime": "eos"}, False),
+            ({"typ": "eos", "width": 16, "lr": 1.0, "steps": 2000, "regime": "eos"}, True),
+            ({"typ": "exponent", "kurve": "param", "a": 1, "b": 1.5, "exponent": 0.5}, True),
+            ({"typ": "exponent", "kurve": "param", "a": 1, "b": 1.5, "exponent": 0.55}, False),
+            ({"typ": "lr_transfer", "param": "mup", "optimizer": "adam", "widths": [32, 128, 256], "transfer": True}, True),
             ({"typ": "lr_transfer", "param": "sp", "optimizer": "sgd", "widths": [32, 128, 256], "transfer": True}, False),
         ]
 

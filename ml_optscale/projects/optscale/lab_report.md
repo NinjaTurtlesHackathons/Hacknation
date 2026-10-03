@@ -1,2 +1,3 @@
 - 2026-10-03 23:10:23 Suchanfragen: ['Adam optimizer convergence rate theory', 'Muon optimizer scaling laws', 'Shampoo second-order preconditioning method', 'Edge of Stability loss landscape', 'Heavy-tailed gradients optimization convergence', 'Learning rate schedule nonconvex deep', 'Maximal Update Parametrization hyperparameter transfer', 'Tensor Programs infinite width limits', 'Power law exponents data spectrum', 'Kernel random features convergence']
 - 2026-10-03 23:10:53 Abruf-Fehler search_arxiv 'Adam optimizer convergence rate theory': The read operation timed out
+- 2026-10-03 23:12:16 328 Quellen, 0 durch Leck-Filter gesperrt
