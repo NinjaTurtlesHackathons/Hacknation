@@ -1,0 +1,345 @@
+% Exact two-sided certificates for the doubly tilted CHSH family
+% Every numbered statement is traced to a verifier claim in Appendix C (claim IDs from projects/bell/paper_belege.json).
+% Numbers in the statements are the verifier's outputs, rounded outward where they bound Q.
+\documentclass[10pt,twocolumn,a4paper]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage[english]{babel}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[a4paper,top=22mm,bottom=24mm,left=17mm,right=17mm,columnsep=7mm]{geometry}
+\usepackage{booktabs}
+\usepackage{microtype}
+\usepackage{fancyhdr}
+\usepackage[hidelinks]{hyperref}
+\usepackage{xcolor}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small Preprint (2026)}
+\fancyhead[R]{\small Team Ninja Turtles: Exact certificates for the doubly tilted CHSH family}
+\fancyfoot[C]{\small\thepage}
+\renewcommand{\headrulewidth}{0pt}
+\fancypagestyle{first}{\fancyhf{}\fancyfoot[C]{\small\thepage}}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\theoremstyle{definition}
+\newtheorem{observation}{Numerical observation}
+\theoremstyle{remark}
+\newtheorem{remark}{Remark}
+
+\newcommand{\Q}{\mathrm{Q}}
+\newcommand{\Lc}{\mathrm{L}}
+\newcommand{\NPA}[1]{\mathrm{NPA}_{#1}}
+\newcommand{\ev}[1]{\langle #1\rangle}
+
+\begin{document}
+\thispagestyle{first}
+
+\twocolumn[{%
+\noindent{\small Preprint}\\[-1pt]
+{\small Quantum Physics}\\[14pt]
+\begin{center}
+{\LARGE\bfseries Exact two-sided certificates for maximal quantum\\[3pt] violations of the doubly tilted CHSH inequality}\\[12pt]
+{\large Team Ninja Turtles}\\[3pt]
+{\small Hack-Nation 2026, Challenge 3 (Agentic Scientific Discovery)}\\[8pt]
+{\small Preprint, October 2026}
+\end{center}
+\vspace{14pt}
+}]
+
+\noindent\textbf{Abstract}\enspace
+We study the maximal quantum value $\Q(p)$ of the doubly tilted CHSH expression
+$I_p = p\ev{A_1}+p\ev{B_1}+\ev{A_1B_1}+\ev{A_1B_2}+\ev{A_2B_1}-\ev{A_2B_2}$, whose classical bound is $\Lc(p)=2+2p$.
+Lower bounds come from explicit quantum strategies, upper bounds from the Navascu\'es--Pironio--Ac\'in (NPA) hierarchy; both are
+certified in exact rational arithmetic, the former by rational $\pm1$-observables and a rational state, the latter by a rational
+dual certificate whose positivity is verified by an exact $LDL^{\mathsf T}$ factorisation. We prove that
+$\Q(3/10)\in[2.938288331758,\,2.938288368082]$, $\Q(1/2)\in[3.136937311309,\,3.136937317689]$ and
+$\Q(131/200)\in[3.358259513883,\,3.358259555321]$, each attained to within $10^{-7}$ by a qubit strategy. At $p=131/200$ the
+optimum of the NPA level $1{+}AB$ exceeds $\Q$ by at least $3.25\cdot10^{-6}$, while level~2 is tight to $4.2\cdot10^{-8}$; so
+level $1{+}AB$ is strictly not tight for this tilted CHSH expression. At $p=0.95$ and $p=0.99$ explicit strategies exceed $\Lc(p)$
+exactly. Numerically, the verifier detects no gap of level $1{+}AB$ up to $p=0.62$, and the detected gap grows monotonically from $p=0.652$ on.
+The questions were posed, the experiments planned and the claims formulated by language-model agents; only claims that passed the
+exact verifier are reported, and the failures are listed. No closed form for $\Q(p)$ was found.
+
+\section{Introduction}
+
+For a bipartite Bell expression the classical bound is a finite maximisation, whereas the maximal quantum value is an optimisation
+over states and measurements in Hilbert spaces of unbounded dimension. For the CHSH expression~\cite{chsh} the latter equals
+$2\sqrt2$~\cite{tsirelson}, and for many other expressions it is known only numerically. The standard tools bound it from two
+sides: explicit strategies give lower bounds, and the NPA hierarchy of semidefinite programs gives a decreasing sequence of upper
+bounds~\cite{npa07,npa08}, which in the limit yields the quantum value~\cite{avis}. Whether a given level is already tight
+depends on the expression; for the inequality $I_{3322}$~\cite{cg} finite-dimensional strategies are conjectured not to attain the
+maximum at all~\cite{pv}.
+
+Tilting CHSH by marginal terms changes this picture. For one-sided tilts $\beta\ev{A_1}+\text{CHSH}$ the quantum value
+$\sqrt{8+2\beta^2}$ is known~\cite{amp}, and operations that change the classical bound while leaving the quantum
+bound invariant have been studied systematically~\cite{epping}. In this note we consider the symmetric two-sided tilt
+\begin{equation}\label{eq:Ip}
+I_p = p\ev{A_1} + p\ev{B_1} + \ev{A_1B_1}+\ev{A_1B_2}+\ev{A_2B_1}-\ev{A_2B_2},
+\end{equation}
+with $\pm1$-valued observables $A_x,B_y$ and $0\le p\le 1$, and we ask three questions: what is $\Q(p)$, do qubits suffice, and from
+which $p$ on is the NPA level $1{+}AB$ no longer tight?
+
+Our emphasis is on certification. Every value we state as a theorem is enclosed between a lower bound that is the exact Bell value
+of an explicit rational strategy and an upper bound that is the exact value of a rational dual certificate. Floating-point
+computations only propose candidates. The study was carried out by an agentic laboratory in which language-model agents proposed
+questions, experiments and claims, and a fixed program decided what is true (Section~\ref{sec:lab}). We report the negative
+outcomes alongside the positive ones.
+
+Two remarks delimit the content. First, the theorems concern finitely many parameter values; no closed form for $\Q(p)$ is
+claimed. Second, our literature search was automated and restricted to abstracts; it did not return a treatment of~\eqref{eq:Ip},
+but we make no claim of novelty.
+
+\section{Setting and certificates}\label{sec:setting}
+
+A two-outcome Bell expression in correlator form is
+$I = c_0 + \sum_x a_x\ev{A_x} + \sum_y b_y\ev{B_y} + \sum_{x,y} c_{xy}\ev{A_xB_y}$ with rational coefficients. For~\eqref{eq:Ip},
+$a=b=(p,0)$, $c=\left(\begin{smallmatrix}1&1\\1&-1\end{smallmatrix}\right)$ and $c_0=0$.
+
+\begin{lemma}\label{lem:L}
+For $p\ge 0$ the classical bound of~\eqref{eq:Ip} is $\Lc(p)=2+2p$.
+\end{lemma}
+\begin{proof}
+For deterministic values $a_x,b_y\in\{\pm1\}$, if $b_1=b_2=b$ the expression equals $p(a_1+b)+2a_1b\le 2p+2$; if $b_1=-b_2$ it
+equals $p(a_1+b_1)+2a_2b_1\le 2p+2$. All values $+1$ attain $2+2p$.
+\end{proof}
+
+The verifier certifies three kinds of statements; the details are in Appendix~\ref{app:cert}.
+
+\emph{Classical bound.} Exact enumeration of all deterministic strategies in rational arithmetic.
+
+\emph{Lower bound on $\Q$.} A real strategy of local dimension $d$ is found by see-saw iteration. The verifier rounds the
+eigenvectors of each observable with eigenvalue $-1$ to a rational matrix $V$ and sets $A=I-2V(V^{\mathsf T}V)^{-1}V^{\mathsf T}$,
+which is exactly a symmetric involution; the state is rounded to a rational vector and normalised exactly. The Bell value of the
+resulting strategy is then a rational number and a valid lower bound on $\Q$.
+
+\emph{Upper bound on $\Q$.} For an NPA level with moment matrix indexed by a word set $S$, any symmetric $Z\succeq0$ with
+$\langle Z,F_w\rangle=-c_w$ for all words $w\ne 1$ gives $\Q\le c_0+\langle Z,F_1\rangle$. The verifier rationalises the
+numerical dual solution, restores the linear constraints exactly and certifies $Z+\varepsilon I\succ0$ by an exact
+$LDL^{\mathsf T}$ factorisation; since the diagonal belongs to the identity class, the bound becomes
+$c_0+\langle Z,F_1\rangle+\varepsilon|S|$. We use the levels $1{+}AB$, $2$ and $2{+}AAB$ (Appendix~\ref{app:cert}).
+
+We call $\Q$ \emph{proved} at a parameter value when the two bounds differ by at most $10^{-6}$. To show that a level is
+\emph{not} tight we also need a lower bound on the optimum of the level itself; it is obtained from a rational feasible moment
+matrix (Appendix~\ref{app:cert}).
+
+Before the study, the verifier passed a self-test of 22 cases, 10 true statements and 12 false statements or rule violations.
+The true anchors include the CHSH value $2.828427125$, the classical bound $6$ of the chained inequality with four
+settings~\cite{bc}, the classical bound $0$ and an NPA upper bound $0.2509$ for $I_{3322}$, and the formula $\sqrt{8+2p^2}$
+of~\cite{amp} at five points. The false statements sit just beyond known values, e.g.\ an upper bound $2.8284270$ for CHSH, and
+the rule violations include a tolerance supplied with the claim, which the verifier ignores.
+
+\section{Results}\label{sec:results}
+
+\begin{theorem}[computer-assisted]\label{thm:values}
+The maximal quantum value of~\eqref{eq:Ip} satisfies
+\begin{align*}
+2.938288331758 &\le \Q(3/10) \le 2.938288368082,\\
+3.136937311309 &\le \Q(1/2) \le 3.136937317689,\\
+3.358259513883 &\le \Q(131/200) \le 3.358259555321.
+\end{align*}
+In each case the lower bound is attained by a strategy with local dimension $d=2$.
+\end{theorem}
+
+The upper bounds come from the NPA levels $1{+}AB$, $2{+}AAB$ and $2$, respectively. The widths are $3.6\cdot10^{-8}$,
+$6.4\cdot10^{-9}$ and $4.2\cdot10^{-8}$, so in particular $\Q$ is proved at these points in the sense of
+Section~\ref{sec:setting}, and qubit strategies attain the quantum value to within these widths. Independent see-saw searches of
+the verifier in dimensions up to $4$ found no larger values.
+
+\begin{theorem}[computer-assisted]\label{thm:npa}
+At $p=131/200$ the optimum of the NPA level $1{+}AB$ for~\eqref{eq:Ip} is at least $3.3582628097$, whereas
+$\Q(131/200)\le 3.358259555321$. Hence level $1{+}AB$ exceeds the quantum value by at least $3.25\cdot10^{-6}$, while level~$2$
+is tight to within $4.2\cdot10^{-8}$.
+\end{theorem}
+
+The first number is the value of a rational positive definite moment matrix that satisfies all constraints of level $1{+}AB$
+exactly; the second is the upper bound of Theorem~\ref{thm:values}, certified at level~2.
+
+\begin{proposition}[computer-assisted]\label{prop:viol}
+At $p=0.99$ an explicit qubit strategy attains $I_p = 3.98000132884\ldots > 3.98 = \Lc(0.99)$, and
+$\Q(0.99)\le 3.98000623487$. At $p=0.95$,
+$3.90016389936 \le \Q(0.95) \le 3.90019981473$, so $\Q(0.95)>\Lc(0.95)=3.9$.
+\end{proposition}
+
+The violations at these points are small, $1.3\cdot10^{-6}$ and $1.6\cdot10^{-4}$, but exact. At $p=0.95$ the bounds differ by
+$3.6\cdot10^{-5}$, so $\Q(0.95)$ is bounded but not proved. At $p=1$ the verifier's best strategy attains exactly $4=\Lc(1)$ and no
+violation was found; that $\Q(1)=4$ is not shown.
+
+\begin{observation}\label{obs:gap}
+Let $g(p)$ denote the verifier's lower bound for the optimum of level $1{+}AB$ minus the best exactly certified strategy value.
+\begin{center}
+\begin{tabular}{@{}lcccccc@{}}
+\toprule
+$p$ & $0.5$ & $0.62$ & $0.652$ & $0.6532$ & $0.6533$ & $0.655$\\
+\midrule
+$g(p)$ & $-1.7\text{e-}8$ & $-2.3\text{e-}8$ & $1.8\text{e-}7$ & $1.03\text{e-}6$ & $1.12\text{e-}6$ & $3.30\text{e-}6$\\
+\bottomrule
+\end{tabular}
+\end{center}
+Up to $p=0.62$, $|g|$ is below $10^{-7}$, the accuracy of the SDP solvers; from $p=0.652$ on $g$ is positive and grows
+monotonically over the points examined.
+\end{observation}
+
+A threshold defined by a fixed tolerance, such as ``$g>10^{-6}$'', therefore depends on that tolerance; we do not locate the onset
+of non-tightness. Only at $p=131/200$ does $g$ compare with a proved quantum value (Theorem~\ref{thm:npa}). At $p=0.72$ level~2
+shows no detectable gap: the corresponding bound for level~2 is $-5.7\cdot10^{-8}$.
+
+\begin{remark}[status of the computer-assisted parts]\label{rem:status}
+All statements labelled computer-assisted rest on exact rational arithmetic (Python \texttt{fractions}). Floating-point
+see-saw iterations and the SDP solvers (Clarabel, SCS via CVXPY) only produce candidates; they are not part of the trusted base.
+The trusted base consists of the enumeration, the exact evaluation of the rounded strategy, the exact restoration of the dual
+constraints and the exact $LDL^{\mathsf T}$ test. The bounds in Theorems~\ref{thm:values} and~\ref{thm:npa} are the verifier's
+exact values rounded outward to the digits shown.
+\end{remark}
+
+\section{The agentic laboratory}\label{sec:lab}
+
+The study was run by the verifier-gated laboratory of~\cite{repo}. A literature scout queried arXiv and Europe PMC (320 sources,
+84 extracted findings, 83 of them with a quotation found verbatim in the abstract by code). An integrator chose one question per
+round by expected information gain and preregistered success and stopping criteria before any experiment. A cascade of researcher
+agents (two smaller, two larger language models) planned experiments, read their results and stated typed claims; the cascade
+stopped at the first claim that passed the verifier. A red team then tried to refute each passed claim with up to two
+counter-claims of the same types, and a learning agent proposed follow-up questions. Language models never decide what is true; a
+claim stands only if the verifier passes it and no counter-claim does.
+
+The laboratory ran eight rounds at a cost of $4.31$\,USD. Seven claims passed the verifier; one of them was contested by the red
+team (Section~\ref{sec:neg}), and one round produced no claim that passed. The manuscript was drafted by a writing agent under a
+gate that rejects every sentence whose numbers do not occur in a cited verified claim, and was then edited for presentation. All
+numbered statements are traced to their claims in Appendix~\ref{app:prov}.
+
+\section{Negative results and preregistration}\label{sec:neg}
+
+\emph{Contested claim.} In the last round the agents claimed that the transition of level $1{+}AB$ lies between $p=0.6532$ and
+$p=0.6533$, defined by $g>10^{-6}$. The red team showed $g(0.6532)\ge1.025\cdot10^{-6}$, refuting the lower end. This is what led
+to Observation~\ref{obs:gap}: the location depends on the tolerance.
+
+\emph{Failed round.} A coarse scan for the same transition over $p\in\{0.6,\dots,0.99\}$ produced no claim that passed.
+
+\emph{Formula.} Two rounds searched for a closed form of $\Q(p)$, including ansätze of the form $\Q^2=8+c_1p^2+c_2p^4$. The
+agents submitted fitted candidates such as $\sqrt{8+7p^2+\tfrac32p^4}$; the verifier rejected it at its first support point, where
+it predicts $2.840800943$ against the certified enclosure $\Q(1/10)\in[2.840515577,\,2.840515578]$. No formula passed.
+
+\emph{Preregistration.} Before the run we registered two hypotheses. H6a, that at least two of three anchor questions (CHSH,
+chained, one-sided tilt) would be confirmed, was not met: the integrator selected none of them. H6b, that at least one certified
+statement concerns an expression outside the named families, was met with six confirmed claims on~\eqref{eq:Ip}.
+
+\section{Discussion}
+
+The doubly tilted CHSH expression is a simple example in which the cheapest useful NPA level stops being tight while the next one
+remains tight, and in which this can be decided with exact certificates on both sides. The certificates are simple: a rational
+strategy for the lower bound and a rational positive semidefinite dual matrix for the upper bound; both can be rechecked
+independently of the solvers that produced them. The results are consistent with the literature as far as we checked it: the
+one-sided formula of~\cite{amp} is reproduced by the same verifier, and for the simplest scenario a coincidence of levels $1{+}AB$
+and $2$ has been reported for correlations under a plausible extremality criterion~\cite{ishizaka}. Our Theorem~\ref{thm:npa}
+concerns an expression with marginal terms; whether the scope of that statement covers such expressions we did not check beyond
+the abstract, and we do not claim a contradiction.
+
+Several questions remain open. (i) A closed form for $\Q(p)$, or at least an algebraic equation satisfied by it, is missing; the
+certified values of Theorem~\ref{thm:values} can test any candidate. (ii) The onset of non-tightness of level $1{+}AB$ is not
+located; in Observation~\ref{obs:gap} the detected gap leaves the noise level between $p=0.62$ and $p=0.652$, but a proof of
+the onset requires certified values of $\Q$ and of the level on both sides of it. (iii) Whether $\Q(p)>\Lc(p)$ for every $p<1$ is open; Proposition~\ref{prop:viol} shows it at two points close to
+$1$, where the violation is of order $10^{-6}$ to $10^{-4}$. (iv) Whether qubits are optimal for all $p$ is open; they are
+optimal to within the stated widths at the three certified points.
+
+\appendix
+\section{The certificates in detail}\label{app:cert}
+
+\emph{Words and moment matrices.} Letters are $A_x,B_y$ with $A_x^2=B_y^2=1$ and $[A_x,B_y]=0$. Words are reduced by moving all
+$A$-letters before all $B$-letters and cancelling equal neighbours. For real strategies $\ev{w}=\ev{w^{\mathsf T}}$, so a word
+is identified with its reverse. Restricting to real symmetric moment matrices loses nothing, since the real part of a feasible
+complex moment matrix is feasible with the same objective value. The word sets are $1{+}AB=\{1,A_x,B_y,A_xB_y\}$,
+$2=1{+}AB\cup\{A_xA_{x'},B_yB_{y'}\}$ and $2{+}AAB=2\cup\{A_xA_{x'}B_y,A_xB_yB_{y'}\}$.
+
+\emph{Dual certificate.} The primal is $\max\sum_w c_w y_w$ subject to $\Gamma(y)=F_1+\sum_{w\ne1}y_wF_w\succeq0$. For
+$Z\succeq0$ with $\langle Z,F_w\rangle=-c_w$, $0\le\langle Z,\Gamma\rangle=\langle Z,F_1\rangle-\sum_{w\ne1}c_wy_w$. The numerical
+$Z$ is rounded to denominators $10^{10}$; each class constraint is restored exactly by spreading the defect uniformly over the
+entries of the class; $\varepsilon$ is the smallest value in a fixed list above $\max(0,-\lambda_{\min})$ for which the exact
+$LDL^{\mathsf T}$ factorisation of $Z+\varepsilon I$ has positive pivots.
+
+\emph{Feasible moment matrix.} For a lower bound on the optimum of a level, the numerical primal $\Gamma$ is averaged over each
+class, rounded, its identity class set to $1$, and replaced by $\Gamma_t=(1-t)\Gamma+tI$ with the smallest $t$ in a fixed list
+for which $\Gamma_t\succ0$ exactly. Since $I$ is feasible, $\Gamma_t$ is feasible, and its objective is a lower bound.
+
+\emph{Strategy.} The see-saw iteration alternates the top eigenvector of the Bell operator with $A_x=\operatorname{sign}(M_x)$ for
+the effective operators $M_x$. The verifier's own search uses fixed seeds disjoint from those available to the agents.
+
+\section{Self-test of the verifier}\label{app:self}
+
+The verifier must pass its self-test before the laboratory starts. Of the 22 cases, the true ones are listed in
+Section~\ref{sec:setting}. The false ones include the classical bound $201/100$ for CHSH, a lower bound $2.8284272$ and an upper
+bound $2.8284270$ for CHSH (just beyond $2\sqrt2$), the value $0.25$ for $I_{3322}$ as a proved quantum value (the gap is not
+closed), the formula $\sqrt{8+p^2}$, a strategy for another expression, an unknown strategy identifier and a formula with fewer
+than three support points. During development the self-test also corrected an expectation of ours: the upper bound $0.2509$ for
+$I_{3322}$, entered as false, is true and is certified at level $2{+}AAB$.
+
+\section{Provenance}\label{app:prov}
+
+Claim identifiers refer to \texttt{projects/bell/paper\_belege.json} in~\cite{repo}.
+
+\begin{center}\small
+\begin{tabular}{@{}ll@{}}
+\toprule
+Statement & Claims\\
+\midrule
+Thm.~\ref{thm:values}, $p=3/10$ & C-bell-R4, -R4-RT2\\
+Thm.~\ref{thm:values}, $p=1/2$ & C-bell-R1, -R3, -R3-RT2, -R1-RT1\\
+Thm.~\ref{thm:values}, $p=131/200$ & C-bell-R6, -R6-RT2\\
+Thm.~\ref{thm:npa} & C-kombi1 (from -R5, -R6)\\
+Prop.~\ref{prop:viol} & C-bell-R2, -R2-RT1, -R2-RT2\\
+$p=1$ & C-bell-R1-RT2\\
+Obs.~\ref{obs:gap} & C-kombi2, -R5-RT1, -R5-RT2\\
+Contested claim & C-bell-R8, -R8-RT1, -R8-RT2\\
+Rejected formula & \texttt{runde4.json} (trace)\\
+Failed round & C-neg1\\
+Preregistration & C-H6a, C-H6b\\
+Self-test & C-selbsttest\\
+Laboratory statistics & C-methode\\
+Literature & C-lit5, -6, -9, -10, -13, -14\\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\section*{Declarations}
+
+\noindent\textbf{Acknowledgements}\enspace Questions, experiments and claims were produced by language-model agents (Claude,
+Anthropic) inside the laboratory described in Section~\ref{sec:lab}; the manuscript was drafted by such an agent and edited with
+its assistance. Every mathematical statement was accepted only by the exact verifier. The team is responsible for the content.
+
+\smallskip
+\noindent\textbf{Code and data availability}\enspace All code, the verifier and its self-test, the stored strategies, the
+laboratory state, the preregistration and the language-model transcripts are in~\cite{repo}, branch \texttt{paper-bell}.
+
+\smallskip
+\noindent\textbf{Competing interests}\enspace The authors declare no competing interests.
+
+\begin{thebibliography}{99}\small
+\bibitem{chsh} J.F. Clauser, M.A. Horne, A. Shimony, R.A. Holt, Proposed experiment to test local hidden-variable theories.
+Phys. Rev. Lett. 23, 880--884 (1969). \url{https://doi.org/10.1103/PhysRevLett.23.880}
+\bibitem{tsirelson} B.S. Cirel'son, Quantum generalizations of Bell's inequality. Lett. Math. Phys. 4, 93--100 (1980).
+\url{https://doi.org/10.1007/BF00417500}
+\bibitem{bc} S.L. Braunstein, C.M. Caves, Wringing out better Bell inequalities. Ann. Phys. 202, 22--56 (1990).
+\url{https://doi.org/10.1016/0003-4916(90)90339-P}
+\bibitem{cg} D. Collins, N. Gisin, A relevant two qubit Bell inequality inequivalent to the CHSH inequality. J. Phys. A 37,
+1775--1787 (2004). \url{https://doi.org/10.1088/0305-4470/37/5/021}
+\bibitem{npa07} M. Navascu\'es, S. Pironio, A. Ac\'in, Bounding the set of quantum correlations. Phys. Rev. Lett. 98, 010401
+(2007). \url{https://doi.org/10.1103/PhysRevLett.98.010401}
+\bibitem{npa08} M. Navascu\'es, S. Pironio, A. Ac\'in, A convergent hierarchy of semidefinite programs characterizing the set of
+quantum correlations. New J. Phys. 10, 073013 (2008). \url{https://doi.org/10.1088/1367-2630/10/7/073013}
+\bibitem{avis} D. Avis, S. Moriyama, M. Owari, From Bell inequalities to Tsirelson's theorem: a survey (2008).
+\url{https://arxiv.org/abs/0812.4887}
+\bibitem{pv} K.F. P\'al, T. V\'ertesi, Maximal violation of a bipartite three-setting, two-outcome Bell inequality using
+infinite-dimensional quantum systems. Phys. Rev. A 82, 022116 (2010). \url{https://doi.org/10.1103/PhysRevA.82.022116}
+\bibitem{amp} A. Ac\'in, S. Massar, S. Pironio, Randomness versus nonlocality and entanglement. Phys. Rev. Lett. 108, 100402
+(2012). \url{https://doi.org/10.1103/PhysRevLett.108.100402}
+\bibitem{epping} M. Epping, H. Kampermann, D. Bru\ss, Optimisation of Bell inequalities with invariant Tsirelson bound (2014).
+\url{https://arxiv.org/abs/1402.0378}
+\bibitem{ishizaka} S. Ishizaka, NPA hierarchy and extremal criterion in the simplest Bell scenario. Entropy 27, 182 (2025).
+\url{https://doi.org/10.3390/e27020182}
+\bibitem{repo} Team Ninja Turtles, Verifier-gated discovery lab, source code and data.
+\url{https://github.com/NinjaTurtlesHackathons/Hacknation} (branch \texttt{paper-bell}).
+\end{thebibliography}
+
+\end{document}
