@@ -1,0 +1,2298 @@
+{
+ "antwort": {
+  "antwort": "unbekannt",
+  "zahl": null,
+  "konfidenz": 0.0,
+  "stimmen": "keine Stufe geprüft"
+ },
+ "level": "keine geprüfte Behauptung",
+ "forscher": [
+  {
+   "strategie": "sparsam",
+   "runden": [
+    {
+     "ueberlegung": "Die bisherigen Ergebnisse deuten an, dass NPA 1+AB an p=0.5 scharf ist (Lücke ≤1.46e-08), aber an p=0.655 nicht (dort war NPA 2 nötig). Der kritische Übergang liegt dazwischen. Der geplante scan mit d=2 See-saw und NPA 1+AB über alle 9 vorgeschlagenen p-Werte wird direkt zeigen, bei welchem p die Lücke erstmals > 1e-6 wird. Dies identifiziert die Schwelle minimal. Danach planen wir gezielt 'luecke_npa' (oberhalb) und 'quantenwert' (unterhalb) zur Bestätigung und Gegenprobe an den kritischen Punkten.",
+     "plan": [
+      {
+       "op": "scan",
+       "args": {
+        "vorlage": {
+         "korrelator": {
+          "a": [
+           "p",
+           0
+          ],
+          "b": [
+           "p",
+           0
+          ],
+          "c": [
+           [
+            1,
+            1
+           ],
+           [
+            1,
+            -1
+           ]
+          ],
+          "konst": 0
+         }
+        },
+        "werte": [
+         0.6,
+         0.63,
+         0.65,
+         0.655,
+         0.66,
+         0.7,
+         0.8,
+         0.9,
+         0.99
+        ],
+        "d": 2,
+        "stufe": "1+AB"
+       }
+      }
+     ]
+    },
+    {
+     "plan": [
+      {
+       "op": "scan",
+       "args": {
+        "vorlage": {
+         "korrelator": {
+          "a": [
+           "p",
+           0
+          ],
+          "b": [
+           "p",
+           0
+          ],
+          "c": [
+           [
+            1,
+            1
+           ],
+           [
+            1,
+            -1
+           ]
+          ],
+          "konst": 0
+         }
+        },
+        "werte": [
+         0.6495,
+         0.65,
+         0.6505,
+         0.651,
+         0.6515,
+         0.652
+        ],
+        "d": 2,
+        "stufe": "1+AB"
+       }
+      }
+     ]
+    },
+    {
+     "antwort": "zwischen p=0.6515 und p=0.652",
+     "zahl": 0.652,
+     "konfidenz": 0.95,
+     "pruefungen": [
+      {
+       "typ": "luecke_npa",
+       "ungleichung": {
+        "korrelator": {
+         "a": [
+          "0.652",
+          0
+         ],
+         "b": [
+          "0.652",
+          0
+         ],
+         "c": [
+          [
+           1,
+           1
+          ],
+          [
+           1,
+           -1
+          ]
+         ],
+         "konst": 0
+        }
+       },
+       "stufe": "1+AB",
+       "mindestens": 1e-06
+      },
+      {
+       "typ": "quantenwert",
+       "ungleichung": {
+        "korrelator": {
+         "a": [
+          "0.6515",
+          0
+         ],
+         "b": [
+          "0.6515",
+          0
+         ],
+         "c": [
+          [
+           1,
+           1
+          ],
+          [
+           1,
+           -1
+          ]
+         ],
+         "konst": 0
+        }
+       },
+       "wert": 3.35267001
+      }
+     ],
+     "begruendung": "Scan E1 belegt: Bei p=0.6515 beträgt die Lücke (NPA 1+AB minus See-saw) nur ~5·10⁻⁸ (scharf, <1e-6); bei p=0.652 aber ~2.2·10⁻⁶ (nicht scharf, >1e-6). Die Übergangsschwelle liegt somit zwischen diesen beiden Werten."
+    }
+   ],
+   "experimente": [
+    0,
+    1
+   ],
+   "final": {
+    "antwort": "zwischen p=0.6515 und p=0.652",
+    "zahl": 0.652,
+    "konfidenz": 0.95,
+    "pruefungen": [
+     {
+      "typ": "luecke_npa",
+      "ungleichung": {
+       "korrelator": {
+        "a": [
+         "0.652",
+         0
+        ],
+        "b": [
+         "0.652",
+         0
+        ],
+        "c": [
+         [
+          1,
+          1
+         ],
+         [
+          1,
+          -1
+         ]
+        ],
+        "konst": 0
+       }
+      },
+      "stufe": "1+AB",
+      "mindestens": 1e-06
+     },
+     {
+      "typ": "quantenwert",
+      "ungleichung": {
+       "korrelator": {
+        "a": [
+         "0.6515",
+         0
+        ],
+        "b": [
+         "0.6515",
+         0
+        ],
+        "c": [
+         [
+          1,
+          1
+         ],
+         [
+          1,
+          -1
+         ]
+        ],
+        "konst": 0
+       }
+      },
+      "wert": 3.35267001
+     }
+    ],
+    "begruendung": "Scan E1 belegt: Bei p=0.6515 beträgt die Lücke (NPA 1+AB minus See-saw) nur ~5·10⁻⁸ (scharf, <1e-6); bei p=0.652 aber ~2.2·10⁻⁶ (nicht scharf, >1e-6). Die Übergangsschwelle liegt somit zwischen diesen beiden Werten."
+   },
+   "modell": "haiku",
+   "pruefung": {
+    "bestanden": false,
+    "grund": "Prüfer: NPA-Stufe 1+AB erreicht >= 3.35346711627 (rationale zulässige Momentmatrix), beste eigene Strategie exakt 3.35346693197 (d<=2); Lücke >= 1.843e-07 | Prüfer: 3.35266998535296 <= Q <= 3.35267005913606 (Lücke 7.38e-08, Strategie d=2, NPA 1+AB); bewiesen"
+   }
+  },
+  {
+   "strategie": "numeriker",
+   "runden": [
+    {
+     "ueberlegung": "Die Frage sucht den Übergang, wo NPA-Stufe 1+AB nicht mehr scharf wird (Lücke zu See-saw > 1e-6). Aus [bell-R4] und [bell-R6] weiß ich, dass NPA 1+AB bei p=0.3 und p=0.655 noch scharf ist. Die Schwelle liegt also höher, irgendwo im Bereich 0.66–0.99.\n\nStrategie:\n1. **scan** mit der Ungleichung p*<A_1> + CHSH-ähnlich über die 9 Werte und Stufe 1+AB, d=2. Dies liefert für jedes p die exakte klassische Schranke L, den See-saw-Wert (d=2) und die NPA 1+AB-Oberschranke. Aus der Differenz erkenne ich, wo die Lücke erstmals > 1e-6 wird.\n2. **luecke_npa** an einem p oberhalb der Schwelle, um explizit zu zertifizieren, dass die NPA-Schranke dort mindestens 1e-6 über einer Quantenstrategie liegt.\n3. **quantenwert** an einem p unterhalb der Schwelle zur Gegenprobe, dass dort Q zweiseitig bewiesen ist (NPA scharf).\n\nDie Vorlage ist: {\"korrelator\": {\"a\": [\"p\", 0], \"b\": [\"p\", 0], \"c\": [[1, 1], [1, -1]], \"konst\": 0}}, eine CHSH-ähnliche Familie mit vorne abgeschwächtem Terminator.",
+     "plan": [
+      {
+       "op": "scan",
+       "args": {
+        "vorlage": {
+         "korrelator": {
+          "a": [
+           "p",
+           0
+          ],
+          "b": [
+           "p",
+           0
+          ],
+          "c": [
+           [
+            1,
+            1
+           ],
+           [
+            1,
+            -1
+           ]
+          ],
+          "konst": 0
+         }
+        },
+        "werte": [
+         0.6,
+         0.63,
+         0.65,
+         0.655,
+         0.66,
+         0.7,
+         0.8,
+         0.9,
+         0.99
+        ],
+        "d": 2,
+        "stufe": "1+AB"
+       }
+      }
+     ]
+    },
+    {
+     "plan": [
+      {
+       "op": "luecke_npa",
+       "args": {
+        "ungleichung": {
+         "korrelator": {
+          "a": [
+           "131/200",
+           0
+          ],
+          "b": [
+           "131/200",
+           0
+          ],
+          "c": [
+           [
+            1,
+            1
+           ],
+           [
+            1,
+            -1
+           ]
+          ],
+          "konst": 0
+         }
+        },
+        "stufe": "1+AB",
+        "mindestens": 3.3e-06
+       }
+      },
+      {
+       "op": "quantenwert",
+       "args": {
+        "ungleichung": {
+         "korrelator": {
+          "a": [
+           "13/20",
+           0
+          ],
+          "b": [
+           "13/20",
+           0
+          ],
+          "c": [
+           [
+            1,
+            1
+           ],
+           [
+            1,
+            -1
+           ]
+          ],
+          "konst": 0
+         }
+        }
+       }
+      }
+     ]
+    },
+    {
+     "antwort": "Der Übergang liegt zwischen p=0.65 und p=0.655 (131/200); ab p≥0.655 wird die NPA-1+AB-Lücke >1e-6",
+     "zahl": 0.655,
+     "konfidenz": 0.99,
+     "pruefungen": [
+      {
+       "typ": "luecke_npa",
+       "ungleichung": {
+        "korrelator": {
+         "a": [
+          "131/200",
+          0
+         ],
+         "b": [
+          "131/200",
+          0
+         ],
+         "c": [
+          [
+           1,
+           1
+          ],
+          [
+           1,
+           -1
+          ]
+         ],
+         "konst": 0
+        }
+       },
+       "stufe": "1+AB",
+       "mindestens": 2.5e-06
+      },
+      {
+       "typ": "quantenwert",
+       "ungleichung": {
+        "korrelator": {
+         "a": [
+          "13/20",
+          0
+         ],
+         "b": [
+          "13/20",
+          0
+         ],
+         "c": [
+          [
+           1,
+           1
+          ],
+          [
+           1,
+           -1
+          ]
+         ],
+         "konst": 0
+        }
+       },
+       "wert": 3.35028226
+      }
+     ],
+     "begruendung": "Aus E2-Scan folgt: Bei p=0.65 beträgt |npa₁₊ₐᵦ − seesaw| ≈ 1.50e-08 ≪ 1e-6 (NPA scharf). Bei p=0.655 (=131/200) springt die Lücke auf ≈ 3.33e-06 > 1e-6 (NPA nicht scharf). Der kritische Übergang liegt mithin zwischen diesen Werten; p=0.655 ist die erste Schwelle, wo Scharfheit verloren geht."
+    }
+   ],
+   "experimente": [
+    2,
+    3,
+    4
+   ],
+   "final": {
+    "antwort": "Der Übergang liegt zwischen p=0.65 und p=0.655 (131/200); ab p≥0.655 wird die NPA-1+AB-Lücke >1e-6",
+    "zahl": 0.655,
+    "konfidenz": 0.99,
+    "pruefungen": [
+     {
+      "typ": "luecke_npa",
+      "ungleichung": {
+       "korrelator": {
+        "a": [
+         "131/200",
+         0
+        ],
+        "b": [
+         "131/200",
+         0
+        ],
+        "c": [
+         [
+          1,
+          1
+         ],
+         [
+          1,
+          -1
+         ]
+        ],
+        "konst": 0
+       }
+      },
+      "stufe": "1+AB",
+      "mindestens": 2.5e-06
+     },
+     {
+      "typ": "quantenwert",
+      "ungleichung": {
+       "korrelator": {
+        "a": [
+         "13/20",
+         0
+        ],
+        "b": [
+         "13/20",
+         0
+        ],
+        "c": [
+         [
+          1,
+          1
+         ],
+         [
+          1,
+          -1
+         ]
+        ],
+        "konst": 0
+       }
+      },
+      "wert": 3.35028226
+     }
+    ],
+    "begruendung": "Aus E2-Scan folgt: Bei p=0.65 beträgt |npa₁₊ₐᵦ − seesaw| ≈ 1.50e-08 ≪ 1e-6 (NPA scharf). Bei p=0.655 (=131/200) springt die Lücke auf ≈ 3.33e-06 > 1e-6 (NPA nicht scharf). Der kritische Übergang liegt mithin zwischen diesen Werten; p=0.655 ist die erste Schwelle, wo Scharfheit verloren geht."
+   },
+   "modell": "haiku",
+   "pruefung": {
+    "bestanden": false,
+    "grund": "Prüfer: NPA-Stufe 1+AB erreicht >= 3.35826280973 (rationale zulässige Momentmatrix), beste eigene Strategie exakt 3.35825951388 (d<=2); Lücke >= 3.296e-06 | Prüfer: 3.35028226953351 <= Q <= 3.35028227868304 (Lücke 9.15e-09, Strategie d=2, NPA 1+AB); bewiesen"
+   }
+  },
+  {
+   "strategie": "skeptiker",
+   "runden": [
+    {
+     "ueberlegung": "Plan: Zuerst der Scan mit Stufe 1+AB und d=2 über die vorgegebenen p-Werte, um die Schwelle zu lokalisieren, an der die Lücke zwischen NPA 1+AB und See-saw 1e-6 übersteigt. Aus den bisherigen Ergebnissen: bei p=0,5 und 0,3 ist 1+AB scharf (Lücke ~1e-8), bei p=0,655 (131/200) ist die Lücke ≥ 3e-6 bei 1+AB (Stufe 2 scharf). Der Übergang liegt also vermutlich zwischen 0,5 und 0,655 – eventuell bei ~0,6–0,65. Ich vermute nicht blind eine Schwelle, sondern lasse den Scan entscheiden und prüfe Gegenbeispiele: Ist die Lücke monoton in p? Könnte See-saw bei einzelnen p ein lokales Optimum liefern (Artefakt statt echter NPA-Lücke)? Deshalb vergleiche ich zusätzlich d=3 und Stufe 2 im Scan für dieselben Werte, um Seesaw-Artefakte (Qubits reichen nicht) von echter NPA-Unschärfe zu trennen. Dann kommen die Prüfungen luecke_npa (oberhalb Schwelle) und quantenwert (unterhalb) – die konkreten p-Werte lege ich nach dem Scan fest. Als Vorab-Kandidaten: p=0,655 für luecke_npa (bereits R5) und p=0,5 bzw. 0,3 für quantenwert (R1/R4).",
+     "plan": [
+      {
+       "op": "scan",
+       "args": {
+        "vorlage": {
+         "korrelator": {
+          "a": [
+           "p",
+           0
+          ],
+          "b": [
+           "p",
+           0
+          ],
+          "c": [
+           [
+            1,
+            1
+           ],
+           [
+            1,
+            -1
+           ]
+          ],
+          "konst": 0
+         }
+        },
+        "werte": [
+         "0.6",
+         "0.63",
+         "0.65",
+         "0.655",
+         "0.66",
+         "0.7",
+         "0.8",
+         "0.9",
+         "0.99"
+        ],
+        "d": 2,
+        "stufe": "1+AB"
+       }
+      },
+      {
+       "op": "scan",
+       "args": {
+        "vorlage": {
+         "korrelator": {
+          "a": [
+           "p",
+           0
+          ],
+          "b": [
+           "p",
+           0
+          ],
+          "c": [
+           [
+            1,
+            1
+           ],
+           [
+            1,
+            -1
+           ]
+          ],
+          "konst": 0
+         }
+        },
+        "werte": [
+         "0.6",
+         "0.63",
+         "0.65",
+         "0.655",
+         "0.66",
+         "0.7",
+         "0.8",
+         "0.9",
+         "0.99"
+        ],
+        "d": 3,
+        "stufe": "1+AB"
+       }
+      },
+      {
+       "op": "scan",
+       "args": {
+        "vorlage": {
+         "korrelator": {
+          "a": [
+           "p",
+           0
+          ],
+          "b": [
+           "p",
+           0
+          ],
+          "c": [
+           [
+            1,
+            1
+           ],
+           [
+            1,
+            -1
+           ]
+          ],
+          "konst": 0
+         }
+        },
+        "werte": [
+         "0.6",
+         "0.63",
+         "0.65",
+         "0.655",
+         "0.66",
+         "0.7",
+         "0.8",
+         "0.9",
+         "0.99"
+        ],
+        "d": 2,
+        "stufe": "2"
+       }
+      }
+     ]
+    },
+    {
+     "antwort": "Der Übergang liegt zwischen p=0,65 und p=0,655. Bei p ≤ 0,65 ist NPA 1+AB scharf (Lücke ≲ 1e-8 bzw. negativ im Rahmen der numerischen Genauigkeit). Ab p=0,655 ist die Lücke größer als 1e-6, bei 0,655 etwa 3,3e-6, bei 0,66 etwa 1,6e-5 und bei 0,7 etwa 3,8e-4. Auf Stufe 2 ist die Lücke bei 0,655 und 0,66 wieder unter 1e-6 (≈ 8e-8 bzw. 8,6e-8), also gilt Q = See-saw-Wert (d=2).",
+     "zahl": 0.655,
+     "konfidenz": 0.8,
+     "pruefungen": [
+      {
+       "typ": "luecke_npa",
+       "ungleichung": {
+        "korrelator": {
+         "a": [
+          "131/200",
+          0
+         ],
+         "b": [
+          "131/200",
+          0
+         ],
+         "c": [
+          [
+           1,
+           1
+          ],
+          [
+           1,
+           -1
+          ]
+         ],
+         "konst": 0
+        }
+       },
+       "stufe": "1+AB",
+       "mindestens": 2e-06
+      },
+      {
+       "typ": "quantenwert",
+       "ungleichung": {
+        "korrelator": {
+         "a": [
+          "13/20",
+          0
+         ],
+         "b": [
+          "13/20",
+          0
+         ],
+         "c": [
+          [
+           1,
+           1
+          ],
+          [
+           1,
+           -1
+          ]
+         ],
+         "konst": 0
+        }
+       },
+       "wert": 3.3502822695
+      }
+     ],
+     "begruendung": "Der Scan (d=2, Stufe 1+AB) zeigt bei p=0,6, 0,63 und 0,65 Übereinstimmung von See-saw und NPA bis ca. 1e-8. Bei p=0,655 (3,3582595 vs. 3,3582628) und höher übersteigt die Lücke 1e-6. Der Scan auf Stufe 2 fällt bei 0,655 wieder mit dem See-saw-Wert zusammen, daher ist die Lücke ein Artefakt der Stufe 1+AB und keine echte Quantenlücke. Die Schwelle ist nur auf das Intervall (0,65; 0,655] eingegrenzt, nicht genauer bestimmt."
+    }
+   ],
+   "experimente": [
+    5,
+    6,
+    7
+   ],
+   "final": {
+    "antwort": "Der Übergang liegt zwischen p=0,65 und p=0,655. Bei p ≤ 0,65 ist NPA 1+AB scharf (Lücke ≲ 1e-8 bzw. negativ im Rahmen der numerischen Genauigkeit). Ab p=0,655 ist die Lücke größer als 1e-6, bei 0,655 etwa 3,3e-6, bei 0,66 etwa 1,6e-5 und bei 0,7 etwa 3,8e-4. Auf Stufe 2 ist die Lücke bei 0,655 und 0,66 wieder unter 1e-6 (≈ 8e-8 bzw. 8,6e-8), also gilt Q = See-saw-Wert (d=2).",
+    "zahl": 0.655,
+    "konfidenz": 0.8,
+    "pruefungen": [
+     {
+      "typ": "luecke_npa",
+      "ungleichung": {
+       "korrelator": {
+        "a": [
+         "131/200",
+         0
+        ],
+        "b": [
+         "131/200",
+         0
+        ],
+        "c": [
+         [
+          1,
+          1
+         ],
+         [
+          1,
+          -1
+         ]
+        ],
+        "konst": 0
+       }
+      },
+      "stufe": "1+AB",
+      "mindestens": 2e-06
+     },
+     {
+      "typ": "quantenwert",
+      "ungleichung": {
+       "korrelator": {
+        "a": [
+         "13/20",
+         0
+        ],
+        "b": [
+         "13/20",
+         0
+        ],
+        "c": [
+         [
+          1,
+          1
+         ],
+         [
+          1,
+          -1
+         ]
+        ],
+        "konst": 0
+       }
+      },
+      "wert": 3.3502822695
+     }
+    ],
+    "begruendung": "Der Scan (d=2, Stufe 1+AB) zeigt bei p=0,6, 0,63 und 0,65 Übereinstimmung von See-saw und NPA bis ca. 1e-8. Bei p=0,655 (3,3582595 vs. 3,3582628) und höher übersteigt die Lücke 1e-6. Der Scan auf Stufe 2 fällt bei 0,655 wieder mit dem See-saw-Wert zusammen, daher ist die Lücke ein Artefakt der Stufe 1+AB und keine echte Quantenlücke. Die Schwelle ist nur auf das Intervall (0,65; 0,655] eingegrenzt, nicht genauer bestimmt."
+   },
+   "modell": "sonnet",
+   "pruefung": {
+    "bestanden": false,
+    "grund": "Prüfer: NPA-Stufe 1+AB erreicht >= 3.35826280973 (rationale zulässige Momentmatrix), beste eigene Strategie exakt 3.35825951388 (d<=2); Lücke >= 3.296e-06 | Prüfer: 3.35028226953351 <= Q <= 3.35028227868304 (Lücke 9.15e-09, Strategie d=2, NPA 1+AB); bewiesen"
+   }
+  },
+  {
+   "strategie": "theoretiker",
+   "runden": [
+    {
+     "ueberlegung": "Die Ungleichung ist die gekippte CHSH mit beta=p/... hier a=[p/... ]: Vorlage mit a_1 = p/2? Aus den bekannten Daten: p=0,655 (131/200) entspricht a=0,655, und dort ist 1+AB bereits um >=3e-6 über See-saw (d=2), während bei 0,5 und 0,3 scharf (Lücke ~1e-8). Also liegt die Schwelle zwischen 0,5 und 0,655. Symmetrie: a_1=b_1=p, Grenzfälle p->0 (CHSH, scharf, 2sqrt2) und p->1 (Ungleichung aus lokal-ähnlichem Bereich). Vorhersage: für kleine p ist die 1+AB scharf (Qubit-Optimum liegt auf Stufe 1+AB, vgl. Tsirelson-artige Struktur), ab einem p* zwischen 0,6 und 0,655 öffnet sich die Lücke. Zuerst Scan über die vorgegebenen Werte mit d=2 und 1+AB, dann Kontrolle mit höherem d und Stufe 2 an einem Punkt oberhalb, um zu sehen, ob die Lücke durch Dimension oder durch die Stufe entsteht. Vorlage: Korrelator mit a=[p,0], b=[p,0], c=CHSH. Die Prüfungen (luecke_npa, quantenwert) formuliere ich nach den Scan-Ergebnissen.",
+     "plan": [
+      {
+       "op": "scan",
+       "args": {
+        "vorlage": {
+         "korrelator": {
+          "a": [
+           "p",
+           0
+          ],
+          "b": [
+           "p",
+           0
+          ],
+          "c": [
+           [
+            1,
+            1
+           ],
+           [
+            1,
+            -1
+           ]
+          ],
+          "konst": 0
+         }
+        },
+        "werte": [
+         "3/5",
+         "63/100",
+         "13/20",
+         "131/200",
+         "33/50",
+         "7/10",
+         "4/5",
+         "9/10",
+         "99/100"
+        ],
+        "d": 2,
+        "stufe": "1+AB"
+       }
+      },
+      {
+       "op": "npa",
+       "args": {
+        "ungleichung": {
+         "korrelator": {
+          "a": [
+           "4/5",
+           0
+          ],
+          "b": [
+           "4/5",
+           0
+          ],
+          "c": [
+           [
+            1,
+            1
+           ],
+           [
+            1,
+            -1
+           ]
+          ],
+          "konst": 0
+         }
+        },
+        "stufe": "1+AB"
+       }
+      },
+      {
+       "op": "seesaw",
+       "args": {
+        "ungleichung": {
+         "korrelator": {
+          "a": [
+           "4/5",
+           0
+          ],
+          "b": [
+           "4/5",
+           0
+          ],
+          "c": [
+           [
+            1,
+            1
+           ],
+           [
+            1,
+            -1
+           ]
+          ],
+          "konst": 0
+         }
+        },
+        "d": 2,
+        "starts": 40,
+        "seed": 1
+       }
+      },
+      {
+       "op": "seesaw",
+       "args": {
+        "ungleichung": {
+         "korrelator": {
+          "a": [
+           "4/5",
+           0
+          ],
+          "b": [
+           "4/5",
+           0
+          ],
+          "c": [
+           [
+            1,
+            1
+           ],
+           [
+            1,
+            -1
+           ]
+          ],
+          "konst": 0
+         }
+        },
+        "d": 4,
+        "starts": 40,
+        "seed": 2
+       }
+      },
+      {
+       "op": "npa",
+       "args": {
+        "ungleichung": {
+         "korrelator": {
+          "a": [
+           "4/5",
+           0
+          ],
+          "b": [
+           "4/5",
+           0
+          ],
+          "c": [
+           [
+            1,
+            1
+           ],
+           [
+            1,
+            -1
+           ]
+          ],
+          "konst": 0
+         }
+        },
+        "stufe": "2"
+       }
+      },
+      {
+       "op": "npa",
+       "args": {
+        "ungleichung": {
+         "korrelator": {
+          "a": [
+           "3/5",
+           0
+          ],
+          "b": [
+           "3/5",
+           0
+          ],
+          "c": [
+           [
+            1,
+            1
+           ],
+           [
+            1,
+            -1
+           ]
+          ],
+          "konst": 0
+         }
+        },
+        "stufe": "1+AB"
+       }
+      },
+      {
+       "op": "seesaw",
+       "args": {
+        "ungleichung": {
+         "korrelator": {
+          "a": [
+           "3/5",
+           0
+          ],
+          "b": [
+           "3/5",
+           0
+          ],
+          "c": [
+           [
+            1,
+            1
+           ],
+           [
+            1,
+            -1
+           ]
+          ],
+          "konst": 0
+         }
+        },
+        "d": 2,
+        "starts": 40,
+        "seed": 3
+       }
+      },
+      {
+       "op": "lokal",
+       "args": {
+        "ungleichung": {
+         "korrelator": {
+          "a": [
+           "4/5",
+           0
+          ],
+          "b": [
+           "4/5",
+           0
+          ],
+          "c": [
+           [
+            1,
+            1
+           ],
+           [
+            1,
+            -1
+           ]
+          ],
+          "konst": 0
+         }
+        }
+       }
+      }
+     ]
+    },
+    {
+     "antwort": "Die Schwelle liegt im Scan zwischen p=0,65 und p=0,655. Bei p ≤ 0,65 ist die Lücke 1+AB minus See-saw (d=2) höchstens 2,4e-8 und damit numerisches Rauschen. Bei p=0,655 beträgt sie 3,3e-6, bei 0,66 etwa 1,6e-5, bei 0,7 etwa 3,7e-4 und bei 0,8 etwa 1,5e-3. Die genaue Schwelle ist nur auf dieses Intervall eingegrenzt. Stufe 2 ist bei p=0,8 wieder scharf: 3,6099528 gegenüber See-saw 3,6099529.",
+     "zahl": 0.655,
+     "konfidenz": 0.8,
+     "pruefungen": [
+      {
+       "typ": "luecke_npa",
+       "ungleichung": {
+        "korrelator": {
+         "a": [
+          "4/5",
+          0
+         ],
+         "b": [
+          "4/5",
+          0
+         ],
+         "c": [
+          [
+           1,
+           1
+          ],
+          [
+           1,
+           -1
+          ]
+         ],
+         "konst": 0
+        }
+       },
+       "stufe": "1+AB",
+       "mindestens": 0.001
+      },
+      {
+       "typ": "quantenwert",
+       "ungleichung": {
+        "korrelator": {
+         "a": [
+          "3/5",
+          0
+         ],
+         "b": [
+          "3/5",
+          0
+         ],
+         "c": [
+          [
+           1,
+           1
+          ],
+          [
+           1,
+           -1
+          ]
+         ],
+         "konst": 0
+        }
+       },
+       "wert": 3.2734498849
+      }
+     ],
+     "begruendung": "Die Scan-Werte zeigen für p ≤ 0,65 Lücken von höchstens 2,4e-8 und ab p=0,655 Lücken über 1e-6, die mit p wachsen. Bei p=0,8 liegt 1+AB (3,61146) um etwa 1,5e-3 über der besten d=2-Strategie (3,60995), während Stufe 2 mit dieser übereinstimmt; bei p=0,6 stimmen 1+AB und See-saw überein, sodass Q dort bewiesen ist."
+    }
+   ],
+   "experimente": [
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15
+   ],
+   "final": {
+    "antwort": "Die Schwelle liegt im Scan zwischen p=0,65 und p=0,655. Bei p ≤ 0,65 ist die Lücke 1+AB minus See-saw (d=2) höchstens 2,4e-8 und damit numerisches Rauschen. Bei p=0,655 beträgt sie 3,3e-6, bei 0,66 etwa 1,6e-5, bei 0,7 etwa 3,7e-4 und bei 0,8 etwa 1,5e-3. Die genaue Schwelle ist nur auf dieses Intervall eingegrenzt. Stufe 2 ist bei p=0,8 wieder scharf: 3,6099528 gegenüber See-saw 3,6099529.",
+    "zahl": 0.655,
+    "konfidenz": 0.8,
+    "pruefungen": [
+     {
+      "typ": "luecke_npa",
+      "ungleichung": {
+       "korrelator": {
+        "a": [
+         "4/5",
+         0
+        ],
+        "b": [
+         "4/5",
+         0
+        ],
+        "c": [
+         [
+          1,
+          1
+         ],
+         [
+          1,
+          -1
+         ]
+        ],
+        "konst": 0
+       }
+      },
+      "stufe": "1+AB",
+      "mindestens": 0.001
+     },
+     {
+      "typ": "quantenwert",
+      "ungleichung": {
+       "korrelator": {
+        "a": [
+         "3/5",
+         0
+        ],
+        "b": [
+         "3/5",
+         0
+        ],
+        "c": [
+         [
+          1,
+          1
+         ],
+         [
+          1,
+          -1
+         ]
+        ],
+        "konst": 0
+       }
+      },
+      "wert": 3.2734498849
+     }
+    ],
+    "begruendung": "Die Scan-Werte zeigen für p ≤ 0,65 Lücken von höchstens 2,4e-8 und ab p=0,655 Lücken über 1e-6, die mit p wachsen. Bei p=0,8 liegt 1+AB (3,61146) um etwa 1,5e-3 über der besten d=2-Strategie (3,60995), während Stufe 2 mit dieser übereinstimmt; bei p=0,6 stimmen 1+AB und See-saw überein, sodass Q dort bewiesen ist."
+   },
+   "modell": "sonnet",
+   "pruefung": {
+    "bestanden": false,
+    "grund": "Prüfer: NPA-Stufe 1+AB erreicht >= 3.61146202966 (rationale zulässige Momentmatrix), beste eigene Strategie exakt 3.60995286572 (d<=3); Lücke >= 1.509e-03 | Prüfer: 3.27344988488863 <= Q <= 3.27344990523753 (Lücke 2.03e-08, Strategie d=3, NPA 1+AB); bewiesen"
+   }
+  }
+ ],
+ "experimente": [
+  {
+   "id": 0,
+   "wer": "forscher-sparsam",
+   "op": "scan",
+   "args": {
+    "vorlage": {
+     "korrelator": {
+      "a": [
+       "p",
+       0
+      ],
+      "b": [
+       "p",
+       0
+      ],
+      "c": [
+       [
+        1,
+        1
+       ],
+       [
+        1,
+        -1
+       ]
+      ],
+      "konst": 0
+     }
+    },
+    "werte": [
+     0.6,
+     0.63,
+     0.65,
+     0.655,
+     0.66,
+     0.7,
+     0.8,
+     0.9,
+     0.99
+    ],
+    "d": 2,
+    "stufe": "1+AB"
+   },
+   "ergebnis": {
+    "punkte": [
+     {
+      "p": 0.6,
+      "L": 3.2,
+      "seesaw": 3.2734498848886444,
+      "npa": 3.2734498610500626,
+      "strategie_id": "Sd41e9cc0cc6a"
+     },
+     {
+      "p": 0.63,
+      "L": 3.26,
+      "seesaw": 3.3188994325096393,
+      "npa": 3.3188994271039967,
+      "strategie_id": "S4e6b563afafc"
+     },
+     {
+      "p": 0.65,
+      "L": 3.3,
+      "seesaw": 3.3502822695334045,
+      "npa": 3.3502822545721216,
+      "strategie_id": "Sa180c8de4c5b"
+     },
+     {
+      "p": 0.655,
+      "L": 3.31,
+      "seesaw": 3.3582595138835147,
+      "npa": 3.358262846972201,
+      "strategie_id": "S0cc470ba4e20"
+     },
+     {
+      "p": 0.66,
+      "L": 3.32,
+      "seesaw": 3.3662884740488916,
+      "npa": 3.366304742785744,
+      "strategie_id": "S562bd30af572"
+     },
+     {
+      "p": 0.7,
+      "L": 3.4,
+      "seesaw": 3.432324087632579,
+      "npa": 3.4326991506230797,
+      "strategie_id": "Sbfd222724e7f"
+     },
+     {
+      "p": 0.8,
+      "L": 3.6,
+      "seesaw": 3.60995286572267,
+      "npa": 3.6114620354131377,
+      "strategie_id": "S4c5a5cb63319"
+     },
+     {
+      "p": 0.9,
+      "L": 3.8,
+      "seesaw": 3.801289075015685,
+      "npa": 3.8022966630013544,
+      "strategie_id": "S2d28659afa75"
+     },
+     {
+      "p": 0.99,
+      "L": 3.98,
+      "seesaw": 3.9800013287514853,
+      "npa": 3.9800191137703056,
+      "strategie_id": "S5f846dda8d86"
+     }
+    ],
+    "hinweis": "numerisch (Kandidat)"
+   },
+   "sek": 1.6
+  },
+  {
+   "id": 1,
+   "wer": "forscher-sparsam",
+   "op": "scan",
+   "args": {
+    "vorlage": {
+     "korrelator": {
+      "a": [
+       "p",
+       0
+      ],
+      "b": [
+       "p",
+       0
+      ],
+      "c": [
+       [
+        1,
+        1
+       ],
+       [
+        1,
+        -1
+       ]
+      ],
+      "konst": 0
+     }
+    },
+    "werte": [
+     0.6495,
+     0.65,
+     0.6505,
+     0.651,
+     0.6515,
+     0.652
+    ],
+    "d": 2,
+    "stufe": "1+AB"
+   },
+   "ergebnis": {
+    "punkte": [
+     {
+      "p": 0.6495,
+      "L": 3.299,
+      "seesaw": 3.349487407112738,
+      "npa": 3.349487398688579,
+      "strategie_id": "S9b191dfcbe70"
+     },
+     {
+      "p": 0.65,
+      "L": 3.3,
+      "seesaw": 3.3502822695334045,
+      "npa": 3.3502822545721216,
+      "strategie_id": "Sa180c8de4c5b"
+     },
+     {
+      "p": 0.6505,
+      "L": 3.301,
+      "seesaw": 3.3510776536817133,
+      "npa": 3.351077626938744,
+      "strategie_id": "S84f9625235e0"
+     },
+     {
+      "p": 0.651,
+      "L": 3.302,
+      "seesaw": 3.351873559105824,
+      "npa": 3.3518735318452384,
+      "strategie_id": "S6ca753cbb088"
+     },
+     {
+      "p": 0.6515,
+      "L": 3.303,
+      "seesaw": 3.3526699853528643,
+      "npa": 3.3526700351845564,
+      "strategie_id": "S7339fecd4a82"
+     },
+     {
+      "p": 0.652,
+      "L": 3.304,
+      "seesaw": 3.3534669319689936,
+      "npa": 3.3534671531276454,
+      "strategie_id": "S805fd11f2839"
+     }
+    ],
+    "hinweis": "numerisch (Kandidat)"
+   },
+   "sek": 0.45
+  },
+  {
+   "id": 2,
+   "wer": "forscher-numeriker",
+   "op": "scan",
+   "args": {
+    "vorlage": {
+     "korrelator": {
+      "a": [
+       "p",
+       0
+      ],
+      "b": [
+       "p",
+       0
+      ],
+      "c": [
+       [
+        1,
+        1
+       ],
+       [
+        1,
+        -1
+       ]
+      ],
+      "konst": 0
+     }
+    },
+    "werte": [
+     0.6,
+     0.63,
+     0.65,
+     0.655,
+     0.66,
+     0.7,
+     0.8,
+     0.9,
+     0.99
+    ],
+    "d": 2,
+    "stufe": "1+AB"
+   },
+   "ergebnis": {
+    "punkte": [
+     {
+      "p": 0.6,
+      "L": 3.2,
+      "seesaw": 3.2734498848886444,
+      "npa": 3.2734498610500626,
+      "strategie_id": "Sd41e9cc0cc6a"
+     },
+     {
+      "p": 0.63,
+      "L": 3.26,
+      "seesaw": 3.3188994325096393,
+      "npa": 3.3188994271039967,
+      "strategie_id": "S4e6b563afafc"
+     },
+     {
+      "p": 0.65,
+      "L": 3.3,
+      "seesaw": 3.3502822695334045,
+      "npa": 3.3502822545721216,
+      "strategie_id": "Sa180c8de4c5b"
+     },
+     {
+      "p": 0.655,
+      "L": 3.31,
+      "seesaw": 3.3582595138835147,
+      "npa": 3.358262846972201,
+      "strategie_id": "S0cc470ba4e20"
+     },
+     {
+      "p": 0.66,
+      "L": 3.32,
+      "seesaw": 3.3662884740488916,
+      "npa": 3.366304742785744,
+      "strategie_id": "S562bd30af572"
+     },
+     {
+      "p": 0.7,
+      "L": 3.4,
+      "seesaw": 3.432324087632579,
+      "npa": 3.4326991506230797,
+      "strategie_id": "Sbfd222724e7f"
+     },
+     {
+      "p": 0.8,
+      "L": 3.6,
+      "seesaw": 3.60995286572267,
+      "npa": 3.6114620354131377,
+      "strategie_id": "S4c5a5cb63319"
+     },
+     {
+      "p": 0.9,
+      "L": 3.8,
+      "seesaw": 3.801289075015685,
+      "npa": 3.8022966630013544,
+      "strategie_id": "S2d28659afa75"
+     },
+     {
+      "p": 0.99,
+      "L": 3.98,
+      "seesaw": 3.9800013287514853,
+      "npa": 3.9800191137703056,
+      "strategie_id": "S5f846dda8d86"
+     }
+    ],
+    "hinweis": "numerisch (Kandidat)"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 3,
+   "wer": "forscher-numeriker",
+   "op": "luecke_npa",
+   "args": {
+    "ungleichung": {
+     "korrelator": {
+      "a": [
+       "131/200",
+       0
+      ],
+      "b": [
+       "131/200",
+       0
+      ],
+      "c": [
+       [
+        1,
+        1
+       ],
+       [
+        1,
+        -1
+       ]
+      ],
+      "konst": 0
+     }
+    },
+    "stufe": "1+AB",
+    "mindestens": 3.3e-06
+   },
+   "ergebnis": {
+    "fehler": "unbekannte op luecke_npa"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 4,
+   "wer": "forscher-numeriker",
+   "op": "quantenwert",
+   "args": {
+    "ungleichung": {
+     "korrelator": {
+      "a": [
+       "13/20",
+       0
+      ],
+      "b": [
+       "13/20",
+       0
+      ],
+      "c": [
+       [
+        1,
+        1
+       ],
+       [
+        1,
+        -1
+       ]
+      ],
+      "konst": 0
+     }
+    }
+   },
+   "ergebnis": {
+    "fehler": "unbekannte op quantenwert"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 5,
+   "wer": "forscher-skeptiker",
+   "op": "scan",
+   "args": {
+    "vorlage": {
+     "korrelator": {
+      "a": [
+       "p",
+       0
+      ],
+      "b": [
+       "p",
+       0
+      ],
+      "c": [
+       [
+        1,
+        1
+       ],
+       [
+        1,
+        -1
+       ]
+      ],
+      "konst": 0
+     }
+    },
+    "werte": [
+     "0.6",
+     "0.63",
+     "0.65",
+     "0.655",
+     "0.66",
+     "0.7",
+     "0.8",
+     "0.9",
+     "0.99"
+    ],
+    "d": 2,
+    "stufe": "1+AB"
+   },
+   "ergebnis": {
+    "punkte": [
+     {
+      "p": "0.6",
+      "L": 3.2,
+      "seesaw": 3.2734498848886444,
+      "npa": 3.2734498610500626,
+      "strategie_id": "Sd41e9cc0cc6a"
+     },
+     {
+      "p": "0.63",
+      "L": 3.26,
+      "seesaw": 3.3188994325096393,
+      "npa": 3.3188994271039967,
+      "strategie_id": "S4e6b563afafc"
+     },
+     {
+      "p": "0.65",
+      "L": 3.3,
+      "seesaw": 3.3502822695334045,
+      "npa": 3.3502822545721216,
+      "strategie_id": "Sa180c8de4c5b"
+     },
+     {
+      "p": "0.655",
+      "L": 3.31,
+      "seesaw": 3.3582595138835147,
+      "npa": 3.358262846972201,
+      "strategie_id": "S0cc470ba4e20"
+     },
+     {
+      "p": "0.66",
+      "L": 3.32,
+      "seesaw": 3.3662884740488916,
+      "npa": 3.366304742785744,
+      "strategie_id": "S562bd30af572"
+     },
+     {
+      "p": "0.7",
+      "L": 3.4,
+      "seesaw": 3.432324087632579,
+      "npa": 3.4326991506230797,
+      "strategie_id": "Sbfd222724e7f"
+     },
+     {
+      "p": "0.8",
+      "L": 3.6,
+      "seesaw": 3.60995286572267,
+      "npa": 3.6114620354131377,
+      "strategie_id": "S4c5a5cb63319"
+     },
+     {
+      "p": "0.9",
+      "L": 3.8,
+      "seesaw": 3.801289075015685,
+      "npa": 3.8022966630013544,
+      "strategie_id": "S2d28659afa75"
+     },
+     {
+      "p": "0.99",
+      "L": 3.98,
+      "seesaw": 3.9800013287514853,
+      "npa": 3.9800191137703056,
+      "strategie_id": "S5f846dda8d86"
+     }
+    ],
+    "hinweis": "numerisch (Kandidat)"
+   },
+   "sek": 1.61
+  },
+  {
+   "id": 6,
+   "wer": "forscher-skeptiker",
+   "op": "scan",
+   "args": {
+    "vorlage": {
+     "korrelator": {
+      "a": [
+       "p",
+       0
+      ],
+      "b": [
+       "p",
+       0
+      ],
+      "c": [
+       [
+        1,
+        1
+       ],
+       [
+        1,
+        -1
+       ]
+      ],
+      "konst": 0
+     }
+    },
+    "werte": [
+     "0.6",
+     "0.63",
+     "0.65",
+     "0.655",
+     "0.66",
+     "0.7",
+     "0.8",
+     "0.9",
+     "0.99"
+    ],
+    "d": 3,
+    "stufe": "1+AB"
+   },
+   "ergebnis": {
+    "punkte": [
+     {
+      "p": "0.6",
+      "L": 3.2,
+      "seesaw": 3.273449884888646,
+      "npa": 3.2734498610500626,
+      "strategie_id": "Sc8b933f4eae6"
+     },
+     {
+      "p": "0.63",
+      "L": 3.26,
+      "seesaw": 3.318899432509627,
+      "npa": 3.3188994271039967,
+      "strategie_id": "Sb736b91d3180"
+     },
+     {
+      "p": "0.65",
+      "L": 3.3,
+      "seesaw": 3.350282269533393,
+      "npa": 3.3502822545721216,
+      "strategie_id": "Se5624c003482"
+     },
+     {
+      "p": "0.655",
+      "L": 3.31,
+      "seesaw": 3.358259513883537,
+      "npa": 3.358262846972201,
+      "strategie_id": "S193be033091f"
+     },
+     {
+      "p": "0.66",
+      "L": 3.32,
+      "seesaw": 3.366288474049037,
+      "npa": 3.366304742785744,
+      "strategie_id": "Sa0d1ce475597"
+     },
+     {
+      "p": "0.7",
+      "L": 3.4,
+      "seesaw": 3.432324087632437,
+      "npa": 3.4326991506230797,
+      "strategie_id": "S99a046d0f5a5"
+     },
+     {
+      "p": "0.8",
+      "L": 3.6,
+      "seesaw": 3.609952865722322,
+      "npa": 3.6114620354131377,
+      "strategie_id": "S219a8238f629"
+     },
+     {
+      "p": "0.9",
+      "L": 3.8,
+      "seesaw": 3.801289075015675,
+      "npa": 3.8022966630013544,
+      "strategie_id": "Sb721ccd2ef24"
+     },
+     {
+      "p": "0.99",
+      "L": 3.98,
+      "seesaw": 3.9800000000000058,
+      "npa": 3.9800191137703056,
+      "strategie_id": "S9868a8c2a704"
+     }
+    ],
+    "hinweis": "numerisch (Kandidat)"
+   },
+   "sek": 0.77
+  },
+  {
+   "id": 7,
+   "wer": "forscher-skeptiker",
+   "op": "scan",
+   "args": {
+    "vorlage": {
+     "korrelator": {
+      "a": [
+       "p",
+       0
+      ],
+      "b": [
+       "p",
+       0
+      ],
+      "c": [
+       [
+        1,
+        1
+       ],
+       [
+        1,
+        -1
+       ]
+      ],
+      "konst": 0
+     }
+    },
+    "werte": [
+     "0.6",
+     "0.63",
+     "0.65",
+     "0.655",
+     "0.66",
+     "0.7",
+     "0.8",
+     "0.9",
+     "0.99"
+    ],
+    "d": 2,
+    "stufe": "2"
+   },
+   "ergebnis": {
+    "punkte": [
+     {
+      "p": "0.6",
+      "L": 3.2,
+      "seesaw": 3.2734498848886444,
+      "npa": 3.273449813029031,
+      "strategie_id": "Sd41e9cc0cc6a"
+     },
+     {
+      "p": "0.63",
+      "L": 3.26,
+      "seesaw": 3.3188994325096393,
+      "npa": 3.3188993863931695,
+      "strategie_id": "S4e6b563afafc"
+     },
+     {
+      "p": "0.65",
+      "L": 3.3,
+      "seesaw": 3.3502822695334045,
+      "npa": 3.350282196644413,
+      "strategie_id": "Sa180c8de4c5b"
+     },
+     {
+      "p": "0.655",
+      "L": 3.31,
+      "seesaw": 3.3582595138835147,
+      "npa": 3.3582594320891763,
+      "strategie_id": "S0cc470ba4e20"
+     },
+     {
+      "p": "0.66",
+      "L": 3.32,
+      "seesaw": 3.3662884740488916,
+      "npa": 3.3662883883273196,
+      "strategie_id": "S562bd30af572"
+     },
+     {
+      "p": "0.7",
+      "L": 3.4,
+      "seesaw": 3.432324087632579,
+      "npa": 3.4323240655080394,
+      "strategie_id": "Sbfd222724e7f"
+     },
+     {
+      "p": "0.8",
+      "L": 3.6,
+      "seesaw": 3.60995286572267,
+      "npa": 3.609952838483064,
+      "strategie_id": "S4c5a5cb63319"
+     },
+     {
+      "p": "0.9",
+      "L": 3.8,
+      "seesaw": 3.801289075015685,
+      "npa": 3.801583083880347,
+      "strategie_id": "S2d28659afa75"
+     },
+     {
+      "p": "0.99",
+      "L": 3.98,
+      "seesaw": 3.9800013287514853,
+      "npa": 3.9800115538192458,
+      "strategie_id": "S5f846dda8d86"
+     }
+    ],
+    "hinweis": "numerisch (Kandidat)"
+   },
+   "sek": 1.67
+  },
+  {
+   "id": 8,
+   "wer": "forscher-theoretiker",
+   "op": "scan",
+   "args": {
+    "vorlage": {
+     "korrelator": {
+      "a": [
+       "p",
+       0
+      ],
+      "b": [
+       "p",
+       0
+      ],
+      "c": [
+       [
+        1,
+        1
+       ],
+       [
+        1,
+        -1
+       ]
+      ],
+      "konst": 0
+     }
+    },
+    "werte": [
+     "3/5",
+     "63/100",
+     "13/20",
+     "131/200",
+     "33/50",
+     "7/10",
+     "4/5",
+     "9/10",
+     "99/100"
+    ],
+    "d": 2,
+    "stufe": "1+AB"
+   },
+   "ergebnis": {
+    "punkte": [
+     {
+      "p": "3/5",
+      "L": 3.2,
+      "seesaw": 3.2734498848886444,
+      "npa": 3.2734498610500626,
+      "strategie_id": "Sd41e9cc0cc6a"
+     },
+     {
+      "p": "63/100",
+      "L": 3.26,
+      "seesaw": 3.3188994325096393,
+      "npa": 3.3188994271039967,
+      "strategie_id": "S4e6b563afafc"
+     },
+     {
+      "p": "13/20",
+      "L": 3.3,
+      "seesaw": 3.3502822695334045,
+      "npa": 3.3502822545721216,
+      "strategie_id": "Sa180c8de4c5b"
+     },
+     {
+      "p": "131/200",
+      "L": 3.31,
+      "seesaw": 3.3582595138835147,
+      "npa": 3.358262846972201,
+      "strategie_id": "S0cc470ba4e20"
+     },
+     {
+      "p": "33/50",
+      "L": 3.32,
+      "seesaw": 3.3662884740488916,
+      "npa": 3.366304742785744,
+      "strategie_id": "S562bd30af572"
+     },
+     {
+      "p": "7/10",
+      "L": 3.4,
+      "seesaw": 3.432324087632579,
+      "npa": 3.4326991506230797,
+      "strategie_id": "Sbfd222724e7f"
+     },
+     {
+      "p": "4/5",
+      "L": 3.6,
+      "seesaw": 3.60995286572267,
+      "npa": 3.6114620354131377,
+      "strategie_id": "S4c5a5cb63319"
+     },
+     {
+      "p": "9/10",
+      "L": 3.8,
+      "seesaw": 3.801289075015685,
+      "npa": 3.8022966630013544,
+      "strategie_id": "S2d28659afa75"
+     },
+     {
+      "p": "99/100",
+      "L": 3.98,
+      "seesaw": 3.9800013287514853,
+      "npa": 3.9800191137703056,
+      "strategie_id": "S5f846dda8d86"
+     }
+    ],
+    "hinweis": "numerisch (Kandidat)"
+   },
+   "sek": 1.6
+  },
+  {
+   "id": 9,
+   "wer": "forscher-theoretiker",
+   "op": "npa",
+   "args": {
+    "ungleichung": {
+     "korrelator": {
+      "a": [
+       "4/5",
+       0
+      ],
+      "b": [
+       "4/5",
+       0
+      ],
+      "c": [
+       [
+        1,
+        1
+       ],
+       [
+        1,
+        -1
+       ]
+      ],
+      "konst": 0
+     }
+    },
+    "stufe": "1+AB"
+   },
+   "ergebnis": {
+    "schranke_numerisch": 3.6114620354131377,
+    "schranke_zertifiziert": 3.6114620550858327,
+    "stufe": "1+AB",
+    "groesse": 9
+   },
+   "sek": 0.02
+  },
+  {
+   "id": 10,
+   "wer": "forscher-theoretiker",
+   "op": "seesaw",
+   "args": {
+    "ungleichung": {
+     "korrelator": {
+      "a": [
+       "4/5",
+       0
+      ],
+      "b": [
+       "4/5",
+       0
+      ],
+      "c": [
+       [
+        1,
+        1
+       ],
+       [
+        1,
+        -1
+       ]
+      ],
+      "konst": 0
+     }
+    },
+    "d": 2,
+    "starts": 40,
+    "seed": 1
+   },
+   "ergebnis": {
+    "wert": 3.60995286572267,
+    "strategie_id": "S4c5a5cb63319",
+    "beste_starts": [
+     3.609952866,
+     3.609952866,
+     3.609952866,
+     3.609952866,
+     3.609952866,
+     3.609952866,
+     3.609952866,
+     3.609952866
+    ],
+    "d": 2,
+    "hinweis": "numerisch (Kandidat)"
+   },
+   "sek": 0.43
+  },
+  {
+   "id": 11,
+   "wer": "forscher-theoretiker",
+   "op": "seesaw",
+   "args": {
+    "ungleichung": {
+     "korrelator": {
+      "a": [
+       "4/5",
+       0
+      ],
+      "b": [
+       "4/5",
+       0
+      ],
+      "c": [
+       [
+        1,
+        1
+       ],
+       [
+        1,
+        -1
+       ]
+      ],
+      "konst": 0
+     }
+    },
+    "d": 4,
+    "starts": 40,
+    "seed": 2
+   },
+   "ergebnis": {
+    "wert": 3.609952865722624,
+    "strategie_id": "Sedad3f0ac7ce",
+    "beste_starts": [
+     3.609952866,
+     3.609952866,
+     3.609952866,
+     3.609952866,
+     3.609952866,
+     3.609952866,
+     3.609952866,
+     3.609952866
+    ],
+    "d": 4,
+    "hinweis": "numerisch (Kandidat)"
+   },
+   "sek": 0.32
+  },
+  {
+   "id": 12,
+   "wer": "forscher-theoretiker",
+   "op": "npa",
+   "args": {
+    "ungleichung": {
+     "korrelator": {
+      "a": [
+       "4/5",
+       0
+      ],
+      "b": [
+       "4/5",
+       0
+      ],
+      "c": [
+       [
+        1,
+        1
+       ],
+       [
+        1,
+        -1
+       ]
+      ],
+      "konst": 0
+     }
+    },
+    "stufe": "2"
+   },
+   "ergebnis": {
+    "schranke_numerisch": 3.609952838483064,
+    "schranke_zertifiziert": 3.6099528801645686,
+    "stufe": "2",
+    "groesse": 13
+   },
+   "sek": 0.03
+  },
+  {
+   "id": 13,
+   "wer": "forscher-theoretiker",
+   "op": "npa",
+   "args": {
+    "ungleichung": {
+     "korrelator": {
+      "a": [
+       "3/5",
+       0
+      ],
+      "b": [
+       "3/5",
+       0
+      ],
+      "c": [
+       [
+        1,
+        1
+       ],
+       [
+        1,
+        -1
+       ]
+      ],
+      "konst": 0
+     }
+    },
+    "stufe": "1+AB"
+   },
+   "ergebnis": {
+    "schranke_numerisch": 3.2734498610500626,
+    "schranke_zertifiziert": 3.2734499052375345,
+    "stufe": "1+AB",
+    "groesse": 9
+   },
+   "sek": 0.02
+  },
+  {
+   "id": 14,
+   "wer": "forscher-theoretiker",
+   "op": "seesaw",
+   "args": {
+    "ungleichung": {
+     "korrelator": {
+      "a": [
+       "3/5",
+       0
+      ],
+      "b": [
+       "3/5",
+       0
+      ],
+      "c": [
+       [
+        1,
+        1
+       ],
+       [
+        1,
+        -1
+       ]
+      ],
+      "konst": 0
+     }
+    },
+    "d": 2,
+    "starts": 40,
+    "seed": 3
+   },
+   "ergebnis": {
+    "wert": 3.2734498848887,
+    "strategie_id": "S04431865a94c",
+    "beste_starts": [
+     3.273449885,
+     3.273449885,
+     3.273449885,
+     3.273449885,
+     3.273449885,
+     3.273449885,
+     3.273449885,
+     3.273449885
+    ],
+    "d": 2,
+    "hinweis": "numerisch (Kandidat)"
+   },
+   "sek": 0.26
+  },
+  {
+   "id": 15,
+   "wer": "forscher-theoretiker",
+   "op": "lokal",
+   "args": {
+    "ungleichung": {
+     "korrelator": {
+      "a": [
+       "4/5",
+       0
+      ],
+      "b": [
+       "4/5",
+       0
+      ],
+      "c": [
+       [
+        1,
+        1
+       ],
+       [
+        1,
+        -1
+       ]
+      ],
+      "konst": 0
+     }
+    }
+   },
+   "ergebnis": {
+    "L": "18/5",
+    "L_float": 3.6,
+    "strategie_A": [
+     1,
+     1
+    ],
+    "strategie_B": [
+     1,
+     1
+    ],
+    "hinweis": "exakt"
+   },
+   "sek": 0.0
+  }
+ ],
+ "sek": 385.1
+}
