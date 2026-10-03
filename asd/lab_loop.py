@@ -124,7 +124,8 @@ def main():
             p = (res["antwort"].get("pruefungen") or [res["antwort"].get("pruefung")])[0]
             rt = red_team(P, D, q["frage"], res["antwort"], runde); angefochten = [x for x in rt if x["bestanden"]]
             grund = next(tr["pruefung"]["grund"] for tr in res["forscher"] if tr.get("pruefung", {}).get("bestanden"))
-            P.s["claims"].append({"id": cid, "frage": q["frage"], "text": f"{q['frage']} -> {res['antwort'].get('antwort')}", "pruefung": p, "grund": grund,
+            P.s["claims"].append({"id": cid, "frage": q["frage"], "text": D.describe(p), "interpretation_ungeprueft": str(res["antwort"].get("antwort")),
+                                  "pruefung": p, "grund": grund,
                                   "level": D.level(p), "status": "angefochten" if angefochten else "bestätigt", "red_team": rt, "runde": runde})
             log(f"  geprüft ({D.level(p)}): {res['antwort'].get('antwort')} | Red-Team: {len(rt)} Gegenprüfungen, {len(angefochten)} bestanden")
         else:

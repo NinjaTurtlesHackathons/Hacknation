@@ -36,4 +36,16 @@ class LatticeDomain(Domain):
                 ({"typ": "argmin3d", "nu": 5, "erwartet": "fcc"}, False)]
 
 
+    def describe(self, p):
+        t = p.get("typ")
+        if t == "argmin2d": return f"Bei nu = {p['nu']} findet die unabhängige globale Suche des Prüfers als 2D-Minimierer: {p['erwartet']}" + (f" mit y = {p['y']}" if p.get("y") else "") + " (numerisch)."
+        if t == "argmin3d": return f"Bei nu = {p['nu']} hat {p['erwartet']} unter BCC, FCC, SC und dem Bain-Pfad die niedrigste Energie (numerisch)."
+        if t == "argmin_nd": return f"Bei nu = {p['nu']} findet die unabhängige Suche des Prüfers (d = {p['d']}) nichts Besseres als {p['erwartet']} (numerisch)."
+        if t == "vorzeichenwechsel": return f"{p['groesse']} wechselt das Vorzeichen zwischen nu = {p['nu_lo']} und nu = {p['nu_hi']} (numerisch, Fehlerschätzung)."
+        if t == "koexistenz": return f"Bei nu = {p['nu']} sind hexagonales und quadratisches Gitter beide lokale Minima (numerisch)."
+        if t == "grenzwert": return f"Fit des Prüfers: {p['groesse']} = {p['erwartet']} innerhalb der festen Toleranz (numerisch)."
+        if t == "vergleich_nd": return f"Bei nu = {p['nu']} hat {p['gitter']} eine niedrigere Energie als {', '.join(p.get('gegen') or [])} (numerisch, zwei Auflösungen)."
+        return super().describe(p)
+
+
 DOMAIN = LatticeDomain()

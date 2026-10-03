@@ -67,6 +67,21 @@ def check_erreichbar(p):
     return ok, "Zertifikat (a): " + "; ".join(msg), {"raten": {k: f"{v.numerator}/{v.denominator}" for k, v in r.items()}}
 
 
+def check_untere_schranke(p, timeout=600):
+    """Zertifikat (b) symbolisch, in eigenem Prozess mit Zeitlimit (große Netzwerke können lange dauern)."""
+    import subprocess, sys
+    arg = json.dumps({"topologie": p["topologie"], "c": str(p.get("c", "1")), "k": int(p["k"])})
+    try:
+        r = subprocess.run([sys.executable, "-m", "asd.domains.proofreading_symbolic", arg], capture_output=True, text=True, timeout=timeout)
+        out = json.loads(r.stdout.strip().splitlines()[-1])
+    except subprocess.TimeoutExpired:
+        return False, f"nicht zertifiziert: symbolische Rechnung > {timeout} s", {}
+    except Exception as e:
+        return False, f"Prüfung nicht ausführbar: {type(e).__name__}: {e}"[:300], {}
+    return out["bewiesen"], (f"Zertifikat (b) symbolisch: eta - {p.get('c', 1)}*e^(-{p['k']}*Delta) = N/D mit {out['terme_zaehler']} bzw. {out['terme_nenner']} "
+                             f"Termen, alle Koeffizienten nichtnegativ: {out['bewiesen']} ({out['sek']} s)"), out
+
+
 class ProofreadingDomain(Domain):
     name = "proofreading"
     recherche_ziel = ("Thermodynamische Grenzen von Kinetic Proofreading: Zielkonflikt zwischen Fehlerrate, Energieverbrauch (Dissipation) und "
@@ -86,7 +101,10 @@ class ProofreadingDomain(Domain):
     claim_doc = """Prüfungstypen:
 - {"typ": "erreichbar", "topologie": ..., "params": {name: log-Rate, ...}, "eta_max": Zahl, "sigma_max": Zahl|null, "v_min": Zahl|null}
   Zertifikat (a): Der Prüfer rundet die Raten auf rationale Zahlen, prüft Ratenbereich und detaillierte Bilanz exakt und berechnet eta, v exakt
-  und sigma rigoros (arb). Besteht, wenn eta <= eta_max (und sigma <= sigma_max, v >= v_min). Nutze params aus optimize/evaluate."""
+  und sigma rigoros (arb). Besteht, wenn eta <= eta_max (und sigma <= sigma_max, v >= v_min). Nutze params aus optimize/evaluate.
+- {"typ": "untere_schranke", "topologie": "hopfield_n0"|"hopfield_n1", "c": Zahl, "k": ganze Zahl}
+  Zertifikat (b): Beweis, dass eta >= c * e^(-k*Delta) für ALLE positiven Raten und jeden Treibstoff gilt (symbolisch, Koeffizienten-Positivität).
+  Scheitert der Beweis, ist die Aussage nicht widerlegt, nur nicht zertifiziert. Teuer (Minuten)."""
 
     def run_op(self, op, args):
         try:
@@ -101,11 +119,24 @@ class ProofreadingDomain(Domain):
     def check(self, p):
         try:
             if p.get("typ") == "erreichbar": return check_erreichbar(p)
+            if p.get("typ") == "untere_schranke": return check_untere_schranke(p)
             return False, f"unbekannter Prüfungstyp {p.get('typ')}", {}
         except Exception as e:
             return False, f"Prüfung nicht ausführbar: {type(e).__name__}: {e}"[:300], {}
 
     def level(self, p): return "computed_rigorous"
+
+    def describe(self, p):
+        if p.get("typ") == "untere_schranke":
+            return (f"Für {p['topologie']} gilt eta >= {p.get('c', 1)} * e^(-{p['k']} Delta) für alle positiven Raten und alle Treibstoff-Potentiale "
+                    f"mu, mu_P >= 0 (Zertifikat (b): symbolischer Positivitätsbeweis, unabhängig vom Ratenbereich).")
+        if p.get("typ") != "erreichbar": return super().describe(p)
+        parts = [f"eta <= {p['eta_max']}"] if p.get("eta_max") is not None else []
+        if p.get("sigma_max") is not None: parts.append(f"sigma <= {p['sigma_max']} kT pro Produkt")
+        if p.get("v_min") is not None: parts.append(f"v >= {p['v_min']}")
+        topo = p["topologie"] if isinstance(p["topologie"], str) else p["topologie"].get("name", "eigene Topologie")
+        return (f"Für {topo} existieren rationale Raten in [e^-10, e^10] mit lokaler detaillierter Bilanz, für die gleichzeitig "
+                f"{', '.join(parts)} gilt (Zertifikat (a): exakte Erreichbarkeit).")
 
     def consistent(self, antwort, p):
         z = antwort.get("zahl")
@@ -119,7 +150,9 @@ class ProofreadingDomain(Domain):
                 ({"typ": "erreichbar", "topologie": "hopfield_n1", "params": hp, "eta_max": 1.0e-4}, False),   # unter der Hopfield-Grenze
                 ({"typ": "erreichbar", "topologie": "hopfield_n0", "params": n0, "eta_max": 0.0101}, True),
                 ({"typ": "erreichbar", "topologie": "hopfield_n0", "params": n0, "eta_max": 0.0099}, False),   # unter e^-Delta ohne Proofreading
-                ({"typ": "erreichbar", "topologie": "hopfield_n1", "params": hp | {"mu": 15.0}, "eta_max": 1.0}, False)]  # Rate außerhalb [-L, L]
+                ({"typ": "erreichbar", "topologie": "hopfield_n1", "params": hp | {"mu": 15.0}, "eta_max": 1.0}, False),
+                ({"typ": "untere_schranke", "topologie": "hopfield_n0", "c": 1, "k": 1}, True),      # Gleichgewichtsgrenze ohne Proofreading
+                ({"typ": "untere_schranke", "topologie": "hopfield_n0", "c": 2, "k": 1}, False)]     # falsch: n0 erreicht 1,0000x e^-Delta  # Rate außerhalb [-L, L]
 
 
 DOMAIN = ProofreadingDomain()

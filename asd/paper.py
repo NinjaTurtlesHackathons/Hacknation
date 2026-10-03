@@ -13,9 +13,14 @@ sonst 'Numerischer Befund' bzw. 'Beobachtung') mit Evidenzstufe in Klammern, 5 N
 
 
 def claims_of(domain):
-    s = json.load(open(f"projects/{domain}/state.json")); C = []
+    s = json.load(open(f"projects/{domain}/state.json")); C = []; D = get_domain(domain)
     for c in s["claims"]:
-        C.append({"claim_id": f"C-{c['id']}", "text": f"{c['text']}. Prüfer: {c['grund']}", "level": c["level"], "status": c["status"]})
+        text = D.describe(c["pruefung"]) if c.get("pruefung") else c["text"]          # nur was die Prüfung beweist
+        C.append({"claim_id": f"C-{c['id']}", "text": f"Untersuchte Frage: {c['frage']} Geprüftes Resultat: {text} Prüfer: {c['grund']}",
+                  "level": c["level"], "status": c["status"]})
+        interp = c.get("interpretation_ungeprueft") or c["text"].split("->")[-1]
+        C.append({"claim_id": f"C-{c['id']}-I", "text": f"Ungeprüfte Interpretation des Agenten zu {c['id']} (nicht als Resultat verwenden): {interp}",
+                  "level": "hypothesis", "status": "offen"})
         for j, r in enumerate(c.get("red_team", [])):
             C.append({"claim_id": f"C-{c['id']}-RT{j + 1}", "text": f"Red-Team-Gegenprüfung zu {c['id']}: {r['idee']} -> {'bestanden (Aussage angefochten)' if r['bestanden'] else 'nicht bestanden'}; {r['grund']}",
                       "level": "computed_rigorous", "status": "bestätigt"})

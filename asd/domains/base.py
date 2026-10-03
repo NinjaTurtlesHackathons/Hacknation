@@ -12,6 +12,7 @@ Pflicht für jede Domäne:
                    bestehen, bevor die Domäne benutzt werden darf (asd/selftest.py).
 Optional:
   consistent(antwort, p)  Passt der Antworttext zur geprüften Behauptung?
+  describe(p)      Kanonische Aussage, die eine bestandene Prüfung beweist (Pflicht für ehrliche Paper-Sätze).
   level(p)         Evidenzstufe einer bestandenen Prüfung: proved_lean | computed_rigorous | statistical | observed
 """
 
@@ -36,6 +37,12 @@ class Domain:
 
     def level(self, p):
         return "observed"
+
+    def describe(self, p):
+        """Kanonische Aussage, die eine BESTANDENE Prüfung p beweist, erzeugt aus p selbst (nicht aus dem Text des Agenten).
+        Nur diese Aussage darf als Resultat ins Paper. Der Antworttext des Agenten ist bloß Interpretation."""
+        import json
+        return "Prüfung bestanden: " + json.dumps(p, ensure_ascii=False)
 
 
 def get_domain(name):
