@@ -38,6 +38,15 @@ class Domain:
     def level(self, p):
         return "observed"
 
+    def widerspricht(self, p, q):
+        """True, wenn die bestandenen Prüfungen p und q logisch nicht beide wahr sein können (Red-Team-Kriterium).
+        Standard: kein bekannter Widerspruch. Domänen sollten das für ihre Prüfungstypen definieren."""
+        return False
+
+    def figures(self, state, outdir):
+        """Optional: Abbildungen aus geprüften Aussagen. Gibt [(dateiname, bildunterschrift_mit_claim_ids)] zurück."""
+        return []
+
     def describe(self, p):
         """Kanonische Aussage, die eine BESTANDENE Prüfung p beweist, erzeugt aus p selbst (nicht aus dem Text des Agenten).
         Nur diese Aussage darf als Resultat ins Paper. Der Antworttext des Agenten ist bloß Interpretation."""

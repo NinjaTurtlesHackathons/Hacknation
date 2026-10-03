@@ -1,0 +1,34 @@
+Selbsttest des Prüfers: bestanden
+Suchanfragen: ['kinetic proofreading thermodynamic limits', 'Hopfield Ninio accuracy bounds', 'thermodynamic uncertainty relation proofreading', 'error rate dissipation speed trade-off', 'kinetic proofreading energy cost mechanisms', 'proofreading accuracy energy consumption scaling', 'Pareto optimal error dissipation frontier', 'biochemical fidelity control constraints', 'kinetic proofreading molecular recognition fidelity', 'thermodynamic bounds DNA polymerase accuracy']
+266 Quellen, 0 durch Leck-Filter gesperrt
+87 Befunde extrahiert, 87 Zitate per Code bestätigt, 0 verworfen
+Runde 1: Pareto-Front eta(sigma) bei fester Mindestgeschwindigkeit: Wie verlaufen die minimalen Fehlerraten für hopfield_n1 und n2 über sigma_max in {2,4,6,8,12,20} bei v_min = 1e-3 relativ zum Maximum? Gibt es einen Knick oder Phasenübergang (nichtglatte Front), wie für das gemischte Regime berichtet?
+  geprüft (computed_rigorous): Ja, nicht-glatte Pareto-Front mit Knick und Phasenübergang für hopfield_n1 | Red-Team: 2 Gegenprüfungen, 2 bestanden
+Runde 2: Ist der beobachtete Sprung der minimalen Fehlerrate von hopfield_n1 zwischen sigma_max=6 und 8 (v_min=1e-3) ein echter Phasenübergang oder ein Optimierungsartefakt? Dazu: optimize für hopfield_n1 mit sigma_max in {6,6.5,7,7.5,8,9} und v_min=1e-3, je mit mindestens 30 Starts und mehreren Seeds. Zusätzlich die Parameter des Optimums bei sigma=6 per evaluate bei sigma_max=8 und 12 einsetzen und prüfen, ob dieses Optimum dort zulässig bleibt (erreichbar-Prüfung mit eta_max=4e-4, sigma_max=8, v_min=1e-3).
+  geprüft (computed_rigorous): Optimierungsartefakt, kein Phasenübergang: Das Minimum von eta muss in sigma_max monoton nicht steigen. Die Läufe bei sigma_max=8 und 9 (eta ≈ 2,75e-4) liegen aber über den Läufen bei 6,5 bis 7,5 (eta ≈ 1,8e-4 bis 2,0e-4). Das sind unvollständig konvergierte Multi-Start-Optima. | Red-Team: 2 Gegenprüfungen, 1 bestanden
+Runde 3: Wie verläuft die Pareto-Front eta_min(sigma_max) für hopfield_n1 und hopfield_n2 bei v_min=1e-3 und sigma_max von 4 bis 14, wenn die Front monoton erzwungen wird (jedes Optimum wird als Startpunkt für größere sigma_max wiederverwendet)? Sättigt eta_min gegen den Hopfield-Grenzwert e^-(n+1)Delta (n=1: 1e-4; n=2: 1e-6), und bei welchem sigma tritt die Sättigung ein?
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/home/user/HackNation-Ninja-Turtles/asd/lab_loop.py", line 141, in <module>
+    if __name__ == "__main__":
+        ^^^^^^
+  File "/home/user/HackNation-Ninja-Turtles/asd/lab_loop.py", line 125, in main
+    rt = red_team(P, D, q["frage"], res["antwort"], runde); angefochten = [x for x in rt if x["bestanden"]]
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/user/HackNation-Ninja-Turtles/asd/lab_loop.py", line 73, in red_team
+    r = ask_json(f"{D.kontext}\n\nFRAGE: {frage}\nGEPRÜFTE ANTWORT: {json.dumps(ans, ensure_ascii=False)}\n\n{D.claim_doc}\n\nDu bist Red-Team. Formuliere bis zu 2 "
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/user/HackNation-Ninja-Turtles/asd/llm.py", line 66, in ask_json
+    return json.loads(m.group(1))
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.11/json/__init__.py", line 346, in loads
+    return _default_decoder.decode(s)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.11/json/decoder.py", line 337, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.11/json/decoder.py", line 353, in raw_decode
+    obj, end = self.scan_once(s, idx)
+               ^^^^^^^^^^^^^^^^^^^^^^
+json.decoder.JSONDecodeError: Expecting ',' delimiter: line 1 column 782 (char 781)

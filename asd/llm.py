@@ -59,8 +59,18 @@ def ask(prompt, system="Du bist ein sorgfältiger Wissenschaftler.", model=None,
     return text
 
 
-def ask_json(prompt, system="Du bist ein sorgfältiger Wissenschaftler. Antworte nur mit gültigem JSON.", **kw):
-    text = ask(prompt, system, **kw)
+def _parse_json(text):
     m = re.search(r"```(?:json)?\s*(\{.*?\}|\[.*?\])\s*```", text, re.S) or re.search(r"(\{.*\}|\[.*\])", text, re.S)
-    if not m: raise LLMError(f"keine JSON-Antwort: {text[:300]}")
+    if not m: raise json.JSONDecodeError("keine JSON-Antwort", text[:100], 0)
     return json.loads(m.group(1))
+
+
+def ask_json(prompt, system="Du bist ein sorgfältiger Wissenschaftler. Antworte nur mit gültigem JSON.", repairs=2, **kw):
+    """Wie ask, aber mit JSON-Ergebnis. Fehlerhaftes JSON wird dem Modell zur Reparatur zurückgegeben (bis zu `repairs` Mal)."""
+    text = ask(prompt, system, **kw); salt = kw.pop("salt", "")
+    for j in range(repairs + 1):
+        try: return _parse_json(text)
+        except json.JSONDecodeError as e:
+            if j == repairs: raise LLMError(f"ungültiges JSON nach {repairs} Reparaturen: {e}")
+            text = ask(f"Dieser Text sollte gültiges JSON sein, ist es aber nicht ({e}). Gib exakt denselben Inhalt als gültiges JSON zurück, "
+                       f"ohne weiteren Text:\n\n{text[:12000]}", system, salt=f"{salt}-repair{j}", **kw)

@@ -82,6 +82,27 @@ def check_untere_schranke(p, timeout=600):
                              f"Termen, alle Koeffizienten nichtnegativ: {out['bewiesen']} ({out['sek']} s)"), out
 
 
+def pareto_figure(state, outdir):
+    """Zweiseitige Front: obere Kurve = zertifiziert erreichbare Punkte (Zertifikat a), untere = bewiesene Schranken (Zertifikat b)."""
+    import matplotlib; matplotlib.use("Agg"); import matplotlib.pyplot as plt
+    pts, bounds, ids = {}, [], []
+    for c in state["claims"]:
+        if c["status"] != "bestätigt": continue
+        p = c["pruefung"]
+        if p.get("typ") == "erreichbar" and p.get("sigma_max") is not None and p.get("eta_max") is not None:
+            pts.setdefault(str(p["topologie"]), []).append((float(p["sigma_max"]), float(p["eta_max"]))); ids.append(c["id"])
+        if p.get("typ") == "untere_schranke":
+            bounds.append((str(p["topologie"]), float(p.get("c", 1)) * math.exp(-int(p["k"]) * P.DELTA))); ids.append(c["id"])
+    if not pts and not bounds: return []
+    fig, ax = plt.subplots(figsize=(3.4, 2.6)); cols = {"hopfield_n0": "#8a8f98", "hopfield_n1": "#2f6fdf", "hopfield_n2": "#d9480f"}
+    for t, v in pts.items():
+        v.sort(); ax.plot([a for a, _ in v], [b for _, b in v], "o-", ms=3, lw=1.2, color=cols.get(t, "#333"), label=f"{t}: erreichbar (a)")
+    for t, b in bounds: ax.axhline(b, ls="--", lw=1, color=cols.get(t, "#333"), label=f"{t}: Schranke (b)")
+    ax.set_yscale("log"); ax.set_xlabel(r"$\sigma_{\max}$ [kT/Produkt]"); ax.set_ylabel(r"$\eta$"); ax.legend(fontsize=6); fig.tight_layout()
+    fig.savefig(f"{outdir}/pareto_front.pdf"); fig.savefig(f"{outdir}/pareto_front.png", dpi=200); plt.close(fig)
+    return [("pareto_front.pdf", "Zweiseitige Pareto-Front: Punkte = zertifiziert erreichbar, gestrichelt = bewiesene untere Schranken. Belege: " + ", ".join(f"[C-{i}]" for i in ids))]
+
+
 class ProofreadingDomain(Domain):
     name = "proofreading"
     recherche_ziel = ("Thermodynamische Grenzen von Kinetic Proofreading: Zielkonflikt zwischen Fehlerrate, Energieverbrauch (Dissipation) und "
@@ -125,6 +146,16 @@ class ProofreadingDomain(Domain):
             return False, f"Prüfung nicht ausführbar: {type(e).__name__}: {e}"[:300], {}
 
     def level(self, p): return "computed_rigorous"
+
+    def figures(self, state, outdir): return pareto_figure(state, outdir)
+
+    def widerspricht(self, p, q):
+        """Erreichbar(eta <= a) und Schranke(eta >= b) auf derselben Topologie widersprechen sich genau dann, wenn a < b."""
+        for x, y in ((p, q), (q, p)):
+            if x.get("typ") == "erreichbar" and y.get("typ") == "untere_schranke" and str(x.get("topologie")) == str(y.get("topologie")) \
+                    and x.get("eta_max") is not None:
+                return float(x["eta_max"]) < float(y.get("c", 1)) * math.exp(-int(y["k"]) * P.DELTA)
+        return False
 
     def describe(self, p):
         if p.get("typ") == "untere_schranke":

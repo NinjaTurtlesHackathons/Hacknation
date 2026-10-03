@@ -22,7 +22,7 @@ def claims_of(domain):
         C.append({"claim_id": f"C-{c['id']}-I", "text": f"Ungeprüfte Interpretation des Agenten zu {c['id']} (nicht als Resultat verwenden): {interp}",
                   "level": "hypothesis", "status": "offen"})
         for j, r in enumerate(c.get("red_team", [])):
-            C.append({"claim_id": f"C-{c['id']}-RT{j + 1}", "text": f"Red-Team-Gegenprüfung zu {c['id']}: {r['idee']} -> {'bestanden (Aussage angefochten)' if r['bestanden'] else 'nicht bestanden'}; {r['grund']}",
+            C.append({"claim_id": f"C-{c['id']}-RT{j + 1}", "text": f"Red-Team-Gegenprüfung zu {c['id']}: {r['idee']} -> {('bestanden, logischer Widerspruch: Aussage angefochten' if r.get('widerspruch') else 'bestanden, aber kein logischer Widerspruch') if r['bestanden'] else 'nicht bestanden'}; {r['grund']}",
                       "level": "computed_rigorous", "status": "bestätigt"})
     for j, w in enumerate(s["widerlegt"]): C.append({"claim_id": f"C-neg{j + 1}", "text": f"Negatives Ergebnis: {w}", "level": "observed", "status": "bestätigt"})
     for j, w in enumerate(s["wissen"][:30]):
@@ -32,7 +32,7 @@ def claims_of(domain):
     return C
 
 
-def to_tex(md, titel, autoren, aff):
+def to_tex(md, titel, autoren, aff, figs=()):
     body = md
     body = re.sub(r"^### (.*)$", r"\\subsubsection*{\1}", body, flags=re.M)
     body = re.sub(r"^## (.*)$", r"\\section{\1}", body, flags=re.M)
@@ -49,9 +49,12 @@ def to_tex(md, titel, autoren, aff):
             out.append(l)
     if inlist: out.append(r"\end{itemize}")
     body = "\n".join(out).replace("%", r"\%").replace("&", r"\&").replace("#", r"\#")
+    for fn, cap in figs:
+        cap_t = re.sub(r"\[(C-[^\]]+)\]", lambda m: r"[" + m.group(1).replace("_", r"\_") + "]", cap).replace("%", r"\%")
+        body += "\n\\begin{figure}[t]\\centering\\includegraphics[width=\\columnwidth]{" + fn + "}\\caption{" + cap_t + "}\\end{figure}\n"
     return (r"""\documentclass[10pt,twocolumn]{article}
 \usepackage[utf8]{inputenc}\usepackage[T1]{fontenc}\usepackage[ngerman]{babel}\usepackage{amsmath,amssymb}\usepackage[margin=1.8cm]{geometry}
-\usepackage{times}\usepackage{hyperref}
+\usepackage{times}\usepackage{graphicx}\usepackage{hyperref}
 \title{\textbf{""" + titel + r"""}}
 \author{""" + r" \and ".join(a.strip() for a in autoren.split(",")) + r"""\\ \small """ + aff + r"""}
 \date{Preprint, \today}
@@ -64,11 +67,13 @@ def main():
     ap.add_argument("--autoren", required=True); ap.add_argument("--affiliation", default=""); a = ap.parse_args()
     D = get_domain(a.domain); C = claims_of(a.domain)
     md, log = write(a.titel, f"Forschungsgebiet: {D.kontext}\n\n{OUTLINE}", C, salt=f"paper-{a.domain}")
-    d = f"projects/{a.domain}"; rest = check(md, C)
-    proto = (f"\n\n---\nPrüfprotokoll: {len(set(re.findall(r'C-[\w\-*.]+', md)))} Claims zitiert, Korrekturrunden {json.dumps(log['runden'], ensure_ascii=False)}, "
+    d = f"projects/{a.domain}"; rest = check(md, C); n_cited = len(set(re.findall(r"C-[\w\-*.]+", md))); runden = json.dumps(log["runden"], ensure_ascii=False)
+    proto = (f"\n\n---\nPrüfprotokoll: {n_cited} Claims zitiert, Korrekturrunden {runden}, "
              f"{len(log['entfernt'])} unbelegte Sätze entfernt, verbleibende Verstöße: {len(rest)}.")
-    open(f"{d}/paper.md", "w").write(f"# {a.titel}\n\n{a.autoren}, {a.affiliation}\n\n{md}{proto}\n")
-    open(f"{d}/paper.tex", "w").write(to_tex(md + proto, a.titel, a.autoren, a.affiliation))
+    figs = D.figures(json.load(open(f"{d}/state.json")), d); md_fig = md
+    for fn, cap in figs: md_fig += f"\n\n![{cap}]({fn.replace('.pdf', '.png')})\n"
+    open(f"{d}/paper.md", "w").write(f"# {a.titel}\n\n{a.autoren}, {a.affiliation}\n\n{md_fig}{proto}\n")
+    open(f"{d}/paper.tex", "w").write(to_tex(md + proto, a.titel, a.autoren, a.affiliation, figs))
     json.dump({"claims": C, "log": log}, open(f"{d}/paper_belege.json", "w"), ensure_ascii=False, indent=1)
     if shutil.which("pdflatex"):
         for _ in range(2): subprocess.run(["pdflatex", "-interaction=nonstopmode", "paper.tex"], cwd=d, capture_output=True)

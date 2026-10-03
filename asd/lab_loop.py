@@ -73,7 +73,7 @@ def red_team(P, D, frage, ans, runde):
         r = ask_json(f"{D.kontext}\n\nFRAGE: {frage}\nGEPRÜFTE ANTWORT: {json.dumps(ans, ensure_ascii=False)}\n\n{D.claim_doc}\n\nDu bist Red-Team. Formuliere bis zu 2 "
                      "Prüfungen (gleiche Typen), die bestehen würden, wenn die Antwort FALSCH wäre (Gegenbeispiel, Randfall, Gegenteil). "
                      'JSON: {"gegenpruefungen": [{"pruefung": {...}, "idee": "..."}]}', SYS.format(rolle="das Red-Team"), salt=f"redteam-{runde}")
-    except LLMError: return []
+    except (LLMError, json.JSONDecodeError): return []
     out = []
     for g in r.get("gegenpruefungen", [])[:2]:
         p = g.get("pruefung")
@@ -88,7 +88,7 @@ def lernen(P, D, frage, res, runde):
                      f"{D.primitive_doc}\n\n{D.claim_doc}\n\nLeite 1-2 Folgefragen ab, die aus diesem Ergebnis am meisten lernen (Grenzen ausloten, "
                      'Verallgemeinerung, Gegenprobe). JSON: {"fragen": [{"frage": "...", "begruendung": "...", "neuheit": 0-1, "machbarkeit": 0-1}]}',
                      SYS.format(rolle="der Lern-Agent"), salt=f"lernen-{runde}")
-    except LLMError: return
+    except (LLMError, json.JSONDecodeError): return
     for q in r.get("fragen", [])[:2]:
         q.update(id=f"F{len(P.s['fragen']) + 1}", status="offen", aus_runde=runde); P.s["fragen"].append(q)
 
@@ -110,7 +110,8 @@ def main():
     for _ in range(a.runden):
         runde = len(P.s["runden"]) + 1; spent = P.s["kosten_usd"] + sum(COST_LOG)
         if spent > a.budget_usd: log(f"Budget erreicht ({spent:.2f} USD)"); break
-        plan = integrator_plan(P, D, runde)
+        try: plan = integrator_plan(P, D, runde)
+        except LLMError as e: log(f"Integrator-Fehler: {e}"); break
         if not plan: log("Keine offenen Fragen mehr."); break
         q, pr = plan
         P.append("prereg.md", f"\n## Runde {runde} ({now()}), vor dem Experiment\n- Frage [{q['id']}]: {q['frage']}\n- Begründung: {pr.get('begruendung')}\n"
@@ -122,12 +123,14 @@ def main():
         rt = []; cid = f"{D.name}-R{runde}"
         if q["status"] == "beantwortet":
             p = (res["antwort"].get("pruefungen") or [res["antwort"].get("pruefung")])[0]
-            rt = red_team(P, D, q["frage"], res["antwort"], runde); angefochten = [x for x in rt if x["bestanden"]]
+            rt = red_team(P, D, q["frage"], res["antwort"], runde)
+            for x in rt: x["widerspruch"] = bool(x["bestanden"] and D.widerspricht(p, x["pruefung"]))
+            angefochten = [x for x in rt if x["widerspruch"]]
             grund = next(tr["pruefung"]["grund"] for tr in res["forscher"] if tr.get("pruefung", {}).get("bestanden"))
             P.s["claims"].append({"id": cid, "frage": q["frage"], "text": D.describe(p), "interpretation_ungeprueft": str(res["antwort"].get("antwort")),
                                   "pruefung": p, "grund": grund,
                                   "level": D.level(p), "status": "angefochten" if angefochten else "bestätigt", "red_team": rt, "runde": runde})
-            log(f"  geprüft ({D.level(p)}): {res['antwort'].get('antwort')} | Red-Team: {len(rt)} Gegenprüfungen, {len(angefochten)} bestanden")
+            log(f"  geprüft ({D.level(p)}): {D.describe(p)[:160]} | Red-Team: {len(rt)} Gegenprüfungen, {sum(x['bestanden'] for x in rt)} bestanden, {len(angefochten)} logische Widersprüche")
         else:
             P.s["widerlegt"].append(f"[{q['id']}] {q['frage']}: keine Behauptung bestand die Prüfung")
             log("  keine geprüfte Behauptung (als negatives Ergebnis protokolliert)")
