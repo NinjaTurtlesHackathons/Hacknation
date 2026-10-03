@@ -12,6 +12,9 @@ L = P.L_DEFAULT
 def _spec(t):
     if isinstance(t, dict): return t
     if isinstance(t, str) and t.startswith("hopfield_n"): return P.hopfield_chain(int(t.split("n")[-1]))
+    if isinstance(t, str) and t.startswith("fam"):                       # Mitglied einer vom Prüfer erzeugten Familie, z. B. fam2_43
+        from .proofreading_family import family
+        k = int(t[3:].split("_")[0]); return next(x for x in family(k) if x["name"] == t)
     raise ValueError(f"unbekannte Topologie {t}")
 
 
@@ -79,6 +82,22 @@ def check_optimum(p):
     return ok, f"Prüfer-Suche (24 Starts, Seed 4711): eta_min = {r['eta']:.4e} bei sigma = {r['sigma']:.3f}, v = {r['v']:.3e}; behauptet {eta_c:.4e} (Toleranz 2 %, fest)", r
 
 
+def check_schranke_familie(p, timeout=1800):
+    """Zertifikat (b) für eine Familie: der Prüfer erzeugt die Familie 'gebunden<=k' selbst und beweist die Schranke für jedes
+    Mitglied (oder für die angegebene Teilmenge). Besteht nur, wenn ALLE betrachteten Mitglieder bewiesen sind."""
+    from .proofreading_family import family, prove_family
+    from .proofreading_symbolic import parse_bound
+    parse_bound(p["ausdruck"])                                          # Regelprüfung des Ausdrucks vorab
+    k = int(str(p["familie"]).split("<=")[-1]); fam = family(k)
+    names = p.get("mitglieder") or [x["name"] for x in fam]
+    known = {x["name"] for x in fam}; unknown = [n for n in names if n not in known]
+    if unknown: return False, f"unbekannte Familienmitglieder: {unknown[:5]}", {}
+    out = prove_family(k, names, p["ausdruck"], timeout=timeout)
+    ok_n = [n for n, b in out.items() if b]; bad = [n for n, b in out.items() if not b]
+    return (not bad), (f"Zertifikat (b) Familie gebunden<={k}: Schranke eta >= {p['ausdruck']} für {len(ok_n)}/{len(names)} Mitglieder bewiesen"
+                       + (f"; nicht bewiesen: {bad[:8]}{' …' if len(bad) > 8 else ''}" if bad else "")), {"bewiesen": ok_n, "nicht_bewiesen": bad}
+
+
 def check_untere_schranke(p, timeout=600):
     """Zertifikat (b) symbolisch, in eigenem Prozess mit Zeitlimit (große Netzwerke können lange dauern)."""
     import subprocess, sys
@@ -137,7 +156,8 @@ class ProofreadingDomain(Domain):
 - param_names {topologie}: Namen der freien Parameter (log-Raten "kante+"/"kante-", dazu "mu", "muP").
 - evaluate {topologie, params: {name: log-Rate}}: eta, sigma, v numerisch.
 - optimize {topologie, sigma_max?, v_min?, starts?, seed?}: minimale Fehlerrate unter den Nebenbedingungen (Multi-Start, Kandidat, ~5-30 s).
-- front {topologie, sigmas: [...]}: optimize für mehrere sigma_max (Pareto-Front, Kandidat; teuer)."""
+- front {topologie, sigmas: [...]}: optimize für mehrere sigma_max (Pareto-Front, Kandidat; teuer).
+- family {k}: alle Topologien mit k gebundenen Zuständen (Namen fam<k>_<i>, Kanten: id, Treibstoff, diskriminierend). k = 2 hat 92 Mitglieder."""
     claim_doc = """Prüfungstypen:
 - {"typ": "erreichbar", "topologie": ..., "params": {name: log-Rate, ...}, "eta_max": Zahl, "sigma_max": Zahl|null, "v_min": Zahl|null}
   Zertifikat (a): Der Prüfer rundet die Raten auf rationale Zahlen, prüft Ratenbereich und detaillierte Bilanz exakt und berechnet eta, v exakt
@@ -148,7 +168,12 @@ class ProofreadingDomain(Domain):
   für alle Raten, bei JEDEM Treibstoff (Schranke darf von mu abhängen). Scheitert der Beweis, ist die Aussage nicht widerlegt,
   nur nicht zertifiziert. Teuer (Sekunden bis Minuten).
 - {"typ": "optimum", "topologie": ..., "eta_min": Zahl, "sigma_max": Zahl|null, "v_min": Zahl|null, "fest": {"mu": Zahl}|null}
-  Numerisch: Der Prüfer sucht selbst (eigener Seed, 24 Starts); besteht, wenn sein Minimum innerhalb von 2 % am behaupteten Wert liegt."""
+  Numerisch: Der Prüfer sucht selbst (eigener Seed, 24 Starts); besteht, wenn sein Minimum innerhalb von 2 % am behaupteten Wert liegt.
+- {"typ": "schranke_familie", "familie": "gebunden<=2", "ausdruck": "1/D**2", "mitglieder": ["fam2_0", ...] | null}
+  Zertifikat (b) für Topologie-Familien: Der Prüfer erzeugt ALLE Netzwerke mit einem ungebundenen und k gebundenen Zuständen aus dem
+  Kantenkatalog (Bindung, treibstoffgetriebenes Verwerfen, Umwandlung, genau eine Produktkante) und beweist die Schranke für jedes
+  Mitglied (bzw. die Teilmenge). Topologien der Familie heißen fam<k>_<i> und sind überall als "topologie" verwendbar.
+  Experiment dazu: family {k} listet die Mitglieder mit ihren Kanten."""
 
     def run_op(self, op, args):
         try:
@@ -156,6 +181,9 @@ class ProofreadingDomain(Domain):
             if op == "evaluate": return evaluate(**args)
             if op == "optimize": return optimize(**args)
             if op == "front": return front(**args)
+            if op == "family":
+                from .proofreading_family import family
+                return {"mitglieder": [{"name": x["name"], "kanten": [(e["id"], e["fuel"], e["diskriminierend"]) for e in x["kanten"]]} for x in family(int(args["k"]))]}
             return {"fehler": f"unbekannte op {op}"}
         except Exception as e:
             return {"fehler": f"{type(e).__name__}: {e}"[:300]}
@@ -165,6 +193,7 @@ class ProofreadingDomain(Domain):
             if p.get("typ") == "erreichbar": return check_erreichbar(p)
             if p.get("typ") == "untere_schranke": return check_untere_schranke(p)
             if p.get("typ") == "optimum": return check_optimum(p)
+            if p.get("typ") == "schranke_familie": return check_schranke_familie(p)
             return False, f"unbekannter Prüfungstyp {p.get('typ')}", {}
         except Exception as e:
             return False, f"Prüfung nicht ausführbar: {type(e).__name__}: {e}"[:300], {}
@@ -174,8 +203,14 @@ class ProofreadingDomain(Domain):
     def figures(self, state, outdir): return pareto_figure(state, outdir)
 
     def widerspricht(self, p, q):
-        """Erreichbar(eta <= a) und Schranke(eta >= b) auf derselben Topologie widersprechen sich genau dann, wenn a < b."""
+        """Erreichbar(eta <= a) und Schranke(eta >= b) auf derselben Topologie (oder Familie mit dieser Topologie) widersprechen sich, wenn a < b."""
         for x, y in ((p, q), (q, p)):
+            if x.get("typ") == "erreichbar" and y.get("typ") == "schranke_familie" and x.get("eta_max") is not None:
+                from .proofreading_symbolic import parse_bound
+                t = str(x.get("topologie")); mem = y.get("mitglieder")
+                if t.startswith(f"fam{str(y['familie']).split('<=')[-1]}_") and (not mem or t in mem):
+                    e, loc = parse_bound(y["ausdruck"])
+                    if not e.free_symbols - {loc["D"]}: return float(x["eta_max"]) < float(e.subs(loc["D"], 100))
             if x.get("typ") == "erreichbar" and y.get("typ") == "untere_schranke" and str(x.get("topologie")) == str(y.get("topologie")) \
                     and x.get("eta_max") is not None:
                 return float(x["eta_max"]) < float(y.get("c", 1)) * math.exp(-int(y["k"]) * P.DELTA)
@@ -186,6 +221,14 @@ class ProofreadingDomain(Domain):
             rhs = p.get("ausdruck") or f"{p.get('c', 1)} * e^(-{p['k']} Delta)"
             return (f"Für {p['topologie']} gilt eta >= {rhs} (D = e^Delta, G = e^mu) für alle positiven Raten und alle Treibstoff-Potentiale "
                     f"mu, mu_P >= 0 (Zertifikat (b): symbolischer Positivitätsbeweis, unabhängig vom Ratenbereich).")
+        if p.get("typ") == "schranke_familie":
+            n = len(p.get("mitglieder") or []) or "alle"
+            return (f"Für {n} Topologien der vom Prüfer erzeugten Familie {p['familie']} (ein ungebundener Zustand, Kantenkatalog laut Modell) gilt "
+                    f"eta >= {p['ausdruck']} für alle positiven Raten und Treibstoffe (Zertifikat (b), symbolisch).")
+        if p.get("typ") == "schranke_familie":
+            n = len(p.get("mitglieder") or []) or "alle"
+            return (f"Für {n} Topologien der vom Prüfer erzeugten Familie {p['familie']} (ein ungebundener Zustand, Kantenkatalog laut Modell) gilt "
+                    f"eta >= {p['ausdruck']} für alle positiven Raten und Treibstoffe (Zertifikat (b), symbolisch).")
         if p.get("typ") == "optimum":
             cons = ", ".join(x for x in [f"sigma <= {p['sigma_max']}" if p.get("sigma_max") is not None else "", f"v >= {p['v_min']}" if p.get("v_min") is not None else "",
                                          f"fest {p['fest']}" if p.get("fest") else ""] if x)
@@ -217,7 +260,10 @@ class ProofreadingDomain(Domain):
                 ({"typ": "untere_schranke", "topologie": "hopfield_n1", "c": 2, "k": 2}, False),     # falsch: 1,0017 e^-2Delta ist erreichbar
                 ({"typ": "untere_schranke", "topologie": "hopfield_n1", "ausdruck": "1/D**2"}, True),  # Ausdrucks-Form, gleiche Aussage
                 ({"typ": "untere_schranke", "topologie": "hopfield_n1", "ausdruck": "1/D"}, False),    # falsch: Proofreading unterschreitet e^-Delta
-                ({"typ": "untere_schranke", "topologie": "hopfield_n1", "ausdruck": "exp(-2*D)"}, False)]  # Regelverletzung: nicht-rationaler Ausdruck  # Rate außerhalb [-L, L]
+                ({"typ": "untere_schranke", "topologie": "hopfield_n1", "ausdruck": "exp(-2*D)"}, False),  # Regelverletzung: nicht-rationaler Ausdruck
+                ({"typ": "schranke_familie", "familie": "gebunden<=1", "ausdruck": "1/D"}, True),    # alle 1-Zustands-Netze: Gleichgewichtsgrenze
+                ({"typ": "schranke_familie", "familie": "gebunden<=1", "ausdruck": "2/D"}, False),         # falsch: n0 erreicht 1,0001 e^-Delta
+                ({"typ": "schranke_familie", "familie": "gebunden<=2", "ausdruck": "1/D**2", "mitglieder": ["fam2_99999"]}, False)]  # erfundenes Mitglied  # Rate außerhalb [-L, L]
 
 
 DOMAIN = ProofreadingDomain()

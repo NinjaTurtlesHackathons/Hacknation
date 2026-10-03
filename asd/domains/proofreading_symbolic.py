@@ -65,7 +65,7 @@ def prove_lower_bound(spec, c, k, ausdruck=None):
     num, den = sp.fraction(sp.together(eta - bound))
     num, den = sp.expand(num.subs(D, 1 + d)), sp.expand(den.subs(D, 1 + d))
     gens = sorted((num.free_symbols | den.free_symbols), key=str)
-    cn = sp.Poly(num, *gens).coeffs(); cd = sp.Poly(den, *gens).coeffs()
+    cn = sp.Poly(num, *gens).coeffs() if gens else [num]; cd = sp.Poly(den, *gens).coeffs() if gens else [den]
     sn = all(x >= 0 for x in cn) and any(x > 0 for x in cn); sd = all(x >= 0 for x in cd) and any(x > 0 for x in cd)
     sn2 = all(x <= 0 for x in cn) and any(x < 0 for x in cn); sd2 = all(x <= 0 for x in cd) and any(x < 0 for x in cd)
     ok = (sn and sd) or (sn2 and sd2)

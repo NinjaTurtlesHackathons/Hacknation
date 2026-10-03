@@ -61,3 +61,15 @@ Ergebnis wird berichtet, egal wie es ausfällt.
 **H5b (Replikation):** hybrid (Hypothesen ohne Literatur) vs gp_ei auf denselben neuen Seeds, gleicher Test.
 **Negativkontrolle:** hybrid_lit auf vertauschten Ausbeuten (eigene Vertauschung je Seed); erwartet: kein Speedup gegenüber Zufall.
 Ergebnis wird berichtet, egal wie es ausfällt.
+
+## H6 (2026-10-04, vor dem Lauf): Kinetic Proofreading, Lücken L1–L5 aus `projects/proofreading/lueckenkarte.md`
+
+Modell und Prüfer: `asd/domains/proofreading*.py`, Selbsttest 15/15 bestanden. Budget: 6 Runden, höchstens 6 USD. Startfragen nur aus der Lückenkarte (`projects/proofreading/fragen.json`), Reihenfolge nach Value of Information.
+
+- **L2 (Universalität, primär):** Hypothese: e^{-2Δ} ist KEINE universelle Grenze der Familie gebunden<=2 (92 Topologien). Prüfung: `erreichbar` mit eta_max < 1e-4 auf einem Mitglied fam2_* (exakt). Erfolg: mindestens ein exakt zertifiziertes Mitglied mit eta < e^{-2Δ}. Abbruch: kein zertifiziertes Gegenbeispiel nach 2 Runden. Erwartet: Gegenbeispiele existieren (Vorbefund des Explorers, numerisch).
+- **L2b (Teilfamilie):** Hypothese: Für eine nichtleere Teilfamilie gilt eta >= 1/D**2 für alle Raten. Prüfung: `schranke_familie` mit Mitgliederliste. Erfolg: bestanden. Erwartet: rund 50 Mitglieder.
+- **L3 (Mechanismus):** Hypothese: Unterschreiten erfordert einen treibstoffgetriebenen Ausgang (Verwerfen mit fuel 1) an einem Zustand, in den Produkt zurückbinden kann. Prüfung: Gegenbeispiel (`erreichbar`) bzw. Teilfamilien-Schranke für Netze ohne dieses Merkmal. Erfolg: entweder Schranke für die Teilfamilie ohne Merkmal bewiesen oder ein exaktes Gegenbeispiel ohne Merkmal (dann ist die Hypothese widerlegt).
+- **L1 (Kette):** Hypothese: eta >= e^{-(n+1)Δ} für n = 0, 1, 2 für alle Raten. Prüfung: `untere_schranke`. Erwartet: bestanden (Reproduktion, rigoros).
+- **L4 (Geschwindigkeit):** Hypothese: Für hopfield_n1 mit v >= 1e-3 ist eta < 2e-4 bei sigma <= 10 kT erreichbar. Prüfung: `erreichbar` (exakt). Abbruch: nicht erreichbar nach 1 Runde.
+- **L5 (gleichgewichtsnah):** Hypothese: eta <= 1.2e-4 bei sigma <= 0.2 kT pro Produkt erreichbar (v beliebig). Prüfung: `erreichbar` (exakt).
+Alle Ergebnisse, auch negative, werden berichtet. Neuheit wird erst in Phase 6 beurteilt.

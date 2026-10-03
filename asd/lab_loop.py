@@ -107,8 +107,11 @@ def main():
     log(f"Selbsttest des Prüfers: {'bestanden' if ok else 'NICHT bestanden'}")
     if not ok: raise SystemExit("Abbruch: Der Prüfer besteht seinen Selbsttest nicht. Erst den Prüfer reparieren.")
     if a.recherche and (not P.s["wissen"] or a.recherche_neu): scout(P, D, log)
-    if a.fragen and not P.s["fragen"]:
-        for q in json.load(open(a.fragen)): q.update(id=f"F{len(P.s['fragen']) + 1}", status="offen"); P.s["fragen"].append(q)
+    if a.fragen:                                               # Startfragen aus der Lückenkarte: andere offene Fragen werden zurückgestellt
+        for q in P.s["fragen"]:
+            if q["status"] == "offen": q["status"] = "zurückgestellt"
+        for q in json.load(open(a.fragen)): q.update(id=f"F{len(P.s['fragen']) + 1}", status="offen", quelle="lueckenkarte"); P.s["fragen"].append(q)
+        P.append("decisions.md", f"| {now()} | INTEGRATOR | Startfragen aus {a.fragen} geladen, übrige offene Fragen zurückgestellt | Workflow Phase 5 |")
     if not P.s["fragen"]: integrator_fragen(P, D, salt=str(len(P.s["runden"])))
     P.save()
     for _ in range(a.runden):
@@ -139,7 +142,7 @@ def main():
             P.s["widerlegt"].append(f"[{q['id']}] {q['frage']}: keine Behauptung bestand die Prüfung")
             log("  keine geprüfte Behauptung (als negatives Ergebnis protokolliert)")
         json.dump(res, open(f"{P.dir}/runde{runde}.json", "w"), ensure_ascii=False, indent=1, default=str)
-        lernen(P, D, q["frage"], res, runde)
+        if not a.fragen: lernen(P, D, q["frage"], res, runde)         # gezielter Lauf: keine frei erzeugten Folgefragen
         P.s["runden"].append({"runde": runde, "frage": q["id"], "status": q["status"], "red_team": rt, "sek": res["sek"]})
         P.s["kosten_usd"] += sum(COST_LOG); COST_LOG.clear(); P.save()
     log(f"Fertig: {len(P.s['claims'])} geprüfte Aussagen, {len(P.s['widerlegt'])} negative Ergebnisse, Kosten {P.s['kosten_usd']:.2f} USD")
