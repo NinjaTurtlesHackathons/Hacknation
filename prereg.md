@@ -61,3 +61,17 @@ Ergebnis wird berichtet, egal wie es ausfällt.
 **H5b (Replikation):** hybrid (Hypothesen ohne Literatur) vs gp_ei auf denselben neuen Seeds, gleicher Test.
 **Negativkontrolle:** hybrid_lit auf vertauschten Ausbeuten (eigene Vertauschung je Seed); erwartet: kein Speedup gegenüber Zufall.
 Ergebnis wird berichtet, egal wie es ausfällt.
+
+## H6 (2026-10-03, vor dem ersten Lauf): Bell-Domäne, Labor mit zweiseitigem Prüfer
+
+**Domäne:** `asd/domains/bell_domain.py` (bipartite Bell-Ungleichungen mit ±1-Ausgängen). Prüfer: klassische Schranke durch exakte Aufzählung;
+untere Quantenschranke durch explizite, rational gerundete Strategie (exakter Bell-Wert); obere Schranke durch rationales NPA-Dualzertifikat
+(Positivität exakt per LDL^T). Feste Breite für „bewiesen“: 1e-6. Selbsttest vor dem Lauf: 22/22 bestanden (wahre Anker CHSH, Kette, I3322,
+gekippte CHSH nach Acín-Massar-Pironio; falsche Aussagen knapp an der Grenze; Regelverletzungen: Toleranz in der Behauptung, fremde bzw.
+unbekannte Strategie, zu wenige Stützstellen).
+**Ablauf:** `python -m asd.lab_loop --domain bell --recherche --runden 8 --budget-usd 6 --fragen projects/bell/startfragen.json`, Kaskade unverändert.
+**Was berichtet wird, egal wie es ausfällt:** jede Runde (bestätigt, angefochten, ohne geprüfte Behauptung), alle Red-Team-Gegenprüfungen, Kosten.
+**H6a (Reproduktion):** Das Labor bestätigt in mindestens 2 der 3 Anker-Fragen (CHSH, Kette, gekippte CHSH) einen zweiseitig zertifizierten Wert
+bzw. eine Formel. **H6b (Entdeckung):** mindestens eine zertifizierte Aussage über eine Ungleichung oder Familie, die nicht zu den benannten
+Familien gehört. Für H6b wird keine Neuheit gegenüber der Literatur behauptet, solange der Scout keine Quelle dazu findet; das Paper benennt
+das offen. Keine Statistik nötig: alle Aussagen sind exakte Zertifikate; die Kriterien sind Zählungen.
