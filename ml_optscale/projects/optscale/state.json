@@ -722,7 +722,7 @@
    "neuheit": 0.6,
    "machbarkeit": 0.9,
    "id": "F12",
-   "status": "offen",
+   "status": "beantwortet",
    "aus_runde": 2
   },
   {
@@ -733,6 +733,42 @@
    "id": "F13",
    "status": "offen",
    "aus_runde": 2
+  },
+  {
+   "frage": "Wie verändert sich der Muon-gegen-Adam-Vorteil kontinuierlich, wenn die Rotation des Kronecker-Krümmungs-Eigenraums graduell von 0 auf volle Rotation gesteigert wird? Wo liegt der Kipppunkt, und ist der Übergang wirklich ein Phasenübergang oder nur ein steiler, glatter Übergang? Zusätzlich: Gilt dasselbe für Shampoo gegen Adam? Da das Problem-Argument 'rotiert' nur binär ist, wird die Rotation über eine Vorrotation der Matrix nachgebildet (zum Beispiel über einen Winkel). Falls das nicht möglich ist, wird ersatzweise getestet, ob der Vorzeichenwechsel bei rotiert=true über das ganze Raster (a_L, a_R) ∈ {(3,3),(3,1),(3,0.1),(1,1),(0.1,0.1)} robust ist.",
+   "begruendung": "Das Ergebnis behauptet einen binären Umschlag, hat aber nur die zwei Extreme geprüft. Ein Zwischenwert der Rotation würde zeigen, ob es ein echter Schwellenübergang ist oder ein glatter Verlauf. Das ist die direkte Gegenprobe zur Behauptung 'kein kontinuierlicher Effekt'. Da Adam koordinatenweise arbeitet und Muon/Shampoo basisinvariant sind, ist ein glatter Verlauf mit steilem Übergang plausibel. Das Raster prüft zugleich, ob (3,3) für die Rotationsaussage repräsentativ ist.",
+   "neuheit": 0.7,
+   "machbarkeit": 0.6,
+   "id": "F14",
+   "status": "beantwortet",
+   "aus_runde": 3
+  },
+  {
+   "frage": "Bleibt die Umkehrung Adam >> Muon bei rotiert=false bestehen, wenn die Optimierer unter heavy-tailed Gradientenrauschen laufen (student, df = 1,5 mit unendlicher Varianz gegen df = 5 und gauss), jeweils mit eigenem LR-Tuning und passendem Schedule (const gegen wsd)? Verglichen werden adam, muon, signum und clip_sgd auf beiden Rotationsstufen.",
+   "begruendung": "Die bisherigen Ergebnisse gelten für deterministische Quadratik bzw. leichtes Rauschen. Die Literatur nennt Vorzeichen- und Orthogonalisierungs-Verfahren (SignSGD, Lion, Muon) als robust gegenüber heavy-tailed Rauschen, und Adam ist in diesem Fall weniger gut abgesichert. Möglich ist, dass der Rotationseffekt vom Rauschtyp überlagert wird oder dass Muon bei rotiert=false mit Heavy-Tail-Rauschen aufholt. Das testet die Verallgemeinerung auf eine zweite Achse und liefert eine Prüfung mit klar prüfbarem Vorzeichen.",
+   "neuheit": 0.6,
+   "machbarkeit": 0.8,
+   "id": "F15",
+   "status": "offen",
+   "aus_runde": 3
+  },
+  {
+   "frage": "Wie hängt der Vorzeichenwechsel zwischen Muon und Adam auf dem rotierten Problem vom Spektrum ab, wenn man das Raster (a_L, a_R) entlang der Diagonalen a = a_L = a_R ∈ {0,1; 0,5; 1; 1,5; 2; 3} feiner auflöst? Dabei werden für jeden Punkt beide Optimierer (Muon und Adam, rotiert=true, 500 Schritte, const) mit eigenem lr_sweep (Gitter 2^-9..2^0) auf drei Tuning-Seeds getunt und auf 10 frischen Seeds bewertet. Zusätzlich wird je Punkt geprüft, ob die beste LR am Rand des Gitters liegt, und das Ergebnis mit dem Vergleichstyp des Prüfers bestätigt.",
+   "begruendung": "Das Ergebnis zeigt widersprüchliche Vorzeichen bei (3,3), (3,0,1) und (1,1). Dabei ist unklar, ob der Wechsel ein glatter Übergang in a ist oder ein Artefakt des LR-Gitters. Der Adam-Vorsprung von 7e-13 bei (1,1) ist verdächtig (möglicherweise numerisch erschöpft, d. h. Verlust nahe Maschinenpräzision, oder Muon durch ein zu grobes Gitter benachteiligt). Eine feine Diagonale mit Randprüfung der LR trennt echten Spektrumeffekt von Tuning-Artefakt und liefert den Kipppunkt in a, ohne die API zu verbiegen.",
+   "neuheit": 0.7,
+   "machbarkeit": 0.9,
+   "id": "F16",
+   "status": "offen",
+   "aus_runde": 4
+  },
+  {
+   "frage": "Ist der Muon-Vorteil bei rotiert=true und (a_L,a_R)=(3,3) robust gegen die Verlaufsform, d. h. gewinnt Muon gegen Adam auch mit cosine, wsd und 100 Schritten mehr bzw. weniger (200, 500, 2000), und bleibt der Adam-Vorteil bei rotiert=false ebenfalls bestehen? Jeder Arm wird mit eigenem LR-Tuning und auf frischen Seeds geprüft (Vergleichstyp).",
+   "begruendung": "Die geprüften Ergebnisse R2 bis R4 gelten nur für const und 500 Schritte. Schedules und Schrittzahl verändern die effektive Endrauschschranke und die LR-Optima. Wenn der Vorzeichenwechsel durch die Rotation bei allen Schedules und Schrittzahlen bleibt, ist er eine strukturelle Eigenschaft (Eigenbasis-Ausrichtung gegen Koordinatenbasis). Kippt er, war er ein Artefakt des konstanten Schedules. Das ist eine Gegenprobe mit direkt verfügbaren Prüfungstypen.",
+   "neuheit": 0.5,
+   "machbarkeit": 0.95,
+   "id": "F17",
+   "status": "offen",
+   "aus_runde": 4
   }
  ],
  "claims": [
@@ -848,6 +884,152 @@
     }
    ],
    "runde": 2
+  },
+  {
+   "id": "optscale-R3",
+   "frage": "Wie hängt der Vorteil von Muon und Shampoo gegenüber Adam kontinuierlich vom Grad der Rotation und vom Krümmungs-Ungleichgewicht a_L − a_R ab, und wo kippt das Vorzeichen? Dazu wird ein Raster aus rotiert ∈ {false, true} und (a_L, a_R) ∈ {(3,3), (3,1), (3,0.1), (1,1), (0.1,0.1)} mit je eigenem LR-Tuning und frischen Seeds geprüft. Zusätzlich wird getrennt geprüft, ob die Rotation oder der Unterschied a_L ≠ a_R den Effekt treibt.",
+   "text": "Auf dem Problem {\"typ\": \"quadratisch\", \"a_L\": 3.0, \"a_R\": 3.0, \"rotiert\": false} mit 500 Schritten erreicht adam (const) einen kleineren relativen Endverlust als muon (const), beide mit selbst getunter Lernrate (Prüfer: 10 frische Seeds, p < 0.01, Verhältnis < 0.9).",
+   "interpretation_ungeprueft": "Die Rotation ist der Treiber, nicht das a_L−a_R-Ungleichgewicht. Binärer Umschlag: Adam >> Muon bei rotiert=false; Muon > Adam bei rotiert=true. Kein kontinuierlicher Effekt, sondern Phasenübergang.",
+   "pruefung": {
+    "typ": "vergleich",
+    "problem": {
+     "typ": "quadratisch",
+     "a_L": 3.0,
+     "a_R": 3.0,
+     "rotiert": false
+    },
+    "steps": 500,
+    "a": {
+     "optimizer": "adam"
+    },
+    "b": {
+     "optimizer": "muon"
+    }
+   },
+   "grund": "Prüfer: adam/const (beste LR 2^-2) vs muon/const (beste LR 2^-5), je eigenes Tuning auf Seeds (100, 101, 102), Bewertung auf 10 frischen Seeds: geometr. Mittel rel. Endverlust 4.932e-23 vs 2.825e-04, Verhältnis 0.000 (Schwelle < 0.9), gepaarter Permutationstest p = 0.0008 (Schwelle < 0.01) | Prüfer: muon/const (beste LR 2^-5) vs adam/const (beste LR 2^-3), je eigenes Tuning auf Seeds (100, 101, 102), Bewertung auf 10 frischen Seeds: geometr. Mittel rel. Endverlust 4.481e-04 vs 1.810e-03, Verhältnis 0.248 (Schwelle < 0.9), gepaarter Permutationstest p = 0.0008 (Schwelle < 0.01) | Prüfer: adam/const (beste LR 2^-2) vs muon/const (beste LR 2^-4), je eigenes Tuning auf Seeds (100, 101, 102), Bewertung auf 10 frischen Seeds: geometr. Mittel rel. Endverlust 3.891e-23 vs 4.018e-05, Verhältnis 0.000 (Schwelle < 0.9), gepaarter Permutationstest p = 0.0008 (Schwelle < 0.01)",
+   "level": "statistical",
+   "status": "bestätigt",
+   "red_team": [
+    {
+     "pruefung": {
+      "typ": "vergleich",
+      "problem": {
+       "typ": "quadratisch",
+       "a_L": 3.0,
+       "a_R": 0.1,
+       "rotiert": true
+      },
+      "steps": 500,
+      "a": {
+       "optimizer": "adam"
+      },
+      "b": {
+       "optimizer": "muon"
+      }
+     },
+     "idee": "Die Antwort behauptet, dass Muon bei rotiert=true überall gewinnt. Bei starkem Ungleichgewicht (3 vs 0.1) mit Rotation könnte Adam dennoch besser sein oder der Effekt vom Ungleichgewicht abhängen. Das wäre ein Gegenbeispiel zum 'binären Umschlag'. Der Vergleich testet, ob Adam bei rotiert=true und a_L≠a_R den kleineren Endverlust erreicht.",
+     "bestanden": false,
+     "grund": "Prüfer: adam/const (beste LR 2^-1) vs muon/const (beste LR 2^-4), je eigenes Tuning auf Seeds (100, 101, 102), Bewertung auf 10 frischen Seeds: geometr. Mittel rel. Endverlust 2.605e-04 vs 3.093e-05, "
+    },
+    {
+     "pruefung": {
+      "typ": "vergleich",
+      "problem": {
+       "typ": "quadratisch",
+       "a_L": 0.1,
+       "a_R": 0.1,
+       "rotiert": false
+      },
+      "steps": 500,
+      "a": {
+       "optimizer": "muon"
+      },
+      "b": {
+       "optimizer": "adam"
+      }
+     },
+     "idee": "Fast flaches Spektrum (a=0.1, gut konditioniert) ohne Rotation: Adam hat hier keinen großen Vorteil aus der Achsenausrichtung, und Muon (orthogonalisierte Updates) kann gleich gut oder besser sein. Das widerspricht 'Adam >> Muon bei rotiert=false' als universeller Regel und zeigt, dass der Effekt kontinuierlich von der Konditionierung abhängt, nicht binär nur von der Rotation.",
+     "bestanden": false,
+     "grund": "Prüfer: muon/const (beste LR 2^-5) vs adam/const (beste LR 2^-2), je eigenes Tuning auf Seeds (100, 101, 102), Bewertung auf 10 frischen Seeds: geometr. Mittel rel. Endverlust 1.162e-05 vs 3.883e-23, "
+    }
+   ],
+   "runde": 3
+  },
+  {
+   "id": "optscale-R4",
+   "frage": "Wie verändert sich der Muon-gegen-Adam-Vorteil kontinuierlich, wenn die Rotation des Kronecker-Krümmungs-Eigenraums graduell von 0 auf volle Rotation gesteigert wird? Wo liegt der Kipppunkt, und ist der Übergang wirklich ein Phasenübergang oder nur ein steiler, glatter Übergang? Zusätzlich: Gilt dasselbe für Shampoo gegen Adam? Da das Problem-Argument 'rotiert' nur binär ist, wird die Rotation über eine Vorrotation der Matrix nachgebildet (zum Beispiel über einen Winkel). Falls das nicht möglich ist, wird ersatzweise getestet, ob der Vorzeichenwechsel bei rotiert=true über das ganze Raster (a_L, a_R) ∈ {(3,3),(3,1),(3,0.1),(1,1),(0.1,0.1)} robust ist.",
+   "text": "Auf dem Problem {\"typ\": \"quadratisch\", \"rotiert\": true, \"a_L\": 3.0, \"a_R\": 3.0} mit 500 Schritten erreicht muon (const) einen kleineren relativen Endverlust als adam (const), beide mit selbst getunter Lernrate (Prüfer: 10 frische Seeds, p < 0.01, Verhältnis < 0.9).",
+   "interpretation_ungeprueft": "Eine graduelle Rotation ist über die API nicht testbar, weil 'rotiert' binär ist. Ersatztest über das Raster: Der Vorzeichenwechsel bei rotiert=true ist nicht robust. Bei (3,3) schlägt Muon Adam rotiert deutlich (Verlust 4,5e-4 gegen 1,7e-3), unrotiert gewinnt Adam. Bei (3,0.1) gewinnt Muon rotiert (3,3e-5 gegen 3,0e-4). Bei (1,1) gewinnt Adam rotiert um viele Größenordnungen (7e-13 gegen 9,4e-5). Der Muon-Vorteil hängt also von der Krümmungsspektrum-Steilheit ab, nicht nur von der Rotation. Shampoo ist bei (3,3) rotiert nicht besser als Adam (1,8e-3 gegen 1,7e-3, beste LR am Gitterrand). Ob ein Kipppunkt ein Phasenübergang oder ein glatter Übergang ist, bleibt unbekannt.",
+   "pruefung": {
+    "typ": "vergleich",
+    "problem": {
+     "typ": "quadratisch",
+     "rotiert": true,
+     "a_L": 3.0,
+     "a_R": 3.0
+    },
+    "steps": 500,
+    "a": {
+     "optimizer": "muon",
+     "schedule": "const"
+    },
+    "b": {
+     "optimizer": "adam",
+     "schedule": "const"
+    }
+   },
+   "grund": "Prüfer: muon/const (beste LR 2^-5) vs adam/const (beste LR 2^-3), je eigenes Tuning auf Seeds (100, 101, 102), Bewertung auf 10 frischen Seeds: geometr. Mittel rel. Endverlust 4.481e-04 vs 1.810e-03, Verhältnis 0.248 (Schwelle < 0.9), gepaarter Permutationstest p = 0.0008 (Schwelle < 0.01) | Prüfer: adam/const (beste LR 2^-2) vs muon/const (beste LR 2^-4), je eigenes Tuning auf Seeds (100, 101, 102), Bewertung auf 10 frischen Seeds: geometr. Mittel rel. Endverlust 3.170e-11 vs 8.863e-05, Verhältnis 0.000 (Schwelle < 0.9), gepaarter Permutationstest p = 0.0041 (Schwelle < 0.01)",
+   "level": "statistical",
+   "status": "bestätigt",
+   "red_team": [
+    {
+     "pruefung": {
+      "typ": "vergleich",
+      "problem": {
+       "typ": "quadratisch",
+       "rotiert": true,
+       "a_L": 3.0,
+       "a_R": 3.0
+      },
+      "steps": 500,
+      "a": {
+       "optimizer": "shampoo",
+       "schedule": "const"
+      },
+      "b": {
+       "optimizer": "adam",
+       "schedule": "const"
+      }
+     },
+     "idee": "Die Antwort behauptet, Shampoo sei bei (3,3) rotiert nicht besser als Adam (1,8e-3 gegen 1,7e-3). Die beste Lernrate lag aber am Gitterrand, also war Shampoo untertunt. Der Kronecker-Vorkonditionierer L^-1/4 G R^-1/4 passt genau zur Kronecker-Krümmung und ist gegenüber der Rotation nicht blind, Adam dagegen schon. Mit einem weiteren Lernratengitter sollte Shampoo Adam klar schlagen. Das widerlegt die Shampoo-Aussage.",
+     "bestanden": false,
+     "grund": "Optimum der Lernrate für ['a'] am Rand des Prüfer-Gitters 2^-16..2^4: nicht entscheidbar"
+    },
+    {
+     "pruefung": {
+      "typ": "vergleich",
+      "problem": {
+       "typ": "quadratisch",
+       "rotiert": true,
+       "a_L": 1.0,
+       "a_R": 1.0
+      },
+      "steps": 500,
+      "a": {
+       "optimizer": "muon",
+       "schedule": "const"
+      },
+      "b": {
+       "optimizer": "adam",
+       "schedule": "const"
+      }
+     },
+     "idee": "Die Antwort behauptet, bei (1,1) rotiert gewinne Adam um viele Größenordnungen (7e-13 gegen 9,4e-5), und der Vorzeichenwechsel hänge von der Spektrumssteilheit ab. Das Ergebnis ist verdächtig: Der Abstand ist unplausibel groß und deutet auf ein schlecht getuntes Muon (zu grobes oder zu eng begrenztes Lernratengitter, Muon ohne Lernratenabfall bleibt im Rauschboden hängen) oder auf einen Seed-Artefakt hin. Ein unabhängiges Tuning mit eigenen Seeds und Schedule-Auflösung dürfte Muon bei Rotation wieder vorn sehen. Dann wäre der Vorzeichenwechsel über das Raster doch robust (Muon gewinnt rotiert überall) und die Nicht-Robustheitsbehauptung falsch.",
+     "bestanden": false,
+     "grund": "Prüfer: muon/const (beste LR 2^-4) vs adam/const (beste LR 2^-2), je eigenes Tuning auf Seeds (100, 101, 102), Bewertung auf 10 frischen Seeds: geometr. Mittel rel. Endverlust 8.863e-05 vs 3.170e-11, "
+    }
+   ],
+   "runde": 4
   }
  ],
  "widerlegt": [],
@@ -933,7 +1115,111 @@
     }
    ],
    "sek": 194.9
+  },
+  {
+   "runde": 3,
+   "frage": "F12",
+   "status": "beantwortet",
+   "red_team": [
+    {
+     "pruefung": {
+      "typ": "vergleich",
+      "problem": {
+       "typ": "quadratisch",
+       "a_L": 3.0,
+       "a_R": 0.1,
+       "rotiert": true
+      },
+      "steps": 500,
+      "a": {
+       "optimizer": "adam"
+      },
+      "b": {
+       "optimizer": "muon"
+      }
+     },
+     "idee": "Die Antwort behauptet, dass Muon bei rotiert=true überall gewinnt. Bei starkem Ungleichgewicht (3 vs 0.1) mit Rotation könnte Adam dennoch besser sein oder der Effekt vom Ungleichgewicht abhängen. Das wäre ein Gegenbeispiel zum 'binären Umschlag'. Der Vergleich testet, ob Adam bei rotiert=true und a_L≠a_R den kleineren Endverlust erreicht.",
+     "bestanden": false,
+     "grund": "Prüfer: adam/const (beste LR 2^-1) vs muon/const (beste LR 2^-4), je eigenes Tuning auf Seeds (100, 101, 102), Bewertung auf 10 frischen Seeds: geometr. Mittel rel. Endverlust 2.605e-04 vs 3.093e-05, "
+    },
+    {
+     "pruefung": {
+      "typ": "vergleich",
+      "problem": {
+       "typ": "quadratisch",
+       "a_L": 0.1,
+       "a_R": 0.1,
+       "rotiert": false
+      },
+      "steps": 500,
+      "a": {
+       "optimizer": "muon"
+      },
+      "b": {
+       "optimizer": "adam"
+      }
+     },
+     "idee": "Fast flaches Spektrum (a=0.1, gut konditioniert) ohne Rotation: Adam hat hier keinen großen Vorteil aus der Achsenausrichtung, und Muon (orthogonalisierte Updates) kann gleich gut oder besser sein. Das widerspricht 'Adam >> Muon bei rotiert=false' als universeller Regel und zeigt, dass der Effekt kontinuierlich von der Konditionierung abhängt, nicht binär nur von der Rotation.",
+     "bestanden": false,
+     "grund": "Prüfer: muon/const (beste LR 2^-5) vs adam/const (beste LR 2^-2), je eigenes Tuning auf Seeds (100, 101, 102), Bewertung auf 10 frischen Seeds: geometr. Mittel rel. Endverlust 1.162e-05 vs 3.883e-23, "
+    }
+   ],
+   "sek": 387.8
+  },
+  {
+   "runde": 4,
+   "frage": "F14",
+   "status": "beantwortet",
+   "red_team": [
+    {
+     "pruefung": {
+      "typ": "vergleich",
+      "problem": {
+       "typ": "quadratisch",
+       "rotiert": true,
+       "a_L": 3.0,
+       "a_R": 3.0
+      },
+      "steps": 500,
+      "a": {
+       "optimizer": "shampoo",
+       "schedule": "const"
+      },
+      "b": {
+       "optimizer": "adam",
+       "schedule": "const"
+      }
+     },
+     "idee": "Die Antwort behauptet, Shampoo sei bei (3,3) rotiert nicht besser als Adam (1,8e-3 gegen 1,7e-3). Die beste Lernrate lag aber am Gitterrand, also war Shampoo untertunt. Der Kronecker-Vorkonditionierer L^-1/4 G R^-1/4 passt genau zur Kronecker-Krümmung und ist gegenüber der Rotation nicht blind, Adam dagegen schon. Mit einem weiteren Lernratengitter sollte Shampoo Adam klar schlagen. Das widerlegt die Shampoo-Aussage.",
+     "bestanden": false,
+     "grund": "Optimum der Lernrate für ['a'] am Rand des Prüfer-Gitters 2^-16..2^4: nicht entscheidbar"
+    },
+    {
+     "pruefung": {
+      "typ": "vergleich",
+      "problem": {
+       "typ": "quadratisch",
+       "rotiert": true,
+       "a_L": 1.0,
+       "a_R": 1.0
+      },
+      "steps": 500,
+      "a": {
+       "optimizer": "muon",
+       "schedule": "const"
+      },
+      "b": {
+       "optimizer": "adam",
+       "schedule": "const"
+      }
+     },
+     "idee": "Die Antwort behauptet, bei (1,1) rotiert gewinne Adam um viele Größenordnungen (7e-13 gegen 9,4e-5), und der Vorzeichenwechsel hänge von der Spektrumssteilheit ab. Das Ergebnis ist verdächtig: Der Abstand ist unplausibel groß und deutet auf ein schlecht getuntes Muon (zu grobes oder zu eng begrenztes Lernratengitter, Muon ohne Lernratenabfall bleibt im Rauschboden hängen) oder auf einen Seed-Artefakt hin. Ein unabhängiges Tuning mit eigenen Seeds und Schedule-Auflösung dürfte Muon bei Rotation wieder vorn sehen. Dann wäre der Vorzeichenwechsel über das Raster doch robust (Muon gewinnt rotiert überall) und die Nicht-Robustheitsbehauptung falsch.",
+     "bestanden": false,
+     "grund": "Prüfer: muon/const (beste LR 2^-4) vs adam/const (beste LR 2^-2), je eigenes Tuning auf Seeds (100, 101, 102), Bewertung auf 10 frischen Seeds: geometr. Mittel rel. Endverlust 8.863e-05 vs 3.170e-11, "
+    }
+   ],
+   "sek": 479.6
   }
  ],
- "kosten_usd": 1.650437
+ "kosten_usd": 2.607602
 }
