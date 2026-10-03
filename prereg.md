@@ -79,3 +79,9 @@ Alle Ergebnisse, auch negative, werden berichtet. Neuheit wird erst in Phase 6 b
 2. **Prüferfehler behoben:** Bei diesen Netzen stürzte `schranke_familie` mit „Invalid NaN comparison“ ab (Runde 5, L3). Jetzt gilt: undefiniertes eta = nicht bewiesen, und ein Fehler bei einem Mitglied führt nicht zum Absturz. Neuer Selbsttest-Fall, 16/16 bestanden.
 3. **L3 wird wiederholt,** weil Runde 5 am Prüfer gescheitert ist und nicht an der Hypothese. Runde 5 bleibt als negatives Ergebnis protokolliert.
 Hypothesen, Erfolgskriterien und Budget bleiben unverändert.
+
+### Nachtrag H6, 2026-10-04: Vollständige Klassifikation (vor den Runden mit fragen2.json)
+Neue Werkzeuge: `classify_family`, `search_counterexamples` (Explorer, nur Kandidaten) und der Prüfungstyp `erreichbar_liste` (Zertifikat a je Fall). Selbsttest 18/18.
+- **L2b (vollständig):** Hypothese: Für die vollständige Liste der beweisbaren Mitglieder gilt eta >= 1/D**2 für alle Raten. Erfolg: `schranke_familie` besteht für diese Liste. Erwartet: rund 50 von 88 (Vorrechnung des Explorers).
+- **L2c:** Hypothese: Unter den übrigen Mitgliedern gibt es mehrere exakt zertifizierbare Gegenbeispiele mit eta < 1e-4. Erfolg: `erreichbar_liste` besteht mit mindestens 5 Fällen. Abbruch: weniger als 5 Fälle nach 1 Runde, wird dann als Teilergebnis berichtet.
+Zusammen ergibt das eine Klassifikation: bewiesen / Gegenbeispiel / offen. Offene Fälle werden als offen berichtet.

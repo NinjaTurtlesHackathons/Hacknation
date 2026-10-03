@@ -23,3 +23,7 @@
 - 2026-10-03 23:50:55   keine geprüfte Behauptung (als negatives Ergebnis protokolliert)
 - 2026-10-03 23:51:09 Runde 6: L2b: Für welche Teilfamilie von gebunden<=2 gilt eta >= 1/D**2 für alle Raten? Gib die größte Mitgliederliste an, die du begründen kannst, und prüfe sie mit schranke_familie (ausdruck 1/D**2).
 - 2026-10-03 23:52:42 Runde 5 (L3) scheiterte an einem Prüferfehler (eta = 0/0 bei entarteten Topologien -> NaN). Prüfer korrigiert, Selbsttest 16/16, L3 wird wiederholt.
+- 2026-10-03 23:53:00 Selbsttest des Prüfers: bestanden
+- 2026-10-03 23:53:15 Runde 6: L2b: Für welche Teilfamilie von gebunden<=2 gilt eta >= 1/D**2 für alle Raten? Gib die größte Mitgliederliste an, die du begründen kannst, und prüfe sie mit schranke_familie (ausdruck 1/D**2).
+- 2026-10-03 23:55:43   geprüft (computed_rigorous): Für 3 Topologien der vom Prüfer erzeugten Familie gebunden<=2 (ein ungebundener Zustand, Kantenkatalog laut Modell) gilt eta >= 1/D**2 für alle positiven Raten  | Red-Team: 2 Gegenprüfungen, 0 bestanden, 0 logische Widersprüche
+- 2026-10-03 23:55:54 Runde 7: L3: Erfordert das Unterschreiten von e^{-2Delta} in gebunden<=2 einen treibstoffgetriebenen Verwerfen-Ausgang (verw_*, fuel 1) am Produktzustand? Suche ein Gegenbeispiel ohne dieses Merkmal (erreichbar, eta_max < 1e-4) oder beweise die Schranke für die Teilfamilie ohne dieses Merkmal (schranke_familie).

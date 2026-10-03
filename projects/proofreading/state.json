@@ -719,7 +719,7 @@
    "neuheit": 0.7,
    "machbarkeit": 0.7,
    "id": "F13",
-   "status": "offen",
+   "status": "beantwortet",
    "quelle": "lueckenkarte"
   },
   {
@@ -1021,6 +1021,72 @@
     }
    ],
    "runde": 4
+  },
+  {
+   "id": "proofreading-R6",
+   "frage": "L2b: Für welche Teilfamilie von gebunden<=2 gilt eta >= 1/D**2 für alle Raten? Gib die größte Mitgliederliste an, die du begründen kannst, und prüfe sie mit schranke_familie (ausdruck 1/D**2).",
+   "text": "Für 3 Topologien der vom Prüfer erzeugten Familie gebunden<=2 (ein ungebundener Zustand, Kantenkatalog laut Modell) gilt eta >= 1/D**2 für alle positiven Raten und Treibstoffe (Zertifikat (b), symbolisch).",
+   "interpretation_ungeprueft": "fam2_5, fam2_6, fam2_7",
+   "pruefung": {
+    "typ": "schranke_familie",
+    "familie": "gebunden<=2",
+    "ausdruck": "1/D**2",
+    "mitglieder": [
+     "fam2_5",
+     "fam2_6",
+     "fam2_7"
+    ]
+   },
+   "grund": "Zertifikat (b) Familie gebunden<=2: Schranke eta >= 1/D**2 für 3/3 Mitglieder bewiesen",
+   "level": "computed_rigorous",
+   "status": "bestätigt",
+   "red_team": [
+    {
+     "pruefung": {
+      "typ": "schranke_familie",
+      "familie": "gebunden<=2",
+      "ausdruck": "1/D**2",
+      "mitglieder": [
+       "fam2_5",
+       "fam2_6",
+       "fam2_7",
+       "fam2_4",
+       "fam2_8",
+       "fam2_9",
+       "fam2_10",
+       "fam2_11"
+      ]
+     },
+     "idee": "Die Antwort nennt selbst, dass ihre Liste unvollständig ist, vor allem bei Topologien mit verw_C0_E. Diese Prüfung besteht, wenn die Schranke auch für Nachbar-Mitglieder gilt. Dann ist die Liste zu klein und die Antwort falsch. Die Indizes sind geraten und müssten vorab mit 'family 2' abgeglichen werden.",
+     "bestanden": false,
+     "grund": "unbekannte Familienmitglieder: ['fam2_4']",
+     "widerspruch": false
+    },
+    {
+     "pruefung": {
+      "typ": "erreichbar",
+      "topologie": "fam2_5",
+      "params": {
+       "bind_C1_E": 5,
+       "bind_C1_E_rev": -5,
+       "verw_C1_E": 5,
+       "verw_C1_E_rev": -10,
+       "umw_C1_C2": 5,
+       "umw_C1_C2_rev": -5,
+       "prod_C0": -10,
+       "prod_C0_rev": -10
+      },
+      "eta_max": 0.0001,
+      "sigma_max": null,
+      "v_min": null
+     },
+     "idee": "Gegenbeispiel: Mindestens ein behauptetes Mitglied, hier fam2_5, soll eta unter 1/D^2 = 1e-4 erreichen. Dann gilt die Schranke nicht für die ganze Liste. Die Parameternamen und Werte sind geraten. Sie müssten mit 'optimize' auf fam2_5 bei v_min=null und sehr hohem mu bestimmt werden, weil die Schranke nur im Limes v→0 scharf ist.",
+     "bestanden": false,
+     "grund": "Prüfung nicht ausführbar: TypeError: Invalid NaN comparison",
+     "widerspruch": false
+    }
+   ],
+   "runde": 6
   }
  ],
  "widerlegt": [
@@ -1212,7 +1278,59 @@
    "status": "ungeprüft",
    "red_team": [],
    "sek": 410.4
+  },
+  {
+   "runde": 6,
+   "frage": "F13",
+   "status": "beantwortet",
+   "red_team": [
+    {
+     "pruefung": {
+      "typ": "schranke_familie",
+      "familie": "gebunden<=2",
+      "ausdruck": "1/D**2",
+      "mitglieder": [
+       "fam2_5",
+       "fam2_6",
+       "fam2_7",
+       "fam2_4",
+       "fam2_8",
+       "fam2_9",
+       "fam2_10",
+       "fam2_11"
+      ]
+     },
+     "idee": "Die Antwort nennt selbst, dass ihre Liste unvollständig ist, vor allem bei Topologien mit verw_C0_E. Diese Prüfung besteht, wenn die Schranke auch für Nachbar-Mitglieder gilt. Dann ist die Liste zu klein und die Antwort falsch. Die Indizes sind geraten und müssten vorab mit 'family 2' abgeglichen werden.",
+     "bestanden": false,
+     "grund": "unbekannte Familienmitglieder: ['fam2_4']",
+     "widerspruch": false
+    },
+    {
+     "pruefung": {
+      "typ": "erreichbar",
+      "topologie": "fam2_5",
+      "params": {
+       "bind_C1_E": 5,
+       "bind_C1_E_rev": -5,
+       "verw_C1_E": 5,
+       "verw_C1_E_rev": -10,
+       "umw_C1_C2": 5,
+       "umw_C1_C2_rev": -5,
+       "prod_C0": -10,
+       "prod_C0_rev": -10
+      },
+      "eta_max": 0.0001,
+      "sigma_max": null,
+      "v_min": null
+     },
+     "idee": "Gegenbeispiel: Mindestens ein behauptetes Mitglied, hier fam2_5, soll eta unter 1/D^2 = 1e-4 erreichen. Dann gilt die Schranke nicht für die ganze Liste. Die Parameternamen und Werte sind geraten. Sie müssten mit 'optimize' auf fam2_5 bei v_min=null und sehr hohem mu bestimmt werden, weil die Schranke nur im Limes v→0 scharf ist.",
+     "bestanden": false,
+     "grund": "Prüfung nicht ausführbar: TypeError: Invalid NaN comparison",
+     "widerspruch": false
+    }
+   ],
+   "sek": 134.3
   }
  ],
- "kosten_usd": 2.180258
+ "kosten_usd": 2.361442
 }

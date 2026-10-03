@@ -54,6 +54,24 @@ def front(topologie, sigmas, starts=6, seed=0):
     return {"punkte": [{"sigma_max": s, **{k: v for k, v in optimize(topologie, sigma_max=s, starts=starts, seed=seed).items() if k != "params"}} for s in sigmas]}
 
 
+def _cx_job(a):
+    name, thr = a; best = None
+    for seed in (1, 2):
+        try: r = optimize(name, starts=8, seed=seed)
+        except Exception: continue
+        if r["feasible"] and (best is None or r["eta"] < best["eta"]): best = r
+    return {"topologie": name, "eta": best["eta"] if best else None, "params": best["params"] if best else None}
+
+
+def check_erreichbar_liste(p):
+    """Zertifikat (a) für viele Fälle: jeder Fall {topologie, params, eta_max} wird einzeln exakt geprüft; besteht nur, wenn alle bestehen."""
+    faelle = p.get("faelle") or []
+    if not faelle: return False, "keine Fälle angegeben", {}
+    res = [(f.get("topologie"),) + check_erreichbar({"typ": "erreichbar", **f})[:2] for f in faelle]
+    bad = [(t, w[:80]) for t, ok, w in res if not ok]
+    return (not bad), (f"Zertifikat (a) für {len(faelle) - len(bad)}/{len(faelle)} Fälle bestanden" + (f"; nicht bestanden: {bad[:4]}" if bad else "")), {"ergebnisse": res}
+
+
 def check_erreichbar(p):
     """Zertifikat (a): rationale Raten -> exakte Kennzahlen. Konstruktiver Beweis, dass der Punkt erreichbar ist."""
     spec = _spec(p["topologie"]); err = P.validate_spec(spec)
@@ -157,7 +175,9 @@ class ProofreadingDomain(Domain):
 - evaluate {topologie, params: {name: log-Rate}}: eta, sigma, v numerisch.
 - optimize {topologie, sigma_max?, v_min?, starts?, seed?}: minimale Fehlerrate unter den Nebenbedingungen (Multi-Start, Kandidat, ~5-30 s).
 - front {topologie, sigmas: [...]}: optimize für mehrere sigma_max (Pareto-Front, Kandidat; teuer).
-- family {k}: alle Topologien mit k gebundenen Zuständen (Namen fam<k>_<i>, Kanten: id, Treibstoff, diskriminierend). k = 2 hat 92 Mitglieder."""
+- search_counterexamples {names: [...], eta_max}: numerische Suche nach eta < eta_max für jede genannte Topologie (liefert params; ~2-5 min).
+- classify_family {k, ausdruck}: Beweisversuch der Schranke für ALLE Mitglieder; liefert Listen beweisbar / nicht_beweisbar (~1 min).
+- family {k}: alle Topologien mit k gebundenen Zuständen (Namen fam<k>_<i>, Kanten: id, Treibstoff, diskriminierend). k = 2 hat 88 Mitglieder."""
     claim_doc = """Prüfungstypen:
 - {"typ": "erreichbar", "topologie": ..., "params": {name: log-Rate, ...}, "eta_max": Zahl, "sigma_max": Zahl|null, "v_min": Zahl|null}
   Zertifikat (a): Der Prüfer rundet die Raten auf rationale Zahlen, prüft Ratenbereich und detaillierte Bilanz exakt und berechnet eta, v exakt
@@ -169,6 +189,8 @@ class ProofreadingDomain(Domain):
   nur nicht zertifiziert. Teuer (Sekunden bis Minuten).
 - {"typ": "optimum", "topologie": ..., "eta_min": Zahl, "sigma_max": Zahl|null, "v_min": Zahl|null, "fest": {"mu": Zahl}|null}
   Numerisch: Der Prüfer sucht selbst (eigener Seed, 24 Starts); besteht, wenn sein Minimum innerhalb von 2 % am behaupteten Wert liegt.
+- {"typ": "erreichbar_liste", "faelle": [{"topologie": ..., "params": {...}, "eta_max": Zahl}, ...]}
+  Zertifikat (a) für viele Topologien auf einmal (z. B. alle Gegenbeispiele aus search_counterexamples); besteht nur, wenn jeder Fall besteht.
 - {"typ": "schranke_familie", "familie": "gebunden<=2", "ausdruck": "1/D**2", "mitglieder": ["fam2_0", ...] | null}
   Zertifikat (b) für Topologie-Familien: Der Prüfer erzeugt ALLE Netzwerke mit einem ungebundenen und k gebundenen Zuständen aus dem
   Kantenkatalog (Bindung, treibstoffgetriebenes Verwerfen, Umwandlung, genau eine Produktkante) und beweist die Schranke für jedes
@@ -181,6 +203,19 @@ class ProofreadingDomain(Domain):
             if op == "evaluate": return evaluate(**args)
             if op == "optimize": return optimize(**args)
             if op == "front": return front(**args)
+            if op == "classify_family":                          # Explorer-Werkzeug: Beweisversuch für alle Mitglieder (Kandidatenliste, kein Zertifikat)
+                from .proofreading_family import family, prove_family
+                k = int(args["k"]); names = [x["name"] for x in family(k)]
+                out = prove_family(k, names, args.get("ausdruck", f"1/D**{k}"))
+                return {"beweisbar": [n for n, b in out.items() if b], "nicht_beweisbar": [n for n, b in out.items() if not b],
+                        "hinweis": "Kandidatenliste; zertifiziert wird erst durch schranke_familie"}
+            if op == "search_counterexamples":                   # Explorer: für jede genannte Topologie das Minimum von eta suchen
+                from concurrent.futures import ProcessPoolExecutor
+                names = args["names"]; thr = float(args.get("eta_max", 1e-4))
+                with ProcessPoolExecutor(4) as ex: res = list(ex.map(_cx_job, [(n, thr) for n in names]))
+                return {"unter_schwelle": [r for r in res if r["eta"] is not None and r["eta"] < thr],
+                        "nicht_gefunden": [r["topologie"] for r in res if r["eta"] is None or r["eta"] >= thr],
+                        "hinweis": "numerische Kandidaten; zertifiziert wird erst durch erreichbar_liste"}
             if op == "family":
                 from .proofreading_family import family
                 return {"mitglieder": [{"name": x["name"], "kanten": [(e["id"], e["fuel"], e["diskriminierend"]) for e in x["kanten"]]} for x in family(int(args["k"]))]}
@@ -194,6 +229,7 @@ class ProofreadingDomain(Domain):
             if p.get("typ") == "untere_schranke": return check_untere_schranke(p)
             if p.get("typ") == "optimum": return check_optimum(p)
             if p.get("typ") == "schranke_familie": return check_schranke_familie(p)
+            if p.get("typ") == "erreichbar_liste": return check_erreichbar_liste(p)
             return False, f"unbekannter Prüfungstyp {p.get('typ')}", {}
         except Exception as e:
             return False, f"Prüfung nicht ausführbar: {type(e).__name__}: {e}"[:300], {}
@@ -205,6 +241,8 @@ class ProofreadingDomain(Domain):
     def widerspricht(self, p, q):
         """Erreichbar(eta <= a) und Schranke(eta >= b) auf derselben Topologie (oder Familie mit dieser Topologie) widersprechen sich, wenn a < b."""
         for x, y in ((p, q), (q, p)):
+            if x.get("typ") == "erreichbar_liste" and y.get("typ") in ("schranke_familie", "untere_schranke"):
+                return any(self.widerspricht({"typ": "erreichbar", **f}, y) for f in x.get("faelle") or [])
             if x.get("typ") == "erreichbar" and y.get("typ") == "schranke_familie" and x.get("eta_max") is not None:
                 from .proofreading_symbolic import parse_bound
                 t = str(x.get("topologie")); mem = y.get("mitglieder")
@@ -221,10 +259,18 @@ class ProofreadingDomain(Domain):
             rhs = p.get("ausdruck") or f"{p.get('c', 1)} * e^(-{p['k']} Delta)"
             return (f"Für {p['topologie']} gilt eta >= {rhs} (D = e^Delta, G = e^mu) für alle positiven Raten und alle Treibstoff-Potentiale "
                     f"mu, mu_P >= 0 (Zertifikat (b): symbolischer Positivitätsbeweis, unabhängig vom Ratenbereich).")
+        if p.get("typ") == "erreichbar_liste":
+            f = p.get("faelle") or []; ts = sorted({str(x.get("topologie")) for x in f}); mx = max(float(x.get("eta_max", 0)) for x in f) if f else None
+            return (f"Für {len(ts)} Topologien ({', '.join(ts[:12])}{' …' if len(ts) > 12 else ''}) existieren jeweils rationale Raten in [e^-10, e^10] mit lokaler "
+                    f"detaillierter Bilanz und eta <= {mx} (Zertifikat (a), je Fall exakt).")
         if p.get("typ") == "schranke_familie":
             n = len(p.get("mitglieder") or []) or "alle"
             return (f"Für {n} Topologien der vom Prüfer erzeugten Familie {p['familie']} (ein ungebundener Zustand, Kantenkatalog laut Modell) gilt "
                     f"eta >= {p['ausdruck']} für alle positiven Raten und Treibstoffe (Zertifikat (b), symbolisch).")
+        if p.get("typ") == "erreichbar_liste":
+            f = p.get("faelle") or []; ts = sorted({str(x.get("topologie")) for x in f}); mx = max(float(x.get("eta_max", 0)) for x in f) if f else None
+            return (f"Für {len(ts)} Topologien ({', '.join(ts[:12])}{' …' if len(ts) > 12 else ''}) existieren jeweils rationale Raten in [e^-10, e^10] mit lokaler "
+                    f"detaillierter Bilanz und eta <= {mx} (Zertifikat (a), je Fall exakt).")
         if p.get("typ") == "schranke_familie":
             n = len(p.get("mitglieder") or []) or "alle"
             return (f"Für {n} Topologien der vom Prüfer erzeugten Familie {p['familie']} (ein ungebundener Zustand, Kantenkatalog laut Modell) gilt "
@@ -264,6 +310,10 @@ class ProofreadingDomain(Domain):
                 ({"typ": "schranke_familie", "familie": "gebunden<=1", "ausdruck": "1/D"}, True),    # alle 1-Zustands-Netze: Gleichgewichtsgrenze
                 ({"typ": "schranke_familie", "familie": "gebunden<=1", "ausdruck": "2/D"}, False),         # falsch: n0 erreicht 1,0001 e^-Delta
                 ({"typ": "schranke_familie", "familie": "gebunden<=2", "ausdruck": "1/D**2", "mitglieder": ["fam2_99999"]}, False),  # erfundenes Mitglied
+                ({"typ": "erreichbar_liste", "faelle": [{"topologie": "hopfield_n1", "params": hp, "eta_max": 1.2e-4},
+                                                        {"topologie": "hopfield_n0", "params": n0, "eta_max": 0.0101}]}, True),
+                ({"typ": "erreichbar_liste", "faelle": [{"topologie": "hopfield_n1", "params": hp, "eta_max": 1.2e-4},
+                                                        {"topologie": "hopfield_n0", "params": n0, "eta_max": 0.0099}]}, False),   # ein Fall falsch -> alles falsch
                 ({"typ": "untere_schranke", "topologie": {"name": "entartet", "ungebunden": ["E"], "gebunden": ["C0", "C1"], "kanten": [
                     {"id": "b", "von": "C1", "nach": "E", "diskriminierend": True, "fuel": 0, "produkt": 0},
                     {"id": "p", "von": "C0", "nach": "E", "diskriminierend": False, "fuel": 0, "produkt": 1}]}, "c": 1, "k": 2}, False)]  # eta = 0/0: nicht bewiesen, kein Absturz  # Rate außerhalb [-L, L]
