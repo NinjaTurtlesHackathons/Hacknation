@@ -638,7 +638,7 @@
    "neuheit": 0.6,
    "machbarkeit": 0.9,
    "id": "F7",
-   "status": "offen",
+   "status": "beantwortet",
    "aus_runde": 1
   },
   {
@@ -649,6 +649,24 @@
    "id": "F8",
    "status": "offen",
    "aus_runde": 1
+  },
+  {
+   "frage": "Wie skaliert die Quantenverletzung Q(p)-L(p) der Familie a=b=[p,0] für p nahe 1 genau? Scan bei p in {0.95, 0.97, 0.98, 0.99, 0.995, 0.999} mit seesaw d=2 und NPA 1+AB, jeweils mit zweiseitigem Zertifikat (Lücke < 1e-6, wo möglich). Danach Log-Log-Fit von Q-L gegen (1-p), um zu prüfen, ob der Exponent 3 ist. Zusätzlich: Ist die Lücke bei p=0.99 überhaupt größer als die Prüfertoleranz von 1e-6, sodass 'quantenverletzung' und 'quantenwert' dort belastbar sind?",
+   "begruendung": "Die Aussage 'kein p*<1' und der Exponent ∝(1-p)^3 sind nur extrapoliert. Die Verletzung bei p=0.99 liegt vermutlich nahe oder unter der Zertifizierungstoleranz, daher ist das Ergebnis dort nur schwach gestützt. Ein dichterer Scan nahe p=1 mit exakten Strategien (prüfbar über 'strategie' und 'quantenverletzung') liefert entweder ein belastbares Skalierungsgesetz oder zeigt die Grenze der Methode. Das ist auch eine Gegenprobe zur eigenen Behauptung.",
+   "neuheit": 0.5,
+   "machbarkeit": 0.85,
+   "id": "F9",
+   "status": "offen",
+   "aus_runde": 2
+  },
+  {
+   "frage": "Lässt sich Q(p) für die Familie a=b=[p,0] in geschlossener Form angeben (Prüfertyp 'formel')? Dazu Q an mindestens 5 rationalen p in [0.5, 0.95] zweiseitig beweisen, mit See-saw d=2 und NPA 1+AB, und Kandidaten wie sqrt(8+...)-artige Ausdrücke in p per Fit testen. Die Gegenprobe ist ein Vergleich mit dem bekannten Ergebnis bei p=1/2 (Q = 3.13693731) und mit d=3, um zu sehen, ob Qubits reichen.",
+   "begruendung": "Die Familie ist ein Prototyp der gekippten CHSH-Ungleichung mit zwei Seiten. Eine analytische Formel würde das numerische Resultat 'Q>L für alle p<1' zu einem Beweis machen, denn man müsste nur Q(p)>2+2p aus der Formel prüfen. Der bekannte Punkt p=1/2 mit zertifizierter Lücke 1.46e-8 dient als Anker. Die Rechnung ist mit den vorhandenen Experimenten (scan, npa, formel) direkt machbar.",
+   "neuheit": 0.7,
+   "machbarkeit": 0.7,
+   "id": "F10",
+   "status": "offen",
+   "aus_runde": 2
   }
  ],
  "claims": [
@@ -753,6 +771,109 @@
     }
    ],
    "runde": 1
+  },
+  {
+   "id": "bell-R2",
+   "frage": "Ab welchem p* < 1 verschwindet die Quantenverletzung der doppelt gekippten CHSH-Familie (a=b=[p,0])? Dazu ein Scan von p in {0.7, 0.8, 0.85, 0.9, 0.95, 0.99, 1} mit L = 2+2p (bei p=1/2 ist L=3) und mit See-saw für d=2 und d=3 sowie NPA 1+AB und 2. Gilt Q(p) > L(p) für alle p<1 oder ist Q=L schon ab einem p*<1?",
+   "text": "{\"korrelator\": {\"a\": [\"99/100\", 0], \"b\": [\"99/100\", 0], \"c\": [[1, 1], [1, -1]], \"konst\": 0}} wird von einer expliziten Quantenstrategie exakt verletzt (Bell-Wert über der klassischen Schranke).",
+   "interpretation_ungeprueft": "Es gibt kein p* < 1: Q(p) > L(p) in allen getesteten Punkten p < 1 (bis p = 0.99). Die Verletzung wird für p → 1 nur extrem klein, etwa ∝ (1-p)^3, und verschwindet erst bei p = 1, wo Q = L = 4 ist. Das ist numerisch gestützt, nicht bewiesen; zwischen den getesteten Punkten und für p > 0.99 ist es eine Extrapolation.",
+   "pruefung": {
+    "typ": "quantenverletzung",
+    "ungleichung": {
+     "korrelator": {
+      "a": [
+       "99/100",
+       0
+      ],
+      "b": [
+       "99/100",
+       0
+      ],
+      "c": [
+       [
+        1,
+        1
+       ],
+       [
+        1,
+        -1
+       ]
+      ],
+      "konst": 0
+     }
+    },
+    "strategie_id": "S42a9e37e602c"
+   },
+   "grund": "Prüfer: L = 199/50, Quantenstrategie exakt 3.98000132884628 (Verhältnis 1.000000) | Prüfer: L = 39/10, Quantenstrategie exakt 3.90016389936512 (Verhältnis 1.000042)",
+   "level": "computed_rigorous",
+   "status": "bestätigt",
+   "red_team": [
+    {
+     "pruefung": {
+      "typ": "quanten_obere_schranke",
+      "ungleichung": {
+       "korrelator": {
+        "a": [
+         "99/100",
+         0
+        ],
+        "b": [
+         "99/100",
+         0
+        ],
+        "c": [
+         [
+          1,
+          1
+         ],
+         [
+          1,
+          -1
+         ]
+        ],
+        "konst": 0
+       }
+      },
+      "wert": "398/100"
+     },
+     "idee": "Wäre die Quantenverletzung schon vor p=0.99 verschwunden (p* < 0.99), dann gälte Q = L = 2+2p = 3.98, und ein NPA-Dualzertifikat (Stufe 2 oder 2+AAB) würde Q <= 3.98 beweisen. Die Antwort behauptet dagegen Q > 3.98, und ihr Überschuss von ca. 1e-6 liegt nahe an numerischem Rauschen von See-saw und SDP.",
+     "bestanden": false,
+     "grund": "Prüfer: NPA-Stufe 2+AAB, rational zertifizierte obere Schranke 3.98000623486376 (1+AB: 3.98001912724; 2: 3.9800116017; 2+AAB: 3.98000623486)"
+    },
+    {
+     "pruefung": {
+      "typ": "quantenwert",
+      "ungleichung": {
+       "korrelator": {
+        "a": [
+         "19/20",
+         0
+        ],
+        "b": [
+         "19/20",
+         0
+        ],
+        "c": [
+         [
+          1,
+          1
+         ],
+         [
+          1,
+          -1
+         ]
+        ],
+        "konst": 0
+       }
+      },
+      "wert": "39/10"
+     },
+     "idee": "Bei p=0.95 ist L = 3.9. Falls es ein p* < 0.95 mit Q = L gibt, ist Q = 3.9 zweiseitig bewiesen: unten durch die lokale Strategie, oben durch NPA. Die Antwort behauptet dagegen einen Überschuss von 0.0016, der diese Prüfung scheitern ließe.",
+     "bestanden": false,
+     "grund": "Prüfer: 3.90016389936512 <= Q <= 3.90019981472908 (Lücke 3.59e-05, Strategie d=2, NPA 2+AAB); Lücke zu groß, nicht zertifiziert"
+    }
+   ],
+   "runde": 2
   }
  ],
  "widerlegt": [],
@@ -827,7 +948,79 @@
     }
    ],
    "sek": 511.3
+  },
+  {
+   "runde": 2,
+   "frage": "F7",
+   "status": "beantwortet",
+   "red_team": [
+    {
+     "pruefung": {
+      "typ": "quanten_obere_schranke",
+      "ungleichung": {
+       "korrelator": {
+        "a": [
+         "99/100",
+         0
+        ],
+        "b": [
+         "99/100",
+         0
+        ],
+        "c": [
+         [
+          1,
+          1
+         ],
+         [
+          1,
+          -1
+         ]
+        ],
+        "konst": 0
+       }
+      },
+      "wert": "398/100"
+     },
+     "idee": "Wäre die Quantenverletzung schon vor p=0.99 verschwunden (p* < 0.99), dann gälte Q = L = 2+2p = 3.98, und ein NPA-Dualzertifikat (Stufe 2 oder 2+AAB) würde Q <= 3.98 beweisen. Die Antwort behauptet dagegen Q > 3.98, und ihr Überschuss von ca. 1e-6 liegt nahe an numerischem Rauschen von See-saw und SDP.",
+     "bestanden": false,
+     "grund": "Prüfer: NPA-Stufe 2+AAB, rational zertifizierte obere Schranke 3.98000623486376 (1+AB: 3.98001912724; 2: 3.9800116017; 2+AAB: 3.98000623486)"
+    },
+    {
+     "pruefung": {
+      "typ": "quantenwert",
+      "ungleichung": {
+       "korrelator": {
+        "a": [
+         "19/20",
+         0
+        ],
+        "b": [
+         "19/20",
+         0
+        ],
+        "c": [
+         [
+          1,
+          1
+         ],
+         [
+          1,
+          -1
+         ]
+        ],
+        "konst": 0
+       }
+      },
+      "wert": "39/10"
+     },
+     "idee": "Bei p=0.95 ist L = 3.9. Falls es ein p* < 0.95 mit Q = L gibt, ist Q = 3.9 zweiseitig bewiesen: unten durch die lokale Strategie, oben durch NPA. Die Antwort behauptet dagegen einen Überschuss von 0.0016, der diese Prüfung scheitern ließe.",
+     "bestanden": false,
+     "grund": "Prüfer: 3.90016389936512 <= Q <= 3.90019981472908 (Lücke 3.59e-05, Strategie d=2, NPA 2+AAB); Lücke zu groß, nicht zertifiziert"
+    }
+   ],
+   "sek": 365.1
   }
  ],
- "kosten_usd": 1.13388
+ "kosten_usd": 1.619723
 }
