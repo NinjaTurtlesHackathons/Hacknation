@@ -1,0 +1,3 @@
+- 2026-10-03 22:33:36 Selbsttest des Prüfers: bestanden
+- 2026-10-03 22:33:44 Suchanfragen: ['Bell inequality Tsirelson bound', 'NPA hierarchy quantum violations', 'CHSH inequality maximum violation', 'Self-testing entanglement Bell nonlocality', 'Chained Bell inequalities constraints', 'I3322 Bell inequality bound', 'Dimension witness quantum certification', 'Quantum nonlocality bipartite systems', 'Tilted CHSH Bell inequality', 'NPA hierarchy convergence gaps']
+- 2026-10-03 22:34:28 320 Quellen, 0 durch Leck-Filter gesperrt
