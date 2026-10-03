@@ -2,3 +2,4 @@
 - 2026-10-03 22:33:44 Suchanfragen: ['Bell inequality Tsirelson bound', 'NPA hierarchy quantum violations', 'CHSH inequality maximum violation', 'Self-testing entanglement Bell nonlocality', 'Chained Bell inequalities constraints', 'I3322 Bell inequality bound', 'Dimension witness quantum certification', 'Quantum nonlocality bipartite systems', 'Tilted CHSH Bell inequality', 'NPA hierarchy convergence gaps']
 - 2026-10-03 22:34:28 320 Quellen, 0 durch Leck-Filter gesperrt
 - 2026-10-03 22:42:11 84 Befunde extrahiert, 83 Zitate per Code bestätigt, 1 verworfen
+- 2026-10-03 22:42:26 Runde 1: Doppelt gekippte CHSH: Familie mit Korrelator a = [p, 0], b = [p, 0], c = [[1,1],[1,-1]]. Wie verläuft Q(p) für p in [0, 1], gibt es eine geschlossene Formel, und reichen Qubits?
