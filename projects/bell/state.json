@@ -622,7 +622,7 @@
    "neuheit": 0.6,
    "machbarkeit": 0.8,
    "id": "F5",
-   "status": "offen"
+   "status": "beantwortet"
   },
   {
    "frage": "Gewichtete Kette mit 3 Einstellungen: Korrelator c = [[1,0,-p],[1,1,0],[0,1,1]] für p in [0, 1] interpoliert zwischen einer offenen Kette (p=0) und kette:3 (p=1). Wie verlaufen L(p) und Q(p), und lässt sich Q(p) als Formel zweiseitig zertifizieren?",
@@ -631,10 +631,203 @@
    "machbarkeit": 0.7,
    "id": "F6",
    "status": "offen"
+  },
+  {
+   "frage": "Ab welchem p* < 1 verschwindet die Quantenverletzung der doppelt gekippten CHSH-Familie (a=b=[p,0])? Dazu ein Scan von p in {0.7, 0.8, 0.85, 0.9, 0.95, 0.99, 1} mit L = 2+2p (bei p=1/2 ist L=3) und mit See-saw für d=2 und d=3 sowie NPA 1+AB und 2. Gilt Q(p) > L(p) für alle p<1 oder ist Q=L schon ab einem p*<1?",
+   "begruendung": "Das Ergebnis behauptet nur Q(1)=4=L und Monotonie, nennt aber keinen Wert für p nahe 1. Der Verlauf von Q/L und der Punkt, an dem Q und L zusammenfallen, wurden nicht geprüft. Die Antwort grenzt die Behauptung 'monoton' ab und liefert die Grenze der Nichtlokalität der Familie. Der Scan ist mit dem Werkzeug 'scan' sofort machbar. Falls Q=L ab p*, ist dies zugleich die Gegenprobe zur Annahme, dass die Verletzung für alle p<1 bestehen bleibt.",
+   "neuheit": 0.6,
+   "machbarkeit": 0.9,
+   "id": "F7",
+   "status": "offen",
+   "aus_runde": 1
+  },
+  {
+   "frage": "Gibt es eine geschlossene Formel für Q(p)? Dazu werden Q an mindestens 6 rationalen p (z. B. 0, 1/10, 1/5, 1/3, 1/2, 2/3) mit hoher Präzision zweiseitig zertifiziert (typ quantenwert) und Kandidaten wie Wurzelausdrücke in p getestet. Die Kandidaten sind sqrt(8+8p²)-artig, sqrt((1+p)²+(1-p)²+...) oder Nullstellen eines Polynoms, das an den Messpunkten angepasst wird. Danach folgt eine Prüfung mit typ 'formel'. Zusätzlich wird bei p=2/3 untersucht, ob NPA Stufe 1+AB nicht scharf ist (typ luecke_npa), und das als Hinweis auf eine Strukturänderung der optimalen Strategie gewertet.",
+   "begruendung": "Bisher ist nur ein Punkt (p=1/2, Q=3.13693731) zertifiziert, obwohl die Frage nach der Formel offen blieb. Bei der Kipp-CHSH mit einseitiger Kippung gibt es die bekannte Form sqrt(8+2α²). Hier ist die Kippung doppelt und der Zusammenhang unklar. Dass NPA bei p=2/3 erst ab Stufe 2 scharf wird, deutet auf einen Wechsel des Regimes hin. Ein Stück-für-Stück-Ansatz mit zertifizierten Datenpunkten liefert Material für eine Formel oder eine begründete Absage.",
+   "neuheit": 0.7,
+   "machbarkeit": 0.6,
+   "id": "F8",
+   "status": "offen",
+   "aus_runde": 1
   }
  ],
- "claims": [],
+ "claims": [
+  {
+   "id": "bell-R1",
+   "frage": "Doppelt gekippte CHSH: Familie mit Korrelator a = [p, 0], b = [p, 0], c = [[1,1],[1,-1]]. Wie verläuft Q(p) für p in [0, 1], gibt es eine geschlossene Formel, und reichen Qubits?",
+   "text": "Der maximale Quantenwert von {\"korrelator\": {\"a\": [\"1/2\", 0], \"b\": [\"1/2\", 0], \"c\": [[1, 1], [1, -1]], \"konst\": 0}} ist Q = 3.13693731 bis auf 1e-6, zweiseitig zertifiziert (explizite Strategie und NPA-Dualzertifikat).",
+   "interpretation_ungeprueft": "Qubits (d=2) reichen numerisch für alle getesteten p; für Q(p) habe ich keine geschlossene Formel. Der Verlauf ist monoton steigend, von Q(0)=2√2≈2,8284 bis Q(1)=4=L.",
+   "pruefung": {
+    "typ": "quantenwert",
+    "ungleichung": {
+     "korrelator": {
+      "a": [
+       "1/2",
+       0
+      ],
+      "b": [
+       "1/2",
+       0
+      ],
+      "c": [
+       [
+        1,
+        1
+       ],
+       [
+        1,
+        -1
+       ]
+      ],
+      "konst": 0
+     }
+    },
+    "wert": 3.13693731
+   },
+   "grund": "Prüfer: 3.13693731130907 <= Q <= 3.13693732592937 (Lücke 1.46e-08, Strategie d=2, NPA 1+AB); bewiesen",
+   "level": "computed_rigorous",
+   "status": "bestätigt",
+   "red_team": [
+    {
+     "pruefung": {
+      "typ": "quanten_untere_schranke",
+      "ungleichung": {
+       "korrelator": {
+        "a": [
+         "1/2",
+         0
+        ],
+        "b": [
+         "1/2",
+         0
+        ],
+        "c": [
+         [
+          1,
+          1
+         ],
+         [
+          1,
+          -1
+         ]
+        ],
+        "konst": 0
+       }
+      },
+      "wert": 3.137
+     },
+     "idee": "Die Antwort setzt Q(1/2) ≈ 3,13693731. Gibt es eine exakt zertifizierte Quantenstrategie mit Wert ≥ 3,137, dann ist der behauptete Wert zu klein. Das gilt etwa, wenn Qubits nicht reichen oder See-saw in einem lokalen Optimum hängen blieb.",
+     "bestanden": false,
+     "grund": "Prüfer: eigene See-saw-Strategie Sb96804e9cb93 (d=2), exakter rationaler Bell-Wert = 3.13693731130907"
+    },
+    {
+     "pruefung": {
+      "typ": "quantenverletzung",
+      "ungleichung": {
+       "korrelator": {
+        "a": [
+         1,
+         0
+        ],
+        "b": [
+         1,
+         0
+        ],
+        "c": [
+         [
+          1,
+          1
+         ],
+         [
+          1,
+          -1
+         ]
+        ],
+        "konst": 0
+       }
+      }
+     },
+     "idee": "Randfall p=1: Die Antwort behauptet Q(1)=L=4, also keine Verletzung. Findet der Prüfer dort eine Quantenstrategie, die L exakt übertrifft, dann ist der Endpunkt und damit der behauptete Verlauf falsch.",
+     "bestanden": false,
+     "grund": "Prüfer: L = 4, Quantenstrategie exakt 4 (Verhältnis 1.000000)"
+    }
+   ],
+   "runde": 1
+  }
+ ],
  "widerlegt": [],
- "runden": [],
- "kosten_usd": 0.0
+ "runden": [
+  {
+   "runde": 1,
+   "frage": "F5",
+   "status": "beantwortet",
+   "red_team": [
+    {
+     "pruefung": {
+      "typ": "quanten_untere_schranke",
+      "ungleichung": {
+       "korrelator": {
+        "a": [
+         "1/2",
+         0
+        ],
+        "b": [
+         "1/2",
+         0
+        ],
+        "c": [
+         [
+          1,
+          1
+         ],
+         [
+          1,
+          -1
+         ]
+        ],
+        "konst": 0
+       }
+      },
+      "wert": 3.137
+     },
+     "idee": "Die Antwort setzt Q(1/2) ≈ 3,13693731. Gibt es eine exakt zertifizierte Quantenstrategie mit Wert ≥ 3,137, dann ist der behauptete Wert zu klein. Das gilt etwa, wenn Qubits nicht reichen oder See-saw in einem lokalen Optimum hängen blieb.",
+     "bestanden": false,
+     "grund": "Prüfer: eigene See-saw-Strategie Sb96804e9cb93 (d=2), exakter rationaler Bell-Wert = 3.13693731130907"
+    },
+    {
+     "pruefung": {
+      "typ": "quantenverletzung",
+      "ungleichung": {
+       "korrelator": {
+        "a": [
+         1,
+         0
+        ],
+        "b": [
+         1,
+         0
+        ],
+        "c": [
+         [
+          1,
+          1
+         ],
+         [
+          1,
+          -1
+         ]
+        ],
+        "konst": 0
+       }
+      }
+     },
+     "idee": "Randfall p=1: Die Antwort behauptet Q(1)=L=4, also keine Verletzung. Findet der Prüfer dort eine Quantenstrategie, die L exakt übertrifft, dann ist der Endpunkt und damit der behauptete Verlauf falsch.",
+     "bestanden": false,
+     "grund": "Prüfer: L = 4, Quantenstrategie exakt 4 (Verhältnis 1.000000)"
+    }
+   ],
+   "sek": 511.3
+  }
+ ],
+ "kosten_usd": 1.13388
 }

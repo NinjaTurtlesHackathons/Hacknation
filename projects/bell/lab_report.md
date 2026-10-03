@@ -4,3 +4,4 @@
 - 2026-10-03 22:42:11 84 Befunde extrahiert, 83 Zitate per Code bestätigt, 1 verworfen
 - 2026-10-03 22:42:26 Runde 1: Doppelt gekippte CHSH: Familie mit Korrelator a = [p, 0], b = [p, 0], c = [[1,1],[1,-1]]. Wie verläuft Q(p) für p in [0, 1], gibt es eine geschlossene Formel, und reichen Qubits?
 - 2026-10-03 22:51:17   geprüft (computed_rigorous): Qubits (d=2) reichen numerisch für alle getesteten p; für Q(p) habe ich keine geschlossene Formel. Der Verlauf ist monoton steigend, von Q(0)=2√2≈2,8284 bis Q(1)=4=L. | Red-Team: 2 Gegenprüfungen, 0 bestanden
+- 2026-10-03 22:51:53 Runde 2: Ab welchem p* < 1 verschwindet die Quantenverletzung der doppelt gekippten CHSH-Familie (a=b=[p,0])? Dazu ein Scan von p in {0.7, 0.8, 0.85, 0.9, 0.95, 0.99, 1} mit L = 2+2p (bei p=1/2 ist L=3) und mit See-saw für d=2 und d=3 sowie NPA 1+AB und 2. Gilt Q(p) > L(p) für alle p<1 oder ist Q=L schon ab einem p*<1?
