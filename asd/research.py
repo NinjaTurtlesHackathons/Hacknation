@@ -72,6 +72,11 @@ def search_europepmc(q, n=25):
     return out
 
 
+def _pmap(fn, items, workers=6):
+    from concurrent.futures import ThreadPoolExecutor
+    with ThreadPoolExecutor(workers) as ex: return list(ex.map(fn, items))
+
+
 def _crossref_doc(m):
     ab = re.sub(r"<[^>]+>", " ", m.get("abstract", "") or ""); ab = " ".join(ab.split())
     title = " ".join((m.get("title") or [""])[0].split())
@@ -159,7 +164,11 @@ def run(topic, n_queries=10, per_query=25, keep=60, model_cheap="haiku", model_m
     log(f"Suchanfragen: {qs}")
     # 2. Abruf (Code)
     corpus, seen = {}, set(); klassiker_hits = {k: [] for k in T.get("klassiker", [])}
-    for q in qs:
+    cpath = f"{d}/korpus_cache.json"
+    if os.path.exists(cpath):                                   # fortsetzbar: Abruf nicht wiederholen
+        c = json.load(open(cpath)); corpus, klassiker_hits = c["korpus"], c.get("klassiker", klassiker_hits); qs = c["suchanfragen"]; seen = None
+        log(f"Korpus aus Cache: {len(corpus)} Quellen")
+    for q in (qs if seen is not None else []):
         for src in (search_arxiv, search_europepmc) + ((search_crossref,) if T.get("crossref") else ()):
             try: docs = src(q, per_query)
             except Exception as e: log(f"Abruf-Fehler {src.__name__} '{q}': {e}"); docs = []
@@ -171,20 +180,26 @@ def run(topic, n_queries=10, per_query=25, keep=60, model_cheap="haiku", model_m
             time.sleep(1.0)                                  # arXiv-Richtlinie: höflich abfragen
     for doc in local_docs():                                  # eigene Dateien des Teams in literature/
         corpus.setdefault(doc["id"], doc)
+    json.dump({"korpus": corpus, "klassiker": klassiker_hits, "suchanfragen": qs}, open(cpath, "w"), ensure_ascii=False)
     stats_abgerufen_direkt = len(corpus)
     gesperrt = {i: w for i, doc in corpus.items() if (w := blocked(doc, T["sperre"]))}
     pool = {i: doc for i, doc in corpus.items() if i not in gesperrt}
     stats.update(abgerufen=len(corpus), gesperrt=len(gesperrt)); log(f"{len(corpus)} Quellen, {len(gesperrt)} durch Leck-Filter gesperrt")
     # 3. Sichtung (günstiges Modell, 25 Titel+Kurzabstract pro Aufruf)
     ids = list(pool); scores = {}
-    for b in range(0, len(ids), 25):
+    def screen(b):
         batch = ids[b:b + 25]
         listing = "\n".join(f"[{j}] {pool[i]['titel']} — {pool[i]['abstract'][:300]}" for j, i in enumerate(batch))
-        r = ask_json(f"Forschungsziel: {T['ziel']}\n\nBewerte jede Quelle 0-10 nach Relevanz für das Ziel.\n{listing}\n\n"
-                     'JSON: {"scores": [{"j": 0, "s": 7}, ...]}', model=model_cheap, salt=f"research-{topic}-screen-{b}")
+        try: r = ask_json(f"Forschungsziel: {T['ziel']}\n\nBewerte jede Quelle 0-10 nach Relevanz für das Ziel.\n{listing}\n\n"
+                          'JSON: {"scores": [{"j": 0, "s": 7}, ...]}', model=model_cheap, salt=f"research-{topic}-screen-{b}")
+        except Exception: return []
+        out = []
         for e in r.get("scores", []):
-            try: scores[batch[int(e["j"])]] = float(e["s"])
+            try: out.append((batch[int(e["j"])], float(e["s"])))
             except (KeyError, ValueError, IndexError, TypeError): pass
+        return out
+    for res in _pmap(screen, list(range(0, len(ids), 25))): scores.update(dict(res))
+    log(f"Sichtung: {len(scores)} Quellen bewertet")
     top = sorted(scores, key=scores.get, reverse=True)[:keep]
     if kette:                                                  # Zitationskette ab den relevantesten Quellen, neue Quellen ebenfalls sichten
         before = set(corpus); chain(corpus, top[:kette], log=log)
@@ -204,14 +219,16 @@ def run(topic, n_queries=10, per_query=25, keep=60, model_cheap="haiku", model_m
     # 4. Extraktion mit wörtlichen Zitaten (Hauptmodell, 6 Abstracts pro Aufruf)
     facts = []
     fac = f" Wenn ein Befund einen der Faktoren {T['faktoren']} betrifft, gib zusätzlich 'faktor' und 'stufe' (Name der Substanz) und 'richtung' (+1 höhere, -1 niedrigere Ausbeute) an." if T["faktoren"] else ""
-    for b in range(0, len(top), 6):
+    def extract(b):
         batch = top[b:b + 6]
         listing = "\n\n".join(f"<<{i}>>\nTitel: {pool[i]['titel']}\nAbstract: {pool[i]['abstract']}" for i in batch)
-        r = ask_json(f"Forschungsziel: {T['ziel']}\n\n{listing}\n\nExtrahiere die für das Ziel wichtigsten Befunde. Jeder Befund braucht ein "
+        try: r = ask_json(f"Forschungsziel: {T['ziel']}\n\n{listing}\n\nExtrahiere die für das Ziel wichtigsten Befunde. Jeder Befund braucht ein "
                      "WÖRTLICHES Zitat (mindestens 6 Wörter, exakt kopiert) aus dem jeweiligen Abstract." + fac +
                      ' JSON: {"befunde": [{"quelle": "<id>", "aussage": "<deutsch, ein Satz>", "zitat": "<wörtlich>", "typ": "ergebnis|methode|offene_frage"}]}',
                      model=model_main, salt=f"research-{topic}-extract-{b}")
-        facts += r.get("befunde", [])
+        except Exception: return []
+        return r.get("befunde", [])
+    for fs in _pmap(extract, list(range(0, len(top), 6))): facts += fs
     # 5. Zitat-Prüfer (Code)
     ok = verify_facts(facts, pool); stats.update(befunde=len(facts), verifiziert=len(ok))
     classify(ok, T, model_cheap, topic)
