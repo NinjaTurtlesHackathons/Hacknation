@@ -73,3 +73,9 @@ Modell und Prüfer: `asd/domains/proofreading*.py`, Selbsttest 15/15 bestanden. 
 - **L4 (Geschwindigkeit):** Hypothese: Für hopfield_n1 mit v >= 1e-3 ist eta < 2e-4 bei sigma <= 10 kT erreichbar. Prüfung: `erreichbar` (exakt). Abbruch: nicht erreichbar nach 1 Runde.
 - **L5 (gleichgewichtsnah):** Hypothese: eta <= 1.2e-4 bei sigma <= 0.2 kT pro Produkt erreichbar (v beliebig). Prüfung: `erreichbar` (exakt).
 Alle Ergebnisse, auch negative, werden berichtet. Neuheit wird erst in Phase 6 beurteilt.
+
+### Nachtrag H6, 2026-10-04: Familie und Prüferkorrektur (nach Runde 5, vor den Runden 6 ff.)
+1. **Entartete Familienmitglieder ausgeschlossen:** 4 der 92 Netze haben keinen Weg von E zum Produktzustand ohne die Produktkante. Dort ist keine Nettoproduktion möglich, eta = 0/0 ist undefiniert. Die Familie gebunden<=2 hat jetzt 88 Mitglieder. Die Namen bleiben stabil (fam2_0 … fam2_91, die entarteten Nummern sind frei).
+2. **Prüferfehler behoben:** Bei diesen Netzen stürzte `schranke_familie` mit „Invalid NaN comparison“ ab (Runde 5, L3). Jetzt gilt: undefiniertes eta = nicht bewiesen, und ein Fehler bei einem Mitglied führt nicht zum Absturz. Neuer Selbsttest-Fall, 16/16 bestanden.
+3. **L3 wird wiederholt,** weil Runde 5 am Prüfer gescheitert ist und nicht an der Hypothese. Runde 5 bleibt als negatives Ergebnis protokolliert.
+Hypothesen, Erfolgskriterien und Budget bleiben unverändert.

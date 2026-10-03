@@ -100,7 +100,8 @@ def lernen(P, D, frage, res, runde):
 def main():
     ap = argparse.ArgumentParser(); ap.add_argument("--domain", required=True); ap.add_argument("--runden", type=int, default=4)
     ap.add_argument("--budget-usd", type=float, default=3.0); ap.add_argument("--recherche", action="store_true"); ap.add_argument("--recherche-neu", action="store_true", help="Scout erneut ausführen")
-    ap.add_argument("--fragen", default="", help="JSON-Datei mit Startfragen [{frage: ...}]"); a = ap.parse_args()
+    ap.add_argument("--fragen", default="", help="JSON-Datei mit Startfragen [{frage: ...}]")
+    ap.add_argument("--gezielt", action="store_true", help="keine frei erzeugten Folgefragen (Workflow Phase 5)"); a = ap.parse_args()
     D = get_domain(a.domain); P = Project(a.domain); log = lambda m: (print(m, flush=True), P.append("lab_report.md", f"- {now()} {m}"))
     if not P.s["runden"]: P.append("decisions.md", "| Zeit | Agent | Entscheidung | Beleg |\n|---|---|---|---|")
     ok, _ = selftest.run(a.domain, log=lambda m: None)
@@ -142,7 +143,7 @@ def main():
             P.s["widerlegt"].append(f"[{q['id']}] {q['frage']}: keine Behauptung bestand die Prüfung")
             log("  keine geprüfte Behauptung (als negatives Ergebnis protokolliert)")
         json.dump(res, open(f"{P.dir}/runde{runde}.json", "w"), ensure_ascii=False, indent=1, default=str)
-        if not a.fragen: lernen(P, D, q["frage"], res, runde)         # gezielter Lauf: keine frei erzeugten Folgefragen
+        if not (a.fragen or a.gezielt): lernen(P, D, q["frage"], res, runde)   # gezielter Lauf: keine frei erzeugten Folgefragen
         P.s["runden"].append({"runde": runde, "frage": q["id"], "status": q["status"], "red_team": rt, "sek": res["sek"]})
         P.s["kosten_usd"] += sum(COST_LOG); COST_LOG.clear(); P.save()
     log(f"Fertig: {len(P.s['claims'])} geprüfte Aussagen, {len(P.s['widerlegt'])} negative Ergebnisse, Kosten {P.s['kosten_usd']:.2f} USD")

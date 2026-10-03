@@ -263,7 +263,10 @@ class ProofreadingDomain(Domain):
                 ({"typ": "untere_schranke", "topologie": "hopfield_n1", "ausdruck": "exp(-2*D)"}, False),  # Regelverletzung: nicht-rationaler Ausdruck
                 ({"typ": "schranke_familie", "familie": "gebunden<=1", "ausdruck": "1/D"}, True),    # alle 1-Zustands-Netze: Gleichgewichtsgrenze
                 ({"typ": "schranke_familie", "familie": "gebunden<=1", "ausdruck": "2/D"}, False),         # falsch: n0 erreicht 1,0001 e^-Delta
-                ({"typ": "schranke_familie", "familie": "gebunden<=2", "ausdruck": "1/D**2", "mitglieder": ["fam2_99999"]}, False)]  # erfundenes Mitglied  # Rate außerhalb [-L, L]
+                ({"typ": "schranke_familie", "familie": "gebunden<=2", "ausdruck": "1/D**2", "mitglieder": ["fam2_99999"]}, False),  # erfundenes Mitglied
+                ({"typ": "untere_schranke", "topologie": {"name": "entartet", "ungebunden": ["E"], "gebunden": ["C0", "C1"], "kanten": [
+                    {"id": "b", "von": "C1", "nach": "E", "diskriminierend": True, "fuel": 0, "produkt": 0},
+                    {"id": "p", "von": "C0", "nach": "E", "diskriminierend": False, "fuel": 0, "produkt": 1}]}, "c": 1, "k": 2}, False)]  # eta = 0/0: nicht bewiesen, kein Absturz  # Rate außerhalb [-L, L]
 
 
 DOMAIN = ProofreadingDomain()

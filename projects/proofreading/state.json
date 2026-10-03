@@ -618,7 +618,7 @@
    "neuheit": 0.2,
    "machbarkeit": 0.95,
    "id": "F1",
-   "status": "offen"
+   "status": "zurückgestellt"
   },
   {
    "frage": "Pareto-Front eta(sigma) bei fester Mindestgeschwindigkeit: Wie verlaufen die minimalen Fehlerraten für hopfield_n1 und n2 über sigma_max in {2,4,6,8,12,20} bei v_min = 1e-3 relativ zum Maximum? Gibt es einen Knick oder Phasenübergang (nichtglatte Front), wie für das gemischte Regime berichtet?",
@@ -634,7 +634,7 @@
    "neuheit": 0.6,
    "machbarkeit": 0.8,
    "id": "F3",
-   "status": "offen"
+   "status": "zurückgestellt"
   },
   {
    "frage": "Geschwindigkeits-Genauigkeits-Zielkonflikt: Wie skaliert die minimale Fehlerrate eta mit v_min (v_min von 1e-6 bis nahe vmax) bei hopfield_n1 und n2 für unbegrenztes sigma? Ist log(eta) gegen log(v) linear, und ändert sich der Exponent mit n?",
@@ -642,7 +642,7 @@
    "neuheit": 0.55,
    "machbarkeit": 0.75,
    "id": "F4",
-   "status": "offen"
+   "status": "zurückgestellt"
   },
   {
    "frage": "Kann eine eigene Topologie (z. B. n1 mit zusätzlicher diskriminierender Kante, Verzweigung oder zwei parallele Proofreading-Pfade) bei gleichem sigma_max und v_min eine niedrigere Fehlerrate als hopfield_n1 und n2 erreichen oder die Schranke e^-(n+1)Delta unterbieten?",
@@ -650,7 +650,7 @@
    "neuheit": 0.8,
    "machbarkeit": 0.6,
    "id": "F5",
-   "status": "offen"
+   "status": "zurückgestellt"
   },
   {
    "frage": "Ist der beobachtete Sprung der minimalen Fehlerrate von hopfield_n1 zwischen sigma_max=6 und 8 (v_min=1e-3) ein echter Phasenübergang oder ein Optimierungsartefakt? Dazu: optimize für hopfield_n1 mit sigma_max in {6,6.5,7,7.5,8,9} und v_min=1e-3, je mit mindestens 30 Starts und mehreren Seeds. Zusätzlich die Parameter des Optimums bei sigma=6 per evaluate bei sigma_max=8 und 12 einsetzen und prüfen, ob dieses Optimum dort zulässig bleibt (erreichbar-Prüfung mit eta_max=4e-4, sigma_max=8, v_min=1e-3).",
@@ -667,7 +667,7 @@
    "neuheit": 0.7,
    "machbarkeit": 0.7,
    "id": "F7",
-   "status": "offen",
+   "status": "zurückgestellt",
    "aus_runde": 1
   },
   {
@@ -676,7 +676,7 @@
    "neuheit": 0.5,
    "machbarkeit": 0.9,
    "id": "F8",
-   "status": "offen",
+   "status": "zurückgestellt",
    "aus_runde": 2
   },
   {
@@ -694,7 +694,7 @@
    "neuheit": 0.5,
    "machbarkeit": 0.85,
    "id": "F10",
-   "status": "offen",
+   "status": "zurückgestellt",
    "aus_runde": 3
   },
   {
@@ -703,8 +703,57 @@
    "neuheit": 0.65,
    "machbarkeit": 0.6,
    "id": "F11",
-   "status": "offen",
+   "status": "zurückgestellt",
    "aus_runde": 3
+  },
+  {
+   "frage": "L2: Ist e^{-2Delta} eine universelle Grenze für alle Netzwerke mit zwei gebundenen Zuständen? Suche in der Familie gebunden<=2 (Experiment family {k: 2}, Topologien fam2_<i>) nach einem Mitglied mit eta < 1e-4 und zertifiziere es exakt mit erreichbar (eta_max < 1e-4).",
+   "neuheit": 0.8,
+   "machbarkeit": 0.8,
+   "id": "F12",
+   "status": "beantwortet",
+   "quelle": "lueckenkarte"
+  },
+  {
+   "frage": "L2b: Für welche Teilfamilie von gebunden<=2 gilt eta >= 1/D**2 für alle Raten? Gib die größte Mitgliederliste an, die du begründen kannst, und prüfe sie mit schranke_familie (ausdruck 1/D**2).",
+   "neuheit": 0.7,
+   "machbarkeit": 0.7,
+   "id": "F13",
+   "status": "offen",
+   "quelle": "lueckenkarte"
+  },
+  {
+   "frage": "L3: Erfordert das Unterschreiten von e^{-2Delta} in gebunden<=2 einen treibstoffgetriebenen Verwerfen-Ausgang (verw_*, fuel 1) am Produktzustand? Suche ein Gegenbeispiel ohne dieses Merkmal (erreichbar, eta_max < 1e-4) oder beweise die Schranke für die Teilfamilie ohne dieses Merkmal (schranke_familie).",
+   "neuheit": 0.7,
+   "machbarkeit": 0.6,
+   "id": "F14",
+   "status": "offen",
+   "quelle": "lueckenkarte",
+   "wiederholt": "Prüferfehler (NaN) in Runde 5"
+  },
+  {
+   "frage": "L1: Gilt eta >= e^{-(n+1)Delta} für die lineare Hopfield-Kette mit n = 2 für alle Raten und Treibstoffe? Prüfe mit untere_schranke (topologie hopfield_n2, c 1, k 3).",
+   "neuheit": 0.4,
+   "machbarkeit": 0.9,
+   "id": "F15",
+   "status": "offen",
+   "quelle": "lueckenkarte"
+  },
+  {
+   "frage": "L4: Ist für hopfield_n1 mit v >= 1e-3 eine Fehlerrate eta < 2e-4 bei sigma <= 10 kT pro Produkt erreichbar? Finde Parameter (optimize mit sigma_max 10, v_min 1e-3) und zertifiziere mit erreichbar.",
+   "neuheit": 0.4,
+   "machbarkeit": 0.8,
+   "id": "F16",
+   "status": "offen",
+   "quelle": "lueckenkarte"
+  },
+  {
+   "frage": "L5: Ist für hopfield_n1 eta <= 1.2e-4 bei sigma <= 0.2 kT pro Produkt erreichbar (Geschwindigkeit beliebig)? Finde Parameter (optimize mit sigma_max 0.2) und zertifiziere mit erreichbar (eta_max 1.2e-4, sigma_max 0.2).",
+   "neuheit": 0.3,
+   "machbarkeit": 0.9,
+   "id": "F17",
+   "status": "offen",
+   "quelle": "lueckenkarte"
   }
  ],
  "claims": [
@@ -919,9 +968,64 @@
     }
    ],
    "runde": 3
+  },
+  {
+   "id": "proofreading-R4",
+   "frage": "L2: Ist e^{-2Delta} eine universelle Grenze für alle Netzwerke mit zwei gebundenen Zuständen? Suche in der Familie gebunden<=2 (Experiment family {k: 2}, Topologien fam2_<i>) nach einem Mitglied mit eta < 1e-4 und zertifiziere es exakt mit erreichbar (eta_max < 1e-4).",
+   "text": "Für fam2_66 existieren rationale Raten in [e^-10, e^10] mit lokaler detaillierter Bilanz, für die gleichzeitig eta <= 0.0001, v >= 0.0001 gilt (Zertifikat (a): exakte Erreichbarkeit).",
+   "interpretation_ungeprueft": "Nein",
+   "pruefung": {
+    "typ": "erreichbar",
+    "topologie": "fam2_66",
+    "params": {
+     "bind_C0_E+": 3.1196783675737936,
+     "bind_C0_E-": 9.866006633669029,
+     "verw_C1_E+": -4.107584991169764,
+     "verw_C1_E-": -5.915432838638478,
+     "umw1_C0_C1+": -6.000636782796481,
+     "prod_C1+": -3.16449164476276,
+     "mu": 3.698201253465069,
+     "muP": 1.5277404620363684
+    },
+    "eta_max": 0.0001,
+    "sigma_max": null,
+    "v_min": 0.0001
+   },
+   "grund": "Zertifikat (a): eta = 5.082802e-07 (exakt rational); sigma in [8.341626, 8.341626] kT; v = 1.4746e-03",
+   "level": "computed_rigorous",
+   "status": "bestätigt",
+   "red_team": [
+    {
+     "pruefung": {
+      "typ": "schranke_familie",
+      "familie": "gebunden<=2",
+      "ausdruck": "1/D**2",
+      "mitglieder": null
+     },
+     "idee": "Gegenteil der Antwort: Wäre e^{-2Delta} universell, ließe sich eta >= 1/D^2 für alle Netzwerke der Familie gebunden<=2 beweisen. Der Beweis würde nur gelingen, wenn es kein Gegenbeispiel wie fam2_66 gibt.",
+     "bestanden": false,
+     "grund": "Prüfung nicht ausführbar: TypeError: Invalid NaN comparison",
+     "widerspruch": false
+    },
+    {
+     "pruefung": {
+      "typ": "untere_schranke",
+      "topologie": "fam2_66",
+      "c": 1,
+      "k": 2
+     },
+     "idee": "Gezielter Test am behaupteten Gegenbeispiel: Gilt eta >= e^{-2Delta} für alle positiven Raten und jeden Treibstoff auch für fam2_66, dann ist der behauptete Wert eta ≈ 5e-7 unerreichbar und die Antwort 'Nein' falsch. Etwa weil der Optimierer außerhalb des gültigen Bereichs oder an einer Rundungs- oder Bilanz-Randlage landete.",
+     "bestanden": false,
+     "grund": "Prüfung nicht ausführbar: IndexError: list index out of range",
+     "widerspruch": false
+    }
+   ],
+   "runde": 4
   }
  ],
- "widerlegt": [],
+ "widerlegt": [
+  "[F14] L3: Erfordert das Unterschreiten von e^{-2Delta} in gebunden<=2 einen treibstoffgetriebenen Verwerfen-Ausgang (verw_*, fuel 1) am Produktzustand? Suche ein Gegenbeispiel ohne dieses Merkmal (erreichbar, eta_max < 1e-4) oder beweise die Schranke für die Teilfamilie ohne dieses Merkmal (schranke_familie).: keine Behauptung bestand die Prüfung"
+ ],
  "runden": [
   {
    "runde": 1,
@@ -1069,7 +1173,46 @@
     }
    ],
    "sek": 203.6
+  },
+  {
+   "runde": 4,
+   "frage": "F12",
+   "status": "beantwortet",
+   "red_team": [
+    {
+     "pruefung": {
+      "typ": "schranke_familie",
+      "familie": "gebunden<=2",
+      "ausdruck": "1/D**2",
+      "mitglieder": null
+     },
+     "idee": "Gegenteil der Antwort: Wäre e^{-2Delta} universell, ließe sich eta >= 1/D^2 für alle Netzwerke der Familie gebunden<=2 beweisen. Der Beweis würde nur gelingen, wenn es kein Gegenbeispiel wie fam2_66 gibt.",
+     "bestanden": false,
+     "grund": "Prüfung nicht ausführbar: TypeError: Invalid NaN comparison",
+     "widerspruch": false
+    },
+    {
+     "pruefung": {
+      "typ": "untere_schranke",
+      "topologie": "fam2_66",
+      "c": 1,
+      "k": 2
+     },
+     "idee": "Gezielter Test am behaupteten Gegenbeispiel: Gilt eta >= e^{-2Delta} für alle positiven Raten und jeden Treibstoff auch für fam2_66, dann ist der behauptete Wert eta ≈ 5e-7 unerreichbar und die Antwort 'Nein' falsch. Etwa weil der Optimierer außerhalb des gültigen Bereichs oder an einer Rundungs- oder Bilanz-Randlage landete.",
+     "bestanden": false,
+     "grund": "Prüfung nicht ausführbar: IndexError: list index out of range",
+     "widerspruch": false
+    }
+   ],
+   "sek": 191.6
+  },
+  {
+   "runde": 5,
+   "frage": "F14",
+   "status": "ungeprüft",
+   "red_team": [],
+   "sek": 410.4
   }
  ],
- "kosten_usd": 1.3214949999999999
+ "kosten_usd": 2.180258
 }

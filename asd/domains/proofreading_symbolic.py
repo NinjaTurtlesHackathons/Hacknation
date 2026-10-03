@@ -57,6 +57,9 @@ def parse_bound(expr):
 
 def prove_lower_bound(spec, c, k, ausdruck=None):
     t0 = time.time(); eta, D = symbolic_eta(spec); d = sp.Symbol("d", nonnegative=True)
+    if eta.has(sp.nan, sp.zoo, sp.oo) or eta == sp.nan:
+        return {"bewiesen": False, "terme_zaehler": 0, "terme_nenner": 0, "min_koeff_zaehler": "nan", "min_koeff_nenner": "nan",
+                "sek": round(time.time() - t0, 1), "methode": "eta undefiniert (keine Nettoproduktion möglich)"}
     if ausdruck:
         e, loc = parse_bound(ausdruck); g, gp = sp.Symbol("g_mu", nonnegative=True), sp.Symbol("g_muP", nonnegative=True)
         bound = e.subs({loc["D"]: D, loc["G"]: 1 + g, loc["GP"]: 1 + gp})
