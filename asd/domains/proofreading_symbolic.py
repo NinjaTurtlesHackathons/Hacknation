@@ -44,9 +44,25 @@ def symbolic_eta(spec):
     return sp.cancel(sp.together(J["W"] / J["R"])), D
 
 
-def prove_lower_bound(spec, c, k):
+ALLOWED = {"D", "G", "GP"}
+
+
+def parse_bound(expr):
+    """Schranke als sympy-Ausdruck in D = e^Delta, G = e^mu, GP = e^mu_P (nur diese Symbole, nur rationale Arithmetik)."""
+    loc = {n: sp.Symbol(n, positive=True) for n in ALLOWED}
+    e = sp.sympify(expr, locals=loc, rational=True)
+    if not e.free_symbols <= set(loc.values()) or e.has(sp.exp, sp.log, sp.Function): raise ValueError("nur D, G, GP und rationale Arithmetik erlaubt")
+    return e, loc
+
+
+def prove_lower_bound(spec, c, k, ausdruck=None):
     t0 = time.time(); eta, D = symbolic_eta(spec); d = sp.Symbol("d", nonnegative=True)
-    num, den = sp.fraction(sp.together(eta - sp.Rational(c) * D ** (-k)))
+    if ausdruck:
+        e, loc = parse_bound(ausdruck); g, gp = sp.Symbol("g_mu", nonnegative=True), sp.Symbol("g_muP", nonnegative=True)
+        bound = e.subs({loc["D"]: D, loc["G"]: 1 + g, loc["GP"]: 1 + gp})
+    else:
+        bound = sp.Rational(c) * D ** (-k)
+    num, den = sp.fraction(sp.together(eta - bound))
     num, den = sp.expand(num.subs(D, 1 + d)), sp.expand(den.subs(D, 1 + d))
     gens = sorted((num.free_symbols | den.free_symbols), key=str)
     cn = sp.Poly(num, *gens).coeffs(); cd = sp.Poly(den, *gens).coeffs()
@@ -59,4 +75,4 @@ def prove_lower_bound(spec, c, k):
 
 if __name__ == "__main__":
     a = json.loads(sys.argv[1]); spec = P.hopfield_chain(int(a["topologie"].split("n")[-1])) if isinstance(a["topologie"], str) else a["topologie"]
-    print(json.dumps(prove_lower_bound(spec, a.get("c", "1"), int(a["k"]))))
+    print(json.dumps(prove_lower_bound(spec, a.get("c", "1"), int(a.get("k", 0)), a.get("ausdruck"))))

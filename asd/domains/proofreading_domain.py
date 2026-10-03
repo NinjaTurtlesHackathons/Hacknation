@@ -25,10 +25,12 @@ def evaluate(topologie, params):
     m = P.metrics_float(spec, _full(spec, params)); return {k: float(v) for k, v in m.items()} | {"hinweis": "numerisch (Kandidat)"}
 
 
-def optimize(topologie, sigma_max=None, v_min=None, starts=8, seed=0, mu_max=2 * L):
+def optimize(topologie, sigma_max=None, v_min=None, starts=8, seed=0, mu_max=2 * L, fest=None):
     """Minimiert log(eta) über alle freien log-Raten in [-L, L], mu, muP in [0, mu_max], unter sigma <= sigma_max und v >= v_min."""
-    spec = _spec(topologie); names = P.param_names(spec); rng = np.random.default_rng(seed)
+    spec = _spec(topologie); names = P.param_names(spec); rng = np.random.default_rng(seed); fest = dict(fest or {})
     lo = np.array([0.0 if n in ("mu", "muP") else -L for n in names]); hi = np.array([mu_max if n in ("mu", "muP") else L for n in names])
+    for j, n in enumerate(names):                                   # feste Parameter (z. B. Treibstoff mu) als enge Schranke
+        if n in fest: lo[j] = hi[j] = float(fest[n])
     def f(x):
         m = P.metrics_float(spec, dict(zip(names, np.clip(x, lo, hi))))
         if not np.isfinite(m["eta"]) or m["eta"] <= 0 or m["v"] <= 0: return 1e3
@@ -67,10 +69,20 @@ def check_erreichbar(p):
     return ok, "Zertifikat (a): " + "; ".join(msg), {"raten": {k: f"{v.numerator}/{v.denominator}" for k, v in r.items()}}
 
 
+def check_optimum(p):
+    """Numerisch: Der Prüfer sucht selbst (Seed 4711, 24 Starts) das Minimum von eta unter denselben Nebenbedingungen.
+    Besteht, wenn sein Minimum innerhalb von 2 % (fest) um den behaupteten Wert liegt: nicht deutlich besser (sonst war die Behauptung
+    kein Optimum) und nicht deutlich schlechter (sonst ist der Wert nicht reproduzierbar)."""
+    r = optimize(p["topologie"], sigma_max=p.get("sigma_max"), v_min=p.get("v_min"), starts=24, seed=4711, fest=p.get("fest"))
+    if not r["feasible"]: return False, "Prüfer findet keinen zulässigen Punkt", r
+    eta_c = float(p["eta_min"]); ok = abs(r["eta"] - eta_c) <= 0.02 * eta_c
+    return ok, f"Prüfer-Suche (24 Starts, Seed 4711): eta_min = {r['eta']:.4e} bei sigma = {r['sigma']:.3f}, v = {r['v']:.3e}; behauptet {eta_c:.4e} (Toleranz 2 %, fest)", r
+
+
 def check_untere_schranke(p, timeout=600):
     """Zertifikat (b) symbolisch, in eigenem Prozess mit Zeitlimit (große Netzwerke können lange dauern)."""
     import subprocess, sys
-    arg = json.dumps({"topologie": p["topologie"], "c": str(p.get("c", "1")), "k": int(p["k"])})
+    arg = json.dumps({"topologie": p["topologie"], "c": str(p.get("c", "1")), "k": int(p.get("k", 0)), "ausdruck": p.get("ausdruck")})
     try:
         r = subprocess.run([sys.executable, "-m", "asd.domains.proofreading_symbolic", arg], capture_output=True, text=True, timeout=timeout)
         out = json.loads(r.stdout.strip().splitlines()[-1])
@@ -78,7 +90,8 @@ def check_untere_schranke(p, timeout=600):
         return False, f"nicht zertifiziert: symbolische Rechnung > {timeout} s", {}
     except Exception as e:
         return False, f"Prüfung nicht ausführbar: {type(e).__name__}: {e}"[:300], {}
-    return out["bewiesen"], (f"Zertifikat (b) symbolisch: eta - {p.get('c', 1)}*e^(-{p['k']}*Delta) = N/D mit {out['terme_zaehler']} bzw. {out['terme_nenner']} "
+    rhs = p.get("ausdruck") or f"{p.get('c', 1)}*e^(-{p.get('k')}*Delta)"
+    return out["bewiesen"], (f"Zertifikat (b) symbolisch: eta - ({rhs}) = N/D mit {out['terme_zaehler']} bzw. {out['terme_nenner']} "
                              f"Termen, alle Koeffizienten nichtnegativ: {out['bewiesen']} ({out['sek']} s)"), out
 
 
@@ -131,7 +144,11 @@ class ProofreadingDomain(Domain):
   und sigma rigoros (arb). Besteht, wenn eta <= eta_max (und sigma <= sigma_max, v >= v_min). Nutze params aus optimize/evaluate.
 - {"typ": "untere_schranke", "topologie": "hopfield_n0"|"hopfield_n1"|"hopfield_n2"|eigene Spec, "c": Zahl, "k": ganze Zahl}
   Zertifikat (b): Beweis, dass eta >= c * e^(-k*Delta) für ALLE positiven Raten und jeden Treibstoff gilt (symbolisch, Koeffizienten-Positivität).
-  Scheitert der Beweis, ist die Aussage nicht widerlegt, nur nicht zertifiziert. Teuer (Minuten)."""
+  Alternativ "ausdruck": rationale Funktion in D = e^Delta, G = e^mu, GP = e^mu_P, z. B. "(1+G)/(D*(D+G))": Beweis eta >= ausdruck
+  für alle Raten, bei JEDEM Treibstoff (Schranke darf von mu abhängen). Scheitert der Beweis, ist die Aussage nicht widerlegt,
+  nur nicht zertifiziert. Teuer (Sekunden bis Minuten).
+- {"typ": "optimum", "topologie": ..., "eta_min": Zahl, "sigma_max": Zahl|null, "v_min": Zahl|null, "fest": {"mu": Zahl}|null}
+  Numerisch: Der Prüfer sucht selbst (eigener Seed, 24 Starts); besteht, wenn sein Minimum innerhalb von 2 % am behaupteten Wert liegt."""
 
     def run_op(self, op, args):
         try:
@@ -147,11 +164,12 @@ class ProofreadingDomain(Domain):
         try:
             if p.get("typ") == "erreichbar": return check_erreichbar(p)
             if p.get("typ") == "untere_schranke": return check_untere_schranke(p)
+            if p.get("typ") == "optimum": return check_optimum(p)
             return False, f"unbekannter Prüfungstyp {p.get('typ')}", {}
         except Exception as e:
             return False, f"Prüfung nicht ausführbar: {type(e).__name__}: {e}"[:300], {}
 
-    def level(self, p): return "computed_rigorous"
+    def level(self, p): return "observed" if p.get("typ") == "optimum" else "computed_rigorous"
 
     def figures(self, state, outdir): return pareto_figure(state, outdir)
 
@@ -165,8 +183,13 @@ class ProofreadingDomain(Domain):
 
     def describe(self, p):
         if p.get("typ") == "untere_schranke":
-            return (f"Für {p['topologie']} gilt eta >= {p.get('c', 1)} * e^(-{p['k']} Delta) für alle positiven Raten und alle Treibstoff-Potentiale "
+            rhs = p.get("ausdruck") or f"{p.get('c', 1)} * e^(-{p['k']} Delta)"
+            return (f"Für {p['topologie']} gilt eta >= {rhs} (D = e^Delta, G = e^mu) für alle positiven Raten und alle Treibstoff-Potentiale "
                     f"mu, mu_P >= 0 (Zertifikat (b): symbolischer Positivitätsbeweis, unabhängig vom Ratenbereich).")
+        if p.get("typ") == "optimum":
+            cons = ", ".join(x for x in [f"sigma <= {p['sigma_max']}" if p.get("sigma_max") is not None else "", f"v >= {p['v_min']}" if p.get("v_min") is not None else "",
+                                         f"fest {p['fest']}" if p.get("fest") else ""] if x)
+            return f"Für {p['topologie']} ist das numerisch gefundene Minimum der Fehlerrate unter [{cons or 'keine Nebenbedingung'}] eta_min ≈ {p['eta_min']} (numerisch, unabhängige Suche des Prüfers, ±2 %)."
         if p.get("typ") != "erreichbar": return super().describe(p)
         parts = [f"eta <= {p['eta_max']}"] if p.get("eta_max") is not None else []
         if p.get("sigma_max") is not None: parts.append(f"sigma <= {p['sigma_max']} kT pro Produkt")
@@ -191,7 +214,10 @@ class ProofreadingDomain(Domain):
                 ({"typ": "untere_schranke", "topologie": "hopfield_n0", "c": 1, "k": 1}, True),      # Gleichgewichtsgrenze ohne Proofreading
                 ({"typ": "untere_schranke", "topologie": "hopfield_n0", "c": 2, "k": 1}, False),     # falsch: n0 erreicht 1,0000x e^-Delta
                 ({"typ": "untere_schranke", "topologie": "hopfield_n1", "c": 1, "k": 2}, True),      # Hopfield-Grenze n = 1
-                ({"typ": "untere_schranke", "topologie": "hopfield_n1", "c": 2, "k": 2}, False)]     # falsch: 1,0017 e^-2Delta ist erreichbar  # Rate außerhalb [-L, L]
+                ({"typ": "untere_schranke", "topologie": "hopfield_n1", "c": 2, "k": 2}, False),     # falsch: 1,0017 e^-2Delta ist erreichbar
+                ({"typ": "untere_schranke", "topologie": "hopfield_n1", "ausdruck": "1/D**2"}, True),  # Ausdrucks-Form, gleiche Aussage
+                ({"typ": "untere_schranke", "topologie": "hopfield_n1", "ausdruck": "1/D"}, False),    # falsch: Proofreading unterschreitet e^-Delta
+                ({"typ": "untere_schranke", "topologie": "hopfield_n1", "ausdruck": "exp(-2*D)"}, False)]  # Regelverletzung: nicht-rationaler Ausdruck  # Rate außerhalb [-L, L]
 
 
 DOMAIN = ProofreadingDomain()
