@@ -158,11 +158,12 @@ def run(topic, n_queries=10, per_query=25, keep=60, model_cheap="haiku", model_m
     qs = list(dict.fromkeys(qs + list(T.get("klassiker", []))))
     log(f"Suchanfragen: {qs}")
     # 2. Abruf (Code)
-    corpus, seen = {}, set()
+    corpus, seen = {}, set(); klassiker_hits = {k: [] for k in T.get("klassiker", [])}
     for q in qs:
         for src in (search_arxiv, search_europepmc) + ((search_crossref,) if T.get("crossref") else ()):
             try: docs = src(q, per_query)
             except Exception as e: log(f"Abruf-Fehler {src.__name__} '{q}': {e}"); docs = []
+            if q in klassiker_hits: klassiker_hits[q] += [f"{d['id']} — {d['titel'][:90]} ({d['jahr']})" for d in docs[:3]]
             for doc in docs:
                 k = _norm(doc["titel"])[:120]
                 if k in seen: continue
@@ -215,9 +216,14 @@ def run(topic, n_queries=10, per_query=25, keep=60, model_cheap="haiku", model_m
     ok = verify_facts(facts, pool); stats.update(befunde=len(facts), verifiziert=len(ok))
     classify(ok, T, model_cheap, topic)
     log(f"{len(facts)} Befunde extrahiert, {len(ok)} Zitate per Code bestätigt, {len(facts) - len(ok)} verworfen")
-    json.dump({"thema": topic, "ziel": T["ziel"], "suchanfragen": qs, "stats": stats, "gesperrt": gesperrt,
+    stats["klassiker_gefunden"] = sum(bool(v) for v in klassiker_hits.values()); stats["klassiker_gesamt"] = len(klassiker_hits)
+    json.dump({"thema": topic, "ziel": T["ziel"], "suchanfragen": qs, "stats": stats, "klassiker": klassiker_hits, "gesperrt": gesperrt,
                "korpus": corpus, "scores": scores, "befunde": facts}, open(f"{d}/kb.json", "w"), ensure_ascii=False, indent=1)
     write_md(topic, T, qs, stats, ok, gesperrt, corpus)
+    with open(f"{d}/known_results.md", "a") as f:
+        f.write("\n## Klassiker-Abdeckung (Suche nach Autor + Thema; Treffer = per Tool abgerufene Einträge)\n\n")
+        for k, v in klassiker_hits.items():
+            f.write(f"- **{k}**: " + ("; ".join(v) if v else "NICHT GEFUNDEN") + "\n")
     return ok, stats
 
 

@@ -43,7 +43,10 @@ PAPER (asd/paper.py): Halluzinations-Gate (jede Zahl muss in einer zitierten, ge
 Beispiel-Domänen: `lattice_domain.py` (numerische Prüfer, Suleman 2026) und `proofreading_domain.py` (exakte Zertifikate in
 rationaler Arithmetik plus rigorose Intervalle).
 
-## 2. Eigenes Paper in einem anderen Fach: 6 Schritte
+## 2. Eigenes Paper in einem anderen Fach
+
+**Verbindlicher Ablauf mit Abnahmenachweisen: [`docs/WORKFLOW_PROMPT.md`](WORKFLOW_PROMPT.md)** (als erste Nachricht in Claude Code
+einfügen). Kurzfassung in 6 Schritten:
 
 ```bash
 git clone <repo> && cd HackNation-Ninja-Turtles
@@ -55,7 +58,9 @@ python -m asd.new_domain meinthema               # 1. Gerüst asd/domains/meinth
 python -m asd.selftest meinthema                 # 3. muss BESTANDEN melden, sonst startet nichts
 #   4. run_op(), kontext, primitive_doc, claim_doc ausfüllen; eigene PDFs/Notizen nach literature/
 python -m asd.lab_loop --domain meinthema --recherche --runden 4 --budget-usd 2   # 5. Labor laufen lassen
+python -m asd.novelty meinthema                  # Neuheitsprüfung gegen die Recherche
 python -m asd.paper --domain meinthema --titel "..." --autoren "A, B" --affiliation "ETH Zürich"  # 6. Paper
+python -m asd.recheck meinthema                  # alle Zertifikate mit einem Befehl reproduzieren
 ```
 Ergebnis unter `projects/meinthema/`: `state.json`, `prereg.md`, `decisions.md`, `lab_report.md`, `runde*.json`, `paper.md/.tex/.pdf`.
 

@@ -5,7 +5,8 @@ description: "Agentisches Forschungslabor mit Code-Prüfer (Verifier-Gated Disco
 
 # Verifier-Gated Discovery Lab
 
-Lies zuerst `docs/FRAMEWORK.md` vollständig. Diese Datei sagt dir, wie du es benutzt. Halte dich an die Reihenfolge.
+Lies zuerst `docs/FRAMEWORK.md` vollständig. **Verbindlich ist der Workflow in `docs/WORKFLOW_PROMPT.md` (Phasen 0–8 mit
+Abnahmenachweisen).** Diese Datei fasst ihn zusammen; bei Widerspruch gilt `docs/WORKFLOW_PROMPT.md`.
 
 ## Grundregel
 Agenten (auch du) schlagen nur vor. Wahr ist nur, was `domain.check()` (Code) bestätigt. Du formulierst nie selbst ein
@@ -24,7 +25,9 @@ Resultat ins Paper, das nicht als geprüfte Aussage in `projects/<domain>/state.
 6. **Labor:** `python -m asd.lab_loop --domain <name> --recherche --runden 4 --budget-usd 2`. Lies danach `lab_report.md`,
    `decisions.md` und die Red-Team-Befunde in `state.json`.
 7. **Prüfer härten:** Jeder Fehler und jedes Schlupfloch, das du findest, wird ein neuer Selbsttest-Fall. Dann erneut laufen lassen.
-8. **Paper:** `python -m asd.paper --domain <name> --titel "..." --autoren "..." --affiliation "..."`. Das Halluzinations-Gate
+8. **Neuheitsprüfung:** `python -m asd.novelty <name>` → `neuheit.md`; Labels Reproduktion / neu-numerisch / neu-zertifiziert.
+9. **Reproduktion:** `python -m asd.recheck <name>` (Selbsttest + erneute Prüfung aller Aussagen).
+10. **Paper:** `python -m asd.paper --domain <name> --titel "..." --autoren "..." --affiliation "..."`. Das Halluzinations-Gate
    entfernt unbelegte Sätze. Prüfe das Prüfprotokoll am Ende von `paper.md`.
 
 ## Verbote

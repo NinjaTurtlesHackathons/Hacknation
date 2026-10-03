@@ -11,7 +11,7 @@ def run(name, log=print):
         rows.append({"pruefung": p, "erwartet": want, "ergebnis": bool(ok), "korrekt": good, "grund": why[:200], "sek": round(time.time() - t0, 1)})
         log(f"[{'OK ' if good else 'FEHLER'}] erwartet {want!s:5} bekommen {bool(ok)!s:5} {json.dumps(p, ensure_ascii=False)[:90]}")
     n_true = sum(r["erwartet"] for r in rows); n_false = len(rows) - n_true; passed = all(r["korrekt"] for r in rows)
-    if n_true == 0 or n_false == 0: passed = False; log("Selbsttest braucht mindestens eine wahre UND eine falsche Aussage.")
+    if n_true < 3 or n_false < 3: passed = False; log(f"Selbsttest braucht mindestens 3 wahre UND 3 falsche Aussagen (hat {n_true}/{n_false}).")
     log(f"Selbsttest {name}: {'BESTANDEN' if passed else 'NICHT BESTANDEN'} ({sum(r['korrekt'] for r in rows)}/{len(rows)})")
     return passed, rows
 

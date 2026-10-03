@@ -22,6 +22,8 @@ class MyDomain(Domain):
     name = "{{NAME}}"
     recherche_ziel = "{{FORSCHUNGSZIEL in einem Satz, für den Scout (arXiv, Europe PMC)}}"
     recherche_sperre = []          # Wörter, deren Quellen gesperrt werden (z. B. Paper mit dem Antwortschlüssel)
+    recherche_klassiker = []       # mindestens 8 gezielte Suchen "Autor Thema" für die Grundlagenarbeiten
+    recherche_crossref = True      # Crossref liefert DOIs für Zeitschriftenartikel
     kontext = "{{Was die Agenten über das Problem wissen: Modell, Größen, Einheiten, Regeln, bekannte Anker (ohne Antworten).}}"
     primitive_doc = """Verfügbare Experimente (JSON {"op": ..., "args": {...}}):
 - quadrat {x}: berechnet y = x^2 (Beispiel)."""
@@ -46,8 +48,20 @@ class MyDomain(Domain):
             return False, f"Prüfung nicht ausführbar: {type(e).__name__}: {e}"[:300], {}
 
     def selftest(self):
-        return [({"typ": "wert", "x": 3, "y": 9}, True), ({"typ": "wert", "x": 2, "y": 4}, True),
-                ({"typ": "wert", "x": 3, "y": 10}, False), ({"typ": "wert", "x": 2, "y": 4.1}, False)]
+        """>= 3 wahre und >= 3 falsche Aussagen; darunter ein Grenzfall knapp daneben, eine Regelverletzung und ein Versuch,
+        die Toleranz über die Behauptung zu lockern."""
+        return [({"typ": "wert", "x": 3, "y": 9}, True), ({"typ": "wert", "x": 2, "y": 4}, True), ({"typ": "wert", "x": 0.5, "y": 0.25}, True),
+                ({"typ": "wert", "x": 3, "y": 9.0000001}, False),                      # Grenzfall knapp daneben
+                ({"typ": "wert", "x": "drei", "y": 9}, False),                         # Regelverletzung
+                ({"typ": "wert", "x": 2, "y": 4.1, "toleranz": 1.0}, False)]           # Toleranz-Lockerung muss ignoriert werden
+
+    def describe(self, p):
+        """Kanonische Aussage, genau so stark wie die Prüfung."""
+        return f"y({p['x']}) = {p['y']} (unabhängig nachgerechnet, Toleranz 1e-9 relativ)."
+
+    def widerspricht(self, p, q):
+        """Zwei bestandene Prüfungen, die nicht beide wahr sein können."""
+        return p.get("typ") == q.get("typ") == "wert" and float(p["x"]) == float(q["x"]) and abs(float(p["y"]) - float(q["y"])) > 1e-9
 
     def level(self, p):
         return "computed_rigorous"       # ehrlich: proved_lean | computed_rigorous | statistical | observed
