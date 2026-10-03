@@ -692,7 +692,7 @@
    "neuheit": 0.7,
    "machbarkeit": 0.85,
    "id": "F13",
-   "status": "offen",
+   "status": "beantwortet",
    "aus_runde": 4
   },
   {
@@ -703,6 +703,24 @@
    "id": "F14",
    "status": "offen",
    "aus_runde": 4
+  },
+  {
+   "frage": "Bei a=b=[131/200,0] (p=0,655): Schließt NPA Stufe 2 bzw. 2+AAB die Lücke zur besten Quantenstrategie auf unter 1e-6 (per 'quantenwert')? Und findet See-saw mit d=3, 4 und 6 (40 Starts, mehrere Seeds) einen Wert über dem d=2-Wert 3,35825951 und näher an der 1+AB-Schranke 3,35826281?",
+   "begruendung": "Die bisherige Aussage 'Stufe 2/2+AAB bleiben scharf' ist in den geprüften Ergebnissen nicht belegt. bell-R5 zeigt nur, dass 1+AB um mindestens 3e-6 über der d<=2-Strategie liegt. Ob die Lücke durch höhere Dimension (untere Schranke zu niedrig) oder durch eine zu schwache NPA-Stufe (obere Schranke zu hoch) entsteht, ist offen. Ein 'quantenwert'- oder 'luecke_npa'-Test auf Stufe 2 entscheidet das und prüft die Behauptung direkt.",
+   "neuheit": 0.7,
+   "machbarkeit": 0.9,
+   "id": "F15",
+   "status": "offen",
+   "aus_runde": 5
+  },
+  {
+   "frage": "Wo genau liegt der Schwellenwert p*, ab dem NPA 1+AB bei a=b=[p,0] nicht mehr scharf ist? Bisektion zwischen p=0,65 und p=0,655 (z. B. 0,651; 0,652; 0,653; 0,654), jeweils scan mit d=2 und Stufe 1+AB, danach 'luecke_npa' mit 'mindestens' 1e-7 an den Punkten nahe dem Übergang.",
+   "begruendung": "Der Wert 0,652 in der letzten Antwort ist nur eine Mittelpunktsschätzung aus zwei Stützstellen (Lücke 1,5e-8 bei 0,65 und 3,3e-6 bei 0,655) und nicht gemessen. Eine Bisektion liefert den echten Übergang. Das Lückenprofil zeigt außerdem, ob die Lücke stetig oder sprunghaft anwächst. Das spricht entweder für einen Phasenübergang (z. B. Wechsel der optimalen Strategie von d=2 zu höherer Dimension) oder für eine glatte Abweichung.",
+   "neuheit": 0.6,
+   "machbarkeit": 0.85,
+   "id": "F16",
+   "status": "offen",
+   "aus_runde": 5
   }
  ],
  "claims": [
@@ -1117,6 +1135,112 @@
     }
    ],
    "runde": 4
+  },
+  {
+   "id": "bell-R5",
+   "frage": "Wo genau liegt der Übergang, an dem NPA 1+AB nicht mehr scharf ist? Verfeinere den scan für a=b=[p,0] auf p in {0,62; 0,64; 0,66; 0,68; 0,70; 0,72} mit Stufe 1+AB und Stufe 2 und prüfe per 'luecke_npa', ab welchem p die Lücke von Stufe 1+AB über 1e-6 liegt und ob Stufe 2 (bzw. 2+AAB) sie dort schließt.",
+   "text": "Für {\"korrelator\": {\"a\": [\"131/200\", 0], \"b\": [\"131/200\", 0], \"c\": [[1, 1], [1, -1]], \"konst\": 0}} liegt der Optimalwert der NPA-Stufe 1+AB um mindestens 2e-06 über der besten Quantenstrategie, die der Prüfer in Dimension bis 4 findet (beide Seiten exakt zertifiziert). Ob Q selbst darunter liegt, ist damit nicht gezeigt.",
+   "interpretation_ungeprueft": "Übergangspunkt zwischen p=0.65 und p=0.655; NPA 1+AB wird unscharf, Stufe 2/2+AAB bleiben scharf",
+   "pruefung": {
+    "typ": "luecke_npa",
+    "ungleichung": {
+     "korrelator": {
+      "a": [
+       "131/200",
+       0
+      ],
+      "b": [
+       "131/200",
+       0
+      ],
+      "c": [
+       [
+        1,
+        1
+       ],
+       [
+        1,
+        -1
+       ]
+      ],
+      "konst": 0
+     }
+    },
+    "stufe": "1+AB",
+    "mindestens": 2e-06
+   },
+   "grund": "Prüfer: NPA-Stufe 1+AB erreicht >= 3.35826280973 (rationale zulässige Momentmatrix), beste eigene Strategie exakt 3.35825951388 (d<=2); Lücke >= 3.296e-06",
+   "level": "computed_rigorous",
+   "status": "bestätigt",
+   "red_team": [
+    {
+     "pruefung": {
+      "typ": "luecke_npa",
+      "ungleichung": {
+       "korrelator": {
+        "a": [
+         "31/50",
+         0
+        ],
+        "b": [
+         "31/50",
+         0
+        ],
+        "c": [
+         [
+          1,
+          1
+         ],
+         [
+          1,
+          -1
+         ]
+        ],
+        "konst": 0
+       }
+      },
+      "stufe": "1+AB",
+      "mindestens": 2e-06
+     },
+     "idee": "Randfall unterhalb des behaupteten Übergangs: Falls Stufe 1+AB bereits bei p=0,62 unscharf ist, liegt der Übergang nicht zwischen 0,65 und 0,655. Die behauptete Schärfe bei p=0,65 beruht dann auf einem Ausreißer.",
+     "bestanden": false,
+     "grund": "Prüfer: NPA-Stufe 1+AB erreicht >= 3.30352969818 (rationale zulässige Momentmatrix), beste eigene Strategie exakt 3.30352972153 (d<=3); Lücke >= -2.336e-08"
+    },
+    {
+     "pruefung": {
+      "typ": "luecke_npa",
+      "ungleichung": {
+       "korrelator": {
+        "a": [
+         "18/25",
+         0
+        ],
+        "b": [
+         "18/25",
+         0
+        ],
+        "c": [
+         [
+          1,
+          1
+         ],
+         [
+          1,
+          -1
+         ]
+        ],
+        "konst": 0
+       }
+      },
+      "stufe": "2",
+      "mindestens": 2e-06
+     },
+     "idee": "Gegenteil der Behauptung 'Stufe 2 schließt die Lücke überall': Am oberen Rand des Scans (p=0,72) bleibt Stufe 2 über einer exakt zertifizierten Quantenstrategie. Dann ist die Aussage über die Konvergenz falsch.",
+     "bestanden": false,
+     "grund": "Prüfer: NPA-Stufe 2 erreicht >= 3.46649094809 (rationale zulässige Momentmatrix), beste eigene Strategie exakt 3.46649100491 (d<=2); Lücke >= -5.682e-08"
+    }
+   ],
+   "runde": 5
   }
  ],
  "widerlegt": [],
@@ -1408,7 +1532,81 @@
     }
    ],
    "sek": 514.2
+  },
+  {
+   "runde": 5,
+   "frage": "F13",
+   "status": "beantwortet",
+   "red_team": [
+    {
+     "pruefung": {
+      "typ": "luecke_npa",
+      "ungleichung": {
+       "korrelator": {
+        "a": [
+         "31/50",
+         0
+        ],
+        "b": [
+         "31/50",
+         0
+        ],
+        "c": [
+         [
+          1,
+          1
+         ],
+         [
+          1,
+          -1
+         ]
+        ],
+        "konst": 0
+       }
+      },
+      "stufe": "1+AB",
+      "mindestens": 2e-06
+     },
+     "idee": "Randfall unterhalb des behaupteten Übergangs: Falls Stufe 1+AB bereits bei p=0,62 unscharf ist, liegt der Übergang nicht zwischen 0,65 und 0,655. Die behauptete Schärfe bei p=0,65 beruht dann auf einem Ausreißer.",
+     "bestanden": false,
+     "grund": "Prüfer: NPA-Stufe 1+AB erreicht >= 3.30352969818 (rationale zulässige Momentmatrix), beste eigene Strategie exakt 3.30352972153 (d<=3); Lücke >= -2.336e-08"
+    },
+    {
+     "pruefung": {
+      "typ": "luecke_npa",
+      "ungleichung": {
+       "korrelator": {
+        "a": [
+         "18/25",
+         0
+        ],
+        "b": [
+         "18/25",
+         0
+        ],
+        "c": [
+         [
+          1,
+          1
+         ],
+         [
+          1,
+          -1
+         ]
+        ],
+        "konst": 0
+       }
+      },
+      "stufe": "2",
+      "mindestens": 2e-06
+     },
+     "idee": "Gegenteil der Behauptung 'Stufe 2 schließt die Lücke überall': Am oberen Rand des Scans (p=0,72) bleibt Stufe 2 über einer exakt zertifizierten Quantenstrategie. Dann ist die Aussage über die Konvergenz falsch.",
+     "bestanden": false,
+     "grund": "Prüfer: NPA-Stufe 2 erreicht >= 3.46649094809 (rationale zulässige Momentmatrix), beste eigene Strategie exakt 3.46649100491 (d<=2); Lücke >= -5.682e-08"
+    }
+   ],
+   "sek": 174.0
   }
  ],
- "kosten_usd": 2.832143
+ "kosten_usd": 3.104908
 }
