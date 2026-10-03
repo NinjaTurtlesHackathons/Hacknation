@@ -1,0 +1,746 @@
+{
+ "antwort": {
+  "antwort": "Ja zu beiden Fragen: NPA 2 und 2+AAB schließen die Lücke deutlich unter 1e-6. See-saw d≥3 zeigt praktisch kein Improvement über d=2.",
+  "zahl": 3.35825951388,
+  "konfidenz": 0.995,
+  "pruefung": {
+   "typ": "quantenwert",
+   "ungleichung": {
+    "korrelator": {
+     "a": [
+      "131/200",
+      0
+     ],
+     "b": [
+      "131/200",
+      0
+     ],
+     "c": [
+      [
+       1,
+       1
+      ],
+      [
+       1,
+       -1
+      ]
+     ],
+     "konst": 0
+    }
+   },
+   "wert": 3.35825951388
+  },
+  "begruendung": "Laut E2–E7: See-saw d=2 erreicht 3.3582595138835325. NPA Stufe 2 (E6) zertifiziert 3.358259555320468, Lücke ≈ 4.14e-08. NPA Stufe 2+AAB (E7) zertifiziert 3.3582595260987875, Lücke ≈ 1.22e-08. Beide deutlich < 1e-6. See-saw d=3,4,6 (E3–E5) zeigen Werte ≈ 3.358259513883±1e-10, identisch mit d=2 – keine Verbesserung zur 1+AB-Schranke von 3.35826281.",
+  "stimmen": "Stufe 1/4 (sparsam, haiku)"
+ },
+ "level": "computed (Code-Prüfer bestanden)",
+ "forscher": [
+  {
+   "strategie": "sparsam",
+   "runden": [
+    {
+     "ueberlegung": "Die aktuelle Situation: Ungleichung a=b=[131/200, 0] mit klassischer Schranke L (zu ermitteln), See-saw d=2 Wert 3.35825951388 (exakt, aus bell-R5), NPA 1+AB Schranke ≥ 3.35826280973. Lücke ≈ 3.3e-06 (nicht unter 1e-6). Zwei zentrale Fragen: (1) Schließt NPA-Stufe 2 oder 2+AAB die Lücke (damit typ=quantenwert möglich)? (2) Finden See-saw mit d=3,4,6 (je 40 Starts) Werte über 3.35825951388, um die Lücke von unten zu schließen? Strategie: (a) Beschreibe und lokal zur Baseline, (b) See-saw für d=2,3,4,6 mit je 40 Starts und Seed 1 (mehrere Starts sichern robuste Suche), (c) NPA Stufe 2 und 2+AAB zur Verbesserung der oberen Schranke. Falls NPA-2 oder -2+AAB + beste See-saw-Dimension die Lücke unter 1e-6 schließen, kann anschließend quantenwert zertifiziert werden.",
+     "plan": [
+      {
+       "op": "beschreibe",
+       "args": {
+        "ungleichung": {
+         "korrelator": {
+          "a": [
+           "131/200",
+           0
+          ],
+          "b": [
+           "131/200",
+           0
+          ],
+          "c": [
+           [
+            1,
+            1
+           ],
+           [
+            1,
+            -1
+           ]
+          ],
+          "konst": 0
+         }
+        }
+       }
+      },
+      {
+       "op": "lokal",
+       "args": {
+        "ungleichung": {
+         "korrelator": {
+          "a": [
+           "131/200",
+           0
+          ],
+          "b": [
+           "131/200",
+           0
+          ],
+          "c": [
+           [
+            1,
+            1
+           ],
+           [
+            1,
+            -1
+           ]
+          ],
+          "konst": 0
+         }
+        }
+       }
+      },
+      {
+       "op": "seesaw",
+       "args": {
+        "ungleichung": {
+         "korrelator": {
+          "a": [
+           "131/200",
+           0
+          ],
+          "b": [
+           "131/200",
+           0
+          ],
+          "c": [
+           [
+            1,
+            1
+           ],
+           [
+            1,
+            -1
+           ]
+          ],
+          "konst": 0
+         }
+        },
+        "d": 2,
+        "starts": 40,
+        "seed": 1
+       }
+      },
+      {
+       "op": "seesaw",
+       "args": {
+        "ungleichung": {
+         "korrelator": {
+          "a": [
+           "131/200",
+           0
+          ],
+          "b": [
+           "131/200",
+           0
+          ],
+          "c": [
+           [
+            1,
+            1
+           ],
+           [
+            1,
+            -1
+           ]
+          ],
+          "konst": 0
+         }
+        },
+        "d": 3,
+        "starts": 40,
+        "seed": 1
+       }
+      },
+      {
+       "op": "seesaw",
+       "args": {
+        "ungleichung": {
+         "korrelator": {
+          "a": [
+           "131/200",
+           0
+          ],
+          "b": [
+           "131/200",
+           0
+          ],
+          "c": [
+           [
+            1,
+            1
+           ],
+           [
+            1,
+            -1
+           ]
+          ],
+          "konst": 0
+         }
+        },
+        "d": 4,
+        "starts": 40,
+        "seed": 1
+       }
+      },
+      {
+       "op": "seesaw",
+       "args": {
+        "ungleichung": {
+         "korrelator": {
+          "a": [
+           "131/200",
+           0
+          ],
+          "b": [
+           "131/200",
+           0
+          ],
+          "c": [
+           [
+            1,
+            1
+           ],
+           [
+            1,
+            -1
+           ]
+          ],
+          "konst": 0
+         }
+        },
+        "d": 6,
+        "starts": 40,
+        "seed": 1
+       }
+      },
+      {
+       "op": "npa",
+       "args": {
+        "ungleichung": {
+         "korrelator": {
+          "a": [
+           "131/200",
+           0
+          ],
+          "b": [
+           "131/200",
+           0
+          ],
+          "c": [
+           [
+            1,
+            1
+           ],
+           [
+            1,
+            -1
+           ]
+          ],
+          "konst": 0
+         }
+        },
+        "stufe": "2"
+       }
+      },
+      {
+       "op": "npa",
+       "args": {
+        "ungleichung": {
+         "korrelator": {
+          "a": [
+           "131/200",
+           0
+          ],
+          "b": [
+           "131/200",
+           0
+          ],
+          "c": [
+           [
+            1,
+            1
+           ],
+           [
+            1,
+            -1
+           ]
+          ],
+          "konst": 0
+         }
+        },
+        "stufe": "2+AAB"
+       }
+      }
+     ]
+    },
+    {
+     "plan": [
+      {
+       "op": "strategie",
+       "strategie_id": "S4acc033b20d3"
+      }
+     ]
+    },
+    {
+     "antwort": "Ja zu beiden Fragen: NPA 2 und 2+AAB schließen die Lücke deutlich unter 1e-6. See-saw d≥3 zeigt praktisch kein Improvement über d=2.",
+     "zahl": 3.35825951388,
+     "konfidenz": 0.995,
+     "pruefung": {
+      "typ": "quantenwert",
+      "ungleichung": {
+       "korrelator": {
+        "a": [
+         "131/200",
+         0
+        ],
+        "b": [
+         "131/200",
+         0
+        ],
+        "c": [
+         [
+          1,
+          1
+         ],
+         [
+          1,
+          -1
+         ]
+        ],
+        "konst": 0
+       }
+      },
+      "wert": 3.35825951388
+     },
+     "begruendung": "Laut E2–E7: See-saw d=2 erreicht 3.3582595138835325. NPA Stufe 2 (E6) zertifiziert 3.358259555320468, Lücke ≈ 4.14e-08. NPA Stufe 2+AAB (E7) zertifiziert 3.3582595260987875, Lücke ≈ 1.22e-08. Beide deutlich < 1e-6. See-saw d=3,4,6 (E3–E5) zeigen Werte ≈ 3.358259513883±1e-10, identisch mit d=2 – keine Verbesserung zur 1+AB-Schranke von 3.35826281."
+    }
+   ],
+   "experimente": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8
+   ],
+   "final": {
+    "antwort": "Ja zu beiden Fragen: NPA 2 und 2+AAB schließen die Lücke deutlich unter 1e-6. See-saw d≥3 zeigt praktisch kein Improvement über d=2.",
+    "zahl": 3.35825951388,
+    "konfidenz": 0.995,
+    "pruefung": {
+     "typ": "quantenwert",
+     "ungleichung": {
+      "korrelator": {
+       "a": [
+        "131/200",
+        0
+       ],
+       "b": [
+        "131/200",
+        0
+       ],
+       "c": [
+        [
+         1,
+         1
+        ],
+        [
+         1,
+         -1
+        ]
+       ],
+       "konst": 0
+      }
+     },
+     "wert": 3.35825951388
+    },
+    "begruendung": "Laut E2–E7: See-saw d=2 erreicht 3.3582595138835325. NPA Stufe 2 (E6) zertifiziert 3.358259555320468, Lücke ≈ 4.14e-08. NPA Stufe 2+AAB (E7) zertifiziert 3.3582595260987875, Lücke ≈ 1.22e-08. Beide deutlich < 1e-6. See-saw d=3,4,6 (E3–E5) zeigen Werte ≈ 3.358259513883±1e-10, identisch mit d=2 – keine Verbesserung zur 1+AB-Schranke von 3.35826281."
+   },
+   "modell": "haiku",
+   "pruefung": {
+    "bestanden": true,
+    "grund": "Prüfer: 3.35825951388355 <= Q <= 3.35825955532047 (Lücke 4.14e-08, Strategie d=2, NPA 2); bewiesen"
+   }
+  }
+ ],
+ "experimente": [
+  {
+   "id": 0,
+   "wer": "forscher-sparsam",
+   "op": "beschreibe",
+   "args": {
+    "ungleichung": {
+     "korrelator": {
+      "a": [
+       "131/200",
+       0
+      ],
+      "b": [
+       "131/200",
+       0
+      ],
+      "c": [
+       [
+        1,
+        1
+       ],
+       [
+        1,
+        -1
+       ]
+      ],
+      "konst": 0
+     }
+    }
+   },
+   "ergebnis": {
+    "korrelator": "131/200*A1 + 131/200*B1 + 1*A1B1 + 1*A1B2 + 1*A2B1 - 1*A2B2",
+    "mA": 2,
+    "mB": 2
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 1,
+   "wer": "forscher-sparsam",
+   "op": "lokal",
+   "args": {
+    "ungleichung": {
+     "korrelator": {
+      "a": [
+       "131/200",
+       0
+      ],
+      "b": [
+       "131/200",
+       0
+      ],
+      "c": [
+       [
+        1,
+        1
+       ],
+       [
+        1,
+        -1
+       ]
+      ],
+      "konst": 0
+     }
+    }
+   },
+   "ergebnis": {
+    "L": "331/100",
+    "L_float": 3.31,
+    "strategie_A": [
+     1,
+     1
+    ],
+    "strategie_B": [
+     1,
+     1
+    ],
+    "hinweis": "exakt"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 2,
+   "wer": "forscher-sparsam",
+   "op": "seesaw",
+   "args": {
+    "ungleichung": {
+     "korrelator": {
+      "a": [
+       "131/200",
+       0
+      ],
+      "b": [
+       "131/200",
+       0
+      ],
+      "c": [
+       [
+        1,
+        1
+       ],
+       [
+        1,
+        -1
+       ]
+      ],
+      "konst": 0
+     }
+    },
+    "d": 2,
+    "starts": 40,
+    "seed": 1
+   },
+   "ergebnis": {
+    "wert": 3.3582595138835325,
+    "strategie_id": "Sda966dcf1a67",
+    "beste_starts": [
+     3.358259514,
+     3.358259514,
+     3.358259514,
+     3.358259514,
+     3.358259514,
+     3.358259514,
+     3.358259514,
+     3.358259514
+    ],
+    "d": 2,
+    "hinweis": "numerisch (Kandidat)"
+   },
+   "sek": 0.25
+  },
+  {
+   "id": 3,
+   "wer": "forscher-sparsam",
+   "op": "seesaw",
+   "args": {
+    "ungleichung": {
+     "korrelator": {
+      "a": [
+       "131/200",
+       0
+      ],
+      "b": [
+       "131/200",
+       0
+      ],
+      "c": [
+       [
+        1,
+        1
+       ],
+       [
+        1,
+        -1
+       ]
+      ],
+      "konst": 0
+     }
+    },
+    "d": 3,
+    "starts": 40,
+    "seed": 1
+   },
+   "ergebnis": {
+    "wert": 3.358259513883571,
+    "strategie_id": "Sb86bc25fed0b",
+    "beste_starts": [
+     3.358259514,
+     3.358259514,
+     3.358259514,
+     3.358259514,
+     3.358259514,
+     3.358259514,
+     3.358259514,
+     3.358259514
+    ],
+    "d": 3,
+    "hinweis": "numerisch (Kandidat)"
+   },
+   "sek": 0.26
+  },
+  {
+   "id": 4,
+   "wer": "forscher-sparsam",
+   "op": "seesaw",
+   "args": {
+    "ungleichung": {
+     "korrelator": {
+      "a": [
+       "131/200",
+       0
+      ],
+      "b": [
+       "131/200",
+       0
+      ],
+      "c": [
+       [
+        1,
+        1
+       ],
+       [
+        1,
+        -1
+       ]
+      ],
+      "konst": 0
+     }
+    },
+    "d": 4,
+    "starts": 40,
+    "seed": 1
+   },
+   "ergebnis": {
+    "wert": 3.358259513883635,
+    "strategie_id": "S59f641b5b624",
+    "beste_starts": [
+     3.358259514,
+     3.358259514,
+     3.358259514,
+     3.358259514,
+     3.358259514,
+     3.358259514,
+     3.358259514,
+     3.358259514
+    ],
+    "d": 4,
+    "hinweis": "numerisch (Kandidat)"
+   },
+   "sek": 0.28
+  },
+  {
+   "id": 5,
+   "wer": "forscher-sparsam",
+   "op": "seesaw",
+   "args": {
+    "ungleichung": {
+     "korrelator": {
+      "a": [
+       "131/200",
+       0
+      ],
+      "b": [
+       "131/200",
+       0
+      ],
+      "c": [
+       [
+        1,
+        1
+       ],
+       [
+        1,
+        -1
+       ]
+      ],
+      "konst": 0
+     }
+    },
+    "d": 6,
+    "starts": 40,
+    "seed": 1
+   },
+   "ergebnis": {
+    "wert": 3.3582595138836155,
+    "strategie_id": "S4acc033b20d3",
+    "beste_starts": [
+     3.358259514,
+     3.358259514,
+     3.358259514,
+     3.358259514,
+     3.358259514,
+     3.358259514,
+     3.358259514,
+     3.358259514
+    ],
+    "d": 6,
+    "hinweis": "numerisch (Kandidat)"
+   },
+   "sek": 0.49
+  },
+  {
+   "id": 6,
+   "wer": "forscher-sparsam",
+   "op": "npa",
+   "args": {
+    "ungleichung": {
+     "korrelator": {
+      "a": [
+       "131/200",
+       0
+      ],
+      "b": [
+       "131/200",
+       0
+      ],
+      "c": [
+       [
+        1,
+        1
+       ],
+       [
+        1,
+        -1
+       ]
+      ],
+      "konst": 0
+     }
+    },
+    "stufe": "2"
+   },
+   "ergebnis": {
+    "schranke_numerisch": 3.3582594320891763,
+    "schranke_zertifiziert": 3.358259555320468,
+    "stufe": "2",
+    "groesse": 13
+   },
+   "sek": 0.03
+  },
+  {
+   "id": 7,
+   "wer": "forscher-sparsam",
+   "op": "npa",
+   "args": {
+    "ungleichung": {
+     "korrelator": {
+      "a": [
+       "131/200",
+       0
+      ],
+      "b": [
+       "131/200",
+       0
+      ],
+      "c": [
+       [
+        1,
+        1
+       ],
+       [
+        1,
+        -1
+       ]
+      ],
+      "konst": 0
+     }
+    },
+    "stufe": "2+AAB"
+   },
+   "ergebnis": {
+    "schranke_numerisch": 3.358259437525105,
+    "schranke_zertifiziert": 3.3582595260987875,
+    "stufe": "2+AAB",
+    "groesse": 21
+   },
+   "sek": 0.11
+  },
+  {
+   "id": 8,
+   "wer": "forscher-sparsam",
+   "op": "strategie",
+   "args": {},
+   "ergebnis": {
+    "fehler": "KeyError: 'strategie_id'"
+   },
+   "sek": 0.0
+  }
+ ],
+ "sek": 133.0
+}
