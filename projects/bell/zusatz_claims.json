@@ -1,0 +1,32 @@
+[
+ {
+  "claim_id": "C-selbsttest",
+  "level": "computed_rigorous",
+  "status": "bestätigt",
+  "text": "Selbsttest des Bell-Prüfers vor dem Lauf: 22/22 Fälle korrekt (10 wahre, 12 falsche Aussagen bzw. Regelverletzungen); Ergebnis: bestanden. Wahre Anker: CHSH (klassische Schranke 2, Quantenwert 2.828427125), Kette mit 4 Einstellungen (klassische Schranke 6), I3322 (klassische Schranke 0, obere Schranke 0.2509 mit NPA-Stufe 2+AAB), gekippte CHSH mit Formel sqrt(8+2*p**2)."
+ },
+ {
+  "claim_id": "C-H6a",
+  "level": "observed",
+  "status": "bestätigt",
+  "text": "Präregistrierte Hypothese H6a (mindestens 2 von 3 Anker-Fragen zweiseitig bestätigt): nicht erfüllt. Der Integrator wählte 0 der 3 Anker-Fragen; bestätigte Aussagen zu Anker-Fragen: 0."
+ },
+ {
+  "claim_id": "C-H6b",
+  "level": "observed",
+  "status": "bestätigt",
+  "text": "Präregistrierte Hypothese H6b (mindestens eine zertifizierte Aussage zu einer Ungleichung außerhalb der benannten Familien): erfüllt; 6 bestätigte Aussagen betreffen die doppelt gekippte CHSH-Familie oder andere nicht benannte Ungleichungen. Neuheit gegenüber der Literatur wird nicht behauptet."
+ },
+ {
+  "claim_id": "C-kombi1",
+  "level": "computed_rigorous",
+  "status": "bestätigt",
+  "text": "Folgerung aus C-bell-R5 und C-bell-R6 (gleiche Ungleichung, a = b = [131/200, 0]): Q <= 3.35825955532047 (NPA-Stufe 2, Dualzertifikat) und der Optimalwert der NPA-Stufe 1+AB ist >= 3.35826280973 (rationale zulässige Momentmatrix). Da 3.35825955532047 < 3.35826280973, ist die Stufe 1+AB an diesem Punkt streng nicht scharf: ihr Optimalwert übertrifft Q um mindestens 3.25e-06 (Rundung der ausgegebenen Werte berücksichtigt)."
+ },
+ {
+  "claim_id": "C-kombi2",
+  "level": "computed_rigorous",
+  "status": "bestätigt",
+  "text": "Untere Schranken des Prüfers für (Optimalwert NPA 1+AB) minus (beste exakt zertifizierte Strategie), doppelt gekippte CHSH, aus allen luecke_npa-Prüfungen inkl. Red-Team: p = 0.5: -1.726e-08; p = 0.62: -2.336e-08; p = 0.652: 1.843e-07; p = 0.6532: 1.025e-06; p = 0.6533: 1.120e-06; p = 0.655: 3.296e-06. Bis p = 0.62 liegt die Schranke betragsmäßig unter 1e-7 (Genauigkeit der SDP-Löser), ab p = 0.652 ist sie positiv und wächst über die untersuchten Punkte monoton. Eine über eine feste Toleranz (z. B. 1e-6) definierte Schwelle hängt daher von dieser Toleranz ab."
+ }
+]

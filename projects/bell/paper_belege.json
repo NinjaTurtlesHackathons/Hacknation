@@ -1,0 +1,410 @@
+{
+ "claims": [
+  {
+   "claim_id": "C-bell-R1",
+   "text": "Untersuchte Frage: Doppelt gekippte CHSH: Familie mit Korrelator a = [p, 0], b = [p, 0], c = [[1,1],[1,-1]]. Wie verläuft Q(p) für p in [0, 1], gibt es eine geschlossene Formel, und reichen Qubits? Geprüftes Resultat: Der maximale Quantenwert von {\"korrelator\": {\"a\": [\"1/2\", 0], \"b\": [\"1/2\", 0], \"c\": [[1, 1], [1, -1]], \"konst\": 0}} ist Q = 3.13693731 bis auf 1e-6, zweiseitig zertifiziert (explizite Strategie und NPA-Dualzertifikat). Prüfer: Prüfer: 3.13693731130907 <= Q <= 3.13693732592937 (Lücke 1.46e-08, Strategie d=2, NPA 1+AB); bewiesen",
+   "level": "computed_rigorous",
+   "status": "bestätigt"
+  },
+  {
+   "claim_id": "C-bell-R1-I",
+   "text": "Ungeprüfte Interpretation des Agenten zu bell-R1 (nicht als Resultat verwenden): Qubits (d=2) reichen numerisch für alle getesteten p; für Q(p) habe ich keine geschlossene Formel. Der Verlauf ist monoton steigend, von Q(0)=2√2≈2,8284 bis Q(1)=4=L.",
+   "level": "hypothesis",
+   "status": "offen"
+  },
+  {
+   "claim_id": "C-bell-R1-RT1",
+   "text": "Red-Team-Gegenprüfung zu bell-R1: Die Antwort setzt Q(1/2) ≈ 3,13693731. Gibt es eine exakt zertifizierte Quantenstrategie mit Wert ≥ 3,137, dann ist der behauptete Wert zu klein. Das gilt etwa, wenn Qubits nicht reichen oder See-saw in einem lokalen Optimum hängen blieb. -> nicht bestanden; Prüfer: eigene See-saw-Strategie Sb96804e9cb93 (d=2), exakter rationaler Bell-Wert = 3.13693731130907",
+   "level": "computed_rigorous",
+   "status": "bestätigt"
+  },
+  {
+   "claim_id": "C-bell-R1-RT2",
+   "text": "Red-Team-Gegenprüfung zu bell-R1: Randfall p=1: Die Antwort behauptet Q(1)=L=4, also keine Verletzung. Findet der Prüfer dort eine Quantenstrategie, die L exakt übertrifft, dann ist der Endpunkt und damit der behauptete Verlauf falsch. -> nicht bestanden; Prüfer: L = 4, Quantenstrategie exakt 4 (Verhältnis 1.000000)",
+   "level": "computed_rigorous",
+   "status": "bestätigt"
+  },
+  {
+   "claim_id": "C-bell-R2",
+   "text": "Untersuchte Frage: Ab welchem p* < 1 verschwindet die Quantenverletzung der doppelt gekippten CHSH-Familie (a=b=[p,0])? Dazu ein Scan von p in {0.7, 0.8, 0.85, 0.9, 0.95, 0.99, 1} mit L = 2+2p (bei p=1/2 ist L=3) und mit See-saw für d=2 und d=3 sowie NPA 1+AB und 2. Gilt Q(p) > L(p) für alle p<1 oder ist Q=L schon ab einem p*<1? Geprüftes Resultat: {\"korrelator\": {\"a\": [\"99/100\", 0], \"b\": [\"99/100\", 0], \"c\": [[1, 1], [1, -1]], \"konst\": 0}} wird von einer expliziten Quantenstrategie exakt verletzt (Bell-Wert über der klassischen Schranke). Prüfer: Prüfer: L = 199/50, Quantenstrategie exakt 3.98000132884628 (Verhältnis 1.000000) | Prüfer: L = 39/10, Quantenstrategie exakt 3.90016389936512 (Verhältnis 1.000042)",
+   "level": "computed_rigorous",
+   "status": "bestätigt"
+  },
+  {
+   "claim_id": "C-bell-R2-I",
+   "text": "Ungeprüfte Interpretation des Agenten zu bell-R2 (nicht als Resultat verwenden): Es gibt kein p* < 1: Q(p) > L(p) in allen getesteten Punkten p < 1 (bis p = 0.99). Die Verletzung wird für p → 1 nur extrem klein, etwa ∝ (1-p)^3, und verschwindet erst bei p = 1, wo Q = L = 4 ist. Das ist numerisch gestützt, nicht bewiesen; zwischen den getesteten Punkten und für p > 0.99 ist es eine Extrapolation.",
+   "level": "hypothesis",
+   "status": "offen"
+  },
+  {
+   "claim_id": "C-bell-R2-RT1",
+   "text": "Red-Team-Gegenprüfung zu bell-R2: Wäre die Quantenverletzung schon vor p=0.99 verschwunden (p* < 0.99), dann gälte Q = L = 2+2p = 3.98, und ein NPA-Dualzertifikat (Stufe 2 oder 2+AAB) würde Q <= 3.98 beweisen. Die Antwort behauptet dagegen Q > 3.98, und ihr Überschuss von ca. 1e-6 liegt nahe an numerischem Rauschen von See-saw und SDP. -> nicht bestanden; Prüfer: NPA-Stufe 2+AAB, rational zertifizierte obere Schranke 3.98000623486376 (1+AB: 3.98001912724; 2: 3.9800116017; 2+AAB: 3.98000623486)",
+   "level": "computed_rigorous",
+   "status": "bestätigt"
+  },
+  {
+   "claim_id": "C-bell-R2-RT2",
+   "text": "Red-Team-Gegenprüfung zu bell-R2: Bei p=0.95 ist L = 3.9. Falls es ein p* < 0.95 mit Q = L gibt, ist Q = 3.9 zweiseitig bewiesen: unten durch die lokale Strategie, oben durch NPA. Die Antwort behauptet dagegen einen Überschuss von 0.0016, der diese Prüfung scheitern ließe. -> nicht bestanden; Prüfer: 3.90016389936512 <= Q <= 3.90019981472908 (Lücke 3.59e-05, Strategie d=2, NPA 2+AAB); Lücke zu groß, nicht zertifiziert",
+   "level": "computed_rigorous",
+   "status": "bestätigt"
+  },
+  {
+   "claim_id": "C-bell-R3",
+   "text": "Untersuchte Frage: Lässt sich Q(p) für die Familie a=b=[p,0] in geschlossener Form angeben (Prüfertyp 'formel')? Dazu Q an mindestens 5 rationalen p in [0.5, 0.95] zweiseitig beweisen, mit See-saw d=2 und NPA 1+AB, und Kandidaten wie sqrt(8+...)-artige Ausdrücke in p per Fit testen. Die Gegenprobe ist ein Vergleich mit dem bekannten Ergebnis bei p=1/2 (Q = 3.13693731) und mit d=3, um zu sehen, ob Qubits reichen. Geprüftes Resultat: Der maximale Quantenwert von {\"korrelator\": {\"a\": [\"1/2\", 0], \"b\": [\"1/2\", 0], \"c\": [[1, 1], [1, -1]], \"konst\": 0}} ist Q = 3.136937311 bis auf 1e-6, zweiseitig zertifiziert (explizite Strategie und NPA-Dualzertifikat). Prüfer: Prüfer: 3.13693731130907 <= Q <= 3.13693732592937 (Lücke 1.46e-08, Strategie d=2, NPA 1+AB); bewiesen",
+   "level": "computed_rigorous",
+   "status": "bestätigt"
+  },
+  {
+   "claim_id": "C-bell-R3-I",
+   "text": "Ungeprüfte Interpretation des Agenten zu bell-R3 (nicht als Resultat verwenden): unbekannt",
+   "level": "hypothesis",
+   "status": "offen"
+  },
+  {
+   "claim_id": "C-bell-R3-RT1",
+   "text": "Red-Team-Gegenprüfung zu bell-R3: Der einzige als belegt angegebene Wert ist Q(1/2) = 3.136937311. Wenn eine Quantenstrategie, etwa mit d=3 oder mit komplexen Amplituden, einen Bell-Wert ≥ 3.13694 erreicht, dann ist dieser Wert zu klein und die Aussage 'Qubits reichen' falsch. Die Prüfung besteht nur, wenn das wahre Q echt größer ist als der behauptete Wert. -> nicht bestanden; Prüfer: eigene See-saw-Strategie Sb96804e9cb93 (d=2), exakter rationaler Bell-Wert = 3.13693731130907",
+   "level": "computed_rigorous",
+   "status": "bestätigt"
+  },
+  {
+   "claim_id": "C-bell-R3-RT2",
+   "text": "Red-Team-Gegenprüfung zu bell-R3: Gegenrichtung: Wenn Q(1/2) tatsächlich unter 3.13692 liegt, ist der angegebene Wert 3.136937311 zu hoch und der Wert bei p=1/2 falsch. Das würde auch den Fit und die Folgerung zu 'keine geschlossene Form' infrage stellen, weil die Datenbasis nicht stimmt. Die Prüfung besteht nur, wenn die NPA-Obergrenze unter dem behaupteten Q liegt. -> nicht bestanden; Prüfer: NPA-Stufe 2+AAB, rational zertifizierte obere Schranke 3.13693731768845 (1+AB: 3.13693732593; 2: 3.13693731981; 2+AAB: 3.13693731769)",
+   "level": "computed_rigorous",
+   "status": "bestätigt"
+  },
+  {
+   "claim_id": "C-bell-R4",
+   "text": "Untersuchte Frage: Gilt für die Familie a=b=[p,0] mit p aus {0,1; 0,2; 0,3; 0,4; 0,5; 0,6} (dort ist 1+AB scharf) eine geschlossene Form? Teste per Fit und scan, ob Q(p)² bzw. Q(p) einer algebraischen Gleichung genügt (z. B. Ansatz Q² = 8 + c1·p² + c2·p⁴ oder eine Wurzel aus einem Polynom in p) und prüfe das Ergebnis mit dem Prüfertyp 'formel' auf diesem Bereich. Geprüftes Resultat: Der maximale Quantenwert von {\"korrelator\": {\"a\": [\"3/10\", 0], \"b\": [\"3/10\", 0], \"c\": [[1, 1], [1, -1]], \"konst\": 0}} ist Q = 2.93828832 bis auf 1e-6, zweiseitig zertifiziert (explizite Strategie und NPA-Dualzertifikat). Prüfer: Prüfer: 2.93828833175884 <= Q <= 2.938288368081 (Lücke 3.63e-08, Strategie d=2, NPA 1+AB); bewiesen",
+   "level": "computed_rigorous",
+   "status": "bestätigt"
+  },
+  {
+   "claim_id": "C-bell-R4-I",
+   "text": "Ungeprüfte Interpretation des Agenten zu bell-R4 (nicht als Resultat verwenden): Nein, kein einfacher Ansatz Q²=8+c1·p²+c2·p⁴ passt. Eine geschlossene Form habe ich nicht gefunden. Die Werte bei p=0,1…0,6 sind aber zweiseitig numerisch eingegrenzt, und 1+AB ist dort scharf. Bei p=0,7 und 0,8 ist die NPA-Schranke 1+AB nicht mehr scharf (Lücke ca. 4e-4 bzw. 1,5e-3), bei p=1 gilt Q=L=4.",
+   "level": "hypothesis",
+   "status": "offen"
+  },
+  {
+   "claim_id": "C-bell-R4-RT1",
+   "text": "Red-Team-Gegenprüfung zu bell-R4: Randfall im behaupteten Bereich: Die Antwort sagt, 1+AB sei bei p=0,1…0,6 scharf. Besteht diese Prüfung, ist 1+AB bei p=1/2 nicht scharf. Dann sind die behaupteten zweiseitigen Werte falsch, und die Aussage über den Bereich, in dem 1+AB scharf ist, ebenfalls. -> nicht bestanden; Prüfer: NPA-Stufe 1+AB erreicht >= 3.13693729405 (rationale zulässige Momentmatrix), beste eigene Strategie exakt 3.13693731131 (d<=2); Lücke >= -1.726e-08",
+   "level": "computed_rigorous",
+   "status": "bestätigt"
+  },
+  {
+   "claim_id": "C-bell-R4-RT2",
+   "text": "Red-Team-Gegenprüfung zu bell-R4: Gegenbeispiel zum Zahlenwert: Der behauptete Wert Q(0,3)=2,93828832 liegt knapp unter 2,9383. Findet der Prüfer eine Strategie mit Bell-Wert >= 2,9383, ist Q echt größer als behauptet. Die Antwort ist dann falsch, und die behauptete zweiseitige Beweisbarkeit ebenfalls. -> nicht bestanden; Prüfer: eigene See-saw-Strategie Sf2ed88fc7e79 (d=2), exakter rationaler Bell-Wert = 2.93828833175884",
+   "level": "computed_rigorous",
+   "status": "bestätigt"
+  },
+  {
+   "claim_id": "C-bell-R5",
+   "text": "Untersuchte Frage: Wo genau liegt der Übergang, an dem NPA 1+AB nicht mehr scharf ist? Verfeinere den scan für a=b=[p,0] auf p in {0,62; 0,64; 0,66; 0,68; 0,70; 0,72} mit Stufe 1+AB und Stufe 2 und prüfe per 'luecke_npa', ab welchem p die Lücke von Stufe 1+AB über 1e-6 liegt und ob Stufe 2 (bzw. 2+AAB) sie dort schließt. Geprüftes Resultat: Für {\"korrelator\": {\"a\": [\"131/200\", 0], \"b\": [\"131/200\", 0], \"c\": [[1, 1], [1, -1]], \"konst\": 0}} liegt der Optimalwert der NPA-Stufe 1+AB um mindestens 2e-06 über der besten Quantenstrategie, die der Prüfer in Dimension bis 4 findet (beide Seiten exakt zertifiziert). Ob Q selbst darunter liegt, ist damit nicht gezeigt. Prüfer: Prüfer: NPA-Stufe 1+AB erreicht >= 3.35826280973 (rationale zulässige Momentmatrix), beste eigene Strategie exakt 3.35825951388 (d<=2); Lücke >= 3.296e-06",
+   "level": "computed_rigorous",
+   "status": "bestätigt"
+  },
+  {
+   "claim_id": "C-bell-R5-I",
+   "text": "Ungeprüfte Interpretation des Agenten zu bell-R5 (nicht als Resultat verwenden): Übergangspunkt zwischen p=0.65 und p=0.655; NPA 1+AB wird unscharf, Stufe 2/2+AAB bleiben scharf",
+   "level": "hypothesis",
+   "status": "offen"
+  },
+  {
+   "claim_id": "C-bell-R5-RT1",
+   "text": "Red-Team-Gegenprüfung zu bell-R5: Randfall unterhalb des behaupteten Übergangs: Falls Stufe 1+AB bereits bei p=0,62 unscharf ist, liegt der Übergang nicht zwischen 0,65 und 0,655. Die behauptete Schärfe bei p=0,65 beruht dann auf einem Ausreißer. -> nicht bestanden; Prüfer: NPA-Stufe 1+AB erreicht >= 3.30352969818 (rationale zulässige Momentmatrix), beste eigene Strategie exakt 3.30352972153 (d<=3); Lücke >= -2.336e-08",
+   "level": "computed_rigorous",
+   "status": "bestätigt"
+  },
+  {
+   "claim_id": "C-bell-R5-RT2",
+   "text": "Red-Team-Gegenprüfung zu bell-R5: Gegenteil der Behauptung 'Stufe 2 schließt die Lücke überall': Am oberen Rand des Scans (p=0,72) bleibt Stufe 2 über einer exakt zertifizierten Quantenstrategie. Dann ist die Aussage über die Konvergenz falsch. -> nicht bestanden; Prüfer: NPA-Stufe 2 erreicht >= 3.46649094809 (rationale zulässige Momentmatrix), beste eigene Strategie exakt 3.46649100491 (d<=2); Lücke >= -5.682e-08",
+   "level": "computed_rigorous",
+   "status": "bestätigt"
+  },
+  {
+   "claim_id": "C-bell-R6",
+   "text": "Untersuchte Frage: Bei a=b=[131/200,0] (p=0,655): Schließt NPA Stufe 2 bzw. 2+AAB die Lücke zur besten Quantenstrategie auf unter 1e-6 (per 'quantenwert')? Und findet See-saw mit d=3, 4 und 6 (40 Starts, mehrere Seeds) einen Wert über dem d=2-Wert 3,35825951 und näher an der 1+AB-Schranke 3,35826281? Geprüftes Resultat: Der maximale Quantenwert von {\"korrelator\": {\"a\": [\"131/200\", 0], \"b\": [\"131/200\", 0], \"c\": [[1, 1], [1, -1]], \"konst\": 0}} ist Q = 3.35825951388 bis auf 1e-6, zweiseitig zertifiziert (explizite Strategie und NPA-Dualzertifikat). Prüfer: Prüfer: 3.35825951388355 <= Q <= 3.35825955532047 (Lücke 4.14e-08, Strategie d=2, NPA 2); bewiesen",
+   "level": "computed_rigorous",
+   "status": "bestätigt"
+  },
+  {
+   "claim_id": "C-bell-R6-I",
+   "text": "Ungeprüfte Interpretation des Agenten zu bell-R6 (nicht als Resultat verwenden): Ja zu beiden Fragen: NPA 2 und 2+AAB schließen die Lücke deutlich unter 1e-6. See-saw d≥3 zeigt praktisch kein Improvement über d=2.",
+   "level": "hypothesis",
+   "status": "offen"
+  },
+  {
+   "claim_id": "C-bell-R6-RT1",
+   "text": "Red-Team-Gegenprüfung zu bell-R6: Wenn NPA Stufe 2 die Lücke nicht unter 1e-6 schließt, liegt die Stufe-2-Schranke mindestens 1e-6 über einer exakt zertifizierten Quantenstrategie. Das widerspricht direkt der Behauptung (Lücke ca. 4e-8). -> nicht bestanden; Prüfer: NPA-Stufe 2 erreicht >= 3.35825922879 (rationale zulässige Momentmatrix), beste eigene Strategie exakt 3.35825951388 (d<=2); Lücke >= -2.851e-07",
+   "level": "computed_rigorous",
+   "status": "bestätigt"
+  },
+  {
+   "claim_id": "C-bell-R6-RT2",
+   "text": "Red-Team-Gegenprüfung zu bell-R6: Wenn See-saw mit d>=3 (oder eine andere Strategie) mehr als den d=2-Wert 3.35825951 findet, existiert eine Strategie mit Bell-Wert >= 3.35826, also etwa 5e-7 über dem behaupteten Q. Dann ist Q=3.35825951388 falsch und See-saw d>=3 verbessert sich doch. -> nicht bestanden; Prüfer: eigene See-saw-Strategie S322a954df768 (d=2), exakter rationaler Bell-Wert = 3.35825951388355",
+   "level": "computed_rigorous",
+   "status": "bestätigt"
+  },
+  {
+   "claim_id": "C-bell-R8",
+   "text": "Untersuchte Frage: Wo genau liegt der Schwellenwert p*, ab dem NPA 1+AB bei a=b=[p,0] nicht mehr scharf ist? Bisektion zwischen p=0,65 und p=0,655 (z. B. 0,651; 0,652; 0,653; 0,654), jeweils scan mit d=2 und Stufe 1+AB, danach 'luecke_npa' mit 'mindestens' 1e-7 an den Punkten nahe dem Übergang. Geprüftes Resultat: Für {\"korrelator\": {\"a\": [\"0.6533\", 0], \"b\": [\"0.6533\", 0], \"c\": [[1, 1], [1, -1]], \"konst\": 0}} liegt der Optimalwert der NPA-Stufe 1+AB um mindestens 5e-07 über der besten Quantenstrategie, die der Prüfer in Dimension bis 4 findet (beide Seiten exakt zertifiziert). Ob Q selbst darunter liegt, ist damit nicht gezeigt. Prüfer: Prüfer: NPA-Stufe 1+AB erreicht >= 3.35554254508 (rationale zulässige Momentmatrix), beste eigene Strategie exakt 3.35554142523 (d<=2); Lücke >= 1.120e-06",
+   "level": "computed_rigorous",
+   "status": "angefochten"
+  },
+  {
+   "claim_id": "C-bell-R8-I",
+   "text": "Ungeprüfte Interpretation des Agenten zu bell-R8 (nicht als Resultat verwenden): p* liegt zwischen 0.6532 und 0.6533",
+   "level": "hypothesis",
+   "status": "offen"
+  },
+  {
+   "claim_id": "C-bell-R8-RT1",
+   "text": "Red-Team-Gegenprüfung zu bell-R8: Die Antwort behauptet, dass bei p=0.6532 die Lücke mit ca. 9.96e-7 noch unter 1e-6 liegt (NPA 1+AB scharf). Besteht diese Prüfung, ist die Lücke dort schon mindestens 1e-6. Dann liegt der Übergang bei kleinerem p als 0.6532 und die Antwort ist falsch. -> bestanden (Aussage angefochten); Prüfer: NPA-Stufe 1+AB erreicht >= 3.35538274922 (rationale zulässige Momentmatrix), beste eigene Strategie exakt 3.35538172423 (d<=2); Lücke >= 1.025e-06",
+   "level": "computed_rigorous",
+   "status": "bestätigt"
+  },
+  {
+   "claim_id": "C-bell-R8-RT2",
+   "text": "Red-Team-Gegenprüfung zu bell-R8: Randfall unterhalb des behaupteten Intervalls. Wenn NPA 1+AB schon bei p=0.652 nicht mehr scharf ist (Lücke ≥ 1e-6), liegt der Schwellenwert deutlich unter 0.6532 und die Antwort ist falsch. -> nicht bestanden; Prüfer: NPA-Stufe 1+AB erreicht >= 3.35346711627 (rationale zulässige Momentmatrix), beste eigene Strategie exakt 3.35346693197 (d<=2); Lücke >= 1.843e-07",
+   "level": "computed_rigorous",
+   "status": "bestätigt"
+  },
+  {
+   "claim_id": "C-neg1",
+   "text": "Negatives Ergebnis: [F18] Wo liegt der Übergang, an dem NPA 1+AB nicht mehr scharf ist? Per 'scan' mit Stufe 1+AB und d=2 über p in {0,6; 0,63; 0,65; 0,655; 0,66; 0,7; 0,8; 0,9; 0,99}: Ab welchem p wird die Lücke zwischen 1+AB und See-saw größer als 1e-6? Anschließend 'luecke_npa' mit stufe '1+AB' und mindestens 1e-6 an einem p oberhalb der Schwelle, dann Gegenprobe mit 'quantenwert' an einem p unterhalb.: keine Behauptung bestand die Prüfung",
+   "level": "observed",
+   "status": "bestätigt"
+  },
+  {
+   "claim_id": "C-lit1",
+   "text": "Literatur: Für das (2,2,2)-Bell-Szenario lässt sich jede nichtlokale No-Signaling-Verteilung eindeutig als Konvexkombination genau einer PR-Box und bis zu acht lokaler deterministischer Verteilungen darstellen. (Zitat: „any nonlocal nonsignaling distribution can always be uniquely expressed as a convex combination of exactly one PR box and (up to) eight local deterministic distributions“, doi:10.1088/1751-8113/49/21/215301)",
+   "level": "observed",
+   "status": "bestätigt"
+  },
+  {
+   "claim_id": "C-lit2",
+   "text": "Literatur: Die Autoren beweisen die Optimalität einer Schranke von Barrett et al. für den lokalen Anteil, der sich aus der Verletzung einer Kettenungleichung (chained Bell) ableiten lässt. (Zitat: „our results allow us to prove the optimality of a bound, derived in Barrett et al“, doi:10.1088/1751-8113/49/21/215301)",
+   "level": "observed",
+   "status": "bestätigt"
+  },
+  {
+   "claim_id": "C-lit3",
+   "text": "Literatur: Es wird eine Familie von Bell-Ausdrücken angegeben, die als geräteunabhängige Dimensionszeugen für Hilbert-Räume der Dimension 2^m dienen und den Erfolg eines n-Bit-paritätsobliviösen Random-Access-Codes bestimmen. (Zitat: „serve as the device-independent dimension witnesses of Hilbert space of $2^{m}$ dimensions“, arXiv:2012.13876v1)",
+   "level": "observed",
+   "status": "bestätigt"
+  },
+  {
+   "claim_id": "C-lit4",
+   "text": "Literatur: Eine analytische Tsirelson-artige Schranke für den Quantenwert von Bell-Ungleichungen vom Korrelationstyp basiert auf dem maximalen Singulärwert der Koeffizientenmatrix und ist für viele bekannte Ungleichungen scharf. (Zitat: „It is based on the maximal singular value of the coefficient matrix associated with the inequality“, arXiv:1306.3805v2)",
+   "level": "observed",
+   "status": "bestätigt"
+  },
+  {
+   "claim_id": "C-lit5",
+   "text": "Literatur: Es werden Operationen auf CHSH-artigen Bell-Ungleichungen untersucht, die die Tsirelson-Schranke invariant lassen, aber die klassische Schranke verändern, was die Optimierung der Verletzung ermöglicht. (Zitat: „operations, which leave their Tsirelson bound invariant, but change their classical bound“, arXiv:1402.0378v1)",
+   "level": "observed",
+   "status": "bestätigt"
+  },
+  {
+   "claim_id": "C-lit6",
+   "text": "Literatur: Obere Schranken der maximalen Quantenverletzung lassen sich durch eine Erweiterung von Tsirelsons Theorem und eine unendliche Folge semidefiniter Programme (NPA-Hierarchie) exakt bestimmen. (Zitat: „exact bounds may be obtained by solving an infinite series of semidefinite programs“, arXiv:0812.4887v1)",
+   "level": "observed",
+   "status": "bestätigt"
+  },
+  {
+   "claim_id": "C-lit7",
+   "text": "Literatur: Die Arbeit verbindet Bell-Polytope mit kausaler Inferenz und schlägt NPA-basierte Algorithmen für quantenkausale Inferenz als neue Richtung vor, wobei CHSH die Tsirelson-Schranke 2√2 erreicht. (Zitat: „suggests new directions including NPA-based quantum causal inference algorithms“, arXiv:2603.28973v1)",
+   "level": "observed",
+   "status": "bestätigt"
+  },
+  {
+   "claim_id": "C-lit8",
+   "text": "Literatur: Für die I3322-Ungleichung wird eine Familie von Messoperatoren und Zuständen in unendlichdimensionalem Hilbertraum angegeben, die den größtmöglichen Quantenwert erreicht. (Zitat: „a family of measurement operators and states is given which enables us to attain the largest possible quantum value in an infinite dimensional Hilbert space“, arXiv:1006.3032v1)",
+   "level": "observed",
+   "status": "bestätigt"
+  },
+  {
+   "claim_id": "C-lit9",
+   "text": "Literatur: Es wird vermutet, dass endlichdimensionale Systeme das wahre Quantenmaximum von I3322 nicht erreichen können, im Gegensatz zu CHSH, wo zweidimensionale Systeme genügen. (Zitat: „it is conjectured that our construction is optimal in the sense that measuring finite dimensional quantum systems is not enough to achieve the true quantum maximum“, arXiv:1006.3032v1)",
+   "level": "observed",
+   "status": "bestätigt"
+  },
+  {
+   "claim_id": "C-lit10",
+   "text": "Literatur: Ein effizienter iterativer Algorithmus berechnet das Quantenmaximum beliebiger Zwei-Ausgänge-Bell-Ungleichungen in vorgegebener Hilbertraumdimension, was für Dimensionszeugen relevant ist. (Zitat: „We also describe an efficient iterative algorithm for computing quantum maximum of an arbitrary two-outcome Bell inequality in any given Hilbert space dimension“, arXiv:1006.3032v1)",
+   "level": "observed",
+   "status": "bestätigt"
+  },
+  {
+   "claim_id": "C-lit11",
+   "text": "Literatur: Durch Kombination von NPA-Hierarchie, alternierenden Projektionen und L-BFGS lassen sich obere Schranken für die Quantenverletzung großer Bell-Ungleichungen (u.a. I3322) deutlich schneller berechnen, allerdings nicht notwendig mit der engsten Schranke. (Zitat: „combining the NPA hierarchy, the method of alternating projections, and the memory-efficient optimisation algorithm L-BFGS“, arXiv:2412.08532v2)",
+   "level": "observed",
+   "status": "bestätigt"
+  },
+  {
+   "claim_id": "C-lit12",
+   "text": "Literatur: Bei zufälligen Ungleichungen mit 130 Eingaben je Seite liegt die gewonnene Schranke nur etwa 2% über dem Optimum und ist rund 100-mal schneller als MOSEK und SCS. (Zitat: „our method is ~100x faster than both MOSEK and SCS whilst giving a bound only ~2% above the optimum“, arXiv:2412.08532v2)",
+   "level": "observed",
+   "status": "bestätigt"
+  },
+  {
+   "claim_id": "C-lit13",
+   "text": "Literatur: Im einfachsten Bell-Szenario stimmen die Korrelationen der Stufen 1+AB und 2 der NPA-Hierarchie unter dem plausiblen Kriterium überein, womit dessen Extremalbedingung auf Stufe 1+AB bestätigt wird. (Zitat: „the 1+AB and second levels for correlations were equal, and the extremal condition in the simplest Bell scenario was replaced by that in the 1+AB level“, doi:10.3390/e27020182)",
+   "level": "observed",
+   "status": "bestätigt"
+  },
+  {
+   "claim_id": "C-lit14",
+   "text": "Literatur: Ein analytisches Kriterium zur Identifikation der Grenzen quantenmechanischer Korrelationen ist selbst im einfachsten Bell-Szenario schwer zu etablieren. (Zitat: „It is difficult to establish an analytical criterion to identify the boundaries of quantum correlations, even for the simplest Bell scenario“, doi:10.3390/e27020182)",
+   "level": "observed",
+   "status": "bestätigt"
+  },
+  {
+   "claim_id": "C-lit15",
+   "text": "Literatur: Für Kausalungleichungen wird eine allgemeine Methode zur Schranke der Verletzung vorgestellt; die maximale Verletzung liegt generell unter dem algebraischen Maximum, und es werden Tsirelson-artige Schranken bestimmt. (Zitat: „We prove that the maximum violation is generally smaller than the algebraic maximum of the corresponding correlation“, doi:10.1038/s41467-025-58508-9)",
+   "level": "observed",
+   "status": "bestätigt"
+  },
+  {
+   "claim_id": "C-lit16",
+   "text": "Literatur: Die Tsirelson-Schranke der CHSH-Ungleichung und die Verletzung lokaler Variablen werden in Isabelle/HOL formal verifiziert. (Zitat: „such as Tsirelson's bound which permits to obtain the maximum violation of this inequality in a quantum setting“, arXiv:2306.12535v1)",
+   "level": "observed",
+   "status": "bestätigt"
+  },
+  {
+   "claim_id": "C-lit17",
+   "text": "Literatur: Auf Ionenfallen- und supraleitender Hardware wurde die CHSH-beschränkte Grothendieck-Konstante gemessen (1,408 ± 0,006 bei IonQ, 1,363 ± 0,012 bei IBM) mit geringer Abweichung von √2. (Zitat: „we extract KCHSHG= 1.408 ±0.006 on IonQ and KCHSHG= 1.363 ±0.012 on IBM“, doi:10.20944/preprints202512.0554.v1)",
+   "level": "observed",
+   "status": "bestätigt"
+  },
+  {
+   "claim_id": "C-lit18",
+   "text": "Literatur: Im OAM-Experiment steigt die maximale Verletzung der Ketten-CHSH-Ungleichung mit der Anzahl der Einstellungen k und hängt von den Messwinkeln ab. (Zitat: „Our experimental results indicate that the maximum violation increases with setting k“, doi:10.1364/oe.546423)",
+   "level": "observed",
+   "status": "bestätigt"
+  },
+  {
+   "claim_id": "C-lit19",
+   "text": "Literatur: Theoretisch liegen die optimalen Messvektoren der Ketten-CHSH-Ungleichung auf einem Kreis durch den Mittelpunkt der Bloch-Kugel, was mehrere optimale Messsätze auf verschiedenen Kreisen erlaubt. (Zitat: „the optimal measurement vectors reside in a circle through the center of the Bloch sphere“, doi:10.1364/oe.546423)",
+   "level": "observed",
+   "status": "bestätigt"
+  },
+  {
+   "claim_id": "C-lit20",
+   "text": "Literatur: Es wird eine neue Familie von Bell-Ungleichungen mit d Einstellungen und d Ausgängen (d prim ≥ 3) vorgestellt, deren maximale Quantenverletzung analytisch berechenbar ist und die durch maximal verschränkte Zustände und mutually unbiased bases erreicht wird. (Zitat: „whose maximal quantum violation can be computed analytically“, arXiv:1807.03332v3)",
+   "level": "observed",
+   "status": "bestätigt"
+  },
+  {
+   "claim_id": "C-lit21",
+   "text": "Literatur: Im Drei-Ausgänge-Fall selbsttestet die Ungleichung den maximal verschränkten Zwei-Qutrit-Zustand und drei MUBs pro Seite; bei mehr Ausgängen genügt die maximale Verletzung nicht für Selbsttesten im Standardsinn. (Zitat: „in the three-outcome case our Bell inequality can be used to self-test the maximally entangled state of two-qutrits“, arXiv:1807.03332v3)",
+   "level": "observed",
+   "status": "bestätigt"
+  },
+  {
+   "claim_id": "C-lit22",
+   "text": "Literatur: Für CHSH mod 3 wird der exakte maximale Quantenwert bestimmt; bis auf Symmetrien existiert eine eindeutige optimale irreduzible Strategie mit maximal verschränktem Zwei-Qutrit-Zustand. (Zitat: „We determine its exact maximal quantum value and show that“, arXiv:2604.03700v1)",
+   "level": "observed",
+   "status": "bestätigt"
+  },
+  {
+   "claim_id": "C-lit23",
+   "text": "Literatur: Nahezu optimale Strategien sind bis auf lokale Isometrien O(√ε)-nah an einer direkten Summe optimaler irreduzibler Strategien, was robustes Selbsttesten liefert. (Zitat: „any strategy whose value is within $\\varepsilon$ of the optimum is $O(\\sqrt{\\varepsilon})$-close“, arXiv:2604.03700v1)",
+   "level": "observed",
+   "status": "bestätigt"
+  },
+  {
+   "claim_id": "C-lit24",
+   "text": "Literatur: Es werden Selbsttests für Tensorprodukte von Pauli-Messungen auf maximal verschränkten Zuständen der lokalen Dimension 2^n vorgestellt, also Selbsttests informationell vollständiger Messsätze in beliebig hoher Dimension. (Zitat: „certify the presence of tensor products of Pauli measurements on maximally entangled states“, arXiv:1801.10446v4)",
+   "level": "observed",
+   "status": "bestätigt"
+  },
+  {
+   "claim_id": "C-lit25",
+   "text": "Literatur: Eine Drei-Ausgänge-Bell-Ungleichung dient als Dimensionszeuge, dessen Verletzung anzeigt, dass die Korrelationen nicht durch Hilberträume bestimmter Dimension (z. B. Qubits) reproduzierbar sind. (Zitat: „criteria whose violation signals the impossibility of reproducing the inferred correlations by Hilbert spaces of a certain dimension“, arXiv:2406.12823v2)",
+   "level": "observed",
+   "status": "bestätigt"
+  },
+  {
+   "claim_id": "C-lit26",
+   "text": "Literatur: Im thermodynamischen Limes erfordern die gequetschten spin-nematischen Korrelationen, dass das System vollständig aus Qutrits besteht. (Zitat: „the squeezed correlations described above require the system to be composed entirely of qutrits“, arXiv:2406.12823v2)",
+   "level": "observed",
+   "status": "bestätigt"
+  },
+  {
+   "claim_id": "C-lit27",
+   "text": "Literatur: Für Bell-Szenarien mit einem Bit klassischer Kommunikation wurde eine Methode zur Facettenfindung entwickelt und im Drei-Eingänge-Szenario 668 inäquivalente Facettenungleichungen gefunden, die Szenario aber nur teilweise gelöst. (Zitat: „we partially solved the scenario where Alice and Bob choose between three inputs“, doi:10.3390/e21020171)",
+   "level": "observed",
+   "status": "bestätigt"
+  },
+  {
+   "claim_id": "C-lit28",
+   "text": "Literatur: Es existiert eine Korrelation, die von keinem endlichdimensionalen Quantensystem erreicht wird, sondern ausschließlich von unendlichdimensionalen Systemen, was die Frage nach einer endlichen Korrelation zum Zeugen unendlicher Verschränkung beantwortet. (Zitat: „there exists a correlation which is not attainable by quantum systems of any arbitrary finite dimension“, doi:10.1038/s41467-020-17077-9)",
+   "level": "observed",
+   "status": "bestätigt"
+  },
+  {
+   "claim_id": "C-lit29",
+   "text": "Literatur: Nichtlokale Boxen, die eine bipartite Bell-Ungleichung bis zur No-Signaling-Grenze verletzen, sind mit 3 Messungen und 4 Ausgängen quantenmechanisch realisierbar. (Zitat: „are feasible if the two parties have 3 measurements with 4 outputs“, arXiv:1208.1965v2)",
+   "level": "observed",
+   "status": "bestätigt"
+  },
+  {
+   "claim_id": "C-lit30",
+   "text": "Literatur: Entanglement Swapping erlaubt es, Mischungen nichtlokaler Boxen mit Systemen zu präparieren, die nie wechselwirkten, was maximale Nichtlokalität bis zur No-Signaling-Grenze zeigt. (Zitat: „entanglement swapping allows us to prepare mixtures of nonlocal boxes using systems that never interacted“, arXiv:1208.1965v2)",
+   "level": "observed",
+   "status": "bestätigt"
+  },
+  {
+   "claim_id": "C-selbsttest",
+   "level": "computed_rigorous",
+   "status": "bestätigt",
+   "text": "Selbsttest des Bell-Prüfers vor dem Lauf: 22/22 Fälle korrekt (10 wahre, 12 falsche Aussagen bzw. Regelverletzungen); Ergebnis: bestanden. Wahre Anker: CHSH (klassische Schranke 2, Quantenwert 2.828427125), Kette mit 4 Einstellungen (klassische Schranke 6), I3322 (klassische Schranke 0, obere Schranke 0.2509 mit NPA-Stufe 2+AAB), gekippte CHSH mit Formel sqrt(8+2*p**2)."
+  },
+  {
+   "claim_id": "C-H6a",
+   "level": "observed",
+   "status": "bestätigt",
+   "text": "Präregistrierte Hypothese H6a (mindestens 2 von 3 Anker-Fragen zweiseitig bestätigt): nicht erfüllt. Der Integrator wählte 0 der 3 Anker-Fragen; bestätigte Aussagen zu Anker-Fragen: 0."
+  },
+  {
+   "claim_id": "C-H6b",
+   "level": "observed",
+   "status": "bestätigt",
+   "text": "Präregistrierte Hypothese H6b (mindestens eine zertifizierte Aussage zu einer Ungleichung außerhalb der benannten Familien): erfüllt; 6 bestätigte Aussagen betreffen die doppelt gekippte CHSH-Familie oder andere nicht benannte Ungleichungen. Neuheit gegenüber der Literatur wird nicht behauptet."
+  },
+  {
+   "claim_id": "C-kombi1",
+   "level": "computed_rigorous",
+   "status": "bestätigt",
+   "text": "Folgerung aus C-bell-R5 und C-bell-R6 (gleiche Ungleichung, a = b = [131/200, 0]): Q <= 3.35825955532047 (NPA-Stufe 2, Dualzertifikat) und der Optimalwert der NPA-Stufe 1+AB ist >= 3.35826280973 (rationale zulässige Momentmatrix). Da 3.35825955532047 < 3.35826280973, ist die Stufe 1+AB an diesem Punkt streng nicht scharf: ihr Optimalwert übertrifft Q um mindestens 3.25e-06 (Rundung der ausgegebenen Werte berücksichtigt)."
+  },
+  {
+   "claim_id": "C-kombi2",
+   "level": "computed_rigorous",
+   "status": "bestätigt",
+   "text": "Untere Schranken des Prüfers für (Optimalwert NPA 1+AB) minus (beste exakt zertifizierte Strategie), doppelt gekippte CHSH, aus allen luecke_npa-Prüfungen inkl. Red-Team: p = 0.5: -1.726e-08; p = 0.62: -2.336e-08; p = 0.652: 1.843e-07; p = 0.6532: 1.025e-06; p = 0.6533: 1.120e-06; p = 0.655: 3.296e-06. Bis p = 0.62 liegt die Schranke betragsmäßig unter 1e-7 (Genauigkeit der SDP-Löser), ab p = 0.652 ist sie positiv und wächst über die untersuchten Punkte monoton. Eine über eine feste Toleranz (z. B. 1e-6) definierte Schwelle hängt daher von dieser Toleranz ab."
+  },
+  {
+   "claim_id": "C-methode",
+   "text": "Das Labor lief 8 Runden, 7 geprüfte Aussagen, 1 negative Ergebnisse, Kosten 4.31 USD; jede Runde vor dem Experiment präregistriert (prereg.md).",
+   "level": "observed",
+   "status": "bestätigt"
+  }
+ ],
+ "log": {
+  "runden": [
+   {
+    "runde": 0,
+    "verstoesse": 30
+   },
+   {
+    "runde": 1,
+    "verstoesse": 2
+   },
+   {
+    "final_verstoesse_entfernt": 0
+   }
+  ],
+  "entfernt": []
+ }
+}

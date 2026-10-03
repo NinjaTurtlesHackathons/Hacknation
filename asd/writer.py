@@ -12,6 +12,11 @@ SYS = ("Du schreibst wissenschaftliche Texte auf Deutsch, präzise und nüchtern
        "gegebenen Claim-Liste verwenden und musst jede Aussage mit ihrer claim_id in eckigen Klammern belegen, z. B. [C-H1]. "
        "Keine Zahl, die nicht wörtlich in einer zitierten Claim steht. Keine Literaturzitate außer denen in den Claims.")
 
+SYS_EN = ("You write scientific text in English, precise and sober, in the style of a physics preprint. You may use only statements "
+          "from the given claim list and must support every statement with its claim_id in square brackets, e.g. [C-H1]. "
+          "No number that does not appear verbatim in a cited claim. No literature citations except those contained in the claims. "
+          "Write decimal numbers with a decimal point.")
+
 NUM = re.compile(r"(?<![\w.])-?\d+(?:[.,]\d+)?")
 CIT = re.compile(r"\[(C-[^\]\s,;]+)(?:[,;]\s*(C-[^\]\s,;]+))*\]")
 
@@ -43,17 +48,19 @@ def check(md, claims):
     return issues
 
 
-def write(title, outline, claims, salt="", rounds=2):
+def write(title, outline, claims, salt="", rounds=2, lang="de"):
+    sysp = SYS_EN if lang == "en" else SYS
     cl = "\n".join(f"- [{c['claim_id']}] ({c['level']}, {c['status']}) {c['text']}" for c in claims)
     prompt = f"Titel: {title}\n\nGliederung und Hinweise:\n{outline}\n\nClaim-Liste (einzige erlaubte Quelle):\n{cl}\n\nSchreibe den Text in Markdown."
-    md = ask(prompt, SYS, salt=f"writer-{salt}-0"); log = []
+    if lang == "en": prompt = prompt.replace("Schreibe den Text in Markdown.", "Write the text in English, in Markdown.")
+    md = ask(prompt, sysp, salt=f"writer-{salt}-0"); log = []
     for r in range(rounds):
         issues = check(md, claims); log.append({"runde": r, "verstoesse": len(issues)})
         if not issues: break
         fb = "\n".join(f"- „{s.strip()[:200]}“: {why}" for s, why in issues)
         md = ask(prompt + f"\n\nDein letzter Entwurf:\n{md}\n\nDer automatische Prüfer hat diese Verstöße gefunden:\n{fb}\n\n"
                  "Korrigiere ausschließlich diese Stellen (Beleg ergänzen oder Aussage streichen) und gib den vollständigen Text zurück.",
-                 SYS, salt=f"writer-{salt}-{r + 1}")
+                 sysp, salt=f"writer-{salt}-{r + 1}")
     issues = check(md, claims); removed = []
     for s, why in issues:
         md = md.replace(s, f"*[entfernt: unbelegt — {why}]*"); removed.append({"satz": s, "grund": why})

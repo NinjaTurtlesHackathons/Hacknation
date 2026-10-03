@@ -17,3 +17,5 @@
 - 2026-10-03 23:23:56 Runde 7: Wo liegt der Übergang, an dem NPA 1+AB nicht mehr scharf ist? Per 'scan' mit Stufe 1+AB und d=2 über p in {0,6; 0,63; 0,65; 0,655; 0,66; 0,7; 0,8; 0,9; 0,99}: Ab welchem p wird die Lücke zwischen 1+AB und See-saw größer als 1e-6? Anschließend 'luecke_npa' mit stufe '1+AB' und mindestens 1e-6 an einem p oberhalb der Schwelle, dann Gegenprobe mit 'quantenwert' an einem p unterhalb.
 - 2026-10-03 23:30:21   keine geprüfte Behauptung (als negatives Ergebnis protokolliert)
 - 2026-10-03 23:30:45 Runde 8: Wo genau liegt der Schwellenwert p*, ab dem NPA 1+AB bei a=b=[p,0] nicht mehr scharf ist? Bisektion zwischen p=0,65 und p=0,655 (z. B. 0,651; 0,652; 0,653; 0,654), jeweils scan mit d=2 und Stufe 1+AB, danach 'luecke_npa' mit 'mindestens' 1e-7 an den Punkten nahe dem Übergang.
+- 2026-10-03 23:35:59   geprüft (computed_rigorous): p* liegt zwischen 0.6532 und 0.6533 | Red-Team: 2 Gegenprüfungen, 1 bestanden
+- 2026-10-03 23:36:09 Fertig: 7 geprüfte Aussagen, 1 negative Ergebnisse, Kosten 4.31 USD

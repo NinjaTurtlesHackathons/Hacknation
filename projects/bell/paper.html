@@ -1,0 +1,204 @@
+<!doctype html><html lang='en'><head><meta charset='utf-8'><title>Exact two-sided certificates for maximal quantum Bell violations: an agentic laboratory study of the doubly tilted CHSH family</title><style>
+@page { size: A4; margin: 22mm 20mm 22mm 20mm; @bottom-center { content: counter(page); } }
+body { font-family: "Latin Modern Roman", "Times New Roman", Times, serif; font-size: 10.5pt; line-height: 1.38; color: #111; }
+h1 { font-size: 17pt; text-align: center; line-height: 1.25; margin: 0 0 6pt 0; font-weight: bold; }
+.authors { text-align: center; font-size: 11pt; margin-bottom: 18pt; color: #222; }
+h2 { font-size: 12.5pt; margin: 16pt 0 5pt 0; }
+h2#abstract + p, .abstract { margin: 0 6% 10pt 6%; font-size: 10pt; text-align: justify; }
+p, li { text-align: justify; hyphens: auto; }
+ul { padding-left: 18pt; margin: 4pt 0 6pt 0; }
+table { border-collapse: collapse; margin: 8pt auto 10pt auto; font-size: 8.8pt; }
+th, td { padding: 2.5pt 6pt; text-align: left; }
+thead th { border-top: 1.2pt solid #000; border-bottom: 0.6pt solid #000; }
+tbody tr:last-child td { border-bottom: 1.2pt solid #000; }
+code { font-size: 9pt; }
+.cit { font-size: 7.5pt; color: #666; white-space: nowrap; }
+hr { border: none; border-top: 0.5pt solid #999; margin-top: 18pt; }
+hr + p { font-size: 8.5pt; color: #444; }
+</style></head><body><h1>Exact two-sided certificates for maximal quantum Bell violations: an agentic laboratory study of the doubly tilted CHSH family</h1><div class='authors'>Team Ninja Turtles, Hack-Nation 2026, Challenge 3 (Agentic Scientific Discovery)</div><h2 id="abstract">Abstract</h2>
+<p>We study the doubly tilted CHSH family with correlator coefficients a = b = [p, 0] and c = [[1, 1], [1, -1]]. An automated laboratory computed lower bounds on the maximal quantum value Q(p) from explicit strategies and upper bounds from the NPA hierarchy. A verifier certified both bounds in exact rational arithmetic. Q is certified to within 1e-6 at p = 0.3 <span class="cit">[C-bell-R4]</span>, at p = 1/2 <span class="cit">[C-bell-R1]</span> and at p = 131/200 <span class="cit">[C-bell-R6]</span>. At p = 0.95 and p = 0.99 the explicit strategies violate the classical bound L = 2+2p, but the two-sided gap is not closed <span class="cit">[C-bell-R2, C-bell-R2-RT2]</span>. At p = 131/200, NPA level 1+AB is strictly not tight, while level 2 is <span class="cit">[C-kombi1]</span>. No closed formula for Q(p) was established. The preregistered anchor hypothesis H6a failed <span class="cit">[C-H6a]</span>, and no novelty is claimed <span class="cit">[C-H6b]</span>.</p>
+<h2 id="1-introduction">1 Introduction</h2>
+<p><strong>Question.</strong> How does the maximal quantum value Q(p) behave for the doubly tilted CHSH family with a = b = [p, 0]? Do qubits suffice? Where does the NPA level 1+AB cease to be tight? <span class="cit">[C-bell-R1, C-bell-R5]</span></p>
+<p><strong>Contribution.</strong> The study reports individually certified values and gap bounds. It also lists claims that could not be established.</p>
+<p><strong>Results.</strong></p>
+<ul>
+<li>
+<p>Two-sided certificates for Q at three parameter values: p = 0.3 <span class="cit">[C-bell-R4]</span>, p = 1/2 <span class="cit">[C-bell-R1]</span> and p = 131/200 <span class="cit">[C-bell-R6]</span>.</p>
+</li>
+<li>
+<p>A rigorous quantum violation of L at p = 0.95 and p = 0.99, without a closed two-sided gap <span class="cit">[C-bell-R2, C-bell-R2-RT2]</span>.</p>
+</li>
+<li>
+<p>Strict non-tightness of NPA level 1+AB at p = 131/200 <span class="cit">[C-kombi1]</span>.</p>
+</li>
+<li>
+<p>Verifier lower bounds on the gap between the 1+AB optimum and the best certified strategy at six parameter values <span class="cit">[C-kombi2]</span>.</p>
+</li>
+<li>
+<p>A list of negative results, red-team outcomes and unmet preregistered hypotheses, given in the section on negative results <span class="cit">[C-neg1, C-H6a]</span>.</p>
+</li>
+</ul>
+<h2 id="2-setting-and-certificates">2 Setting and certificates</h2>
+<p>The Bell inequality is given in correlator form with coefficients a = [p, 0], b = [p, 0], c = [[1, 1], [1, -1]] and constant 0 <span class="cit">[C-bell-R1]</span>. The classical bound is L = 2+2p, and at p = 1/2 it is L = 3 <span class="cit">[C-bell-R2]</span>.</p>
+<p>Lower bounds on Q come from explicit quantum strategies of dimension d per side, found by see-saw optimisation. The verifier evaluates their Bell value exactly in rational arithmetic <span class="cit">[C-bell-R1-RT1]</span>. Upper bounds come from NPA levels 1+AB, 2 and 2+AAB, certified by rational dual certificates <span class="cit">[C-bell-R1, C-bell-R2-RT1]</span>. Q counts as proved when the gap between lower and upper bound is below 1e-6 <span class="cit">[C-bell-R1]</span>. Rational feasible moment matrices give lower bounds on the NPA optimum, and the verifier compares these with the best exact strategy <span class="cit">[C-bell-R5]</span>.</p>
+<h2 id="3-method-the-agentic-laboratory">3 Method: the agentic laboratory</h2>
+<p>The laboratory ran 8 rounds, with 7 checked statements and 1 negative result, at a cost of 4.31 USD <span class="cit">[C-methode]</span>. Each round was preregistered before the experiment <span class="cit">[C-methode]</span>. Researcher agents proposed claims, and a code verifier certified or rejected them. A red team attacked each claim with counter-checks. Agent interpretations are labelled as unverified hypotheses and are not used here <span class="cit">[C-bell-R1-I]</span>.</p>
+<p>Before the run, the verifier passed a self-test with 22/22 cases correct (10 true, 12 false statements or rule violations) <span class="cit">[C-selbsttest]</span>. The anchors were CHSH (classical bound 2, quantum value 2.828427125), the chain with 4 settings (classical bound 6), I3322 (classical bound 0, upper bound 0.2509 at NPA level 2+AAB) and tilted CHSH with formula sqrt(8+2<em>p</em>*2) <span class="cit">[C-selbsttest]</span>.</p>
+<h2 id="4-results">4 Results</h2>
+<p><strong>Proposition A (computed_rigorous).</strong> For p = 1/2, Q = 3.13693731 up to 1e-6 <span class="cit">[C-bell-R1]</span>. The verifier certified 3.13693731130907 ≤ Q ≤ 3.13693732592937 (gap 1.46e-08; strategy d=2, NPA 1+AB) <span class="cit">[C-bell-R1, C-bell-R3]</span>. The level 2+AAB upper bound is 3.13693731768845 <span class="cit">[C-bell-R3-RT2]</span>. An independent see-saw strategy gave the exact rational Bell value 3.13693731130907 with d=2 <span class="cit">[C-bell-R1-RT1]</span>.</p>
+<p><strong>Proposition B (computed_rigorous).</strong> For p = 0.3, Q = 2.93828832 up to 1e-6, with 2.93828833175884 ≤ Q ≤ 2.938288368081 (gap 3.63e-08; strategy d=2, NPA 1+AB) <span class="cit">[C-bell-R4]</span>. An independent d=2 strategy gave the exact value 2.93828833175884 <span class="cit">[C-bell-R4-RT2]</span>.</p>
+<p><strong>Proposition C (computed_rigorous).</strong> For p = 131/200, Q = 3.35825951388 up to 1e-6, with 3.35825951388355 ≤ Q ≤ 3.35825955532047 (gap 4.14e-08; strategy d=2, NPA 2) <span class="cit">[C-bell-R6]</span>. An independent d=2 strategy gave the exact value 3.35825951388355 <span class="cit">[C-bell-R6-RT2]</span>.</p>
+<p><strong>Proposition D (computed_rigorous).</strong> The classical bound is exceeded at two parameter values.</p>
+<ul>
+<li>
+<p>At p = 0.99, the verifier's explicit strategy has exact value 3.98000132884628, and L = 199/50 <span class="cit">[C-bell-R2]</span>. The level 2+AAB upper bound is 3.98000623486376 <span class="cit">[C-bell-R2-RT1]</span>.</p>
+</li>
+<li>
+<p>At p = 0.95, L = 3.9 <span class="cit">[C-bell-R2-RT2]</span>. Also 3.90016389936512 ≤ Q ≤ 3.90019981472908 (gap 3.59e-05) <span class="cit">[C-bell-R2-RT2]</span>. The gap is too large for certification of Q, but the lower bound exceeds L <span class="cit">[C-bell-R2-RT2]</span>.</p>
+</li>
+<li>
+<p>At p = 1, L = 4 and the verifier's quantum strategy attains exactly 4, so no violation was found there <span class="cit">[C-bell-R1-RT2]</span>.</p>
+</li>
+</ul>
+<p><strong>Proposition E (computed_rigorous).</strong> At p = 131/200, Q ≤ 3.35825955532047 (NPA level 2, dual certificate), while the optimum of NPA level 1+AB is ≥ 3.35826280973 (rational feasible moment matrix) <span class="cit">[C-kombi1]</span>. Level 1+AB is therefore strictly not tight there: its optimum exceeds Q by at least 3.25e-06 <span class="cit">[C-kombi1]</span>.</p>
+<p><strong>Proposition F (computed_rigorous).</strong> Lower bounds on (NPA 1+AB optimum) minus (best exactly certified strategy) are as follows <span class="cit">[C-kombi2]</span>:</p>
+<table>
+<thead>
+<tr>
+<th>p</th>
+<th>lower bound on gap</th>
+<th>source</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0.5</td>
+<td>-1.726e-08</td>
+<td><span class="cit">[C-kombi2]</span></td>
+</tr>
+<tr>
+<td>0.62</td>
+<td>-2.336e-08</td>
+<td><span class="cit">[C-kombi2]</span></td>
+</tr>
+<tr>
+<td>0.652</td>
+<td>1.843e-07</td>
+<td><span class="cit">[C-kombi2]</span></td>
+</tr>
+<tr>
+<td>0.6532</td>
+<td>1.025e-06</td>
+<td><span class="cit">[C-kombi2]</span></td>
+</tr>
+<tr>
+<td>0.6533</td>
+<td>1.120e-06</td>
+<td><span class="cit">[C-kombi2]</span></td>
+</tr>
+<tr>
+<td>0.655</td>
+<td>3.296e-06</td>
+<td><span class="cit">[C-kombi2]</span></td>
+</tr>
+</tbody>
+</table>
+<p>Up to p = 0.62 the bound is below 1e-7 in magnitude, which is the accuracy of the SDP solvers <span class="cit">[C-kombi2]</span>. From p = 0.652 on it is positive and grows monotonically over the points examined <span class="cit">[C-kombi2]</span>. A threshold defined by a fixed tolerance such as 1e-6 therefore depends on that tolerance <span class="cit">[C-kombi2]</span>. At p = 0.62, the strategy value 3.30352972153 (d≤3) and the 1+AB value ≥ 3.30352969818 agree to within solver accuracy <span class="cit">[C-bell-R5-RT1]</span>. At p = 0.72, NPA level 2 reaches ≥ 3.46649094809 against a best strategy of 3.46649100491 (d≤2) <span class="cit">[C-bell-R5-RT2]</span>.</p>
+<p><strong>Summary of certified values.</strong></p>
+<table>
+<thead>
+<tr>
+<th>p</th>
+<th>Lower bound (strategy)</th>
+<th>Upper bound (NPA)</th>
+<th>Gap</th>
+<th>Status</th>
+<th>Source</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0.3</td>
+<td>2.93828833175884 (d=2)</td>
+<td>2.938288368081 (1+AB)</td>
+<td>3.63e-08</td>
+<td>proved</td>
+<td><span class="cit">[C-bell-R4]</span></td>
+</tr>
+<tr>
+<td>1/2</td>
+<td>3.13693731130907 (d=2)</td>
+<td>3.13693732592937 (1+AB)</td>
+<td>1.46e-08</td>
+<td>proved</td>
+<td><span class="cit">[C-bell-R1]</span></td>
+</tr>
+<tr>
+<td>131/200</td>
+<td>3.35825951388355 (d=2)</td>
+<td>3.35825955532047 (2)</td>
+<td>4.14e-08</td>
+<td>proved</td>
+<td><span class="cit">[C-bell-R6]</span></td>
+</tr>
+<tr>
+<td>0.95</td>
+<td>3.90016389936512 (d=2)</td>
+<td>3.90019981472908 (2+AAB)</td>
+<td>3.59e-05</td>
+<td>not certified</td>
+<td><span class="cit">[C-bell-R2-RT2]</span></td>
+</tr>
+<tr>
+<td>0.99</td>
+<td>3.98000132884628</td>
+<td>3.98000623486376 (2+AAB)</td>
+<td>not stated</td>
+<td>not certified</td>
+<td><span class="cit">[C-bell-R2, C-bell-R2-RT1]</span></td>
+</tr>
+</tbody>
+</table>
+<h2 id="5-negative-results-preregistration-and-red-team">5 Negative results, preregistration and red team</h2>
+<p><strong>Negative result.</strong> The scan for the transition at which NPA 1+AB ceases to be tight, over the points p = 0.6, 0.63, 0.65, 0.655, 0.66, 0.7, 0.8, 0.9 and 0.99, produced no claim that passed verification <span class="cit">[C-neg1]</span>.</p>
+<p><strong>Preregistration.</strong> H6a (at least 2 of 3 anchor questions confirmed two-sided) was not met: the integrator chose 0 of the 3 anchor questions, and 0 confirmed statements concern anchor questions <span class="cit">[C-H6a]</span>. H6b (at least one certified statement about an inequality outside the named families) was met, with 6 confirmed statements concerning the doubly tilted CHSH family or other unnamed inequalities <span class="cit">[C-H6b]</span>. Novelty relative to the literature is not claimed <span class="cit">[C-H6b]</span>.</p>
+<p><strong>Red team.</strong> Red-team checks targeting the confirmed values failed in the sense that the attacks did not succeed.</p>
+<ul>
+<li>
+<p>No strategy exceeded the certified values at p = 1/2, p = 0.3 and p = 131/200 <span class="cit">[C-bell-R1-RT1, C-bell-R4-RT2, C-bell-R6, C-bell-R6-RT2]</span>.</p>
+</li>
+<li>
+<p>The upper bounds were not undercut by any strategy <span class="cit">[C-bell-R3-RT2, C-bell-R2-RT1]</span>.</p>
+</li>
+<li>
+<p>No violation of L was found at p = 1 <span class="cit">[C-bell-R1-RT2]</span>.</p>
+</li>
+<li>
+<p>NPA 1+AB was not found loose at p = 1/2 or p = 0.62, and NPA level 2 was not found loose at p = 131/200 or p = 0.72 <span class="cit">[C-bell-R4-RT1, C-bell-R5-RT1, C-bell-R6, C-bell-R6-RT1, C-bell-R5-RT2]</span>.</p>
+</li>
+</ul>
+<p>One claim is contested <span class="cit">[C-bell-R8]</span>. At p = 0.6533, the 1+AB optimum lies at least 5e-07 above the best strategy found by the verifier in dimension up to 4 <span class="cit">[C-bell-R8]</span>. Here the verifier reports 3.35554254508 against 3.35554142523, a gap ≥ 1.120e-06 <span class="cit">[C-bell-R8]</span>. This does not show that Q itself lies below the 1+AB value <span class="cit">[C-bell-R8]</span>. A red-team check at p = 0.6532 passed (statement contested), with a gap ≥ 1.025e-06 <span class="cit">[C-bell-R8-RT1]</span>. A check at p = 0.652 did not show a gap of 1e-6, with a gap ≥ 1.843e-07 <span class="cit">[C-bell-R8-RT2]</span>. The agent's unverified interval for the transition is not used here.</p>
+<h2 id="6-limitations-and-open-questions">6 Limitations and open questions</h2>
+<ul>
+<li>
+<p><strong>Not shown:</strong> a closed formula for Q(p). The fit attempts addressed this question <span class="cit">[C-bell-R3, C-bell-R4]</span>, but no certified formula resulted.</p>
+</li>
+<li>
+<p><strong>Not shown:</strong> that Q &gt; L for all p &lt; 1, or that Q = L at p = 1. The claims certify a strategy value of 4 at p = 1 and violations only at the tested points <span class="cit">[C-bell-R1-RT2, C-bell-R2]</span>.</p>
+</li>
+<li>
+<p><strong>Not shown:</strong> that qubits suffice in general. Certified strategies at the tested points have d=2 or d≤3, and the lower bounds there match the upper bounds only to the stated gaps <span class="cit">[C-bell-R5-RT1, C-bell-R6]</span>.</p>
+</li>
+<li>
+<p>A sharp transition value for NPA 1+AB is not established. The verifier bounds are tolerance-dependent <span class="cit">[C-kombi2]</span>, and the contested claim <span class="cit">[C-bell-R8]</span> is not resolved.</p>
+</li>
+<li>
+<p>Q is not certified at p = 0.95 and p = 0.99 <span class="cit">[C-bell-R2-RT2, C-bell-R2-RT1]</span>.</p>
+</li>
+<li>
+<p>No novelty is claimed beyond what the claims support <span class="cit">[C-H6b]</span>.</p>
+</li>
+</ul>
+<p><strong>Related work.</strong> The NPA hierarchy yields exact bounds via an infinite series of semidefinite programs <span class="cit">[C-lit6]</span>. In the simplest Bell scenario, the correlations at levels 1+AB and 2 coincide under a plausible criterion <span class="cit">[C-lit13]</span>. Analytic criteria for the boundary of quantum correlations are hard to establish even there <span class="cit">[C-lit14]</span>. An iterative algorithm computes the quantum maximum of two-outcome Bell inequalities in a given Hilbert space dimension <span class="cit">[C-lit10]</span>. Operations on CHSH-type inequalities that preserve the Tsirelson bound but change the classical bound have been studied <span class="cit">[C-lit5]</span>. For I3322, finite-dimensional systems are conjectured not to attain the true quantum maximum <span class="cit">[C-lit9]</span>. Proposition E shows that, for a functional with marginal terms in the simplest scenario, the optima of NPA levels 1+AB and 2 differ <span class="cit">[C-kombi1]</span>. The coincidence of levels 1+AB and 2 reported in <span class="cit">[C-lit13]</span> is stated for correlations under a plausible criterion; whether its scope covers functionals with marginal terms was not checked beyond the abstract, so we do not claim a contradiction. Beyond this, we make no claim about how these results relate to the present family.</p>
+<hr />
+<p><em>Verification log (automatic):</em> 34 claim IDs cited; unsupported statements per writing round: 30 → 2; 0 sentences removed; remaining violations: 0. Claim texts and evidence: <code>paper_belege.json</code>.</p></body></html>

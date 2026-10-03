@@ -22,6 +22,19 @@ Präregistrierte Ergebnisse (`prereg.md`, Rohdaten in `results/`):
 Weitere Befunde: KI- und Literatur-Vorwissen als GP-Prior helfen der Bayes'schen Optimierung nicht (H1, H5, beide präregistriert);
 fünf geprüfte numerische Befunde zu offenen Fragen aus Suleman 2026 (`results/explore/`).
 
+## Bell-Domäne und Paper (Branch `paper-bell`)
+Zweiseitig exakt zertifizierte Quantenwerte von Bell-Ungleichungen: klassische Schranke durch Aufzählung, untere Schranke durch rational
+gerundete explizite Strategie, obere Schranke durch rationales NPA-Dualzertifikat (`asd/domains/bell.py`, `bell_domain.py`, Selbsttest 22/22).
+```bash
+pip install cvxpy sympy markdown
+python -m asd.selftest bell
+python -m asd.lab_loop --domain bell --recherche --runden 8 --budget-usd 6 --fragen projects/bell/startfragen.json
+python projects/bell/auswertung.py           # Präregistrierung H6 + abgeleitete Aussagen (per Code)
+python -m asd.paper --domain bell --lang en --titel "..." --autoren "..." --affiliation "..."
+python -m asd.pdf projects/bell/paper.md      # PDF ohne LaTeX (Chromium)
+```
+Ergebnis: `projects/bell/paper.pdf` (Belege: `paper_belege.json`, Laborprotokoll: `lab_report.md`, `state.json`, Präregistrierung H6 in `prereg.md`).
+
 ---
 
 ## Teil 1: Buchwald-Hartwig-Validierung (ursprüngliche Pipeline)
