@@ -36,9 +36,16 @@ TOPICS = {
 }
 
 
-def _get(url, timeout=30):
-    req = urllib.request.Request(url, headers=UA)
-    with urllib.request.urlopen(req, timeout=timeout) as r: return r.read().decode("utf-8", "replace")
+def _get(url, timeout=30, retries=4):
+    """HTTP GET mit Backoff bei 429/503 (öffentliche APIs drosseln geteilte IPs)."""
+    import urllib.error
+    for j in range(retries + 1):
+        try:
+            req = urllib.request.Request(url, headers=UA)
+            with urllib.request.urlopen(req, timeout=timeout) as r: return r.read().decode("utf-8", "replace")
+        except urllib.error.HTTPError as e:
+            if e.code not in (429, 500, 502, 503) or j == retries: raise
+            time.sleep(3 * 2 ** j)
 
 
 def search_arxiv(q, n=25):
@@ -63,6 +70,44 @@ def search_europepmc(q, n=25):
                                         "abstract": ab, "jahr": str(r.get("pubYear", "")), "autoren": r.get("authorString", ""),
                                         "url": f"https://doi.org/{doi}" if doi else f"https://europepmc.org/article/{r.get('source')}/{r.get('id')}"})
     return out
+
+
+def _crossref_doc(m):
+    ab = re.sub(r"<[^>]+>", " ", m.get("abstract", "") or ""); ab = " ".join(ab.split())
+    title = " ".join((m.get("title") or [""])[0].split())
+    year = str(((m.get("issued") or {}).get("date-parts") or [[""]])[0][0])
+    aut = ", ".join(f"{a.get('given', '')} {a.get('family', '')}".strip() for a in (m.get("author") or [])[:8])
+    return {"id": f"doi:{m['DOI']}", "titel": title, "abstract": ab, "jahr": year, "autoren": aut, "url": f"https://doi.org/{m['DOI']}",
+            "quelle_api": "crossref", "refs": [r["DOI"] for r in (m.get("reference") or []) if r.get("DOI")]}
+
+
+def search_crossref(q, n=25):
+    """Crossref: Zeitschriftenartikel mit DOI (Abstract oft vorhanden, sonst nur Metadaten). Der DOI ist der Tool-Beleg."""
+    url = "https://api.crossref.org/works?" + urllib.parse.urlencode({"query.bibliographic": q, "rows": n})
+    return [_crossref_doc(m) for m in json.loads(_get(url))["message"]["items"] if m.get("title")]
+
+
+def crossref_doi(doi):
+    return _crossref_doc(json.loads(_get("https://api.crossref.org/works/" + urllib.parse.quote(doi)))["message"])
+
+
+def chain(corpus, top_ids, max_new=150, log=print):
+    """Zitationskette: Referenzlisten (Crossref) der wichtigsten Quellen auflösen und als neue Quellen aufnehmen."""
+    new = 0; refs = []
+    for i in top_ids:
+        doc = corpus.get(i)
+        if not doc or not i.startswith("doi:"): continue
+        try: d = crossref_doi(i[4:]) if not doc.get("refs") else doc
+        except Exception: continue
+        refs += d.get("refs", [])
+    for doi in dict.fromkeys(refs):
+        if new >= max_new: break
+        if f"doi:{doi}" in corpus: continue
+        try: corpus[f"doi:{doi}"] = crossref_doi(doi) | {"aus_kette": True}; new += 1
+        except Exception: continue
+        time.sleep(0.2)
+    log(f"Zitationskette: {len(set(refs))} Referenzen gefunden, {new} neue Quellen aufgenommen")
+    return new
 
 
 def local_docs(folder="literature", chunk_words=250):
@@ -103,18 +148,19 @@ def blocked(doc, sperre):
     return next((w for w in sperre if w in t), None)
 
 
-def run(topic, n_queries=10, per_query=25, keep=60, model_cheap="haiku", model_main="sonnet", log=print, spec=None):
+def run(topic, n_queries=10, per_query=25, keep=60, model_cheap="haiku", model_main="sonnet", log=print, spec=None, kette=0):
     """spec: {"ziel": str, "sperre": [..], "faktoren": [..]} für beliebige Themen; sonst TOPICS[topic]."""
     T = spec or TOPICS[topic]; T.setdefault("sperre", []); T.setdefault("faktoren", []); d = f"{KB}/{topic}"; os.makedirs(d, exist_ok=True); stats = {"start": time.strftime("%H:%M:%S")}
     # 1. Suchplanung (günstiges Modell)
     qs = ask_json(f"Forschungsziel: {T['ziel']}\n\nErzeuge {n_queries} verschiedene, kurze englische Suchanfragen (3-6 Wörter) für "
                   "arXiv bzw. Europe PMC, die unterschiedliche Aspekte abdecken (Mechanismus, einzelne Faktoren, Gegenbeispiele, Übersichten). "
-                  'JSON: {"queries": ["...", ...]}', model=model_cheap, salt=f"research-{topic}-q")["queries"][:n_queries]
+                  'JSON: {"queries": ["...", ...]}', model=model_cheap, salt=f"research-{topic}-q{n_queries}")["queries"][:n_queries]
+    qs = list(dict.fromkeys(qs + list(T.get("klassiker", []))))
     log(f"Suchanfragen: {qs}")
     # 2. Abruf (Code)
     corpus, seen = {}, set()
     for q in qs:
-        for src in (search_arxiv, search_europepmc):
+        for src in (search_arxiv, search_europepmc) + ((search_crossref,) if T.get("crossref") else ()):
             try: docs = src(q, per_query)
             except Exception as e: log(f"Abruf-Fehler {src.__name__} '{q}': {e}"); docs = []
             for doc in docs:
@@ -124,6 +170,7 @@ def run(topic, n_queries=10, per_query=25, keep=60, model_cheap="haiku", model_m
             time.sleep(1.0)                                  # arXiv-Richtlinie: höflich abfragen
     for doc in local_docs():                                  # eigene Dateien des Teams in literature/
         corpus.setdefault(doc["id"], doc)
+    stats_abgerufen_direkt = len(corpus)
     gesperrt = {i: w for i, doc in corpus.items() if (w := blocked(doc, T["sperre"]))}
     pool = {i: doc for i, doc in corpus.items() if i not in gesperrt}
     stats.update(abgerufen=len(corpus), gesperrt=len(gesperrt)); log(f"{len(corpus)} Quellen, {len(gesperrt)} durch Leck-Filter gesperrt")
@@ -137,7 +184,22 @@ def run(topic, n_queries=10, per_query=25, keep=60, model_cheap="haiku", model_m
         for e in r.get("scores", []):
             try: scores[batch[int(e["j"])]] = float(e["s"])
             except (KeyError, ValueError, IndexError, TypeError): pass
-    top = sorted(scores, key=scores.get, reverse=True)[:keep]; stats["gesichtet"] = len(scores); stats["ausgewählt"] = len(top)
+    top = sorted(scores, key=scores.get, reverse=True)[:keep]
+    if kette:                                                  # Zitationskette ab den relevantesten Quellen, neue Quellen ebenfalls sichten
+        before = set(corpus); chain(corpus, top[:kette], log=log)
+        added = {i: corpus[i] for i in set(corpus) - before if not blocked(corpus[i], T["sperre"])}
+        pool.update(added); ids2 = list(added)
+        for b in range(0, len(ids2), 25):
+            batch = ids2[b:b + 25]
+            listing = "\n".join(f"[{j}] {pool[i]['titel']} — {pool[i]['abstract'][:300]}" for j, i in enumerate(batch))
+            r = ask_json(f"Forschungsziel: {T['ziel']}\n\nBewerte jede Quelle 0-10 nach Relevanz für das Ziel.\n{listing}\n\n"
+                         'JSON: {"scores": [{"j": 0, "s": 7}, ...]}', model=model_cheap, salt=f"research-{topic}-screen-kette-{b}")
+            for e in r.get("scores", []):
+                try: scores[batch[int(e["j"])]] = float(e["s"])
+                except (KeyError, ValueError, IndexError, TypeError): pass
+        top = sorted(scores, key=scores.get, reverse=True)[:keep]
+    top = [i for i in top if len(pool[i]["abstract"]) >= 150] or top        # Extraktion braucht Text (Zitat muss aus dem Abstract kommen)
+    stats.update(abgerufen=len(corpus), gesichtet=len(scores), ausgewählt=len(top))
     # 4. Extraktion mit wörtlichen Zitaten (Hauptmodell, 6 Abstracts pro Aufruf)
     facts = []
     fac = f" Wenn ein Befund einen der Faktoren {T['faktoren']} betrifft, gib zusätzlich 'faktor' und 'stufe' (Name der Substanz) und 'richtung' (+1 höhere, -1 niedrigere Ausbeute) an." if T["faktoren"] else ""
@@ -151,11 +213,25 @@ def run(topic, n_queries=10, per_query=25, keep=60, model_cheap="haiku", model_m
         facts += r.get("befunde", [])
     # 5. Zitat-Prüfer (Code)
     ok = verify_facts(facts, pool); stats.update(befunde=len(facts), verifiziert=len(ok))
+    classify(ok, T, model_cheap, topic)
     log(f"{len(facts)} Befunde extrahiert, {len(ok)} Zitate per Code bestätigt, {len(facts) - len(ok)} verworfen")
     json.dump({"thema": topic, "ziel": T["ziel"], "suchanfragen": qs, "stats": stats, "gesperrt": gesperrt,
                "korpus": corpus, "scores": scores, "befunde": facts}, open(f"{d}/kb.json", "w"), ensure_ascii=False, indent=1)
     write_md(topic, T, qs, stats, ok, gesperrt, corpus)
     return ok, stats
+
+
+def classify(facts, T, model, topic):
+    """Evidenzstatus je bestätigtem Befund: bewiesen | numerisch | experimentell | vermutet (aus dem Wortzitat beurteilt)."""
+    for b in range(0, len(facts), 20):
+        batch = facts[b:b + 20]
+        listing = "\n".join(f"[{j}] {f['aussage']} — Zitat: „{f['zitat']}“" for j, f in enumerate(batch))
+        try:
+            r = ask_json(f"Ordne jedem Befund seinen Evidenzstatus zu, nur nach dem Zitat: 'bewiesen' (mathematischer Beweis/Theorem), 'numerisch' "
+                         "(Simulation/Rechnung), 'experimentell' (Messung), 'vermutet' (Behauptung, Hypothese, Modellargument ohne Beweis).\n"
+                         f'{listing}\n\nJSON: {{"status": [{{"j": 0, "s": "bewiesen"}}, ...]}}', model=model, salt=f"research-{topic}-classify-{b}")
+            for e in r.get("status", []): batch[int(e["j"])]["status"] = e["s"]
+        except Exception: pass
 
 
 def _resolve(qid, pool):
@@ -195,6 +271,14 @@ def write_md(topic, T, qs, stats, ok, gesperrt, corpus):
             extra = f" *(Faktor {f['faktor']}={f['stufe']}, Richtung {f.get('richtung')})*" if f.get("faktor") else ""
             L.append(f"- {f['aussage']}{extra}  \n  > „{f['zitat']}“ — {f['titel']} ({f['jahr']}), [{f['quelle']}]({f['url']})")
         L.append("")
+    refs = {f["quelle"]: f for f in ok}
+    L += ["## Literaturverzeichnis (nur per Tool abgerufene Quellen mit Befund)", ""] + [f"- {f['titel']} ({f['jahr']}). [{q}]({f['url']})" for q, f in sorted(refs.items(), key=lambda x: x[1]["jahr"])] + [""]
+    K = ["# Bekannte Resultate (known_results.md)", "", f"Thema: {T['ziel']}", "",
+         "Jede Zeile: Befund, Evidenzstatus (aus dem Wortzitat beurteilt), Quelle (DOI bzw. arXiv-ID, per Tool abgerufen). Zitat per Code im Abstract bestätigt.", "",
+         "| Status | Befund | Quelle |", "|---|---|---|"]
+    for f in sorted(ok, key=lambda f: ["bewiesen", "numerisch", "experimentell", "vermutet"].index(f.get("status", "vermutet")) if f.get("status", "vermutet") in ["bewiesen", "numerisch", "experimentell", "vermutet"] else 4):
+        K.append(f"| {f.get('status', '?')} | {f['aussage'].replace('|', '/')} | [{f['quelle']}]({f['url']}) |")
+    open(f"{KB}/{topic}/known_results.md", "w").write("\n".join(K) + "\n")
     L += ["## Durch Leck-Filter gesperrt", ""] + [f"- {corpus[i]['titel']} ({corpus[i]['jahr']}) — Treffer: „{w}“" for i, w in list(gesperrt.items())[:40]]
     open(f"{KB}/{topic}/wissensstand.md", "w").write("\n".join(L) + "\n")
 

@@ -107,6 +107,12 @@ class ProofreadingDomain(Domain):
     name = "proofreading"
     recherche_ziel = ("Thermodynamische Grenzen von Kinetic Proofreading: Zielkonflikt zwischen Fehlerrate, Energieverbrauch (Dissipation) und "
                       "Geschwindigkeit; Hopfield-Ninio-Grenze; Pareto-Fronten; Thermodynamic Uncertainty Relations in biochemischen Netzwerken.")
+    recherche_klassiker = ["Hopfield kinetic proofreading", "Ninio kinetic amplification enzyme discrimination", "Bennett thermodynamics of computation proofreading",
+                           "Murugan Huse Leibler speed dissipation error kinetic proofreading", "Sartori Pigolotti kinetic versus energetic discrimination",
+                           "Sartori Pigolotti thermodynamics of error correction", "Ehrenberg Blomberg thermodynamic constraints kinetic proofreading",
+                           "Rao Peliti thermodynamics of accuracy kinetic proofreading", "Wong Amir Lebovitz speed accuracy energy proofreading",
+                           "thermodynamic uncertainty relation kinetic proofreading", "Barato Seifert thermodynamic uncertainty relation"]
+    recherche_crossref = True
     kontext = ("Ein Enzym unterscheidet ein richtiges Substrat R von einem falschen W. Beide durchlaufen dasselbe Markov-Netzwerk; W dissoziiert aus "
                "gebundenen Zuständen um den Faktor e^Delta schneller (Delta = ln 100, also e^-Delta = 0,01). Kennzahlen: Fehlerrate eta = J_W/J_R, "
                "Dissipation sigma = Entropieproduktion pro Produkt (kT), Geschwindigkeit v = J_R. Modellregeln: jede Kante hat eine Rückkante; lokale "

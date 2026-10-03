@@ -59,6 +59,18 @@ python -m asd.paper --domain meinthema --titel "..." --autoren "A, B" --affiliat
 ```
 Ergebnis unter `projects/meinthema/`: `state.json`, `prereg.md`, `decisions.md`, `lab_report.md`, `runde*.json`, `paper.md/.tex/.pdf`.
 
+## 2a. Recherche (Scout) im Detail
+
+`--recherche` startet die große Recherche, bevor das Labor forscht:
+- 40 LLM-Suchanfragen plus die Klassiker aus `recherche_klassiker` (gezielt nach Autor und Titel)
+- Abruf aus arXiv, Europe PMC und Crossref (DOI als Tool-Beleg), dazu eigene Dateien aus `literature/`
+- Zitationskette: die Referenzlisten der 15 relevantesten Paper werden über Crossref aufgelöst
+- Sichtung aller Treffer (Haiku), Extraktion aus den 150 relevantesten (Sonnet), jedes Wortzitat per Code im Abstract geprüft
+- Evidenzstatus je Befund (bewiesen / numerisch / experimentell / vermutet) → `research/kb/<domain>/known_results.md`
+- Leck-Filter: Quellen mit Wörtern aus `recherche_sperre` werden gesperrt (z. B. das Paper mit dem Antwortschlüssel)
+Ergebnis: `research/kb/<domain>/wissensstand.md`, `known_results.md`, `kb.json` (Korpus, Scores, alle Befunde). Die geprüften
+Befunde gehen sortiert nach Evidenzstatus in den Kontext aller Agenten. `--recherche-neu` wiederholt den Scout.
+
 ## 3. Was eine gute Domäne ausmacht (sonst wird das Framework schlecht)
 
 1. **Der Prüfer ist das Produkt.** Er rechnet unabhängig nach: andere Auflösung, andere Methode oder exakt. Am besten liefert er

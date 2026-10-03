@@ -33,14 +33,18 @@ class Project:
 def scout(P, D, log):
     from .research import run as research_run
     ziel = getattr(D, "recherche_ziel", None) or D.kontext
-    ok, st = research_run(f"{D.name}", spec={"ziel": ziel, "sperre": list(getattr(D, "recherche_sperre", []))}, log=log)
-    P.s["wissen"] = [{"text": f["aussage"], "zitat": f["zitat"], "quelle": f["quelle"], "typ": f.get("typ"), "url": f.get("url")} for f in ok]
+    spec = {"ziel": ziel, "sperre": list(getattr(D, "recherche_sperre", [])), "klassiker": list(getattr(D, "recherche_klassiker", [])),
+            "crossref": bool(getattr(D, "recherche_crossref", True))}
+    ok, st = research_run(f"{D.name}", n_queries=40, per_query=30, keep=150, kette=15, spec=spec, log=log)
+    P.s["wissen"] = [{"text": f["aussage"], "zitat": f["zitat"], "quelle": f["quelle"], "typ": f.get("typ"), "url": f.get("url"), "status": f.get("status")} for f in ok]
     P.append("decisions.md", f"| {now()} | SCOUT | {st['abgerufen']} Quellen, {st['gesperrt']} gesperrt, {st['verifiziert']} Befunde mit per Code bestätigtem Zitat | research/kb/{D.name}/wissensstand.md |")
 
 
-def wissen_text(P, n=25):
+def wissen_text(P, n=40):
     w = P.s["wissen"][:n]
-    lit = "\n".join(f"- {x['text']} [{x['quelle']}]" for x in w)
+    rank = {"bewiesen": 0, "numerisch": 1, "experimentell": 2, "vermutet": 3}
+    w = sorted(P.s["wissen"], key=lambda x: rank.get(x.get("status"), 4))[:n]
+    lit = "\n".join(f"- ({x.get('status', '?')}) {x['text']} [{x['quelle']}]" for x in w)
     eig = "\n".join(f"- [{c['id']}] {c['text']} (geprüft: {c['grund'][:150]})" for c in P.s["claims"] if c["status"] == "bestätigt")
     wid = "\n".join(f"- {x}" for x in P.s["widerlegt"][-10:])
     return f"Literatur (Zitate per Code geprüft):\n{lit or '-'}\n\nEigene geprüfte Ergebnisse:\n{eig or '-'}\n\nNicht bestätigt / widerlegt:\n{wid or '-'}"
@@ -95,14 +99,14 @@ def lernen(P, D, frage, res, runde):
 
 def main():
     ap = argparse.ArgumentParser(); ap.add_argument("--domain", required=True); ap.add_argument("--runden", type=int, default=4)
-    ap.add_argument("--budget-usd", type=float, default=3.0); ap.add_argument("--recherche", action="store_true")
+    ap.add_argument("--budget-usd", type=float, default=3.0); ap.add_argument("--recherche", action="store_true"); ap.add_argument("--recherche-neu", action="store_true", help="Scout erneut ausführen")
     ap.add_argument("--fragen", default="", help="JSON-Datei mit Startfragen [{frage: ...}]"); a = ap.parse_args()
     D = get_domain(a.domain); P = Project(a.domain); log = lambda m: (print(m, flush=True), P.append("lab_report.md", f"- {now()} {m}"))
     if not P.s["runden"]: P.append("decisions.md", "| Zeit | Agent | Entscheidung | Beleg |\n|---|---|---|---|")
     ok, _ = selftest.run(a.domain, log=lambda m: None)
     log(f"Selbsttest des Prüfers: {'bestanden' if ok else 'NICHT bestanden'}")
     if not ok: raise SystemExit("Abbruch: Der Prüfer besteht seinen Selbsttest nicht. Erst den Prüfer reparieren.")
-    if a.recherche and not P.s["wissen"]: scout(P, D, log)
+    if a.recherche and (not P.s["wissen"] or a.recherche_neu): scout(P, D, log)
     if a.fragen and not P.s["fragen"]:
         for q in json.load(open(a.fragen)): q.update(id=f"F{len(P.s['fragen']) + 1}", status="offen"); P.s["fragen"].append(q)
     if not P.s["fragen"]: integrator_fragen(P, D, salt=str(len(P.s["runden"])))
