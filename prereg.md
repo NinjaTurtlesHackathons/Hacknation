@@ -42,3 +42,6 @@
 **H3b:** Trefferquote B > A2, gleicher Test.
 **H3c:** Anteil falscher (nicht enthaltener) Antworten B < A1 und B < A2, gleicher Test.
 Kosten (USD) und Laufzeit je Bedingung werden berichtet. Ergebnisse werden berichtet, egal wie sie ausfallen. Benjamini-Hochberg über H3a–c (m = 3, q = 0,1).
+
+### Nachtrag H3, 2026-10-03 20:30: Fehlerkorrektur im Prüfer (während Lauf B)
+Der Prüfer verwarf Intervalle der Breite genau 0,05 wegen Gleitkomma-Rundung (8,63 − 8,58 > 0,05). Die Regel „Intervallbreite ≤ 0,05“ war inklusiv gemeint; die Prüfung nutzt jetzt `<= 0.05 + 1e-9`. Betroffen war bis dahin nur Q7, Lauf 0 (alle 4 Forscher hatten 8,58–8,63 angegeben). Der Lauf wurde mit identischen, gecachten LLM-Antworten neu bewertet. Die ursprüngliche Datei liegt unter `results/benchmark/B_Q7_s0_vor_bugfix.json`. Sonst bleibt alles unverändert.
