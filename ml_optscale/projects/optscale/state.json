@@ -648,7 +648,7 @@
    "neuheit": 0.6,
    "machbarkeit": 0.7,
    "id": "F3",
-   "status": "offen"
+   "status": "beantwortet"
   },
   {
    "frage": "Welche Optimierer gewinnen unter heavy-tailed Gradientenrauschen (student, df <= 2) auf der rotierten Matrix-Quadratik bei getunter Lernrate: Clipping, Signum, Adam, Muon oder Shampoo gegen SGD?",
@@ -664,7 +664,7 @@
    "neuheit": 0.6,
    "machbarkeit": 0.8,
    "id": "F5",
-   "status": "offen"
+   "status": "beantwortet"
   },
   {
    "frage": "Senken Lernraten-Schedules (cosine, linear, wsd) den Endverlust gegenüber konstanter Lernrate bei gleichem Tuning-Aufwand, auf verrauschten Quadratiken und im nicht-konvexen MLP?",
@@ -697,10 +697,243 @@
    "machbarkeit": 1.0,
    "id": "F9",
    "status": "offen"
+  },
+  {
+   "frage": "Gilt im Regime b-1 < a der Exponent b-1 für RF (über P) und Ridge (über N) bei mehreren (a,b)-Paaren, z.B. (1,2), (1.5,2.5), (2,2.5), (2,3)? Wir messen beide Kurven mit höherer Auflösung (P bis 512, N bis 1024, mehrere Seeds) in zwei Fenstern und vergleichen mit dem Abschneide-Exponenten b-1, und prüfen einzelne Fälle mit dem Typ 'exponent'.",
+   "begruendung": "Gegenprobe und Absicherung: Bisher ist nur (a=1, b=2) geprüft. Die Behauptung 'RF und Ridge folgen b-1 bei b-1 < a' ist ohne weitere Punkte nicht verallgemeinert. Das Regime ist mit P <= 512 und N <= 1024 gut auflösbar, weil die Exponenten klein (<= 1,5) sind.",
+   "neuheit": 0.5,
+   "machbarkeit": 0.9,
+   "id": "F10",
+   "status": "offen",
+   "aus_runde": 1
+  },
+  {
+   "frage": "Bei kleinem a und großem b (z.B. a=0.5, b=3.5, Abschneide-Exponent 2,5): Ist die gemessene Steigung von RF und Ridge wirklich kleiner als b-1, oder nur ein Endlichkeitseffekt? Wir messen die lokale Steigung in mehreren Fenstern (P=8-64, 32-128, 64-512), mit zwei Rauschniveaus und mehreren Ridge-Werten, und prüfen, ob sie gegen einen Grenzwert wie 2a oder 1-1/a-artige Formeln konvergiert, statt gegen b-1. Danach wird ein exponent-Check für den besten Kandidaten eingereicht.",
+   "begruendung": "Das ist die offene Grenze des letzten Ergebnisses (Konfidenz 0,4). Aus der Fensterabhängigkeit der Steigung lässt sich trennen, ob es sich um eine echte Sättigung des Exponenten oder um einen Vor-Asymptotik-Effekt handelt. Zusätzlich liefert ein Kandidat für den Sättigungsexponenten ein prüfbares Skalierungsgesetz. Wegen M=2000 und P <= 512 ist die Auflösung begrenzt, daher ist die Machbarkeit mittel.",
+   "neuheit": 0.7,
+   "machbarkeit": 0.6,
+   "id": "F11",
+   "status": "offen",
+   "aus_runde": 1
+  },
+  {
+   "frage": "Wie hängt der Vorteil von Muon und Shampoo gegenüber Adam kontinuierlich vom Grad der Rotation und vom Krümmungs-Ungleichgewicht a_L − a_R ab, und wo kippt das Vorzeichen? Dazu wird ein Raster aus rotiert ∈ {false, true} und (a_L, a_R) ∈ {(3,3), (3,1), (3,0.1), (1,1), (0.1,0.1)} mit je eigenem LR-Tuning und frischen Seeds geprüft. Zusätzlich wird getrennt geprüft, ob die Rotation oder der Unterschied a_L ≠ a_R den Effekt treibt.",
+   "begruendung": "Die Antwort des letzten Ergebnisses vermengt zwei Faktoren: Rotation und a_L ≠ a_R. Sie schreibt den Effekt der Rotation zu, nennt aber a_L ≠ a_R als Bedingung. Das Ergebnis ist teils inkonsistent, weil die Prüfung a_L = a_R = 3 unrotiert nur Adam gegen Muon testet. Dort schlägt Adam Muon schon laut [optscale-R2]. Ein faktorielles Design trennt die Faktoren, deckt eine mögliche Verwechslung auf und liefert Grenzen. Außerdem ist die Behauptung 'bis zu 10x' bisher nicht durch eine Prüfung belegt. Sie muss mit Verhältnissen aus dem Tuning nachgemessen werden. Shampoo sollte als eigener Arm gegen Adam geprüft werden, nicht nur Muon.",
+   "neuheit": 0.6,
+   "machbarkeit": 0.9,
+   "id": "F12",
+   "status": "offen",
+   "aus_runde": 2
+  },
+  {
+   "frage": "Bleibt der Vorteil von Muon und Shampoo gegenüber Adam bei heavy-tailed Gradientenrauschen (Student-t mit df = 1,5 und df = 3 gegenüber Gauß) auf dem rotierten Problem bestehen, oder dreht sich die Rangfolge? Hier werden clip_sgd und signum als Gegenproben mitgeführt, und die Lernrate wird je Arm getunt.",
+   "begruendung": "Die Literatur sagt für Sign- und Muon-artige Verfahren unter heavy-tailed Rauschen scharfe Raten voraus. Zugleich ist für Adam ohne Clipping die Rate suboptimal. Das Labor kann das direkt prüfen, weil es ein Student-Rauschen mit df ≤ 2 (unendliche Varianz) gibt. Das prüft, ob der Rotationsvorteil robust gegenüber der Rauschart ist, und liefert eine Gegenprobe zur rauschfreien Aussage. Ob die Behauptungen aus der Literatur im Labor gelten, ist offen. Ein Vergleichstest mit frischen Seeds ist ohne Weiteres machbar.",
+   "neuheit": 0.7,
+   "machbarkeit": 0.85,
+   "id": "F13",
+   "status": "offen",
+   "aus_runde": 2
   }
  ],
- "claims": [],
+ "claims": [
+  {
+   "id": "optscale-R1",
+   "frage": "Folgen Ridge-Regression (über N) und das lineare Random-Feature-Modell (über P) denselben Exponenten wie das Abschneiden auf P Eigenrichtungen, oder gibt es Regime (a, b), in denen sie abweichen?",
+   "text": "Im linearen Modell mit Spektrum lambda_k = k^-1.0 und Zielanteilen k^-2.0 fällt der Verlust des linearen Random-Feature-Modells über P wie x^-1.0 (numerischer Fit des Prüfers in zwei Fenstern, Toleranz 0.1).",
+   "interpretation_ungeprueft": "Teilweise: Im Regime b-1 < a (z.B. a=1, b=2) folgen RF und Ridge näherungsweise dem Abschneide-Exponenten b-1. Bei kleinem a und großem b (z.B. a=0.4–0.6, b=3.5) liegen die gemessenen RF- und Ridge-Steigungen deutlich unter b-1 = 2,5. Eine Abweichung ist dort wahrscheinlich, die asymptotischen Exponenten sind aber nicht bestätigt.",
+   "pruefung": {
+    "typ": "exponent",
+    "kurve": "rf",
+    "a": 1.0,
+    "b": 2.0,
+    "exponent": 1.0
+   },
+   "grund": "Prüfer-Fit rf (a=1.0, b=2.0): Exponent 0.9909 (Fenster 1) und 1.0540 (Fenster 2), behauptet 1.0, feste Toleranz 0.1",
+   "level": "observed",
+   "status": "bestätigt",
+   "red_team": [
+    {
+     "pruefung": {
+      "typ": "exponent",
+      "kurve": "rf",
+      "a": 0.5,
+      "b": 3.5,
+      "exponent": 1.0
+     },
+     "idee": "Das lineare Random-Feature-Modell hat bei endlichem P eine effektive Ridge-Regularisierung der Größe ~P^-a. Der Verlust skaliert daher wie P^-min(b-1, 2a), er sättigt also bei 2a. Bei a=0,5 und b=3,5 gilt 2a=1,0 < b-1=2,5. Der RF-Exponent ist dort 1,0 und nicht der Abschneide-Exponent 2,5. Das widerlegt die Behauptung, RF folge dem Abschneiden. Die Prüfung stützt zugleich die Aussage der Antwort, dass in diesem Regime eine Abweichung vorliegt.",
+     "bestanden": false,
+     "grund": "Prüfer-Fit rf (a=0.5, b=3.5): Exponent 0.6189 (Fenster 1) und 0.7694 (Fenster 2), behauptet 1.0, feste Toleranz 0.1"
+    },
+    {
+     "pruefung": {
+      "typ": "exponent",
+      "kurve": "rf",
+      "a": 0.3,
+      "b": 4.0,
+      "exponent": 0.6
+     },
+     "idee": "Zweiter Randfall mit noch kleinerem a und größerem b: Das Abschneiden liefert den Exponenten 3, die Sättigung 2a liefert 0,6. Der RF-Exponent min(b-1, 2a) = 0,6 weicht klar vom Abschneide-Exponenten ab. Das gilt asymptotisch und nicht nur durch Vorasymptotik, anders als die Antwort vermutet. Der Prüfer rechnet in höherer Auflösung nach.",
+     "bestanden": false,
+     "grund": "Prüfer-Fit rf (a=0.3, b=4.0): Exponent 0.3146 (Fenster 1) und 0.4394 (Fenster 2), behauptet 0.6, feste Toleranz 0.1"
+    }
+   ],
+   "runde": 1
+  },
+  {
+   "id": "optscale-R2",
+   "frage": "Wann schlagen Muon und Shampoo Adam: hängt der Vorteil davon ab, ob die Krümmung achsenparallel oder rotiert ist (Kronecker-Struktur vs. Diagonale)?",
+   "text": "Auf dem Problem {\"typ\": \"quadratisch\", \"rotiert\": false, \"a_L\": 3.0, \"a_R\": 3.0} mit 500 Schritten erreicht adam (const) einen kleineren relativen Endverlust als muon (const), beide mit selbst getunter Lernrate (Prüfer: 10 frische Seeds, p < 0.01, Verhältnis < 0.9).",
+   "interpretation_ungeprueft": "JA – der Vorteil von Muon und Shampoo hängt stark davon ab, ob die Krümmung rotiert ist. Bei rotierten Matrizen (a_L ≠ a_R) schlagen sie Adam um bis zu 10x; bei Diagonalmatrizen (a_L = a_R) ist der Vorteil klein oder negativ.",
+   "pruefung": {
+    "typ": "vergleich",
+    "problem": {
+     "typ": "quadratisch",
+     "rotiert": false,
+     "a_L": 3.0,
+     "a_R": 3.0
+    },
+    "steps": 500,
+    "a": {
+     "optimizer": "adam"
+    },
+    "b": {
+     "optimizer": "muon"
+    }
+   },
+   "grund": "Prüfer: adam/const (beste LR 2^-2) vs muon/const (beste LR 2^-5), je eigenes Tuning auf Seeds (100, 101, 102), Bewertung auf 10 frischen Seeds: geometr. Mittel rel. Endverlust 4.932e-23 vs 2.825e-04, Verhältnis 0.000 (Schwelle < 0.9), gepaarter Permutationstest p = 0.0008 (Schwelle < 0.01) | Prüfer: muon/const (beste LR 2^-4) vs adam/const (beste LR 2^-1), je eigenes Tuning auf Seeds (100, 101, 102), Bewertung auf 10 frischen Seeds: geometr. Mittel rel. Endverlust 3.093e-05 vs 2.605e-04, Verhältnis 0.119 (Schwelle < 0.9), gepaarter Permutationstest p = 0.0008 (Schwelle < 0.01)",
+   "level": "statistical",
+   "status": "bestätigt",
+   "red_team": [
+    {
+     "pruefung": {
+      "typ": "vergleich",
+      "problem": {
+       "typ": "quadratisch",
+       "rotiert": false,
+       "a_L": 3.0,
+       "a_R": 3.0
+      },
+      "steps": 500,
+      "a": {
+       "optimizer": "shampoo"
+      },
+      "b": {
+       "optimizer": "adam"
+      }
+     },
+     "idee": "Die Antwort behauptet, bei achsenparalleler (diagonaler) Krümmung sei der Vorteil von Shampoo und Muon klein oder negativ. Die Krümmung hat aber exakte Kronecker-Struktur (i^-a * j^-a). Der Kronecker-Vorkonditionierer L^-1/4 G R^-1/4 passt dazu auch ohne Rotation und sollte mit getunter Lernrate besser konditionieren als Adams diagonale Skalierung. Das Ergebnis aus dem Sparlauf (Adam 3.8e-23 gegen Muon 1.9e-4) betrifft nur Muon, nicht Shampoo. Es spricht also nicht gegen die Behauptung, dass Shampoo auch ohne Rotation gewinnt. Die behauptete Abhängigkeit von der Rotation wäre damit falsch.",
+     "bestanden": false,
+     "grund": "Optimum der Lernrate für ['a'] am Rand des Prüfer-Gitters 2^-16..2^4: nicht entscheidbar"
+    },
+    {
+     "pruefung": {
+      "typ": "vergleich",
+      "problem": {
+       "typ": "quadratisch",
+       "rotiert": true,
+       "a_L": 3.0,
+       "a_R": 0.1
+      },
+      "steps": 500,
+      "a": {
+       "optimizer": "adam"
+      },
+      "b": {
+       "optimizer": "muon"
+      }
+     },
+     "idee": "Der behauptete 10x-Vorteil von Muon bei Rotation stammt aus einem einzelnen Sparlauf mit eventuell schlecht getunter Lernrate, möglicherweise nur eines Arms. Bei unabhängigem Lernraten-Tuning und frischen Seeds kann Adam Muon auch im rotierten Fall schlagen. Muons Orthogonalisierung wirft die Singulärwert-Information weg und konvergiert dann auf der schlecht konditionierten Quadratik langsamer. Wenn Adam hier gewinnt, ist die Antwort falsch.",
+     "bestanden": false,
+     "grund": "Prüfer: adam/const (beste LR 2^-1) vs muon/const (beste LR 2^-4), je eigenes Tuning auf Seeds (100, 101, 102), Bewertung auf 10 frischen Seeds: geometr. Mittel rel. Endverlust 2.605e-04 vs 3.093e-05, "
+    }
+   ],
+   "runde": 2
+  }
+ ],
  "widerlegt": [],
- "runden": [],
- "kosten_usd": 0.612779
+ "runden": [
+  {
+   "runde": 1,
+   "frage": "F3",
+   "status": "beantwortet",
+   "red_team": [
+    {
+     "pruefung": {
+      "typ": "exponent",
+      "kurve": "rf",
+      "a": 0.5,
+      "b": 3.5,
+      "exponent": 1.0
+     },
+     "idee": "Das lineare Random-Feature-Modell hat bei endlichem P eine effektive Ridge-Regularisierung der Größe ~P^-a. Der Verlust skaliert daher wie P^-min(b-1, 2a), er sättigt also bei 2a. Bei a=0,5 und b=3,5 gilt 2a=1,0 < b-1=2,5. Der RF-Exponent ist dort 1,0 und nicht der Abschneide-Exponent 2,5. Das widerlegt die Behauptung, RF folge dem Abschneiden. Die Prüfung stützt zugleich die Aussage der Antwort, dass in diesem Regime eine Abweichung vorliegt.",
+     "bestanden": false,
+     "grund": "Prüfer-Fit rf (a=0.5, b=3.5): Exponent 0.6189 (Fenster 1) und 0.7694 (Fenster 2), behauptet 1.0, feste Toleranz 0.1"
+    },
+    {
+     "pruefung": {
+      "typ": "exponent",
+      "kurve": "rf",
+      "a": 0.3,
+      "b": 4.0,
+      "exponent": 0.6
+     },
+     "idee": "Zweiter Randfall mit noch kleinerem a und größerem b: Das Abschneiden liefert den Exponenten 3, die Sättigung 2a liefert 0,6. Der RF-Exponent min(b-1, 2a) = 0,6 weicht klar vom Abschneide-Exponenten ab. Das gilt asymptotisch und nicht nur durch Vorasymptotik, anders als die Antwort vermutet. Der Prüfer rechnet in höherer Auflösung nach.",
+     "bestanden": false,
+     "grund": "Prüfer-Fit rf (a=0.3, b=4.0): Exponent 0.3146 (Fenster 1) und 0.4394 (Fenster 2), behauptet 0.6, feste Toleranz 0.1"
+    }
+   ],
+   "sek": 755.9
+  },
+  {
+   "runde": 2,
+   "frage": "F5",
+   "status": "beantwortet",
+   "red_team": [
+    {
+     "pruefung": {
+      "typ": "vergleich",
+      "problem": {
+       "typ": "quadratisch",
+       "rotiert": false,
+       "a_L": 3.0,
+       "a_R": 3.0
+      },
+      "steps": 500,
+      "a": {
+       "optimizer": "shampoo"
+      },
+      "b": {
+       "optimizer": "adam"
+      }
+     },
+     "idee": "Die Antwort behauptet, bei achsenparalleler (diagonaler) Krümmung sei der Vorteil von Shampoo und Muon klein oder negativ. Die Krümmung hat aber exakte Kronecker-Struktur (i^-a * j^-a). Der Kronecker-Vorkonditionierer L^-1/4 G R^-1/4 passt dazu auch ohne Rotation und sollte mit getunter Lernrate besser konditionieren als Adams diagonale Skalierung. Das Ergebnis aus dem Sparlauf (Adam 3.8e-23 gegen Muon 1.9e-4) betrifft nur Muon, nicht Shampoo. Es spricht also nicht gegen die Behauptung, dass Shampoo auch ohne Rotation gewinnt. Die behauptete Abhängigkeit von der Rotation wäre damit falsch.",
+     "bestanden": false,
+     "grund": "Optimum der Lernrate für ['a'] am Rand des Prüfer-Gitters 2^-16..2^4: nicht entscheidbar"
+    },
+    {
+     "pruefung": {
+      "typ": "vergleich",
+      "problem": {
+       "typ": "quadratisch",
+       "rotiert": true,
+       "a_L": 3.0,
+       "a_R": 0.1
+      },
+      "steps": 500,
+      "a": {
+       "optimizer": "adam"
+      },
+      "b": {
+       "optimizer": "muon"
+      }
+     },
+     "idee": "Der behauptete 10x-Vorteil von Muon bei Rotation stammt aus einem einzelnen Sparlauf mit eventuell schlecht getunter Lernrate, möglicherweise nur eines Arms. Bei unabhängigem Lernraten-Tuning und frischen Seeds kann Adam Muon auch im rotierten Fall schlagen. Muons Orthogonalisierung wirft die Singulärwert-Information weg und konvergiert dann auf der schlecht konditionierten Quadratik langsamer. Wenn Adam hier gewinnt, ist die Antwort falsch.",
+     "bestanden": false,
+     "grund": "Prüfer: adam/const (beste LR 2^-1) vs muon/const (beste LR 2^-4), je eigenes Tuning auf Seeds (100, 101, 102), Bewertung auf 10 frischen Seeds: geometr. Mittel rel. Endverlust 2.605e-04 vs 3.093e-05, "
+    }
+   ],
+   "sek": 194.9
+  }
+ ],
+ "kosten_usd": 1.650437
 }
