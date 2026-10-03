@@ -1,0 +1,11 @@
+{
+ "antwort": {
+  "antwort": "kappa = ln(α/(−4β)) / (β−α) ≈ 0,955, mit α = −3/(2 y_inf) und β = y_inf/(1+y_inf²) − 1/(2 y_inf), wobei y_inf = sqrt((√17−1)/2) ≈ 1,2496",
+  "zahl": 0.955,
+  "konfidenz": 0.5,
+  "begruendung": "Für ν→∞ dominieren die kleinsten Dreierprodukte. Ich nehme ein rechteckiges Gitter τ = iy an, ohne zu prüfen, ob ein Gitter mit x ≠ 0 besser wäre. Zwei Dreiertypen konkurrieren: a = 2 y^(-3/2) mit Vielfachheit 6 und b = sqrt(1+y²)/sqrt(y) mit Vielfachheit 24. Die Gleichheit a = b liefert y_inf² = (√17−1)/2. Für f = 6a^(-ν) + 24b^(-ν) liefert die Minimierung (b/a)^ν = −4β/α, also y_ν = y_inf − κ/ν mit κ = ln(α/(−4β))/(β−α) ≈ 0,955. α und β sind die logarithmischen Ableitungen von a und b nach y."
+ },
+ "frage": "Q11",
+ "salt": 1,
+ "bedingung": "A1"
+}

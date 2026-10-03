@@ -1,0 +1,11 @@
+{
+ "key": "5fccf456c26ae5ef05d82a35",
+ "model": "claude-sonnet-5-5",
+ "salt": "A1-2",
+ "system": "Du bist ein Experte für Gitter-Energieminimierung und mathematische Physik. Antworte nur mit JSON.",
+ "prompt": "Betrachtet wird die Dreikörper-Energie T_nu(L) = Summe über alle Paare verschiedener Gittervektoren x != y, beide ungleich 0, von (|x| |y| |x-y|)^(-nu), für Bravais-Gitter L mit Kovolumen 1. In 2D wird ein Gitter durch tau = x + i y im Fundamentalbereich (0 <= x <= 1/2, |tau| >= 1) beschrieben: L = (Z + tau Z)/sqrt(Im tau). Gesucht ist das Gitter mit minimaler Energie.\n\nFRAGE: Ab welchem Exponenten nu_2 ist das quadratische Gitter kein lokales Minimum mehr (Instabilität gegen rechteckige Verformung)? Gib einen Zahlenwert an.\n\nAntworte am Ende als JSON: {\"antwort\": \"<Kategorie oder kurze Antwort; \\\"unbekannt\\\" wenn du es nicht weißt>\", \"zahl\": <Zahl oder null>, \"konfidenz\": <0..1>, \"begruendung\": \"<kurz>\"}",
+ "response": "```json\n{\"antwort\": \"unbekannt\", \"zahl\": null, \"konfidenz\": 0.05, \"begruendung\": \"Der Schwellenwert nu_2 folgt aus dem Vorzeichenwechsel der zweiten Ableitung von T_nu entlang tau = i*a bei a = 1. Wegen der Invarianz unter tau -> -1/tau ist das quadratische Gitter dort ein kritischer Punkt. Den Wert kenne ich nicht aus der Literatur, und ich habe ihn hier nicht berechnet. Eine geratene Zahl wäre nicht belastbar.\"}\n```",
+ "cost_usd": 0.013098,
+ "sek": 9.4,
+ "ts": "2026-10-03T20:21:58"
+}

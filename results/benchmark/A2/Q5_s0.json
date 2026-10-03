@@ -1,0 +1,28 @@
+{
+ "antwort": {
+  "antwort": "ν* ≈ 3,918",
+  "zahl": 3.918,
+  "konfidenz": 0.8,
+  "begruendung": "Ich habe T_ν für das hexagonale und das quadratische Gitter numerisch mit Abschneideradius N berechnet. Die Differenz E(hex) − E(quadrat) wechselt bei ν ≈ 3,918 das Vorzeichen, und dieser Wert ist über N = 8, 12 und 16 stabil. Unterhalb davon ist das hexagonale Gitter besser, oberhalb das quadratische. Andere Gitter im Fundamentalbereich habe ich nicht geprüft. Dass das globale Minimum genau zwischen diesen beiden Gittern wechselt, ist deshalb eine Annahme."
+ },
+ "kosten_usd": 0.022493600000000002,
+ "tool_calls": 1,
+ "verstoss": [],
+ "sek": 15.4,
+ "transkript_tools": [
+  {
+   "type": "tool_use",
+   "id": "toolu_01FFNk3t1ZMUAoRvYNCdGSRD",
+   "name": "Bash",
+   "input": {
+    "command": "cat > a.py <<'E'\nimport numpy as np\nfrom scipy.optimize import brentq\ndef T(tau,nu,N):\n    s=tau.imag**.5\n    r=np.arange(-N,N+1)\n    a,b=np.meshgrid(r,r)\n    p=((a+tau.real*b)+1j*tau.imag*b)/s\n    p=p[(a!=0)|(b!=0)]\n    p=p[np.abs(p)<N*0.8/ s**0 *1.0]\n    n=np.abs(p)\n    d=np.abs(p[:,None]-p[None,:])\n    with np.errstate(divide='ignore'):\n        M=(n[:,None]*n[None,:]*d)**(-nu)\n    M[~np.isfinite(M)]=0\n    return M.sum()\nh=np.exp(1j*np.pi/3);q=1j\nfor N in (8,12,16):\n    f=lambda nu:T(h,nu,N)-T(q,nu,N)\n    print(N,[round(f(nu),4) for nu in (2,3,4,5,6)])\n    try:print(brentq(f,1.8,8))\n    except Exception as e:print(e)\nE\npython3 a.py"
+   },
+   "caller": {
+    "type": "direct"
+   }
+  }
+ ],
+ "frage": "Q5",
+ "salt": 0,
+ "bedingung": "A2"
+}

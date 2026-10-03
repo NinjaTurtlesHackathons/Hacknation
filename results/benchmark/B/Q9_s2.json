@@ -1,0 +1,1262 @@
+{
+ "antwort": {
+  "antwort": "bcc",
+  "zahl": null,
+  "konfidenz": 0.93,
+  "pruefung": {
+   "typ": "argmin3d",
+   "nu": 5,
+   "erwartet": "bcc"
+  },
+  "begruendung": "Bei nu=5 gilt T(bcc)=13.1146 < T(fcc)=13.3809 < T(sc)=16.2166. Die Bain-Pfad-Werte (c/a=1.2: 13.280, 1.3: 13.354) liegen darüber, und die Krümmung bei bcc ist positiv (17.8), während FCC ein Sattel ist (-3.17). Die globale BFGS-Suche über alle 3D-Gitter aus 8 Zufallsstarts konvergiert in den dargestellten Läufen auf bcc.",
+  "stimmen": "2/4 (geprüft: 4)"
+ },
+ "level": "computed (Code-Prüfer bestanden)",
+ "forscher": [
+  {
+   "strategie": "numeriker",
+   "runden": [
+    {
+     "ueberlegung": "Zuerst direkt die Energien von bcc, fcc und sc bei nu=5 vergleichen, dann mit minimize_nd (d=3) global nach anderen Gittern suchen. Zusätzlich Bain-Pfad (c/a-Scan) prüfen, ob ein tetragonales Gitter zwischen bcc und fcc niedriger liegt, und Bain-Krümmung bei bcc/fcc als Stabilitätscheck.",
+     "plan": [
+      {
+       "op": "energy3d",
+       "args": {
+        "name_or_ca": "bcc",
+        "nu": 5
+       }
+      },
+      {
+       "op": "energy3d",
+       "args": {
+        "name_or_ca": "fcc",
+        "nu": 5
+       }
+      },
+      {
+       "op": "energy3d",
+       "args": {
+        "name_or_ca": "sc",
+        "nu": 5
+       }
+      },
+      {
+       "op": "minimize_nd",
+       "args": {
+        "d": 3,
+        "nu": 5,
+        "starts": 8,
+        "seed": 1
+       }
+      },
+      {
+       "op": "energy3d",
+       "args": {
+        "name_or_ca": 1.2,
+        "nu": 5
+       }
+      },
+      {
+       "op": "energy3d",
+       "args": {
+        "name_or_ca": 1.3,
+        "nu": 5
+       }
+      },
+      {
+       "op": "bain_curvature",
+       "args": {
+        "ca": 1.0,
+        "nu": 5
+       }
+      },
+      {
+       "op": "bain_curvature",
+       "args": {
+        "ca": 1.41421356,
+        "nu": 5
+       }
+      }
+     ]
+    },
+    {
+     "antwort": "bcc",
+     "zahl": null,
+     "konfidenz": 0.93,
+     "pruefung": {
+      "typ": "argmin3d",
+      "nu": 5,
+      "erwartet": "bcc"
+     },
+     "begruendung": "Bei nu=5 gilt T(bcc)=13.1146 < T(fcc)=13.3809 < T(sc)=16.2166. Die Bain-Pfad-Werte (c/a=1.2: 13.280, 1.3: 13.354) liegen darüber, und die Krümmung bei bcc ist positiv (17.8), während FCC ein Sattel ist (-3.17). Die globale BFGS-Suche über alle 3D-Gitter aus 8 Zufallsstarts konvergiert in den dargestellten Läufen auf bcc."
+    }
+   ],
+   "experimente": [
+    8,
+    9,
+    10,
+    24,
+    25,
+    26,
+    27,
+    28
+   ],
+   "final": {
+    "antwort": "bcc",
+    "zahl": null,
+    "konfidenz": 0.93,
+    "pruefung": {
+     "typ": "argmin3d",
+     "nu": 5,
+     "erwartet": "bcc"
+    },
+    "begruendung": "Bei nu=5 gilt T(bcc)=13.1146 < T(fcc)=13.3809 < T(sc)=16.2166. Die Bain-Pfad-Werte (c/a=1.2: 13.280, 1.3: 13.354) liegen darüber, und die Krümmung bei bcc ist positiv (17.8), während FCC ein Sattel ist (-3.17). Die globale BFGS-Suche über alle 3D-Gitter aus 8 Zufallsstarts konvergiert in den dargestellten Läufen auf bcc."
+   },
+   "pruefung": {
+    "bestanden": true,
+    "grund": "Energien bcc=13.114604, fcc=13.380899, sc=16.216579; Bain-Minimum bei c/a=1.000"
+   }
+  },
+  {
+   "strategie": "theoretiker",
+   "runden": [
+    {
+     "ueberlegung": "Symmetrie: bcc, fcc und sc sind die kubischen Kandidaten. Alle drei liegen auf dem Bain-Pfad (raumzentriert-tetragonal, c/a=1 bcc, sqrt(2) fcc; sc entspricht c/a=sqrt(1/2)... bzw. ueber Basiswechsel). Grenzfall nu->inf: Energie dominiert von kurzen Vektoren, also kleine Produkte |x||y||x-y|; Gitter mit vielen kurzen Dreiecken (hohe Kontaktzahl, fcc mit 12 Nachbarn und gleichseitigen Dreiecken) werden bei grossem nu bevorzugt, jedoch hohe Energie, da Dreiecke kurz sind - hier ist Minimierung gesucht, also eher Gitter mit weniger kurzen Dreiecken (bcc hat Dichte der kuerzesten Vektoren kleiner bei Kovolumen 1: kuerzeste Vektoren von bcc sind bei Kovolumen 1 laenger als sc). Bei nu=5 ist die Summe nicht nur von kuerzesten Paaren dominiert (Konvergenz erst fuer nu>3 in 3D, Summe ueber Paare: Konvergenz bei nu>~2), daher nicht eindeutig vorhersagbar. Test: direkter Energievergleich der drei Gitter bei nu=5 in zwei Aufloesungen, Bain-Pfad-Pruefung (Hesse bei bcc/fcc) und globale Suche in 3D.",
+     "plan": [
+      {
+       "op": "energy3d",
+       "args": {
+        "name_or_ca": "bcc",
+        "nu": 5
+       }
+      },
+      {
+       "op": "energy3d",
+       "args": {
+        "name_or_ca": "fcc",
+        "nu": 5
+       }
+      },
+      {
+       "op": "energy3d",
+       "args": {
+        "name_or_ca": "sc",
+        "nu": 5
+       }
+      },
+      {
+       "op": "energy_nd",
+       "args": {
+        "name": "bcc",
+        "nu": 5,
+        "R": [
+         6,
+         8
+        ]
+       }
+      },
+      {
+       "op": "energy_nd",
+       "args": {
+        "name": "fcc",
+        "nu": 5,
+        "R": [
+         6,
+         8
+        ]
+       }
+      },
+      {
+       "op": "energy_nd",
+       "args": {
+        "name": "sc",
+        "nu": 5,
+        "R": [
+         6,
+         8
+        ]
+       }
+      },
+      {
+       "op": "bain_curvature",
+       "args": {
+        "ca": 1.0,
+        "nu": 5
+       }
+      },
+      {
+       "op": "minimize_nd",
+       "args": {
+        "d": 3,
+        "nu": 5,
+        "starts": 8,
+        "seed": 1
+       }
+      }
+     ]
+    },
+    {
+     "antwort": "bcc",
+     "zahl": 13.1146,
+     "konfidenz": 0.93,
+     "pruefung": {
+      "typ": "argmin3d",
+      "nu": 5,
+      "erwartet": "bcc"
+     },
+     "begruendung": "Bei nu=5 ist T(bcc)=13.1146 kleiner als T(fcc)=13.3809 und T(sc)=16.2166, bestätigt in zwei Auflösungen (energy3d und energy_nd mit Richardson). Die globale BFGS-Suche über alle 3D-Bravais-Gitter aus 8 zufälligen Starts konvergiert in den sichtbaren Läufen stets auf bcc, und die Bain-Krümmung bei bcc ist positiv (17.78), also ein lokales Minimum entlang des Bain-Pfads."
+    }
+   ],
+   "experimente": [
+    17,
+    18,
+    19,
+    20,
+    21,
+    22,
+    23,
+    29
+   ],
+   "final": {
+    "antwort": "bcc",
+    "zahl": 13.1146,
+    "konfidenz": 0.93,
+    "pruefung": {
+     "typ": "argmin3d",
+     "nu": 5,
+     "erwartet": "bcc"
+    },
+    "begruendung": "Bei nu=5 ist T(bcc)=13.1146 kleiner als T(fcc)=13.3809 und T(sc)=16.2166, bestätigt in zwei Auflösungen (energy3d und energy_nd mit Richardson). Die globale BFGS-Suche über alle 3D-Bravais-Gitter aus 8 zufälligen Starts konvergiert in den sichtbaren Läufen stets auf bcc, und die Bain-Krümmung bei bcc ist positiv (17.78), also ein lokales Minimum entlang des Bain-Pfads."
+   },
+   "pruefung": {
+    "bestanden": true,
+    "grund": "Energien bcc=13.114604, fcc=13.380899, sc=16.216579; Bain-Minimum bei c/a=1.000"
+   }
+  },
+  {
+   "strategie": "skeptiker",
+   "runden": [
+    {
+     "ueberlegung": "Naheliegend wäre FCC oder BCC, aber ich lege mich nicht vorab fest. Zuerst direkte Energien von bcc, fcc, sc bei nu=5 vergleichen, dann entlang des Bain-Pfads (tetragonal) und per globaler 3D-Suche (minimize_nd) nach anderen Gittern suchen, die besser sein könnten. Die Bain-Krümmung bei FCC und BCC prüft lokale Stabilität. Zusätzlich Kontrolle mit höherer Auflösung R=[6,8].",
+     "plan": [
+      {
+       "op": "energy3d",
+       "args": {
+        "name_or_ca": "bcc",
+        "nu": 5
+       }
+      },
+      {
+       "op": "energy3d",
+       "args": {
+        "name_or_ca": "fcc",
+        "nu": 5
+       }
+      },
+      {
+       "op": "energy3d",
+       "args": {
+        "name_or_ca": "sc",
+        "nu": 5
+       }
+      },
+      {
+       "op": "bain_curvature",
+       "args": {
+        "ca": 1.0,
+        "nu": 5
+       }
+      },
+      {
+       "op": "bain_curvature",
+       "args": {
+        "ca": 1.41421356,
+        "nu": 5
+       }
+      },
+      {
+       "op": "energy_nd",
+       "args": {
+        "name": "bcc",
+        "nu": 5,
+        "R": [
+         6,
+         8
+        ]
+       }
+      },
+      {
+       "op": "energy_nd",
+       "args": {
+        "name": "fcc",
+        "nu": 5,
+        "R": [
+         6,
+         8
+        ]
+       }
+      },
+      {
+       "op": "minimize_nd",
+       "args": {
+        "d": 3,
+        "nu": 5,
+        "starts": 12,
+        "seed": 1
+       }
+      }
+     ]
+    },
+    {
+     "antwort": "bcc",
+     "zahl": 13.1146,
+     "konfidenz": 0.88,
+     "pruefung": {
+      "typ": "argmin_nd",
+      "d": 3,
+      "nu": 5,
+      "erwartet": "bcc"
+     },
+     "begruendung": "Bei nu=5 gilt T(bcc)=13.1146 < T(fcc)=13.3809 < T(sc)=16.2166, bestätigt in zwei unabhängigen Rechnungen (energy3d und energy_nd mit Richardson). Die Bain-Krümmung ist bei bcc positiv (17.8), bei fcc negativ (-3.17), fcc ist also nicht einmal lokal stabil. Die globale BFGS-Suche über alle 3D-Bravais-Gitter aus zufälligen Startbasen landete in allen sichtbaren Läufen bei bcc. Die Ausgabe ist abgeschnitten, daher habe ich nicht alle 12 Läufe gesehen, und eine unbekannte Struktur mit tieferer Energie ist nicht vollständig ausgeschlossen."
+    }
+   ],
+   "experimente": [
+    0,
+    2,
+    4,
+    11,
+    13,
+    14,
+    15,
+    30
+   ],
+   "final": {
+    "antwort": "bcc",
+    "zahl": 13.1146,
+    "konfidenz": 0.88,
+    "pruefung": {
+     "typ": "argmin_nd",
+     "d": 3,
+     "nu": 5,
+     "erwartet": "bcc"
+    },
+    "begruendung": "Bei nu=5 gilt T(bcc)=13.1146 < T(fcc)=13.3809 < T(sc)=16.2166, bestätigt in zwei unabhängigen Rechnungen (energy3d und energy_nd mit Richardson). Die Bain-Krümmung ist bei bcc positiv (17.8), bei fcc negativ (-3.17), fcc ist also nicht einmal lokal stabil. Die globale BFGS-Suche über alle 3D-Bravais-Gitter aus zufälligen Startbasen landete in allen sichtbaren Läufen bei bcc. Die Ausgabe ist abgeschnitten, daher habe ich nicht alle 12 Läufe gesehen, und eine unbekannte Struktur mit tieferer Energie ist nicht vollständig ausgeschlossen."
+   },
+   "pruefung": {
+    "bestanden": true,
+    "grund": "Prüfer-Suche d=3, nu=5.0, 4 Starts (Seed 1234): Gitter ['bcc', 'bcc', 'bcc', 'bcc'], T [13.1146, 13.1146, 13.1146, 13.1146], T(bcc)=13.11460, besser als bcc: 0"
+   }
+  },
+  {
+   "strategie": "sparsam",
+   "runden": [
+    {
+     "ueberlegung": "Ich kenne das Ergebnis nicht vorab. Zuerst vergleiche ich bcc, fcc und sc direkt bei nu=5 mit energy3d (bzw. energy_nd mit höherer Auflösung zur Robustheit). Danach prüfe ich entlang des Bain-Pfads (c/a-Werte nahe 1 und sqrt(2)), ob ein tetragonales Zwischengitter besser ist, und starte eine globale 3D-Suche über alle Bravais-Gitter, um 'anderes' auszuschließen. Die Bain-Krümmung bei bcc/fcc zeigt lokale Stabilität.",
+     "plan": [
+      {
+       "op": "energy3d",
+       "args": {
+        "name_or_ca": "bcc",
+        "nu": 5
+       }
+      },
+      {
+       "op": "energy3d",
+       "args": {
+        "name_or_ca": "fcc",
+        "nu": 5
+       }
+      },
+      {
+       "op": "energy3d",
+       "args": {
+        "name_or_ca": "sc",
+        "nu": 5
+       }
+      },
+      {
+       "op": "energy_nd",
+       "args": {
+        "name": "bcc",
+        "nu": 5,
+        "R": [
+         6,
+         8
+        ]
+       }
+      },
+      {
+       "op": "energy_nd",
+       "args": {
+        "name": "fcc",
+        "nu": 5,
+        "R": [
+         6,
+         8
+        ]
+       }
+      },
+      {
+       "op": "bain_curvature",
+       "args": {
+        "ca": 1.0,
+        "nu": 5
+       }
+      },
+      {
+       "op": "bain_curvature",
+       "args": {
+        "ca": 1.41421356,
+        "nu": 5
+       }
+      },
+      {
+       "op": "minimize_nd",
+       "args": {
+        "d": 3,
+        "nu": 5,
+        "starts": 12,
+        "seed": 1
+       }
+      }
+     ]
+    },
+    {
+     "antwort": "bcc",
+     "zahl": null,
+     "konfidenz": 0.93,
+     "pruefung": {
+      "typ": "argmin3d",
+      "nu": 5,
+      "erwartet": "bcc"
+     },
+     "begruendung": "Bei nu=5 ist T(bcc)=13.1146 kleiner als T(fcc)=13.3809 und T(sc)=16.2166, bestätigt durch zwei unabhängige Auflösungen (energy3d und energy_nd mit R=[6,8]). Die Bain-Krümmung ist bei bcc positiv (17.8) und bei fcc negativ (-3.17), fcc ist also ein Sattelpunkt, und die globale BFGS-Suche über alle 3D-Gitter konvergierte in den sichtbaren Läufen ausnahmslos auf bcc mit T≈13.1146."
+    }
+   ],
+   "experimente": [
+    1,
+    3,
+    5,
+    6,
+    7,
+    12,
+    16,
+    31
+   ],
+   "final": {
+    "antwort": "bcc",
+    "zahl": null,
+    "konfidenz": 0.93,
+    "pruefung": {
+     "typ": "argmin3d",
+     "nu": 5,
+     "erwartet": "bcc"
+    },
+    "begruendung": "Bei nu=5 ist T(bcc)=13.1146 kleiner als T(fcc)=13.3809 und T(sc)=16.2166, bestätigt durch zwei unabhängige Auflösungen (energy3d und energy_nd mit R=[6,8]). Die Bain-Krümmung ist bei bcc positiv (17.8) und bei fcc negativ (-3.17), fcc ist also ein Sattelpunkt, und die globale BFGS-Suche über alle 3D-Gitter konvergierte in den sichtbaren Läufen ausnahmslos auf bcc mit T≈13.1146."
+   },
+   "pruefung": {
+    "bestanden": true,
+    "grund": "Energien bcc=13.114604, fcc=13.380899, sc=16.216579; Bain-Minimum bei c/a=1.000"
+   }
+  }
+ ],
+ "experimente": [
+  {
+   "id": 0,
+   "wer": "forscher-skeptiker",
+   "op": "energy3d",
+   "args": {
+    "name_or_ca": "bcc",
+    "nu": 5
+   },
+   "ergebnis": {
+    "T": 13.114603783122936,
+    "err": 8.054560787229548e-07
+   },
+   "sek": 0.18
+  },
+  {
+   "id": 1,
+   "wer": "forscher-sparsam",
+   "op": "energy3d",
+   "args": {
+    "name_or_ca": "bcc",
+    "nu": 5
+   },
+   "ergebnis": {
+    "T": 13.114603783122936,
+    "err": 8.054560787229548e-07
+   },
+   "sek": 0.19
+  },
+  {
+   "id": 2,
+   "wer": "forscher-skeptiker",
+   "op": "energy3d",
+   "args": {
+    "name_or_ca": "fcc",
+    "nu": 5
+   },
+   "ergebnis": {
+    "T": 13.380899049738176,
+    "err": 6.881492815580259e-07
+   },
+   "sek": 0.11
+  },
+  {
+   "id": 3,
+   "wer": "forscher-sparsam",
+   "op": "energy3d",
+   "args": {
+    "name_or_ca": "fcc",
+    "nu": 5
+   },
+   "ergebnis": {
+    "T": 13.380899049738176,
+    "err": 6.881492815580259e-07
+   },
+   "sek": 0.13
+  },
+  {
+   "id": 4,
+   "wer": "forscher-skeptiker",
+   "op": "energy3d",
+   "args": {
+    "name_or_ca": "sc",
+    "nu": 5
+   },
+   "ergebnis": {
+    "T": 16.21657895938287,
+    "err": 4.118577301426285e-07
+   },
+   "sek": 0.13
+  },
+  {
+   "id": 5,
+   "wer": "forscher-sparsam",
+   "op": "energy3d",
+   "args": {
+    "name_or_ca": "sc",
+    "nu": 5
+   },
+   "ergebnis": {
+    "T": 16.21657895938287,
+    "err": 4.118577301426285e-07
+   },
+   "sek": 0.09
+  },
+  {
+   "id": 6,
+   "wer": "forscher-sparsam",
+   "op": "energy_nd",
+   "args": {
+    "name": "bcc",
+    "nu": 5,
+    "R": [
+     6,
+     8
+    ]
+   },
+   "ergebnis": {
+    "T": 13.114602396914874,
+    "err": 1.2375764161021152e-05
+   },
+   "sek": 0.03
+  },
+  {
+   "id": 7,
+   "wer": "forscher-sparsam",
+   "op": "energy_nd",
+   "args": {
+    "name": "fcc",
+    "nu": 5,
+    "R": [
+     6,
+     8
+    ]
+   },
+   "ergebnis": {
+    "T": 13.380897854492474,
+    "err": 1.0562429906713078e-05
+   },
+   "sek": 0.04
+  },
+  {
+   "id": 8,
+   "wer": "forscher-numeriker",
+   "op": "energy3d",
+   "args": {
+    "name_or_ca": "bcc",
+    "nu": 5
+   },
+   "ergebnis": {
+    "T": 13.114603783122936,
+    "err": 8.054560787229548e-07
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 9,
+   "wer": "forscher-numeriker",
+   "op": "energy3d",
+   "args": {
+    "name_or_ca": "fcc",
+    "nu": 5
+   },
+   "ergebnis": {
+    "T": 13.380899049738176,
+    "err": 6.881492815580259e-07
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 10,
+   "wer": "forscher-numeriker",
+   "op": "energy3d",
+   "args": {
+    "name_or_ca": "sc",
+    "nu": 5
+   },
+   "ergebnis": {
+    "T": 16.21657895938287,
+    "err": 4.118577301426285e-07
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 11,
+   "wer": "forscher-skeptiker",
+   "op": "bain_curvature",
+   "args": {
+    "ca": 1.0,
+    "nu": 5
+   },
+   "ergebnis": {
+    "kruemmung": 17.778143311275585
+   },
+   "sek": 0.43
+  },
+  {
+   "id": 12,
+   "wer": "forscher-sparsam",
+   "op": "bain_curvature",
+   "args": {
+    "ca": 1.0,
+    "nu": 5
+   },
+   "ergebnis": {
+    "kruemmung": 17.778143311275585
+   },
+   "sek": 0.39
+  },
+  {
+   "id": 13,
+   "wer": "forscher-skeptiker",
+   "op": "bain_curvature",
+   "args": {
+    "ca": 1.41421356,
+    "nu": 5
+   },
+   "ergebnis": {
+    "kruemmung": -3.171779109578665
+   },
+   "sek": 0.45
+  },
+  {
+   "id": 14,
+   "wer": "forscher-skeptiker",
+   "op": "energy_nd",
+   "args": {
+    "name": "bcc",
+    "nu": 5,
+    "R": [
+     6,
+     8
+    ]
+   },
+   "ergebnis": {
+    "T": 13.114602396914874,
+    "err": 1.2375764161021152e-05
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 15,
+   "wer": "forscher-skeptiker",
+   "op": "energy_nd",
+   "args": {
+    "name": "fcc",
+    "nu": 5,
+    "R": [
+     6,
+     8
+    ]
+   },
+   "ergebnis": {
+    "T": 13.380897854492474,
+    "err": 1.0562429906713078e-05
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 16,
+   "wer": "forscher-sparsam",
+   "op": "bain_curvature",
+   "args": {
+    "ca": 1.41421356,
+    "nu": 5
+   },
+   "ergebnis": {
+    "kruemmung": -3.171779109578665
+   },
+   "sek": 0.47
+  },
+  {
+   "id": 17,
+   "wer": "forscher-theoretiker",
+   "op": "energy3d",
+   "args": {
+    "name_or_ca": "bcc",
+    "nu": 5
+   },
+   "ergebnis": {
+    "T": 13.114603783122936,
+    "err": 8.054560787229548e-07
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 18,
+   "wer": "forscher-theoretiker",
+   "op": "energy3d",
+   "args": {
+    "name_or_ca": "fcc",
+    "nu": 5
+   },
+   "ergebnis": {
+    "T": 13.380899049738176,
+    "err": 6.881492815580259e-07
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 19,
+   "wer": "forscher-theoretiker",
+   "op": "energy3d",
+   "args": {
+    "name_or_ca": "sc",
+    "nu": 5
+   },
+   "ergebnis": {
+    "T": 16.21657895938287,
+    "err": 4.118577301426285e-07
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 20,
+   "wer": "forscher-theoretiker",
+   "op": "energy_nd",
+   "args": {
+    "name": "bcc",
+    "nu": 5,
+    "R": [
+     6,
+     8
+    ]
+   },
+   "ergebnis": {
+    "T": 13.114602396914874,
+    "err": 1.2375764161021152e-05
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 21,
+   "wer": "forscher-theoretiker",
+   "op": "energy_nd",
+   "args": {
+    "name": "fcc",
+    "nu": 5,
+    "R": [
+     6,
+     8
+    ]
+   },
+   "ergebnis": {
+    "T": 13.380897854492474,
+    "err": 1.0562429906713078e-05
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 22,
+   "wer": "forscher-theoretiker",
+   "op": "energy_nd",
+   "args": {
+    "name": "sc",
+    "nu": 5,
+    "R": [
+     6,
+     8
+    ]
+   },
+   "ergebnis": {
+    "T": 16.216578192755385,
+    "err": 6.270347952863631e-06
+   },
+   "sek": 0.12
+  },
+  {
+   "id": 23,
+   "wer": "forscher-theoretiker",
+   "op": "bain_curvature",
+   "args": {
+    "ca": 1.0,
+    "nu": 5
+   },
+   "ergebnis": {
+    "kruemmung": 17.778143311275585
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 24,
+   "wer": "forscher-numeriker",
+   "op": "minimize_nd",
+   "args": {
+    "d": 3,
+    "nu": 5,
+    "starts": 8,
+    "seed": 1
+   },
+   "ergebnis": {
+    "laeufe": [
+     {
+      "start": 2,
+      "T_suche": 13.114583946460526,
+      "T": 13.114603781232624,
+      "gitter": "bcc",
+      "iterationen": 29
+     },
+     {
+      "start": 0,
+      "T_suche": 13.114583946468224,
+      "T": 13.114603781234749,
+      "gitter": "bcc",
+      "iterationen": 39
+     },
+     {
+      "start": 4,
+      "T_suche": 13.114584388849302,
+      "T": 13.11460378312959,
+      "gitter": "bcc",
+      "iterationen": 21
+     },
+     {
+      "start": 7,
+      "T_suche": 13.114584388848838,
+      "T": 13.114603783129892,
+      "gitter": "bcc",
+      "iterationen": 32
+     },
+     {
+      "start": 5,
+      "T_suche": 13.114584388849167,
+      "T": 13.114603783130772,
+      "gitter": "bcc",
+      "iterationen": 16
+     },
+     {
+      "start": 1,
+      "T_suche": 13.11458438884903,
+      "T": 13.114603783133576,
+      "gitter": "bcc",
+      "iterationen": 26
+     },
+     {
+      "start": 3,
+      "T_suche": 13.114584388856626,
+      "T": 13.114603783165924,
+      "gitter": "bcc",
+      "iterationen": 19
+     },
+     {
+      "start": 6,
+      "T_suche": 13.114583952544946,
+      "T": 13.11460378724921,
+      "gitter": "bcc",
+      "iterationen": 15
+     }
+    ],
+    "referenz_T": {
+     "bcc": 13.114603783122936,
+     "fcc": 13.380899049738176,
+     "sc": 16.21657895938287
+    },
+    "R": [
+     4,
+     6
+    ]
+   },
+   "sek": 171.53
+  },
+  {
+   "id": 25,
+   "wer": "forscher-numeriker",
+   "op": "energy3d",
+   "args": {
+    "name_or_ca": 1.2,
+    "nu": 5
+   },
+   "ergebnis": {
+    "T": 13.279664374916933,
+    "err": 8.738806833719082e-07
+   },
+   "sek": 0.09
+  },
+  {
+   "id": 26,
+   "wer": "forscher-numeriker",
+   "op": "energy3d",
+   "args": {
+    "name_or_ca": 1.3,
+    "nu": 5
+   },
+   "ergebnis": {
+    "T": 13.354271851386038,
+    "err": 9.476396645169416e-07
+   },
+   "sek": 0.09
+  },
+  {
+   "id": 27,
+   "wer": "forscher-numeriker",
+   "op": "bain_curvature",
+   "args": {
+    "ca": 1.0,
+    "nu": 5
+   },
+   "ergebnis": {
+    "kruemmung": 17.778143311275585
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 28,
+   "wer": "forscher-numeriker",
+   "op": "bain_curvature",
+   "args": {
+    "ca": 1.41421356,
+    "nu": 5
+   },
+   "ergebnis": {
+    "kruemmung": -3.171779109578665
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 29,
+   "wer": "forscher-theoretiker",
+   "op": "minimize_nd",
+   "args": {
+    "d": 3,
+    "nu": 5,
+    "starts": 8,
+    "seed": 1
+   },
+   "ergebnis": {
+    "laeufe": [
+     {
+      "start": 2,
+      "T_suche": 13.114583946460526,
+      "T": 13.114603781232624,
+      "gitter": "bcc",
+      "iterationen": 29
+     },
+     {
+      "start": 0,
+      "T_suche": 13.114583946468224,
+      "T": 13.114603781234749,
+      "gitter": "bcc",
+      "iterationen": 39
+     },
+     {
+      "start": 4,
+      "T_suche": 13.114584388849302,
+      "T": 13.11460378312959,
+      "gitter": "bcc",
+      "iterationen": 21
+     },
+     {
+      "start": 7,
+      "T_suche": 13.114584388848838,
+      "T": 13.114603783129892,
+      "gitter": "bcc",
+      "iterationen": 32
+     },
+     {
+      "start": 5,
+      "T_suche": 13.114584388849167,
+      "T": 13.114603783130772,
+      "gitter": "bcc",
+      "iterationen": 16
+     },
+     {
+      "start": 1,
+      "T_suche": 13.11458438884903,
+      "T": 13.114603783133576,
+      "gitter": "bcc",
+      "iterationen": 26
+     },
+     {
+      "start": 3,
+      "T_suche": 13.114584388856626,
+      "T": 13.114603783165924,
+      "gitter": "bcc",
+      "iterationen": 19
+     },
+     {
+      "start": 6,
+      "T_suche": 13.114583952544946,
+      "T": 13.11460378724921,
+      "gitter": "bcc",
+      "iterationen": 15
+     }
+    ],
+    "referenz_T": {
+     "bcc": 13.114603783122936,
+     "fcc": 13.380899049738176,
+     "sc": 16.21657895938287
+    },
+    "R": [
+     4,
+     6
+    ]
+   },
+   "sek": 169.2
+  },
+  {
+   "id": 30,
+   "wer": "forscher-skeptiker",
+   "op": "minimize_nd",
+   "args": {
+    "d": 3,
+    "nu": 5,
+    "starts": 12,
+    "seed": 1
+   },
+   "ergebnis": {
+    "laeufe": [
+     {
+      "start": 2,
+      "T_suche": 13.114583946460526,
+      "T": 13.114603781232624,
+      "gitter": "bcc",
+      "iterationen": 29
+     },
+     {
+      "start": 0,
+      "T_suche": 13.114583946468224,
+      "T": 13.114603781234749,
+      "gitter": "bcc",
+      "iterationen": 39
+     },
+     {
+      "start": 9,
+      "T_suche": 13.114584388849323,
+      "T": 13.114603783128244,
+      "gitter": "bcc",
+      "iterationen": 23
+     },
+     {
+      "start": 4,
+      "T_suche": 13.114584388849302,
+      "T": 13.11460378312959,
+      "gitter": "bcc",
+      "iterationen": 21
+     },
+     {
+      "start": 8,
+      "T_suche": 13.114584388849572,
+      "T": 13.114603783129878,
+      "gitter": "bcc",
+      "iterationen": 22
+     },
+     {
+      "start": 7,
+      "T_suche": 13.114584388848838,
+      "T": 13.114603783129892,
+      "gitter": "bcc",
+      "iterationen": 32
+     },
+     {
+      "start": 5,
+      "T_suche": 13.114584388849167,
+      "T": 13.114603783130772,
+      "gitter": "bcc",
+      "iterationen": 16
+     },
+     {
+      "start": 10,
+      "T_suche": 13.114584388850774,
+      "T": 13.114603783131127,
+      "gitter": "bcc",
+      "iterationen": 18
+     },
+     {
+      "start": 1,
+      "T_suche": 13.11458438884903,
+      "T": 13.114603783133576,
+      "gitter": "bcc",
+      "iterationen": 26
+     },
+     {
+      "start": 11,
+      "T_suche": 13.11458438884871,
+      "T": 13.114603783153333,
+      "gitter": "bcc",
+      "iterationen": 13
+     },
+     {
+      "start": 3,
+      "T_suche": 13.114584388856626,
+      "T": 13.114603783165924,
+      "gitter": "bcc",
+      "iterationen": 19
+     },
+     {
+      "start": 6,
+      "T_suche": 13.114583952544946,
+      "T": 13.11460378724921,
+      "gitter": "bcc",
+      "iterationen": 15
+     }
+    ],
+    "referenz_T": {
+     "bcc": 13.114603783122936,
+     "fcc": 13.380899049738176,
+     "sc": 16.21657895938287
+    },
+    "R": [
+     4,
+     6
+    ]
+   },
+   "sek": 185.18
+  },
+  {
+   "id": 31,
+   "wer": "forscher-sparsam",
+   "op": "minimize_nd",
+   "args": {
+    "d": 3,
+    "nu": 5,
+    "starts": 12,
+    "seed": 1
+   },
+   "ergebnis": {
+    "laeufe": [
+     {
+      "start": 2,
+      "T_suche": 13.114583946460526,
+      "T": 13.114603781232624,
+      "gitter": "bcc",
+      "iterationen": 29
+     },
+     {
+      "start": 0,
+      "T_suche": 13.114583946468224,
+      "T": 13.114603781234749,
+      "gitter": "bcc",
+      "iterationen": 39
+     },
+     {
+      "start": 9,
+      "T_suche": 13.114584388849323,
+      "T": 13.114603783128244,
+      "gitter": "bcc",
+      "iterationen": 23
+     },
+     {
+      "start": 4,
+      "T_suche": 13.114584388849302,
+      "T": 13.11460378312959,
+      "gitter": "bcc",
+      "iterationen": 21
+     },
+     {
+      "start": 8,
+      "T_suche": 13.114584388849572,
+      "T": 13.114603783129878,
+      "gitter": "bcc",
+      "iterationen": 22
+     },
+     {
+      "start": 7,
+      "T_suche": 13.114584388848838,
+      "T": 13.114603783129892,
+      "gitter": "bcc",
+      "iterationen": 32
+     },
+     {
+      "start": 5,
+      "T_suche": 13.114584388849167,
+      "T": 13.114603783130772,
+      "gitter": "bcc",
+      "iterationen": 16
+     },
+     {
+      "start": 10,
+      "T_suche": 13.114584388850774,
+      "T": 13.114603783131127,
+      "gitter": "bcc",
+      "iterationen": 18
+     },
+     {
+      "start": 1,
+      "T_suche": 13.11458438884903,
+      "T": 13.114603783133576,
+      "gitter": "bcc",
+      "iterationen": 26
+     },
+     {
+      "start": 11,
+      "T_suche": 13.11458438884871,
+      "T": 13.114603783153333,
+      "gitter": "bcc",
+      "iterationen": 13
+     },
+     {
+      "start": 3,
+      "T_suche": 13.114584388856626,
+      "T": 13.114603783165924,
+      "gitter": "bcc",
+      "iterationen": 19
+     },
+     {
+      "start": 6,
+      "T_suche": 13.114583952544946,
+      "T": 13.11460378724921,
+      "gitter": "bcc",
+      "iterationen": 15
+     }
+    ],
+    "referenz_T": {
+     "bcc": 13.114603783122936,
+     "fcc": 13.380899049738176,
+     "sc": 16.21657895938287
+    },
+    "R": [
+     4,
+     6
+    ]
+   },
+   "sek": 185.19
+  }
+ ],
+ "sek": 218.6,
+ "frage": "Q9",
+ "salt": 2,
+ "bedingung": "B"
+}

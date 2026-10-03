@@ -1,0 +1,61 @@
+{
+ "antwort": {
+  "antwort": "kappa = ln(R)/(L1'−L2') mit R = −6·L2'/(24·L1'), y_inf = sqrt((√17−1)/2) ≈ 1.24962",
+  "zahl": 0.9549,
+  "konfidenz": 0.9,
+  "begruendung": "Das Minimum liegt bei rechteckigen Gittern (x=0). Für ν→∞ gleichen sich die Produkte y·√(1+y²) und 2 an. Daraus folgt y_inf = sqrt((√17−1)/2) ≈ 1.24962. Die Vielfachheiten der beiden Dreiecke sind 24 und 6. Die Optimalitätsbedingung ergibt kappa = ln R/(L1'−L2') ≈ 0.9549. Der Wert passt zur numerischen Minimierung bei ν = 8000, wo (y_inf − y)·ν ≈ 0.956 ist."
+ },
+ "kosten_usd": 0.081445,
+ "tool_calls": 4,
+ "verstoss": [],
+ "sek": 59.5,
+ "transkript_tools": [
+  {
+   "type": "tool_use",
+   "id": "toolu_01SkmiGDGS4zY3dfLcf8ftGh",
+   "name": "Bash",
+   "input": {
+    "command": "cat > a.py <<'E'\nimport numpy as np\nfrom scipy.optimize import minimize_scalar\nimport mpmath as mp\nmp.mp.dps=60\ndef pts(x,y,N):\n    v=[(i+x*j,y*j) for i in range(-N,N+1) for j in range(-N,N+1) if (i,j)!=(0,0)]\n    return v\ndef E(y,nu,x=0.0,N=7):\n    v=pts(x,y,N);\n    V=[mp.mpc(a,b) for a,b in v]\n    s=0\n    for a in V:\n        for b in V:\n            if a!=b: s+=(abs(a)*abs(b)*abs(a-b))**(-nu)\n    return s*y**(mp.mpf(3)*nu/2)\nfor x in [0,0.5]:\n  for nu in [20,40,80]:\n    N=4 if nu>=20 else 6\n    f=lambda y: float(mp.log(E(mp.mpf(y),nu,x,N)))\n    r=minimize_scalar(f,bounds=(0.9 if x==0.5 else 1.0,2.5),method='bounded',options={'xatol':1e-10})\n    print(x,nu,r.x)\nE\npython3 a.py"
+   },
+   "caller": {
+    "type": "direct"
+   }
+  },
+  {
+   "type": "tool_use",
+   "id": "toolu_01BFS2yGxVHvc5crwaYhMVJn",
+   "name": "Bash",
+   "input": {
+    "command": "cat > a.py <<'E'\nimport numpy as np\nfrom scipy.optimize import minimize_scalar\nfrom scipy.special import logsumexp\ndef lE(y,nu,x,N=5):\n    r=np.arange(-N,N+1)\n    I,J=np.meshgrid(r,r); I=I.ravel();J=J.ravel()\n    m=(I!=0)|(J!=0)\n    z=(I+x*J+1j*y*J)[m]/np.sqrt(y)\n    A=z[:,None];B=z[None,:]\n    d=np.abs(A-B); mask=d>1e-12\n    p=(np.abs(A)*np.abs(B))*np.where(mask,d,1)\n    return logsumexp(-nu*np.log(p[mask]))\nfor x in [0,0.5]:\n  for nu in [10,20,40,80,160,320]:\n    r=minimize_scalar(lambda y:lE(y,nu,x),bounds=(0.8,2.5),method='bounded',options={'xatol':1e-12})\n    print(x,nu,r.x,r.fun)\nE\npython3 a.py"
+   },
+   "caller": {
+    "type": "direct"
+   }
+  },
+  {
+   "type": "tool_use",
+   "id": "toolu_01BaCXNNrP3vncLEzGzqeEhN",
+   "name": "Bash",
+   "input": {
+    "command": "cat >> a.py <<'E'\nprint()\nfor nu in [500,1000,2000,4000,8000]:\n    r=minimize_scalar(lambda y:lE(y,nu,0,4),bounds=(1.2,1.3),method='bounded',options={'xatol':1e-13})\n    print(nu,r.x,(1.25-r.x)*nu)\nE\npython3 a.py | tail -6"
+   },
+   "caller": {
+    "type": "direct"
+   }
+  },
+  {
+   "type": "tool_use",
+   "id": "toolu_01U5C9mkNMd72L7dQwU6V9tc",
+   "name": "Bash",
+   "input": {
+    "command": "python3 -c \"\nfrom math import *\ny=sqrt((-1+sqrt(17))/2)\nL1=y/(1+y*y)-1/(2*y);L2=-1.5/y\nR=-6*L2/(24*L1);print(y,log(R)/(L1-L2))\""
+   },
+   "caller": {
+    "type": "direct"
+   }
+  }
+ ],
+ "frage": "Q11",
+ "salt": 2,
+ "bedingung": "A2"
+}

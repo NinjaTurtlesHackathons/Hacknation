@@ -1,0 +1,50 @@
+{
+ "antwort": {
+  "antwort": "nu_2 ≈ 8,66",
+  "zahl": 8.66,
+  "konfidenz": 0.8,
+  "begruendung": "Ich habe T_nu für das rechteckige Gitter tau = i·t numerisch mit abgeschnittener Gittersumme berechnet. Ich habe die zweite Ableitung nach log t bei t = 1 (quadratisches Gitter) per finiter Differenz bestimmt. Sie ist für nu ≤ 8 positiv und für nu ≥ 9 negativ. Die Nullstelle liegt bei nu ≈ 8,66. Das Ergebnis ist praktisch unabhängig vom Abschneideradius (N = 14 und N = 20 ergeben denselben Wert). Ich habe nur die rechteckige Verformung geprüft und keine allgemeineren Verformungen."
+ },
+ "kosten_usd": 0.031128999999999997,
+ "tool_calls": 3,
+ "verstoss": [],
+ "sek": 27.5,
+ "transkript_tools": [
+  {
+   "type": "tool_use",
+   "id": "toolu_013EtG1xU13UoppE7ythW6gK",
+   "name": "Bash",
+   "input": {
+    "command": "cat > a.py <<'E'\nimport numpy as np\ndef T(t,nu,N=40):\n    a=np.arange(-N,N+1)\n    X,Y=np.meshgrid(a,a); P=np.stack([X.ravel()/np.sqrt(t)*1.0, Y.ravel()*np.sqrt(t)],1)  # tau=it, Im=t: (1, i t)/sqrt t\n    P=np.stack([X.ravel()/np.sqrt(t),Y.ravel()*np.sqrt(t)],1)\n    P=P[(np.abs(X.ravel())+np.abs(Y.ravel()))>0]\n    r=np.hypot(P[:,0],P[:,1]); s=0\n    for i in range(len(P)):\n        d=np.hypot(P[i,0]-P[:,0],P[i,1]-P[:,1]); m=d>1e-9\n        s+=np.sum((r[i]*r[m]*d[m])**-nu)\n    return s\nimport sys\nfor nu in [2,3,4,5,6,8]:\n    h=0.03\n    f=[T(np.exp(k*h),nu,12) for k in(-1,0,1)]\n    print(nu,(f[0]-2*f[1]+f[2])/h**2)\nE\npython3 a.py"
+   },
+   "caller": {
+    "type": "direct"
+   }
+  },
+  {
+   "type": "tool_use",
+   "id": "toolu_0166TrScNu7cVR84N1hUPRAs",
+   "name": "Bash",
+   "input": {
+    "command": "cat >> a.py <<'E'\nprint(\"--\")\nfrom scipy.optimize import brentq\ndef d2(nu,N=14):\n    h=0.03\n    f=[T(np.exp(k*h),nu,N) for k in(-1,0,1)]\n    return (f[0]-2*f[1]+f[2])/h**2\nfor nu in [8,9,10,11,12]: print(nu,d2(nu))\nE\npython3 a.py | sed -n '/--/,$p'"
+   },
+   "caller": {
+    "type": "direct"
+   }
+  },
+  {
+   "type": "tool_use",
+   "id": "toolu_01MoZyowFt16aDuL2oDUJam2",
+   "name": "Bash",
+   "input": {
+    "command": "cat >> a.py <<'E'\nprint(\"==\")\nprint(brentq(lambda n:d2(n,14),8,9,xtol=1e-3), brentq(lambda n:d2(n,20),8,9,xtol=1e-3))\nE\npython3 a.py | sed -n '/==/,$p'"
+   },
+   "caller": {
+    "type": "direct"
+   }
+  }
+ ],
+ "frage": "Q7",
+ "salt": 2,
+ "bedingung": "A2"
+}

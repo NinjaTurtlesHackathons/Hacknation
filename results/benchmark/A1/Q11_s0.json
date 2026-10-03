@@ -1,0 +1,11 @@
+{
+ "antwort": {
+  "antwort": "kappa = ln(-m_B b'/(m_A a'))/(a'-b') ≈ 0.955, mit y_inf = sqrt((√17−1)/2) ≈ 1.2496",
+  "zahl": 0.955,
+  "konfidenz": 0.6,
+  "begruendung": "Für große nu dominieren die Tripel mit dem kleinsten skalierten Produkt. Ich nehme dabei an, dass das Optimum bei x=0 liegt (rechteckiges Gitter tau=iy); das habe ich nicht geprüft. Tripel A = {1, iy, 1−iy} hat skaliertes ln-Produkt a(y) = ½ ln(y+1/y) und Vielfachheit 24. Tripel B = {1, 1, −2} hat b(y) = ln2 − 1.5 ln y und Vielfachheit 6. Gleichsetzen ergibt y²(1+y²)=4, also y_inf² = (√17−1)/2. Minimiert man mA e^{-nu a} + mB e^{-nu b} um y_inf, folgt kappa = ln(−mB b'/(mA a'))/(a'−b'). Mit a' ≈ 0.0877 und b' ≈ −1.2004 ergibt sich kappa ≈ 1.2299/1.2881 ≈ 0.955."
+ },
+ "frage": "Q11",
+ "salt": 0,
+ "bedingung": "A1"
+}

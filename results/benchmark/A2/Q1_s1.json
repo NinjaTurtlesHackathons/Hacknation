@@ -1,0 +1,28 @@
+{
+ "antwort": {
+  "antwort": "hexagonal",
+  "zahl": 13.38,
+  "konfidenz": 0.85,
+  "begruendung": "Numerische Auswertung (Summe über Gittervektoren mit |x|<8) für sechs Gitter: hexagonal hat den kleinsten Wert T_3≈13.38, quadratisch ≈13.64, rhombisch und schiefe Gitter höher, rechteckig 2i ≈29.3. Nur eine Stichprobe, kein Beweis."
+ },
+ "kosten_usd": 0.0188098,
+ "tool_calls": 1,
+ "verstoss": [],
+ "sek": 12.8,
+ "transkript_tools": [
+  {
+   "type": "tool_use",
+   "id": "toolu_016wD1kGh3CDXxKamqtv5NCd",
+   "name": "Bash",
+   "input": {
+    "command": "cat > a.py <<'E'\nimport numpy as np\ndef T(tau,nu=3,N=12):\n    y=tau.imag; r=range(-N,N+1)\n    P=np.array([(a+b*tau.real,b*y) for a in r for b in r if (a,b)!=(0,0)])/np.sqrt(y)\n    P=P[np.hypot(*P.T)<8]\n    n=np.hypot(*P.T)\n    d=np.hypot(P[:,None,0]-P[None,:,0],P[:,None,1]-P[None,:,1])\n    m=d>1e-9\n    f=(n[:,None]*n[None,:]*np.where(m,d,1))**-nu\n    return (f*m).sum()\nfor t in [1j,0.5+np.sqrt(3)/2*1j,0.5+1.2j,0.3+1.1j,0.2+1.5j,2j]:\n    print(t,T(t))\nE\npython3 a.py"
+   },
+   "caller": {
+    "type": "direct"
+   }
+  }
+ ],
+ "frage": "Q1",
+ "salt": 1,
+ "bedingung": "A2"
+}
