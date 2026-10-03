@@ -53,7 +53,7 @@ def check(p):
             return ok, f"bei nu={nu}: quadratisch stabil={hq['stabil']}, hexagonal stabil={hh['stabil']}", {"q": hq, "h": hh}
         if t == "grenzwert":
             r = L.asymptote(nus=(100, 160, 250, 400, 640, 1000)); key = {"y_inf": "y_inf_fit", "kappa": "kappa_fit"}[p["groesse"]]
-            tol = max(float(p.get("toleranz", 0)), 2e-4 if p["groesse"] == "y_inf" else 5e-3)
+            tol = 2e-4 if p["groesse"] == "y_inf" else 5e-3          # fest: Toleranzen kommen nie aus der Behauptung (Befund H4)
             ok = abs(r[key] - float(p["erwartet"])) <= tol
             return ok, f"Prüfer-Fit über nu={r['nus']}: {key}={r[key]:.6f} (Toleranz {tol})", r
         if t == "vergleich_nd":

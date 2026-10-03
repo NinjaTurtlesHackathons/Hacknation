@@ -103,8 +103,9 @@ def blocked(doc, sperre):
     return next((w for w in sperre if w in t), None)
 
 
-def run(topic, n_queries=10, per_query=25, keep=60, model_cheap="haiku", model_main="sonnet", log=print):
-    T = TOPICS[topic]; d = f"{KB}/{topic}"; os.makedirs(d, exist_ok=True); stats = {"start": time.strftime("%H:%M:%S")}
+def run(topic, n_queries=10, per_query=25, keep=60, model_cheap="haiku", model_main="sonnet", log=print, spec=None):
+    """spec: {"ziel": str, "sperre": [..], "faktoren": [..]} für beliebige Themen; sonst TOPICS[topic]."""
+    T = spec or TOPICS[topic]; T.setdefault("sperre", []); T.setdefault("faktoren", []); d = f"{KB}/{topic}"; os.makedirs(d, exist_ok=True); stats = {"start": time.strftime("%H:%M:%S")}
     # 1. Suchplanung (günstiges Modell)
     qs = ask_json(f"Forschungsziel: {T['ziel']}\n\nErzeuge {n_queries} verschiedene, kurze englische Suchanfragen (3-6 Wörter) für "
                   "arXiv bzw. Europe PMC, die unterschiedliche Aspekte abdecken (Mechanismus, einzelne Faktoren, Gegenbeispiele, Übersichten). "
@@ -174,7 +175,7 @@ def verify_facts(facts, pool):
 
 def reverify(topic):
     """Zitatprüfung auf gespeicherten Befunden neu ausführen (ohne neue LLM-Aufrufe)."""
-    T = TOPICS[topic]; path = f"{KB}/{topic}/kb.json"; kb = json.load(open(path))
+    T = TOPICS.get(topic) or json.load(open(f"{KB}/{topic}/kb.json")); path = f"{KB}/{topic}/kb.json"; kb = json.load(open(path))
     pool = {i: d for i, d in kb["korpus"].items() if i not in kb["gesperrt"]}
     ok = verify_facts(kb["befunde"], pool); kb["stats"]["verifiziert"] = len(ok)
     json.dump(kb, open(path, "w"), ensure_ascii=False, indent=1)

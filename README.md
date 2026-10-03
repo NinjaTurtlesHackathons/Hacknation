@@ -1,4 +1,30 @@
-# AI-Labor mit Prüfschicht (Hack-Nation, Challenge #3)
+# Verifier-Gated Discovery Lab (Hack-Nation, Challenge #3)
+
+**Agenten schlagen vor, Code prüft.** Ein agentisches Forschungslabor für jede Domäne, in der sich Aussagen durch Rechnung,
+Simulation oder Messung prüfen lassen. Vollständige Anleitung: **[docs/FRAMEWORK.md](docs/FRAMEWORK.md)**. In Claude Code lädt der
+Skill `verifier-gated-lab` (`.claude/skills/`) die Anleitung automatisch.
+
+```bash
+python -m asd.new_domain meinthema                    # neue Domäne anlegen
+python -m asd.selftest meinthema                      # Prüfer muss bestehen
+python -m asd.lab_loop --domain meinthema --recherche --runden 4 --budget-usd 2
+python -m asd.paper --domain meinthema --titel "..." --autoren "..." --affiliation "ETH Zürich"
+```
+
+Präregistrierte Ergebnisse (`prereg.md`, Rohdaten in `results/`):
+| Bedingung (12 Fragen aus Suleman 2026, je 3 Läufe) | richtig | falsch | Kosten/Frage |
+|---|---|---|---|
+| Claude pur | 50 % | 36 % | 0,02 USD |
+| Claude mit eigenem Python | 72 % | 22 % | 0,03 USD |
+| Framework (4 Forscher + Code-Prüfer) | 100 % | 0 % | 0,21 USD |
+| Framework, Kaskade (Haiku zuerst) | 97 % | 3 % | 0,08 USD |
+
+Weitere Befunde: KI- und Literatur-Vorwissen als GP-Prior helfen der Bayes'schen Optimierung nicht (H1, H5, beide präregistriert);
+fünf geprüfte numerische Befunde zu offenen Fragen aus Suleman 2026 (`results/explore/`).
+
+---
+
+## Teil 1: Buchwald-Hartwig-Validierung (ursprüngliche Pipeline)
 
 Agenten schlagen Hypothesen und Experimente vor. Akzeptiert wird nur, was Gates, Statistik oder Lean bestätigen. Projektregeln: `CLAUDE.md`. Präregistrierung: `prereg.md`. Entscheidungen: `decisions.md`.
 

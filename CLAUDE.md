@@ -3,6 +3,7 @@
 **Challenge:** „Agentic Scientific Discovery“: mehrere AI-Agenten recherchieren, bilden Hypothesen, planen Experimente, führen sie aus, lernen aus den Ergebnissen und entscheiden über das nächste Experiment. Ziel: Entdeckung „10× schneller“.
 **Unser Ziel:** ein Framework, das die wissenschaftliche Methode ausführbar macht, und ein Paper, das das Framework selbst erzeugt. Jede Behauptung darin ist geprüft.
 **Abgabe:** So 15:00 Zürich. Drei Videos: Technical, Team, Live-Demo.
+**Framework (allgemein, für jede Domäne):** `docs/FRAMEWORK.md` und Skill `verifier-gated-lab`. Neue Domäne: `python -m asd.new_domain <name>`.
 **Methodik:** Skill `rigorous-innovation` (liegt in `.claude/skills/`). Bei Konflikt gilt diese Datei.
 
 ## Setup

@@ -1,0 +1,3 @@
+- 2026-10-03 22:06:45 Selbsttest des Prüfers: bestanden
+- 2026-10-03 22:06:57 Suchanfragen: ['kinetic proofreading thermodynamic limits', 'Hopfield Ninio accuracy bounds', 'thermodynamic uncertainty relation proofreading', 'error rate dissipation speed trade-off', 'kinetic proofreading energy cost mechanisms', 'proofreading accuracy energy consumption scaling', 'Pareto optimal error dissipation frontier', 'biochemical fidelity control constraints', 'kinetic proofreading molecular recognition fidelity', 'thermodynamic bounds DNA polymerase accuracy']
+- 2026-10-03 22:07:32 266 Quellen, 0 durch Leck-Filter gesperrt

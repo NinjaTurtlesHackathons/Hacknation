@@ -28,6 +28,9 @@ CLAIM_DOC = """Deine Endantwort braucht eine ausführbare Prüfung ("pruefung"),
 - {"typ": "argmin_nd", "d": 3|4, "nu": Zahl, "erwartet": "<name>"}   (unabhängige globale Suche des Prüfers findet nichts Besseres)
 Wähle die Prüfung, die deine Antwort am direktesten belegt. Für Fragen mit mehreren Teilaussagen darfst du statt "pruefung" eine Liste "pruefungen" angeben; dann muss jede bestehen."""
 
+MULTI_DOC = ('Deine Endantwort braucht eine ausführbare Prüfung ("pruefung"), die ein unabhängiger Prüfer nachrechnet. '
+             'Für mehrere Teilaussagen darfst du statt "pruefung" eine Liste "pruefungen" angeben; dann muss jede bestehen.')
+
 ANTWORT_SCHEMA = '{"antwort": "<Kategorie oder kurze Antwort, sonst \\"unbekannt\\">", "zahl": <Zahl oder null>, "konfidenz": <0..1>, "pruefung": {...}, "begruendung": "<2-3 Sätze>"}'
 
 
@@ -36,13 +39,18 @@ def _sys(strategie):
             "Du kennst keine Ergebnisse vorab; stütze Aussagen auf Experimente. Antworte nur mit gültigem JSON.")
 
 
+def _default_domain():
+    from .domains.lattice_domain import DOMAIN
+    return DOMAIN
+
+
 class Lab:
-    """Führt Experimente aus, cached identische Anfragen und protokolliert alles (Herkunft)."""
-    def __init__(self): self.memo = {}; self.log = []
+    """Führt Experimente der Domäne aus, cached identische Anfragen und protokolliert alles (Herkunft)."""
+    def __init__(self, domain=None): self.domain = domain or _default_domain(); self.memo = {}; self.log = []
     def run(self, op, args, who):
         key = json.dumps([op, args], sort_keys=True)
         if key not in self.memo:
-            t0 = time.time(); self.memo[key] = L.run_op(op, args); dt = time.time() - t0
+            t0 = time.time(); self.memo[key] = self.domain.run_op(op, args); dt = time.time() - t0
         else: dt = 0.0
         self.log.append({"id": len(self.log), "wer": who, "op": op, "args": args, "ergebnis": self.memo[key], "sek": round(dt, 2)})
         return self.log[-1]
@@ -53,7 +61,9 @@ def _fmt(entries):
 
 
 def forscher(kontext, frage, strategie, lab, salt, max_ops=8, model=None):
-    who = f"forscher-{strategie}"; base = f"{kontext}\n\nFRAGE: {frage}\n\n{L.PRIMITIVE_DOC}\n\n{CLAIM_DOC}"
+    who = f"forscher-{strategie}"; D = lab.domain
+    cdoc = CLAIM_DOC if D.name == "lattice" else D.claim_doc + "\n" + MULTI_DOC
+    base = f"{kontext}\n\nFRAGE: {frage}\n\n{D.primitive_doc}\n\n{cdoc}"
     trace = {"strategie": strategie, "runden": []}
     p1 = base + f'\n\nRunde 1: Plane bis zu {max_ops} Experimente. Antworte als JSON: {{"ueberlegung": "...", "plan": [{{"op": "...", "args": {{...}}}}]}}'
     r1 = ask_json(p1, _sys(strategie), salt=f"{salt}-{strategie}-r1", model=model); trace["runden"].append(r1)
@@ -76,8 +86,8 @@ def _clusterkey(a):
     return ("kat", str(a.get("antwort", "")).strip().lower())
 
 
-def solve(kontext, frage, salt=0, strategien=tuple(STRATEGIEN)):
-    lab = Lab(); t0 = time.time()
+def solve(kontext, frage, salt=0, strategien=tuple(STRATEGIEN), domain=None):
+    lab = Lab(domain); t0 = time.time(); D = lab.domain
     with ThreadPoolExecutor(len(strategien)) as ex:
         futs = {s: ex.submit(forscher, kontext, frage, s, lab, salt) for s in strategien}
         traces = []
@@ -92,7 +102,7 @@ def solve(kontext, frage, salt=0, strategien=tuple(STRATEGIEN)):
         res = []
         for p in ps:
             k = json.dumps(p, sort_keys=True)
-            if k not in checks: checks[k] = verify.check(p)[:2]
+            if k not in checks: checks[k] = D.check(p)[:2]
             res.append(checks[k])
         tr["pruefung"] = {"bestanden": all(bool(o) for o, _ in res), "grund": " | ".join(w for _, w in res)}
     verified = [tr for tr in traces if tr.get("pruefung", {}).get("bestanden")]
@@ -122,10 +132,10 @@ def consistent(ans, p):
 KASKADE = (("sparsam", "haiku"), ("numeriker", "haiku"), ("skeptiker", "sonnet"), ("theoretiker", "sonnet"))
 
 
-def solve_cascade(kontext, frage, salt=0, stufen=KASKADE):
+def solve_cascade(kontext, frage, salt=0, stufen=KASKADE, domain=None):
     """Kostenoptimiert: Forscher nacheinander, günstiges Modell zuerst; Stopp bei der ersten Behauptung, die den
     Code-Prüfer besteht und zur Antwort passt. Der Prüfer garantiert die Wahrheit, also reicht eine geprüfte Behauptung."""
-    lab = Lab(); t0 = time.time(); traces = []; checks = {}
+    lab = Lab(domain); D = lab.domain; t0 = time.time(); traces = []; checks = {}
     for strategie, model in stufen:
         try: tr = forscher(kontext, frage, strategie, lab, f"K{salt}-{model}", model=model)
         except (LLMError, json.JSONDecodeError, KeyError, TypeError) as e: traces.append({"strategie": strategie, "modell": model, "fehler": str(e)[:300]}); continue
@@ -134,9 +144,9 @@ def solve_cascade(kontext, frage, salt=0, stufen=KASKADE):
         res = []
         for p in ps:
             k = json.dumps(p, sort_keys=True)
-            if k not in checks: checks[k] = verify.check(p)[:2]
+            if k not in checks: checks[k] = D.check(p)[:2]
             res.append(checks[k])
-        ok = bool(ps) and all(o for o, _ in res) and all(consistent(a, p) for p in ps)
+        ok = bool(ps) and all(o for o, _ in res) and all(D.consistent(a, p) for p in ps)
         tr["pruefung"] = {"bestanden": ok, "grund": " | ".join(w for _, w in res) or "keine Prüfung angegeben"}; traces.append(tr)
         if ok:
             ans = dict(a); ans["stimmen"] = f"Stufe {len(traces)}/{len(stufen)} ({strategie}, {model})"
