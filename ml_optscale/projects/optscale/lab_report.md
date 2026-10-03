@@ -2,3 +2,6 @@
 - 2026-10-03 23:10:53 Abruf-Fehler search_arxiv 'Adam optimizer convergence rate theory': The read operation timed out
 - 2026-10-03 23:12:16 328 Quellen, 0 durch Leck-Filter gesperrt
 - 2026-10-03 23:20:01 90 Befunde extrahiert, 89 Zitate per Code bestätigt, 1 verworfen
+- 2026-10-03 23:22:23 Selbsttest des Prüfers: bestanden
+- 2026-10-03 23:22:38 Runde 1: Folgen Ridge-Regression (über N) und das lineare Random-Feature-Modell (über P) denselben Exponenten wie das Abschneiden auf P Eigenrichtungen, oder gibt es Regime (a, b), in denen sie abweichen?
+- 2026-10-03 23:35:44   geprüft (observed): Teilweise: Im Regime b-1 < a (z.B. a=1, b=2) folgen RF und Ridge näherungsweise dem Abschneide-Exponenten b-1. Bei kleinem a und großem b (z.B. a=0.4–0.6, b=3.5) liegen die gemessenen RF- und Ridge-Steigungen deutlich unter b-1 = 2,5. Eine Abweichung ist dort wahrscheinlich, die asymptotischen Exponenten sind aber nicht bestätigt. | Red-Team: 2 Gegenprüfungen, 0 bestanden

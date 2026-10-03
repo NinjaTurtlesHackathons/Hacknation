@@ -625,7 +625,80 @@
    "url": "http://arxiv.org/abs/2608.28564v1"
   }
  ],
- "fragen": [],
+ "fragen": [
+  {
+   "frage": "Welcher Skalierungsexponent ergibt sich für den Verlust des Gradientenflusses L(t) im linearen Modell mit Spektrum k^-a und Zielanteilen k^-b, und wie hängt er von a und b ab? Teste mindestens drei (a, b)-Paare.",
+   "begruendung": "Ursprung von Potenzgesetzen aus Daten-Spektren",
+   "neuheit": 0.3,
+   "machbarkeit": 0.9,
+   "id": "F1",
+   "status": "offen"
+  },
+  {
+   "frage": "Wie hängt der Exponent des rechenoptimalen Verlusts L*(C) bei Budget C = P*t von a und b ab, und wie teilt sich das Budget optimal auf P und t auf?",
+   "begruendung": "Rechenoptimale Skalierung, Exponenten aus dem Spektrum",
+   "neuheit": 0.5,
+   "machbarkeit": 0.8,
+   "id": "F2",
+   "status": "offen"
+  },
+  {
+   "frage": "Folgen Ridge-Regression (über N) und das lineare Random-Feature-Modell (über P) denselben Exponenten wie das Abschneiden auf P Eigenrichtungen, oder gibt es Regime (a, b), in denen sie abweichen?",
+   "begruendung": "Kernel-/Random-Feature-Modelle als Erklärung der Exponenten",
+   "neuheit": 0.6,
+   "machbarkeit": 0.7,
+   "id": "F3",
+   "status": "offen"
+  },
+  {
+   "frage": "Welche Optimierer gewinnen unter heavy-tailed Gradientenrauschen (student, df <= 2) auf der rotierten Matrix-Quadratik bei getunter Lernrate: Clipping, Signum, Adam, Muon oder Shampoo gegen SGD?",
+   "begruendung": "Konvergenz unter heavy-tailed Noise",
+   "neuheit": 0.5,
+   "machbarkeit": 0.8,
+   "id": "F4",
+   "status": "offen"
+  },
+  {
+   "frage": "Wann schlagen Muon und Shampoo Adam: hängt der Vorteil davon ab, ob die Krümmung achsenparallel oder rotiert ist (Kronecker-Struktur vs. Diagonale)?",
+   "begruendung": "Warum funktionieren Muon und Shampoo",
+   "neuheit": 0.6,
+   "machbarkeit": 0.8,
+   "id": "F5",
+   "status": "offen"
+  },
+  {
+   "frage": "Senken Lernraten-Schedules (cosine, linear, wsd) den Endverlust gegenüber konstanter Lernrate bei gleichem Tuning-Aufwand, auf verrauschten Quadratiken und im nicht-konvexen MLP?",
+   "begruendung": "Warum funktionieren Lernraten-Schedules",
+   "neuheit": 0.4,
+   "machbarkeit": 0.9,
+   "id": "F6",
+   "status": "offen"
+  },
+  {
+   "frage": "Ab welcher Lernrate operiert Voll-Batch-GD auf dem tanh-Netz an der Edge of Stability (lr*lambda_max/2 nahe 1) statt im stabilen Regime, und konvergiert der Verlust dort trotzdem?",
+   "begruendung": "Edge of Stability",
+   "neuheit": 0.4,
+   "machbarkeit": 0.8,
+   "id": "F7",
+   "status": "offen"
+  },
+  {
+   "frage": "Überträgt sich die optimale Lernrate unter μP über die Breite (Adam und SGD), während sie sich unter SP verschiebt? Wie groß ist die Verschiebung unter SP pro Verdopplung der Breite?",
+   "begruendung": "Hyperparameter-Transfer (μP, Tensor Programs)",
+   "neuheit": 0.4,
+   "machbarkeit": 0.8,
+   "id": "F8",
+   "status": "offen"
+  },
+  {
+   "frage": "Welche exakte Stabilitätsgrenze gilt für Gradientenabstieg und Heavy-Ball auf einer Quadratik mit größtem Eigenwert lambda_max, und wie verhält sie sich zum Edge-of-Stability-Wert 2/lr?",
+   "begruendung": "Exakter Anker für die Stabilitätstheorie",
+   "neuheit": 0.2,
+   "machbarkeit": 1.0,
+   "id": "F9",
+   "status": "offen"
+  }
+ ],
  "claims": [],
  "widerlegt": [],
  "runden": [],
