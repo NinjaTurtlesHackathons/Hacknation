@@ -737,8 +737,26 @@
    "neuheit": 0.8,
    "machbarkeit": 0.8,
    "id": "F18",
-   "status": "offen",
+   "status": "ungeprüft",
    "aus_runde": 6
+  },
+  {
+   "frage": "Per 'scan' mit vorlage 'gekippt:p', Stufe 1+AB und d=2 über p in {0,6; 0,63; 0,65; 0,655; 0,66; 0,7; 0,8; 0,9; 0,99}: Bei welchem p wird die Lücke zwischen NPA 1+AB und See-saw erstmals größer als 1e-6? Die Vorlage ist dabei die gekippte CHSH-Ungleichung (a = [p, 0], b = [p, 0], CHSH-Korrelationsmatrix). Bekannt: bei p = 0,3 und 0,5 sind 1+AB und See-saw scharf (bell-R3, bell-R4), bei p = 0,655 (131/200) ist Stufe 1+AB nicht scharf (bell-R5), Stufe 2 aber schon (bell-R6).",
+   "begruendung": "F18 ist ohne geprüfte Behauptung geblieben, weil der Scan offenbar nie ausgeführt wurde. Die Schwelle ist nun durch bell-R3/R4 (scharf) und bell-R5 (nicht scharf) eingegrenzt. Ein Scan über einen engeren Bereich (z. B. p in {0,5; 0,55; 0,6; 0,63; 0,64; 0,65; 0,655}) lokalisiert den Übergang zwischen 0,5 und 0,655 und liefert Datenpunkte für eine Formel- oder Lückenhypothese.",
+   "neuheit": 0.6,
+   "machbarkeit": 0.9,
+   "id": "F19",
+   "status": "offen",
+   "aus_runde": 7
+  },
+  {
+   "frage": "Gilt für die gekippte CHSH-Ungleichung bei p = 131/200 mit Stufe 2 die Aussage, dass Q (3.35825951388, bell-R6) auch von Stufe 1+AB nur durch eine Lücke >= 2e-6 getrennt ist? Prüfe 'luecke_npa' mit stufe '1+AB' und mindestens 1e-6 bei p = 131/200, dann bei p = 0,8 und 0,99, und als Gegenprobe 'quantenwert' bei p = 0,5 (Q = 3.13693731, bell-R3).",
+   "begruendung": "bell-R5 hat bereits gezeigt, dass 1+AB bei p = 131/200 mindestens 3,3e-6 über der See-saw-Strategie liegt. Als formale Behauptung 'luecke_npa' ist das noch nicht geprüft. Die Gegenprobe bei p = 0,5 trennt scharfe von nicht scharfen Bereichen sauber. Zusätzlich zeigt der Vergleich bei p = 0,8 und 0,99, ob die Lücke mit p wächst oder wieder verschwindet.",
+   "neuheit": 0.5,
+   "machbarkeit": 0.85,
+   "id": "F20",
+   "status": "offen",
+   "aus_runde": 7
   }
  ],
  "claims": [
@@ -1365,7 +1383,9 @@
    "runde": 6
   }
  ],
- "widerlegt": [],
+ "widerlegt": [
+  "[F18] Wo liegt der Übergang, an dem NPA 1+AB nicht mehr scharf ist? Per 'scan' mit Stufe 1+AB und d=2 über p in {0,6; 0,63; 0,65; 0,655; 0,66; 0,7; 0,8; 0,9; 0,99}: Ab welchem p wird die Lücke zwischen 1+AB und See-saw größer als 1e-6? Anschließend 'luecke_npa' mit stufe '1+AB' und mindestens 1e-6 an einem p oberhalb der Schwelle, dann Gegenprobe mit 'quantenwert' an einem p unterhalb.: keine Behauptung bestand die Prüfung"
+ ],
  "runden": [
   {
    "runde": 1,
@@ -1801,7 +1821,14 @@
     }
    ],
    "sek": 133.0
+  },
+  {
+   "runde": 7,
+   "frage": "F18",
+   "status": "ungeprüft",
+   "red_team": [],
+   "sek": 385.1
   }
  ],
- "kosten_usd": 3.340499
+ "kosten_usd": 3.905821
 }
