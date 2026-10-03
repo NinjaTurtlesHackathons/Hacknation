@@ -683,8 +683,26 @@
    "neuheit": 0.7,
    "machbarkeit": 0.6,
    "id": "F12",
-   "status": "offen",
+   "status": "beantwortet",
    "aus_runde": 3
+  },
+  {
+   "frage": "Wo genau liegt der Übergang, an dem NPA 1+AB nicht mehr scharf ist? Verfeinere den scan für a=b=[p,0] auf p in {0,62; 0,64; 0,66; 0,68; 0,70; 0,72} mit Stufe 1+AB und Stufe 2 und prüfe per 'luecke_npa', ab welchem p die Lücke von Stufe 1+AB über 1e-6 liegt und ob Stufe 2 (bzw. 2+AAB) sie dort schließt.",
+   "begruendung": "Die Grenze zwischen 0,6 (scharf) und 0,7 (Lücke ca. 4e-4) ist bisher nur grob eingegrenzt. Eine genaue Schwelle zeigt, wo die Quantenmenge die Stufe 1+AB verlässt, und ob höhere Stufen mit d=2 Strategien übereinstimmen oder ob größere Dimension nötig ist (Vergleich seesaw d=2,3,4). Das ist eine direkte Gegenprobe zur These, dass 1+AB im Bereich p ≤ 0,6 scharf ist.",
+   "neuheit": 0.7,
+   "machbarkeit": 0.85,
+   "id": "F13",
+   "status": "offen",
+   "aus_runde": 4
+  },
+  {
+   "frage": "Gibt es für den scharfen Bereich eine implizite algebraische Beschreibung? Berechne Q(p) zweiseitig bewiesen an etwa 10 Punkten p in [0,05; 0,6] mit hoher Präzision, bestimme per Fit (z. B. LLL/PSLQ) ein Polynom P(Q², p²) kleinen Grades mit P=0 und prüfe es mit dem Prüfertyp 'formel' (Ausdruck als Wurzel des Polynoms) an mindestens 3 Punkten. Alternativ: Fit gegen die Tsirelson-artige Singulärwertschranke und die Form der optimalen Qubit-Strategie (Winkel als Funktion von p).",
+   "begruendung": "Der einfache Ansatz Q²=8+c1·p²+c2·p⁴ ist gescheitert, aber eine implizite Gleichung (etwa aus den Stationaritätsbedingungen der optimalen 2-Qubit-Winkel) kann trotzdem existieren. Die Winkel der von see-saw gefundenen Strategie liefern einen strukturierten Ansatz, der mehr Aussagekraft hat als ein blinder Polynomfit. Ein Erfolg würde eine geschlossene Form liefern, ein Misserfolg gäbe eine belastbare Aussage, dass keine Form niedrigen Grades existiert.",
+   "neuheit": 0.6,
+   "machbarkeit": 0.6,
+   "id": "F14",
+   "status": "offen",
+   "aus_runde": 4
   }
  ],
  "claims": [
@@ -995,6 +1013,110 @@
     }
    ],
    "runde": 3
+  },
+  {
+   "id": "bell-R4",
+   "frage": "Gilt für die Familie a=b=[p,0] mit p aus {0,1; 0,2; 0,3; 0,4; 0,5; 0,6} (dort ist 1+AB scharf) eine geschlossene Form? Teste per Fit und scan, ob Q(p)² bzw. Q(p) einer algebraischen Gleichung genügt (z. B. Ansatz Q² = 8 + c1·p² + c2·p⁴ oder eine Wurzel aus einem Polynom in p) und prüfe das Ergebnis mit dem Prüfertyp 'formel' auf diesem Bereich.",
+   "text": "Der maximale Quantenwert von {\"korrelator\": {\"a\": [\"3/10\", 0], \"b\": [\"3/10\", 0], \"c\": [[1, 1], [1, -1]], \"konst\": 0}} ist Q = 2.93828832 bis auf 1e-6, zweiseitig zertifiziert (explizite Strategie und NPA-Dualzertifikat).",
+   "interpretation_ungeprueft": "Nein, kein einfacher Ansatz Q²=8+c1·p²+c2·p⁴ passt. Eine geschlossene Form habe ich nicht gefunden. Die Werte bei p=0,1…0,6 sind aber zweiseitig numerisch eingegrenzt, und 1+AB ist dort scharf. Bei p=0,7 und 0,8 ist die NPA-Schranke 1+AB nicht mehr scharf (Lücke ca. 4e-4 bzw. 1,5e-3), bei p=1 gilt Q=L=4.",
+   "pruefung": {
+    "typ": "quantenwert",
+    "ungleichung": {
+     "korrelator": {
+      "a": [
+       "3/10",
+       0
+      ],
+      "b": [
+       "3/10",
+       0
+      ],
+      "c": [
+       [
+        1,
+        1
+       ],
+       [
+        1,
+        -1
+       ]
+      ],
+      "konst": 0
+     }
+    },
+    "wert": 2.93828832
+   },
+   "grund": "Prüfer: 2.93828833175884 <= Q <= 2.938288368081 (Lücke 3.63e-08, Strategie d=2, NPA 1+AB); bewiesen",
+   "level": "computed_rigorous",
+   "status": "bestätigt",
+   "red_team": [
+    {
+     "pruefung": {
+      "typ": "luecke_npa",
+      "ungleichung": {
+       "korrelator": {
+        "a": [
+         "1/2",
+         0
+        ],
+        "b": [
+         "1/2",
+         0
+        ],
+        "c": [
+         [
+          1,
+          1
+         ],
+         [
+          1,
+          -1
+         ]
+        ],
+        "konst": 0
+       }
+      },
+      "stufe": "1+AB",
+      "mindestens": 1e-06
+     },
+     "idee": "Randfall im behaupteten Bereich: Die Antwort sagt, 1+AB sei bei p=0,1…0,6 scharf. Besteht diese Prüfung, ist 1+AB bei p=1/2 nicht scharf. Dann sind die behaupteten zweiseitigen Werte falsch, und die Aussage über den Bereich, in dem 1+AB scharf ist, ebenfalls.",
+     "bestanden": false,
+     "grund": "Prüfer: NPA-Stufe 1+AB erreicht >= 3.13693729405 (rationale zulässige Momentmatrix), beste eigene Strategie exakt 3.13693731131 (d<=2); Lücke >= -1.726e-08"
+    },
+    {
+     "pruefung": {
+      "typ": "quanten_untere_schranke",
+      "ungleichung": {
+       "korrelator": {
+        "a": [
+         "3/10",
+         0
+        ],
+        "b": [
+         "3/10",
+         0
+        ],
+        "c": [
+         [
+          1,
+          1
+         ],
+         [
+          1,
+          -1
+         ]
+        ],
+        "konst": 0
+       }
+      },
+      "wert": 2.9383
+     },
+     "idee": "Gegenbeispiel zum Zahlenwert: Der behauptete Wert Q(0,3)=2,93828832 liegt knapp unter 2,9383. Findet der Prüfer eine Strategie mit Bell-Wert >= 2,9383, ist Q echt größer als behauptet. Die Antwort ist dann falsch, und die behauptete zweiseitige Beweisbarkeit ebenfalls.",
+     "bestanden": false,
+     "grund": "Prüfer: eigene See-saw-Strategie Sf2ed88fc7e79 (d=2), exakter rationaler Bell-Wert = 2.93828833175884"
+    }
+   ],
+   "runde": 4
   }
  ],
  "widerlegt": [],
@@ -1213,7 +1335,80 @@
     }
    ],
    "sek": 525.2
+  },
+  {
+   "runde": 4,
+   "frage": "F12",
+   "status": "beantwortet",
+   "red_team": [
+    {
+     "pruefung": {
+      "typ": "luecke_npa",
+      "ungleichung": {
+       "korrelator": {
+        "a": [
+         "1/2",
+         0
+        ],
+        "b": [
+         "1/2",
+         0
+        ],
+        "c": [
+         [
+          1,
+          1
+         ],
+         [
+          1,
+          -1
+         ]
+        ],
+        "konst": 0
+       }
+      },
+      "stufe": "1+AB",
+      "mindestens": 1e-06
+     },
+     "idee": "Randfall im behaupteten Bereich: Die Antwort sagt, 1+AB sei bei p=0,1…0,6 scharf. Besteht diese Prüfung, ist 1+AB bei p=1/2 nicht scharf. Dann sind die behaupteten zweiseitigen Werte falsch, und die Aussage über den Bereich, in dem 1+AB scharf ist, ebenfalls.",
+     "bestanden": false,
+     "grund": "Prüfer: NPA-Stufe 1+AB erreicht >= 3.13693729405 (rationale zulässige Momentmatrix), beste eigene Strategie exakt 3.13693731131 (d<=2); Lücke >= -1.726e-08"
+    },
+    {
+     "pruefung": {
+      "typ": "quanten_untere_schranke",
+      "ungleichung": {
+       "korrelator": {
+        "a": [
+         "3/10",
+         0
+        ],
+        "b": [
+         "3/10",
+         0
+        ],
+        "c": [
+         [
+          1,
+          1
+         ],
+         [
+          1,
+          -1
+         ]
+        ],
+        "konst": 0
+       }
+      },
+      "wert": 2.9383
+     },
+     "idee": "Gegenbeispiel zum Zahlenwert: Der behauptete Wert Q(0,3)=2,93828832 liegt knapp unter 2,9383. Findet der Prüfer eine Strategie mit Bell-Wert >= 2,9383, ist Q echt größer als behauptet. Die Antwort ist dann falsch, und die behauptete zweiseitige Beweisbarkeit ebenfalls.",
+     "bestanden": false,
+     "grund": "Prüfer: eigene See-saw-Strategie Sf2ed88fc7e79 (d=2), exakter rationaler Bell-Wert = 2.93828833175884"
+    }
+   ],
+   "sek": 514.2
   }
  ],
- "kosten_usd": 2.2279809999999998
+ "kosten_usd": 2.832143
 }
