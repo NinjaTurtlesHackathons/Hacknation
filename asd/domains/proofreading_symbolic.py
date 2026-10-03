@@ -11,19 +11,36 @@ import sympy as sp
 from . import proofreading as P
 
 
+def _arborescences(states, out_edges, root):
+    """Alle aufspannenden Bäume, die zur Wurzel hin gerichtet sind (jeder Nicht-Wurzel-Knoten wählt genau eine ausgehende Kante)."""
+    others = [s for s in states if s != root]
+    for choice in __import__("itertools").product(*[out_edges[s] for s in others]):
+        parent = {s: c[0] for s, c in zip(others, choice)}
+        ok = True
+        for s in others:                                   # zykelfrei: jeder Pfad endet an der Wurzel
+            seen, x = set(), s
+            while x != root:
+                if x in seen: ok = False; break
+                seen.add(x); x = parent[x]
+            if not ok: break
+        if ok: yield [c[1] for c in choice]
+
+
 def symbolic_eta(spec):
+    """eta exakt über das Matrix-Tree-Theorem: pi_i ~ Summe über Bäume zur Wurzel i des Produkts der Raten (nur positive Terme)."""
     names = P.param_names(spec); syms = {}
     for n in names:
         syms[n] = 1 + sp.Symbol("g_" + n, nonnegative=True) if n in ("mu", "muP") else sp.Symbol("k_" + n.replace("+", "f").replace("-", "b"), positive=True)
     D = sp.Symbol("D", positive=True)
     states, edges = P.build_rates(spec, syms, None, D, num=lambda x: sp.Integer(x))
-    n = len(states); idx = {s: i for i, s in enumerate(states)}; Q = sp.zeros(n, n)
-    for e in edges: Q[idx[e["u"]], idx[e["v"]]] += e["f"]; Q[idx[e["v"]], idx[e["u"]]] += e["b"]
-    for i in range(n): Q[i, i] = -sum(Q[i, j] for j in range(n) if j != i)
-    M = Q.T.copy(); M[n - 1, :] = sp.ones(1, n); rhs = sp.zeros(n, 1); rhs[n - 1] = 1
-    pv = M.LUsolve(rhs); pi = {s: pv[idx[s]] for s in states}; J = {"R": 0, "W": 0}
+    out = {s: [] for s in states}
+    for e in edges: out[e["u"]].append((e["v"], e["f"])); out[e["v"]].append((e["u"], e["b"]))
+    w = {}
+    for r in states:
+        w[r] = sp.Add(*[sp.Mul(*rs) for rs in _arborescences(states, out, r)])
+    J = {"R": 0, "W": 0}
     for e in edges:
-        if e["produkt"]: J[e["zweig"]] += pi[e["u"]] * e["f"] - pi[e["v"]] * e["b"]
+        if e["produkt"]: J[e["zweig"]] += w[e["u"]] * e["f"] - w[e["v"]] * e["b"]     # Normierung kürzt sich in eta heraus
     return sp.cancel(sp.together(J["W"] / J["R"])), D
 
 

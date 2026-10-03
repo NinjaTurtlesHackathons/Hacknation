@@ -123,7 +123,7 @@ class ProofreadingDomain(Domain):
 - {"typ": "erreichbar", "topologie": ..., "params": {name: log-Rate, ...}, "eta_max": Zahl, "sigma_max": Zahl|null, "v_min": Zahl|null}
   Zertifikat (a): Der Prüfer rundet die Raten auf rationale Zahlen, prüft Ratenbereich und detaillierte Bilanz exakt und berechnet eta, v exakt
   und sigma rigoros (arb). Besteht, wenn eta <= eta_max (und sigma <= sigma_max, v >= v_min). Nutze params aus optimize/evaluate.
-- {"typ": "untere_schranke", "topologie": "hopfield_n0"|"hopfield_n1", "c": Zahl, "k": ganze Zahl}
+- {"typ": "untere_schranke", "topologie": "hopfield_n0"|"hopfield_n1"|"hopfield_n2"|eigene Spec, "c": Zahl, "k": ganze Zahl}
   Zertifikat (b): Beweis, dass eta >= c * e^(-k*Delta) für ALLE positiven Raten und jeden Treibstoff gilt (symbolisch, Koeffizienten-Positivität).
   Scheitert der Beweis, ist die Aussage nicht widerlegt, nur nicht zertifiziert. Teuer (Minuten)."""
 
@@ -183,7 +183,9 @@ class ProofreadingDomain(Domain):
                 ({"typ": "erreichbar", "topologie": "hopfield_n0", "params": n0, "eta_max": 0.0099}, False),   # unter e^-Delta ohne Proofreading
                 ({"typ": "erreichbar", "topologie": "hopfield_n1", "params": hp | {"mu": 15.0}, "eta_max": 1.0}, False),
                 ({"typ": "untere_schranke", "topologie": "hopfield_n0", "c": 1, "k": 1}, True),      # Gleichgewichtsgrenze ohne Proofreading
-                ({"typ": "untere_schranke", "topologie": "hopfield_n0", "c": 2, "k": 1}, False)]     # falsch: n0 erreicht 1,0000x e^-Delta  # Rate außerhalb [-L, L]
+                ({"typ": "untere_schranke", "topologie": "hopfield_n0", "c": 2, "k": 1}, False),     # falsch: n0 erreicht 1,0000x e^-Delta
+                ({"typ": "untere_schranke", "topologie": "hopfield_n1", "c": 1, "k": 2}, True),      # Hopfield-Grenze n = 1
+                ({"typ": "untere_schranke", "topologie": "hopfield_n1", "c": 2, "k": 2}, False)]     # falsch: 1,0017 e^-2Delta ist erreichbar  # Rate außerhalb [-L, L]
 
 
 DOMAIN = ProofreadingDomain()
