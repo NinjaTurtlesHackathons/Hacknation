@@ -1,0 +1,513 @@
+{
+ "antwort": {
+  "antwort": "bcc",
+  "zahl": null,
+  "konfidenz": 0.99,
+  "pruefung": {
+   "typ": "argmin_nd",
+   "d": 3,
+   "nu": 5,
+   "erwartet": "bcc"
+  },
+  "begruendung": "Die direkten Energieberechnungen [E4–E6] zeigen eindeutig: BCC (T ≈ 13.1146) < FCC (T ≈ 13.3809) < SC (T ≈ 16.2167). Dies wird durch zwei unabhängige globale Optimierungsläufe [E3, E7] mit insgesamt 35 zufälligen Starts (unterschiedliche Seeds) bestätigt: alle konvergieren zu BCC mit derselben Energie, was auf ein starkes globales Minimum hindeutet.",
+  "stimmen": "Stufe 1/4 (sparsam, haiku)"
+ },
+ "level": "computed (Code-Prüfer bestanden)",
+ "forscher": [
+  {
+   "strategie": "sparsam",
+   "runden": [
+    {
+     "ueberlegung": "Zur Beantwortung der Frage nach dem 3D-Gitter mit minimaler T_5-Energie benötige ich: (1) Direkter Vergleich der Standard-Bravais-Gitter (bcc, fcc, sc) bei nu=5, (2) Globale Suche mit minimize_nd, um auszuschließen, dass ein nicht-standard Gitter besser ist. Die beiden Ansätze sind komplementär: Der erste ist schnell und fokussiert, der zweite ist umfassend. Mit maximal 4 Experimenten kann ich eine zuverlässige Antwort liefern, da minimize_nd auf mehreren zufälligen Starts (mit verschiedenen Bravais-Klassen) sucht und die Gitter identifiziert.",
+     "plan": [
+      {
+       "op": "energy3d",
+       "args": {
+        "name": "bcc",
+        "nu": 5
+       }
+      },
+      {
+       "op": "energy3d",
+       "args": {
+        "name": "fcc",
+        "nu": 5
+       }
+      },
+      {
+       "op": "energy3d",
+       "args": {
+        "name": "sc",
+        "nu": 5
+       }
+      },
+      {
+       "op": "minimize_nd",
+       "args": {
+        "d": 3,
+        "nu": 5,
+        "starts": 15,
+        "seed": 42
+       }
+      }
+     ]
+    },
+    {
+     "plan": [
+      {
+       "op": "energy3d",
+       "args": {
+        "name_or_ca": "bcc",
+        "nu": 5
+       }
+      },
+      {
+       "op": "energy3d",
+       "args": {
+        "name_or_ca": "fcc",
+        "nu": 5
+       }
+      },
+      {
+       "op": "energy3d",
+       "args": {
+        "name_or_ca": "sc",
+        "nu": 5
+       }
+      },
+      {
+       "op": "minimize_nd",
+       "args": {
+        "d": 3,
+        "nu": 5,
+        "starts": 20,
+        "seed": 123
+       }
+      }
+     ]
+    },
+    {
+     "antwort": "bcc",
+     "zahl": null,
+     "konfidenz": 0.99,
+     "pruefung": {
+      "typ": "argmin_nd",
+      "d": 3,
+      "nu": 5,
+      "erwartet": "bcc"
+     },
+     "begruendung": "Die direkten Energieberechnungen [E4–E6] zeigen eindeutig: BCC (T ≈ 13.1146) < FCC (T ≈ 13.3809) < SC (T ≈ 16.2167). Dies wird durch zwei unabhängige globale Optimierungsläufe [E3, E7] mit insgesamt 35 zufälligen Starts (unterschiedliche Seeds) bestätigt: alle konvergieren zu BCC mit derselben Energie, was auf ein starkes globales Minimum hindeutet."
+    }
+   ],
+   "experimente": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+   ],
+   "final": {
+    "antwort": "bcc",
+    "zahl": null,
+    "konfidenz": 0.99,
+    "pruefung": {
+     "typ": "argmin_nd",
+     "d": 3,
+     "nu": 5,
+     "erwartet": "bcc"
+    },
+    "begruendung": "Die direkten Energieberechnungen [E4–E6] zeigen eindeutig: BCC (T ≈ 13.1146) < FCC (T ≈ 13.3809) < SC (T ≈ 16.2167). Dies wird durch zwei unabhängige globale Optimierungsläufe [E3, E7] mit insgesamt 35 zufälligen Starts (unterschiedliche Seeds) bestätigt: alle konvergieren zu BCC mit derselben Energie, was auf ein starkes globales Minimum hindeutet."
+   },
+   "modell": "haiku",
+   "pruefung": {
+    "bestanden": true,
+    "grund": "Prüfer-Suche d=3, nu=5.0, 4 Starts (Seed 1234): Gitter ['bcc', 'bcc', 'bcc', 'bcc'], T [13.1146, 13.1146, 13.1146, 13.1146], T(bcc)=13.11460, besser als bcc: 0"
+   }
+  }
+ ],
+ "experimente": [
+  {
+   "id": 0,
+   "wer": "forscher-sparsam",
+   "op": "energy3d",
+   "args": {
+    "name": "bcc",
+    "nu": 5
+   },
+   "ergebnis": {
+    "fehler": "TypeError: energy3d() got an unexpected keyword argument 'name'"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 1,
+   "wer": "forscher-sparsam",
+   "op": "energy3d",
+   "args": {
+    "name": "fcc",
+    "nu": 5
+   },
+   "ergebnis": {
+    "fehler": "TypeError: energy3d() got an unexpected keyword argument 'name'"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 2,
+   "wer": "forscher-sparsam",
+   "op": "energy3d",
+   "args": {
+    "name": "sc",
+    "nu": 5
+   },
+   "ergebnis": {
+    "fehler": "TypeError: energy3d() got an unexpected keyword argument 'name'"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 3,
+   "wer": "forscher-sparsam",
+   "op": "minimize_nd",
+   "args": {
+    "d": 3,
+    "nu": 5,
+    "starts": 15,
+    "seed": 42
+   },
+   "ergebnis": {
+    "laeufe": [
+     {
+      "start": 11,
+      "T_suche": 13.114584388848742,
+      "T": 13.114603783125867,
+      "gitter": "bcc",
+      "iterationen": 19
+     },
+     {
+      "start": 4,
+      "T_suche": 13.114584388849428,
+      "T": 13.11460378312653,
+      "gitter": "bcc",
+      "iterationen": 19
+     },
+     {
+      "start": 1,
+      "T_suche": 13.114584388849389,
+      "T": 13.114603783127961,
+      "gitter": "bcc",
+      "iterationen": 24
+     },
+     {
+      "start": 7,
+      "T_suche": 13.11458438884845,
+      "T": 13.114603783127968,
+      "gitter": "bcc",
+      "iterationen": 25
+     },
+     {
+      "start": 13,
+      "T_suche": 13.114584388850062,
+      "T": 13.114603783128103,
+      "gitter": "bcc",
+      "iterationen": 22
+     },
+     {
+      "start": 9,
+      "T_suche": 13.114584388849158,
+      "T": 13.114603783128757,
+      "gitter": "bcc",
+      "iterationen": 17
+     },
+     {
+      "start": 8,
+      "T_suche": 13.114584388849064,
+      "T": 13.11460378312939,
+      "gitter": "bcc",
+      "iterationen": 25
+     },
+     {
+      "start": 14,
+      "T_suche": 13.114584388849103,
+      "T": 13.114603783129398,
+      "gitter": "bcc",
+      "iterationen": 24
+     },
+     {
+      "start": 0,
+      "T_suche": 13.114584388850501,
+      "T": 13.114603783129514,
+      "gitter": "bcc",
+      "iterationen": 24
+     },
+     {
+      "start": 2,
+      "T_suche": 13.114584388849208,
+      "T": 13.1146037831302,
+      "gitter": "bcc",
+      "iterationen": 22
+     },
+     {
+      "start": 5,
+      "T_suche": 13.114584388846515,
+      "T": 13.114603783132543,
+      "gitter": "bcc",
+      "iterationen": 27
+     },
+     {
+      "start": 10,
+      "T_suche": 13.114584388852398,
+      "T": 13.11460378313294,
+      "gitter": "bcc",
+      "iterationen": 22
+     },
+     {
+      "start": 12,
+      "T_suche": 13.114584388843197,
+      "T": 13.114603783133196,
+      "gitter": "bcc",
+      "iterationen": 27
+     },
+     {
+      "start": 6,
+      "T_suche": 13.114584388844433,
+      "T": 13.114603783134898,
+      "gitter": "bcc",
+      "iterationen": 25
+     },
+     {
+      "start": 3,
+      "T_suche": 13.11458438887394,
+      "T": 13.114603783143219,
+      "gitter": "bcc",
+      "iterationen": 21
+     }
+    ],
+    "referenz_T": {
+     "bcc": 13.114603783122936,
+     "fcc": 13.380899049738176,
+     "sc": 16.21657895938287
+    },
+    "R": [
+     4,
+     6
+    ]
+   },
+   "sek": 45.96
+  },
+  {
+   "id": 4,
+   "wer": "forscher-sparsam",
+   "op": "energy3d",
+   "args": {
+    "name_or_ca": "bcc",
+    "nu": 5
+   },
+   "ergebnis": {
+    "T": 13.114603783122936,
+    "err": 8.054560787229548e-07
+   },
+   "sek": 0.04
+  },
+  {
+   "id": 5,
+   "wer": "forscher-sparsam",
+   "op": "energy3d",
+   "args": {
+    "name_or_ca": "fcc",
+    "nu": 5
+   },
+   "ergebnis": {
+    "T": 13.380899049738176,
+    "err": 6.881492815580259e-07
+   },
+   "sek": 0.04
+  },
+  {
+   "id": 6,
+   "wer": "forscher-sparsam",
+   "op": "energy3d",
+   "args": {
+    "name_or_ca": "sc",
+    "nu": 5
+   },
+   "ergebnis": {
+    "T": 16.21657895938287,
+    "err": 4.118577301426285e-07
+   },
+   "sek": 0.04
+  },
+  {
+   "id": 7,
+   "wer": "forscher-sparsam",
+   "op": "minimize_nd",
+   "args": {
+    "d": 3,
+    "nu": 5,
+    "starts": 20,
+    "seed": 123
+   },
+   "ergebnis": {
+    "laeufe": [
+     {
+      "start": 1,
+      "T_suche": 13.1145839464444,
+      "T": 13.114603781225002,
+      "gitter": "bcc",
+      "iterationen": 28
+     },
+     {
+      "start": 12,
+      "T_suche": 13.114583946444297,
+      "T": 13.114603781225973,
+      "gitter": "bcc",
+      "iterationen": 19
+     },
+     {
+      "start": 17,
+      "T_suche": 13.114583946443235,
+      "T": 13.114603781233514,
+      "gitter": "bcc",
+      "iterationen": 27
+     },
+     {
+      "start": 5,
+      "T_suche": 13.114583946515472,
+      "T": 13.114603781287391,
+      "gitter": "bcc",
+      "iterationen": 29
+     },
+     {
+      "start": 18,
+      "T_suche": 13.114583946517413,
+      "T": 13.114603781293376,
+      "gitter": "bcc",
+      "iterationen": 16
+     },
+     {
+      "start": 10,
+      "T_suche": 13.114584388863765,
+      "T": 13.114603783126878,
+      "gitter": "bcc",
+      "iterationen": 24
+     },
+     {
+      "start": 6,
+      "T_suche": 13.11458438884752,
+      "T": 13.114603783128143,
+      "gitter": "bcc",
+      "iterationen": 22
+     },
+     {
+      "start": 13,
+      "T_suche": 13.114584388848753,
+      "T": 13.114603783128588,
+      "gitter": "bcc",
+      "iterationen": 24
+     },
+     {
+      "start": 4,
+      "T_suche": 13.114584388849376,
+      "T": 13.114603783128715,
+      "gitter": "bcc",
+      "iterationen": 22
+     },
+     {
+      "start": 9,
+      "T_suche": 13.114584388848264,
+      "T": 13.114603783128835,
+      "gitter": "bcc",
+      "iterationen": 28
+     },
+     {
+      "start": 0,
+      "T_suche": 13.114584388849416,
+      "T": 13.114603783129358,
+      "gitter": "bcc",
+      "iterationen": 18
+     },
+     {
+      "start": 16,
+      "T_suche": 13.114584388849595,
+      "T": 13.114603783130521,
+      "gitter": "bcc",
+      "iterationen": 19
+     },
+     {
+      "start": 3,
+      "T_suche": 13.114584388849947,
+      "T": 13.114603783130832,
+      "gitter": "bcc",
+      "iterationen": 29
+     },
+     {
+      "start": 11,
+      "T_suche": 13.114584388843447,
+      "T": 13.11460378313232,
+      "gitter": "bcc",
+      "iterationen": 27
+     },
+     {
+      "start": 15,
+      "T_suche": 13.114584388843934,
+      "T": 13.114603783133296,
+      "gitter": "bcc",
+      "iterationen": 22
+     },
+     {
+      "start": 2,
+      "T_suche": 13.114584388843939,
+      "T": 13.114603783133596,
+      "gitter": "bcc",
+      "iterationen": 25
+     },
+     {
+      "start": 7,
+      "T_suche": 13.114584388843834,
+      "T": 13.114603783135541,
+      "gitter": "bcc",
+      "iterationen": 30
+     },
+     {
+      "start": 14,
+      "T_suche": 13.114584388847375,
+      "T": 13.114603783135923,
+      "gitter": "bcc",
+      "iterationen": 19
+     },
+     {
+      "start": 8,
+      "T_suche": 13.114584388854215,
+      "T": 13.114603783150692,
+      "gitter": "bcc",
+      "iterationen": 30
+     },
+     {
+      "start": 19,
+      "T_suche": 13.114584388884275,
+      "T": 13.114603783193965,
+      "gitter": "bcc",
+      "iterationen": 22
+     }
+    ],
+    "referenz_T": {
+     "bcc": 13.114603783122936,
+     "fcc": 13.380899049738176,
+     "sc": 16.21657895938287
+    },
+    "R": [
+     4,
+     6
+    ]
+   },
+   "sek": 60.86
+  }
+ ],
+ "sek": 158.4,
+ "frage": "Q9",
+ "salt": 2,
+ "bedingung": "BK"
+}

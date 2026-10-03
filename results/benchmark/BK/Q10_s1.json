@@ -1,0 +1,300 @@
+{
+ "antwort": {
+  "antwort": "3.75",
+  "zahl": 3.752,
+  "konfidenz": 0.85,
+  "pruefung": {
+   "typ": "vorzeichenwechsel",
+   "groesse": "bain_fcc",
+   "nu_lo": 3.75,
+   "nu_hi": 3.8
+  },
+  "begruendung": "Die Krümmung des Bain-Pfads bei FCC (c/a = √2) zeigt einen Vorzeichenwechsel zwischen nu=3.7 (krümmung=+0.139, stabil) und nu=3.8 (krümmung=−0.129, instabil). Lineare Interpolation durch die zwei Messwerte ergibt die kritische Stabilititätsverlust-Exponente nu_c ≈ 3.752, wo FCC von lokaler Stabilität zur lokalen Instabilität entlang des Bain-Pfads übergeht.",
+  "stimmen": "Stufe 1/4 (sparsam, haiku)"
+ },
+ "level": "computed (Code-Prüfer bestanden)",
+ "forscher": [
+  {
+   "strategie": "sparsam",
+   "runden": [
+    {
+     "ueberlegung": "FCC liegt auf dem Bain-Pfad bei c/a = √2 ≈ 1.414. Der kritische Exponent ν_c ist der Punkt, wo die Krümmung der Energie T_ν entlang des Bain-Pfads bei FCC das Vorzeichen wechselt (von Stabilität ⟹ Instabilität, d.h. von d²T/d(c/a)² > 0 zu < 0). Strategie: (1) Grobe Suche über mehrere ν-Werte mit bain_curvature, um das Intervall mit Vorzeichenwechsel einzugrenzen. (2) Verfeinern durch engere Tests oder Bisektion. Erwartet: ν_c liegt wahrscheinlich im Bereich 2–5 (da für kleine ν die klassische Gitterenergie FCC stabilisiert, für sehr große ν dominieren kurze Abstände).",
+     "plan": [
+      {
+       "op": "bain_curvature",
+       "args": {
+        "ca": 1.414213562,
+        "nu": 1.0
+       }
+      },
+      {
+       "op": "bain_curvature",
+       "args": {
+        "ca": 1.414213562,
+        "nu": 2.0
+       }
+      },
+      {
+       "op": "bain_curvature",
+       "args": {
+        "ca": 1.414213562,
+        "nu": 3.0
+       }
+      },
+      {
+       "op": "bain_curvature",
+       "args": {
+        "ca": 1.414213562,
+        "nu": 4.0
+       }
+      },
+      {
+       "op": "bain_curvature",
+       "args": {
+        "ca": 1.414213562,
+        "nu": 5.0
+       }
+      },
+      {
+       "op": "bain_curvature",
+       "args": {
+        "ca": 1.414213562,
+        "nu": 1.5
+       }
+      },
+      {
+       "op": "bain_curvature",
+       "args": {
+        "ca": 1.414213562,
+        "nu": 2.5
+       }
+      },
+      {
+       "op": "bain_curvature",
+       "args": {
+        "ca": 1.414213562,
+        "nu": 3.5
+       }
+      }
+     ]
+    },
+    {
+     "plan": [
+      {
+       "op": "bain_curvature",
+       "args": {
+        "ca": 1.414213562,
+        "nu": 3.7
+       }
+      },
+      {
+       "op": "bain_curvature",
+       "args": {
+        "ca": 1.414213562,
+        "nu": 3.8
+       }
+      },
+      {
+       "op": "bain_curvature",
+       "args": {
+        "ca": 1.414213562,
+        "nu": 3.9
+       }
+      }
+     ]
+    },
+    {
+     "antwort": "3.75",
+     "zahl": 3.752,
+     "konfidenz": 0.85,
+     "pruefung": {
+      "typ": "vorzeichenwechsel",
+      "groesse": "bain_fcc",
+      "nu_lo": 3.75,
+      "nu_hi": 3.8
+     },
+     "begruendung": "Die Krümmung des Bain-Pfads bei FCC (c/a = √2) zeigt einen Vorzeichenwechsel zwischen nu=3.7 (krümmung=+0.139, stabil) und nu=3.8 (krümmung=−0.129, instabil). Lineare Interpolation durch die zwei Messwerte ergibt die kritische Stabilititätsverlust-Exponente nu_c ≈ 3.752, wo FCC von lokaler Stabilität zur lokalen Instabilität entlang des Bain-Pfads übergeht."
+    }
+   ],
+   "experimente": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10
+   ],
+   "final": {
+    "antwort": "3.75",
+    "zahl": 3.752,
+    "konfidenz": 0.85,
+    "pruefung": {
+     "typ": "vorzeichenwechsel",
+     "groesse": "bain_fcc",
+     "nu_lo": 3.75,
+     "nu_hi": 3.8
+    },
+    "begruendung": "Die Krümmung des Bain-Pfads bei FCC (c/a = √2) zeigt einen Vorzeichenwechsel zwischen nu=3.7 (krümmung=+0.139, stabil) und nu=3.8 (krümmung=−0.129, instabil). Lineare Interpolation durch die zwei Messwerte ergibt die kritische Stabilititätsverlust-Exponente nu_c ≈ 3.752, wo FCC von lokaler Stabilität zur lokalen Instabilität entlang des Bain-Pfads übergeht."
+   },
+   "modell": "haiku",
+   "pruefung": {
+    "bestanden": true,
+    "grund": "bain_fcc: f(3.75)=5.219e-03, f(3.8)=-1.289e-01"
+   }
+  }
+ ],
+ "experimente": [
+  {
+   "id": 0,
+   "wer": "forscher-sparsam",
+   "op": "bain_curvature",
+   "args": {
+    "ca": 1.414213562,
+    "nu": 1.0
+   },
+   "ergebnis": {
+    "kruemmung": -466.8016217692639
+   },
+   "sek": 0.16
+  },
+  {
+   "id": 1,
+   "wer": "forscher-sparsam",
+   "op": "bain_curvature",
+   "args": {
+    "ca": 1.414213562,
+    "nu": 2.0
+   },
+   "ergebnis": {
+    "fehler": "ZeroDivisionError: float division by zero"
+   },
+   "sek": 0.04
+  },
+  {
+   "id": 2,
+   "wer": "forscher-sparsam",
+   "op": "bain_curvature",
+   "args": {
+    "ca": 1.414213562,
+    "nu": 3.0
+   },
+   "ergebnis": {
+    "kruemmung": 1.963913319968924
+   },
+   "sek": 0.12
+  },
+  {
+   "id": 3,
+   "wer": "forscher-sparsam",
+   "op": "bain_curvature",
+   "args": {
+    "ca": 1.414213562,
+    "nu": 4.0
+   },
+   "ergebnis": {
+    "kruemmung": -0.6646025880741036
+   },
+   "sek": 0.13
+  },
+  {
+   "id": 4,
+   "wer": "forscher-sparsam",
+   "op": "bain_curvature",
+   "args": {
+    "ca": 1.414213562,
+    "nu": 5.0
+   },
+   "ergebnis": {
+    "kruemmung": -3.171779058064317
+   },
+   "sek": 0.13
+  },
+  {
+   "id": 5,
+   "wer": "forscher-sparsam",
+   "op": "bain_curvature",
+   "args": {
+    "ca": 1.414213562,
+    "nu": 1.5
+   },
+   "ergebnis": {
+    "kruemmung": -7.542983354369426
+   },
+   "sek": 0.12
+  },
+  {
+   "id": 6,
+   "wer": "forscher-sparsam",
+   "op": "bain_curvature",
+   "args": {
+    "ca": 1.414213562,
+    "nu": 2.5
+   },
+   "ergebnis": {
+    "kruemmung": 3.046741056778046
+   },
+   "sek": 0.12
+  },
+  {
+   "id": 7,
+   "wer": "forscher-sparsam",
+   "op": "bain_curvature",
+   "args": {
+    "ca": 1.414213562,
+    "nu": 3.5
+   },
+   "ergebnis": {
+    "kruemmung": 0.6725605814494884
+   },
+   "sek": 0.13
+  },
+  {
+   "id": 8,
+   "wer": "forscher-sparsam",
+   "op": "bain_curvature",
+   "args": {
+    "ca": 1.414213562,
+    "nu": 3.7
+   },
+   "ergebnis": {
+    "kruemmung": 0.13908219642644326
+   },
+   "sek": 0.16
+  },
+  {
+   "id": 9,
+   "wer": "forscher-sparsam",
+   "op": "bain_curvature",
+   "args": {
+    "ca": 1.414213562,
+    "nu": 3.8
+   },
+   "ergebnis": {
+    "kruemmung": -0.12893589129703287
+   },
+   "sek": 0.12
+  },
+  {
+   "id": 10,
+   "wer": "forscher-sparsam",
+   "op": "bain_curvature",
+   "args": {
+    "ca": 1.414213562,
+    "nu": 3.9
+   },
+   "ergebnis": {
+    "kruemmung": -0.39703683896163966
+   },
+   "sek": 0.18
+  }
+ ],
+ "sek": 142.0,
+ "frage": "Q10",
+ "salt": 1,
+ "bedingung": "BK"
+}

@@ -1,0 +1,328 @@
+{
+ "antwort": {
+  "antwort": "quadratisch",
+  "zahl": null,
+  "konfidenz": 0.98,
+  "pruefung": {
+   "typ": "argmin2d",
+   "nu": 5,
+   "erwartet": "quadratisch"
+  },
+  "begruendung": "Die globale Suche minimize2d (E0) findet das quadratische Gitter τ = i als einziges lokales Minimum mit T ≈ 4.838. Das hexagonale Gitter ist bei ν=5 instabil (beide Hessian-Eigenwerte negativ, E4) und hat signifikant höhere Energie T ≈ 5.130 (E3). Unter Rechteckgittern ist y = 1.0 (Quadrat) optimal (E6).",
+  "stimmen": "Stufe 1/4 (sparsam, haiku)"
+ },
+ "level": "computed (Code-Prüfer bestanden)",
+ "forscher": [
+  {
+   "strategie": "sparsam",
+   "runden": [
+    {
+     "ueberlegung": "Zu minimieren ist die Dreikörper-Energie T_nu bei nu = 5. Ich plane eine systematische Untersuchung: (1) globale Optimierung über den Fundamentalbereich, (2) Vergleich der bekannten Kandidaten (hexagonal, quadratisch), (3) Stabilitätsprüfung durch Hessian-Analyse, (4) Optimierung über spezielle Gittertypen (Rechteckgitter), (5) Studium des Verhaltens bei benachbarten nu, um zu verstehen, ob Übergänge oder Koexistenzen auftreten. Dies ermöglicht mir, den Minimizer robust zu identifizieren und eine geeignete Prüfung zu wählen.",
+     "plan": [
+      {
+       "op": "minimize2d",
+       "args": {
+        "nu": 5
+       }
+      },
+      {
+       "op": "energy2d",
+       "args": {
+        "tau": [
+         0.5,
+         0.8660254
+        ],
+        "nu": 5
+       }
+      },
+      {
+       "op": "energy2d",
+       "args": {
+        "tau": [
+         0,
+         1
+        ],
+        "nu": 5
+       }
+      },
+      {
+       "op": "compare2d",
+       "args": {
+        "tau_a": [
+         0.5,
+         0.8660254
+        ],
+        "tau_b": [
+         0,
+         1
+        ],
+        "nu": 5
+       }
+      },
+      {
+       "op": "hessian2d",
+       "args": {
+        "tau": [
+         0.5,
+         0.8660254
+        ],
+        "nu": 5
+       }
+      },
+      {
+       "op": "hessian2d",
+       "args": {
+        "tau": [
+         0,
+         1
+        ],
+        "nu": 5
+       }
+      },
+      {
+       "op": "rect_optimum",
+       "args": {
+        "nu": 5,
+        "y_lo": 0.8,
+        "y_hi": 1.3
+       }
+      },
+      {
+       "op": "asymptote",
+       "args": {
+        "nus": [
+         3,
+         4,
+         5,
+         6,
+         7,
+         8
+        ]
+       }
+      }
+     ]
+    },
+    {
+     "antwort": "quadratisch",
+     "zahl": null,
+     "konfidenz": 0.98,
+     "pruefung": {
+      "typ": "argmin2d",
+      "nu": 5,
+      "erwartet": "quadratisch"
+     },
+     "begruendung": "Die globale Suche minimize2d (E0) findet das quadratische Gitter τ = i als einziges lokales Minimum mit T ≈ 4.838. Das hexagonale Gitter ist bei ν=5 instabil (beide Hessian-Eigenwerte negativ, E4) und hat signifikant höhere Energie T ≈ 5.130 (E3). Unter Rechteckgittern ist y = 1.0 (Quadrat) optimal (E6)."
+    }
+   ],
+   "experimente": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+   ],
+   "final": {
+    "antwort": "quadratisch",
+    "zahl": null,
+    "konfidenz": 0.98,
+    "pruefung": {
+     "typ": "argmin2d",
+     "nu": 5,
+     "erwartet": "quadratisch"
+    },
+    "begruendung": "Die globale Suche minimize2d (E0) findet das quadratische Gitter τ = i als einziges lokales Minimum mit T ≈ 4.838. Das hexagonale Gitter ist bei ν=5 instabil (beide Hessian-Eigenwerte negativ, E4) und hat signifikant höhere Energie T ≈ 5.130 (E3). Unter Rechteckgittern ist y = 1.0 (Quadrat) optimal (E6)."
+   },
+   "modell": "haiku",
+   "pruefung": {
+    "bestanden": true,
+    "grund": "Prüfer-Suche (18er-Raster, 6 Polituren, R=(48, 64)): quadratisch"
+   }
+  }
+ ],
+ "experimente": [
+  {
+   "id": 0,
+   "wer": "forscher-sparsam",
+   "op": "minimize2d",
+   "args": {
+    "nu": 5
+   },
+   "ergebnis": {
+    "tau": [
+     0.0,
+     1.0
+    ],
+    "T": 4.838026846713883,
+    "typ": "quadratisch",
+    "lokale_minima": [
+     {
+      "tau": [
+       0.0,
+       1.0
+      ],
+      "T": 4.838026846713883,
+      "typ": "quadratisch"
+     }
+    ]
+   },
+   "sek": 4.25
+  },
+  {
+   "id": 1,
+   "wer": "forscher-sparsam",
+   "op": "energy2d",
+   "args": {
+    "tau": [
+     0.5,
+     0.8660254
+    ],
+    "nu": 5
+   },
+   "ergebnis": {
+    "T": 5.129901600762793,
+    "err": 3.304023721284466e-13
+   },
+   "sek": 0.01
+  },
+  {
+   "id": 2,
+   "wer": "forscher-sparsam",
+   "op": "energy2d",
+   "args": {
+    "tau": [
+     0,
+     1
+    ],
+    "nu": 5
+   },
+   "ergebnis": {
+    "T": 4.838026846713883,
+    "err": 2.0872192862952943e-13
+   },
+   "sek": 0.01
+  },
+  {
+   "id": 3,
+   "wer": "forscher-sparsam",
+   "op": "compare2d",
+   "args": {
+    "tau_a": [
+     0.5,
+     0.8660254
+    ],
+    "tau_b": [
+     0,
+     1
+    ],
+    "nu": 5
+   },
+   "ergebnis": {
+    "T_a": 5.129901600762793,
+    "T_b": 4.838026846713883,
+    "diff": 0.2918747540489095,
+    "err": 1.0521144608342553e-12,
+    "sicher": true
+   },
+   "sek": 0.02
+  },
+  {
+   "id": 4,
+   "wer": "forscher-sparsam",
+   "op": "hessian2d",
+   "args": {
+    "tau": [
+     0.5,
+     0.8660254
+    ],
+    "nu": 5
+   },
+   "ergebnis": {
+    "eigenwerte": [
+     -4.6094391101814125,
+     -4.609414247624954
+    ],
+    "stabil": false
+   },
+   "sek": 0.1
+  },
+  {
+   "id": 5,
+   "wer": "forscher-sparsam",
+   "op": "hessian2d",
+   "args": {
+    "tau": [
+     0,
+     1
+    ],
+    "nu": 5
+   },
+   "ergebnis": {
+    "eigenwerte": [
+     5.16430270236512,
+     12.60835014171846
+    ],
+    "stabil": true
+   },
+   "sek": 0.11
+  },
+  {
+   "id": 6,
+   "wer": "forscher-sparsam",
+   "op": "rect_optimum",
+   "args": {
+    "nu": 5,
+    "y_lo": 0.8,
+    "y_hi": 1.3
+   },
+   "ergebnis": {
+    "y": 1.000000003064884,
+    "T": 4.838026846713882
+   },
+   "sek": 0.12
+  },
+  {
+   "id": 7,
+   "wer": "forscher-sparsam",
+   "op": "asymptote",
+   "args": {
+    "nus": [
+     3,
+     4,
+     5,
+     6,
+     7,
+     8
+    ]
+   },
+   "ergebnis": {
+    "nus": [
+     3,
+     4,
+     5,
+     6,
+     7,
+     8
+    ],
+    "ys": [
+     1.1000000578491282,
+     1.1000000578491282,
+     1.1000000578491282,
+     1.1000000578491282,
+     1.1000000578491282,
+     1.1000000632778246
+    ],
+    "y_inf_fit": 1.1000000733486006,
+    "kappa_fit": 1.2914147790915928e-07,
+    "c2": 2.512696263328989e-07
+   },
+   "sek": 1.21
+  }
+ ],
+ "sek": 56.2,
+ "frage": "Q2",
+ "salt": 2,
+ "bedingung": "BK"
+}

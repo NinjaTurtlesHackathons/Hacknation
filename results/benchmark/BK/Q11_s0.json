@@ -1,0 +1,335 @@
+{
+ "antwort": {
+  "antwort": "0.95",
+  "zahl": 0.952,
+  "konfidenz": 0.7,
+  "pruefung": {
+   "typ": "grenzwert",
+   "groesse": "kappa",
+   "erwartet": 0.952,
+   "toleranz": 0.1
+  },
+  "begruendung": "Das Experiment E6 passt die Asymptotik y_ν = 1.250 − 0.952/ν + O(ν⁻²) konsistent an Daten bei moderaten ν (50–2000) an. Dies wird bestätigt durch rect_optimum-Messungen E1 (ν=100, y=1.2398) und E2 (ν=1000, y=1.2487). E0 ist weniger zuverlässig wegen des Ausreißers bei ν=5000 (y≈1.3).",
+  "stimmen": "Stufe 1/4 (sparsam, haiku)"
+ },
+ "level": "computed (Code-Prüfer bestanden)",
+ "forscher": [
+  {
+   "strategie": "sparsam",
+   "runden": [
+    {
+     "ueberlegung": "Zur Bestimmung von κ in der asymptotischen Entwicklung y_ν = y_∞ - κ/ν + O(ν^{-2}).\n\nKernstrategie: Das asymptote-Experiment ist ideal für diese Frage — es bestimmt y_ν für mehrere ν im asymptotischen Regime und fittet direkt y = a + b/ν + c/ν^2. Der Parameter b liefert κ.\n\nValidierungsexperimente:\n- rect_optimum: Einzelne Datenpunkte überprüfen, um die asymptote-Ergebnisse zu verifizieren\n- minimize2d: Bestätigen, dass für große ν das globale Minimum tatsächlich ein Rechteckgitter τ = i·y bleibt (könnte in der Asymptotik eine andere Form bevorzugt werden)\n\nνu-Werte 100-5000 wurden gewählt, um in der asymptotischen Regime zu sein, aber noch numerisch stabil zu rechnen.",
+     "plan": [
+      {
+       "op": "asymptote",
+       "args": {
+        "nus": [
+         100,
+         200,
+         500,
+         1000,
+         2000,
+         5000
+        ]
+       }
+      },
+      {
+       "op": "rect_optimum",
+       "args": {
+        "nu": 100,
+        "y_lo": 0.8,
+        "y_hi": 2.0
+       }
+      },
+      {
+       "op": "rect_optimum",
+       "args": {
+        "nu": 1000,
+        "y_lo": 0.8,
+        "y_hi": 2.0
+       }
+      },
+      {
+       "op": "rect_optimum",
+       "args": {
+        "nu": 5000,
+        "y_lo": 0.8,
+        "y_hi": 2.0
+       }
+      },
+      {
+       "op": "minimize2d",
+       "args": {
+        "nu": 1000
+       }
+      },
+      {
+       "op": "minimize2d",
+       "args": {
+        "nu": 5000
+       }
+      }
+     ]
+    },
+    {
+     "plan": [
+      {
+       "op": "asymptote",
+       "args": {
+        "nus": [
+         50,
+         100,
+         200,
+         500,
+         1000,
+         2000
+        ]
+       }
+      }
+     ]
+    },
+    {
+     "antwort": "0.95",
+     "zahl": 0.952,
+     "konfidenz": 0.7,
+     "pruefung": {
+      "typ": "grenzwert",
+      "groesse": "kappa",
+      "erwartet": 0.952,
+      "toleranz": 0.1
+     },
+     "begruendung": "Das Experiment E6 passt die Asymptotik y_ν = 1.250 − 0.952/ν + O(ν⁻²) konsistent an Daten bei moderaten ν (50–2000) an. Dies wird bestätigt durch rect_optimum-Messungen E1 (ν=100, y=1.2398) und E2 (ν=1000, y=1.2487). E0 ist weniger zuverlässig wegen des Ausreißers bei ν=5000 (y≈1.3)."
+    }
+   ],
+   "experimente": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+   ],
+   "final": {
+    "antwort": "0.95",
+    "zahl": 0.952,
+    "konfidenz": 0.7,
+    "pruefung": {
+     "typ": "grenzwert",
+     "groesse": "kappa",
+     "erwartet": 0.952,
+     "toleranz": 0.1
+    },
+    "begruendung": "Das Experiment E6 passt die Asymptotik y_ν = 1.250 − 0.952/ν + O(ν⁻²) konsistent an Daten bei moderaten ν (50–2000) an. Dies wird bestätigt durch rect_optimum-Messungen E1 (ν=100, y=1.2398) und E2 (ν=1000, y=1.2487). E0 ist weniger zuverlässig wegen des Ausreißers bei ν=5000 (y≈1.3)."
+   },
+   "modell": "haiku",
+   "pruefung": {
+    "bestanden": true,
+    "grund": "Prüfer-Fit über nu=[100, 160, 250, 400, 640, 1000]: kappa_fit=0.954078 (Toleranz 0.1)"
+   }
+  }
+ ],
+ "experimente": [
+  {
+   "id": 0,
+   "wer": "forscher-sparsam",
+   "op": "asymptote",
+   "args": {
+    "nus": [
+     100,
+     200,
+     500,
+     1000,
+     2000,
+     5000
+    ]
+   },
+   "ergebnis": {
+    "nus": [
+     100,
+     200,
+     500,
+     1000,
+     2000,
+     5000
+    ],
+    "ys": [
+     1.2398289302268253,
+     1.244787248153771,
+     1.2477019213303677,
+     1.2486638480921013,
+     1.2491430193790998,
+     1.299999945117348
+    ],
+    "y_inf_fit": 1.273008004789032,
+    "kappa_fit": 11.852276554593896,
+    "c2": 872.7796080760492
+   },
+   "sek": 0.72
+  },
+  {
+   "id": 1,
+   "wer": "forscher-sparsam",
+   "op": "rect_optimum",
+   "args": {
+    "nu": 100,
+    "y_lo": 0.8,
+    "y_hi": 2.0
+   },
+   "ergebnis": {
+    "y": 1.239828928034533,
+    "T": 7.25084173061683e-15
+   },
+   "sek": 0.1
+  },
+  {
+   "id": 2,
+   "wer": "forscher-sparsam",
+   "op": "rect_optimum",
+   "args": {
+    "nu": 1000,
+    "y_lo": 0.8,
+    "y_hi": 2.0
+   },
+   "ergebnis": {
+    "y": 1.2486638367865883,
+    "T": 3.8430240248768455e-155
+   },
+   "sek": 0.13
+  },
+  {
+   "id": 3,
+   "wer": "forscher-sparsam",
+   "op": "rect_optimum",
+   "args": {
+    "nu": 5000,
+    "y_lo": 0.8,
+    "y_hi": 2.0
+   },
+   "ergebnis": {
+    "y": 1.0832816467806115,
+    "T": 0.0
+   },
+   "sek": 0.18
+  },
+  {
+   "id": 4,
+   "wer": "forscher-sparsam",
+   "op": "minimize2d",
+   "args": {
+    "nu": 1000
+   },
+   "ergebnis": {
+    "tau": [
+     8.606364380340153e-07,
+     1.2486657931873695
+    ],
+    "T": 3.843024993028024e-155,
+    "typ": "rechteckig(y=1.2487)",
+    "lokale_minima": [
+     {
+      "tau": [
+       8.606364380340153e-07,
+       1.2486657931873695
+      ],
+      "T": 3.843024993028024e-155,
+      "typ": "rechteckig(y=1.2487)"
+     }
+    ]
+   },
+   "sek": 2.34
+  },
+  {
+   "id": 5,
+   "wer": "forscher-sparsam",
+   "op": "minimize2d",
+   "args": {
+    "nu": 5000
+   },
+   "ergebnis": {
+    "tau": [
+     0.0,
+     1.0
+    ],
+    "T": 0.0,
+    "typ": "quadratisch",
+    "lokale_minima": [
+     {
+      "tau": [
+       0.0,
+       1.0
+      ],
+      "T": 0.0,
+      "typ": "quadratisch"
+     },
+     {
+      "tau": [
+       0.0,
+       1.0097138032022173
+      ],
+      "T": 0.0,
+      "typ": "rechteckig(y=1.0097)"
+     },
+     {
+      "tau": [
+       0.0,
+       1.0815580029111067
+      ],
+      "T": 0.0,
+      "typ": "rechteckig(y=1.0816)"
+     },
+     {
+      "tau": [
+       0.0,
+       1.153402202619996
+      ],
+      "T": 0.0,
+      "typ": "rechteckig(y=1.1534)"
+     }
+    ]
+   },
+   "sek": 2.2
+  },
+  {
+   "id": 6,
+   "wer": "forscher-sparsam",
+   "op": "asymptote",
+   "args": {
+    "nus": [
+     50,
+     100,
+     200,
+     500,
+     1000,
+     2000
+    ]
+   },
+   "ergebnis": {
+    "nus": [
+     50,
+     100,
+     200,
+     500,
+     1000,
+     2000
+    ],
+    "ys": [
+     1.2294990295173194,
+     1.2398289302268253,
+     1.244787248153771,
+     1.2477019213303677,
+     1.2486638480921013,
+     1.2491430193790998
+    ],
+    "y_inf_fit": 1.2496184327616098,
+    "kappa_fit": 0.9523474442362457,
+    "c2": -2.6802890468230025
+   },
+   "sek": 0.68
+  }
+ ],
+ "sek": 185.2,
+ "frage": "Q11",
+ "salt": 0,
+ "bedingung": "BK"
+}

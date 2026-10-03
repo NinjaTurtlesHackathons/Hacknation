@@ -1,0 +1,188 @@
+{
+ "antwort": {
+  "antwort": "0.954",
+  "zahl": 0.9539955294557351,
+  "konfidenz": 0.92,
+  "pruefung": {
+   "typ": "grenzwert",
+   "groesse": "kappa",
+   "erwartet": 0.954,
+   "toleranz": 0.01
+  },
+  "begruendung": "Das Asymptote-Experiment [E0] mit 7 Datenpunkten (ν = 100 bis 800) ergab direkt κ = 0.954 aus dem Fit y_ν = 1.2496 − 0.954/ν + O(ν⁻²). Die Vorhersagen des Fits stimmen exakt mit den Minimierungsergebnissen [E1] (ν=200, y=1.2448) und [E2] (ν=500, y=1.2477) überein, was hohe Konfidenz gibt.",
+  "stimmen": "Stufe 1/4 (sparsam, haiku)"
+ },
+ "level": "computed (Code-Prüfer bestanden)",
+ "forscher": [
+  {
+   "strategie": "sparsam",
+   "runden": [
+    {
+     "ueberlegung": "Um κ in der Asymptotik y_ν = y_∞ - κ/ν + O(ν^-2) zu finden, muss ich das optimale Seitenverhältnis y_ν für mehrere große ν-Werte ermitteln und an diese Entwicklung fitten. Meine Strategie:\n\n1. **Asymptote-Fitting (Kern-Experiment)**: Die asymptote-Funktion ist exakt dafür gebaut – sie berechnet y_ν für eine Liste großer ν-Werte und passt direkt y = a + b/ν + c/ν² an. Dabei ist a = y_∞ und b = -κ. Ich nutze nus=[100, 150, 200, 300, 400, 500, 800], um das asymptotische Regime robust zu erfassen (7 Datenpunkte für stabiles 3-Parameter-Fitting).\n\n2. **Verifikation des Gittertyps**: Mit minimize2d bei ν=200 und ν=500 prüfe ich, dass die globalen Minima tatsächlich Rechtecke sind. Wenn das Optimum von der asymptote-Vorhersage abweicht, könnte ein anderer Gittertyp (z.B. hexagonal) konkurrieren.\n\nDiese minimal-redundante Strategie liefert κ direkt aus dem Fit und validiert, dass wir im korrekten Regime sind.",
+     "plan": [
+      {
+       "op": "asymptote",
+       "args": {
+        "nus": [
+         100,
+         150,
+         200,
+         300,
+         400,
+         500,
+         800
+        ]
+       }
+      },
+      {
+       "op": "minimize2d",
+       "args": {
+        "nu": 200
+       }
+      },
+      {
+       "op": "minimize2d",
+       "args": {
+        "nu": 500
+       }
+      }
+     ]
+    },
+    {
+     "antwort": "0.954",
+     "zahl": 0.9539955294557351,
+     "konfidenz": 0.92,
+     "pruefung": {
+      "typ": "grenzwert",
+      "groesse": "kappa",
+      "erwartet": 0.954,
+      "toleranz": 0.01
+     },
+     "begruendung": "Das Asymptote-Experiment [E0] mit 7 Datenpunkten (ν = 100 bis 800) ergab direkt κ = 0.954 aus dem Fit y_ν = 1.2496 − 0.954/ν + O(ν⁻²). Die Vorhersagen des Fits stimmen exakt mit den Minimierungsergebnissen [E1] (ν=200, y=1.2448) und [E2] (ν=500, y=1.2477) überein, was hohe Konfidenz gibt."
+    }
+   ],
+   "experimente": [
+    0,
+    1,
+    2
+   ],
+   "final": {
+    "antwort": "0.954",
+    "zahl": 0.9539955294557351,
+    "konfidenz": 0.92,
+    "pruefung": {
+     "typ": "grenzwert",
+     "groesse": "kappa",
+     "erwartet": 0.954,
+     "toleranz": 0.01
+    },
+    "begruendung": "Das Asymptote-Experiment [E0] mit 7 Datenpunkten (ν = 100 bis 800) ergab direkt κ = 0.954 aus dem Fit y_ν = 1.2496 − 0.954/ν + O(ν⁻²). Die Vorhersagen des Fits stimmen exakt mit den Minimierungsergebnissen [E1] (ν=200, y=1.2448) und [E2] (ν=500, y=1.2477) überein, was hohe Konfidenz gibt."
+   },
+   "modell": "haiku",
+   "pruefung": {
+    "bestanden": true,
+    "grund": "Prüfer-Fit über nu=[100, 160, 250, 400, 640, 1000]: kappa_fit=0.954078 (Toleranz 0.01)"
+   }
+  }
+ ],
+ "experimente": [
+  {
+   "id": 0,
+   "wer": "forscher-sparsam",
+   "op": "asymptote",
+   "args": {
+    "nus": [
+     100,
+     150,
+     200,
+     300,
+     400,
+     500,
+     800
+    ]
+   },
+   "ergebnis": {
+    "nus": [
+     100,
+     150,
+     200,
+     300,
+     400,
+     500,
+     800
+    ],
+    "ys": [
+     1.2398289302268253,
+     1.2431487471372693,
+     1.244787248153771,
+     1.2464119000103815,
+     1.2472191701508826,
+     1.2477019213303677,
+     1.2484238272403902
+    ],
+    "y_inf_fit": 1.2496199997169894,
+    "kappa_fit": 0.9539955294557351,
+    "c2": -2.5102465005452466
+   },
+   "sek": 0.76
+  },
+  {
+   "id": 1,
+   "wer": "forscher-sparsam",
+   "op": "minimize2d",
+   "args": {
+    "nu": 200
+   },
+   "ergebnis": {
+    "tau": [
+     7.28494487702845e-07,
+     1.2447888587680085
+    ],
+    "T": 1.8811971157775726e-30,
+    "typ": "rechteckig(y=1.2448)",
+    "lokale_minima": [
+     {
+      "tau": [
+       7.28494487702845e-07,
+       1.2447888587680085
+      ],
+      "T": 1.8811971157775726e-30,
+      "typ": "rechteckig(y=1.2448)"
+     }
+    ]
+   },
+   "sek": 2.91
+  },
+  {
+   "id": 2,
+   "wer": "forscher-sparsam",
+   "op": "minimize2d",
+   "args": {
+    "nu": 500
+   },
+   "ergebnis": {
+    "tau": [
+     1.114645804139259e-07,
+     1.2477042620996932
+    ],
+    "T": 3.2798980500211158e-77,
+    "typ": "rechteckig(y=1.2477)",
+    "lokale_minima": [
+     {
+      "tau": [
+       1.114645804139259e-07,
+       1.2477042620996932
+      ],
+      "T": 3.2798980500211158e-77,
+      "typ": "rechteckig(y=1.2477)"
+     }
+    ]
+   },
+   "sek": 2.78
+  }
+ ],
+ "sek": 99.2,
+ "frage": "Q11",
+ "salt": 1,
+ "bedingung": "BK"
+}

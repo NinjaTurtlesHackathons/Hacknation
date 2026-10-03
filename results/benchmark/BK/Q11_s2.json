@@ -1,0 +1,295 @@
+{
+ "antwort": {
+  "antwort": "0.954",
+  "zahl": 0.954,
+  "konfidenz": 0.85,
+  "begruendung": "Der asymptotische Fit aus E7 (mit größeren ν-Werten 150–500) ergibt kappa_fit = 0.9543. Dies wird durch den unabhängigen Fit E0 mit kappa_fit = 0.9407 gestützt, beide liegen im engen Bereich [0.94, 0.96]. Der Fit E7 nutzt nur asymptotisch relevante Punkte und sollte daher zuverlässiger sein.",
+  "pruefung": {
+   "typ": "grenzwert",
+   "groesse": "kappa",
+   "erwartet": 0.954,
+   "toleranz": 0.015
+  },
+  "stimmen": "Stufe 1/4 (sparsam, haiku)"
+ },
+ "level": "computed (Code-Prüfer bestanden)",
+ "forscher": [
+  {
+   "strategie": "sparsam",
+   "runden": [
+    {
+     "ueberlegung": "Die Frage verlangt den Koeffizienten kappa in der Asymptotik y_nu = y_inf - kappa/nu + O(nu^(-2)) des optimalen Seitenverhältnisses für Rechteckgitter unter der Dreikörper-Energie bei großem nu. Die 'asymptote'-Operation berechnet y_nu für mehrere nu-Werte und fittet die Form y = a + b/nu + c/nu^2 automatisch. Darin entspricht b dem Koeffizienten von 1/nu, also b = -kappa. Meine Strategie: (1) Nutze asymptote mit vielen großen nu-Werten (30 bis 200) für stabilen Fit im asymptotischen Regime, (2) verifiziere einzelne Punkte unabhängig mit rect_optimum zur Plausibilitätskontrolle.",
+     "plan": [
+      {
+       "op": "asymptote",
+       "args": {
+        "nus": [
+         30,
+         40,
+         50,
+         60,
+         75,
+         100,
+         150,
+         200
+        ]
+       }
+      },
+      {
+       "op": "rect_optimum",
+       "args": {
+        "nu": 40
+       }
+      },
+      {
+       "op": "rect_optimum",
+       "args": {
+        "nu": 100
+       }
+      },
+      {
+       "op": "rect_optimum",
+       "args": {
+        "nu": 180
+       }
+      }
+     ]
+    },
+    {
+     "plan": [
+      {
+       "op": "rect_optimum",
+       "args": {
+        "nu": 300
+       }
+      },
+      {
+       "op": "rect_optimum",
+       "args": {
+        "nu": 400
+       }
+      },
+      {
+       "op": "rect_optimum",
+       "args": {
+        "nu": 500
+       }
+      },
+      {
+       "op": "asymptote",
+       "args": {
+        "nus": [
+         150,
+         200,
+         300,
+         400,
+         500
+        ]
+       }
+      }
+     ]
+    },
+    {
+     "antwort": "0.954",
+     "zahl": 0.954,
+     "konfidenz": 0.85,
+     "begruendung": "Der asymptotische Fit aus E7 (mit größeren ν-Werten 150–500) ergibt kappa_fit = 0.9543. Dies wird durch den unabhängigen Fit E0 mit kappa_fit = 0.9407 gestützt, beide liegen im engen Bereich [0.94, 0.96]. Der Fit E7 nutzt nur asymptotisch relevante Punkte und sollte daher zuverlässiger sein.",
+     "pruefung": {
+      "typ": "grenzwert",
+      "groesse": "kappa",
+      "erwartet": 0.954,
+      "toleranz": 0.015
+     }
+    }
+   ],
+   "experimente": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+   ],
+   "final": {
+    "antwort": "0.954",
+    "zahl": 0.954,
+    "konfidenz": 0.85,
+    "begruendung": "Der asymptotische Fit aus E7 (mit größeren ν-Werten 150–500) ergibt kappa_fit = 0.9543. Dies wird durch den unabhängigen Fit E0 mit kappa_fit = 0.9407 gestützt, beide liegen im engen Bereich [0.94, 0.96]. Der Fit E7 nutzt nur asymptotisch relevante Punkte und sollte daher zuverlässiger sein.",
+    "pruefung": {
+     "typ": "grenzwert",
+     "groesse": "kappa",
+     "erwartet": 0.954,
+     "toleranz": 0.015
+    }
+   },
+   "modell": "haiku",
+   "pruefung": {
+    "bestanden": true,
+    "grund": "Prüfer-Fit über nu=[100, 160, 250, 400, 640, 1000]: kappa_fit=0.954078 (Toleranz 0.015)"
+   }
+  }
+ ],
+ "experimente": [
+  {
+   "id": 0,
+   "wer": "forscher-sparsam",
+   "op": "asymptote",
+   "args": {
+    "nus": [
+     30,
+     40,
+     50,
+     60,
+     75,
+     100,
+     150,
+     200
+    ]
+   },
+   "ergebnis": {
+    "nus": [
+     30,
+     40,
+     50,
+     60,
+     75,
+     100,
+     150,
+     200
+    ],
+    "ys": [
+     1.214720794977329,
+     1.2241038787780216,
+     1.2294990295173194,
+     1.233007376386513,
+     1.2364495210817703,
+     1.2398289302268253,
+     1.2431487471372693,
+     1.244787248153771
+    ],
+    "y_inf_fit": 1.249558361146237,
+    "kappa_fit": 0.940688061829311,
+    "c2": -3.12624683541468
+   },
+   "sek": 0.7
+  },
+  {
+   "id": 1,
+   "wer": "forscher-sparsam",
+   "op": "rect_optimum",
+   "args": {
+    "nu": 40
+   },
+   "ergebnis": {
+    "y": 1.2241038894059342,
+    "T": 1.6262692166389303e-05
+   },
+   "sek": 0.07
+  },
+  {
+   "id": 2,
+   "wer": "forscher-sparsam",
+   "op": "rect_optimum",
+   "args": {
+    "nu": 100
+   },
+   "ergebnis": {
+    "y": 1.2398289321020615,
+    "T": 7.250841730617268e-15
+   },
+   "sek": 0.09
+  },
+  {
+   "id": 3,
+   "wer": "forscher-sparsam",
+   "op": "rect_optimum",
+   "args": {
+    "nu": 180
+   },
+   "ergebnis": {
+    "y": 1.2442426321950355,
+    "T": 2.4640628406489493e-27
+   },
+   "sek": 0.12
+  },
+  {
+   "id": 4,
+   "wer": "forscher-sparsam",
+   "op": "rect_optimum",
+   "args": {
+    "nu": 300
+   },
+   "ergebnis": {
+    "y": 1.2464119102226414,
+    "T": 4.878447980390008e-46
+   },
+   "sek": 0.12
+  },
+  {
+   "id": 5,
+   "wer": "forscher-sparsam",
+   "op": "rect_optimum",
+   "args": {
+    "nu": 400
+   },
+   "ergebnis": {
+    "y": 1.2472191638866048,
+    "T": 1.2649710819745773e-61
+   },
+   "sek": 0.09
+  },
+  {
+   "id": 6,
+   "wer": "forscher-sparsam",
+   "op": "rect_optimum",
+   "args": {
+    "nu": 500
+   },
+   "ergebnis": {
+    "y": 1.2477019160550704,
+    "T": 3.2798978136287955e-77
+   },
+   "sek": 0.12
+  },
+  {
+   "id": 7,
+   "wer": "forscher-sparsam",
+   "op": "asymptote",
+   "args": {
+    "nus": [
+     150,
+     200,
+     300,
+     400,
+     500
+    ]
+   },
+   "ergebnis": {
+    "nus": [
+     150,
+     200,
+     300,
+     400,
+     500
+    ],
+    "ys": [
+     1.2431487471372693,
+     1.244787248153771,
+     1.2464119000103815,
+     1.2472191701508826,
+     1.2477019213303677
+    ],
+    "y_inf_fit": 1.249620378103864,
+    "kappa_fit": 0.9543165165259889,
+    "c2": -2.4638543646675273
+   },
+   "sek": 0.58
+  }
+ ],
+ "sek": 90.6,
+ "frage": "Q11",
+ "salt": 2,
+ "bedingung": "BK"
+}

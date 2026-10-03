@@ -1,0 +1,315 @@
+{
+ "antwort": {
+  "antwort": "rechteckig",
+  "zahl": 1.0998,
+  "konfidenz": 0.96,
+  "pruefung": {
+   "typ": "argmin2d",
+   "nu": 10,
+   "erwartet": "rechteckig",
+   "y": 1.0998
+  },
+  "begruendung": "Die globale Suche (minimize2d, E0) findet ein einziges stabiles lokales Minimum: rechteckiges Gitter τ = [0, 1.0998] mit T ≈ 0.7597. Die Hessian-Matrix an diesem Punkt hat beide Eigenwerte positiv (1.96, 8.65, E6), bestätigt echte Stabilität. Spezialisierte Rechteck-Optimierung (E5) reproduziert diesen y-Wert unabhängig; Energievergleich (E7) zeigt deutliche Überlegenheit gegenüber hexagonal (ΔT ≈ −0.65, robust).",
+  "stimmen": "Stufe 1/4 (sparsam, haiku)"
+ },
+ "level": "computed (Code-Prüfer bestanden)",
+ "forscher": [
+  {
+   "strategie": "sparsam",
+   "runden": [
+    {
+     "ueberlegung": "Bei ν=10 ist die Energie hochgradig sensitiv auf lokale Anordnungen. Mein Ziel: das globale Minimum im 2D-Fundamentalbereich identifizieren und dessen Stabilität bestätigen. Strategie: (1) Globale Suche mit minimize2d für ν=10 (liefert bestes Gitter und alle lokalen Minima), (2) Referenzenergien für die zwei klassischen hochsymmetrischen Gitter (hexagonal und quadratisch), (3) Hessian-Tests an beiden, um Stabilität und lokale Minima-Natur zu verifizieren. Dies deckt die Haupt-Kandidaten ab: Falls minimize2d ein neues Optimum findet (z.B. rechteckig mit y≠1), kann ich in Runde 2 mit rect_optimum nachoptimieren.",
+     "plan": [
+      {
+       "op": "minimize2d",
+       "args": {
+        "nu": 10
+       }
+      },
+      {
+       "op": "energy2d",
+       "args": {
+        "tau": [
+         0.5,
+         0.8660254037844387
+        ],
+        "nu": 10
+       }
+      },
+      {
+       "op": "energy2d",
+       "args": {
+        "tau": [
+         0,
+         1
+        ],
+        "nu": 10
+       }
+      },
+      {
+       "op": "hessian2d",
+       "args": {
+        "tau": [
+         0.5,
+         0.8660254037844387
+        ],
+        "nu": 10
+       }
+      },
+      {
+       "op": "hessian2d",
+       "args": {
+        "tau": [
+         0,
+         1
+        ],
+        "nu": 10
+       }
+      }
+     ]
+    },
+    {
+     "plan": [
+      {
+       "op": "rect_optimum",
+       "args": {
+        "nu": 10,
+        "y_lo": 1.0,
+        "y_hi": 1.15
+       }
+      },
+      {
+       "op": "hessian2d",
+       "args": {
+        "tau": [
+         0,
+         1.0998012115859472
+        ],
+        "nu": 10
+       }
+      },
+      {
+       "op": "compare2d",
+       "args": {
+        "tau_a": [
+         0,
+         1.0998012115859472
+        ],
+        "tau_b": [
+         0.5,
+         0.8660254037844387
+        ],
+        "nu": 10
+       }
+      }
+     ]
+    },
+    {
+     "antwort": "rechteckig",
+     "zahl": 1.0998,
+     "konfidenz": 0.96,
+     "pruefung": {
+      "typ": "argmin2d",
+      "nu": 10,
+      "erwartet": "rechteckig",
+      "y": 1.0998
+     },
+     "begruendung": "Die globale Suche (minimize2d, E0) findet ein einziges stabiles lokales Minimum: rechteckiges Gitter τ = [0, 1.0998] mit T ≈ 0.7597. Die Hessian-Matrix an diesem Punkt hat beide Eigenwerte positiv (1.96, 8.65, E6), bestätigt echte Stabilität. Spezialisierte Rechteck-Optimierung (E5) reproduziert diesen y-Wert unabhängig; Energievergleich (E7) zeigt deutliche Überlegenheit gegenüber hexagonal (ΔT ≈ −0.65, robust)."
+    }
+   ],
+   "experimente": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+   ],
+   "final": {
+    "antwort": "rechteckig",
+    "zahl": 1.0998,
+    "konfidenz": 0.96,
+    "pruefung": {
+     "typ": "argmin2d",
+     "nu": 10,
+     "erwartet": "rechteckig",
+     "y": 1.0998
+    },
+    "begruendung": "Die globale Suche (minimize2d, E0) findet ein einziges stabiles lokales Minimum: rechteckiges Gitter τ = [0, 1.0998] mit T ≈ 0.7597. Die Hessian-Matrix an diesem Punkt hat beide Eigenwerte positiv (1.96, 8.65, E6), bestätigt echte Stabilität. Spezialisierte Rechteck-Optimierung (E5) reproduziert diesen y-Wert unabhängig; Energievergleich (E7) zeigt deutliche Überlegenheit gegenüber hexagonal (ΔT ≈ −0.65, robust)."
+   },
+   "modell": "haiku",
+   "pruefung": {
+    "bestanden": true,
+    "grund": "Prüfer-Suche (18er-Raster, 6 Polituren, R=(48, 64)): rechteckig(y=1.0998), y_pruefer=1.09980"
+   }
+  }
+ ],
+ "experimente": [
+  {
+   "id": 0,
+   "wer": "forscher-sparsam",
+   "op": "minimize2d",
+   "args": {
+    "nu": 10
+   },
+   "ergebnis": {
+    "tau": [
+     2.6815039352087345e-08,
+     1.0998012115859472
+    ],
+    "T": 0.7597084276608771,
+    "typ": "rechteckig(y=1.0998)",
+    "lokale_minima": [
+     {
+      "tau": [
+       2.6815039352087345e-08,
+       1.0998012115859472
+      ],
+      "T": 0.7597084276608771,
+      "typ": "rechteckig(y=1.0998)"
+     }
+    ]
+   },
+   "sek": 4.56
+  },
+  {
+   "id": 1,
+   "wer": "forscher-sparsam",
+   "op": "energy2d",
+   "args": {
+    "tau": [
+     0.5,
+     0.8660254037844387
+    ],
+    "nu": 10
+   },
+   "ergebnis": {
+    "T": 1.4063994404338658,
+    "err": 0.0
+   },
+   "sek": 0.02
+  },
+  {
+   "id": 2,
+   "wer": "forscher-sparsam",
+   "op": "energy2d",
+   "args": {
+    "tau": [
+     0,
+     1
+    ],
+    "nu": 10
+   },
+   "ergebnis": {
+    "T": 0.7622381339474606,
+    "err": 0.0
+   },
+   "sek": 0.02
+  },
+  {
+   "id": 3,
+   "wer": "forscher-sparsam",
+   "op": "hessian2d",
+   "args": {
+    "tau": [
+     0.5,
+     0.8660254037844387
+    ],
+    "nu": 10
+   },
+   "ergebnis": {
+    "eigenwerte": [
+     -12.616516991914573,
+     -12.61644970707021
+    ],
+    "stabil": false
+   },
+   "sek": 0.15
+  },
+  {
+   "id": 4,
+   "wer": "forscher-sparsam",
+   "op": "hessian2d",
+   "args": {
+    "tau": [
+     0,
+     1
+    ],
+    "nu": 10
+   },
+   "ergebnis": {
+    "eigenwerte": [
+     -1.0857473168868204,
+     11.109749033233474
+    ],
+    "stabil": false
+   },
+   "sek": 0.1
+  },
+  {
+   "id": 5,
+   "wer": "forscher-sparsam",
+   "op": "rect_optimum",
+   "args": {
+    "nu": 10,
+    "y_lo": 1.0,
+    "y_hi": 1.15
+   },
+   "ergebnis": {
+    "y": 1.0998011171216373,
+    "T": 0.7597084276608671
+   },
+   "sek": 0.14
+  },
+  {
+   "id": 6,
+   "wer": "forscher-sparsam",
+   "op": "hessian2d",
+   "args": {
+    "tau": [
+     0,
+     1.0998012115859472
+    ],
+    "nu": 10
+   },
+   "ergebnis": {
+    "eigenwerte": [
+     1.959432039427833,
+     8.647478841883327
+    ],
+    "stabil": true
+   },
+   "sek": 0.1
+  },
+  {
+   "id": 7,
+   "wer": "forscher-sparsam",
+   "op": "compare2d",
+   "args": {
+    "tau_a": [
+     0,
+     1.0998012115859472
+    ],
+    "tau_b": [
+     0.5,
+     0.8660254037844387
+    ],
+    "nu": 10
+   },
+   "ergebnis": {
+    "T_a": 0.7597084276608743,
+    "T_b": 1.4063994404338658,
+    "diff": -0.6466910127729915,
+    "err": 1.4063994404338657e-13,
+    "sicher": true
+   },
+   "sek": 0.02
+  }
+ ],
+ "sek": 85.2,
+ "frage": "Q4",
+ "salt": 1,
+ "bedingung": "BK"
+}

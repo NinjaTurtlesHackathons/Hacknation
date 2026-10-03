@@ -1,0 +1,1161 @@
+{
+ "antwort": {
+  "antwort": "nu* ≈ 3,9184",
+  "zahl": 3.91836,
+  "konfidenz": 0.88,
+  "pruefung": {
+   "typ": "vorzeichenwechsel",
+   "groesse": "diff_hex_quadrat",
+   "nu_lo": 3.9,
+   "nu_hi": 3.94
+  },
+  "begruendung": "Die Bisektion (crossing2d) liefert den Vorzeichenwechsel von T(quadratisch)-T(hexagonal) bei nu ≈ 3,918365. Bei nu=2 ist das hexagonale Gitter global optimal (minimize2d), bei nu=4, 6 und 8 das quadratische (compare2d, minimize2d). Beide Gitter sind bei nu=4 lokal stabil (Hesse-Eigenwerte positiv), der Wechsel ist also ein Übergang erster Ordnung. Weitere Wechsel im Bereich 1–20 habe ich nicht geprüft; die Stichproben sprechen für genau einen.",
+  "stimmen": "Stufe 3/4 (skeptiker, sonnet)"
+ },
+ "level": "computed (Code-Prüfer bestanden)",
+ "forscher": [
+  {
+   "strategie": "sparsam",
+   "runden": [
+    {
+     "ueberlegung": "Die Frage verlangt, den kritischen Exponenten nu* zu finden, bei dem sich das globale Energieminimum in 2D vom hexagonalen Gitter (tau = 0.5 + 0.866i) zum quadratischen Gitter (tau = i) verschiebt. Strategie: (1) Energievergleiche bei einigen Testwerten durchführen, um die grobe Richtung zu erkennen; (2) globale Minimierungen bei verschiedenen nu durchführen, um zu identifizieren, welcher Gittertyp jeweils bevorzugt ist; (3) mit crossing2d eine Bisektionssuche auf den Übergangspunkt durchführen.",
+     "plan": [
+      {
+       "op": "energy2d",
+       "args": {
+        "tau": [
+         0.5,
+         0.8660254
+        ],
+        "nu": 1
+       }
+      },
+      {
+       "op": "energy2d",
+       "args": {
+        "tau": [
+         0,
+         1
+        ],
+        "nu": 1
+       }
+      },
+      {
+       "op": "minimize2d",
+       "args": {
+        "nu": 1
+       }
+      },
+      {
+       "op": "energy2d",
+       "args": {
+        "tau": [
+         0.5,
+         0.8660254
+        ],
+        "nu": 4
+       }
+      },
+      {
+       "op": "energy2d",
+       "args": {
+        "tau": [
+         0,
+         1
+        ],
+        "nu": 4
+       }
+      },
+      {
+       "op": "minimize2d",
+       "args": {
+        "nu": 4
+       }
+      },
+      {
+       "op": "crossing2d",
+       "args": {
+        "tau_a": [
+         0.5,
+         0.8660254
+        ],
+        "tau_b": [
+         0,
+         1
+        ],
+        "nu_lo": 1,
+        "nu_hi": 4
+       }
+      },
+      {
+       "op": "compare2d",
+       "args": {
+        "tau_a": [
+         0.5,
+         0.8660254
+        ],
+        "tau_b": [
+         0,
+         1
+        ],
+        "nu": 2
+       }
+      }
+     ]
+    },
+    {
+     "plan": [
+      {
+       "op": "crossing2d",
+       "args": {
+        "tau_a": [
+         0.5,
+         0.8660254
+        ],
+        "tau_b": [
+         0,
+         1
+        ],
+        "nu_lo": 3.9183642,
+        "nu_hi": 3.91836505
+       }
+      },
+      {
+       "op": "minimize2d",
+       "args": {
+        "nu": 3.918
+       }
+      },
+      {
+       "op": "minimize2d",
+       "args": {
+        "nu": 3.92
+       }
+      }
+     ]
+    },
+    {
+     "antwort": "3.91836",
+     "zahl": 3.91836,
+     "konfidenz": 0.95,
+     "pruefung": {
+      "typ": "vorzeichenwechsel",
+      "groesse": "diff_hex_quadrat",
+      "nu_lo": 3.9183642,
+      "nu_hi": 3.91836505
+     },
+     "begruendung": "Exp. E6 und E8 lokalisieren durch Bisektion den Vorzeichenwechsel von T(hexagonal) − T(quadratisch) auf [3.9183642, 3.91836505]. Exp. E9 (ν=3.918) zeigt hexagonal knapp besser, Exp. E10 (ν=3.92) zeigt quadratisch knapp besser. Der kritische Exponent liegt bei ν* ≈ 3.91836."
+    }
+   ],
+   "experimente": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10
+   ],
+   "final": {
+    "antwort": "3.91836",
+    "zahl": 3.91836,
+    "konfidenz": 0.95,
+    "pruefung": {
+     "typ": "vorzeichenwechsel",
+     "groesse": "diff_hex_quadrat",
+     "nu_lo": 3.9183642,
+     "nu_hi": 3.91836505
+    },
+    "begruendung": "Exp. E6 und E8 lokalisieren durch Bisektion den Vorzeichenwechsel von T(hexagonal) − T(quadratisch) auf [3.9183642, 3.91836505]. Exp. E9 (ν=3.918) zeigt hexagonal knapp besser, Exp. E10 (ν=3.92) zeigt quadratisch knapp besser. Der kritische Exponent liegt bei ν* ≈ 3.91836."
+   },
+   "modell": "haiku",
+   "pruefung": {
+    "bestanden": false,
+    "grund": "diff_hex_quadrat: f(3.9183642)=2.027e-07, f(3.91836505)=-4.252e-08"
+   }
+  },
+  {
+   "strategie": "numeriker",
+   "runden": [
+    {
+     "ueberlegung": "Ich suche den kritischen Exponenten ν*, bei dem das globale Minimum in 2D vom hexagonalen zum quadratischen Gitter wechselt. Strategie: (1) Grober Scan über mehrere ν-Werte mit `minimize2d` um zu sehen, welcher Gittertyp global optimal ist, (2) Präzise Energievergleiche zwischen Hexagonal und Quadrat mit `compare2d` um das Vorzeichenwechsel-Intervall zu bestimmen, (3) Gezieltes Bisektieren (in Runde 2). Ich starte mit ν = 1, 2, 3, 4 (breites Spektrum) und Vergleiche Hex vs Quad bei ähnlichen Werten.",
+     "plan": [
+      {
+       "op": "minimize2d",
+       "args": {
+        "nu": 1.0
+       }
+      },
+      {
+       "op": "minimize2d",
+       "args": {
+        "nu": 2.0
+       }
+      },
+      {
+       "op": "minimize2d",
+       "args": {
+        "nu": 3.0
+       }
+      },
+      {
+       "op": "minimize2d",
+       "args": {
+        "nu": 4.0
+       }
+      },
+      {
+       "op": "compare2d",
+       "args": {
+        "tau_a": [
+         0.5,
+         0.8660254
+        ],
+        "tau_b": [
+         0,
+         1
+        ],
+        "nu": 1.0
+       }
+      },
+      {
+       "op": "compare2d",
+       "args": {
+        "tau_a": [
+         0.5,
+         0.8660254
+        ],
+        "tau_b": [
+         0,
+         1
+        ],
+        "nu": 2.0
+       }
+      },
+      {
+       "op": "compare2d",
+       "args": {
+        "tau_a": [
+         0.5,
+         0.8660254
+        ],
+        "tau_b": [
+         0,
+         1
+        ],
+        "nu": 3.0
+       }
+      },
+      {
+       "op": "compare2d",
+       "args": {
+        "tau_a": [
+         0.5,
+         0.8660254
+        ],
+        "tau_b": [
+         0,
+         1
+        ],
+        "nu": 4.0
+       }
+      }
+     ]
+    },
+    {
+     "plan": [
+      {
+       "op": "crossing2d",
+       "args": {
+        "tau_a": [
+         0.5,
+         0.8660254037844386
+        ],
+        "tau_b": [
+         0.0,
+         1.0
+        ],
+        "nu_lo": 3.0,
+        "nu_hi": 4.0
+       }
+      }
+     ]
+    },
+    {
+     "antwort": "3.91836",
+     "zahl": 3.91836,
+     "konfidenz": 0.99,
+     "pruefung": {
+      "typ": "vorzeichenwechsel",
+      "groesse": "diff_hex_quadrat",
+      "nu_lo": 3.9183645248413086,
+      "nu_hi": 3.918365478515625
+     },
+     "begruendung": "Experiment E19 (crossing2d) lokalisiert durch Bisektion den kritischen Exponent ν* mit Intervallbreite ~10⁻⁶. Bei ν=3.0 (E17) ist hexagonal tiefer, bei ν=4.0 (E18) quadratisch; der Schnittpunkt liegt bei ν*≈3.91836."
+    }
+   ],
+   "experimente": [
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19
+   ],
+   "final": {
+    "antwort": "3.91836",
+    "zahl": 3.91836,
+    "konfidenz": 0.99,
+    "pruefung": {
+     "typ": "vorzeichenwechsel",
+     "groesse": "diff_hex_quadrat",
+     "nu_lo": 3.9183645248413086,
+     "nu_hi": 3.918365478515625
+    },
+    "begruendung": "Experiment E19 (crossing2d) lokalisiert durch Bisektion den kritischen Exponent ν* mit Intervallbreite ~10⁻⁶. Bei ν=3.0 (E17) ist hexagonal tiefer, bei ν=4.0 (E18) quadratisch; der Schnittpunkt liegt bei ν*≈3.91836."
+   },
+   "modell": "haiku",
+   "pruefung": {
+    "bestanden": false,
+    "grund": "diff_hex_quadrat: f(3.9183645248413086)=1.090e-07, f(3.918365478515625)=-1.661e-07"
+   }
+  },
+  {
+   "strategie": "skeptiker",
+   "runden": [
+    {
+     "ueberlegung": "Ich nehme nichts vorab an. Zuerst prüfe ich per compare2d bei mehreren nu, in welchem Bereich T(quadratisch)-T(hexagonal) das Vorzeichen wechselt. Danach grenze ich mit crossing2d ein. Gegenbeispiele: Der Wechsel des globalen Minimums kann durch ein drittes Gitter (rechteckig/rhombisch) maskiert werden, daher prüfe ich mit minimize2d an den Rändern des Wechsels. Außerdem prüfe ich Koexistenz per Hesse-Matrix, denn der Hex-Quadrat-Kreuzungspunkt muss nicht der Punkt sein, an dem das globale Minimum wechselt, falls ein anderes Gitter dazwischen gewinnt.",
+     "plan": [
+      {
+       "op": "compare2d",
+       "args": {
+        "tau_a": [
+         0,
+         1
+        ],
+        "tau_b": [
+         0.5,
+         0.8660254
+        ],
+        "nu": 2
+       }
+      },
+      {
+       "op": "compare2d",
+       "args": {
+        "tau_a": [
+         0,
+         1
+        ],
+        "tau_b": [
+         0.5,
+         0.8660254
+        ],
+        "nu": 4
+       }
+      },
+      {
+       "op": "compare2d",
+       "args": {
+        "tau_a": [
+         0,
+         1
+        ],
+        "tau_b": [
+         0.5,
+         0.8660254
+        ],
+        "nu": 8
+       }
+      },
+      {
+       "op": "crossing2d",
+       "args": {
+        "tau_a": [
+         0,
+         1
+        ],
+        "tau_b": [
+         0.5,
+         0.8660254
+        ],
+        "nu_lo": 1,
+        "nu_hi": 20
+       }
+      },
+      {
+       "op": "minimize2d",
+       "args": {
+        "nu": 2
+       }
+      },
+      {
+       "op": "minimize2d",
+       "args": {
+        "nu": 6
+       }
+      },
+      {
+       "op": "hessian2d",
+       "args": {
+        "tau": [
+         0,
+         1
+        ],
+        "nu": 4
+       }
+      },
+      {
+       "op": "hessian2d",
+       "args": {
+        "tau": [
+         0.5,
+         0.8660254
+        ],
+        "nu": 4
+       }
+      }
+     ]
+    },
+    {
+     "antwort": "nu* ≈ 3,9184",
+     "zahl": 3.91836,
+     "konfidenz": 0.88,
+     "pruefung": {
+      "typ": "vorzeichenwechsel",
+      "groesse": "diff_hex_quadrat",
+      "nu_lo": 3.9,
+      "nu_hi": 3.94
+     },
+     "begruendung": "Die Bisektion (crossing2d) liefert den Vorzeichenwechsel von T(quadratisch)-T(hexagonal) bei nu ≈ 3,918365. Bei nu=2 ist das hexagonale Gitter global optimal (minimize2d), bei nu=4, 6 und 8 das quadratische (compare2d, minimize2d). Beide Gitter sind bei nu=4 lokal stabil (Hesse-Eigenwerte positiv), der Wechsel ist also ein Übergang erster Ordnung. Weitere Wechsel im Bereich 1–20 habe ich nicht geprüft; die Stichproben sprechen für genau einen."
+    }
+   ],
+   "experimente": [
+    20,
+    21,
+    22,
+    23,
+    24,
+    25,
+    26,
+    27
+   ],
+   "final": {
+    "antwort": "nu* ≈ 3,9184",
+    "zahl": 3.91836,
+    "konfidenz": 0.88,
+    "pruefung": {
+     "typ": "vorzeichenwechsel",
+     "groesse": "diff_hex_quadrat",
+     "nu_lo": 3.9,
+     "nu_hi": 3.94
+    },
+    "begruendung": "Die Bisektion (crossing2d) liefert den Vorzeichenwechsel von T(quadratisch)-T(hexagonal) bei nu ≈ 3,918365. Bei nu=2 ist das hexagonale Gitter global optimal (minimize2d), bei nu=4, 6 und 8 das quadratische (compare2d, minimize2d). Beide Gitter sind bei nu=4 lokal stabil (Hesse-Eigenwerte positiv), der Wechsel ist also ein Übergang erster Ordnung. Weitere Wechsel im Bereich 1–20 habe ich nicht geprüft; die Stichproben sprechen für genau einen."
+   },
+   "modell": "sonnet",
+   "pruefung": {
+    "bestanden": true,
+    "grund": "diff_hex_quadrat: f(3.9)=5.300e-03, f(3.94)=-6.238e-03"
+   }
+  }
+ ],
+ "experimente": [
+  {
+   "id": 0,
+   "wer": "forscher-sparsam",
+   "op": "energy2d",
+   "args": {
+    "tau": [
+     0.5,
+     0.8660254
+    ],
+    "nu": 1
+   },
+   "ergebnis": {
+    "T": -246.27142158335388,
+    "err": 4726.488975795605
+   },
+   "sek": 0.01
+  },
+  {
+   "id": 1,
+   "wer": "forscher-sparsam",
+   "op": "energy2d",
+   "args": {
+    "tau": [
+     0,
+     1
+    ],
+    "nu": 1
+   },
+   "ergebnis": {
+    "T": -245.9262713648122,
+    "err": 4847.013222380186
+   },
+   "sek": 0.01
+  },
+  {
+   "id": 2,
+   "wer": "forscher-sparsam",
+   "op": "minimize2d",
+   "args": {
+    "nu": 1
+   },
+   "ergebnis": {
+    "tau": [
+     0.4113864307554788,
+     0.9114611380071853
+    ],
+    "T": -246.41549589111443,
+    "typ": "rhombisch",
+    "lokale_minima": [
+     {
+      "tau": [
+       0.4113864307554788,
+       0.9114611380071853
+      ],
+      "T": -246.41549589111443,
+      "typ": "rhombisch"
+     }
+    ]
+   },
+   "sek": 7.8
+  },
+  {
+   "id": 3,
+   "wer": "forscher-sparsam",
+   "op": "energy2d",
+   "args": {
+    "tau": [
+     0.5,
+     0.8660254
+    ],
+    "nu": 4
+   },
+   "ergebnis": {
+    "T": 7.606170752559257,
+    "err": 1.235275881583675e-09
+   },
+   "sek": 0.01
+  },
+  {
+   "id": 4,
+   "wer": "forscher-sparsam",
+   "op": "energy2d",
+   "args": {
+    "tau": [
+     0,
+     1
+    ],
+    "nu": 4
+   },
+   "ergebnis": {
+    "T": 7.58266990103469,
+    "err": 8.800746797987813e-10
+   },
+   "sek": 0.02
+  },
+  {
+   "id": 5,
+   "wer": "forscher-sparsam",
+   "op": "minimize2d",
+   "args": {
+    "nu": 4
+   },
+   "ergebnis": {
+    "tau": [
+     0.0,
+     1.0
+    ],
+    "T": 7.58266990103469,
+    "typ": "quadratisch",
+    "lokale_minima": [
+     {
+      "tau": [
+       0.0,
+       1.0
+      ],
+      "T": 7.58266990103469,
+      "typ": "quadratisch"
+     }
+    ]
+   },
+   "sek": 5.64
+  },
+  {
+   "id": 6,
+   "wer": "forscher-sparsam",
+   "op": "crossing2d",
+   "args": {
+    "tau_a": [
+     0.5,
+     0.8660254
+    ],
+    "tau_b": [
+     0,
+     1
+    ],
+    "nu_lo": 1,
+    "nu_hi": 4
+   },
+   "ergebnis": {
+    "gefunden": true,
+    "intervall": [
+     3.9183642864227295,
+     3.918365001678467
+    ]
+   },
+   "sek": 0.58
+  },
+  {
+   "id": 7,
+   "wer": "forscher-sparsam",
+   "op": "compare2d",
+   "args": {
+    "tau_a": [
+     0.5,
+     0.8660254
+    ],
+    "tau_b": [
+     0,
+     1
+    ],
+    "nu": 2
+   },
+   "ergebnis": {
+    "T_a": 41.39438591510646,
+    "T_b": 41.913592543226436,
+    "diff": -0.5192066281199743,
+    "err": 0.17497354020903716,
+    "sicher": false
+   },
+   "sek": 0.02
+  },
+  {
+   "id": 8,
+   "wer": "forscher-sparsam",
+   "op": "crossing2d",
+   "args": {
+    "tau_a": [
+     0.5,
+     0.8660254
+    ],
+    "tau_b": [
+     0,
+     1
+    ],
+    "nu_lo": 3.9183642,
+    "nu_hi": 3.91836505
+   },
+   "ergebnis": {
+    "gefunden": true,
+    "intervall": [
+     3.9183642,
+     3.91836505
+    ]
+   },
+   "sek": 0.04
+  },
+  {
+   "id": 9,
+   "wer": "forscher-sparsam",
+   "op": "minimize2d",
+   "args": {
+    "nu": 3.918
+   },
+   "ergebnis": {
+    "tau": [
+     0.5,
+     0.8660254037844386
+    ],
+    "T": 7.8998622495841255,
+    "typ": "hexagonal",
+    "lokale_minima": [
+     {
+      "tau": [
+       0.5,
+       0.8660254037844386
+      ],
+      "T": 7.8998622495841255,
+      "typ": "hexagonal"
+     },
+     {
+      "tau": [
+       0.0,
+       1.0
+      ],
+      "T": 7.899967510388372,
+      "typ": "quadratisch"
+     }
+    ]
+   },
+   "sek": 3.23
+  },
+  {
+   "id": 10,
+   "wer": "forscher-sparsam",
+   "op": "minimize2d",
+   "args": {
+    "nu": 3.92
+   },
+   "ergebnis": {
+    "tau": [
+     0.0,
+     1.0
+    ],
+    "T": 7.891990305803682,
+    "typ": "quadratisch",
+    "lokale_minima": [
+     {
+      "tau": [
+       0.0,
+       1.0
+      ],
+      "T": 7.891990305803682,
+      "typ": "quadratisch"
+     },
+     {
+      "tau": [
+       0.5,
+       0.8660254037844386
+      ],
+      "T": 7.892461950071012,
+      "typ": "hexagonal"
+     }
+    ]
+   },
+   "sek": 3.35
+  },
+  {
+   "id": 11,
+   "wer": "forscher-numeriker",
+   "op": "minimize2d",
+   "args": {
+    "nu": 1.0
+   },
+   "ergebnis": {
+    "tau": [
+     0.4113864307554788,
+     0.9114611380071853
+    ],
+    "T": -246.41549589111443,
+    "typ": "rhombisch",
+    "lokale_minima": [
+     {
+      "tau": [
+       0.4113864307554788,
+       0.9114611380071853
+      ],
+      "T": -246.41549589111443,
+      "typ": "rhombisch"
+     }
+    ]
+   },
+   "sek": 7.54
+  },
+  {
+   "id": 12,
+   "wer": "forscher-numeriker",
+   "op": "minimize2d",
+   "args": {
+    "nu": 2.0
+   },
+   "ergebnis": {
+    "tau": [
+     0.5,
+     0.8660254037844386
+    ],
+    "T": 41.39438591508116,
+    "typ": "hexagonal",
+    "lokale_minima": [
+     {
+      "tau": [
+       0.5,
+       0.8660254037844386
+      ],
+      "T": 41.39438591508116,
+      "typ": "hexagonal"
+     }
+    ]
+   },
+   "sek": 7.5
+  },
+  {
+   "id": 13,
+   "wer": "forscher-numeriker",
+   "op": "minimize2d",
+   "args": {
+    "nu": 3.0
+   },
+   "ergebnis": {
+    "tau": [
+     0.5,
+     0.8660254037844386
+    ],
+    "T": 13.391794004874814,
+    "typ": "hexagonal",
+    "lokale_minima": [
+     {
+      "tau": [
+       0.5,
+       0.8660254037844386
+      ],
+      "T": 13.391794004874814,
+      "typ": "hexagonal"
+     }
+    ]
+   },
+   "sek": 4.09
+  },
+  {
+   "id": 14,
+   "wer": "forscher-numeriker",
+   "op": "minimize2d",
+   "args": {
+    "nu": 4.0
+   },
+   "ergebnis": {
+    "tau": [
+     0.0,
+     1.0
+    ],
+    "T": 7.58266990103469,
+    "typ": "quadratisch",
+    "lokale_minima": [
+     {
+      "tau": [
+       0.0,
+       1.0
+      ],
+      "T": 7.58266990103469,
+      "typ": "quadratisch"
+     }
+    ]
+   },
+   "sek": 4.05
+  },
+  {
+   "id": 15,
+   "wer": "forscher-numeriker",
+   "op": "compare2d",
+   "args": {
+    "tau_a": [
+     0.5,
+     0.8660254
+    ],
+    "tau_b": [
+     0,
+     1
+    ],
+    "nu": 1.0
+   },
+   "ergebnis": {
+    "T_a": -246.27142158335388,
+    "T_b": -245.9262713648122,
+    "diff": -0.3451502185416757,
+    "err": 9573.502198175765,
+    "sicher": false
+   },
+   "sek": 0.02
+  },
+  {
+   "id": 16,
+   "wer": "forscher-numeriker",
+   "op": "compare2d",
+   "args": {
+    "tau_a": [
+     0.5,
+     0.8660254
+    ],
+    "tau_b": [
+     0,
+     1
+    ],
+    "nu": 2.0
+   },
+   "ergebnis": {
+    "T_a": 41.39438591510646,
+    "T_b": 41.913592543226436,
+    "diff": -0.5192066281199743,
+    "err": 0.17497354020903716,
+    "sicher": false
+   },
+   "sek": 0.02
+  },
+  {
+   "id": 17,
+   "wer": "forscher-numeriker",
+   "op": "compare2d",
+   "args": {
+    "tau_a": [
+     0.5,
+     0.8660254
+    ],
+    "tau_b": [
+     0,
+     1
+    ],
+    "nu": 3.0
+   },
+   "ergebnis": {
+    "T_a": 13.391794004874818,
+    "T_b": 13.652893626113212,
+    "diff": -0.2610996212383938,
+    "err": 1.2005586597022925e-05,
+    "sicher": true
+   },
+   "sek": 0.02
+  },
+  {
+   "id": 18,
+   "wer": "forscher-numeriker",
+   "op": "compare2d",
+   "args": {
+    "tau_a": [
+     0.5,
+     0.8660254
+    ],
+    "tau_b": [
+     0,
+     1
+    ],
+    "nu": 4.0
+   },
+   "ergebnis": {
+    "T_a": 7.606170752559257,
+    "T_b": 7.58266990103469,
+    "diff": 0.0235008515245676,
+    "err": 2.116111178457712e-09,
+    "sicher": true
+   },
+   "sek": 0.02
+  },
+  {
+   "id": 19,
+   "wer": "forscher-numeriker",
+   "op": "crossing2d",
+   "args": {
+    "tau_a": [
+     0.5,
+     0.8660254037844386
+    ],
+    "tau_b": [
+     0.0,
+     1.0
+    ],
+    "nu_lo": 3.0,
+    "nu_hi": 4.0
+   },
+   "ergebnis": {
+    "gefunden": true,
+    "intervall": [
+     3.9183645248413086,
+     3.918365478515625
+    ]
+   },
+   "sek": 0.51
+  },
+  {
+   "id": 20,
+   "wer": "forscher-skeptiker",
+   "op": "compare2d",
+   "args": {
+    "tau_a": [
+     0,
+     1
+    ],
+    "tau_b": [
+     0.5,
+     0.8660254
+    ],
+    "nu": 2
+   },
+   "ergebnis": {
+    "T_a": 41.913592543226436,
+    "T_b": 41.39438591510646,
+    "diff": 0.5192066281199743,
+    "err": 0.17497354020903716,
+    "sicher": false
+   },
+   "sek": 0.02
+  },
+  {
+   "id": 21,
+   "wer": "forscher-skeptiker",
+   "op": "compare2d",
+   "args": {
+    "tau_a": [
+     0,
+     1
+    ],
+    "tau_b": [
+     0.5,
+     0.8660254
+    ],
+    "nu": 4
+   },
+   "ergebnis": {
+    "T_a": 7.58266990103469,
+    "T_b": 7.606170752559257,
+    "diff": -0.0235008515245676,
+    "err": 2.116111178457712e-09,
+    "sicher": true
+   },
+   "sek": 0.02
+  },
+  {
+   "id": 22,
+   "wer": "forscher-skeptiker",
+   "op": "compare2d",
+   "args": {
+    "tau_a": [
+     0,
+     1
+    ],
+    "tau_b": [
+     0.5,
+     0.8660254
+    ],
+    "nu": 8
+   },
+   "ergebnis": {
+    "T_a": 1.5524012125757505,
+    "T_b": 2.228073519951608,
+    "diff": -0.6756723073758577,
+    "err": 2.2280735199516082e-13,
+    "sicher": true
+   },
+   "sek": 0.02
+  },
+  {
+   "id": 23,
+   "wer": "forscher-skeptiker",
+   "op": "crossing2d",
+   "args": {
+    "tau_a": [
+     0,
+     1
+    ],
+    "tau_b": [
+     0.5,
+     0.8660254
+    ],
+    "nu_lo": 1,
+    "nu_hi": 20
+   },
+   "ergebnis": {
+    "gefunden": true,
+    "intervall": [
+     3.918364465236664,
+     3.918365031480789
+    ]
+   },
+   "sek": 0.71
+  },
+  {
+   "id": 24,
+   "wer": "forscher-skeptiker",
+   "op": "minimize2d",
+   "args": {
+    "nu": 2
+   },
+   "ergebnis": {
+    "tau": [
+     0.5,
+     0.8660254037844386
+    ],
+    "T": 41.39438591508116,
+    "typ": "hexagonal",
+    "lokale_minima": [
+     {
+      "tau": [
+       0.5,
+       0.8660254037844386
+      ],
+      "T": 41.39438591508116,
+      "typ": "hexagonal"
+     }
+    ]
+   },
+   "sek": 6.59
+  },
+  {
+   "id": 25,
+   "wer": "forscher-skeptiker",
+   "op": "minimize2d",
+   "args": {
+    "nu": 6
+   },
+   "ergebnis": {
+    "tau": [
+     0.0,
+     1.0
+    ],
+    "T": 3.2499743124415903,
+    "typ": "quadratisch",
+    "lokale_minima": [
+     {
+      "tau": [
+       0.0,
+       1.0
+      ],
+      "T": 3.2499743124415903,
+      "typ": "quadratisch"
+     }
+    ]
+   },
+   "sek": 3.65
+  },
+  {
+   "id": 26,
+   "wer": "forscher-skeptiker",
+   "op": "hessian2d",
+   "args": {
+    "tau": [
+     0,
+     1
+    ],
+    "nu": 4
+   },
+   "ergebnis": {
+    "eigenwerte": [
+     0.8737672088088289,
+     19.51610753447852
+    ],
+    "stabil": true
+   },
+   "sek": 0.09
+  },
+  {
+   "id": 27,
+   "wer": "forscher-skeptiker",
+   "op": "hessian2d",
+   "args": {
+    "tau": [
+     0.5,
+     0.8660254
+    ],
+    "nu": 4
+   },
+   "ergebnis": {
+    "eigenwerte": [
+     1.9792763215065179,
+     1.979286541997638
+    ],
+    "stabil": true
+   },
+   "sek": 0.09
+  }
+ ],
+ "sek": 193.6,
+ "frage": "Q5",
+ "salt": 1,
+ "bedingung": "BK"
+}

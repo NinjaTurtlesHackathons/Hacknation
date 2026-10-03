@@ -44,7 +44,7 @@ def load(cond):
 
 
 if __name__ == "__main__":
-    conds = [c for c in ("A1", "A2", "B") if os.path.isdir(f"results/benchmark/{c}")]
+    conds = [c for c in ("A1", "A2", "B", "BK") if os.path.isdir(f"results/benchmark/{c}")]
     S = {c: load(c) for c in conds}; qids = sorted(KEY, key=lambda s: int(s[1:]))
     acc = {c: np.array([np.mean([g == "richtig" for g in S[c].get(q, [])]) if S[c].get(q) else np.nan for q in qids]) for c in conds}
     wrong = {c: np.array([np.mean([g == "falsch" for g in S[c].get(q, [])]) if S[c].get(q) else np.nan for q in qids]) for c in conds}
@@ -63,5 +63,8 @@ if __name__ == "__main__":
             rej, adj = bh(list(tests.values()), 0.1)
             for (k, p), a_, r_ in zip(tests.items(), adj, rej): print(f"{k}: p = {p:.4f}, p_BH = {a_:.4f}, signifikant: {bool(r_)}")
             res["tests"] = {k: {"p": p, "p_bh": float(a_)} for (k, p), a_ in zip(tests.items(), adj)}
+    if "BK" in conds and "A2" in conds:                                    # H4c, getrennte Familie (prereg H4)
+        m = ~np.isnan(acc["BK"]) & ~np.isnan(acc["A2"]); p4 = perm_test(-acc["BK"][m], -acc["A2"][m])
+        print(f"H4c_treffer_BK_vs_A2: p = {p4:.4f}"); res.setdefault("tests_h4", {})["H4c_treffer_BK_vs_A2"] = {"p": p4}
     res["summary"] = {c: {"richtig": float(np.nanmean(acc[c])), "falsch": float(np.nanmean(wrong[c]))} for c in conds}
     json.dump(res, open("results/benchmark/score.json", "w"), ensure_ascii=False, indent=1)
