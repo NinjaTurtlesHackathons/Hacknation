@@ -38,7 +38,7 @@ Changes to this file after the first confirmatory run only as a new dated sectio
 - Post-hoc explanation (hypothesis only, not tested): Gaussian keys have varying norms, so high-norm keys attract attention from all queries even without planted structure; h2o exploits these "natural heavy hitters". A control with unit-norm keys would separate this; it would need a new preregistration.
 - T1, T2, T3 passed; H-AE2: 0 counterexamples to S1 and S2 in 5,000 fresh instances (support, not proof).
 
-## Addendum 2026-10-04 01:31 (re-analysis, criteria unchanged)
+## Addendum 2026-10-04 01:04 (re-analysis, criteria unchanged)
 The red team found that the permutation p-value could be reported as 0; it is now (count + 1)/(B + 1). The confirmatory analysis was
 re-run on the same deterministic data with this formula and with the soundness-fixed verifier (decisions AE15-AE18). Conclusions are unchanged
 unless stated in results/confirmatory.json.
