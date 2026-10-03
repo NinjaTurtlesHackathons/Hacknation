@@ -1,0 +1,713 @@
+{
+ "antwort": {
+  "antwort": "Übergangspunkt zwischen p=0.65 und p=0.655; NPA 1+AB wird unscharf, Stufe 2/2+AAB bleiben scharf",
+  "zahl": 0.652,
+  "konfidenz": 0.85,
+  "pruefung": {
+   "typ": "luecke_npa",
+   "ungleichung": {
+    "korrelator": {
+     "a": [
+      "131/200",
+      0
+     ],
+     "b": [
+      "131/200",
+      0
+     ],
+     "c": [
+      [
+       1,
+       1
+      ],
+      [
+       1,
+       -1
+      ]
+     ],
+     "konst": 0
+    }
+   },
+   "stufe": "1+AB",
+   "mindestens": 2e-06
+  },
+  "begruendung": "Verfeinerte Scans E3-E4 zeigen für Stufe 1+AB: bei p=0.65 Lücke ≈1.5e-08 (scharf), bei p=0.655 Lücke ≈3.3e-06 (unscharf). Der Übergangspunkt liegt zwischen diesen Werten. Stufe 2 und 2+AAB schließen die Lücke überall (alle <1e-06), was die Konvergenz der NPA-Hierarchie belegt.",
+  "stimmen": "Stufe 1/4 (sparsam, haiku)"
+ },
+ "level": "computed (Code-Prüfer bestanden)",
+ "forscher": [
+  {
+   "strategie": "sparsam",
+   "runden": [
+    {
+     "ueberlegung": "Die Frage zielt auf die Lokalisierung des Übergangspunkts, wo NPA 1+AB aufhört, scharf zu sein (Lücke > 1e-6), und ob höhere Stufen dies kompensieren. Ich plane einen systematischen Scan über die 6 angegebenen p-Werte mit drei komplementären NPA-Stufen:\n\n1. **Scan Stufe 1+AB**: Für alle p ∈ {0.62, 0.64, 0.66, 0.68, 0.70, 0.72} berechne klassische Schranke L (exakt), beste Quantenstrategie via See-saw (d=2) und NPA 1+AB-Schranke. Dies zeigt direkt, ab welchem p die Lücke über 1e-6 springt.\n\n2. **Scan Stufe 2**: Identische Parametrierung, aber mit NPA Stufe 2. Dies offenbart, ob Stufe 2 die Lücke dort schließt oder selbst unscharfbleibt.\n\n3. **Scan Stufe 2+AAB**: Sicherheitshalber auch die höchste Standard-Stufe scannen, falls Stufe 2 noch unscharfist—liefert endgültige Schärfediagnose.\n\nVorteil dieser Anordnung: Alle drei Scans verwenden die gleichen p-Werte, klassische/See-saw-Werte sind identisch, nur NPA variiert. Der Prüfer kann per Differenz exakt die Lückenhierarchie Q_NPA(p, Stufe) - Q_See-saw(p) für jedes p und jede Stufe nachrechnen und so den Übergangspunkt und die Heilung durch höhere Stufen zeigen.",
+     "plan": [
+      {
+       "op": "scan",
+       "args": {
+        "vorlage": {
+         "korrelator": {
+          "a": [
+           "p",
+           0
+          ],
+          "b": [
+           "p",
+           0
+          ],
+          "c": [
+           [
+            1,
+            1
+           ],
+           [
+            1,
+            -1
+           ]
+          ],
+          "konst": 0
+         }
+        },
+        "werte": [
+         0.62,
+         0.64,
+         0.66,
+         0.68,
+         0.7,
+         0.72
+        ],
+        "d": 2,
+        "stufe": "1+AB"
+       }
+      },
+      {
+       "op": "scan",
+       "args": {
+        "vorlage": {
+         "korrelator": {
+          "a": [
+           "p",
+           0
+          ],
+          "b": [
+           "p",
+           0
+          ],
+          "c": [
+           [
+            1,
+            1
+           ],
+           [
+            1,
+            -1
+           ]
+          ],
+          "konst": 0
+         }
+        },
+        "werte": [
+         0.62,
+         0.64,
+         0.66,
+         0.68,
+         0.7,
+         0.72
+        ],
+        "d": 2,
+        "stufe": "2"
+       }
+      },
+      {
+       "op": "scan",
+       "args": {
+        "vorlage": {
+         "korrelator": {
+          "a": [
+           "p",
+           0
+          ],
+          "b": [
+           "p",
+           0
+          ],
+          "c": [
+           [
+            1,
+            1
+           ],
+           [
+            1,
+            -1
+           ]
+          ],
+          "konst": 0
+         }
+        },
+        "werte": [
+         0.62,
+         0.64,
+         0.66,
+         0.68,
+         0.7,
+         0.72
+        ],
+        "d": 2,
+        "stufe": "2+AAB"
+       }
+      }
+     ]
+    },
+    {
+     "plan": [
+      {
+       "op": "scan",
+       "args": {
+        "vorlage": {
+         "korrelator": {
+          "a": [
+           "p",
+           0
+          ],
+          "b": [
+           "p",
+           0
+          ],
+          "c": [
+           [
+            1,
+            1
+           ],
+           [
+            1,
+            -1
+           ]
+          ],
+          "konst": 0
+         }
+        },
+        "werte": [
+         0.645,
+         0.65,
+         0.655
+        ],
+        "d": 2,
+        "stufe": "1+AB"
+       }
+      },
+      {
+       "op": "scan",
+       "args": {
+        "vorlage": {
+         "korrelator": {
+          "a": [
+           "p",
+           0
+          ],
+          "b": [
+           "p",
+           0
+          ],
+          "c": [
+           [
+            1,
+            1
+           ],
+           [
+            1,
+            -1
+           ]
+          ],
+          "konst": 0
+         }
+        },
+        "werte": [
+         0.645,
+         0.65,
+         0.655
+        ],
+        "d": 2,
+        "stufe": "2"
+       }
+      }
+     ]
+    },
+    {
+     "antwort": "Übergangspunkt zwischen p=0.65 und p=0.655; NPA 1+AB wird unscharf, Stufe 2/2+AAB bleiben scharf",
+     "zahl": 0.652,
+     "konfidenz": 0.85,
+     "pruefung": {
+      "typ": "luecke_npa",
+      "ungleichung": {
+       "korrelator": {
+        "a": [
+         "131/200",
+         0
+        ],
+        "b": [
+         "131/200",
+         0
+        ],
+        "c": [
+         [
+          1,
+          1
+         ],
+         [
+          1,
+          -1
+         ]
+        ],
+        "konst": 0
+       }
+      },
+      "stufe": "1+AB",
+      "mindestens": 2e-06
+     },
+     "begruendung": "Verfeinerte Scans E3-E4 zeigen für Stufe 1+AB: bei p=0.65 Lücke ≈1.5e-08 (scharf), bei p=0.655 Lücke ≈3.3e-06 (unscharf). Der Übergangspunkt liegt zwischen diesen Werten. Stufe 2 und 2+AAB schließen die Lücke überall (alle <1e-06), was die Konvergenz der NPA-Hierarchie belegt."
+    }
+   ],
+   "experimente": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ],
+   "final": {
+    "antwort": "Übergangspunkt zwischen p=0.65 und p=0.655; NPA 1+AB wird unscharf, Stufe 2/2+AAB bleiben scharf",
+    "zahl": 0.652,
+    "konfidenz": 0.85,
+    "pruefung": {
+     "typ": "luecke_npa",
+     "ungleichung": {
+      "korrelator": {
+       "a": [
+        "131/200",
+        0
+       ],
+       "b": [
+        "131/200",
+        0
+       ],
+       "c": [
+        [
+         1,
+         1
+        ],
+        [
+         1,
+         -1
+        ]
+       ],
+       "konst": 0
+      }
+     },
+     "stufe": "1+AB",
+     "mindestens": 2e-06
+    },
+    "begruendung": "Verfeinerte Scans E3-E4 zeigen für Stufe 1+AB: bei p=0.65 Lücke ≈1.5e-08 (scharf), bei p=0.655 Lücke ≈3.3e-06 (unscharf). Der Übergangspunkt liegt zwischen diesen Werten. Stufe 2 und 2+AAB schließen die Lücke überall (alle <1e-06), was die Konvergenz der NPA-Hierarchie belegt."
+   },
+   "modell": "haiku",
+   "pruefung": {
+    "bestanden": true,
+    "grund": "Prüfer: NPA-Stufe 1+AB erreicht >= 3.35826280973 (rationale zulässige Momentmatrix), beste eigene Strategie exakt 3.35825951388 (d<=2); Lücke >= 3.296e-06"
+   }
+  }
+ ],
+ "experimente": [
+  {
+   "id": 0,
+   "wer": "forscher-sparsam",
+   "op": "scan",
+   "args": {
+    "vorlage": {
+     "korrelator": {
+      "a": [
+       "p",
+       0
+      ],
+      "b": [
+       "p",
+       0
+      ],
+      "c": [
+       [
+        1,
+        1
+       ],
+       [
+        1,
+        -1
+       ]
+      ],
+      "konst": 0
+     }
+    },
+    "werte": [
+     0.62,
+     0.64,
+     0.66,
+     0.68,
+     0.7,
+     0.72
+    ],
+    "d": 2,
+    "stufe": "1+AB"
+   },
+   "ergebnis": {
+    "punkte": [
+     {
+      "p": 0.62,
+      "L": 3.24,
+      "seesaw": 3.3035297215315533,
+      "npa": 3.3035296661279556,
+      "strategie_id": "S00c12cce3e1d"
+     },
+     {
+      "p": 0.64,
+      "L": 3.28,
+      "seesaw": 3.3344847435850222,
+      "npa": 3.334484732088085,
+      "strategie_id": "S61cb7d797e45"
+     },
+     {
+      "p": 0.66,
+      "L": 3.32,
+      "seesaw": 3.3662884740488916,
+      "npa": 3.366304742785744,
+      "strategie_id": "S562bd30af572"
+     },
+     {
+      "p": 0.68,
+      "L": 3.36,
+      "seesaw": 3.398912020308482,
+      "npa": 3.3990615177791845,
+      "strategie_id": "S8ccb86b8f194"
+     },
+     {
+      "p": 0.7,
+      "L": 3.4,
+      "seesaw": 3.432324087632579,
+      "npa": 3.4326991506230797,
+      "strategie_id": "Sbfd222724e7f"
+     },
+     {
+      "p": 0.72,
+      "L": 3.44,
+      "seesaw": 3.4664910049083026,
+      "npa": 3.467137869169147,
+      "strategie_id": "S631cb5ff7f24"
+     }
+    ],
+    "hinweis": "numerisch (Kandidat)"
+   },
+   "sek": 0.49
+  },
+  {
+   "id": 1,
+   "wer": "forscher-sparsam",
+   "op": "scan",
+   "args": {
+    "vorlage": {
+     "korrelator": {
+      "a": [
+       "p",
+       0
+      ],
+      "b": [
+       "p",
+       0
+      ],
+      "c": [
+       [
+        1,
+        1
+       ],
+       [
+        1,
+        -1
+       ]
+      ],
+      "konst": 0
+     }
+    },
+    "werte": [
+     0.62,
+     0.64,
+     0.66,
+     0.68,
+     0.7,
+     0.72
+    ],
+    "d": 2,
+    "stufe": "2"
+   },
+   "ergebnis": {
+    "punkte": [
+     {
+      "p": 0.62,
+      "L": 3.24,
+      "seesaw": 3.3035297215315533,
+      "npa": 3.3035296839534003,
+      "strategie_id": "S00c12cce3e1d"
+     },
+     {
+      "p": 0.64,
+      "L": 3.28,
+      "seesaw": 3.3344847435850222,
+      "npa": 3.334484686428068,
+      "strategie_id": "S61cb7d797e45"
+     },
+     {
+      "p": 0.66,
+      "L": 3.32,
+      "seesaw": 3.3662884740488916,
+      "npa": 3.3662883883273196,
+      "strategie_id": "S562bd30af572"
+     },
+     {
+      "p": 0.68,
+      "L": 3.36,
+      "seesaw": 3.398912020308482,
+      "npa": 3.398911975203971,
+      "strategie_id": "S8ccb86b8f194"
+     },
+     {
+      "p": 0.7,
+      "L": 3.4,
+      "seesaw": 3.432324087632579,
+      "npa": 3.4323240655080394,
+      "strategie_id": "Sbfd222724e7f"
+     },
+     {
+      "p": 0.72,
+      "L": 3.44,
+      "seesaw": 3.4664910049083026,
+      "npa": 3.4664909432678153,
+      "strategie_id": "S631cb5ff7f24"
+     }
+    ],
+    "hinweis": "numerisch (Kandidat)"
+   },
+   "sek": 0.58
+  },
+  {
+   "id": 2,
+   "wer": "forscher-sparsam",
+   "op": "scan",
+   "args": {
+    "vorlage": {
+     "korrelator": {
+      "a": [
+       "p",
+       0
+      ],
+      "b": [
+       "p",
+       0
+      ],
+      "c": [
+       [
+        1,
+        1
+       ],
+       [
+        1,
+        -1
+       ]
+      ],
+      "konst": 0
+     }
+    },
+    "werte": [
+     0.62,
+     0.64,
+     0.66,
+     0.68,
+     0.7,
+     0.72
+    ],
+    "d": 2,
+    "stufe": "2+AAB"
+   },
+   "ergebnis": {
+    "punkte": [
+     {
+      "p": 0.62,
+      "L": 3.24,
+      "seesaw": 3.3035297215315533,
+      "npa": 3.303529649874765,
+      "strategie_id": "S00c12cce3e1d"
+     },
+     {
+      "p": 0.64,
+      "L": 3.28,
+      "seesaw": 3.3344847435850222,
+      "npa": 3.334484702011836,
+      "strategie_id": "S61cb7d797e45"
+     },
+     {
+      "p": 0.66,
+      "L": 3.32,
+      "seesaw": 3.3662884740488916,
+      "npa": 3.366288381462189,
+      "strategie_id": "S562bd30af572"
+     },
+     {
+      "p": 0.68,
+      "L": 3.36,
+      "seesaw": 3.398912020308482,
+      "npa": 3.3989120118542258,
+      "strategie_id": "S8ccb86b8f194"
+     },
+     {
+      "p": 0.7,
+      "L": 3.4,
+      "seesaw": 3.432324087632579,
+      "npa": 3.4323240574836786,
+      "strategie_id": "Sbfd222724e7f"
+     },
+     {
+      "p": 0.72,
+      "L": 3.44,
+      "seesaw": 3.4664910049083026,
+      "npa": 3.466490994836463,
+      "strategie_id": "S631cb5ff7f24"
+     }
+    ],
+    "hinweis": "numerisch (Kandidat)"
+   },
+   "sek": 0.86
+  },
+  {
+   "id": 3,
+   "wer": "forscher-sparsam",
+   "op": "scan",
+   "args": {
+    "vorlage": {
+     "korrelator": {
+      "a": [
+       "p",
+       0
+      ],
+      "b": [
+       "p",
+       0
+      ],
+      "c": [
+       [
+        1,
+        1
+       ],
+       [
+        1,
+        -1
+       ]
+      ],
+      "konst": 0
+     }
+    },
+    "werte": [
+     0.645,
+     0.65,
+     0.655
+    ],
+    "d": 2,
+    "stufe": "1+AB"
+   },
+   "ergebnis": {
+    "punkte": [
+     {
+      "p": 0.645,
+      "L": 3.29,
+      "seesaw": 3.3423571971810455,
+      "npa": 3.342357184352061,
+      "strategie_id": "Sfe478725f07a"
+     },
+     {
+      "p": 0.65,
+      "L": 3.3,
+      "seesaw": 3.3502822695334045,
+      "npa": 3.3502822545721216,
+      "strategie_id": "Sa180c8de4c5b"
+     },
+     {
+      "p": 0.655,
+      "L": 3.31,
+      "seesaw": 3.3582595138835147,
+      "npa": 3.358262846972201,
+      "strategie_id": "S0cc470ba4e20"
+     }
+    ],
+    "hinweis": "numerisch (Kandidat)"
+   },
+   "sek": 0.24
+  },
+  {
+   "id": 4,
+   "wer": "forscher-sparsam",
+   "op": "scan",
+   "args": {
+    "vorlage": {
+     "korrelator": {
+      "a": [
+       "p",
+       0
+      ],
+      "b": [
+       "p",
+       0
+      ],
+      "c": [
+       [
+        1,
+        1
+       ],
+       [
+        1,
+        -1
+       ]
+      ],
+      "konst": 0
+     }
+    },
+    "werte": [
+     0.645,
+     0.65,
+     0.655
+    ],
+    "d": 2,
+    "stufe": "2"
+   },
+   "ergebnis": {
+    "punkte": [
+     {
+      "p": 0.645,
+      "L": 3.29,
+      "seesaw": 3.3423571971810455,
+      "npa": 3.342357132808533,
+      "strategie_id": "Sfe478725f07a"
+     },
+     {
+      "p": 0.65,
+      "L": 3.3,
+      "seesaw": 3.3502822695334045,
+      "npa": 3.350282196644413,
+      "strategie_id": "Sa180c8de4c5b"
+     },
+     {
+      "p": 0.655,
+      "L": 3.31,
+      "seesaw": 3.3582595138835147,
+      "npa": 3.3582594320891763,
+      "strategie_id": "S0cc470ba4e20"
+     }
+    ],
+    "hinweis": "numerisch (Kandidat)"
+   },
+   "sek": 0.27
+  }
+ ],
+ "sek": 174.0
+}
