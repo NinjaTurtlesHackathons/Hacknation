@@ -1,6 +1,6 @@
 # Preregistration: algo_efficiency (commit before any confirmatory run; the commit hash is the timestamp)
 
-## Disclosure: exploratory runs before this preregistration (Sun 2026-10-04, ~01:30-01:50)
+## Disclosure: exploratory runs before this preregistration (Sun 2026-10-04, 00:43-00:46, after commit b2d6dd7 and before commit a3b3eb6 of this file; times from git and file timestamps)
 The following were computed BEFORE this file existed and are therefore **exploratory**; they may motivate hypotheses below but
 are not confirmatory evidence: KV comparison at n = 512, budget = 64 (seeds 1000-1019); multi-draft table on instance seeds
 0-149; counterexample search on instance seeds 10000-12999. Exact computations (degree table, gamma table) are certificates,
@@ -32,7 +32,7 @@ not hypothesis tests; their order relative to this file does not matter.
 
 Changes to this file after the first confirmatory run only as a new dated section with reason.
 
-## Addendum 2026-10-04 ~02:30 (after the confirmatory run; criteria above unchanged)
+## Addendum 2026-10-04 00:54 (after the confirmatory run; criteria above unchanged)
 - Confirmatory run: `python -m algo_efficiency.confirm` (results/confirmatory.json), executed after commit a3b3eb6 of this file.
 - **Negative control FAILED:** in the structure-free model h2o beats random (mean error 1.6237 vs 1.7359, p < 0.001); recent and sink_recent do not (p = 0.54, 0.62). As preregistered, **every KV claim is downgraded** (level observed, not statistical), although H-AE1 primary and all secondaries reached p < 0.001.
 - Post-hoc explanation (hypothesis only, not tested): Gaussian keys have varying norms, so high-norm keys attract attention from all queries even without planted structure; h2o exploits these "natural heavy hitters". A control with unit-norm keys would separate this; it would need a new preregistration.
