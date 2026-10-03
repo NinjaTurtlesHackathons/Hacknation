@@ -132,7 +132,7 @@ def consistent(ans, p):
 KASKADE = (("sparsam", "haiku"), ("numeriker", "haiku"), ("skeptiker", "sonnet"), ("theoretiker", "sonnet"))
 
 
-def solve_cascade(kontext, frage, salt=0, stufen=KASKADE, domain=None):
+def solve_cascade(kontext, frage, salt=0, stufen=KASKADE, domain=None, neu=None):
     """Kostenoptimiert: Forscher nacheinander, günstiges Modell zuerst; Stopp bei der ersten Behauptung, die den
     Code-Prüfer besteht und zur Antwort passt. Der Prüfer garantiert die Wahrheit, also reicht eine geprüfte Behauptung."""
     lab = Lab(domain); D = lab.domain; t0 = time.time(); traces = []; checks = {}
@@ -147,7 +147,10 @@ def solve_cascade(kontext, frage, salt=0, stufen=KASKADE, domain=None):
             if k not in checks: checks[k] = D.check(p)[:2]
             res.append(checks[k])
         ok = bool(ps) and all(o for o, _ in res) and all(D.consistent(a, p) for p in ps)
-        tr["pruefung"] = {"bestanden": ok, "grund": " | ".join(w for _, w in res) or "keine Prüfung angegeben"}; traces.append(tr)
+        grund = " | ".join(w for _, w in res) or "keine Prüfung angegeben"
+        if ok and neu is not None and not any(neu(p) for p in ps):     # nur schon Zertifiziertes wiederholt -> kein Fortschritt
+            ok = False; grund = "bestanden, aber bereits zertifiziert (kein neues Resultat): " + grund
+        tr["pruefung"] = {"bestanden": ok, "grund": grund}; traces.append(tr)
         if ok:
             ans = dict(a); ans["stimmen"] = f"Stufe {len(traces)}/{len(stufen)} ({strategie}, {model})"
             return {"antwort": ans, "level": "computed (Code-Prüfer bestanden)", "forscher": traces, "experimente": lab.log, "sek": round(time.time() - t0, 1)}

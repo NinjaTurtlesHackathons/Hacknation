@@ -38,6 +38,10 @@ class Domain:
     def level(self, p):
         return "observed"
 
+    def novel(self, p, frueher):
+        """Ist die bestandene Prüfung p ein neues Resultat gegenüber den früheren Prüfungen? (Standard: ja.)"""
+        return True
+
     def describe(self, p):
         """Kanonische Aussage, die eine BESTANDENE Prüfung p beweist, erzeugt aus p selbst (nicht aus dem Text des Agenten).
         Nur diese Aussage darf als Resultat ins Paper. Der Antworttext des Agenten ist bloß Interpretation."""

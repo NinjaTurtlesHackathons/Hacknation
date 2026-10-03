@@ -103,8 +103,10 @@ def main():
     log(f"Selbsttest des Prüfers: {'bestanden' if ok else 'NICHT bestanden'}")
     if not ok: raise SystemExit("Abbruch: Der Prüfer besteht seinen Selbsttest nicht. Erst den Prüfer reparieren.")
     if a.recherche and not P.s["wissen"]: scout(P, D, log)
-    if a.fragen and not P.s["fragen"]:
-        for q in json.load(open(a.fragen)): q.update(id=f"F{len(P.s['fragen']) + 1}", status="offen"); P.s["fragen"].append(q)
+    if a.fragen:                              # Startfragen ergänzen (bereits vorhandene Fragetexte werden übersprungen)
+        known = {q["frage"] for q in P.s["fragen"]}
+        for q in json.load(open(a.fragen)):
+            if q["frage"] not in known: q.update(id=f"F{len(P.s['fragen']) + 1}", status="offen"); P.s["fragen"].append(q)
     if not P.s["fragen"]: integrator_fragen(P, D, salt=str(len(P.s["runden"])))
     P.save()
     for _ in range(a.runden):
@@ -117,7 +119,9 @@ def main():
                               f"- Erfolg: {pr.get('erfolg')}\n- Abbruch: {pr.get('abbruch')}\n- Erwartung: {pr.get('erwartung')}")
         P.append("decisions.md", f"| {now()} | INTEGRATOR | Runde {runde}: [{q['id']}] {q['frage'][:120]} | {str(pr.get('begruendung'))[:160]} |")
         log(f"Runde {runde}: {q['frage']}")
-        res = solve_cascade(D.kontext + "\n\n" + wissen_text(P), q["frage"], salt=f"{D.name}-{runde}", domain=D)
+        bekannt = {json.dumps(c["pruefung"], sort_keys=True) for c in P.s["claims"]}
+        neu = lambda p: json.dumps(p, sort_keys=True) not in bekannt and D.novel(p, [c["pruefung"] for c in P.s["claims"]])
+        res = solve_cascade(D.kontext + "\n\n" + wissen_text(P), q["frage"], salt=f"{D.name}-{runde}", domain=D, neu=neu)
         q["status"] = "beantwortet" if res["level"].startswith("computed") else "ungeprüft"
         rt = []; cid = f"{D.name}-R{runde}"
         if q["status"] == "beantwortet":

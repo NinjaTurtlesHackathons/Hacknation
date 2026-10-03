@@ -236,6 +236,17 @@ class BellDomain(Domain):
                                       "die der Prüfer in Dimension bis 4 findet (beide Seiten exakt zertifiziert). Ob Q selbst darunter liegt, ist damit nicht gezeigt.")
         return super().describe(p)
 
+    def _ident(self, p):
+        try:
+            if p.get("typ") == "formel": return ("formel", json.dumps(p.get("vorlage"), sort_keys=True), str(p.get("ausdruck")).replace(" ", ""))
+            return (p.get("typ"), B.key(B.parse(p["ungleichung"])))
+        except Exception:
+            return (p.get("typ"), json.dumps(p, sort_keys=True))
+
+    def novel(self, p, frueher):
+        """Gleicher Prüfungstyp für dieselbe Ungleichung (bzw. dieselbe Formel) wie eine frühere Aussage = kein neues Resultat."""
+        return self._ident(p) not in {self._ident(q) for q in frueher if isinstance(q, dict)}
+
     def consistent(self, antwort, p):
         z = antwort.get("zahl")
         try: z = float(z) if z is not None else None
