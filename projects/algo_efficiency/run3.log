@@ -1,0 +1,9 @@
+Selbsttest des Prüfers: bestanden
+Runde 2: Does drafting without replacement change the picture: is rrs_wor optimal among lossless couplings for without-replacement drafts on some instances and suboptimal on others (k = 2, V <= 4)?
+  geprüft (computed_rigorous): Ja, rrs_wor ist manchmal optimal und manchmal suboptimal | Red-Team: 2 Gegenprüfungen, 0 bestanden
+Runde 3: What is the certified minimal polynomial degree d*(B, eps) for approximating e^x on [-B, B] with relative error eps = 1e-3, for B = 1, 2, 4, 8? How does it compare with the degree the Taylor polynomial needs?
+  geprüft (computed_rigorous): Schätzung (Obergrenze via Chebyshev-Interpolation): d*(1, 1e-3) ≤ 5; d*(2, 1e-3) ≤ 7; d*(4, 1e-3) ≤ 11; d*(8, 1e-3) ≤ 20. Zum Vergleich Taylor: 6, 10, 17, 31. Chebyshev ist 5–55% effizienter; exakte minimale Grade nicht zertifiziert. | Red-Team: 2 Gegenprüfungen, 0 bestanden
+Runde 4: Wie groß ist die Akzeptanzlücke von rrs_wor zur optimalen verlustfreien Kopplung, wenn man k auf 3 und 4 erhöht und V auf bis zu 8 Token ausweitet, und tritt die Lücke bei zufälligen Instanzen mit Dirichlet- und Zipf-Verteilung systematisch auf?
+  geprüft (computed_rigorous): Ja, systematisch; durchschnittliche Akzeptanzlücke ca. 11% (Bereich 9–13%) | Red-Team: 2 Gegenprüfungen, 2 bestanden
+Budget erreicht (5.31 USD)
+Fertig: 4 geprüfte Aussagen, 0 negative Ergebnisse, Kosten 5.31 USD

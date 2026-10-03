@@ -1,0 +1,738 @@
+{
+ "antwort": {
+  "antwort": "Ja, rrs_wor ist manchmal optimal und manchmal suboptimal",
+  "zahl": null,
+  "konfidenz": 0.87,
+  "pruefungen": [
+   {
+    "typ": "scheme_optimal",
+    "p": [
+     "777/1000",
+     "223/1000"
+    ],
+    "q": [
+     "937/1000",
+     "63/1000"
+    ],
+    "k": 2,
+    "rule": "rrs_wor",
+    "optimal": true
+   },
+   {
+    "typ": "scheme_optimal",
+    "p": [
+     "3/20",
+     "253/1000",
+     "597/1000"
+    ],
+    "q": [
+     "27/125",
+     "93/250",
+     "103/250"
+    ],
+    "k": 2,
+    "rule": "rrs_wor",
+    "optimal": false
+   },
+   {
+    "typ": "scheme_optimal",
+    "p": [
+     "13/500",
+     "19/200",
+     "341/1000",
+     "269/500"
+    ],
+    "q": [
+     "301/1000",
+     "113/500",
+     "383/1000",
+     "9/100"
+    ],
+    "k": 2,
+    "rule": "rrs_wor",
+    "optimal": false
+   }
+  ],
+  "begruendung": "Die Experimenten zeigen ein klares Bild: Bei V=2 (E0) erreicht rrs_wor die optimale Akzeptanzrate von 1.0; bei V=3 (E1) und V=4 (E2) bleibt rrs_wor suboptimal (0.927 vs. 1.0 bzw. 0.610 vs. 0.673). Der ohne-Zurücklegen-Constraint führt also zu gemischtem Verhalten — rrs_wor ist nicht universell optimal, sondern instanzabhängig.",
+  "stimmen": "Stufe 1/4 (sparsam, haiku)"
+ },
+ "level": "computed (Code-Prüfer bestanden)",
+ "forscher": [
+  {
+   "strategie": "sparsam",
+   "runden": [
+    {
+     "ueberlegung": "Um zu klären, ob rrs_wor für k=2 und V≤4 manchmal optimal und manchmal suboptimal ist, muss ich eine vielfältige Sammlung von (p,q)-Instanzen erkunden und für jede die optimale Akzeptanz gegen rrs_wor vergleichen. Runde 1 erzeugt systematisch Instanzen über den Parameterraum: Vocabulargrößen V∈{2,3,4}, Distributionstypen (uniform/mild via Dirichlet mit conc=1, stark skewed via Zipf mit kleinem conc, und konzentriert via Dirichlet mit hohem conc). Dies deckt Szenarien ab, in denen Zielverteilung p und Draft-Verteilung q sich stark unterscheiden (→ schlechte Akzeptanz erwartet, hier können suboptimalitäten sichtbar werden) bis zu ähnlichen Verteilungen (→ hohe Akzeptanz, hier ist Optimalität wahrscheinlicher). Die 8 Experimente bilden ein minimales repräsentatives Sample ohne Redundanz.",
+     "plan": [
+      {
+       "op": "random_instance",
+       "args": {
+        "V": 2,
+        "seed": 1,
+        "family": "dirichlet",
+        "conc": 1
+       }
+      },
+      {
+       "op": "random_instance",
+       "args": {
+        "V": 3,
+        "seed": 2,
+        "family": "dirichlet",
+        "conc": 1
+       }
+      },
+      {
+       "op": "random_instance",
+       "args": {
+        "V": 4,
+        "seed": 3,
+        "family": "dirichlet",
+        "conc": 1
+       }
+      },
+      {
+       "op": "random_instance",
+       "args": {
+        "V": 2,
+        "seed": 4,
+        "family": "zipf",
+        "conc": 0.5
+       }
+      },
+      {
+       "op": "random_instance",
+       "args": {
+        "V": 3,
+        "seed": 5,
+        "family": "zipf",
+        "conc": 0.5
+       }
+      },
+      {
+       "op": "random_instance",
+       "args": {
+        "V": 4,
+        "seed": 6,
+        "family": "zipf",
+        "conc": 0.5
+       }
+      },
+      {
+       "op": "random_instance",
+       "args": {
+        "V": 2,
+        "seed": 7,
+        "family": "dirichlet",
+        "conc": 10
+       }
+      },
+      {
+       "op": "random_instance",
+       "args": {
+        "V": 3,
+        "seed": 8,
+        "family": "zipf",
+        "conc": 1.5
+       }
+      }
+     ]
+    },
+    {
+     "plan": [
+      {
+       "op": "multidraft_lp",
+       "args": {
+        "p": [
+         "777/1000",
+         "223/1000"
+        ],
+        "q": [
+         "937/1000",
+         "63/1000"
+        ],
+        "k": 2,
+        "mode": "wor"
+       }
+      },
+      {
+       "op": "multidraft_lp",
+       "args": {
+        "p": [
+         "3/20",
+         "253/1000",
+         "597/1000"
+        ],
+        "q": [
+         "27/125",
+         "93/250",
+         "103/250"
+        ],
+        "k": 2,
+        "mode": "wor"
+       }
+      },
+      {
+       "op": "multidraft_lp",
+       "args": {
+        "p": [
+         "13/500",
+         "19/200",
+         "341/1000",
+         "269/500"
+        ],
+        "q": [
+         "301/1000",
+         "113/500",
+         "383/1000",
+         "9/100"
+        ],
+        "k": 2,
+        "mode": "wor"
+       }
+      },
+      {
+       "op": "acceptance_mc",
+       "args": {
+        "p": [
+         "777/1000",
+         "223/1000"
+        ],
+        "q": [
+         "937/1000",
+         "63/1000"
+        ],
+        "rule": "rrs_wor",
+        "k": 2,
+        "samples": 100000
+       }
+      },
+      {
+       "op": "acceptance_mc",
+       "args": {
+        "p": [
+         "3/20",
+         "253/1000",
+         "597/1000"
+        ],
+        "q": [
+         "27/125",
+         "93/250",
+         "103/250"
+        ],
+        "rule": "rrs_wor",
+        "k": 2,
+        "samples": 100000
+       }
+      },
+      {
+       "op": "acceptance_mc",
+       "args": {
+        "p": [
+         "13/500",
+         "19/200",
+         "341/1000",
+         "269/500"
+        ],
+        "q": [
+         "301/1000",
+         "113/500",
+         "383/1000",
+         "9/100"
+        ],
+        "rule": "rrs_wor",
+        "k": 2,
+        "samples": 100000
+       }
+      }
+     ]
+    },
+    {
+     "antwort": "Ja, rrs_wor ist manchmal optimal und manchmal suboptimal",
+     "zahl": null,
+     "konfidenz": 0.87,
+     "pruefungen": [
+      {
+       "typ": "scheme_optimal",
+       "p": [
+        "777/1000",
+        "223/1000"
+       ],
+       "q": [
+        "937/1000",
+        "63/1000"
+       ],
+       "k": 2,
+       "rule": "rrs_wor",
+       "optimal": true
+      },
+      {
+       "typ": "scheme_optimal",
+       "p": [
+        "3/20",
+        "253/1000",
+        "597/1000"
+       ],
+       "q": [
+        "27/125",
+        "93/250",
+        "103/250"
+       ],
+       "k": 2,
+       "rule": "rrs_wor",
+       "optimal": false
+      },
+      {
+       "typ": "scheme_optimal",
+       "p": [
+        "13/500",
+        "19/200",
+        "341/1000",
+        "269/500"
+       ],
+       "q": [
+        "301/1000",
+        "113/500",
+        "383/1000",
+        "9/100"
+       ],
+       "k": 2,
+       "rule": "rrs_wor",
+       "optimal": false
+      }
+     ],
+     "begruendung": "Die Experimenten zeigen ein klares Bild: Bei V=2 (E0) erreicht rrs_wor die optimale Akzeptanzrate von 1.0; bei V=3 (E1) und V=4 (E2) bleibt rrs_wor suboptimal (0.927 vs. 1.0 bzw. 0.610 vs. 0.673). Der ohne-Zurücklegen-Constraint führt also zu gemischtem Verhalten — rrs_wor ist nicht universell optimal, sondern instanzabhängig."
+    }
+   ],
+   "experimente": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13
+   ],
+   "final": {
+    "antwort": "Ja, rrs_wor ist manchmal optimal und manchmal suboptimal",
+    "zahl": null,
+    "konfidenz": 0.87,
+    "pruefungen": [
+     {
+      "typ": "scheme_optimal",
+      "p": [
+       "777/1000",
+       "223/1000"
+      ],
+      "q": [
+       "937/1000",
+       "63/1000"
+      ],
+      "k": 2,
+      "rule": "rrs_wor",
+      "optimal": true
+     },
+     {
+      "typ": "scheme_optimal",
+      "p": [
+       "3/20",
+       "253/1000",
+       "597/1000"
+      ],
+      "q": [
+       "27/125",
+       "93/250",
+       "103/250"
+      ],
+      "k": 2,
+      "rule": "rrs_wor",
+      "optimal": false
+     },
+     {
+      "typ": "scheme_optimal",
+      "p": [
+       "13/500",
+       "19/200",
+       "341/1000",
+       "269/500"
+      ],
+      "q": [
+       "301/1000",
+       "113/500",
+       "383/1000",
+       "9/100"
+      ],
+      "k": 2,
+      "rule": "rrs_wor",
+      "optimal": false
+     }
+    ],
+    "begruendung": "Die Experimenten zeigen ein klares Bild: Bei V=2 (E0) erreicht rrs_wor die optimale Akzeptanzrate von 1.0; bei V=3 (E1) und V=4 (E2) bleibt rrs_wor suboptimal (0.927 vs. 1.0 bzw. 0.610 vs. 0.673). Der ohne-Zurücklegen-Constraint führt also zu gemischtem Verhalten — rrs_wor ist nicht universell optimal, sondern instanzabhängig."
+   },
+   "modell": "haiku",
+   "pruefung": {
+    "bestanden": true,
+    "grund": "rrs_wor acceptance 1 vs optimal 1 (certified) | rrs_wor acceptance 14274419/15386000 vs optimal 1 (certified) | rrs_wor acceptance 3763227121/6181723000 vs optimal 2079845443/3090861500 (certified)"
+   }
+  }
+ ],
+ "experimente": [
+  {
+   "id": 0,
+   "wer": "forscher-sparsam",
+   "op": "random_instance",
+   "args": {
+    "V": 2,
+    "seed": 1,
+    "family": "dirichlet",
+    "conc": 1
+   },
+   "ergebnis": {
+    "p": [
+     "777/1000",
+     "223/1000"
+    ],
+    "q": [
+     "937/1000",
+     "63/1000"
+    ]
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 1,
+   "wer": "forscher-sparsam",
+   "op": "random_instance",
+   "args": {
+    "V": 3,
+    "seed": 2,
+    "family": "dirichlet",
+    "conc": 1
+   },
+   "ergebnis": {
+    "p": [
+     "3/20",
+     "253/1000",
+     "597/1000"
+    ],
+    "q": [
+     "27/125",
+     "93/250",
+     "103/250"
+    ]
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 2,
+   "wer": "forscher-sparsam",
+   "op": "random_instance",
+   "args": {
+    "V": 4,
+    "seed": 3,
+    "family": "dirichlet",
+    "conc": 1
+   },
+   "ergebnis": {
+    "p": [
+     "13/500",
+     "19/200",
+     "341/1000",
+     "269/500"
+    ],
+    "q": [
+     "301/1000",
+     "113/500",
+     "383/1000",
+     "9/100"
+    ]
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 3,
+   "wer": "forscher-sparsam",
+   "op": "random_instance",
+   "args": {
+    "V": 2,
+    "seed": 4,
+    "family": "zipf",
+    "conc": 0.5
+   },
+   "ergebnis": {
+    "p": [
+     "207/500",
+     "293/500"
+    ],
+    "q": [
+     "293/500",
+     "207/500"
+    ]
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 4,
+   "wer": "forscher-sparsam",
+   "op": "random_instance",
+   "args": {
+    "V": 3,
+    "seed": 5,
+    "family": "zipf",
+    "conc": 0.5
+   },
+   "ergebnis": {
+    "p": [
+     "309/1000",
+     "63/250",
+     "439/1000"
+    ],
+    "q": [
+     "439/1000",
+     "63/250",
+     "309/1000"
+    ]
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 5,
+   "wer": "forscher-sparsam",
+   "op": "random_instance",
+   "args": {
+    "V": 4,
+    "seed": 6,
+    "family": "zipf",
+    "conc": 0.5
+   },
+   "ergebnis": {
+    "p": [
+     "361/1000",
+     "179/1000",
+     "253/1000",
+     "207/1000"
+    ],
+    "q": [
+     "207/1000",
+     "253/1000",
+     "361/1000",
+     "179/1000"
+    ]
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 6,
+   "wer": "forscher-sparsam",
+   "op": "random_instance",
+   "args": {
+    "V": 2,
+    "seed": 7,
+    "family": "dirichlet",
+    "conc": 10
+   },
+   "ergebnis": {
+    "p": [
+     "523/1000",
+     "477/1000"
+    ],
+    "q": [
+     "457/1000",
+     "543/1000"
+    ]
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 7,
+   "wer": "forscher-sparsam",
+   "op": "random_instance",
+   "args": {
+    "V": 3,
+    "seed": 8,
+    "family": "zipf",
+    "conc": 1.5
+   },
+   "ergebnis": {
+    "p": [
+     "57/250",
+     "31/250",
+     "81/125"
+    ],
+    "q": [
+     "31/250",
+     "81/125",
+     "57/250"
+    ]
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 8,
+   "wer": "forscher-sparsam",
+   "op": "multidraft_lp",
+   "args": {
+    "p": [
+     "777/1000",
+     "223/1000"
+    ],
+    "q": [
+     "937/1000",
+     "63/1000"
+    ],
+    "k": 2,
+    "mode": "wor"
+   },
+   "ergebnis": {
+    "acceptance": 1.0000000000000009,
+    "status": "Optimization terminated successfully. (HiGHS Status 7: Optimal)",
+    "note": "numerical (candidate)"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 9,
+   "wer": "forscher-sparsam",
+   "op": "multidraft_lp",
+   "args": {
+    "p": [
+     "3/20",
+     "253/1000",
+     "597/1000"
+    ],
+    "q": [
+     "27/125",
+     "93/250",
+     "103/250"
+    ],
+    "k": 2,
+    "mode": "wor"
+   },
+   "ergebnis": {
+    "acceptance": 0.9999999999999998,
+    "status": "Optimization terminated successfully. (HiGHS Status 7: Optimal)",
+    "note": "numerical (candidate)"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 10,
+   "wer": "forscher-sparsam",
+   "op": "multidraft_lp",
+   "args": {
+    "p": [
+     "13/500",
+     "19/200",
+     "341/1000",
+     "269/500"
+    ],
+    "q": [
+     "301/1000",
+     "113/500",
+     "383/1000",
+     "9/100"
+    ],
+    "k": 2,
+    "mode": "wor"
+   },
+   "ergebnis": {
+    "acceptance": 0.6729015334397869,
+    "status": "Optimization terminated successfully. (HiGHS Status 7: Optimal)",
+    "note": "numerical (candidate)"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 11,
+   "wer": "forscher-sparsam",
+   "op": "acceptance_mc",
+   "args": {
+    "p": [
+     "777/1000",
+     "223/1000"
+    ],
+    "q": [
+     "937/1000",
+     "63/1000"
+    ],
+    "rule": "rrs_wor",
+    "k": 2,
+    "samples": 100000
+   },
+   "ergebnis": {
+    "acceptance": 1.0,
+    "stderr": 0.0,
+    "tv_to_target": 0.0019199999999999634,
+    "samples": 100000,
+    "note": "Monte Carlo (statistical estimate)"
+   },
+   "sek": 1.06
+  },
+  {
+   "id": 12,
+   "wer": "forscher-sparsam",
+   "op": "acceptance_mc",
+   "args": {
+    "p": [
+     "3/20",
+     "253/1000",
+     "597/1000"
+    ],
+    "q": [
+     "27/125",
+     "93/250",
+     "103/250"
+    ],
+    "rule": "rrs_wor",
+    "k": 2,
+    "samples": 100000
+   },
+   "ergebnis": {
+    "acceptance": 0.92726,
+    "stderr": 0.0008212727464125425,
+    "tv_to_target": 0.0014600000000000307,
+    "samples": 100000,
+    "note": "Monte Carlo (statistical estimate)"
+   },
+   "sek": 1.15
+  },
+  {
+   "id": 13,
+   "wer": "forscher-sparsam",
+   "op": "acceptance_mc",
+   "args": {
+    "p": [
+     "13/500",
+     "19/200",
+     "341/1000",
+     "269/500"
+    ],
+    "q": [
+     "301/1000",
+     "113/500",
+     "383/1000",
+     "9/100"
+    ],
+    "rule": "rrs_wor",
+    "k": 2,
+    "samples": 100000
+   },
+   "ergebnis": {
+    "acceptance": 0.61008,
+    "stderr": 0.001542343650422953,
+    "tv_to_target": 0.0035400000000000067,
+    "samples": 100000,
+    "note": "Monte Carlo (statistical estimate)"
+   },
+   "sek": 1.7
+  }
+ ],
+ "sek": 107.9
+}

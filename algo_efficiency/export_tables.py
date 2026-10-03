@@ -54,7 +54,7 @@ def gates():
                   if not CF["H_AE1"]["negative_control_passed"] else "no policy beats random without structure", now])
         prim = next(t for t in CF["H_AE1"]["tests"] if t["test"] == "primary")
         G.append(["AE_G6_H_AE1_primary", bool(prim["success"] and CF["H_AE1"]["negative_control_passed"]),
-                  f"p = {prim['p_a_better']:.4f}, CI {prim['ci95'][0]:.3f}-{prim['ci95'][1]:.3f}, BH p = {prim['p_bh']:.4f}; not accepted because the negative control failed"
+                  f"p = {prim['p_a_better']:.1e}, CI {prim['ci95'][0]:.3f}-{prim['ci95'][1]:.3f}, BH p = {prim['p_bh']:.1e}; not accepted because the negative control failed"
                   if not CF["H_AE1"]["negative_control_passed"] else f"p = {prim['p_a_better']:.4f}", now])
         G.append(["AE_G7_BH_all_tests", True, f"Benjamini-Hochberg q = 0.1 over m = {CF['H_AE1']['m_tests']} KV tests", now])
         G.append(["AE_G8_H_AE2_counterexample_search", True, f"{CF['H_AE2']['tested']} instances, counterexamples S1 = {CF['H_AE2']['counterexamples_S1']}, S2 = {CF['H_AE2']['counterexamples_S2']}", now])

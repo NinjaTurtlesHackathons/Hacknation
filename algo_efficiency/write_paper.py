@@ -18,7 +18,8 @@ from .domain import DOMAIN as D
 PROJ = "projects/algo_efficiency"; CERT = "algo_efficiency/results/certified.json"; CONF = "algo_efficiency/results/confirmatory.json"
 TITLE = "Certified Limits and Gaps in Efficient Transformer Inference: Polynomial-Method Attention, Multi-Draft Speculative Decoding, and KV-Cache Eviction"
 
-SYS = ("You write precise, sober scientific English. You may ONLY use statements from the given claim list and must cite every "
+SYS = ("You write precise, sober scientific English. Return ONLY the paper body: no notes, comments or explanations addressed to the reader or "
+       "to the checker, in any language. You may ONLY use statements from the given claim list and must cite every "
        "statement with its claim_id in square brackets, e.g. [C-T-deg-4-1e-3]. Never write a number that does not appear verbatim "
        "in a cited claim. No references other than those inside claims. Claims with level 'hypothesis' may only be presented as "
        "conjectures or as the agents' uninspected interpretations, never as results.")
@@ -34,6 +35,9 @@ Do not write the tables yourself."""
 
 
 def F(s): return Fraction(s)
+
+
+def fp(p): return f"{p:.1e}" if p < 1e-3 else f"{p:.4f}"
 
 
 def claims():
@@ -60,10 +64,12 @@ def claims():
         for j, w in enumerate(s["widerlegt"]): add(f"C-neg{j + 1}", f"Negative result of the lab (no claim passed the verifier): {w}", "observed")
         for c in s["claims"]:   # a contested claim stays in the paper only as a negative/contested finding
             pass
-        for j, w in enumerate(s["wissen"][:30]):
-            add(f"C-lit{j + 1}", f"Literature: {w['text']} (verbatim quote checked by code: \"{w['zitat']}\", {w['quelle']})", "observed")
-        add("C-lab", f"The agentic lab ran {len(s['runden'])} rounds and produced {len(s['claims'])} verified claims and {len(s['widerlegt'])} "
-                     f"negative results at a cost of {s['kosten_usd']:.2f} USD; every round was preregistered before its experiments.", "observed")
+        for j, w in enumerate(s["wissen"][:30]):    # the code-checked verbatim quote is the statement; the scout's paraphrase is not checked
+            add(f"C-lit{j + 1}", f"Literature ({w['quelle']}), verbatim quote checked by code against the abstract: \"{w['zitat']}\"", "observed")
+        unk = sum(str(c.get("interpretation_ungeprueft", "")).strip().lower() in ("", "unbekannt", "unknown", "none") for c in s["claims"])
+        add("C-lab", f"The agentic lab ran {len(s['runden'])} rounds at a cost of {s['kosten_usd']:.2f} USD (stopped at its preset budget); every round was "
+                     f"preregistered before its experiments. {len(s['claims']) - unk} rounds produced a verified claim answering the question and "
+                     f"{len(s['widerlegt']) + unk} rounds produced a negative result (no verified answer).", "observed")
     R = json.load(open(CERT)) if os.path.exists(CERT) else {}
     for r in R.get("degree", []):
         c = r["claim"]
@@ -108,7 +114,7 @@ def claims():
             + ", ".join(f"{k} {v:.4f}" for k, v in kvr["mean_error"].items()) + f". All {kvr['m_tests']} pairwise comparisons were tested and corrected with Benjamini-Hochberg (q = 0.1).", "observed")
         for t, ch in zip(kvr["tests"], kvr["checks"]):
             add(f"C-T-kv-{t['better']}-{t['worse']}", f"{t['better']} vs {t['worse']}: error ratio {t['ratio_b_over_a']:.3f} (95% CI {t['ci95'][0]:.3f}-{t['ci95'][1]:.3f}), "
-                f"paired permutation p = {t['p_a_better']:.4f}, BH-adjusted p = {t['p_bh']:.4f}; not a verifier claim (kv_compare is only checked at the preregistered configuration).",
+                f"paired permutation p = {fp(t['p_a_better'])}, BH-adjusted p = {fp(t['p_bh'])}; not a verifier claim (kv_compare is only checked at the preregistered configuration).",
                 "observed")
     CF = json.load(open(CONF)) if os.path.exists(CONF) else {}
     if CF:
@@ -117,7 +123,7 @@ def claims():
             ev = [f"kv-{t['test']}-{pol}-{sd}" for pol in (t["a"], t["b"]) for sd in range(1000, 1020)]
             add(f"C-H1-{t['test']}", f"Preregistered KV test {t['test']} ({'structured model' if t['structured'] else 'NEGATIVE CONTROL, structure-free model'}, n = 1024, budget = 128, seeds 1000-1019): "
                 f"mean error {t['a']} {t['err_a']:.4f} vs {t['b']} {t['err_b']:.4f}, ratio {t['ratio_b_over_a']:.3f} (95% CI {t['ci95'][0]:.3f}-{t['ci95'][1]:.3f}), "
-                f"paired permutation p = {t['p_a_better']:.4f}, BH-adjusted p = {t['p_bh']:.4f} (m = {h['m_tests']}).", "observed", evidence=ev)
+                f"paired permutation p = {fp(t['p_a_better'])}, BH-adjusted p = {fp(t['p_bh'])} (m = {h['m_tests']}).", "observed", evidence=ev)
         add("C-H1-negctl", f"The preregistered negative control FAILED: in the structure-free model h2o still has lower error than random, so as preregistered "
             "all KV statements are downgraded to observed and none is reported as a statistical finding. Post-hoc hypothesis (untested): high-norm Gaussian keys act as "
             "natural heavy hitters.", "observed", evidence=[f"kv-negctl_h2o-h2o-{sd}" for sd in range(1000, 1020)])
@@ -204,36 +210,117 @@ def figure(R, outdir):
             "and the degree of the Taylor polynomial at 0 (dashed, grid estimate). Values in Table 1.")
 
 
-def write(C, rounds=2):
+GERMAN = re.compile(r"[äöüÄÖÜß]|\b(der|die|das|und|nicht|ist|habe|wurde|Hinweis|Satz|Belege)\b")
+
+
+LABEL = re.compile(r"\*\*(Proposition|Observation|Conjecture|Statistical finding|Table|Figure) \d+")
+
+
+def gate(md, C):
+    """Framework gate (asd.writer.check) on the text with statement labels ('Proposition 6') neutralised, plus extra_issues."""
+    return check(LABEL.sub(lambda m: "**" + m.group(1), md), C) + extra_issues(md)
+
+
+def extra_issues(md):
+    """Checks the framework gate does not make: English only, nothing outside the paper's sections."""
+    out = []; started = False
+    for para in md.split("\n"):
+        if para.lstrip().startswith("## "): started = True; continue
+        if not para.strip() or para.lstrip().startswith("#") or "[removed: unsupported statement]" in para: continue
+        if not started: out.append((para, "text before the first section is not part of the paper")); continue
+        if GERMAN.search(para): out.append((para, "not English / meta comment"))
+    return out
+
+
+def _fix(prompt, md, issues, salt):
+    fb = "\n".join(f"- \"{q.strip()[:200]}\": {why}" for q, why in issues)
+    return ask(prompt + f"\n\nYour last draft:\n{md}\n\nThe automatic checker / reviewer found these problems:\n{fb}\n\nFix only these places (add the "
+               "correct citation, correct the statement, or delete it) and return the complete paper body, nothing else.", SYS, salt=salt, model="sonnet")
+
+
+def write(C, rounds=3, review=()):
+    """Gate rounds until clean (max `rounds`), then one reviewer round, then gate rounds again; leftovers are removed and logged."""
     cl = "\n".join(f"- [{c['claim_id']}] ({c['level']}, {c['status']}) {c['text']}" for c in C)
     prompt = f"Title: {TITLE}\n\nOutline and instructions:\n{OUTLINE}\n\nClaim list (the only allowed source):\n{cl}\n\nWrite the paper body in Markdown (no title line)."
-    md = ask(prompt, SYS, salt="ae-paper-0", model="sonnet"); log = []
-    for r in range(rounds):
-        issues = check(md, C); log.append({"round": r, "violations": len(issues)})
-        if not issues: break
-        fb = "\n".join(f"- \"{s.strip()[:200]}\": {why}" for s, why in issues)
-        md = ask(prompt + f"\n\nYour last draft:\n{md}\n\nThe automatic checker found these violations:\n{fb}\n\nFix only these places (add the citation "
-                 "or delete the statement) and return the complete text.", SYS, salt=f"ae-paper-{r + 1}", model="sonnet")
+    md = ask(prompt, SYS, salt="ae-paper-0", model="sonnet"); log = []; n = 0
+    def gate_rounds(md, n):
+        for _ in range(rounds):
+            issues = gate(md, C); log.append({"round": n, "kind": "gate", "violations": len(issues)})
+            if not issues: break
+            n += 1; md = _fix(prompt, md, issues, f"ae-paper-{n}")
+        return md, n
+    md, n = gate_rounds(md, n)
+    if review:
+        log.append({"round": n, "kind": "review", "findings": len(review)}); n += 1; md = _fix(prompt, md, list(review), f"ae-paper-{n}")
+        md, n = gate_rounds(md, n)
     removed = []
-    for s, why in check(md, C):
-        md = md.replace(s, f"*[removed: unsupported, {why}]*"); removed.append({"sentence": s, "reason": why})
+    for q, why in gate(md, C):
+        md = md.replace(q, "*[removed: unsupported statement]*"); removed.append({"sentence": q, "reason": why})
     return md, {"rounds": log, "removed": removed}
+
+
+def renumber(md):
+    """Consecutive numbering of statements (formatting only): '**Proposition (' gets the next free number."""
+    for kind in ("Proposition", "Observation", "Conjecture", "Statistical finding"):
+        nums = [int(x) for x in re.findall(rf"\*\*{kind} (\d+)", md)]; n = max(nums, default=0)
+        while f"**{kind} (" in md:
+            n += 1; md = md.replace(f"**{kind} (", f"**{kind} {n} (", 1)
+    return md
+
+
+TEX_MAP = {"√": r"$\sqrt{}$", "δ": r"$\delta$", "ε": r"$\varepsilon$", "α": r"$\alpha$", "≤": r"$\le$", "≥": r"$\ge$", "×": r"$\times$",
+           "∈": r"$\in$", "Θ": r"$\Theta$", "γ": r"$\gamma$", "λ": r"$\lambda$", "→": r"$\to$", "≈": r"$\approx$", "−": "-", "…": "...", "^": r"\^{}"}
+
+
+def tex_safe(md):
+    """Escape characters that asd.paper.to_tex leaves unescaped: underscores outside claim citations and non-Latin-1 symbols."""
+    parts = re.split(r"(\[C-[^\]]+\])", md)
+    out = [p if p.startswith("[C-") else re.sub(r"(?<!\\)_", r"\\_", p) for p in parts]
+    md = "".join(out)
+    md = re.sub(r"^(#{1,3}) \d+(\.\d+)* ", r"\1 ", md, flags=re.M)          # LaTeX numbers sections itself
+    md = md.replace("e^x", "$e^x$").replace("e^-x", "$e^{-x}$")
+    for k, v in TEX_MAP.items(): md = md.replace(k, v) if k != "^" else re.sub(r"(?<!e)\^(?!x)", lambda m: v, md)
+    return md
+
+
+def tables_tex(tab):
+    """Markdown tables from tables() -> LaTeX table* environments (captions keep their claim ids)."""
+    out, cap, rows = [], None, []
+    def flush():
+        if cap and rows:
+            ncol = len(rows[0]); body = " \\\\\n".join(" & ".join(c for c in r) for r in rows)
+            out.append("\\begin{table*}[t]\\centering\\small\\caption{" + tex_safe(cap).replace("[C-T-", "[C-T-").replace("*]", "\\textasteriskcentered]") + "}\n"
+                       "\\begin{tabular}{" + "l" * ncol + "}\\hline\n" + body.replace(">=", "$\\ge$") + " \\\\\\hline\n\\end{tabular}\\end{table*}")
+    for line in tab.split("\n"):
+        if line.startswith("**Table"):
+            flush(); cap, rows = re.sub(r"\*\*(Table \d+\.)\*\*\s*", "", line), []
+        elif line.startswith("|") and not line.startswith("|---"):
+            rows.append([tex_safe(c.strip()) for c in line.strip("|").split("|")])
+    flush(); return "\n".join(out)
 
 
 def main():
     ap = argparse.ArgumentParser(); ap.add_argument("--authors", default="Verifier-Gated Discovery Lab"); ap.add_argument("--affiliation", default="Hack-Nation 2026")
+    ap.add_argument("--errata", default="", help="JSON list of [exact old text, new text, reason]: logged citation/wording fixes applied after the gate, then re-gated")
+    ap.add_argument("--review", default="", help="JSON list of [quoted sentence, finding] from a human/agent reviewer, fed back once")
     a = ap.parse_args(); C = claims(); R = json.load(open(CERT)) if os.path.exists(CERT) else {}
-    md, log = write(C); rest = check(md, C); n_cited = len(set(re.findall(r"C-[\w\-*.]+", md)))
+    review = [tuple(x) for x in json.load(open(a.review))] if a.review else []
+    md, log = write(C, review=review); md = renumber(md); errata = []
+    for old, new, why in (json.load(open(a.errata)) if a.errata else []):
+        if old in md: md = md.replace(old, new); errata.append(why)
+        else: errata.append(f"NOT APPLIED (text not found): {why}")
+    rest = gate(md, C); n_cited = len(set(re.findall(r"C-[\w\-*.]+", md)))
     tab = tables(R); os.makedirs(PROJ, exist_ok=True); fig = figure(R, PROJ)
     proto = (f"\n\n---\nVerification log: {n_cited} claims cited, correction rounds {json.dumps(log['rounds'])}, {len(log['removed'])} unsupported "
-             f"sentences removed, remaining violations: {len(rest)}. Tables are generated by code from algo_efficiency/results/certified.json.")
+             f"sentences removed, errata applied after the gate: {json.dumps(errata)}, remaining violations: {len(rest)}. Tables are generated by code from algo_efficiency/results/certified.json.")
     os.makedirs(PROJ, exist_ok=True)
     figmd = f"\n\n![{fig[1]}]({fig[0].replace('.pdf', '.png')})\n\n*Figure 1.* {fig[1]}\n" if fig else ""
     open(f"{PROJ}/paper.md", "w").write(f"# {TITLE}\n\n{a.authors}, {a.affiliation}\n\n{md}{figmd}\n\n## Tables\n\n{tab}{proto}\n")
-    tex = to_tex(md + "\n\n" + proto, TITLE, a.authors, a.affiliation).replace("[ngerman]{babel}", "[english]{babel}")
+    tex = to_tex(tex_safe(md + "\n\n" + proto), TITLE, a.authors, a.affiliation).replace("[ngerman]{babel}", "[english]{babel}")
+    tex = tex.replace("\\item [", "\\item {}[").replace("\\end{document}", tables_tex(tab) + "\n\\end{document}")                          # a leading [ would be read as \item's optional argument
     if fig:
         tex = tex.replace(r"\usepackage{hyperref}", r"\usepackage{graphicx}\usepackage{hyperref}").replace(r"\end{document}",
-              "\\begin{figure}[t]\\centering\\includegraphics[width=\\columnwidth]{" + fig[0] + "}\\caption{" + fig[1].replace("_", r"\_") + "}\\end{figure}\n\\end{document}")
+              "\\begin{figure}[t]\\centering\\includegraphics[width=\\columnwidth]{" + fig[0] + "}\\caption{" + tex_safe(fig[1]).replace("[C-T-deg-*]", "[C-T-deg-\\textasteriskcentered]") + "}\\end{figure}\n\\end{document}")
     open(f"{PROJ}/paper.tex", "w").write(tex)
     json.dump({"claims": C, "log": log}, open(f"{PROJ}/paper_evidence.json", "w"), indent=1)
     if shutil.which("pdflatex"):

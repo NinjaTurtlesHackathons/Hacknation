@@ -1,0 +1,1359 @@
+{
+ "domain": "algo_efficiency",
+ "wissen": [
+  {
+   "text": "Jeder Ansatz, der Attention durch subquadratische Heuristiken oder Alternativen wie Mamba ersetzt, kann die Dokumentähnlichkeitsaufgabe unter der Annahme einer populären Hypothese der feingranularen Komplexitätstheorie nicht in truly subquadratischer Zeit lösen.",
+   "zitat": "we prove that this task cannot be performed in truly subquadratic time by any algorithm",
+   "quelle": "arXiv:2410.04271v2",
+   "typ": "ergebnis",
+   "url": "http://arxiv.org/abs/2410.04271v2"
+  },
+  {
+   "text": "Der Beweis der unteren Schranke stützt sich auf eine nicht bewiesene, aber verbreitete Annahme aus der feingranularen Komplexitätstheorie.",
+   "zitat": "assuming a popular conjecture from fine-grained complexity theory",
+   "quelle": "arXiv:2410.04271v2",
+   "typ": "methode",
+   "url": "http://arxiv.org/abs/2410.04271v2"
+  },
+  {
+   "text": "Lizard ersetzt die Softmax-Attention durch einen subquadratischen Mechanismus, der die Softmax-Attention eng approximiert und dabei die Modellqualität erhält.",
+   "zitat": "introducing a subquadratic attention mechanism that closely approximates softmax attention while preserving model quality",
+   "quelle": "arXiv:2507.09025v4",
+   "typ": "methode",
+   "url": "http://arxiv.org/abs/2507.09025v4"
+  },
+  {
+   "text": "Lizard erreicht nahezu verlustfreie Wiederherstellung der Leistung des Lehrermodells und übertrifft frühere Linearisierungsverfahren deutlich im 5-shot-MMLU-Benchmark.",
+   "zitat": "Lizard achieves near-lossless recovery of its teacher model's performance",
+   "quelle": "arXiv:2507.09025v4",
+   "typ": "ergebnis",
+   "url": "http://arxiv.org/abs/2507.09025v4"
+  },
+  {
+   "text": "Scatterbrain kombiniert spärliche und niedrigrangige Attention; die Schätzung ist erwartungstreu mit nachweislich kleinem Fehler.",
+   "zitat": "The estimation is unbiased with provably low error.",
+   "quelle": "arXiv:2110.15343v1",
+   "typ": "ergebnis",
+   "url": "http://arxiv.org/abs/2110.15343v1"
+  },
+  {
+   "text": "Auf einem vortrainierten T2T-Vision-Transformer reduziert Scatterbrain den Attention-Speicherbedarf um 98 % bei nur 1 % Genauigkeitsverlust.",
+   "zitat": "Scatterbrain can reduce 98% of attention memory at the cost of only 1% drop in accuracy",
+   "quelle": "arXiv:2110.15343v1",
+   "typ": "ergebnis",
+   "url": "http://arxiv.org/abs/2110.15343v1"
+  },
+  {
+   "text": "ELSAA führt einen nenneradaptiven Fusionsterm ein, der den spärlichen Zweig anhand seiner geschätzten Attention-Masse relativ zum niedrigrangigen Zweig skaliert.",
+   "zitat": "introduces a denominator-aware fusion term that scales the sparse branch according to its estimated attention mass relative to the low-rank branch",
+   "quelle": "arXiv:2607.20214v1",
+   "typ": "methode",
+   "url": "http://arxiv.org/abs/2607.20214v1"
+  },
+  {
+   "text": "Für lange Eingabesequenzen (über 512 Tokens) eignet sich Linformer laut Autoren besser zur Effizienzsteigerung als der Low-Rank Transformer.",
+   "zitat": "the Linformer model is suitable for improving the efficiency in processing long-sequence input data",
+   "quelle": "arXiv:2108.10808v1",
+   "typ": "ergebnis",
+   "url": "http://arxiv.org/abs/2108.10808v1"
+  },
+  {
+   "text": "Die analytische Low-Rank-Methode A3 verkleinert Modelle, KV-Cache und FLOPs direkt, ohne zusätzliche Laufzeit-Overheads.",
+   "zitat": "This approach directly reduces model sizes, KV cache sizes, and FLOPs without introducing any runtime overheads.",
+   "quelle": "arXiv:2505.12942v4",
+   "typ": "methode",
+   "url": "http://arxiv.org/abs/2505.12942v4"
+  },
+  {
+   "text": "Bei gleichem Rechen- und Speicherbudget erreicht das mit A3 komprimierte LLaMA 3.1-70B auf WikiText-2 eine Perplexität von 4.69 und schlägt damit den bisherigen SoTA-Wert von 7.87.",
+   "zitat": "For example, under the same reduction budget in computation and memory, our low-rank approximated LLaMA 3.1-70B achieves a perplexity of 4.69 on WikiText-2, outperforming the previous SoTA's 7.87 by 3.18.",
+   "quelle": "arXiv:2505.12942v4",
+   "typ": "ergebnis",
+   "url": "http://arxiv.org/abs/2505.12942v4"
+  },
+  {
+   "text": "Die Autoren zeigen Anwendungen von A3 bei der KV-Cache-Kompression, bei Quantisierung, Feinabstimmung und gemischten Rangzuweisungen.",
+   "zitat": "We also show versatile applications of $A^3$ in KV cache compression, integration with quantization, fine-tuning and mixed-rank assignments.",
+   "quelle": "arXiv:2505.12942v4",
+   "typ": "offene_frage",
+   "url": "http://arxiv.org/abs/2505.12942v4"
+  },
+  {
+   "text": "Die vorgestellte Nyström-basierte Formulierung der Scaled Dot-product Attention eignet sich für kontinuierliche Inferenz bei Datenströmen.",
+   "zitat": "we introduce a new formulation of the Scaled Dot-product Attention based on the Nyström approximation that is suitable for Continual Inference.",
+   "quelle": "doi:10.1016/j.neunet.2025.108517",
+   "typ": "methode",
+   "url": "https://doi.org/10.1016/j.neunet.2025.108517"
+  },
+  {
+   "text": "In Experimenten senkt die kontinuierliche Nyström-Attention die Anzahl der Operationen um bis zu drei Größenordnungen, bei vergleichbarer Vorhersageleistung.",
+   "zitat": "the proposed Continual Scaled Dot-product Attention can lower the number of operations by up to three orders of magnitude compared to the original Transformers while retaining the predictive performance of competing models.",
+   "quelle": "doi:10.1016/j.neunet.2025.108517",
+   "typ": "ergebnis",
+   "url": "https://doi.org/10.1016/j.neunet.2025.108517"
+  },
+  {
+   "text": "Der deterministische Co-occurring-Directions-Algorithmus erreicht für die approximative Matrixmultiplikation eine bessere Fehlerschranke als andere randomisierte und deterministische Verfahren.",
+   "zitat": "We show that co-occuring directions achieves a better error bound for AMM than other randomized and deterministic approaches for AMM.",
+   "quelle": "arXiv:1610.07686v1",
+   "typ": "ergebnis",
+   "url": "http://arxiv.org/abs/1610.07686v1"
+  },
+  {
+   "text": "Ein datengetriebenes Bootstrap-Verfahren schätzt den tatsächlichen Fehler gesketchter SVD-Ergebnisse, ohne die volle Matrix erneut zu durchlaufen.",
+   "zitat": "Furthermore, the method is computationally inexpensive, because it operates only on sketched objects, and it requires no passes over the full matrix being factored.",
+   "quelle": "arXiv:2003.04937v1",
+   "typ": "methode",
+   "url": "http://arxiv.org/abs/2003.04937v1"
+  },
+  {
+   "text": "Die vorgestellten Sketching-Algorithmen liefern jeweils eine Fehlerschranke, mit der sich Parameter a priori so wählen lassen, dass eine gewünschte Approximationsqualität erreicht wird.",
+   "zitat": "each method is accompanied by an informative error bound that allows users to select parameters a priori to achieve a given approximation quality.",
+   "quelle": "arXiv:1609.00048v2",
+   "typ": "ergebnis",
+   "url": "http://arxiv.org/abs/1609.00048v2"
+  },
+  {
+   "text": "PolyKV teilt einen einzigen, asymmetrisch komprimierten KV-Cache-Pool über mehrere parallele Agenten, wobei Keys mit int8 und Values mit TurboQuant MSE (3-Bit Lloyd-Max nach FWHT-Rotation) quantisiert werden.",
+   "zitat": "Compression is asymmetric: Keys are quantized at int8 (q8_0) to preserve softmax stability, while Values are compressed using TurboQuant MSE",
+   "quelle": "arXiv:2604.24971v1",
+   "typ": "methode",
+   "url": "http://arxiv.org/abs/2604.24971v1"
+  },
+  {
+   "text": "Auf Llama-3-8B mit 15 Agenten und 4K-Kontext sinkt der KV-Cache-Speicher von 19,8 GB auf 0,45 GB (97,7 % Reduktion) bei nur +0,57 % Perplexitätsverlust.",
+   "zitat": "reduces KV cache memory from 19.8 GB to 0.45 GB -- a 97.7% reduction -- while maintaining only +0.57% perplexity degradation",
+   "quelle": "arXiv:2604.24971v1",
+   "typ": "ergebnis",
+   "url": "http://arxiv.org/abs/2604.24971v1"
+  },
+  {
+   "text": "Die Perplexitätsverschlechterung wächst laut den Autoren nicht mit der Anzahl der Agenten, sondern verbessert sich mit zunehmender Kontextlänge.",
+   "zitat": "PPL delta does not grow with agent count and improves as context length increases",
+   "quelle": "arXiv:2604.24971v1",
+   "typ": "ergebnis",
+   "url": "http://arxiv.org/abs/2604.24971v1"
+  },
+  {
+   "text": "WitCert liefert eine beweisbar korrekte Obergrenze für die Totalvariation zwischen exakter und komprimierter Attention pro Schicht, Kopf und Schritt, die als Laufzeit-Messgerät dient.",
+   "zitat": "a per-(layer, head, step) upper bound on the total variation between exact and compressed attention",
+   "quelle": "arXiv:2607.28699v3",
+   "typ": "methode",
+   "url": "http://arxiv.org/abs/2607.28699v3"
+  },
+  {
+   "text": "Die Autoren zeigen, dass aggressive KV-Quantisierungsschemata weniger durch Treue pro Schritt, sondern durch die Fehlerkompensation über Schichten hinweg überleben.",
+   "zitat": "aggressive schemes survive on cross-layer error cancellation, not per-step fidelity",
+   "quelle": "arXiv:2607.28699v3",
+   "typ": "ergebnis",
+   "url": "http://arxiv.org/abs/2607.28699v3"
+  },
+  {
+   "text": "Ein zertifizierter INT8-Cache bedient in SGLang bei gleichem Speicherbedarf 1,88-mal so viele KV-Tokens.",
+   "zitat": "the certified int8 cache serves $1.88\\times$ more KV tokens at the same memory in SGLang",
+   "quelle": "arXiv:2607.28699v3",
+   "typ": "ergebnis",
+   "url": "http://arxiv.org/abs/2607.28699v3"
+  },
+  {
+   "text": "CommVQ verwendet additive Quantisierung mit einem Codebuch, das mit RoPE kommutiert, sodass die Dekodierung direkt in die Self-Attention integriert werden kann.",
+   "zitat": "we design the codebook to be commutative with Rotary Position Embedding (RoPE) and train it using an Expectation-Maximization (EM) algorithm",
+   "quelle": "arXiv:2506.18879v1",
+   "typ": "methode",
+   "url": "http://arxiv.org/abs/2506.18879v1"
+  },
+  {
+   "text": "CommVQ reduziert die FP16-KV-Cache-Größe mit 2-Bit-Quantisierung um 87,5 % und ermöglicht 1-Bit-Quantisierung mit geringem Genauigkeitsverlust.",
+   "zitat": "reduces FP16 KV cache size by 87.5% with 2-bit quantization",
+   "quelle": "arXiv:2506.18879v1",
+   "typ": "ergebnis",
+   "url": "http://arxiv.org/abs/2506.18879v1"
+  },
+  {
+   "text": "Palu komprimiert den KV-Cache durch Low-Rank-Projektion der Hidden-Dimension um 50 % bei starker Genauigkeit, statt Token auszuwählen oder die Bitbreite zu senken.",
+   "zitat": "Palu compresses KV-Cache by 50% while maintaining strong accuracy",
+   "quelle": "arXiv:2407.21118v2",
+   "typ": "ergebnis",
+   "url": "http://arxiv.org/abs/2407.21118v2"
+  },
+  {
+   "text": "Bei Kombination mit Quantisierung verursacht Palu laut den Autoren nur geringe zusätzliche Genauigkeitsverluste und spart mehr Speicher als reine Quantisierungsverfahren.",
+   "zitat": "yields small to negligible extra accuracy degradation while saving additional memory than quantization-only methods",
+   "quelle": "arXiv:2407.21118v2",
+   "typ": "ergebnis",
+   "url": "http://arxiv.org/abs/2407.21118v2"
+  },
+  {
+   "text": "Residual Vector Quantization für den KV-Cache erreicht eine 5,5-fache Kompression gegenüber Half Precision, wobei eine Residualtiefe von 8 den Großteil der Leistung des unkomprimierten Modells wiederherstellt.",
+   "zitat": "a residual depth of 8 recovers most of the performance of the unquantized model",
+   "quelle": "arXiv:2410.15704v1",
+   "typ": "ergebnis",
+   "url": "http://arxiv.org/abs/2410.15704v1"
+  },
+  {
+   "text": "DecoQuant ist eine datenfreie Niedrigbit-Quantisierung, die Ausreißer durch Tensorzerlegung verschiebt und so bis zu ~75 % Speicherreduktion ohne Kalibrierungsdaten ermöglicht.",
+   "zitat": "DecoQuant demonstrates remarkable efficiency gains, showcasing up to a $\\sim$75\\% reduction in memory footprint while maintaining comparable generation quality",
+   "quelle": "arXiv:2405.12591v1",
+   "typ": "ergebnis",
+   "url": "http://arxiv.org/abs/2405.12591v1"
+  },
+  {
+   "text": "Offen bleibt, ob sich die datenfreie Zerlegung mit Ausreißer-Verschiebung auf Modelle außerhalb der untersuchten Setups übertragen lässt, da der Abstract dazu keine Aussagen trifft.",
+   "zitat": "To compress the size of KV cache, existing methods often compromise precision or require extra data for calibration",
+   "quelle": "arXiv:2405.12591v1",
+   "typ": "offene_frage",
+   "url": "http://arxiv.org/abs/2405.12591v1"
+  },
+  {
+   "text": "CLLA komprimiert den KV-Cache auf unter 2 % der Originalgröße, indem es Attention-Head-/Dimensionsreduktion, Layer-Sharing und Quantisierung kombiniert, und erreicht dabei auf den meisten Aufgaben verlustfreie Leistung.",
+   "zitat": "CLLA integrates multiple aspects of KV cache compression, including attention head/dimension reduction, layer sharing, and quantization techniques",
+   "quelle": "arXiv:2410.15252v1",
+   "typ": "ergebnis",
+   "url": "http://arxiv.org/abs/2410.15252v1"
+  },
+  {
+   "text": "QET formuliert die Quantisierungsfehler-Minimierung als Problem mit gleichem Speicherbedarf und reduziert den MSE auf 5,05 %, 13,33 % bzw. 11,89 % des bisher besten Verfahrens (LLM-Gewichte, K-Cache, V-Cache).",
+   "zitat": "Experimental results demonstrate that QET can effectively reduce MSE to 5.05%, 13.33%, and 11.89% of the current best method",
+   "quelle": "arXiv:2407.03637v4",
+   "typ": "ergebnis",
+   "url": "http://arxiv.org/abs/2407.03637v4"
+  },
+  {
+   "text": "QET nutzt die lokale Ordnung von Matrixelementen durch iteratives Vertauschen von Elementen und quantisiert anschließend spaltenweise nach Gruppierung.",
+   "zitat": "leveraging the local orderliness of matrix elements, involving iterative element swapping to form a locally ordered matrix",
+   "quelle": "arXiv:2407.03637v4",
+   "typ": "methode",
+   "url": "http://arxiv.org/abs/2407.03637v4"
+  },
+  {
+   "text": "FibQuant ist ein universeller Vektorquantisierer mit gemeinsamem radial-winkligem Codebuch, für den die Autoren beweisen, dass er bei gleicher Rate die skalare Variante strikt übertrifft.",
+   "zitat": "We prove that the resulting vector code strictly improves on its scalar product specialization at matched rate",
+   "quelle": "arXiv:2605.11478v1",
+   "typ": "methode",
+   "url": "http://arxiv.org/abs/2605.11478v1"
+  },
+  {
+   "text": "Bei FibQuant steigt die Kompression auf GPT-2-small von 5-fach bei 0,99 Aufmerksamkeits-Kosinus-Ähnlichkeit auf 34-fach bei 0,95, was einen Speicher-Treue-Kompromiss beschreibt.",
+   "zitat": "traces a memory--fidelity frontier from $5\\times$ compression at $0.99$ attention cosine similarity to $34\\times$ at $0.95$",
+   "quelle": "arXiv:2605.11478v1",
+   "typ": "ergebnis",
+   "url": "http://arxiv.org/abs/2605.11478v1"
+  },
+  {
+   "text": "Offen bleibt laut Abstract, dass skalare Random-Access-Quantisierung bei 2 Bit auf TinyLlama-1.1B zu versagen beginnt, während FibQuant dort 3,6-fach niedrigere Perplexität erreicht.",
+   "zitat": "where scalar random-access quantization begins to fail",
+   "quelle": "arXiv:2605.11478v1",
+   "typ": "offene_frage",
+   "url": "http://arxiv.org/abs/2605.11478v1"
+  },
+  {
+   "text": "KVLinC kombiniert eine Hadamard-Rotation zur Reduktion von Wertefehlern mit linearen Korrekturadaptern für Schlüsselfehler und erreicht bis zu 2,55-fach schnellere Inferenz gegenüber Flash Attention.",
+   "zitat": "combines a Hadamard rotation, which reduces quantization error in values, with lightweight linear correction adapters that explicitly compensate for errors introduced by quantized keys",
+   "quelle": "arXiv:2510.05373v1",
+   "typ": "methode",
+   "url": "http://arxiv.org/abs/2510.05373v1"
+  },
+  {
+   "text": "SAW-INT4 zeigt, dass token-weise INT4-Quantisierung mit blockdiagonaler Hadamard-Rotation das beste Verhältnis aus Genauigkeit und Effizienz liefert, während komplexere Verfahren nur marginale Zusatzgewinne bringen.",
+   "zitat": "token-wise INT4 quantization with block-diagonal Hadamard rotation--consistently achieves the best accuracy-efficiency trade-off",
+   "quelle": "arXiv:2604.19157v1",
+   "typ": "ergebnis",
+   "url": "http://arxiv.org/abs/2604.19157v1"
+  },
+  {
+   "text": "QAQ zeigt theoretisch, dass Key- und Value-Cache unterschiedlich empfindlich auf Quantisierung reagieren, weshalb getrennte Quantisierungsstrategien nötig sind.",
+   "zitat": "We theoretically demonstrate that key cache and value cache exhibit distinct sensitivities to quantization",
+   "quelle": "arXiv:2403.04643v2",
+   "typ": "methode",
+   "url": "http://arxiv.org/abs/2403.04643v2"
+  },
+  {
+   "text": "QAQ erreicht bei nur geringem Qualitätsverlust bis zu 10-fache Kompression der KV-Cache-Größe.",
+   "zitat": "QAQ achieves up to 10x the compression ratio of the KV cache size with a neglectable impact on model performance",
+   "quelle": "arXiv:2403.04643v2",
+   "typ": "ergebnis",
+   "url": "http://arxiv.org/abs/2403.04643v2"
+  },
+  {
+   "text": "Block-GTQ behandelt die Quantisierung des Key-Caches unter RoPE als blockweises Problem der Bitzuweisung, bei dem energiereiche Frequenzblöcke mehr Bits erhalten.",
+   "zitat": "This makes key-cache quantization a block-wise bit-allocation problem",
+   "quelle": "arXiv:2606.24033v1",
+   "typ": "methode",
+   "url": "http://arxiv.org/abs/2606.24033v1"
+  },
+  {
+   "text": "Block-GTQ senkt den mittleren Quantisierungsfehler pro Schicht bei reiner K-Quantisierung mit 2 und 3 Bit deutlich und übertrifft die gleichmäßige Baseline in allen 367 Schichtvergleichen.",
+   "zitat": "cutting per-layer MAE by 32-80% at 2 and 3 b/dim K-only quantization and winning all 367/367 layer comparisons against uniform TQ-MSE",
+   "quelle": "arXiv:2606.24033v1",
+   "typ": "ergebnis",
+   "url": "http://arxiv.org/abs/2606.24033v1"
+  },
+  {
+   "text": "TriAxialKV weist jedem Token ein dreiachsiges Tag zu und verteilt INT2- bzw. INT4-Bitbreiten unter einem festen Speicherbudget.",
+   "zitat": "assigns each token a triaxial tag, calibrates per-tag sensitivity, and allocates INT2/INT4 bitwidths under a fixed memory budget",
+   "quelle": "arXiv:2605.17170v1",
+   "typ": "methode",
+   "url": "http://arxiv.org/abs/2605.17170v1"
+  },
+  {
+   "text": "Eviction kann unvorhergesehene Risiken wie Sicherheitsverletzungen, Halluzinationen und Kontextverlust verursachen, weil die Information der verworfenen KV-Paare vollständig verloren geht.",
+   "zitat": "unforeseen risks arise as the information contained in the KV pairs is exhaustively discarded",
+   "quelle": "arXiv:2402.18096v1",
+   "typ": "offene_frage",
+   "url": "http://arxiv.org/abs/2402.18096v1"
+  },
+  {
+   "text": "Schon eine geringe, niedrig quantisierte Erhaltung der verworfenen KV-Paare stellt einen großen Teil der durch Eviction entstandenen Verschlechterung wieder her.",
+   "zitat": "Surprisingly, we find that preserving even a small amount of information contained in the evicted KV pairs via reduced precision quantization substantially recovers the incurred degradation.",
+   "quelle": "arXiv:2402.18096v1",
+   "typ": "ergebnis",
+   "url": "http://arxiv.org/abs/2402.18096v1"
+  },
+  {
+   "text": "JoLT erreicht 2- bis 3-fache Kompression mit weniger als 0,2 % Perplexitätsverlust, ohne erneutes Training.",
+   "zitat": "JoLT achieves 2 - 3x compression with less than 0.2% perplexity degradation, without retraining.",
+   "quelle": "arXiv:2607.12550v4",
+   "typ": "ergebnis",
+   "url": "http://arxiv.org/abs/2607.12550v4"
+  },
+  {
+   "text": "JoLT zerlegt die Cache-Tensoren partiell nach Tucker entlang der Token- und Feature-Achse und quantisiert den Restfehler.",
+   "zitat": "applies partial Tucker decomposition along the token and feature modes, the two axes that carry low-rank structure",
+   "quelle": "arXiv:2607.12550v4",
+   "typ": "methode",
+   "url": "http://arxiv.org/abs/2607.12550v4"
+  },
+  {
+   "text": "ZipCache schlägt eine normalisierte Aufmerksamkeitsbewertung vor, um wichtige Tokens zu identifizieren, und berücksichtigt dabei die untere Dreiecksstruktur der Aufmerksamkeitsmatrix.",
+   "zitat": "we propose normalized attention score as an effective metric for identifying salient tokens",
+   "quelle": "arXiv:2405.14256v1",
+   "typ": "methode",
+   "url": "http://arxiv.org/abs/2405.14256v1"
+  },
+  {
+   "text": "ZipCache erreicht bessere Kompressionsraten, schnellere Generierung und geringere Leistungsverluste als frühere KV-Cache-Kompressionsverfahren.",
+   "zitat": "ZipCache achieves superior compression ratios, fast generation speed and minimal performance losses compared with previous KV cache compression methods",
+   "quelle": "arXiv:2405.14256v1",
+   "typ": "ergebnis",
+   "url": "http://arxiv.org/abs/2405.14256v1"
+  },
+  {
+   "text": "SQuat wählt die Quantisierung der Keys so, dass der Quantisierungsfehler orthogonal zum von Query-Tensoren aufgespannten Unterraum liegt, und reduziert damit den Einfluss des Fehlers auf die Attention-Ausgabe.",
+   "zitat": "During key tensor quantization, it enforces that the difference between the (de)quantized and original keys remains orthogonal to this subspace",
+   "quelle": "arXiv:2503.24358v2",
+   "typ": "methode",
+   "url": "http://arxiv.org/abs/2503.24358v2"
+  },
+  {
+   "text": "SQuat senkt laut Experimenten den Spitzenspeicherbedarf um den Faktor 2,17 bis 2,82 und steigert den Durchsatz um den Faktor 2,45 bis 3,60, ohne Feinabstimmung oder Kalibrierungsdaten.",
+   "zitat": "our method reduces peak memory by 2.17 to 2.82, improves throughput by 2.45 to 3.60",
+   "quelle": "arXiv:2503.24358v2",
+   "typ": "ergebnis",
+   "url": "http://arxiv.org/abs/2503.24358v2"
+  },
+  {
+   "text": "Bei parallelen Hybridmodellen erreicht die komponentenbewusste Selbst-Spekulation bei Draft-Länge k=2 unter gierigem Decoding eine Akzeptanzrate von 0,68, bei sequentiellen Hybriden dagegen nur 0,038.",
+   "zitat": "Parallel hybrids achieve acceptance rates of alpha = 0.68 at draft length k=2 under greedy decoding, while sequential hybrids yield only alpha = 0.038",
+   "quelle": "arXiv:2605.01106v1",
+   "typ": "ergebnis",
+   "url": "http://arxiv.org/abs/2605.01106v1"
+  },
+  {
+   "text": "Die Perplexitätsverschlechterung einer Ablationsstudie erlaubt es, die Eignung zur spekulativen Dekodierung ohne tatsächliche Ausführung vorherzusagen.",
+   "zitat": "perplexity degradation from a companion ablation study predicts speculative viability without running speculative decoding",
+   "quelle": "arXiv:2605.01106v1",
+   "typ": "methode",
+   "url": "http://arxiv.org/abs/2605.01106v1"
+  },
+  {
+   "text": "Die Autoren fragen, ob die Kompositionsstruktur hybrider Modelle und nicht bloß das Vorhandensein alternativer Komponenten darüber entscheidet, ob komponentenbasierte Selbst-Spekulation praktikabel ist.",
+   "zitat": "The composition pattern of hybrid models -- not merely the presence of alternative components -- determines whether component-level self-speculation is viable.",
+   "quelle": "arXiv:2605.01106v1",
+   "typ": "offene_frage",
+   "url": "http://arxiv.org/abs/2605.01106v1"
+  },
+  {
+   "text": "Spekulatives Decoding beschleunigt die autoregressive Inferenz ohne Änderung der Ausgabeverteilung, indem mehrere Token parallel berechnet werden, und erreicht auf T5-XXL eine 2- bis 3-fache Beschleunigung.",
+   "zitat": "show a 2X-3X acceleration compared to the standard T5X implementation, with identical outputs",
+   "quelle": "arXiv:2211.17192v2",
+   "typ": "ergebnis",
+   "url": "http://arxiv.org/abs/2211.17192v2"
+  },
+  {
+   "text": "Das Verfahren nutzt ein kleineres Approximationsmodell, dessen Vorhersagen das große Modell parallel verifiziert, wodurch exaktes Sampling aus dem großen Modell schneller wird.",
+   "zitat": "by running them in parallel on the outputs of the approximation models, potentially generating several tokens concurrently, and without changing the distribution",
+   "quelle": "arXiv:2211.17192v2",
+   "typ": "methode",
+   "url": "http://arxiv.org/abs/2211.17192v2"
+  },
+  {
+   "text": "Die Arbeit fasst Speculative Decoding als Markov-Ketten-Problem und analysiert theoretisch die Grenzen des Verfahrens sowie den Zielkonflikt zwischen Ausgabequalität und Beschleunigung.",
+   "zitat": "conceptualizing the decoding problem via markov chain abstraction and studying the key properties, \\emph{output quality and inference acceleration}, from a theoretical perspective",
+   "quelle": "arXiv:2411.00841v1",
+   "typ": "methode",
+   "url": "http://arxiv.org/abs/2411.00841v1"
+  },
+  {
+   "text": "Die Analyse zeigt, dass Totalvariationsabstände die Komponenten von LLMs verbinden und gemeinsam die Effizienz der Dekodieralgorithmen bestimmen.",
+   "zitat": "Our results reveal the fundamental connections between different components of LLMs via total variation distances and show how they jointly affect the efficiency of decoding algorithms",
+   "quelle": "arXiv:2411.00841v1",
+   "typ": "ergebnis",
+   "url": "http://arxiv.org/abs/2411.00841v1"
+  },
+  {
+   "text": "SpectrumKV weist jedem Token eine Präzisionsstufe zu (FP16, INT8 oder INT4) statt Tokens binär auszuwählen, und behandelt die KV-Cache-Übertragung bei der Prefill-Decode-Disaggregation als Präzisionsallokationsproblem.",
+   "zitat": "SpectrumKV assigns a precision level to each token instead",
+   "quelle": "arXiv:2606.08635v1",
+   "typ": "methode",
+   "url": "http://arxiv.org/abs/2606.08635v1"
+  },
+  {
+   "text": "Qwen2.5-7B scheitert unter INT4-KV-Quantisierung katastrophal, während Mistral-7B und Gemma-2-9B stabil bleiben, weshalb ein Deployment-Test die Präzisionsstufen modellabhängig festlegt.",
+   "zitat": "Qwen2.5-7B catastrophically fails under INT4 KV quantization, while Mistral-7B and Gemma-2-9B remain stable",
+   "quelle": "arXiv:2606.08635v1",
+   "typ": "ergebnis",
+   "url": "http://arxiv.org/abs/2606.08635v1"
+  },
+  {
+   "text": "UniVer formuliert die Verifikation auf Kandidatenbäumen als bedingtes Optimal-Transport-Problem und beweist, dass das Verfahren verlustfrei ist und die optimale Akzeptanzrate erreicht.",
+   "zitat": "We prove that UniVer remains lossless and achieves the optimal acceptance rate under the proposed conditional framework",
+   "quelle": "arXiv:2605.04543v1",
+   "typ": "ergebnis",
+   "url": "http://arxiv.org/abs/2605.04543v1"
+  },
+  {
+   "text": "UniVer verbessert die Akzeptanzlänge gegenüber rekursivem Rejection Sampling ohne Zurücklegen um 4,2 bis 8,5 Prozent, bei exakter Verteilungstreue zum Zielmodell.",
+   "zitat": "improves acceptance length by 4.2% to 8.5% over standard recursive rejection sampling without replacement",
+   "quelle": "arXiv:2605.04543v1",
+   "typ": "ergebnis",
+   "url": "http://arxiv.org/abs/2605.04543v1"
+  },
+  {
+   "text": "Naive Baum-basiertes Drafting mit Diffusionsmodellen ist suboptimal, weil Diffusions-Marginalverteilungen präfixblind sind und nicht zur präfixbasierten AR-Verifikation passen, was zu unzuverlässiger Pfadrangfolge führt.",
+   "zitat": "naive tree drafting is suboptimal: diffusion marginals are prefix-blind, mismatching the prefix-based AR verification and yielding unreliable path ranking",
+   "quelle": "arXiv:2607.22634v1",
+   "typ": "methode",
+   "url": "http://arxiv.org/abs/2607.22634v1"
+  },
+  {
+   "text": "PRESTO erzielt im Mittel etwa 1,5-fachen End-to-End-Durchsatz-Speedup gegenüber dem dedizierten Diffusions-Drafter SD und 1,12-fach bei selbst-spekulativen dLLMs.",
+   "zitat": "achieves up to an average of $1.5\\times$ end-to-end throughput speedup on the state-of-the-art dedicated diffusion drafter SD",
+   "quelle": "arXiv:2607.22634v1",
+   "typ": "ergebnis",
+   "url": "http://arxiv.org/abs/2607.22634v1"
+  },
+  {
+   "text": "Im systematischen Vergleich dominiert Traversal Verification konsistent, während OT-basierte Verifikationsmethoden deutlich zurückliegen.",
+   "zitat": "find that Traversal Verification dominates consistently, with OT-based methods lagging far behind",
+   "quelle": "arXiv:2602.16994v1",
+   "typ": "ergebnis",
+   "url": "http://arxiv.org/abs/2602.16994v1"
+  },
+  {
+   "text": "OT-basierte Methoden erreichen hohe Multi-Token-Akzeptanz nahe der Wurzel, während Mehrfach-Token-Gewinne vor allem tiefer im Draft-Baum wirken, wo sich Draft- und Zielverteilung unterscheiden.",
+   "zitat": "OT-based methods achieve high multi-token acceptance near the root of the draft tree, while multi-token gains are most impactful deeper in the draft tree",
+   "quelle": "arXiv:2602.16994v1",
+   "typ": "methode",
+   "url": "http://arxiv.org/abs/2602.16994v1"
+  },
+  {
+   "text": "Verzögerte Baumexpansion (delayed tree expansion) bewahrt die Zielverteilung und verbessert i.i.d.-Rollouts an der Wurzel; ein neuronaler Selektor ermöglicht SpecInfer, Traversal Verification erstmals zu übertreffen, mit etwa 5 % höherem Durchsatz.",
+   "zitat": "achieving 5% higher average throughput across a wide range of models, datasets, and sampling settings",
+   "quelle": "arXiv:2602.16994v1",
+   "typ": "ergebnis",
+   "url": "http://arxiv.org/abs/2602.16994v1"
+  },
+  {
+   "text": "ECHO nutzt eine zweischleifige Architektur mit frühen Schichten für schnelle Baumexploration und finalen Schichten für Verifikation und erreicht 2,4- bis 2,9-fache Beschleunigung.",
+   "zitat": "ECHO bifurcates inference into a high-frequency inner loop and a low-frequency outer loop",
+   "quelle": "arXiv:2609.17241v1",
+   "typ": "methode",
+   "url": "http://arxiv.org/abs/2609.17241v1"
+  },
+  {
+   "text": "ECHO erreicht 2,4- bis 2,9-fache Beschleunigung ohne zusätzliche Deployment-Parameter, benötigt jedoch für optimale Beschleunigung eine einmalige Feinabstimmung.",
+   "zitat": "achieves a 2.4$\\times$ to 2.9$\\times$ speedup, outperforming existing state-of-the-art baselines",
+   "quelle": "arXiv:2609.17241v1",
+   "typ": "ergebnis",
+   "url": "http://arxiv.org/abs/2609.17241v1"
+  },
+  {
+   "text": "Offen bleibt, wie stark die Beschleunigung von der einmaligen Feinabstimmung abhängt, die für optimale Ergebnisse nötig ist.",
+   "zitat": "albeit with a one-shot fine-tuning dependency for optimal acceleration",
+   "quelle": "arXiv:2609.17241v1",
+   "typ": "offene_frage",
+   "url": "http://arxiv.org/abs/2609.17241v1"
+  },
+  {
+   "text": "FSPAD verwendet Token-Embeddings, um Zielmodell-Features vor der Eingabe in das Draft-Modell zu samplen, da die Unsicherheit der Features das Draft-Modell daran hindert, das exakte Token vorherzusagen.",
+   "zitat": "utilizes token embeddings to sample features of the target LLM in high-dimensional space before feeding them into the draft model",
+   "quelle": "arXiv:2408.15562v1",
+   "typ": "methode",
+   "url": "http://arxiv.org/abs/2408.15562v1"
+  },
+  {
+   "text": "FSPAD übertrifft den Stand der Technik bei greedy und nicht-greedy Decoding über alle getesteten Aufgaben und Zielmodelle hinweg.",
+   "zitat": "The results show that FSPAD outperforms the state-of-the-art method across all the aforementioned tasks and target LLMs",
+   "quelle": "arXiv:2408.15562v1",
+   "typ": "ergebnis",
+   "url": "http://arxiv.org/abs/2408.15562v1"
+  },
+  {
+   "text": "Speculative Coupled Decoding koppelt die Draft-Token über aufeinanderfolgende Iterationen, um die Akzeptanzrate von Speculative Jacobi Decoding zu erhöhen, ohne die Verlustfreiheit zu verlieren.",
+   "zitat": "maximizing the probability of sampling identical draft tokens across consecutive iterations, significantly enhancing the acceptance rate while preserving its lossless property",
+   "quelle": "arXiv:2510.24211v2",
+   "typ": "methode",
+   "url": "http://arxiv.org/abs/2510.24211v2"
+  },
+  {
+   "text": "SCD erreicht bis zu 4,2-fache Beschleunigung bei Bildgenerierung und 13,6-fache bei Videogenerierung gegenüber autoregressivem Decoding, ohne Qualitätsverlust und ohne zusätzliches Training.",
+   "zitat": "delivering up to a 4.2x speedup in image generation and 13.6x speedup in video generation compared to standard AR decoding",
+   "quelle": "arXiv:2510.24211v2",
+   "typ": "ergebnis",
+   "url": "http://arxiv.org/abs/2510.24211v2"
+  },
+  {
+   "text": "Relaxierte Speculative-Decoding-Verfahren erfordern erheblichen Aufwand für die Bewertung der Fähigkeiten, anders als das verlustfreie Verfahren, und setzen oft einen guten Sprachmodell-Drafter voraus, was sie für leichtgewichtige MTP-Drafter ungeeignet macht.",
+   "zitat": "relaxation can require considerable capability evaluation unlike lossless speculative decoding, and many relaxed approaches rely on a drafter that is a good language model",
+   "quelle": "arXiv:2607.08690v1",
+   "typ": "offene_frage",
+   "url": "http://arxiv.org/abs/2607.08690v1"
+  },
+  {
+   "text": "EESD nutzt die ersten N Schichten des LLM als Entwurfsmodell mit Early-Exit-Strukturen, verbessert die Entwurfsqualität durch Selbstdestillation und garantiert eine Ausgabeverteilung, die mit autoregressivem Decoding übereinstimmt.",
+   "zitat": "This early-exiting design not only reduces deployment and training costs but also significantly accelerates the token generation speed.",
+   "quelle": "arXiv:2406.03853v1",
+   "typ": "methode",
+   "url": "http://arxiv.org/abs/2406.03853v1"
+  },
+  {
+   "text": "Thompson Sampling steuert automatisch die Anzahl der Entwurfstoken pro Runde, wobei die Verifikation in einem einzigen Forward-Pass des Original-LLM erfolgt.",
+   "zitat": "we introduce a novel sampling mechanism that leverages Thompson Sampling to regulate the generation processes, automatically determining the quantity of draft tokens in each round",
+   "quelle": "arXiv:2406.03853v1",
+   "typ": "methode",
+   "url": "http://arxiv.org/abs/2406.03853v1"
+  },
+  {
+   "text": "Die Autoren berichten eine deutlich beschleunigte Dekodierung gegenüber früheren Methoden, getestet an 13B- und 70B-Modellen; die Abstract-Angaben sind jedoch qualitativ und enthalten keine Zahlen.",
+   "zitat": "The experimental results on both 13B and 70B models demonstrate that our approach decodes tokens at a markedly accelerated rate compared to prior methods",
+   "quelle": "arXiv:2406.03853v1",
+   "typ": "ergebnis",
+   "url": "http://arxiv.org/abs/2406.03853v1"
+  },
+  {
+   "text": "Die bisherige token-weise Verifikation von Entwurfsblöcken ist nicht optimal; Block Verification prüft den gesamten Block gemeinsam.",
+   "zitat": "Surprisingly, we show that this approach is not optimal. We propose Block Verification, a simple draft verification algorithm that verifies the entire block jointly",
+   "quelle": "arXiv:2403.10444v3",
+   "typ": "methode",
+   "url": "http://arxiv.org/abs/2403.10444v3"
+  },
+  {
+   "text": "Die Autoren beweisen, dass Block Verification pro Iteration die erwartete Tokenzahl optimal maximiert und nie schlechter als die Standardverifikation ist.",
+   "zitat": "We prove that the proposed mechanism is optimal in the expected number of tokens produced each iteration and specifically is never worse than the standard token-level verification.",
+   "quelle": "arXiv:2403.10444v3",
+   "typ": "ergebnis",
+   "url": "http://arxiv.org/abs/2403.10444v3"
+  },
+  {
+   "text": "Empirisch ergibt sich ein moderater, aber konsistenter Wall-Clock-Speedup von 5 % bis 8 % gegenüber der Standardverifikation.",
+   "zitat": "block verification provides modest but consistent wall-clock speedups over the standard token verification algorithm of 5%-8% in a range of tasks and datasets",
+   "quelle": "arXiv:2403.10444v3",
+   "typ": "ergebnis",
+   "url": "http://arxiv.org/abs/2403.10444v3"
+  },
+  {
+   "text": "EAGLE nutzt einen statischen Draft-Baum, der annimmt, dass die Akzeptanzrate nur von der Position abhängt; die Autoren zeigen, dass sie zusätzlich kontextabhängig ist.",
+   "zitat": "Most speculative sampling methods such as EAGLE use a static draft tree, implicitly assuming that the acceptance rate of draft tokens depends only on their position.",
+   "quelle": "arXiv:2406.16858v2",
+   "typ": "offene_frage",
+   "url": "http://arxiv.org/abs/2406.16858v2"
+  },
+  {
+   "text": "EAGLE-2 führt einen kontextabhängigen, dynamischen Draft-Baum ein, der die Kalibrierung des Draft-Modells nutzt, um Akzeptanzraten zu schätzen.",
+   "zitat": "introduces a new technique of context-aware dynamic draft tree into drafting modeling",
+   "quelle": "arXiv:2406.16858v2",
+   "typ": "methode",
+   "url": "http://arxiv.org/abs/2406.16858v2"
+  },
+  {
+   "text": "EAGLE-2 erreicht Speedups von 3,05x bis 4,26x und ist 20 % bis 40 % schneller als EAGLE-1, bei unveränderter Textverteilung.",
+   "zitat": "EAGLE-2 achieving speedup ratios 3.05x-4.26x, which is 20%-40% faster than EAGLE-1",
+   "quelle": "arXiv:2406.16858v2",
+   "typ": "ergebnis",
+   "url": "http://arxiv.org/abs/2406.16858v2"
+  },
+  {
+   "text": "Eine Full-Stack-Kooperation aus Architektur, Optimierung und Hardware kann die Transformer-Inferenz bei minimaler Qualitätseinbuße um bis zu 88,7-fach beschleunigen.",
+   "zitat": "a full-stack co-design approach with the aforementioned methods can result in up to 88.7x speedup with a minimal performance degradation for Transformer inference",
+   "quelle": "arXiv:2302.14017v1",
+   "typ": "ergebnis",
+   "url": "http://arxiv.org/abs/2302.14017v1"
+  },
+  {
+   "text": "Die Übersicht ordnet Verfahren zur Transformer-Inferenz-Optimierung auf Algorithmus- und Hardwareebene, darunter Knowledge Distillation, Pruning und Quantisierung.",
+   "zitat": "We survey techniques such as knowledge distillation, pruning, quantization, neural architecture search and lightweight network design at the algorithmic level",
+   "quelle": "arXiv:2307.07982v1",
+   "typ": "methode",
+   "url": "http://arxiv.org/abs/2307.07982v1"
+  },
+  {
+   "text": "Die Arbeit klassifiziert schnelle Attention-Approximationen nach numerischen Prinzipien wie Sparsity, Low-Rank-Projektionen, randomisiertem Sketching und tensorbasierten Zerlegungen.",
+   "zitat": "These include sparsity and clustering approaches, low-rank and subspace projection techniques, randomized sketching methods, and tensor-based decompositions",
+   "quelle": "arXiv:2604.01757v1",
+   "typ": "methode",
+   "url": "http://arxiv.org/abs/2604.01757v1"
+  },
+  {
+   "text": "Die quadratische Komplexität der Attention in der Sequenzlänge gilt als Engpass für Inferenz im großen Maßstab; offen bleibt, wie numerische Lineare Algebra zu skalierbaren Attention-Mechanismen beitragen kann.",
+   "zitat": "its quadratic complexity in the input sequence length is the bottleneck for large-scale inference",
+   "quelle": "arXiv:2604.01757v1",
+   "typ": "offene_frage",
+   "url": "http://arxiv.org/abs/2604.01757v1"
+  },
+  {
+   "text": "xLSTM liefert in den drei getesteten Aufgaben die insgesamt stärkste Leistung unter den subquadratischen Architekturen (xLSTM, Mamba-2, Gated DeltaNet).",
+   "zitat": "Across these settings, xLSTM delivers the strongest overall performance.",
+   "quelle": "arXiv:2606.12364v1",
+   "typ": "ergebnis",
+   "url": "http://arxiv.org/abs/2606.12364v1"
+  },
+  {
+   "text": "Die Autoren führen die Vorteile von xLSTM auf robustes Zustandstracking und Akkumulation zurück, die durch sein Gating-Schema ermöglicht werden.",
+   "zitat": "Our results show that xLSTM enables more flexible and stable memory correction via its gating scheme.",
+   "quelle": "arXiv:2606.12364v1",
+   "typ": "methode",
+   "url": "http://arxiv.org/abs/2606.12364v1"
+  },
+  {
+   "text": "MoSA wählt per Expert-Choice-Routing für jeden Attention-Head k Tokens aus und senkt so die Rechenkomplexität pro Head von O(T²) auf O(k² + T).",
+   "zitat": "By selecting $k$ tokens from a sequence of length $T$, MoSA reduces the computational complexity of each attention head from $O(T^2)$ to $O(k^2 + T)$.",
+   "quelle": "arXiv:2505.00315v1",
+   "typ": "methode",
+   "url": "http://arxiv.org/abs/2505.00315v1"
+  },
+  {
+   "text": "MoSA ist laut Abstract die einzige getestete dünnbesetzte Attention-Variante, die das dichte Baseline-Modell übertrifft, teils mit bis zu 27 % besserer Perplexität bei gleichem Rechenaufwand.",
+   "zitat": "We show that among the tested sparse attention variants, MoSA is the only one that can outperform the dense baseline, sometimes with up to 27% better perplexity for an identical compute budget.",
+   "quelle": "arXiv:2505.00315v1",
+   "typ": "ergebnis",
+   "url": "http://arxiv.org/abs/2505.00315v1"
+  },
+  {
+   "text": "Die MoSA-Architektur verkleinert den KV-Cache deutlich gegenüber dichten Transformern, obwohl nur eine Torch-Implementierung ohne optimierten Kernel verwendet wurde.",
+   "zitat": "drastically reduce the size of the KV-cache compared to the dense transformer baselines.",
+   "quelle": "arXiv:2505.00315v1",
+   "typ": "ergebnis",
+   "url": "http://arxiv.org/abs/2505.00315v1"
+  },
+  {
+   "text": "Die Autoren ersetzen Self-Attention durch fourierbasiertes Token-Mixing und entwickeln die MDFWA-Variante, die frequenz- und zeitlokale Transformationen kombiniert.",
+   "zitat": "introduce a novel MultiDomain Fourier Wavelet Attention(MDFWA) that integrates frequency and time localized transforms to capture both global and local dependencies efficiently.",
+   "quelle": "arXiv:2111.15473v2",
+   "typ": "methode",
+   "url": "http://arxiv.org/abs/2111.15473v2"
+  },
+  {
+   "text": "Die Autoren behaupten subquadratische Zeit- und Speicherkosten für MDFWA, validieren dies aber nur auf einer einzigen Aufgabe (Zusammenfassung auf PubMed).",
+   "zitat": "We validate our design on an abstractive summarization task using PubMed dataset",
+   "quelle": "arXiv:2111.15473v2",
+   "typ": "offene_frage",
+   "url": "http://arxiv.org/abs/2111.15473v2"
+  },
+  {
+   "text": "Eine hybride Kompression aus Low-Rank-Approximation der Attention-Blöcke und schwächerem Pruning der Feedforward-Blöcke erreicht 50 % Kompression bei 14 % relativem Anstieg des Klassifikationsfehlers.",
+   "zitat": "Our technique results in 50% compression with 14% relative increase in classification error",
+   "quelle": "arXiv:2203.13444v1",
+   "typ": "ergebnis",
+   "url": "http://arxiv.org/abs/2203.13444v1"
+  },
+  {
+   "text": "Strukturiertes Pruning allein entfernt laut den Autoren überwiegend Feedforward-Blöcke und verschlechtert die Genauigkeit stark.",
+   "zitat": "find that mostly feedforward blocks are pruned with this approach, that too, with severe degradation in accuracy",
+   "quelle": "arXiv:2203.13444v1",
+   "typ": "ergebnis",
+   "url": "http://arxiv.org/abs/2203.13444v1"
+  },
+  {
+   "text": "MLoRQ kombiniert Low-Rank-Approximation und gemischte Bitbreiten-Quantisierung und wählt Rang und Bitbreite je Schicht unter einer Speicherbeschränkung.",
+   "zitat": "MLoRQ employs a two-stage optimization process to determine optimal bit-width and rank assignments for each layer, adhering to predefined memory constraints.",
+   "quelle": "arXiv:2507.09616v1",
+   "typ": "methode",
+   "url": "http://arxiv.org/abs/2507.09616v1"
+  },
+  {
+   "text": "MLoRQ erzielt laut Abstract auf Vision Transformers Verbesserungen von bis zu 15 % gegenüber bisherigen Verfahren.",
+   "zitat": "MLoRQ shows state-of-the-art results with up to 15\\% performance improvement",
+   "quelle": "arXiv:2507.09616v1",
+   "typ": "ergebnis",
+   "url": "http://arxiv.org/abs/2507.09616v1"
+  },
+  {
+   "text": "ViTALiTy ersetzt die Softmax-Attention durch lineare Taylor-Attention mit Zeilen-Mittelwertzentrierung als Low-Rank-Komponente und kombiniert sie mit sparsity-basierter Regularisierung.",
+   "zitat": "we approximate the dot-product softmax operation via first-order Taylor attention with row-mean centering as the low-rank component to linearize the cost of attention blocks",
+   "quelle": "arXiv:2211.05109v1",
+   "typ": "methode",
+   "url": "http://arxiv.org/abs/2211.05109v1"
+  },
+  {
+   "text": "ViTALiTy berichtet etwa 3-fache Beschleunigung und Energieeinsparung bei vergleichbarer Genauigkeit gegenüber dem Stand der Technik, bewertet aber nur Vision Transformer.",
+   "zitat": "offers boosted end-to-end efficiency (e.g., $3\\times$ faster and $3\\times$ energy-efficient) under comparable accuracy",
+   "quelle": "arXiv:2211.05109v1",
+   "typ": "ergebnis",
+   "url": "http://arxiv.org/abs/2211.05109v1"
+  },
+  {
+   "text": "Das Verfahren LHTP beschneidet etwa 60 % der Tokens in Stage 1 und senkt dadurch den Rechenaufwand der Transformer-Verarbeitung, bei hoher Klassifikationsgüte (bis 96,1 % Genauigkeit). Für das Forschungsziel ist es nur am Rande relevant, da es sich um Vision-Transformer-Klassifikation im medizinischen Kontext handelt und nicht um LLM-Inferenz.",
+   "zitat": "By adaptively pruning approximately 60% of Stage-1 tokens, the proposed framework substantially reduces the computational burden of local transformer processing",
+   "quelle": "doi:10.3390/diagnostics16162637",
+   "typ": "ergebnis",
+   "url": "https://doi.org/10.3390/diagnostics16162637"
+  },
+  {
+   "text": "Eine einfache Sketch-Matrix mit O(1/ε²) Zeilen erlaubt die Approximation aller Eigenwerte mit additivem Fehler ε‖A‖_F, und die Dimension ist laut den Autoren optimal, auch für adaptive Matrix-Vektor-Anfragen.",
+   "zitat": "we show that this number is optimal even for adaptive matrix-vector queries",
+   "quelle": "arXiv:2304.09281v1",
+   "typ": "ergebnis",
+   "url": "http://arxiv.org/abs/2304.09281v1"
+  },
+  {
+   "text": "Die vorgeschlagene Sketch-Power-Iteration ermöglicht potenzmethodenartige Iterationen mit nur einem einzigen Durchlauf über die Daten und lässt sich in einpassige Low-Rank-Algorithmen einbauen.",
+   "zitat": "We introduce a lightweight yet effective sketch-power iteration, allowing power-like iterations with only a single pass of the data",
+   "quelle": "arXiv:2603.26298v1",
+   "typ": "methode",
+   "url": "http://arxiv.org/abs/2603.26298v1"
+  },
+  {
+   "text": "Die Arbeit beweist, dass eine zufällige orthonormale Matrix für das Sketch-and-Solve-Verfahren minimax-optimal ist, während jede rotationsinvariante Einbettung für die randomisierte SVD minimax-optimal ist.",
+   "zitat": "The paper proves that a random orthonormal matrix is minimax optimal for the sketch-and-solve algorithm",
+   "quelle": "arXiv:2605.19096v2",
+   "typ": "ergebnis",
+   "url": "http://arxiv.org/abs/2605.19096v2"
+  },
+  {
+   "text": "SketchyCoreSVD berechnet eine nahezu optimale SVD vom Rang r allein aus zufällig subsampleten Spalten und Zeilen, mit theoretischen Garantien, die allerdings Inkohärenzannahmen voraussetzen.",
+   "zitat": "We provide theoretical guarantees under incoherence assumptions, and validate the performance of our SketchyCoreSVD method",
+   "quelle": "doi:10.1109/bigdata47090.2019.9006345",
+   "typ": "methode",
+   "url": "https://doi.org/10.1109/bigdata47090.2019.9006345"
+  },
+  {
+   "text": "Ein quantisierter KV-Cache wird als verlustfreies, lineares Archivformat mit O(1)-Zugriff auf beliebige Positionen und O(1)-amortiertem Anhängen gespeichert.",
+   "zitat": "It is lossless, it runs in linear time, and supports O(1) random access and O(1) amortized append.",
+   "quelle": "arXiv:2607.07144v2",
+   "typ": "methode",
+   "url": "http://arxiv.org/abs/2607.07144v2"
+  },
+  {
+   "text": "Mit einem kleinen exakten Fenster (4 Attention Sinks plus 32 neueste Tokens) reduziert residuale Vektorquantisierung pro Kopf den archivierten Cache um den Faktor 36 bis 54 gegenüber fp16, bei einem Perplexitätsverlust von 11 bis 15 % auf GPT-2.",
+   "zitat": "reduces the archived cache by 36-54x relative to an fp16 cache at a perplexity cost of 11-15%",
+   "quelle": "arXiv:2607.07144v2",
+   "typ": "ergebnis",
+   "url": "http://arxiv.org/abs/2607.07144v2"
+  },
+  {
+   "text": "Die Quantisierung der Keys ist laut den Autoren etwa viermal schädlicher als die Quantisierung der Values, was die Bitverteilung in hybriden Schemata bestimmt.",
+   "zitat": "quantizing keys is roughly 4x more damaging than quantizing values, consistent with prior low-bit KV work",
+   "quelle": "arXiv:2607.07144v2",
+   "typ": "ergebnis",
+   "url": "http://arxiv.org/abs/2607.07144v2"
+  },
+  {
+   "text": "Die Studie zeigt einen Zielkonflikt zwischen Rateneffizienz, wahlfreiem Zugriff und Speicherbedarf, und die Experimente beschränken sich auf GPT-2 mit 1024-Token-Kontexten, sodass Übertragbarkeit auf größere Modelle offen bleibt.",
+   "zitat": "exposing a trade-off between rate efficiency, random access, and memory",
+   "quelle": "arXiv:2607.07144v2",
+   "typ": "offene_frage",
+   "url": "http://arxiv.org/abs/2607.07144v2"
+  }
+ ],
+ "fragen": [
+  {
+   "frage": "Anchor: for p = [1/2, 1/4, 1/4] and q = [1/5, 3/5, 1/5], is standard speculative sampling lossless and what is its exact acceptance probability?",
+   "begruendung": "reproduce Leviathan et al. 2023 on a concrete instance before anything new",
+   "neuheit": 0.1,
+   "machbarkeit": 1.0,
+   "id": "F1",
+   "status": "offen"
+  },
+  {
+   "frage": "With k = 2 i.i.d. drafts, how far can recursive rejection sampling (rrs_iid) fall below the optimal lossless acceptance? Find an instance with V <= 4 where the gap (optimal minus rrs_iid) is large and certify both exact values.",
+   "begruendung": "optimality gap of the widely used multi-draft verification rule",
+   "neuheit": 0.7,
+   "machbarkeit": 0.8,
+   "id": "F2",
+   "status": "beantwortet"
+  },
+  {
+   "frage": "Does drafting without replacement change the picture: is rrs_wor optimal among lossless couplings for without-replacement drafts on some instances and suboptimal on others (k = 2, V <= 4)?",
+   "begruendung": "sampling without replacement is proposed to raise acceptance; is it optimal?",
+   "neuheit": 0.7,
+   "machbarkeit": 0.8,
+   "id": "F3",
+   "status": "beantwortet"
+  },
+  {
+   "frage": "What is the certified minimal polynomial degree d*(B, eps) for approximating e^x on [-B, B] with relative error eps = 1e-3, for B = 1, 2, 4, 8? How does it compare with the degree the Taylor polynomial needs?",
+   "begruendung": "d*(B, eps) is the quantity that decides whether the polynomial method for attention is subquadratic",
+   "neuheit": 0.6,
+   "machbarkeit": 0.8,
+   "id": "F4",
+   "status": "beantwortet"
+  },
+  {
+   "frage": "For head dimension h = 64, logits bounded by B = 4 and relative error 1e-3, what is the exact rank of the polynomial-method factorisation built from the minimal-degree approximation, and is it smaller than a context length of n = 8192?",
+   "begruendung": "tests whether the subquadratic polynomial method is practical at realistic head dimensions",
+   "neuheit": 0.6,
+   "machbarkeit": 0.8,
+   "id": "F5",
+   "status": "offen"
+  },
+  {
+   "frage": "What is the exactly optimal draft length for i.i.d. acceptance alpha in {3/5, 4/5, 9/10} at cost ratio c = 1/20?",
+   "begruendung": "certified optimal speculation length",
+   "neuheit": 0.3,
+   "machbarkeit": 1.0,
+   "id": "F6",
+   "status": "offen"
+  },
+  {
+   "frage": "On the synthetic attention model with n = 512 and budget 64, does the heavy-hitter policy h2o have lower output error than sink_recent, and how far are both from the oracle?",
+   "begruendung": "KV-cache eviction under sinks, heavy hitters and locality",
+   "neuheit": 0.4,
+   "machbarkeit": 0.9,
+   "id": "F7",
+   "status": "offen"
+  },
+  {
+   "frage": "Gibt es ein Instanz mit V <= 4, k = 2 i.i.d. Drafts und exakt zertifizierbarer Lücke (optimal minus rrs_iid), bei der die Lücke groesser ist als 0,04, und wie sieht die exakte Akzeptanz beider Werte als a/b aus?",
+   "begruendung": "Die bisherigen Lücken von etwa 0,04 stammen nur aus Monte-Carlo- und LP-Schaetzungen. Eine exakte Suche mit multidraft_optimal (mode iid) und scheme_acceptance (rule rrs_iid, k=2) auf random_instance-Kandidaten mit V<=4 würde klären, ob die Lücke deutlich größer sein kann und ob das Maximum über Instanzen gegen eine Schranke konvergiert.",
+   "neuheit": 0.6,
+   "machbarkeit": 0.7,
+   "id": "F8",
+   "status": "offen",
+   "aus_runde": 1
+  },
+  {
+   "frage": "Gilt die Unbiasedness-Eigenschaft von rrs_iid auch für Verteilungen mit q(x)=0 auf Tokens mit p(x)>0 (wie im Testbeispiel, wo q(a)=0 und p(a)=431/1000), und reicht die Akzeptanzlücke zu optimal dafür aus, rrs_iid als nicht-optimal zu zertifizieren?",
+   "begruendung": "Das Testbeispiel hat q mit Nullen, und der Pruefer hat 'unbiased: true' gemeldet. Eine Gegenprobe mit scheme_optimal (optimal: false) und unbiased auf denselben Instanzen trennt die Frage nach Losslessness von der nach Optimalitaet und zeigt, ob die Lücke nur aus der Verteilungsform des Testbeispiels stammt.",
+   "neuheit": 0.5,
+   "machbarkeit": 0.8,
+   "id": "F9",
+   "status": "offen",
+   "aus_runde": 1
+  },
+  {
+   "frage": "Wie groß ist die Akzeptanzlücke von rrs_wor zur optimalen verlustfreien Kopplung, wenn man k auf 3 und 4 erhöht und V auf bis zu 8 Token ausweitet, und tritt die Lücke bei zufälligen Instanzen mit Dirichlet- und Zipf-Verteilung systematisch auf?",
+   "begruendung": "Das bisherige Ergebnis zeigt nur, dass rrs_wor für k = 2 und V <= 4 manchmal optimal und manchmal suboptimal ist. Ob das ein Randphänomen kleiner Fälle ist oder mit k und V wächst, lässt sich über random_instance, multidraft_lp (mode wor) und scheme_optimal exakt prüfen und ist für die Wahl der Verifikationsregel praktisch relevant.",
+   "neuheit": 0.6,
+   "machbarkeit": 0.8,
+   "id": "F10",
+   "status": "beantwortet",
+   "aus_runde": 2
+  },
+  {
+   "frage": "Ist die Suboptimalität von rrs_wor eine reine Akzeptanzlücke, bei der die Ausgabeverteilung weiterhin exakt p entspricht, oder verletzt rrs_wor auf den suboptimalen Instanzen zusätzlich die Verlustfreiheit?",
+   "begruendung": "Eine Akzeptanzlücke ohne Verletzung der Verlustfreiheit wäre ein sauberer Befund, während eine Verzerrung das Ergebnis grundlegend anders einordnen würde. Die Gegenprobe mit dem Prüftyp unbiased (erwartet true) auf genau den drei geprüften Instanzen, ergänzt um acceptance_mc als Plausibilitätscheck, trennt beide Fälle.",
+   "neuheit": 0.5,
+   "machbarkeit": 0.9,
+   "id": "F11",
+   "status": "offen",
+   "aus_runde": 2
+  },
+  {
+   "frage": "Wie eng liegen die Chebyshev-Obergrenzen d ≤ 5, 7, 11, 20 an den exakten minimalen Graden d*(B, 1e-3)? Lässt sich für B = 1, 2, 4, 8 jeweils per exp_min_degree zertifizieren, dass d-1 eine untere Schranke hat (lower certificate bei d-1)?",
+   "begruendung": "Das bisherige Ergebnis ist nur eine Obergrenze und liefert keine Aussage über die Optimalität. Mit exp_min_degree erhält man für jedes B ein Paar aus oberer und unterer Schranke. Damit wird geklärt, ob Chebyshev-Interpolation bei relativem Fehler tatsächlich nahe am Minimax-Grad liegt, oder ob die 5–55 % Effizienzgewinne nur ein Artefakt der Schätzung sind. Das ist der direkteste Test der aktuellen Behauptung.",
+   "neuheit": 0.35,
+   "machbarkeit": 0.85,
+   "id": "F12",
+   "status": "offen",
+   "aus_runde": 3
+  },
+  {
+   "frage": "Gilt die Taylor-Vergleichszahl (6, 10, 17, 31) auch dann noch, wenn man den Taylor-Grad mit einem zertifizierten Fehlerbound statt mit dem Grid-Schätzer bestimmt, und wie wächst d*(B, 1e-3) für B = 16 und 32 im Vergleich zum Taylor-Grad?",
+   "begruendung": "Der Taylor-Wert stammt aus einer Grid-Schätzung, die den relativen Fehler auf einem endlichen Gitter prüft und dadurch zu niedrig ansetzen kann. Außerdem beantwortet B = 1 bis 8 nicht die Frage nach dem Wachstum in B. Mit B = 16 und 32 (im erlaubten Bereich bis 32) lässt sich prüfen, ob der Abstand zwischen Taylor und dem optimalen Grad mit B wächst, was für die Polynom-Methode im Attention-Kontext entscheidend ist, da B dort wie sqrt(log n) skaliert.",
+   "neuheit": 0.6,
+   "machbarkeit": 0.6,
+   "id": "F13",
+   "status": "offen",
+   "aus_runde": 3
+  },
+  {
+   "frage": "Tritt die Akzeptanzlücke von rrs_wor auch bei rrs_iid auf, und wie verteilt sie sich über eine größere Stichprobe (z. B. 200 zufällige Instanzen je k in {3, 4}, V in {5, 8}, Dirichlet- und Zipf-Familien) mit exakt zertifizierten Prüfungen?",
+   "begruendung": "Das bisherige Ergebnis beruht auf wenigen Instanzen mit Konfidenz 0,75. Eine größere, exakt zertifizierte Stichprobe zeigt, ob die etwa 11 % Lücke stabil ist oder nur an einzelnen Instanzen liegt, und ob die Lücke spezifisch für die Ziehung ohne Zurücklegen ist. Der Vergleich mit rrs_iid trennt die Ursache der Lücke (Residuum bezogen auf die tatsächlich gezogene Verteilung) von allgemeiner Suboptimalität.",
+   "neuheit": 0.55,
+   "machbarkeit": 0.8,
+   "id": "F14",
+   "status": "offen",
+   "aus_runde": 4
+  },
+  {
+   "frage": "Wie stark hängt die Lücke von der Konzentrationsstärke der Dirichlet-Verteilung und vom Zipf-Exponenten ab, und verschwindet sie in Grenzfällen (nahezu gleiche p und q oder stark divergente Verteilungen)?",
+   "begruendung": "Ein Parameter-Sweep prüft die Grenzen des Befunds. Wenn die Lücke nur in einem mittleren Konzentrationsbereich auftritt, ist die Aussage 'systematisch' zu eng. Wenn sie in allen Bereichen auftritt, lässt sich eine allgemeinere Aussage über die Suboptimalität von rrs_wor treffen. Zusätzlich lässt sich die Lücke über die gemessene Akzeptanz hinaus auf die Verteilungstreue (unbiased-Prüfung) übertragen.",
+   "neuheit": 0.45,
+   "machbarkeit": 0.7,
+   "id": "F15",
+   "status": "offen",
+   "aus_runde": 4
+  }
+ ],
+ "claims": [
+  {
+   "id": "algo_efficiency-R1",
+   "frage": "With k = 2 i.i.d. drafts, how far can recursive rejection sampling (rrs_iid) fall below the optimal lossless acceptance? Find an instance with V <= 4 where the gap (optimal minus rrs_iid) is large and certify both exact values.",
+   "text": "For p = [\"431/1000\", \"147/500\", \"11/40\"], q = [\"0\", \"251/1000\", \"749/1000\"], rule rrs_iid (k = 2) is lossless: its output distribution equals p (exact).",
+   "interpretation_ungeprueft": "unbekannt",
+   "pruefung": {
+    "typ": "unbiased",
+    "p": [
+     "431/1000",
+     "147/500",
+     "11/40"
+    ],
+    "q": [
+     "0",
+     "251/1000",
+     "749/1000"
+    ],
+    "rule": "rrs_iid",
+    "k": 2,
+    "unbiased": true
+   },
+   "grund": "exact output distribution of rrs_iid: TV to p = 0",
+   "level": "computed_rigorous",
+   "status": "angefochten",
+   "red_team": [
+    {
+     "pruefung": {
+      "typ": "scheme_optimal",
+      "p": [
+       "431/1000",
+       "147/500",
+       "11/40"
+      ],
+      "q": [
+       "0",
+       "251/1000",
+       "749/1000"
+      ],
+      "rule": "rrs_iid",
+      "k": 2,
+      "optimal": false
+     },
+     "idee": "Falls es auf dieser Instanz tatsächlich eine Lücke zwischen optimaler Akzeptanz und rrs_iid gibt, würde diese Prüfung bestehen. Das ist der direkteste Gegentest zur Antwort 'unbekannt', weil er die Lücke nicht als Zahl, sondern als exakte Aussage 'rrs_iid verfehlt das Optimum' prüft. Besteht sie, wäre die Behauptung, es gebe keine zertifizierbare Lücke, widerlegt.",
+     "bestanden": false,
+     "grund": "rrs_iid acceptance 569/1000 vs optimal 569/1000 (certified)"
+    },
+    {
+     "pruefung": {
+      "typ": "scheme_optimal",
+      "p": [
+       "1/2",
+       "3/10",
+       "1/5"
+      ],
+      "q": [
+       "1/5",
+       "2/5",
+       "2/5"
+      ],
+      "rule": "rrs_iid",
+      "k": 2,
+      "optimal": false
+     },
+     "idee": "Randfall mit vollem Träger auf V=3 und anderem Verhältnis von p zu q. Falls rrs_iid bei ausreichend unterschiedlichen Verteilungen systematisch hinter dem Optimum zurückbleibt, würde diese Prüfung bestehen und zeigen, dass die Lücke nicht an den Nullwahrscheinlichkeiten von q hängt. Ich habe den Wert nicht selbst nachgerechnet, daher ist der Ausgang offen.",
+     "bestanden": true,
+     "grund": "rrs_iid acceptance 19/25 vs optimal 43/50 (certified)"
+    }
+   ],
+   "runde": 1
+  },
+  {
+   "id": "algo_efficiency-R2",
+   "frage": "Does drafting without replacement change the picture: is rrs_wor optimal among lossless couplings for without-replacement drafts on some instances and suboptimal on others (k = 2, V <= 4)?",
+   "text": "For p = [\"777/1000\", \"223/1000\"], q = [\"937/1000\", \"63/1000\"] and k = 2, rrs_wor attains the optimal lossless acceptance for its draft mode (exact comparison with the certified optimum).",
+   "interpretation_ungeprueft": "Ja, rrs_wor ist manchmal optimal und manchmal suboptimal",
+   "pruefung": {
+    "typ": "scheme_optimal",
+    "p": [
+     "777/1000",
+     "223/1000"
+    ],
+    "q": [
+     "937/1000",
+     "63/1000"
+    ],
+    "k": 2,
+    "rule": "rrs_wor",
+    "optimal": true
+   },
+   "grund": "rrs_wor acceptance 1 vs optimal 1 (certified) | rrs_wor acceptance 14274419/15386000 vs optimal 1 (certified) | rrs_wor acceptance 3763227121/6181723000 vs optimal 2079845443/3090861500 (certified)",
+   "level": "computed_rigorous",
+   "status": "bestätigt",
+   "red_team": [
+    {
+     "pruefung": {
+      "typ": "scheme_optimal",
+      "p": [
+       "3/20",
+       "253/1000",
+       "597/1000"
+      ],
+      "q": [
+       "27/125",
+       "93/250",
+       "103/250"
+      ],
+      "k": 2,
+      "rule": "rrs_wor",
+      "optimal": true
+     },
+     "idee": "Gegenbeispiel zur Hauptthese, rrs_wor sei auf manchen V=3-Instanzen suboptimal. Die Prüfung behauptet, rrs_wor sei auf der zweiten Instanz (V=3, k=2) optimal. Wenn rrs_wor auf allen Instanzen optimal wäre, bestünde diese Prüfung. Die Antwort meldet dort aber eine Lücke (0.927 gegenüber 1.0), daher sollte die Prüfung scheitern. Die Wahrscheinlichkeiten summieren sich exakt zu 1.",
+     "bestanden": false,
+     "grund": "rrs_wor acceptance 14274419/15386000 vs optimal 1 (certified)"
+    },
+    {
+     "pruefung": {
+      "typ": "scheme_optimal",
+      "p": [
+       "777/1000",
+       "223/1000"
+      ],
+      "q": [
+       "937/1000",
+       "63/1000"
+      ],
+      "k": 2,
+      "rule": "rrs_wor",
+      "optimal": false
+     },
+     "idee": "Randfall V=2. Bei zwei Token und k=2 ohne Zurücklegen werden beide Token gezogen, die Akzeptanz ist also 1 und rrs_wor ist optimal. Die Antwort behauptet genau das. Wäre die Antwort falsch und rrs_wor auf V=2 suboptimal, würde diese Prüfung mit optimal=false bestehen. Die Prüfung testet damit, ob die Aussage »rrs_wor ist bei V=2 optimal« tatsächlich stimmt.",
+     "bestanden": false,
+     "grund": "rrs_wor acceptance 1 vs optimal 1 (certified)"
+    }
+   ],
+   "runde": 2
+  },
+  {
+   "id": "algo_efficiency-R3",
+   "frage": "What is the certified minimal polynomial degree d*(B, eps) for approximating e^x on [-B, B] with relative error eps = 1e-3, for B = 1, 2, 4, 8? How does it compare with the degree the Taylor polynomial needs?",
+   "text": "Some polynomial of degree 5 approximates e^x on [-1, 1] with relative error at most 0.001 (rigorous interval bound).",
+   "interpretation_ungeprueft": "Schätzung (Obergrenze via Chebyshev-Interpolation): d*(1, 1e-3) ≤ 5; d*(2, 1e-3) ≤ 7; d*(4, 1e-3) ≤ 11; d*(8, 1e-3) ≤ 20. Zum Vergleich Taylor: 6, 10, 17, 31. Chebyshev ist 5–55% effizienter; exakte minimale Grade nicht zertifiziert.",
+   "pruefung": {
+    "typ": "exp_degree",
+    "B": 1,
+    "eps": 0.001,
+    "error": "relative",
+    "bound": "upper",
+    "d": 5
+   },
+   "grund": "upper certificate (degree 5): {'upper_bound': 4.287088278145072e-05, 'remez_level': 4.209296955566415e-05, 'boxes': 32} | upper certificate (degree 7): {'upper_bound': 5.3084596272011674e-05, 'remez_level': 4.492425624686591e-05, 'boxes': 32} | upper certificate (degree 11): {'upper_bound': 4.870896077850087e-05, 'remez_level': 1.2845325743610628e-05, 'boxes': 32} | upper certificate (degree 20): {'upper_bound': 2.0479004573707118e-06, 'remez_level': 8.519766198627777e-08, 'boxes': 32}",
+   "level": "computed_rigorous",
+   "status": "bestätigt",
+   "red_team": [
+    {
+     "pruefung": {
+      "typ": "exp_degree",
+      "B": 1,
+      "eps": 0.001,
+      "error": "relative",
+      "bound": "lower",
+      "d": 5
+     },
+     "idee": "Die Antwort behauptet, Grad 5 reiche für B=1 und eps=1e-3. Ein Lower-Zertifikat für d=5 besagt, dass jedes Polynom vom Grad ≤5 den Fehler >1e-3 hat. Dann wäre die Obergrenze 5 falsch und d*(1,1e-3) ≥ 6. Das Zertifikat würde also genau dann bestehen, wenn die Antwort falsch ist.",
+     "bestanden": false,
+     "grund": "lower certificate (degree 5): {'lower_bound': 4.209296955566415e-05, 'remez_level': 4.209296955566415e-05, 'points': 7}"
+    },
+    {
+     "pruefung": {
+      "typ": "exp_degree",
+      "B": 8,
+      "eps": 0.001,
+      "error": "relative",
+      "bound": "lower",
+      "d": 20
+     },
+     "idee": "Die Antwort behauptet, Grad 20 reiche für B=8. Ein Lower-Zertifikat für d=20 würde zeigen, dass kein Polynom vom Grad ≤20 das Ziel erreicht. Dann wäre die Chebyshev-Schätzung als Obergrenze falsch. Dieser Randfall ist am größten Bereich B=8 besonders plausibel, weil dort die Interpolationsschätzung am ehesten zu knapp sein kann.",
+     "bestanden": false,
+     "grund": "lower certificate (degree 20): {'lower_bound': 8.519766198627777e-08, 'remez_level': 8.519766198627777e-08, 'points': 22}"
+    }
+   ],
+   "runde": 3
+  },
+  {
+   "id": "algo_efficiency-R4",
+   "frage": "Wie groß ist die Akzeptanzlücke von rrs_wor zur optimalen verlustfreien Kopplung, wenn man k auf 3 und 4 erhöht und V auf bis zu 8 Token ausweitet, und tritt die Lücke bei zufälligen Instanzen mit Dirichlet- und Zipf-Verteilung systematisch auf?",
+   "text": "For p = [\"37/250\", \"21/500\", \"149/200\", \"1/20\", \"3/200\"], q = [\"62/125\", \"17/125\", \"151/1000\", \"1/125\", \"209/1000\"] and k = 3, rrs_wor does not attain the optimal lossless acceptance for its draft mode (exact comparison with the certified optimum).",
+   "interpretation_ungeprueft": "Ja, systematisch; durchschnittliche Akzeptanzlücke ca. 11% (Bereich 9–13%)",
+   "pruefung": {
+    "typ": "scheme_optimal",
+    "p": [
+     "37/250",
+     "21/500",
+     "149/200",
+     "1/20",
+     "3/200"
+    ],
+    "q": [
+     "62/125",
+     "17/125",
+     "151/1000",
+     "1/125",
+     "209/1000"
+    ],
+    "k": 3,
+    "rule": "rrs_wor",
+    "optimal": false,
+    "label": "Instance 1 (V=5, Dirichlet, k=3): rrs_wor suboptimal"
+   },
+   "grund": "rrs_wor acceptance 76025810217187/101241861840000 vs optimal 4440878158613/5062093092000 (certified) | rrs_wor acceptance 134910121624466888445162975070449529/189828981556228727709853876699680000 vs optimal 99407354963717646475553487061652210641553316707231/124348972023186015928017219058281709408737256158000 (certified) | rrs_wor acceptance 33111437912664665909098877167222111878730415680859100294580171057/42753355302412173463753636756712670275862465373400849114505120000 vs optimal 351695343304048436691172989916639797093505482516744400992235937057226959907013927557493/395967830887899866766568856745224113237117063240832638620696077125707538464765888824000 (certified) | exact output distribution of rrs_wor: TV to p = 0",
+   "level": "computed_rigorous",
+   "status": "angefochten",
+   "red_team": [
+    {
+     "pruefung": {
+      "typ": "scheme_optimal",
+      "p": [
+       "1/5",
+       "1/5",
+       "1/5",
+       "1/5",
+       "1/5"
+      ],
+      "q": [
+       "1/5",
+       "1/5",
+       "1/5",
+       "1/5",
+       "1/5"
+      ],
+      "k": 3,
+      "rule": "rrs_wor",
+      "optimal": true
+     },
+     "idee": "Gegenbeispiel für p = q (V=5, k=3): Der erste Draft wird mit Wahrscheinlichkeit min(1, p/q) = 1 akzeptiert, also ist die Akzeptanz 1 und rrs_wor erreicht das Optimum. Eine systematische Lücke kann es in diesem Fall nicht geben, was der Behauptung widerspricht, die Lücke trete bei zufälligen Instanzen systematisch auf.",
+     "bestanden": true,
+     "grund": "rrs_wor acceptance 1 vs optimal 1 (certified)"
+    },
+    {
+     "pruefung": {
+      "typ": "scheme_optimal",
+      "p": [
+       "1/5",
+       "1/5",
+       "1/5",
+       "1/5",
+       "1/5"
+      ],
+      "q": [
+       "1/5",
+       "1/5",
+       "1/5",
+       "1/5",
+       "1/5"
+      ],
+      "k": 4,
+      "rule": "rrs_wor",
+      "optimal": true
+     },
+     "idee": "Randfall k=4 bei V=5 mit p = q: Auch hier wird der erste Draft immer akzeptiert, die optimale wor-Akzeptanz ist 1 und rrs_wor trifft sie exakt. Damit ist die Aussage \"durchweg unter dem Optimum\" für k∈{3,4} mindestens in diesem Randfall falsch; die Antwort müsste die Abhängigkeit der Lücke von der Distanz zwischen p und q angeben, statt eine Zahl von 11 % zu nennen.",
+     "bestanden": true,
+     "grund": "rrs_wor acceptance 1 vs optimal 1 (certified)"
+    }
+   ],
+   "runde": 4
+  }
+ ],
+ "widerlegt": [],
+ "runden": [
+  {
+   "runde": 1,
+   "frage": "F2",
+   "status": "beantwortet",
+   "red_team": [
+    {
+     "pruefung": {
+      "typ": "scheme_optimal",
+      "p": [
+       "431/1000",
+       "147/500",
+       "11/40"
+      ],
+      "q": [
+       "0",
+       "251/1000",
+       "749/1000"
+      ],
+      "rule": "rrs_iid",
+      "k": 2,
+      "optimal": false
+     },
+     "idee": "Falls es auf dieser Instanz tatsächlich eine Lücke zwischen optimaler Akzeptanz und rrs_iid gibt, würde diese Prüfung bestehen. Das ist der direkteste Gegentest zur Antwort 'unbekannt', weil er die Lücke nicht als Zahl, sondern als exakte Aussage 'rrs_iid verfehlt das Optimum' prüft. Besteht sie, wäre die Behauptung, es gebe keine zertifizierbare Lücke, widerlegt.",
+     "bestanden": false,
+     "grund": "rrs_iid acceptance 569/1000 vs optimal 569/1000 (certified)"
+    },
+    {
+     "pruefung": {
+      "typ": "scheme_optimal",
+      "p": [
+       "1/2",
+       "3/10",
+       "1/5"
+      ],
+      "q": [
+       "1/5",
+       "2/5",
+       "2/5"
+      ],
+      "rule": "rrs_iid",
+      "k": 2,
+      "optimal": false
+     },
+     "idee": "Randfall mit vollem Träger auf V=3 und anderem Verhältnis von p zu q. Falls rrs_iid bei ausreichend unterschiedlichen Verteilungen systematisch hinter dem Optimum zurückbleibt, würde diese Prüfung bestehen und zeigen, dass die Lücke nicht an den Nullwahrscheinlichkeiten von q hängt. Ich habe den Wert nicht selbst nachgerechnet, daher ist der Ausgang offen.",
+     "bestanden": true,
+     "grund": "rrs_iid acceptance 19/25 vs optimal 43/50 (certified)"
+    }
+   ],
+   "sek": 326.1
+  },
+  {
+   "runde": 2,
+   "frage": "F3",
+   "status": "beantwortet",
+   "red_team": [
+    {
+     "pruefung": {
+      "typ": "scheme_optimal",
+      "p": [
+       "3/20",
+       "253/1000",
+       "597/1000"
+      ],
+      "q": [
+       "27/125",
+       "93/250",
+       "103/250"
+      ],
+      "k": 2,
+      "rule": "rrs_wor",
+      "optimal": true
+     },
+     "idee": "Gegenbeispiel zur Hauptthese, rrs_wor sei auf manchen V=3-Instanzen suboptimal. Die Prüfung behauptet, rrs_wor sei auf der zweiten Instanz (V=3, k=2) optimal. Wenn rrs_wor auf allen Instanzen optimal wäre, bestünde diese Prüfung. Die Antwort meldet dort aber eine Lücke (0.927 gegenüber 1.0), daher sollte die Prüfung scheitern. Die Wahrscheinlichkeiten summieren sich exakt zu 1.",
+     "bestanden": false,
+     "grund": "rrs_wor acceptance 14274419/15386000 vs optimal 1 (certified)"
+    },
+    {
+     "pruefung": {
+      "typ": "scheme_optimal",
+      "p": [
+       "777/1000",
+       "223/1000"
+      ],
+      "q": [
+       "937/1000",
+       "63/1000"
+      ],
+      "k": 2,
+      "rule": "rrs_wor",
+      "optimal": false
+     },
+     "idee": "Randfall V=2. Bei zwei Token und k=2 ohne Zurücklegen werden beide Token gezogen, die Akzeptanz ist also 1 und rrs_wor ist optimal. Die Antwort behauptet genau das. Wäre die Antwort falsch und rrs_wor auf V=2 suboptimal, würde diese Prüfung mit optimal=false bestehen. Die Prüfung testet damit, ob die Aussage »rrs_wor ist bei V=2 optimal« tatsächlich stimmt.",
+     "bestanden": false,
+     "grund": "rrs_wor acceptance 1 vs optimal 1 (certified)"
+    }
+   ],
+   "sek": 107.9
+  },
+  {
+   "runde": 3,
+   "frage": "F4",
+   "status": "beantwortet",
+   "red_team": [
+    {
+     "pruefung": {
+      "typ": "exp_degree",
+      "B": 1,
+      "eps": 0.001,
+      "error": "relative",
+      "bound": "lower",
+      "d": 5
+     },
+     "idee": "Die Antwort behauptet, Grad 5 reiche für B=1 und eps=1e-3. Ein Lower-Zertifikat für d=5 besagt, dass jedes Polynom vom Grad ≤5 den Fehler >1e-3 hat. Dann wäre die Obergrenze 5 falsch und d*(1,1e-3) ≥ 6. Das Zertifikat würde also genau dann bestehen, wenn die Antwort falsch ist.",
+     "bestanden": false,
+     "grund": "lower certificate (degree 5): {'lower_bound': 4.209296955566415e-05, 'remez_level': 4.209296955566415e-05, 'points': 7}"
+    },
+    {
+     "pruefung": {
+      "typ": "exp_degree",
+      "B": 8,
+      "eps": 0.001,
+      "error": "relative",
+      "bound": "lower",
+      "d": 20
+     },
+     "idee": "Die Antwort behauptet, Grad 20 reiche für B=8. Ein Lower-Zertifikat für d=20 würde zeigen, dass kein Polynom vom Grad ≤20 das Ziel erreicht. Dann wäre die Chebyshev-Schätzung als Obergrenze falsch. Dieser Randfall ist am größten Bereich B=8 besonders plausibel, weil dort die Interpolationsschätzung am ehesten zu knapp sein kann.",
+     "bestanden": false,
+     "grund": "lower certificate (degree 20): {'lower_bound': 8.519766198627777e-08, 'remez_level': 8.519766198627777e-08, 'points': 22}"
+    }
+   ],
+   "sek": 165.2
+  },
+  {
+   "runde": 4,
+   "frage": "F10",
+   "status": "beantwortet",
+   "red_team": [
+    {
+     "pruefung": {
+      "typ": "scheme_optimal",
+      "p": [
+       "1/5",
+       "1/5",
+       "1/5",
+       "1/5",
+       "1/5"
+      ],
+      "q": [
+       "1/5",
+       "1/5",
+       "1/5",
+       "1/5",
+       "1/5"
+      ],
+      "k": 3,
+      "rule": "rrs_wor",
+      "optimal": true
+     },
+     "idee": "Gegenbeispiel für p = q (V=5, k=3): Der erste Draft wird mit Wahrscheinlichkeit min(1, p/q) = 1 akzeptiert, also ist die Akzeptanz 1 und rrs_wor erreicht das Optimum. Eine systematische Lücke kann es in diesem Fall nicht geben, was der Behauptung widerspricht, die Lücke trete bei zufälligen Instanzen systematisch auf.",
+     "bestanden": true,
+     "grund": "rrs_wor acceptance 1 vs optimal 1 (certified)"
+    },
+    {
+     "pruefung": {
+      "typ": "scheme_optimal",
+      "p": [
+       "1/5",
+       "1/5",
+       "1/5",
+       "1/5",
+       "1/5"
+      ],
+      "q": [
+       "1/5",
+       "1/5",
+       "1/5",
+       "1/5",
+       "1/5"
+      ],
+      "k": 4,
+      "rule": "rrs_wor",
+      "optimal": true
+     },
+     "idee": "Randfall k=4 bei V=5 mit p = q: Auch hier wird der erste Draft immer akzeptiert, die optimale wor-Akzeptanz ist 1 und rrs_wor trifft sie exakt. Damit ist die Aussage \"durchweg unter dem Optimum\" für k∈{3,4} mindestens in diesem Randfall falsch; die Antwort müsste die Abhängigkeit der Lücke von der Distanz zwischen p und q angeben, statt eine Zahl von 11 % zu nennen.",
+     "bestanden": true,
+     "grund": "rrs_wor acceptance 1 vs optimal 1 (certified)"
+    }
+   ],
+   "sek": 183.6
+  }
+ ],
+ "kosten_usd": 5.314361
+}

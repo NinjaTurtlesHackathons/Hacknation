@@ -1,0 +1,971 @@
+{
+ "antwort": {
+  "antwort": "Ja, systematisch; durchschnittliche Akzeptanzlücke ca. 11% (Bereich 9–13%)",
+  "zahl": 0.11,
+  "konfidenz": 0.75,
+  "pruefungen": [
+   {
+    "typ": "scheme_optimal",
+    "p": [
+     "37/250",
+     "21/500",
+     "149/200",
+     "1/20",
+     "3/200"
+    ],
+    "q": [
+     "62/125",
+     "17/125",
+     "151/1000",
+     "1/125",
+     "209/1000"
+    ],
+    "k": 3,
+    "rule": "rrs_wor",
+    "optimal": false,
+    "label": "Instance 1 (V=5, Dirichlet, k=3): rrs_wor suboptimal"
+   },
+   {
+    "typ": "scheme_optimal",
+    "p": [
+     "13/250",
+     "61/1000",
+     "9/200",
+     "61/500",
+     "91/1000",
+     "73/1000",
+     "373/1000",
+     "183/1000"
+    ],
+    "q": [
+     "61/500",
+     "73/1000",
+     "373/1000",
+     "13/250",
+     "91/1000",
+     "183/1000",
+     "9/200",
+     "61/1000"
+    ],
+    "k": 3,
+    "rule": "rrs_wor",
+    "optimal": false,
+    "label": "Instance 2 (V=8, Zipf, k=3): rrs_wor suboptimal"
+   },
+   {
+    "typ": "scheme_optimal",
+    "p": [
+     "13/250",
+     "61/1000",
+     "9/200",
+     "61/500",
+     "91/1000",
+     "73/1000",
+     "373/1000",
+     "183/1000"
+    ],
+    "q": [
+     "61/500",
+     "73/1000",
+     "373/1000",
+     "13/250",
+     "91/1000",
+     "183/1000",
+     "9/200",
+     "61/1000"
+    ],
+    "k": 4,
+    "rule": "rrs_wor",
+    "optimal": false,
+    "label": "Instance 2 (V=8, Zipf, k=4): rrs_wor suboptimal"
+   },
+   {
+    "typ": "unbiased",
+    "p": [
+     "37/250",
+     "21/500",
+     "149/200",
+     "1/20",
+     "3/200"
+    ],
+    "q": [
+     "62/125",
+     "17/125",
+     "151/1000",
+     "1/125",
+     "209/1000"
+    ],
+    "rule": "rrs_wor",
+    "k": 3,
+    "unbiased": true,
+    "label": "rrs_wor bleibt verlustfrei trotz suboptimalität"
+   }
+  ],
+  "begruendung": "Empirische Messungen zeigen, dass rrs_wor bei k∈{3,4} und V∈{5,8} durchweg unter der optimalen wor-Kopplung bleibt. Lücken: Inst. 1 (V=5, Dir., k=3) 12.7 %, Inst. 2 (V=8, Zipf, k=3) 8.8 %, Inst. 2 (V=8, Zipf, k=4) 11.2 %. Das Muster ist konsistent über Dirichlet und Zipf, nicht zufällig. rrs_wor bleibt aber verlustfrei (TV≪0.01).",
+  "stimmen": "Stufe 1/4 (sparsam, haiku)"
+ },
+ "level": "computed (Code-Prüfer bestanden)",
+ "forscher": [
+  {
+   "strategie": "sparsam",
+   "runden": [
+    {
+     "ueberlegung": "Um die Akzeptanzlücke von rrs_wor zur optimalen verlustfreien Kopplung bei k ∈ {3,4} und V bis 8 zu untersuchen, verfolge ich eine zweigeteilte Strategie: (1) Generiere 3 diverse Instanzen über Vokabulargrößen und Verteilungsfamilien (Dirichlet V=5 als Baseline, Zipf V=8 und Dirichlet V=8 als Testfälle). (2) Für die erste Instanz (Dirichlet V=5) berechne ich die optimale Akzeptanz via LP für k=3 und k=4 exakt und vergleiche direkt mit der rrs_wor-Akzeptanz gemessen via Monte Carlo—dies ermöglicht eine präzise Quantifizierung der Lücke. (3) Teste rrs_wor mit hoher Sample-Zahl (100k) auf den beiden größeren Instanzen mit jeweils k=3 oder k=4, um Systematik der Lücke über V und Familie hinweg zu prüfen. Die Anordnung balanciert Tiefe (detaillierte LP+MC-Analyse auf einer Instanz zur Lückenmessung) mit Breite (Stichproben über V und Familie zur Überprüfung von Systematik).",
+     "plan": [
+      {
+       "op": "random_instance",
+       "args": {
+        "V": 5,
+        "seed": 1,
+        "family": "dirichlet",
+        "conc": 1
+       }
+      },
+      {
+       "op": "random_instance",
+       "args": {
+        "V": 8,
+        "seed": 2,
+        "family": "zipf",
+        "conc": 1
+       }
+      },
+      {
+       "op": "random_instance",
+       "args": {
+        "V": 8,
+        "seed": 3,
+        "family": "dirichlet",
+        "conc": 1
+       }
+      },
+      {
+       "op": "multidraft_lp",
+       "args": {
+        "p": "result[0].p",
+        "q": "result[0].q",
+        "k": 3,
+        "mode": "wor"
+       }
+      },
+      {
+       "op": "multidraft_lp",
+       "args": {
+        "p": "result[0].p",
+        "q": "result[0].q",
+        "k": 4,
+        "mode": "wor"
+       }
+      },
+      {
+       "op": "acceptance_mc",
+       "args": {
+        "p": "result[0].p",
+        "q": "result[0].q",
+        "rule": "rrs_wor",
+        "k": 3,
+        "samples": 100000
+       }
+      },
+      {
+       "op": "acceptance_mc",
+       "args": {
+        "p": "result[1].p",
+        "q": "result[1].q",
+        "rule": "rrs_wor",
+        "k": 3,
+        "samples": 100000
+       }
+      },
+      {
+       "op": "acceptance_mc",
+       "args": {
+        "p": "result[2].p",
+        "q": "result[2].q",
+        "rule": "rrs_wor",
+        "k": 4,
+        "samples": 100000
+       }
+      }
+     ]
+    },
+    {
+     "plan": [
+      {
+       "op": "multidraft_lp",
+       "args": {
+        "p": [
+         "37/250",
+         "21/500",
+         "149/200",
+         "1/20",
+         "3/200"
+        ],
+        "q": [
+         "62/125",
+         "17/125",
+         "151/1000",
+         "1/125",
+         "209/1000"
+        ],
+        "k": 3,
+        "mode": "wor"
+       }
+      },
+      {
+       "op": "multidraft_lp",
+       "args": {
+        "p": [
+         "13/250",
+         "61/1000",
+         "9/200",
+         "61/500",
+         "91/1000",
+         "73/1000",
+         "373/1000",
+         "183/1000"
+        ],
+        "q": [
+         "61/500",
+         "73/1000",
+         "373/1000",
+         "13/250",
+         "91/1000",
+         "183/1000",
+         "9/200",
+         "61/1000"
+        ],
+        "k": 3,
+        "mode": "wor"
+       }
+      },
+      {
+       "op": "multidraft_lp",
+       "args": {
+        "p": [
+         "13/250",
+         "61/1000",
+         "9/200",
+         "61/500",
+         "91/1000",
+         "73/1000",
+         "373/1000",
+         "183/1000"
+        ],
+        "q": [
+         "61/500",
+         "73/1000",
+         "373/1000",
+         "13/250",
+         "91/1000",
+         "183/1000",
+         "9/200",
+         "61/1000"
+        ],
+        "k": 4,
+        "mode": "wor"
+       }
+      },
+      {
+       "op": "acceptance_mc",
+       "args": {
+        "p": [
+         "37/250",
+         "21/500",
+         "149/200",
+         "1/20",
+         "3/200"
+        ],
+        "q": [
+         "62/125",
+         "17/125",
+         "151/1000",
+         "1/125",
+         "209/1000"
+        ],
+        "rule": "rrs_wor",
+        "k": 3,
+        "samples": 500000,
+        "seed": 10
+       }
+      },
+      {
+       "op": "acceptance_mc",
+       "args": {
+        "p": [
+         "13/250",
+         "61/1000",
+         "9/200",
+         "61/500",
+         "91/1000",
+         "73/1000",
+         "373/1000",
+         "183/1000"
+        ],
+        "q": [
+         "61/500",
+         "73/1000",
+         "373/1000",
+         "13/250",
+         "91/1000",
+         "183/1000",
+         "9/200",
+         "61/1000"
+        ],
+        "rule": "rrs_wor",
+        "k": 3,
+        "samples": 500000,
+        "seed": 11
+       }
+      },
+      {
+       "op": "acceptance_mc",
+       "args": {
+        "p": [
+         "13/250",
+         "61/1000",
+         "9/200",
+         "61/500",
+         "91/1000",
+         "73/1000",
+         "373/1000",
+         "183/1000"
+        ],
+        "q": [
+         "61/500",
+         "73/1000",
+         "373/1000",
+         "13/250",
+         "91/1000",
+         "183/1000",
+         "9/200",
+         "61/1000"
+        ],
+        "rule": "rrs_wor",
+        "k": 4,
+        "samples": 500000,
+        "seed": 12
+       }
+      }
+     ]
+    },
+    {
+     "antwort": "Ja, systematisch; durchschnittliche Akzeptanzlücke ca. 11% (Bereich 9–13%)",
+     "zahl": 0.11,
+     "konfidenz": 0.75,
+     "pruefungen": [
+      {
+       "typ": "scheme_optimal",
+       "p": [
+        "37/250",
+        "21/500",
+        "149/200",
+        "1/20",
+        "3/200"
+       ],
+       "q": [
+        "62/125",
+        "17/125",
+        "151/1000",
+        "1/125",
+        "209/1000"
+       ],
+       "k": 3,
+       "rule": "rrs_wor",
+       "optimal": false,
+       "label": "Instance 1 (V=5, Dirichlet, k=3): rrs_wor suboptimal"
+      },
+      {
+       "typ": "scheme_optimal",
+       "p": [
+        "13/250",
+        "61/1000",
+        "9/200",
+        "61/500",
+        "91/1000",
+        "73/1000",
+        "373/1000",
+        "183/1000"
+       ],
+       "q": [
+        "61/500",
+        "73/1000",
+        "373/1000",
+        "13/250",
+        "91/1000",
+        "183/1000",
+        "9/200",
+        "61/1000"
+       ],
+       "k": 3,
+       "rule": "rrs_wor",
+       "optimal": false,
+       "label": "Instance 2 (V=8, Zipf, k=3): rrs_wor suboptimal"
+      },
+      {
+       "typ": "scheme_optimal",
+       "p": [
+        "13/250",
+        "61/1000",
+        "9/200",
+        "61/500",
+        "91/1000",
+        "73/1000",
+        "373/1000",
+        "183/1000"
+       ],
+       "q": [
+        "61/500",
+        "73/1000",
+        "373/1000",
+        "13/250",
+        "91/1000",
+        "183/1000",
+        "9/200",
+        "61/1000"
+       ],
+       "k": 4,
+       "rule": "rrs_wor",
+       "optimal": false,
+       "label": "Instance 2 (V=8, Zipf, k=4): rrs_wor suboptimal"
+      },
+      {
+       "typ": "unbiased",
+       "p": [
+        "37/250",
+        "21/500",
+        "149/200",
+        "1/20",
+        "3/200"
+       ],
+       "q": [
+        "62/125",
+        "17/125",
+        "151/1000",
+        "1/125",
+        "209/1000"
+       ],
+       "rule": "rrs_wor",
+       "k": 3,
+       "unbiased": true,
+       "label": "rrs_wor bleibt verlustfrei trotz suboptimalität"
+      }
+     ],
+     "begruendung": "Empirische Messungen zeigen, dass rrs_wor bei k∈{3,4} und V∈{5,8} durchweg unter der optimalen wor-Kopplung bleibt. Lücken: Inst. 1 (V=5, Dir., k=3) 12.7 %, Inst. 2 (V=8, Zipf, k=3) 8.8 %, Inst. 2 (V=8, Zipf, k=4) 11.2 %. Das Muster ist konsistent über Dirichlet und Zipf, nicht zufällig. rrs_wor bleibt aber verlustfrei (TV≪0.01)."
+    }
+   ],
+   "experimente": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13
+   ],
+   "final": {
+    "antwort": "Ja, systematisch; durchschnittliche Akzeptanzlücke ca. 11% (Bereich 9–13%)",
+    "zahl": 0.11,
+    "konfidenz": 0.75,
+    "pruefungen": [
+     {
+      "typ": "scheme_optimal",
+      "p": [
+       "37/250",
+       "21/500",
+       "149/200",
+       "1/20",
+       "3/200"
+      ],
+      "q": [
+       "62/125",
+       "17/125",
+       "151/1000",
+       "1/125",
+       "209/1000"
+      ],
+      "k": 3,
+      "rule": "rrs_wor",
+      "optimal": false,
+      "label": "Instance 1 (V=5, Dirichlet, k=3): rrs_wor suboptimal"
+     },
+     {
+      "typ": "scheme_optimal",
+      "p": [
+       "13/250",
+       "61/1000",
+       "9/200",
+       "61/500",
+       "91/1000",
+       "73/1000",
+       "373/1000",
+       "183/1000"
+      ],
+      "q": [
+       "61/500",
+       "73/1000",
+       "373/1000",
+       "13/250",
+       "91/1000",
+       "183/1000",
+       "9/200",
+       "61/1000"
+      ],
+      "k": 3,
+      "rule": "rrs_wor",
+      "optimal": false,
+      "label": "Instance 2 (V=8, Zipf, k=3): rrs_wor suboptimal"
+     },
+     {
+      "typ": "scheme_optimal",
+      "p": [
+       "13/250",
+       "61/1000",
+       "9/200",
+       "61/500",
+       "91/1000",
+       "73/1000",
+       "373/1000",
+       "183/1000"
+      ],
+      "q": [
+       "61/500",
+       "73/1000",
+       "373/1000",
+       "13/250",
+       "91/1000",
+       "183/1000",
+       "9/200",
+       "61/1000"
+      ],
+      "k": 4,
+      "rule": "rrs_wor",
+      "optimal": false,
+      "label": "Instance 2 (V=8, Zipf, k=4): rrs_wor suboptimal"
+     },
+     {
+      "typ": "unbiased",
+      "p": [
+       "37/250",
+       "21/500",
+       "149/200",
+       "1/20",
+       "3/200"
+      ],
+      "q": [
+       "62/125",
+       "17/125",
+       "151/1000",
+       "1/125",
+       "209/1000"
+      ],
+      "rule": "rrs_wor",
+      "k": 3,
+      "unbiased": true,
+      "label": "rrs_wor bleibt verlustfrei trotz suboptimalität"
+     }
+    ],
+    "begruendung": "Empirische Messungen zeigen, dass rrs_wor bei k∈{3,4} und V∈{5,8} durchweg unter der optimalen wor-Kopplung bleibt. Lücken: Inst. 1 (V=5, Dir., k=3) 12.7 %, Inst. 2 (V=8, Zipf, k=3) 8.8 %, Inst. 2 (V=8, Zipf, k=4) 11.2 %. Das Muster ist konsistent über Dirichlet und Zipf, nicht zufällig. rrs_wor bleibt aber verlustfrei (TV≪0.01)."
+   },
+   "modell": "haiku",
+   "pruefung": {
+    "bestanden": true,
+    "grund": "rrs_wor acceptance 76025810217187/101241861840000 vs optimal 4440878158613/5062093092000 (certified) | rrs_wor acceptance 134910121624466888445162975070449529/189828981556228727709853876699680000 vs optimal 99407354963717646475553487061652210641553316707231/124348972023186015928017219058281709408737256158000 (certified) | rrs_wor acceptance 33111437912664665909098877167222111878730415680859100294580171057/42753355302412173463753636756712670275862465373400849114505120000 vs optimal 351695343304048436691172989916639797093505482516744400992235937057226959907013927557493/395967830887899866766568856745224113237117063240832638620696077125707538464765888824000 (certified) | exact output distribution of rrs_wor: TV to p = 0"
+   }
+  }
+ ],
+ "experimente": [
+  {
+   "id": 0,
+   "wer": "forscher-sparsam",
+   "op": "random_instance",
+   "args": {
+    "V": 5,
+    "seed": 1,
+    "family": "dirichlet",
+    "conc": 1
+   },
+   "ergebnis": {
+    "p": [
+     "37/250",
+     "21/500",
+     "149/200",
+     "1/20",
+     "3/200"
+    ],
+    "q": [
+     "62/125",
+     "17/125",
+     "151/1000",
+     "1/125",
+     "209/1000"
+    ]
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 1,
+   "wer": "forscher-sparsam",
+   "op": "random_instance",
+   "args": {
+    "V": 8,
+    "seed": 2,
+    "family": "zipf",
+    "conc": 1
+   },
+   "ergebnis": {
+    "p": [
+     "13/250",
+     "61/1000",
+     "9/200",
+     "61/500",
+     "91/1000",
+     "73/1000",
+     "373/1000",
+     "183/1000"
+    ],
+    "q": [
+     "61/500",
+     "73/1000",
+     "373/1000",
+     "13/250",
+     "91/1000",
+     "183/1000",
+     "9/200",
+     "61/1000"
+    ]
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 2,
+   "wer": "forscher-sparsam",
+   "op": "random_instance",
+   "args": {
+    "V": 8,
+    "seed": 3,
+    "family": "dirichlet",
+    "conc": 1
+   },
+   "ergebnis": {
+    "p": [
+     "21/1000",
+     "37/500",
+     "267/1000",
+     "423/1000",
+     "13/200",
+     "49/1000",
+     "41/500",
+     "19/1000"
+    ],
+    "q": [
+     "111/1000",
+     "7/1000",
+     "1/20",
+     "377/1000",
+     "29/1000",
+     "143/1000",
+     "57/1000",
+     "113/500"
+    ]
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 3,
+   "wer": "forscher-sparsam",
+   "op": "multidraft_lp",
+   "args": {
+    "p": "result[0].p",
+    "q": "result[0].q",
+    "k": 3,
+    "mode": "wor"
+   },
+   "ergebnis": {
+    "fehler": "ValueError: p must be a list"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 4,
+   "wer": "forscher-sparsam",
+   "op": "multidraft_lp",
+   "args": {
+    "p": "result[0].p",
+    "q": "result[0].q",
+    "k": 4,
+    "mode": "wor"
+   },
+   "ergebnis": {
+    "fehler": "ValueError: p must be a list"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 5,
+   "wer": "forscher-sparsam",
+   "op": "acceptance_mc",
+   "args": {
+    "p": "result[0].p",
+    "q": "result[0].q",
+    "rule": "rrs_wor",
+    "k": 3,
+    "samples": 100000
+   },
+   "ergebnis": {
+    "fehler": "ValueError: p must be a list"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 6,
+   "wer": "forscher-sparsam",
+   "op": "acceptance_mc",
+   "args": {
+    "p": "result[1].p",
+    "q": "result[1].q",
+    "rule": "rrs_wor",
+    "k": 3,
+    "samples": 100000
+   },
+   "ergebnis": {
+    "fehler": "ValueError: p must be a list"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 7,
+   "wer": "forscher-sparsam",
+   "op": "acceptance_mc",
+   "args": {
+    "p": "result[2].p",
+    "q": "result[2].q",
+    "rule": "rrs_wor",
+    "k": 4,
+    "samples": 100000
+   },
+   "ergebnis": {
+    "fehler": "ValueError: p must be a list"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 8,
+   "wer": "forscher-sparsam",
+   "op": "multidraft_lp",
+   "args": {
+    "p": [
+     "37/250",
+     "21/500",
+     "149/200",
+     "1/20",
+     "3/200"
+    ],
+    "q": [
+     "62/125",
+     "17/125",
+     "151/1000",
+     "1/125",
+     "209/1000"
+    ],
+    "k": 3,
+    "mode": "wor"
+   },
+   "ergebnis": {
+    "acceptance": 0.8772810135853185,
+    "status": "Optimization terminated successfully. (HiGHS Status 7: Optimal)",
+    "note": "numerical (candidate)"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 9,
+   "wer": "forscher-sparsam",
+   "op": "multidraft_lp",
+   "args": {
+    "p": [
+     "13/250",
+     "61/1000",
+     "9/200",
+     "61/500",
+     "91/1000",
+     "73/1000",
+     "373/1000",
+     "183/1000"
+    ],
+    "q": [
+     "61/500",
+     "73/1000",
+     "373/1000",
+     "13/250",
+     "91/1000",
+     "183/1000",
+     "9/200",
+     "61/1000"
+    ],
+    "k": 3,
+    "mode": "wor"
+   },
+   "ergebnis": {
+    "acceptance": 0.7994224105462018,
+    "status": "Optimization terminated successfully. (HiGHS Status 7: Optimal)",
+    "note": "numerical (candidate)"
+   },
+   "sek": 0.02
+  },
+  {
+   "id": 10,
+   "wer": "forscher-sparsam",
+   "op": "multidraft_lp",
+   "args": {
+    "p": [
+     "13/250",
+     "61/1000",
+     "9/200",
+     "61/500",
+     "91/1000",
+     "73/1000",
+     "373/1000",
+     "183/1000"
+    ],
+    "q": [
+     "61/500",
+     "73/1000",
+     "373/1000",
+     "13/250",
+     "91/1000",
+     "183/1000",
+     "9/200",
+     "61/1000"
+    ],
+    "k": 4,
+    "mode": "wor"
+   },
+   "ergebnis": {
+    "acceptance": 0.8881917061682086,
+    "status": "Optimization terminated successfully. (HiGHS Status 7: Optimal)",
+    "note": "numerical (candidate)"
+   },
+   "sek": 0.25
+  },
+  {
+   "id": 11,
+   "wer": "forscher-sparsam",
+   "op": "acceptance_mc",
+   "args": {
+    "p": [
+     "37/250",
+     "21/500",
+     "149/200",
+     "1/20",
+     "3/200"
+    ],
+    "q": [
+     "62/125",
+     "17/125",
+     "151/1000",
+     "1/125",
+     "209/1000"
+    ],
+    "rule": "rrs_wor",
+    "k": 3,
+    "samples": 500000,
+    "seed": 10
+   },
+   "ergebnis": {
+    "acceptance": 0.7501925,
+    "stderr": 0.000684477378997564,
+    "tv_to_target": 0.0005649999999999857,
+    "samples": 400000,
+    "note": "Monte Carlo (statistical estimate)"
+   },
+   "sek": 8.99
+  },
+  {
+   "id": 12,
+   "wer": "forscher-sparsam",
+   "op": "acceptance_mc",
+   "args": {
+    "p": [
+     "13/250",
+     "61/1000",
+     "9/200",
+     "61/500",
+     "91/1000",
+     "73/1000",
+     "373/1000",
+     "183/1000"
+    ],
+    "q": [
+     "61/500",
+     "73/1000",
+     "373/1000",
+     "13/250",
+     "91/1000",
+     "183/1000",
+     "9/200",
+     "61/1000"
+    ],
+    "rule": "rrs_wor",
+    "k": 3,
+    "samples": 500000,
+    "seed": 11
+   },
+   "ergebnis": {
+    "acceptance": 0.711035,
+    "stderr": 0.0007167011733892306,
+    "tv_to_target": 0.0021049999999999958,
+    "samples": 400000,
+    "note": "Monte Carlo (statistical estimate)"
+   },
+   "sek": 8.46
+  },
+  {
+   "id": 13,
+   "wer": "forscher-sparsam",
+   "op": "acceptance_mc",
+   "args": {
+    "p": [
+     "13/250",
+     "61/1000",
+     "9/200",
+     "61/500",
+     "91/1000",
+     "73/1000",
+     "373/1000",
+     "183/1000"
+    ],
+    "q": [
+     "61/500",
+     "73/1000",
+     "373/1000",
+     "13/250",
+     "91/1000",
+     "183/1000",
+     "9/200",
+     "61/1000"
+    ],
+    "rule": "rrs_wor",
+    "k": 4,
+    "samples": 500000,
+    "seed": 12
+   },
+   "ergebnis": {
+    "acceptance": 0.776185,
+    "stderr": 0.0006590179166285998,
+    "tv_to_target": 0.0027950000000000128,
+    "samples": 400000,
+    "note": "Monte Carlo (statistical estimate)"
+   },
+   "sek": 9.29
+  }
+ ],
+ "sek": 183.6
+}

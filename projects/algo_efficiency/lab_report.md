@@ -1,0 +1,18 @@
+- 2026-10-04 00:42:49 Selbsttest des Prüfers: bestanden
+- 2026-10-04 00:43:49 Suchanfragen: ['subquadratic attention mechanisms', 'low-rank transformer approximation', 'sketching approximations error bounds', 'KV-cache compression quantization', 'speculative decoding transformer inference', 'attention sinks pruning methods', 'multi-draft tree verification', 'lossless speculative sampling', 'polynomial method complexity bounds', 'transformer inference acceleration survey']
+- 2026-10-04 00:44:18 482 Quellen, 0 durch Leck-Filter gesperrt
+- 2026-10-04 00:54:07 110 Befunde extrahiert, 109 Zitate per Code bestätigt, 1 verworfen
+- 2026-10-04 00:54:20 Runde 1: With k = 2 i.i.d. drafts, how far can recursive rejection sampling (rrs_iid) fall below the optimal lossless acceptance? Find an instance with V <= 4 where the gap (optimal minus rrs_iid) is large and certify both exact values.
+- 2026-10-04 00:59:58   geprüft (computed_rigorous): unbekannt | Red-Team: 2 Gegenprüfungen, 1 bestanden
+- 2026-10-04 01:00:23 Runde 2: Does drafting without replacement change the picture: is rrs_wor optimal among lossless couplings for without-replacement drafts on some instances and suboptimal on others (k = 2, V <= 4)?
+- 2026-10-04 01:01:34 Selbsttest des Prüfers: bestanden
+- 2026-10-04 01:01:34 Runde 2: Does drafting without replacement change the picture: is rrs_wor optimal among lossless couplings for without-replacement drafts on some instances and suboptimal on others (k = 2, V <= 4)?
+- 2026-10-04 01:04:25 Selbsttest des Prüfers: bestanden
+- 2026-10-04 01:04:40 Runde 2: Does drafting without replacement change the picture: is rrs_wor optimal among lossless couplings for without-replacement drafts on some instances and suboptimal on others (k = 2, V <= 4)?
+- 2026-10-04 01:06:41   geprüft (computed_rigorous): Ja, rrs_wor ist manchmal optimal und manchmal suboptimal | Red-Team: 2 Gegenprüfungen, 0 bestanden
+- 2026-10-04 01:07:07 Runde 3: What is the certified minimal polynomial degree d*(B, eps) for approximating e^x on [-B, B] with relative error eps = 1e-3, for B = 1, 2, 4, 8? How does it compare with the degree the Taylor polynomial needs?
+- 2026-10-04 01:10:08   geprüft (computed_rigorous): Schätzung (Obergrenze via Chebyshev-Interpolation): d*(1, 1e-3) ≤ 5; d*(2, 1e-3) ≤ 7; d*(4, 1e-3) ≤ 11; d*(8, 1e-3) ≤ 20. Zum Vergleich Taylor: 6, 10, 17, 31. Chebyshev ist 5–55% effizienter; exakte minimale Grade nicht zertifiziert. | Red-Team: 2 Gegenprüfungen, 0 bestanden
+- 2026-10-04 01:10:37 Runde 4: Wie groß ist die Akzeptanzlücke von rrs_wor zur optimalen verlustfreien Kopplung, wenn man k auf 3 und 4 erhöht und V auf bis zu 8 Token ausweitet, und tritt die Lücke bei zufälligen Instanzen mit Dirichlet- und Zipf-Verteilung systematisch auf?
+- 2026-10-04 01:13:58   geprüft (computed_rigorous): Ja, systematisch; durchschnittliche Akzeptanzlücke ca. 11% (Bereich 9–13%) | Red-Team: 2 Gegenprüfungen, 2 bestanden
+- 2026-10-04 01:14:09 Budget erreicht (5.31 USD)
+- 2026-10-04 01:14:09 Fertig: 4 geprüfte Aussagen, 0 negative Ergebnisse, Kosten 5.31 USD

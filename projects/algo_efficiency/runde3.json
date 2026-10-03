@@ -1,0 +1,663 @@
+{
+ "antwort": {
+  "antwort": "Schätzung (Obergrenze via Chebyshev-Interpolation): d*(1, 1e-3) ≤ 5; d*(2, 1e-3) ≤ 7; d*(4, 1e-3) ≤ 11; d*(8, 1e-3) ≤ 20. Zum Vergleich Taylor: 6, 10, 17, 31. Chebyshev ist 5–55% effizienter; exakte minimale Grade nicht zertifiziert.",
+  "zahl": null,
+  "konfidenz": 0.55,
+  "pruefungen": [
+   {
+    "typ": "exp_degree",
+    "B": 1,
+    "eps": 0.001,
+    "error": "relative",
+    "bound": "upper",
+    "d": 5
+   },
+   {
+    "typ": "exp_degree",
+    "B": 2,
+    "eps": 0.001,
+    "error": "relative",
+    "bound": "upper",
+    "d": 7
+   },
+   {
+    "typ": "exp_degree",
+    "B": 4,
+    "eps": 0.001,
+    "error": "relative",
+    "bound": "upper",
+    "d": 11
+   },
+   {
+    "typ": "exp_degree",
+    "B": 8,
+    "eps": 0.001,
+    "error": "relative",
+    "bound": "upper",
+    "d": 20
+   }
+  ],
+  "begruendung": "Die degree_scan-Experimente (E8–E11) liefern Chebyshev-Interpolationsschätzungen der Obergrenze: 5, 7, 11, 20 Grade für B = 1, 2, 4, 8. Hinweis: Der echte minimax-Grad kann kleiner ausfallen. Taylor-Polynome benötigen deutlich höhere Grade (E12–E15: 6, 10, 17, 31), was zeigt, dass Chebyshev-Approximation für große Logit-Bereiche überlegen ist. Der Effizienzgewinn wächst mit B.",
+  "stimmen": "Stufe 2/4 (numeriker, haiku)"
+ },
+ "level": "computed (Code-Prüfer bestanden)",
+ "forscher": [
+  {
+   "strategie": "sparsam",
+   "runden": [
+    {
+     "ueberlegung": "Ich will d*(B, eps) für B ∈ {1, 2, 4, 8} und eps = 1e-3 (relativer Fehler) ermitteln. Strategie: (1) degree_scan liefert Schätzungen des minimalen Grades für Chebyshev-Interpolation; (2) taylor_degree zeigt den Vergleich zum Taylor-Polynom. Anschließend werden Kandidaten mit rigorosen exp_min_degree-Checks zertifiziert. Diese 8 unabhängigen Experimente sind maximal informativ und vermeiden Redundanz. Der Fokus liegt auf dem Vergleich: Wächst d* wirklich linear in B wie beim Taylor-Polynom, oder ist Chebyshev deutlich effizienter?",
+     "plan": [
+      {
+       "op": "degree_scan",
+       "args": {
+        "B": 1,
+        "eps": 0.001,
+        "error": "relative"
+       }
+      },
+      {
+       "op": "degree_scan",
+       "args": {
+        "B": 2,
+        "eps": 0.001,
+        "error": "relative"
+       }
+      },
+      {
+       "op": "degree_scan",
+       "args": {
+        "B": 4,
+        "eps": 0.001,
+        "error": "relative"
+       }
+      },
+      {
+       "op": "degree_scan",
+       "args": {
+        "B": 8,
+        "eps": 0.001,
+        "error": "relative"
+       }
+      },
+      {
+       "op": "taylor_degree",
+       "args": {
+        "B": 1,
+        "eps": 0.001,
+        "error": "relative"
+       }
+      },
+      {
+       "op": "taylor_degree",
+       "args": {
+        "B": 2,
+        "eps": 0.001,
+        "error": "relative"
+       }
+      },
+      {
+       "op": "taylor_degree",
+       "args": {
+        "B": 4,
+        "eps": 0.001,
+        "error": "relative"
+       }
+      },
+      {
+       "op": "taylor_degree",
+       "args": {
+        "B": 8,
+        "eps": 0.001,
+        "error": "relative"
+       }
+      }
+     ]
+    },
+    {
+     "antwort": "unbekannt",
+     "plan": [
+      {
+       "op": "exp_min_degree",
+       "args": {
+        "B": 1,
+        "eps": 0.001,
+        "error": "relative"
+       }
+      },
+      {
+       "op": "exp_min_degree",
+       "args": {
+        "B": 2,
+        "eps": 0.001,
+        "error": "relative"
+       }
+      },
+      {
+       "op": "exp_min_degree",
+       "args": {
+        "B": 4,
+        "eps": 0.001,
+        "error": "relative"
+       }
+      },
+      {
+       "op": "exp_min_degree",
+       "args": {
+        "B": 8,
+        "eps": 0.001,
+        "error": "relative"
+       }
+      }
+     ],
+     "begruendung": "Die bisherigen degree_scan-Ergebnisse sind Schätzungen (Interpolationsfehler-Obergrenzen). Zur Beantwortung der Frage nach dem zertifizierten minimalen Grad d*(B, eps) benötige ich exp_min_degree-Experimente, die mit Intervallrechnung (upper und lower certificates) die exakten minimalen Grade liefern. Dann kann ich die genaue Vergleichszahl mit den Taylor-Graden (E4-E7) angeben."
+    }
+   ],
+   "experimente": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+   ],
+   "final": {
+    "antwort": "unbekannt",
+    "plan": [
+     {
+      "op": "exp_min_degree",
+      "args": {
+       "B": 1,
+       "eps": 0.001,
+       "error": "relative"
+      }
+     },
+     {
+      "op": "exp_min_degree",
+      "args": {
+       "B": 2,
+       "eps": 0.001,
+       "error": "relative"
+      }
+     },
+     {
+      "op": "exp_min_degree",
+      "args": {
+       "B": 4,
+       "eps": 0.001,
+       "error": "relative"
+      }
+     },
+     {
+      "op": "exp_min_degree",
+      "args": {
+       "B": 8,
+       "eps": 0.001,
+       "error": "relative"
+      }
+     }
+    ],
+    "begruendung": "Die bisherigen degree_scan-Ergebnisse sind Schätzungen (Interpolationsfehler-Obergrenzen). Zur Beantwortung der Frage nach dem zertifizierten minimalen Grad d*(B, eps) benötige ich exp_min_degree-Experimente, die mit Intervallrechnung (upper und lower certificates) die exakten minimalen Grade liefern. Dann kann ich die genaue Vergleichszahl mit den Taylor-Graden (E4-E7) angeben."
+   },
+   "modell": "haiku",
+   "pruefung": {
+    "bestanden": false,
+    "grund": "keine Prüfung angegeben"
+   }
+  },
+  {
+   "strategie": "numeriker",
+   "runden": [
+    {
+     "ueberlegung": "Die Frage verlangt den zertifizierten minimalen Polynomgrad d*(B, eps) für relative Fehler eps = 1e-3 auf dem Intervall [-B,B] für vier verschiedene B-Werte (1, 2, 4, 8), plus Vergleich mit Taylor. Strategisches Vorgehen: (1) Breiter Scan über alle vier B-Werte mit degree_scan (gibt Kandidat für d*) und taylor_degree (gibt Taylor-Baseline). (2) degree_scan nutzt Chebyshev-Interpolation und schätzt das kleinste d mit Fehler <= eps. (3) taylor_degree ermöglicht direkten Vergleich: Taylor-Polynome sind typischerweise weniger effizient, Unterschied sollte mit B wachsen. (4) Maximal 8 Experimente geplant: 4 × degree_scan + 4 × taylor_degree für B ∈ {1,2,4,8}. Die Ergebnisse zeigen, wie der Grad mit B wächst und wie sehr Taylor hinterherhinkt.",
+     "plan": [
+      {
+       "op": "degree_scan",
+       "args": {
+        "B": 1,
+        "eps": 0.001,
+        "error": "relative"
+       }
+      },
+      {
+       "op": "degree_scan",
+       "args": {
+        "B": 2,
+        "eps": 0.001,
+        "error": "relative"
+       }
+      },
+      {
+       "op": "degree_scan",
+       "args": {
+        "B": 4,
+        "eps": 0.001,
+        "error": "relative"
+       }
+      },
+      {
+       "op": "degree_scan",
+       "args": {
+        "B": 8,
+        "eps": 0.001,
+        "error": "relative"
+       }
+      },
+      {
+       "op": "taylor_degree",
+       "args": {
+        "B": 1,
+        "eps": 0.001,
+        "error": "relative"
+       }
+      },
+      {
+       "op": "taylor_degree",
+       "args": {
+        "B": 2,
+        "eps": 0.001,
+        "error": "relative"
+       }
+      },
+      {
+       "op": "taylor_degree",
+       "args": {
+        "B": 4,
+        "eps": 0.001,
+        "error": "relative"
+       }
+      },
+      {
+       "op": "taylor_degree",
+       "args": {
+        "B": 8,
+        "eps": 0.001,
+        "error": "relative"
+       }
+      }
+     ]
+    },
+    {
+     "plan": [
+      {
+       "typ": "exp_min_degree",
+       "B": 1,
+       "eps": 0.001,
+       "error": "relative",
+       "d": 5
+      },
+      {
+       "typ": "exp_min_degree",
+       "B": 2,
+       "eps": 0.001,
+       "error": "relative",
+       "d": 7
+      },
+      {
+       "typ": "exp_min_degree",
+       "B": 4,
+       "eps": 0.001,
+       "error": "relative",
+       "d": 11
+      },
+      {
+       "typ": "exp_min_degree",
+       "B": 8,
+       "eps": 0.001,
+       "error": "relative",
+       "d": 20
+      }
+     ]
+    },
+    {
+     "antwort": "Schätzung (Obergrenze via Chebyshev-Interpolation): d*(1, 1e-3) ≤ 5; d*(2, 1e-3) ≤ 7; d*(4, 1e-3) ≤ 11; d*(8, 1e-3) ≤ 20. Zum Vergleich Taylor: 6, 10, 17, 31. Chebyshev ist 5–55% effizienter; exakte minimale Grade nicht zertifiziert.",
+     "zahl": null,
+     "konfidenz": 0.55,
+     "pruefungen": [
+      {
+       "typ": "exp_degree",
+       "B": 1,
+       "eps": 0.001,
+       "error": "relative",
+       "bound": "upper",
+       "d": 5
+      },
+      {
+       "typ": "exp_degree",
+       "B": 2,
+       "eps": 0.001,
+       "error": "relative",
+       "bound": "upper",
+       "d": 7
+      },
+      {
+       "typ": "exp_degree",
+       "B": 4,
+       "eps": 0.001,
+       "error": "relative",
+       "bound": "upper",
+       "d": 11
+      },
+      {
+       "typ": "exp_degree",
+       "B": 8,
+       "eps": 0.001,
+       "error": "relative",
+       "bound": "upper",
+       "d": 20
+      }
+     ],
+     "begruendung": "Die degree_scan-Experimente (E8–E11) liefern Chebyshev-Interpolationsschätzungen der Obergrenze: 5, 7, 11, 20 Grade für B = 1, 2, 4, 8. Hinweis: Der echte minimax-Grad kann kleiner ausfallen. Taylor-Polynome benötigen deutlich höhere Grade (E12–E15: 6, 10, 17, 31), was zeigt, dass Chebyshev-Approximation für große Logit-Bereiche überlegen ist. Der Effizienzgewinn wächst mit B."
+    }
+   ],
+   "experimente": [
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15
+   ],
+   "final": {
+    "antwort": "Schätzung (Obergrenze via Chebyshev-Interpolation): d*(1, 1e-3) ≤ 5; d*(2, 1e-3) ≤ 7; d*(4, 1e-3) ≤ 11; d*(8, 1e-3) ≤ 20. Zum Vergleich Taylor: 6, 10, 17, 31. Chebyshev ist 5–55% effizienter; exakte minimale Grade nicht zertifiziert.",
+    "zahl": null,
+    "konfidenz": 0.55,
+    "pruefungen": [
+     {
+      "typ": "exp_degree",
+      "B": 1,
+      "eps": 0.001,
+      "error": "relative",
+      "bound": "upper",
+      "d": 5
+     },
+     {
+      "typ": "exp_degree",
+      "B": 2,
+      "eps": 0.001,
+      "error": "relative",
+      "bound": "upper",
+      "d": 7
+     },
+     {
+      "typ": "exp_degree",
+      "B": 4,
+      "eps": 0.001,
+      "error": "relative",
+      "bound": "upper",
+      "d": 11
+     },
+     {
+      "typ": "exp_degree",
+      "B": 8,
+      "eps": 0.001,
+      "error": "relative",
+      "bound": "upper",
+      "d": 20
+     }
+    ],
+    "begruendung": "Die degree_scan-Experimente (E8–E11) liefern Chebyshev-Interpolationsschätzungen der Obergrenze: 5, 7, 11, 20 Grade für B = 1, 2, 4, 8. Hinweis: Der echte minimax-Grad kann kleiner ausfallen. Taylor-Polynome benötigen deutlich höhere Grade (E12–E15: 6, 10, 17, 31), was zeigt, dass Chebyshev-Approximation für große Logit-Bereiche überlegen ist. Der Effizienzgewinn wächst mit B."
+   },
+   "modell": "haiku",
+   "pruefung": {
+    "bestanden": true,
+    "grund": "upper certificate (degree 5): {'upper_bound': 4.287088278145072e-05, 'remez_level': 4.209296955566415e-05, 'boxes': 32} | upper certificate (degree 7): {'upper_bound': 5.3084596272011674e-05, 'remez_level': 4.492425624686591e-05, 'boxes': 32} | upper certificate (degree 11): {'upper_bound': 4.870896077850087e-05, 'remez_level': 1.2845325743610628e-05, 'boxes': 32} | upper certificate (degree 20): {'upper_bound': 2.0479004573707118e-06, 'remez_level': 8.519766198627777e-08, 'boxes': 32}"
+   }
+  }
+ ],
+ "experimente": [
+  {
+   "id": 0,
+   "wer": "forscher-sparsam",
+   "op": "degree_scan",
+   "args": {
+    "B": 1,
+    "eps": 0.001,
+    "error": "relative"
+   },
+   "ergebnis": {
+    "d_estimate": 5,
+    "error_estimate": 0.00010589842842165669,
+    "note": "interpolation estimate; minimax degree may be smaller"
+   },
+   "sek": 0.06
+  },
+  {
+   "id": 1,
+   "wer": "forscher-sparsam",
+   "op": "degree_scan",
+   "args": {
+    "B": 2,
+    "eps": 0.001,
+    "error": "relative"
+   },
+   "ergebnis": {
+    "d_estimate": 7,
+    "error_estimate": 0.00032754404102489727,
+    "note": "interpolation estimate; minimax degree may be smaller"
+   },
+   "sek": 0.08
+  },
+  {
+   "id": 2,
+   "wer": "forscher-sparsam",
+   "op": "degree_scan",
+   "args": {
+    "B": 4,
+    "eps": 0.001,
+    "error": "relative"
+   },
+   "ergebnis": {
+    "d_estimate": 11,
+    "error_estimate": 0.0009319112263355834,
+    "note": "interpolation estimate; minimax degree may be smaller"
+   },
+   "sek": 0.15
+  },
+  {
+   "id": 3,
+   "wer": "forscher-sparsam",
+   "op": "degree_scan",
+   "args": {
+    "B": 8,
+    "eps": 0.001,
+    "error": "relative"
+   },
+   "ergebnis": {
+    "d_estimate": 20,
+    "error_estimate": 0.0007337007804424926,
+    "note": "interpolation estimate; minimax degree may be smaller"
+   },
+   "sek": 0.37
+  },
+  {
+   "id": 4,
+   "wer": "forscher-sparsam",
+   "op": "taylor_degree",
+   "args": {
+    "B": 1,
+    "eps": 0.001,
+    "error": "relative"
+   },
+   "ergebnis": {
+    "d": 6,
+    "note": "grid estimate"
+   },
+   "sek": 0.04
+  },
+  {
+   "id": 5,
+   "wer": "forscher-sparsam",
+   "op": "taylor_degree",
+   "args": {
+    "B": 2,
+    "eps": 0.001,
+    "error": "relative"
+   },
+   "ergebnis": {
+    "d": 10,
+    "note": "grid estimate"
+   },
+   "sek": 0.07
+  },
+  {
+   "id": 6,
+   "wer": "forscher-sparsam",
+   "op": "taylor_degree",
+   "args": {
+    "B": 4,
+    "eps": 0.001,
+    "error": "relative"
+   },
+   "ergebnis": {
+    "d": 17,
+    "note": "grid estimate"
+   },
+   "sek": 0.18
+  },
+  {
+   "id": 7,
+   "wer": "forscher-sparsam",
+   "op": "taylor_degree",
+   "args": {
+    "B": 8,
+    "eps": 0.001,
+    "error": "relative"
+   },
+   "ergebnis": {
+    "d": 31,
+    "note": "grid estimate"
+   },
+   "sek": 0.53
+  },
+  {
+   "id": 8,
+   "wer": "forscher-numeriker",
+   "op": "degree_scan",
+   "args": {
+    "B": 1,
+    "eps": 0.001,
+    "error": "relative"
+   },
+   "ergebnis": {
+    "d_estimate": 5,
+    "error_estimate": 0.00010589842842165669,
+    "note": "interpolation estimate; minimax degree may be smaller"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 9,
+   "wer": "forscher-numeriker",
+   "op": "degree_scan",
+   "args": {
+    "B": 2,
+    "eps": 0.001,
+    "error": "relative"
+   },
+   "ergebnis": {
+    "d_estimate": 7,
+    "error_estimate": 0.00032754404102489727,
+    "note": "interpolation estimate; minimax degree may be smaller"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 10,
+   "wer": "forscher-numeriker",
+   "op": "degree_scan",
+   "args": {
+    "B": 4,
+    "eps": 0.001,
+    "error": "relative"
+   },
+   "ergebnis": {
+    "d_estimate": 11,
+    "error_estimate": 0.0009319112263355834,
+    "note": "interpolation estimate; minimax degree may be smaller"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 11,
+   "wer": "forscher-numeriker",
+   "op": "degree_scan",
+   "args": {
+    "B": 8,
+    "eps": 0.001,
+    "error": "relative"
+   },
+   "ergebnis": {
+    "d_estimate": 20,
+    "error_estimate": 0.0007337007804424926,
+    "note": "interpolation estimate; minimax degree may be smaller"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 12,
+   "wer": "forscher-numeriker",
+   "op": "taylor_degree",
+   "args": {
+    "B": 1,
+    "eps": 0.001,
+    "error": "relative"
+   },
+   "ergebnis": {
+    "d": 6,
+    "note": "grid estimate"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 13,
+   "wer": "forscher-numeriker",
+   "op": "taylor_degree",
+   "args": {
+    "B": 2,
+    "eps": 0.001,
+    "error": "relative"
+   },
+   "ergebnis": {
+    "d": 10,
+    "note": "grid estimate"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 14,
+   "wer": "forscher-numeriker",
+   "op": "taylor_degree",
+   "args": {
+    "B": 4,
+    "eps": 0.001,
+    "error": "relative"
+   },
+   "ergebnis": {
+    "d": 17,
+    "note": "grid estimate"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 15,
+   "wer": "forscher-numeriker",
+   "op": "taylor_degree",
+   "args": {
+    "B": 8,
+    "eps": 0.001,
+    "error": "relative"
+   },
+   "ergebnis": {
+    "d": 31,
+    "note": "grid estimate"
+   },
+   "sek": 0.0
+  }
+ ],
+ "sek": 165.2
+}

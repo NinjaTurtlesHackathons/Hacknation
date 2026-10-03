@@ -13,7 +13,7 @@ python -m algo_efficiency.certify_tables                     # systematic certif
 python -m algo_efficiency.confirm                            # preregistered confirmatory runs (prereg.md) -> results/confirmatory.json
 python -m asd.lab_loop --domain algo_efficiency --recherche --runden 8 --budget-usd 5 --fragen algo_efficiency/questions.json
 python -m algo_efficiency.export_tables                      # projects/algo_efficiency/tables/{experiments,claims,gates}.csv
-python -m algo_efficiency.write_paper --authors "..." --affiliation "..."   # projects/algo_efficiency/paper.md/.tex
+python -m algo_efficiency.write_paper --authors "..." --affiliation "..." --review algo_efficiency/review.json --errata algo_efficiency/errata.json   # paper.md/.tex/.pdf
 ```
 
 ## Files
