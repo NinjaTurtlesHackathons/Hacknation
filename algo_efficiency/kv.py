@@ -21,13 +21,15 @@ POLICIES = ("recent", "sink_recent", "h2o", "random", "oracle")
 VERIFIER_SEEDS = tuple(range(1000, 1020))
 
 
-def instance(n=512, h=32, m=32, sinks=4, heavy=0.03, locality=1.0, sharp=6.0, seed=0):
+def instance(n=512, h=32, m=32, sinks=4, heavy=0.03, locality=1.0, sharp=6.0, seed=0, structured=True):
+    """structured=False is the negative control: no sinks, no heavy hitters, no locality, no shared query direction."""
+    if not structured: sinks, heavy, locality = 0, 0.0, 0.0
     rng = np.random.default_rng(seed); N = n + m
     u = rng.normal(size=h); u /= np.linalg.norm(u)
     K = rng.normal(size=(N, h)); Vv = rng.normal(size=(N, h))
     K[:sinks] += 4.0 * u
     hh = rng.random(N) < heavy; hh[:sinks] = False; K[hh] += 2.0 * u
-    Q = rng.normal(size=(N, h)) * 0.5 + 1.0 * u
+    Q = rng.normal(size=(N, h)) * 0.5 + (1.0 * u if structured else 0.0)
     for i in range(1, N):                                    # locality: query i leans towards the last few keys
         Q[i] += locality * K[max(0, i - 4):i].mean(0)
     return sharp * Q / np.sqrt(h), K, Vv
@@ -38,8 +40,8 @@ def _attn(q, K, V):
 
 
 def evaluate(policy, n=512, h=32, m=32, budget=64, seed=0, **gen):
-    if policy not in POLICIES: return {"error": f"unknown policy {policy}"}
-    if not 8 <= budget < n: return {"error": "need 8 <= budget < n"}
+    if policy not in POLICIES: return {"fehler": f"unknown policy {policy}"}
+    if not 8 <= budget < n: return {"fehler": "need 8 <= budget < n"}
     Q, K, V = instance(n, h, m, seed=seed, **gen); rng = np.random.default_rng(seed + 7)
     if policy == "recent": keep = np.arange(n - budget, n)
     elif policy == "sink_recent": keep = np.r_[np.arange(4), np.arange(n - budget + 4, n)]
@@ -60,14 +62,14 @@ def evaluate(policy, n=512, h=32, m=32, budget=64, seed=0, **gen):
     return {"rel_error": float(np.mean(errs)), "kept": int(len(keep)), "note": "synthetic attention model (statistical, not an LLM)"}
 
 
-def compare(policy_a, policy_b, n, budget, seeds=VERIFIER_SEEDS):
+def compare(policy_a, policy_b, n, budget, seeds=VERIFIER_SEEDS, structured=True):
     """Paired comparison over fixed seeds: errors of a and b, one-sided paired permutation p-value for 'a has lower error',
     and the bootstrap CI of the error ratio b/a (>1 means a is better)."""
     from asd.stats import perm_test, ratio_ci
-    ea = [evaluate(policy_a, n=n, budget=budget, seed=s)["rel_error"] for s in seeds]
-    eb = [evaluate(policy_b, n=n, budget=budget, seed=s)["rel_error"] for s in seeds]
+    ea = [evaluate(policy_a, n=n, budget=budget, seed=s, structured=structured)["rel_error"] for s in seeds]
+    eb = [evaluate(policy_b, n=n, budget=budget, seed=s, structured=structured)["rel_error"] for s in seeds]
     ratio, ci = ratio_ci(eb, ea)
-    return {"err_a": float(np.mean(ea)), "err_b": float(np.mean(eb)), "p_a_better": perm_test(ea, eb), "ratio_b_over_a": ratio, "ci95": ci}
+    return {"err_a": float(np.mean(ea)), "err_b": float(np.mean(eb)), "raw_a": ea, "raw_b": eb, "p_a_better": perm_test(ea, eb), "ratio_b_over_a": ratio, "ci95": ci}
 
 
 def attention_spectrum(n=256, h=16, B=4.0, seed=0, ranks=(1, 4, 16, 64)):

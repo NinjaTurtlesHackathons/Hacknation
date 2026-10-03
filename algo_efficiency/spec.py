@@ -227,7 +227,7 @@ def lp_multidraft(p, q, k, mode="iid"):
     from scipy.optimize import linprog
     p = np.array([float(x) for x in p]); q = np.array([float(x) for x in q]); V = len(p)
     tuples = list(product(range(V), repeat=k)) if mode == "iid" else [t for t in product(range(V), repeat=k) if len(set(t)) == k]
-    if len(tuples) * V > 60000: return {"error": "instance too large for the LP experiment"}
+    if len(tuples) * V > 60000: return {"fehler": "instance too large for the LP experiment"}
     def tprob(t):
         if mode == "iid": return float(np.prod(q[list(t)]))
         w, used = 1.0, set()
@@ -272,7 +272,7 @@ def mc_scheme(p, q, rule, k=1, lam=1.0, samples=200000, seed=0):
 def random_instance(V=4, seed=0, family="dirichlet", conc=1.0, denom=1000):
     """Random (p, q) with exact rational entries of denominator `denom` (sums exactly 1)."""
     rng = np.random.default_rng(seed); V = int(V)
-    if not 2 <= V <= V_MAX: return {"error": f"V must be in [2, {V_MAX}]"}
+    if not 2 <= V <= V_MAX: return {"fehler": f"V must be in [2, {V_MAX}]"}
     def one():
         if family == "dirichlet": x = rng.dirichlet(np.full(V, float(conc)))
         elif family == "zipf": x = 1 / np.arange(1, V + 1) ** float(conc); rng.shuffle(x); x = x / x.sum()
@@ -280,5 +280,5 @@ def random_instance(V=4, seed=0, family="dirichlet", conc=1.0, denom=1000):
         n = np.floor(x * denom).astype(int); n[np.argmax(x)] += denom - n.sum()
         return [fstr(Fraction(int(v), denom)) for v in n]
     p, q = one(), one()
-    if p is None: return {"error": f"unknown family {family}"}
+    if p is None: return {"fehler": f"unknown family {family}"}
     return {"p": p, "q": q}

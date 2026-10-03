@@ -112,7 +112,7 @@ class AlgoEfficiencyDomain(Domain):
                 return {"speedup": [round((1 - al ** (i + 1)) / ((1 - al) * (i * c + 1)), 6) for i in range(g + 1)], "note": "floating point"}
             if op == "minimax_estimate":
                 B, d = float(S.frac(a["B"])), int(a["d"])
-                if not (0 < B <= PE.B_MAX and 0 <= d <= PE.D_MAX): return {"error": "B or d out of range"}
+                if not (0 < B <= PE.B_MAX and 0 <= d <= PE.D_MAX): return {"fehler": "B or d out of range"}
                 return {"error_estimate": PE.cheb_interp_error(B, d, a.get("error", "relative")), "note": "Chebyshev interpolation (upper estimate of the minimax error)"}
             if op == "degree_scan":
                 B, eps = float(S.frac(a["B"])), float(S.frac(a["eps"])); kind = a.get("error", "relative")
@@ -127,9 +127,9 @@ class AlgoEfficiencyDomain(Domain):
                                              seed=int(a.get("seed", 0)), ranks=tuple(int(r) for r in a.get("ranks", (1, 4, 16, 64))))
             if op == "kv_evaluate":
                 return kv.evaluate(a["policy"], n=min(int(a.get("n", 512)), 2048), budget=int(a.get("budget", 64)), seed=int(a.get("seed", 0)))
-            return {"error": f"unknown op {op}"}
+            return {"fehler": f"unknown op {op}"}
         except Exception as e:
-            return {"error": f"{type(e).__name__}: {e}"[:300]}
+            return {"fehler": f"{type(e).__name__}: {e}"[:300]}
 
     # ---------- verifier ----------
     def check(self, p):
@@ -281,6 +281,8 @@ class AlgoEfficiencyDomain(Domain):
             ({"typ": "exp_degree", "B": 4, "eps": "7.46e-5", "error": "relative", "bound": "upper", "d": 10}, False),
             ({"typ": "exp_degree", "B": 4, "eps": "7.46e-5", "error": "relative", "bound": "lower", "d": 10}, True),
             ({"typ": "exp_degree", "B": 4, "eps": "7.62e-5", "error": "relative", "bound": "lower", "d": 10}, False),
+            # regression case for AE4 (coefficients re-rounded to 15 digits made this certificate fail): must pass
+            ({"typ": "exp_degree", "B": 16, "eps": "3.32e-7", "error": "relative", "bound": "upper", "d": 30}, True),   # E_30 = 3.2847e-7
             ({"typ": "polymethod_rank", "h": 8, "B": 1, "eps": "1e-3", "error": "relative", "rank": math.comb(12, 4)}, True),
             ({"typ": "polymethod_rank", "h": 8, "B": 1, "eps": "1e-3", "error": "relative", "rank": math.comb(13, 5)}, False),
             ({"typ": "kv_compare", "policy_a": "oracle", "policy_b": "random", "n": 256, "budget": 32, "better": "a"}, True),
