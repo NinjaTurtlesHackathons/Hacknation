@@ -45,3 +45,10 @@ Kosten (USD) und Laufzeit je Bedingung werden berichtet. Ergebnisse werden beric
 
 ### Nachtrag H3, 2026-10-03 20:30: Fehlerkorrektur im Prüfer (während Lauf B)
 Der Prüfer verwarf Intervalle der Breite genau 0,05 wegen Gleitkomma-Rundung (8,63 − 8,58 > 0,05). Die Regel „Intervallbreite ≤ 0,05“ war inklusiv gemeint; die Prüfung nutzt jetzt `<= 0.05 + 1e-9`. Betroffen war bis dahin nur Q7, Lauf 0 (alle 4 Forscher hatten 8,58–8,63 angegeben). Der Lauf wurde mit identischen, gecachten LLM-Antworten neu bewertet. Die ursprüngliche Datei liegt unter `results/benchmark/B_Q7_s0_vor_bugfix.json`. Sonst bleibt alles unverändert.
+
+## H4 (2026-10-03, vor dem ersten Lauf): Kostenoptimierte Kaskade (BK)
+
+**Bedingung BK:** dieselben 12 Fragen, 3 Läufe (salt 0, 1, 2). Die Forscher arbeiten nacheinander: sparsam/Haiku → numeriker/Haiku → skeptiker/Sonnet → theoretiker/Sonnet. Der Lauf stoppt bei der ersten Behauptung, die den Code-Prüfer besteht und zur Antworttext passt (`consistent`). Prüfer, Lab und Bewertung sind unverändert.
+**Referenz:** B kostete 7,42 USD für 36 Läufe (0,206 USD je Frage, aus dem LLM-Cache, `benchmarks/cost.py`).
+**H4a:** Kosten BK ≤ 30 % von B. **H4b:** Trefferquote BK ≥ 35/36 und höchstens 1 falsche Antwort. **H4c (Test):** Trefferquote BK > A2, gepaarter Vorzeichen-Flip-Permutationstest wie H3b.
+Ergebnis wird berichtet, egal wie es ausfällt.

@@ -39,15 +39,20 @@ def a2(q, salt):
             "sek": round(time.time() - t0, 1), "transkript_tools": tools}
 
 
+def bk(q, salt):
+    from asd.discovery import solve_cascade
+    return solve_cascade(B["kontext"], q["frage"], salt=salt)
+
+
 def b(q, salt):
     from asd.discovery import solve
     return solve(B["kontext"], q["frage"], salt=salt)
 
 
 if __name__ == "__main__":
-    ap = argparse.ArgumentParser(); ap.add_argument("cond", choices=["A1", "A2", "B"])
+    ap = argparse.ArgumentParser(); ap.add_argument("cond", choices=["A1", "A2", "B", "BK"])
     ap.add_argument("--salts", default="0,1,2"); ap.add_argument("--fragen", default=""); ap.add_argument("--workers", type=int, default=4)
-    a = ap.parse_args(); fn = {"A1": a1, "A2": a2, "B": b}[a.cond]
+    a = ap.parse_args(); fn = {"A1": a1, "A2": a2, "B": b, "BK": bk}[a.cond]
     qs = [q for q in B["fragen"] if not a.fragen or q["id"] in a.fragen.split(",")]
     jobs = [(q, int(s)) for s in a.salts.split(",") for q in qs]; os.makedirs(f"{OUT}/{a.cond}", exist_ok=True)
     def job(qs_):

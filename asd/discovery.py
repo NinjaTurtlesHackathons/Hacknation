@@ -52,19 +52,19 @@ def _fmt(entries):
     return "\n".join(f"[E{e['id']}] {e['op']} {json.dumps(e['args'])} -> {json.dumps(e['ergebnis'])[:700]}" for e in entries)
 
 
-def forscher(kontext, frage, strategie, lab, salt, max_ops=8):
+def forscher(kontext, frage, strategie, lab, salt, max_ops=8, model=None):
     who = f"forscher-{strategie}"; base = f"{kontext}\n\nFRAGE: {frage}\n\n{L.PRIMITIVE_DOC}\n\n{CLAIM_DOC}"
     trace = {"strategie": strategie, "runden": []}
     p1 = base + f'\n\nRunde 1: Plane bis zu {max_ops} Experimente. Antworte als JSON: {{"ueberlegung": "...", "plan": [{{"op": "...", "args": {{...}}}}]}}'
-    r1 = ask_json(p1, _sys(strategie), salt=f"{salt}-{strategie}-r1"); trace["runden"].append(r1)
+    r1 = ask_json(p1, _sys(strategie), salt=f"{salt}-{strategie}-r1", model=model); trace["runden"].append(r1)
     ex = [lab.run(s["op"], s.get("args", {}), who) for s in (r1.get("plan") or [])[:max_ops] if isinstance(s, dict) and "op" in s]
     p2 = (base + f"\n\nDeine Experimente und Ergebnisse:\n{_fmt(ex)}\n\nRunde 2: Entweder du brauchst noch Experimente "
           f'(dann JSON {{"plan": [...]}} mit bis zu 6 Einträgen) oder du antwortest final als JSON: {ANTWORT_SCHEMA}')
-    r2 = ask_json(p2, _sys(strategie), salt=f"{salt}-{strategie}-r2"); trace["runden"].append(r2)
+    r2 = ask_json(p2, _sys(strategie), salt=f"{salt}-{strategie}-r2", model=model); trace["runden"].append(r2)
     if "antwort" not in r2 and r2.get("plan"):
         ex += [lab.run(s["op"], s.get("args", {}), who) for s in r2["plan"][:6] if isinstance(s, dict) and "op" in s]
         p3 = base + f"\n\nAlle Experimente und Ergebnisse:\n{_fmt(ex)}\n\nRunde 3 (final): Antworte als JSON: {ANTWORT_SCHEMA}"
-        r2 = ask_json(p3, _sys(strategie), salt=f"{salt}-{strategie}-r3"); trace["runden"].append(r2)
+        r2 = ask_json(p3, _sys(strategie), salt=f"{salt}-{strategie}-r3", model=model); trace["runden"].append(r2)
     trace["experimente"] = [e["id"] for e in ex]; trace["final"] = r2
     return trace
 
@@ -104,3 +104,42 @@ def solve(kontext, frage, salt=0, strategien=tuple(STRATEGIEN)):
     else:
         ans = {"antwort": "unbekannt", "zahl": None, "konfidenz": 0.0, "stimmen": f"0/{len(traces)} geprüft"}; level = "keine geprüfte Behauptung"
     return {"antwort": ans, "level": level, "forscher": traces, "experimente": lab.log, "sek": round(time.time() - t0, 1)}
+
+
+def consistent(ans, p):
+    """Passt die Antwort zur geprüften Behauptung? (verhindert 'Prüfung bestanden, aber Antworttext etwas anderes')"""
+    t = str(ans.get("antwort", "")).lower(); z = ans.get("zahl")
+    try: z = float(z) if z is not None else None
+    except (TypeError, ValueError): z = None
+    typ = p.get("typ")
+    if typ in ("argmin2d", "argmin3d"): return str(p.get("erwartet", "")).lower()[:6] in t or t.startswith(("ja", "yes"))
+    if typ == "argmin_nd": return str(p.get("erwartet", "")).lower() in t or t.startswith(("ja", "yes"))
+    if typ == "vorzeichenwechsel": return z is not None and float(p["nu_lo"]) - 1e-9 <= z <= float(p["nu_hi"]) + 1e-9
+    if typ == "grenzwert": return z is not None and abs(z - float(p["erwartet"])) <= max(float(p.get("toleranz", 0)), 1e-3)
+    return True
+
+
+KASKADE = (("sparsam", "haiku"), ("numeriker", "haiku"), ("skeptiker", "sonnet"), ("theoretiker", "sonnet"))
+
+
+def solve_cascade(kontext, frage, salt=0, stufen=KASKADE):
+    """Kostenoptimiert: Forscher nacheinander, günstiges Modell zuerst; Stopp bei der ersten Behauptung, die den
+    Code-Prüfer besteht und zur Antwort passt. Der Prüfer garantiert die Wahrheit, also reicht eine geprüfte Behauptung."""
+    lab = Lab(); t0 = time.time(); traces = []; checks = {}
+    for strategie, model in stufen:
+        try: tr = forscher(kontext, frage, strategie, lab, f"K{salt}-{model}", model=model)
+        except (LLMError, json.JSONDecodeError, KeyError, TypeError) as e: traces.append({"strategie": strategie, "modell": model, "fehler": str(e)[:300]}); continue
+        tr["modell"] = model; a = tr.get("final") or {}
+        ps = [p for p in (a.get("pruefungen") or ([a["pruefung"]] if isinstance(a.get("pruefung"), dict) else [])) if isinstance(p, dict)]
+        res = []
+        for p in ps:
+            k = json.dumps(p, sort_keys=True)
+            if k not in checks: checks[k] = verify.check(p)[:2]
+            res.append(checks[k])
+        ok = bool(ps) and all(o for o, _ in res) and all(consistent(a, p) for p in ps)
+        tr["pruefung"] = {"bestanden": ok, "grund": " | ".join(w for _, w in res) or "keine Prüfung angegeben"}; traces.append(tr)
+        if ok:
+            ans = dict(a); ans["stimmen"] = f"Stufe {len(traces)}/{len(stufen)} ({strategie}, {model})"
+            return {"antwort": ans, "level": "computed (Code-Prüfer bestanden)", "forscher": traces, "experimente": lab.log, "sek": round(time.time() - t0, 1)}
+    return {"antwort": {"antwort": "unbekannt", "zahl": None, "konfidenz": 0.0, "stimmen": "keine Stufe geprüft"}, "level": "keine geprüfte Behauptung",
+            "forscher": traces, "experimente": lab.log, "sek": round(time.time() - t0, 1)}
