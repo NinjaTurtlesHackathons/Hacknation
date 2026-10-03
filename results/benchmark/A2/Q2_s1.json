@@ -1,0 +1,39 @@
+{
+ "antwort": {
+  "antwort": "Quadratgitter (tau = i)",
+  "zahl": 4.838,
+  "konfidenz": 0.85,
+  "begruendung": "Numerische Auswertung der abgeschnittenen Summe mit Rasterscan über den Fundamentalbereich: Minimum bei tau=i (T≈4.838), hexagonales Gitter ≈5.130 ist höher."
+ },
+ "kosten_usd": 0.025120400000000005,
+ "tool_calls": 2,
+ "verstoss": [],
+ "sek": 15.0,
+ "transkript_tools": [
+  {
+   "type": "tool_use",
+   "id": "toolu_01TqrG96BhdaYiKSanCLMDyr",
+   "name": "Bash",
+   "input": {
+    "command": "cat > a.py <<'E'\nimport numpy as np\nfrom scipy.optimize import minimize\nN=14\nr=np.arange(-N,N+1)\nI,J=np.meshgrid(r,r);I=I.ravel();J=J.ravel()\nm=(I!=0)|(J!=0);I=I[m];J=J[m]\ndef T(x,y,nu=5):\n    s=np.sqrt(y);P=(I+x*J)/s;Q=J*s\n    X=P[:,None];Y=Q[:,None]\n    a=np.hypot(P,Q)\n    d=np.hypot(P[:,None]-P[None,:],Q[:,None]-Q[None,:])\n    with np.errstate(divide='ignore'):\n        M=(a[:,None]*a[None,:]*d)**-nu\n    M[~np.isfinite(M)]=0\n    return M.sum()\nE\nsed -i 's/N=14/N=7/' a.py\ncat >> a.py <<'E'\nfor x,y in [(0,1),(.5,np.sqrt(3)/2),(.5,1),(.5,1.5),(0,1.2),(.25,.97),(.5,.9)]:\n    print(x,y,T(x,y))\nE\npython3 a.py"
+   },
+   "caller": {
+    "type": "direct"
+   }
+  },
+  {
+   "type": "tool_use",
+   "id": "toolu_01FxNbosqgRADjtAQvaVwkWr",
+   "name": "Bash",
+   "input": {
+    "command": "cat >> a.py <<'E'\nprint('scan')\nbest=[]\nfor x in np.linspace(0,.5,11):\n    for y in np.linspace(.85,1.6,16):\n        if x*x+y*y>=1-1e-9: best.append((T(x,y),x,y))\nprint(sorted(best)[:5])\nE\npython3 a.py | tail -2"
+   },
+   "caller": {
+    "type": "direct"
+   }
+  }
+ ],
+ "frage": "Q2",
+ "salt": 1,
+ "bedingung": "A2"
+}

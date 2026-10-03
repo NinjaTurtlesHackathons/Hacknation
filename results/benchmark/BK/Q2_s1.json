@@ -1,0 +1,229 @@
+{
+ "antwort": {
+  "antwort": "quadratisch",
+  "zahl": null,
+  "konfidenz": 0.99,
+  "begruendung": "Die globale Minimierung findet das quadratische Gitter τ = [0, 1] als einziges lokales Minimum mit T₅ = 4.838. Das hexagonale Gitter hat höhere Energie (5.130, sicher um 10⁻¹²). Der Hessian-Test zeigt: quadratisch ist stabil (Eigenwerte +5.16, +12.61), hexagonal ist Sattelpunkt (Eigenwerte beide ≈ −4.61).",
+  "pruefung": {
+   "typ": "argmin2d",
+   "nu": 5,
+   "erwartet": "quadratisch"
+  },
+  "stimmen": "Stufe 1/4 (sparsam, haiku)"
+ },
+ "level": "computed (Code-Prüfer bestanden)",
+ "forscher": [
+  {
+   "strategie": "sparsam",
+   "runden": [
+    {
+     "ueberlegung": "Die Frage zielt direkt auf das globale Minimum von T_5 im 2D-Fundamentalbereich ab. Das Experiment minimize2d ist für dieses Ziel optimal: Es durchsucht den kompletten Fundamentalbereich systematisch (Rastersuche + Nelder-Mead-Verfeinerung), findet das globale Minimum, identifiziert den Gittertyp (hexagonal, quadratisch, rechteckig, rhombisch oder schief), und listet lokale Minima auf. Dies beantwortet die Frage direkt ohne Redundanz. Rechenzeit ~5s. Weitere Experimente plane ich in Runde 2, falls Stabilität oder Vergleiche mit konkurrierenden Strukturen nötig sind.",
+     "plan": [
+      {
+       "op": "minimize2d",
+       "args": {
+        "nu": 5
+       }
+      }
+     ]
+    },
+    {
+     "plan": [
+      {
+       "op": "compare2d",
+       "args": {
+        "tau_a": [
+         0.0,
+         1.0
+        ],
+        "tau_b": [
+         0.5,
+         0.8660254037844387
+        ],
+        "nu": 5
+       }
+      },
+      {
+       "op": "hessian2d",
+       "args": {
+        "tau": [
+         0.0,
+         1.0
+        ],
+        "nu": 5
+       }
+      },
+      {
+       "op": "hessian2d",
+       "args": {
+        "tau": [
+         0.5,
+         0.8660254037844387
+        ],
+        "nu": 5
+       }
+      },
+      {
+       "op": "energy2d",
+       "args": {
+        "tau": [
+         0.5,
+         0.8660254037844387
+        ],
+        "nu": 5
+       }
+      }
+     ]
+    },
+    {
+     "antwort": "quadratisch",
+     "zahl": null,
+     "konfidenz": 0.99,
+     "begruendung": "Die globale Minimierung findet das quadratische Gitter τ = [0, 1] als einziges lokales Minimum mit T₅ = 4.838. Das hexagonale Gitter hat höhere Energie (5.130, sicher um 10⁻¹²). Der Hessian-Test zeigt: quadratisch ist stabil (Eigenwerte +5.16, +12.61), hexagonal ist Sattelpunkt (Eigenwerte beide ≈ −4.61).",
+     "pruefung": {
+      "typ": "argmin2d",
+      "nu": 5,
+      "erwartet": "quadratisch"
+     }
+    }
+   ],
+   "experimente": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ],
+   "final": {
+    "antwort": "quadratisch",
+    "zahl": null,
+    "konfidenz": 0.99,
+    "begruendung": "Die globale Minimierung findet das quadratische Gitter τ = [0, 1] als einziges lokales Minimum mit T₅ = 4.838. Das hexagonale Gitter hat höhere Energie (5.130, sicher um 10⁻¹²). Der Hessian-Test zeigt: quadratisch ist stabil (Eigenwerte +5.16, +12.61), hexagonal ist Sattelpunkt (Eigenwerte beide ≈ −4.61).",
+    "pruefung": {
+     "typ": "argmin2d",
+     "nu": 5,
+     "erwartet": "quadratisch"
+    }
+   },
+   "modell": "haiku",
+   "pruefung": {
+    "bestanden": true,
+    "grund": "Prüfer-Suche (18er-Raster, 6 Polituren, R=(48, 64)): quadratisch"
+   }
+  }
+ ],
+ "experimente": [
+  {
+   "id": 0,
+   "wer": "forscher-sparsam",
+   "op": "minimize2d",
+   "args": {
+    "nu": 5
+   },
+   "ergebnis": {
+    "tau": [
+     0.0,
+     1.0
+    ],
+    "T": 4.838026846713883,
+    "typ": "quadratisch",
+    "lokale_minima": [
+     {
+      "tau": [
+       0.0,
+       1.0
+      ],
+      "T": 4.838026846713883,
+      "typ": "quadratisch"
+     }
+    ]
+   },
+   "sek": 3.82
+  },
+  {
+   "id": 1,
+   "wer": "forscher-sparsam",
+   "op": "compare2d",
+   "args": {
+    "tau_a": [
+     0.0,
+     1.0
+    ],
+    "tau_b": [
+     0.5,
+     0.8660254037844387
+    ],
+    "nu": 5
+   },
+   "ergebnis": {
+    "T_a": 4.838026846713883,
+    "T_b": 5.129901600762797,
+    "diff": -0.29187475404891394,
+    "err": 1.0530026392539559e-12,
+    "sicher": true
+   },
+   "sek": 0.04
+  },
+  {
+   "id": 2,
+   "wer": "forscher-sparsam",
+   "op": "hessian2d",
+   "args": {
+    "tau": [
+     0.0,
+     1.0
+    ],
+    "nu": 5
+   },
+   "ergebnis": {
+    "eigenwerte": [
+     5.16430270236512,
+     12.60835014171846
+    ],
+    "stabil": true
+   },
+   "sek": 0.17
+  },
+  {
+   "id": 3,
+   "wer": "forscher-sparsam",
+   "op": "hessian2d",
+   "args": {
+    "tau": [
+     0.5,
+     0.8660254037844387
+    ],
+    "nu": 5
+   },
+   "ergebnis": {
+    "eigenwerte": [
+     -4.60943893454413,
+     -4.609414354206365
+    ],
+    "stabil": false
+   },
+   "sek": 0.14
+  },
+  {
+   "id": 4,
+   "wer": "forscher-sparsam",
+   "op": "energy2d",
+   "args": {
+    "tau": [
+     0.5,
+     0.8660254037844387
+    ],
+    "nu": 5
+   },
+   "ergebnis": {
+    "T": 5.129901600762797,
+    "err": 3.312905505481467e-13
+   },
+   "sek": 0.01
+  }
+ ],
+ "sek": 58.5,
+ "frage": "Q2",
+ "salt": 1,
+ "bedingung": "BK"
+}

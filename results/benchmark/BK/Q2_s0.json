@@ -1,0 +1,277 @@
+{
+ "antwort": {
+  "antwort": "quadratisch",
+  "zahl": null,
+  "konfidenz": 0.98,
+  "pruefung": {
+   "typ": "argmin2d",
+   "nu": 5,
+   "erwartet": "quadratisch"
+  },
+  "begruendung": "Die globale Minimierungssuche (E0) mit Raster und Nelder-Mead findet das quadratische Gitter τ=[0,1] als einzige lokale Minimum mit T≈4.838. Energievergleiche (E1–E3) bestätigen seine Überlegenheit über Hexagonal (T=5.130, Differenz +0.292). Die Hessian-Analyse (E6) zeigt: Das quadratische Gitter ist stabil (beide Eigenwerte positiv), während Hexagonal nicht einmal kritischer Punkt ist (E5: negative Eigenwerte).",
+  "stimmen": "Stufe 1/4 (sparsam, haiku)"
+ },
+ "level": "computed (Code-Prüfer bestanden)",
+ "forscher": [
+  {
+   "strategie": "sparsam",
+   "runden": [
+    {
+     "ueberlegung": "Zur Bestimmung des 2D-Gitters mit minimaler Dreikörper-Energie T_5 verfolge ich eine kombinierte Strategie: (1) minimize2d führt eine globale Suche über den vollständigen Fundamentalbereich durch und identifiziert Kandidaten. (2–3) Ich berechne die Energien der beiden historisch wichtigsten Gitter: hexagonal (tau = 0.5 + i√3/2 ≈ [0.5, 0.866]) und quadratisch (tau = i = [0, 1]). (4) compare2d liefert einen direkten statistischen Vergleich mit Fehleranalyse. (5) rect_optimum untersucht, ob rechteckige Gitter (Form tau = iy) bei nu=5 konkurrenzfähig sind. (6–7) hessian2d überprüft die lokale Stabilität der beiden Hauptkandidaten via Eigenwert-Analyse. Zusammen decken diese sieben Experimente das globale Optimum zuverlässig ab, ohne Redundanz.",
+     "plan": [
+      {
+       "op": "minimize2d",
+       "args": {
+        "nu": 5
+       }
+      },
+      {
+       "op": "energy2d",
+       "args": {
+        "tau": [
+         0.5,
+         0.8660254
+        ],
+        "nu": 5
+       }
+      },
+      {
+       "op": "energy2d",
+       "args": {
+        "tau": [
+         0,
+         1
+        ],
+        "nu": 5
+       }
+      },
+      {
+       "op": "compare2d",
+       "args": {
+        "tau_a": [
+         0.5,
+         0.8660254
+        ],
+        "tau_b": [
+         0,
+         1
+        ],
+        "nu": 5
+       }
+      },
+      {
+       "op": "rect_optimum",
+       "args": {
+        "nu": 5,
+        "y_lo": 0.8,
+        "y_hi": 1.5
+       }
+      },
+      {
+       "op": "hessian2d",
+       "args": {
+        "tau": [
+         0.5,
+         0.8660254
+        ],
+        "nu": 5
+       }
+      },
+      {
+       "op": "hessian2d",
+       "args": {
+        "tau": [
+         0,
+         1
+        ],
+        "nu": 5
+       }
+      }
+     ]
+    },
+    {
+     "antwort": "quadratisch",
+     "zahl": null,
+     "konfidenz": 0.98,
+     "pruefung": {
+      "typ": "argmin2d",
+      "nu": 5,
+      "erwartet": "quadratisch"
+     },
+     "begruendung": "Die globale Minimierungssuche (E0) mit Raster und Nelder-Mead findet das quadratische Gitter τ=[0,1] als einzige lokale Minimum mit T≈4.838. Energievergleiche (E1–E3) bestätigen seine Überlegenheit über Hexagonal (T=5.130, Differenz +0.292). Die Hessian-Analyse (E6) zeigt: Das quadratische Gitter ist stabil (beide Eigenwerte positiv), während Hexagonal nicht einmal kritischer Punkt ist (E5: negative Eigenwerte)."
+    }
+   ],
+   "experimente": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+   ],
+   "final": {
+    "antwort": "quadratisch",
+    "zahl": null,
+    "konfidenz": 0.98,
+    "pruefung": {
+     "typ": "argmin2d",
+     "nu": 5,
+     "erwartet": "quadratisch"
+    },
+    "begruendung": "Die globale Minimierungssuche (E0) mit Raster und Nelder-Mead findet das quadratische Gitter τ=[0,1] als einzige lokale Minimum mit T≈4.838. Energievergleiche (E1–E3) bestätigen seine Überlegenheit über Hexagonal (T=5.130, Differenz +0.292). Die Hessian-Analyse (E6) zeigt: Das quadratische Gitter ist stabil (beide Eigenwerte positiv), während Hexagonal nicht einmal kritischer Punkt ist (E5: negative Eigenwerte)."
+   },
+   "modell": "haiku",
+   "pruefung": {
+    "bestanden": true,
+    "grund": "Prüfer-Suche (18er-Raster, 6 Polituren, R=(48, 64)): quadratisch"
+   }
+  }
+ ],
+ "experimente": [
+  {
+   "id": 0,
+   "wer": "forscher-sparsam",
+   "op": "minimize2d",
+   "args": {
+    "nu": 5
+   },
+   "ergebnis": {
+    "tau": [
+     0.0,
+     1.0
+    ],
+    "T": 4.838026846713883,
+    "typ": "quadratisch",
+    "lokale_minima": [
+     {
+      "tau": [
+       0.0,
+       1.0
+      ],
+      "T": 4.838026846713883,
+      "typ": "quadratisch"
+     }
+    ]
+   },
+   "sek": 4.79
+  },
+  {
+   "id": 1,
+   "wer": "forscher-sparsam",
+   "op": "energy2d",
+   "args": {
+    "tau": [
+     0.5,
+     0.8660254
+    ],
+    "nu": 5
+   },
+   "ergebnis": {
+    "T": 5.129901600762793,
+    "err": 3.304023721284466e-13
+   },
+   "sek": 0.02
+  },
+  {
+   "id": 2,
+   "wer": "forscher-sparsam",
+   "op": "energy2d",
+   "args": {
+    "tau": [
+     0,
+     1
+    ],
+    "nu": 5
+   },
+   "ergebnis": {
+    "T": 4.838026846713883,
+    "err": 2.0872192862952943e-13
+   },
+   "sek": 0.02
+  },
+  {
+   "id": 3,
+   "wer": "forscher-sparsam",
+   "op": "compare2d",
+   "args": {
+    "tau_a": [
+     0.5,
+     0.8660254
+    ],
+    "tau_b": [
+     0,
+     1
+    ],
+    "nu": 5
+   },
+   "ergebnis": {
+    "T_a": 5.129901600762793,
+    "T_b": 4.838026846713883,
+    "diff": 0.2918747540489095,
+    "err": 1.0521144608342553e-12,
+    "sicher": true
+   },
+   "sek": 0.03
+  },
+  {
+   "id": 4,
+   "wer": "forscher-sparsam",
+   "op": "rect_optimum",
+   "args": {
+    "nu": 5,
+    "y_lo": 0.8,
+    "y_hi": 1.5
+   },
+   "ergebnis": {
+    "y": 1.0000000126504702,
+    "T": 4.838026846713879
+   },
+   "sek": 0.16
+  },
+  {
+   "id": 5,
+   "wer": "forscher-sparsam",
+   "op": "hessian2d",
+   "args": {
+    "tau": [
+     0.5,
+     0.8660254
+    ],
+    "nu": 5
+   },
+   "ergebnis": {
+    "eigenwerte": [
+     -4.6094391101814125,
+     -4.609414247624954
+    ],
+    "stabil": false
+   },
+   "sek": 0.14
+  },
+  {
+   "id": 6,
+   "wer": "forscher-sparsam",
+   "op": "hessian2d",
+   "args": {
+    "tau": [
+     0,
+     1
+    ],
+    "nu": 5
+   },
+   "ergebnis": {
+    "eigenwerte": [
+     5.16430270236512,
+     12.60835014171846
+    ],
+    "stabil": true
+   },
+   "sek": 0.12
+  }
+ ],
+ "sek": 94.9,
+ "frage": "Q2",
+ "salt": 0,
+ "bedingung": "BK"
+}

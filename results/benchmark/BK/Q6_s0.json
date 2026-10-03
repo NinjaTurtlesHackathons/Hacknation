@@ -1,0 +1,445 @@
+{
+ "antwort": {
+  "antwort": "unstetig",
+  "zahl": 3.918,
+  "konfidenz": 0.96,
+  "begruendung": "Experiment E10 zeigt, dass bei ν≈3.918 beide Gitter (hexagonal und quadratisch) gleichzeitig lokale Minima sind mit fast identischer Energie (7.8998... vs 7.8999...). Dies wird bestätigt durch E8 und E9: beide Hessematrizen sind bei diesem ν positiv definit. Der Übergang ist daher nicht stetig, sondern zeigt einen First-Order-Charakter mit Koexistenzbereich.",
+  "pruefung": {
+   "typ": "koexistenz",
+   "nu": 3.918
+  },
+  "stimmen": "Stufe 1/4 (sparsam, haiku)"
+ },
+ "level": "computed (Code-Prüfer bestanden)",
+ "forscher": [
+  {
+   "strategie": "sparsam",
+   "runden": [
+    {
+     "ueberlegung": "Die Frage ist, ob es beim Wechsel zwischen zwei konkurrierenden globalen Minima (bei variierendem nu) zu einer diskontinuierlichen Koexistenz kommt (beide lokal stabil bei nu*) oder zu einem stetigen Übergang. Strategie: (1) Globale Minima bei mehreren nu-Werten identifizieren (2) Bereich eingrenzen, wo Wechsel auftritt (3) Genauen Übergangspunkt mit Bisektion lokalisieren (4) An kritischem nu die Hessematrix beider Kandidaten prüfen: Falls beide Eigenwerte > 0, liegt Koexistenz vor (unstetig); sonst stetiger Übergang.",
+     "plan": [
+      {
+       "op": "minimize2d",
+       "args": {
+        "nu": 2
+       }
+      },
+      {
+       "op": "minimize2d",
+       "args": {
+        "nu": 3
+       }
+      },
+      {
+       "op": "minimize2d",
+       "args": {
+        "nu": 4
+       }
+      },
+      {
+       "op": "minimize2d",
+       "args": {
+        "nu": 5
+       }
+      },
+      {
+       "op": "crossing2d",
+       "args": {
+        "tau_a": [
+         0.5,
+         0.8660254
+        ],
+        "tau_b": [
+         0,
+         1
+        ],
+        "nu_lo": 2,
+        "nu_hi": 5
+       }
+      },
+      {
+       "op": "hessian2d",
+       "args": {
+        "tau": [
+         0.5,
+         0.8660254
+        ],
+        "nu": 3.5
+       }
+      },
+      {
+       "op": "hessian2d",
+       "args": {
+        "tau": [
+         0,
+         1
+        ],
+        "nu": 3.5
+       }
+      },
+      {
+       "op": "compare2d",
+       "args": {
+        "tau_a": [
+         0.5,
+         0.8660254
+        ],
+        "tau_b": [
+         0,
+         1
+        ],
+        "nu": 3.5
+       }
+      }
+     ]
+    },
+    {
+     "plan": [
+      {
+       "op": "hessian2d",
+       "args": {
+        "tau": [
+         0.5,
+         0.8660254
+        ],
+        "nu": 3.918
+       }
+      },
+      {
+       "op": "hessian2d",
+       "args": {
+        "tau": [
+         0,
+         1
+        ],
+        "nu": 3.918
+       }
+      },
+      {
+       "op": "minimize2d",
+       "args": {
+        "nu": 3.918
+       }
+      }
+     ]
+    },
+    {
+     "antwort": "unstetig",
+     "zahl": 3.918,
+     "konfidenz": 0.96,
+     "begruendung": "Experiment E10 zeigt, dass bei ν≈3.918 beide Gitter (hexagonal und quadratisch) gleichzeitig lokale Minima sind mit fast identischer Energie (7.8998... vs 7.8999...). Dies wird bestätigt durch E8 und E9: beide Hessematrizen sind bei diesem ν positiv definit. Der Übergang ist daher nicht stetig, sondern zeigt einen First-Order-Charakter mit Koexistenzbereich.",
+     "pruefung": {
+      "typ": "koexistenz",
+      "nu": 3.918
+     }
+    }
+   ],
+   "experimente": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10
+   ],
+   "final": {
+    "antwort": "unstetig",
+    "zahl": 3.918,
+    "konfidenz": 0.96,
+    "begruendung": "Experiment E10 zeigt, dass bei ν≈3.918 beide Gitter (hexagonal und quadratisch) gleichzeitig lokale Minima sind mit fast identischer Energie (7.8998... vs 7.8999...). Dies wird bestätigt durch E8 und E9: beide Hessematrizen sind bei diesem ν positiv definit. Der Übergang ist daher nicht stetig, sondern zeigt einen First-Order-Charakter mit Koexistenzbereich.",
+    "pruefung": {
+     "typ": "koexistenz",
+     "nu": 3.918
+    }
+   },
+   "modell": "haiku",
+   "pruefung": {
+    "bestanden": true,
+    "grund": "bei nu=3.918: quadratisch stabil=True, hexagonal stabil=True"
+   }
+  }
+ ],
+ "experimente": [
+  {
+   "id": 0,
+   "wer": "forscher-sparsam",
+   "op": "minimize2d",
+   "args": {
+    "nu": 2
+   },
+   "ergebnis": {
+    "tau": [
+     0.5,
+     0.8660254037844386
+    ],
+    "T": 41.39438591508116,
+    "typ": "hexagonal",
+    "lokale_minima": [
+     {
+      "tau": [
+       0.5,
+       0.8660254037844386
+      ],
+      "T": 41.39438591508116,
+      "typ": "hexagonal"
+     }
+    ]
+   },
+   "sek": 7.86
+  },
+  {
+   "id": 1,
+   "wer": "forscher-sparsam",
+   "op": "minimize2d",
+   "args": {
+    "nu": 3
+   },
+   "ergebnis": {
+    "tau": [
+     0.5,
+     0.8660254037844386
+    ],
+    "T": 13.391794004874814,
+    "typ": "hexagonal",
+    "lokale_minima": [
+     {
+      "tau": [
+       0.5,
+       0.8660254037844386
+      ],
+      "T": 13.391794004874814,
+      "typ": "hexagonal"
+     }
+    ]
+   },
+   "sek": 4.53
+  },
+  {
+   "id": 2,
+   "wer": "forscher-sparsam",
+   "op": "minimize2d",
+   "args": {
+    "nu": 4
+   },
+   "ergebnis": {
+    "tau": [
+     0.0,
+     1.0
+    ],
+    "T": 7.58266990103469,
+    "typ": "quadratisch",
+    "lokale_minima": [
+     {
+      "tau": [
+       0.0,
+       1.0
+      ],
+      "T": 7.58266990103469,
+      "typ": "quadratisch"
+     }
+    ]
+   },
+   "sek": 4.5
+  },
+  {
+   "id": 3,
+   "wer": "forscher-sparsam",
+   "op": "minimize2d",
+   "args": {
+    "nu": 5
+   },
+   "ergebnis": {
+    "tau": [
+     0.0,
+     1.0
+    ],
+    "T": 4.838026846713883,
+    "typ": "quadratisch",
+    "lokale_minima": [
+     {
+      "tau": [
+       0.0,
+       1.0
+      ],
+      "T": 4.838026846713883,
+      "typ": "quadratisch"
+     }
+    ]
+   },
+   "sek": 4.07
+  },
+  {
+   "id": 4,
+   "wer": "forscher-sparsam",
+   "op": "crossing2d",
+   "args": {
+    "tau_a": [
+     0.5,
+     0.8660254
+    ],
+    "tau_b": [
+     0,
+     1
+    ],
+    "nu_lo": 2,
+    "nu_hi": 5
+   },
+   "ergebnis": {
+    "gefunden": true,
+    "intervall": [
+     3.9183645248413086,
+     3.918365240097046
+    ]
+   },
+   "sek": 0.55
+  },
+  {
+   "id": 5,
+   "wer": "forscher-sparsam",
+   "op": "hessian2d",
+   "args": {
+    "tau": [
+     0.5,
+     0.8660254
+    ],
+    "nu": 3.5
+   },
+   "ergebnis": {
+    "eigenwerte": [
+     5.6782661062015904,
+     5.678295917910248
+    ],
+    "stabil": true
+   },
+   "sek": 0.11
+  },
+  {
+   "id": 6,
+   "wer": "forscher-sparsam",
+   "op": "hessian2d",
+   "args": {
+    "tau": [
+     0,
+     1
+    ],
+    "nu": 3.5
+   },
+   "ergebnis": {
+    "eigenwerte": [
+     -1.3704741776976448,
+     23.251341426000494
+    ],
+    "stabil": false
+   },
+   "sek": 0.1
+  },
+  {
+   "id": 7,
+   "wer": "forscher-sparsam",
+   "op": "compare2d",
+   "args": {
+    "tau_a": [
+     0.5,
+     0.8660254
+    ],
+    "tau_b": [
+     0,
+     1
+    ],
+    "nu": 3.5
+   },
+   "ergebnis": {
+    "T_a": 9.772376100920331,
+    "T_b": 9.893282501980643,
+    "diff": -0.12090640106031181,
+    "err": 1.48696747257113e-07,
+    "sicher": true
+   },
+   "sek": 0.02
+  },
+  {
+   "id": 8,
+   "wer": "forscher-sparsam",
+   "op": "hessian2d",
+   "args": {
+    "tau": [
+     0.5,
+     0.8660254
+    ],
+    "nu": 3.918
+   },
+   "ergebnis": {
+    "eigenwerte": [
+     2.576578629565063,
+     2.576592027736524
+    ],
+    "stabil": true
+   },
+   "sek": 0.14
+  },
+  {
+   "id": 9,
+   "wer": "forscher-sparsam",
+   "op": "hessian2d",
+   "args": {
+    "tau": [
+     0,
+     1
+    ],
+    "nu": 3.918
+   },
+   "ergebnis": {
+    "eigenwerte": [
+     0.5038832502357593,
+     20.123234973246085
+    ],
+    "stabil": true
+   },
+   "sek": 0.11
+  },
+  {
+   "id": 10,
+   "wer": "forscher-sparsam",
+   "op": "minimize2d",
+   "args": {
+    "nu": 3.918
+   },
+   "ergebnis": {
+    "tau": [
+     0.5,
+     0.8660254037844386
+    ],
+    "T": 7.8998622495841255,
+    "typ": "hexagonal",
+    "lokale_minima": [
+     {
+      "tau": [
+       0.5,
+       0.8660254037844386
+      ],
+      "T": 7.8998622495841255,
+      "typ": "hexagonal"
+     },
+     {
+      "tau": [
+       0.0,
+       1.0
+      ],
+      "T": 7.899967510388372,
+      "typ": "quadratisch"
+     }
+    ]
+   },
+   "sek": 3.96
+  }
+ ],
+ "sek": 86.3,
+ "frage": "Q6",
+ "salt": 0,
+ "bedingung": "BK"
+}

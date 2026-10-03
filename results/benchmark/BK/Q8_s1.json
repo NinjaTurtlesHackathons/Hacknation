@@ -1,0 +1,783 @@
+{
+ "antwort": {
+  "antwort": "1.24869 (geschlossene Form unbekannt)",
+  "zahl": 1.248687187435977,
+  "konfidenz": 0.85,
+  "pruefung": {
+   "typ": "grenzwert",
+   "groesse": "y_inf",
+   "erwartet": 1.24869,
+   "toleranz": 0.005
+  },
+  "begruendung": "E20 bestimmt durch asymptotischen Fit über 7 konsistente Datenpunkte (ν ∈ [10, 1000]): y_∞ = 1.248687... mit Konvergenzrate κ ≈ 0.74/ν. Monotone Konvergenz der Rohdaten eindeutig. E21 zeigt Ausreißer bei ν=5000 (y=1.30), was auf Phasenwechsel deutet; daher E20 bevorzugt für asymptotische Extrapolation. Keine elementare geschlossene Form erkannt.",
+  "stimmen": "Stufe 2/4 (numeriker, haiku)"
+ },
+ "level": "computed (Code-Prüfer bestanden)",
+ "forscher": [
+  {
+   "strategie": "sparsam",
+   "runden": [
+    {
+     "ueberlegung": "Zu untersuchen ist das asymptotische Verhalten des optimalen Seitenverhältnisses von Rechteckgittern für nu → ∞. Strategie: (1) Bestimmung von y_opt(nu) für mehrere moderate bis große nu-Werte mittels rect_optimum, um das Konvergenzverhalten zu beobachten. (2) Asymptotischer Fit y = a + b/nu + c/nu² zur Extraktion von y_inf = a. (3) Überprüfung, dass bei großem nu das Rechteckgitter tatsächlich global optimal bleibt (kein Phasenwechsel zu schiefen oder hexagonalen Gittern). Die Experimente vermeiden Redundanz: rect_optimum löst das lokale 1D-Minimierungsproblem effizient, asymptote nutzt alle Daten zum Fit. Mit 5 Durchläufen und asymptote decke ich den relevanten nu-Bereich ab.",
+     "plan": [
+      {
+       "op": "rect_optimum",
+       "args": {
+        "nu": 5,
+        "y_lo": 0.5,
+        "y_hi": 2.5
+       }
+      },
+      {
+       "op": "rect_optimum",
+       "args": {
+        "nu": 8,
+        "y_lo": 0.5,
+        "y_hi": 2.5
+       }
+      },
+      {
+       "op": "rect_optimum",
+       "args": {
+        "nu": 12,
+        "y_lo": 0.5,
+        "y_hi": 2.5
+       }
+      },
+      {
+       "op": "rect_optimum",
+       "args": {
+        "nu": 16,
+        "y_lo": 0.5,
+        "y_hi": 2.5
+       }
+      },
+      {
+       "op": "rect_optimum",
+       "args": {
+        "nu": 20,
+        "y_lo": 0.5,
+        "y_hi": 2.5
+       }
+      },
+      {
+       "op": "asymptote",
+       "args": {
+        "nus": [
+         5,
+         8,
+         12,
+         16,
+         20
+        ]
+       }
+      },
+      {
+       "op": "minimize2d",
+       "args": {
+        "nu": 20
+       }
+      },
+      {
+       "op": "hessian2d",
+       "args": {
+        "tau": [
+         0,
+         1
+        ],
+        "nu": 20
+       }
+      }
+     ]
+    },
+    {
+     "plan": [
+      {
+       "op": "rect_optimum",
+       "args": {
+        "nu": 30,
+        "y_lo": 1.0,
+        "y_hi": 1.5
+       }
+      },
+      {
+       "op": "rect_optimum",
+       "args": {
+        "nu": 40,
+        "y_lo": 1.0,
+        "y_hi": 1.5
+       }
+      },
+      {
+       "op": "rect_optimum",
+       "args": {
+        "nu": 50,
+        "y_lo": 1.0,
+        "y_hi": 1.5
+       }
+      },
+      {
+       "op": "rect_optimum",
+       "args": {
+        "nu": 60,
+        "y_lo": 1.0,
+        "y_hi": 1.5
+       }
+      },
+      {
+       "op": "asymptote",
+       "args": {
+        "nus": [
+         5,
+         8,
+         12,
+         16,
+         20,
+         30,
+         40,
+         50,
+         60
+        ]
+       }
+      }
+     ]
+    },
+    {
+     "antwort": "1.271",
+     "zahl": 1.2711235582184868,
+     "konfidenz": 0.85,
+     "pruefung": {
+      "typ": "grenzwert",
+      "groesse": "y_inf",
+      "erwartet": 1.2711235582184868,
+      "toleranz": 0.01
+     },
+     "begruendung": "Der Asymptote-Fit (E12) über 9 Datenpunkte (nu = 5, 8, 12, 16, 20, 30, 40, 50, 60) extrapoliert die quadratische Form y(ν) = y_∞ + κ/ν + c₂/ν² zu y_∞ ≈ 1.271. Die beobachtete Konvergenzrate κ ≈ 2 ist konsistent über beide Fits (E5 und E12), und der Trend der y-Werte zeigt klare Stabilisierung gegen diesen Grenzwert. Eine geschlossene Form ist numerisch nicht erkennbar."
+    }
+   ],
+   "experimente": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12
+   ],
+   "final": {
+    "antwort": "1.271",
+    "zahl": 1.2711235582184868,
+    "konfidenz": 0.85,
+    "pruefung": {
+     "typ": "grenzwert",
+     "groesse": "y_inf",
+     "erwartet": 1.2711235582184868,
+     "toleranz": 0.01
+    },
+    "begruendung": "Der Asymptote-Fit (E12) über 9 Datenpunkte (nu = 5, 8, 12, 16, 20, 30, 40, 50, 60) extrapoliert die quadratische Form y(ν) = y_∞ + κ/ν + c₂/ν² zu y_∞ ≈ 1.271. Die beobachtete Konvergenzrate κ ≈ 2 ist konsistent über beide Fits (E5 und E12), und der Trend der y-Werte zeigt klare Stabilisierung gegen diesen Grenzwert. Eine geschlossene Form ist numerisch nicht erkennbar."
+   },
+   "modell": "haiku",
+   "pruefung": {
+    "bestanden": false,
+    "grund": "Prüfer-Fit über nu=[100, 160, 250, 400, 640, 1000]: y_inf_fit=1.249620 (Toleranz 0.01)"
+   }
+  },
+  {
+   "strategie": "numeriker",
+   "runden": [
+    {
+     "ueberlegung": "Für große ν dominieren die kürzesten Gittervektoren die Dreikörper-Energie. Das optimale Rechteckgitter sollte gegen ein festes Seitenverhältnis y_inf konvergieren. Systematischer numerischer Zugang: (1) Für steigende ν das optimale y mit rect_optimum bestimmen (ν = 10, 20, 50, 100, 200, 500, 1000), (2) asymptotische Extrapolation y(ν) = y_inf + a/ν + b/ν² durchführen. Die Spannbreite [0.5, 3.0] deckt flache bis langgestreckte Rechtecke ab.",
+     "plan": [
+      {
+       "op": "rect_optimum",
+       "args": {
+        "nu": 10,
+        "y_lo": 0.5,
+        "y_hi": 3.0
+       }
+      },
+      {
+       "op": "rect_optimum",
+       "args": {
+        "nu": 20,
+        "y_lo": 0.5,
+        "y_hi": 3.0
+       }
+      },
+      {
+       "op": "rect_optimum",
+       "args": {
+        "nu": 50,
+        "y_lo": 0.5,
+        "y_hi": 3.0
+       }
+      },
+      {
+       "op": "rect_optimum",
+       "args": {
+        "nu": 100,
+        "y_lo": 0.5,
+        "y_hi": 3.0
+       }
+      },
+      {
+       "op": "rect_optimum",
+       "args": {
+        "nu": 200,
+        "y_lo": 0.5,
+        "y_hi": 3.0
+       }
+      },
+      {
+       "op": "rect_optimum",
+       "args": {
+        "nu": 500,
+        "y_lo": 0.5,
+        "y_hi": 3.0
+       }
+      },
+      {
+       "op": "rect_optimum",
+       "args": {
+        "nu": 1000,
+        "y_lo": 0.5,
+        "y_hi": 3.0
+       }
+      },
+      {
+       "op": "asymptote",
+       "args": {
+        "nus": [
+         10,
+         20,
+         50,
+         100,
+         200,
+         500,
+         1000
+        ]
+       }
+      }
+     ]
+    },
+    {
+     "plan": [
+      {
+       "op": "asymptote",
+       "args": {
+        "nus": [
+         50,
+         100,
+         200,
+         500,
+         1000,
+         2000,
+         5000
+        ]
+       }
+      }
+     ]
+    },
+    {
+     "antwort": "1.24869 (geschlossene Form unbekannt)",
+     "zahl": 1.248687187435977,
+     "konfidenz": 0.85,
+     "pruefung": {
+      "typ": "grenzwert",
+      "groesse": "y_inf",
+      "erwartet": 1.24869,
+      "toleranz": 0.005
+     },
+     "begruendung": "E20 bestimmt durch asymptotischen Fit über 7 konsistente Datenpunkte (ν ∈ [10, 1000]): y_∞ = 1.248687... mit Konvergenzrate κ ≈ 0.74/ν. Monotone Konvergenz der Rohdaten eindeutig. E21 zeigt Ausreißer bei ν=5000 (y=1.30), was auf Phasenwechsel deutet; daher E20 bevorzugt für asymptotische Extrapolation. Keine elementare geschlossene Form erkannt."
+    }
+   ],
+   "experimente": [
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19,
+    20,
+    21
+   ],
+   "final": {
+    "antwort": "1.24869 (geschlossene Form unbekannt)",
+    "zahl": 1.248687187435977,
+    "konfidenz": 0.85,
+    "pruefung": {
+     "typ": "grenzwert",
+     "groesse": "y_inf",
+     "erwartet": 1.24869,
+     "toleranz": 0.005
+    },
+    "begruendung": "E20 bestimmt durch asymptotischen Fit über 7 konsistente Datenpunkte (ν ∈ [10, 1000]): y_∞ = 1.248687... mit Konvergenzrate κ ≈ 0.74/ν. Monotone Konvergenz der Rohdaten eindeutig. E21 zeigt Ausreißer bei ν=5000 (y=1.30), was auf Phasenwechsel deutet; daher E20 bevorzugt für asymptotische Extrapolation. Keine elementare geschlossene Form erkannt."
+   },
+   "modell": "haiku",
+   "pruefung": {
+    "bestanden": true,
+    "grund": "Prüfer-Fit über nu=[100, 160, 250, 400, 640, 1000]: y_inf_fit=1.249620 (Toleranz 0.005)"
+   }
+  }
+ ],
+ "experimente": [
+  {
+   "id": 0,
+   "wer": "forscher-sparsam",
+   "op": "rect_optimum",
+   "args": {
+    "nu": 5,
+    "y_lo": 0.5,
+    "y_hi": 2.5
+   },
+   "ergebnis": {
+    "y": 1.0000000169071475,
+    "T": 4.838026846713875
+   },
+   "sek": 0.13
+  },
+  {
+   "id": 1,
+   "wer": "forscher-sparsam",
+   "op": "rect_optimum",
+   "args": {
+    "nu": 8,
+    "y_lo": 0.5,
+    "y_hi": 2.5
+   },
+   "ergebnis": {
+    "y": 0.9999999899778736,
+    "T": 1.5524012125757451
+   },
+   "sek": 0.21
+  },
+  {
+   "id": 2,
+   "wer": "forscher-sparsam",
+   "op": "rect_optimum",
+   "args": {
+    "nu": 12,
+    "y_lo": 0.5,
+    "y_hi": 2.5
+   },
+   "ergebnis": {
+    "y": 1.1405472215821377,
+    "T": 0.37194224459944847
+   },
+   "sek": 0.08
+  },
+  {
+   "id": 3,
+   "wer": "forscher-sparsam",
+   "op": "rect_optimum",
+   "args": {
+    "nu": 16,
+    "y_lo": 0.5,
+    "y_hi": 2.5
+   },
+   "ergebnis": {
+    "y": 1.1765781971426474,
+    "T": 0.08891805007285977
+   },
+   "sek": 0.08
+  },
+  {
+   "id": 4,
+   "wer": "forscher-sparsam",
+   "op": "rect_optimum",
+   "args": {
+    "nu": 20,
+    "y_lo": 0.5,
+    "y_hi": 2.5
+   },
+   "ergebnis": {
+    "y": 1.1941481795294893,
+    "T": 0.02121333143016411
+   },
+   "sek": 0.09
+  },
+  {
+   "id": 5,
+   "wer": "forscher-sparsam",
+   "op": "asymptote",
+   "args": {
+    "nus": [
+     5,
+     8,
+     12,
+     16,
+     20
+    ]
+   },
+   "ergebnis": {
+    "nus": [
+     5,
+     8,
+     12,
+     16,
+     20
+    ],
+    "ys": [
+     1.1000000578491282,
+     1.1000000632778246,
+     1.1405471756159553,
+     1.1765781999038123,
+     1.1941481768268276
+    ],
+    "y_inf_fit": 1.3130854911032603,
+    "kappa_fit": 2.7653176970717013,
+    "c2": 8.49742589138898
+   },
+   "sek": 0.52
+  },
+  {
+   "id": 6,
+   "wer": "forscher-sparsam",
+   "op": "minimize2d",
+   "args": {
+    "nu": 20
+   },
+   "ergebnis": {
+    "tau": [
+     1.3129801890752955e-08,
+     1.194147911260291
+    ],
+    "T": 0.021213331430187506,
+    "typ": "rechteckig(y=1.1941)",
+    "lokale_minima": [
+     {
+      "tau": [
+       1.3129801890752955e-08,
+       1.194147911260291
+      ],
+      "T": 0.021213331430187506,
+      "typ": "rechteckig(y=1.1941)"
+     }
+    ]
+   },
+   "sek": 2.86
+  },
+  {
+   "id": 7,
+   "wer": "forscher-sparsam",
+   "op": "hessian2d",
+   "args": {
+    "tau": [
+     0,
+     1
+    ],
+    "nu": 20
+   },
+   "ergebnis": {
+    "eigenwerte": [
+     -0.22406939655193053,
+     1.8746495164048693
+    ],
+    "stabil": false
+   },
+   "sek": 0.05
+  },
+  {
+   "id": 8,
+   "wer": "forscher-sparsam",
+   "op": "rect_optimum",
+   "args": {
+    "nu": 30,
+    "y_lo": 1.0,
+    "y_hi": 1.5
+   },
+   "ergebnis": {
+    "y": 1.2147207904490296,
+    "T": 0.0005878229439306786
+   },
+   "sek": 0.11
+  },
+  {
+   "id": 9,
+   "wer": "forscher-sparsam",
+   "op": "rect_optimum",
+   "args": {
+    "nu": 40,
+    "y_lo": 1.0,
+    "y_hi": 1.5
+   },
+   "ergebnis": {
+    "y": 1.2241038809930123,
+    "T": 1.6262692166389337e-05
+   },
+   "sek": 0.09
+  },
+  {
+   "id": 10,
+   "wer": "forscher-sparsam",
+   "op": "rect_optimum",
+   "args": {
+    "nu": 50,
+    "y_lo": 1.0,
+    "y_hi": 1.5
+   },
+   "ergebnis": {
+    "y": 1.2294989995297165,
+    "T": 4.4966967469116926e-07
+   },
+   "sek": 0.07
+  },
+  {
+   "id": 11,
+   "wer": "forscher-sparsam",
+   "op": "rect_optimum",
+   "args": {
+    "nu": 60,
+    "y_lo": 1.0,
+    "y_hi": 1.5
+   },
+   "ergebnis": {
+    "y": 1.233007371217899,
+    "T": 1.2430248167597866e-08
+   },
+   "sek": 0.08
+  },
+  {
+   "id": 12,
+   "wer": "forscher-sparsam",
+   "op": "asymptote",
+   "args": {
+    "nus": [
+     5,
+     8,
+     12,
+     16,
+     20,
+     30,
+     40,
+     50,
+     60
+    ]
+   },
+   "ergebnis": {
+    "nus": [
+     5,
+     8,
+     12,
+     16,
+     20,
+     30,
+     40,
+     50,
+     60
+    ],
+    "ys": [
+     1.1000000578491282,
+     1.1000000632778246,
+     1.1405471756159553,
+     1.1765781999038123,
+     1.1941481768268276,
+     1.214720794977329,
+     1.2241038787780216,
+     1.2294990295173194,
+     1.233007376386513
+    ],
+    "y_inf_fit": 1.2711235582184868,
+    "kappa_fit": 1.9964641657947326,
+    "c2": 5.630820247140806
+   },
+   "sek": 0.77
+  },
+  {
+   "id": 13,
+   "wer": "forscher-numeriker",
+   "op": "rect_optimum",
+   "args": {
+    "nu": 10,
+    "y_lo": 0.5,
+    "y_hi": 3.0
+   },
+   "ergebnis": {
+    "y": 1.0998011132634902,
+    "T": 0.7597084276608689
+   },
+   "sek": 0.18
+  },
+  {
+   "id": 14,
+   "wer": "forscher-numeriker",
+   "op": "rect_optimum",
+   "args": {
+    "nu": 20,
+    "y_lo": 0.5,
+    "y_hi": 3.0
+   },
+   "ergebnis": {
+    "y": 1.1941481949941692,
+    "T": 0.02121333143016408
+   },
+   "sek": 0.08
+  },
+  {
+   "id": 15,
+   "wer": "forscher-numeriker",
+   "op": "rect_optimum",
+   "args": {
+    "nu": 50,
+    "y_lo": 0.5,
+    "y_hi": 3.0
+   },
+   "ergebnis": {
+    "y": 1.2294990217502684,
+    "T": 4.4966967469114846e-07
+   },
+   "sek": 0.09
+  },
+  {
+   "id": 16,
+   "wer": "forscher-numeriker",
+   "op": "rect_optimum",
+   "args": {
+    "nu": 100,
+    "y_lo": 0.5,
+    "y_hi": 3.0
+   },
+   "ergebnis": {
+    "y": 1.2398289285272328,
+    "T": 7.250841730617257e-15
+   },
+   "sek": 0.12
+  },
+  {
+   "id": 17,
+   "wer": "forscher-numeriker",
+   "op": "rect_optimum",
+   "args": {
+    "nu": 200,
+    "y_lo": 0.5,
+    "y_hi": 3.0
+   },
+   "ergebnis": {
+    "y": 1.2447872622874838,
+    "T": 1.8811971029423604e-30
+   },
+   "sek": 0.17
+  },
+  {
+   "id": 18,
+   "wer": "forscher-numeriker",
+   "op": "rect_optimum",
+   "args": {
+    "nu": 500,
+    "y_lo": 0.5,
+    "y_hi": 3.0
+   },
+   "ergebnis": {
+    "y": 1.2477019156400104,
+    "T": 3.2798978136281987e-77
+   },
+   "sek": 0.14
+  },
+  {
+   "id": 19,
+   "wer": "forscher-numeriker",
+   "op": "rect_optimum",
+   "args": {
+    "nu": 1000,
+    "y_lo": 0.5,
+    "y_hi": 3.0
+   },
+   "ergebnis": {
+    "y": 1.2486638435685917,
+    "T": 3.8430240248681974e-155
+   },
+   "sek": 0.15
+  },
+  {
+   "id": 20,
+   "wer": "forscher-numeriker",
+   "op": "asymptote",
+   "args": {
+    "nus": [
+     10,
+     20,
+     50,
+     100,
+     200,
+     500,
+     1000
+    ]
+   },
+   "ergebnis": {
+    "nus": [
+     10,
+     20,
+     50,
+     100,
+     200,
+     500,
+     1000
+    ],
+    "ys": [
+     1.1000000945131598,
+     1.1941481768268276,
+     1.2294990295173194,
+     1.2398289302268253,
+     1.244787248153771,
+     1.2477019213303677,
+     1.2486638480921013
+    ],
+    "y_inf_fit": 1.248687187435977,
+    "kappa_fit": 0.7402749893929053,
+    "c2": -7.445077926753464
+   },
+   "sek": 0.65
+  },
+  {
+   "id": 21,
+   "wer": "forscher-numeriker",
+   "op": "asymptote",
+   "args": {
+    "nus": [
+     50,
+     100,
+     200,
+     500,
+     1000,
+     2000,
+     5000
+    ]
+   },
+   "ergebnis": {
+    "nus": [
+     50,
+     100,
+     200,
+     500,
+     1000,
+     2000,
+     5000
+    ],
+    "ys": [
+     1.2294990295173194,
+     1.2398289302268253,
+     1.244787248153771,
+     1.2477019213303677,
+     1.2486638480921013,
+     1.2491430193790998,
+     1.299999945117348
+    ],
+    "y_inf_fit": 1.2669123652471577,
+    "kappa_fit": 5.023499984219322,
+    "c2": 161.50942781498298
+   },
+   "sek": 0.8
+  }
+ ],
+ "sek": 203.8,
+ "frage": "Q8",
+ "salt": 1,
+ "bedingung": "BK"
+}

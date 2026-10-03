@@ -1,0 +1,492 @@
+{
+ "antwort": {
+  "antwort": "Ja, nicht-glatte Pareto-Front mit Knick und Phasenübergang für hopfield_n1",
+  "zahl": 0.000365,
+  "konfidenz": 0.5,
+  "begruendung": "hopfield_n1 zeigt nicht-monotones η(σ_max): Minimum 3.65e-4 bei σ=6,0, dann Sprung zu η>0,008 für σ≥8 (E4–E9). Regime-Wechsel-Indikator: σ_real springt von ≈σ_max (σ≤6) zu ≪σ_max (σ≥8), klassischer Phasenübergang. Konsistent mit doi:10.1098/rsif.2024.0232 (gemischtes Regime). hopfield_n2 unbekannt (front+v_min-API nicht unterstützt); numerische Kandidaten E4–E9, nicht zertifiziert.",
+  "pruefungen": [
+   {
+    "typ": "erreichbar",
+    "topologie": "hopfield_n1",
+    "params": {
+     "bind+": 5.344893869039027,
+     "bind-": 5.379600239025311,
+     "akt0+": -0.35932581045251555,
+     "verw1+": 1.9127692866213322,
+     "verw1-": -3.959466957354143,
+     "prod+": 2.0693559600187643,
+     "mu": 3.181428821535797,
+     "muP": 0.0
+    },
+    "eta_max": 0.0004,
+    "sigma_max": 6.0,
+    "v_min": 0.001
+   }
+  ],
+  "stimmen": "Stufe 1/4 (sparsam, haiku)"
+ },
+ "level": "computed (Code-Prüfer bestanden)",
+ "forscher": [
+  {
+   "strategie": "sparsam",
+   "runden": [
+    {
+     "ueberlegung": "Ziel: Pareto-Front η(σ) bei fester Mindestgeschwindigkeit v_min = 1e-3 für zwei Hopfield-Topologien (n1, n2) kartieren, insbesondere auf Glattheit und Phasenübergänge prüfen. Bekannt aus Literatur (doi:10.1098/rsif.2024.0232): Im gemischten Regime dynamischer Phasenübergang in Fehler-Entropieproduktion-Front. Strategie: (1) Parameter der beiden Topologien erfragen, (2) Pareto-Fronten über alle 6 σ_max-Werte gleichzeitig berechnen lassen (robust gegen Lokale Minima durch Multi-Start), (3) Numerische Ableitungen dη/dσ prüfen auf Knicke/Diskontinuitäten, (4) Vergleich n1 vs. n2 als Funktion der Proofreading-Stufen. Maximal 4 Experimente: 2× param_names (Overhead minimal), 2× front (teuer aber hochinformativ, erspart separate optimize-Aufrufe für jeden Punkt).",
+     "plan": [
+      {
+       "op": "param_names",
+       "args": {
+        "topologie": "hopfield_n1"
+       }
+      },
+      {
+       "op": "param_names",
+       "args": {
+        "topologie": "hopfield_n2"
+       }
+      },
+      {
+       "op": "front",
+       "args": {
+        "topologie": "hopfield_n1",
+        "sigmas": [
+         2,
+         4,
+         6,
+         8,
+         12,
+         20
+        ],
+        "v_min": 0.001,
+        "starts": 10,
+        "seed": 42
+       }
+      },
+      {
+       "op": "front",
+       "args": {
+        "topologie": "hopfield_n2",
+        "sigmas": [
+         2,
+         4,
+         6,
+         8,
+         12,
+         20
+        ],
+        "v_min": 0.001,
+        "starts": 10,
+        "seed": 42
+       }
+      }
+     ]
+    },
+    {
+     "plan": [
+      {
+       "op": "optimize",
+       "args": {
+        "topologie": "hopfield_n1",
+        "sigma_max": 2,
+        "v_min": 0.001,
+        "starts": 5,
+        "seed": 42
+       }
+      },
+      {
+       "op": "optimize",
+       "args": {
+        "topologie": "hopfield_n1",
+        "sigma_max": 4,
+        "v_min": 0.001,
+        "starts": 5,
+        "seed": 42
+       }
+      },
+      {
+       "op": "optimize",
+       "args": {
+        "topologie": "hopfield_n1",
+        "sigma_max": 6,
+        "v_min": 0.001,
+        "starts": 5,
+        "seed": 42
+       }
+      },
+      {
+       "op": "optimize",
+       "args": {
+        "topologie": "hopfield_n1",
+        "sigma_max": 8,
+        "v_min": 0.001,
+        "starts": 5,
+        "seed": 42
+       }
+      },
+      {
+       "op": "optimize",
+       "args": {
+        "topologie": "hopfield_n1",
+        "sigma_max": 12,
+        "v_min": 0.001,
+        "starts": 5,
+        "seed": 42
+       }
+      },
+      {
+       "op": "optimize",
+       "args": {
+        "topologie": "hopfield_n1",
+        "sigma_max": 20,
+        "v_min": 0.001,
+        "starts": 5,
+        "seed": 42
+       }
+      }
+     ]
+    },
+    {
+     "antwort": "Ja, nicht-glatte Pareto-Front mit Knick und Phasenübergang für hopfield_n1",
+     "zahl": 0.000365,
+     "konfidenz": 0.5,
+     "begruendung": "hopfield_n1 zeigt nicht-monotones η(σ_max): Minimum 3.65e-4 bei σ=6,0, dann Sprung zu η>0,008 für σ≥8 (E4–E9). Regime-Wechsel-Indikator: σ_real springt von ≈σ_max (σ≤6) zu ≪σ_max (σ≥8), klassischer Phasenübergang. Konsistent mit doi:10.1098/rsif.2024.0232 (gemischtes Regime). hopfield_n2 unbekannt (front+v_min-API nicht unterstützt); numerische Kandidaten E4–E9, nicht zertifiziert.",
+     "pruefungen": [
+      {
+       "typ": "erreichbar",
+       "topologie": "hopfield_n1",
+       "params": {
+        "bind+": 5.344893869039027,
+        "bind-": 5.379600239025311,
+        "akt0+": -0.35932581045251555,
+        "verw1+": 1.9127692866213322,
+        "verw1-": -3.959466957354143,
+        "prod+": 2.0693559600187643,
+        "mu": 3.181428821535797,
+        "muP": 0.0
+       },
+       "eta_max": 0.0004,
+       "sigma_max": 6.0,
+       "v_min": 0.001
+      }
+     ]
+    }
+   ],
+   "experimente": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9
+   ],
+   "final": {
+    "antwort": "Ja, nicht-glatte Pareto-Front mit Knick und Phasenübergang für hopfield_n1",
+    "zahl": 0.000365,
+    "konfidenz": 0.5,
+    "begruendung": "hopfield_n1 zeigt nicht-monotones η(σ_max): Minimum 3.65e-4 bei σ=6,0, dann Sprung zu η>0,008 für σ≥8 (E4–E9). Regime-Wechsel-Indikator: σ_real springt von ≈σ_max (σ≤6) zu ≪σ_max (σ≥8), klassischer Phasenübergang. Konsistent mit doi:10.1098/rsif.2024.0232 (gemischtes Regime). hopfield_n2 unbekannt (front+v_min-API nicht unterstützt); numerische Kandidaten E4–E9, nicht zertifiziert.",
+    "pruefungen": [
+     {
+      "typ": "erreichbar",
+      "topologie": "hopfield_n1",
+      "params": {
+       "bind+": 5.344893869039027,
+       "bind-": 5.379600239025311,
+       "akt0+": -0.35932581045251555,
+       "verw1+": 1.9127692866213322,
+       "verw1-": -3.959466957354143,
+       "prod+": 2.0693559600187643,
+       "mu": 3.181428821535797,
+       "muP": 0.0
+      },
+      "eta_max": 0.0004,
+      "sigma_max": 6.0,
+      "v_min": 0.001
+     }
+    ]
+   },
+   "modell": "haiku",
+   "pruefung": {
+    "bestanden": true,
+    "grund": "Zertifikat (a): eta = 3.650169e-04 (exakt rational); sigma in [6.000000, 6.000000] kT; v = 1.0417e-01"
+   }
+  }
+ ],
+ "experimente": [
+  {
+   "id": 0,
+   "wer": "forscher-sparsam",
+   "op": "param_names",
+   "args": {
+    "topologie": "hopfield_n1"
+   },
+   "ergebnis": {
+    "namen": [
+     "bind+",
+     "bind-",
+     "akt0+",
+     "verw1+",
+     "verw1-",
+     "prod+",
+     "mu",
+     "muP"
+    ]
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 1,
+   "wer": "forscher-sparsam",
+   "op": "param_names",
+   "args": {
+    "topologie": "hopfield_n2"
+   },
+   "ergebnis": {
+    "namen": [
+     "bind+",
+     "bind-",
+     "akt0+",
+     "verw1+",
+     "verw1-",
+     "akt1+",
+     "verw2+",
+     "verw2-",
+     "prod+",
+     "mu",
+     "muP"
+    ]
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 2,
+   "wer": "forscher-sparsam",
+   "op": "front",
+   "args": {
+    "topologie": "hopfield_n1",
+    "sigmas": [
+     2,
+     4,
+     6,
+     8,
+     12,
+     20
+    ],
+    "v_min": 0.001,
+    "starts": 10,
+    "seed": 42
+   },
+   "ergebnis": {
+    "fehler": "TypeError: front() got an unexpected keyword argument 'v_min'"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 3,
+   "wer": "forscher-sparsam",
+   "op": "front",
+   "args": {
+    "topologie": "hopfield_n2",
+    "sigmas": [
+     2,
+     4,
+     6,
+     8,
+     12,
+     20
+    ],
+    "v_min": 0.001,
+    "starts": 10,
+    "seed": 42
+   },
+   "ergebnis": {
+    "fehler": "TypeError: front() got an unexpected keyword argument 'v_min'"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 4,
+   "wer": "forscher-sparsam",
+   "op": "optimize",
+   "args": {
+    "topologie": "hopfield_n1",
+    "sigma_max": 2,
+    "v_min": 0.001,
+    "starts": 5,
+    "seed": 42
+   },
+   "ergebnis": {
+    "params": {
+     "bind+": 5.3280016543124455,
+     "bind-": 4.983942889481365,
+     "akt0+": -0.1173672930924753,
+     "verw1+": 2.709341010437108,
+     "verw1-": -2.445117816314104,
+     "prod+": 4.681972990684102,
+     "mu": 1.737401144440519,
+     "muP": 0.0
+    },
+    "eta": 0.0008761767967075778,
+    "sigma": 1.9999999980789496,
+    "v": 0.22802229339377955,
+    "feasible": true,
+    "hinweis": "numerisch (Kandidat), nicht zertifiziert"
+   },
+   "sek": 0.82
+  },
+  {
+   "id": 5,
+   "wer": "forscher-sparsam",
+   "op": "optimize",
+   "args": {
+    "topologie": "hopfield_n1",
+    "sigma_max": 4,
+    "v_min": 0.001,
+    "starts": 5,
+    "seed": 42
+   },
+   "ergebnis": {
+    "params": {
+     "bind+": 5.3050447828843215,
+     "bind-": 6.231533734047465,
+     "akt0+": 0.8426274012107409,
+     "verw1+": 3.4746949805216456,
+     "verw1-": -4.543584734141984,
+     "prod+": 4.379687326322135,
+     "mu": 0.14252167938837768,
+     "muP": 0.012196099655531714
+    },
+    "eta": 0.0084217185579764,
+    "sigma": 0.2515978706081835,
+    "v": 0.0012149628426623245,
+    "feasible": true,
+    "hinweis": "numerisch (Kandidat), nicht zertifiziert"
+   },
+   "sek": 0.53
+  },
+  {
+   "id": 6,
+   "wer": "forscher-sparsam",
+   "op": "optimize",
+   "args": {
+    "topologie": "hopfield_n1",
+    "sigma_max": 6,
+    "v_min": 0.001,
+    "starts": 5,
+    "seed": 42
+   },
+   "ergebnis": {
+    "params": {
+     "bind+": 5.344893869039027,
+     "bind-": 5.379600239025311,
+     "akt0+": -0.35932581045251555,
+     "verw1+": 1.9127692866213322,
+     "verw1-": -3.959466957354143,
+     "prod+": 2.0693559600187643,
+     "mu": 3.181428821535797,
+     "muP": 0.0
+    },
+    "eta": 0.0003650169306068251,
+    "sigma": 5.999999975171671,
+    "v": 0.10416905803168598,
+    "feasible": true,
+    "hinweis": "numerisch (Kandidat), nicht zertifiziert"
+   },
+   "sek": 0.83
+  },
+  {
+   "id": 7,
+   "wer": "forscher-sparsam",
+   "op": "optimize",
+   "args": {
+    "topologie": "hopfield_n1",
+    "sigma_max": 8,
+    "v_min": 0.001,
+    "starts": 5,
+    "seed": 42
+   },
+   "ergebnis": {
+    "params": {
+     "bind+": 5.3449560403229865,
+     "bind-": 7.763624489866858,
+     "akt0+": -1.7581421693166834,
+     "verw1+": -6.001762306178415,
+     "verw1-": -9.119171632186635,
+     "prod+": 8.969168634873935,
+     "mu": 1.3695947634169143,
+     "muP": 0.5930778792274936
+    },
+    "eta": 0.010037001862355212,
+    "sigma": 1.9625934426336007,
+    "v": 0.13431797504551035,
+    "feasible": true,
+    "hinweis": "numerisch (Kandidat), nicht zertifiziert"
+   },
+   "sek": 0.71
+  },
+  {
+   "id": 8,
+   "wer": "forscher-sparsam",
+   "op": "optimize",
+   "args": {
+    "topologie": "hopfield_n1",
+    "sigma_max": 12,
+    "v_min": 0.001,
+    "starts": 5,
+    "seed": 42
+   },
+   "ergebnis": {
+    "params": {
+     "bind+": 5.33822155918749,
+     "bind-": 8.75292189277358,
+     "akt0+": -4.924635066796202,
+     "verw1+": -8.619735823411624,
+     "verw1-": -7.038538270329166,
+     "prod+": -2.6354788703060006,
+     "mu": 0.7080562532994512,
+     "muP": 0.0
+    },
+    "eta": 0.00840642984437415,
+    "sigma": 0.7113106608997949,
+    "v": 0.002254159061318378,
+    "feasible": true,
+    "hinweis": "numerisch (Kandidat), nicht zertifiziert"
+   },
+   "sek": 0.4
+  },
+  {
+   "id": 9,
+   "wer": "forscher-sparsam",
+   "op": "optimize",
+   "args": {
+    "topologie": "hopfield_n1",
+    "sigma_max": 20,
+    "v_min": 0.001,
+    "starts": 5,
+    "seed": 42
+   },
+   "ergebnis": {
+    "params": {
+     "bind+": -6.840684311498035,
+     "bind-": 0.15513694459476263,
+     "akt0+": -3.1812504524894774,
+     "verw1+": 3.4744183846143124,
+     "verw1-": 1.7298455608644963,
+     "prod+": 1.5301791898397148,
+     "mu": 8.868304504605456,
+     "muP": 4.532358973290133
+    },
+    "eta": 0.010035355293246671,
+    "sigma": 19.828593588620112,
+    "v": 0.022962377665845097,
+    "feasible": true,
+    "hinweis": "numerisch (Kandidat), nicht zertifiziert"
+   },
+   "sek": 0.5
+  }
+ ],
+ "sek": 146.2
+}

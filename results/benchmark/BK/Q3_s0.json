@@ -1,0 +1,238 @@
+{
+ "antwort": {
+  "antwort": "quadratisch",
+  "zahl": null,
+  "konfidenz": 0.99,
+  "pruefung": {
+   "typ": "argmin2d",
+   "nu": 7,
+   "erwartet": "quadratisch"
+  },
+  "begruendung": "Die globale Optimierung (E0: minimize2d über Raster + Nelder-Mead) findet das quadratische Gitter tau=[0,1] als einziges lokales Minimum mit T≈2.233. Das hexagonale Gitter hat höhere Energie (E2: T≈2.854) und ist kein Minimum (E4: beide Hesse-Eigenwerte negativ). Das quadratische Gitter erfüllt das Stabilitätskriterium (E5: positive Hesse-Eigenwerte). Die nachgelagerte Optimierung über Seitenverhältnisse (E1) bestätigt y≈1.",
+  "stimmen": "Stufe 1/4 (sparsam, haiku)"
+ },
+ "level": "computed (Code-Prüfer bestanden)",
+ "forscher": [
+  {
+   "strategie": "sparsam",
+   "runden": [
+    {
+     "ueberlegung": "Das Problem verlangt, das 2D-Gitter mit minimaler Dreikörper-Energie T_ν bei ν=7 zu finden. Strategischer Plan: (1) minimize2d führt globale Suche über den Fundamentalbereich durch (teuerste Operation, ~5s); gibt Kandidat und Gittertyp. (2) rect_optimum prüft spezialisiert Rechteckgitter τ=iy, die eigene Minima haben könnten. (3-4) energy2d evaluiert Referenzgitter hexagonal und quadratisch. (5-6) hessian2d bestätigt auf Kandidaten, dass beide Eigenwerte > 0 (lokales Minimum). Ergebnis: eindeutige Identifikation des optimalen Gitters durch Kombination von globaler Suche, Spezialfällen und lokaler Stabilitätsprüfung.",
+     "plan": [
+      {
+       "op": "minimize2d",
+       "args": {
+        "nu": 7
+       }
+      },
+      {
+       "op": "rect_optimum",
+       "args": {
+        "nu": 7,
+        "y_lo": 0.85,
+        "y_hi": 2.0
+       }
+      },
+      {
+       "op": "energy2d",
+       "args": {
+        "tau": [
+         0.5,
+         0.8660254037844387
+        ],
+        "nu": 7
+       }
+      },
+      {
+       "op": "energy2d",
+       "args": {
+        "tau": [
+         0.0,
+         1.0
+        ],
+        "nu": 7
+       }
+      },
+      {
+       "op": "hessian2d",
+       "args": {
+        "tau": [
+         0.5,
+         0.8660254037844387
+        ],
+        "nu": 7
+       }
+      },
+      {
+       "op": "hessian2d",
+       "args": {
+        "tau": [
+         0.0,
+         1.0
+        ],
+        "nu": 7
+       }
+      }
+     ]
+    },
+    {
+     "antwort": "quadratisch",
+     "zahl": null,
+     "konfidenz": 0.99,
+     "pruefung": {
+      "typ": "argmin2d",
+      "nu": 7,
+      "erwartet": "quadratisch"
+     },
+     "begruendung": "Die globale Optimierung (E0: minimize2d über Raster + Nelder-Mead) findet das quadratische Gitter tau=[0,1] als einziges lokales Minimum mit T≈2.233. Das hexagonale Gitter hat höhere Energie (E2: T≈2.854) und ist kein Minimum (E4: beide Hesse-Eigenwerte negativ). Das quadratische Gitter erfüllt das Stabilitätskriterium (E5: positive Hesse-Eigenwerte). Die nachgelagerte Optimierung über Seitenverhältnisse (E1) bestätigt y≈1."
+    }
+   ],
+   "experimente": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "final": {
+    "antwort": "quadratisch",
+    "zahl": null,
+    "konfidenz": 0.99,
+    "pruefung": {
+     "typ": "argmin2d",
+     "nu": 7,
+     "erwartet": "quadratisch"
+    },
+    "begruendung": "Die globale Optimierung (E0: minimize2d über Raster + Nelder-Mead) findet das quadratische Gitter tau=[0,1] als einziges lokales Minimum mit T≈2.233. Das hexagonale Gitter hat höhere Energie (E2: T≈2.854) und ist kein Minimum (E4: beide Hesse-Eigenwerte negativ). Das quadratische Gitter erfüllt das Stabilitätskriterium (E5: positive Hesse-Eigenwerte). Die nachgelagerte Optimierung über Seitenverhältnisse (E1) bestätigt y≈1."
+   },
+   "modell": "haiku",
+   "pruefung": {
+    "bestanden": true,
+    "grund": "Prüfer-Suche (18er-Raster, 6 Polituren, R=(48, 64)): quadratisch"
+   }
+  }
+ ],
+ "experimente": [
+  {
+   "id": 0,
+   "wer": "forscher-sparsam",
+   "op": "minimize2d",
+   "args": {
+    "nu": 7
+   },
+   "ergebnis": {
+    "tau": [
+     0.0,
+     1.0
+    ],
+    "T": 2.233446174786402,
+    "typ": "quadratisch",
+    "lokale_minima": [
+     {
+      "tau": [
+       0.0,
+       1.0
+      ],
+      "T": 2.233446174786402,
+      "typ": "quadratisch"
+     }
+    ]
+   },
+   "sek": 4.28
+  },
+  {
+   "id": 1,
+   "wer": "forscher-sparsam",
+   "op": "rect_optimum",
+   "args": {
+    "nu": 7,
+    "y_lo": 0.85,
+    "y_hi": 2.0
+   },
+   "ergebnis": {
+    "y": 1.0000000172501202,
+    "T": 2.233446174786396
+   },
+   "sek": 0.18
+  },
+  {
+   "id": 2,
+   "wer": "forscher-sparsam",
+   "op": "energy2d",
+   "args": {
+    "tau": [
+     0.5,
+     0.8660254037844387
+    ],
+    "nu": 7
+   },
+   "ergebnis": {
+    "T": 2.854352063811718,
+    "err": 4.440892098500626e-16
+   },
+   "sek": 0.01
+  },
+  {
+   "id": 3,
+   "wer": "forscher-sparsam",
+   "op": "energy2d",
+   "args": {
+    "tau": [
+     0.0,
+     1.0
+    ],
+    "nu": 7
+   },
+   "ergebnis": {
+    "T": 2.233446174786402,
+    "err": 0.0
+   },
+   "sek": 0.01
+  },
+  {
+   "id": 4,
+   "wer": "forscher-sparsam",
+   "op": "hessian2d",
+   "args": {
+    "tau": [
+     0.5,
+     0.8660254037844387
+    ],
+    "nu": 7
+   },
+   "ergebnis": {
+    "eigenwerte": [
+     -12.092963437071447,
+     -12.09289894488208
+    ],
+    "stabil": false
+   },
+   "sek": 0.11
+  },
+  {
+   "id": 5,
+   "wer": "forscher-sparsam",
+   "op": "hessian2d",
+   "args": {
+    "tau": [
+     0.0,
+     1.0
+    ],
+    "nu": 7
+   },
+   "ergebnis": {
+    "eigenwerte": [
+     3.323792240328416,
+     10.688897327915114
+    ],
+    "stabil": true
+   },
+   "sek": 0.11
+  }
+ ],
+ "sek": 76.8,
+ "frage": "Q3",
+ "salt": 0,
+ "bedingung": "BK"
+}

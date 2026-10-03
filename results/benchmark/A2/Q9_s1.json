@@ -1,0 +1,28 @@
+{
+ "antwort": {
+  "antwort": "bcc",
+  "zahl": null,
+  "konfidenz": 0.6,
+  "begruendung": "Ich habe T_5 numerisch mit abgeschnittenen Summen (|x| < 4,5) für sc, fcc und bcc bei Kovolumen 1 berechnet. Ergebnis: sc 16,21, fcc 13,38, bcc 13,11. bcc ist am kleinsten. Andere Gitter habe ich nicht geprüft, daher ist die Konfidenz mäßig."
+ },
+ "kosten_usd": 0.017196799999999998,
+ "tool_calls": 1,
+ "verstoss": [],
+ "sek": 11.2,
+ "transkript_tools": [
+  {
+   "type": "tool_use",
+   "id": "toolu_01WkrhmemGsw19JS4cE9a3SG",
+   "name": "Bash",
+   "input": {
+    "command": "cat > a.py <<'E'\nimport numpy as np\ndef T(B,n=6,nu=5,R=None):\n    B=np.array(B,float);B/=abs(np.linalg.det(B))**(1/3)\n    r=range(-n,n+1)\n    P=np.array([i*B[0]+j*B[1]+k*B[2] for i in r for j in r for k in r if (i,j,k)!=(0,0,0)])\n    N=np.linalg.norm(P,axis=1);m=N<4.5;P=P[m];N=N[m]\n    D=np.linalg.norm(P[:,None]-P[None],axis=2);np.fill_diagonal(D,np.inf)\n    return ((N[:,None]*N[None]*D)**-nu).sum()\nfor nm,B in [('sc',np.eye(3)),('fcc',[[0,1,1],[1,0,1],[1,1,0]]),('bcc',[[-1,1,1],[1,-1,1],[1,1,-1]])]:\n    print(nm,T(B))\nE\npython3 a.py"
+   },
+   "caller": {
+    "type": "direct"
+   }
+  }
+ ],
+ "frage": "Q9",
+ "salt": 1,
+ "bedingung": "A2"
+}

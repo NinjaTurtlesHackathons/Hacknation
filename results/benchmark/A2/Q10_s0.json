@@ -1,0 +1,73 @@
+{
+ "antwort": {
+  "antwort": "nu_c ≈ 3.78 (FCC stabil für nu < nu_c, instabil für größere nu, 3D-Bain-Pfad)",
+  "zahl": 3.78,
+  "konfidenz": 0.6,
+  "begruendung": "Numerische Summation (Cutoff R=9–13) der Dreikörper-Energie für BCT-Gitter mit Kovolumen 1. Die zweite Ableitung nach c/a bei sqrt2 wechselt bei nu≈3.75–3.8 das Vorzeichen: positiv bei 3.6–3.7, negativ ab 3.9. Die Cutoff-Fluktuationen sind ca. ±0.2 in der Krümmung."
+ },
+ "kosten_usd": 0.0506616,
+ "tool_calls": 5,
+ "verstoss": [],
+ "sek": 479.8,
+ "transkript_tools": [
+  {
+   "type": "tool_use",
+   "id": "toolu_01GU65psTP6sbN3CXMyWexJQ",
+   "name": "Bash",
+   "input": {
+    "command": "cat > a.py <<'E'\nimport numpy as np\nfrom scipy.optimize import brentq\ndef T(r,nu,R=7.0):\n    a=(2/r)**(1/3); c=r*a\n    n=int(R/a*1.5)+3\n    g=np.arange(-n,n+1)\n    I,J,K=np.meshgrid(g,g,g,indexing='ij')\n    I=I.ravel();J=J.ravel();K=K.ravel()\n    m=((I+J+K)%2==0) if False else None\n    # BCT: points (i,j,k)*a + half-shift: use cubic cell a,a,c plus center\n    P=[]\n    for s in (0,0.5):\n        P.append(np.stack([(I+s)*a,(J+s)*a,(K+s)*c],1))\n    P=np.concatenate(P)\n    d=np.linalg.norm(P,axis=1)\n    P=P[(d<R)&(d>1e-9)];d=np.linalg.norm(P,axis=1)\n    D=np.linalg.norm(P[:,None]-P[None],axis=2)\n    np.fill_diagonal(D,np.inf)\n    return ((d[:,None]*d[None])*D)**(-nu)  .sum() if False else (((d[:,None]*d[None,:])*D)**(-nu)).sum()\ndef f(nu,R,h=0.02):\n    r=2**.5\n    return (T(r+h,nu,R)-2*T(r,nu,R)+T(r-h,nu,R))/h**2\nfor R in (5,6):\n  for nu in (3,4,5,6,8,10):\n    print(R,nu,f(nu,R))\nE\npython3 a.py"
+   },
+   "caller": {
+    "type": "direct"
+   }
+  },
+  {
+   "type": "tool_use",
+   "id": "toolu_013zay9HaGC21wzHydjn949i",
+   "name": "Bash",
+   "input": {
+    "command": "cat >> a.py <<'E'\nprint(\"--\")\nfor R in (8,10,12):\n  print(R,[ (nu,round(f(nu,R),3)) for nu in (3.5,4,4.5,5)])\nE\nsed -i 's/^for R in (5,6):/for R in ():/' a.py; python3 a.py"
+   },
+   "caller": {
+    "type": "direct"
+   }
+  },
+  {
+   "type": "tool_use",
+   "id": "toolu_01Q3ZvhSKw2BBrchAEQnLegp",
+   "name": "Bash",
+   "input": {
+    "command": "cat >> a.py <<'E'\nprint(\"==\")\nfor nu in (3.6,3.7,3.8,3.9,4.0,4.2):\n  print(nu,[round(f(nu,R),2) for R in (9,10,11,12,13)])\nE\nsed -i 's/^for R in (8,10,12):/for R in ():/' a.py; python3 a.py"
+   },
+   "caller": {
+    "type": "direct"
+   }
+  },
+  {
+   "type": "tool_use",
+   "id": "toolu_01UkA4kNzETqJbRJFUWu3yUu",
+   "name": "Bash",
+   "input": {
+    "command": "sleep 100; cat /tmp/claude-0/-tmp-tmpj83y11z2/*/tasks/bel36usd2.output"
+   },
+   "caller": {
+    "type": "direct"
+   }
+  },
+  {
+   "type": "tool_use",
+   "id": "toolu_01TVdjRFcoKpyssxjUSER1SA",
+   "name": "Bash",
+   "input": {
+    "command": "until grep -q \"^4.2\" /tmp/claude-0/-tmp-tmpj83y11z2/*/tasks/bel36usd2.output; do sleep 5; done; cat /tmp/claude-0/-tmp-tmpj83y11z2/*/tasks/bel36usd2.output",
+    "timeout": 600000
+   },
+   "caller": {
+    "type": "direct"
+   }
+  }
+ ],
+ "frage": "Q10",
+ "salt": 0,
+ "bedingung": "A2"
+}

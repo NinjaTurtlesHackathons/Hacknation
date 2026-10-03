@@ -1,0 +1,11 @@
+{
+ "key": "6087822185c9e0dff4c6faca",
+ "model": "claude-sonnet-5-5",
+ "salt": "A1-2",
+ "system": "Du bist ein Experte für Gitter-Energieminimierung und mathematische Physik. Antworte nur mit JSON.",
+ "prompt": "Betrachtet wird die Dreikörper-Energie T_nu(L) = Summe über alle Paare verschiedener Gittervektoren x != y, beide ungleich 0, von (|x| |y| |x-y|)^(-nu), für Bravais-Gitter L mit Kovolumen 1. In 2D wird ein Gitter durch tau = x + i y im Fundamentalbereich (0 <= x <= 1/2, |tau| >= 1) beschrieben: L = (Z + tau Z)/sqrt(Im tau). Gesucht ist das Gitter mit minimaler Energie.\n\nFRAGE: Gegen welches Seitenverhältnis y_inf konvergiert das optimale Rechteckgitter für nu -> unendlich? Gib einen Zahlenwert an (falls bekannt, auch die geschlossene Form).\n\nAntworte am Ende als JSON: {\"antwort\": \"<Kategorie oder kurze Antwort; \\\"unbekannt\\\" wenn du es nicht weißt>\", \"zahl\": <Zahl oder null>, \"konfidenz\": <0..1>, \"begruendung\": \"<kurz>\"}",
+ "response": "Ich habe das nur analytisch hergeleitet, nicht numerisch geprüft.\n\nFür ν → ∞ dominiert in T_ν der kleinste Summand. Das optimale Gitter maximiert daher min |x||y||x−y| über alle Paare.\n\nRechteckgitter mit Basis (a,0), (0,b), ab = 1 und a ≤ b. Die relevanten Paarprodukte sind:\n\n- x=(a,0), y=(0,b) bzw. y=(a,b): Produkt √(a²+b²)\n- x=(a,0), y=(2a,0) bzw. y=(−a,0): Produkt 2a³\n- alle anderen Paare liefern größere Werte, z. B. x=(a,0), y=(2a,b) mit Produkt √(a²+b²)·√(4a⁴+1) > √(a²+b²)\n\nDas Minimum ist also min(2a³, √(a²+a⁻²)). Der erste Term wächst mit a, der zweite fällt für a < 1. Das Maximum des Minimums liegt dort, wo beide gleich sind:\n\n4a⁶ = a² + a⁻², also 4a⁸ = a⁴ + 1.\n\nMit u = a⁴ folgt 4u² − u − 1 = 0, also u = (1+√17)/8.\n\nDas Seitenverhältnis ist y = b/a = 1/a² = 1/√u = √(8/(1+√17)) = √((√17−1)/2) ≈ 1,2496.\n\n```json\n{\"antwort\": \"y_inf = sqrt((sqrt(17)-1)/2) ≈ 1.2496\", \"zahl\": 1.2496, \"konfidenz\": 0.85, \"begruendung\": \"Für nu→∞ dominiert der kleinste Summand; maximiere min(2a^3, sqrt(a^2+a^-2)) bei ab=1. Gleichheit gibt 4u^2-u-1=0 mit u=a^4=(1+sqrt17)/8, also y=1/a^2=sqrt((sqrt17-1)/2)≈1.2496.\"}\n```",
+ "cost_usd": 0.024598000000000002,
+ "sek": 17.7,
+ "ts": "2026-10-03T20:22:08"
+}

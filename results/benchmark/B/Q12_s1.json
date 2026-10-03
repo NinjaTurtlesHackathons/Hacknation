@@ -1,0 +1,1158 @@
+{
+ "antwort": {
+  "antwort": "i (quadratisches Gitter, tau = i)",
+  "zahl": null,
+  "konfidenz": 0.9,
+  "pruefung": {
+   "typ": "argmin2d",
+   "nu": 6,
+   "erwartet": "quadratisch"
+  },
+  "begruendung": "Die globale Suche minimize2d bei nu=6 findet als einziges lokales Minimum tau=i mit T=3.24997. Das hexagonale Gitter liegt bei T=3.7458 deutlich höher (Differenz 0.4958, sicher) und ist ein Sattel- bzw. Maximumpunkt (beide Hesse-Eigenwerte ≈ -9.34), während die Hesse-Matrix am quadratischen Gitter positiv definit ist (7.14, 8.54). Die Rechteck-Optimierung bestätigt y≈1, und der Vorzeichenwechsel der Differenz hex–quadrat bei nu≈3.918 erklärt, dass bei nu=6 das quadratische Gitter vorn liegt.",
+  "stimmen": "2/4 (geprüft: 4)"
+ },
+ "level": "computed (Code-Prüfer bestanden)",
+ "forscher": [
+  {
+   "strategie": "numeriker",
+   "runden": [
+    {
+     "ueberlegung": "C_{3,3,3} entspricht nu=6 (|x||y||x-y|)^(-6). Ich scanne zuerst global mit minimize2d bei nu=6, vergleiche dann direkt hexagonal vs. quadratisch und prüfe die Hesse-Matrix an beiden Punkten sowie an i-artigen Rechtecken. Zusätzlich Kontrolle der Nachbarwerte nu=5 und 7, um die Robustheit gegenüber nu zu sehen, und ein Rechteck-Scan.",
+     "plan": [
+      {
+       "op": "minimize2d",
+       "args": {
+        "nu": 6
+       }
+      },
+      {
+       "op": "compare2d",
+       "args": {
+        "tau_a": [
+         0.5,
+         0.8660254
+        ],
+        "tau_b": [
+         0,
+         1
+        ],
+        "nu": 6
+       }
+      },
+      {
+       "op": "hessian2d",
+       "args": {
+        "tau": [
+         0.5,
+         0.8660254
+        ],
+        "nu": 6
+       }
+      },
+      {
+       "op": "hessian2d",
+       "args": {
+        "tau": [
+         0,
+         1
+        ],
+        "nu": 6
+       }
+      },
+      {
+       "op": "rect_optimum",
+       "args": {
+        "nu": 6,
+        "y_lo": 1,
+        "y_hi": 3
+       }
+      },
+      {
+       "op": "energy2d",
+       "args": {
+        "tau": [
+         0.5,
+         0.8660254
+        ],
+        "nu": 6
+       }
+      },
+      {
+       "op": "energy2d",
+       "args": {
+        "tau": [
+         0,
+         1
+        ],
+        "nu": 6
+       }
+      },
+      {
+       "op": "crossing2d",
+       "args": {
+        "tau_a": [
+         0.5,
+         0.8660254
+        ],
+        "tau_b": [
+         0,
+         1
+        ],
+        "nu_lo": 3,
+        "nu_hi": 12
+       }
+      }
+     ]
+    },
+    {
+     "antwort": "i",
+     "zahl": null,
+     "konfidenz": 0.9,
+     "pruefung": {
+      "typ": "argmin2d",
+      "nu": 6,
+      "erwartet": "quadratisch"
+     },
+     "begruendung": "Bei nu=6 findet die globale Suche (minimize2d) als einziges lokales Minimum tau=i mit T=3.24997; das hexagonale Gitter liegt mit T=3.7458 deutlich höher (Differenz 0.4958, sicher) und ist ein Sattel/Maximum (beide Hesse-Eigenwerte ca. -9.34). Am quadratischen Gitter sind beide Eigenwerte positiv (7.14, 8.54), und das Rechteck-Optimum liegt bei y=1.0, also ist das Minimum von C_{3,3,3} bei tau=i."
+    }
+   ],
+   "experimente": [
+    8,
+    9,
+    10,
+    11,
+    22,
+    23,
+    24,
+    29
+   ],
+   "final": {
+    "antwort": "i",
+    "zahl": null,
+    "konfidenz": 0.9,
+    "pruefung": {
+     "typ": "argmin2d",
+     "nu": 6,
+     "erwartet": "quadratisch"
+    },
+    "begruendung": "Bei nu=6 findet die globale Suche (minimize2d) als einziges lokales Minimum tau=i mit T=3.24997; das hexagonale Gitter liegt mit T=3.7458 deutlich höher (Differenz 0.4958, sicher) und ist ein Sattel/Maximum (beide Hesse-Eigenwerte ca. -9.34). Am quadratischen Gitter sind beide Eigenwerte positiv (7.14, 8.54), und das Rechteck-Optimum liegt bei y=1.0, also ist das Minimum von C_{3,3,3} bei tau=i."
+   },
+   "pruefung": {
+    "bestanden": true,
+    "grund": "Prüfer-Suche (18er-Raster, 6 Polituren, R=(48, 64)): quadratisch"
+   }
+  },
+  {
+   "strategie": "theoretiker",
+   "runden": [
+    {
+     "ueberlegung": "C_{3,3,3} entspricht nu=6 (Exponent -6 in |x||y||x-y|, also nu=6). Symmetrie: Hexagonal (rho) und quadratisch (i) sind beide Fixpunkte der modularen Symmetrien, daher kritische Punkte von T (Gradient verschwindet dort in den passenden Richtungen). Der Kandidat ist rho oder i; ob einer davon Minimum ist, entscheidet nu=6. Grenzfall nu->0 (Eisenstein-artig, hexagonal bevorzugt) und nu->inf (dominiert durch kürzeste Dreiecke, hexagonal hat gleichseitige Dreiecke mit kleinstem Produkt, aber rechteckige Gitter mit y~ konstant konkurrieren). Daher ist keine Annahme erlaubt, ich teste direkt: globale Suche bei nu=6, direkter Vergleich hex vs quadratisch, Hesse-Eigenwerte an beiden Punkten, und Kontrolle über Rechteckfamilie sowie Energien selbst.",
+     "plan": [
+      {
+       "op": "minimize2d",
+       "args": {
+        "nu": 6
+       }
+      },
+      {
+       "op": "compare2d",
+       "args": {
+        "tau_a": [
+         0.5,
+         0.8660254
+        ],
+        "tau_b": [
+         0,
+         1
+        ],
+        "nu": 6
+       }
+      },
+      {
+       "op": "hessian2d",
+       "args": {
+        "tau": [
+         0.5,
+         0.8660254
+        ],
+        "nu": 6
+       }
+      },
+      {
+       "op": "hessian2d",
+       "args": {
+        "tau": [
+         0,
+         1
+        ],
+        "nu": 6
+       }
+      },
+      {
+       "op": "rect_optimum",
+       "args": {
+        "nu": 6,
+        "y_lo": 0.5,
+        "y_hi": 3.0
+       }
+      },
+      {
+       "op": "energy2d",
+       "args": {
+        "tau": [
+         0.5,
+         0.8660254
+        ],
+        "nu": 6
+       }
+      },
+      {
+       "op": "energy2d",
+       "args": {
+        "tau": [
+         0,
+         1
+        ],
+        "nu": 6
+       }
+      },
+      {
+       "op": "crossing2d",
+       "args": {
+        "tau_a": [
+         0.5,
+         0.8660254
+        ],
+        "tau_b": [
+         0,
+         1
+        ],
+        "nu_lo": 2,
+        "nu_hi": 12
+       }
+      }
+     ]
+    },
+    {
+     "antwort": "i (quadratisches Gitter)",
+     "zahl": null,
+     "konfidenz": 0.93,
+     "pruefung": {
+      "typ": "argmin2d",
+      "nu": 6,
+      "erwartet": "quadratisch"
+     },
+     "begruendung": "Bei nu=6 findet die globale Suche (minimize2d) als einziges lokales Minimum tau=i mit T=3.24997; das hexagonale Gitter hat T=3.74577, also deutlich höher (Differenz 0.496, sicher), und ist laut Hesse-Matrix ein Maximum/Sattel (beide Eigenwerte ca. -9.34). Das quadratische Gitter ist stabil (Eigenwerte 7.14 und 8.54), und das beste Rechteckgitter hat y=1; der Kreuzungspunkt hex/quadratisch liegt bei nu≈3.918, also ist bei nu=6 das Quadrat im Vorteil."
+    }
+   ],
+   "experimente": [
+    18,
+    19,
+    20,
+    21,
+    25,
+    26,
+    27,
+    30
+   ],
+   "final": {
+    "antwort": "i (quadratisches Gitter)",
+    "zahl": null,
+    "konfidenz": 0.93,
+    "pruefung": {
+     "typ": "argmin2d",
+     "nu": 6,
+     "erwartet": "quadratisch"
+    },
+    "begruendung": "Bei nu=6 findet die globale Suche (minimize2d) als einziges lokales Minimum tau=i mit T=3.24997; das hexagonale Gitter hat T=3.74577, also deutlich höher (Differenz 0.496, sicher), und ist laut Hesse-Matrix ein Maximum/Sattel (beide Eigenwerte ca. -9.34). Das quadratische Gitter ist stabil (Eigenwerte 7.14 und 8.54), und das beste Rechteckgitter hat y=1; der Kreuzungspunkt hex/quadratisch liegt bei nu≈3.918, also ist bei nu=6 das Quadrat im Vorteil."
+   },
+   "pruefung": {
+    "bestanden": true,
+    "grund": "Prüfer-Suche (18er-Raster, 6 Polituren, R=(48, 64)): quadratisch"
+   }
+  },
+  {
+   "strategie": "skeptiker",
+   "runden": [
+    {
+     "ueberlegung": "Die Frage betrifft T_6 (nu=6) in 2D. Naheliegend wäre hexagonal (rho), aber ich prüfe aktiv Alternativen: quadratisch, Rechteck, andere lokale Minima. Plan: globale Suche bei nu=6, direkter Vergleich hexagonal vs. quadratisch, Hesse-Eigenwerte an beiden Punkten, Rechteck-Optimum, sowie Nachbarwerte nu=5 und 7 zur Robustheit (Nähe zu einem Vorzeichenwechsel bzw. Koexistenz).",
+     "plan": [
+      {
+       "op": "minimize2d",
+       "args": {
+        "nu": 6
+       }
+      },
+      {
+       "op": "compare2d",
+       "args": {
+        "tau_a": [
+         0.5,
+         0.8660254
+        ],
+        "tau_b": [
+         0,
+         1
+        ],
+        "nu": 6
+       }
+      },
+      {
+       "op": "hessian2d",
+       "args": {
+        "tau": [
+         0.5,
+         0.8660254
+        ],
+        "nu": 6
+       }
+      },
+      {
+       "op": "hessian2d",
+       "args": {
+        "tau": [
+         0,
+         1
+        ],
+        "nu": 6
+       }
+      },
+      {
+       "op": "rect_optimum",
+       "args": {
+        "nu": 6,
+        "y_lo": 0.5,
+        "y_hi": 3
+       }
+      },
+      {
+       "op": "energy2d",
+       "args": {
+        "tau": [
+         0.5,
+         0.8660254
+        ],
+        "nu": 6
+       }
+      },
+      {
+       "op": "energy2d",
+       "args": {
+        "tau": [
+         0,
+         1
+        ],
+        "nu": 6
+       }
+      },
+      {
+       "op": "crossing2d",
+       "args": {
+        "tau_a": [
+         0.5,
+         0.8660254
+        ],
+        "tau_b": [
+         0,
+         1
+        ],
+        "nu_lo": 3,
+        "nu_hi": 12
+       }
+      }
+     ]
+    },
+    {
+     "antwort": "i (quadratisches Gitter, tau = i)",
+     "zahl": null,
+     "konfidenz": 0.9,
+     "pruefung": {
+      "typ": "argmin2d",
+      "nu": 6,
+      "erwartet": "quadratisch"
+     },
+     "begruendung": "Die globale Suche minimize2d bei nu=6 findet als einziges lokales Minimum tau=i mit T=3.24997. Das hexagonale Gitter liegt bei T=3.7458 deutlich höher (Differenz 0.4958, sicher) und ist ein Sattel- bzw. Maximumpunkt (beide Hesse-Eigenwerte ≈ -9.34), während die Hesse-Matrix am quadratischen Gitter positiv definit ist (7.14, 8.54). Die Rechteck-Optimierung bestätigt y≈1, und der Vorzeichenwechsel der Differenz hex–quadrat bei nu≈3.918 erklärt, dass bei nu=6 das quadratische Gitter vorn liegt."
+    }
+   ],
+   "experimente": [
+    4,
+    5,
+    6,
+    7,
+    13,
+    15,
+    17,
+    28
+   ],
+   "final": {
+    "antwort": "i (quadratisches Gitter, tau = i)",
+    "zahl": null,
+    "konfidenz": 0.9,
+    "pruefung": {
+     "typ": "argmin2d",
+     "nu": 6,
+     "erwartet": "quadratisch"
+    },
+    "begruendung": "Die globale Suche minimize2d bei nu=6 findet als einziges lokales Minimum tau=i mit T=3.24997. Das hexagonale Gitter liegt bei T=3.7458 deutlich höher (Differenz 0.4958, sicher) und ist ein Sattel- bzw. Maximumpunkt (beide Hesse-Eigenwerte ≈ -9.34), während die Hesse-Matrix am quadratischen Gitter positiv definit ist (7.14, 8.54). Die Rechteck-Optimierung bestätigt y≈1, und der Vorzeichenwechsel der Differenz hex–quadrat bei nu≈3.918 erklärt, dass bei nu=6 das quadratische Gitter vorn liegt."
+   },
+   "pruefung": {
+    "bestanden": true,
+    "grund": "Prüfer-Suche (18er-Raster, 6 Polituren, R=(48, 64)): quadratisch"
+   }
+  },
+  {
+   "strategie": "sparsam",
+   "runden": [
+    {
+     "ueberlegung": "Die Frage betrifft nu=6 in 2D. Ich nehme keine Ergebnisse vorweg und prüfe direkt: globale Suche über den Fundamentalbereich, dann Vergleich der Kandidaten rho und i, Hesse-Eigenwerte an beiden Punkten zur Stabilitätsprüfung, plus Rechteck-Optimum als Gegenprobe. Wenige, nicht redundante Experimente.",
+     "plan": [
+      {
+       "op": "minimize2d",
+       "args": {
+        "nu": 6
+       }
+      },
+      {
+       "op": "compare2d",
+       "args": {
+        "tau_a": [
+         0.5,
+         0.8660254
+        ],
+        "tau_b": [
+         0,
+         1
+        ],
+        "nu": 6
+       }
+      },
+      {
+       "op": "hessian2d",
+       "args": {
+        "tau": [
+         0.5,
+         0.8660254
+        ],
+        "nu": 6
+       }
+      },
+      {
+       "op": "hessian2d",
+       "args": {
+        "tau": [
+         0,
+         1
+        ],
+        "nu": 6
+       }
+      },
+      {
+       "op": "rect_optimum",
+       "args": {
+        "nu": 6,
+        "y_lo": 0.8,
+        "y_hi": 3.0
+       }
+      },
+      {
+       "op": "energy2d",
+       "args": {
+        "tau": [
+         0.5,
+         0.8660254
+        ],
+        "nu": 6
+       }
+      },
+      {
+       "op": "energy2d",
+       "args": {
+        "tau": [
+         0,
+         1
+        ],
+        "nu": 6
+       }
+      }
+     ]
+    },
+    {
+     "antwort": "i (quadratisches Gitter, tau = i)",
+     "zahl": null,
+     "konfidenz": 0.9,
+     "pruefung": {
+      "typ": "argmin2d",
+      "nu": 6,
+      "erwartet": "quadratisch"
+     },
+     "begruendung": "Die globale Suche (minimize2d, nu=6) findet nur ein lokales Minimum bei tau = i mit T = 3,24997. Das hexagonale Gitter hat T = 3,7458, ist also um 0,496 höher (sicher), und ist laut Hesse-Matrix (beide Eigenwerte ca. -9,34) ein Maximum bzw. instabil. Das quadratische Gitter ist stabil (Eigenwerte 7,14 und 8,54), und rect_optimum liefert y = 1,0."
+    }
+   ],
+   "experimente": [
+    0,
+    1,
+    2,
+    3,
+    12,
+    14,
+    16
+   ],
+   "final": {
+    "antwort": "i (quadratisches Gitter, tau = i)",
+    "zahl": null,
+    "konfidenz": 0.9,
+    "pruefung": {
+     "typ": "argmin2d",
+     "nu": 6,
+     "erwartet": "quadratisch"
+    },
+    "begruendung": "Die globale Suche (minimize2d, nu=6) findet nur ein lokales Minimum bei tau = i mit T = 3,24997. Das hexagonale Gitter hat T = 3,7458, ist also um 0,496 höher (sicher), und ist laut Hesse-Matrix (beide Eigenwerte ca. -9,34) ein Maximum bzw. instabil. Das quadratische Gitter ist stabil (Eigenwerte 7,14 und 8,54), und rect_optimum liefert y = 1,0."
+   },
+   "pruefung": {
+    "bestanden": true,
+    "grund": "Prüfer-Suche (18er-Raster, 6 Polituren, R=(48, 64)): quadratisch"
+   }
+  }
+ ],
+ "experimente": [
+  {
+   "id": 0,
+   "wer": "forscher-sparsam",
+   "op": "minimize2d",
+   "args": {
+    "nu": 6
+   },
+   "ergebnis": {
+    "tau": [
+     0.0,
+     1.0
+    ],
+    "T": 3.2499743124415903,
+    "typ": "quadratisch",
+    "lokale_minima": [
+     {
+      "tau": [
+       0.0,
+       1.0
+      ],
+      "T": 3.2499743124415903,
+      "typ": "quadratisch"
+     }
+    ]
+   },
+   "sek": 38.32
+  },
+  {
+   "id": 1,
+   "wer": "forscher-sparsam",
+   "op": "compare2d",
+   "args": {
+    "tau_a": [
+     0.5,
+     0.8660254
+    ],
+    "tau_b": [
+     0,
+     1
+    ],
+    "nu": 6
+   },
+   "ergebnis": {
+    "T_a": 3.7457712638354064,
+    "T_b": 3.2499743124415903,
+    "diff": 0.4957969513938161,
+    "err": 3.754653048032408e-13,
+    "sicher": true
+   },
+   "sek": 0.14
+  },
+  {
+   "id": 2,
+   "wer": "forscher-sparsam",
+   "op": "hessian2d",
+   "args": {
+    "tau": [
+     0.5,
+     0.8660254
+    ],
+    "nu": 6
+   },
+   "ergebnis": {
+    "eigenwerte": [
+     -9.343042596809958,
+     -9.342992517868964
+    ],
+    "stabil": false
+   },
+   "sek": 0.69
+  },
+  {
+   "id": 3,
+   "wer": "forscher-sparsam",
+   "op": "hessian2d",
+   "args": {
+    "tau": [
+     0,
+     1
+    ],
+    "nu": 6
+   },
+   "ergebnis": {
+    "eigenwerte": [
+     7.142302888230034,
+     8.54377267378581
+    ],
+    "stabil": true
+   },
+   "sek": 0.59
+  },
+  {
+   "id": 4,
+   "wer": "forscher-skeptiker",
+   "op": "minimize2d",
+   "args": {
+    "nu": 6
+   },
+   "ergebnis": {
+    "tau": [
+     0.0,
+     1.0
+    ],
+    "T": 3.2499743124415903,
+    "typ": "quadratisch",
+    "lokale_minima": [
+     {
+      "tau": [
+       0.0,
+       1.0
+      ],
+      "T": 3.2499743124415903,
+      "typ": "quadratisch"
+     }
+    ]
+   },
+   "sek": 38.88
+  },
+  {
+   "id": 5,
+   "wer": "forscher-skeptiker",
+   "op": "compare2d",
+   "args": {
+    "tau_a": [
+     0.5,
+     0.8660254
+    ],
+    "tau_b": [
+     0,
+     1
+    ],
+    "nu": 6
+   },
+   "ergebnis": {
+    "T_a": 3.7457712638354064,
+    "T_b": 3.2499743124415903,
+    "diff": 0.4957969513938161,
+    "err": 3.754653048032408e-13,
+    "sicher": true
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 6,
+   "wer": "forscher-skeptiker",
+   "op": "hessian2d",
+   "args": {
+    "tau": [
+     0.5,
+     0.8660254
+    ],
+    "nu": 6
+   },
+   "ergebnis": {
+    "eigenwerte": [
+     -9.343042596809958,
+     -9.342992517868964
+    ],
+    "stabil": false
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 7,
+   "wer": "forscher-skeptiker",
+   "op": "hessian2d",
+   "args": {
+    "tau": [
+     0,
+     1
+    ],
+    "nu": 6
+   },
+   "ergebnis": {
+    "eigenwerte": [
+     7.142302888230034,
+     8.54377267378581
+    ],
+    "stabil": true
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 8,
+   "wer": "forscher-numeriker",
+   "op": "minimize2d",
+   "args": {
+    "nu": 6
+   },
+   "ergebnis": {
+    "tau": [
+     0.0,
+     1.0
+    ],
+    "T": 3.2499743124415903,
+    "typ": "quadratisch",
+    "lokale_minima": [
+     {
+      "tau": [
+       0.0,
+       1.0
+      ],
+      "T": 3.2499743124415903,
+      "typ": "quadratisch"
+     }
+    ]
+   },
+   "sek": 39.02
+  },
+  {
+   "id": 9,
+   "wer": "forscher-numeriker",
+   "op": "compare2d",
+   "args": {
+    "tau_a": [
+     0.5,
+     0.8660254
+    ],
+    "tau_b": [
+     0,
+     1
+    ],
+    "nu": 6
+   },
+   "ergebnis": {
+    "T_a": 3.7457712638354064,
+    "T_b": 3.2499743124415903,
+    "diff": 0.4957969513938161,
+    "err": 3.754653048032408e-13,
+    "sicher": true
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 10,
+   "wer": "forscher-numeriker",
+   "op": "hessian2d",
+   "args": {
+    "tau": [
+     0.5,
+     0.8660254
+    ],
+    "nu": 6
+   },
+   "ergebnis": {
+    "eigenwerte": [
+     -9.343042596809958,
+     -9.342992517868964
+    ],
+    "stabil": false
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 11,
+   "wer": "forscher-numeriker",
+   "op": "hessian2d",
+   "args": {
+    "tau": [
+     0,
+     1
+    ],
+    "nu": 6
+   },
+   "ergebnis": {
+    "eigenwerte": [
+     7.142302888230034,
+     8.54377267378581
+    ],
+    "stabil": true
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 12,
+   "wer": "forscher-sparsam",
+   "op": "rect_optimum",
+   "args": {
+    "nu": 6,
+    "y_lo": 0.8,
+    "y_hi": 3.0
+   },
+   "ergebnis": {
+    "y": 1.0000000106932536,
+    "T": 3.2499743124415863
+   },
+   "sek": 1.23
+  },
+  {
+   "id": 13,
+   "wer": "forscher-skeptiker",
+   "op": "rect_optimum",
+   "args": {
+    "nu": 6,
+    "y_lo": 0.5,
+    "y_hi": 3
+   },
+   "ergebnis": {
+    "y": 0.9999999967887425,
+    "T": 3.2499743124415907
+   },
+   "sek": 1.07
+  },
+  {
+   "id": 14,
+   "wer": "forscher-sparsam",
+   "op": "energy2d",
+   "args": {
+    "tau": [
+     0.5,
+     0.8660254
+    ],
+    "nu": 6
+   },
+   "ergebnis": {
+    "T": 3.7457712638354064,
+    "err": 4.440892098500626e-16
+   },
+   "sek": 0.12
+  },
+  {
+   "id": 15,
+   "wer": "forscher-skeptiker",
+   "op": "energy2d",
+   "args": {
+    "tau": [
+     0.5,
+     0.8660254
+    ],
+    "nu": 6
+   },
+   "ergebnis": {
+    "T": 3.7457712638354064,
+    "err": 4.440892098500626e-16
+   },
+   "sek": 0.11
+  },
+  {
+   "id": 16,
+   "wer": "forscher-sparsam",
+   "op": "energy2d",
+   "args": {
+    "tau": [
+     0,
+     1
+    ],
+    "nu": 6
+   },
+   "ergebnis": {
+    "T": 3.2499743124415903,
+    "err": 4.440892098500626e-16
+   },
+   "sek": 0.05
+  },
+  {
+   "id": 17,
+   "wer": "forscher-skeptiker",
+   "op": "energy2d",
+   "args": {
+    "tau": [
+     0,
+     1
+    ],
+    "nu": 6
+   },
+   "ergebnis": {
+    "T": 3.2499743124415903,
+    "err": 4.440892098500626e-16
+   },
+   "sek": 0.05
+  },
+  {
+   "id": 18,
+   "wer": "forscher-theoretiker",
+   "op": "minimize2d",
+   "args": {
+    "nu": 6
+   },
+   "ergebnis": {
+    "tau": [
+     0.0,
+     1.0
+    ],
+    "T": 3.2499743124415903,
+    "typ": "quadratisch",
+    "lokale_minima": [
+     {
+      "tau": [
+       0.0,
+       1.0
+      ],
+      "T": 3.2499743124415903,
+      "typ": "quadratisch"
+     }
+    ]
+   },
+   "sek": 37.65
+  },
+  {
+   "id": 19,
+   "wer": "forscher-theoretiker",
+   "op": "compare2d",
+   "args": {
+    "tau_a": [
+     0.5,
+     0.8660254
+    ],
+    "tau_b": [
+     0,
+     1
+    ],
+    "nu": 6
+   },
+   "ergebnis": {
+    "T_a": 3.7457712638354064,
+    "T_b": 3.2499743124415903,
+    "diff": 0.4957969513938161,
+    "err": 3.754653048032408e-13,
+    "sicher": true
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 20,
+   "wer": "forscher-theoretiker",
+   "op": "hessian2d",
+   "args": {
+    "tau": [
+     0.5,
+     0.8660254
+    ],
+    "nu": 6
+   },
+   "ergebnis": {
+    "eigenwerte": [
+     -9.343042596809958,
+     -9.342992517868964
+    ],
+    "stabil": false
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 21,
+   "wer": "forscher-theoretiker",
+   "op": "hessian2d",
+   "args": {
+    "tau": [
+     0,
+     1
+    ],
+    "nu": 6
+   },
+   "ergebnis": {
+    "eigenwerte": [
+     7.142302888230034,
+     8.54377267378581
+    ],
+    "stabil": true
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 22,
+   "wer": "forscher-numeriker",
+   "op": "rect_optimum",
+   "args": {
+    "nu": 6,
+    "y_lo": 1,
+    "y_hi": 3
+   },
+   "ergebnis": {
+    "y": 1.000000072232061,
+    "T": 3.2499743124416147
+   },
+   "sek": 2.69
+  },
+  {
+   "id": 23,
+   "wer": "forscher-numeriker",
+   "op": "energy2d",
+   "args": {
+    "tau": [
+     0.5,
+     0.8660254
+    ],
+    "nu": 6
+   },
+   "ergebnis": {
+    "T": 3.7457712638354064,
+    "err": 4.440892098500626e-16
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 24,
+   "wer": "forscher-numeriker",
+   "op": "energy2d",
+   "args": {
+    "tau": [
+     0,
+     1
+    ],
+    "nu": 6
+   },
+   "ergebnis": {
+    "T": 3.2499743124415903,
+    "err": 4.440892098500626e-16
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 25,
+   "wer": "forscher-theoretiker",
+   "op": "rect_optimum",
+   "args": {
+    "nu": 6,
+    "y_lo": 0.5,
+    "y_hi": 3.0
+   },
+   "ergebnis": {
+    "y": 0.9999999967887425,
+    "T": 3.2499743124415907
+   },
+   "sek": 0.92
+  },
+  {
+   "id": 26,
+   "wer": "forscher-theoretiker",
+   "op": "energy2d",
+   "args": {
+    "tau": [
+     0.5,
+     0.8660254
+    ],
+    "nu": 6
+   },
+   "ergebnis": {
+    "T": 3.7457712638354064,
+    "err": 4.440892098500626e-16
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 27,
+   "wer": "forscher-theoretiker",
+   "op": "energy2d",
+   "args": {
+    "tau": [
+     0,
+     1
+    ],
+    "nu": 6
+   },
+   "ergebnis": {
+    "T": 3.2499743124415903,
+    "err": 4.440892098500626e-16
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 28,
+   "wer": "forscher-skeptiker",
+   "op": "crossing2d",
+   "args": {
+    "tau_a": [
+     0.5,
+     0.8660254
+    ],
+    "tau_b": [
+     0,
+     1
+    ],
+    "nu_lo": 3,
+    "nu_hi": 12
+   },
+   "ergebnis": {
+    "gefunden": true,
+    "intervall": [
+     3.9183647632598877,
+     3.9183652997016907
+    ]
+   },
+   "sek": 3.03
+  },
+  {
+   "id": 29,
+   "wer": "forscher-numeriker",
+   "op": "crossing2d",
+   "args": {
+    "tau_a": [
+     0.5,
+     0.8660254
+    ],
+    "tau_b": [
+     0,
+     1
+    ],
+    "nu_lo": 3,
+    "nu_hi": 12
+   },
+   "ergebnis": {
+    "gefunden": true,
+    "intervall": [
+     3.9183647632598877,
+     3.9183652997016907
+    ]
+   },
+   "sek": 3.06
+  },
+  {
+   "id": 30,
+   "wer": "forscher-theoretiker",
+   "op": "crossing2d",
+   "args": {
+    "tau_a": [
+     0.5,
+     0.8660254
+    ],
+    "tau_b": [
+     0,
+     1
+    ],
+    "nu_lo": 2,
+    "nu_hi": 12
+   },
+   "ergebnis": {
+    "gefunden": true,
+    "intervall": [
+     3.9183647632598877,
+     3.9183653593063354
+    ]
+   },
+   "sek": 2.99
+  }
+ ],
+ "sek": 119.7,
+ "frage": "Q12",
+ "salt": 1,
+ "bedingung": "B"
+}

@@ -1,0 +1,477 @@
+{
+ "antwort": {
+  "antwort": "3.91836",
+  "zahl": 3.91836,
+  "konfidenz": 0.95,
+  "pruefung": {
+   "typ": "vorzeichenwechsel",
+   "groesse": "diff_hex_quadrat",
+   "nu_lo": 3.91836,
+   "nu_hi": 3.91837
+  },
+  "begruendung": "Die Crossing-Experimente [E3] und [E10] lokalisieren den Übergangspunkt durch Bisektion präzise auf das Intervall [3.91836484, 3.918365625], in dem T(hexagonal) = T(quadratisch). Dies wird durch minimize2d bestätigt: bei ν=3.91 ist Hex global optimal (E8), bei ν=3.92 ist Quad optimal (E9).",
+  "stimmen": "Stufe 1/4 (sparsam, haiku)"
+ },
+ "level": "computed (Code-Prüfer bestanden)",
+ "forscher": [
+  {
+   "strategie": "sparsam",
+   "runden": [
+    {
+     "ueberlegung": "Die Dreikörper-Energie T_nu(L) wird mit steigendem Exponenten nu für Gitter mit großen Abständen zunehmend bestraft. Hexagonal ist räumlich effizienter (kleinere mittlere Abstände), während quadratisch kompakter in bestimmten Richtungen ist.\n\nAnnahme: Bei kleinem nu ist hexagonal günstiger (Vermeidung von großen Abständen weniger kritisch), bei großem nu könnte quadratisch bevorzugt sein (oder umgekehrt). Der Übergangspunkt nu* ist das Ziel.\n\nStrategie:\n1. Benutze minimize2d bei verschiedenen nu um zu beobachten, welcher Gittertyp sukzessive das globale Minimum wird.\n2. Nutze crossing2d zur genauen Bisektion des Übergangspunkts (Vorzeichenwechsel von T_quadrat - T_hex).\n3. Bestätige Stabilität beider Gitter am kritischen Punkt mit hessian2d (beide sollten positive Definit sein).\n4. Nutze compare2d zur Verfeinerung bei kritischen nu-Werten.",
+     "plan": [
+      {
+       "op": "minimize2d",
+       "args": {
+        "nu": 1.5
+       }
+      },
+      {
+       "op": "minimize2d",
+       "args": {
+        "nu": 2.5
+       }
+      },
+      {
+       "op": "minimize2d",
+       "args": {
+        "nu": 3.5
+       }
+      },
+      {
+       "op": "crossing2d",
+       "args": {
+        "tau_a": [
+         0.5,
+         0.8660254
+        ],
+        "tau_b": [
+         0,
+         1
+        ],
+        "nu_lo": 1.0,
+        "nu_hi": 5.0
+       }
+      },
+      {
+       "op": "compare2d",
+       "args": {
+        "tau_a": [
+         0.5,
+         0.8660254
+        ],
+        "tau_b": [
+         0,
+         1
+        ],
+        "nu": 2.0
+       }
+      },
+      {
+       "op": "compare2d",
+       "args": {
+        "tau_a": [
+         0.5,
+         0.8660254
+        ],
+        "tau_b": [
+         0,
+         1
+        ],
+        "nu": 3.0
+       }
+      },
+      {
+       "op": "hessian2d",
+       "args": {
+        "tau": [
+         0.5,
+         0.8660254
+        ],
+        "nu": 2.5
+       }
+      },
+      {
+       "op": "hessian2d",
+       "args": {
+        "tau": [
+         0,
+         1
+        ],
+        "nu": 2.5
+       }
+      }
+     ]
+    },
+    {
+     "plan": [
+      {
+       "op": "minimize2d",
+       "args": {
+        "nu": 3.91
+       }
+      },
+      {
+       "op": "minimize2d",
+       "args": {
+        "nu": 3.92
+       }
+      },
+      {
+       "op": "crossing2d",
+       "args": {
+        "tau_a": [
+         0.5,
+         0.8660254037846831
+        ],
+        "tau_b": [
+         0,
+         1
+        ],
+        "nu_lo": 3.9183,
+        "nu_hi": 3.9184
+       }
+      }
+     ]
+    },
+    {
+     "antwort": "3.91836",
+     "zahl": 3.91836,
+     "konfidenz": 0.95,
+     "pruefung": {
+      "typ": "vorzeichenwechsel",
+      "groesse": "diff_hex_quadrat",
+      "nu_lo": 3.91836,
+      "nu_hi": 3.91837
+     },
+     "begruendung": "Die Crossing-Experimente [E3] und [E10] lokalisieren den Übergangspunkt durch Bisektion präzise auf das Intervall [3.91836484, 3.918365625], in dem T(hexagonal) = T(quadratisch). Dies wird durch minimize2d bestätigt: bei ν=3.91 ist Hex global optimal (E8), bei ν=3.92 ist Quad optimal (E9)."
+    }
+   ],
+   "experimente": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10
+   ],
+   "final": {
+    "antwort": "3.91836",
+    "zahl": 3.91836,
+    "konfidenz": 0.95,
+    "pruefung": {
+     "typ": "vorzeichenwechsel",
+     "groesse": "diff_hex_quadrat",
+     "nu_lo": 3.91836,
+     "nu_hi": 3.91837
+    },
+    "begruendung": "Die Crossing-Experimente [E3] und [E10] lokalisieren den Übergangspunkt durch Bisektion präzise auf das Intervall [3.91836484, 3.918365625], in dem T(hexagonal) = T(quadratisch). Dies wird durch minimize2d bestätigt: bei ν=3.91 ist Hex global optimal (E8), bei ν=3.92 ist Quad optimal (E9)."
+   },
+   "modell": "haiku",
+   "pruefung": {
+    "bestanden": true,
+    "grund": "diff_hex_quadrat: f(3.91836)=1.414e-06, f(3.91837)=-1.470e-06"
+   }
+  }
+ ],
+ "experimente": [
+  {
+   "id": 0,
+   "wer": "forscher-sparsam",
+   "op": "minimize2d",
+   "args": {
+    "nu": 1.5
+   },
+   "ergebnis": {
+    "tau": [
+     0.4999999999999887,
+     0.8660254037846831
+    ],
+    "T": 228.86687967991662,
+    "typ": "hexagonal",
+    "lokale_minima": [
+     {
+      "tau": [
+       0.4999999999999887,
+       0.8660254037846831
+      ],
+      "T": 228.86687967991662,
+      "typ": "hexagonal"
+     }
+    ]
+   },
+   "sek": 10.93
+  },
+  {
+   "id": 1,
+   "wer": "forscher-sparsam",
+   "op": "minimize2d",
+   "args": {
+    "nu": 2.5
+   },
+   "ergebnis": {
+    "tau": [
+     0.5,
+     0.8660254037844386
+    ],
+    "T": 20.636450446070285,
+    "typ": "hexagonal",
+    "lokale_minima": [
+     {
+      "tau": [
+       0.5,
+       0.8660254037844386
+      ],
+      "T": 20.636450446070285,
+      "typ": "hexagonal"
+     }
+    ]
+   },
+   "sek": 5.4
+  },
+  {
+   "id": 2,
+   "wer": "forscher-sparsam",
+   "op": "minimize2d",
+   "args": {
+    "nu": 3.5
+   },
+   "ergebnis": {
+    "tau": [
+     0.5,
+     0.8660254037844386
+    ],
+    "T": 9.772376100920328,
+    "typ": "hexagonal",
+    "lokale_minima": [
+     {
+      "tau": [
+       0.5,
+       0.8660254037844386
+      ],
+      "T": 9.772376100920328,
+      "typ": "hexagonal"
+     }
+    ]
+   },
+   "sek": 4.8
+  },
+  {
+   "id": 3,
+   "wer": "forscher-sparsam",
+   "op": "crossing2d",
+   "args": {
+    "tau_a": [
+     0.5,
+     0.8660254
+    ],
+    "tau_b": [
+     0,
+     1
+    ],
+    "nu_lo": 1.0,
+    "nu_hi": 5.0
+   },
+   "ergebnis": {
+    "gefunden": true,
+    "intervall": [
+     3.9183645248413086,
+     3.918365478515625
+    ]
+   },
+   "sek": 0.66
+  },
+  {
+   "id": 4,
+   "wer": "forscher-sparsam",
+   "op": "compare2d",
+   "args": {
+    "tau_a": [
+     0.5,
+     0.8660254
+    ],
+    "tau_b": [
+     0,
+     1
+    ],
+    "nu": 2.0
+   },
+   "ergebnis": {
+    "T_a": 41.39438591510646,
+    "T_b": 41.913592543226436,
+    "diff": -0.5192066281199743,
+    "err": 0.17497354020903716,
+    "sicher": false
+   },
+   "sek": 0.04
+  },
+  {
+   "id": 5,
+   "wer": "forscher-sparsam",
+   "op": "compare2d",
+   "args": {
+    "tau_a": [
+     0.5,
+     0.8660254
+    ],
+    "tau_b": [
+     0,
+     1
+    ],
+    "nu": 3.0
+   },
+   "ergebnis": {
+    "T_a": 13.391794004874818,
+    "T_b": 13.652893626113212,
+    "diff": -0.2610996212383938,
+    "err": 1.2005586597022925e-05,
+    "sicher": true
+   },
+   "sek": 0.05
+  },
+  {
+   "id": 6,
+   "wer": "forscher-sparsam",
+   "op": "hessian2d",
+   "args": {
+    "tau": [
+     0.5,
+     0.8660254
+    ],
+    "nu": 2.5
+   },
+   "ergebnis": {
+    "eigenwerte": [
+     12.939470758865923,
+     12.941910840780224
+    ],
+    "stabil": true
+   },
+   "sek": 0.14
+  },
+  {
+   "id": 7,
+   "wer": "forscher-sparsam",
+   "op": "hessian2d",
+   "args": {
+    "tau": [
+     0,
+     1
+    ],
+    "nu": 2.5
+   },
+   "ergebnis": {
+    "eigenwerte": [
+     -5.438055135087438,
+     30.712422574907805
+    ],
+    "stabil": false
+   },
+   "sek": 0.14
+  },
+  {
+   "id": 8,
+   "wer": "forscher-sparsam",
+   "op": "minimize2d",
+   "args": {
+    "nu": 3.91
+   },
+   "ergebnis": {
+    "tau": [
+     0.5,
+     0.8660254037844386
+    ],
+    "T": 7.92958646045417,
+    "typ": "hexagonal",
+    "lokale_minima": [
+     {
+      "tau": [
+       0.5,
+       0.8660254037844386
+      ],
+      "T": 7.92958646045417,
+      "typ": "hexagonal"
+     },
+     {
+      "tau": [
+       0.0,
+       1.0
+      ],
+      "T": 7.931999832151703,
+      "typ": "quadratisch"
+     }
+    ]
+   },
+   "sek": 3.61
+  },
+  {
+   "id": 9,
+   "wer": "forscher-sparsam",
+   "op": "minimize2d",
+   "args": {
+    "nu": 3.92
+   },
+   "ergebnis": {
+    "tau": [
+     0.0,
+     1.0
+    ],
+    "T": 7.891990305803682,
+    "typ": "quadratisch",
+    "lokale_minima": [
+     {
+      "tau": [
+       0.0,
+       1.0
+      ],
+      "T": 7.891990305803682,
+      "typ": "quadratisch"
+     },
+     {
+      "tau": [
+       0.5,
+       0.8660254037844386
+      ],
+      "T": 7.892461950071012,
+      "typ": "hexagonal"
+     }
+    ]
+   },
+   "sek": 3.37
+  },
+  {
+   "id": 10,
+   "wer": "forscher-sparsam",
+   "op": "crossing2d",
+   "args": {
+    "tau_a": [
+     0.5,
+     0.8660254037846831
+    ],
+    "tau_b": [
+     0,
+     1
+    ],
+    "nu_lo": 3.9183,
+    "nu_hi": 3.9184
+   },
+   "ergebnis": {
+    "gefunden": true,
+    "intervall": [
+     3.91836484375,
+     3.918365625
+    ]
+   },
+   "sek": 0.2
+  }
+ ],
+ "sek": 118.0,
+ "frage": "Q5",
+ "salt": 0,
+ "bedingung": "BK"
+}

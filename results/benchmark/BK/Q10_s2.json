@@ -1,0 +1,1025 @@
+{
+ "antwort": {
+  "antwort": "nu_c ≈ 3,752",
+  "zahl": 3.752,
+  "konfidenz": 0.93,
+  "pruefung": {
+   "typ": "vorzeichenwechsel",
+   "groesse": "bain_fcc",
+   "nu_lo": 3.73,
+   "nu_hi": 3.78
+  },
+  "begruendung": "Die Bain-Krümmung bei FCC (c/a = √2) ist bei ν=3,7 positiv (+0,139), bei ν=3,75 knapp positiv (+0,0051) und bei ν=3,8 negativ (−0,129). Lineare Interpolation zwischen 3,75 und 3,8 ergibt die Nullstelle bei ν ≈ 3,752. Für ν=2,5 bis 3,5 ist die Krümmung positiv und für ν≥4 durchgehend negativ, also gibt es nur einen Vorzeichenwechsel, und FCC ist nur unterhalb von ν_c lokal stabil.",
+  "stimmen": "Stufe 3/4 (skeptiker, sonnet)"
+ },
+ "level": "computed (Code-Prüfer bestanden)",
+ "forscher": [
+  {
+   "strategie": "sparsam",
+   "runden": [
+    {
+     "ueberlegung": "Die Frage zielt auf die kritische Exponent ν_c ab, bei der FCC entlang des Bain-Pfads von lokal stabil (positive Krümmung der Energiefläche) zu lokal instabil (negative Krümmung) wechselt. Dies zeigt sich als Vorzeichenwechsel der zweiten Ableitung ∂²T/∂(c/a)² bei c/a = √2.\n\nStrategie:\n1. Systematische Messungen der Bain-Krümmung bei FCC (c/a = √2) für verschiedene ν durchführen\n2. Grobe Einfassung des Vorzeichenwechsels (ν = 1, 2, 3, 4, 5)\n3. Verfeinerte Bisektionen im kritischen Bereich\n4. Das Ergebnis mit einem Vorzeichenwechsel-Experiment validieren\n\nBegründung: Da die Stabilität kontinuierlich von einem Parameter (ν) abhängt, muss es einen kritischen Punkt geben, wo die Krümmung von positiv zu negativ wechselt. Mit max. 8 Experimenten plane ich 5-6 Messungen zur Einfassung plus ggf. Verfeinerung.",
+     "plan": [
+      {
+       "op": "bain_curvature",
+       "args": {
+        "ca": 1.41421356,
+        "nu": 1.0
+       }
+      },
+      {
+       "op": "bain_curvature",
+       "args": {
+        "ca": 1.41421356,
+        "nu": 2.0
+       }
+      },
+      {
+       "op": "bain_curvature",
+       "args": {
+        "ca": 1.41421356,
+        "nu": 3.0
+       }
+      },
+      {
+       "op": "bain_curvature",
+       "args": {
+        "ca": 1.41421356,
+        "nu": 4.0
+       }
+      },
+      {
+       "op": "bain_curvature",
+       "args": {
+        "ca": 1.41421356,
+        "nu": 5.0
+       }
+      },
+      {
+       "op": "bain_curvature",
+       "args": {
+        "ca": 1.41421356,
+        "nu": 6.0
+       }
+      }
+     ]
+    },
+    {
+     "plan": [
+      {
+       "op": "bain_curvature",
+       "args": {
+        "ca": 1.41421356,
+        "nu": 1.5
+       }
+      },
+      {
+       "op": "bain_curvature",
+       "args": {
+        "ca": 1.41421356,
+        "nu": 2.0
+       }
+      },
+      {
+       "op": "bain_curvature",
+       "args": {
+        "ca": 1.41421356,
+        "nu": 2.5
+       }
+      }
+     ]
+    },
+    {
+     "antwort": "3.75",
+     "zahl": 3.75,
+     "konfidenz": 0.65,
+     "pruefung": {
+      "typ": "vorzeichenwechsel",
+      "groesse": "bain_fcc",
+      "nu_lo": 3.0,
+      "nu_hi": 4.0
+     },
+     "begruendung": "Bain-Krümmung bei FCC (c/a = √2) wechselt von positiv zu negativ: +1.964 bei nu=3.0 (stabil) zu −0.665 bei nu=4.0 (instabil). Lineares Interpolationsfit ergibt Stabilititätsgrenzwert nu_c ≈ 3.746 ≈ 3.75. FCC verliert lokale Stabilität oberhalb dieses Exponenten."
+    }
+   ],
+   "experimente": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8
+   ],
+   "final": {
+    "antwort": "3.75",
+    "zahl": 3.75,
+    "konfidenz": 0.65,
+    "pruefung": {
+     "typ": "vorzeichenwechsel",
+     "groesse": "bain_fcc",
+     "nu_lo": 3.0,
+     "nu_hi": 4.0
+    },
+    "begruendung": "Bain-Krümmung bei FCC (c/a = √2) wechselt von positiv zu negativ: +1.964 bei nu=3.0 (stabil) zu −0.665 bei nu=4.0 (instabil). Lineares Interpolationsfit ergibt Stabilititätsgrenzwert nu_c ≈ 3.746 ≈ 3.75. FCC verliert lokale Stabilität oberhalb dieses Exponenten."
+   },
+   "modell": "haiku",
+   "pruefung": {
+    "bestanden": false,
+    "grund": "Intervall fehlt oder breiter als 0,05"
+   }
+  },
+  {
+   "strategie": "numeriker",
+   "runden": [
+    {
+     "ueberlegung": "Aufgabe: Finde den kritischen Exponenten nu_c, bei dem FCC entlang des Bain-Pfads (c/a von 1 bis sqrt(2)) die lokale Stabilität verliert. Das Kriterium ist ein Vorzeichenwechsel der Krümmung (zweite Ableitung der Energie T_nu) an c/a = sqrt(2). Strategie: (1) Grobes Scannen der Krümmung bei FCC über einen breiten nu-Bereich mit bain_curvature, um den Übergangsbereich zu lokalisieren; (2) Verfeinern durch Bisektionssuche in einem engeren Intervall. Die Krümmung sollte für kleine nu positiv sein (FCC stabil) und für große nu negativ (FCC instabil). Der kritische Punkt liegt dort, wo die Krümmung ≈ 0 ist.",
+     "plan": [
+      {
+       "op": "bain_curvature",
+       "args": {
+        "ca": 1.41421356,
+        "nu": 0.5
+       }
+      },
+      {
+       "op": "bain_curvature",
+       "args": {
+        "ca": 1.41421356,
+        "nu": 1.0
+       }
+      },
+      {
+       "op": "bain_curvature",
+       "args": {
+        "ca": 1.41421356,
+        "nu": 1.5
+       }
+      },
+      {
+       "op": "bain_curvature",
+       "args": {
+        "ca": 1.41421356,
+        "nu": 2.0
+       }
+      },
+      {
+       "op": "bain_curvature",
+       "args": {
+        "ca": 1.41421356,
+        "nu": 2.5
+       }
+      },
+      {
+       "op": "bain_curvature",
+       "args": {
+        "ca": 1.41421356,
+        "nu": 3.0
+       }
+      },
+      {
+       "op": "bain_curvature",
+       "args": {
+        "ca": 1.41421356,
+        "nu": 4.0
+       }
+      },
+      {
+       "op": "bain_curvature",
+       "args": {
+        "ca": 1.41421356,
+        "nu": 5.0
+       }
+      }
+     ]
+    },
+    {
+     "plan": [
+      {
+       "op": "bain_curvature",
+       "args": {
+        "ca": 1.41421356,
+        "nu": 1.75
+       }
+      },
+      {
+       "op": "bain_curvature",
+       "args": {
+        "ca": 1.41421356,
+        "nu": 2.0
+       }
+      },
+      {
+       "op": "bain_curvature",
+       "args": {
+        "ca": 1.41421356,
+        "nu": 2.1
+       }
+      },
+      {
+       "op": "bain_curvature",
+       "args": {
+        "ca": 1.41421356,
+        "nu": 2.2
+       }
+      },
+      {
+       "op": "bain_curvature",
+       "args": {
+        "ca": 1.41421356,
+        "nu": 1.95
+       }
+      },
+      {
+       "op": "bain_curvature",
+       "args": {
+        "ca": 1.41421356,
+        "nu": 2.05
+       }
+      }
+     ]
+    },
+    {
+     "ansatz": "Bestimme den kritischen Exponenten nu_c, bei dem die Bain-Krümmung am FCC-Punkt (c/a = √2 ≈ 1.414) das Vorzeichen wechselt — von negativer zu positiver Krümmung (Stabilitätsverlust)",
+     "beobachtungen_bisherig": {
+      "erste_region": "nu ∈ [1.5, 1.75]: Krümmung wechselt von -7.54 zu +7.513",
+      "zweite_region": "nu ∈ [1.95, 2.05]: Krümmung wechselt von +18.95 zu -6.60",
+      "numerik": "ZeroDivisionError bei nu=2.0 deutet auf Singularität hin"
+     },
+     "verfeinerungsstrategie": "Bisektion in der kritischen Region [1.95, 2.05], da der Stabilitätsverlust (+ → −) dort stattfindet",
+     "neue_experimente": [
+      {
+       "op": "bain_curvature",
+       "args": {
+        "ca": 1.41421356,
+        "nu": 1.98
+       }
+      },
+      {
+       "op": "bain_curvature",
+       "args": {
+        "ca": 1.41421356,
+        "nu": 2.0
+       }
+      },
+      {
+       "op": "bain_curvature",
+       "args": {
+        "ca": 1.41421356,
+        "nu": 2.02
+       }
+      },
+      {
+       "op": "bain_curvature",
+       "args": {
+        "ca": 1.41421356,
+        "nu": 1.97
+       }
+      },
+      {
+       "op": "bain_curvature",
+       "args": {
+        "ca": 1.41421356,
+        "nu": 2.03
+       }
+      }
+     ],
+     "analyse_alt": {
+      "hinweis": "Die Daten zeigen zwei Vorzeichenwechsel. Die Frage 'verliert Stabilität' bedeutet wahrscheinlich: lokales Minimum (κ > 0) → kein lokales Minimum (κ < 0). Das ist der Übergang zwischen E21 (nu=1.95, κ=+18.95) und E22 (nu=2.05, κ=−6.60), d.h. irgendwo bei nu ≈ 2.0.",
+      "erster_uebergang": "nu ∈ [1.5, 1.75] ist ein Übergag zu Stabilität (−→+), nicht Stabilitätsverlust",
+      "zweiter_uebergang": "nu ∈ [1.95, 2.05] ist Stabilitätsverlust (+→−)"
+     },
+     "antwort": "unbekannt",
+     "zahl": null,
+     "konfidenz": 0.3,
+     "grund_ungewissheit": "Aus den bisherigen Daten sind zwei konkurrierende Kandidaten sichtbar: (1) nu ≈ 1.6-1.7 für Übergang zu positiver Krümmung, (2) nu ≈ 2.0 für Übergang zu negativer Krümmung. Die genaue Definition von 'Stabilitätsverlust' und der numerische Fehler bei nu=2.0 erfordern weitere Verfeinerung.",
+     "naechster_schritt": "Führe Bisektion im Intervall [1.95, 2.05] durch, um den genauen kritischen Punkt zu bestimmen, bei dem Krümmung von + zu − wechselt."
+    }
+   ],
+   "experimente": [
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    22
+   ],
+   "final": {
+    "ansatz": "Bestimme den kritischen Exponenten nu_c, bei dem die Bain-Krümmung am FCC-Punkt (c/a = √2 ≈ 1.414) das Vorzeichen wechselt — von negativer zu positiver Krümmung (Stabilitätsverlust)",
+    "beobachtungen_bisherig": {
+     "erste_region": "nu ∈ [1.5, 1.75]: Krümmung wechselt von -7.54 zu +7.513",
+     "zweite_region": "nu ∈ [1.95, 2.05]: Krümmung wechselt von +18.95 zu -6.60",
+     "numerik": "ZeroDivisionError bei nu=2.0 deutet auf Singularität hin"
+    },
+    "verfeinerungsstrategie": "Bisektion in der kritischen Region [1.95, 2.05], da der Stabilitätsverlust (+ → −) dort stattfindet",
+    "neue_experimente": [
+     {
+      "op": "bain_curvature",
+      "args": {
+       "ca": 1.41421356,
+       "nu": 1.98
+      }
+     },
+     {
+      "op": "bain_curvature",
+      "args": {
+       "ca": 1.41421356,
+       "nu": 2.0
+      }
+     },
+     {
+      "op": "bain_curvature",
+      "args": {
+       "ca": 1.41421356,
+       "nu": 2.02
+      }
+     },
+     {
+      "op": "bain_curvature",
+      "args": {
+       "ca": 1.41421356,
+       "nu": 1.97
+      }
+     },
+     {
+      "op": "bain_curvature",
+      "args": {
+       "ca": 1.41421356,
+       "nu": 2.03
+      }
+     }
+    ],
+    "analyse_alt": {
+     "hinweis": "Die Daten zeigen zwei Vorzeichenwechsel. Die Frage 'verliert Stabilität' bedeutet wahrscheinlich: lokales Minimum (κ > 0) → kein lokales Minimum (κ < 0). Das ist der Übergang zwischen E21 (nu=1.95, κ=+18.95) und E22 (nu=2.05, κ=−6.60), d.h. irgendwo bei nu ≈ 2.0.",
+     "erster_uebergang": "nu ∈ [1.5, 1.75] ist ein Übergag zu Stabilität (−→+), nicht Stabilitätsverlust",
+     "zweiter_uebergang": "nu ∈ [1.95, 2.05] ist Stabilitätsverlust (+→−)"
+    },
+    "antwort": "unbekannt",
+    "zahl": null,
+    "konfidenz": 0.3,
+    "grund_ungewissheit": "Aus den bisherigen Daten sind zwei konkurrierende Kandidaten sichtbar: (1) nu ≈ 1.6-1.7 für Übergang zu positiver Krümmung, (2) nu ≈ 2.0 für Übergang zu negativer Krümmung. Die genaue Definition von 'Stabilitätsverlust' und der numerische Fehler bei nu=2.0 erfordern weitere Verfeinerung.",
+    "naechster_schritt": "Führe Bisektion im Intervall [1.95, 2.05] durch, um den genauen kritischen Punkt zu bestimmen, bei dem Krümmung von + zu − wechselt."
+   },
+   "modell": "haiku",
+   "pruefung": {
+    "bestanden": false,
+    "grund": "keine Prüfung angegeben"
+   }
+  },
+  {
+   "strategie": "skeptiker",
+   "runden": [
+    {
+     "ueberlegung": "Ich kenne nu_c nicht vorab und rate nicht. Zuerst taste ich die Bain-Krümmung bei FCC (c/a = sqrt(2) = 1.41421356) über einen groben nu-Bereich ab, um den Vorzeichenwechsel einzugrenzen. Die Energie T_nu konvergiert nur für nu > 2 (Dreikörper-Summe, in 3D vermutlich nu > 2d/3 bzw. ähnlich), daher wähle ich Werte von etwa 3 bis 12. Als Gegenprobe prüfe ich energy3d bei FCC, um Konvergenz und Plausibilität zu sehen, und bain_curvature leicht neben FCC, um auszuschließen, dass FCC nicht exakt ein stationärer Punkt ist oder die Krümmung dort numerisch artefaktbehaftet ist. Im zweiten Schritt verfeinere ich per Bisektion auf Intervallbreite <= 0,05 und kontrolliere, dass der Wechsel nicht mehrfach auftritt.",
+     "plan": [
+      {
+       "op": "bain_curvature",
+       "args": {
+        "ca": 1.41421356,
+        "nu": 3
+       }
+      },
+      {
+       "op": "bain_curvature",
+       "args": {
+        "ca": 1.41421356,
+        "nu": 4
+       }
+      },
+      {
+       "op": "bain_curvature",
+       "args": {
+        "ca": 1.41421356,
+        "nu": 5
+       }
+      },
+      {
+       "op": "bain_curvature",
+       "args": {
+        "ca": 1.41421356,
+        "nu": 6
+       }
+      },
+      {
+       "op": "bain_curvature",
+       "args": {
+        "ca": 1.41421356,
+        "nu": 8
+       }
+      },
+      {
+       "op": "bain_curvature",
+       "args": {
+        "ca": 1.41421356,
+        "nu": 12
+       }
+      },
+      {
+       "op": "bain_curvature",
+       "args": {
+        "ca": 1.41421356,
+        "nu": 2.5
+       }
+      },
+      {
+       "op": "energy3d",
+       "args": {
+        "name_or_ca": "fcc",
+        "nu": 5
+       }
+      }
+     ]
+    },
+    {
+     "plan": [
+      {
+       "op": "bain_curvature",
+       "args": {
+        "ca": 1.41421356,
+        "nu": 3.5
+       }
+      },
+      {
+       "op": "bain_curvature",
+       "args": {
+        "ca": 1.41421356,
+        "nu": 3.6
+       }
+      },
+      {
+       "op": "bain_curvature",
+       "args": {
+        "ca": 1.41421356,
+        "nu": 3.7
+       }
+      },
+      {
+       "op": "bain_curvature",
+       "args": {
+        "ca": 1.41421356,
+        "nu": 3.8
+       }
+      },
+      {
+       "op": "bain_curvature",
+       "args": {
+        "ca": 1.41421356,
+        "nu": 3.9
+       }
+      },
+      {
+       "op": "bain_curvature",
+       "args": {
+        "ca": 1.41421356,
+        "nu": 3.75
+       }
+      }
+     ]
+    },
+    {
+     "antwort": "nu_c ≈ 3,752",
+     "zahl": 3.752,
+     "konfidenz": 0.93,
+     "pruefung": {
+      "typ": "vorzeichenwechsel",
+      "groesse": "bain_fcc",
+      "nu_lo": 3.73,
+      "nu_hi": 3.78
+     },
+     "begruendung": "Die Bain-Krümmung bei FCC (c/a = √2) ist bei ν=3,7 positiv (+0,139), bei ν=3,75 knapp positiv (+0,0051) und bei ν=3,8 negativ (−0,129). Lineare Interpolation zwischen 3,75 und 3,8 ergibt die Nullstelle bei ν ≈ 3,752. Für ν=2,5 bis 3,5 ist die Krümmung positiv und für ν≥4 durchgehend negativ, also gibt es nur einen Vorzeichenwechsel, und FCC ist nur unterhalb von ν_c lokal stabil."
+    }
+   ],
+   "experimente": [
+    23,
+    24,
+    25,
+    26,
+    27,
+    28,
+    29,
+    30,
+    31,
+    32,
+    33,
+    34,
+    35,
+    36
+   ],
+   "final": {
+    "antwort": "nu_c ≈ 3,752",
+    "zahl": 3.752,
+    "konfidenz": 0.93,
+    "pruefung": {
+     "typ": "vorzeichenwechsel",
+     "groesse": "bain_fcc",
+     "nu_lo": 3.73,
+     "nu_hi": 3.78
+    },
+    "begruendung": "Die Bain-Krümmung bei FCC (c/a = √2) ist bei ν=3,7 positiv (+0,139), bei ν=3,75 knapp positiv (+0,0051) und bei ν=3,8 negativ (−0,129). Lineare Interpolation zwischen 3,75 und 3,8 ergibt die Nullstelle bei ν ≈ 3,752. Für ν=2,5 bis 3,5 ist die Krümmung positiv und für ν≥4 durchgehend negativ, also gibt es nur einen Vorzeichenwechsel, und FCC ist nur unterhalb von ν_c lokal stabil."
+   },
+   "modell": "sonnet",
+   "pruefung": {
+    "bestanden": true,
+    "grund": "bain_fcc: f(3.73)=5.883e-02, f(3.78)=-7.522e-02"
+   }
+  }
+ ],
+ "experimente": [
+  {
+   "id": 0,
+   "wer": "forscher-sparsam",
+   "op": "bain_curvature",
+   "args": {
+    "ca": 1.41421356,
+    "nu": 1.0
+   },
+   "ergebnis": {
+    "kruemmung": -466.8015708375606
+   },
+   "sek": 0.14
+  },
+  {
+   "id": 1,
+   "wer": "forscher-sparsam",
+   "op": "bain_curvature",
+   "args": {
+    "ca": 1.41421356,
+    "nu": 2.0
+   },
+   "ergebnis": {
+    "fehler": "ZeroDivisionError: float division by zero"
+   },
+   "sek": 0.05
+  },
+  {
+   "id": 2,
+   "wer": "forscher-sparsam",
+   "op": "bain_curvature",
+   "args": {
+    "ca": 1.41421356,
+    "nu": 3.0
+   },
+   "ergebnis": {
+    "kruemmung": 1.9639132489146505
+   },
+   "sek": 0.16
+  },
+  {
+   "id": 3,
+   "wer": "forscher-sparsam",
+   "op": "bain_curvature",
+   "args": {
+    "ca": 1.41421356,
+    "nu": 4.0
+   },
+   "ergebnis": {
+    "kruemmung": -0.6646026662338045
+   },
+   "sek": 0.12
+  },
+  {
+   "id": 4,
+   "wer": "forscher-sparsam",
+   "op": "bain_curvature",
+   "args": {
+    "ca": 1.41421356,
+    "nu": 5.0
+   },
+   "ergebnis": {
+    "kruemmung": -3.171779109578665
+   },
+   "sek": 0.12
+  },
+  {
+   "id": 5,
+   "wer": "forscher-sparsam",
+   "op": "bain_curvature",
+   "args": {
+    "ca": 1.41421356,
+    "nu": 6.0
+   },
+   "ergebnis": {
+    "kruemmung": -5.025032072225599
+   },
+   "sek": 0.13
+  },
+  {
+   "id": 6,
+   "wer": "forscher-sparsam",
+   "op": "bain_curvature",
+   "args": {
+    "ca": 1.41421356,
+    "nu": 1.5
+   },
+   "ergebnis": {
+    "kruemmung": -7.542982274344467
+   },
+   "sek": 0.13
+  },
+  {
+   "id": 7,
+   "wer": "forscher-sparsam",
+   "op": "bain_curvature",
+   "args": {
+    "ca": 1.41421356,
+    "nu": 2.0
+   },
+   "ergebnis": {
+    "fehler": "ZeroDivisionError: float division by zero"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 8,
+   "wer": "forscher-sparsam",
+   "op": "bain_curvature",
+   "args": {
+    "ca": 1.41421356,
+    "nu": 2.5
+   },
+   "ergebnis": {
+    "kruemmung": 3.046740772560952
+   },
+   "sek": 0.13
+  },
+  {
+   "id": 9,
+   "wer": "forscher-numeriker",
+   "op": "bain_curvature",
+   "args": {
+    "ca": 1.41421356,
+    "nu": 0.5
+   },
+   "ergebnis": {
+    "kruemmung": -9314.753537182696
+   },
+   "sek": 0.18
+  },
+  {
+   "id": 10,
+   "wer": "forscher-numeriker",
+   "op": "bain_curvature",
+   "args": {
+    "ca": 1.41421356,
+    "nu": 1.0
+   },
+   "ergebnis": {
+    "kruemmung": -466.8015708375606
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 11,
+   "wer": "forscher-numeriker",
+   "op": "bain_curvature",
+   "args": {
+    "ca": 1.41421356,
+    "nu": 1.5
+   },
+   "ergebnis": {
+    "kruemmung": -7.542982274344467
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 12,
+   "wer": "forscher-numeriker",
+   "op": "bain_curvature",
+   "args": {
+    "ca": 1.41421356,
+    "nu": 2.0
+   },
+   "ergebnis": {
+    "fehler": "ZeroDivisionError: float division by zero"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 13,
+   "wer": "forscher-numeriker",
+   "op": "bain_curvature",
+   "args": {
+    "ca": 1.41421356,
+    "nu": 2.5
+   },
+   "ergebnis": {
+    "kruemmung": 3.046740772560952
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 14,
+   "wer": "forscher-numeriker",
+   "op": "bain_curvature",
+   "args": {
+    "ca": 1.41421356,
+    "nu": 3.0
+   },
+   "ergebnis": {
+    "kruemmung": 1.9639132489146505
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 15,
+   "wer": "forscher-numeriker",
+   "op": "bain_curvature",
+   "args": {
+    "ca": 1.41421356,
+    "nu": 4.0
+   },
+   "ergebnis": {
+    "kruemmung": -0.6646026662338045
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 16,
+   "wer": "forscher-numeriker",
+   "op": "bain_curvature",
+   "args": {
+    "ca": 1.41421356,
+    "nu": 5.0
+   },
+   "ergebnis": {
+    "kruemmung": -3.171779109578665
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 17,
+   "wer": "forscher-numeriker",
+   "op": "bain_curvature",
+   "args": {
+    "ca": 1.41421356,
+    "nu": 1.75
+   },
+   "ergebnis": {
+    "kruemmung": 7.513146670135029
+   },
+   "sek": 0.14
+  },
+  {
+   "id": 18,
+   "wer": "forscher-numeriker",
+   "op": "bain_curvature",
+   "args": {
+    "ca": 1.41421356,
+    "nu": 2.0
+   },
+   "ergebnis": {
+    "fehler": "ZeroDivisionError: float division by zero"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 19,
+   "wer": "forscher-numeriker",
+   "op": "bain_curvature",
+   "args": {
+    "ca": 1.41421356,
+    "nu": 2.1
+   },
+   "ergebnis": {
+    "kruemmung": -0.4175860794930486
+   },
+   "sek": 0.13
+  },
+  {
+   "id": 20,
+   "wer": "forscher-numeriker",
+   "op": "bain_curvature",
+   "args": {
+    "ca": 1.41421356,
+    "nu": 2.2
+   },
+   "ergebnis": {
+    "kruemmung": 2.3698661948401423
+   },
+   "sek": 0.13
+  },
+  {
+   "id": 21,
+   "wer": "forscher-numeriker",
+   "op": "bain_curvature",
+   "args": {
+    "ca": 1.41421356,
+    "nu": 1.95
+   },
+   "ergebnis": {
+    "kruemmung": 18.948217530123657
+   },
+   "sek": 0.14
+  },
+  {
+   "id": 22,
+   "wer": "forscher-numeriker",
+   "op": "bain_curvature",
+   "args": {
+    "ca": 1.41421356,
+    "nu": 2.05
+   },
+   "ergebnis": {
+    "kruemmung": -6.603439032915048
+   },
+   "sek": 0.14
+  },
+  {
+   "id": 23,
+   "wer": "forscher-skeptiker",
+   "op": "bain_curvature",
+   "args": {
+    "ca": 1.41421356,
+    "nu": 3
+   },
+   "ergebnis": {
+    "kruemmung": 1.9639132489146505
+   },
+   "sek": 0.13
+  },
+  {
+   "id": 24,
+   "wer": "forscher-skeptiker",
+   "op": "bain_curvature",
+   "args": {
+    "ca": 1.41421356,
+    "nu": 4
+   },
+   "ergebnis": {
+    "kruemmung": -0.6646026662338045
+   },
+   "sek": 0.12
+  },
+  {
+   "id": 25,
+   "wer": "forscher-skeptiker",
+   "op": "bain_curvature",
+   "args": {
+    "ca": 1.41421356,
+    "nu": 5
+   },
+   "ergebnis": {
+    "kruemmung": -3.171779109578665
+   },
+   "sek": 0.12
+  },
+  {
+   "id": 26,
+   "wer": "forscher-skeptiker",
+   "op": "bain_curvature",
+   "args": {
+    "ca": 1.41421356,
+    "nu": 6
+   },
+   "ergebnis": {
+    "kruemmung": -5.025032072225599
+   },
+   "sek": 0.12
+  },
+  {
+   "id": 27,
+   "wer": "forscher-skeptiker",
+   "op": "bain_curvature",
+   "args": {
+    "ca": 1.41421356,
+    "nu": 8
+   },
+   "ergebnis": {
+    "kruemmung": -6.228025369203749
+   },
+   "sek": 0.13
+  },
+  {
+   "id": 28,
+   "wer": "forscher-skeptiker",
+   "op": "bain_curvature",
+   "args": {
+    "ca": 1.41421356,
+    "nu": 12
+   },
+   "ergebnis": {
+    "kruemmung": -3.6907682704478972
+   },
+   "sek": 0.09
+  },
+  {
+   "id": 29,
+   "wer": "forscher-skeptiker",
+   "op": "bain_curvature",
+   "args": {
+    "ca": 1.41421356,
+    "nu": 2.5
+   },
+   "ergebnis": {
+    "kruemmung": 3.046740772560952
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 30,
+   "wer": "forscher-skeptiker",
+   "op": "energy3d",
+   "args": {
+    "name_or_ca": "fcc",
+    "nu": 5
+   },
+   "ergebnis": {
+    "T": 13.380899049738176,
+    "err": 6.881492815580259e-07
+   },
+   "sek": 0.05
+  },
+  {
+   "id": 31,
+   "wer": "forscher-skeptiker",
+   "op": "bain_curvature",
+   "args": {
+    "ca": 1.41421356,
+    "nu": 3.5
+   },
+   "ergebnis": {
+    "kruemmung": 0.6725604961843601
+   },
+   "sek": 0.12
+  },
+  {
+   "id": 32,
+   "wer": "forscher-skeptiker",
+   "op": "bain_curvature",
+   "args": {
+    "ca": 1.41421356,
+    "nu": 3.6
+   },
+   "ergebnis": {
+    "kruemmung": 0.4064307290718716
+   },
+   "sek": 0.12
+  },
+  {
+   "id": 33,
+   "wer": "forscher-skeptiker",
+   "op": "bain_curvature",
+   "args": {
+    "ca": 1.41421356,
+    "nu": 3.7
+   },
+   "ergebnis": {
+    "kruemmung": 0.13908208629231922
+   },
+   "sek": 0.13
+  },
+  {
+   "id": 34,
+   "wer": "forscher-skeptiker",
+   "op": "bain_curvature",
+   "args": {
+    "ca": 1.41421356,
+    "nu": 3.8
+   },
+   "ergebnis": {
+    "kruemmung": -0.12893594103502437
+   },
+   "sek": 0.12
+  },
+  {
+   "id": 35,
+   "wer": "forscher-skeptiker",
+   "op": "bain_curvature",
+   "args": {
+    "ca": 1.41421356,
+    "nu": 3.9
+   },
+   "ergebnis": {
+    "kruemmung": -0.3970368851469175
+   },
+   "sek": 0.12
+  },
+  {
+   "id": 36,
+   "wer": "forscher-skeptiker",
+   "op": "bain_curvature",
+   "args": {
+    "ca": 1.41421356,
+    "nu": 3.75
+   },
+   "ergebnis": {
+    "kruemmung": 0.005120956103610297
+   },
+   "sek": 0.12
+  }
+ ],
+ "sek": 234.6,
+ "frage": "Q10",
+ "salt": 2,
+ "bedingung": "BK"
+}

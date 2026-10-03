@@ -1,0 +1,38 @@
+BK Q1 0 {"antwort": "hexagonal", "zahl": null, "konfidenz": 0.98, "begruendung": "Die globale Minimierung (E0) über den Fundamentalbereich findet das hexagonale Gitter 
+BK Q3 0 {"antwort": "quadratisch", "zahl": null, "konfidenz": 0.99, "pruefung": {"typ": "argmin2d", "nu": 7, "erwartet": "quadratisch"}, "begruendung": "Die globale Opt
+BK Q2 0 {"antwort": "quadratisch", "zahl": null, "konfidenz": 0.98, "pruefung": {"typ": "argmin2d", "nu": 5, "erwartet": "quadratisch"}, "begruendung": "Die globale Min
+BK Q4 0 {"antwort": "rechteckig", "zahl": 1.0998011111753185, "konfidenz": 0.95, "pruefung": {"typ": "argmin2d", "nu": 10, "erwartet": "rechteckig", "y": 1.099801111175
+BK Q6 0 {"antwort": "unstetig", "zahl": 3.918, "konfidenz": 0.96, "begruendung": "Experiment E10 zeigt, dass bei ν≈3.918 beide Gitter (hexagonal und quadratisch) gleich
+BK Q5 0 {"antwort": "3.91836", "zahl": 3.91836, "konfidenz": 0.95, "pruefung": {"typ": "vorzeichenwechsel", "groesse": "diff_hex_quadrat", "nu_lo": 3.91836, "nu_hi": 3.
+BK Q8 0 {"antwort": "1.2496", "zahl": 1.2495921484763286, "konfidenz": 0.95, "begruendung": "Die asymptote-Fits (E3, E9) zeigen konsistente Konvergenz des optimalen Sei
+BK Q9 0 {"antwort": "bcc", "zahl": null, "konfidenz": 0.99, "pruefung": {"typ": "argmin_nd", "d": 3, "nu": 5, "erwartet": "bcc"}, "begruendung": "Direkte Energieberechn
+/home/user/HackNation-Ninja-Turtles/asd/domains/lattice.py:59: RuntimeWarning: overflow encountered in exp
+  return float(np.exp(-nu * L).sum())
+BK Q7 0 {"antwort": "nu_2 ≈ 8.61 (der kleinste Hesse-Eigenwert am quadratischen Gitter wechselt dort das Vorzeichen)", "zahl": 8.607, "konfidenz": 0.8, "pruefung": {"ty
+BK Q10 0 {"antwort": "3.75", "zahl": 3.75, "konfidenz": 0.8, "pruefung": {"typ": "vorzeichenwechsel", "groesse": "bain_fcc", "nu_lo": 3.75, "nu_hi": 3.8}, "begruendung":
+BK Q12 0 {"antwort": "Das Minimum liegt beim quadratischen Gitter τ = i, nicht bei ρ = exp(iπ/3)", "zahl": null, "konfidenz": 0.98, "pruefung": {"typ": "argmin2d", "nu":
+BK Q11 0 {"antwort": "0.95", "zahl": 0.952, "konfidenz": 0.7, "pruefung": {"typ": "grenzwert", "groesse": "kappa", "erwartet": 0.952, "toleranz": 0.1}, "begruendung": "D
+BK Q1 1 {"antwort": "hexagonal", "zahl": null, "konfidenz": 0.98, "beggruendung": "Die globale Optimierung (E0) mit Raster + Nelder-Mead findet im Fundamentalbereich nu
+BK Q2 1 {"antwort": "quadratisch", "zahl": null, "konfidenz": 0.99, "begruendung": "Die globale Minimierung findet das quadratische Gitter τ = [0, 1] als einziges lokal
+BK Q3 1 {"antwort": "quadratisch", "zahl": null, "konfidenz": 0.98, "pruefung": {"typ": "argmin2d", "nu": 7, "erwartet": "quadratisch"}, "begruendung": "Die globale Min
+BK Q4 1 {"antwort": "rechteckig", "zahl": 1.0998, "konfidenz": 0.96, "pruefung": {"typ": "argmin2d", "nu": 10, "erwartet": "rechteckig", "y": 1.0998}, "begruendung": "D
+BK Q6 1 {"antwort": "unstetig", "zahl": 3.92, "konfidenz": 0.95, "pruefung": {"typ": "koexistenz", "nu": 3.92}, "begruendung": "Experiment E11 zeigt bei ν=3.92, dass he
+BK Q5 1 {"antwort": "nu* ≈ 3,9184", "zahl": 3.91836, "konfidenz": 0.88, "pruefung": {"typ": "vorzeichenwechsel", "groesse": "diff_hex_quadrat", "nu_lo": 3.9, "nu_hi": 3
+BK Q9 1 {"antwort": "bcc", "zahl": null, "konfidenz": 0.99, "begruendung": "Die globale Minimierung über 3D-Bravais-Gitter (minimize_nd, 4 unabhängige Läufe, Seed 42) i
+BK Q7 1 {"antwort": "nu_2 ≈ 8.6 (das quadratische Gitter wird zwischen nu=8 und nu=9 instabil)", "zahl": 8.6, "konfidenz": 0.55, "pruefung": {"typ": "vorzeichenwechsel"
+BK Q8 1 {"antwort": "1.24869 (geschlossene Form unbekannt)", "zahl": 1.248687187435977, "konfidenz": 0.85, "pruefung": {"typ": "grenzwert", "groesse": "y_inf", "erwarte
+BK Q10 1 {"antwort": "3.75", "zahl": 3.752, "konfidenz": 0.85, "pruefung": {"typ": "vorzeichenwechsel", "groesse": "bain_fcc", "nu_lo": 3.75, "nu_hi": 3.8}, "begruendung
+BK Q12 1 {"antwort": "quadratisch", "zahl": null, "konfidenz": 0.99, "pruefung": {"typ": "argmin2d", "nu": 6, "erwartet": "quadratisch"}, "begruendung": "Die globale Min
+BK Q11 1 {"antwort": "0.954", "zahl": 0.9539955294557351, "konfidenz": 0.92, "pruefung": {"typ": "grenzwert", "groesse": "kappa", "erwartet": 0.954, "toleranz": 0.01}, "
+BK Q3 2 {"antwort": "quadratisch", "zahl": null, "konfidenz": 0.98, "pruefung": {"typ": "argmin2d", "nu": 7, "erwartet": "quadratisch"}, "begruendung": "Die globale Suc
+BK Q1 2 {"antwort": "hexagonal", "zahl": null, "konfidenz": 0.98, "pruefung": {"typ": "argmin2d", "nu": 3, "erwartet": "hexagonal"}, "begruendung": "Die globale Minimie
+BK Q2 2 {"antwort": "quadratisch", "zahl": null, "konfidenz": 0.98, "pruefung": {"typ": "argmin2d", "nu": 5, "erwartet": "quadratisch"}, "begruendung": "Die globale Suc
+BK Q6 2 {"antwort": "unstetig", "zahl": 3.918, "konfidenz": 0.95, "pruefung": {"typ": "koexistenz", "nu": 3.918}, "begruendung": "Die Experimente E8 und E9 zeigen, dass
+BK Q4 2 {"antwort": "rechteckig", "zahl": 1.0998, "konfidenz": 0.98, "begruendung": "Die globale Minimierung (E12, E21) findet ein eindeutiges lokales Minimum bei einem
+BK Q8 2 {"antwort": "y_∞ ≈ 1.2496; geschlossene Form unbekannt", "zahl": 1.2496, "konfidenz": 0.94, "pruefung": {"typ": "grenzwert", "groesse": "y_inf", "erwartet": 1.2
+BK Q5 2 {"antwort": "nu* ≈ 3.9184 (Wechsel von hexagonal zu quadratisch)", "zahl": 3.91837, "konfidenz": 0.9, "pruefung": {"typ": "vorzeichenwechsel", "groesse": "diff_
+BK Q9 2 {"antwort": "bcc", "zahl": null, "konfidenz": 0.99, "pruefung": {"typ": "argmin_nd", "d": 3, "nu": 5, "erwartet": "bcc"}, "begruendung": "Die direkten Energiebe
+BK Q7 2 {"antwort": "nu_2 ≈ 8.6", "zahl": 8.6, "konfidenz": 0.8, "pruefung": {"typ": "vorzeichenwechsel", "groesse": "eig_min_quadrat", "nu_lo": 8.58, "nu_hi": 8.63}, "
+BK Q12 2 {"antwort": "quadratisch", "zahl": null, "konfidenz": 0.98, "pruefung": {"typ": "argmin2d", "nu": 6, "erwartet": "quadratisch"}, "begruendung": "Die experimente
+BK Q11 2 {"antwort": "0.954", "zahl": 0.954, "konfidenz": 0.85, "begruendung": "Der asymptotische Fit aus E7 (mit größeren ν-Werten 150–500) ergibt kappa_fit = 0.9543. D
+BK Q10 2 {"antwort": "nu_c ≈ 3,752", "zahl": 3.752, "konfidenz": 0.93, "pruefung": {"typ": "vorzeichenwechsel", "groesse": "bain_fcc", "nu_lo": 3.73, "nu_hi": 3.78}, "be

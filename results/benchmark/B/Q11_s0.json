@@ -1,0 +1,1512 @@
+{
+ "antwort": {
+  "antwort": "kappa ≈ 0.955 (y_inf = sqrt((sqrt(17)-1)/2) ≈ 1.24962)",
+  "zahl": 0.955,
+  "konfidenz": 0.8,
+  "pruefung": {
+   "typ": "grenzwert",
+   "groesse": "kappa",
+   "erwartet": 0.955,
+   "toleranz": 0.04
+  },
+  "begruendung": "Für große nu dominieren zwei Dreiecksklassen im Rechteckgitter mit a=y^(-1/2), b=y^(1/2): kollineare Tripel (Produkt 2a³, Vielfachheit 6) und rechtwinklige Dreiecke (Produkt sqrt(y+1/y), Vielfachheit 24). Die Gleichheit beider Produkte ergibt y_inf=sqrt((sqrt17-1)/2)=1.2496, was zu den Fits (1.2495–1.2496) passt. Die Stationaritätsbedingung für T ≈ 6(2y^(-3/2))^(-nu) + 24(y+1/y)^(-nu/2) liefert kappa = -ln r/|f1'-f2'| mit r = 4(y²-1)/(3(y²+1)) ≈ 0.2923, also kappa ≈ 1.230/1.288 ≈ 0.955. Das stimmt mit den numerischen Fits (0.92–0.95) überein; diese sind durch Korrekturen höherer Ordnung leicht verzerrt.",
+  "stimmen": "3/4 (geprüft: 4)"
+ },
+ "level": "computed (Code-Prüfer bestanden)",
+ "forscher": [
+  {
+   "strategie": "numeriker",
+   "runden": [
+    {
+     "ueberlegung": "Zuerst die Asymptotik von y_nu für große nu über asymptote mit mehreren nu-Werten bestimmen (Fit a + b/nu + c/nu^2; kappa = -b). Dann mit rect_optimum bei einzelnen nu gegenprüfen und mit minimize2d bestätigen, dass das Optimum für große nu rechteckig ist (tau = i y). Danach Fit mit verschiedenen nu-Bereichen vergleichen, um die Stabilität von a und b zu beurteilen.",
+     "plan": [
+      {
+       "op": "asymptote",
+       "args": {
+        "nus": [
+         20,
+         30,
+         40,
+         60,
+         80,
+         120,
+         160
+        ]
+       }
+      },
+      {
+       "op": "asymptote",
+       "args": {
+        "nus": [
+         40,
+         60,
+         80,
+         100,
+         150,
+         200,
+         300
+        ]
+       }
+      },
+      {
+       "op": "asymptote",
+       "args": {
+        "nus": [
+         80,
+         120,
+         160,
+         240,
+         320,
+         480
+        ]
+       }
+      },
+      {
+       "op": "minimize2d",
+       "args": {
+        "nu": 40
+       }
+      },
+      {
+       "op": "rect_optimum",
+       "args": {
+        "nu": 40,
+        "y_lo": 0.8,
+        "y_hi": 2.0
+       }
+      },
+      {
+       "op": "rect_optimum",
+       "args": {
+        "nu": 80,
+        "y_lo": 0.8,
+        "y_hi": 2.0
+       }
+      },
+      {
+       "op": "rect_optimum",
+       "args": {
+        "nu": 160,
+        "y_lo": 0.8,
+        "y_hi": 2.0
+       }
+      },
+      {
+       "op": "hessian2d",
+       "args": {
+        "tau": [
+         0,
+         1.3
+        ],
+        "nu": 80
+       }
+      }
+     ]
+    },
+    {
+     "plan": [
+      {
+       "op": "asymptote",
+       "args": {
+        "nus": [
+         200,
+         300,
+         400,
+         600,
+         800,
+         1000
+        ]
+       }
+      },
+      {
+       "op": "asymptote",
+       "args": {
+        "nus": [
+         400,
+         600,
+         800,
+         1200,
+         1600,
+         2400
+        ]
+       }
+      },
+      {
+       "op": "rect_optimum",
+       "args": {
+        "nu": 640,
+        "y_lo": 1.2,
+        "y_hi": 1.26
+       }
+      },
+      {
+       "op": "rect_optimum",
+       "args": {
+        "nu": 1280,
+        "y_lo": 1.2,
+        "y_hi": 1.26
+       }
+      },
+      {
+       "op": "rect_optimum",
+       "args": {
+        "nu": 2560,
+        "y_lo": 1.2,
+        "y_hi": 1.26
+       }
+      },
+      {
+       "op": "hessian2d",
+       "args": {
+        "tau": [
+         0,
+         1.2476
+        ],
+        "nu": 480
+       }
+      }
+     ]
+    },
+    {
+     "antwort": "kappa ≈ 0.957",
+     "zahl": 0.957,
+     "konfidenz": 0.6,
+     "pruefung": {
+      "typ": "grenzwert",
+      "groesse": "kappa",
+      "erwartet": 0.957,
+      "toleranz": 0.03
+     },
+     "begruendung": "Die Fits y = a + b/nu + c/nu^2 an die optimalen Rechteck-Seitenverhältnisse liefern mit wachsendem nu-Fenster kappa = 0.918, 0.948, 0.953 und 0.9547 (y_inf ≈ 1.2496). Die Änderungen schrumpfen schnell, daher extrapoliere ich auf etwa 0.957. Der Fit E31 ist wegen numerischer Unterschreitung bei nu ≥ 2400 unbrauchbar und fließt nicht ein."
+    }
+   ],
+   "experimente": [
+    0,
+    4,
+    8,
+    14,
+    16,
+    17,
+    18,
+    19,
+    29,
+    31,
+    32,
+    33,
+    34,
+    35
+   ],
+   "final": {
+    "antwort": "kappa ≈ 0.957",
+    "zahl": 0.957,
+    "konfidenz": 0.6,
+    "pruefung": {
+     "typ": "grenzwert",
+     "groesse": "kappa",
+     "erwartet": 0.957,
+     "toleranz": 0.03
+    },
+    "begruendung": "Die Fits y = a + b/nu + c/nu^2 an die optimalen Rechteck-Seitenverhältnisse liefern mit wachsendem nu-Fenster kappa = 0.918, 0.948, 0.953 und 0.9547 (y_inf ≈ 1.2496). Die Änderungen schrumpfen schnell, daher extrapoliere ich auf etwa 0.957. Der Fit E31 ist wegen numerischer Unterschreitung bei nu ≥ 2400 unbrauchbar und fließt nicht ein."
+   },
+   "pruefung": {
+    "bestanden": true,
+    "grund": "Prüfer-Fit über nu=[100, 160, 250, 400, 640, 1000]: kappa_fit=0.954078 (Toleranz 0.03)"
+   }
+  },
+  {
+   "strategie": "theoretiker",
+   "runden": [
+    {
+     "ueberlegung": "Für nu -> unendlich dominieren die kleinsten Dreiecke (x, y, x-y) mit minimalem Produkt |x||y||x-y|. Im Rechteckgitter tau = i y (Kovolumen 1, Basis (1/sqrt(y), sqrt(y))) sind Dreiecke aus a=(1/sqrt y,0), b=(0,sqrt y) mit Seiten a, b, sqrt(a^2+b^2) relevant, und Konkurrenz durch 2a etc. Das Limit y_inf ergibt sich aus der Gleichheit konkurrierender Dreiecksprodukte; die 1/nu-Korrektur kommt aus Entartungsgewichten. Ich messe y_nu für große nu über die asymptote-Operation, die den Fit a + b/nu + c/nu^2 liefert (kappa = -b), und prüfe mit rect_optimum bei einzelnen nu und mit minimize2d, dass das Optimum rechteckig ist und nicht hexagonal/rhombisch.",
+     "plan": [
+      {
+       "op": "asymptote",
+       "args": {
+        "nus": [
+         20,
+         30,
+         40,
+         60,
+         80,
+         120,
+         160,
+         240
+        ]
+       }
+      },
+      {
+       "op": "asymptote",
+       "args": {
+        "nus": [
+         40,
+         50,
+         60,
+         80,
+         100,
+         150,
+         200,
+         300
+        ]
+       }
+      },
+      {
+       "op": "minimize2d",
+       "args": {
+        "nu": 40
+       }
+      },
+      {
+       "op": "minimize2d",
+       "args": {
+        "nu": 100
+       }
+      },
+      {
+       "op": "rect_optimum",
+       "args": {
+        "nu": 40,
+        "y_lo": 0.5,
+        "y_hi": 2.0
+       }
+      },
+      {
+       "op": "rect_optimum",
+       "args": {
+        "nu": 100,
+        "y_lo": 0.5,
+        "y_hi": 2.0
+       }
+      },
+      {
+       "op": "rect_optimum",
+       "args": {
+        "nu": 200,
+        "y_lo": 0.5,
+        "y_hi": 2.0
+       }
+      },
+      {
+       "op": "hessian2d",
+       "args": {
+        "tau": [
+         0,
+         1.2
+        ],
+        "nu": 100
+       }
+      }
+     ]
+    },
+    {
+     "antwort": "kappa ≈ 0.955 (y_inf = sqrt((sqrt(17)-1)/2) ≈ 1.24962)",
+     "zahl": 0.955,
+     "konfidenz": 0.8,
+     "pruefung": {
+      "typ": "grenzwert",
+      "groesse": "kappa",
+      "erwartet": 0.955,
+      "toleranz": 0.04
+     },
+     "begruendung": "Für große nu dominieren zwei Dreiecksklassen im Rechteckgitter mit a=y^(-1/2), b=y^(1/2): kollineare Tripel (Produkt 2a³, Vielfachheit 6) und rechtwinklige Dreiecke (Produkt sqrt(y+1/y), Vielfachheit 24). Die Gleichheit beider Produkte ergibt y_inf=sqrt((sqrt17-1)/2)=1.2496, was zu den Fits (1.2495–1.2496) passt. Die Stationaritätsbedingung für T ≈ 6(2y^(-3/2))^(-nu) + 24(y+1/y)^(-nu/2) liefert kappa = -ln r/|f1'-f2'| mit r = 4(y²-1)/(3(y²+1)) ≈ 0.2923, also kappa ≈ 1.230/1.288 ≈ 0.955. Das stimmt mit den numerischen Fits (0.92–0.95) überein; diese sind durch Korrekturen höherer Ordnung leicht verzerrt."
+    }
+   ],
+   "experimente": [
+    3,
+    7,
+    12,
+    22,
+    23,
+    24,
+    27,
+    28
+   ],
+   "final": {
+    "antwort": "kappa ≈ 0.955 (y_inf = sqrt((sqrt(17)-1)/2) ≈ 1.24962)",
+    "zahl": 0.955,
+    "konfidenz": 0.8,
+    "pruefung": {
+     "typ": "grenzwert",
+     "groesse": "kappa",
+     "erwartet": 0.955,
+     "toleranz": 0.04
+    },
+    "begruendung": "Für große nu dominieren zwei Dreiecksklassen im Rechteckgitter mit a=y^(-1/2), b=y^(1/2): kollineare Tripel (Produkt 2a³, Vielfachheit 6) und rechtwinklige Dreiecke (Produkt sqrt(y+1/y), Vielfachheit 24). Die Gleichheit beider Produkte ergibt y_inf=sqrt((sqrt17-1)/2)=1.2496, was zu den Fits (1.2495–1.2496) passt. Die Stationaritätsbedingung für T ≈ 6(2y^(-3/2))^(-nu) + 24(y+1/y)^(-nu/2) liefert kappa = -ln r/|f1'-f2'| mit r = 4(y²-1)/(3(y²+1)) ≈ 0.2923, also kappa ≈ 1.230/1.288 ≈ 0.955. Das stimmt mit den numerischen Fits (0.92–0.95) überein; diese sind durch Korrekturen höherer Ordnung leicht verzerrt."
+   },
+   "pruefung": {
+    "bestanden": true,
+    "grund": "Prüfer-Fit über nu=[100, 160, 250, 400, 640, 1000]: kappa_fit=0.954078 (Toleranz 0.04)"
+   }
+  },
+  {
+   "strategie": "skeptiker",
+   "runden": [
+    {
+     "ueberlegung": "Zuerst empirisch das Verhalten von y_nu für große nu bestimmen. Die asymptote-Operation liefert y_nu und einen Fit y = a + b/nu + c/nu^2, wobei a = y_inf und b = -kappa. Ich prüfe mit mehreren nu-Folgen und kreuzvalidiere mit rect_optimum, ob das Optimum wirklich im Rechteckgitter-Zweig liegt (minimize2d), damit y_nu das optimale Seitenverhältnis des globalen Minimums ist und nicht nur unter Rechtecken. Außerdem Hessematrix am Rechteckoptimum prüfen, um Alternativen (rhombisch/schief) auszuschließen.",
+     "plan": [
+      {
+       "op": "asymptote",
+       "args": {
+        "nus": [
+         20,
+         30,
+         40,
+         60,
+         80,
+         120,
+         160,
+         240
+        ]
+       }
+      },
+      {
+       "op": "asymptote",
+       "args": {
+        "nus": [
+         50,
+         100,
+         200,
+         400,
+         800
+        ]
+       }
+      },
+      {
+       "op": "minimize2d",
+       "args": {
+        "nu": 60
+       }
+      },
+      {
+       "op": "minimize2d",
+       "args": {
+        "nu": 150
+       }
+      },
+      {
+       "op": "rect_optimum",
+       "args": {
+        "nu": 100,
+        "y_lo": 1.0,
+        "y_hi": 3.0
+       }
+      },
+      {
+       "op": "rect_optimum",
+       "args": {
+        "nu": 300,
+        "y_lo": 1.0,
+        "y_hi": 3.0
+       }
+      },
+      {
+       "op": "hessian2d",
+       "args": {
+        "tau": [
+         0,
+         1.6
+        ],
+        "nu": 100
+       }
+      },
+      {
+       "op": "asymptote",
+       "args": {
+        "nus": [
+         100,
+         150,
+         200,
+         300,
+         450,
+         700,
+         1000
+        ]
+       }
+      }
+     ]
+    },
+    {
+     "antwort": "kappa ≈ 0.955 (y_inf ≈ 1.2496)",
+     "zahl": 0.955,
+     "konfidenz": 0.6,
+     "pruefung": {
+      "typ": "grenzwert",
+      "groesse": "kappa",
+      "erwartet": 0.955,
+      "toleranz": 0.06
+     },
+     "begruendung": "Die Fits y = a + b/nu + c/nu^2 liefern bei wachsendem nu stabilisierte Werte: y_inf ≈ 1.24962 und kappa ≈ 0.952 (nu bis 800) bzw. 0.954 (nu bis 1000). Der Fit mit kleinerem nu (20 bis 240) ergab 0.92, also ist der Wert noch nicht ganz konvergiert. Eine direkte Kontrolle bei nu = 1000 gibt kappa ≈ (y_inf - y)·nu + c2/nu ≈ 0.953, daher die Toleranz von 0.06. Eine geschlossene analytische Form habe ich nicht, und die Antwort stützt sich allein auf diese numerische Extrapolation."
+    }
+   ],
+   "experimente": [
+    2,
+    5,
+    9,
+    20,
+    21,
+    25,
+    26,
+    30
+   ],
+   "final": {
+    "antwort": "kappa ≈ 0.955 (y_inf ≈ 1.2496)",
+    "zahl": 0.955,
+    "konfidenz": 0.6,
+    "pruefung": {
+     "typ": "grenzwert",
+     "groesse": "kappa",
+     "erwartet": 0.955,
+     "toleranz": 0.06
+    },
+    "begruendung": "Die Fits y = a + b/nu + c/nu^2 liefern bei wachsendem nu stabilisierte Werte: y_inf ≈ 1.24962 und kappa ≈ 0.952 (nu bis 800) bzw. 0.954 (nu bis 1000). Der Fit mit kleinerem nu (20 bis 240) ergab 0.92, also ist der Wert noch nicht ganz konvergiert. Eine direkte Kontrolle bei nu = 1000 gibt kappa ≈ (y_inf - y)·nu + c2/nu ≈ 0.953, daher die Toleranz von 0.06. Eine geschlossene analytische Form habe ich nicht, und die Antwort stützt sich allein auf diese numerische Extrapolation."
+   },
+   "pruefung": {
+    "bestanden": true,
+    "grund": "Prüfer-Fit über nu=[100, 160, 250, 400, 640, 1000]: kappa_fit=0.954078 (Toleranz 0.06)"
+   }
+  },
+  {
+   "strategie": "sparsam",
+   "runden": [
+    {
+     "ueberlegung": "Das Optimum für große nu ist vermutlich ein Rechteckgitter tau = i y mit y_nu -> y_inf. Die asymptote-Operation liefert y_nu für große nu samt Fit y = a + b/nu + c/nu^2; kappa = -b. Ich nutze mehrere Stützstellen in nu, um den Fit zu stabilisieren und Konsistenz zu prüfen. Ergänzend bestätige ich mit minimize2d bei großem nu, dass das Optimum rechteckig ist, und mit rect_optimum bei einigen nu den Verlauf von y_nu. Das sind wenige, nicht redundante Experimente.",
+     "plan": [
+      {
+       "op": "asymptote",
+       "args": {
+        "nus": [
+         20,
+         30,
+         40,
+         60,
+         80,
+         120,
+         160,
+         240
+        ]
+       }
+      },
+      {
+       "op": "asymptote",
+       "args": {
+        "nus": [
+         40,
+         60,
+         80,
+         100,
+         150,
+         200,
+         300,
+         400
+        ]
+       }
+      },
+      {
+       "op": "minimize2d",
+       "args": {
+        "nu": 40
+       }
+      },
+      {
+       "op": "rect_optimum",
+       "args": {
+        "nu": 40,
+        "y_lo": 0.5,
+        "y_hi": 3
+       }
+      },
+      {
+       "op": "rect_optimum",
+       "args": {
+        "nu": 100,
+        "y_lo": 0.5,
+        "y_hi": 3
+       }
+      },
+      {
+       "op": "rect_optimum",
+       "args": {
+        "nu": 200,
+        "y_lo": 0.5,
+        "y_hi": 3
+       }
+      }
+     ]
+    },
+    {
+     "antwort": "kappa ≈ 0.955",
+     "zahl": 0.9546,
+     "konfidenz": 0.85,
+     "pruefung": {
+      "typ": "grenzwert",
+      "groesse": "kappa",
+      "erwartet": 0.9546,
+      "toleranz": 0.03
+     },
+     "begruendung": "Für große nu konkurrieren zwei Dreiecksklassen: die halben Einheitsrechtecke (Seiten 1, y, sqrt(1+y²); 24 geordnete Paare) und kollineare Tripel (Seiten 1, 1, 2; 6 geordnete Paare). Daraus folgt y_inf mit y²(1+y²)=4, also y_inf ≈ 1,2496 (passt zum Fit 1,2496). Die Stationaritätsbedingung der Rechteckenergie liefert kappa = ln(w/(1-w)·6/24)/h mit w = 1,5(1+y²)/(1+2y²) ≈ 0,9319 und h = 1/y + y/(1+y²) ≈ 1,2881, also kappa ≈ 0,955. Das stimmt mit den numerischen Fits (0,92–0,95, mit c2-Korrektur ≈ 0,954) überein."
+    }
+   ],
+   "experimente": [
+    1,
+    6,
+    10,
+    11,
+    13,
+    15
+   ],
+   "final": {
+    "antwort": "kappa ≈ 0.955",
+    "zahl": 0.9546,
+    "konfidenz": 0.85,
+    "pruefung": {
+     "typ": "grenzwert",
+     "groesse": "kappa",
+     "erwartet": 0.9546,
+     "toleranz": 0.03
+    },
+    "begruendung": "Für große nu konkurrieren zwei Dreiecksklassen: die halben Einheitsrechtecke (Seiten 1, y, sqrt(1+y²); 24 geordnete Paare) und kollineare Tripel (Seiten 1, 1, 2; 6 geordnete Paare). Daraus folgt y_inf mit y²(1+y²)=4, also y_inf ≈ 1,2496 (passt zum Fit 1,2496). Die Stationaritätsbedingung der Rechteckenergie liefert kappa = ln(w/(1-w)·6/24)/h mit w = 1,5(1+y²)/(1+2y²) ≈ 0,9319 und h = 1/y + y/(1+y²) ≈ 1,2881, also kappa ≈ 0,955. Das stimmt mit den numerischen Fits (0,92–0,95, mit c2-Korrektur ≈ 0,954) überein."
+   },
+   "pruefung": {
+    "bestanden": true,
+    "grund": "Prüfer-Fit über nu=[100, 160, 250, 400, 640, 1000]: kappa_fit=0.954078 (Toleranz 0.03)"
+   }
+  }
+ ],
+ "experimente": [
+  {
+   "id": 0,
+   "wer": "forscher-numeriker",
+   "op": "asymptote",
+   "args": {
+    "nus": [
+     20,
+     30,
+     40,
+     60,
+     80,
+     120,
+     160
+    ]
+   },
+   "ergebnis": {
+    "nus": [
+     20,
+     30,
+     40,
+     60,
+     80,
+     120,
+     160
+    ],
+    "ys": [
+     1.1941481768268276,
+     1.214720794977329,
+     1.2241038787780216,
+     1.233007376386513,
+     1.2373001468860219,
+     1.2414960840934999,
+     1.2435596945485956
+    ],
+    "y_inf_fit": 1.2493983792601548,
+    "kappa_fit": 0.9181419549225924,
+    "c2": -3.728757888305845
+   },
+   "sek": 3.47
+  },
+  {
+   "id": 1,
+   "wer": "forscher-sparsam",
+   "op": "asymptote",
+   "args": {
+    "nus": [
+     20,
+     30,
+     40,
+     60,
+     80,
+     120,
+     160,
+     240
+    ]
+   },
+   "ergebnis": {
+    "nus": [
+     20,
+     30,
+     40,
+     60,
+     80,
+     120,
+     160,
+     240
+    ],
+    "ys": [
+     1.1941481768268276,
+     1.214720794977329,
+     1.2241038787780216,
+     1.233007376386513,
+     1.2373001468860219,
+     1.2414960840934999,
+     1.2435596945485956,
+     1.2456012917013095
+    ],
+    "y_inf_fit": 1.2494544840609696,
+    "kappa_fit": 0.9224709037206846,
+    "c2": -3.6618690895827313
+   },
+   "sek": 4.18
+  },
+  {
+   "id": 2,
+   "wer": "forscher-skeptiker",
+   "op": "asymptote",
+   "args": {
+    "nus": [
+     20,
+     30,
+     40,
+     60,
+     80,
+     120,
+     160,
+     240
+    ]
+   },
+   "ergebnis": {
+    "nus": [
+     20,
+     30,
+     40,
+     60,
+     80,
+     120,
+     160,
+     240
+    ],
+    "ys": [
+     1.1941481768268276,
+     1.214720794977329,
+     1.2241038787780216,
+     1.233007376386513,
+     1.2373001468860219,
+     1.2414960840934999,
+     1.2435596945485956,
+     1.2456012917013095
+    ],
+    "y_inf_fit": 1.2494544840609696,
+    "kappa_fit": 0.9224709037206846,
+    "c2": -3.6618690895827313
+   },
+   "sek": 4.53
+  },
+  {
+   "id": 3,
+   "wer": "forscher-theoretiker",
+   "op": "asymptote",
+   "args": {
+    "nus": [
+     20,
+     30,
+     40,
+     60,
+     80,
+     120,
+     160,
+     240
+    ]
+   },
+   "ergebnis": {
+    "nus": [
+     20,
+     30,
+     40,
+     60,
+     80,
+     120,
+     160,
+     240
+    ],
+    "ys": [
+     1.1941481768268276,
+     1.214720794977329,
+     1.2241038787780216,
+     1.233007376386513,
+     1.2373001468860219,
+     1.2414960840934999,
+     1.2435596945485956,
+     1.2456012917013095
+    ],
+    "y_inf_fit": 1.2494544840609696,
+    "kappa_fit": 0.9224709037206846,
+    "c2": -3.6618690895827313
+   },
+   "sek": 4.5
+  },
+  {
+   "id": 4,
+   "wer": "forscher-numeriker",
+   "op": "asymptote",
+   "args": {
+    "nus": [
+     40,
+     60,
+     80,
+     100,
+     150,
+     200,
+     300
+    ]
+   },
+   "ergebnis": {
+    "nus": [
+     40,
+     60,
+     80,
+     100,
+     150,
+     200,
+     300
+    ],
+    "ys": [
+     1.2241038787780216,
+     1.233007376386513,
+     1.2373001468860219,
+     1.2398289302268253,
+     1.2431487471372693,
+     1.244787248153771,
+     1.2464119000103815
+    ],
+    "y_inf_fit": 1.2496003571543461,
+    "kappa_fit": 0.9481507320897821,
+    "c2": -2.865752909867326
+   },
+   "sek": 4.36
+  },
+  {
+   "id": 5,
+   "wer": "forscher-skeptiker",
+   "op": "asymptote",
+   "args": {
+    "nus": [
+     50,
+     100,
+     200,
+     400,
+     800
+    ]
+   },
+   "ergebnis": {
+    "nus": [
+     50,
+     100,
+     200,
+     400,
+     800
+    ],
+    "ys": [
+     1.2294990295173194,
+     1.2398289302268253,
+     1.244787248153771,
+     1.2472191701508826,
+     1.2484238272403902
+    ],
+    "y_inf_fit": 1.2496165296150874,
+    "kappa_fit": 0.9519587773913022,
+    "c2": -2.695207342805611
+   },
+   "sek": 3.16
+  },
+  {
+   "id": 6,
+   "wer": "forscher-sparsam",
+   "op": "asymptote",
+   "args": {
+    "nus": [
+     40,
+     60,
+     80,
+     100,
+     150,
+     200,
+     300,
+     400
+    ]
+   },
+   "ergebnis": {
+    "nus": [
+     40,
+     60,
+     80,
+     100,
+     150,
+     200,
+     300,
+     400
+    ],
+    "ys": [
+     1.2241038787780216,
+     1.233007376386513,
+     1.2373001468860219,
+     1.2398289302268253,
+     1.2431487471372693,
+     1.244787248153771,
+     1.2464119000103815,
+     1.2472191701508826
+    ],
+    "y_inf_fit": 1.2496049690612694,
+    "kappa_fit": 0.9488275235628233,
+    "c2": -2.8453032798807967
+   },
+   "sek": 5.1
+  },
+  {
+   "id": 7,
+   "wer": "forscher-theoretiker",
+   "op": "asymptote",
+   "args": {
+    "nus": [
+     40,
+     50,
+     60,
+     80,
+     100,
+     150,
+     200,
+     300
+    ]
+   },
+   "ergebnis": {
+    "nus": [
+     40,
+     50,
+     60,
+     80,
+     100,
+     150,
+     200,
+     300
+    ],
+    "ys": [
+     1.2241038787780216,
+     1.2294990295173194,
+     1.233007376386513,
+     1.2373001468860219,
+     1.2398289302268253,
+     1.2431487471372693,
+     1.244787248153771,
+     1.2464119000103815
+    ],
+    "y_inf_fit": 1.249598438315544,
+    "kappa_fit": 0.9477854166903835,
+    "c2": -2.873613584619071
+   },
+   "sek": 4.87
+  },
+  {
+   "id": 8,
+   "wer": "forscher-numeriker",
+   "op": "asymptote",
+   "args": {
+    "nus": [
+     80,
+     120,
+     160,
+     240,
+     320,
+     480
+    ]
+   },
+   "ergebnis": {
+    "nus": [
+     80,
+     120,
+     160,
+     240,
+     320,
+     480
+    ],
+    "ys": [
+     1.2373001468860219,
+     1.2414960840934999,
+     1.2435596945485956,
+     1.2456012917013095,
+     1.2466140355240123,
+     1.247621549097098
+    ],
+    "y_inf_fit": 1.2496183664499636,
+    "kappa_fit": 0.9532870562085697,
+    "c2": -2.5728492587980547
+   },
+   "sek": 3.84
+  },
+  {
+   "id": 9,
+   "wer": "forscher-skeptiker",
+   "op": "minimize2d",
+   "args": {
+    "nu": 60
+   },
+   "ergebnis": {
+    "tau": [
+     1.7375038005411572e-06,
+     1.233006498774222
+    ],
+    "T": 1.2430248178436625e-08,
+    "typ": "rechteckig(y=1.2330)",
+    "lokale_minima": [
+     {
+      "tau": [
+       1.7375038005411572e-06,
+       1.233006498774222
+      ],
+      "T": 1.2430248178436625e-08,
+      "typ": "rechteckig(y=1.2330)"
+     }
+    ]
+   },
+   "sek": 16.24
+  },
+  {
+   "id": 10,
+   "wer": "forscher-sparsam",
+   "op": "minimize2d",
+   "args": {
+    "nu": 40
+   },
+   "ergebnis": {
+    "tau": [
+     6.339880637824676e-07,
+     1.2241068547290366
+    ],
+    "T": 1.6262692177717823e-05,
+    "typ": "rechteckig(y=1.2241)",
+    "lokale_minima": [
+     {
+      "tau": [
+       6.339880637824676e-07,
+       1.2241068547290366
+      ],
+      "T": 1.6262692177717823e-05,
+      "typ": "rechteckig(y=1.2241)"
+     }
+    ]
+   },
+   "sek": 16.56
+  },
+  {
+   "id": 11,
+   "wer": "forscher-sparsam",
+   "op": "rect_optimum",
+   "args": {
+    "nu": 40,
+    "y_lo": 0.5,
+    "y_hi": 3
+   },
+   "ergebnis": {
+    "y": 1.22410386766084,
+    "T": 1.62626921663893e-05
+   },
+   "sek": 0.63
+  },
+  {
+   "id": 12,
+   "wer": "forscher-theoretiker",
+   "op": "minimize2d",
+   "args": {
+    "nu": 40
+   },
+   "ergebnis": {
+    "tau": [
+     6.339880637824676e-07,
+     1.2241068547290366
+    ],
+    "T": 1.6262692177717823e-05,
+    "typ": "rechteckig(y=1.2241)",
+    "lokale_minima": [
+     {
+      "tau": [
+       6.339880637824676e-07,
+       1.2241068547290366
+      ],
+      "T": 1.6262692177717823e-05,
+      "typ": "rechteckig(y=1.2241)"
+     }
+    ]
+   },
+   "sek": 17.03
+  },
+  {
+   "id": 13,
+   "wer": "forscher-sparsam",
+   "op": "rect_optimum",
+   "args": {
+    "nu": 100,
+    "y_lo": 0.5,
+    "y_hi": 3
+   },
+   "ergebnis": {
+    "y": 1.2398289285272328,
+    "T": 7.250841730617257e-15
+   },
+   "sek": 0.73
+  },
+  {
+   "id": 14,
+   "wer": "forscher-numeriker",
+   "op": "minimize2d",
+   "args": {
+    "nu": 40
+   },
+   "ergebnis": {
+    "tau": [
+     6.339880637824676e-07,
+     1.2241068547290366
+    ],
+    "T": 1.6262692177717823e-05,
+    "typ": "rechteckig(y=1.2241)",
+    "lokale_minima": [
+     {
+      "tau": [
+       6.339880637824676e-07,
+       1.2241068547290366
+      ],
+      "T": 1.6262692177717823e-05,
+      "typ": "rechteckig(y=1.2241)"
+     }
+    ]
+   },
+   "sek": 16.95
+  },
+  {
+   "id": 15,
+   "wer": "forscher-sparsam",
+   "op": "rect_optimum",
+   "args": {
+    "nu": 200,
+    "y_lo": 0.5,
+    "y_hi": 3
+   },
+   "ergebnis": {
+    "y": 1.2447872622874838,
+    "T": 1.8811971029423604e-30
+   },
+   "sek": 0.79
+  },
+  {
+   "id": 16,
+   "wer": "forscher-numeriker",
+   "op": "rect_optimum",
+   "args": {
+    "nu": 40,
+    "y_lo": 0.8,
+    "y_hi": 2.0
+   },
+   "ergebnis": {
+    "y": 1.2241038754419244,
+    "T": 1.6262692166389242e-05
+   },
+   "sek": 0.78
+  },
+  {
+   "id": 17,
+   "wer": "forscher-numeriker",
+   "op": "rect_optimum",
+   "args": {
+    "nu": 80,
+    "y_lo": 0.8,
+    "y_hi": 2.0
+   },
+   "ergebnis": {
+    "y": 1.23730012437893,
+    "T": 9.494831092978168e-12
+   },
+   "sek": 0.61
+  },
+  {
+   "id": 18,
+   "wer": "forscher-numeriker",
+   "op": "rect_optimum",
+   "args": {
+    "nu": 160,
+    "y_lo": 0.8,
+    "y_hi": 2.0
+   },
+   "ergebnis": {
+    "y": 1.2435596942939333,
+    "T": 3.227461186482571e-24
+   },
+   "sek": 0.71
+  },
+  {
+   "id": 19,
+   "wer": "forscher-numeriker",
+   "op": "hessian2d",
+   "args": {
+    "tau": [
+     0,
+     1.3
+    ],
+    "nu": 80
+   },
+   "ergebnis": {
+    "eigenwerte": [
+     4.642491231369829e-09,
+     1.9816837580920176e-06
+    ],
+    "stabil": true
+   },
+   "sek": 0.4
+  },
+  {
+   "id": 20,
+   "wer": "forscher-skeptiker",
+   "op": "minimize2d",
+   "args": {
+    "nu": 150
+   },
+   "ergebnis": {
+    "tau": [
+     6.182559882290681e-07,
+     1.2431475218666161
+    ],
+    "T": 1.1680502238962775e-22,
+    "typ": "rechteckig(y=1.2431)",
+    "lokale_minima": [
+     {
+      "tau": [
+       6.182559882290681e-07,
+       1.2431475218666161
+      ],
+      "T": 1.1680502238962775e-22,
+      "typ": "rechteckig(y=1.2431)"
+     }
+    ]
+   },
+   "sek": 14.6
+  },
+  {
+   "id": 21,
+   "wer": "forscher-skeptiker",
+   "op": "rect_optimum",
+   "args": {
+    "nu": 100,
+    "y_lo": 1.0,
+    "y_hi": 3.0
+   },
+   "ergebnis": {
+    "y": 1.2398289257911699,
+    "T": 7.250841730617322e-15
+   },
+   "sek": 0.92
+  },
+  {
+   "id": 22,
+   "wer": "forscher-theoretiker",
+   "op": "minimize2d",
+   "args": {
+    "nu": 100
+   },
+   "ergebnis": {
+    "tau": [
+     2.840391718205179e-07,
+     1.2398271730573183
+    ],
+    "T": 7.250841742201647e-15,
+    "typ": "rechteckig(y=1.2398)",
+    "lokale_minima": [
+     {
+      "tau": [
+       2.840391718205179e-07,
+       1.2398271730573183
+      ],
+      "T": 7.250841742201647e-15,
+      "typ": "rechteckig(y=1.2398)"
+     }
+    ]
+   },
+   "sek": 12.53
+  },
+  {
+   "id": 23,
+   "wer": "forscher-theoretiker",
+   "op": "rect_optimum",
+   "args": {
+    "nu": 40,
+    "y_lo": 0.5,
+    "y_hi": 2.0
+   },
+   "ergebnis": {
+    "y": 0.8169241496825296,
+    "T": 1.6262692166389855e-05
+   },
+   "sek": 0.52
+  },
+  {
+   "id": 24,
+   "wer": "forscher-theoretiker",
+   "op": "rect_optimum",
+   "args": {
+    "nu": 100,
+    "y_lo": 0.5,
+    "y_hi": 2.0
+   },
+   "ergebnis": {
+    "y": 0.8065628810111862,
+    "T": 7.250841730617729e-15
+   },
+   "sek": 0.62
+  },
+  {
+   "id": 25,
+   "wer": "forscher-skeptiker",
+   "op": "rect_optimum",
+   "args": {
+    "nu": 300,
+    "y_lo": 1.0,
+    "y_hi": 3.0
+   },
+   "ergebnis": {
+    "y": 1.2464119156054414,
+    "T": 4.8784479803893995e-46
+   },
+   "sek": 1.26
+  },
+  {
+   "id": 26,
+   "wer": "forscher-skeptiker",
+   "op": "hessian2d",
+   "args": {
+    "tau": [
+     0,
+     1.6
+    ],
+    "nu": 100
+   },
+   "ergebnis": {
+    "eigenwerte": [
+     0.0,
+     171955.6830180977
+    ],
+    "stabil": false
+   },
+   "sek": 0.23
+  },
+  {
+   "id": 27,
+   "wer": "forscher-theoretiker",
+   "op": "rect_optimum",
+   "args": {
+    "nu": 200,
+    "y_lo": 0.5,
+    "y_hi": 2.0
+   },
+   "ergebnis": {
+    "y": 0.8033501107068761,
+    "T": 1.881197102945945e-30
+   },
+   "sek": 0.59
+  },
+  {
+   "id": 28,
+   "wer": "forscher-theoretiker",
+   "op": "hessian2d",
+   "args": {
+    "tau": [
+     0,
+     1.2
+    ],
+    "nu": 100
+   },
+   "ergebnis": {
+    "eigenwerte": [
+     3.272850896530984e-13,
+     1.4957295333576387e-11
+    ],
+    "stabil": true
+   },
+   "sek": 0.31
+  },
+  {
+   "id": 29,
+   "wer": "forscher-numeriker",
+   "op": "asymptote",
+   "args": {
+    "nus": [
+     200,
+     300,
+     400,
+     600,
+     800,
+     1000
+    ]
+   },
+   "ergebnis": {
+    "nus": [
+     200,
+     300,
+     400,
+     600,
+     800,
+     1000
+    ],
+    "ys": [
+     1.244787248153771,
+     1.2464119000103815,
+     1.2472191701508826,
+     1.2480230713616915,
+     1.2484238272403902,
+     1.2486638480921013
+    ],
+    "y_inf_fit": 1.2496209162514607,
+    "kappa_fit": 0.9546639716596753,
+    "c2": -2.413743505095632
+   },
+   "sek": 3.49
+  },
+  {
+   "id": 30,
+   "wer": "forscher-skeptiker",
+   "op": "asymptote",
+   "args": {
+    "nus": [
+     100,
+     150,
+     200,
+     300,
+     450,
+     700,
+     1000
+    ]
+   },
+   "ergebnis": {
+    "nus": [
+     100,
+     150,
+     200,
+     300,
+     450,
+     700,
+     1000
+    ],
+    "ys": [
+     1.2398289302268253,
+     1.2431487471372693,
+     1.244787248153771,
+     1.2464119000103815,
+     1.2474875099329388,
+     1.2482521634436257,
+     1.2486638480921013
+    ],
+    "y_inf_fit": 1.2496201950948214,
+    "kappa_fit": 0.9540582910233462,
+    "c2": -2.5058161202758447
+   },
+   "sek": 3.79
+  },
+  {
+   "id": 31,
+   "wer": "forscher-numeriker",
+   "op": "asymptote",
+   "args": {
+    "nus": [
+     400,
+     600,
+     800,
+     1200,
+     1600,
+     2400
+    ]
+   },
+   "ergebnis": {
+    "nus": [
+     400,
+     600,
+     800,
+     1200,
+     1600,
+     2400
+    ],
+    "ys": [
+     1.2472191701508826,
+     1.2480230713616915,
+     1.2484238272403902,
+     1.248823690235545,
+     1.2490233475107728,
+     1.2819660664002412
+    ],
+    "y_inf_fit": 1.2895026626185615,
+    "kappa_fit": 53.973664367878044,
+    "c2": 15192.995153912838
+   },
+   "sek": 3.24
+  },
+  {
+   "id": 32,
+   "wer": "forscher-numeriker",
+   "op": "rect_optimum",
+   "args": {
+    "nu": 640,
+    "y_lo": 1.2,
+    "y_hi": 1.26
+   },
+   "ergebnis": {
+    "y": 1.248123367546256,
+    "T": 4.956063655630011e-99
+   },
+   "sek": 0.3
+  },
+  {
+   "id": 33,
+   "wer": "forscher-numeriker",
+   "op": "rect_optimum",
+   "args": {
+    "nu": 1280,
+    "y_lo": 1.2,
+    "y_hi": 1.26
+   },
+   "ergebnis": {
+    "y": 1.2488736365235946,
+    "T": 8.773822508174719e-199
+   },
+   "sek": 0.34
+  },
+  {
+   "id": 34,
+   "wer": "forscher-numeriker",
+   "op": "rect_optimum",
+   "args": {
+    "nu": 2560,
+    "y_lo": 1.2,
+    "y_hi": 1.26
+   },
+   "ergebnis": {
+    "y": 1.259999915569896,
+    "T": 0.0
+   },
+   "sek": 0.59
+  },
+  {
+   "id": 35,
+   "wer": "forscher-numeriker",
+   "op": "hessian2d",
+   "args": {
+    "tau": [
+     0,
+     1.2476
+    ],
+    "nu": 480
+   },
+   "ergebnis": {
+    "eigenwerte": [
+     1.1306150314446254e-69,
+     1.415077699398175e-69
+    ],
+    "stabil": true
+   },
+   "sek": 0.22
+  }
+ ],
+ "sek": 93.3,
+ "frage": "Q11",
+ "salt": 0,
+ "bedingung": "B"
+}

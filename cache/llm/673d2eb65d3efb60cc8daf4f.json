@@ -1,0 +1,11 @@
+{
+ "key": "673d2eb65d3efb60cc8daf4f",
+ "model": "claude-sonnet-5-5",
+ "salt": "A1-0",
+ "system": "Du bist ein Experte für Gitter-Energieminimierung und mathematische Physik. Antworte nur mit JSON.",
+ "prompt": "Betrachtet wird die Dreikörper-Energie T_nu(L) = Summe über alle Paare verschiedener Gittervektoren x != y, beide ungleich 0, von (|x| |y| |x-y|)^(-nu), für Bravais-Gitter L mit Kovolumen 1. In 2D wird ein Gitter durch tau = x + i y im Fundamentalbereich (0 <= x <= 1/2, |tau| >= 1) beschrieben: L = (Z + tau Z)/sqrt(Im tau). Gesucht ist das Gitter mit minimaler Energie.\n\nFRAGE: Gegen welches Seitenverhältnis y_inf konvergiert das optimale Rechteckgitter für nu -> unendlich? Gib einen Zahlenwert an (falls bekannt, auch die geschlossene Form).\n\nAntworte am Ende als JSON: {\"antwort\": \"<Kategorie oder kurze Antwort; \\\"unbekannt\\\" wenn du es nicht weißt>\", \"zahl\": <Zahl oder null>, \"konfidenz\": <0..1>, \"begruendung\": \"<kurz>\"}",
+ "response": "```json\n{\"antwort\": \"y_inf = sqrt((sqrt(17)-1)/2) ≈ 1.2496\", \"zahl\": 1.2496, \"konfidenz\": 0.8, \"begruendung\": \"Für nu→∞ dominiert der kleinste Wert von |x||y||x-y|, das optimale Gitter maximiert also dieses Minimum. Für das Rechteckgitter mit Seiten a ≤ b = 1/a sind die kritischen Tripel (x,y) = (e1,2e1) mit Wert 2a³ und (e1,e2) bzw. (e1,e1+e2) mit Wert sqrt(a²+b²). 2a³ wächst in a, sqrt(a²+a^-2) fällt für a<1. Gleichsetzen liefert 4a^8 = a^4+1, also a^4 = (1+√17)/8. Das Seitenverhältnis ist y = b/a = 1/a² = sqrt(8/(1+√17)) = sqrt((√17-1)/2) ≈ 1.2496. Andere Tripel, etwa (e1, 2e1+e2), liefern am Optimum größere Werte. Ich habe das nur analytisch abgeleitet und nicht numerisch geprüft.\"}\n```",
+ "cost_usd": 0.021758,
+ "sek": 16.0,
+ "ts": "2026-10-03T20:20:57"
+}

@@ -1,0 +1,28 @@
+{
+ "antwort": {
+  "antwort": "bcc",
+  "zahl": 13.11,
+  "konfidenz": 0.6,
+  "begruendung": "Numerische Summation bei nu=5 (Kovolumen 1, Abschneideradius 4,5) liefert sc≈16,21, fcc≈13,38 und bcc≈13,11. Das bcc-Gitter ist also unter den drei Kandidaten am niedrigsten. Ich habe kein anderes Gitter getestet, deshalb ist ein anderes Minimum nicht ausgeschlossen."
+ },
+ "kosten_usd": 0.0177652,
+ "tool_calls": 1,
+ "verstoss": [],
+ "sek": 12.0,
+ "transkript_tools": [
+  {
+   "type": "tool_use",
+   "id": "toolu_01Lus4AgeLi2mtR6L5zR5A3h",
+   "name": "Bash",
+   "input": {
+    "command": "cat > a.py <<'E'\nimport numpy as np, itertools\ndef T(B,nu=5,N=7):\n    r=range(-N,N+1)\n    P=np.array([np.array(c)@B for c in itertools.product(r,repeat=3) if any(c)])\n    n=np.linalg.norm(P,axis=1); m=n<4.5\n    P=P[m];n=n[m]\n    D=np.linalg.norm(P[:,None]-P[None],axis=2)\n    with np.errstate(divide='ignore'):\n        M=(n[:,None]*n[None]*D)**(-nu)\n    np.fill_diagonal(M,0)\n    return M.sum()\nfor name,B in [('sc',np.eye(3)),('fcc',np.array([[0,1,1],[1,0,1],[1,1,0]])/2),('bcc',np.array([[-1,1,1],[1,-1,1],[1,1,-1]])/2)]:\n    B=B/abs(np.linalg.det(B))**(1/3);print(name,T(B))\nE\npython3 a.py"
+   },
+   "caller": {
+    "type": "direct"
+   }
+  }
+ ],
+ "frage": "Q9",
+ "salt": 2,
+ "bedingung": "A2"
+}

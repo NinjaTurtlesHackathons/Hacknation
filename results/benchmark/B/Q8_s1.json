@@ -1,0 +1,1004 @@
+{
+ "antwort": {
+  "antwort": "y_inf = sqrt((sqrt(17)-1)/2) ≈ 1.2496",
+  "zahl": 1.24962,
+  "konfidenz": 0.9,
+  "pruefung": {
+   "typ": "grenzwert",
+   "groesse": "y_inf",
+   "erwartet": 1.24962,
+   "toleranz": 0.003
+  },
+  "begruendung": "Die numerischen Werte y_nu steigen monoton an (1.2330 bei nu=60, 1.2415 bei nu=120, 1.2476 bei nu=480). Die Extrapolation a + b/nu aus nu=240 und 480 gibt ≈1.2496, der Fit mit 1/nu² gibt 1.24960. Das stimmt mit der Gleichheit zweier konkurrierender Dreierprodukte überein: h·sqrt(1+h²) = 2. Daraus folgt h² = (√17−1)/2, also h = 1.24962. Diese Gleichung habe ich aus den Zahlen erschlossen und nicht separat berechnet. Die Prüfung gilt dem numerischen Wert.",
+  "stimmen": "4/4 (geprüft: 4)"
+ },
+ "level": "computed (Code-Prüfer bestanden)",
+ "forscher": [
+  {
+   "strategie": "numeriker",
+   "runden": [
+    {
+     "ueberlegung": "Scan zuerst grob: rect_optimum und asymptote für wachsende nu liefern y_nu und den Fit y = a + b/nu + c/nu^2; a ist der Kandidat für y_inf. Dann minimize2d bei großem nu, um zu prüfen, ob das Rechteck wirklich das globale Optimum ist, und hessian2d zur Stabilität. Für nu -> unendlich dominiert das Minimum von max-Struktur: Die Energie wird vom kleinsten Wert von 1/(|x||y||x-y|) bestimmt, d.h. vom Dreieck mit maximalem Produkt der Seiten-Minima. Ich lasse mich aber nur von den Experimenten leiten und prüfe Kandidaten numerisch.",
+     "plan": [
+      {
+       "op": "asymptote",
+       "args": {
+        "nus": [
+         10,
+         20,
+         40,
+         80,
+         160
+        ]
+       }
+      },
+      {
+       "op": "rect_optimum",
+       "args": {
+        "nu": 20,
+        "y_lo": 0.5,
+        "y_hi": 3
+       }
+      },
+      {
+       "op": "rect_optimum",
+       "args": {
+        "nu": 60,
+        "y_lo": 0.5,
+        "y_hi": 3
+       }
+      },
+      {
+       "op": "rect_optimum",
+       "args": {
+        "nu": 120,
+        "y_lo": 0.5,
+        "y_hi": 3
+       }
+      },
+      {
+       "op": "minimize2d",
+       "args": {
+        "nu": 40
+       }
+      },
+      {
+       "op": "minimize2d",
+       "args": {
+        "nu": 100
+       }
+      },
+      {
+       "op": "hessian2d",
+       "args": {
+        "tau": [
+         0,
+         1.2
+        ],
+        "nu": 60
+       }
+      },
+      {
+       "op": "asymptote",
+       "args": {
+        "nus": [
+         30,
+         60,
+         120,
+         240,
+         480
+        ]
+       }
+      }
+     ]
+    },
+    {
+     "antwort": "y_inf = sqrt((sqrt(17)-1)/2) ≈ 1.2496",
+     "zahl": 1.24962,
+     "konfidenz": 0.9,
+     "pruefung": {
+      "typ": "grenzwert",
+      "groesse": "y_inf",
+      "erwartet": 1.24962,
+      "toleranz": 0.003
+     },
+     "begruendung": "Die numerischen Werte y_nu steigen monoton an (1.2330 bei nu=60, 1.2415 bei nu=120, 1.2476 bei nu=480). Die Extrapolation a + b/nu aus nu=240 und 480 gibt ≈1.2496, der Fit mit 1/nu² gibt 1.24960. Das stimmt mit der Gleichheit zweier konkurrierender Dreierprodukte überein: h·sqrt(1+h²) = 2. Daraus folgt h² = (√17−1)/2, also h = 1.24962. Diese Gleichung habe ich aus den Zahlen erschlossen und nicht separat berechnet. Die Prüfung gilt dem numerischen Wert."
+    }
+   ],
+   "experimente": [
+    3,
+    4,
+    5,
+    6,
+    12,
+    13,
+    15,
+    20
+   ],
+   "final": {
+    "antwort": "y_inf = sqrt((sqrt(17)-1)/2) ≈ 1.2496",
+    "zahl": 1.24962,
+    "konfidenz": 0.9,
+    "pruefung": {
+     "typ": "grenzwert",
+     "groesse": "y_inf",
+     "erwartet": 1.24962,
+     "toleranz": 0.003
+    },
+    "begruendung": "Die numerischen Werte y_nu steigen monoton an (1.2330 bei nu=60, 1.2415 bei nu=120, 1.2476 bei nu=480). Die Extrapolation a + b/nu aus nu=240 und 480 gibt ≈1.2496, der Fit mit 1/nu² gibt 1.24960. Das stimmt mit der Gleichheit zweier konkurrierender Dreierprodukte überein: h·sqrt(1+h²) = 2. Daraus folgt h² = (√17−1)/2, also h = 1.24962. Diese Gleichung habe ich aus den Zahlen erschlossen und nicht separat berechnet. Die Prüfung gilt dem numerischen Wert."
+   },
+   "pruefung": {
+    "bestanden": true,
+    "grund": "Prüfer-Fit über nu=[100, 160, 250, 400, 640, 1000]: y_inf_fit=1.249620 (Toleranz 0.003)"
+   }
+  },
+  {
+   "strategie": "theoretiker",
+   "runden": [
+    {
+     "ueberlegung": "Für nu→∞ dominieren die kleinsten Dreierprodukte P=|x||y||x-y|, das Optimum maximiert deren Minimum nach Skalierung auf Kovolumen 1 (Faktor y^(-3/2)). Rechteckgitter Z+iyZ mit y>=1: die kleinsten Produkte sind 2 (x=a, y=2a) und y*sqrt(1+y^2) (a, b). Das erste ist y-unabhängig, das zweite wächst. Das Maximum von min/y^1.5 liegt beim Kreuzungspunkt y^2(1+y^2)=4, also y^2=(sqrt17-1)/2, y≈1.2496. Test: asymptote und rect_optimum bei großem nu sollten gegen diesen Wert konvergieren; der Fit-Grenzwert a sollte ≈1.2496 sein.",
+     "plan": [
+      {
+       "op": "asymptote",
+       "args": {
+        "nus": [
+         10,
+         15,
+         20,
+         30,
+         40,
+         60,
+         80
+        ]
+       }
+      },
+      {
+       "op": "rect_optimum",
+       "args": {
+        "nu": 20,
+        "y_lo": 1.0,
+        "y_hi": 2.0
+       }
+      },
+      {
+       "op": "rect_optimum",
+       "args": {
+        "nu": 40,
+        "y_lo": 1.0,
+        "y_hi": 2.0
+       }
+      },
+      {
+       "op": "rect_optimum",
+       "args": {
+        "nu": 80,
+        "y_lo": 1.0,
+        "y_hi": 2.0
+       }
+      },
+      {
+       "op": "minimize2d",
+       "args": {
+        "nu": 40
+       }
+      }
+     ]
+    },
+    {
+     "antwort": "y_inf = sqrt((sqrt(17)-1)/2) ≈ 1.2496",
+     "zahl": 1.24962,
+     "konfidenz": 0.85,
+     "pruefung": {
+      "typ": "grenzwert",
+      "groesse": "y_inf",
+      "erwartet": 1.24962,
+      "toleranz": 0.01
+     },
+     "begruendung": "Für nu→∞ dominieren die kleinsten Dreierprodukte. Das Optimum maximiert das kleinste normierte Produkt. Für das Rechteckgitter (1, iy) konkurrieren sqrt(1+y²)/sqrt(y) (Tripel a, b) und 2/y^1.5 (Tripel a, 2a). Gleichsetzen ergibt y⁴+y²-4=0, also y²=(√17-1)/2 und y≈1.2496. Das passt zu den numerischen Werten y(40)=1.2241 und y(80)=1.2373: (y_inf - y_nu)·nu ≈ 1.0 ist für beide Werte konsistent mit einer 1/nu-Korrektur. Der Fit y_inf≈1.2445 liegt nahe daran, ist aber wegen des großen c2 weniger verlässlich."
+    }
+   ],
+   "experimente": [
+    14,
+    16,
+    17,
+    18,
+    19
+   ],
+   "final": {
+    "antwort": "y_inf = sqrt((sqrt(17)-1)/2) ≈ 1.2496",
+    "zahl": 1.24962,
+    "konfidenz": 0.85,
+    "pruefung": {
+     "typ": "grenzwert",
+     "groesse": "y_inf",
+     "erwartet": 1.24962,
+     "toleranz": 0.01
+    },
+    "begruendung": "Für nu→∞ dominieren die kleinsten Dreierprodukte. Das Optimum maximiert das kleinste normierte Produkt. Für das Rechteckgitter (1, iy) konkurrieren sqrt(1+y²)/sqrt(y) (Tripel a, b) und 2/y^1.5 (Tripel a, 2a). Gleichsetzen ergibt y⁴+y²-4=0, also y²=(√17-1)/2 und y≈1.2496. Das passt zu den numerischen Werten y(40)=1.2241 und y(80)=1.2373: (y_inf - y_nu)·nu ≈ 1.0 ist für beide Werte konsistent mit einer 1/nu-Korrektur. Der Fit y_inf≈1.2445 liegt nahe daran, ist aber wegen des großen c2 weniger verlässlich."
+   },
+   "pruefung": {
+    "bestanden": true,
+    "grund": "Prüfer-Fit über nu=[100, 160, 250, 400, 640, 1000]: y_inf_fit=1.249620 (Toleranz 0.01)"
+   }
+  },
+  {
+   "strategie": "skeptiker",
+   "runden": [
+    {
+     "ueberlegung": "Für nu -> unendlich dominieren die kleinsten Terme: Die Energie wird durch das Minimum von |x||y||x-y| über Gitterpaare bestimmt, also wird (max über Gitter des min Dreiecksprodukts) optimiert. Für Rechteckgitter tau = i y (Kovolumen 1 -> Basis 1/sqrt(y), sqrt(y)) kann der Grenzwert nicht naheliegend (z.B. 1 oder sqrt(3)) angenommen werden. Ich messe y_nu für wachsendes nu, extrapoliere per Fit und prüfe Alternativen (Quadrat, Hexagonal, andere lokale Minima) und die Kandidaten für die geschlossene Form. Zuerst Rechteckoptimum bei mehreren nu, Asymptotenfit, dann globale Suche bei großem nu, um sicherzustellen, dass das Rechteck wirklich global optimal bleibt.",
+     "plan": [
+      {
+       "op": "asymptote",
+       "args": {
+        "nus": [
+         10,
+         20,
+         40,
+         80,
+         160,
+         320
+        ]
+       }
+      },
+      {
+       "op": "rect_optimum",
+       "args": {
+        "nu": 20,
+        "y_lo": 0.5,
+        "y_hi": 3.0
+       }
+      },
+      {
+       "op": "rect_optimum",
+       "args": {
+        "nu": 80,
+        "y_lo": 0.5,
+        "y_hi": 3.0
+       }
+      },
+      {
+       "op": "rect_optimum",
+       "args": {
+        "nu": 320,
+        "y_lo": 0.5,
+        "y_hi": 3.0
+       }
+      },
+      {
+       "op": "minimize2d",
+       "args": {
+        "nu": 20
+       }
+      },
+      {
+       "op": "minimize2d",
+       "args": {
+        "nu": 80
+       }
+      },
+      {
+       "op": "compare2d",
+       "args": {
+        "tau_a": [
+         0,
+         1.5
+        ],
+        "tau_b": [
+         0.5,
+         0.8660254
+        ],
+        "nu": 80
+       }
+      },
+      {
+       "op": "hessian2d",
+       "args": {
+        "tau": [
+         0,
+         1.5
+        ],
+        "nu": 80
+       }
+      }
+     ]
+    },
+    {
+     "antwort": "y_inf = sqrt((sqrt(17)-1)/2) ≈ 1.24966",
+     "zahl": 1.249656,
+     "konfidenz": 0.93,
+     "pruefung": {
+      "typ": "grenzwert",
+      "groesse": "y_inf",
+      "erwartet": 1.249656,
+      "toleranz": 0.003
+     },
+     "begruendung": "Die numerischen y_nu (1.1941, 1.2373, 1.2435, 1.2466 für nu=20, 80, 160, 320) nähern sich mit Fehler ∝ 1/nu an. Richardson-Extrapolation ergibt etwa 1.2496–1.2497, während der Fit der Asymptote mit 1.2482 abweicht und deshalb nicht verwendet wird. Für nu→∞ zählt nur das Minimum von |x||y||x-y| über alle Paare, das maximiert wird. Beim Rechteckgitter sind die beiden begrenzenden Terme 2·y^(-3/2) und sqrt(1+y²)·y^(-1/2); ihre Gleichheit liefert y²(1+y²)=4, also y² = (√17−1)/2 und y ≈ 1.249656. Das passt zu den Daten."
+    }
+   ],
+   "experimente": [
+    7,
+    8,
+    9,
+    10,
+    21,
+    22,
+    23,
+    24
+   ],
+   "final": {
+    "antwort": "y_inf = sqrt((sqrt(17)-1)/2) ≈ 1.24966",
+    "zahl": 1.249656,
+    "konfidenz": 0.93,
+    "pruefung": {
+     "typ": "grenzwert",
+     "groesse": "y_inf",
+     "erwartet": 1.249656,
+     "toleranz": 0.003
+    },
+    "begruendung": "Die numerischen y_nu (1.1941, 1.2373, 1.2435, 1.2466 für nu=20, 80, 160, 320) nähern sich mit Fehler ∝ 1/nu an. Richardson-Extrapolation ergibt etwa 1.2496–1.2497, während der Fit der Asymptote mit 1.2482 abweicht und deshalb nicht verwendet wird. Für nu→∞ zählt nur das Minimum von |x||y||x-y| über alle Paare, das maximiert wird. Beim Rechteckgitter sind die beiden begrenzenden Terme 2·y^(-3/2) und sqrt(1+y²)·y^(-1/2); ihre Gleichheit liefert y²(1+y²)=4, also y² = (√17−1)/2 und y ≈ 1.249656. Das passt zu den Daten."
+   },
+   "pruefung": {
+    "bestanden": true,
+    "grund": "Prüfer-Fit über nu=[100, 160, 250, 400, 640, 1000]: y_inf_fit=1.249620 (Toleranz 0.003)"
+   }
+  },
+  {
+   "strategie": "sparsam",
+   "runden": [
+    {
+     "ueberlegung": "Ziel: y_inf = lim y_nu des optimalen Rechteckgitters tau = i y. Ich nutze asymptote mit großen nu, um y_nu und den Fit a + b/nu + c/nu^2 zu erhalten (a = y_inf). Zur Kontrolle rect_optimum bei einzelnen großen nu mit engem Suchintervall, damit der Fit unabhängig bestätigt wird. Zusätzlich minimize2d bei großem nu, um zu prüfen, dass das globale Optimum tatsächlich rechteckig ist (sonst wäre die Frage nach dem optimalen Rechteck weniger aussagekräftig). Bewusst wenige, nicht redundante Experimente.",
+     "plan": [
+      {
+       "op": "asymptote",
+       "args": {
+        "nus": [
+         20,
+         40,
+         80,
+         160,
+         320,
+         640
+        ]
+       }
+      },
+      {
+       "op": "rect_optimum",
+       "args": {
+        "nu": 100,
+        "y_lo": 0.3,
+        "y_hi": 3.0
+       }
+      },
+      {
+       "op": "rect_optimum",
+       "args": {
+        "nu": 400,
+        "y_lo": 0.3,
+        "y_hi": 3.0
+       }
+      },
+      {
+       "op": "minimize2d",
+       "args": {
+        "nu": 100
+       }
+      }
+     ]
+    },
+    {
+     "antwort": "y_inf = sqrt((sqrt(17)-1)/2) ≈ 1.2496",
+     "zahl": 1.24962,
+     "konfidenz": 0.9,
+     "pruefung": {
+      "typ": "grenzwert",
+      "groesse": "y_inf",
+      "erwartet": 1.24962,
+      "toleranz": 0.002
+     },
+     "begruendung": "Die numerischen y_nu (1.1941 bis 1.2481 für nu=20 bis 640) konvergieren wie 1/nu. Richardson-Extrapolation und der Fit liefern ≈1.2496. Für nu→∞ dominiert das kleinste Dreieckprodukt. Bei y>1 sind das 2·y^(-3/2) (x=a, y=2a) und sqrt(y+1/y) (x=a, y=b). Gleichsetzen ergibt y^4+y^2=4, also y²=(√17−1)/2 und y≈1.24962, was zu den Daten passt."
+    }
+   ],
+   "experimente": [
+    0,
+    1,
+    2,
+    11
+   ],
+   "final": {
+    "antwort": "y_inf = sqrt((sqrt(17)-1)/2) ≈ 1.2496",
+    "zahl": 1.24962,
+    "konfidenz": 0.9,
+    "pruefung": {
+     "typ": "grenzwert",
+     "groesse": "y_inf",
+     "erwartet": 1.24962,
+     "toleranz": 0.002
+    },
+    "begruendung": "Die numerischen y_nu (1.1941 bis 1.2481 für nu=20 bis 640) konvergieren wie 1/nu. Richardson-Extrapolation und der Fit liefern ≈1.2496. Für nu→∞ dominiert das kleinste Dreieckprodukt. Bei y>1 sind das 2·y^(-3/2) (x=a, y=2a) und sqrt(y+1/y) (x=a, y=b). Gleichsetzen ergibt y^4+y^2=4, also y²=(√17−1)/2 und y≈1.24962, was zu den Daten passt."
+   },
+   "pruefung": {
+    "bestanden": true,
+    "grund": "Prüfer-Fit über nu=[100, 160, 250, 400, 640, 1000]: y_inf_fit=1.249620 (Toleranz 0.002)"
+   }
+  }
+ ],
+ "experimente": [
+  {
+   "id": 0,
+   "wer": "forscher-sparsam",
+   "op": "asymptote",
+   "args": {
+    "nus": [
+     20,
+     40,
+     80,
+     160,
+     320,
+     640
+    ]
+   },
+   "ergebnis": {
+    "nus": [
+     20,
+     40,
+     80,
+     160,
+     320,
+     640
+    ],
+    "ys": [
+     1.1941481768268276,
+     1.2241038787780216,
+     1.2373001468860219,
+     1.2435596945485956,
+     1.2466140355240123,
+     1.2481233367774494
+    ],
+    "y_inf_fit": 1.2495511290942156,
+    "kappa_fit": 0.9316900560468655,
+    "c2": -3.5241399854143225
+   },
+   "sek": 0.55
+  },
+  {
+   "id": 1,
+   "wer": "forscher-sparsam",
+   "op": "rect_optimum",
+   "args": {
+    "nu": 100,
+    "y_lo": 0.3,
+    "y_hi": 3.0
+   },
+   "ergebnis": {
+    "y": 1.2398289271726022,
+    "T": 7.250841730616906e-15
+   },
+   "sek": 0.11
+  },
+  {
+   "id": 2,
+   "wer": "forscher-sparsam",
+   "op": "rect_optimum",
+   "args": {
+    "nu": 400,
+    "y_lo": 0.3,
+    "y_hi": 3.0
+   },
+   "ergebnis": {
+    "y": 1.2472191670806647,
+    "T": 1.2649710819744955e-61
+   },
+   "sek": 0.14
+  },
+  {
+   "id": 3,
+   "wer": "forscher-numeriker",
+   "op": "asymptote",
+   "args": {
+    "nus": [
+     10,
+     20,
+     40,
+     80,
+     160
+    ]
+   },
+   "ergebnis": {
+    "nus": [
+     10,
+     20,
+     40,
+     80,
+     160
+    ],
+    "ys": [
+     1.1000000945131598,
+     1.1941481768268276,
+     1.2241038787780216,
+     1.2373001468860219,
+     1.2435596945485956
+    ],
+    "y_inf_fit": 1.2474332478992807,
+    "kappa_fit": 0.6910693571943203,
+    "c2": -7.8196033304306125
+   },
+   "sek": 0.51
+  },
+  {
+   "id": 4,
+   "wer": "forscher-numeriker",
+   "op": "rect_optimum",
+   "args": {
+    "nu": 20,
+    "y_lo": 0.5,
+    "y_hi": 3
+   },
+   "ergebnis": {
+    "y": 1.1941481949941692,
+    "T": 0.02121333143016408
+   },
+   "sek": 0.1
+  },
+  {
+   "id": 5,
+   "wer": "forscher-numeriker",
+   "op": "rect_optimum",
+   "args": {
+    "nu": 60,
+    "y_lo": 0.5,
+    "y_hi": 3
+   },
+   "ergebnis": {
+    "y": 1.2330073616864778,
+    "T": 1.243024816759807e-08
+   },
+   "sek": 0.16
+  },
+  {
+   "id": 6,
+   "wer": "forscher-numeriker",
+   "op": "rect_optimum",
+   "args": {
+    "nu": 120,
+    "y_lo": 0.5,
+    "y_hi": 3
+   },
+   "ergebnis": {
+    "y": 1.2414961260876642,
+    "T": 5.536533583922948e-18
+   },
+   "sek": 0.21
+  },
+  {
+   "id": 7,
+   "wer": "forscher-skeptiker",
+   "op": "asymptote",
+   "args": {
+    "nus": [
+     10,
+     20,
+     40,
+     80,
+     160,
+     320
+    ]
+   },
+   "ergebnis": {
+    "nus": [
+     10,
+     20,
+     40,
+     80,
+     160,
+     320
+    ],
+    "ys": [
+     1.1000000945131598,
+     1.1941481768268276,
+     1.2241038787780216,
+     1.2373001468860219,
+     1.2435596945485956,
+     1.2466140355240123
+    ],
+    "y_inf_fit": 1.2481652316171465,
+    "kappa_fit": 0.7235837876185944,
+    "c2": -7.562581666326479
+   },
+   "sek": 1.38
+  },
+  {
+   "id": 8,
+   "wer": "forscher-skeptiker",
+   "op": "rect_optimum",
+   "args": {
+    "nu": 20,
+    "y_lo": 0.5,
+    "y_hi": 3.0
+   },
+   "ergebnis": {
+    "y": 1.1941481949941692,
+    "T": 0.02121333143016408
+   },
+   "sek": 0.22
+  },
+  {
+   "id": 9,
+   "wer": "forscher-skeptiker",
+   "op": "rect_optimum",
+   "args": {
+    "nu": 80,
+    "y_lo": 0.5,
+    "y_hi": 3.0
+   },
+   "ergebnis": {
+    "y": 1.2373001113155173,
+    "T": 9.494831092978563e-12
+   },
+   "sek": 0.48
+  },
+  {
+   "id": 10,
+   "wer": "forscher-skeptiker",
+   "op": "rect_optimum",
+   "args": {
+    "nu": 320,
+    "y_lo": 0.5,
+    "y_hi": 3.0
+   },
+   "ergebnis": {
+    "y": 1.246614044983145,
+    "T": 3.7242932590593044e-49
+   },
+   "sek": 0.79
+  },
+  {
+   "id": 11,
+   "wer": "forscher-sparsam",
+   "op": "minimize2d",
+   "args": {
+    "nu": 100
+   },
+   "ergebnis": {
+    "tau": [
+     2.840391718205179e-07,
+     1.2398271730573183
+    ],
+    "T": 7.250841742201647e-15,
+    "typ": "rechteckig(y=1.2398)",
+    "lokale_minima": [
+     {
+      "tau": [
+       2.840391718205179e-07,
+       1.2398271730573183
+      ],
+      "T": 7.250841742201647e-15,
+      "typ": "rechteckig(y=1.2398)"
+     }
+    ]
+   },
+   "sek": 6.76
+  },
+  {
+   "id": 12,
+   "wer": "forscher-numeriker",
+   "op": "minimize2d",
+   "args": {
+    "nu": 40
+   },
+   "ergebnis": {
+    "tau": [
+     6.339880637824676e-07,
+     1.2241068547290366
+    ],
+    "T": 1.6262692177717823e-05,
+    "typ": "rechteckig(y=1.2241)",
+    "lokale_minima": [
+     {
+      "tau": [
+       6.339880637824676e-07,
+       1.2241068547290366
+      ],
+      "T": 1.6262692177717823e-05,
+      "typ": "rechteckig(y=1.2241)"
+     }
+    ]
+   },
+   "sek": 9.81
+  },
+  {
+   "id": 13,
+   "wer": "forscher-numeriker",
+   "op": "minimize2d",
+   "args": {
+    "nu": 100
+   },
+   "ergebnis": {
+    "tau": [
+     2.840391718205179e-07,
+     1.2398271730573183
+    ],
+    "T": 7.250841742201647e-15,
+    "typ": "rechteckig(y=1.2398)",
+    "lokale_minima": [
+     {
+      "tau": [
+       2.840391718205179e-07,
+       1.2398271730573183
+      ],
+      "T": 7.250841742201647e-15,
+      "typ": "rechteckig(y=1.2398)"
+     }
+    ]
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 14,
+   "wer": "forscher-theoretiker",
+   "op": "asymptote",
+   "args": {
+    "nus": [
+     10,
+     15,
+     20,
+     30,
+     40,
+     60,
+     80
+    ]
+   },
+   "ergebnis": {
+    "nus": [
+     10,
+     15,
+     20,
+     30,
+     40,
+     60,
+     80
+    ],
+    "ys": [
+     1.1000000945131598,
+     1.1701707281197555,
+     1.1941481768268276,
+     1.214720794977329,
+     1.2241038787780216,
+     1.233007376386513,
+     1.2373001468860219
+    ],
+    "y_inf_fit": 1.2444806317613293,
+    "kappa_fit": 0.5562184872932336,
+    "c2": -8.827296921982798
+   },
+   "sek": 2.88
+  },
+  {
+   "id": 15,
+   "wer": "forscher-numeriker",
+   "op": "hessian2d",
+   "args": {
+    "tau": [
+     0,
+     1.2
+    ],
+    "nu": 60
+   },
+   "ergebnis": {
+    "eigenwerte": [
+     4.4130513116393374e-07,
+     7.604801446998352e-06
+    ],
+    "stabil": true
+   },
+   "sek": 0.09
+  },
+  {
+   "id": 16,
+   "wer": "forscher-theoretiker",
+   "op": "rect_optimum",
+   "args": {
+    "nu": 20,
+    "y_lo": 1.0,
+    "y_hi": 2.0
+   },
+   "ergebnis": {
+    "y": 1.1941481772769895,
+    "T": 0.0212133314301643
+   },
+   "sek": 0.25
+  },
+  {
+   "id": 17,
+   "wer": "forscher-theoretiker",
+   "op": "rect_optimum",
+   "args": {
+    "nu": 40,
+    "y_lo": 1.0,
+    "y_hi": 2.0
+   },
+   "ergebnis": {
+    "y": 1.22410388242162,
+    "T": 1.6262692166389347e-05
+   },
+   "sek": 0.18
+  },
+  {
+   "id": 18,
+   "wer": "forscher-theoretiker",
+   "op": "rect_optimum",
+   "args": {
+    "nu": 80,
+    "y_lo": 1.0,
+    "y_hi": 2.0
+   },
+   "ergebnis": {
+    "y": 1.23730013682721,
+    "T": 9.494831092978446e-12
+   },
+   "sek": 0.2
+  },
+  {
+   "id": 19,
+   "wer": "forscher-theoretiker",
+   "op": "minimize2d",
+   "args": {
+    "nu": 40
+   },
+   "ergebnis": {
+    "tau": [
+     6.339880637824676e-07,
+     1.2241068547290366
+    ],
+    "T": 1.6262692177717823e-05,
+    "typ": "rechteckig(y=1.2241)",
+    "lokale_minima": [
+     {
+      "tau": [
+       6.339880637824676e-07,
+       1.2241068547290366
+      ],
+      "T": 1.6262692177717823e-05,
+      "typ": "rechteckig(y=1.2241)"
+     }
+    ]
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 20,
+   "wer": "forscher-numeriker",
+   "op": "asymptote",
+   "args": {
+    "nus": [
+     30,
+     60,
+     120,
+     240,
+     480
+    ]
+   },
+   "ergebnis": {
+    "nus": [
+     30,
+     60,
+     120,
+     240,
+     480
+    ],
+    "ys": [
+     1.214720794977329,
+     1.233007376386513,
+     1.2414960840934999,
+     1.2456012917013095,
+     1.247621549097098
+    ],
+    "y_inf_fit": 1.249596433694026,
+    "kappa_fit": 0.9454524956606212,
+    "c2": -3.023306459716205
+   },
+   "sek": 1.11
+  },
+  {
+   "id": 21,
+   "wer": "forscher-skeptiker",
+   "op": "minimize2d",
+   "args": {
+    "nu": 20
+   },
+   "ergebnis": {
+    "tau": [
+     1.3129801890752955e-08,
+     1.194147911260291
+    ],
+    "T": 0.021213331430187506,
+    "typ": "rechteckig(y=1.1941)",
+    "lokale_minima": [
+     {
+      "tau": [
+       1.3129801890752955e-08,
+       1.194147911260291
+      ],
+      "T": 0.021213331430187506,
+      "typ": "rechteckig(y=1.1941)"
+     }
+    ]
+   },
+   "sek": 11.81
+  },
+  {
+   "id": 22,
+   "wer": "forscher-skeptiker",
+   "op": "minimize2d",
+   "args": {
+    "nu": 80
+   },
+   "ergebnis": {
+    "tau": [
+     1.0021716007031733e-06,
+     1.2372977902585487
+    ],
+    "T": 9.494831113594962e-12,
+    "typ": "rechteckig(y=1.2373)",
+    "lokale_minima": [
+     {
+      "tau": [
+       1.0021716007031733e-06,
+       1.2372977902585487
+      ],
+      "T": 9.494831113594962e-12,
+      "typ": "rechteckig(y=1.2373)"
+     }
+    ]
+   },
+   "sek": 11.77
+  },
+  {
+   "id": 23,
+   "wer": "forscher-skeptiker",
+   "op": "compare2d",
+   "args": {
+    "tau_a": [
+     0,
+     1.5
+    ],
+    "tau_b": [
+     0.5,
+     0.8660254
+    ],
+    "nu": 80
+   },
+   "ergebnis": {
+    "T_a": 0.006709693531392805,
+    "T_b": 3.8269875515389433e-07,
+    "diff": 0.006709310832637651,
+    "err": 6.718367148772689e-16,
+    "sicher": true
+   },
+   "sek": 0.03
+  },
+  {
+   "id": 24,
+   "wer": "forscher-skeptiker",
+   "op": "hessian2d",
+   "args": {
+    "tau": [
+     0,
+     1.5
+    ],
+    "nu": 80
+   },
+   "ergebnis": {
+    "eigenwerte": [
+     4.978656376053436e-10,
+     42.671356014932584
+    ],
+    "stabil": true
+   },
+   "sek": 0.21
+  }
+ ],
+ "sek": 64.0,
+ "frage": "Q8",
+ "salt": 1,
+ "bedingung": "B"
+}

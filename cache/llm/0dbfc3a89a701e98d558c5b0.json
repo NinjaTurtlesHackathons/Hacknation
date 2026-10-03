@@ -1,0 +1,11 @@
+{
+ "key": "0dbfc3a89a701e98d558c5b0",
+ "model": "claude-sonnet-5-5",
+ "salt": "A1-2",
+ "system": "Du bist ein Experte für Gitter-Energieminimierung und mathematische Physik. Antworte nur mit JSON.",
+ "prompt": "Betrachtet wird die Dreikörper-Energie T_nu(L) = Summe über alle Paare verschiedener Gittervektoren x != y, beide ungleich 0, von (|x| |y| |x-y|)^(-nu), für Bravais-Gitter L mit Kovolumen 1. In 2D wird ein Gitter durch tau = x + i y im Fundamentalbereich (0 <= x <= 1/2, |tau| >= 1) beschrieben: L = (Z + tau Z)/sqrt(Im tau). Gesucht ist das Gitter mit minimaler Energie.\n\nFRAGE: Ist dieser Wechsel unstetig (beide Gitter sind in einem Bereich um nu* gleichzeitig lokale Minima) oder stetig?\n\nAntworte am Ende als JSON: {\"antwort\": \"<Kategorie oder kurze Antwort; \\\"unbekannt\\\" wenn du es nicht weißt>\", \"zahl\": <Zahl oder null>, \"konfidenz\": <0..1>, \"begruendung\": \"<kurz>\"}",
+ "response": "```json\n{\"antwort\": \"unstetig\", \"zahl\": null, \"konfidenz\": 0.5, \"begruendung\": \"Eine Rechnung habe ich nicht durchgeführt, das Ergebnis ist eine Heuristik. Bei großem nu dominiert das kürzeste Tripel. Im Hexagonalgitter ist das Produkt der drei Seitenlängen etwa 1,24, im Quadratgitter etwa 1,41. Das Quadratgitter hat also die kleinere Energie. Bei kleinem nu ist vermutlich das Hexagonalgitter günstiger. Beide Gitter sind wegen der Modulsymmetrie kritische Punkte. Ein Wechsel zwischen ihnen verläuft typischerweise als Phasenübergang erster Ordnung, bei dem beide in einem Bereich um nu* gleichzeitig lokale Minima sind. Ich bin mir nicht sicher, ob es nicht doch eine stetige Familie von Zwischengittern gibt.\"}\n```",
+ "cost_usd": 0.016908,
+ "sek": 12.4,
+ "ts": "2026-10-03T20:21:54"
+}

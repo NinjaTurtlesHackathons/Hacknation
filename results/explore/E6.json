@@ -1,0 +1,1078 @@
+{
+ "antwort": {
+  "antwort": "D4",
+  "zahl": null,
+  "konfidenz": 0.8,
+  "pruefung": {
+   "typ": "vergleich_nd",
+   "nu": 3.5,
+   "gitter": "d4",
+   "gegen": [
+    "z4",
+    "a4",
+    "a4*"
+   ]
+  },
+  "begruendung": "Bei nu = 3,5 liegt D4 in beiden Auflösungen am niedrigsten: R=[3,4] gibt 142,0 gegenüber 145,3 (A4), 145,3 (A4*) und 160,1 (Z4); R=[6,8] gibt 143,1 gegenüber 146,0 (A4*) und 146,2 (A4). Die minimize_nd-Suche in 4D fand als einziges identifiziertes Gitter D4 mit der niedrigsten Energie. Der Abstand zu A4 und A4* (ca. 3) ist allerdings nur etwas größer als die angegebenen Fehlerschätzungen (2–4), daher bleibt Restunsicherheit; Z4 ist klar am schlechtesten.",
+  "stimmen": "3/4 (geprüft: 4)"
+ },
+ "level": "computed (Code-Prüfer bestanden)",
+ "forscher": [
+  {
+   "strategie": "numeriker",
+   "runden": [
+    {
+     "ueberlegung": "Zuerst die vier Kandidaten Z4, D4, A4, A4* bei nu=3,5 mit energy_nd in zwei Auflösungen (R=[6,8] und Standard) berechnen, um robust zu vergleichen. Zusätzlich eine globale Suche minimize_nd in 4D bei nu=3,5, um zu prüfen, ob ein anderes Gitter besser ist (nur zur Einordnung). Nahe der Konvergenzgrenze 8/3 ist nu=3,5 noch moderat, Richardson-Fehler sollten aber beachtet werden. Zusätzlich Vergleiche bei nu=4 zur Konsistenz.",
+     "plan": [
+      {
+       "op": "energy_nd",
+       "args": {
+        "name": "z4",
+        "nu": 3.5
+       }
+      },
+      {
+       "op": "energy_nd",
+       "args": {
+        "name": "d4",
+        "nu": 3.5
+       }
+      },
+      {
+       "op": "energy_nd",
+       "args": {
+        "name": "a4",
+        "nu": 3.5
+       }
+      },
+      {
+       "op": "energy_nd",
+       "args": {
+        "name": "a4*",
+        "nu": 3.5
+       }
+      },
+      {
+       "op": "energy_nd",
+       "args": {
+        "name": "z4",
+        "nu": 3.5,
+        "R": [
+         6,
+         8
+        ]
+       }
+      },
+      {
+       "op": "energy_nd",
+       "args": {
+        "name": "d4",
+        "nu": 3.5,
+        "R": [
+         6,
+         8
+        ]
+       }
+      },
+      {
+       "op": "energy_nd",
+       "args": {
+        "name": "a4",
+        "nu": 3.5,
+        "R": [
+         6,
+         8
+        ]
+       }
+      },
+      {
+       "op": "energy_nd",
+       "args": {
+        "name": "a4*",
+        "nu": 3.5,
+        "R": [
+         6,
+         8
+        ]
+       }
+      }
+     ]
+    },
+    {
+     "antwort": "D4",
+     "zahl": 143.09,
+     "konfidenz": 0.7,
+     "pruefung": {
+      "typ": "vergleich_nd",
+      "nu": 3.5,
+      "gitter": "d4",
+      "gegen": [
+       "z4",
+       "a4",
+       "a4*"
+      ]
+     },
+     "begruendung": "In beiden Auflösungen (Standard-R und R=[6,8]) hat D4 den kleinsten Wert (142,0 bzw. 143,1), A4 und A4* liegen bei etwa 145–146 und Z4 bei etwa 160. Der Abstand von D4 zu A4/A4* beträgt etwa 3, die Fehlerschätzungen liegen bei etwa 2–4. Die Reihenfolge ist daher konsistent, aber nur knapp signifikant; Z4 ist klar am schlechtesten."
+    }
+   ],
+   "experimente": [
+    0,
+    1,
+    2,
+    6,
+    12,
+    22,
+    28,
+    29
+   ],
+   "final": {
+    "antwort": "D4",
+    "zahl": 143.09,
+    "konfidenz": 0.7,
+    "pruefung": {
+     "typ": "vergleich_nd",
+     "nu": 3.5,
+     "gitter": "d4",
+     "gegen": [
+      "z4",
+      "a4",
+      "a4*"
+     ]
+    },
+    "begruendung": "In beiden Auflösungen (Standard-R und R=[6,8]) hat D4 den kleinsten Wert (142,0 bzw. 143,1), A4 und A4* liegen bei etwa 145–146 und Z4 bei etwa 160. Der Abstand von D4 zu A4/A4* beträgt etwa 3, die Fehlerschätzungen liegen bei etwa 2–4. Die Reihenfolge ist daher konsistent, aber nur knapp signifikant; Z4 ist klar am schlechtesten."
+   },
+   "pruefung": {
+    "bestanden": true,
+    "grund": "nu=3.5: T(andere)-T(d4) bei R=[(4, 6), (6, 8)]: z4: 18.04/17.55, a4: 3.319/3.106, a4*: 3.249/2.955"
+   }
+  },
+  {
+   "strategie": "theoretiker",
+   "runden": [
+    {
+     "ueberlegung": "Symmetrie- und Grenzfallüberlegung: Bei nu = 3,5 nahe der Konvergenzgrenze 8/3 dominieren Beiträge großer Vektoren (langreichweitig). Dann zählt eher die Gesamtverteilung von Dreiecken (Dichte, Gleichmäßigkeit) als das kleinste Dreiecksprodukt. Für große nu gewinnt D4 (Maximierung des kleinsten Dreiecksprodukts), für kleine nu ist das offen; A4, A4* und Z4 sind plausible Konkurrenten. Ich teste direkt: Energien der vier Gitter bei nu = 3,5 in zwei Auflösungen (R=[6,8] und Standard) zur Robustheit, sowie eine globale lokale Suche in 4D, um zu sehen, ob irgendein anderes Gitter besser ist. Zusätzlich vergleiche ich bei nu = 3,5 und einem größeren nu (z. B. 6) D4 mit den anderen, um zu sehen, ob sich die Reihenfolge ändert. Keine Vorhersage wird als gesichert angenommen, bevor die Zahlen vorliegen.",
+     "plan": [
+      {
+       "op": "energy_nd",
+       "args": {
+        "name": "d4",
+        "nu": 3.5
+       }
+      },
+      {
+       "op": "energy_nd",
+       "args": {
+        "name": "z4",
+        "nu": 3.5
+       }
+      },
+      {
+       "op": "energy_nd",
+       "args": {
+        "name": "a4",
+        "nu": 3.5
+       }
+      },
+      {
+       "op": "energy_nd",
+       "args": {
+        "name": "a4*",
+        "nu": 3.5
+       }
+      },
+      {
+       "op": "energy_nd",
+       "args": {
+        "name": "d4",
+        "nu": 3.5,
+        "R": [
+         6,
+         8
+        ]
+       }
+      },
+      {
+       "op": "energy_nd",
+       "args": {
+        "name": "a4*",
+        "nu": 3.5,
+        "R": [
+         6,
+         8
+        ]
+       }
+      },
+      {
+       "op": "energy_nd",
+       "args": {
+        "name": "a4",
+        "nu": 3.5,
+        "R": [
+         6,
+         8
+        ]
+       }
+      },
+      {
+       "op": "minimize_nd",
+       "args": {
+        "d": 4,
+        "nu": 3.5,
+        "starts": 3,
+        "seed": 1
+       }
+      }
+     ]
+    },
+    {
+     "antwort": "D4",
+     "zahl": null,
+     "konfidenz": 0.8,
+     "pruefung": {
+      "typ": "vergleich_nd",
+      "nu": 3.5,
+      "gitter": "d4",
+      "gegen": [
+       "z4",
+       "a4",
+       "a4*"
+      ]
+     },
+     "begruendung": "Bei nu = 3,5 liegt D4 in beiden Auflösungen am niedrigsten: R=[3,4] gibt 142,0 gegenüber 145,3 (A4), 145,3 (A4*) und 160,1 (Z4); R=[6,8] gibt 143,1 gegenüber 146,0 (A4*) und 146,2 (A4). Die minimize_nd-Suche in 4D fand als einziges identifiziertes Gitter D4 mit der niedrigsten Energie. Der Abstand zu A4 und A4* (ca. 3) ist allerdings nur etwas größer als die angegebenen Fehlerschätzungen (2–4), daher bleibt Restunsicherheit; Z4 ist klar am schlechtesten."
+    }
+   ],
+   "experimente": [
+    7,
+    8,
+    9,
+    10,
+    13,
+    23,
+    30,
+    31
+   ],
+   "final": {
+    "antwort": "D4",
+    "zahl": null,
+    "konfidenz": 0.8,
+    "pruefung": {
+     "typ": "vergleich_nd",
+     "nu": 3.5,
+     "gitter": "d4",
+     "gegen": [
+      "z4",
+      "a4",
+      "a4*"
+     ]
+    },
+    "begruendung": "Bei nu = 3,5 liegt D4 in beiden Auflösungen am niedrigsten: R=[3,4] gibt 142,0 gegenüber 145,3 (A4), 145,3 (A4*) und 160,1 (Z4); R=[6,8] gibt 143,1 gegenüber 146,0 (A4*) und 146,2 (A4). Die minimize_nd-Suche in 4D fand als einziges identifiziertes Gitter D4 mit der niedrigsten Energie. Der Abstand zu A4 und A4* (ca. 3) ist allerdings nur etwas größer als die angegebenen Fehlerschätzungen (2–4), daher bleibt Restunsicherheit; Z4 ist klar am schlechtesten."
+   },
+   "pruefung": {
+    "bestanden": true,
+    "grund": "nu=3.5: T(andere)-T(d4) bei R=[(4, 6), (6, 8)]: z4: 18.04/17.55, a4: 3.319/3.106, a4*: 3.249/2.955"
+   }
+  },
+  {
+   "strategie": "skeptiker",
+   "runden": [
+    {
+     "ueberlegung": "Bei nu=3,5 in 4D ist nichts bekannt; D4 ist nicht automatisch optimal (Vermutung gilt nur für große nu). Ich vergleiche zuerst die vier benannten Gitter in zwei Auflösungen (R=[4,6] Standard und R=[6,8]), um Robustheit zu prüfen. Danach starte ich eine globale lokale Suche über alle 4D-Gitter, um Gegenbeispiele außerhalb der vier Kandidaten zu finden (z.B. unbekannte Gitter), da die Frage nur die vier betrifft, aber die Prüfung argmin_nd wäre stärker. Zusätzlich zur Plausibilität die Energie bei nahem nu (z.B. 4,5) für D4 vs. A4 ist nicht nötig; zunächst die Kernmessungen.",
+     "plan": [
+      {
+       "op": "energy_nd",
+       "args": {
+        "name": "z4",
+        "nu": 3.5
+       }
+      },
+      {
+       "op": "energy_nd",
+       "args": {
+        "name": "d4",
+        "nu": 3.5
+       }
+      },
+      {
+       "op": "energy_nd",
+       "args": {
+        "name": "a4",
+        "nu": 3.5
+       }
+      },
+      {
+       "op": "energy_nd",
+       "args": {
+        "name": "a4*",
+        "nu": 3.5
+       }
+      },
+      {
+       "op": "energy_nd",
+       "args": {
+        "name": "z4",
+        "nu": 3.5,
+        "R": [
+         6,
+         8
+        ]
+       }
+      },
+      {
+       "op": "energy_nd",
+       "args": {
+        "name": "d4",
+        "nu": 3.5,
+        "R": [
+         6,
+         8
+        ]
+       }
+      },
+      {
+       "op": "energy_nd",
+       "args": {
+        "name": "a4",
+        "nu": 3.5,
+        "R": [
+         6,
+         8
+        ]
+       }
+      },
+      {
+       "op": "energy_nd",
+       "args": {
+        "name": "a4*",
+        "nu": 3.5,
+        "R": [
+         6,
+         8
+        ]
+       }
+      }
+     ]
+    },
+    {
+     "antwort": "D4",
+     "zahl": null,
+     "konfidenz": 0.7,
+     "pruefung": {
+      "typ": "vergleich_nd",
+      "nu": 3.5,
+      "gitter": "d4",
+      "gegen": [
+       "z4",
+       "a4",
+       "a4*"
+      ]
+     },
+     "begruendung": "In beiden Auflösungen ist D4 am niedrigsten: 142,0 bzw. 143,1, gegen A4* mit 145,3 bzw. 146,0, A4 mit 145,4 bzw. 146,2 und Z4 mit 160,1 bzw. 160,6. Z4 ist klar abgeschlagen. Der Abstand von D4 zu A4 und A4* (ca. 3) liegt aber in der Größenordnung der Fehlerschätzungen (2–4). Die Rangfolge ist also in beiden Auflösungen gleich, aber nicht statistisch gesichert, und ich habe keine weiteren Experimente (z. B. minimize_nd in 4D) gemacht, um andere Gitter auszuschließen."
+    }
+   ],
+   "experimente": [
+    3,
+    4,
+    5,
+    11,
+    14,
+    15,
+    24,
+    25
+   ],
+   "final": {
+    "antwort": "D4",
+    "zahl": null,
+    "konfidenz": 0.7,
+    "pruefung": {
+     "typ": "vergleich_nd",
+     "nu": 3.5,
+     "gitter": "d4",
+     "gegen": [
+      "z4",
+      "a4",
+      "a4*"
+     ]
+    },
+    "begruendung": "In beiden Auflösungen ist D4 am niedrigsten: 142,0 bzw. 143,1, gegen A4* mit 145,3 bzw. 146,0, A4 mit 145,4 bzw. 146,2 und Z4 mit 160,1 bzw. 160,6. Z4 ist klar abgeschlagen. Der Abstand von D4 zu A4 und A4* (ca. 3) liegt aber in der Größenordnung der Fehlerschätzungen (2–4). Die Rangfolge ist also in beiden Auflösungen gleich, aber nicht statistisch gesichert, und ich habe keine weiteren Experimente (z. B. minimize_nd in 4D) gemacht, um andere Gitter auszuschließen."
+   },
+   "pruefung": {
+    "bestanden": true,
+    "grund": "nu=3.5: T(andere)-T(d4) bei R=[(4, 6), (6, 8)]: z4: 18.04/17.55, a4: 3.319/3.106, a4*: 3.249/2.955"
+   }
+  },
+  {
+   "strategie": "sparsam",
+   "runden": [
+    {
+     "ueberlegung": "Ziel: bei nu=3,5 in 4D die Energien von Z4, D4, A4, A4* vergleichen und per globaler Suche pruefen, ob das Minimum unter den benannten Gittern liegt. Zuerst energy_nd fuer alle vier Gitter mit Standardaufloesung, dann D4 und der staerkste Konkurrent mit R=[6,8] zur Robustheit (die Pruefung 'vergleich_nd' verlangt Robustheit in zwei Aufloesungen). Nahe der Konvergenzgrenze 8/3 ist nu=3,5 noch moderat, Konvergenz sollte aber beachtet werden. Zusaetzlich eine globale lokale Suche minimize_nd in 4D, um zu sehen, ob eines der vier Gitter ueberhaupt ein Minimum ist. Ich stuetze nichts auf Vorwissen, sondern nur auf die Ergebnisse.",
+     "plan": [
+      {
+       "op": "energy_nd",
+       "args": {
+        "name": "z4",
+        "nu": 3.5
+       }
+      },
+      {
+       "op": "energy_nd",
+       "args": {
+        "name": "d4",
+        "nu": 3.5
+       }
+      },
+      {
+       "op": "energy_nd",
+       "args": {
+        "name": "a4",
+        "nu": 3.5
+       }
+      },
+      {
+       "op": "energy_nd",
+       "args": {
+        "name": "a4*",
+        "nu": 3.5
+       }
+      },
+      {
+       "op": "energy_nd",
+       "args": {
+        "name": "z4",
+        "nu": 3.5,
+        "R": [
+         6,
+         8
+        ]
+       }
+      },
+      {
+       "op": "energy_nd",
+       "args": {
+        "name": "d4",
+        "nu": 3.5,
+        "R": [
+         6,
+         8
+        ]
+       }
+      },
+      {
+       "op": "energy_nd",
+       "args": {
+        "name": "a4",
+        "nu": 3.5,
+        "R": [
+         6,
+         8
+        ]
+       }
+      },
+      {
+       "op": "energy_nd",
+       "args": {
+        "name": "a4*",
+        "nu": 3.5,
+        "R": [
+         6,
+         8
+        ]
+       }
+      }
+     ]
+    },
+    {
+     "antwort": "D4",
+     "zahl": null,
+     "konfidenz": 0.8,
+     "pruefung": {
+      "typ": "vergleich_nd",
+      "nu": 3.5,
+      "gitter": "d4",
+      "gegen": [
+       "z4",
+       "a4",
+       "a4*"
+      ]
+     },
+     "begruendung": "D4 hat in beiden Auflösungen die niedrigste Energie: 142,0 bei R=[4,6]-Standard und 143,1 bei R=[6,8], gegenüber 145,3 bzw. 146,2 für A4, 145,3 bzw. 146,0 für A4* und 160,1 bzw. 160,6 für Z4. Der Abstand zu A4 und A4* beträgt etwa 3, was ungefähr der Größe der Fehlerschätzungen entspricht (etwa 2–4). Z4 ist klar am schlechtesten, und die Reihenfolge D4 < A4* ≈ A4 < Z4 ist in beiden Auflösungen gleich. Die Einschätzung ist deshalb gut gestützt, aber nicht ganz sicher."
+    }
+   ],
+   "experimente": [
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    26,
+    27
+   ],
+   "final": {
+    "antwort": "D4",
+    "zahl": null,
+    "konfidenz": 0.8,
+    "pruefung": {
+     "typ": "vergleich_nd",
+     "nu": 3.5,
+     "gitter": "d4",
+     "gegen": [
+      "z4",
+      "a4",
+      "a4*"
+     ]
+    },
+    "begruendung": "D4 hat in beiden Auflösungen die niedrigste Energie: 142,0 bei R=[4,6]-Standard und 143,1 bei R=[6,8], gegenüber 145,3 bzw. 146,2 für A4, 145,3 bzw. 146,0 für A4* und 160,1 bzw. 160,6 für Z4. Der Abstand zu A4 und A4* beträgt etwa 3, was ungefähr der Größe der Fehlerschätzungen entspricht (etwa 2–4). Z4 ist klar am schlechtesten, und die Reihenfolge D4 < A4* ≈ A4 < Z4 ist in beiden Auflösungen gleich. Die Einschätzung ist deshalb gut gestützt, aber nicht ganz sicher."
+   },
+   "pruefung": {
+    "bestanden": true,
+    "grund": "nu=3.5: T(andere)-T(d4) bei R=[(4, 6), (6, 8)]: z4: 18.04/17.55, a4: 3.319/3.106, a4*: 3.249/2.955"
+   }
+  }
+ ],
+ "experimente": [
+  {
+   "id": 0,
+   "wer": "forscher-numeriker",
+   "op": "energy_nd",
+   "args": {
+    "name": "z4",
+    "nu": 3.5
+   },
+   "ergebnis": {
+    "T": 160.07827884206833,
+    "err": 2.4827656146756567
+   },
+   "sek": 0.63
+  },
+  {
+   "id": 1,
+   "wer": "forscher-numeriker",
+   "op": "energy_nd",
+   "args": {
+    "name": "d4",
+    "nu": 3.5
+   },
+   "ergebnis": {
+    "T": 142.03505743714453,
+    "err": 4.010855100650815
+   },
+   "sek": 0.41
+  },
+  {
+   "id": 2,
+   "wer": "forscher-numeriker",
+   "op": "energy_nd",
+   "args": {
+    "name": "a4",
+    "nu": 3.5
+   },
+   "ergebnis": {
+    "T": 145.354244094062,
+    "err": 3.381356817245461
+   },
+   "sek": 0.52
+  },
+  {
+   "id": 3,
+   "wer": "forscher-skeptiker",
+   "op": "energy_nd",
+   "args": {
+    "name": "z4",
+    "nu": 3.5
+   },
+   "ergebnis": {
+    "T": 160.07827884206833,
+    "err": 2.4827656146756567
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 4,
+   "wer": "forscher-skeptiker",
+   "op": "energy_nd",
+   "args": {
+    "name": "d4",
+    "nu": 3.5
+   },
+   "ergebnis": {
+    "T": 142.03505743714453,
+    "err": 4.010855100650815
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 5,
+   "wer": "forscher-skeptiker",
+   "op": "energy_nd",
+   "args": {
+    "name": "a4",
+    "nu": 3.5
+   },
+   "ergebnis": {
+    "T": 145.354244094062,
+    "err": 3.381356817245461
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 6,
+   "wer": "forscher-numeriker",
+   "op": "energy_nd",
+   "args": {
+    "name": "a4*",
+    "nu": 3.5
+   },
+   "ergebnis": {
+    "T": 145.28358967516826,
+    "err": 3.143036336906192
+   },
+   "sek": 0.26
+  },
+  {
+   "id": 7,
+   "wer": "forscher-theoretiker",
+   "op": "energy_nd",
+   "args": {
+    "name": "d4",
+    "nu": 3.5
+   },
+   "ergebnis": {
+    "T": 142.03505743714453,
+    "err": 4.010855100650815
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 8,
+   "wer": "forscher-theoretiker",
+   "op": "energy_nd",
+   "args": {
+    "name": "z4",
+    "nu": 3.5
+   },
+   "ergebnis": {
+    "T": 160.07827884206833,
+    "err": 2.4827656146756567
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 9,
+   "wer": "forscher-theoretiker",
+   "op": "energy_nd",
+   "args": {
+    "name": "a4",
+    "nu": 3.5
+   },
+   "ergebnis": {
+    "T": 145.354244094062,
+    "err": 3.381356817245461
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 10,
+   "wer": "forscher-theoretiker",
+   "op": "energy_nd",
+   "args": {
+    "name": "a4*",
+    "nu": 3.5
+   },
+   "ergebnis": {
+    "T": 145.28358967516826,
+    "err": 3.143036336906192
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 11,
+   "wer": "forscher-skeptiker",
+   "op": "energy_nd",
+   "args": {
+    "name": "a4*",
+    "nu": 3.5
+   },
+   "ergebnis": {
+    "T": 145.28358967516826,
+    "err": 3.143036336906192
+   },
+   "sek": 0.39
+  },
+  {
+   "id": 12,
+   "wer": "forscher-numeriker",
+   "op": "energy_nd",
+   "args": {
+    "name": "z4",
+    "nu": 3.5,
+    "R": [
+     6,
+     8
+    ]
+   },
+   "ergebnis": {
+    "T": 160.63851816646556,
+    "err": 1.482367264356725
+   },
+   "sek": 1.52
+  },
+  {
+   "id": 13,
+   "wer": "forscher-theoretiker",
+   "op": "energy_nd",
+   "args": {
+    "name": "d4",
+    "nu": 3.5,
+    "R": [
+     6,
+     8
+    ]
+   },
+   "ergebnis": {
+    "T": 143.0881063413577,
+    "err": 2.466826599677603
+   },
+   "sek": 1.69
+  },
+  {
+   "id": 14,
+   "wer": "forscher-skeptiker",
+   "op": "energy_nd",
+   "args": {
+    "name": "z4",
+    "nu": 3.5,
+    "R": [
+     6,
+     8
+    ]
+   },
+   "ergebnis": {
+    "T": 160.63851816646556,
+    "err": 1.482367264356725
+   },
+   "sek": 1.72
+  },
+  {
+   "id": 15,
+   "wer": "forscher-skeptiker",
+   "op": "energy_nd",
+   "args": {
+    "name": "d4",
+    "nu": 3.5,
+    "R": [
+     6,
+     8
+    ]
+   },
+   "ergebnis": {
+    "T": 143.0881063413577,
+    "err": 2.466826599677603
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 16,
+   "wer": "forscher-sparsam",
+   "op": "energy_nd",
+   "args": {
+    "name": "z4",
+    "nu": 3.5
+   },
+   "ergebnis": {
+    "T": 160.07827884206833,
+    "err": 2.4827656146756567
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 17,
+   "wer": "forscher-sparsam",
+   "op": "energy_nd",
+   "args": {
+    "name": "d4",
+    "nu": 3.5
+   },
+   "ergebnis": {
+    "T": 142.03505743714453,
+    "err": 4.010855100650815
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 18,
+   "wer": "forscher-sparsam",
+   "op": "energy_nd",
+   "args": {
+    "name": "a4",
+    "nu": 3.5
+   },
+   "ergebnis": {
+    "T": 145.354244094062,
+    "err": 3.381356817245461
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 19,
+   "wer": "forscher-sparsam",
+   "op": "energy_nd",
+   "args": {
+    "name": "a4*",
+    "nu": 3.5
+   },
+   "ergebnis": {
+    "T": 145.28358967516826,
+    "err": 3.143036336906192
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 20,
+   "wer": "forscher-sparsam",
+   "op": "energy_nd",
+   "args": {
+    "name": "z4",
+    "nu": 3.5,
+    "R": [
+     6,
+     8
+    ]
+   },
+   "ergebnis": {
+    "T": 160.63851816646556,
+    "err": 1.482367264356725
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 21,
+   "wer": "forscher-sparsam",
+   "op": "energy_nd",
+   "args": {
+    "name": "d4",
+    "nu": 3.5,
+    "R": [
+     6,
+     8
+    ]
+   },
+   "ergebnis": {
+    "T": 143.0881063413577,
+    "err": 2.466826599677603
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 22,
+   "wer": "forscher-numeriker",
+   "op": "energy_nd",
+   "args": {
+    "name": "d4",
+    "nu": 3.5,
+    "R": [
+     6,
+     8
+    ]
+   },
+   "ergebnis": {
+    "T": 143.0881063413577,
+    "err": 2.466826599677603
+   },
+   "sek": 1.31
+  },
+  {
+   "id": 23,
+   "wer": "forscher-theoretiker",
+   "op": "energy_nd",
+   "args": {
+    "name": "a4*",
+    "nu": 3.5,
+    "R": [
+     6,
+     8
+    ]
+   },
+   "ergebnis": {
+    "T": 146.04347750903614,
+    "err": 1.901267708025756
+   },
+   "sek": 2.06
+  },
+  {
+   "id": 24,
+   "wer": "forscher-skeptiker",
+   "op": "energy_nd",
+   "args": {
+    "name": "a4",
+    "nu": 3.5,
+    "R": [
+     6,
+     8
+    ]
+   },
+   "ergebnis": {
+    "T": 146.19373326437284,
+    "err": 2.0561399160105225
+   },
+   "sek": 1.88
+  },
+  {
+   "id": 25,
+   "wer": "forscher-skeptiker",
+   "op": "energy_nd",
+   "args": {
+    "name": "a4*",
+    "nu": 3.5,
+    "R": [
+     6,
+     8
+    ]
+   },
+   "ergebnis": {
+    "T": 146.04347750903614,
+    "err": 1.901267708025756
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 26,
+   "wer": "forscher-sparsam",
+   "op": "energy_nd",
+   "args": {
+    "name": "a4",
+    "nu": 3.5,
+    "R": [
+     6,
+     8
+    ]
+   },
+   "ergebnis": {
+    "T": 146.19373326437284,
+    "err": 2.0561399160105225
+   },
+   "sek": 2.13
+  },
+  {
+   "id": 27,
+   "wer": "forscher-sparsam",
+   "op": "energy_nd",
+   "args": {
+    "name": "a4*",
+    "nu": 3.5,
+    "R": [
+     6,
+     8
+    ]
+   },
+   "ergebnis": {
+    "T": 146.04347750903614,
+    "err": 1.901267708025756
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 28,
+   "wer": "forscher-numeriker",
+   "op": "energy_nd",
+   "args": {
+    "name": "a4",
+    "nu": 3.5,
+    "R": [
+     6,
+     8
+    ]
+   },
+   "ergebnis": {
+    "T": 146.19373326437284,
+    "err": 2.0561399160105225
+   },
+   "sek": 1.98
+  },
+  {
+   "id": 29,
+   "wer": "forscher-numeriker",
+   "op": "energy_nd",
+   "args": {
+    "name": "a4*",
+    "nu": 3.5,
+    "R": [
+     6,
+     8
+    ]
+   },
+   "ergebnis": {
+    "T": 146.04347750903614,
+    "err": 1.901267708025756
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 30,
+   "wer": "forscher-theoretiker",
+   "op": "energy_nd",
+   "args": {
+    "name": "a4",
+    "nu": 3.5,
+    "R": [
+     6,
+     8
+    ]
+   },
+   "ergebnis": {
+    "T": 146.19373326437284,
+    "err": 2.0561399160105225
+   },
+   "sek": 1.17
+  },
+  {
+   "id": 31,
+   "wer": "forscher-theoretiker",
+   "op": "minimize_nd",
+   "args": {
+    "d": 4,
+    "nu": 3.5,
+    "starts": 3,
+    "seed": 1
+   },
+   "ergebnis": {
+    "laeufe": [
+     {
+      "start": 2,
+      "T_suche": 140.39252752860085,
+      "T": 142.49825353599263,
+      "gitter": "d4",
+      "iterationen": 17
+     },
+     {
+      "start": 0,
+      "T_suche": 141.26099400498524,
+      "T": 143.58345614781467,
+      "gitter": "unbekannt",
+      "iterationen": 11
+     },
+     {
+      "start": 1,
+      "T_suche": 141.94116313521698,
+      "T": 144.0824612571789,
+      "gitter": "unbekannt",
+      "iterationen": 8
+     }
+    ],
+    "referenz_T": {
+     "z4": 160.07827884206833,
+     "d4": 142.03505743714453,
+     "a4": 145.354244094062,
+     "a4*": 145.28358967516826
+    },
+    "R": [
+     3,
+     4
+    ]
+   },
+   "sek": 150.69
+  }
+ ],
+ "sek": 186.5,
+ "id": "E6",
+ "frage": "Welches der Gitter Z4, D4, A4, A4* hat bei nu = 3,5 die niedrigste Energie T_nu (nahe der Konvergenzgrenze nu > 8/3 in 4D)?"
+}

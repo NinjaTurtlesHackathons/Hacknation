@@ -1,0 +1,11 @@
+{
+ "antwort": {
+  "antwort": "y_inf = sqrt((sqrt(17)-1)/2) ≈ 1.2496",
+  "zahl": 1.2496,
+  "konfidenz": 0.8,
+  "begruendung": "Für nu→∞ dominiert der kleinste Wert von |x||y||x-y|, das optimale Gitter maximiert also dieses Minimum. Für das Rechteckgitter mit Seiten a ≤ b = 1/a sind die kritischen Tripel (x,y) = (e1,2e1) mit Wert 2a³ und (e1,e2) bzw. (e1,e1+e2) mit Wert sqrt(a²+b²). 2a³ wächst in a, sqrt(a²+a^-2) fällt für a<1. Gleichsetzen liefert 4a^8 = a^4+1, also a^4 = (1+√17)/8. Das Seitenverhältnis ist y = b/a = 1/a² = sqrt(8/(1+√17)) = sqrt((√17-1)/2) ≈ 1.2496. Andere Tripel, etwa (e1, 2e1+e2), liefern am Optimum größere Werte. Ich habe das nur analytisch abgeleitet und nicht numerisch geprüft."
+ },
+ "frage": "Q8",
+ "salt": 0,
+ "bedingung": "A1"
+}

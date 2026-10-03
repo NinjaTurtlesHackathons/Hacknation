@@ -1,0 +1,287 @@
+{
+ "antwort": {
+  "antwort": "Das Minimum liegt beim quadratischen Gitter τ = i, nicht bei ρ = exp(iπ/3)",
+  "zahl": null,
+  "konfidenz": 0.98,
+  "pruefung": {
+   "typ": "argmin2d",
+   "nu": 6,
+   "erwartet": "quadratisch",
+   "y": null
+  },
+  "begruendung": "Die globale Minimierung (E2) findet τ = i als einziges lokales Minimum. Das hexagonale Gitter bei ρ = exp(iπ/3) hat negative Hessian-Eigenwerte (E3, nicht stabil), während das quadratische Gitter stabile positive Eigenwerte besitzt (E4). Der direkte Vergleich (E5) bestätigt T(quadratisch) = 3.250 < T(hexagonal) = 3.746 sicher.",
+  "stimmen": "Stufe 1/4 (sparsam, haiku)"
+ },
+ "level": "computed (Code-Prüfer bestanden)",
+ "forscher": [
+  {
+   "strategie": "sparsam",
+   "runden": [
+    {
+     "ueberlegung": "Die Frage zielt darauf ab, das Minimum von C_{3,3,3}(tau) ≡ T_6 im Fundamentalbereich zu lokalisieren. Drei Kandidaten sind plausibel: (1) das hexagonale Gitter bei rho = exp(i·pi/3) = [0.5, √3/2], (2) das quadratische Gitter bei i = [0, 1], oder (3) ein anderer kritischer Punkt. Um systematisch vorzugehen, werde ich: (A) die beiden bekannten Kandidaten bei nu=6 auswerten, (B) eine globale Minimierung durchführen, um alle lokalen Minima zu finden, (C) die Stabilität (Hessian-Eigenwerte) an kritischen Punkten prüfen. Dies sollte eindeutig offenbaren, wo das globale Minimum liegt.",
+     "plan": [
+      {
+       "op": "energy2d",
+       "args": {
+        "tau": [
+         0.5,
+         0.8660254037844387
+        ],
+        "nu": 6
+       },
+       "label": "T_6 am hexagonalen Gitter (rho)"
+      },
+      {
+       "op": "energy2d",
+       "args": {
+        "tau": [
+         0,
+         1
+        ],
+        "nu": 6
+       },
+       "label": "T_6 am quadratischen Gitter"
+      },
+      {
+       "op": "minimize2d",
+       "args": {
+        "nu": 6
+       },
+       "label": "Globale Minimierung für nu=6 über Fundamentalbereich"
+      },
+      {
+       "op": "hessian2d",
+       "args": {
+        "tau": [
+         0.5,
+         0.8660254037844387
+        ],
+        "nu": 6
+       },
+       "label": "Hessian am hexagonalen Gitter zur Stabilitätsprüfung"
+      },
+      {
+       "op": "hessian2d",
+       "args": {
+        "tau": [
+         0,
+         1
+        ],
+        "nu": 6
+       },
+       "label": "Hessian am quadratischen Gitter zur Stabilitätsprüfung"
+      },
+      {
+       "op": "compare2d",
+       "args": {
+        "tau_a": [
+         0.5,
+         0.8660254037844387
+        ],
+        "tau_b": [
+         0,
+         1
+        ],
+        "nu": 6
+       },
+       "label": "Direkter Energievergleich: T_6(hexagonal) - T_6(quadratisch)"
+      },
+      {
+       "op": "rect_optimum",
+       "args": {
+        "nu": 6,
+        "y_lo": 0.8,
+        "y_hi": 1.2
+       },
+       "label": "Optimales Seitenverhältnis unter Rechteckgittern bei nu=6"
+      }
+     ]
+    },
+    {
+     "antwort": "Das Minimum liegt beim quadratischen Gitter τ = i, nicht bei ρ = exp(iπ/3)",
+     "zahl": null,
+     "konfidenz": 0.98,
+     "pruefung": {
+      "typ": "argmin2d",
+      "nu": 6,
+      "erwartet": "quadratisch",
+      "y": null
+     },
+     "begruendung": "Die globale Minimierung (E2) findet τ = i als einziges lokales Minimum. Das hexagonale Gitter bei ρ = exp(iπ/3) hat negative Hessian-Eigenwerte (E3, nicht stabil), während das quadratische Gitter stabile positive Eigenwerte besitzt (E4). Der direkte Vergleich (E5) bestätigt T(quadratisch) = 3.250 < T(hexagonal) = 3.746 sicher."
+    }
+   ],
+   "experimente": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+   ],
+   "final": {
+    "antwort": "Das Minimum liegt beim quadratischen Gitter τ = i, nicht bei ρ = exp(iπ/3)",
+    "zahl": null,
+    "konfidenz": 0.98,
+    "pruefung": {
+     "typ": "argmin2d",
+     "nu": 6,
+     "erwartet": "quadratisch",
+     "y": null
+    },
+    "begruendung": "Die globale Minimierung (E2) findet τ = i als einziges lokales Minimum. Das hexagonale Gitter bei ρ = exp(iπ/3) hat negative Hessian-Eigenwerte (E3, nicht stabil), während das quadratische Gitter stabile positive Eigenwerte besitzt (E4). Der direkte Vergleich (E5) bestätigt T(quadratisch) = 3.250 < T(hexagonal) = 3.746 sicher."
+   },
+   "modell": "haiku",
+   "pruefung": {
+    "bestanden": true,
+    "grund": "Prüfer-Suche (18er-Raster, 6 Polituren, R=(48, 64)): quadratisch"
+   }
+  }
+ ],
+ "experimente": [
+  {
+   "id": 0,
+   "wer": "forscher-sparsam",
+   "op": "energy2d",
+   "args": {
+    "tau": [
+     0.5,
+     0.8660254037844387
+    ],
+    "nu": 6
+   },
+   "ergebnis": {
+    "T": 3.74577126383541,
+    "err": 4.440892098500626e-16
+   },
+   "sek": 0.02
+  },
+  {
+   "id": 1,
+   "wer": "forscher-sparsam",
+   "op": "energy2d",
+   "args": {
+    "tau": [
+     0,
+     1
+    ],
+    "nu": 6
+   },
+   "ergebnis": {
+    "T": 3.2499743124415903,
+    "err": 4.440892098500626e-16
+   },
+   "sek": 0.02
+  },
+  {
+   "id": 2,
+   "wer": "forscher-sparsam",
+   "op": "minimize2d",
+   "args": {
+    "nu": 6
+   },
+   "ergebnis": {
+    "tau": [
+     0.0,
+     1.0
+    ],
+    "T": 3.2499743124415903,
+    "typ": "quadratisch",
+    "lokale_minima": [
+     {
+      "tau": [
+       0.0,
+       1.0
+      ],
+      "T": 3.2499743124415903,
+      "typ": "quadratisch"
+     }
+    ]
+   },
+   "sek": 3.63
+  },
+  {
+   "id": 3,
+   "wer": "forscher-sparsam",
+   "op": "hessian2d",
+   "args": {
+    "tau": [
+     0.5,
+     0.8660254037844387
+    ],
+    "nu": 6
+   },
+   "ergebnis": {
+    "eigenwerte": [
+     -9.343042393972212,
+     -9.342992567606956
+    ],
+    "stabil": false
+   },
+   "sek": 0.1
+  },
+  {
+   "id": 4,
+   "wer": "forscher-sparsam",
+   "op": "hessian2d",
+   "args": {
+    "tau": [
+     0,
+     1
+    ],
+    "nu": 6
+   },
+   "ergebnis": {
+    "eigenwerte": [
+     7.142302888230034,
+     8.54377267378581
+    ],
+    "stabil": true
+   },
+   "sek": 0.1
+  },
+  {
+   "id": 5,
+   "wer": "forscher-sparsam",
+   "op": "compare2d",
+   "args": {
+    "tau_a": [
+     0.5,
+     0.8660254037844387
+    ],
+    "tau_b": [
+     0,
+     1
+    ],
+    "nu": 6
+   },
+   "ergebnis": {
+    "T_a": 3.74577126383541,
+    "T_b": 3.2499743124415903,
+    "diff": 0.49579695139381963,
+    "err": 3.7546530480324115e-13,
+    "sicher": true
+   },
+   "sek": 0.03
+  },
+  {
+   "id": 6,
+   "wer": "forscher-sparsam",
+   "op": "rect_optimum",
+   "args": {
+    "nu": 6,
+    "y_lo": 0.8,
+    "y_hi": 1.2
+   },
+   "ergebnis": {
+    "y": 1.0000000081581593,
+    "T": 3.249974312441586
+   },
+   "sek": 0.14
+  }
+ ],
+ "sek": 52.2,
+ "frage": "Q12",
+ "salt": 0,
+ "bedingung": "BK"
+}
