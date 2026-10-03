@@ -710,7 +710,7 @@
    "neuheit": 0.7,
    "machbarkeit": 0.9,
    "id": "F15",
-   "status": "offen",
+   "status": "beantwortet",
    "aus_runde": 5
   },
   {
@@ -721,6 +721,24 @@
    "id": "F16",
    "status": "offen",
    "aus_runde": 5
+  },
+  {
+   "frage": "Gibt es für die gekippte CHSH-Familie beta*<A_1> + CHSH (a=b=[p/2·…] bzw. 'gekippt:p') einen geschlossenen Ausdruck Q(p) im Bereich p in [0,6; 0,7]? Per 'scan' mit 8–12 Werten (z. B. 0,5 bis 0,8, inkl. 0,655, 0,3, 0,5), d=2 und Stufe 2: Passt eine Formel der Art Q(p) = sqrt(8+…)·… zu den bewiesenen Punkten Q(0,5)=3,13693731, Q(0,3)=2,93828833 und Q(0,655)=3,35825951? Anschließend 'formel'-Prüfung mit den passenden rationalen p.",
+   "begruendung": "Es liegen bereits drei zweiseitig bewiesene Punkte der symmetrischen Familie a=b=[p,0] vor. Ein geschlossener Ausdruck würde diese Einzelwerte verallgemeinern und ist per 'formel'-Typ streng prüfbar. Er zeigt auch, ob Qubits mit Stufe 1+AB/2 für die ganze Familie scharf sind.",
+   "neuheit": 0.7,
+   "machbarkeit": 0.7,
+   "id": "F17",
+   "status": "offen",
+   "aus_runde": 6
+  },
+  {
+   "frage": "Wo liegt der Übergang, an dem NPA 1+AB nicht mehr scharf ist? Per 'scan' mit Stufe 1+AB und d=2 über p in {0,6; 0,63; 0,65; 0,655; 0,66; 0,7; 0,8; 0,9; 0,99}: Ab welchem p wird die Lücke zwischen 1+AB und See-saw größer als 1e-6? Anschließend 'luecke_npa' mit stufe '1+AB' und mindestens 1e-6 an einem p oberhalb der Schwelle, dann Gegenprobe mit 'quantenwert' an einem p unterhalb.",
+   "begruendung": "Bei p=0,655 ist 1+AB laut bell-R5 nicht scharf (Lücke ≥ 3,3e-6), bei p=0,5 und 0,3 dagegen schon. Die Schwelle zeigt, wo Stufe 2 nötig wird, und grenzt den Bereich ein, in dem 'formel' mit nur 1+AB beweisbar ist. Zudem lässt sich prüfen, ob die Lücke mit p monoton wächst oder wieder verschwindet.",
+   "neuheit": 0.8,
+   "machbarkeit": 0.8,
+   "id": "F18",
+   "status": "offen",
+   "aus_runde": 6
   }
  ],
  "claims": [
@@ -1241,6 +1259,110 @@
     }
    ],
    "runde": 5
+  },
+  {
+   "id": "bell-R6",
+   "frage": "Bei a=b=[131/200,0] (p=0,655): Schließt NPA Stufe 2 bzw. 2+AAB die Lücke zur besten Quantenstrategie auf unter 1e-6 (per 'quantenwert')? Und findet See-saw mit d=3, 4 und 6 (40 Starts, mehrere Seeds) einen Wert über dem d=2-Wert 3,35825951 und näher an der 1+AB-Schranke 3,35826281?",
+   "text": "Der maximale Quantenwert von {\"korrelator\": {\"a\": [\"131/200\", 0], \"b\": [\"131/200\", 0], \"c\": [[1, 1], [1, -1]], \"konst\": 0}} ist Q = 3.35825951388 bis auf 1e-6, zweiseitig zertifiziert (explizite Strategie und NPA-Dualzertifikat).",
+   "interpretation_ungeprueft": "Ja zu beiden Fragen: NPA 2 und 2+AAB schließen die Lücke deutlich unter 1e-6. See-saw d≥3 zeigt praktisch kein Improvement über d=2.",
+   "pruefung": {
+    "typ": "quantenwert",
+    "ungleichung": {
+     "korrelator": {
+      "a": [
+       "131/200",
+       0
+      ],
+      "b": [
+       "131/200",
+       0
+      ],
+      "c": [
+       [
+        1,
+        1
+       ],
+       [
+        1,
+        -1
+       ]
+      ],
+      "konst": 0
+     }
+    },
+    "wert": 3.35825951388
+   },
+   "grund": "Prüfer: 3.35825951388355 <= Q <= 3.35825955532047 (Lücke 4.14e-08, Strategie d=2, NPA 2); bewiesen",
+   "level": "computed_rigorous",
+   "status": "bestätigt",
+   "red_team": [
+    {
+     "pruefung": {
+      "typ": "luecke_npa",
+      "ungleichung": {
+       "korrelator": {
+        "a": [
+         "131/200",
+         0
+        ],
+        "b": [
+         "131/200",
+         0
+        ],
+        "c": [
+         [
+          1,
+          1
+         ],
+         [
+          1,
+          -1
+         ]
+        ],
+        "konst": 0
+       }
+      },
+      "stufe": "2",
+      "mindestens": 1e-06
+     },
+     "idee": "Wenn NPA Stufe 2 die Lücke nicht unter 1e-6 schließt, liegt die Stufe-2-Schranke mindestens 1e-6 über einer exakt zertifizierten Quantenstrategie. Das widerspricht direkt der Behauptung (Lücke ca. 4e-8).",
+     "bestanden": false,
+     "grund": "Prüfer: NPA-Stufe 2 erreicht >= 3.35825922879 (rationale zulässige Momentmatrix), beste eigene Strategie exakt 3.35825951388 (d<=2); Lücke >= -2.851e-07"
+    },
+    {
+     "pruefung": {
+      "typ": "quanten_untere_schranke",
+      "ungleichung": {
+       "korrelator": {
+        "a": [
+         "131/200",
+         0
+        ],
+        "b": [
+         "131/200",
+         0
+        ],
+        "c": [
+         [
+          1,
+          1
+         ],
+         [
+          1,
+          -1
+         ]
+        ],
+        "konst": 0
+       }
+      },
+      "wert": 3.35826
+     },
+     "idee": "Wenn See-saw mit d>=3 (oder eine andere Strategie) mehr als den d=2-Wert 3.35825951 findet, existiert eine Strategie mit Bell-Wert >= 3.35826, also etwa 5e-7 über dem behaupteten Q. Dann ist Q=3.35825951388 falsch und See-saw d>=3 verbessert sich doch.",
+     "bestanden": false,
+     "grund": "Prüfer: eigene See-saw-Strategie S322a954df768 (d=2), exakter rationaler Bell-Wert = 3.35825951388355"
+    }
+   ],
+   "runde": 6
   }
  ],
  "widerlegt": [],
@@ -1606,7 +1728,80 @@
     }
    ],
    "sek": 174.0
+  },
+  {
+   "runde": 6,
+   "frage": "F15",
+   "status": "beantwortet",
+   "red_team": [
+    {
+     "pruefung": {
+      "typ": "luecke_npa",
+      "ungleichung": {
+       "korrelator": {
+        "a": [
+         "131/200",
+         0
+        ],
+        "b": [
+         "131/200",
+         0
+        ],
+        "c": [
+         [
+          1,
+          1
+         ],
+         [
+          1,
+          -1
+         ]
+        ],
+        "konst": 0
+       }
+      },
+      "stufe": "2",
+      "mindestens": 1e-06
+     },
+     "idee": "Wenn NPA Stufe 2 die Lücke nicht unter 1e-6 schließt, liegt die Stufe-2-Schranke mindestens 1e-6 über einer exakt zertifizierten Quantenstrategie. Das widerspricht direkt der Behauptung (Lücke ca. 4e-8).",
+     "bestanden": false,
+     "grund": "Prüfer: NPA-Stufe 2 erreicht >= 3.35825922879 (rationale zulässige Momentmatrix), beste eigene Strategie exakt 3.35825951388 (d<=2); Lücke >= -2.851e-07"
+    },
+    {
+     "pruefung": {
+      "typ": "quanten_untere_schranke",
+      "ungleichung": {
+       "korrelator": {
+        "a": [
+         "131/200",
+         0
+        ],
+        "b": [
+         "131/200",
+         0
+        ],
+        "c": [
+         [
+          1,
+          1
+         ],
+         [
+          1,
+          -1
+         ]
+        ],
+        "konst": 0
+       }
+      },
+      "wert": 3.35826
+     },
+     "idee": "Wenn See-saw mit d>=3 (oder eine andere Strategie) mehr als den d=2-Wert 3.35825951 findet, existiert eine Strategie mit Bell-Wert >= 3.35826, also etwa 5e-7 über dem behaupteten Q. Dann ist Q=3.35825951388 falsch und See-saw d>=3 verbessert sich doch.",
+     "bestanden": false,
+     "grund": "Prüfer: eigene See-saw-Strategie S322a954df768 (d=2), exakter rationaler Bell-Wert = 3.35825951388355"
+    }
+   ],
+   "sek": 133.0
   }
  ],
- "kosten_usd": 3.104908
+ "kosten_usd": 3.340499
 }
