@@ -85,3 +85,39 @@ Neue Werkzeuge: `classify_family`, `search_counterexamples` (Explorer, nur Kandi
 - **L2b (vollständig):** Hypothese: Für die vollständige Liste der beweisbaren Mitglieder gilt eta >= 1/D**2 für alle Raten. Erfolg: `schranke_familie` besteht für diese Liste. Erwartet: rund 50 von 88 (Vorrechnung des Explorers).
 - **L2c:** Hypothese: Unter den übrigen Mitgliedern gibt es mehrere exakt zertifizierbare Gegenbeispiele mit eta < 1e-4. Erfolg: `erreichbar_liste` besteht mit mindestens 5 Fällen. Abbruch: weniger als 5 Fälle nach 1 Runde, wird dann als Teilergebnis berichtet.
 Zusammen ergibt das eine Klassifikation: bewiesen / Gegenbeispiel / offen. Offene Fälle werden als offen berichtet.
+
+## H7 (2026-10-04, vor dem ersten Lauf irgendeiner Bedingung): Gemessene Beschleunigung durch das Labor (Replay, Domäne lattice)
+
+**Aufgabe (Replay eines bekannten Resultats):** Gemeinsamer Forschungsauftrag für alle Bedingungen: „Wie verhalten sich die energieminimierenden
+2D-Gitter, wenn nu sehr groß wird (nu → ∞)? Bestimme das Grenzverhalten quantitativ und formuliere eine prüfbare Aussage.“
+Zielresultat (Suleman 2026): Rechteckgitter mit Seitenverhältnis y_inf = sqrt((sqrt(17)-1)/2) ≈ 1,249621 (dazu P* ≈ 1,431734).
+**Treffer (per Code, nicht per LLM):** eine vom unveränderten Verifier bestandene Behauptung vom Typ `grenzwert` mit `groesse = y_inf`
+(der Verifier rechnet den Fit über nu = 100…1000 selbst und akzeptiert nur innerhalb seiner festen Toleranz 2·10⁻⁴), die aus dem
+Behauptungspfad kommt (nicht aus einer Red-Team-Gegenprüfung).
+**Ehrliche Einschränkung, vorab:** Der Lattice-Verifier ist numerisch (Stufe „numerisch“), nicht exakt/rigoros, und hat keinen
+Prüfungstyp für P*. Der Verifier wird für diesen Benchmark nicht geändert; ein Treffer heißt also „numerisch geprüft“, nicht „bewiesen“.
+
+**Leckschutz:** Das Suleman-2026-Preprint und alle daraus abgeleiteten Wissensdateien sind für alle Agenten gesperrt (leere Wissensbasis
+im Replay-Projekt, Sperrliste `omni/leak_guard.json`). Kanarien-Test vor jedem Lauf: Der gesamte Agenten-Kontext (Domänenkontext,
+Experiment- und Prüfungsdokumentation, Wissensstand, Fragenpool) darf weder „1.2496“, „1,2496“, „sqrt(17)“, „√17“ noch „17“ im Umkreis von
+40 Zeichen um „Seitenverh“/„aspect“/„y_inf“ enthalten; sonst Abbruch.
+
+**Bedingungen** (gleicher Auftrag, gleiche Modelle = Kaskade haiku→haiku→sonnet→sonnet, gleiches Budget):
+- **LAB:** volles Labor (`asd.lab_loop`): Integrator wählt Fragen, Code-Planer (`asd/planner.py`) wählt das Vorgehen, Forscher-Kaskade mit
+  Stärke-Maximierung, Verifier-Rückmeldung (bestätigte und abgelehnte Behauptungen mit Grund im Kontext der nächsten Runde), Red-Team, Lernen.
+- **OHNE_FEEDBACK:** dieselben Forscher (Strategie/Modell reihum aus der Kaskade), aber unabhängige Versuche am Auftrag ohne jede
+  Rückmeldung des Verifiers oder früherer Versuche.
+- **ZUFALL:** Teilfragen aus einem festen, handgeschriebenen Pool (`benchmarks/replay_pool.json`, enthält den Auftrag selbst) in zufälliger
+  Reihenfolge, Strategie/Modell zufällig, kein Integrator, kein Lernen, keine Rückmeldung.
+- **CLAUDE_PUR (explorativ, nur falls Zeit; nicht Teil der Hypothese):** ein einzelner `claude -p`-Agent mit Python, am Ende einmal Verifier.
+
+**Seeds:** 10 je Bedingung (1000–1009); der Seed geht als Salt in jeden LLM-Aufruf (reproduzierbar über `cache/llm`).
+**Budget:** 30 Verifier-Aufrufe je Lauf (alle `Domain.check`-Aufrufe zählen, auch Red-Team; der Selbsttest nicht).
+**Metrik:** N = Verifier-Aufrufe bis zum ersten Treffer, N = 31 bei Scheitern. Zusätzlich: Wanduhrzeit, Zahl abgelehnter Behauptungen.
+
+**H7a (primär):** LAB braucht weniger Verifier-Aufrufe als ZUFALL. **H7b:** LAB braucht weniger als OHNE_FEEDBACK.
+Test: gepaarter einseitiger Vorzeichen-Flip-Permutationstest über die 10 Seeds (20 000 Permutationen); Speedup = mittleres N(Vergleich) /
+mittleres N(LAB) mit gepaartem Bootstrap-95-%-KI (5000 Ziehungen). Erfolg je Hypothese: p < 0,05 UND KI-Untergrenze > 1.
+Benjamini-Hochberg über H7a, H7b (m = 2, q = 0,1). Trefferquote je Bedingung mit exaktem Clopper-Pearson-95-%-KI.
+Ergebnisse werden berichtet, egal wie sie ausfallen. Menschliche Baseline wird NICHT gemessen; die Angabe „Paper in einer Nacht, ca. 12–14 h“
+ist eine Schätzung des Autors.
