@@ -20,6 +20,13 @@ def verify(G, sigma, R, k, cap=60000):
         d = len(R[letters[0]]); F0 = R[letters[0]][0][0]
         if any(len(M) != d or any(len(r) != d for r in M) for M in R.values()): return False, "dimension mismatch", {}
         I = eye(F0.F, d)
+        # 0: every letter must have finite order (cheap pre-check; red team: unbounded denominators before the closure cap)
+        for s in letters:
+            X = R[s]; o = 1
+            while X != I:
+                X = mmul(R[s], X); o += 1
+                big = max(max(abs(c.denominator).bit_length(), abs(c.numerator).bit_length()) for row in X for x in row for c in x.c)
+                if o > 5000 or big > 400: return False, "a letter matrix does not have finite order (powers grow): no finite group", {}
         # 1 + 2: closure with labels
         lab = {mkey(I): G.e}; mats = {mkey(I): I}; frontier = [mkey(I)]
         while frontier:

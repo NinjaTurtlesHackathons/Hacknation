@@ -1,0 +1,17 @@
+(a) minimal polynomials
+  N in 3..999: wrong (silently accepted) = [] (count 0); refused = [257, 263, 269, 271, 277, 281, 283, 289, 293, 299]... (count 511); 75s
+(b) random arithmetic
+  420 random triples, failures: 0
+(c) canonical keys
+  route-dependence failures: 0
+  cross-field: mkey(c_5)==mkey(c_8): True, numerically 0.6180 vs 1.4142; c_5 == c_8 -> False
+  c_5 + c_8 raises TypeError (mixing is refused): field mismatch K_5 vs K_8
+  embed(c_5 -> K_10) == two_cos(2) in K_10: True ; c_5 == embed(c_5) -> False (same number, compares False)
+(d) two_cos / sqrt5
+  failures: 0
+(e) sign() on tiny nonzero elements
+  den 1e6: sign = -1, true sign = -1 (|value| = 2.09e-7)
+  den 1e12: sign = -1, true sign = -1 (|value| = 4.53e-13)
+  den 1e20: sign = -1, true sign = -1 (|value| = 4.62e-21)
+  den 1e38: sign = 1, true sign = 1 (|value| = 1.58e-39)
+  den 1e45: refused (sign undecidable at this precision)

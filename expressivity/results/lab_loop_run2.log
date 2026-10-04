@@ -1,2 +1,12 @@
 Selbsttest des Prüfers: bestanden
 Runde 1: Is one Householder reflection per token (plain DeltaNet with beta in [0,2]) enough to track A5 exactly when the inputs are the involutions of A5? Determine h*(A5, involutions) and compare with h(A5, involutions) over faithful representations of A5 only.
+  keine geprüfte Behauptung (als negatives Ergebnis protokolliert)
+Runde 2: For the abelian group Z2^3 with alphabet 'all', compare h(Z2^3, all) (faithful representations only) with h*(Z2^3, all). Which one-layer diagonal families can realise it?
+  geprüft (computed_rigorous): h(Z2^3, all) = 3 (faithful, reell); h*(Z2^3, all) <= 3, nur diag_pm und cdiag realisieren es exakt, diag_pos nicht | Red-Team: 2 Gegenprüfungen, 0 bestanden
+Runde 3: Liegt h*(A5, involutions) bei 1 oder darüber, wenn man nur ein einzelnes Householder-Produkt pro Token (HH_1) zulässt, und gilt die Antwort auch dann, wenn man die treue Darstellung von A5 durch eine beliebige endliche Gruppe H mit surjektivem Readout ersetzt?
+  geprüft (computed_rigorous): > 1 | Red-Team: 2 Gegenprüfungen, 0 bestanden
+Runde 4: For the quaternion group Q8 with alphabet 'all', what is h(Q8, all), and how far apart are the certified bounds on h*(Q8, all)?
+  geprüft (computed_rigorous): h(Q8, all) = 4 | Red-Team: 2 Gegenprüfungen, 1 bestanden
+Runde 5: Can a single layer with 2 Householder reflections per token track the non-solvable group A5 with alphabet 'all' exactly? Determine h*(A5, all).
+  geprüft (computed_rigorous): Ja, 2 Householder-Reflektionen pro Token genügen; h*(A5, all) = 2 | Red-Team: 2 Gegenprüfungen, 0 bestanden
+Runde 6: Wie verhält sich h*(A5, involutions) gegenüber h*(A5, all), wenn man nur die Involutionen als Alphabet zulässt, und ist der Wert 1 (eine Reflektion pro Token) dort möglich?

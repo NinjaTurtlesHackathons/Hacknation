@@ -1,0 +1,44 @@
+name     regex  order expected abelian exp.ab
+S1       True       2        1    True   True <-- MISMATCH
+S2       True       2        2    True   True 
+S3       True       6        6   False  False 
+S4       True      24       24   False  False 
+S5       True     120      120   False  False 
+A3       True       3        3    True   True 
+A4       True      12       12   False  False 
+A5       True      60       60   False  False 
+D1       True       1        2    True   True <-- MISMATCH
+D2       True       2        4    True   True <-- MISMATCH
+D3       True       6        6   False  False 
+D4       True       8        8   False  False 
+D8       True      16       16   False  False 
+Q8       True       8        8   False  False 
+Z0       True       1        0    True   True <-- MISMATCH
+Z1       True       1        1    True   True 
+Z2       True       2        2    True   True 
+Z12      True      12       12    True   True 
+Z1xZ3    True       3        3    True   True 
+Z2xZ2    True       4        4    True   True 
+Z2xZ4    True       8        8    True   True 
+Z3xZ3    True       9        9    True   True 
+Z2^1     True       2        2    True   True 
+Z2^3     True       8        8    True   True 
+Z0xZ3    True       3        0    True   True <-- MISMATCH
+Q8 element orders: {1: 1, 2: 1, 4: 6}
+
+Claims exploiting the mismatches:
+{"typ": "hstar_value", "group": "S1", "alphabet": "all", "value": 1} -> True | lower bound 1 (nontrivial group: k = 0 means constant state); verifier's own certificate: construction perm, twist none, k = 1 (|H| = 2, dim 2); exact
+   PUBLISHED: h*(S1, all) = 1: exactly 1 Householder reflections per token are necessary and sufficient for one layer (certified).
+{"typ": "diag_realisable", "family": "diag_pos", "group": "S1", "alphabet": "all", "value": false} -> True | diag_pos realises S1: False (only the trivial group (Lemma L5: nonnegative real diagonal of finite order is I))
+   PUBLISHED: A one-layer diag_pos recurrence cannot realise the word problem of S1 exactly (finite-state).
+{"typ": "h_faithful", "group": "D2", "alphabet": "all", "value": 1} -> True | h(G, Sigma) = 1 (own character table, GAP exact: 1)
+   PUBLISHED: h(D2, all) = 1 over faithful real representations of D2 (character tables, own and GAP).
+{"typ": "hstar_value", "group": "D2", "alphabet": "all", "value": 1} -> True | lower bound 1 (nontrivial group: k = 0 means constant state); verifier's own certificate: construction perm, twist none, k = 1 (|H| = 2, dim 2); exact
+   PUBLISHED: h*(D2, all) = 1: exactly 1 Householder reflections per token are necessary and sufficient for one layer (certified).
+{"typ": "realisation", "group": "D2", "alphabet": "all", "k": 1, "construction": "perm", "twist": "none"} -> True | certified: |H| = 2, pi: H -> G onto (2 elements), consistent readout, dimension 2, field K_1, max rank(R[s] - I) = 1 <= k = 1, every letter factored i
+   PUBLISHED: The perm construction is an exact one-layer realisation of the word problem of D2 with alphabet 'all' using at most 1 Householder reflections per token (certified); hence h*(D2, all) <= 1.
+{"typ": "h_faithful", "group": "Z2xZ2", "alphabet": "all", "value": 1} -> False | h(G, Sigma) = 2 (own character table, GAP exact: 2)
+{"typ": "h_faithful", "group": "Z2xZ2", "alphabet": "all", "value": 2} -> True | h(G, Sigma) = 2 (own character table, GAP exact: 2)
+   PUBLISHED: h(Z2xZ2, all) = 2 over faithful real representations of Z2xZ2 (character tables, own and GAP).
+
+mismatching accepted names: ['S1', 'D1', 'D2', 'Z0', 'Z0xZ3']

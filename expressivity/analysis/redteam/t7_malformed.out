@@ -1,0 +1,56 @@
+{"typ": "realisation", "group": "A5", "alphabet": "all", "k": 1000000000, "construction": "so3"}
+   -> False (0.4s) check not executable: ValueError: integer 1000000000 outside [0, 16]
+{"typ": "realisation", "group": "A5", "alphabet": "all", "k": -1, "construction": "so3"}
+   -> False (0.4s) check not executable: ValueError: integer -1 outside [0, 16]
+{"typ": "realisation", "group": "A5", "alphabet": "all", "k": 16, "construction": "so3"}
+   -> True (1.6s) certified: |H| = 60, pi: H -> G onto (60 elements), consistent readout, dimension 3, field K_5, max rank(R[s] - I) = 2 <= k = 16, every lett
+   PUBLISHED: The so3 construction is an exact one-layer realisation of the word problem of A5 with alphabet 'all' using at most 16 Householder reflections per token (certified); hence h*(A5, all) <= 16.
+{"typ": "realisation", "group": "S3", "alphabet": "cycles3", "k": 2, "construction": "perm"}
+   -> False (0.3s) check not executable: ValueError: alphabet cycles3 does not generate S3
+{"typ": "realisation", "group": "S3", "alphabet": "list:1,2", "k": 2, "construction": "perm"}
+   -> False (0.4s) check not executable: ValueError: unknown alphabet 'list:1,2'
+{"typ": "realisation", "group": "S3", "alphabet": "all", "k": 2, "construction": "planar"}
+   -> True (0.3s) certified: |H| = 6, pi: H -> G onto (6 elements), consistent readout, dimension 2, field K_3, max rank(R[s] - I) = 2 <= k = 2, every letter 
+   PUBLISHED: The planar construction is an exact one-layer realisation of the word problem of S3 with alphabet 'all' using at most 2 Householder reflections per token (certified); hence h*(S3, all) <= 2.
+{"typ": "realisation", "group": "S3", "alphabet": "all", "k": 2, "construction": "planar", "twist": "all"}
+   -> True (0.4s) certified: |H| = 12, pi: H -> G onto (6 elements), consistent readout, dimension 2, field K_3, max rank(R[s] - I) = 2 <= k = 2, every letter
+   PUBLISHED: The planar construction with every letter negated is an exact one-layer realisation of the word problem of S3 with alphabet 'all' using at most 2 Householder reflections per token (certified); hence h*(S3, all) <= 2.
+{"typ": "realisation", "group": "Z2^6", "alphabet": "all", "k": 1, "construction": "count"}
+   -> TIMEOUT(>90s) (90.0s) 
+{"typ": "realisation", "group": "Z257", "alphabet": "gens", "k": 2, "construction": "planar"}
+   -> False (0.5s) check not executable: ArithmeticError: minimal polynomial not integral
+{"typ": "realisation", "group": "Z60", "alphabet": "gens", "k": 2, "construction": "planar"}
+   -> True (0.5s) certified: |H| = 60, pi: H -> G onto (60 elements), consistent readout, dimension 2, field K_60, max rank(R[s] - I) = 2 <= k = 2, every lett
+   PUBLISHED: The planar construction is an exact one-layer realisation of the word problem of Z60 with alphabet 'gens' using at most 2 Householder reflections per token (certified); hence h*(Z60, gens) <= 2.
+{"typ": "realisation", "group": "SG8_3", "alphabet": "all", "k": 2, "construction": "perm"}
+   -> False (0.5s) rank(R[s] - I) = 3 > k = 2 for a letter of order 4
+{"typ": "realisation", "group": " A5", "alphabet": "all", "k": 2, "construction": "so3"}
+   -> False (0.4s) check not executable: ValueError: unknown group name ' A5'
+{"typ": "realisation", "group": "A5\n", "alphabet": "all", "k": 2, "construction": "so3"}
+   -> False (0.4s) check not executable: ValueError: unknown group A5
+
+{"typ": "realisation", "group": "A5", "alphabet": "all", "k": 2, "construction": "so3", "Tolerance": 1}
+   -> False (0.3s) rule violation: the claim may not set ['tolerance'] (tolerances and limits belong to the verifier)
+{"typ": "realisation", "group": "A5", "alphabet": "all", "k": 2, "construction": "so3", "tol_rel": 1, "max_k": 99}
+   -> True (1.5s) certified: |H| = 60, pi: H -> G onto (60 elements), consistent readout, dimension 3, field K_5, max rank(R[s] - I) = 2 <= k = 2, every lette
+   PUBLISHED: The so3 construction is an exact one-layer realisation of the word problem of A5 with alphabet 'all' using at most 2 Householder reflections per token (certified); hence h*(A5, all) <= 2.
+{"typ": "hstar_value", "group": "Z2^4", "alphabet": "all", "value": 1}
+   -> TIMEOUT(>90s) (90.0s) 
+{"typ": "hstar_value", "group": "S1", "alphabet": "all", "value": 1}
+   -> True (0.5s) lower bound 1 (nontrivial group: k = 0 means constant state); verifier's own certificate: construction perm, twist none, k = 1 (|H| = 2, dim
+   PUBLISHED: h*(S1, all) = 1: exactly 1 Householder reflections per token are necessary and sufficient for one layer (certified).
+{"typ": "hstar_lower", "group": "Z3", "alphabet": "all", "k": 0}
+   -> True (0.2s) certified lower bound h* >= 2 (Lemma L4: a letter of order >= 3 cannot lift to a reflection (a rank-1 finite-order real deviation from I has
+   PUBLISHED: h*(Z3, all) >= 0 (certified lower bound).
+{"typ": "diag_realisable", "family": "cdiag", "group": "Z2^2", "alphabet": "all", "value": true}
+   -> True (0.3s) cdiag realises Z2^2: True (iff G is abelian (Lemma L5))
+   PUBLISHED: A one-layer cdiag recurrence can realise the word problem of Z2^2 exactly (finite-state).
+{"typ": "diag_realisable", "family": "diag_pos", "group": "D1", "alphabet": "all", "value": true}
+   -> False (0.3s) check not executable: ValueError: empty alphabet all for D1
+{"typ": "realisation_matrices", "group": "Z2", "alphabet": "all", "k": 1, "matrices": [[["-1"]]], "construction": "so3"}
+   -> True (0.2s) certified: |H| = 2, pi: H -> G onto (2 elements), consistent readout, dimension 1, field K_1, max rank(R[s] - I) = 1 <= k = 1, every letter 
+   PUBLISHED: The given rational matrices are an exact one-layer realisation of Z2 with alphabet 'all' using at most 1 reflections per token (certified).
+
+GAP unavailable: h_faithful still passes and describe() still says 'own and GAP'
+   True h(G, Sigma) = 4 (own character table, GAP unavailable) 
+   PUBLISHED: h(Q8, all) = 4 over faithful real representations of Q8 (character tables, own and GAP).

@@ -1,0 +1,10 @@
+(1) Z3 'all', A = I (zero reflections), B = [1, 2]: readout well-defined on 21 states up to length 10: True
+(2) S3 'all' (5 letters), 1-D diagonal A = 1/7 in [0,1], B(s) = index+1: readout well-defined on 97656 states up to length 7: True
+(2) A5 'cycles5' (24 letters), 1-D diagonal A = 1/26 in [0,1], B(s) = index+1: readout well-defined on 346201 states up to length 4: True
+{"typ": "hstar_value", "group": "A5", "alphabet": "all", "value": 2} -> True 
+   PUBLISHED: h*(A5, all) = 2: exactly 2 Householder reflections per token are necessary and sufficient for one layer (certified).
+{"typ": "hstar_value", "group": "Z3", "alphabet": "all", "value": 2} -> True 
+   PUBLISHED: h*(Z3, all) = 2: exactly 2 Householder reflections per token are necessary and sufficient for one layer (certified).
+{"typ": "diag_realisable", "family": "diag_pos", "group": "S3", "alphabet": "all", "value": false} -> True 
+   PUBLISHED: A one-layer diag_pos recurrence cannot realise the word problem of S3 exactly (finite-state).
+hstar_value's sentence omits 'finite-state' and is false for exact real arithmetic; diag_realisable's sentence carries the qualifier.

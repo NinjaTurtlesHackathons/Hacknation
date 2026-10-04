@@ -1,0 +1,23 @@
+[LOOPHOLE] number only in text, no 'zahl' field; contradicts the certificate h*(A5,all)=2
+    answer={"antwort": "h*(A5, all) = 1, a single reflection suffices", "pruefungen": [{"typ": "hstar_lower", "group": "A5", "alphabet": "all", "k": 2}]}
+    checks pass=[True]
+[LOOPHOLE] negative answer backed by the trivial lower bound k=0 (truth: h*(S3,transpositions)=1, HH_1 suffices)
+    answer={"antwort": "No, DeltaNet (HH_1) cannot track S3 with transpositions", "pruefungen": [{"typ": "hstar_lower", "group": "S3", "alphabet": "transpositions", "k": 0}]}
+    checks pass=[True]
+[LOOPHOLE] h vs h* confusion: zahl matched by h_faithful, text about h*
+    answer={"antwort": "h*(S5, all) = 4", "zahl": 4, "pruefungen": [{"typ": "h_faithful", "group": "S5", "alphabet": "all", "value": 4}]}
+    checks pass=[True]
+[LOOPHOLE] check about an unrelated group
+    answer={"antwort": "Yes, A5 with all letters needs only 1 reflection", "zahl": 1, "pruefungen": [{"typ": "hstar_value", "group": "A5", "alphabet": "involutions", "value": 1}]}
+    checks pass=[True]
+[LOOPHOLE] number word instead of digit
+    answer={"antwort": "h*(A5, all) equals one", "pruefungen": [{"typ": "realisation", "group": "A5", "alphabet": "all", "k": 2, "construction": "so3", "twist": "none"}]}
+    checks pass=[True]
+[LOOPHOLE] negation not caught by regex ('does not')
+    answer={"antwort": "Two reflections are enough? This does not hold; S4 needs more than two", "pruefungen": [{"typ": "realisation", "group": "S4", "alphabet": "all", "k": 2, "construction": "so3", "twist": "none"}]}
+    checks pass=[True]
+[LOOPHOLE] zahl=True coerces to 1.0
+    answer={"antwort": "yes", "zahl": true, "pruefungen": [{"typ": "hstar_value", "group": "A5", "alphabet": "involutions", "value": 1}]}
+    checks pass=[True]
+
+Note: only describe(first check) is published as 'text'; the answer text is stored as 'interpretation_ungeprueft' but it is what solve_cascade returns as the agent's answer and what discovery scoring compares against.

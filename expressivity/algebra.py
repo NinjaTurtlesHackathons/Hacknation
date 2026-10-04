@@ -269,7 +269,7 @@ def mscale(A, s):
 
 
 def mkey(A):
-    return tuple(tuple(x.c for x in r) for r in A)
+    return (A[0][0].F.N,) + tuple(tuple(x.c for x in r) for r in A)      # field included (red team: latent key collision across fields)
 
 
 def rank(A):

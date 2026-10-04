@@ -1,4 +1,5 @@
 import Hhlemma.Rank
+import Hhlemma.Order
 
 open Matrix
 
@@ -25,3 +26,6 @@ theorem strengthened_bound_false :
 #print axioms rank_prod_sub_one_le
 #print axioms deltaproduct_rank_le
 #print axioms strengthened_bound_false
+
+#print axioms sq_eq_one_of_rank_le_one_of_pow_eq_one
+#print axioms no_single_householder_lift
