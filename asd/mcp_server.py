@@ -22,7 +22,7 @@ REGELN = ("Rules: (1) Only submit_claim can confirm a result; it calls the domai
           "tolerance fields in a claim are removed and reported. (3) Unknown fields are rejected. (4) Every call is logged to record.jsonl. "
           "(5) A rejected claim is a result too: report it openly. (6) Every number in a write-up must come from a confirmed claim.")
 
-mcp = FastMCP(NAME, instructions=(
+mcp = FastMCP(NAME, log_level="WARNING", instructions=(
     "probatum is a verifier-gated research lab. You (the assistant) propose experiments and claims; probatum runs experiments and is the ONLY "
     "authority that accepts claims (submit_claim -> code verifier). Start with list_domains, selftest(domain), describe(domain). " + REGELN))
 _SELFTEST_OK: dict[str, dict] = {}
