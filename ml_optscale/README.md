@@ -22,7 +22,7 @@ datierte Nachträge in `projects/optscale/prereg.md` dokumentiert.
 ```bash
 pip install numpy scipy pandas scikit-learn sympy mpmath
 python -m asd.selftest optscale                     # Prüfer muss bestehen (~2 min)
-ASD_LLM=replay python -m asd.lab_loop --domain optscale --runden 0   # Agenten-Antworten liegen in cache/llm/
+# Laborzustand: projects/optscale/state.json, runde*.json; alle Agenten-Antworten mit Prompt in cache/llm/
 python -m asd.bh_optscale                           # BH-Korrektur -> projects/optscale/zusatz_claims.json
 ASD_LLM=replay python -m asd.paper --domain optscale --titel "Spektren, Rotation und Breite: ein verifikator-gesteuertes Agentenlabor zu Optimierern und Skalierungsgesetzen" --autoren "Verifier-Gated Discovery Lab, Team Ninja Turtles" --affiliation "Hack-Nation 2026, Challenge 3"
 ```
