@@ -14,7 +14,7 @@ BED = ("LAB", "OHNE_FEEDBACK", "ZUFALL", "HEURISTIK")
 SEEDS = list(range(1000, 1025))
 BUDGET = 30
 ZIEL = 1.249621
-OUT = "results/replay_lattice"
+OUT = os.environ.get("REPLAY_OUT", "results/replay_lattice")
 POOL = json.load(open("benchmarks/replay_pool.json"))
 
 
