@@ -1,0 +1,8 @@
+| Zeit | Agent | Entscheidung | Beleg |
+|---|---|---|---|
+| 2026-10-04 02:20:33 | SETUP | Projekt aus projects/proofreading kopiert; Annahme A1; Startfrage F20 | asd/omni_setup.py |
+| 2026-10-04 02:21:07 | PLANNER | [F20] Option O2 (tiefe_rechnung, Kosten 1, Gewinn 0.65); verworfen: O1 (breiter_scan) | O2 has the higher expected gain (0.65 vs 0.35) at 1 verifier call versus 3 for O1; the budget is ample (40 of 40 left), but the cheaper, deeper check is still the better use of it. |
+| 2026-10-04 02:26:16 | PLANNER | REOPEN Annahme A1: Klassifikation 50 / 3 / 35: genau ['fam2_11', 'fam2_66', 'fam2_9'] verletzen eta >= e^(-2 Delta) unter den 88 Topologien | Confirmed claim proofreading-O14 contradicts assumption A1, so A1 must be re-examined and the questions that depend on it re-planned. (Beleg proofreading-O14) |
+| 2026-10-04 02:26:28 | PLANNER | THEMENWECHSEL -> [F21] Ist die Klassifikation der Familie (bewiesen / Gegenbeispiel / offen) mit allen bisher zertifizierte | A1 was reopened and F21 depends on it, so F21 takes priority over F20's progress. |
+| 2026-10-04 02:26:32 | PLANNER | [F21] Option O2 (tiefe_rechnung, Kosten 1, Gewinn 0.65); verworfen: O1 (breiter_scan) | O2 costs 1 call with the higher expected gain (0.65), against 3 calls and 0.35 for O1 (broad scan); 38 of 40 calls remain. |
+| 2026-10-04 02:28:18 | PLANNER | [F24] Option O2 (tiefe_rechnung, Kosten 1, Gewinn 0.65); verworfen: O1 (breiter_scan) | O2 has the higher expected gain (0.65 vs 0.35) at a third of the cost (1 vs 3 verifier calls); the broad scan O1 is rejected as costlier and less precise, and the budget (34 of 40 left) easily covers  |
