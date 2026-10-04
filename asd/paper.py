@@ -43,7 +43,7 @@ OUTLINE_DE = OUTLINE_EN.replace("in English", "auf Deutsch")
 OUTLINE, OUTLINE_EN_OLD = OUTLINE_DE, OUTLINE_EN
 AGENT_NAMES = ["scout", "integrator", "red-team", "red team", "redteam", "lern-agent", "learning agent", "forscher-agent", "researcher agent",
                "lab loop", "lab_loop", "kaskade", "cascade", "storyteller", "explorer", "architect"]
-COST_PAT = r"(\d[\d.,]*\s*(USD|US\$|\$|dollar))|((USD|\$)\s*\d)|(costs? of [\d.]+)|(Kosten von [\d.,]+)"
+COST_PAT = r"(\d[\d.,]*\s*(USD|US\$|dollars?))|(USD\s*\d)|(costs? of [\d.]+)|(Kosten von [\d.,]+)"
 
 
 def main_text(md):
