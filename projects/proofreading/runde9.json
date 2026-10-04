@@ -1,0 +1,135 @@
+{
+ "antwort": {
+  "antwort": "ja",
+  "zahl": 1e-06,
+  "konfidenz": 0.85,
+  "pruefung": {
+   "typ": "untere_schranke",
+   "topologie": "hopfield_n2",
+   "c": 1,
+   "k": 3
+  },
+  "begruendung": "Hopfields klassische Schranke η ≥ e^{-(n+1)Δ} sollte für die lineare Proofreading-Kette mit n Stufen nicht nur asymptotisch (unendliche Energie, verschwindende Geschwindigkeit), sondern für alle positiven Raten und jeden Treibstoff gelten. Für n=2 ergibt das η ≥ 1e-6. Die numerische Optimierung (E1) zeigt η≈4.88e-06, konsistent mit dieser Schranke. Die symbolische Prüfung validiert die universelle Gültigkeit.",
+  "stimmen": "Stufe 1/4 (sparsam, haiku)"
+ },
+ "level": "computed (Code-Prüfer bestanden)",
+ "forscher": [
+  {
+   "strategie": "sparsam",
+   "runden": [
+    {
+     "ueberlegung": "Die Frage ist, ob die klassische Hopfield-Schranke eta >= e^{-(n+1)Delta} für n=2 erfüllt ist. Mit Delta = ln(100) bedeutet das eta >= e^{-3*ln(100)} = 10^{-6}. Ich plane: (1) Die Struktur von hopfield_n2 durch param_names verstehen, (2) numerisch mit optimize das minimale erreichbare eta erkunden (um zu sehen, ob und wie nah man die Schranke erreicht), (3) formal mit untere_schranke den universellen Beweis führen, dass eta >= 10^{-6} für alle positiven Raten und jeden Treibstoff erfüllt ist.",
+     "plan": [
+      {
+       "op": "param_names",
+       "args": {
+        "topologie": "hopfield_n2"
+       }
+      },
+      {
+       "op": "optimize",
+       "args": {
+        "topologie": "hopfield_n2"
+       }
+      },
+      {
+       "typ": "untere_schranke",
+       "topologie": "hopfield_n2",
+       "c": 1,
+       "k": 3
+      }
+     ]
+    },
+    {
+     "antwort": "ja",
+     "zahl": 1e-06,
+     "konfidenz": 0.85,
+     "pruefung": {
+      "typ": "untere_schranke",
+      "topologie": "hopfield_n2",
+      "c": 1,
+      "k": 3
+     },
+     "begruendung": "Hopfields klassische Schranke η ≥ e^{-(n+1)Δ} sollte für die lineare Proofreading-Kette mit n Stufen nicht nur asymptotisch (unendliche Energie, verschwindende Geschwindigkeit), sondern für alle positiven Raten und jeden Treibstoff gelten. Für n=2 ergibt das η ≥ 1e-6. Die numerische Optimierung (E1) zeigt η≈4.88e-06, konsistent mit dieser Schranke. Die symbolische Prüfung validiert die universelle Gültigkeit."
+    }
+   ],
+   "experimente": [
+    0,
+    1
+   ],
+   "final": {
+    "antwort": "ja",
+    "zahl": 1e-06,
+    "konfidenz": 0.85,
+    "pruefung": {
+     "typ": "untere_schranke",
+     "topologie": "hopfield_n2",
+     "c": 1,
+     "k": 3
+    },
+    "begruendung": "Hopfields klassische Schranke η ≥ e^{-(n+1)Δ} sollte für die lineare Proofreading-Kette mit n Stufen nicht nur asymptotisch (unendliche Energie, verschwindende Geschwindigkeit), sondern für alle positiven Raten und jeden Treibstoff gelten. Für n=2 ergibt das η ≥ 1e-6. Die numerische Optimierung (E1) zeigt η≈4.88e-06, konsistent mit dieser Schranke. Die symbolische Prüfung validiert die universelle Gültigkeit."
+   },
+   "modell": "haiku",
+   "pruefung": {
+    "bestanden": true,
+    "grund": "Zertifikat (b) symbolisch: eta - (1*e^(-3*Delta)) = N/D mit 1374 bzw. 2048 Termen, alle Koeffizienten nichtnegativ: True (6.8 s)"
+   }
+  }
+ ],
+ "experimente": [
+  {
+   "id": 0,
+   "wer": "forscher-sparsam",
+   "op": "param_names",
+   "args": {
+    "topologie": "hopfield_n2"
+   },
+   "ergebnis": {
+    "namen": [
+     "bind+",
+     "bind-",
+     "akt0+",
+     "verw1+",
+     "verw1-",
+     "akt1+",
+     "verw2+",
+     "verw2-",
+     "prod+",
+     "mu",
+     "muP"
+    ]
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 1,
+   "wer": "forscher-sparsam",
+   "op": "optimize",
+   "args": {
+    "topologie": "hopfield_n2"
+   },
+   "ergebnis": {
+    "params": {
+     "bind+": 0.6634225418088497,
+     "bind-": 9.950443581728235,
+     "akt0+": -0.06949782523367322,
+     "verw1+": 5.3448246117124905,
+     "verw1-": 2.885633720788187,
+     "akt1+": 4.942403527638767,
+     "verw2+": -1.9104544918027404,
+     "verw2-": -1.2750788971312115,
+     "prod+": -3.4753579188968966,
+     "mu": 8.292891408378244,
+     "muP": 2.5052910619687476
+    },
+    "eta": 4.879638402220454e-06,
+    "sigma": 172.28124907076221,
+    "v": 0.02023622581384353,
+    "feasible": true,
+    "hinweis": "numerisch (Kandidat), nicht zertifiziert"
+   },
+   "sek": 2.8
+  }
+ ],
+ "sek": 114.0
+}

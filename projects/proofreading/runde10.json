@@ -1,0 +1,209 @@
+{
+ "antwort": {
+  "antwort": "Ja, erreichbar",
+  "zahl": null,
+  "konfidenz": 0.92,
+  "pruefung": {
+   "typ": "erreichbar",
+   "topologie": "hopfield_n1",
+   "params": {
+    "bind+": 0.9975516194625539,
+    "bind-": 0.23336884801127214,
+    "akt0+": -2.02076390599882,
+    "verw1+": 1.3749287957942298,
+    "verw1-": 0.2342211541435023,
+    "prod+": -0.8817799287056863,
+    "mu": 0.4005811510944769,
+    "muP": 0.0
+   },
+   "eta_max": 0.0002,
+   "sigma_max": 10,
+   "v_min": 0.001
+  },
+  "begruendung": "Experiment [E2] fand Parameter mit eta = 1.189 × 10⁻⁴ < 2 × 10⁻⁴, σ = 4.27 kT < 10, v = 1.00 × 10⁻³. Zertifikat (a) prüft Rationalität, lokale detaillierte Bilanz und rigoros berechnete Metriken exakt.",
+  "stimmen": "Stufe 1/4 (sparsam, haiku)"
+ },
+ "level": "computed (Code-Prüfer bestanden)",
+ "forscher": [
+  {
+   "strategie": "sparsam",
+   "runden": [
+    {
+     "ueberlegung": "Frage L4 verlangt für hopfield_n1 die Existenz von Parametern mit eta < 2e-4, sigma <= 10 kT, v >= 1e-3. Diese Bedingungen sind schwächer als bereits bewiesenes Resultat R1 (eta <= 0.0004, sigma <= 6, v >= 0.001 für hopfield_n1), was auf Erreichbarkeit hindeutet. Zweck-optimierte Strategie: (1) Parameternamen kennenlernen, (2) Globale Multi-Start-Optimierung unter den explizit angegebenen Nebenbedingungen, um die minimale Fehlerrate zu lokalisieren. Nach erfolgreicher Optimierung wird die Lösung mit exaktem erreichbar-Zertifikat geprüft.",
+     "plan": [
+      {
+       "op": "param_names",
+       "args": {
+        "topologie": "hopfield_n1"
+       }
+      },
+      {
+       "op": "optimize",
+       "args": {
+        "topologie": "hopfield_n1",
+        "sigma_max": 10,
+        "v_min": 0.001,
+        "starts": 16,
+        "seed": 42
+       }
+      }
+     ]
+    },
+    {
+     "plan": [
+      {
+       "op": "optimize",
+       "args": {
+        "topologie": "hopfield_n1",
+        "sigma_max": 10,
+        "v_min": 0.001,
+        "starts": 50,
+        "seed": 1111
+       }
+      }
+     ]
+    },
+    {
+     "antwort": "Ja, erreichbar",
+     "zahl": null,
+     "konfidenz": 0.92,
+     "pruefung": {
+      "typ": "erreichbar",
+      "topologie": "hopfield_n1",
+      "params": {
+       "bind+": 0.9975516194625539,
+       "bind-": 0.23336884801127214,
+       "akt0+": -2.02076390599882,
+       "verw1+": 1.3749287957942298,
+       "verw1-": 0.2342211541435023,
+       "prod+": -0.8817799287056863,
+       "mu": 0.4005811510944769,
+       "muP": 0.0
+      },
+      "eta_max": 0.0002,
+      "sigma_max": 10,
+      "v_min": 0.001
+     },
+     "begruendung": "Experiment [E2] fand Parameter mit eta = 1.189 × 10⁻⁴ < 2 × 10⁻⁴, σ = 4.27 kT < 10, v = 1.00 × 10⁻³. Zertifikat (a) prüft Rationalität, lokale detaillierte Bilanz und rigoros berechnete Metriken exakt."
+    }
+   ],
+   "experimente": [
+    0,
+    1,
+    2
+   ],
+   "final": {
+    "antwort": "Ja, erreichbar",
+    "zahl": null,
+    "konfidenz": 0.92,
+    "pruefung": {
+     "typ": "erreichbar",
+     "topologie": "hopfield_n1",
+     "params": {
+      "bind+": 0.9975516194625539,
+      "bind-": 0.23336884801127214,
+      "akt0+": -2.02076390599882,
+      "verw1+": 1.3749287957942298,
+      "verw1-": 0.2342211541435023,
+      "prod+": -0.8817799287056863,
+      "mu": 0.4005811510944769,
+      "muP": 0.0
+     },
+     "eta_max": 0.0002,
+     "sigma_max": 10,
+     "v_min": 0.001
+    },
+    "begruendung": "Experiment [E2] fand Parameter mit eta = 1.189 × 10⁻⁴ < 2 × 10⁻⁴, σ = 4.27 kT < 10, v = 1.00 × 10⁻³. Zertifikat (a) prüft Rationalität, lokale detaillierte Bilanz und rigoros berechnete Metriken exakt."
+   },
+   "modell": "haiku",
+   "pruefung": {
+    "bestanden": true,
+    "grund": "Zertifikat (a): eta = 1.189200e-04 (exakt rational); sigma in [4.271813, 4.271813] kT; v = 1.0000e-03"
+   }
+  }
+ ],
+ "experimente": [
+  {
+   "id": 0,
+   "wer": "forscher-sparsam",
+   "op": "param_names",
+   "args": {
+    "topologie": "hopfield_n1"
+   },
+   "ergebnis": {
+    "namen": [
+     "bind+",
+     "bind-",
+     "akt0+",
+     "verw1+",
+     "verw1-",
+     "prod+",
+     "mu",
+     "muP"
+    ]
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 1,
+   "wer": "forscher-sparsam",
+   "op": "optimize",
+   "args": {
+    "topologie": "hopfield_n1",
+    "sigma_max": 10,
+    "v_min": 0.001,
+    "starts": 16,
+    "seed": 42
+   },
+   "ergebnis": {
+    "params": {
+     "bind+": 3.4715231887229576,
+     "bind-": 5.099439460614872,
+     "akt0+": -5.841345103544502,
+     "verw1+": -2.1305222025046913,
+     "verw1-": -7.16496763802106,
+     "prod+": -0.3103843751486748,
+     "mu": 5.551329749119288,
+     "muP": 0.0
+    },
+    "eta": 0.0006821500109419743,
+    "sigma": 6.511357373861382,
+    "v": 0.002035241262619223,
+    "feasible": true,
+    "hinweis": "numerisch (Kandidat), nicht zertifiziert"
+   },
+   "sek": 1.42
+  },
+  {
+   "id": 2,
+   "wer": "forscher-sparsam",
+   "op": "optimize",
+   "args": {
+    "topologie": "hopfield_n1",
+    "sigma_max": 10,
+    "v_min": 0.001,
+    "starts": 50,
+    "seed": 1111
+   },
+   "ergebnis": {
+    "params": {
+     "bind+": 0.9975516194625539,
+     "bind-": 0.23336884801127214,
+     "akt0+": -2.02076390599882,
+     "verw1+": 1.3749287957942298,
+     "verw1-": 0.2342211541435023,
+     "prod+": -0.8817799287056863,
+     "mu": 0.4005811510944769,
+     "muP": 0.0
+    },
+    "eta": 0.00011892003960275806,
+    "sigma": 4.271812957803674,
+    "v": 0.0010000001468087466,
+    "feasible": true,
+    "hinweis": "numerisch (Kandidat), nicht zertifiziert"
+   },
+   "sek": 4.99
+  }
+ ],
+ "sek": 113.0
+}
