@@ -190,7 +190,7 @@ class ModularDomain(Domain):
 - eta_span_scan {gewicht, level_bis}: Tabelle Rang vs. Dimension für alle N <= level_bis (<= 40).
 - mgf_wert {ausdruck, tau1, tau2, dps?}: numerischer Wert eines Monoms aus C(a,b,c), E(s), zeta(k) (auch L[...]) an einem Punkt (~5-60 s).
 - mgf_leitkoeffizient {ausdruck}: exakter rationaler Leitkoeffizient der Laurent-Entwicklung in y = pi*tau2 (schnell).
-- mgf_relationen {basis: [...], seed?, n_punkte?}: Kandidaten für alle ganzzahligen linearen Relationen zwischen den Basis-Funktionen
+- mgf_relationen {basis: [...], seed?, n_punkte?, dps?}: Kandidaten für alle ganzzahligen linearen Relationen zwischen den Basis-Funktionen
   (PSLQ über mehrere Zufallspunkte). Basis-Elemente sind Monome, z. B. "C(3,1,1)", "E(2)*E(3)", "zeta(3)*E(2)", "L[C(2,1,1)]". Teuer
   (Minuten; Laplace-Terme besonders). Das Ergebnis ist ein Kandidat, kein Beweis."""
     claim_doc = """Prüfungstypen (Koeffizienten immer als exakte rationale Zahl, z. B. "7/30" oder -276; nie Gleitkomma):
@@ -250,7 +250,8 @@ class ModularDomain(Domain):
                 from . import mgf
                 b = list(args["basis"])
                 if len(b) > 12: return {"fehler": "höchstens 12 Basis-Elemente"}
-                r = mgf.find_relations(b, seed=int(args.get("seed", 1)), n_punkte=args.get("n_punkte"))
+                dps = min(int(args.get("dps", 32 if len(b) <= 6 else 45)), 60)      # große Basen brauchen mehr Stellen für PSLQ
+                r = mgf.find_relations(b, seed=int(args.get("seed", 1)), n_punkte=args.get("n_punkte"), dps=dps, maxcoeff=10 ** 9)
                 return r | {"hinweis": "Kandidaten; zertifiziert erst durch mgf_relation / mgf_relationsraum"}
             return {"fehler": f"unbekannte op {op}"}
         except Exception as e:
