@@ -44,13 +44,22 @@ def _default_domain():
     return DOMAIN
 
 
+def _jsonfest(x):
+    """numpy-Typen (bool_, int64, float64, ndarray) in JSON-taugliche Python-Typen; sonst crasht das Protokoll."""
+    def conv(o):
+        if hasattr(o, "tolist"): return o.tolist()
+        if hasattr(o, "item"): return o.item()
+        return str(o)
+    return json.loads(json.dumps(x, default=conv))
+
+
 class Lab:
     """Führt Experimente der Domäne aus, cached identische Anfragen und protokolliert alles (Herkunft)."""
     def __init__(self, domain=None): self.domain = domain or _default_domain(); self.memo = {}; self.log = []
     def run(self, op, args, who):
         key = json.dumps([op, args], sort_keys=True)
         if key not in self.memo:
-            t0 = time.time(); self.memo[key] = self.domain.run_op(op, args); dt = time.time() - t0
+            t0 = time.time(); self.memo[key] = _jsonfest(self.domain.run_op(op, args)); dt = time.time() - t0
         else: dt = 0.0
         self.log.append({"id": len(self.log), "wer": who, "op": op, "args": args, "ergebnis": self.memo[key], "sek": round(dt, 2)})
         return self.log[-1]
