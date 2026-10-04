@@ -75,3 +75,13 @@ def test_zertifikat_eigenstaendig_pass_und_verfaelscht_fail(tmp_path):
     cert["faelle"][0]["eta_max"] = "1e-12"; (tmp_path / "certificate.json").write_text(json.dumps(cert))
     assert run().startswith("FAIL") and "eta" in run()
     assert "import asd" not in open(VORLAGE).read() and "from asd" not in open(VORLAGE).read()
+
+
+# ---------------------------------------------------------------- 5 Lean ------------------------------------------------------------
+def test_lean_chsh_klassische_schranke():
+    from asd.lean_check import pruefe, lean_bin
+    if not lean_bin(): pytest.skip("lean nicht installiert (Claim bliebe computed_rigorous)")
+    chsh = {"typ": "klassische_schranke", "koeffizienten": [["1", "1"], ["1", "-1"]]}
+    ok = pruefe({**chsh, "schranke": "2"}); assert ok["bestanden"] is True and ok["level"] == "proved_lean" and "sorryAx" not in ok["axiome"]
+    assert pruefe({**chsh, "schranke": "1.99"})["bestanden"] is False
+    assert pruefe({**chsh, "schranke": "2"}, taktik="sorry")["bestanden"] is False

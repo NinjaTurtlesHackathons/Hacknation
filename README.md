@@ -217,7 +217,7 @@ pip install numpy pandas scipy scikit-learn
 python run.py                 # 4 Policies × 20 Seeds × 3 Datensätze, Gates, Claims, Tabellen (~3 min auf 4 Kernen)
 python dashboard.py           # dashboard/index.html, liest nur tables/*.csv
 python paper.py               # paper/results.md, jeder Satz mit claim_id
-lean lean/ENRandom.lean       # Lemma E[N_random] = (n+1)/(k+1), Lean 4 ohne Mathlib
+lean lean/ENRandom.lean       # kombinatorischer Kern von E[N_random] = (n+1)/(k+1) in Lean bewiesen (Log: lean/ENRandom.log)
 ```
 Probelauf: `python run.py --seeds 3`. Ohne KI: `python run.py --policies random,gp_ei`.
 
@@ -233,5 +233,5 @@ Probelauf: `python run.py --seeds 3`. Ohne KI: `python run.py --policies random,
 | `asd/gates.py` | Gates G0–G7 inkl. H1, H2, Negativkontrollen, Lean |
 | `asd/claims.py`, `asd/tables.py` | Claims aus Gate-Ergebnissen; die Tabellen `experiments`, `claims`, `gates` samt Validierung |
 | `hypotheses/` | KI-Hypothesen mit Prompt, Rohantwort und Generator (Provenienz) |
-| `lean/` | Lean-4-Beweis des Lemmas |
+| `lean/` | Lean 4 (Core, ohne Mathlib): kombinatorischer Kern von E[N_random] = (n+1)/(k+1) bewiesen; der Schritt E[N] = Σ P(N ≥ t) ist Standard und nicht formalisiert. Log: `lean/ENRandom.log`. Diskrete Claims (z. B. klassische Bell-Schranke) über `python -m asd.lean_check` -> Stufe `proved_lean` |
 | `lab.py`, `results_selftest.json` | ursprünglicher Selbsttest (Referenz für Gate G2) |
