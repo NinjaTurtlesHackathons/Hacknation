@@ -15,13 +15,13 @@ import argparse, json, os, sys, urllib.request
 
 BILD = "higgsfield-ai/soul/standard"
 VIDEO = "kling-video/v2.5-turbo/pro/image-to-video"
-STIL = ("cinematic, 35mm film look, dramatic chiaroscuro light, warm library tones with cool deep-blue light accents, "
-        "volumetric light through dust, shallow depth of field, no text, no letters, no logos")
+STIL = ("cinematic, 35mm film look, dark deep-navy night palette with teal and cyan light accents, soft concentric light ripples and fine star-like dust "
+        "in the air, volumetric light, shallow depth of field, calm and precise, no text, no letters, no logos")   # Look der prob-Webseite
 NEG = "text, letters, numbers, watermark, logo, garbled writing, faces on the light figures, extra fingers, distorted hands, purple neon, cartoon"
 MIA = ("young woman about 24, warm brown skin, curly dark hair in a loose bun, round thin-framed glasses, "
        "oversized dark green knit sweater")
 PROF = "woman in her late fifties, short silver hair, dark navy blazer, reading glasses on a chain"
-AGENT = "a faceless humanoid figure made of soft translucent deep-blue light and thin floating paper ribbons"
+AGENT = "a faceless humanoid figure made of soft translucent teal-cyan light and thin floating paper ribbons"
 RED = "faceless humanoid figures made of dark smoky graphite light with a thin red edge"
 ORT = "in an old university library at night that has become a laboratory"
 
@@ -37,13 +37,13 @@ SHOTS = {   # shot: (start frame, motion/video prompt), from docs/HIGGSFIELD_STO
     "08": (f"a single blank paper card floating on a beam of light toward a massive brass gate full of interlocking gears {ORT}",
            "crash zoom in, the gears lock with red light, the card is thrown back and tears"),
     "09": (f"a blank paper card sliding into a massive brass gate full of gears {ORT}, a heavy stamp above it",
-           "dolly in, gears turn smoothly, slow motion as the heavy stamp presses a solid deep blue square into the paper"),
+           "dolly in, gears turn smoothly, slow motion as the heavy stamp presses a solid teal-cyan square into the paper"),
     "10": (f"{AGENT} at the old map table with a brass pin standing on the map {ORT}", "the pin topples, one route of light fades out and a new route is drawn, slight handheld camera"),
     "11": (f"{RED} around a paper card stamped with a solid blue square floating in the air {ORT}", "whip pan in, the figures strike the card with hammers of light, sparks fly, the card stays whole"),
     "12": (f"a chain of small glowing blue blocks forming across the underside of a library dome {ORT}", "crane up into the dome as the chain links up and locks shut"),
     "13": (f"{MIA} laughing with relief in a sunlit library, {PROF} standing behind her looking at the laptop", "slow dolly out, Mia laughs and covers her mouth, the professor nods"),
-    "14": ("a few blank printed paper pages on a wooden library table in morning sunlight", "slow crane down, a solid deep blue square is stamped onto the top sheet"),
-    "15": ("a single small solid deep blue square of light floating above a sheet of paper", "the blue square lifts off and flies straight into the lens until it fills the frame"),
+    "14": ("a few blank printed paper pages on a wooden library table in morning sunlight", "slow crane down, a solid teal-cyan square is stamped onto the top sheet"),
+    "15": ("a single small solid teal-cyan square of light floating above a sheet of paper", "the blue square lifts off and flies straight into the lens until it fills the frame"),
 }
 
 

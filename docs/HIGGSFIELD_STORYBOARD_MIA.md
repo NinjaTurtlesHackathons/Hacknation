@@ -12,9 +12,9 @@ The 40-second middle shows, inside Mia's research world, every step the system a
 
 ## Look
 
-- **Style suffix (every clip):** `cinematic, 35mm film look, dramatic chiaroscuro light, warm library tones with cool deep-blue light accents, volumetric light through dust, shallow depth of field, no text, no letters, no logos`
+- **Style suffix (every clip, matches the prob website):** `cinematic, 35mm film look, dark deep-navy night palette with teal and cyan light accents, soft concentric light ripples and fine star-like dust in the air, volumetric light, shallow depth of field, calm and precise, no text, no letters, no logos`
 - **Negative prompt:** `text, letters, numbers, watermark, logo, garbled writing, faces on the light figures, extra fingers, distorted hands, purple neon, cartoon`
-- **Light agents (always identical):** `a faceless humanoid figure made of soft translucent deep-blue light and thin floating paper ribbons, calm and precise movements`
+- **Light agents (always identical):** `a faceless humanoid figure made of soft translucent teal-cyan light and thin floating paper ribbons, calm and precise movements`
   - Red team, as the variant: `the same light figure but in dark smoky graphite with a thin red edge`
 - **Mia:** `young woman about 24, warm brown skin, curly dark hair in a loose bun, round thin-framed glasses, oversized dark green knit sweater`
 - **Professor:** `woman in her late fifties, short silver hair, dark navy blazer, reading glasses on a chain`
