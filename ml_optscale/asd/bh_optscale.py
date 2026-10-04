@@ -31,6 +31,12 @@ def main():
           "text": (f"Benjamini-Hochberg (präregistriert, q = 0.1) über alle m = {len(T)} durchgeführten Optimierer-Vergleiche des Prüfers "
                    f"(Hauptprüfungen und Red-Team, eindeutige Tests; Prüfungen mit Lernraten-Optimum am Gitterrand gelten als nicht entscheidbar und zählen nicht als Test): {n_sig} davon bleiben nach Korrektur signifikant mit Verhältnis unter 0.9. "
                    f"Einzeln: {zeilen}.")}]
+    angef = [c for c in s["claims"] if c["status"] == "angefochten"]
+    C.append({"claim_id": "C-redteam-methode", "level": "observed", "status": "bestätigt",
+              "text": ("Methodischer Befund zum Red-Team (aus asd/lab_loop.py und state.json): Eine Aussage gilt als angefochten, sobald eine "
+                       "Red-Team-Gegenprüfung besteht, auch wenn diese Gegenprüfung mit der Aussage vereinbar ist. Angefochten markiert: "
+                       + "; ".join(f"{c['id']} (bestandene Gegenprüfungen: " + " / ".join(json.dumps(r['pruefung'], ensure_ascii=False) for r in c['red_team'] if r['bestanden']) + ")" for c in angef)
+                       + ". Der Status bleibt unverändert; ob eine bestandene Gegenprüfung der Aussage tatsächlich widerspricht, ist im Einzelfall zu lesen.")})
     json.dump(C, open("projects/optscale/zusatz_claims.json", "w"), ensure_ascii=False, indent=1)
     print(C[0]["text"])
 

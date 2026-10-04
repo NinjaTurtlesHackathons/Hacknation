@@ -1,0 +1,195 @@
+\documentclass[10pt,twocolumn]{article}
+\usepackage[utf8]{inputenc}\usepackage[T1]{fontenc}\usepackage[ngerman]{babel}\usepackage{amsmath,amssymb}\usepackage[margin=1.8cm]{geometry}
+\usepackage{times}\usepackage{hyperref}
+\title{\textbf{Spektren, Rotation und Breite: ein verifikator-gesteuertes Agentenlabor zu Optimierern und Skalierungsgesetzen}}
+\author{Verifier-Gated Discovery Lab \and Team Ninja Turtles\\ \small Hack-Nation 2026, Challenge 3}
+\date{Preprint, \today}
+\begin{document}\maketitle
+
+
+\section{Zusammenfassung}
+
+Ein agentisches Labor untersucht vier numerische Modellwelten: ein lineares Modell mit Potenzgesetz-Spektrum, Optimierer auf Matrix-Quadratiken und im MLP, Edge of Stability sowie μP gegen SP. Als Resultat gilt nur, was ein unabhängiger Code-Prüfer mit eigenen Seeds, eigenem Lernraten-Tuning und eigener Auflösung nachgerechnet hat. Ungeprüfte Interpretationen der Agenten (Claims mit Suffix „-I") werden nicht als Resultat verwendet. Evidenzstufen stehen in Klammern, Claim-IDs in eckigen Klammern.
+
+\section{1 Einleitung}
+
+\textbf{Frage.} Warum funktionieren moderne Optimierer und Lernraten-Schedules? Wann überträgt sich die Lernrate über die Modellbreite? Woher kommen die Exponenten von Skalierungsgesetzen? Ein Skalierungsexponent e bedeutet Verlust ~ x^-e.
+
+\textbf{Beitrag.} Das Labor lief 18 Runden mit 18 geprüften Aussagen bei Kosten von 8.86 USD, und jede Runde wurde vor dem Experiment präregistriert {\scriptsize[C-methode]}. Jede Aussage wurde durch Red-Team-Gegenprüfungen angegriffen.
+
+\textbf{Resultate in Kürze:}
+
+\begin{itemize}
+\item Der Gradientenfluss-Exponent und der rechenoptimale Exponent bei C = P*t sind an allen geprüften Punkten numerisch bestätigt, die Gegenhypothesen scheitern {\scriptsize[C-optscale-R6, C-optscale-R17]}.
+\item Für das Random-Feature-Modell und die Ridge-Regression bei kleinem a und großem b ist der asymptotische Exponent offen. Die gemessenen Steigungen liegen deutlich unter dem Abschneide-Exponenten {\scriptsize[C-optscale-R1-RT1, C-optscale-R1-RT2]}.
+\item Muon gegen Adam hängt von Rotation und Spektrum ab. Es gibt keine universelle Regel {\scriptsize[C-optscale-R2, C-optscale-R4, C-optscale-R5, C-optscale-R14]}.
+\item Unter μP überträgt sich die optimale Lernrate über die Breiten für Adam und SGD, unter SP nicht {\scriptsize[C-optscale-R10]}.
+\item Voll-Batch-GD befindet sich bei der geprüften Lernrate an der Edge of Stability {\scriptsize[C-optscale-R16]}.
+\item Exakte Stabilitätszertifikate für Gradientenabstieg und Heavy-Ball sind erbracht {\scriptsize[C-optscale-R18]}.
+\end{itemize}
+
+\section{2 Modell}
+
+Vier Welten, alle numerisch (numpy):
+
+\begin{itemize}
+\item \textbf{Lineares Modell:} Eigenwerte lambda_k = k^-a, Zielanteile lambda_k w_k^2 = k^-b mit b > 1 {\scriptsize[C-optscale-R17]}.
+\item \textbf{Optimierer:} sgd, momentum, adam, signum, clip_sgd, muon und shampoo auf Matrix-Quadratiken (Kronecker-Krümmung, wahlweise rotiert, Gauß- oder Student-Rauschen) und im tanh-Lehrer-Schüler-MLP. Die Schedules sind const, cosine, linear und wsd. Die Metrik ist der relative Endverlust {\scriptsize[C-optscale-R15]}.
+\item \textbf{Edge of Stability:} Voll-Batch-GD auf einem kleinen tanh-Netz mit der Kenngröße lr*lambda_max/2 {\scriptsize[C-optscale-R16]}.
+\item \textbf{μP gegen SP:} 3-Schicht-ReLU-MLP. Bei Basisbreite 64 sind μP und SP identisch {\scriptsize[C-optscale-R10-RT2]}.
+\end{itemize}
+
+Exakte Anker bieten quadratische Iterationen mit rationaler Krümmungsmatrix {\scriptsize[C-optscale-R18]}.
+
+\section{3 Methode: das agentische Labor}
+
+Das Labor besteht aus Scout, Integrator, Forscher, Code-Prüfer, Red-Team und Präregistrierung {\scriptsize[C-methode]}. Für Optimierervergleiche tunt der Prüfer die Lernrate je Arm selbst auf den Seeds 100, 101 und 102 {\scriptsize[C-optscale-R2]}. Er bewertet auf 10 frischen Seeds mit einem gepaarten Permutationstest {\scriptsize[C-optscale-R2]}. \emph{[entfernt: unbelegt — Zahl ohne Beleg]} Prüfungen mit Lernraten-Optimum am Gitterrand zählen als nicht entscheidbar {\scriptsize[C-bh]}.
+
+Das Red-Team stellt Gegenprüfungen auf. Eine Aussage gilt als „angefochten", sobald eine Gegenprüfung besteht, auch wenn diese mit der Aussage vereinbar ist. Angefochten sind R7, R15 und R18. Der Status bleibt unverändert, und die Einzelfälle sind zu lesen {\scriptsize[C-redteam-methode]}.
+
+\section{4 Resultate}
+
+\subsubsection*{4.1 Skalierung im linearen Modell}
+
+\textbf{Numerischer Befund 1 (Gradientenfluss, observed).} Der Verlust des Gradientenflusses über t folgt den Prüfer-Fits mit fester Toleranz {\scriptsize[C-optscale-R17]}:
+
+\begin{itemize}
+\item (a, b) = (1.0, 2.0): Exponent 1.0000 {\scriptsize[C-optscale-R17]}
+\item (a, b) = (1.0, 3.0): Exponent 2.0000 {\scriptsize[C-optscale-R17]}
+\item (a, b) = (2.0, 4.0): Exponent 1.5000 {\scriptsize[C-optscale-R17]}
+\item (a, b) = (0.5, 1.5): Exponent 1.0000 {\scriptsize[C-optscale-R17]}
+\item (a, b) = (0.5, 3.0): Exponent 4.0000 in beiden Fenstern {\scriptsize[C-optscale-R17-RT2]}
+\end{itemize}
+
+Alle Werte sind mit e = (b−1)/a vereinbar.
+
+\textbf{Proposition 1 (computed_rigorous).} Die Alternative e = (b−1)·a scheitert bei (a=2.0, b=3.0). Der Prüfer misst 1.0000 in beiden Fenstern gegen behauptete 4.0 {\scriptsize[C-optscale-R17-RT1]}.
+
+\textbf{Numerischer Befund 2 (Rechenoptimum bei C = P*t, observed).} Die Prüfer-Fits der Kurve „compute" mit fester Toleranz lauten (Fenster 1 / Fenster 2) {\scriptsize[C-optscale-R6]}:
+
+\begin{itemize}
+\item (1.0, 2.0): 0.4998 / 0.5000 {\scriptsize[C-optscale-R6]}
+\item (2.0, 3.0): 0.6658 / 0.6663 {\scriptsize[C-optscale-R6]}
+\item (1.0, 4.0): 1.4990 / 1.4998 {\scriptsize[C-optscale-R6]}
+\item (1.5, 1.5): 0.1999 / 0.2000 {\scriptsize[C-optscale-R6]}
+\item (0.5, 2.0): 0.6667 / 0.6667 {\scriptsize[C-optscale-R8]}
+\item (1.0, 3.0): 0.9995 / 0.9999 {\scriptsize[C-optscale-R8]}
+\item (2.0, 2.0): 0.3329 / 0.3331 {\scriptsize[C-optscale-R9]}
+\end{itemize}
+
+Sie entsprechen der Form C^-(b-1)/(a+1) {\scriptsize[C-optscale-R7-RT1]}. Die Aufteilung des Budgets auf P und t wurde nicht gemessen.
+
+\textbf{Proposition 2 (computed_rigorous).} Die Gegenhypothese (b-1)/a für das Rechenoptimum scheitert. Bei (a=2.0, b=3.0) misst der Prüfer 0.6658 und 0.6663 {\scriptsize[C-optscale-R6-RT1]}. Bei (a=3.0, b=4.0) misst er 0.7474 und 0.7484 {\scriptsize[C-optscale-R6-RT2]}. Die behauptete 1.0 liegt jeweils außerhalb der festen Toleranz {\scriptsize[C-optscale-R6-RT1, C-optscale-R6-RT2]}.
+
+\textbf{Numerischer Befund 3 (Random Feature über P und Ridge über N, observed).} Bei (a=1.0, b=2.0) misst der Prüfer für das Random-Feature-Modell 0.9909 und 1.0540 gegen 1.0 mit Toleranz 0.1 {\scriptsize[C-optscale-R1]}. Bei (a=2.0, b=2.0) misst er 1.0782 und 1.0806 gegen 1.0 {\scriptsize[C-optscale-R11]}. Für Ridge über N misst er bei (a=1.0, b=3.0, ridge=0.001, noise=0.0) 1.9893 und 1.9258 gegen 2.0 {\scriptsize[C-optscale-R12]}.
+
+\textbf{Proposition 3 (computed_rigorous).} Bei kleinem a und großem b verfehlt der RF-Exponent die jeweils behauptete Sättigungsvorhersage der Gegenprüfung:
+
+\begin{itemize}
+\item (a, b) = (0.5, 3.5): Fit 0.6189 / 0.7694, behauptet 1.0 {\scriptsize[C-optscale-R1-RT1]}
+\item (a, b) = (0.3, 4.0): Fit 0.3146 / 0.4394, behauptet 0.6 {\scriptsize[C-optscale-R1-RT2]}
+\item (a, b) = (0.5, 3.0): Fit 0.6077 / 0.7600, behauptet 1.0 {\scriptsize[C-optscale-R11-RT1]}
+\end{itemize}
+
+Die Fits liegen deutlich unter dem Abschneide-Exponenten, der laut den Gegenprüfungen bei (0.5, 3.5) 2,5 und bei (0.3, 4.0) 3 beträgt {\scriptsize[C-optscale-R1-RT1, C-optscale-R1-RT2]}. Das Fenster mit größerem P liefert jeweils die größere Steigung. Die Sättigungsvorhersage trifft innerhalb der Toleranz nicht zu {\scriptsize[C-optscale-R1-RT1, C-optscale-R1-RT2, C-optscale-R11-RT1]}.
+
+\subsubsection*{4.2 Optimierer}
+
+\textbf{Beobachtung 1 (Muon gegen Adam, statistical).} Alle Vergleiche verwenden selbst getunte Lernraten und frische Seeds {\scriptsize[C-optscale-R2]}.
+
+\begin{itemize}
+\item Unrotiert, a_L = a_R = 3.0: Adam gewinnt, relativer Endverlust 4.932e-23 gegen 2.825e-04, p = 0.0008 {\scriptsize[C-optscale-R2]}.
+\item Rotiert, a_L = a_R = 3.0: Muon gewinnt, 4.481e-04 gegen 1.810e-03, Verhältnis 0.248 {\scriptsize[C-optscale-R4]}.
+\item Rotiert, a_L = a_R = 1.0: Adam gewinnt, 3.170e-11 gegen 8.863e-05, p = 0.0041 {\scriptsize[C-optscale-R5]}.
+\item Rotiert, a_L = a_R = 2.5: Muon gewinnt, 1.814e-04 gegen 1.683e-03, Verhältnis 0.108 {\scriptsize[C-optscale-R14]}.
+\item Bei fast flachem Spektrum (a=0.1) gewinnt Adam unrotiert (3.883e-23 gegen 1.162e-05) {\scriptsize[C-optscale-R3-RT2]} und rotiert (3.873e-23 gegen 1.131e-05) {\scriptsize[C-optscale-R5-RT2]}.
+\end{itemize}
+
+Die Rotation allein entscheidet also nicht. Der Vorzeichenwechsel auf der rotierten Diagonalen liegt zwischen den geprüften Punkten a=1.0 und a=2.5 {\scriptsize[C-optscale-R5, C-optscale-R14]}. Wo genau, ist nicht eingegrenzt.
+
+\textbf{Beobachtung 2 (heavy-tailed Rauschen, statistical).} Auf der rotierten Quadratik mit a=2.0 und Student-Rauschen (df = 2) schlagen Shampoo und Muon SGD mit Verhältnissen 0.521 und 0.567 {\scriptsize[C-optscale-R13]}. Adam schlägt SGD ebenfalls. Der Prüfer misst für SGD gegen Adam das Verhältnis 1.146 {\scriptsize[C-bh, C-optscale-R13-RT1]}. Auch Signum schlägt SGD, das Verhältnis für SGD gegen Signum beträgt 1.143 {\scriptsize[C-bh, C-optscale-R13-RT2]}. Clipping wurde nicht geprüft.
+
+\textbf{Beobachtung 3 (Schedules, statistical).}
+
+\begin{itemize}
+\item Adam mit cosine schlägt Adam mit const auf der verrauschten rotierten Quadratik: 1.142e-02 gegen 3.190e-02, Verhältnis 0.358 {\scriptsize[C-optscale-R15]}.
+\item SGD mit wsd schlägt SGD mit const bei Student-Rauschen, Verhältnis 0.555 {\scriptsize[C-bh, C-optscale-R15-RT2]}.
+\item Im MLP war SGD mit cosine nicht besser als mit const: 4.859e-03 gegen 3.732e-03, Verhältnis 1.302, p = 0.9419 {\scriptsize[C-optscale-R15-RT1, C-bh]}.
+\end{itemize}
+
+\textbf{Korrektur für multiples Testen.} Von m = 20 Vergleichen bleiben 11 nach Benjamini-Hochberg signifikant mit Verhältnis unter 0.9 {\scriptsize[C-bh]}.
+
+\subsubsection*{4.3 Edge of Stability und μP}
+
+\textbf{Numerischer Befund 4 (Edge of Stability, observed).} Bei Breite 16, lr = 1.0 und 2000 Schritten liegt lr*lambda_max/2 am Ende in [0.85, 1.25] {\scriptsize[C-optscale-R16]}. Das gilt für 5 von 5 frischen Seeds, gemessen mit dem vollen Hesse-Eigenwert {\scriptsize[C-optscale-R16]}.
+
+\emph{[entfernt: unbelegt — Zahl(en) [5.0] stehen in keiner zitierten Claim]}
+
+\begin{itemize}
+\item μP, Adam: -7, -6, -7, -7, Verschiebung +0 Oktaven {\scriptsize[C-optscale-R10]}
+\item SP, Adam: -6, -6, -7, -8, Verschiebung -2 Oktaven {\scriptsize[C-optscale-R10]}
+\item μP, SGD: -1, -1, 0, -1, Verschiebung +0 Oktaven {\scriptsize[C-optscale-R10]}
+\item SP, SGD: 0, -1, -1, -2, Verschiebung -2 Oktaven {\scriptsize[C-optscale-R10]}
+\end{itemize}
+
+Das Transferkriterium (|Verschiebung| <= 1 und Spannweite <= 1) ist unter μP erfüllt, unter SP nicht. Grundlage sind 300 Schritte, zwei Seeds und ein Gitter mit Faktor 2 {\scriptsize[C-optscale-R10]}. Das steht im Einklang mit der Literatur zum Hyperparameter-Transfer {\scriptsize[C-lit29]}.
+
+\subsubsection*{4.4 Exakte Stabilität}
+
+\textbf{Proposition 4 (computed_rigorous).} Für f(x) = x^T H x / 2 mit H = [[1, 0], [0, 2]] gilt nach rationaler Arithmetik und Sylvester-Kriterium:
+
+\begin{itemize}
+\item GD ist stabil bei lr = 99/100 {\scriptsize[C-optscale-R18]}.
+\item GD ist instabil bei lr = 101/100 {\scriptsize[C-optscale-R18]}.
+\item GD ist instabil bei lr = 1, also exakt an der Grenze lr*lambda_max/2 = 1 {\scriptsize[C-optscale-R18-RT1]}.
+\item Heavy-Ball mit beta = 9/10 ist stabil bei lr = 3/2 {\scriptsize[C-optscale-R18]}.
+\item Heavy-Ball mit beta = 9/10 ist instabil bei lr = 19/10 {\scriptsize[C-optscale-R18-RT2]}.
+\end{itemize}
+
+Die Bedingung lautet |beta| < 1, H > 0 und H < 2(1+beta)/lr {\scriptsize[C-optscale-R18]}. Der Status „angefochten" resultiert aus der Protokollregel, da die bestandenen Gegenprüfungen mit der Aussage vereinbar sind {\scriptsize[C-redteam-methode]}.
+
+\section{5 Negative Ergebnisse und Red-Team-Befunde}
+
+Die folgenden Gegenprüfungen sind nicht bestanden, ihre Gegenhypothesen also zurückgewiesen:
+
+\begin{itemize}
+\item \textbf{Rechenoptimum:} Die Gegenhypothese (b-1)/a scheitert (Proposition 2). Die Gegenprüfungen zum rf-basierten Rechenoptimum wurden auf der Gradientenfluss-Kurve „compute" bestanden {\scriptsize[C-optscale-R7-RT1, C-optscale-R7-RT2]}. Der rf-basierte Fall selbst bleibt damit ungemessen.
+\item \textbf{Budget C = P*N, rf-Fits:} Die Vorhersage (b-1)/2 wurde nicht bestätigt. Bei (a=2.0, b=2.0) misst der Prüfer 1.0782 und 1.0806 gegen behauptete 0.5 {\scriptsize[C-optscale-R8-RT1]}. Bei (a=2.0, b=3.0) misst er 1.8814 und 1.8742 gegen behauptete 1.0 {\scriptsize[C-optscale-R8-RT2]}.
+\item \textbf{Budget C = P*N, Ridge und Zerlegung:} Die Ridge-Kurve bei (a=1.0, b=4.0) misst 2.5008 und 2.7484 gegen behauptete 2.0 {\scriptsize[C-optscale-R9-RT2]}. Die Vorhersage C^-1,2 scheiterte ebenfalls, der Prüfer maß 1.4990 und 1.4998 gegen behauptete 1.2 {\scriptsize[C-optscale-R9-RT1]}.
+\item \textbf{Ridge-Sättigung:} Bei (a=0.5, b=3.0) misst der Prüfer 1.4644 und 1.8149 gegen behauptete 1.0 {\scriptsize[C-optscale-R12-RT1]}. Bei (a=0.4, b=4.0) misst er 1.2112 und 1.5759 gegen behauptete 0.8 {\scriptsize[C-optscale-R12-RT2]}. Mit Rauschen bei (a=2.0, b=2.0) misst er die Exponenten -0.1666 und -0.2154 gegen behauptete 0.5 {\scriptsize[C-optscale-R11-RT2]}.
+\item \textbf{Rotation, a=1.0:} Die Gegenaussage, Muon schlage Adam rotiert bereits bei a=1.0, hat sich nicht bestätigt {\scriptsize[C-optscale-R5-RT1]}.
+\item \textbf{Rotation, a=2.5 und a=3.0:} Die Gegenaussage, Adam gewinne rotiert noch bei a=2.5, hat sich nicht bestätigt {\scriptsize[C-optscale-R14-RT1]}. Dasselbe gilt für die Gegenaussage bei a=3.0 {\scriptsize[C-optscale-R14-RT2]}.
+\item \textbf{Rotation, Adam gegen Muon:} Auch die Aussage, Adam schlage Muon im rotierten Fall, hat sich nicht bestätigt {\scriptsize[C-optscale-R2-RT2, C-optscale-R3-RT1]}.
+\item \textbf{Shampoo:} Die Gegenprüfungen zu Shampoo gegen Adam sind nicht entscheidbar, da das Lernraten-Optimum am Rand des Prüfer-Gitters 2^-16..2^4 lag {\scriptsize[C-optscale-R2-RT1, C-optscale-R4-RT1]}.
+\item \textbf{Edge of Stability:} Bei kleinerer Lernrate und 4000 Schritten liegen die Werte 0.595/0.607, 0.752/0.763, 0.695/0.699, 0.639/0.645 und 0.886/0.896 höchstens in einem Seed im Intervall [0.85, 1.25] {\scriptsize[C-optscale-R16-RT2, C-optscale-R16]}. Das Kriterium (mindestens 4 von 5) ist nicht erfüllt {\scriptsize[C-optscale-R16-RT2, C-optscale-R16]}.
+\item \textbf{SGD in μP und SP:} Die Gegenhypothesen „SP-SGD transferiert" und „μP-SGD transferiert nicht" scheitern (μP-gegen-SP-Befund) {\scriptsize[C-optscale-R10-RT1, C-optscale-R10-RT2]}.
+\item \textbf{Heavy-tailed Rauschen:} SGD schlägt weder Adam noch Signum {\scriptsize[C-optscale-R13-RT1, C-optscale-R13-RT2]}.
+\end{itemize}
+
+Das Labor selbst zählt 0 negative Ergebnisse {\scriptsize[C-methode]}. Das bezieht sich auf die Buchführung der Hauptaussagen. Die oben genannten Gegenprüfungen sind davon unabhängig.
+
+\section{6 Grenzen und offene Fragen}
+
+\begin{itemize}
+\item \textbf{Asymptotik bei kleinem a:} Die Fits steigen mit dem Fenster (Proposition 3). Der asymptotische RF-Exponent und das Ridge-Verhalten sind nicht bestätigt, ebenso die Sättigung {\scriptsize[C-optscale-R1-RT1, C-optscale-R12-RT1]}.
+\item \textbf{Rechenoptimum bei C = P*N:} Die direkte Minimierung über ein (P,N)-Gitter ist nicht belegt, und die optimale Aufteilung auf P und t wurde nicht gemessen {\scriptsize[C-optscale-R9, C-optscale-R8-RT2]}.
+\item \textbf{Rotation:} Eine graduelle Rotation und die Frage, ob es einen Phasenübergang gibt, wurden nicht untersucht. Die Lage des Vorzeichenwechsels zwischen a=1.0 und a=2.5 ist nicht eingegrenzt {\scriptsize[C-optscale-R5, C-optscale-R14]}.
+\item \textbf{Lernraten-Gitter:} Mehrere Prüfungen mit Optimum am Gitterrand sind nicht entscheidbar, so Shampoo gegen Adam {\scriptsize[C-optscale-R4-RT1]}.
+\item \textbf{Breite des Tests:} μP und SP wurden nur bis Breite 256 mit 300 Schritten und zwei Seeds geprüft {\scriptsize[C-optscale-R10]}. Der Schedule-Vergleich im MLP stützt sich auf einen Einzelvergleich {\scriptsize[C-optscale-R15-RT1]}. Offen sind außerdem Clipping, Edge of Stability bei anderen Lernraten und Trainingsdauern sowie die Wechselwirkung von Momentum- und Batchgrößen-Skalierung {\scriptsize[C-lit11, C-optscale-R16-RT2]}.
+\end{itemize}
+
+\section{Literatur (nur aus Claims)}
+
+\begin{itemize}
+\item Zum spektralen Schrittweitenprofil, das Muon gegenüber Adam und Adam gegenüber SGD erklärt: arXiv:2608.25990v1 {\scriptsize[C-lit3]}.
+\item Zum Muon-Skalierungsgesetz im linearen Assoziativspeicher: arXiv:2602.05725v3 {\scriptsize[C-lit8, C-lit9]}.
+\item Zu Shampoo und SOAP: arXiv:2409.11321v2 {\scriptsize[C-lit12, C-lit13]}.
+\item Zur Stabilitätsschwelle von Adam am Edge of Stability: arXiv:2207.14484v2 {\scriptsize[C-lit16, C-lit17]}.
+\item Zu stabilem Training am Edge of Stability: arXiv:2606.15551v1 {\scriptsize[C-lit14]} und arXiv:2205.09745v3 {\scriptsize[C-lit15]}.
+\item Zu μP und Hyperparameter-Transfer: arXiv:2203.03466v2 {\scriptsize[C-lit29, C-lit30]} und arXiv:2308.01814v2 {\scriptsize[C-lit5, C-lit6]}.
+\item Zu heavy-tailed Rauschen: arXiv:2602.07425v2 {\scriptsize[C-lit18]} und arXiv:2412.19529v4 {\scriptsize[C-lit19, C-lit20]}.
+\end{itemize}
+
+---
+Prüfprotokoll: 70 Claims zitiert, Korrekturrunden [{"runde": 0, "verstoesse": 45}, {"runde": 1, "verstoesse": 10}, {"final_verstoesse_entfernt": 2}], 2 unbelegte Sätze entfernt, verbleibende Verstöße: 0.
+\end{document}

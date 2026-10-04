@@ -9,7 +9,10 @@ OUTLINE = """Stil: kurzes mathematisch-physikalisches Preprint. Abschnitte: 1 Ei
 2 Modell (Annahmen, die die Resultate tragen), 3 Methode: das agentische Labor (Scout, Integrator, Forscher, Code-Prüfer, Red-Team,
 Präregistrierung), 4 Resultate: jedes Resultat als nummerierte Aussage (Theorem/Proposition nur für computed_rigorous oder proved_lean,
 sonst 'Numerischer Befund' bzw. 'Beobachtung') mit Evidenzstufe in Klammern, 5 Negative Ergebnisse und Red-Team-Befunde,
-6 Grenzen und offene Fragen. Literatur nur aus Claims mit Quelle."""
+6 Grenzen und offene Fragen. Literatur nur aus Claims mit Quelle.
+Regeln: Die Evidenzstufe eines Resultats ist genau die Stufe seiner Claim (observed = numerischer Befund, nie Proposition). Eine NICHT bestandene
+Gegenprüfung belegt nur, dass ihre Behauptung nicht gezeigt ist, NICHT das Gegenteil (aus „SGD schlägt Adam ist nicht bestätigt" folgt nicht
+„Adam schlägt SGD"). Die allgemeine Formel hinter mehreren geprüften Einzelpunkten ist eine Interpretation, kein Theorem. Keine Titelzeile ausgeben."""
 
 
 def claims_of(domain):
@@ -23,7 +26,7 @@ def claims_of(domain):
                   "level": "hypothesis", "status": "offen"})
         for j, r in enumerate(c.get("red_team", [])):
             C.append({"claim_id": f"C-{c['id']}-RT{j + 1}", "text": f"Red-Team-Gegenprüfung zu {c['id']}: {r['idee']} -> {'bestanden (Aussage angefochten)' if r['bestanden'] else 'nicht bestanden'}; {r['grund']}",
-                      "level": "computed_rigorous", "status": "bestätigt"})
+                      "level": D.level(r["pruefung"]) if isinstance(r.get("pruefung"), dict) else "observed", "status": "bestätigt"})   # ehrliche Stufe der Gegenprüfung
     for j, w in enumerate(s["widerlegt"]): C.append({"claim_id": f"C-neg{j + 1}", "text": f"Negatives Ergebnis: {w}", "level": "observed", "status": "bestätigt"})
     for j, w in enumerate(s["wissen"][:30]):
         C.append({"claim_id": f"C-lit{j + 1}", "text": f"Literatur: {w['text']} (Zitat: „{w['zitat']}“, {w['quelle']})", "level": "observed", "status": "bestätigt"})
@@ -66,8 +69,10 @@ def main():
     ap.add_argument("--autoren", required=True); ap.add_argument("--affiliation", default=""); a = ap.parse_args()
     D = get_domain(a.domain); C = claims_of(a.domain)
     md, log = write(a.titel, f"Forschungsgebiet: {D.kontext}\n\n{OUTLINE}", C, salt=f"paper-{a.domain}")
+    md = re.sub(r"^\s*# [^\n]*\n+", "", md, count=1) if md.lstrip().startswith("# ") else md     # doppelte Titelzeile vermeiden
     d = f"projects/{a.domain}"; rest = check(md, C)
-    proto = (f"\n\n---\nPrüfprotokoll: {len(set(re.findall(r'C-[\w\-*.]+', md)))} Claims zitiert, Korrekturrunden {json.dumps(log['runden'], ensure_ascii=False)}, "
+    n_cit = len(set(re.findall(r'C-[\w\-*.]+', md)))
+    proto = (f"\n\n---\nPrüfprotokoll: {n_cit} Claims zitiert, Korrekturrunden {json.dumps(log['runden'], ensure_ascii=False)}, "
              f"{len(log['entfernt'])} unbelegte Sätze entfernt, verbleibende Verstöße: {len(rest)}.")
     open(f"{d}/paper.md", "w").write(f"# {a.titel}\n\n{a.autoren}, {a.affiliation}\n\n{md}{proto}\n")
     open(f"{d}/paper.tex", "w").write(to_tex(md + proto, a.titel, a.autoren, a.affiliation))

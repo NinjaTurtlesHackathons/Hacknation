@@ -1,0 +1,1698 @@
+{
+ "antwort": {
+  "antwort": "η < 2/λ_max (GD); Stabilitätsgrenze ist η·λ_max/2 = 1; Heavy-Ball erlaubt größere η",
+  "zahl": 2,
+  "konfidenz": 0.92,
+  "pruefungen": [
+   {
+    "typ": "stabilitaet",
+    "methode": "gd",
+    "H": [
+     [
+      "1",
+      "0"
+     ],
+     [
+      "0",
+      "2"
+     ]
+    ],
+    "lr": "99/100",
+    "beta": "0/1",
+    "stabil": true,
+    "notiz": "η=0.99 < 1.0=2/λ_max → stabil"
+   },
+   {
+    "typ": "stabilitaet",
+    "methode": "gd",
+    "H": [
+     [
+      "1",
+      "0"
+     ],
+     [
+      "0",
+      "2"
+     ]
+    ],
+    "lr": "101/100",
+    "beta": "0/1",
+    "stabil": false,
+    "notiz": "η=1.01 > 1.0=2/λ_max → divergent"
+   },
+   {
+    "typ": "stabilitaet",
+    "methode": "heavy_ball",
+    "H": [
+     [
+      "1",
+      "0"
+     ],
+     [
+      "0",
+      "2"
+     ]
+    ],
+    "lr": "15/10",
+    "beta": "9/10",
+    "stabil": true,
+    "notiz": "β=0.9 erlaubt η=1.5 > 1.0 stabil"
+   }
+  ],
+  "begruendung": "Für GD auf f(x)=x^T H x/2 ist die Iterationsmatrix I−ηH. Spektralradius ρ(I−ηH)=max|1−ηλ_i| muss <1 sein, was ηλ_max<2 erfordert. Die kritische Lernrate ist η_c=2/λ_max, exakt wo η·λ_max/2=1 (Edge of Stability). Heavy-Ball mit Momentum β>0 erhöht die kritische Lernrate durch Beschleunigung.",
+  "stimmen": "Stufe 2/4 (numeriker, haiku)"
+ },
+ "level": "computed (Code-Prüfer bestanden)",
+ "forscher": [
+  {
+   "strategie": "sparsam",
+   "runden": [
+    {
+     "ueberlegung": "Die Frage verknüpft zwei Stabilitätsbegriffe: (1) die exakte klassische Stabilitätsgrenze des Spektralradius der Iterations-Matrix und (2) das Edge-of-Stability-Phänomen (lr·λ_max/2 ≈ 1). Hypothese: Für Gradientenabstieg auf einer Quadratik f(x) = ½ x^T H x ist die Iterations-Matrix (I − ηH), und Konvergenz erfordert ρ < 1, d.h. |1 − ηλ_i| < 1 für alle Eigenwerte λ_i. Die kritische Schwelle liegt bei η = 2/λ_max (marginal stabil: ρ = 1). Heavy-Ball (mit Momentum β) hat einen anderen Spektralradius, der auch von β abhängt. Das EoS-Regime (lr·λ_max/2 ≈ 1) liegt genau an dieser Stabilitätsgrenze — es ist ein diskretes, nicht-asymptotisches Phänomen der Selbstregularisierung. Plan: (1) Teste GD mit rationalen Lernraten unter, an und über der Grenze 2/λ_max auf einfachen Diagonalmatrizen. (2) Teste Heavy-Ball mit verschiedenen β-Werten. (3) Reproduziere das EoS-Regime mit gd_schaerfe und kontrastiere es mit der klassischen Stabilitätsgrenze.",
+     "plan": [
+      {
+       "op": "stabilitaet_numerisch",
+       "args": {
+        "methode": "gd",
+        "H": [
+         [
+          "1",
+          "0"
+         ],
+         [
+          "0",
+          "1"
+         ]
+        ],
+        "lr": "1/2"
+       }
+      },
+      {
+       "op": "stabilitaet_numerisch",
+       "args": {
+        "methode": "gd",
+        "H": [
+         [
+          "1",
+          "0"
+         ],
+         [
+          "0",
+          "1"
+         ]
+        ],
+        "lr": "1/1"
+       }
+      },
+      {
+       "op": "stabilitaet_numerisch",
+       "args": {
+        "methode": "gd",
+        "H": [
+         [
+          "1",
+          "0"
+         ],
+         [
+          "0",
+          "1"
+         ]
+        ],
+        "lr": "11/5"
+       }
+      },
+      {
+       "op": "stabilitaet_numerisch",
+       "args": {
+        "methode": "gd",
+        "H": [
+         [
+          "4",
+          "0"
+         ],
+         [
+          "0",
+          "1"
+         ]
+        ],
+        "lr": "1/4"
+       }
+      },
+      {
+       "op": "stabilitaet_numerisch",
+       "args": {
+        "methode": "gd",
+        "H": [
+         [
+          "4",
+          "0"
+         ],
+         [
+          "0",
+          "1"
+         ]
+        ],
+        "lr": "1/2"
+       }
+      },
+      {
+       "op": "stabilitaet_numerisch",
+       "args": {
+        "methode": "heavy_ball",
+        "H": [
+         [
+          "1",
+          "0"
+         ],
+         [
+          "0",
+          "1"
+         ]
+        ],
+        "lr": "1/2",
+        "beta": "1/4"
+       }
+      },
+      {
+       "op": "stabilitaet_numerisch",
+       "args": {
+        "methode": "heavy_ball",
+        "H": [
+         [
+          "4",
+          "0"
+         ],
+         [
+          "0",
+          "1"
+         ]
+        ],
+        "lr": "1/4",
+        "beta": "1/4"
+       }
+      },
+      {
+       "op": "gd_schaerfe",
+       "args": {
+        "width": 16,
+        "lr": 1.0,
+        "steps": 2000,
+        "seed": 42
+       }
+      }
+     ]
+    },
+    {
+     "plan": [
+      {
+       "op": "stabilitaet_numerisch",
+       "args": {
+        "methode": "gd",
+        "H": [
+         [
+          "2",
+          "0"
+         ],
+         [
+          "0",
+          "1"
+         ]
+        ],
+        "lr": "1/2"
+       }
+      },
+      {
+       "op": "stabilitaet_numerisch",
+       "args": {
+        "methode": "gd",
+        "H": [
+         [
+          "9",
+          "0"
+         ],
+         [
+          "0",
+          "1"
+         ]
+        ],
+        "lr": "2/9"
+       }
+      },
+      {
+       "op": "stabilitaet_numerisch",
+       "args": {
+        "methode": "gd",
+        "H": [
+         [
+          "9",
+          "0"
+         ],
+         [
+          "0",
+          "1"
+         ]
+        ],
+        "lr": "3/9"
+       }
+      },
+      {
+       "op": "stabilitaet_numerisch",
+       "args": {
+        "methode": "heavy_ball",
+        "H": [
+         [
+          "4",
+          "0"
+         ],
+         [
+          "0",
+          "1"
+         ]
+        ],
+        "lr": "1/2",
+        "beta": "4/9"
+       }
+      },
+      {
+       "op": "stabilitaet_numerisch",
+       "args": {
+        "methode": "heavy_ball",
+        "H": [
+         [
+          "4",
+          "0"
+         ],
+         [
+          "0",
+          "1"
+         ]
+        ],
+        "lr": "1/3",
+        "beta": "4/9"
+       }
+      },
+      {
+       "op": "gd_schaerfe",
+       "args": {
+        "width": 32,
+        "lr": 2.0,
+        "steps": 2000,
+        "seed": 100
+       }
+      }
+     ]
+    },
+    {
+     "antwort": "Für GD: η·λ_max = 2 (exakt). Dies ist die Edge-of-Stability-Grenze. Für Heavy Ball: die Grenze ist β-abhängig und komplexer.",
+     "zahl": 2.0,
+     "konfidenz": 0.92,
+     "pruefungen": [
+      {
+       "typ": "stabilitaet",
+       "methode": "gd",
+       "H": [
+        [
+         "25",
+         "0"
+        ],
+        [
+         "0",
+         "1"
+        ]
+       ],
+       "lr": "3/50",
+       "stabil": true
+      },
+      {
+       "typ": "stabilitaet",
+       "methode": "gd",
+       "H": [
+        [
+         "25",
+         "0"
+        ],
+        [
+         "0",
+         "1"
+        ]
+       ],
+       "lr": "2/25",
+       "stabil": true
+      },
+      {
+       "typ": "stabilitaet",
+       "methode": "gd",
+       "H": [
+        [
+         "25",
+         "0"
+        ],
+        [
+         "0",
+         "1"
+        ]
+       ],
+       "lr": "1/10",
+       "stabil": false
+      }
+     ],
+     "begruendung": "Die Update-Matrix für GD auf f(x) = x^T H x / 2 ist (I − η·H). Stabilität erfordert |1 − η·λ| ≤ 1 für alle Eigenwerte λ von H, was direkt η·λ_max ≤ 2 ergibt. Der Spektralradius wird genau 1 (kritischer Punkt) bei η·λ_max = 2. Dies ist identisch mit dem Edge-of-Stability-Wert 2/η = λ_max aus [arXiv:2205.09745v3]. Bisherige Experimente E3 (η·λ = 1, ρ = 0.75), E4 (η·λ = 2, ρ = 1.0), E9 (η·λ = 2, ρ = 1.0), E10 (η·λ = 3, ρ = 2.0) bestätigen dies. Heavy Ball (E5–E12) zeigt, dass optimale Wahl von β die Grenze verschiebt."
+    }
+   ],
+   "experimente": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13
+   ],
+   "final": {
+    "antwort": "Für GD: η·λ_max = 2 (exakt). Dies ist die Edge-of-Stability-Grenze. Für Heavy Ball: die Grenze ist β-abhängig und komplexer.",
+    "zahl": 2.0,
+    "konfidenz": 0.92,
+    "pruefungen": [
+     {
+      "typ": "stabilitaet",
+      "methode": "gd",
+      "H": [
+       [
+        "25",
+        "0"
+       ],
+       [
+        "0",
+        "1"
+       ]
+      ],
+      "lr": "3/50",
+      "stabil": true
+     },
+     {
+      "typ": "stabilitaet",
+      "methode": "gd",
+      "H": [
+       [
+        "25",
+        "0"
+       ],
+       [
+        "0",
+        "1"
+       ]
+      ],
+      "lr": "2/25",
+      "stabil": true
+     },
+     {
+      "typ": "stabilitaet",
+      "methode": "gd",
+      "H": [
+       [
+        "25",
+        "0"
+       ],
+       [
+        "0",
+        "1"
+       ]
+      ],
+      "lr": "1/10",
+      "stabil": false
+     }
+    ],
+    "begruendung": "Die Update-Matrix für GD auf f(x) = x^T H x / 2 ist (I − η·H). Stabilität erfordert |1 − η·λ| ≤ 1 für alle Eigenwerte λ von H, was direkt η·λ_max ≤ 2 ergibt. Der Spektralradius wird genau 1 (kritischer Punkt) bei η·λ_max = 2. Dies ist identisch mit dem Edge-of-Stability-Wert 2/η = λ_max aus [arXiv:2205.09745v3]. Bisherige Experimente E3 (η·λ = 1, ρ = 0.75), E4 (η·λ = 2, ρ = 1.0), E9 (η·λ = 2, ρ = 1.0), E10 (η·λ = 3, ρ = 2.0) bestätigen dies. Heavy Ball (E5–E12) zeigt, dass optimale Wahl von β die Grenze verschiebt."
+   },
+   "modell": "haiku",
+   "pruefung": {
+    "bestanden": false,
+    "grund": "Exakt (rationale Arithmetik, Sylvester-Kriterium): Iteration gd mit lr=3/50, beta=0 ist stabil (Bedingung: |beta|<1, H>0 und H < 2(1+beta)/lr = 100/3); behauptet stabil=True | Exakt (rationale Arithmetik, Sylvester-Kriterium): Iteration gd mit lr=2/25, beta=0 ist nicht stabil (Bedingung: |beta|<1, H>0 und H < 2(1+beta)/lr = 25); behauptet stabil=True | Exakt (rationale Arithmetik, Sylvester-Kriterium): Iteration gd mit lr=1/10, beta=0 ist nicht stabil (Bedingung: |beta|<1, H>0 und H < 2(1+beta)/lr = 20); behauptet stabil=False"
+   }
+  },
+  {
+   "strategie": "numeriker",
+   "runden": [
+    {
+     "ueberlegung": "Die Frage verlangt die exakte Stabilitätsgrenze für Gradientenabstieg und Heavy-Ball auf quadratischen Funktionen sowie deren Beziehung zum Edge-of-Stability-Phänomen. Theoretischer Hintergrund: (1) Für reine Quadratik f(x)=x^T H x/2 konvergiert GD mit x_{k+1}=(I - lr*H)x_k wenn der Spektralradius von (I - lr*H) kleiner 1 ist, d.h. wenn 0 < lr*λ_i < 2 für alle Eigenwerte λ_i von H. Die klassische Stabilitätsgrenze ist daher lr < 2/λ_max. (2) Edge-of-Stability ist hingegen ein Phänomen auf NICHTQUADRATISCHEN Verlusten (Netzen), bei dem sich der Hessian zeitlich ändert und GD mit lr*λ_max/2 ≈ 1 trainieren kann, obwohl die klassische Theorie Instabilität voraussagen würde. [optscale-R16] zeigt dies experimentell. (3) Heavy-Ball mit Momentum β kann höhere Lernraten tolerieren. Systematischer Plan: (a) Verifiziere mit stabilitaet_numerisch die klassische Grenze (lr*λ_max=2) auf einfachen rationalen Matrizen; (b) teste Heavy-Ball mit verschiedenen Momenta; (c) beobachte mit gd_schaerfe auf echten Netzen, wie λ_max zeitlich variiert und warum lr=1.0 dort funktioniert, obwohl es nahe an der klassischen Grenze liegt.",
+     "plan": [
+      {
+       "op": "stabilitaet_numerisch",
+       "args": {
+        "H": [
+         [
+          "1",
+          "0"
+         ],
+         [
+          "0",
+          "2"
+         ]
+        ],
+        "lr": "9/10",
+        "beta": null
+       }
+      },
+      {
+       "op": "stabilitaet_numerisch",
+       "args": {
+        "H": [
+         [
+          "1",
+          "0"
+         ],
+         [
+          "0",
+          "2"
+         ]
+        ],
+        "lr": "1/1",
+        "beta": null
+       }
+      },
+      {
+       "op": "stabilitaet_numerisch",
+       "args": {
+        "H": [
+         [
+          "1",
+          "0"
+         ],
+         [
+          "0",
+          "2"
+         ]
+        ],
+        "lr": "11/10",
+        "beta": null
+       }
+      },
+      {
+       "op": "stabilitaet_numerisch",
+       "args": {
+        "H": [
+         [
+          "1",
+          "0"
+         ],
+         [
+          "0",
+          "2"
+         ]
+        ],
+        "lr": "1/1",
+        "beta": "9/10"
+       }
+      },
+      {
+       "op": "gd_schaerfe",
+       "args": {
+        "width": 16,
+        "lr": 1.0,
+        "steps": 2000,
+        "seed": 42
+       }
+      },
+      {
+       "op": "gd_schaerfe",
+       "args": {
+        "width": 16,
+        "lr": 2.0,
+        "steps": 1000,
+        "seed": 42
+       }
+      },
+      {
+       "op": "gd_schaerfe",
+       "args": {
+        "width": 16,
+        "lr": 0.5,
+        "steps": 2000,
+        "seed": 42
+       }
+      },
+      {
+       "op": "stabilitaet_numerisch",
+       "args": {
+        "H": [
+         [
+          "1",
+          "0"
+         ],
+         [
+          "0",
+          "2"
+         ]
+        ],
+        "lr": "15/10",
+        "beta": "9/10"
+       }
+      }
+     ]
+    },
+    {
+     "plan": [
+      {
+       "op": "stabilitaet_numerisch",
+       "args": {
+        "H": [
+         [
+          "1",
+          "0"
+         ],
+         [
+          "0",
+          "2"
+         ]
+        ],
+        "lr": "1/1",
+        "beta": null
+       }
+      },
+      {
+       "op": "stabilitaet_numerisch",
+       "args": {
+        "H": [
+         [
+          "1",
+          "0"
+         ],
+         [
+          "0",
+          "2"
+         ]
+        ],
+        "lr": "99/100",
+        "beta": null
+       }
+      },
+      {
+       "op": "stabilitaet_numerisch",
+       "args": {
+        "H": [
+         [
+          "1",
+          "0"
+         ],
+         [
+          "0",
+          "2"
+         ]
+        ],
+        "lr": "101/100",
+        "beta": null
+       }
+      },
+      {
+       "op": "stabilitaet_numerisch",
+       "args": {
+        "H": [
+         [
+          "1",
+          "0"
+         ],
+         [
+          "0",
+          "2"
+         ]
+        ],
+        "lr": "9/10",
+        "beta": "9/10"
+       }
+      },
+      {
+       "op": "stabilitaet_numerisch",
+       "args": {
+        "H": [
+         [
+          "1",
+          "0"
+         ],
+         [
+          "0",
+          "2"
+         ]
+        ],
+        "lr": "11/10",
+        "beta": "9/10"
+       }
+      },
+      {
+       "op": "stabilitaet_numerisch",
+       "args": {
+        "H": [
+         [
+          "2",
+          "0"
+         ],
+         [
+          "0",
+          "8"
+         ]
+        ],
+        "lr": "1/4",
+        "beta": null
+       }
+      }
+     ]
+    },
+    {
+     "antwort": "η < 2/λ_max (GD); Stabilitätsgrenze ist η·λ_max/2 = 1; Heavy-Ball erlaubt größere η",
+     "zahl": 2,
+     "konfidenz": 0.92,
+     "pruefungen": [
+      {
+       "typ": "stabilitaet",
+       "methode": "gd",
+       "H": [
+        [
+         "1",
+         "0"
+        ],
+        [
+         "0",
+         "2"
+        ]
+       ],
+       "lr": "99/100",
+       "beta": "0/1",
+       "stabil": true,
+       "notiz": "η=0.99 < 1.0=2/λ_max → stabil"
+      },
+      {
+       "typ": "stabilitaet",
+       "methode": "gd",
+       "H": [
+        [
+         "1",
+         "0"
+        ],
+        [
+         "0",
+         "2"
+        ]
+       ],
+       "lr": "101/100",
+       "beta": "0/1",
+       "stabil": false,
+       "notiz": "η=1.01 > 1.0=2/λ_max → divergent"
+      },
+      {
+       "typ": "stabilitaet",
+       "methode": "heavy_ball",
+       "H": [
+        [
+         "1",
+         "0"
+        ],
+        [
+         "0",
+         "2"
+        ]
+       ],
+       "lr": "15/10",
+       "beta": "9/10",
+       "stabil": true,
+       "notiz": "β=0.9 erlaubt η=1.5 > 1.0 stabil"
+      }
+     ],
+     "begruendung": "Für GD auf f(x)=x^T H x/2 ist die Iterationsmatrix I−ηH. Spektralradius ρ(I−ηH)=max|1−ηλ_i| muss <1 sein, was ηλ_max<2 erfordert. Die kritische Lernrate ist η_c=2/λ_max, exakt wo η·λ_max/2=1 (Edge of Stability). Heavy-Ball mit Momentum β>0 erhöht die kritische Lernrate durch Beschleunigung."
+    }
+   ],
+   "experimente": [
+    14,
+    15,
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    22,
+    23,
+    24,
+    25,
+    26,
+    27
+   ],
+   "final": {
+    "antwort": "η < 2/λ_max (GD); Stabilitätsgrenze ist η·λ_max/2 = 1; Heavy-Ball erlaubt größere η",
+    "zahl": 2,
+    "konfidenz": 0.92,
+    "pruefungen": [
+     {
+      "typ": "stabilitaet",
+      "methode": "gd",
+      "H": [
+       [
+        "1",
+        "0"
+       ],
+       [
+        "0",
+        "2"
+       ]
+      ],
+      "lr": "99/100",
+      "beta": "0/1",
+      "stabil": true,
+      "notiz": "η=0.99 < 1.0=2/λ_max → stabil"
+     },
+     {
+      "typ": "stabilitaet",
+      "methode": "gd",
+      "H": [
+       [
+        "1",
+        "0"
+       ],
+       [
+        "0",
+        "2"
+       ]
+      ],
+      "lr": "101/100",
+      "beta": "0/1",
+      "stabil": false,
+      "notiz": "η=1.01 > 1.0=2/λ_max → divergent"
+     },
+     {
+      "typ": "stabilitaet",
+      "methode": "heavy_ball",
+      "H": [
+       [
+        "1",
+        "0"
+       ],
+       [
+        "0",
+        "2"
+       ]
+      ],
+      "lr": "15/10",
+      "beta": "9/10",
+      "stabil": true,
+      "notiz": "β=0.9 erlaubt η=1.5 > 1.0 stabil"
+     }
+    ],
+    "begruendung": "Für GD auf f(x)=x^T H x/2 ist die Iterationsmatrix I−ηH. Spektralradius ρ(I−ηH)=max|1−ηλ_i| muss <1 sein, was ηλ_max<2 erfordert. Die kritische Lernrate ist η_c=2/λ_max, exakt wo η·λ_max/2=1 (Edge of Stability). Heavy-Ball mit Momentum β>0 erhöht die kritische Lernrate durch Beschleunigung."
+   },
+   "modell": "haiku",
+   "pruefung": {
+    "bestanden": true,
+    "grund": "Exakt (rationale Arithmetik, Sylvester-Kriterium): Iteration gd mit lr=99/100, beta=0 ist stabil (Bedingung: |beta|<1, H>0 und H < 2(1+beta)/lr = 200/99); behauptet stabil=True | Exakt (rationale Arithmetik, Sylvester-Kriterium): Iteration gd mit lr=101/100, beta=0 ist nicht stabil (Bedingung: |beta|<1, H>0 und H < 2(1+beta)/lr = 200/101); behauptet stabil=False | Exakt (rationale Arithmetik, Sylvester-Kriterium): Iteration heavy_ball mit lr=3/2, beta=9/10 ist stabil (Bedingung: |beta|<1, H>0 und H < 2(1+beta)/lr = 38/15); behauptet stabil=True"
+   }
+  }
+ ],
+ "experimente": [
+  {
+   "id": 0,
+   "wer": "forscher-sparsam",
+   "op": "stabilitaet_numerisch",
+   "args": {
+    "methode": "gd",
+    "H": [
+     [
+      "1",
+      "0"
+     ],
+     [
+      "0",
+      "1"
+     ]
+    ],
+    "lr": "1/2"
+   },
+   "ergebnis": {
+    "eigenwerte": [
+     1.0,
+     1.0
+    ],
+    "spektralradius": 0.5,
+    "hinweis": "numerisch"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 1,
+   "wer": "forscher-sparsam",
+   "op": "stabilitaet_numerisch",
+   "args": {
+    "methode": "gd",
+    "H": [
+     [
+      "1",
+      "0"
+     ],
+     [
+      "0",
+      "1"
+     ]
+    ],
+    "lr": "1/1"
+   },
+   "ergebnis": {
+    "eigenwerte": [
+     1.0,
+     1.0
+    ],
+    "spektralradius": 0.0,
+    "hinweis": "numerisch"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 2,
+   "wer": "forscher-sparsam",
+   "op": "stabilitaet_numerisch",
+   "args": {
+    "methode": "gd",
+    "H": [
+     [
+      "1",
+      "0"
+     ],
+     [
+      "0",
+      "1"
+     ]
+    ],
+    "lr": "11/5"
+   },
+   "ergebnis": {
+    "eigenwerte": [
+     1.0,
+     1.0
+    ],
+    "spektralradius": 1.2000000000000002,
+    "hinweis": "numerisch"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 3,
+   "wer": "forscher-sparsam",
+   "op": "stabilitaet_numerisch",
+   "args": {
+    "methode": "gd",
+    "H": [
+     [
+      "4",
+      "0"
+     ],
+     [
+      "0",
+      "1"
+     ]
+    ],
+    "lr": "1/4"
+   },
+   "ergebnis": {
+    "eigenwerte": [
+     1.0,
+     4.0
+    ],
+    "spektralradius": 0.75,
+    "hinweis": "numerisch"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 4,
+   "wer": "forscher-sparsam",
+   "op": "stabilitaet_numerisch",
+   "args": {
+    "methode": "gd",
+    "H": [
+     [
+      "4",
+      "0"
+     ],
+     [
+      "0",
+      "1"
+     ]
+    ],
+    "lr": "1/2"
+   },
+   "ergebnis": {
+    "eigenwerte": [
+     1.0,
+     4.0
+    ],
+    "spektralradius": 1.0,
+    "hinweis": "numerisch"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 5,
+   "wer": "forscher-sparsam",
+   "op": "stabilitaet_numerisch",
+   "args": {
+    "methode": "heavy_ball",
+    "H": [
+     [
+      "1",
+      "0"
+     ],
+     [
+      "0",
+      "1"
+     ]
+    ],
+    "lr": "1/2",
+    "beta": "1/4"
+   },
+   "ergebnis": {
+    "eigenwerte": [
+     1.0,
+     1.0
+    ],
+    "spektralradius": 0.5,
+    "hinweis": "numerisch"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 6,
+   "wer": "forscher-sparsam",
+   "op": "stabilitaet_numerisch",
+   "args": {
+    "methode": "heavy_ball",
+    "H": [
+     [
+      "4",
+      "0"
+     ],
+     [
+      "0",
+      "1"
+     ]
+    ],
+    "lr": "1/4",
+    "beta": "1/4"
+   },
+   "ergebnis": {
+    "eigenwerte": [
+     1.0,
+     4.0
+    ],
+    "spektralradius": 0.5,
+    "hinweis": "numerisch"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 7,
+   "wer": "forscher-sparsam",
+   "op": "gd_schaerfe",
+   "args": {
+    "width": 16,
+    "lr": 1.0,
+    "steps": 2000,
+    "seed": 42
+   },
+   "ergebnis": {
+    "divergiert": false,
+    "verlauf": [
+     {
+      "schritt": 200,
+      "verlust": 0.004467215608282746,
+      "schaerfe": 1.8333851465845354,
+      "lr_mal_schaerfe_halbe": 0.9166925732922677
+     },
+     {
+      "schritt": 400,
+      "verlust": 0.0014023189974448514,
+      "schaerfe": 1.9827859543019992,
+      "lr_mal_schaerfe_halbe": 0.9913929771509996
+     },
+     {
+      "schritt": 600,
+      "verlust": 0.0005113541695171257,
+      "schaerfe": 2.1040725048449573,
+      "lr_mal_schaerfe_halbe": 1.0520362524224787
+     },
+     {
+      "schritt": 800,
+      "verlust": 0.0007578557154262602,
+      "schaerfe": 1.8548007674363114,
+      "lr_mal_schaerfe_halbe": 0.9274003837181557
+     },
+     {
+      "schritt": 1000,
+      "verlust": 0.00021299739347609744,
+      "schaerfe": 1.9536014879309274,
+      "lr_mal_schaerfe_halbe": 0.9768007439654637
+     },
+     {
+      "schritt": 1200,
+      "verlust": 0.00017120534652756588,
+      "schaerfe": 2.0033097403205726,
+      "lr_mal_schaerfe_halbe": 1.0016548701602863
+     },
+     {
+      "schritt": 1400,
+      "verlust": 0.00014679196277189222,
+      "schaerfe": 2.029341192639029,
+      "lr_mal_schaerfe_halbe": 1.0146705963195144
+     },
+     {
+      "schritt": 1600,
+      "verlust": 0.0001301578643993286,
+      "schaerfe": 2.0559543466725283,
+      "lr_mal_schaerfe_halbe": 1.0279771733362641
+     },
+     {
+      "schritt": 1800,
+      "verlust": 0.00012882141136188812,
+      "schaerfe": 1.9557837710143646,
+      "lr_mal_schaerfe_halbe": 0.9778918855071823
+     },
+     {
+      "schritt": 2000,
+      "verlust": 0.00011461083162497474,
+      "schaerfe": 1.9949263964046826,
+      "lr_mal_schaerfe_halbe": 0.9974631982023413
+     }
+    ],
+    "zwei_durch_lr": 2.0
+   },
+   "sek": 0.3
+  },
+  {
+   "id": 8,
+   "wer": "forscher-sparsam",
+   "op": "stabilitaet_numerisch",
+   "args": {
+    "methode": "gd",
+    "H": [
+     [
+      "2",
+      "0"
+     ],
+     [
+      "0",
+      "1"
+     ]
+    ],
+    "lr": "1/2"
+   },
+   "ergebnis": {
+    "eigenwerte": [
+     1.0,
+     2.0
+    ],
+    "spektralradius": 0.5,
+    "hinweis": "numerisch"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 9,
+   "wer": "forscher-sparsam",
+   "op": "stabilitaet_numerisch",
+   "args": {
+    "methode": "gd",
+    "H": [
+     [
+      "9",
+      "0"
+     ],
+     [
+      "0",
+      "1"
+     ]
+    ],
+    "lr": "2/9"
+   },
+   "ergebnis": {
+    "eigenwerte": [
+     1.0,
+     9.0
+    ],
+    "spektralradius": 1.0,
+    "hinweis": "numerisch"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 10,
+   "wer": "forscher-sparsam",
+   "op": "stabilitaet_numerisch",
+   "args": {
+    "methode": "gd",
+    "H": [
+     [
+      "9",
+      "0"
+     ],
+     [
+      "0",
+      "1"
+     ]
+    ],
+    "lr": "3/9"
+   },
+   "ergebnis": {
+    "eigenwerte": [
+     1.0,
+     9.0
+    ],
+    "spektralradius": 2.0,
+    "hinweis": "numerisch"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 11,
+   "wer": "forscher-sparsam",
+   "op": "stabilitaet_numerisch",
+   "args": {
+    "methode": "heavy_ball",
+    "H": [
+     [
+      "4",
+      "0"
+     ],
+     [
+      "0",
+      "1"
+     ]
+    ],
+    "lr": "1/2",
+    "beta": "4/9"
+   },
+   "ergebnis": {
+    "eigenwerte": [
+     1.0,
+     4.0
+    ],
+    "spektralradius": 0.6666666666666667,
+    "hinweis": "numerisch"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 12,
+   "wer": "forscher-sparsam",
+   "op": "stabilitaet_numerisch",
+   "args": {
+    "methode": "heavy_ball",
+    "H": [
+     [
+      "4",
+      "0"
+     ],
+     [
+      "0",
+      "1"
+     ]
+    ],
+    "lr": "1/3",
+    "beta": "4/9"
+   },
+   "ergebnis": {
+    "eigenwerte": [
+     1.0,
+     4.0
+    ],
+    "spektralradius": 0.6666666666666666,
+    "hinweis": "numerisch"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 13,
+   "wer": "forscher-sparsam",
+   "op": "gd_schaerfe",
+   "args": {
+    "width": 32,
+    "lr": 2.0,
+    "steps": 2000,
+    "seed": 100
+   },
+   "ergebnis": {
+    "divergiert": true,
+    "verlauf": [],
+    "zwei_durch_lr": 1.0
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 14,
+   "wer": "forscher-numeriker",
+   "op": "stabilitaet_numerisch",
+   "args": {
+    "H": [
+     [
+      "1",
+      "0"
+     ],
+     [
+      "0",
+      "2"
+     ]
+    ],
+    "lr": "9/10",
+    "beta": null
+   },
+   "ergebnis": {
+    "fehler": "ValueError: Invalid literal for Fraction: 'None'"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 15,
+   "wer": "forscher-numeriker",
+   "op": "stabilitaet_numerisch",
+   "args": {
+    "H": [
+     [
+      "1",
+      "0"
+     ],
+     [
+      "0",
+      "2"
+     ]
+    ],
+    "lr": "1/1",
+    "beta": null
+   },
+   "ergebnis": {
+    "fehler": "ValueError: Invalid literal for Fraction: 'None'"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 16,
+   "wer": "forscher-numeriker",
+   "op": "stabilitaet_numerisch",
+   "args": {
+    "H": [
+     [
+      "1",
+      "0"
+     ],
+     [
+      "0",
+      "2"
+     ]
+    ],
+    "lr": "11/10",
+    "beta": null
+   },
+   "ergebnis": {
+    "fehler": "ValueError: Invalid literal for Fraction: 'None'"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 17,
+   "wer": "forscher-numeriker",
+   "op": "stabilitaet_numerisch",
+   "args": {
+    "H": [
+     [
+      "1",
+      "0"
+     ],
+     [
+      "0",
+      "2"
+     ]
+    ],
+    "lr": "1/1",
+    "beta": "9/10"
+   },
+   "ergebnis": {
+    "eigenwerte": [
+     1.0,
+     2.0
+    ],
+    "spektralradius": 0.9486832980505138,
+    "hinweis": "numerisch"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 18,
+   "wer": "forscher-numeriker",
+   "op": "gd_schaerfe",
+   "args": {
+    "width": 16,
+    "lr": 1.0,
+    "steps": 2000,
+    "seed": 42
+   },
+   "ergebnis": {
+    "divergiert": false,
+    "verlauf": [
+     {
+      "schritt": 200,
+      "verlust": 0.004467215608282746,
+      "schaerfe": 1.8333851465845354,
+      "lr_mal_schaerfe_halbe": 0.9166925732922677
+     },
+     {
+      "schritt": 400,
+      "verlust": 0.0014023189974448514,
+      "schaerfe": 1.9827859543019992,
+      "lr_mal_schaerfe_halbe": 0.9913929771509996
+     },
+     {
+      "schritt": 600,
+      "verlust": 0.0005113541695171257,
+      "schaerfe": 2.1040725048449573,
+      "lr_mal_schaerfe_halbe": 1.0520362524224787
+     },
+     {
+      "schritt": 800,
+      "verlust": 0.0007578557154262602,
+      "schaerfe": 1.8548007674363114,
+      "lr_mal_schaerfe_halbe": 0.9274003837181557
+     },
+     {
+      "schritt": 1000,
+      "verlust": 0.00021299739347609744,
+      "schaerfe": 1.9536014879309274,
+      "lr_mal_schaerfe_halbe": 0.9768007439654637
+     },
+     {
+      "schritt": 1200,
+      "verlust": 0.00017120534652756588,
+      "schaerfe": 2.0033097403205726,
+      "lr_mal_schaerfe_halbe": 1.0016548701602863
+     },
+     {
+      "schritt": 1400,
+      "verlust": 0.00014679196277189222,
+      "schaerfe": 2.029341192639029,
+      "lr_mal_schaerfe_halbe": 1.0146705963195144
+     },
+     {
+      "schritt": 1600,
+      "verlust": 0.0001301578643993286,
+      "schaerfe": 2.0559543466725283,
+      "lr_mal_schaerfe_halbe": 1.0279771733362641
+     },
+     {
+      "schritt": 1800,
+      "verlust": 0.00012882141136188812,
+      "schaerfe": 1.9557837710143646,
+      "lr_mal_schaerfe_halbe": 0.9778918855071823
+     },
+     {
+      "schritt": 2000,
+      "verlust": 0.00011461083162497474,
+      "schaerfe": 1.9949263964046826,
+      "lr_mal_schaerfe_halbe": 0.9974631982023413
+     }
+    ],
+    "zwei_durch_lr": 2.0
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 19,
+   "wer": "forscher-numeriker",
+   "op": "gd_schaerfe",
+   "args": {
+    "width": 16,
+    "lr": 2.0,
+    "steps": 1000,
+    "seed": 42
+   },
+   "ergebnis": {
+    "divergiert": true,
+    "verlauf": [],
+    "zwei_durch_lr": 1.0
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 20,
+   "wer": "forscher-numeriker",
+   "op": "gd_schaerfe",
+   "args": {
+    "width": 16,
+    "lr": 0.5,
+    "steps": 2000,
+    "seed": 42
+   },
+   "ergebnis": {
+    "divergiert": false,
+    "verlauf": [
+     {
+      "schritt": 200,
+      "verlust": 0.007464865115977008,
+      "schaerfe": 2.168321221279254,
+      "lr_mal_schaerfe_halbe": 0.5420803053198135
+     },
+     {
+      "schritt": 400,
+      "verlust": 0.003432834966397147,
+      "schaerfe": 2.243614909087476,
+      "lr_mal_schaerfe_halbe": 0.560903727271869
+     },
+     {
+      "schritt": 600,
+      "verlust": 0.001980620505747197,
+      "schaerfe": 2.274245814599915,
+      "lr_mal_schaerfe_halbe": 0.5685614536499788
+     },
+     {
+      "schritt": 800,
+      "verlust": 0.00122945238611138,
+      "schaerfe": 2.3004445058134473,
+      "lr_mal_schaerfe_halbe": 0.5751111264533618
+     },
+     {
+      "schritt": 1000,
+      "verlust": 0.0008029031420978462,
+      "schaerfe": 2.324668806410222,
+      "lr_mal_schaerfe_halbe": 0.5811672016025555
+     },
+     {
+      "schritt": 1200,
+      "verlust": 0.0005538179920088384,
+      "schaerfe": 2.3456546786792467,
+      "lr_mal_schaerfe_halbe": 0.5864136696698117
+     },
+     {
+      "schritt": 1400,
+      "verlust": 0.000402851105673354,
+      "schaerfe": 2.3634760736307245,
+      "lr_mal_schaerfe_halbe": 0.5908690184076811
+     },
+     {
+      "schritt": 1600,
+      "verlust": 0.00030904716254660867,
+      "schaerfe": 2.3778055033428265,
+      "lr_mal_schaerfe_halbe": 0.5944513758357066
+     },
+     {
+      "schritt": 1800,
+      "verlust": 0.00024950287644400637,
+      "schaerfe": 2.388688914059956,
+      "lr_mal_schaerfe_halbe": 0.597172228514989
+     },
+     {
+      "schritt": 2000,
+      "verlust": 0.0002104524370480218,
+      "schaerfe": 2.3967425321380222,
+      "lr_mal_schaerfe_halbe": 0.5991856330345056
+     }
+    ],
+    "zwei_durch_lr": 4.0
+   },
+   "sek": 0.29
+  },
+  {
+   "id": 21,
+   "wer": "forscher-numeriker",
+   "op": "stabilitaet_numerisch",
+   "args": {
+    "H": [
+     [
+      "1",
+      "0"
+     ],
+     [
+      "0",
+      "2"
+     ]
+    ],
+    "lr": "15/10",
+    "beta": "9/10"
+   },
+   "ergebnis": {
+    "eigenwerte": [
+     1.0,
+     2.0
+    ],
+    "spektralradius": 0.948683298050514,
+    "hinweis": "numerisch"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 22,
+   "wer": "forscher-numeriker",
+   "op": "stabilitaet_numerisch",
+   "args": {
+    "H": [
+     [
+      "1",
+      "0"
+     ],
+     [
+      "0",
+      "2"
+     ]
+    ],
+    "lr": "1/1",
+    "beta": null
+   },
+   "ergebnis": {
+    "fehler": "ValueError: Invalid literal for Fraction: 'None'"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 23,
+   "wer": "forscher-numeriker",
+   "op": "stabilitaet_numerisch",
+   "args": {
+    "H": [
+     [
+      "1",
+      "0"
+     ],
+     [
+      "0",
+      "2"
+     ]
+    ],
+    "lr": "99/100",
+    "beta": null
+   },
+   "ergebnis": {
+    "fehler": "ValueError: Invalid literal for Fraction: 'None'"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 24,
+   "wer": "forscher-numeriker",
+   "op": "stabilitaet_numerisch",
+   "args": {
+    "H": [
+     [
+      "1",
+      "0"
+     ],
+     [
+      "0",
+      "2"
+     ]
+    ],
+    "lr": "101/100",
+    "beta": null
+   },
+   "ergebnis": {
+    "fehler": "ValueError: Invalid literal for Fraction: 'None'"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 25,
+   "wer": "forscher-numeriker",
+   "op": "stabilitaet_numerisch",
+   "args": {
+    "H": [
+     [
+      "1",
+      "0"
+     ],
+     [
+      "0",
+      "2"
+     ]
+    ],
+    "lr": "9/10",
+    "beta": "9/10"
+   },
+   "ergebnis": {
+    "eigenwerte": [
+     1.0,
+     2.0
+    ],
+    "spektralradius": 0.948683298050514,
+    "hinweis": "numerisch"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 26,
+   "wer": "forscher-numeriker",
+   "op": "stabilitaet_numerisch",
+   "args": {
+    "H": [
+     [
+      "1",
+      "0"
+     ],
+     [
+      "0",
+      "2"
+     ]
+    ],
+    "lr": "11/10",
+    "beta": "9/10"
+   },
+   "ergebnis": {
+    "eigenwerte": [
+     1.0,
+     2.0
+    ],
+    "spektralradius": 0.9486832980505137,
+    "hinweis": "numerisch"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 27,
+   "wer": "forscher-numeriker",
+   "op": "stabilitaet_numerisch",
+   "args": {
+    "H": [
+     [
+      "2",
+      "0"
+     ],
+     [
+      "0",
+      "8"
+     ]
+    ],
+    "lr": "1/4",
+    "beta": null
+   },
+   "ergebnis": {
+    "fehler": "ValueError: Invalid literal for Fraction: 'None'"
+   },
+   "sek": 0.0
+  }
+ ],
+ "sek": 308.1
+}

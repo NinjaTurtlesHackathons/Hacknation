@@ -696,7 +696,7 @@
    "neuheit": 0.2,
    "machbarkeit": 1.0,
    "id": "F9",
-   "status": "offen"
+   "status": "beantwortet"
   },
   {
    "frage": "Gilt im Regime b-1 < a der Exponent b-1 für RF (über P) und Ridge (über N) bei mehreren (a,b)-Paaren, z.B. (1,2), (1.5,2.5), (2,2.5), (2,3)? Wir messen beide Kurven mit höherer Auflösung (P bis 512, N bis 1024, mehrere Seeds) in zwei Fenstern und vergleichen mit dem Abschneide-Exponenten b-1, und prüfen einzelne Fälle mit dem Typ 'exponent'.",
@@ -1003,6 +1003,24 @@
    "id": "F43",
    "status": "zurückgestellt",
    "aus_runde": 17
+  },
+  {
+   "frage": "Wie groß ist die exakte Heavy-Ball-Stabilitätsgrenze für η bei festem β auf einer Quadratik mit λ_max? Gilt η·λ_max < 2(1+β), und wo kippt die Iteration an dieser Grenze (Prüfung mit rationalen H, lr knapp unter und knapp über 2(1+β)/λ_max für β = 0, 1/2, 9/10)?",
+   "begruendung": "Das letzte Ergebnis zeigt nur, dass Heavy-Ball bei β=0,9 und η=1,5 stabil bleibt. Die Schwelle η < 2(1+β)/λ_max ist dagegen eine scharfe, exakt prüfbare Vorhersage. Sie quantifiziert 'größere η' und erlaubt eine Gegenprobe knapp unter und knapp über der Grenze. Der Test schließt außerdem β=0 als Spezialfall ein, der GD reproduzieren muss.",
+   "neuheit": 0.5,
+   "machbarkeit": 0.95,
+   "id": "F44",
+   "status": "offen",
+   "aus_runde": 18
+  },
+  {
+   "frage": "Verschiebt sich die Edge-of-Stability-Kenngröße lr*lambda_max/2 mit dem Regime? Bei Voll-Batch-GD auf dem tanh-Netz (Breite 16) liegt sie bei lr=1,0 nahe 1. Wie ist es bei deutlich kleinerem lr (z. B. 0,05) mit gleicher Schrittzahl: bleibt sie klar unter 1 (Regime 'stabil'), oder erreicht GD trotzdem die Grenze 2/lr, und wo liegt der Übergang?",
+   "begruendung": "Die exakte Quadratik-Grenze η·λ_max/2 = 1 ist der Anker für EoS. Ob das nicht-konvexe Netz sie selbstorganisiert erreicht oder nur bei großem lr, ist die Gegenprobe zur Verallgemeinerung. Der Test grenzt die Bedingungen ab, unter denen die Behauptung eos gilt. Ein lr-Sweep mit gd_schaerfe und anschließender eos/stabil-Prüfung bei mehreren Breiten ist direkt machbar.",
+   "neuheit": 0.6,
+   "machbarkeit": 0.85,
+   "id": "F45",
+   "status": "offen",
+   "aus_runde": 18
   }
  ],
  "claims": [
@@ -1989,6 +2007,80 @@
     }
    ],
    "runde": 17
+  },
+  {
+   "id": "optscale-R18",
+   "frage": "Welche exakte Stabilitätsgrenze gilt für Gradientenabstieg und Heavy-Ball auf einer Quadratik mit größtem Eigenwert lambda_max, und wie verhält sie sich zum Edge-of-Stability-Wert 2/lr?",
+   "text": "gd mit lr = 99/100 auf f(x) = x^T H x / 2 mit H = [['1', '0'], ['0', '2']] ist stabil (konvergent) (exaktes Zertifikat, rationale Arithmetik).",
+   "interpretation_ungeprueft": "η < 2/λ_max (GD); Stabilitätsgrenze ist η·λ_max/2 = 1; Heavy-Ball erlaubt größere η",
+   "pruefung": {
+    "typ": "stabilitaet",
+    "methode": "gd",
+    "H": [
+     [
+      "1",
+      "0"
+     ],
+     [
+      "0",
+      "2"
+     ]
+    ],
+    "lr": "99/100",
+    "beta": "0/1",
+    "stabil": true,
+    "notiz": "η=0.99 < 1.0=2/λ_max → stabil"
+   },
+   "grund": "Exakt (rationale Arithmetik, Sylvester-Kriterium): Iteration gd mit lr=99/100, beta=0 ist stabil (Bedingung: |beta|<1, H>0 und H < 2(1+beta)/lr = 200/99); behauptet stabil=True | Exakt (rationale Arithmetik, Sylvester-Kriterium): Iteration gd mit lr=101/100, beta=0 ist nicht stabil (Bedingung: |beta|<1, H>0 und H < 2(1+beta)/lr = 200/101); behauptet stabil=False | Exakt (rationale Arithmetik, Sylvester-Kriterium): Iteration heavy_ball mit lr=3/2, beta=9/10 ist stabil (Bedingung: |beta|<1, H>0 und H < 2(1+beta)/lr = 38/15); behauptet stabil=True",
+   "level": "computed_rigorous",
+   "status": "angefochten",
+   "red_team": [
+    {
+     "pruefung": {
+      "typ": "stabilitaet",
+      "methode": "gd",
+      "H": [
+       [
+        "1",
+        "0"
+       ],
+       [
+        "0",
+        "2"
+       ]
+      ],
+      "lr": "1/1",
+      "beta": "0/1",
+      "stabil": false
+     },
+     "idee": "Randfall: Bei η = 2/λ_max = 1 ist der Eigenwert der Iterationsmatrix 1−ηλ = −1 für λ=2, der Spektralradius also exakt 1. Die Iteration konvergiert nicht (sie oszilliert). Die Antwort verlangt zwar strikt η < 2/λ_max, aber die Bedingung η·λ_max/2 = 1 darf nicht als 'stabil' gelesen werden. Das Zertifikat muss 'instabil' liefern.",
+     "bestanden": true,
+     "grund": "Exakt (rationale Arithmetik, Sylvester-Kriterium): Iteration gd mit lr=1, beta=0 ist nicht stabil (Bedingung: |beta|<1, H>0 und H < 2(1+beta)/lr = 2); behauptet stabil=False"
+    },
+    {
+     "pruefung": {
+      "typ": "stabilitaet",
+      "methode": "heavy_ball",
+      "H": [
+       [
+        "1",
+        "0"
+       ],
+       [
+        "0",
+        "2"
+       ]
+      ],
+      "lr": "19/10",
+      "beta": "9/10",
+      "stabil": false
+     },
+     "idee": "Heavy-Ball erlaubt zwar größere η, aber nicht beliebig große. Die exakte Grenze ist η·λ_max < 2(1+β), hier also η < 3,8/2 = 1,9. Bei η = 1,9 und λ = 2 ist das charakteristische Polynom z² + 1,9z + 0,9 = (z+1)(z+0,9) und hat die Wurzel −1, der Spektralradius ist also 1 und die Iteration instabil. Das widerlegt eine Lesart, in der Momentum die Grenze unbegrenzt anhebt. Die Antwort nennt die Obergrenze 2(1+β)/λ_max nicht.",
+     "bestanden": true,
+     "grund": "Exakt (rationale Arithmetik, Sylvester-Kriterium): Iteration heavy_ball mit lr=19/10, beta=9/10 ist nicht stabil (Bedingung: |beta|<1, H>0 und H < 2(1+beta)/lr = 2); behauptet stabil=False"
+    }
+   ],
+   "runde": 18
   }
  ],
  "widerlegt": [],
@@ -2703,7 +2795,59 @@
     }
    ],
    "sek": 177.8
+  },
+  {
+   "runde": 18,
+   "frage": "F9",
+   "status": "beantwortet",
+   "red_team": [
+    {
+     "pruefung": {
+      "typ": "stabilitaet",
+      "methode": "gd",
+      "H": [
+       [
+        "1",
+        "0"
+       ],
+       [
+        "0",
+        "2"
+       ]
+      ],
+      "lr": "1/1",
+      "beta": "0/1",
+      "stabil": false
+     },
+     "idee": "Randfall: Bei η = 2/λ_max = 1 ist der Eigenwert der Iterationsmatrix 1−ηλ = −1 für λ=2, der Spektralradius also exakt 1. Die Iteration konvergiert nicht (sie oszilliert). Die Antwort verlangt zwar strikt η < 2/λ_max, aber die Bedingung η·λ_max/2 = 1 darf nicht als 'stabil' gelesen werden. Das Zertifikat muss 'instabil' liefern.",
+     "bestanden": true,
+     "grund": "Exakt (rationale Arithmetik, Sylvester-Kriterium): Iteration gd mit lr=1, beta=0 ist nicht stabil (Bedingung: |beta|<1, H>0 und H < 2(1+beta)/lr = 2); behauptet stabil=False"
+    },
+    {
+     "pruefung": {
+      "typ": "stabilitaet",
+      "methode": "heavy_ball",
+      "H": [
+       [
+        "1",
+        "0"
+       ],
+       [
+        "0",
+        "2"
+       ]
+      ],
+      "lr": "19/10",
+      "beta": "9/10",
+      "stabil": false
+     },
+     "idee": "Heavy-Ball erlaubt zwar größere η, aber nicht beliebig große. Die exakte Grenze ist η·λ_max < 2(1+β), hier also η < 3,8/2 = 1,9. Bei η = 1,9 und λ = 2 ist das charakteristische Polynom z² + 1,9z + 0,9 = (z+1)(z+0,9) und hat die Wurzel −1, der Spektralradius ist also 1 und die Iteration instabil. Das widerlegt eine Lesart, in der Momentum die Grenze unbegrenzt anhebt. Die Antwort nennt die Obergrenze 2(1+β)/λ_max nicht.",
+     "bestanden": true,
+     "grund": "Exakt (rationale Arithmetik, Sylvester-Kriterium): Iteration heavy_ball mit lr=19/10, beta=9/10 ist nicht stabil (Bedingung: |beta|<1, H>0 und H < 2(1+beta)/lr = 2); behauptet stabil=False"
+    }
+   ],
+   "sek": 308.1
   }
  ],
- "kosten_usd": 8.429114
+ "kosten_usd": 8.858690000000001
 }

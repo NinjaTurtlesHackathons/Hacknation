@@ -47,3 +47,7 @@
 - 2026-10-04 03:16:58 Runde 17: Welcher Skalierungsexponent ergibt sich für den Verlust des Gradientenflusses L(t) im linearen Modell mit Spektrum k^-a und Zielanteilen k^-b, und wie hängt er von a und b ab? Teste mindestens drei (a, b)-Paare.
 - 2026-10-04 03:20:08   geprüft (observed): e = (b − 1) / a; daher L(t) ~ t^−(b−1)/a | Red-Team: 2 Gegenprüfungen, 0 bestanden
 - 2026-10-04 03:20:19 Fertig: 17 geprüfte Aussagen, 0 negative Ergebnisse, Kosten 8.43 USD
+- 2026-10-04 03:22:28 Selbsttest des Prüfers: bestanden
+- 2026-10-04 03:22:42 Runde 18: Welche exakte Stabilitätsgrenze gilt für Gradientenabstieg und Heavy-Ball auf einer Quadratik mit größtem Eigenwert lambda_max, und wie verhält sie sich zum Edge-of-Stability-Wert 2/lr?
+- 2026-10-04 03:28:06   geprüft (computed_rigorous): η < 2/λ_max (GD); Stabilitätsgrenze ist η·λ_max/2 = 1; Heavy-Ball erlaubt größere η | Red-Team: 2 Gegenprüfungen, 2 bestanden
+- 2026-10-04 03:28:16 Fertig: 18 geprüfte Aussagen, 0 negative Ergebnisse, Kosten 8.86 USD
