@@ -5,19 +5,65 @@ import argparse, json, os, re, shutil, subprocess
 from .writer import write, check
 from .domains.base import get_domain
 
-OUTLINE = """Stil: kurzes mathematisch-physikalisches Preprint. Abschnitte: 1 Einleitung (Frage, Beitrag, Zusammenfassung der Resultate als Liste),
-2 Modell (Annahmen, die die Resultate tragen), 3 Methode: das agentische Labor (Scout, Integrator, Forscher, Code-Prüfer, Red-Team,
-Präregistrierung), 4 Resultate: jedes Resultat als nummerierte Aussage (Theorem/Proposition nur für computed_rigorous oder proved_lean,
-sonst 'Numerischer Befund' bzw. 'Beobachtung') mit Evidenzstufe in Klammern, 5 Negative Ergebnisse und Red-Team-Befunde,
-6 Grenzen und offene Fragen. Literatur nur aus Claims mit Quelle."""
+OUTLINE_EN = """Write a professional research article (arXiv level) in English. Structure, in this order, with these exact headings:
+## Abstract
+At most 180 words: the problem; why it is open (with a literature reference); the main result with its numbers; the method in half a sentence;
+the most important limitation.
+## Introduction
+Context with citations of the literature claims; the open question; the contribution in 2-3 sentences; a bullet list of the results.
+## Model and assumptions
+All assumptions that carry the results and ALL fixed model parameters with their values (from the model claim); define notation exactly once.
+## Method
+The scientific method: which certificates are used (exact rational arithmetic, symbolic positivity proofs, interval arithmetic, independent
+numerical re-computation), what the trusted base is, and what counts only as a numerical candidate. Only the LAST paragraph of this section may
+mention that the work was carried out by an automated, verifier-gated laboratory, in one paragraph, without naming any of its agents or roles.
+## Results
+Follow the story plan: main results first, then supporting statements, then examples. Use the environments given in the story plan.
+## Negative results
+What was attempted and failed, with the reason for each failure.
+## Discussion, limitations and open questions
+## Declarations
+AI usage (the results were produced and checked by an automated laboratory; every statement was verified by code), code and data availability
+(use the repository/branch/command from the availability claim), competing interests (none).
+## Appendix A: Agentic laboratory
+Only here: the agents and roles, the workflow, preregistration, red-team statistics, computing costs.
+## Appendix B: Provenance
+One sentence: the provenance table mapping every statement to its evidence follows (it is generated automatically; do not write it yourself).
+## Appendix C: Verifier self-test
+What the verifier self-test checks and its result.
+
+Formatting rules: mathematics as LaTeX in $...$ or $$...$$ (e.g. $e^{-2\\Delta}$, $\\eta \\geq e^{-3\\Delta}$), never Unicode math symbols and never
+forms like "1 * e^-3Delta". Formal statements as fenced blocks:
+::: theorem [short title]
+statement
+:::
+(likewise ::: proposition, ::: lemma, ::: example, ::: observation, ::: remark). Cite literature only via its claim id [C-lit..]."""
+
+OUTLINE_DE = OUTLINE_EN.replace("in English", "auf Deutsch")
+OUTLINE, OUTLINE_EN_OLD = OUTLINE_DE, OUTLINE_EN
+AGENT_NAMES = ["scout", "integrator", "red-team", "red team", "redteam", "lern-agent", "learning agent", "forscher-agent", "researcher agent",
+               "lab loop", "lab_loop", "kaskade", "cascade", "storyteller", "explorer", "architect"]
+COST_PAT = r"(\d[\d.,]*\s*(USD|US\$|\$|dollar))|((USD|\$)\s*\d)|(costs? of [\d.]+)|(Kosten von [\d.,]+)"
 
 
-OUTLINE_EN = """Style: short mathematical-physics preprint in English (like an arXiv paper). Sections: Abstract; 1 Introduction (question, contribution,
-bullet list summarising the results); 2 Model (assumptions that carry the results, stated explicitly); 3 Method: the verifier-gated agentic lab
-(scout with code-checked quotes, integrator, preregistration, researcher agents, code verifier with exact rational and symbolic certificates,
-red team); 4 Results: each result as a numbered statement - call it Theorem/Proposition ONLY for computed_rigorous or proved_lean claims, otherwise
-'Numerical observation' - with its evidence level in parentheses; 5 Negative results and red-team findings; 6 Limitations and open questions;
-References (only sources that appear in claims, with DOI/arXiv id)."""
+def main_text(md):
+    """Text vor Appendix A (Haupttext)."""
+    m = re.search(r"^#+\s*Appendix A", md, re.M | re.I)
+    return md[:m.start()] if m else md
+
+
+def rule_issues(md):
+    """Code-Regeln für den Haupttext: keine Agentennamen, keine Kosten, keine internen Fehlertexte."""
+    issues = []; main = main_text(md)
+    for para in [p for p in main.split("\n") if p.strip()]:
+        low = para.lower()
+        for n in AGENT_NAMES:
+            if re.search(r"(?<![a-z])" + re.escape(n) + r"(?![a-z])", low):
+                issues.append((para[:200], f"Agentenname „{n}“ steht im Haupttext; nur in Appendix A erlaubt")); break
+        if re.search(COST_PAT, para, re.I): issues.append((para[:200], "Kostenangabe im Haupttext; nur in Appendix A erlaubt"))
+    for bad in ("TypeError", "NaN", "IndexError", "Traceback", "Exception"):
+        if re.search(r"(?<![A-Za-z])" + bad + r"(?![A-Za-z])", md): issues.append((bad, f"interner Fehlertext „{bad}“ darf nicht im Paper stehen"))
+    return issues
 
 
 def claims_of(domain):
@@ -104,8 +150,8 @@ def main():
     ap.add_argument("--hinweise", default="", help="zusätzliche Gliederungshinweise (Datei oder Text)"); a = ap.parse_args()
     D = get_domain(a.domain); C = claims_of(a.domain)
     extra = open(a.hinweise).read() if a.hinweise and os.path.exists(a.hinweise) else a.hinweise
-    outline = (OUTLINE_EN if a.sprache == "en" else OUTLINE) + ("\n\n" + extra if extra else "")
-    md, log = write(a.titel, f"Research field: {D.kontext}\n\n{outline}", C, salt=f"paper-{a.domain}-{a.sprache}", lang=a.sprache)
+    outline = (OUTLINE_EN if a.sprache == "en" else OUTLINE_DE) + ("\n\n" + extra if extra else "")
+    md, log = write(a.titel, f"Research field: {D.kontext}\n\n{outline}", C, salt=f"paper-{a.domain}-{a.sprache}", lang=a.sprache, extra_check=rule_issues)
     d = f"projects/{a.domain}"; rest = check(md, C); n_cited = len(set(re.findall(r"C-[\w\-*.]+", md))); runden = json.dumps(log["runden"], ensure_ascii=False)
     proto = (f"\n\n---\nPrüfprotokoll: {n_cited} Claims zitiert, Korrekturrunden {runden}, "
              f"{len(log['entfernt'])} unbelegte Sätze entfernt, verbleibende Verstöße: {len(rest)}.")

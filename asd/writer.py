@@ -48,21 +48,22 @@ SYS_EN = ("You write concise scientific prose in English in the style of a mathe
           "verbatim in a cited claim. No literature citations except those inside the claims (cite them via their claim_id).")
 
 
-def write(title, outline, claims, salt="", rounds=2, lang="de"):
-    global SYS
+def write(title, outline, claims, salt="", rounds=2, lang="de", extra_check=None):
+    """extra_check(md) -> [(stelle, grund)]: zusätzliche Code-Regeln (z. B. keine Agentennamen im Haupttext), wie Zahlen-Verstöße behandelt."""
     SYS_USE = SYS_EN if lang == "en" else SYS
+    full = lambda md: check(md, claims) + (extra_check(md) if extra_check else [])
     cl = "\n".join(f"- [{c['claim_id']}] ({c['level']}, {c['status']}) {c['text']}" for c in claims)
     prompt = f"Titel: {title}\n\nGliederung und Hinweise:\n{outline}\n\nClaim-Liste (einzige erlaubte Quelle):\n{cl}\n\nSchreibe den Text in Markdown."
     md = ask(prompt, SYS_USE, salt=f"writer-{salt}-0"); log = []
     for r in range(rounds):
-        issues = check(md, claims); log.append({"runde": r, "verstoesse": len(issues)})
+        issues = full(md); log.append({"runde": r, "verstoesse": len(issues)})
         if not issues: break
         fb = "\n".join(f"- „{s.strip()[:200]}“: {why}" for s, why in issues)
         md = ask(prompt + f"\n\nDein letzter Entwurf:\n{md}\n\nDer automatische Prüfer hat diese Verstöße gefunden:\n{fb}\n\n"
                  "Korrigiere ausschließlich diese Stellen (Beleg ergänzen oder Aussage streichen) und gib den vollständigen Text zurück.",
                  SYS_USE, salt=f"writer-{salt}-{r + 1}")
-    issues = check(md, claims); removed = []
+    issues = full(md); removed = []
     for s, why in issues:
-        md = md.replace(s, f"*[entfernt: unbelegt — {why}]*"); removed.append({"satz": s, "grund": why})
+        if s in md and len(s) > 20: md = md.replace(s, ""); removed.append({"satz": s, "grund": why})   # unbelegt -> entfernt (kein Platzhalter im Paper)
     log.append({"final_verstoesse_entfernt": len(removed)})
     return md, {"runden": log, "entfernt": removed}
