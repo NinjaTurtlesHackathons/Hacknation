@@ -182,12 +182,13 @@ def claims_of(domain, lang="en"):
                      "level": "observed", "status": "bestätigt", "anhang": True})
     C.append({"claim_id": "C-redteam", "text": f"Counter-checks (adversarial tests) in total: {sum(RT_STAT.values())}; passed: {RT_STAT.get('bestanden', 0)}, "
               f"did not pass: {RT_STAT.get('nicht_bestanden', 0)}, not executable: {RT_STAT.get('nicht_ausfuehrbar', 0)}.", "level": "observed", "status": "bestätigt", "anhang": True})
-    C.append({"claim_id": "C-methode", "text": f"The laboratory ran {len(s['runden'])} rounds with {len(s['claims'])} verified statements and {len(s['widerlegt'])} negative results; "
+    C.append({"claim_id": "C-methode", "text": f"The laboratory ran {sum(1 for r in s['runden'] if r.get('frage'))} rounds with {len(s['claims'])} verified statements and {len(s['widerlegt'])} negative results; "
               f"every round preregistered before the experiment (prereg.md).", "level": "observed", "status": "bestätigt", "anhang": True})
     return C
 
 
 def story_plan(C, D, lang="en", salt=""):
+    sprache = "English" if lang == "en" else "German"
     """Story vor dem Schreiben: EINE Kernfrage, EINE Kernaussage, informativer Titel, Rolle jedes Claims."""
     from .llm import ask_json
     rel = [c for c in C if not c.get("anhang") and c["level"] != "hypothesis" and not c["claim_id"].startswith("C-lit")]
@@ -196,8 +197,9 @@ def story_plan(C, D, lang="en", salt=""):
                  "statement (a single sentence) that the main results support. Assign every claim a role: hauptresultat (supports the core statement directly), "
                  "stuetze (needed for a main result), beispiel (illustration), anhang (only in the appendix), weglassen (unrelated to the core statement). "
                  "Propose an informative title that states the core result (no marketing words such as 'beyond', 'towards', 'novel', 'revisited'). "
-                 'JSON: {"kernfrage": "...", "kernaussage": "...", "titel": "...", "zuordnung": {"C-...": "hauptresultat|stuetze|beispiel|anhang|weglassen"}}',
-                 "You are a senior scientific editor. Answer with valid JSON only.", salt=f"story-{salt}")
+                 f"Write kernfrage, kernaussage, titel and keywords in {sprache}. Title: plain text, at most 20 words, math only as LaTeX in $...$ (e.g. $e^{{-2\\Delta}}$). "
+                 'JSON: {"kernfrage": "...", "kernaussage": "...", "titel": "...", "keywords": "4-6 keywords, comma separated", "zuordnung": {"C-...": "hauptresultat|stuetze|beispiel|anhang|weglassen"}}',
+                 "You are a senior scientific editor. Answer with valid JSON only.", salt=f"story-{lang}-{salt}")
     r.setdefault("zuordnung", {})
     for c in rel: r["zuordnung"].setdefault(c["claim_id"], c.get("relevanz") or "anhang")
     return r
@@ -270,7 +272,7 @@ def provenance(md, C):
             h = re.match(r"^#+\s*(.*)", line)
             if h: sec = h.group(1).strip(); continue
             ids = sorted({i for i in re.findall(r"C-[\w\-*.]+", line) if i in by and not i.startswith("C-lit")})
-            if ids and sec and not sec.lower().startswith(("appendix b", "abstract")): rows.append((f"Section „{sec}“", ids))
+            if ids and sec and not sec.lower().startswith(("appendix b", "abstract")): rows.append((f"Section: {sec}", ids))
     merged = {}
     for k, ids in rows: merged.setdefault(k, set()).update(ids)
     return [(k, sorted(v), sorted({by[i]["level"] for i in v})) for k, v in merged.items()]
@@ -280,7 +282,7 @@ def md_to_latex_body(md, keys, C, lang):
     """Markdown (mit IDs) -> LaTeX-Rumpf: Umgebungen, Zitate (\cite), IDs entfernt, Mathematik und Tabellen über pandoc."""
     import pypandoc
     by = {c["claim_id"]: c for c in C}
-    body = md.replace("–", "--").replace("—", "---").replace("’", "'").replace("“", "``").replace("”", "''").replace("„", ",,")
+    body = md.replace("–", "--").replace("—", "---").replace("’", "'").replace("“", '"').replace("”", '"').replace("„", '"')
     def outside_math(t, fn):
         parts = re.split(r"(\$\$.*?\$\$|\$[^$\n]+\$)", t, flags=re.S)
         return "".join(p if i % 2 else fn(p) for i, p in enumerate(parts))
@@ -343,6 +345,19 @@ TEMPLATE = r"""\documentclass[11pt]{article}
 """
 
 
+def tex_text(t):
+    """Freitext (Titel, Keywords, Affiliation) sicher nach LaTeX: Mathe in $...$ bleibt, e^-2Delta wird Mathe, Rest escapt."""
+    parts = re.split(r"(\$[^$]+\$)", str(t)); out = []
+    for i, p in enumerate(parts):
+        if i % 2: out.append(p); continue
+        p = re.sub(r"(?<![\w{])e\^\{?(-?\(?[\w+]*\)?)\}?\s*(Δ|\\Delta|Delta)", lambda m: "\x00e^{" + m.group(1) + "\\Delta}\x01", p)
+        p = p.replace(">=", "\x00\\ge\x01").replace("<=", "\x00\\le\x01").replace("Δ", "\x00\\Delta\x01").replace("η", "\x00\\eta\x01").replace("σ", "\x00\\sigma\x01")
+        for a, b in (("\\", r"\textbackslash{}"), ("&", r"\&"), ("%", r"\%"), ("_", r"\_"), ("#", r"\#"), ("^", r"\^{}"), ("~", r"\~{}")):
+            p = re.sub(r"(\x00[^\x01]*\x01)|" + re.escape(a), lambda m: m.group(1) or b, p)
+        out.append(p.replace("\x00", "$").replace("\x01", "$"))
+    return "".join(out)
+
+
 def build_latex(md, title, authors, aff, C, d, lang, figs, keywords):
     import shutil
     keys = bib_entries(C, d); prov = provenance(md, C)
@@ -358,10 +373,9 @@ def build_latex(md, title, authors, aff, C, d, lang, figs, keywords):
     body, abstract = md_to_latex_body(md2, keys, C, lang)
     fig_tex = "".join(f"\\begin{{figure}}[t]\\centering\\includegraphics[width=0.75\\textwidth]{{{fn}}}\\caption{{{cap}}}\\end{{figure}}\n" for fn, cap, *_ in figs)
     uni = "".join(f"\\newunicodechar{{{k}}}{{\\ensuremath{{{v}}}}}\n" for k, v in UNI.items())
-    esc = lambda t: t.replace("&", r"\&").replace("%", r"\%")
-    tex = TEMPLATE % {"babel": "english" if lang == "en" else "ngerman", "unicode": uni, "title": esc(title),
-                      "authors": r" \and ".join(a.strip() for a in authors.split(",")), "aff": esc(aff), "date": r"Preprint, \today",
-                      "abstract": abstract, "kwlabel": "Keywords" if lang == "en" else "Schlüsselwörter", "keywords": esc(keywords),
+    tex = TEMPLATE % {"babel": "english" if lang == "en" else "ngerman", "unicode": uni, "title": tex_text(title),
+                      "authors": r" \and ".join(a.strip() for a in authors.split(",")), "aff": tex_text(aff), "date": r"Preprint, \today",
+                      "abstract": abstract, "kwlabel": "Keywords" if lang == "en" else "Schlüsselwörter", "keywords": tex_text(keywords),
                       "body": body, "figures": fig_tex, "obs": "Numerical observation" if lang == "en" else "Numerische Beobachtung"}
     open(f"{d}/paper.tex", "w").write(tex)
     for cmd in (["pdflatex", "-interaction=nonstopmode", "paper.tex"], ["bibtex", "paper"], ["pdflatex", "-interaction=nonstopmode", "paper.tex"],
@@ -395,9 +409,10 @@ def referee_pass(pdf_text, md, C, gate, title, outline, lang, salt, d):
     """Gutachter sieht nur den PDF-Text: 5 größte Schwächen. Behebbares wird mit den vorhandenen Claims behoben, Rest -> referee_report.md."""
     from .llm import ask_json, ask
     r = ask_json(f"Article (plain text of the PDF):\n\n{pdf_text[:60000]}\n\nAct as a demanding referee for a physics/mathematics journal. List the 5 most "
-                 "serious weaknesses. For each say whether it can be fixed by rewriting with the evidence already present in the paper (fixable_by_rewriting).\n"
-                 'JSON: {"weaknesses": [{"title": "...", "detail": "...", "fixable_by_rewriting": true|false, "suggestion": "..."}]}',
-                 "You are an expert referee. Answer with valid JSON only.", salt=f"referee-{salt}")
+                 "serious weaknesses. For each say whether it can be fixed by rewriting with the evidence already present in the paper (fixable_by_rewriting) "
+                 "and how severe it is (severity: major = would block acceptance, minor = should be improved).\n"
+                 'JSON: {"weaknesses": [{"title": "...", "detail": "...", "severity": "major|minor", "fixable_by_rewriting": true|false, "suggestion": "..."}]}',
+                 "You are an expert referee. Answer with valid JSON only.", salt=f"referee2-{salt}")
     W = r.get("weaknesses", [])[:5]; fix = [w for w in W if w.get("fixable_by_rewriting")]; new = md; applied = False
     if fix:
         cl = "\n".join(f"- [{c['claim_id']}] ({c['level']}, {c['status']}" + (f", allowed environment={c['env']}" if c.get("env") else "") + f") {c['text']}" for c in C)
@@ -408,9 +423,11 @@ def referee_pass(pdf_text, md, C, gate, title, outline, lang, salt, d):
         if not (check(cand, C) + gate(cand)): new, applied = cand, True
     L = [f"# Referee report ({'en' if lang == 'en' else 'de'})", "", f"Fixable points addressed in a revision: {'yes' if applied else 'no (revision failed the checks or nothing fixable)'}", ""]
     for j, w in enumerate(W, 1):
-        L += [f"## {j}. {w.get('title')}", "", w.get("detail", ""), "", f"- Fixable by rewriting: {w.get('fixable_by_rewriting')}",
+        w["status"] = "addressed in revision" if applied and w.get("fixable_by_rewriting") else "open"
+        L += [f"## {j}. {w.get('title')}", "", w.get("detail", ""), "", f"- Severity: {w.get('severity', '?')}", f"- Fixable by rewriting: {w.get('fixable_by_rewriting')}",
               f"- Suggestion: {w.get('suggestion', '')}", f"- Status: {'addressed in revision' if applied and w.get('fixable_by_rewriting') else 'open'}", ""]
     open(f"{d}/referee_report.md", "w").write("\n".join(L))
+    json.dump({"revision_uebernommen": applied, "weaknesses": W}, open(f"{d}/referee.json", "w"), ensure_ascii=False, indent=1)
     return new, {"referee_schwaechen": len(W), "behoben_versucht": len(fix), "revision_uebernommen": applied}
 
 
@@ -447,7 +464,7 @@ def main():
         md += f"\n<!-- Abbildung {fn}: Belege {', '.join(ids)} -->\n"
     open(f"{d}/paper.md", "w").write(f"# {a.titel}\n\n{a.autoren}, {a.affiliation}\n\n{md}\n")
     json.dump({"claims": C, "story": plan}, open(f"{d}/paper_belege.json", "w"), ensure_ascii=False, indent=1)
-    kw = a.keywords or plan.get("kernfrage", "")[:120]
+    kw = a.keywords or plan.get("keywords", "")
     prov = build_latex(md, a.titel, a.autoren, a.affiliation, C, d, a.sprache, figs, kw)
     pdf_text = sp.run(["pdftotext", f"{d}/paper.pdf", "-"], capture_output=True, text=True).stdout if os.path.exists(f"{d}/paper.pdf") else md
     md, ref_log = referee_pass(pdf_text, md, C, gate, a.titel, outline, a.sprache, a.domain, d); log["referee"] = ref_log
