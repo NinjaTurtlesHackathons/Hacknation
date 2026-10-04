@@ -241,6 +241,8 @@ class ProofreadingDomain(Domain):
 - front {topologie, sigmas: [...]}: optimize für mehrere sigma_max (Pareto-Front, Kandidat; teuer).
 - search_counterexamples {names: [...], eta_max}: numerische Suche nach eta < eta_max für jede genannte Topologie (liefert params; ~2-5 min).
 - classify_family {k, ausdruck}: Beweisversuch der Schranke für ALLE Mitglieder; liefert Listen beweisbar / nicht_beweisbar (~1 min).
+- identify {punkte: [[p, lo, hi], ...], holdout?}: Formel-Finder für zertifizierte Einschlüsse lo <= Q(p) <= hi (Fit an allen außer den
+  letzten 'holdout' Punkten, exakte Prüfung dort; nur "an k Punkten" zertifiziert, kein allgemeiner Satz).
 - family {k}: alle Topologien mit k gebundenen Zuständen (Namen fam<k>_<i>, Kanten: id, Treibstoff, diskriminierend). k = 2 hat 88 Mitglieder."""
     claim_doc = """Prüfungstypen:
 - {"typ": "erreichbar", "topologie": ..., "params": {name: log-Rate, ...}, "eta_max": Zahl, "sigma_max": Zahl|null, "v_min": Zahl|null}
@@ -280,6 +282,9 @@ class ProofreadingDomain(Domain):
                 return {"unter_schwelle": [r for r in res if r["eta"] is not None and r["eta"] < thr],
                         "nicht_gefunden": [r["topologie"] for r in res if r["eta"] is None or r["eta"] >= thr],
                         "hinweis": "numerische Kandidaten; zertifiziert wird erst durch erreichbar_liste"}
+            if op == "identify":                                 # Formel-Finder: Fit an Teilmenge, exakte Prüfung an >= 2 zurückgehaltenen Punkten
+                from ..tools.identify import identify
+                return identify([tuple(x) for x in args["punkte"]], n_holdout=int(args.get("holdout", 2)))
             if op == "family":
                 from .proofreading_family import family
                 return {"mitglieder": [{"name": x["name"], "kanten": [(e["id"], e["fuel"], e["diskriminierend"]) for e in x["kanten"]]} for x in family(int(args["k"]))]}

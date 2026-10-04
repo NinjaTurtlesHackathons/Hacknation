@@ -36,6 +36,7 @@ OPS = {
         "search_counterexamples": {"names": (LIST, True), "eta_max": (NUM, False)},
         "classify_family": {"k": (INT, True), "ausdruck": (STR, False)},
         "family": {"k": (INT, True)},
+        "identify": {"punkte": (LIST, True), "holdout": (INT, False)},
     },
 }
 
