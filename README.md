@@ -28,6 +28,53 @@ Weitere Befunde: KI- und Literatur-Vorwissen als GP-Prior helfen der Bayes'schen
 fünf geprüfte numerische Befunde zu offenen Fragen aus Suleman 2026 (`results/explore/`).
 
 
+
+## Omnigent orchestration
+
+**Agents propose, Omnigent orchestrates, only the code verifier accepts.** The lab (`asd/`) stays the source of truth (verifier
+`Domain.check`, self-test, `state.json`, `prereg.md`); Omnigent (`omni/`, tested with omnigent 0.16.0) orchestrates the live discovery
+workflow. Agents act only through the frozen harness `python -m asd.cli <command>`; every call is appended to
+`projects/<project>/record.jsonl` (time, agent, command, input ids, output ids, result), so every decision can be reconstructed.
+
+| Agent | Decision it owns | Tools (asd.cli) | Input | Output |
+|---|---|---|---|---|
+| `verifier-gated-lab` (lead, PI) | what runs next; when to stop or switch thread; reacts to surprises | `status`, `plan`, `fragen`; `sys_session_send`, `sys_read_inbox` | research goal | round decisions, final summary |
+| `scout` (haiku, read-only) | which evidence is relevant | `wissen`, `fragen` | domain, project | evidence / claim ids, open question ids |
+| `planner` (sonnet, read-only + `waehle`) | which of ≥2 code-generated rival experiments to run (cost in verifier calls vs. expected gain, budget); re-planning after a surprise | `options`, `waehle`, `reopen`, `plan`, `status` | question id / reopen request | chosen option id + rejected ids |
+| `researcher` (sonnet) | experiments and the claim; **only agent allowed to call the verifier** | `doku`, `fragen`, `experiment`, `pruefe` | question id + option id | experiment ids, claim id (+ surprise flag) |
+| `redteam` (**opus**, different model, read-only) | counter-checks that would pass if the claim were false | `status`, `doku`, `redteam` | claim id | counter-check ids, claim status |
+| `learner` (haiku) | follow-up questions (generalisation > edge case > counterexample) | `wissen`, `folgefragen` | claim / round id | new question ids |
+| `scribe` (sonnet) | building the paper — only after human approval | `python -m asd.paper` | domain, project | paper path |
+
+Code-generated options: `asd/planner.py` (broad scan vs. deep certified computation, plus generalisation / edge case once a thread has a
+confirmed claim). Surprises: `asd.cli pruefe` reports `ueberraschung: true` when a verified result contradicts a preregistered assumption
+(`state.json: annahmen`); the planner then runs `asd.cli reopen` and re-plans.
+
+**Policies** (`omni/config.yaml`, under `guardrails: policies:`; the lead's policies apply to every sub-agent):
+
+| Policy | Type | Purpose |
+|---|---|---|
+| `cost_budget` | built-in `cost.cost_budget` | hard limit 40 USD, ASK at 10 and 20 USD |
+| `spawn_bounds` | built-in `orchestration.spawn_bounds` | at most 3 `sys_session_send` dispatches per turn |
+| `verifier_only` | CEL | DENY any direct write to `state.json` / `record.jsonl` / `projects/` (redirect, `tee`, `cp`, `mv`, `sed -i`, file write tools) — claims are stored only by `asd.cli pruefe` |
+| `leak_guard` | CEL | DENY reading blocked sources (hold-out results, answer keys, pre-cutoff literature; paths/terms configurable, same list as `omni/leak_guard.json`) |
+| `harness_only` | CEL | DENY shell commands other than the frozen harness (`python -m asd.cli`, `python -m asd.paper`) |
+| `publish_gate` | CEL | ASK (human approval) before `asd.paper` or `git push` |
+| `read_only` | built-in `orchestration.read_only_os` | scout, planner, redteam cannot write files |
+| `no_pruefe` | CEL (per agent) | every agent except the researcher is denied `asd.cli pruefe` |
+| `tool_call_cap` | built-in `safety.max_tool_calls_per_session` | researcher: at most 30 tool calls per session |
+
+Offline check of all policy verdicts: `/root/omni-venv/bin/python benchmarks/omni_policy_check.py` (15/15).
+
+**Run it** (Python ≥ 3.12 venv outside the repo: `pip install "omnigent>=0.16"`; the claude-sdk harness uses the local Claude login):
+```bash
+python -m asd.omni_setup --quelle proofreading --projekt omni_proofreading     # fresh project: copied state + assumption A1 + start question
+omnigent run omni -p "Domain proofreading, project omni_proofreading, start question F20, 3 rounds."
+python benchmarks/omni_watch.py <session_id>                                   # status, pending approvals, record.jsonl
+```
+Recorded run: see [`runs/omnigent/`](runs/omnigent/) (session logs of the lead and every sub-agent, `record.jsonl`, `decisions.md`,
+`HIGHLIGHTS.md` with timestamps of the key moments).
+
 ## Dauerbetrieb
 
 `run_forever.py` lässt das Labor unbeaufsichtigt laufen: Zyklus = `asd.lab_loop --runden 5` → `asd.paper` (inkl. Referee-Durchgang)
