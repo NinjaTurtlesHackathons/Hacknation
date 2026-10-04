@@ -21,6 +21,11 @@ prompt: |
 guardrails:
   ask_timeout: 60
   policies:
+    allowlist:
+      type: function
+      function:
+        path: asd.omni_policies.allowlist
+        arguments: {befehle: [doku, fragen, experiment, pruefe, prüfe, status], paper: false, rolle: researcher}
     tool_call_cap:
       type: function
       function:

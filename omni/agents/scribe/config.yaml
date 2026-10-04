@@ -16,6 +16,11 @@ prompt: |
 guardrails:
   ask_timeout: 7200
   policies:
+    allowlist:
+      type: function
+      function:
+        path: asd.omni_policies.allowlist
+        arguments: {befehle: [], paper: true, rolle: scribe}
     no_pruefe:
       type: function
       function:

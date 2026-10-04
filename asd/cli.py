@@ -58,7 +58,14 @@ class CLI:
     def record(self, befehl, ids=None, ergebnis=None, ein=None, aus=None):
         """Gemeinsames Forschungsprotokoll: jede Aktion mit Eingabe- und Ausgabe-IDs (daraus ist jede Entscheidung rekonstruierbar)."""
         ids = ids or {}
-        with open(f"{self.P.dir}/record.jsonl", "a") as f:
+        rp = f"{self.P.dir}/record.jsonl"
+        if not os.path.exists(rp) or os.path.getsize(rp) == 0:          # ERSTER Ledger-Eintrag: Hash der Präregistrierung, vor jedem Ergebnis
+            import hashlib
+            pr = f"{self.P.dir}/prereg.md"; h = hashlib.sha256(open(pr, "rb").read()).hexdigest() if os.path.exists(pr) else None
+            with open(rp, "a") as f:
+                f.write(json.dumps({"ts": time.strftime("%Y-%m-%dT%H:%M:%S"), "agent": "ledger", "befehl": "praeregistrierung", "eingabe_ids": {},
+                                    "ausgabe_ids": {"prereg_sha256": h}, "ergebnis": "prereg.md" if h else "keine prereg.md vorhanden"}, ensure_ascii=False) + "\n")
+        with open(rp, "a") as f:
             f.write(json.dumps({"ts": time.strftime("%Y-%m-%dT%H:%M:%S"), "agent": self.agent, "befehl": befehl,
                                 "eingabe_ids": ein if ein is not None else {k: v for k, v in ids.items() if k in ("frage", "claim", "option", "aus", "annahme")},
                                 "ausgabe_ids": aus if aus is not None else {k: v for k, v in ids.items() if k not in ("frage", "claim", "option", "aus", "annahme")},
@@ -185,6 +192,21 @@ class CLI:
         c = lade_json(self.a.claim_json); D = self.D
         ps = c.get("pruefungen") or ([c["pruefung"]] if isinstance(c.get("pruefung"), dict) else ([c] if "typ" in c else []))
         ps = [p for p in ps if isinstance(p, dict)]
+        from .mcp_schemas import validate_claim, CLAIMS
+        from .omni_policies import claim_hash
+        extra = [k for k in c if k not in ("frage_id", "antwort", "zahl", "pruefung", "pruefungen", "begruendung", "benutzt", "frage")]
+        if self.D.name in CLAIMS:
+            neu = []
+            for p in ps:
+                pc, ign, fehler = validate_claim(self.D.name, p)
+                if fehler: extra.append("; ".join(fehler))
+                neu.append(pc or p)
+            ps = neu
+        h = claim_hash(ps)
+        if extra or h in {w.get("claim_hash") for w in self.P.s.get("widerlegt", []) if isinstance(w, dict)}:
+            grund = ("Schema: " + "; ".join(map(str, extra))) if extra else f"bereits vom Verifier abgelehnt (Claim-Hash {h}); bitte verfeinern statt wiedervorlegen"
+            print("RESULT " + json.dumps({"bestanden": False, "level": "hypothesis", "grund": grund, "claim_id": None, "claim_hash": h}, ensure_ascii=False))
+            self.record("pruefe", ein={"frage": c.get("frage_id")}, aus={"claim": None}, ergebnis={"bestanden": False, "grund": grund, "claim_hash": h}); return 0
         if not ps: ok, why, lvl = False, "keine Prüfung (pruefung/pruefungen) im Claim-JSON", "hypothesis"
         else:
             res = [D.check(p)[:2] for p in ps]
@@ -208,7 +230,8 @@ class CLI:
         else:
             cid = None
             self.P.s["widerlegt"].append({"frage_id": qid, "frage": q["frage"] if q else "", "runde": runde,
-                                          "gruende": [{"stufe": f"omnigent:{self.agent}", "pruefungstyp": ps[0].get("typ") if ps else None, "grund": why[:240]}]})
+                                          "gruende": [{"stufe": f"omnigent:{self.agent}", "pruefungstyp": ps[0].get("typ") if ps else None, "grund": why[:240]}],
+                                          "claim_hash": h})
         self.P.s["runden"].append({"runde": runde, "frage": qid, "status": "beantwortet" if ok else "ungeprüft", "red_team": [], "sek": 0,
                                    "faden_id": faden_of(self.P, q) if q else None, "quelle": "omnigent"})
         self.P.save()
@@ -216,6 +239,16 @@ class CLI:
         if ueb:
             out["ueberraschung"] = True; out["widerspricht_annahme"] = ueb["annahme"]; out["ueberraschung_grund"] = ueb["grund"]
             self.P.s["claims"][-1]["ueberraschung"] = ueb; self.P.save()
+        for hy in self.P.s.get("hypothesen", []):                        # präregistrierte Agenten-Hypothesen zu dieser Frage auswerten
+            if hy.get("status") != "offen" or hy["kriterium"].get("frage") != qid: continue
+            erw = hy["kriterium"].get("erwartet"); ist = {"bestanden": bool(ok), "abgelehnt": not ok, "ueberraschung": bool(ueb), "keine_ueberraschung": bool(ok) and not ueb}.get(erw)
+            if ist is None: continue
+            hy["status"] = "bestätigt" if ist else "widerlegt"; hy["ausgewertet_durch"] = cid or "abgelehnte Behauptung"; hy["ausgewertet"] = now()
+            out["hypothese_" + hy["status"]] = hy["id"]
+            self.P.append("decisions.md", f"| {now()} | VERIFIER | HYPOTHESE {hy['id']} {hy['status'].upper()} (agent-generiert von {hy['agent']}, präregistriert, sha256 {hy['sha256'][:12]}): "
+                                          f"{hy['text'][:100]} | Kriterium '{erw}', Ergebnis {'bestanden' if ok else 'abgelehnt'}{' + Überraschung' if ueb else ''}; Plan muss sich ändern |" if not ist else
+                          f"| {now()} | VERIFIER | Hypothese {hy['id']} bestätigt (Vorhersage eingetroffen) | Kriterium '{erw}' |")
+        self.P.save()
         print("RESULT " + json.dumps(out, ensure_ascii=False))
         self.record("pruefe", ein={"frage": qid, "option": self.a.option or (self.P.s.get("aktive_option") or {}).get("id")}, aus={"claim": cid}, ergebnis=out); return 0
 
@@ -238,6 +271,22 @@ class CLI:
         self.record("redteam", ein={"claim": c["id"]}, aus={"gegenpruefungen": [f"{c['id']}-RT{i + 1}" for i in range(len(c["red_team"]) - len(out), len(c["red_team"]))]},
                     ergebnis={"status": c["status"], "n": len(out)}); return 0
 
+    def hypothese(self):
+        """Agent-generierte Hypothese mit maschinenprüfbarem Erfolgskriterium VOR dem Experiment festschreiben (Hash in prereg.md und Ledger).
+        --text "...", --kriterium-json '{"frage": "F26", "erwartet": "bestanden|abgelehnt|ueberraschung|keine_ueberraschung"}'"""
+        import hashlib
+        kr = lade_json(self.a.kriterium_json)
+        if kr.get("erwartet") not in ("bestanden", "abgelehnt", "ueberraschung", "keine_ueberraschung") or not kr.get("frage"):
+            raise SystemExit("kriterium braucht frage und erwartet in {bestanden, abgelehnt, ueberraschung, keine_ueberraschung}")
+        if not self.a.text or len(self.a.text) < 10: raise SystemExit("hypothese braucht --text")
+        hid = f"H{len(self.P.s.get('hypothesen', [])) + 1}"
+        h = hashlib.sha256(json.dumps({"text": self.a.text, "kriterium": kr}, sort_keys=True, ensure_ascii=False).encode()).hexdigest()
+        self.P.s.setdefault("hypothesen", []).append({"id": hid, "agent": self.agent, "origin": f"AGENT:{self.agent}", "text": self.a.text, "kriterium": kr,
+                                                      "sha256": h, "ts": now(), "status": "offen"})
+        self.P.append("prereg.md", f"\n## Hypothese {hid} ({now()}, agent-generiert von {self.agent}, vor dem Experiment)\n- Aussage: {self.a.text}\n"
+                                   f"- Erfolgskriterium (maschinell geprüft): {json.dumps(kr, ensure_ascii=False)}\n- sha256: {h}")
+        self.P.save(); print("HYPOTHESE " + json.dumps({"id": hid, "sha256": h[:16]})); self.record("hypothese", ein={"frage": kr["frage"]}, aus={"hypothese": hid, "sha256": h[:16]}, ergebnis=self.a.text); return 0
+
     def doku(self):
         """Experimente (run_op) und Prüfungstypen (check) der Domäne, direkt aus dem Code."""
         print(self.D.primitive_doc + "\n\n" + self.D.claim_doc); self.record("doku"); return 0
@@ -255,17 +304,17 @@ class CLI:
 
 def main(argv=None):
     ap = argparse.ArgumentParser(prog="python -m asd.cli", description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("befehl", choices=["selftest", "wissen", "fragen", "plan", "options", "wähle", "waehle", "experiment", "prüfe", "pruefe", "redteam", "folgefragen", "reopen", "doku", "status"])
+    ap.add_argument("befehl", choices=["selftest", "wissen", "fragen", "plan", "options", "wähle", "waehle", "experiment", "prüfe", "pruefe", "redteam", "folgefragen", "reopen", "doku", "hypothese", "status"])
     ap.add_argument("--domain", default=os.environ.get("ASD_DOMAIN", "lattice")); ap.add_argument("--projekt", default=os.environ.get("ASD_PROJEKT", ""))
     ap.add_argument("--agent", default=""); ap.add_argument("--frage", default=""); ap.add_argument("--option", default="")
     ap.add_argument("--grund", default=""); ap.add_argument("--erzwinge", action="store_true"); ap.add_argument("--add-json", default="")
     ap.add_argument("--op", default=""); ap.add_argument("--args", default="{}"); ap.add_argument("--claim-json", default="")
     ap.add_argument("--claim", default=""); ap.add_argument("--gegen-json", default="")
-    ap.add_argument("--spec-json", default=""); ap.add_argument("--aus", default=""); ap.add_argument("--json", default=""); ap.add_argument("--annahme", default="")
+    ap.add_argument("--spec-json", default=""); ap.add_argument("--aus", default=""); ap.add_argument("--json", default=""); ap.add_argument("--annahme", default=""); ap.add_argument("--text", default=""); ap.add_argument("--kriterium-json", default="")
     a = ap.parse_args(argv)
     cmd = {"wähle": "waehle", "prüfe": "pruefe"}.get(a.befehl, a.befehl)
     cli = CLI(a)
-    if cmd in ("options", "waehle", "folgefragen", "reopen") or (cmd == "fragen" and a.add_json): cli.sperre()
+    if cmd in ("options", "waehle", "folgefragen", "reopen", "hypothese") or (cmd == "fragen" and a.add_json): cli.sperre()
     return getattr(cli, cmd)()
 
 

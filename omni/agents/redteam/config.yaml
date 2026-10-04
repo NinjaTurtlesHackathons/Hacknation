@@ -17,6 +17,11 @@ prompt: |
 guardrails:
   ask_timeout: 60
   policies:
+    allowlist:
+      type: function
+      function:
+        path: asd.omni_policies.allowlist
+        arguments: {befehle: [status, doku, wissen, redteam], paper: false, rolle: redteam}
     read_only:
       type: function
       function:

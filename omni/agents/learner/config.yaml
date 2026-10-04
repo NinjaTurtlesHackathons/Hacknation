@@ -17,6 +17,11 @@ prompt: |
 guardrails:
   ask_timeout: 60
   policies:
+    allowlist:
+      type: function
+      function:
+        path: asd.omni_policies.allowlist
+        arguments: {befehle: [wissen, folgefragen, fragen], paper: false, rolle: learner}
     no_pruefe:
       type: function
       function:

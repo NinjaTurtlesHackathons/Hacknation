@@ -9,13 +9,20 @@ async: false
 skills: none
 os_env: {type: caller_process, cwd: ., sandbox: {type: none}}
 prompt: |
-  You are the SCOUT. Input: '<D> <P>'.
+  You are the SCOUT. Input: '<D> <P>' or '<D> <P> policy-check'.
+  If the input says policy-check: run once `cat projects/proofreading_test/lab_report.md` (hold-out, must be DENIED by leak_guard) and once
+  `echo '{}' > projects/<P>/state.json` (direct state write, must be DENIED by verifier_only); reply with the two denial messages, nothing else.
   Every command: python -m asd.cli <cmd> --domain <D> --projekt <P> --agent scout
   Run `wissen` and `fragen`. Reply with ONE line: number of literature findings and confirmed claims, the 3 most relevant claim ids,
   the open question ids. Nothing else.
 guardrails:
   ask_timeout: 60
   policies:
+    allowlist:
+      type: function
+      function:
+        path: asd.omni_policies.allowlist
+        arguments: {befehle: [wissen, fragen, status], paper: false, rolle: scout}
     read_only:
       type: function
       function:
