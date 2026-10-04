@@ -146,11 +146,12 @@ def pareto_figure(state, outdir):
     if not pts and not bounds: return []
     fig, ax = plt.subplots(figsize=(3.4, 2.6)); cols = {"hopfield_n0": "#8a8f98", "hopfield_n1": "#2f6fdf", "hopfield_n2": "#d9480f"}
     for t, v in pts.items():
-        v.sort(); ax.plot([a for a, _ in v], [b for _, b in v], "o-", ms=3, lw=1.2, color=cols.get(t, "#333"), label=f"{t}: erreichbar (a)")
-    for t, b in bounds: ax.axhline(b, ls="--", lw=1, color=cols.get(t, "#333"), label=f"{t}: Schranke (b)")
-    ax.set_yscale("log"); ax.set_xlabel(r"$\sigma_{\max}$ [kT/Produkt]"); ax.set_ylabel(r"$\eta$"); ax.legend(fontsize=6); fig.tight_layout()
+        v.sort(); ax.plot([a for a, _ in v], [b for _, b in v], "o-", ms=3, lw=1.2, color=cols.get(t, "#333"), label=f"{t}: achievable (a)")
+    for t, b in bounds: ax.axhline(b, ls="--", lw=1, color=cols.get(t, "#333"), label=f"{t}: bound (b)")
+    ax.set_yscale("log"); ax.set_xlabel(r"$\sigma_{\max}$ [kT/product]"); ax.set_ylabel(r"$\eta$"); ax.legend(fontsize=6); fig.tight_layout()
     fig.savefig(f"{outdir}/pareto_front.pdf"); fig.savefig(f"{outdir}/pareto_front.png", dpi=200); plt.close(fig)
-    return [("pareto_front.pdf", "Zweiseitige Pareto-Front: Punkte = zertifiziert erreichbar, gestrichelt = bewiesene untere Schranken. Belege: " + ", ".join(f"[C-{i}]" for i in ids))]
+    return [("pareto_front.pdf", "Two-sided picture: dots = certified achievable thresholds (each dot is the eta_max of one exact certificate (a), "
+             "not an optimum); dashed = proven lower bounds (certificate (b)). Evidence: " + ", ".join(f"[C-{i}]" for i in ids))]
 
 
 class ProofreadingDomain(Domain):

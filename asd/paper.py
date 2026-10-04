@@ -35,6 +35,9 @@ def claims_of(domain):
     for j, w in enumerate(s["widerlegt"]): C.append({"claim_id": f"C-neg{j + 1}", "text": f"Negatives Ergebnis: {w}", "level": "observed", "status": "bestätigt"})
     for j, w in enumerate(s["wissen"][:30]):
         C.append({"claim_id": f"C-lit{j + 1}", "text": f"Literatur: {w['text']} (Zitat: „{w['zitat']}“, {w['quelle']})", "level": "observed", "status": "bestätigt"})
+    fp = f"projects/{domain}/fakten.json"                               # per Code ermittelte Zusatzfakten (Zertifikats-Logs, Zählungen)
+    if os.path.exists(fp):
+        for f in json.load(open(fp)): C.append({"claim_id": f"C-{f['id']}", "text": f["text"], "level": f.get("level", "observed"), "status": "bestätigt"})
     C.append({"claim_id": "C-methode", "text": f"Das Labor lief {len(s['runden'])} Runden, {len(s['claims'])} geprüfte Aussagen, {len(s['widerlegt'])} negative Ergebnisse, "
               f"Kosten {s['kosten_usd']:.2f} USD; jede Runde vor dem Experiment präregistriert (prereg.md).", "level": "observed", "status": "bestätigt"})
     return C
@@ -70,6 +73,31 @@ def to_tex(md, titel, autoren, aff, figs=(), lang="de"):
 """ + body + "\n\\end{document}\n")
 
 
+UNI = {"η": r"\eta", "Δ": r"\Delta", "σ": r"\sigma", "μ": r"\mu", "≥": r"\geq", "≤": r"\leq", "×": r"\times", "→": r"\to",
+       "≈": r"\approx", "−": "-", "·": r"\cdot", "∈": r"\in", "…": r"\ldots", "²": r"^{2}", "³": r"^{3}", "√": r"\surd", "±": r"\pm",
+       "⁻": r"^{-}", "¹": r"^{1}", "₀": r"_{0}", "₁": r"_{1}", "₂": r"_{2}", "α": r"\alpha", "β": r"\beta", "γ": r"\gamma", "ε": r"\varepsilon", "τ": r"\tau", "ν": r"\nu", "∞": r"\infty", "≠": r"\neq", "π": r"\pi", "λ": r"\lambda"}
+HEADER = "\\usepackage{newunicodechar}\n" + "".join(f"\\newunicodechar{{{k}}}{{\\ensuremath{{{v}}}}}\n" for k, v in UNI.items())
+
+
+def md_to_pdf(md, titel, autoren, aff, d, lang):
+    """Preprint-PDF über pandoc (Markdown-Mathematik, Unicode-Zeichen, Bilder), zweispaltig."""
+    import pypandoc
+    import unicodedata
+    body = "\n".join(l for l in md.split("\n") if not l.startswith("# "))           # Titel kommt aus den Metadaten
+    body = body.replace("–", "--").replace("—", "---").replace("’", "'").replace("“", "``").replace("”", "''").replace("„", ",,")
+    body = re.sub(r"(?<![$\w])e\^\((-?[0-9]*)\s*\*?\s*Delta\)", lambda m: "$e^{" + m.group(1) + "\\Delta}$", body)
+    body = re.sub(r"(?<![$\w{])e\^(-?[0-9]*)(Δ|Delta)", lambda m: "$e^{" + m.group(1) + "\\Delta}$", body)
+    body = "".join(c if (ord(c) < 256 or c in UNI) else (unicodedata.normalize("NFKD", c).encode("latin-1", "ignore").decode("latin-1") or "?") for c in body)
+    body = re.sub(r"(?<![$\w])e\^\{([^}]*)\}", lambda m: "$e^{" + "".join(UNI.get(c, c) for c in m.group(1)) + "}$", body)
+    body = re.sub(r"\[(C-[^\]]+)\]", lambda m: "\\textsubscript{[" + m.group(1).replace("_", "\\_") + "]}", body)
+    yaml = ("---\ntitle: \"" + titel.replace('"', "'") + "\"\nauthor:\n" + "".join(f"  - {a.strip()}\n" for a in autoren.split(",")) +
+            f"date: \"{aff} · Preprint\"\ndocumentclass: article\nclassoption: [twocolumn, 10pt]\ngeometry: margin=1.7cm\n"
+            f"lang: {'en' if lang == 'en' else 'de'}\nheader-includes: |\n" + "".join("  " + l + "\n" for l in HEADER.strip().split("\n")) + "---\n\n")
+    open(f"{d}/paper_pdf.md", "w").write(yaml + body)
+    pypandoc.convert_file(f"{d}/paper_pdf.md", "latex", outputfile=f"{d}/paper.tex", extra_args=["--standalone"])
+    pypandoc.convert_file(f"{d}/paper_pdf.md", "pdf", outputfile=f"{d}/paper.pdf", extra_args=["--pdf-engine=pdflatex", f"--resource-path={d}"])
+
+
 def main():
     ap = argparse.ArgumentParser(); ap.add_argument("--domain", required=True); ap.add_argument("--titel", required=True)
     ap.add_argument("--autoren", required=True); ap.add_argument("--affiliation", default=""); ap.add_argument("--sprache", default="de", choices=["de", "en"])
@@ -84,10 +112,10 @@ def main():
     figs = D.figures(json.load(open(f"{d}/state.json")), d); md_fig = md
     for fn, cap in figs: md_fig += f"\n\n![{cap}]({fn.replace('.pdf', '.png')})\n"
     open(f"{d}/paper.md", "w").write(f"# {a.titel}\n\n{a.autoren}, {a.affiliation}\n\n{md_fig}{proto}\n")
-    open(f"{d}/paper.tex", "w").write(to_tex(md + proto, a.titel, a.autoren, a.affiliation, figs, a.sprache))
     json.dump({"claims": C, "log": log}, open(f"{d}/paper_belege.json", "w"), ensure_ascii=False, indent=1)
-    if shutil.which("pdflatex"):
-        for _ in range(2): subprocess.run(["pdflatex", "-interaction=nonstopmode", "paper.tex"], cwd=d, capture_output=True)
+    try: md_to_pdf(md_fig + proto, a.titel, a.autoren, a.affiliation, d, a.sprache)
+    except Exception as e:                                               # Rückfall: einfacher Konverter
+        print("pandoc fehlgeschlagen:", str(e)[:300]); open(f"{d}/paper.tex", "w").write(to_tex(md + proto, a.titel, a.autoren, a.affiliation, figs, a.sprache))
     print(f"{d}/paper.md, paper.tex" + (", paper.pdf" if os.path.exists(f"{d}/paper.pdf") else "") + proto)
 
 
