@@ -121,3 +121,20 @@ mittleres N(LAB) mit gepaartem Bootstrap-95-%-KI (5000 Ziehungen). Erfolg je Hyp
 Benjamini-Hochberg über H7a, H7b (m = 2, q = 0,1). Trefferquote je Bedingung mit exaktem Clopper-Pearson-95-%-KI.
 Ergebnisse werden berichtet, egal wie sie ausfallen. Menschliche Baseline wird NICHT gemessen; die Angabe „Paper in einer Nacht, ca. 12–14 h“
 ist eine Schätzung des Autors.
+
+## H8 (2026-10-04, vor jedem der neuen Läufe): Replay-Benchmark erweitert (25 Seeds, starke Baselines, Robustheit)
+
+Gleiche Aufgabe, gleicher Treffer-Begriff, gleiches Budget (30 Verifier-Aufrufe) wie H7. Erweiterungen:
+- **Seeds 1000–1024** (25) für LAB, OHNE_FEEDBACK, ZUFALL; die 10 Seeds aus H7 bleiben unverändert Teil der Stichprobe.
+- **HEURISTIK (starke naive Baseline):** Teilfragen des festen Pools in fester Reihenfolge „einfachste zuerst“ (aufsteigend nach Länge),
+  Strategie/Modell reihum aus der Kaskade, kein Integrator, keine Rückmeldung.
+- **ORAKEL (Obergrenze, analytisch):** kennt die Antwort und reicht die Treffer-Behauptung direkt ein: N = 1 bei jedem Seed. Wird nicht gerechnet.
+- **Kennzahlen:** N bis zum ersten Treffer; Recall bei festem Budget B ∈ {5, 10, 20, 30} (Anteil der Seeds mit Treffer bis B);
+  neu angefallene LLM-Kosten (USD) und Dauer pro Lauf; Kosten pro Treffer.
+- **Robustheit:** (a) bitgenaues Replay: jeder LAB-Lauf wird im reinen Cache-Modus (ASD_LLM=replay) wiederholt; gleiche Entscheidungen ⇒
+  gleiches N (Anteil reproduzierter Treffer wird berichtet); (b) Sensitivität: Recall über B; (c) unabhängiger Scorer
+  (`benchmarks/score_independent.py`): prüft jede als Treffer gezählte Behauptung erneut direkt mit dem Verifier, ohne den Benchmark-Code.
+- **Tests:** wie H7 (gepaarter einseitiger Permutationstest, Bootstrap-KI für Speedup = mittleres N(Vergleich)/mittleres N(LAB)),
+  Vergleiche LAB vs. ZUFALL (H8a), LAB vs. HEURISTIK (H8b), LAB vs. OHNE_FEEDBACK (H8c); Benjamini-Hochberg über alle drei (m = 3, q = 0,1).
+  Erfolg je Vergleich: p_BH < 0,1 UND KI-Untergrenze > 1. Wiederholungen laufen abwechselnd (je Seed alle Bedingungen nacheinander).
+Ergebnisse werden berichtet, egal wie sie ausfallen.
