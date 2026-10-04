@@ -48,6 +48,13 @@ class CLI:
         self.D.projekt = self.pname; self.P = Project(self.pname)
         self.agent = a.agent or os.environ.get("OMNI_AGENT") or os.environ.get("OMNIGENT_AGENT_NAME") or "unbekannt"
 
+    def sperre(self):
+        """Exklusive Dateisperre + Zustand neu laden: parallele Agenten (z. B. zwei Researcher) dürfen state.json nicht gegenseitig
+        überschreiben. Schwere Rechnungen laufen VOR der Sperre; die Sperre endet mit dem Prozess."""
+        import fcntl
+        self._lockf = open(f"{self.P.dir}/.lock", "w"); fcntl.flock(self._lockf, fcntl.LOCK_EX)
+        self.P.s = json.load(open(self.P.path)) if os.path.exists(self.P.path) else self.P.s
+
     def record(self, befehl, ids=None, ergebnis=None, ein=None, aus=None):
         """Gemeinsames Forschungsprotokoll: jede Aktion mit Eingabe- und Ausgabe-IDs (daraus ist jede Entscheidung rekonstruierbar)."""
         ids = ids or {}
@@ -168,6 +175,7 @@ class CLI:
         else: args = json.loads(self.a.args or "{}")
         from .discovery import _jsonfest
         r = _jsonfest(self.D.run_op(self.a.op, args))
+        self.sperre()
         self.P.s.setdefault("experimente", []).append({"ts": now(), "agent": self.agent, "op": self.a.op, "args": args, "frage": self.P.s.get("aktive_frage")})
         eid = f"E{len(self.P.s['experimente'])}"; self.P.save()
         print(f"EXPERIMENT {eid} " + json.dumps(r, ensure_ascii=False)[:4000]); self.record("experiment", ergebnis=str(r)[:300], ein={"frage": self.P.s.get("aktive_frage"), "option": self.a.option or (self.P.s.get("aktive_option") or {}).get("id")},
@@ -177,13 +185,13 @@ class CLI:
         c = lade_json(self.a.claim_json); D = self.D
         ps = c.get("pruefungen") or ([c["pruefung"]] if isinstance(c.get("pruefung"), dict) else ([c] if "typ" in c else []))
         ps = [p for p in ps if isinstance(p, dict)]
-        self.P.s["verifier_aufrufe"] = self.P.s.get("verifier_aufrufe", 0) + max(1, len(ps))
         if not ps: ok, why, lvl = False, "keine Prüfung (pruefung/pruefungen) im Claim-JSON", "hypothesis"
         else:
             res = [D.check(p)[:2] for p in ps]
             ok = all(bool(o) for o, _ in res) and (("antwort" not in c and "zahl" not in c) or all(D.consistent(c, p) for p in ps))
             why = " | ".join(w for _, w in res) + ("" if ok or not all(o for o, _ in res) else " | Antwort passt nicht zur Prüfung (consistent)")
             lvl = D.level(ps[0]) if ok else "hypothesis"
+        self.sperre(); self.P.s["verifier_aufrufe"] = self.P.s.get("verifier_aufrufe", 0) + max(1, len(ps))
         qid = c.get("frage_id") or self.P.s.get("aktive_frage"); runde = len(self.P.s["runden"]) + 1
         q = next((x for x in self.P.s["fragen"] if x["id"] == qid), None)
         ueb = None
@@ -195,7 +203,7 @@ class CLI:
             self.P.s["claims"].append({"id": cid, "frage": q["frage"] if q else c.get("frage", ""), "text": D.describe(ps[0]), "pruefung": ps[0],
                                        "alle_pruefungen": ps, "grund": why, "level": lvl, "status": "bestätigt", "red_team": [], "runde": runde,
                                        "relevanz": D.relevanz(ps[0]), "quelle": f"omnigent:{self.agent}",
-                                       "option": (self.P.s.get("aktive_option") or {}).get("id")})
+                                       "option": self.a.option or (self.P.s.get("aktive_option") or {}).get("id")})
             if q: q["status"] = "beantwortet"
         else:
             cid = None
@@ -212,16 +220,19 @@ class CLI:
         self.record("pruefe", ein={"frage": qid, "option": self.a.option or (self.P.s.get("aktive_option") or {}).get("id")}, aus={"claim": cid}, ergebnis=out); return 0
 
     def redteam(self):
-        c = next((x for x in self.P.s["claims"] if x["id"] == self.a.claim), None)
-        if not c: raise SystemExit(f"Claim {self.a.claim} nicht gefunden")
-        g = lade_json(self.a.gegen_json); gs = g.get("gegenpruefungen", [g]) if isinstance(g, dict) else g; out = []
+        c0 = next((x for x in self.P.s["claims"] if x["id"] == self.a.claim), None)
+        if not c0: raise SystemExit(f"Claim {self.a.claim} nicht gefunden")
+        g = lade_json(self.a.gegen_json); gs = g.get("gegenpruefungen", [g]) if isinstance(g, dict) else g; erg = []
         for x in gs[:3]:
             p = x.get("pruefung", x) if isinstance(x, dict) else None
             if not isinstance(p, dict): continue
-            ok, why = self.D.check(p)[:2]; self.P.s["verifier_aufrufe"] = self.P.s.get("verifier_aufrufe", 0) + 1
-            wid = bool(ok and self.D.widerspricht(c["pruefung"], p))
-            c["red_team"].append({"pruefung": p, "idee": (x.get("idee") if isinstance(x, dict) else "") or "", "bestanden": bool(ok), "widerspruch": wid, "grund": why[:200], "agent": self.agent}); out.append({"bestanden": bool(ok), "widerspruch": wid, "grund": why[:200]})
-            if wid: c["status"] = "angefochten"
+            ok, why = self.D.check(p)[:2]; wid = bool(ok and self.D.widerspricht(c0["pruefung"], p))
+            erg.append({"pruefung": p, "idee": (x.get("idee") if isinstance(x, dict) else "") or "", "bestanden": bool(ok), "widerspruch": wid, "grund": why[:200], "agent": self.agent})
+        self.sperre(); c = next(x for x in self.P.s["claims"] if x["id"] == self.a.claim)
+        self.P.s["verifier_aufrufe"] = self.P.s.get("verifier_aufrufe", 0) + len(erg); out = []
+        for e in erg:
+            c["red_team"].append(e); out.append({k: e[k] for k in ("bestanden", "widerspruch", "grund")})
+            if e["widerspruch"]: c["status"] = "angefochten"
         self.P.save()
         print("REDTEAM " + json.dumps({"claim": c["id"], "status": c["status"], "gegenpruefungen": out}, ensure_ascii=False))
         self.record("redteam", ein={"claim": c["id"]}, aus={"gegenpruefungen": [f"{c['id']}-RT{i + 1}" for i in range(len(c["red_team"]) - len(out), len(c["red_team"]))]},
@@ -253,7 +264,9 @@ def main(argv=None):
     ap.add_argument("--spec-json", default=""); ap.add_argument("--aus", default=""); ap.add_argument("--json", default=""); ap.add_argument("--annahme", default="")
     a = ap.parse_args(argv)
     cmd = {"wähle": "waehle", "prüfe": "pruefe"}.get(a.befehl, a.befehl)
-    return getattr(CLI(a), cmd)()
+    cli = CLI(a)
+    if cmd in ("options", "waehle", "folgefragen", "reopen") or (cmd == "fragen" and a.add_json): cli.sperre()
+    return getattr(cli, cmd)()
 
 
 if __name__ == "__main__":
