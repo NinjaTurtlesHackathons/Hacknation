@@ -35,3 +35,9 @@
 - 2026-10-04 00:06:07 Runde 10: L4: Ist für hopfield_n1 mit v >= 1e-3 eine Fehlerrate eta < 2e-4 bei sigma <= 10 kT pro Produkt erreichbar? Finde Parameter (optimize mit sigma_max 10, v_min 1e-3) und zertifiziere mit erreichbar.
 - 2026-10-04 00:08:25   geprüft (computed_rigorous): Für hopfield_n1 existieren rationale Raten in [e^-10, e^10] mit lokaler detaillierter Bilanz, für die gleichzeitig eta <= 0.0002, sigma <= 10 kT pro Produkt, v  | Red-Team: 2 Gegenprüfungen, 0 bestanden, 0 logische Widersprüche
 - 2026-10-04 00:08:25 Fertig: 9 geprüfte Aussagen, 1 negative Ergebnisse, Kosten 3.20 USD
+- 2026-10-04 00:09:13 Selbsttest des Prüfers: bestanden
+- 2026-10-04 00:09:30 Runde 11: L2b (vollständig): Bestimme mit classify_family {k: 2, ausdruck: '1/D**2'} die Liste aller Mitglieder, für die die Schranke beweisbar ist, und zertifiziere GENAU diese vollständige Liste mit schranke_familie (familie gebunden<=2, ausdruck 1/D**2, mitglieder = die vollständige Liste).
+- 2026-10-04 00:10:46   geprüft (computed_rigorous): Für 50 Topologien der vom Prüfer erzeugten Familie gebunden<=2 (ein ungebundener Zustand, Kantenkatalog laut Modell) gilt eta >= 1/D**2 für alle positiven Raten | Red-Team: 2 Gegenprüfungen, 0 bestanden, 0 logische Widersprüche
+- 2026-10-04 00:11:03 Runde 12: L2c: Für welche der Mitglieder, für die die Schranke nicht beweisbar ist (classify_family), gibt es ein exaktes Gegenbeispiel mit eta < 1e-4? Nutze search_counterexamples {names: [...], eta_max: 1e-4} und zertifiziere ALLE gefundenen Fälle gemeinsam mit erreichbar_liste (eta_max je Fall < 1e-4).
+- 2026-10-04 00:14:50   geprüft (computed_rigorous): Für 2 Topologien (fam2_11, fam2_9) existieren jeweils rationale Raten in [e^-10, e^10] mit lokaler detaillierter Bilanz und eta <= 0.0001 (Zertifikat (a), je Fa | Red-Team: 2 Gegenprüfungen, 0 bestanden, 0 logische Widersprüche
+- 2026-10-04 00:14:50 Fertig: 11 geprüfte Aussagen, 1 negative Ergebnisse, Kosten 3.53 USD

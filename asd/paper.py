@@ -12,6 +12,14 @@ sonst 'Numerischer Befund' bzw. 'Beobachtung') mit Evidenzstufe in Klammern, 5 N
 6 Grenzen und offene Fragen. Literatur nur aus Claims mit Quelle."""
 
 
+OUTLINE_EN = """Style: short mathematical-physics preprint in English (like an arXiv paper). Sections: Abstract; 1 Introduction (question, contribution,
+bullet list summarising the results); 2 Model (assumptions that carry the results, stated explicitly); 3 Method: the verifier-gated agentic lab
+(scout with code-checked quotes, integrator, preregistration, researcher agents, code verifier with exact rational and symbolic certificates,
+red team); 4 Results: each result as a numbered statement - call it Theorem/Proposition ONLY for computed_rigorous or proved_lean claims, otherwise
+'Numerical observation' - with its evidence level in parentheses; 5 Negative results and red-team findings; 6 Limitations and open questions;
+References (only sources that appear in claims, with DOI/arXiv id)."""
+
+
 def claims_of(domain):
     s = json.load(open(f"projects/{domain}/state.json")); C = []; D = get_domain(domain)
     for c in s["claims"]:
@@ -32,7 +40,7 @@ def claims_of(domain):
     return C
 
 
-def to_tex(md, titel, autoren, aff, figs=()):
+def to_tex(md, titel, autoren, aff, figs=(), lang="de"):
     body = md
     body = re.sub(r"^### (.*)$", r"\\subsubsection*{\1}", body, flags=re.M)
     body = re.sub(r"^## (.*)$", r"\\section{\1}", body, flags=re.M)
@@ -53,7 +61,7 @@ def to_tex(md, titel, autoren, aff, figs=()):
         cap_t = re.sub(r"\[(C-[^\]]+)\]", lambda m: r"[" + m.group(1).replace("_", r"\_") + "]", cap).replace("%", r"\%")
         body += "\n\\begin{figure}[t]\\centering\\includegraphics[width=\\columnwidth]{" + fn + "}\\caption{" + cap_t + "}\\end{figure}\n"
     return (r"""\documentclass[10pt,twocolumn]{article}
-\usepackage[utf8]{inputenc}\usepackage[T1]{fontenc}\usepackage[ngerman]{babel}\usepackage{amsmath,amssymb}\usepackage[margin=1.8cm]{geometry}
+\usepackage[utf8]{inputenc}\usepackage[T1]{fontenc}\usepackage[""" + ("english" if lang == "en" else "ngerman") + r"""]{babel}\usepackage{amsmath,amssymb}\usepackage[margin=1.8cm]{geometry}
 \usepackage{times}\usepackage{graphicx}\usepackage{hyperref}
 \title{\textbf{""" + titel + r"""}}
 \author{""" + r" \and ".join(a.strip() for a in autoren.split(",")) + r"""\\ \small """ + aff + r"""}
@@ -64,16 +72,19 @@ def to_tex(md, titel, autoren, aff, figs=()):
 
 def main():
     ap = argparse.ArgumentParser(); ap.add_argument("--domain", required=True); ap.add_argument("--titel", required=True)
-    ap.add_argument("--autoren", required=True); ap.add_argument("--affiliation", default=""); a = ap.parse_args()
+    ap.add_argument("--autoren", required=True); ap.add_argument("--affiliation", default=""); ap.add_argument("--sprache", default="de", choices=["de", "en"])
+    ap.add_argument("--hinweise", default="", help="zusätzliche Gliederungshinweise (Datei oder Text)"); a = ap.parse_args()
     D = get_domain(a.domain); C = claims_of(a.domain)
-    md, log = write(a.titel, f"Forschungsgebiet: {D.kontext}\n\n{OUTLINE}", C, salt=f"paper-{a.domain}")
+    extra = open(a.hinweise).read() if a.hinweise and os.path.exists(a.hinweise) else a.hinweise
+    outline = (OUTLINE_EN if a.sprache == "en" else OUTLINE) + ("\n\n" + extra if extra else "")
+    md, log = write(a.titel, f"Research field: {D.kontext}\n\n{outline}", C, salt=f"paper-{a.domain}-{a.sprache}", lang=a.sprache)
     d = f"projects/{a.domain}"; rest = check(md, C); n_cited = len(set(re.findall(r"C-[\w\-*.]+", md))); runden = json.dumps(log["runden"], ensure_ascii=False)
     proto = (f"\n\n---\nPrüfprotokoll: {n_cited} Claims zitiert, Korrekturrunden {runden}, "
              f"{len(log['entfernt'])} unbelegte Sätze entfernt, verbleibende Verstöße: {len(rest)}.")
     figs = D.figures(json.load(open(f"{d}/state.json")), d); md_fig = md
     for fn, cap in figs: md_fig += f"\n\n![{cap}]({fn.replace('.pdf', '.png')})\n"
     open(f"{d}/paper.md", "w").write(f"# {a.titel}\n\n{a.autoren}, {a.affiliation}\n\n{md_fig}{proto}\n")
-    open(f"{d}/paper.tex", "w").write(to_tex(md + proto, a.titel, a.autoren, a.affiliation, figs))
+    open(f"{d}/paper.tex", "w").write(to_tex(md + proto, a.titel, a.autoren, a.affiliation, figs, a.sprache))
     json.dump({"claims": C, "log": log}, open(f"{d}/paper_belege.json", "w"), ensure_ascii=False, indent=1)
     if shutil.which("pdflatex"):
         for _ in range(2): subprocess.run(["pdflatex", "-interaction=nonstopmode", "paper.tex"], cwd=d, capture_output=True)

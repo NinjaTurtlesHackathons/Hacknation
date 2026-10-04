@@ -754,6 +754,22 @@
    "id": "F17",
    "status": "beantwortet",
    "quelle": "lueckenkarte"
+  },
+  {
+   "frage": "L2b (vollständig): Bestimme mit classify_family {k: 2, ausdruck: '1/D**2'} die Liste aller Mitglieder, für die die Schranke beweisbar ist, und zertifiziere GENAU diese vollständige Liste mit schranke_familie (familie gebunden<=2, ausdruck 1/D**2, mitglieder = die vollständige Liste).",
+   "neuheit": 0.8,
+   "machbarkeit": 0.9,
+   "id": "F18",
+   "status": "beantwortet",
+   "quelle": "lueckenkarte"
+  },
+  {
+   "frage": "L2c: Für welche der Mitglieder, für die die Schranke nicht beweisbar ist (classify_family), gibt es ein exaktes Gegenbeispiel mit eta < 1e-4? Nutze search_counterexamples {names: [...], eta_max: 1e-4} und zertifiziere ALLE gefundenen Fälle gemeinsam mit erreichbar_liste (eta_max je Fall < 1e-4).",
+   "neuheit": 0.8,
+   "machbarkeit": 0.7,
+   "id": "F19",
+   "status": "beantwortet",
+   "quelle": "lueckenkarte"
   }
  ],
  "claims": [
@@ -1378,6 +1394,170 @@
     }
    ],
    "runde": 10
+  },
+  {
+   "id": "proofreading-R11",
+   "frage": "L2b (vollständig): Bestimme mit classify_family {k: 2, ausdruck: '1/D**2'} die Liste aller Mitglieder, für die die Schranke beweisbar ist, und zertifiziere GENAU diese vollständige Liste mit schranke_familie (familie gebunden<=2, ausdruck 1/D**2, mitglieder = die vollständige Liste).",
+   "text": "Für 50 Topologien der vom Prüfer erzeugten Familie gebunden<=2 (ein ungebundener Zustand, Kantenkatalog laut Modell) gilt eta >= 1/D**2 für alle positiven Raten und Treibstoffe (Zertifikat (b), symbolisch).",
+   "interpretation_ungeprueft": "50 Mitglieder der Familie gebunden≤2 erfüllen nachweisbar η ≥ 1/D²",
+   "pruefung": {
+    "typ": "schranke_familie",
+    "familie": "gebunden<=2",
+    "ausdruck": "1/D**2",
+    "mitglieder": [
+     "fam2_1",
+     "fam2_2",
+     "fam2_3",
+     "fam2_5",
+     "fam2_6",
+     "fam2_7",
+     "fam2_8",
+     "fam2_10",
+     "fam2_12",
+     "fam2_16",
+     "fam2_17",
+     "fam2_18",
+     "fam2_19",
+     "fam2_20",
+     "fam2_23",
+     "fam2_24",
+     "fam2_26",
+     "fam2_27",
+     "fam2_28",
+     "fam2_31",
+     "fam2_32",
+     "fam2_33",
+     "fam2_34",
+     "fam2_38",
+     "fam2_42",
+     "fam2_46",
+     "fam2_47",
+     "fam2_48",
+     "fam2_49",
+     "fam2_50",
+     "fam2_51",
+     "fam2_52",
+     "fam2_54",
+     "fam2_56",
+     "fam2_61",
+     "fam2_62",
+     "fam2_63",
+     "fam2_64",
+     "fam2_65",
+     "fam2_68",
+     "fam2_70",
+     "fam2_71",
+     "fam2_72",
+     "fam2_77",
+     "fam2_78",
+     "fam2_79",
+     "fam2_80",
+     "fam2_84",
+     "fam2_86",
+     "fam2_88"
+    ]
+   },
+   "grund": "Zertifikat (b) Familie gebunden<=2: Schranke eta >= 1/D**2 für 50/50 Mitglieder bewiesen",
+   "level": "computed_rigorous",
+   "status": "bestätigt",
+   "red_team": [
+    {
+     "pruefung": {
+      "typ": "untere_schranke",
+      "topologie": "fam2_4",
+      "ausdruck": "1/D**2"
+     },
+     "idee": "Die Liste lässt fam2_4 aus. Ist die Schranke η ≥ 1/D² für fam2_4 beweisbar, dann ist die Liste nicht vollständig und die Antwort (genau 50 Mitglieder) falsch. Der Beweis bräuchte keine Ratenparameter. Ich konnte classify_family nicht ausführen, daher ist das eine begründete Vermutung.",
+     "bestanden": false,
+     "grund": "Prüfung nicht ausführbar: IndexError: list index out of range",
+     "widerspruch": false
+    },
+    {
+     "pruefung": {
+      "typ": "untere_schranke",
+      "topologie": "fam2_0",
+      "ausdruck": "1/D**2"
+     },
+     "idee": "Auch fam2_0 fehlt in der Liste (sie beginnt bei fam2_1). Besteht der symbolische Beweis für dieses Mitglied, dann gibt es mindestens 51 beweisbare Mitglieder und die Zahl 50 ist falsch. Das ist ein zweiter, unabhängiger Randfall am Anfang der Indexliste.",
+     "bestanden": false,
+     "grund": "Prüfung nicht ausführbar: IndexError: list index out of range",
+     "widerspruch": false
+    }
+   ],
+   "runde": 11
+  },
+  {
+   "id": "proofreading-R12",
+   "frage": "L2c: Für welche der Mitglieder, für die die Schranke nicht beweisbar ist (classify_family), gibt es ein exaktes Gegenbeispiel mit eta < 1e-4? Nutze search_counterexamples {names: [...], eta_max: 1e-4} und zertifiziere ALLE gefundenen Fälle gemeinsam mit erreichbar_liste (eta_max je Fall < 1e-4).",
+   "text": "Für 2 Topologien (fam2_11, fam2_9) existieren jeweils rationale Raten in [e^-10, e^10] mit lokaler detaillierter Bilanz und eta <= 0.0001 (Zertifikat (a), je Fall exakt).",
+   "interpretation_ungeprueft": "fam2_9, fam2_11, fam2_13 und weitere der 37 nicht-beweisbaren Mitglieder verletzen die Schranke η ≥ 1/D²",
+   "pruefung": {
+    "typ": "erreichbar_liste",
+    "faelle": [
+     {
+      "topologie": "fam2_9",
+      "params": {
+       "verw_C0_E+": 4.748790448167281,
+       "verw_C0_E-": 5.974755498486219,
+       "bind_C1_E+": 0.17888541085133824,
+       "bind_C1_E-": 7.149508249891922,
+       "umw1r_C1_C0+": 2.832823896898958,
+       "prod_C0+": -3.398103809932859,
+       "mu": 7.894607692220214,
+       "muP": 7.559899485758011
+      },
+      "eta_max": 0.0001
+     },
+     {
+      "topologie": "fam2_11",
+      "params": {
+       "verw_C0_E+": -0.8541181379686825,
+       "verw_C0_E-": 1.0424475604302343,
+       "bind_C1_E+": -9.817349401161614,
+       "bind_C1_E-": 0.9704958417751994,
+       "umw0_C0_C1+": -0.7195979916297338,
+       "prod_C0+": -5.099231007928854,
+       "mu": 12.184551362695837,
+       "muP": 11.526938920325028
+      },
+      "eta_max": 0.0001
+     }
+    ]
+   },
+   "grund": "Zertifikat (a) für 2/2 Fälle bestanden",
+   "level": "computed_rigorous",
+   "status": "bestätigt",
+   "red_team": [
+    {
+     "pruefung": {
+      "typ": "schranke_familie",
+      "familie": "gebunden<=2",
+      "ausdruck": "1/D**2",
+      "mitglieder": [
+       "fam2_9",
+       "fam2_11",
+       "fam2_13"
+      ]
+     },
+     "idee": "Wenn die Antwort falsch ist und die angeblichen Gegenbeispiele bei exakter Prüfung keine echten Verletzungen sind (η ≥ 1/D² = 1e-4 gilt), dann ist die Schranke für diese Mitglieder beweisbar. Der Beweis würde bestehen. Bei echten Gegenbeispielen muss er scheitern.",
+     "bestanden": false,
+     "grund": "Zertifikat (b) Familie gebunden<=2: Schranke eta >= 1/D**2 für 0/3 Mitglieder bewiesen; nicht bewiesen: ['fam2_9', 'fam2_11', 'fam2_13']",
+     "widerspruch": false
+    },
+    {
+     "pruefung": {
+      "typ": "untere_schranke",
+      "topologie": "fam2_9",
+      "c": 1,
+      "k": 2
+     },
+     "idee": "Randfall fam2_9: Falls η ≥ 1·e^(-2Δ) für alle positiven Raten und jeden Treibstoff gilt, ist das behauptete Gegenbeispiel (η ≈ 2e-5) ungültig. Das wäre etwa eine Folge von Rundung auf rationale Raten oder von Ratenbereich und Bilanz. Die Antwort wäre dann falsch.",
+     "bestanden": false,
+     "grund": "Prüfung nicht ausführbar: IndexError: list index out of range",
+     "widerspruch": false
+    }
+   ],
+   "runde": 12
   }
  ],
  "widerlegt": [
@@ -1846,7 +2026,73 @@
     }
    ],
    "sek": 113.0
+  },
+  {
+   "runde": 11,
+   "frage": "F18",
+   "status": "beantwortet",
+   "red_team": [
+    {
+     "pruefung": {
+      "typ": "untere_schranke",
+      "topologie": "fam2_4",
+      "ausdruck": "1/D**2"
+     },
+     "idee": "Die Liste lässt fam2_4 aus. Ist die Schranke η ≥ 1/D² für fam2_4 beweisbar, dann ist die Liste nicht vollständig und die Antwort (genau 50 Mitglieder) falsch. Der Beweis bräuchte keine Ratenparameter. Ich konnte classify_family nicht ausführen, daher ist das eine begründete Vermutung.",
+     "bestanden": false,
+     "grund": "Prüfung nicht ausführbar: IndexError: list index out of range",
+     "widerspruch": false
+    },
+    {
+     "pruefung": {
+      "typ": "untere_schranke",
+      "topologie": "fam2_0",
+      "ausdruck": "1/D**2"
+     },
+     "idee": "Auch fam2_0 fehlt in der Liste (sie beginnt bei fam2_1). Besteht der symbolische Beweis für dieses Mitglied, dann gibt es mindestens 51 beweisbare Mitglieder und die Zahl 50 ist falsch. Das ist ein zweiter, unabhängiger Randfall am Anfang der Indexliste.",
+     "bestanden": false,
+     "grund": "Prüfung nicht ausführbar: IndexError: list index out of range",
+     "widerspruch": false
+    }
+   ],
+   "sek": 58.2
+  },
+  {
+   "runde": 12,
+   "frage": "F19",
+   "status": "beantwortet",
+   "red_team": [
+    {
+     "pruefung": {
+      "typ": "schranke_familie",
+      "familie": "gebunden<=2",
+      "ausdruck": "1/D**2",
+      "mitglieder": [
+       "fam2_9",
+       "fam2_11",
+       "fam2_13"
+      ]
+     },
+     "idee": "Wenn die Antwort falsch ist und die angeblichen Gegenbeispiele bei exakter Prüfung keine echten Verletzungen sind (η ≥ 1/D² = 1e-4 gilt), dann ist die Schranke für diese Mitglieder beweisbar. Der Beweis würde bestehen. Bei echten Gegenbeispielen muss er scheitern.",
+     "bestanden": false,
+     "grund": "Zertifikat (b) Familie gebunden<=2: Schranke eta >= 1/D**2 für 0/3 Mitglieder bewiesen; nicht bewiesen: ['fam2_9', 'fam2_11', 'fam2_13']",
+     "widerspruch": false
+    },
+    {
+     "pruefung": {
+      "typ": "untere_schranke",
+      "topologie": "fam2_9",
+      "c": 1,
+      "k": 2
+     },
+     "idee": "Randfall fam2_9: Falls η ≥ 1·e^(-2Δ) für alle positiven Raten und jeden Treibstoff gilt, ist das behauptete Gegenbeispiel (η ≈ 2e-5) ungültig. Das wäre etwa eine Folge von Rundung auf rationale Raten oder von Ratenbereich und Bilanz. Die Antwort wäre dann falsch.",
+     "bestanden": false,
+     "grund": "Prüfung nicht ausführbar: IndexError: list index out of range",
+     "widerspruch": false
+    }
+   ],
+   "sek": 209.5
   }
  ],
- "kosten_usd": 3.1979809999999995
+ "kosten_usd": 3.5275
 }
