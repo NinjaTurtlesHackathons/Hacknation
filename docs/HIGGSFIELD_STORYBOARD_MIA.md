@@ -1,4 +1,4 @@
-# Storyboard "Mia": Higgsfield production script (75 s)
+# Storyboard "Mia": Higgsfield production script (60 s)
 
 Based on the team storyboard (despair → bottleneck → first contact → the lab at work → others use it → breakthrough → graduation → logo).
 Each scene comes as **Higgsfield clips** (start frame + camera motion + video prompt) plus **overlays**, which are added in the edit.
@@ -36,40 +36,46 @@ oversized dark green knit sweater, tired but determined eyes, natural look, cine
 
 ---
 
-## Scenes and clips
+## Scenes and clips (60 s, 17 clips)
+
+Higgsfield always generates 5 s; cut each clip down to the time given in the edit.
 
 | # | Time | Clip (Higgsfield) | Camera motion | Overlay in the edit | Voiceover / sound |
 |---|---|---|---|---|---|
 | **1 Despair** | | | | | |
-| 1a | 0–4 s | **Mia** at night in a library, alone at a long table, laptop, paper cup of coffee, stack of printed papers, warm desk lamp, dark shelves; `the laptop screen glows red, no readable text` | Dolly In (slow) | – | Rain, a clock ticking |
-| 1b | 4–8 s | Close-up of Mia's face lit by the screen glow, she takes off her glasses and rubs her eyes | Static, slight handheld | Red error lines as an abstract overlay (blurred, illegible) | **„Monate Arbeit. Und nichts davon hält."** |
+| 1a | 0–3 s | **Mia** at night in a library, laptop with a red glow, coffee cup, stack of papers, desk lamp | Dolly In | – | Rain, a clock ticking |
+| 1b | 3–6 s | Close-up: Mia takes off her glasses and rubs her eyes | Static | Red error lines (blurred, illegible) | **"Months of work. And none of it holds up."** |
 | **2 The bottleneck** | | | | | |
-| 2a | 8–10 s | **PhD student** in a corridor staring at his laptop, shaking his head | Whip Pan into the next clip | – | – |
-| 2b | 10–12 s | **Professor** in her office, red pen hovering over a printed manuscript, frowning | Whip Pan | – | – |
-| 2c | 12–14 s | **Lab head** in a bright lab, holding a sheet of results up to the light, sceptical | Crash Zoom In (short) | – | **„Forschung scheitert nicht an Ideen, sondern am Prüfen."** |
+| 2a | 6–7.5 s | **PhD student** in a corridor, shaking his head at his laptop | Whip Pan | – | – |
+| 2b | 7.5–9 s | **Professor**, red pen over a manuscript, frowning | Whip Pan | – | – |
+| 2c | 9–10 s | **Lab head** holds a sheet up to the light, sceptical | Crash Zoom In | – | **"Research doesn't fail for lack of ideas. It fails at checking."** (runs over 2a–2c) |
 | **3 First contact** | | | | | |
-| 3a | 14–18 s | Mia in the library, morning light now, she sits up straight and types; `laptop screen shows a plain off-white page, blank, no text` | Arc Right (slow) | **Overlay:** her question appears as a chat bubble on the laptop, e.g. "Which of the open designs can beat the proofreading limit?" | – |
-| 3b | 18–22 s | Over-the-shoulder shot of Mia, screen out of focus, she leans in expectantly | Dolly In | **Overlay:** a small ∎ blinks on, then text in the UI style: "Ask your question." | **„Stell deine Frage."** |
-| **4 The lab at work (key moment)** | | | | | |
-| 4a | 22–28 s | **Pure motion design, no Higgsfield clip:** four bubbles with icons (Scout 🔍, Planner 🧭, Researchers 🧪🧪, Red team 🛡), arrows between them, two experiment lanes running in parallel. Or a **real screen recording** of the run page (event stream with agent lanes) as the background | – | Bubbles on paper white `#F6F7F5`, ink `#1C2430`, accent `#23408E` | **„Agenten schlagen vor."** |
-| 4b | 28–33 s | Motion design: a claim card ("rate within bounds for 15 designs") is **struck through in red**, label "Rejected: one rate out of range". Use the **real reason** from run 2026-10-04b | – | Red line drawn in over 300 ms, soft dull sound | **„Ein Prüfprogramm entscheidet …"** |
-| 4c | 33–38 s | Motion design: the next card ("10 designs below the limit") gets a **blue ∎ / ✓ certified**, small stamp effect; the red-team shield bounces off it | – | Stamp at 280 ms, a gentle "thud" | **„… und ein Red Team greift jedes Ergebnis an."** |
+| 3a | 10–13 s | Mia in morning light, sitting up straight and typing; screen blank | Arc Right | **Overlay:** her question as a chat bubble | – |
+| 3b | 13–16 s | Over the shoulder, she leans in | Dolly In | **Overlay:** ∎ blinks, "Ask your question." | **"Ask your question."** |
+| **4 The lab at work** | | | | | |
+| 4a | 16–20 s | **Motion design:** bubbles Scout, Planner, 2× Researcher, Red team; arrows, two parallel lanes | – | – | **"Agents propose."** |
+| 4b | 20–25 s | **Motion design:** claim card struck through in red, "Rejected: one rate out of range" | – | Strike-through 300 ms, a dull "thunk" | **"A verifier decides …"** |
+| 4c | 25–30 s | **Motion design:** next card gets the blue ∎ "certified", the red-team shield bounces off it | – | Stamp 280 ms, a warm "thud" | **"… and a red team attacks every result."** |
 | **5 Others use it** | | | | | |
-| 5a | 38–41 s | **Professor** at her desk, now nodding while she reads a printout, laptop beside her (screen blank) | Dolly In | **Overlay card:** "0 of 20 random claims accepted" | Music picks up |
-| 5b | 41–44 s | **PhD student** looks surprised at his laptop, points at the screen | Static | **Overlay card:** "Result changed the plan" (in the run, a confirmed result really did overturn a preregistered assumption) | – |
-| 5c | 44–48 s | Cards fly in one after another over a blurred library background (no Higgsfield clip needed; or 1a softly blurred) | – | **Cards:** "2 of 2 planted false claims caught" · "3.96× fewer verifier calls than a hand-written heuristic (25 seeds)" · "64 of 88 designs decided" | – |
+| 5a | 30–32.5 s | **Professor** nods while reading | Dolly In | **Card:** "0 of 20 random claims accepted" | Music picks up |
+| 5b | 32.5–35 s | **PhD student** looks surprised at his laptop | Static | **Card:** "Result changed the plan" | – |
+| 5c | 35–38 s | Blurred library background | – | **Card:** "3.96× fewer verifier calls than a hand-written heuristic · 25 seeds" | – |
 | **6 Breakthrough** | | | | | |
-| 6a | 48–52 s | Mia laughs with relief, leans back, sunlight in the library | Dolly Out (slow) | – | – |
-| 6b | 52–55 s | **Professor** stands behind Mia, looks at the screen, nods with approval | Arc Left | – | – |
-| 6c | 55–58 s | Close-up of printed paper pages on the table (blank, no text) | Crane Down onto the paper | **Overlay:** "Result 1" + a short line + ∎ + "claim proofreading-O19" | **„Bewiesen statt behauptet."** |
+| 6a | 38–42 s | Mia laughs with relief, the **professor** behind her nods (both in one clip) | Dolly Out | – | – |
+| 6b | 42–46 s | Printed pages on the table (blank) | Crane Down | **Overlay:** "Result 1 … ∎", "claim proofreading-O19" | **"Proved, not claimed."** |
 | **7 Graduation** | | | | | |
-| 7a | 58–63 s | Graduation outdoors, Mia in gown with friends (PhD student among them), all throwing their caps in the air, golden-hour light | **Slow Motion** / Bullet Time | – | Music swells |
-| 7b | 63–68 s | Low angle: caps spinning against a blue sky | Crane Up (slow, slow motion) | – | – |
+| 7a | 46–50 s | Graduation, caps thrown, golden hour | Bullet Time / slow motion | – | Music swells |
+| 7b | 50–53 s | Low angle, caps against a blue sky | Crane Up, slow motion | – | – |
 | **8 Logo** | | | | | |
-| 8a | 68–72 s | A single cap flies straight toward the camera and fills the frame | FPV / Follow | **Transition in the edit:** the dark cap fills the frame and morphs into the blue square (shape morph in AE / CapCut "Morph") | – |
-| 8b | 72–75 s | Paper-white background (no Higgsfield clip needed) | – | **∎ Probatum**, below it "Proved, not claimed." / "Claims you can check." and `github.com/alizema700/Daddys-Project` | Music ends on one note |
+| 8a | 53–56 s | A cap flies into the lens and fills the frame | FPV / Follow | **Morph:** the cap becomes the blue square | – |
+| 8b | 56–60 s | Paper white | – | **∎ Probatum**, "Proved, not claimed.", github.com/alizema700/Daddys-Project | Music ends on one note |
 
----
+**Voiceover:** about 30 words, enough for 60 s with breathing room. If you want German instead:
+- Szene 1: „Monate Arbeit. Und nichts davon hält."
+- Szene 2: „Forschung scheitert nicht an Ideen, sondern am Prüfen."
+- Szene 3: „Stell deine Frage."
+- Szene 4: „Agenten schlagen vor. Ein Prüfprogramm entscheidet, ein Red Team greift jedes Ergebnis an."
+- Szene 6: „Bewiesen statt behauptet."
 
 ## Higgsfield prompts ready to copy (the most important clips)
 
@@ -79,7 +85,7 @@ oversized dark green knit sweater, tired but determined eyes, natural look, cine
 
 **3a** — `[Mia reference] at the same library table in early morning light, sitting up straight and typing, laptop screen plain off-white and blank` + style suffix · Motion: **Arc Right** · Video: `camera arcs slowly around her, she types with focus, morning light grows`
 
-**6a** — `[Mia reference] laughing with relief, leaning back in her chair, sunlight flooding the library` + style suffix · Motion: **Dolly Out** · Video: `she laughs and covers her mouth, camera pulls back slowly`
+**6a** — `[Mia reference] laughing with relief, leaning back in her chair, [professor reference] standing behind her nodding with approval, sunlight flooding the library` + style suffix · Motion: **Dolly Out** · Video: `she laughs and covers her mouth, camera pulls back slowly`
 
 **7a** — `[Mia reference] with friends in graduation gowns on a sunny lawn, all throwing their caps into the air, golden hour` + style suffix · Motion: **Bullet Time** or slow motion · Video: `caps leave their hands in slow motion, gowns flutter, everyone laughing`
 
@@ -99,8 +105,7 @@ oversized dark green knit sweater, tired but determined eyes, natural look, cine
 - "0 of 20 random claims accepted"
 - "2 of 2 planted false claims caught by the red team"
 - "3.96× fewer verifier calls than a hand-written heuristic · 25 paired seeds"
-- "5.26× fewer than random search"
-- "64 of 88 designs decided: 50 proved, 14 exact counterexamples"
+- Reserve cards (if you want to swap one): "2 of 2 planted false claims caught by the red team" · "5.26× fewer than random search" · "64 of 88 designs decided"
 
 ## Before upload
 
