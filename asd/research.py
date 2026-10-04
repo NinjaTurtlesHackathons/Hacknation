@@ -59,6 +59,23 @@ def search_arxiv(q, n=25):
     return out
 
 
+def search_inspire(q, n=25):
+    """INSPIRE-HEP (Hochenergiephysik, Stringtheorie): Titel, Abstract, arXiv-ID/DOI als Tool-Beleg."""
+    url = "https://inspirehep.net/api/literature?" + urllib.parse.urlencode(
+        {"q": q, "size": n, "sort": "mostcited", "fields": "titles,abstracts,arxiv_eprints,dois,authors.full_name,preprint_date,publication_info"})
+    out = []
+    for h in json.loads(_get(url)).get("hits", {}).get("hits", []):
+        m = h.get("metadata", {}); ab = " ".join((m.get("abstracts") or [{}])[0].get("value", "").split())
+        if not ab: continue
+        ax = (m.get("arxiv_eprints") or [{}])[0].get("value"); doi = (m.get("dois") or [{}])[0].get("value")
+        if not (ax or doi): continue
+        jahr = str((m.get("preprint_date") or "")[:4] or ((m.get("publication_info") or [{}])[0].get("year") or ""))
+        out.append({"id": f"arXiv:{ax}" if ax else f"doi:{doi}", "titel": " ".join((m.get("titles") or [{}])[0].get("title", "").split()),
+                    "abstract": ab, "jahr": jahr, "autoren": ", ".join(a.get("full_name", "") for a in (m.get("authors") or [])[:8]),
+                    "url": f"https://arxiv.org/abs/{ax}" if ax else f"https://doi.org/{doi}"})
+    return out
+
+
 def search_europepmc(q, n=25):
     url = "https://www.ebi.ac.uk/europepmc/webservices/rest/search?" + urllib.parse.urlencode(
         {"query": f"{q} AND HAS_ABSTRACT:y", "format": "json", "pageSize": n, "resultType": "core"})
@@ -173,15 +190,22 @@ def run(topic, n_queries=10, per_query=25, keep=60, model_cheap="haiku", model_m
     qs = list(dict.fromkeys(qs + list(T.get("klassiker", []))))
     log(f"Suchanfragen: {qs}")
     # 2. Abruf (Code)
-    corpus, seen = {}, set(); klassiker_hits = {k: [] for k in T.get("klassiker", [])}
+    corpus, seen = {}, set(); klassiker_hits = {k: [] for k in T.get("klassiker", [])}; arxiv_fehler = [0]
     cpath = f"{d}/korpus_cache.json"
     if os.path.exists(cpath):                                   # fortsetzbar: Abruf nicht wiederholen
         c = json.load(open(cpath)); corpus, klassiker_hits = c["korpus"], c.get("klassiker", klassiker_hits); qs = c["suchanfragen"]; seen = None
         log(f"Korpus aus Cache: {len(corpus)} Quellen")
     for q in (qs if seen is not None else []):
-        for src in (search_arxiv, search_europepmc) + ((search_crossref,) if T.get("crossref") else ()):
+        for src in (search_arxiv, search_europepmc) + ((search_crossref,) if T.get("crossref") else ()) + ((search_inspire,) if T.get("inspire") else ()):
+            if src is search_arxiv and arxiv_fehler[0] >= 3: continue        # arXiv drosselt: nach 3 Fehlern in Folge für diesen Lauf aussetzen
             try: docs = src(q, per_query)
-            except Exception as e: log(f"Abruf-Fehler {src.__name__} '{q}': {e}"); docs = []
+            except Exception as e:
+                log(f"Abruf-Fehler {src.__name__} '{q}': {e}"); docs = []
+                if src is search_arxiv:
+                    arxiv_fehler[0] += 1
+                    if arxiv_fehler[0] == 3: log("arXiv-API antwortet nicht (3 Fehler in Folge): arXiv wird für den Rest des Abrufs übersprungen")
+                continue
+            if src is search_arxiv: arxiv_fehler[0] = 0
             if q in klassiker_hits: klassiker_hits[q] += [f"{d['id']} — {d['titel'][:90]} ({d['jahr']})" for d in docs[:3]]
             for doc in docs:
                 k = _norm(doc["titel"])[:120]

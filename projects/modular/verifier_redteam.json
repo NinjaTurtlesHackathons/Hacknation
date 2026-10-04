@@ -1,0 +1,255 @@
+{
+ "domain": "modular",
+ "ts": "2026-10-04 03:37:58",
+ "fallen": [
+  {
+   "id": "T1",
+   "pruefung": {
+    "typ": "identitaet",
+    "level": 1,
+    "terme": [
+     [
+      1,
+      "E4^2"
+     ],
+     [
+      -2,
+      "E8"
+     ]
+    ]
+   },
+   "warum_falsch": "E4^2 = E8, also ist die Summe -E8, nicht 0. Der q^0-Koeffizient ist 1-2 = -1.",
+   "ergebnis": "korrekt_abgelehnt",
+   "grund": "Koeffizient von q^0 ist -1 != 0 (Identitaet falsch)",
+   "urteil": null
+  },
+  {
+   "id": "T2",
+   "pruefung": {
+    "typ": "identitaet",
+    "level": 1,
+    "toleranz": 1.0,
+    "terme": [
+     [
+      1,
+      "E4"
+     ],
+     [
+      -1,
+      "E6"
+     ]
+    ]
+   },
+   "warum_falsch": "Die Gewichte sind verschieden (4 und 6), die Identität ist ein Fehler. Außerdem sind die Koeffizienten verschieden (240 gegen -504), und ein Feld 'toleranz' ist für exakte Prüfungen unzulässig.",
+   "ergebnis": "korrekt_abgelehnt",
+   "grund": "verschiedene Gewichte [Fraction(4, 1), Fraction(6, 1)]",
+   "urteil": null
+  },
+  {
+   "id": "T3",
+   "pruefung": {
+    "typ": "identitaet",
+    "level": 1,
+    "terme": [
+     [
+      1,
+      "E12"
+     ],
+     [
+      -1,
+      "E4^3"
+     ]
+    ]
+   },
+   "warum_falsch": "E12 und E4^3 haben beide Gewicht 12 und a_0 = 1, aber der q^1-Koeffizient ist 65520/691 gegen 720. Die Differenz ist daher nicht 0.",
+   "ergebnis": "korrekt_abgelehnt",
+   "grund": "Koeffizient von q^1 ist -432000/691 != 0 (Identitaet falsch)",
+   "urteil": null
+  },
+  {
+   "id": "T4",
+   "pruefung": {
+    "typ": "koeffizient",
+    "monom": "j",
+    "n": 2,
+    "wert": "21493761"
+   },
+   "warum_falsch": "Der q^2-Koeffizient von j ist 21493760, nicht 21493761. Das ist ein Off-by-one-Fehler.",
+   "ergebnis": "korrekt_abgelehnt",
+   "grund": "exakter Koeffizient von q^2 in j: 21493760",
+   "urteil": null
+  },
+  {
+   "id": "T5",
+   "pruefung": {
+    "typ": "koeffizient",
+    "monom": "j",
+    "n": 1,
+    "wert": 196884.0
+   },
+   "warum_falsch": "Der Wert ist ein Gleitkommawert statt eines exakten rationalen Strings. Auch wenn er numerisch passt, ist die Eingabe falsch typisiert und muss abgelehnt werden.",
+   "ergebnis": "korrekt_abgelehnt",
+   "grund": "Prüfung nicht ausführbar: ValueError: Koeffizienten als exakte rationale Zahl (String '7/30' oder ganze Zahl), nicht als Gleitkomma",
+   "urteil": null
+  },
+  {
+   "id": "T6",
+   "pruefung": {
+    "typ": "koeffizient",
+    "monom": "j",
+    "n": -1,
+    "wert": "2"
+   },
+   "warum_falsch": "Der Polterm von j ist q^-1 mit Koeffizient 1. Der Wert 2 ist falsch.",
+   "ergebnis": "korrekt_abgelehnt",
+   "grund": "exakter Koeffizient von q^-1 in j: 1",
+   "urteil": null
+  },
+  {
+   "id": "T7",
+   "pruefung": {
+    "typ": "eta_span",
+    "level": 11,
+    "gewicht": 2,
+    "anzahl": 1,
+    "dim_span": 1,
+    "dim_raum": 3
+   },
+   "warum_falsch": "dim M_2(Gamma_0(11)) = 2, nicht 3. Der Prüfer berechnet dim_raum selbst, und die Angabe weicht ab.",
+   "ergebnis": "korrekt_abgelehnt",
+   "grund": "Prüfer zählt 1 holomorphe Eta-Quotienten (trivialer Charakter) vom Gewicht 2 auf Gamma_0(11); exakter Rang bis zur Sturm-Schranke 2: 1; dim M_2(Gamma_0(11)) = 2",
+   "urteil": null
+  },
+  {
+   "id": "T8",
+   "pruefung": {
+    "typ": "eta_span_tabelle",
+    "gewicht": 2,
+    "level_bis": 10,
+    "voll": [
+     2
+    ],
+    "nicht_voll": [
+     2
+    ]
+   },
+   "warum_falsch": "Level 2 steht in beiden Listen, die Angabe ist widersprüchlich. Zudem ist M_2(Gamma_0(2)) eindimensional und wird vom Eta-Quotienten voll aufgespannt, 'nicht_voll' ist also falsch.",
+   "ergebnis": "korrekt_abgelehnt",
+   "grund": "Prüfer: Eta-Quotienten spannen M_2(Gamma_0(N)) für N in [1, 4, 6, 8, 9]; nicht für N in [2, 3, 5, 7, 10] (N <= 10, exakt)",
+   "urteil": null
+  },
+  {
+   "id": "T9",
+   "pruefung": {
+    "typ": "mgf_relation",
+    "toleranz": 1.0,
+    "terme": [
+     [
+      1,
+      "C(1,1,1)"
+     ],
+     [
+      -1,
+      "E(3)"
+     ],
+     [
+      -2,
+      "zeta(3)"
+     ]
+    ]
+   },
+   "warum_falsch": "Es gilt C(1,1,1) = E(3) + zeta(3), die Summe ist daher -zeta(3), also ungleich 0. Das Feld 'toleranz' darf die Schranke 1e-24 nicht aufweichen.",
+   "ergebnis": "korrekt_abgelehnt",
+   "grund": "numerisch an 4 Prüfer-Punkten (Seed 4711, 32 Stellen): max. relatives Residuum 5.00e-01 (Schranke 1e-24)",
+   "urteil": null
+  },
+  {
+   "id": "T10",
+   "pruefung": {
+    "typ": "mgf_relation",
+    "terme": [
+     [
+      1,
+      "C(1,1,1)"
+     ],
+     [
+      -1,
+      "E(3)"
+     ],
+     [
+      -1,
+      "zeta(3)"
+     ],
+     [
+      "1/1000000000000000",
+      "zeta(3)"
+     ]
+    ]
+   },
+   "warum_falsch": "Die Störung 1e-15*zeta(3) ist relativ viel größer als die Schranke 1e-24, die Relation ist also falsch. Ein Prüfer mit Schranke 1e-14 würde sie fälschlich akzeptieren.",
+   "ergebnis": "korrekt_abgelehnt",
+   "grund": "numerisch an 4 Prüfer-Punkten (Seed 4711, 32 Stellen): max. relatives Residuum 8.35e-16 (Schranke 1e-24)",
+   "urteil": null
+  },
+  {
+   "id": "T11",
+   "pruefung": {
+    "typ": "mgf_relation",
+    "terme": [
+     [
+      1,
+      "L[C(2,1,1)]"
+     ],
+     [
+      -2,
+      "C(2,1,1)"
+     ],
+     [
+      -9,
+      "E(4)"
+     ],
+     [
+      1,
+      "E(2)^2"
+     ],
+     [
+      "1/1000000000",
+      "zeta(5)"
+     ]
+    ]
+   },
+   "warum_falsch": "Die wahre Relation hat keinen zeta(5)-Term. Die Störung 1e-9*zeta(5) liegt weit über der Laplace-Schranke von 1e-14 und muss entdeckt werden.",
+   "ergebnis": "korrekt_abgelehnt",
+   "grund": "numerisch an 4 Prüfer-Punkten (Seed 4711, 32 Stellen): max. relatives Residuum 1.04e-09 (Schranke 1e-14, Laplace per finiten Differenzen)",
+   "urteil": null
+  },
+  {
+   "id": "T12",
+   "pruefung": {
+    "typ": "mgf_relationsraum",
+    "basis": [
+     "C(2,2,1)",
+     "E(5)",
+     "zeta(5)"
+    ],
+    "dim": 2,
+    "relationen": [
+     [
+      30,
+      -12,
+      -1
+     ],
+     [
+      60,
+      -24,
+      -2
+     ]
+    ]
+   },
+   "warum_falsch": "Die beiden Vektoren sind linear abhängig und spannen nur einen 1-dimensionalen Raum auf. Der wahre Relationenraum hat Dimension 1, nicht 2.",
+   "ergebnis": "korrekt_abgelehnt",
+   "grund": "angegebene Relationen sind linear abhängig",
+   "urteil": null
+  }
+ ]
+}

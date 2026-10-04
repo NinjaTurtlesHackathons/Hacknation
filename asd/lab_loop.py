@@ -36,7 +36,7 @@ def scout(P, D, log):
     from .research import run as research_run
     ziel = getattr(D, "recherche_ziel", None) or D.kontext
     spec = {"ziel": ziel, "sperre": list(getattr(D, "recherche_sperre", [])), "klassiker": list(getattr(D, "recherche_klassiker", [])),
-            "crossref": bool(getattr(D, "recherche_crossref", True))}
+            "crossref": bool(getattr(D, "recherche_crossref", True)), "inspire": bool(getattr(D, "recherche_inspire", False))}
     ok, st = research_run(f"{D.name}", n_queries=40, per_query=30, keep=150, kette=15, spec=spec, log=log)
     P.s["offen_lit"] = [{"text": f["aussage"], "zitat": f["zitat"], "quelle": f["quelle"]} for f in ok if f.get("typ") == "offene_frage"]
     P.s["wissen"] = [{"text": f["aussage"], "zitat": f["zitat"], "quelle": f["quelle"], "typ": f.get("typ"), "url": f.get("url"), "status": f.get("status")} for f in ok]
