@@ -1,0 +1,75 @@
+{
+ "runde": 6,
+ "frage": "F6",
+ "text": "Gilt das Unzerlegbarkeitskriterium für (2;1^n) (alle v_i != 0, mindestens drei verschiedene Geraden) für ausnahmslos alle Darstellungen?",
+ "experimente": [
+  {
+   "op": "tits_typ",
+   "args": {
+    "quiver": "star5"
+   },
+   "ergebnis": {
+    "typ": "wild",
+    "zeugen": {
+     "negativer_hauptminor": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5
+     ],
+     "zeuge_q_negativ": [
+      2,
+      1,
+      1,
+      1,
+      1,
+      1
+     ],
+     "q_zeuge": -1
+    }
+   },
+   "sek": 0.01
+  }
+ ],
+ "pruefungen": [
+  {
+   "id": "quivers-R6-77",
+   "bestanden": true,
+   "status": "bestätigt",
+   "grund": "alle 256 Darstellungen von star4 mit (2;1^4) über F_2 aufgezählt: unzerlegbar <=> alle v_i != 0 und >= 3 verschiedene Geraden (keine Abweichung); I = 6, Formel = 6"
+  },
+  {
+   "id": "quivers-R6-78",
+   "bestanden": true,
+   "status": "bestätigt",
+   "grund": "alle 6561 Darstellungen von star4 mit (2;1^4) über F_3 aufgezählt: unzerlegbar <=> alle v_i != 0 und >= 3 verschiedene Geraden (keine Abweichung); I = 7, Formel = 7"
+  },
+  {
+   "id": "quivers-R6-79",
+   "bestanden": true,
+   "status": "bestätigt",
+   "grund": "alle 1024 Darstellungen von star5 mit (2;1^5) über F_2 aufgezählt: unzerlegbar <=> alle v_i != 0 und >= 3 verschiedene Geraden (keine Abweichung); I = 25, Formel = 25"
+  },
+  {
+   "id": "quivers-R6-80",
+   "bestanden": true,
+   "status": "bestätigt",
+   "grund": "alle 59049 Darstellungen von star5 mit (2;1^5) über F_3 aufgezählt: unzerlegbar <=> alle v_i != 0 und >= 3 verschiedene Geraden (keine Abweichung); I = 35, Formel = 35"
+  },
+  {
+   "id": "quivers-R6-81",
+   "bestanden": true,
+   "status": "bestätigt",
+   "grund": "alle 4096 Darstellungen von star6 mit (2;1^6) über F_2 aufgezählt: unzerlegbar <=> alle v_i != 0 und >= 3 verschiedene Geraden (keine Abweichung); I = 90, Formel = 90"
+  },
+  {
+   "id": "quivers-R6-82",
+   "bestanden": true,
+   "status": "bestätigt",
+   "grund": "alle 16384 Darstellungen von star7 mit (2;1^7) über F_2 aufgezählt: unzerlegbar <=> alle v_i != 0 und >= 3 verschiedene Geraden (keine Abweichung); I = 301, Formel = 301"
+  }
+ ],
+ "sek": 114.8
+}

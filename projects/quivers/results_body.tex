@@ -122,7 +122,7 @@ This is Gabriel's theorem, checked by brute counting.
 \end{proposition}
 
 \section{Stars: the four subspace problem and beyond (F2, F3)}
-\begin{theorem}[Proof; checked in \C{quivers-R3-35}--\C{quivers-R3-39} and \C{quivers-R2-20}--\C{quivers-R2-22}, \C{quivers-R3-40}]\label{thm:star}
+\begin{theorem}[Proof; exhaustively checked for $(n,p)\in\{(4,2),(4,3),(5,2),(5,3),(6,2),(7,2)\}$ in \C{quivers-R6-77}--\C{quivers-R6-82}; counts in \C{quivers-R3-35}--\C{quivers-R3-39}, lists in \C{quivers-R2-20}--\C{quivers-R2-22}, \C{quivers-R3-40}]\label{thm:star}
 Let $n\ge3$, let $k$ be any field, and let $\alpha_n=(2;1^n)$. A representation $V$ of $S_n$ of dimension $\alpha_n$ is the same thing as a tuple of
 vectors $v_1,\dots,v_n\in k^2$, the images of $1$ under the leaf maps. Then:
 \begin{enumerate}
@@ -134,6 +134,9 @@ configurations with at least three distinct points.
 $2^{n-1}-n$.
 \end{enumerate}
 \end{theorem}
+\noindent\emph{Verification of (1) and (3).} \C{quivers-R6-77}--\C{quivers-R6-82} enumerate every representation of dimension $\alpha_n$
+over $\mathbb F_p$ (up to $3^{10}$ of them). For each one the verifier decides indecomposability via $\operatorname{End}$, compares the result with the criterion in (1),
+and sums $|\operatorname{Aut}|/|G_\alpha|$ over the indecomposables. There was no mismatch, and the totals equal the formula in (3).
 \begin{proof}
 (1) If $v_i=0$, the simple $S_i$ at leaf $i$ splits off. If all lines lie in one line $L$, then $k^2=L\oplus L'$ splits off the simple $S_0$ on $L'$.
 If the lines take exactly two values $L\neq L'$, then $V$ splits as the leaves on $L$ plus the leaves on $L'$. Conversely, suppose there are three distinct lines.
@@ -253,7 +256,7 @@ For $\vec C_n$ and $\beta=2\delta$: there are $n$ strings of length $2n$, plus $
 
 \section{Negative results, gaps, and limitations}
 \begin{itemize}
-\item All $76$ preregistered hypotheses were confirmed. None was refuted or contested, so no negative result in the strict sense occurred.
+\item All $82$ preregistered hypotheses (F1--F5 and the dated addendum F6) were confirmed. None was refuted or contested, so no negative result in the strict sense occurred.
 \item Not computed: $I_{2\delta}$ for $\widetilde D_4$, because $\mathrm{GL}_4(\mathbb F_2)$ conjugacy classes exhausted memory (about $4.5$ GB); and $(3;1^5)$ for $S_5$, because the verifier enumerates
 all of $\mathrm{GL}_3(\mathbb F_7)$.
 \item Kac polynomials are certified at finitely many primes. That they are polynomials at all comes from Kac's theorem. Theorem~\ref{thm:star}(3) has an

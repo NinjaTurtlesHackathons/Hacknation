@@ -107,7 +107,8 @@
   "F2": "Vier-Unterraum-Problem (star4 = D~4): Wie sehen alle Unzerlegbaren mit Dimensionsvektor delta aus, und wie viele gibt es über F_q?",
   "F3": "Wilde Sterne (star n, n >= 5): Wie wachsen Parameterzahl und Anzahl der Unzerlegbaren, gibt es eine geschlossene Formel für alpha_n = (2;1^n)?",
   "F4": "3- und 4-Zykel: Klassifikation der Unzerlegbaren (orientiert und azyklisch), Unabhängigkeit von der Orientierung.",
-  "F5": "Vielfache von delta: Wie viele Unzerlegbare hat 2 delta, und ist A_{2 delta} = A_delta?"
+  "F5": "Vielfache von delta: Wie viele Unzerlegbare hat 2 delta, und ist A_{2 delta} = A_delta?",
+  "F6": "Gilt das Unzerlegbarkeitskriterium für (2;1^n) (alle v_i != 0, mindestens drei verschiedene Geraden) für ausnahmslos alle Darstellungen?"
  },
  "claims": [
   {
@@ -9645,6 +9646,223 @@
      "grund": "I_[2, 2, 2, 2](3) = 9 (Methode: burnside)"
     }
    ]
+  },
+  {
+   "id": "quivers-R6-77",
+   "frage": "Gilt das Unzerlegbarkeitskriterium für (2;1^n) (alle v_i != 0, mindestens drei verschiedene Geraden) für ausnahmslos alle Darstellungen?",
+   "text": "Über F_2 ist eine Darstellung von star4 mit Dimensionsvektor (2;1^4), gegeben durch Vektoren v_1, ..., v_4 in k^2, genau dann unzerlegbar, wenn alle v_i != 0 sind und mindestens drei verschiedene Geraden aufspannen; die Zahl der Isoklassen ist ((q+1)^3 - 1 - 7 q)/(q(q-1)) bei q = 2 (alle Darstellungen exakt aufgezählt).",
+   "pruefung": {
+    "typ": "stern_kriterium",
+    "n": 4,
+    "p": 2
+   },
+   "grund": "alle 256 Darstellungen von star4 mit (2;1^4) über F_2 aufgezählt: unzerlegbar <=> alle v_i != 0 und >= 3 verschiedene Geraden (keine Abweichung); I = 6, Formel = 6",
+   "level": "computed_rigorous",
+   "status": "bestätigt",
+   "interpretation_ungeprueft": "Kriterium und Anzahlformel für star4 über F_2 für alle Darstellungen bestätigt.",
+   "red_team": [
+    {
+     "pruefung": {
+      "typ": "anzahl",
+      "quiver": "star4",
+      "alpha": [
+       2,
+       1,
+       1,
+       1,
+       1
+      ],
+      "p": 2,
+      "anzahl": 0
+     },
+     "idee": "Gibt es gar keine Unzerlegbaren?",
+     "bestanden": false,
+     "widerspruch": false,
+     "grund": "I_[2, 1, 1, 1, 1](2) = 6 (Methode: direkt)"
+    }
+   ]
+  },
+  {
+   "id": "quivers-R6-78",
+   "frage": "Gilt das Unzerlegbarkeitskriterium für (2;1^n) (alle v_i != 0, mindestens drei verschiedene Geraden) für ausnahmslos alle Darstellungen?",
+   "text": "Über F_3 ist eine Darstellung von star4 mit Dimensionsvektor (2;1^4), gegeben durch Vektoren v_1, ..., v_4 in k^2, genau dann unzerlegbar, wenn alle v_i != 0 sind und mindestens drei verschiedene Geraden aufspannen; die Zahl der Isoklassen ist ((q+1)^3 - 1 - 7 q)/(q(q-1)) bei q = 3 (alle Darstellungen exakt aufgezählt).",
+   "pruefung": {
+    "typ": "stern_kriterium",
+    "n": 4,
+    "p": 3
+   },
+   "grund": "alle 6561 Darstellungen von star4 mit (2;1^4) über F_3 aufgezählt: unzerlegbar <=> alle v_i != 0 und >= 3 verschiedene Geraden (keine Abweichung); I = 7, Formel = 7",
+   "level": "computed_rigorous",
+   "status": "bestätigt",
+   "interpretation_ungeprueft": "Kriterium und Anzahlformel für star4 über F_3 für alle Darstellungen bestätigt.",
+   "red_team": [
+    {
+     "pruefung": {
+      "typ": "anzahl",
+      "quiver": "star4",
+      "alpha": [
+       2,
+       1,
+       1,
+       1,
+       1
+      ],
+      "p": 3,
+      "anzahl": 0
+     },
+     "idee": "Gibt es gar keine Unzerlegbaren?",
+     "bestanden": false,
+     "widerspruch": false,
+     "grund": "I_[2, 1, 1, 1, 1](3) = 7 (Methode: direkt)"
+    }
+   ]
+  },
+  {
+   "id": "quivers-R6-79",
+   "frage": "Gilt das Unzerlegbarkeitskriterium für (2;1^n) (alle v_i != 0, mindestens drei verschiedene Geraden) für ausnahmslos alle Darstellungen?",
+   "text": "Über F_2 ist eine Darstellung von star5 mit Dimensionsvektor (2;1^5), gegeben durch Vektoren v_1, ..., v_5 in k^2, genau dann unzerlegbar, wenn alle v_i != 0 sind und mindestens drei verschiedene Geraden aufspannen; die Zahl der Isoklassen ist ((q+1)^4 - 1 - 15 q)/(q(q-1)) bei q = 2 (alle Darstellungen exakt aufgezählt).",
+   "pruefung": {
+    "typ": "stern_kriterium",
+    "n": 5,
+    "p": 2
+   },
+   "grund": "alle 1024 Darstellungen von star5 mit (2;1^5) über F_2 aufgezählt: unzerlegbar <=> alle v_i != 0 und >= 3 verschiedene Geraden (keine Abweichung); I = 25, Formel = 25",
+   "level": "computed_rigorous",
+   "status": "bestätigt",
+   "interpretation_ungeprueft": "Kriterium und Anzahlformel für star5 über F_2 für alle Darstellungen bestätigt.",
+   "red_team": [
+    {
+     "pruefung": {
+      "typ": "anzahl",
+      "quiver": "star5",
+      "alpha": [
+       2,
+       1,
+       1,
+       1,
+       1,
+       1
+      ],
+      "p": 2,
+      "anzahl": 0
+     },
+     "idee": "Gibt es gar keine Unzerlegbaren?",
+     "bestanden": false,
+     "widerspruch": false,
+     "grund": "I_[2, 1, 1, 1, 1, 1](2) = 25 (Methode: direkt)"
+    }
+   ]
+  },
+  {
+   "id": "quivers-R6-80",
+   "frage": "Gilt das Unzerlegbarkeitskriterium für (2;1^n) (alle v_i != 0, mindestens drei verschiedene Geraden) für ausnahmslos alle Darstellungen?",
+   "text": "Über F_3 ist eine Darstellung von star5 mit Dimensionsvektor (2;1^5), gegeben durch Vektoren v_1, ..., v_5 in k^2, genau dann unzerlegbar, wenn alle v_i != 0 sind und mindestens drei verschiedene Geraden aufspannen; die Zahl der Isoklassen ist ((q+1)^4 - 1 - 15 q)/(q(q-1)) bei q = 3 (alle Darstellungen exakt aufgezählt).",
+   "pruefung": {
+    "typ": "stern_kriterium",
+    "n": 5,
+    "p": 3
+   },
+   "grund": "alle 59049 Darstellungen von star5 mit (2;1^5) über F_3 aufgezählt: unzerlegbar <=> alle v_i != 0 und >= 3 verschiedene Geraden (keine Abweichung); I = 35, Formel = 35",
+   "level": "computed_rigorous",
+   "status": "bestätigt",
+   "interpretation_ungeprueft": "Kriterium und Anzahlformel für star5 über F_3 für alle Darstellungen bestätigt.",
+   "red_team": [
+    {
+     "pruefung": {
+      "typ": "anzahl",
+      "quiver": "star5",
+      "alpha": [
+       2,
+       1,
+       1,
+       1,
+       1,
+       1
+      ],
+      "p": 3,
+      "anzahl": 0
+     },
+     "idee": "Gibt es gar keine Unzerlegbaren?",
+     "bestanden": false,
+     "widerspruch": false,
+     "grund": "I_[2, 1, 1, 1, 1, 1](3) = 35 (Methode: burnside)"
+    }
+   ]
+  },
+  {
+   "id": "quivers-R6-81",
+   "frage": "Gilt das Unzerlegbarkeitskriterium für (2;1^n) (alle v_i != 0, mindestens drei verschiedene Geraden) für ausnahmslos alle Darstellungen?",
+   "text": "Über F_2 ist eine Darstellung von star6 mit Dimensionsvektor (2;1^6), gegeben durch Vektoren v_1, ..., v_6 in k^2, genau dann unzerlegbar, wenn alle v_i != 0 sind und mindestens drei verschiedene Geraden aufspannen; die Zahl der Isoklassen ist ((q+1)^5 - 1 - 31 q)/(q(q-1)) bei q = 2 (alle Darstellungen exakt aufgezählt).",
+   "pruefung": {
+    "typ": "stern_kriterium",
+    "n": 6,
+    "p": 2
+   },
+   "grund": "alle 4096 Darstellungen von star6 mit (2;1^6) über F_2 aufgezählt: unzerlegbar <=> alle v_i != 0 und >= 3 verschiedene Geraden (keine Abweichung); I = 90, Formel = 90",
+   "level": "computed_rigorous",
+   "status": "bestätigt",
+   "interpretation_ungeprueft": "Kriterium und Anzahlformel für star6 über F_2 für alle Darstellungen bestätigt.",
+   "red_team": [
+    {
+     "pruefung": {
+      "typ": "anzahl",
+      "quiver": "star6",
+      "alpha": [
+       2,
+       1,
+       1,
+       1,
+       1,
+       1,
+       1
+      ],
+      "p": 2,
+      "anzahl": 0
+     },
+     "idee": "Gibt es gar keine Unzerlegbaren?",
+     "bestanden": false,
+     "widerspruch": false,
+     "grund": "I_[2, 1, 1, 1, 1, 1, 1](2) = 90 (Methode: direkt)"
+    }
+   ]
+  },
+  {
+   "id": "quivers-R6-82",
+   "frage": "Gilt das Unzerlegbarkeitskriterium für (2;1^n) (alle v_i != 0, mindestens drei verschiedene Geraden) für ausnahmslos alle Darstellungen?",
+   "text": "Über F_2 ist eine Darstellung von star7 mit Dimensionsvektor (2;1^7), gegeben durch Vektoren v_1, ..., v_7 in k^2, genau dann unzerlegbar, wenn alle v_i != 0 sind und mindestens drei verschiedene Geraden aufspannen; die Zahl der Isoklassen ist ((q+1)^6 - 1 - 63 q)/(q(q-1)) bei q = 2 (alle Darstellungen exakt aufgezählt).",
+   "pruefung": {
+    "typ": "stern_kriterium",
+    "n": 7,
+    "p": 2
+   },
+   "grund": "alle 16384 Darstellungen von star7 mit (2;1^7) über F_2 aufgezählt: unzerlegbar <=> alle v_i != 0 und >= 3 verschiedene Geraden (keine Abweichung); I = 301, Formel = 301",
+   "level": "computed_rigorous",
+   "status": "bestätigt",
+   "interpretation_ungeprueft": "Kriterium und Anzahlformel für star7 über F_2 für alle Darstellungen bestätigt.",
+   "red_team": [
+    {
+     "pruefung": {
+      "typ": "anzahl",
+      "quiver": "star7",
+      "alpha": [
+       2,
+       1,
+       1,
+       1,
+       1,
+       1,
+       1,
+       1
+      ],
+      "p": 2,
+      "anzahl": 0
+     },
+     "idee": "Gibt es gar keine Unzerlegbaren?",
+     "bestanden": false,
+     "widerspruch": false,
+     "grund": "I_[2, 1, 1, 1, 1, 1, 1, 1](2) = 301 (Methode: direkt)"
+    }
+   ]
   }
  ],
  "widerlegt": [],
@@ -9653,19 +9871,19 @@
    "runde": 1,
    "frage": "F1",
    "status": "beantwortet",
-   "sek": 0.9
+   "sek": 1.0
   },
   {
    "runde": 2,
    "frage": "F2",
    "status": "beantwortet",
-   "sek": 33.5
+   "sek": 34.6
   },
   {
    "runde": 3,
    "frage": "F3",
    "status": "beantwortet",
-   "sek": 83.5
+   "sek": 84.2
   },
   {
    "runde": 4,
@@ -9677,7 +9895,13 @@
    "runde": 5,
    "frage": "F5",
    "status": "beantwortet",
-   "sek": 18.5
+   "sek": 18.8
+  },
+  {
+   "runde": 6,
+   "frage": "F6",
+   "status": "beantwortet",
+   "sek": 114.8
   }
  ],
  "kosten_usd": 0.0

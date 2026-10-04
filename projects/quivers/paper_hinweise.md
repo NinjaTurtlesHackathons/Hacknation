@@ -18,16 +18,26 @@ Title page abstract: the paper studies indecomposable representations of quivers
    5b Classification theorem for alpha_n = (2;1^n), proved in the companion ledger results.tex: a representation is a tuple of vectors in k^2;
       it is indecomposable iff all vectors are non-zero and they span at least three distinct lines; such representations are bricks and their
       isoclasses are PGL_2-orbits of point configurations in P^1 with at least three distinct points; counting gives
-      A(q) = ((q+1)^(n-1) - 1 - (2^(n-1) - 1) q) / (q (q - 1)), of degree n - 3 = 1 - q(alpha_n). Present it as a Theorem with this proof sketch,
-      and cite the kac_polynom claims as the computer verification.
+      A(q) = ((q+1)^(n-1) - 1 - (2^(n-1) - 1) q) / (q (q - 1)), of degree n - 3 = 1 - q(alpha_n).
+      State this as "Theorem 1 (proof in the companion ledger results.tex)" and give the proof sketch above in words: zero vectors split off a
+      simple; one or two distinct lines split the centre; with three distinct lines an endomorphism has three independent eigenvectors and is
+      scalar; PGL_2 acts freely on configurations with three distinct points; count configurations and divide by |PGL_2(F_q)|.
+      Its computer verification is the stern_kriterium claims (exhaustive over ALL representations for the listed n and p) plus the kac_polynom
+      claims; cite them. Label the evidence honestly: general proof = written proof in the ledger, not machine-checked; instances = computed_rigorous.
    5c Wild stars: indefinite Tits form, number of parameters 1 - q grows without bound (cite the parameter claims), two-parameter family slices,
       complete list over F_2 for star5.
-6. Cycles: 3-cycle and 4-cycle, oriented and acyclic. Classification theorem for the oriented cycle (proved in results.tex via Fitting's lemma):
+6. Cycles: 3-cycle and 4-cycle, oriented and acyclic. State "Theorem 2 (proof in the companion ledger results.tex)" for the oriented cycle:
    indecomposables are nilpotent strings S(i, l) and bands (all spaces k^m, last arrow an invertible indecomposable matrix, i.e. Jordan block
-   or companion matrix). Cite the exhaustive zykel_box checks. A_delta(q) = q + n - 1 independent of orientation; complete lists over F_3.
+   or companion matrix). Proof sketch in words: Fitting's lemma for the composite around the cycle splits V into a nilpotent and an invertible
+   part compatible with the arrows; the invertible part is a k[x, 1/x]-module after making all but one arrow the identity; the nilpotent part is a
+   module over a Nakayama algebra, whose indecomposables are uniserial strings. Cite the exhaustive zykel_box checks as computer verification.
+   Also describe the acyclic orientations (same A_delta, complete lists, tubes of rank p and r by Ringel as literature). A_delta(q) = q + n - 1 independent of orientation; complete lists over F_3.
 7. Multiples of delta: counts for 2 delta and the consequence A_{2 delta} = A_delta at the tested q.
 8. Method: the verifier-gated lab (exact verifier, self-test, preregistration, red-team counter-checks), briefly.
 9. Negative results, red team, limitations: no claim refuted or contested; what was not computed (see C-methode and the verifier notes);
    Kac polynomials certified only at finitely many primes plus Kac's theorem; results on stars and cycles are reproductions of classical facts.
 References: only the literature claims, with DOI.
 Use standard mathematical notation. Use the canonical claim statements, not the agents' interpretations, for results.
+
+Also keep, as its own statement, the four-subspace family V_t (lines (1,0), (0,1), (1,1), (1,t)): pairwise non-isomorphic bricks for every t,
+citing its claim; and the explicit description of the six extra classes (exactly one pair of coinciding lines).

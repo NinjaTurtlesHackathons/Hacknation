@@ -1,6 +1,6 @@
 # Laborbericht: Köcher-Domäne
 
-Selbsttest: bestanden. Start 2026-10-04 01:04:32.
+Selbsttest: bestanden. Start 2026-10-04 01:12:09.
 
 ## Runde 1 (F1): Gabriel: Welche der betrachteten Köcher sind von endlichem Typ, und hat D4 = star3 genau eine Unzerlegbare je positiver Wurzel?
 
@@ -245,4 +245,25 @@ Selbsttest: bestanden. Start 2026-10-04 01:04:32.
   Prüfer: I_[2, 2, 2, 2](3) = 9 (Methode: burnside)  
   Red-Team: Eine Unzerlegbare mehr? -> durchgefallen
 
-Ergebnis: 76 bestätigte Aussagen, 0 nicht bestätigt, Literatur: 8 DOIs per Crossref bestätigt.
+## Runde 6 (F6): Gilt das Unzerlegbarkeitskriterium für (2;1^n) (alle v_i != 0, mindestens drei verschiedene Geraden) für ausnahmslos alle Darstellungen?
+
+- [quivers-R6-77] BESTÄTIGT: Über F_2 ist eine Darstellung von star4 mit Dimensionsvektor (2;1^4), gegeben durch Vektoren v_1, ..., v_4 in k^2, genau dann unzerlegbar, wenn alle v_i != 0 sind und mindestens drei verschiedene Geraden aufspannen; die Zahl der Isoklassen ist ((q+1)^3 - 1 - 7  
+  Prüfer: alle 256 Darstellungen von star4 mit (2;1^4) über F_2 aufgezählt: unzerlegbar <=> alle v_i != 0 und >= 3 verschiedene Geraden (keine Abweichung); I = 6, Formel = 6  
+  Red-Team: Gibt es gar keine Unzerlegbaren? -> durchgefallen
+- [quivers-R6-78] BESTÄTIGT: Über F_3 ist eine Darstellung von star4 mit Dimensionsvektor (2;1^4), gegeben durch Vektoren v_1, ..., v_4 in k^2, genau dann unzerlegbar, wenn alle v_i != 0 sind und mindestens drei verschiedene Geraden aufspannen; die Zahl der Isoklassen ist ((q+1)^3 - 1 - 7  
+  Prüfer: alle 6561 Darstellungen von star4 mit (2;1^4) über F_3 aufgezählt: unzerlegbar <=> alle v_i != 0 und >= 3 verschiedene Geraden (keine Abweichung); I = 7, Formel = 7  
+  Red-Team: Gibt es gar keine Unzerlegbaren? -> durchgefallen
+- [quivers-R6-79] BESTÄTIGT: Über F_2 ist eine Darstellung von star5 mit Dimensionsvektor (2;1^5), gegeben durch Vektoren v_1, ..., v_5 in k^2, genau dann unzerlegbar, wenn alle v_i != 0 sind und mindestens drei verschiedene Geraden aufspannen; die Zahl der Isoklassen ist ((q+1)^4 - 1 - 1  
+  Prüfer: alle 1024 Darstellungen von star5 mit (2;1^5) über F_2 aufgezählt: unzerlegbar <=> alle v_i != 0 und >= 3 verschiedene Geraden (keine Abweichung); I = 25, Formel = 25  
+  Red-Team: Gibt es gar keine Unzerlegbaren? -> durchgefallen
+- [quivers-R6-80] BESTÄTIGT: Über F_3 ist eine Darstellung von star5 mit Dimensionsvektor (2;1^5), gegeben durch Vektoren v_1, ..., v_5 in k^2, genau dann unzerlegbar, wenn alle v_i != 0 sind und mindestens drei verschiedene Geraden aufspannen; die Zahl der Isoklassen ist ((q+1)^4 - 1 - 1  
+  Prüfer: alle 59049 Darstellungen von star5 mit (2;1^5) über F_3 aufgezählt: unzerlegbar <=> alle v_i != 0 und >= 3 verschiedene Geraden (keine Abweichung); I = 35, Formel = 35  
+  Red-Team: Gibt es gar keine Unzerlegbaren? -> durchgefallen
+- [quivers-R6-81] BESTÄTIGT: Über F_2 ist eine Darstellung von star6 mit Dimensionsvektor (2;1^6), gegeben durch Vektoren v_1, ..., v_6 in k^2, genau dann unzerlegbar, wenn alle v_i != 0 sind und mindestens drei verschiedene Geraden aufspannen; die Zahl der Isoklassen ist ((q+1)^5 - 1 - 3  
+  Prüfer: alle 4096 Darstellungen von star6 mit (2;1^6) über F_2 aufgezählt: unzerlegbar <=> alle v_i != 0 und >= 3 verschiedene Geraden (keine Abweichung); I = 90, Formel = 90  
+  Red-Team: Gibt es gar keine Unzerlegbaren? -> durchgefallen
+- [quivers-R6-82] BESTÄTIGT: Über F_2 ist eine Darstellung von star7 mit Dimensionsvektor (2;1^7), gegeben durch Vektoren v_1, ..., v_7 in k^2, genau dann unzerlegbar, wenn alle v_i != 0 sind und mindestens drei verschiedene Geraden aufspannen; die Zahl der Isoklassen ist ((q+1)^6 - 1 - 6  
+  Prüfer: alle 16384 Darstellungen von star7 mit (2;1^7) über F_2 aufgezählt: unzerlegbar <=> alle v_i != 0 und >= 3 verschiedene Geraden (keine Abweichung); I = 301, Formel = 301  
+  Red-Team: Gibt es gar keine Unzerlegbaren? -> durchgefallen
+
+Ergebnis: 82 bestätigte Aussagen, 0 nicht bestätigt, Literatur: 8 DOIs per Crossref bestätigt.
