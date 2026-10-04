@@ -5,6 +5,25 @@ import argparse, json, os, re, shutil, subprocess
 from .writer import write, check, scope_issues
 from .domains.base import get_domain
 
+SULEMAN_FORM = """FORM (binding, modelled on A. Suleman, "Optimal lattices for a three-body power-law energy", preprint 2026, a model of a short,
+dense mathematical-physics article):
+- Informative title that states the result; dense abstract that names the object, the main theorems with their numbers, the method
+  (e.g. computer-assisted proof, exact arithmetic) and what remains numerical.
+- Introduction ends with a paragraph "Summary of results." as a bullet list, each bullet pointing to its theorem ("Theorem 1 shows ...").
+- Model section defines every object and parameter once, in formulas.
+- Results as numbered Theorem / Proposition / Lemma environments, each followed by a short "Proof." or "Certificate." paragraph that
+  says exactly what was checked and how (exact rational arithmetic, symbolic positivity, interval enclosures, independent re-computation).
+- A "Remark" on the status of computer-assisted parts: what the trusted base is (e.g. IEEE-754 with outward rounding, sympy rational
+  arithmetic) and how a third party re-runs it.
+- Clear separation between proved statements, computer-assisted statements and numerical observations; numerical phase diagrams or
+  scans are labelled as numerical.
+- Tables of certified data (booktabs), e.g. one row per certified case with the certified values, when there are several cases.
+- Figures where they help understanding (phase diagram, front, classification overview), each with a self-contained caption.
+- Discussion lists open questions explicitly, numbered (i), (ii), (iii).
+- Declarations: affiliation, AI acknowledgement, code and data availability, competing interests.
+- Appendix with the numerical methods and the details of the computer-assisted proofs.
+Style: concise, precise, no hype, no marketing words, short paragraphs, formulas instead of prose where possible."""
+
 OUTLINE_EN = """Write a professional research article (arXiv level) in English. Structure, in this order, with these exact headings:
 ## Abstract
 At most 180 words: the problem; why it is open (with a literature reference); the main result with its numbers; the method in half a sentence;
@@ -412,7 +431,7 @@ def main():
              "Main results (hauptresultat) come first in Results; stuetze become propositions/lemmas, beispiel become examples; claims marked APPENDIX ONLY "
              "appear only in the appendices; claims not listed must not be used. Use for each formal statement exactly the allowed environment of its claim.")
     extra = open(a.hinweise).read() if a.hinweise and os.path.exists(a.hinweise) else a.hinweise
-    outline = (OUTLINE_EN if a.sprache == "en" else OUTLINE_DE) + "\n\n" + story + ("\n\n" + extra if extra else "")
+    outline = (OUTLINE_EN if a.sprache == "en" else OUTLINE_DE) + "\n\n" + SULEMAN_FORM + "\n\n" + story + ("\n\n" + extra if extra else "")
     for c in C: c["env"] = env_name(c) if c["claim_id"].startswith("C-" + a.domain) and not c["claim_id"].endswith("-I") and "-RT" not in c["claim_id"] else None
     gate = lambda m: rule_issues(m) + env_issues(m, C) + scope_issues(m, C)
     md, log = write(a.titel, f"Research field: {D.kontext}\n\n{outline}", C, salt=f"paper2-{a.domain}-{a.sprache}", lang=a.sprache, extra_check=gate)

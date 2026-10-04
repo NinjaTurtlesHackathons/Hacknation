@@ -76,6 +76,18 @@ Ergebnis unter `projects/meinthema/`: `state.json`, `prereg.md`, `decisions.md`,
 Ergebnis: `research/kb/<domain>/wissensstand.md`, `known_results.md`, `kb.json` (Korpus, Scores, alle Befunde). Die geprüften
 Befunde gehen sortiert nach Evidenzstatus in den Kontext aller Agenten. `--recherche-neu` wiederholt den Scout.
 
+## 2b. Form des Papers
+
+Jedes Paper folgt der Form von Suleman, „Optimal lattices for a three-body power-law energy“ (2026). Sie ist in `asd/paper.py` als `SULEMAN_FORM` verbindlich hinterlegt:
+- informativer Titel und dichtes Abstract mit den Zahlen
+- „Summary of results“ als Liste am Ende der Einleitung
+- nummerierte Theorem-, Proposition- und Lemma-Umgebungen, jeweils mit einem „Proof.“- bzw. „Certificate.“-Absatz
+- eine Remark zur trusted base der computergestützten Teile
+- Tabellen zertifizierter Daten
+- Abbildungen, wo sie helfen (über `Domain.figures`, etwa Phasendiagramm, Front oder Klassifikation)
+- nummerierte offene Fragen, Declarations, Anhang mit Methoden und Beweisdetails
+Jede Domäne sollte in `figures()` mindestens eine aussagekräftige Abbildung aus geprüften Aussagen liefern.
+
 ## 3. Was eine gute Domäne ausmacht (sonst wird das Framework schlecht)
 
 1. **Der Prüfer ist das Produkt.** Er rechnet unabhängig nach: andere Auflösung, andere Methode oder exakt. Am besten liefert er

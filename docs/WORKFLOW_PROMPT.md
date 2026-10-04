@@ -93,6 +93,7 @@ Für jede geprüfte Aussage:
 - **Abnahme:** Tabelle Aussage | Stufe | Neuheitslabel | Beleg (claim_id, Zitat-ID).
 
 ## Phase 7: Paper
+Form wie das Suleman-Paper (Optimal lattices for a three-body power-law energy, 2026). Gemeint sind: dichtes Abstract mit Zahlen, „Summary of results“, nummerierte Theoreme mit „Proof.“/„Certificate.“, eine Remark zur trusted base, Tabellen zertifizierter Daten, Abbildungen, wo sie helfen (`Domain.figures` liefern), nummerierte offene Fragen und ein Methoden-Anhang. Das ist in `asd/paper.py` als `SULEMAN_FORM` hinterlegt.
 `python -m asd.paper --domain <name> --titel "<TITEL>" --autoren "<NAMEN>" --affiliation "<AFFILIATION>"`
 Anforderungen:
 - Jede Aussage trägt ihre Stufe; „Theorem“ nur für Zertifikate.
