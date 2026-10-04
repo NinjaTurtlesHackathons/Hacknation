@@ -2,7 +2,7 @@
   python -m asd.paper --domain proofreading --titel "..." --autoren "A, B, C" --affiliation "ETH Zürich"
 Erzeugt projects/<domain>/paper.md, paper.tex (und paper.pdf, wenn pdflatex installiert ist)."""
 import argparse, json, os, re, shutil, subprocess
-from .writer import write, check
+from .writer import write, check, scope_issues
 from .domains.base import get_domain
 
 OUTLINE_EN = """Write a professional research article (arXiv level) in English. Structure, in this order, with these exact headings:
@@ -78,6 +78,40 @@ def sanitize(t):
     return re.sub(r"Prüfung nicht ausführbar:?", "", t).strip()
 
 
+def scope_of(text, p=None):
+    """'alle' = Allaussage (für alle Raten/Parameter/Mitglieder), sonst 'punkte' (endlich viele geprüfte Punkte)."""
+    t = (text or "").lower()
+    if any(k in t for k in ("für alle", "for all", "alle positiven", "all positive", "jedes mitglied", "every member")): return "alle"
+    if p and str(p.get("typ", "")) in ("untere_schranke", "schranke_familie"): return "alle"
+    return "punkte"
+
+
+def env_name(c):
+    """Benennung nach Relevanz UND Stufe: Theorem nur für hauptresultat + computed_rigorous/proved_lean."""
+    rig = c["level"] in ("computed_rigorous", "proved_lean"); r = c.get("rolle") or c.get("relevanz")
+    if c["level"] in ("statistical", "observed"): return "observation"
+    if r == "hauptresultat" and rig: return "theorem"
+    if r == "stuetze" and rig: return "proposition"
+    if r == "beispiel": return "example"
+    return "proposition" if rig else "observation"
+
+
+ENV_RANK = {"theorem": 3, "proposition": 2, "lemma": 2, "example": 1, "observation": 1, "remark": 0}
+
+
+def env_issues(md, C):
+    """Jede ::: theorem/proposition/...-Umgebung braucht mindestens einen zitierten Claim, der diese Benennung erlaubt."""
+    by = {c["claim_id"]: c for c in C}; issues = []
+    for m in re.finditer(r"^:::\s*\{?\.?(\w+)[^\n]*\n(.*?)^:::\s*$", md, re.M | re.S):
+        env, body = m.group(1).lower(), m.group(2)
+        if env not in ENV_RANK: continue
+        ids = [i for i in re.findall(r"C-[\w\-*.]+", body) if i in by]
+        if not ids: issues.append((body[:150], f"Umgebung {env} ohne zitierten Claim")); continue
+        if max(ENV_RANK[env_name(by[i])] for i in ids) < ENV_RANK[env]:
+            issues.append((body[:150], f"„{env}“ zu stark: zitierte Claims erlauben nur {', '.join(sorted({env_name(by[i]) for i in ids}))}"))
+    return issues
+
+
 def modell_claim(D):
     par = D.parameter() if hasattr(D, "parameter") else {}
     if not par:
@@ -92,8 +126,9 @@ def claims_of(domain):
     s = json.load(open(f"projects/{domain}/state.json")); D = get_domain(domain); C = modell_claim(D)
     for c in s["claims"]:
         text = D.describe(c["pruefung"]) if c.get("pruefung") else c["text"]          # nur was die Prüfung beweist
-        C.append({"claim_id": f"C-{c['id']}", "text": f"Untersuchte Frage: {c['frage']} Geprüftes Resultat: {text} Prüfer: {sanitize(c['grund'])}",
-                  "level": c["level"], "status": c["status"]})
+        rel = c.get("relevanz") or (D.relevanz(c["pruefung"]) if c.get("pruefung") and hasattr(D, "relevanz") else "stuetze")
+        C.append({"claim_id": f"C-{c['id']}", "text": f"Question studied: {c['frage']} Verified result: {text} Verifier: {sanitize(c['grund'])}",
+                  "level": c["level"], "status": c["status"], "relevanz": rel, "scope": scope_of(text, c.get("pruefung"))})
         interp = c.get("interpretation_ungeprueft") or c["text"].split("->")[-1]
         C.append({"claim_id": f"C-{c['id']}-I", "text": f"Ungeprüfte Interpretation des Agenten zu {c['id']} (nicht als Resultat verwenden): {interp}",
                   "level": "hypothesis", "status": "offen"})
@@ -212,7 +247,9 @@ def main():
              "the appendices; claims not listed must not be used.")
     extra = open(a.hinweise).read() if a.hinweise and os.path.exists(a.hinweise) else a.hinweise
     outline = (OUTLINE_EN if a.sprache == "en" else OUTLINE_DE) + "\n\n" + story + ("\n\n" + extra if extra else "")
-    md, log = write(a.titel, f"Research field: {D.kontext}\n\n{outline}", C, salt=f"paper-{a.domain}-{a.sprache}", lang=a.sprache, extra_check=rule_issues)
+    for c in C: c["env"] = env_name(c) if c["claim_id"].startswith("C-" + a.domain) else None
+    md, log = write(a.titel, f"Research field: {D.kontext}\n\n{outline}", C, salt=f"paper-{a.domain}-{a.sprache}", lang=a.sprache,
+                    extra_check=lambda m: rule_issues(m) + env_issues(m, C) + scope_issues(m, C))
     d = f"projects/{a.domain}"; rest = check(md, C); n_cited = len(set(re.findall(r"C-[\w\-*.]+", md))); runden = json.dumps(log["runden"], ensure_ascii=False)
     proto = (f"\n\n---\nPrüfprotokoll: {n_cited} Claims zitiert, Korrekturrunden {runden}, "
              f"{len(log['entfernt'])} unbelegte Sätze entfernt, verbleibende Verstöße: {len(rest)}.")

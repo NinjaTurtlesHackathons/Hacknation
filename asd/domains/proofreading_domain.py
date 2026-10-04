@@ -237,6 +237,14 @@ class ProofreadingDomain(Domain):
 
     def level(self, p): return "observed" if p.get("typ") == "optimum" else "computed_rigorous"
 
+    def relevanz(self, p):
+        t = p.get("typ")
+        if t in ("schranke_familie", "erreichbar_liste", "untere_schranke"): return "hauptresultat"
+        if t == "erreichbar" and p.get("eta_max") is not None and str(p.get("topologie", "")).startswith("fam") and float(p["eta_max"]) <= 1e-4:
+            return "hauptresultat"                                          # Gegenbeispiel zur Hopfield-Schranke e^-2Delta
+        if t == "optimum": return "stuetze"
+        return "beispiel"
+
     def parameter(self):
         return {"Delta": ("ln 100 (e^Delta = 100, e^-Delta = 0.01)", "discrimination free-energy difference in kT: W leaves bound states e^Delta times faster"),
                 "L": ("10", "range of log-rates: every rate, including derived reverse rates, lies in [e^-10, e^10]"),

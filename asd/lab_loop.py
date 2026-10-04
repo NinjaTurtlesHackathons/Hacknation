@@ -183,7 +183,8 @@ def main():
             grund = next(tr["pruefung"]["grund"] for tr in res["forscher"] if tr.get("pruefung", {}).get("bestanden"))
             P.s["claims"].append({"id": cid, "frage": q["frage"], "text": D.describe(p), "interpretation_ungeprueft": str(res["antwort"].get("antwort")),
                                   "pruefung": p, "grund": grund,
-                                  "level": D.level(p), "status": "angefochten" if angefochten else "bestätigt", "red_team": rt, "runde": runde})
+                                  "level": D.level(p), "status": "angefochten" if angefochten else "bestätigt", "red_team": rt, "runde": runde,
+                                  "relevanz": D.relevanz(p) if hasattr(D, "relevanz") else "stuetze"})
             log(f"  geprüft ({D.level(p)}): {D.describe(p)[:160]} | Red-Team: {len(rt)} Gegenprüfungen, {sum(x['bestanden'] for x in rt)} bestanden, {len(angefochten)} logische Widersprüche")
         else:
             P.s["widerlegt"].append(f"[{q['id']}] {q['frage']}: keine Behauptung bestand die Prüfung")

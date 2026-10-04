@@ -43,6 +43,37 @@ def check(md, claims):
     return issues
 
 
+QUANT = re.compile(r"\b(for all|for every|for any|universal(ly)?|always|never|monoton\w*|up to|in general|für alle|für jede[nsr]?|universell|immer|stets|nie|allgemein)\b", re.I)
+PUNKTE = re.compile(r"(at the points examined|for the cases examined|an den untersuchten (Punkten|Fällen)|in den untersuchten Fällen)", re.I)
+SCHWELLE = re.compile(r"\b(threshold|cut-?off|Schwelle|Schwellwert|Grenzwert von)\b", re.I)
+BEGRUENDUNG = re.compile(r"\b(because|since|chosen|so that|as it|equal to|which is|corresponding to|weil|da |gewählt|entspricht|so dass|sodass)\b", re.I)
+
+
+def scope_issues(md, claims):
+    """Scope-Check: Quantoren/Verallgemeinerungen nur, wenn ein zitierter Claim eine Allaussage ist; sonst 'at the points examined'.
+    Willkürliche Schwellen brauchen eine Begründung. Größen in Tabellenköpfen müssen direkt vor der Tabelle definiert sein."""
+    C = {c["claim_id"]: c for c in claims}; issues = []
+    lines = md.split("\n")
+    for k, para in enumerate(lines):
+        if not para.strip() or para.lstrip().startswith("#"): continue
+        if para.lstrip().startswith("|") and k + 1 < len(lines) and re.match(r"^\s*\|[\s:|-]+\|\s*$", lines[k + 1] or ""):
+            before = " ".join(lines[max(0, k - 4):k])
+            for cell in [x.strip() for x in para.strip().strip("|").split("|")]:
+                sym = re.findall(r"\$?([A-Za-z\\]+\([^)]*\))\$?", cell)
+                for s_ in sym:
+                    if s_ not in before: issues.append((para[:120], f"Tabellengröße {s_} ist nicht direkt vor der Tabelle definiert"))
+            continue
+        for s in re.split(r"(?<=[.!?])\s+(?=[A-ZÄÖÜ\[$])", para):
+            if s.lstrip().startswith("|"): continue
+            ids = [i for i in re.findall(r"C-[\w\-*.]+", s) if i in C]
+            if QUANT.search(re.sub(r"\[[^\]]*\]", "", s)) and ids and not PUNKTE.search(s):
+                if not any(C[i].get("scope") == "alle" for i in ids) and not any(i.startswith(("C-lit", "C-modell")) for i in ids):
+                    issues.append((s, "Quantor/Verallgemeinerung ohne Allaussage im zitierten Claim; sage „at the points examined (...)“ oder streiche den Quantor"))
+            if SCHWELLE.search(s) and not BEGRUENDUNG.search(s) and not any(i.startswith("C-modell") for i in ids):
+                issues.append((s, "Schwelle ohne Begründungs-Halbsatz"))
+    return issues
+
+
 SYS_EN = ("You write concise scientific prose in English in the style of a mathematical-physics preprint. You may ONLY use statements from the "
           "given claim list and must cite each statement with its claim_id in square brackets, e.g. [C-H1]. No number that does not appear "
           "verbatim in a cited claim. No literature citations except those inside the claims (cite them via their claim_id).")
@@ -52,7 +83,8 @@ def write(title, outline, claims, salt="", rounds=2, lang="de", extra_check=None
     """extra_check(md) -> [(stelle, grund)]: zusätzliche Code-Regeln (z. B. keine Agentennamen im Haupttext), wie Zahlen-Verstöße behandelt."""
     SYS_USE = SYS_EN if lang == "en" else SYS
     full = lambda md: check(md, claims) + (extra_check(md) if extra_check else [])
-    cl = "\n".join(f"- [{c['claim_id']}] ({c['level']}, {c['status']}) {c['text']}" for c in claims)
+    cl = "\n".join(f"- [{c['claim_id']}] ({c['level']}, {c['status']}" + (f", scope={c['scope']}" if c.get("scope") else "") +
+                   (f", allowed environment={c['env']}" if c.get("env") else "") + (", APPENDIX ONLY" if c.get("anhang") else "") + f") {c['text']}" for c in claims)
     prompt = f"Titel: {title}\n\nGliederung und Hinweise:\n{outline}\n\nClaim-Liste (einzige erlaubte Quelle):\n{cl}\n\nSchreibe den Text in Markdown."
     md = ask(prompt, SYS_USE, salt=f"writer-{salt}-0"); log = []
     for r in range(rounds):

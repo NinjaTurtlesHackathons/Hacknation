@@ -45,6 +45,16 @@ class Domain:
         nicht im Paper stehen dürfen (das Halluzinations-Gate streicht jede unbelegte Zahl)."""
         return {}
 
+    def relevanz(self, p):
+        """hauptresultat | stuetze | beispiel. Standard-Heuristik aus Prüfungstyp und kanonischer Aussage: Allaussagen, Klassifikationen,
+        Familien und Gegenbeispiel-Listen -> hauptresultat; einzelne erreichbare Punkte/Werte -> beispiel; sonst stuetze."""
+        t = str(p.get("typ", "")).lower(); d = self.describe(p).lower()
+        if any(k in t for k in ("schranke", "familie", "liste", "klassifikation", "bound", "family")) or any(
+                k in d for k in ("für alle", "for all", "jedes mitglied", "every member")):
+            return "hauptresultat"
+        if t in ("erreichbar", "wert", "value", "reachable"): return "beispiel"
+        return "stuetze"
+
     def widerspricht(self, p, q):
         """True, wenn die bestandenen Prüfungen p und q logisch nicht beide wahr sein können (Red-Team-Kriterium).
         Standard: kein bekannter Widerspruch. Domänen sollten das für ihre Prüfungstypen definieren."""
