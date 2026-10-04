@@ -63,3 +63,10 @@
 - 2026-10-04 17:52:21   Neuheit modular-R8: nicht_gefunden
 - 2026-10-04 17:52:21   geprüft modular-R8 (computed_rigorous): Für alle N <= 30: holomorphe Eta-Quotienten mit trivialem Charakter spannen M_4(Gamma_0(N)) genau für N in [2, 4, 5, 6, 8, 9, 10, 12, 14, 15, 16, 18, 20, 22, 24 | Red-Team: 2 Gegenprüfungen, 0 bestanden, 0 logische Widersprüche
 - 2026-10-04 17:52:21 Fertig: 24 geprüfte Aussagen, 3 negative Ergebnisse
+- 2026-10-04 20:03:38 Selbsttest des Prüfers: bestanden
+- 2026-10-04 20:03:53 Runde 9: Bestimme exakt für alle Gewichte 3 <= w <= 25 den Raum der Kombinationen dihedraler C(a,b,c) vom Gewicht w, deren Laplace-Operator in Q*E(w) liegt (mgf_harmonisch_familie), und gib für w = 9 und w = 11 die Gleichung Delta X = lambda E(w) als mgf_harmonisch an.
+- 2026-10-04 20:07:03   Neuheit modular-R9a: nicht_gefunden
+- 2026-10-04 20:07:03   geprüft modular-R9a (computed_rigorous): Exakt (algebraische Laplace-Darstellung nach D'Hoker-Green-Vanhove, nachgerechnet in rationaler Arithmetik): Delta(9·C(4,4,1) + 18·C(4,3,2) + 4·C(3,3,3)) = 288* | Red-Team: 2 Gegenprüfungen, 0 bestanden, 0 logische Widersprüche
+- 2026-10-04 20:08:19   Neuheit modular-R9b: bekannt
+- 2026-10-04 20:08:19   geprüft modular-R9b (computed_rigorous): Exakt (algebraische Laplace-Darstellung nach D'Hoker-Green-Vanhove, nachgerechnet in rationaler Arithmetik): Delta(2·C(5,5,1) + 4·C(5,4,2) + 2·C(5,3,3) + 3·C(4, | Red-Team: 2 Gegenprüfungen, 0 bestanden, 0 logische Widersprüche
+- 2026-10-04 20:08:34 Runde 10: Bestimme den Relationsraum der VOLLEN Basis vom Gewicht 11: C(9,1,1), C(8,2,1), C(7,3,1), C(7,2,2), C(6,4,1), C(6,3,2), C(5,5,1), C(5,4,2), C(5,3,3), C(4,4,3), E(11), zeta(11) (mgf_relationsraum_v2, Kriterium 2 laut Präregistrierungs-Nachtrag 2). Bekannte Relation: 19008*C(5,5,1)+38016*C(5,4,2)+19008*C(5,3,3)+28512*C(4,4,3)-8640*E(11)-zeta(11)=0.

@@ -454,6 +454,23 @@ class ModularDomain(Domain):
             pass
         return ("Verified: " if en else "Geprüft: ") + json.dumps(p, ensure_ascii=False)
 
+    def inhaltsklasse(self, p):
+        """Grobe Inhaltsklasse für Volltext-Belege: 'harmonisch:w' bzw. 'relation:w' (Gewicht-w-Identität aus C's, E(w), zeta(w))."""
+        from . import mgf
+        t = p.get("typ")
+        if t == "mgf_harmonisch": return f"harmonisch:{int(p['gewicht'])}"
+        try:
+            if t == "mgf_relation": ms = [m for c, m in p["terme"] if Fr(str(c)) != 0]
+            elif t in ("mgf_relationsraum", "mgf_relationsraum_v2") and int(p["dim"]) == 1:
+                ms = [b for c, b in zip(p["relationen"][0], p["basis"]) if Fr(str(c)) != 0]
+            else: return t
+            pa = [mgf.parse(m) for m in ms]
+            if any(x[0] == "L" for x in pa): return "laplace"
+            ws = {mgf.gewicht(x) for x in pa}
+            if len(ws) == 1 and all(len(x[1]) == 1 and x[1][0][2] == 1 for x in pa): return f"relation:{ws.pop()}"
+        except Exception: pass
+        return str(t)
+
     def inhalt(self, p):
         """Mathematischer Inhalt einer Prüfung als Schlüssel (für den Neuheits-Abgleich): Relationen als primitive, vorzeichen-
         normierte Koeffizientenvektoren über den beteiligten Monomen; ein Relationsraum der Dimension 1 ist gleichwertig zu seiner Relation."""

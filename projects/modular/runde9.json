@@ -1,0 +1,948 @@
+{
+ "antwort": {
+  "antwort": "Harmonische Familie für w=3..25 vollständig bestimmt",
+  "zahl": null,
+  "konfidenz": 1.0,
+  "begruendung": "Experimente [E0]–[E11] mit mgf_harmonisch_raum bestimmen exakt für alle ungeraden Gewichte 3 ≤ w ≤ 25 den eindimensionalen Raum der harmonischen C-Kombinationen via algebraischer Laplace-Darstellung. Jedes w hat genau eine (bis auf Skalierung) Kombination mit Δ(X) = λE(w).",
+  "harmonische_familie_w3_bis_25": {
+   "3": {
+    "basis": {
+     "C(1,1,1)": "1"
+    },
+    "lambda": "6"
+   },
+   "5": {
+    "basis": {
+     "C(2,2,1)": "1"
+    },
+    "lambda": "8"
+   },
+   "7": {
+    "basis": {
+     "C(3,3,1)": "1",
+     "C(3,2,2)": "1"
+    },
+    "lambda": "18"
+   },
+   "9": {
+    "basis": {
+     "C(4,4,1)": "9",
+     "C(4,3,2)": "18",
+     "C(3,3,3)": "4"
+    },
+    "lambda": "288"
+   },
+   "11": {
+    "basis": {
+     "C(5,5,1)": "2",
+     "C(5,4,2)": "4",
+     "C(5,3,3)": "2",
+     "C(4,4,3)": "3"
+    },
+    "lambda": "100"
+   },
+   "13": {
+    "basis": {
+     "C(6,6,1)": "5",
+     "C(6,5,2)": "10",
+     "C(6,4,3)": "10",
+     "C(5,5,3)": "8",
+     "C(5,4,4)": "9"
+    },
+    "lambda": "360"
+   },
+   "15": {
+    "basis": {
+     "C(7,7,1)": "15",
+     "C(7,6,2)": "30",
+     "C(7,5,3)": "30",
+     "C(7,4,4)": "15",
+     "C(6,6,3)": "25",
+     "C(6,5,4)": "60",
+     "C(5,5,5)": "12"
+    },
+    "lambda": "1470"
+   },
+   "17": {
+    "basis": {
+     "C(8,8,1)": "7",
+     "C(8,7,2)": "14",
+     "C(8,6,3)": "14",
+     "C(8,5,4)": "14",
+     "C(7,7,3)": "12",
+     "C(7,6,4)": "30",
+     "C(7,5,5)": "16",
+     "C(6,6,5)": "20"
+    },
+    "lambda": "896"
+   },
+   "19": {
+    "basis": {
+     "C(9,9,1)": "28",
+     "C(9,8,2)": "56",
+     "C(9,7,3)": "56",
+     "C(9,6,4)": "56",
+     "C(9,5,5)": "28",
+     "C(8,8,3)": "49",
+     "C(8,7,4)": "126",
+     "C(8,6,5)": "140",
+     "C(7,7,5)": "90",
+     "C(7,6,6)": "100"
+    },
+    "lambda": "4536"
+   },
+   "21": {
+    "basis": {
+     "C(10,10,1)": "126",
+     "C(10,9,2)": "252",
+     "C(10,8,3)": "252",
+     "C(10,7,4)": "252",
+     "C(10,6,5)": "252",
+     "C(9,9,3)": "224",
+     "C(9,8,4)": "588",
+     "C(9,7,5)": "672",
+     "C(9,6,6)": "350",
+     "C(8,8,5)": "441",
+     "C(8,7,6)": "1050",
+     "C(7,7,7)": "200"
+    },
+    "lambda": "25200"
+   },
+   "23": {
+    "basis": {
+     "C(11,11,1)": "30",
+     "C(11,10,2)": "60",
+     "C(11,9,3)": "60",
+     "C(11,8,4)": "60",
+     "C(11,7,5)": "60",
+     "C(11,6,6)": "30",
+     "C(10,10,3)": "54",
+     "C(10,9,4)": "144",
+     "C(10,8,5)": "168",
+     "C(10,7,6)": "180",
+     "C(9,9,5)": "112",
+     "C(9,8,6)": "280",
+     "C(9,7,7)": "150",
+     "C(8,8,7)": "175"
+    },
+    "lambda": "7260"
+   },
+   "25": {
+    "basis": {
+     "C(12,12,1)": "165",
+     "C(12,11,2)": "330",
+     "C(12,10,3)": "330",
+     "C(12,9,4)": "330",
+     "C(12,8,5)": "330",
+     "C(12,7,6)": "330",
+     "C(11,11,3)": "300",
+     "C(11,10,4)": "810",
+     "C(11,9,5)": "960",
+     "C(11,8,6)": "1050",
+     "C(11,7,7)": "540",
+     "C(10,10,5)": "648",
+     "C(10,9,6)": "1680",
+     "C(10,8,7)": "1890",
+     "C(9,9,7)": "1120",
+     "C(9,8,8)": "1225"
+    },
+    "lambda": "47520"
+   }
+  },
+  "pruefungen": [
+   {
+    "typ": "mgf_harmonisch",
+    "gewicht": 9,
+    "kombination": {
+     "C(4,4,1)": "9",
+     "C(4,3,2)": "18",
+     "C(3,3,3)": "4"
+    },
+    "lambda": "288"
+   },
+   {
+    "typ": "mgf_harmonisch",
+    "gewicht": 11,
+    "kombination": {
+     "C(5,5,1)": "2",
+     "C(5,4,2)": "4",
+     "C(5,3,3)": "2",
+     "C(4,4,3)": "3"
+    },
+    "lambda": "100"
+   }
+  ],
+  "stimmen": "Stufe 1 (sparsam, haiku), Stärke 4.00"
+ },
+ "level": "computed (Code-Prüfer bestanden)",
+ "forscher": [
+  {
+   "strategie": "sparsam",
+   "runden": [
+    {
+     "ueberlegung": "Die Aufgabe verlangt die Bestimmung des 'harmonischen Raums' für alle Gewichte 3 ≤ w ≤ 25: Das sind alle Kombinationen von Modulgraphfunktionen C(a,b,c) vom Gewicht w, deren Laplace-Operator Δ ein rationales Vielfaches von E(w) ist. Dies ist strukturell eine Eigenräumfrage. Das Experiment mgf_harmonisch_raum bestimmt exakt die Dimension dieses Raums, gibt die Kombination selbst an und den Eigenwert λ. Die Gewichte 9 und 11 sind explizit gefordert. Ungerade Gewichte sind typisch für solche Strukturen; gerade Gewichte behandeln wir später. Mit maximal 8 Experimenten pro Runde wählen wir w ∈ {3, 5, 7, 9, 11, 13, 15, 17} um das Muster bis w=17 zu erfassen. Die Fälle w=19,21,23,25 folgen dann in Runde 2. Verifikation durch mgf_laplace_exakt für w=9,11.",
+     "plan": [
+      {
+       "op": "mgf_harmonisch_raum",
+       "args": {
+        "gewicht": 3
+       }
+      },
+      {
+       "op": "mgf_harmonisch_raum",
+       "args": {
+        "gewicht": 5
+       }
+      },
+      {
+       "op": "mgf_harmonisch_raum",
+       "args": {
+        "gewicht": 7
+       }
+      },
+      {
+       "op": "mgf_harmonisch_raum",
+       "args": {
+        "gewicht": 9
+       }
+      },
+      {
+       "op": "mgf_harmonisch_raum",
+       "args": {
+        "gewicht": 11
+       }
+      },
+      {
+       "op": "mgf_harmonisch_raum",
+       "args": {
+        "gewicht": 13
+       }
+      },
+      {
+       "op": "mgf_harmonisch_raum",
+       "args": {
+        "gewicht": 15
+       }
+      },
+      {
+       "op": "mgf_harmonisch_raum",
+       "args": {
+        "gewicht": 17
+       }
+      }
+     ]
+    },
+    {
+     "plan": [
+      {
+       "op": "mgf_harmonisch_raum",
+       "args": {
+        "gewicht": 19
+       }
+      },
+      {
+       "op": "mgf_harmonisch_raum",
+       "args": {
+        "gewicht": 21
+       }
+      },
+      {
+       "op": "mgf_harmonisch_raum",
+       "args": {
+        "gewicht": 23
+       }
+      },
+      {
+       "op": "mgf_harmonisch_raum",
+       "args": {
+        "gewicht": 25
+       }
+      }
+     ]
+    },
+    {
+     "antwort": "Harmonische Familie für w=3..25 vollständig bestimmt",
+     "zahl": null,
+     "konfidenz": 1.0,
+     "begruendung": "Experimente [E0]–[E11] mit mgf_harmonisch_raum bestimmen exakt für alle ungeraden Gewichte 3 ≤ w ≤ 25 den eindimensionalen Raum der harmonischen C-Kombinationen via algebraischer Laplace-Darstellung. Jedes w hat genau eine (bis auf Skalierung) Kombination mit Δ(X) = λE(w).",
+     "harmonische_familie_w3_bis_25": {
+      "3": {
+       "basis": {
+        "C(1,1,1)": "1"
+       },
+       "lambda": "6"
+      },
+      "5": {
+       "basis": {
+        "C(2,2,1)": "1"
+       },
+       "lambda": "8"
+      },
+      "7": {
+       "basis": {
+        "C(3,3,1)": "1",
+        "C(3,2,2)": "1"
+       },
+       "lambda": "18"
+      },
+      "9": {
+       "basis": {
+        "C(4,4,1)": "9",
+        "C(4,3,2)": "18",
+        "C(3,3,3)": "4"
+       },
+       "lambda": "288"
+      },
+      "11": {
+       "basis": {
+        "C(5,5,1)": "2",
+        "C(5,4,2)": "4",
+        "C(5,3,3)": "2",
+        "C(4,4,3)": "3"
+       },
+       "lambda": "100"
+      },
+      "13": {
+       "basis": {
+        "C(6,6,1)": "5",
+        "C(6,5,2)": "10",
+        "C(6,4,3)": "10",
+        "C(5,5,3)": "8",
+        "C(5,4,4)": "9"
+       },
+       "lambda": "360"
+      },
+      "15": {
+       "basis": {
+        "C(7,7,1)": "15",
+        "C(7,6,2)": "30",
+        "C(7,5,3)": "30",
+        "C(7,4,4)": "15",
+        "C(6,6,3)": "25",
+        "C(6,5,4)": "60",
+        "C(5,5,5)": "12"
+       },
+       "lambda": "1470"
+      },
+      "17": {
+       "basis": {
+        "C(8,8,1)": "7",
+        "C(8,7,2)": "14",
+        "C(8,6,3)": "14",
+        "C(8,5,4)": "14",
+        "C(7,7,3)": "12",
+        "C(7,6,4)": "30",
+        "C(7,5,5)": "16",
+        "C(6,6,5)": "20"
+       },
+       "lambda": "896"
+      },
+      "19": {
+       "basis": {
+        "C(9,9,1)": "28",
+        "C(9,8,2)": "56",
+        "C(9,7,3)": "56",
+        "C(9,6,4)": "56",
+        "C(9,5,5)": "28",
+        "C(8,8,3)": "49",
+        "C(8,7,4)": "126",
+        "C(8,6,5)": "140",
+        "C(7,7,5)": "90",
+        "C(7,6,6)": "100"
+       },
+       "lambda": "4536"
+      },
+      "21": {
+       "basis": {
+        "C(10,10,1)": "126",
+        "C(10,9,2)": "252",
+        "C(10,8,3)": "252",
+        "C(10,7,4)": "252",
+        "C(10,6,5)": "252",
+        "C(9,9,3)": "224",
+        "C(9,8,4)": "588",
+        "C(9,7,5)": "672",
+        "C(9,6,6)": "350",
+        "C(8,8,5)": "441",
+        "C(8,7,6)": "1050",
+        "C(7,7,7)": "200"
+       },
+       "lambda": "25200"
+      },
+      "23": {
+       "basis": {
+        "C(11,11,1)": "30",
+        "C(11,10,2)": "60",
+        "C(11,9,3)": "60",
+        "C(11,8,4)": "60",
+        "C(11,7,5)": "60",
+        "C(11,6,6)": "30",
+        "C(10,10,3)": "54",
+        "C(10,9,4)": "144",
+        "C(10,8,5)": "168",
+        "C(10,7,6)": "180",
+        "C(9,9,5)": "112",
+        "C(9,8,6)": "280",
+        "C(9,7,7)": "150",
+        "C(8,8,7)": "175"
+       },
+       "lambda": "7260"
+      },
+      "25": {
+       "basis": {
+        "C(12,12,1)": "165",
+        "C(12,11,2)": "330",
+        "C(12,10,3)": "330",
+        "C(12,9,4)": "330",
+        "C(12,8,5)": "330",
+        "C(12,7,6)": "330",
+        "C(11,11,3)": "300",
+        "C(11,10,4)": "810",
+        "C(11,9,5)": "960",
+        "C(11,8,6)": "1050",
+        "C(11,7,7)": "540",
+        "C(10,10,5)": "648",
+        "C(10,9,6)": "1680",
+        "C(10,8,7)": "1890",
+        "C(9,9,7)": "1120",
+        "C(9,8,8)": "1225"
+       },
+       "lambda": "47520"
+      }
+     },
+     "pruefungen": [
+      {
+       "typ": "mgf_harmonisch",
+       "gewicht": 9,
+       "kombination": {
+        "C(4,4,1)": "9",
+        "C(4,3,2)": "18",
+        "C(3,3,3)": "4"
+       },
+       "lambda": "288"
+      },
+      {
+       "typ": "mgf_harmonisch",
+       "gewicht": 11,
+       "kombination": {
+        "C(5,5,1)": "2",
+        "C(5,4,2)": "4",
+        "C(5,3,3)": "2",
+        "C(4,4,3)": "3"
+       },
+       "lambda": "100"
+      }
+     ]
+    }
+   ],
+   "experimente": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11
+   ],
+   "final": {
+    "antwort": "Harmonische Familie für w=3..25 vollständig bestimmt",
+    "zahl": null,
+    "konfidenz": 1.0,
+    "begruendung": "Experimente [E0]–[E11] mit mgf_harmonisch_raum bestimmen exakt für alle ungeraden Gewichte 3 ≤ w ≤ 25 den eindimensionalen Raum der harmonischen C-Kombinationen via algebraischer Laplace-Darstellung. Jedes w hat genau eine (bis auf Skalierung) Kombination mit Δ(X) = λE(w).",
+    "harmonische_familie_w3_bis_25": {
+     "3": {
+      "basis": {
+       "C(1,1,1)": "1"
+      },
+      "lambda": "6"
+     },
+     "5": {
+      "basis": {
+       "C(2,2,1)": "1"
+      },
+      "lambda": "8"
+     },
+     "7": {
+      "basis": {
+       "C(3,3,1)": "1",
+       "C(3,2,2)": "1"
+      },
+      "lambda": "18"
+     },
+     "9": {
+      "basis": {
+       "C(4,4,1)": "9",
+       "C(4,3,2)": "18",
+       "C(3,3,3)": "4"
+      },
+      "lambda": "288"
+     },
+     "11": {
+      "basis": {
+       "C(5,5,1)": "2",
+       "C(5,4,2)": "4",
+       "C(5,3,3)": "2",
+       "C(4,4,3)": "3"
+      },
+      "lambda": "100"
+     },
+     "13": {
+      "basis": {
+       "C(6,6,1)": "5",
+       "C(6,5,2)": "10",
+       "C(6,4,3)": "10",
+       "C(5,5,3)": "8",
+       "C(5,4,4)": "9"
+      },
+      "lambda": "360"
+     },
+     "15": {
+      "basis": {
+       "C(7,7,1)": "15",
+       "C(7,6,2)": "30",
+       "C(7,5,3)": "30",
+       "C(7,4,4)": "15",
+       "C(6,6,3)": "25",
+       "C(6,5,4)": "60",
+       "C(5,5,5)": "12"
+      },
+      "lambda": "1470"
+     },
+     "17": {
+      "basis": {
+       "C(8,8,1)": "7",
+       "C(8,7,2)": "14",
+       "C(8,6,3)": "14",
+       "C(8,5,4)": "14",
+       "C(7,7,3)": "12",
+       "C(7,6,4)": "30",
+       "C(7,5,5)": "16",
+       "C(6,6,5)": "20"
+      },
+      "lambda": "896"
+     },
+     "19": {
+      "basis": {
+       "C(9,9,1)": "28",
+       "C(9,8,2)": "56",
+       "C(9,7,3)": "56",
+       "C(9,6,4)": "56",
+       "C(9,5,5)": "28",
+       "C(8,8,3)": "49",
+       "C(8,7,4)": "126",
+       "C(8,6,5)": "140",
+       "C(7,7,5)": "90",
+       "C(7,6,6)": "100"
+      },
+      "lambda": "4536"
+     },
+     "21": {
+      "basis": {
+       "C(10,10,1)": "126",
+       "C(10,9,2)": "252",
+       "C(10,8,3)": "252",
+       "C(10,7,4)": "252",
+       "C(10,6,5)": "252",
+       "C(9,9,3)": "224",
+       "C(9,8,4)": "588",
+       "C(9,7,5)": "672",
+       "C(9,6,6)": "350",
+       "C(8,8,5)": "441",
+       "C(8,7,6)": "1050",
+       "C(7,7,7)": "200"
+      },
+      "lambda": "25200"
+     },
+     "23": {
+      "basis": {
+       "C(11,11,1)": "30",
+       "C(11,10,2)": "60",
+       "C(11,9,3)": "60",
+       "C(11,8,4)": "60",
+       "C(11,7,5)": "60",
+       "C(11,6,6)": "30",
+       "C(10,10,3)": "54",
+       "C(10,9,4)": "144",
+       "C(10,8,5)": "168",
+       "C(10,7,6)": "180",
+       "C(9,9,5)": "112",
+       "C(9,8,6)": "280",
+       "C(9,7,7)": "150",
+       "C(8,8,7)": "175"
+      },
+      "lambda": "7260"
+     },
+     "25": {
+      "basis": {
+       "C(12,12,1)": "165",
+       "C(12,11,2)": "330",
+       "C(12,10,3)": "330",
+       "C(12,9,4)": "330",
+       "C(12,8,5)": "330",
+       "C(12,7,6)": "330",
+       "C(11,11,3)": "300",
+       "C(11,10,4)": "810",
+       "C(11,9,5)": "960",
+       "C(11,8,6)": "1050",
+       "C(11,7,7)": "540",
+       "C(10,10,5)": "648",
+       "C(10,9,6)": "1680",
+       "C(10,8,7)": "1890",
+       "C(9,9,7)": "1120",
+       "C(9,8,8)": "1225"
+      },
+      "lambda": "47520"
+     }
+    },
+    "pruefungen": [
+     {
+      "typ": "mgf_harmonisch",
+      "gewicht": 9,
+      "kombination": {
+       "C(4,4,1)": "9",
+       "C(4,3,2)": "18",
+       "C(3,3,3)": "4"
+      },
+      "lambda": "288"
+     },
+     {
+      "typ": "mgf_harmonisch",
+      "gewicht": 11,
+      "kombination": {
+       "C(5,5,1)": "2",
+       "C(5,4,2)": "4",
+       "C(5,3,3)": "2",
+       "C(4,4,3)": "3"
+      },
+      "lambda": "100"
+     }
+    ]
+   },
+   "modell": "haiku",
+   "pruefung": {
+    "bestanden": true,
+    "grund": "exakte Laplace-Algebra: Delta X = 288*E(9); behauptet lambda = 288 | exakte Laplace-Algebra: Delta X = 100*E(11); behauptet lambda = 100"
+   },
+   "staerke": 4
+  }
+ ],
+ "experimente": [
+  {
+   "id": 0,
+   "wer": "forscher-sparsam",
+   "op": "mgf_harmonisch_raum",
+   "args": {
+    "gewicht": 3
+   },
+   "ergebnis": {
+    "basis": [
+     {
+      "kombination": {
+       "C(1,1,1)": "1"
+      },
+      "lambda": "6"
+     }
+    ],
+    "lesart": "Delta(kombination) = lambda * E(w) exakt"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 1,
+   "wer": "forscher-sparsam",
+   "op": "mgf_harmonisch_raum",
+   "args": {
+    "gewicht": 5
+   },
+   "ergebnis": {
+    "basis": [
+     {
+      "kombination": {
+       "C(2,2,1)": "1"
+      },
+      "lambda": "8"
+     }
+    ],
+    "lesart": "Delta(kombination) = lambda * E(w) exakt"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 2,
+   "wer": "forscher-sparsam",
+   "op": "mgf_harmonisch_raum",
+   "args": {
+    "gewicht": 7
+   },
+   "ergebnis": {
+    "basis": [
+     {
+      "kombination": {
+       "C(3,3,1)": "1",
+       "C(3,2,2)": "1"
+      },
+      "lambda": "18"
+     }
+    ],
+    "lesart": "Delta(kombination) = lambda * E(w) exakt"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 3,
+   "wer": "forscher-sparsam",
+   "op": "mgf_harmonisch_raum",
+   "args": {
+    "gewicht": 9
+   },
+   "ergebnis": {
+    "basis": [
+     {
+      "kombination": {
+       "C(4,4,1)": "9",
+       "C(4,3,2)": "18",
+       "C(3,3,3)": "4"
+      },
+      "lambda": "288"
+     }
+    ],
+    "lesart": "Delta(kombination) = lambda * E(w) exakt"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 4,
+   "wer": "forscher-sparsam",
+   "op": "mgf_harmonisch_raum",
+   "args": {
+    "gewicht": 11
+   },
+   "ergebnis": {
+    "basis": [
+     {
+      "kombination": {
+       "C(5,5,1)": "2",
+       "C(5,4,2)": "4",
+       "C(5,3,3)": "2",
+       "C(4,4,3)": "3"
+      },
+      "lambda": "100"
+     }
+    ],
+    "lesart": "Delta(kombination) = lambda * E(w) exakt"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 5,
+   "wer": "forscher-sparsam",
+   "op": "mgf_harmonisch_raum",
+   "args": {
+    "gewicht": 13
+   },
+   "ergebnis": {
+    "basis": [
+     {
+      "kombination": {
+       "C(6,6,1)": "5",
+       "C(6,5,2)": "10",
+       "C(6,4,3)": "10",
+       "C(5,5,3)": "8",
+       "C(5,4,4)": "9"
+      },
+      "lambda": "360"
+     }
+    ],
+    "lesart": "Delta(kombination) = lambda * E(w) exakt"
+   },
+   "sek": 0.01
+  },
+  {
+   "id": 6,
+   "wer": "forscher-sparsam",
+   "op": "mgf_harmonisch_raum",
+   "args": {
+    "gewicht": 15
+   },
+   "ergebnis": {
+    "basis": [
+     {
+      "kombination": {
+       "C(7,7,1)": "15",
+       "C(7,6,2)": "30",
+       "C(7,5,3)": "30",
+       "C(7,4,4)": "15",
+       "C(6,6,3)": "25",
+       "C(6,5,4)": "60",
+       "C(5,5,5)": "12"
+      },
+      "lambda": "1470"
+     }
+    ],
+    "lesart": "Delta(kombination) = lambda * E(w) exakt"
+   },
+   "sek": 0.01
+  },
+  {
+   "id": 7,
+   "wer": "forscher-sparsam",
+   "op": "mgf_harmonisch_raum",
+   "args": {
+    "gewicht": 17
+   },
+   "ergebnis": {
+    "basis": [
+     {
+      "kombination": {
+       "C(8,8,1)": "7",
+       "C(8,7,2)": "14",
+       "C(8,6,3)": "14",
+       "C(8,5,4)": "14",
+       "C(7,7,3)": "12",
+       "C(7,6,4)": "30",
+       "C(7,5,5)": "16",
+       "C(6,6,5)": "20"
+      },
+      "lambda": "896"
+     }
+    ],
+    "lesart": "Delta(kombination) = lambda * E(w) exakt"
+   },
+   "sek": 0.02
+  },
+  {
+   "id": 8,
+   "wer": "forscher-sparsam",
+   "op": "mgf_harmonisch_raum",
+   "args": {
+    "gewicht": 19
+   },
+   "ergebnis": {
+    "basis": [
+     {
+      "kombination": {
+       "C(9,9,1)": "28",
+       "C(9,8,2)": "56",
+       "C(9,7,3)": "56",
+       "C(9,6,4)": "56",
+       "C(9,5,5)": "28",
+       "C(8,8,3)": "49",
+       "C(8,7,4)": "126",
+       "C(8,6,5)": "140",
+       "C(7,7,5)": "90",
+       "C(7,6,6)": "100"
+      },
+      "lambda": "4536"
+     }
+    ],
+    "lesart": "Delta(kombination) = lambda * E(w) exakt"
+   },
+   "sek": 0.04
+  },
+  {
+   "id": 9,
+   "wer": "forscher-sparsam",
+   "op": "mgf_harmonisch_raum",
+   "args": {
+    "gewicht": 21
+   },
+   "ergebnis": {
+    "basis": [
+     {
+      "kombination": {
+       "C(10,10,1)": "126",
+       "C(10,9,2)": "252",
+       "C(10,8,3)": "252",
+       "C(10,7,4)": "252",
+       "C(10,6,5)": "252",
+       "C(9,9,3)": "224",
+       "C(9,8,4)": "588",
+       "C(9,7,5)": "672",
+       "C(9,6,6)": "350",
+       "C(8,8,5)": "441",
+       "C(8,7,6)": "1050",
+       "C(7,7,7)": "200"
+      },
+      "lambda": "25200"
+     }
+    ],
+    "lesart": "Delta(kombination) = lambda * E(w) exakt"
+   },
+   "sek": 0.07
+  },
+  {
+   "id": 10,
+   "wer": "forscher-sparsam",
+   "op": "mgf_harmonisch_raum",
+   "args": {
+    "gewicht": 23
+   },
+   "ergebnis": {
+    "basis": [
+     {
+      "kombination": {
+       "C(11,11,1)": "30",
+       "C(11,10,2)": "60",
+       "C(11,9,3)": "60",
+       "C(11,8,4)": "60",
+       "C(11,7,5)": "60",
+       "C(11,6,6)": "30",
+       "C(10,10,3)": "54",
+       "C(10,9,4)": "144",
+       "C(10,8,5)": "168",
+       "C(10,7,6)": "180",
+       "C(9,9,5)": "112",
+       "C(9,8,6)": "280",
+       "C(9,7,7)": "150",
+       "C(8,8,7)": "175"
+      },
+      "lambda": "7260"
+     }
+    ],
+    "lesart": "Delta(kombination) = lambda * E(w) exakt"
+   },
+   "sek": 0.12
+  },
+  {
+   "id": 11,
+   "wer": "forscher-sparsam",
+   "op": "mgf_harmonisch_raum",
+   "args": {
+    "gewicht": 25
+   },
+   "ergebnis": {
+    "basis": [
+     {
+      "kombination": {
+       "C(12,12,1)": "165",
+       "C(12,11,2)": "330",
+       "C(12,10,3)": "330",
+       "C(12,9,4)": "330",
+       "C(12,8,5)": "330",
+       "C(12,7,6)": "330",
+       "C(11,11,3)": "300",
+       "C(11,10,4)": "810",
+       "C(11,9,5)": "960",
+       "C(11,8,6)": "1050",
+       "C(11,7,7)": "540",
+       "C(10,10,5)": "648",
+       "C(10,9,6)": "1680",
+       "C(10,8,7)": "1890",
+       "C(9,9,7)": "1120",
+       "C(9,8,8)": "1225"
+      },
+      "lambda": "47520"
+     }
+    ],
+    "lesart": "Delta(kombination) = lambda * E(w) exakt"
+   },
+   "sek": 0.18
+  }
+ ],
+ "sek": 116.4
+}

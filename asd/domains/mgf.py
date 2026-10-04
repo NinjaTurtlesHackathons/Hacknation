@@ -246,7 +246,7 @@ def E_lattice(s, t1, t2, dps=30):
 
 
 # ---------- Ausdruecke: Monome aus C(a,b,c), E(s), zeta(k), Laplace-Operator L[...] ----------
-import re as _re
+import re as _re, os, json
 _FAK = _re.compile(r"^(C\((\d+),(\d+),(\d+)\)|E\((\d+)\)|zeta\((\d+)\))(\^(\d+))?$")
 _VCACHE = {}
 
@@ -282,8 +282,24 @@ def gewicht(parsed):
     return sum((sum(a) if t == "C" else a) * p for t, a, p in parsed[1])
 
 
+_DISK = os.environ.get("ASD_MGF_CACHE", "cache/mgf/werte.jsonl")     # persistente Memoisierung (übersteht Neustarts); "" schaltet ab
+
+
+def _disk_load():
+    if not _DISK or not os.path.exists(_DISK) or _VCACHE.get("_geladen"): return
+    for line in open(_DISK):
+        try: d = json.loads(line); _VCACHE[(d["t"], tuple(d["a"]) if isinstance(d["a"], list) else d["a"], d["t1"], d["t2"], d["dps"])] = mp.mpf(d["v"])
+        except Exception: pass
+    _VCACHE["_geladen"] = True
+
+
 def _factor(t, a, t1, t2, dps, procs):
     key = (t, a, str(t1), str(t2), dps)
+    _disk_load()
+    if key not in _VCACHE and t == "C" and _DISK:
+        v = C(a, t1, t2, dps, procs); _VCACHE[key] = v
+        os.makedirs(os.path.dirname(_DISK), exist_ok=True)
+        with open(_DISK, "a") as f: f.write(json.dumps({"t": t, "a": list(a), "t1": str(t1), "t2": str(t2), "dps": dps, "v": mp.nstr(v, dps + 15)}) + "\n")
     if key not in _VCACHE:
         if t == "C": v = C(a, t1, t2, dps, procs)
         elif t == "E": v = E(a, t1, t2, dps)

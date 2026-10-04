@@ -84,6 +84,48 @@
    "lueckenkarte": "L2",
    "hypothese_herkunft": "manuelle Exploration (PSLQ, 40 Stellen, Basis nach dem Muster der Gewichte 5-9), nicht geprüft",
    "faden_id": "F8"
+  },
+  {
+   "frage": "Bestimme exakt für alle Gewichte 3 <= w <= 25 den Raum der Kombinationen dihedraler C(a,b,c) vom Gewicht w, deren Laplace-Operator in Q*E(w) liegt (mgf_harmonisch_familie), und gib für w = 9 und w = 11 die Gleichung Delta X = lambda E(w) als mgf_harmonisch an.",
+   "neuheit": 0.3,
+   "machbarkeit": 0.9,
+   "lueckenkarte": "L9",
+   "id": "F9",
+   "status": "beantwortet",
+   "quelle": "lueckenkarte",
+   "faden_id": "F9"
+  },
+  {
+   "frage": "Blindtest der Konstantenformel bei Gewicht 17: Prüfe die Relation 51819264000*C(8,8,1) + 103638528000*C(8,7,2) + 103638528000*C(8,6,3) + 103638528000*C(8,5,4) + 88833024000*C(7,7,3) + 222082560000*C(7,6,4) + 118444032000*C(7,5,5) + 148055040000*C(6,6,5) + -24385536000*E(17) + -3617*zeta(17) = 0 (mgf_relation).",
+   "neuheit": 0.7,
+   "machbarkeit": 0.7,
+   "lueckenkarte": "L10",
+   "hypothese_herkunft": "Formel g_w = 6|B_(w-1)| zeta(w)/((w-1)/2)! aus Exploration w = 3..13, vorab präregistriert",
+   "id": "F10",
+   "status": "offen",
+   "quelle": "lueckenkarte",
+   "faden_id": "F10"
+  },
+  {
+   "frage": "Prüfe die Konstantenformel bei Gewicht 13 und 15: Relationen 117936000*C(6,6,1) + 235872000*C(6,5,2) + 235872000*C(6,4,3) + 188697600*C(5,5,3) + 212284800*C(5,4,4) + -54432000*E(13) + -691*zeta(13) = 0 ; 1555200*C(7,7,1) + 3110400*C(7,6,2) + 3110400*C(7,5,3) + 1555200*C(7,4,4) + 2592000*C(6,6,3) + 6220800*C(6,5,4) + 1244160*C(5,5,5) + -725760*E(15) + -1*zeta(15) = 0 (je mgf_relation).",
+   "neuheit": 0.6,
+   "machbarkeit": 0.8,
+   "lueckenkarte": "L10",
+   "hypothese_herkunft": "Exploration",
+   "id": "F11",
+   "status": "offen",
+   "quelle": "lueckenkarte",
+   "faden_id": "F11"
+  },
+  {
+   "frage": "Bestimme den Relationsraum der VOLLEN Basis vom Gewicht 11: C(9,1,1), C(8,2,1), C(7,3,1), C(7,2,2), C(6,4,1), C(6,3,2), C(5,5,1), C(5,4,2), C(5,3,3), C(4,4,3), E(11), zeta(11) (mgf_relationsraum_v2, Kriterium 2 laut Präregistrierungs-Nachtrag 2). Bekannte Relation: 19008*C(5,5,1)+38016*C(5,4,2)+19008*C(5,3,3)+28512*C(4,4,3)-8640*E(11)-zeta(11)=0.",
+   "neuheit": 0.6,
+   "machbarkeit": 0.6,
+   "lueckenkarte": "L11",
+   "id": "F12",
+   "status": "offen",
+   "quelle": "lueckenkarte",
+   "faden_id": "F12"
   }
  ],
  "claims": [
@@ -2165,6 +2207,159 @@
     "status": "nicht_gefunden",
     "roh_status": "nicht_gefunden"
    }
+  },
+  {
+   "id": "modular-R9a",
+   "frage": "Bestimme exakt für alle Gewichte 3 <= w <= 25 den Raum der Kombinationen dihedraler C(a,b,c) vom Gewicht w, deren Laplace-Operator in Q*E(w) liegt (mgf_harmonisch_familie), und gib für w = 9 und w = 11 die Gleichung Delta X = lambda E(w) als mgf_harmonisch an.",
+   "text": "Exakt (algebraische Laplace-Darstellung nach D'Hoker-Green-Vanhove, nachgerechnet in rationaler Arithmetik): Delta(9·C(4,4,1) + 18·C(4,3,2) + 4·C(3,3,3)) = 288*E(9).",
+   "interpretation_ungeprueft": "Harmonische Familie für w=3..25 vollständig bestimmt",
+   "pruefung": {
+    "typ": "mgf_harmonisch",
+    "gewicht": 9,
+    "kombination": {
+     "C(4,4,1)": "9",
+     "C(4,3,2)": "18",
+     "C(3,3,3)": "4"
+    },
+    "lambda": "288"
+   },
+   "grund": "exakte Laplace-Algebra: Delta X = 288*E(9); behauptet lambda = 288",
+   "level": "computed_rigorous",
+   "status": "bestätigt",
+   "red_team": [
+    {
+     "pruefung": {
+      "typ": "mgf_harmonisch",
+      "gewicht": 5,
+      "kombination": {
+       "C(2,2,1)": "1"
+      },
+      "lambda": "8/5"
+     },
+     "idee": "Nach D'Hoker-Green-Vanhove gilt Δ C(2,2,1) = (8/5) E(5) - ζ(5)/30. Der Faktor ist also 8/5 und nicht 8. Besteht dieser Test mit exaktem lambda 8/5, ist die behauptete Gleichung mit lambda=8 für w=5 falsch.",
+     "bestanden": false,
+     "ergebnis": "nicht_bestanden",
+     "grund": "exakte Laplace-Algebra: Delta X = 8*E(5); behauptet lambda = 8/5",
+     "widerspruch": false
+    },
+    {
+     "pruefung": {
+      "typ": "mgf_harmonisch",
+      "gewicht": 9,
+      "kombination": {
+       "C(4,4,1)": "9",
+       "C(4,3,2)": "18",
+       "C(3,3,3)": "4"
+      },
+      "lambda": "144"
+     },
+     "idee": "Dieselbe w=9-Kombination mit halbiertem lambda. Das exakte Verfahren liefert nur einen einzigen lambda-Wert. Besteht dieser Test, ist die behauptete Normierung 288 falsch.",
+     "bestanden": false,
+     "ergebnis": "nicht_bestanden",
+     "grund": "exakte Laplace-Algebra: Delta X = 288*E(9); behauptet lambda = 144",
+     "widerspruch": false
+    }
+   ],
+   "runde": 9,
+   "relevanz": "stuetze",
+   "neuheit": {
+    "suchanfragen": [
+     "D'Hoker Green Vanhove amplitude",
+     "modular graph functions Eisenstein",
+     "non-holomorphic string amplitude Laplacian",
+     "one-loop closed string amplitude",
+     "heterotic string amplitude modular"
+    ],
+    "treffer": {
+     "D'Hoker Green Vanhove amplitude": 1,
+     "modular graph functions Eisenstein": 24,
+     "non-holomorphic string amplitude Laplacian": 7,
+     "one-loop closed string amplitude": 25,
+     "heterotic string amplitude modular": 18
+    },
+    "quellen_geprueft": 82,
+    "datum": "2026-10-04",
+    "status": "nicht_gefunden"
+   }
+  },
+  {
+   "id": "modular-R9b",
+   "frage": "Bestimme exakt für alle Gewichte 3 <= w <= 25 den Raum der Kombinationen dihedraler C(a,b,c) vom Gewicht w, deren Laplace-Operator in Q*E(w) liegt (mgf_harmonisch_familie), und gib für w = 9 und w = 11 die Gleichung Delta X = lambda E(w) als mgf_harmonisch an.",
+   "text": "Exakt (algebraische Laplace-Darstellung nach D'Hoker-Green-Vanhove, nachgerechnet in rationaler Arithmetik): Delta(2·C(5,5,1) + 4·C(5,4,2) + 2·C(5,3,3) + 3·C(4,4,3)) = 100*E(11).",
+   "interpretation_ungeprueft": "Harmonische Familie für w=3..25 vollständig bestimmt",
+   "pruefung": {
+    "typ": "mgf_harmonisch",
+    "gewicht": 11,
+    "kombination": {
+     "C(5,5,1)": "2",
+     "C(5,4,2)": "4",
+     "C(5,3,3)": "2",
+     "C(4,4,3)": "3"
+    },
+    "lambda": "100"
+   },
+   "grund": "exakte Laplace-Algebra: Delta X = 100*E(11); behauptet lambda = 100",
+   "level": "computed_rigorous",
+   "status": "bestätigt",
+   "red_team": [
+    {
+     "pruefung": {
+      "typ": "mgf_harmonisch",
+      "gewicht": 11,
+      "kombination": {
+       "C(5,5,1)": "2",
+       "C(5,4,2)": "4",
+       "C(5,3,3)": "2",
+       "C(4,4,3)": "3"
+      },
+      "lambda": "50"
+     },
+     "idee": "Gleiche w=11-Kombination wie in der Antwort, aber mit halbem lambda (50 statt 100). Das besteht nur, wenn der behauptete Eigenwert 100 falsch ist, denn Delta F = lambda E(11) bestimmt lambda eindeutig.",
+     "bestanden": false,
+     "ergebnis": "nicht_bestanden",
+     "grund": "exakte Laplace-Algebra: Delta X = 100*E(11); behauptet lambda = 50",
+     "widerspruch": false
+    },
+    {
+     "pruefung": {
+      "typ": "mgf_harmonisch",
+      "gewicht": 9,
+      "kombination": {
+       "C(4,4,1)": "9",
+       "C(4,3,2)": "18",
+       "C(3,3,3)": "4"
+      },
+      "lambda": "144"
+     },
+     "idee": "Gleiche w=9-Kombination, aber mit lambda=144 statt 288. Das besteht nur, wenn die angegebene Gleichung Delta X = 288 E(9) falsch ist (Normierungs- oder Koeffizientenfehler).",
+     "bestanden": false,
+     "ergebnis": "nicht_bestanden",
+     "grund": "exakte Laplace-Algebra: Delta X = 288*E(9); behauptet lambda = 144",
+     "widerspruch": false
+    }
+   ],
+   "runde": 9,
+   "relevanz": "stuetze",
+   "neuheit": {
+    "suchanfragen": [
+     "modular graph functions Eisenstein",
+     "D'Hoker Green Vanhove",
+     "non-holomorphic Eisenstein Laplacian",
+     "closed string amplitude modular"
+    ],
+    "treffer": {
+     "modular graph functions Eisenstein": 24,
+     "D'Hoker Green Vanhove": 3,
+     "non-holomorphic Eisenstein Laplacian": 8,
+     "closed string amplitude modular": 24
+    },
+    "quellen_geprueft": 64,
+    "datum": "2026-10-04",
+    "status": "bekannt",
+    "quelle": "arXiv:1502.06698",
+    "zitat": "we exhibit exact differential and algebraic relations for a certain infinite class of such modular functions by showing that they satisfy Laplace eigenvalue equations with inhomogeneous terms that are polynomial in non-holomorphic Eisenstein series",
+    "titel": "On the modular structure of the genus-one Type II superstring low energy expansion"
+   }
   }
  ],
  "widerlegt": [
@@ -2981,6 +3176,82 @@
    ],
    "sek": 1709.6,
    "faden_id": "F5"
+  },
+  {
+   "runde": 9,
+   "frage": "F9",
+   "status": "beantwortet",
+   "red_team": [
+    {
+     "pruefung": {
+      "typ": "mgf_harmonisch",
+      "gewicht": 5,
+      "kombination": {
+       "C(2,2,1)": "1"
+      },
+      "lambda": "8/5"
+     },
+     "idee": "Nach D'Hoker-Green-Vanhove gilt Δ C(2,2,1) = (8/5) E(5) - ζ(5)/30. Der Faktor ist also 8/5 und nicht 8. Besteht dieser Test mit exaktem lambda 8/5, ist die behauptete Gleichung mit lambda=8 für w=5 falsch.",
+     "bestanden": false,
+     "ergebnis": "nicht_bestanden",
+     "grund": "exakte Laplace-Algebra: Delta X = 8*E(5); behauptet lambda = 8/5",
+     "widerspruch": false
+    },
+    {
+     "pruefung": {
+      "typ": "mgf_harmonisch",
+      "gewicht": 9,
+      "kombination": {
+       "C(4,4,1)": "9",
+       "C(4,3,2)": "18",
+       "C(3,3,3)": "4"
+      },
+      "lambda": "144"
+     },
+     "idee": "Dieselbe w=9-Kombination mit halbiertem lambda. Das exakte Verfahren liefert nur einen einzigen lambda-Wert. Besteht dieser Test, ist die behauptete Normierung 288 falsch.",
+     "bestanden": false,
+     "ergebnis": "nicht_bestanden",
+     "grund": "exakte Laplace-Algebra: Delta X = 288*E(9); behauptet lambda = 144",
+     "widerspruch": false
+    },
+    {
+     "pruefung": {
+      "typ": "mgf_harmonisch",
+      "gewicht": 11,
+      "kombination": {
+       "C(5,5,1)": "2",
+       "C(5,4,2)": "4",
+       "C(5,3,3)": "2",
+       "C(4,4,3)": "3"
+      },
+      "lambda": "50"
+     },
+     "idee": "Gleiche w=11-Kombination wie in der Antwort, aber mit halbem lambda (50 statt 100). Das besteht nur, wenn der behauptete Eigenwert 100 falsch ist, denn Delta F = lambda E(11) bestimmt lambda eindeutig.",
+     "bestanden": false,
+     "ergebnis": "nicht_bestanden",
+     "grund": "exakte Laplace-Algebra: Delta X = 100*E(11); behauptet lambda = 50",
+     "widerspruch": false
+    },
+    {
+     "pruefung": {
+      "typ": "mgf_harmonisch",
+      "gewicht": 9,
+      "kombination": {
+       "C(4,4,1)": "9",
+       "C(4,3,2)": "18",
+       "C(3,3,3)": "4"
+      },
+      "lambda": "144"
+     },
+     "idee": "Gleiche w=9-Kombination, aber mit lambda=144 statt 288. Das besteht nur, wenn die angegebene Gleichung Delta X = 288 E(9) falsch ist (Normierungs- oder Koeffizientenfehler).",
+     "bestanden": false,
+     "ergebnis": "nicht_bestanden",
+     "grund": "exakte Laplace-Algebra: Delta X = 288*E(9); behauptet lambda = 144",
+     "widerspruch": false
+    }
+   ],
+   "sek": 116.4,
+   "faden_id": "F9"
   }
  ],
  "kosten_usd": 0.0

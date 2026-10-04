@@ -32,3 +32,8 @@
 | 2026-10-04 17:15:47 | INTEGRATOR | Runde 8 (F5, Eta) neu gestartet ohne Stärkungsversuche (ASD_STAERKUNG=0): Erweiterung auf Gewicht 6/8 und Level 40 lief > 1 h (kombinatorische Explosion der Aufzählung) | Rechenzeit |
 | 2026-10-04 17:18:47 | INTEGRATOR | Runde 8: Fadenwechsel weg von F8 | keine offenen Folgefragen im Faden |
 | 2026-10-04 17:18:47 | INTEGRATOR | Runde 8: [F5] Für welche Level N <= 30 spannen die holomorphen Eta-Quotienten mit trivialem Charakter den ganzen Raum M_4(Gamma_0(N))? | F5 ist die einzige offene Frage und hat hohe Machbarkeit (0.9). Sie ist ein exakt entscheidbares Problem der linearen Algebra: Für jedes N <= 30 wird die Dimens |
+| 2026-10-04 20:03:38 | INTEGRATOR | Startfragen aus projects/modular/fragen_runde2.json geladen, übrige offene Fragen zurückgestellt | Workflow Phase 5 |
+| 2026-10-04 20:03:38 | INTEGRATOR | Runde 9: Fadenwechsel weg von F5 | keine offenen Folgefragen im Faden |
+| 2026-10-04 20:03:53 | INTEGRATOR | Runde 9: [F9] Bestimme exakt für alle Gewichte 3 <= w <= 25 den Raum der Kombinationen dihedraler C(a,b,c) vom Gewicht w, deren Laplac | F9 hat den höchsten Erkenntnisgewinn. Es ist eine offene Frage mit Literaturbezug (Laplace-Eigenwertgleichungen dihedraler Modulgraphfunktionen, Niederenergie-E |
+| 2026-10-04 20:08:19 | INTEGRATOR | Runde 10: Fadenwechsel weg von F9 | keine offenen Folgefragen im Faden |
+| 2026-10-04 20:08:34 | INTEGRATOR | Runde 10: [F12] Bestimme den Relationsraum der VOLLEN Basis vom Gewicht 11: C(9,1,1), C(8,2,1), C(7,3,1), C(7,2,2), C(6,4,1), C(6,3,2),  | F12 hat den höchsten erwarteten Erkenntnisgewinn. Die Relationen bei Gewicht 11 (R7a, R7b) sind nur für die reduzierte Basis aus sechs Funktionen gesichert; die |
