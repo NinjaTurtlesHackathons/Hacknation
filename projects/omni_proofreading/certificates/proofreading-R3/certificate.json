@@ -1,0 +1,114 @@
+{
+ "claim_id": "proofreading-R3",
+ "aussage": "For hopfield_n1 there exist rational rates in [e^-10, e^10] satisfying local detailed balance such that simultaneously eta <= 0.01, v >= 0.001 (certificate (a): exact reachability).",
+ "typ": "erreichbar",
+ "faelle": [
+  {
+   "topologie": "hopfield_n1",
+   "zustaende": [
+    "E",
+    "C0_R",
+    "C1_R",
+    "C0_W",
+    "C1_W"
+   ],
+   "gebunden": [
+    "C0",
+    "C1"
+   ],
+   "e_delta": "100",
+   "eta_max": "0.01",
+   "v_min": "0.001",
+   "kanten": [
+    {
+     "id": "bind",
+     "u": "C0_R",
+     "v": "E",
+     "f": "1485086/874129",
+     "b": "1344161853/945091",
+     "a": "1/1",
+     "zweig": "R",
+     "produkt": false,
+     "disk": true
+    },
+    {
+     "id": "akt0",
+     "u": "C0_R",
+     "v": "C1_R",
+     "f": "973/53124",
+     "b": "12624801529145606309465048502279/3144526287857538154325865270952",
+     "a": "4734191/882330",
+     "zweig": "R",
+     "produkt": false,
+     "disk": false
+    },
+    {
+     "id": "verw1",
+     "u": "C1_R",
+     "v": "E",
+     "f": "19369/203095",
+     "b": "64478/949869",
+     "a": "1/1",
+     "zweig": "R",
+     "produkt": false,
+     "disk": true
+    },
+    {
+     "id": "prod",
+     "u": "C1_R",
+     "v": "E",
+     "f": "1579709/575360",
+     "b": "746269041593169357919/3659516012931768771264",
+     "a": "3457109/360751",
+     "zweig": "R",
+     "produkt": true,
+     "disk": false
+    },
+    {
+     "id": "bind",
+     "u": "C0_W",
+     "v": "E",
+     "f": "148508600/874129",
+     "b": "1344161853/945091",
+     "a": "1/1",
+     "zweig": "W",
+     "produkt": false,
+     "disk": true
+    },
+    {
+     "id": "akt0",
+     "u": "C0_W",
+     "v": "C1_W",
+     "f": "973/53124",
+     "b": "12624801529145606309465048502279/3144526287857538154325865270952",
+     "a": "4734191/882330",
+     "zweig": "W",
+     "produkt": false,
+     "disk": false
+    },
+    {
+     "id": "verw1",
+     "u": "C1_W",
+     "v": "E",
+     "f": "387380/40619",
+     "b": "64478/949869",
+     "a": "1/1",
+     "zweig": "W",
+     "produkt": false,
+     "disk": true
+    },
+    {
+     "id": "prod",
+     "u": "C1_W",
+     "v": "E",
+     "f": "1579709/575360",
+     "b": "746269041593169357919/365951601293176877126400",
+     "a": "3457109/360751",
+     "zweig": "W",
+     "produkt": true,
+     "disk": false
+    }
+   ]
+  }
+ ]
+}
