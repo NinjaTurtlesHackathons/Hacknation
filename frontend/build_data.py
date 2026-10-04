@@ -236,24 +236,24 @@ def certs(runs):
 
 def results():
     J = lambda p: json.load(open(f"{ROOT}/{p}")) if os.path.exists(f"{ROOT}/{p}") else None
-    fz = J("results/FROZEN.json") or {}; rp = J("results/replay_lattice.json"); tr = J("results/trust.json"); kl = J("projects/omni_parallel/klassifikation.json")
+    fz = J("results/FROZEN.json") or {}; tr = J("results/trust.json")
+    fl = fz.get("flaggschiff") or {}; kl = dict(J(fl["quelle"]) or {}, **{k: fl[k] for k in ("topologien", "bewiesen", "verletzt", "offen", "eta_min") if k in fl}) if fl.get("quelle") else None
     namen = {"LAB": "Lab (verifier feedback)", "OHNE_FEEDBACK": "Same agents, no feedback", "ZUFALL": "Random proposals", "HEURISTIK": "Hand-written heuristic", "ORAKEL": "Oracle (analytic upper bound)"}
-    rep = None
-    if rp:
-        rep = {"source": "results/replay_lattice.json", "prereg": "prereg.md, section H7", "budget": rp["budget"], "seeds": rp["seeds"],
-               "conditions": [{"key": k, "name": namen.get(k, k), "N": v.get("N", []), "mean": v.get("mittel_N"), "median": v.get("median_N"),
-                               "hits": v.get("treffer"), "analytic": bool(v.get("analytisch")), "recall": v.get("recall_bei_budget")}
-                              for k, v in rp["bedingungen"].items() if v.get("N")],
-               "tests": [{"id": k, "vs": namen.get(v["vergleich"], v["vergleich"]), "speedup": v["speedup"], "ci": v["ki95"], "p": v["p"], "p_bh": v.get("p_bh"),
-                          "n": v["n_seeds"], "supported": v["erfolg"]} for k, v in rp.get("tests", {}).items() if v.get("speedup") is not None]}
+    rp = fz.get("replay"); rep = None                     # einzige Quelle: results/FROZEN.json (eingefroren von asd.freeze)
+    if rp and rp.get("tests"):
+        rep = {"source": "results/FROZEN.json", "prereg": rp.get("praeregistrierung"), "budget": rp["budget"], "seeds": rp["seeds"],
+               "conditions": [{"key": k, "name": namen.get(k, k), "N": v["N"], "mean": v["mean_N"], "median": v["median_N"], "hits": v.get("treffer"),
+                               "analytic": v.get("analytisch")} for k, v in rp["bedingungen"].items()],
+               "tests": [{"id": k, "vs": namen.get(v["vergleich"], v["vergleich"]), "speedup": v["speedup"], "ci": v["ki95"], "p": v["p"], "p_bh": v["p_bh"],
+                          "n": v["n_seeds"], "supported": v["supported"]} for k, v in rp["tests"].items() if v]}
     trust = {"source": "results/trust.json", "question_source": tr["quelle"],
              "conditions": [{"key": k, "name": v["name"], "n": v["n"], "right": v["richtig"], "wrong": v["falsch"], "unknown": v.get("unbekannt"),
                              "wrong_pct": v["anteil_falsch_pct"], "wrong_ci": v["falsch_ki95_pct"], "right_pct": v["anteil_richtig_pct"]}
                             for k, v in tr["bedingungen"].items()]} if tr else None
     return {"frozen_at": fz.get("zeitpunkt"), "commit": fz.get("commit"), "replay": rep, "trust": trust,
-            "stress": dict(fz.get("verifier_stress", {}), source="results/FROZEN.json"),
-            "classification": dict(kl, source="projects/omni_parallel/klassifikation.json") if kl else None,
-            "metrics": dict(fz.get("metrics", {}), source="results/metrics_proofreading.json")}
+            "stress": dict(fz.get("verifier_stress", {}), source="results/FROZEN.json"), "trust_frozen": fz.get("trust"),
+            "classification": dict(kl, source="results/FROZEN.json") if kl else None,
+            "metrics": dict(fz.get("metrics", {}), source="results/FROZEN.json")}
 
 
 def figures(res, runs):
@@ -261,14 +261,16 @@ def figures(res, runs):
     if st.get("blind_claims") is not None:
         F.append({"text": f"{st['blind_claims'] - st['blind_akzeptiert']} of {st['blind_claims']} random or constant claims sent blind to the verifier were rejected, "
                           f"and {st['redteam_fallen_abgelehnt']} of {st['redteam_fallen']} red-team traps.", "source": "results/FROZEN.json", "href": "results.html#stress"})
-    t = next((x for x in (res["replay"] or {}).get("tests", []) if x["id"] == "H8a"), None)
-    if t:
-        F.append({"text": f"Against random proposals the lab needed {t['speedup']:.1f}× fewer verifier calls to reach the target claim "
-                          f"(95% CI {t['ci'][0]:.1f} to {t['ci'][1]:.1f}, p = {t['p']:.3f}, {t['n']} seeds).", "source": res["replay"]["source"], "href": "results.html#acceleration"})
+    T = {x["id"]: x for x in (res["replay"] or {}).get("tests", [])}
+    if "H8b" in T:
+        t = T["H8b"]; a = T.get("H8a")
+        F.insert(0, {"text": f"The lab reached the target claim with {t['speedup']:.1f}× fewer verifier calls than a hand-written heuristic "
+                             f"(95% CI {t['ci'][0]:.1f} to {t['ci'][1]:.1f}, p = {t['p']:.1g}) and {a['speedup']:.1f}× fewer than random proposals, on {t['n']} paired seeds."
+                             if a else "", "source": res["replay"]["source"], "href": "results.html#acceleration"})
     tc = {c["key"]: c for c in (res["trust"] or {}).get("conditions", [])}
     if "A1" in tc and "B" in tc:
         F.append({"text": f"{tc['A1']['name']} gave a wrong answer {tc['A1']['wrong_pct']:.1f}% of the time; behind the verifier gate, {tc['B']['wrong_pct']:.1f}% "
-                          f"({tc['B']['n']} answers each).", "source": res["trust"]["source"], "href": "results.html#trust"})
+                          f"({tc['B']['n']} answers each; 12 questions from a single paper, so a small, home-field sample).", "source": res["trust"]["source"], "href": "results.html#trust"})
     return F
 
 
@@ -295,7 +297,7 @@ def main():
     certs(runs); res = results(); json.dump(res, open(f"{OUT}/results.json", "w"), ensure_ascii=False, indent=0)
     try: commit = subprocess.run(["git", "rev-parse", "--short", "HEAD"], cwd=ROOT, capture_output=True, text=True).stdout.strip()
     except Exception: commit = None
-    site = {"generated": dt.datetime.now(dt.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"), "commit": commit, "repo": "https://github.com/alizema700/HackNation-Ninja-Turtles",
+    site = {"generated": dt.datetime.now(dt.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"), "commit": commit, "repo": "https://github.com/alizema700/Daddys-Project",
             "figures": figures(res, runs), "runs": [r["meta"] for r in runs], "excerpt": excerpt(runs)}
     json.dump(site, open(f"{OUT}/site.json", "w"), ensure_ascii=False, indent=0)
     print(f"{len(runs)} runs, {sum(len(r['events']) for r in runs)} events, {len(os.listdir(f'{OUT}/certs'))} certificates -> {rel(OUT)}")

@@ -1,7 +1,7 @@
 # Example session: Claude Code + probatum (unedited)
 
 Real run on 2026-10-04: `claude -p ... --mcp-config mcp.json --allowedTools "mcp__probatum__*" --model sonnet`, server started via
-`uvx --from git+https://github.com/alizema700/HackNation-Ninja-Turtles@claude/probatum-mcp probatum-mcp`. Raw stream: [`examples/probatum_session.jsonl`](examples/probatum_session.jsonl).
+`uvx --from git+https://github.com/alizema700/Daddys-Project probatum-mcp`. Raw stream: [`examples/probatum_session.jsonl`](examples/probatum_session.jsonl).
 
 **User:** Use the probatum tools (domain proofreading). Question: can the single-stage Hopfield proofreading network (topology hopfield_n1) reach an error rate eta <= 1e-6? Follow the research_round procedure ... Report rejected claims openly with the verifier's reason.
 

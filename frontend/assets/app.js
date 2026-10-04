@@ -183,7 +183,7 @@ const P = (() => {
     const nav = [["index.html", "Runs"], ["results.html", "Results"]];
     h.innerHTML = `<a class="brand" href="index.html"><span class="qed" aria-hidden="true">∎</span>Probatum</a>
       <nav class="nav" aria-label="Main">${nav.map(([u, t]) => `<a href="${u}"${active === u ? ' aria-current="page"' : ""}>${t}</a>`).join("")}
-      <a href="https://github.com/alizema700/HackNation-Ninja-Turtles">Source</a><button id="theme" class="ghost" type="button">Dark theme</button></nav>`;
+      <a href="https://github.com/alizema700/Daddys-Project">Source</a><button id="theme" class="ghost" type="button">Dark theme</button></nav>`;
     theme();
   }
   async function footer() {

@@ -83,8 +83,8 @@
   if (m && m.latenz_median_s != null) {
     const rows = [["Run", esc(m.lauf)], ["Median verifier latency", `${m.latenz_median_s} s (n = ${m.latenz_n}, ${m.latenz_min_s} to ${m.latenz_max_s} s)`],
       ["Median time from question to certificate", `${m.frage_zu_zertifikat_median_s} s (n = ${m.frage_zu_zertifikat_n})`], ["Certified claims", `${m.zertifizierte_claims} (${m.zertifiziert_pro_h} per hour)`],
-      ["Rejected submissions", m.abgelehnte_behauptungen], ["Run time", `${m.laufzeit_min} min, of which waiting for a human ${m.mensch_warten_min} min`],
-      ["Speedup against a human with a stopwatch", m.speedup_manuell && m.speedup_manuell.status ? "pending: needs at least 3 stopwatch measurements in baselines/manual.jsonl" : esc(JSON.stringify(m.speedup_manuell))]];
+      ["Rejected submissions", m.abgelehnte_behauptungen], ["Run time", `${m.laufzeit_min} min, of which waiting for a human ${m.mensch_warten_min} min`]];
+    if (m.speedup_manuell && m.speedup_manuell.speedup) rows.push(["Speedup against a human with a stopwatch", `${fmt(m.speedup_manuell.speedup)}× (${esc(m.speedup_manuell.einschraenkung)})`]);
     $("#m-body").innerHTML = `<div class="tablewrap"><table><tbody>${rows.map(([k, v]) => `<tr><th scope="row">${k}</th><td>${v}</td></tr>`).join("")}</tbody></table></div>${src(m.source, "python -m asd.metrics proofreading")}`;
   }
   document.querySelectorAll("[data-copy]").forEach((b) => b.addEventListener("click", () => P.copy(b.dataset.copy)));
