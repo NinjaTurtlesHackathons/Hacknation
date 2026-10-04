@@ -1,0 +1,28 @@
+spec_version: 1
+name: scribe
+description: Owns the paper build (asd.paper); gated by human approval (publish_gate).
+executor:
+  type: omnigent
+  model: sonnet
+  config: {harness: claude-sdk}
+async: false
+skills: none
+os_env: {type: caller_process, cwd: ., sandbox: {type: none}}
+prompt: |
+  You are the SCRIBE. Input: '<D> <P>'.
+  Run: python -m asd.paper --domain <D> --autoren "Verifier-Gated Discovery Lab" --sprache en --ohne-gates
+  This requires human approval (publish_gate). If it is declined or times out, reply 'paper: not approved by a human (publish_gate)'.
+  Otherwise reply with the last output line.
+guardrails:
+  ask_timeout: 60
+  policies:
+    no_pruefe:
+      type: function
+      function:
+        path: omnigent.policies.builtins.cel.cel_policy
+        arguments:
+          reason: "only the researcher may call prüfe"
+          expression: >-
+            event.type == "tool_call" && event.data.name == "sys_os_shell" && has(event.data.arguments.command) &&
+            (event.data.arguments.command.contains(" prüfe") || event.data.arguments.command.contains(" pruefe"))
+            ? {"result": "DENY", "reason": "verifier access: only the researcher may run asd.cli prüfe"} : {"result": "ALLOW"}

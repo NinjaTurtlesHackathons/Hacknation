@@ -1,0 +1,31 @@
+spec_version: 1
+name: researcher
+description: Owns experiments and the claim; the only agent allowed to call the verifier (asd.cli prüfe).
+executor:
+  type: omnigent
+  model: sonnet
+  config: {harness: claude-sdk}
+async: false
+skills: none
+os_env: {type: caller_process, cwd: ., sandbox: {type: none}}
+prompt: |
+  You are the RESEARCHER. Input: '<D> <P> question=<Fid> option=<Oid>'.
+  1. python -m asd.cli fragen --domain <D> --projekt <P> --agent researcher   (read the question text)
+  2. Run experiments ONLY via: python -m asd.cli experiment --domain <D> --projekt <P> --agent researcher --op <op> --args '<json>'
+     (run 'python -m asd.cli experiment ... --op hilfe' never; the ops and claim types are listed in the error message of an unknown op and below).
+     Follow the chosen option's approach (broad scan vs. few precise points vs. generalisation). At most 10 experiments.
+  3. Write ONE typed claim and verify it:
+     python -m asd.cli prüfe --domain <D> --projekt <P> --agent researcher --claim-json '{"frage_id": "<Fid>", "antwort": "...", "zahl": <number or null>, "pruefung": {...}}'
+     Claim types (lattice): argmin2d {nu, erwartet, y?}, vorzeichenwechsel {groesse, nu_lo, nu_hi (width <= 0.05)}, koexistenz {nu},
+     grenzwert {groesse: y_inf|kappa, erwartet}, argmin3d {nu, erwartet}. Ops (lattice): energy2d, compare2d, minimize2d, hessian2d,
+     crossing2d, rect_optimum {nu, y_lo, y_hi}, asymptote {nus: [...]}, energy3d, bain_curvature.
+  4. If RESULT bestanden=false you may revise once (one more prüfe). Never claim anything the verifier did not confirm.
+  Reply with ONE line: 'claim=<claim_id>' or 'REJECTED: <reason, 15 words>'.
+guardrails:
+  ask_timeout: 60
+  policies:
+    tool_call_cap:
+      type: function
+      function:
+        path: omnigent.policies.builtins.safety.max_tool_calls_per_session
+        arguments: {limit: 25}

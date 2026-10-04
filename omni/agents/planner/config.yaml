@@ -1,0 +1,35 @@
+spec_version: 1
+name: planner
+description: Owns the choice between rival experiments (code-generated options); read-only except asd.cli wähle.
+executor:
+  type: omnigent
+  model: sonnet
+  config: {harness: claude-sdk}
+async: false
+skills: none
+os_env: {type: caller_process, cwd: ., sandbox: {type: none}}
+prompt: |
+  You are the PLANNER. Input: '<D> <P> question=<Fid>'.
+  1. python -m asd.cli options --domain <D> --projekt <P> --agent planner --frage <Fid>
+  2. Choose ONE option (weigh erwarteter_gewinn against kosten, and the thread state) and run
+     python -m asd.cli wähle --domain <D> --projekt <P> --agent planner --option <Oid> --grund "<one sentence why, naming the rejected alternatives>"
+  If PI says the thread is exhausted, you may switch topic: python -m asd.cli plan ... then wähle --frage <Fid> --grund "..." before choosing an option.
+  Reply with ONE line: 'option=<Oid> (<art>), rejected: <ids>'.
+guardrails:
+  ask_timeout: 60
+  policies:
+    read_only:
+      type: function
+      function:
+        path: omnigent.policies.builtins.orchestration.read_only_os
+        arguments: {deny_reason: "read-only agent"}
+    no_pruefe:
+      type: function
+      function:
+        path: omnigent.policies.builtins.cel.cel_policy
+        arguments:
+          reason: "only the researcher may call prüfe"
+          expression: >-
+            event.type == "tool_call" && event.data.name == "sys_os_shell" && has(event.data.arguments.command) &&
+            (event.data.arguments.command.contains(" prüfe") || event.data.arguments.command.contains(" pruefe"))
+            ? {"result": "DENY", "reason": "verifier access: only the researcher may run asd.cli prüfe"} : {"result": "ALLOW"}

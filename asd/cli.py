@@ -33,6 +33,12 @@ def wissen_gefiltert(P, D):
     finally: P.s["wissen"] = alt
 
 
+def lade_json(x):
+    """Datei ODER inline-JSON (Agenten brauchen so keine Schreibrechte)."""
+    x = (x or "").strip()
+    return json.loads(x) if x[:1] in "{[" else json.load(open(x))
+
+
 class CLI:
     def __init__(self, a):
         self.a = a; self.D = get_domain(a.domain); self.pname = a.projekt or a.domain
@@ -60,7 +66,7 @@ class CLI:
 
     def fragen(self):
         if self.a.add_json:
-            neu = json.load(open(self.a.add_json)); neu = neu.get("fragen", neu) if isinstance(neu, dict) else neu; ids = []
+            neu = lade_json(self.a.add_json); neu = neu.get("fragen", neu) if isinstance(neu, dict) else neu; ids = []
             for q in neu:
                 qid = f"F{len(self.P.s['fragen']) + 1}"
                 parent = next((x for x in self.P.s["fragen"] if x["id"] == q.get("aus_frage")), None)
@@ -128,7 +134,7 @@ class CLI:
         print(f"EXPERIMENT {eid} " + json.dumps(r, ensure_ascii=False)[:4000]); self.record("experiment", {"experiment": eid, "op": self.a.op}, str(r)[:300]); return 0
 
     def pruefe(self):
-        c = json.load(open(self.a.claim_json)); D = self.D
+        c = lade_json(self.a.claim_json); D = self.D
         ps = c.get("pruefungen") or ([c["pruefung"]] if isinstance(c.get("pruefung"), dict) else ([c] if "typ" in c else []))
         ps = [p for p in ps if isinstance(p, dict)]
         self.P.s["verifier_aufrufe"] = self.P.s.get("verifier_aufrufe", 0) + max(1, len(ps))
@@ -160,7 +166,7 @@ class CLI:
     def redteam(self):
         c = next((x for x in self.P.s["claims"] if x["id"] == self.a.claim), None)
         if not c: raise SystemExit(f"Claim {self.a.claim} nicht gefunden")
-        g = json.load(open(self.a.gegen_json)); gs = g.get("gegenpruefungen", [g]) if isinstance(g, dict) else g; out = []
+        g = lade_json(self.a.gegen_json); gs = g.get("gegenpruefungen", [g]) if isinstance(g, dict) else g; out = []
         for x in gs[:3]:
             p = x.get("pruefung", x) if isinstance(x, dict) else None
             if not isinstance(p, dict): continue

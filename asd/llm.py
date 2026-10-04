@@ -60,6 +60,7 @@ def _api(system, prompt, model, timeout):
 def ask(prompt, system="Du bist ein sorgfältiger Wissenschaftler.", model=None, salt="", timeout=600, retries=2):
     """salt unterscheidet bewusst unabhängige Stichproben desselben Prompts (z. B. Ensemble, Best-of-N)."""
     model = model or MODEL; os.makedirs(CACHE, exist_ok=True)
+    salt = os.environ.get("ASD_SEED_SALT", "") + str(salt)     # Benchmarks: Seed als Salt-Präfix (reproduzierbar, unabhängig je Seed)
     k = _key(system, prompt, model, salt); path = f"{CACHE}/{k}.json"
     if os.path.exists(path): return json.load(open(path))["response"]
     if os.environ.get("ASD_LLM") == "replay": raise LLMError(f"nicht im Cache: {k}")

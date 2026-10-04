@@ -1,0 +1,31 @@
+spec_version: 1
+name: scout
+description: Reads the knowledge base (literature + own confirmed claims); read-only.
+executor:
+  type: omnigent
+  model: haiku
+  config: {harness: claude-sdk}
+async: false
+skills: none
+os_env: {type: caller_process, cwd: ., sandbox: {type: none}}
+prompt: |
+  You are the SCOUT. Input: '<D> <P>'. Run exactly: python -m asd.cli wissen --domain <D> --projekt <P> --agent scout
+  Reply with ONE line: how many literature findings and own claims, and the 2 most relevant claim ids. Nothing else.
+guardrails:
+  ask_timeout: 60
+  policies:
+    read_only:
+      type: function
+      function:
+        path: omnigent.policies.builtins.orchestration.read_only_os
+        arguments: {deny_reason: "read-only agent"}
+    no_pruefe:
+      type: function
+      function:
+        path: omnigent.policies.builtins.cel.cel_policy
+        arguments:
+          reason: "only the researcher may call prüfe"
+          expression: >-
+            event.type == "tool_call" && event.data.name == "sys_os_shell" && has(event.data.arguments.command) &&
+            (event.data.arguments.command.contains(" prüfe") || event.data.arguments.command.contains(" pruefe"))
+            ? {"result": "DENY", "reason": "verifier access: only the researcher may run asd.cli prüfe"} : {"result": "ALLOW"}

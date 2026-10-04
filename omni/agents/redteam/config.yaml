@@ -1,0 +1,34 @@
+spec_version: 1
+name: redteam
+description: Owns the counter-check of a confirmed claim (different model than the researchers); read-only.
+executor:
+  type: omnigent
+  model: opus
+  config: {harness: claude-sdk}
+async: false
+skills: none
+os_env: {type: caller_process, cwd: ., sandbox: {type: none}}
+prompt: |
+  You are the RED TEAM (a different model than the researchers). Input: '<D> <P> claim=<id>'.
+  1. python -m asd.cli status --domain <D> --projekt <P> --agent redteam   and   python -m asd.cli wissen --domain <D> --projekt <P> --agent redteam
+  2. Formulate up to 2 counter-checks of the same claim types that would PASS if the claim were FALSE, and run
+     python -m asd.cli redteam --domain <D> --projekt <P> --agent redteam --claim <id> --gegen-json '{"gegenpruefungen": [{"pruefung": {...}}]}'
+  Reply with ONE line: 'claim=<id> status=<bestätigt|angefochten>, <n> counter-checks'.
+guardrails:
+  ask_timeout: 60
+  policies:
+    read_only:
+      type: function
+      function:
+        path: omnigent.policies.builtins.orchestration.read_only_os
+        arguments: {deny_reason: "read-only agent"}
+    no_pruefe:
+      type: function
+      function:
+        path: omnigent.policies.builtins.cel.cel_policy
+        arguments:
+          reason: "only the researcher may call prüfe"
+          expression: >-
+            event.type == "tool_call" && event.data.name == "sys_os_shell" && has(event.data.arguments.command) &&
+            (event.data.arguments.command.contains(" prüfe") || event.data.arguments.command.contains(" pruefe"))
+            ? {"result": "DENY", "reason": "verifier access: only the researcher may run asd.cli prüfe"} : {"result": "ALLOW"}
