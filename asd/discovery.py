@@ -158,7 +158,7 @@ def solve_cascade(kontext, frage, salt=0, stufen=KASKADE, domain=None, staerkung
         ok = bool(ps) and all(o for o, _ in res) and all(D.consistent(a, p) for p in ps)
         tr["pruefung"] = {"bestanden": ok, "grund": " | ".join(w for _, w in res) or "keine Prüfung angegeben"}; traces.append(tr)
         if ok:
-            tr["staerke"] = D.staerke(ps[0]) if hasattr(D, "staerke") else 0
+            tr["staerke"] = sum(D.staerke(p) for p in ps) if hasattr(D, "staerke") else 0
             best = tr
             for j in range(staerkung):                          # Stärke-Maximierung: strengere/allgemeinere Behauptung suchen
                 bp = best["final"].get("pruefung") or (best["final"].get("pruefungen") or [None])[0]
@@ -181,7 +181,7 @@ def solve_cascade(kontext, frage, salt=0, stufen=KASKADE, domain=None, staerkung
                 t2["modell"] = m2; t2["staerkungsversuch"] = j + 1
                 t2["pruefung"] = {"bestanden": ok2, "grund": " | ".join(w for _, w in r2)}; traces.append(t2)
                 if ok2:
-                    t2["staerke"] = D.staerke(p2[0]) if hasattr(D, "staerke") else 0
+                    t2["staerke"] = sum(D.staerke(p) for p in p2) if hasattr(D, "staerke") else 0
                     if t2["staerke"] > best["staerke"]: best = t2
             ans = dict(best["final"]); ans["stimmen"] = f"Stufe {len(traces)} ({best['strategie']}, {best.get('modell')}), Stärke {best['staerke']:.2f}"
             return {"antwort": ans, "level": "computed (Code-Prüfer bestanden)", "forscher": traces, "experimente": lab.log, "sek": round(time.time() - t0, 1)}

@@ -292,24 +292,31 @@ def runde_ausfuehren(P, D, a, runde, log):
                 return False
         rt = []; cid = f"{D.name}-R{runde}"
         if q["status"] == "beantwortet":
-            p = (res["antwort"].get("pruefungen") or [res["antwort"].get("pruefung")])[0]
-            rt = red_team(P, D, q["frage"], res["antwort"], runde)
-            for x in rt: x["widerspruch"] = bool(x["bestanden"] and D.widerspricht(p, x["pruefung"]))
-            angefochten = [x for x in rt if x["widerspruch"]]
-            p_key = json.dumps(p, sort_keys=True)
-            grund = next((tr["pruefung"]["grund"] for tr in res["forscher"] if tr.get("pruefung", {}).get("bestanden") and
-                          json.dumps((tr.get("final") or {}).get("pruefung") or ((tr.get("final") or {}).get("pruefungen") or [None])[0], sort_keys=True) == p_key),
-                         next(tr["pruefung"]["grund"] for tr in res["forscher"] if tr.get("pruefung", {}).get("bestanden")))
-            P.s["claims"].append({"id": cid, "frage": q["frage"], "text": D.describe(p), "interpretation_ungeprueft": str(res["antwort"].get("antwort")),
-                                  "pruefung": p, "grund": grund,
-                                  "level": D.level(p), "status": "angefochten" if angefochten else "bestätigt", "red_team": rt, "runde": runde,
-                                  "relevanz": D.relevanz(p) if hasattr(D, "relevanz") else "stuetze"})
-            if not angefochten:
-                from .novelty import check_claim
-                try: P.s["claims"][-1]["neuheit"] = check_claim(D, P.s["claims"][-1], salt=cid)
-                except Exception as e: P.s["claims"][-1]["neuheit"] = {"status": "nicht_geprueft", "grund": str(e)[:120]}
-                log(f"  Neuheit: {P.s['claims'][-1]['neuheit'].get('status')}")
-            log(f"  geprüft ({D.level(p)}): {D.describe(p)[:160]} | Red-Team: {len(rt)} Gegenprüfungen, {sum(x['bestanden'] for x in rt)} bestanden, {len(angefochten)} logische Widersprüche")
+            ps_all = [x for x in (res["antwort"].get("pruefungen") or [res["antwort"].get("pruefung")]) if isinstance(x, dict)]
+            for j, p in enumerate(ps_all):                     # jede Teilprüfung einer Antwort wird ein eigener Claim
+                cid_j = cid if len(ps_all) == 1 else f"{cid}{'abcdefghijklmnopqrstuvwxyz'[j]}"
+                ok_j, grund, _ = D.check(p) if j else (True, None, None)
+                if not ok_j: log(f"  Teilprüfung {cid_j} besteht bei erneuter Prüfung nicht: {grund[:160]}"); continue
+                rt_j = red_team(P, D, q["frage"], dict(res["antwort"], pruefung=p, pruefungen=None), f"{runde}{'' if j == 0 else j}")
+                for x in rt_j: x["widerspruch"] = bool(x["bestanden"] and D.widerspricht(p, x["pruefung"]))
+                angefochten = [x for x in rt_j if x["widerspruch"]]
+                if grund is None:
+                    p_key = json.dumps(p, sort_keys=True)
+                    grund = next((tr["pruefung"]["grund"] for tr in res["forscher"] if tr.get("pruefung", {}).get("bestanden") and
+                                  json.dumps((tr.get("final") or {}).get("pruefung") or ((tr.get("final") or {}).get("pruefungen") or [None])[0], sort_keys=True) == p_key),
+                                 next(tr["pruefung"]["grund"] for tr in res["forscher"] if tr.get("pruefung", {}).get("bestanden")))
+                    grund = grund.split(" | ")[0] if len(ps_all) > 1 else grund
+                P.s["claims"].append({"id": cid_j, "frage": q["frage"], "text": D.describe(p), "interpretation_ungeprueft": str(res["antwort"].get("antwort")),
+                                      "pruefung": p, "grund": grund,
+                                      "level": D.level(p), "status": "angefochten" if angefochten else "bestätigt", "red_team": rt_j, "runde": runde,
+                                      "relevanz": D.relevanz(p) if hasattr(D, "relevanz") else "stuetze"})
+                if not angefochten:
+                    from .novelty import check_claim
+                    try: P.s["claims"][-1]["neuheit"] = check_claim(D, P.s["claims"][-1], salt=cid_j)
+                    except Exception as e: P.s["claims"][-1]["neuheit"] = {"status": "nicht_geprueft", "grund": str(e)[:120]}
+                    log(f"  Neuheit {cid_j}: {P.s['claims'][-1]['neuheit'].get('status')}")
+                log(f"  geprüft {cid_j} ({D.level(p)}): {D.describe(p)[:160]} | Red-Team: {len(rt_j)} Gegenprüfungen, {sum(x['bestanden'] for x in rt_j)} bestanden, {len(angefochten)} logische Widersprüche")
+                rt += rt_j
         else:
             gruende = []
             for tr in res.get("forscher", []):

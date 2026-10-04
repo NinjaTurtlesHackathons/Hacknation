@@ -1,0 +1,5 @@
+- 2026-10-04 04:17:15 Selbsttest des Prüfers: bestanden
+- 2026-10-04 04:17:37 Runde 1: Wie viele unabhängige rationale lineare Relationen bestehen zwischen allen C(a,b,c) vom Gewicht w, E(w) und zeta(w) für w = 3, 5, 7, 9? Bestimme den Relationsraum je Gewicht vollständig (mgf_relationsraum).
+- 2026-10-04 05:27:33   Neuheit: nicht_gefunden
+- 2026-10-04 05:27:33   geprüft (observed): Numerisch bilden die rationalen linearen Relationen zwischen ['C(1,1,1)', 'E(3)', 'zeta(3)'] einen Raum der Dimension genau 1, aufgespannt von [[1, -1, -1]] (je | Red-Team: 2 Gegenprüfungen, 0 bestanden, 0 logische Widersprüche
+- 2026-10-04 05:28:01 Runde 2: Gibt es bei Gewicht 6 rationale lineare Relationen zwischen C(4,1,1), C(3,2,1), C(2,2,2), E(6), E(2)*E(4), E(3)^2, E(2)^3, zeta(3)*E(3), zeta(3)^2? Bestimme die Dimension des Relationsraums (auch 0 ist ein Ergebnis).

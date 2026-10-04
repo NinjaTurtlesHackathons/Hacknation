@@ -1,0 +1,1841 @@
+{
+ "antwort": {
+  "antwort": "Für jedes der Gewichte w = 3, 5, 7, 9 gibt es genau eine unabhängige rationale Relation (je Gewicht Relationsraum der Dimension 1, insgesamt 4).",
+  "zahl": 4,
+  "konfidenz": 0.8,
+  "pruefung": null,
+  "pruefungen": [
+   {
+    "typ": "mgf_relationsraum",
+    "basis": [
+     "C(1,1,1)",
+     "E(3)",
+     "zeta(3)"
+    ],
+    "dim": 1,
+    "relationen": [
+     [
+      1,
+      -1,
+      -1
+     ]
+    ]
+   },
+   {
+    "typ": "mgf_relationsraum",
+    "basis": [
+     "C(3,1,1)",
+     "C(2,2,1)",
+     "E(5)",
+     "zeta(5)"
+    ],
+    "dim": 1,
+    "relationen": [
+     [
+      0,
+      30,
+      -12,
+      -1
+     ]
+    ]
+   },
+   {
+    "typ": "mgf_relationsraum",
+    "basis": [
+     "C(5,1,1)",
+     "C(4,2,1)",
+     "C(3,3,1)",
+     "C(3,2,2)",
+     "E(7)",
+     "zeta(7)"
+    ],
+    "dim": 1,
+    "relationen": [
+     [
+      0,
+      0,
+      252,
+      252,
+      -108,
+      -1
+     ]
+    ]
+   },
+   {
+    "typ": "mgf_relationsraum",
+    "basis": [
+     "C(7,1,1)",
+     "C(6,2,1)",
+     "C(5,3,1)",
+     "C(5,2,2)",
+     "C(4,4,1)",
+     "C(4,3,2)",
+     "C(3,3,3)",
+     "E(9)",
+     "zeta(9)"
+    ],
+    "dim": 1,
+    "relationen": [
+     [
+      0,
+      0,
+      0,
+      0,
+      -2160,
+      -4320,
+      -960,
+      960,
+      1
+     ]
+    ]
+   }
+  ],
+  "begruendung": "PSLQ über 4 bis 10 Zufallspunkte (32 bzw. 45 Stellen) liefert pro Gewicht genau einen Relationsvektor; die Basen enthalten jeweils alle C(a,b,c) mit a>=b>=c>=1 und a+b+c=w sowie E(w) und zeta(w). Für w=5 bestätigt der exakte Leitkoeffizient die Relation 30 C(2,2,1) = 12 E(5) + zeta(5): 30·4/467775 = 12·2/93555. C(3,1,1) hat Leitkoeffizient 2/155925 und ist daher nicht in dieser Relation enthalten. Die Relationen für w=7 und w=9 sind bisher nur numerisch gefunden, nicht exakt über den Leitkoeffizienten gegengeprüft; die Zertifizierung läuft über die Prüfer.",
+  "stimmen": "Stufe 3 (skeptiker, sonnet), Stärke 3.00"
+ },
+ "level": "computed (Code-Prüfer bestanden)",
+ "forscher": [
+  {
+   "strategie": "sparsam",
+   "runden": [
+    {
+     "ueberlegung": "Zur Beantwortung der Frage nach unabhängigen rationalen linearen Relationen zwischen C(a,b,c), E(w) und zeta(w) für w ∈ {3,5,7,9} nutze ich mgf_relationen, um über PSLQ-Suche an Zufallspunkten Kandidaten zu finden. Die Basen werden kanonisch konstruiert aus allen Partitionen (a,b,c) mit a+b+c=w und a,b,c≥1 (aufsteigende Ordnung), ergänzt um E(w) und die konstante zeta(w). Dies ergibt: w=3: 3 Funktionen; w=5: 4 Funktionen; w=7: 6 Funktionen; w=9: 9 Funktionen. Laplace-Ableitungen von niedrigerem Gewicht werden vorerst ausgelassen, um die Experimente compact zu halten; sie können in Folgerunden untersucht werden, falls Unvollständigkeit erkannt wird. Die Ergebnisse sind Kandidaten (kein Beweis); Zertifizierung via mgf_relationsraum erfolgt in Runde 2.",
+     "plan": [
+      {
+       "op": "mgf_relationen",
+       "args": {
+        "basis": [
+         "C(1,1,1)",
+         "E(3)",
+         "zeta(3)"
+        ]
+       }
+      },
+      {
+       "op": "mgf_relationen",
+       "args": {
+        "basis": [
+         "C(1,1,3)",
+         "C(1,2,2)",
+         "E(5)",
+         "zeta(5)"
+        ]
+       }
+      },
+      {
+       "op": "mgf_relationen",
+       "args": {
+        "basis": [
+         "C(1,1,5)",
+         "C(1,2,4)",
+         "C(1,3,3)",
+         "C(2,2,3)",
+         "E(7)",
+         "zeta(7)"
+        ]
+       }
+      },
+      {
+       "op": "mgf_relationen",
+       "args": {
+        "basis": [
+         "C(1,1,7)",
+         "C(1,2,6)",
+         "C(1,3,5)",
+         "C(1,4,4)",
+         "C(2,2,5)",
+         "C(2,3,4)",
+         "C(3,3,3)",
+         "E(9)",
+         "zeta(9)"
+        ]
+       }
+      }
+     ]
+    },
+    {
+     "plan": [
+      {
+       "op": "mgf_relationsraum",
+       "args": {
+        "basis": [
+         "C(1,1,1)",
+         "E(3)",
+         "zeta(3)"
+        ]
+       }
+      },
+      {
+       "op": "mgf_relationsraum",
+       "args": {
+        "basis": [
+         "C(1,1,3)",
+         "C(1,2,2)",
+         "E(5)",
+         "zeta(5)"
+        ]
+       }
+      },
+      {
+       "op": "mgf_relationsraum",
+       "args": {
+        "basis": [
+         "C(1,1,5)",
+         "C(1,2,4)",
+         "C(1,3,3)",
+         "C(2,2,3)",
+         "E(7)",
+         "zeta(7)"
+        ]
+       }
+      },
+      {
+       "op": "mgf_relationsraum",
+       "args": {
+        "basis": [
+         "C(1,1,7)",
+         "C(1,2,6)",
+         "C(1,3,5)",
+         "C(1,4,4)",
+         "C(2,2,5)",
+         "C(2,3,4)",
+         "C(3,3,3)",
+         "E(9)",
+         "zeta(9)"
+        ]
+       }
+      }
+     ]
+    },
+    {
+     "antwort": "Je Gewicht: w=3→dim=1, w=5→dim=1, w=7→dim=1, w=9→dim=1. Insgesamt 4 unabhängige rationale Relationen (eine pro Gewicht)",
+     "zahl": 4,
+     "konfidenz": 0.5,
+     "pruefungen": [
+      {
+       "typ": "mgf_relation",
+       "terme": [
+        [
+         1,
+         "C(1,1,1)"
+        ],
+        [
+         -1,
+         "E(3)"
+        ],
+        [
+         -1,
+         "zeta(3)"
+        ]
+       ]
+      },
+      {
+       "typ": "mgf_relation",
+       "terme": [
+        [
+         0,
+         "C(1,1,3)"
+        ],
+        [
+         -30,
+         "C(1,2,2)"
+        ],
+        [
+         12,
+         "E(5)"
+        ],
+        [
+         1,
+         "zeta(5)"
+        ]
+       ]
+      },
+      {
+       "typ": "mgf_relation",
+       "terme": [
+        [
+         0,
+         "C(1,1,5)"
+        ],
+        [
+         0,
+         "C(1,2,4)"
+        ],
+        [
+         252,
+         "C(1,3,3)"
+        ],
+        [
+         252,
+         "C(2,2,3)"
+        ],
+        [
+         -108,
+         "E(7)"
+        ],
+        [
+         -1,
+         "zeta(7)"
+        ]
+       ]
+      },
+      {
+       "typ": "mgf_relation",
+       "terme": [
+        [
+         0,
+         "C(1,1,7)"
+        ],
+        [
+         0,
+         "C(1,2,6)"
+        ],
+        [
+         0,
+         "C(1,3,5)"
+        ],
+        [
+         -2160,
+         "C(1,4,4)"
+        ],
+        [
+         0,
+         "C(2,2,5)"
+        ],
+        [
+         -4320,
+         "C(2,3,4)"
+        ],
+        [
+         -960,
+         "C(3,3,3)"
+        ],
+        [
+         960,
+         "E(9)"
+        ],
+        [
+         1,
+         "zeta(9)"
+        ]
+       ]
+      }
+     ],
+     "begruendung": "mgf_relationen (E0–E3) identifizierte für jedes Gewicht w∈{3,5,7,9} genau eine rationale Relation, numerisch überprüft an 3–6 Punkten mit 32–45 Dezimalstellen. Die Relationsräume sind 1-dimensional. Die Basis-Vollständigkeit (ob weitere C(a,b,c) mit gleichen a+b+c=w existieren) ist nicht bestätigt; mgf_relationsraum-Operation ist nicht verfügbar."
+    }
+   ],
+   "experimente": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+   ],
+   "final": {
+    "antwort": "Je Gewicht: w=3→dim=1, w=5→dim=1, w=7→dim=1, w=9→dim=1. Insgesamt 4 unabhängige rationale Relationen (eine pro Gewicht)",
+    "zahl": 4,
+    "konfidenz": 0.5,
+    "pruefungen": [
+     {
+      "typ": "mgf_relation",
+      "terme": [
+       [
+        1,
+        "C(1,1,1)"
+       ],
+       [
+        -1,
+        "E(3)"
+       ],
+       [
+        -1,
+        "zeta(3)"
+       ]
+      ]
+     },
+     {
+      "typ": "mgf_relation",
+      "terme": [
+       [
+        0,
+        "C(1,1,3)"
+       ],
+       [
+        -30,
+        "C(1,2,2)"
+       ],
+       [
+        12,
+        "E(5)"
+       ],
+       [
+        1,
+        "zeta(5)"
+       ]
+      ]
+     },
+     {
+      "typ": "mgf_relation",
+      "terme": [
+       [
+        0,
+        "C(1,1,5)"
+       ],
+       [
+        0,
+        "C(1,2,4)"
+       ],
+       [
+        252,
+        "C(1,3,3)"
+       ],
+       [
+        252,
+        "C(2,2,3)"
+       ],
+       [
+        -108,
+        "E(7)"
+       ],
+       [
+        -1,
+        "zeta(7)"
+       ]
+      ]
+     },
+     {
+      "typ": "mgf_relation",
+      "terme": [
+       [
+        0,
+        "C(1,1,7)"
+       ],
+       [
+        0,
+        "C(1,2,6)"
+       ],
+       [
+        0,
+        "C(1,3,5)"
+       ],
+       [
+        -2160,
+        "C(1,4,4)"
+       ],
+       [
+        0,
+        "C(2,2,5)"
+       ],
+       [
+        -4320,
+        "C(2,3,4)"
+       ],
+       [
+        -960,
+        "C(3,3,3)"
+       ],
+       [
+        960,
+        "E(9)"
+       ],
+       [
+        1,
+        "zeta(9)"
+       ]
+      ]
+     }
+    ],
+    "begruendung": "mgf_relationen (E0–E3) identifizierte für jedes Gewicht w∈{3,5,7,9} genau eine rationale Relation, numerisch überprüft an 3–6 Punkten mit 32–45 Dezimalstellen. Die Relationsräume sind 1-dimensional. Die Basis-Vollständigkeit (ob weitere C(a,b,c) mit gleichen a+b+c=w existieren) ist nicht bestätigt; mgf_relationsraum-Operation ist nicht verfügbar."
+   },
+   "modell": "haiku",
+   "pruefung": {
+    "bestanden": true,
+    "grund": "exakter Leitkoeffizient von y^3: 0; numerisch an 4 Prüfer-Punkten (Seed 4711, 32 Stellen): max. relatives Residuum 5.13e-44 (Schranke 1e-24) | exakter Leitkoeffizient von y^5: 0; numerisch an 4 Prüfer-Punkten (Seed 4711, 32 Stellen): max. relatives Residuum 1.57e-43 (Schranke 1e-24) | exakter Leitkoeffizient von y^7: 0; numerisch an 4 Prüfer-Punkten (Seed 4711, 32 Stellen): max. relatives Residuum 1.59e-43 (Schranke 1e-24) | exakter Leitkoeffizient von y^9: 0; numerisch an 4 Prüfer-Punkten (Seed 4711, 32 Stellen): max. relatives Residuum 8.33e-44 (Schranke 1e-24)"
+   },
+   "staerke": 2
+  },
+  {
+   "strategie": "skeptiker",
+   "runden": [
+    {
+     "ueberlegung": "Die bisherige Behauptung ist der Fall w=3. Ich vermute eine Verallgemeinerung auf höhere Gewichte, hier reichen im Gewicht 5 etwa C(2,2,1) und C(3,1,1) mit E(5) und zeta(5), aber ich lege mich nicht fest. Die Relationsräume bestimme ich je Gewicht numerisch per PSLQ, mit allen C(a,b,c), a>=b>=c>=1, a+b+c=w. Als Gegenprobe zur Naheliegenden Annahme prüfe ich zuerst w=3 und w=5, dann w=7 und w=9, wo die Dimension des Raums (Anzahl der C minus unabhängige Relationen) nicht trivial ist. Falls PSLQ in w=9 keine Kandidaten findet oder Kandidaten instabil sind, wird n_punkte erhöht. Die Kandidaten werden danach mit mgf_relation bzw. mgf_relationsraum geprüft.",
+     "plan": [
+      {
+       "op": "mgf_relationen",
+       "args": {
+        "basis": [
+         "C(1,1,1)",
+         "E(3)",
+         "zeta(3)"
+        ],
+        "seed": 1,
+        "n_punkte": 4
+       }
+      },
+      {
+       "op": "mgf_relationen",
+       "args": {
+        "basis": [
+         "C(3,1,1)",
+         "C(2,2,1)",
+         "E(5)",
+         "zeta(5)"
+        ],
+        "seed": 1,
+        "n_punkte": 5
+       }
+      },
+      {
+       "op": "mgf_relationen",
+       "args": {
+        "basis": [
+         "C(5,1,1)",
+         "C(4,2,1)",
+         "C(3,3,1)",
+         "C(3,2,2)",
+         "E(7)",
+         "zeta(7)"
+        ],
+        "seed": 1,
+        "n_punkte": 7
+       }
+      },
+      {
+       "op": "mgf_relationen",
+       "args": {
+        "basis": [
+         "C(7,1,1)",
+         "C(6,2,1)",
+         "C(5,3,1)",
+         "C(5,2,2)",
+         "C(4,4,1)",
+         "C(4,3,2)",
+         "C(3,3,3)",
+         "E(9)",
+         "zeta(9)"
+        ],
+        "seed": 1,
+        "n_punkte": 10
+       }
+      },
+      {
+       "op": "mgf_leitkoeffizient",
+       "args": {
+        "ausdruck": "C(3,1,1)"
+       }
+      },
+      {
+       "op": "mgf_leitkoeffizient",
+       "args": {
+        "ausdruck": "C(2,2,1)"
+       }
+      }
+     ]
+    },
+    {
+     "antwort": "Für jedes der Gewichte w = 3, 5, 7, 9 gibt es genau eine unabhängige rationale Relation (je Gewicht Relationsraum der Dimension 1, insgesamt 4).",
+     "zahl": 4,
+     "konfidenz": 0.8,
+     "pruefung": null,
+     "pruefungen": [
+      {
+       "typ": "mgf_relationsraum",
+       "basis": [
+        "C(1,1,1)",
+        "E(3)",
+        "zeta(3)"
+       ],
+       "dim": 1,
+       "relationen": [
+        [
+         1,
+         -1,
+         -1
+        ]
+       ]
+      },
+      {
+       "typ": "mgf_relationsraum",
+       "basis": [
+        "C(3,1,1)",
+        "C(2,2,1)",
+        "E(5)",
+        "zeta(5)"
+       ],
+       "dim": 1,
+       "relationen": [
+        [
+         0,
+         30,
+         -12,
+         -1
+        ]
+       ]
+      },
+      {
+       "typ": "mgf_relationsraum",
+       "basis": [
+        "C(5,1,1)",
+        "C(4,2,1)",
+        "C(3,3,1)",
+        "C(3,2,2)",
+        "E(7)",
+        "zeta(7)"
+       ],
+       "dim": 1,
+       "relationen": [
+        [
+         0,
+         0,
+         252,
+         252,
+         -108,
+         -1
+        ]
+       ]
+      },
+      {
+       "typ": "mgf_relationsraum",
+       "basis": [
+        "C(7,1,1)",
+        "C(6,2,1)",
+        "C(5,3,1)",
+        "C(5,2,2)",
+        "C(4,4,1)",
+        "C(4,3,2)",
+        "C(3,3,3)",
+        "E(9)",
+        "zeta(9)"
+       ],
+       "dim": 1,
+       "relationen": [
+        [
+         0,
+         0,
+         0,
+         0,
+         -2160,
+         -4320,
+         -960,
+         960,
+         1
+        ]
+       ]
+      }
+     ],
+     "begruendung": "PSLQ über 4 bis 10 Zufallspunkte (32 bzw. 45 Stellen) liefert pro Gewicht genau einen Relationsvektor; die Basen enthalten jeweils alle C(a,b,c) mit a>=b>=c>=1 und a+b+c=w sowie E(w) und zeta(w). Für w=5 bestätigt der exakte Leitkoeffizient die Relation 30 C(2,2,1) = 12 E(5) + zeta(5): 30·4/467775 = 12·2/93555. C(3,1,1) hat Leitkoeffizient 2/155925 und ist daher nicht in dieser Relation enthalten. Die Relationen für w=7 und w=9 sind bisher nur numerisch gefunden, nicht exakt über den Leitkoeffizienten gegengeprüft; die Zertifizierung läuft über die Prüfer."
+    }
+   ],
+   "experimente": [
+    8,
+    9,
+    10,
+    11,
+    12,
+    13
+   ],
+   "final": {
+    "antwort": "Für jedes der Gewichte w = 3, 5, 7, 9 gibt es genau eine unabhängige rationale Relation (je Gewicht Relationsraum der Dimension 1, insgesamt 4).",
+    "zahl": 4,
+    "konfidenz": 0.8,
+    "pruefung": null,
+    "pruefungen": [
+     {
+      "typ": "mgf_relationsraum",
+      "basis": [
+       "C(1,1,1)",
+       "E(3)",
+       "zeta(3)"
+      ],
+      "dim": 1,
+      "relationen": [
+       [
+        1,
+        -1,
+        -1
+       ]
+      ]
+     },
+     {
+      "typ": "mgf_relationsraum",
+      "basis": [
+       "C(3,1,1)",
+       "C(2,2,1)",
+       "E(5)",
+       "zeta(5)"
+      ],
+      "dim": 1,
+      "relationen": [
+       [
+        0,
+        30,
+        -12,
+        -1
+       ]
+      ]
+     },
+     {
+      "typ": "mgf_relationsraum",
+      "basis": [
+       "C(5,1,1)",
+       "C(4,2,1)",
+       "C(3,3,1)",
+       "C(3,2,2)",
+       "E(7)",
+       "zeta(7)"
+      ],
+      "dim": 1,
+      "relationen": [
+       [
+        0,
+        0,
+        252,
+        252,
+        -108,
+        -1
+       ]
+      ]
+     },
+     {
+      "typ": "mgf_relationsraum",
+      "basis": [
+       "C(7,1,1)",
+       "C(6,2,1)",
+       "C(5,3,1)",
+       "C(5,2,2)",
+       "C(4,4,1)",
+       "C(4,3,2)",
+       "C(3,3,3)",
+       "E(9)",
+       "zeta(9)"
+      ],
+      "dim": 1,
+      "relationen": [
+       [
+        0,
+        0,
+        0,
+        0,
+        -2160,
+        -4320,
+        -960,
+        960,
+        1
+       ]
+      ]
+     }
+    ],
+    "begruendung": "PSLQ über 4 bis 10 Zufallspunkte (32 bzw. 45 Stellen) liefert pro Gewicht genau einen Relationsvektor; die Basen enthalten jeweils alle C(a,b,c) mit a>=b>=c>=1 und a+b+c=w sowie E(w) und zeta(w). Für w=5 bestätigt der exakte Leitkoeffizient die Relation 30 C(2,2,1) = 12 E(5) + zeta(5): 30·4/467775 = 12·2/93555. C(3,1,1) hat Leitkoeffizient 2/155925 und ist daher nicht in dieser Relation enthalten. Die Relationen für w=7 und w=9 sind bisher nur numerisch gefunden, nicht exakt über den Leitkoeffizienten gegengeprüft; die Zertifizierung läuft über die Prüfer."
+   },
+   "modell": "sonnet",
+   "staerkungsversuch": 1,
+   "pruefung": {
+    "bestanden": true,
+    "grund": "1 Relationen einzeln bestätigt; Singulärwerte der normierten 6x3-Wertematrix (Seed 4712): 1 < 1e-24, 2 > 1e-8, kleinster großer 0.731 | 1 Relationen einzeln bestätigt; Singulärwerte der normierten 7x4-Wertematrix (Seed 4712): 1 < 1e-24, 3 > 1e-8, kleinster großer 0.0372 | 1 Relationen einzeln bestätigt; Singulärwerte der normierten 9x6-Wertematrix (Seed 4712): 1 < 1e-24, 5 > 1e-8, kleinster großer 0.000127 | 1 Relationen einzeln bestätigt; Singulärwerte der normierten 12x9-Wertematrix (Seed 4712): 1 < 1e-24, 8 > 1e-8, kleinster großer 8.6e-7"
+   },
+   "staerke": 3
+  },
+  {
+   "strategie": "theoretiker",
+   "runden": [
+    {
+     "ueberlegung": "Gewicht 3: C(1,1,1)=E(3)+zeta(3), also dim 1. Die Modulgraphfunktionen vom Gewicht w sind Lösungen von Laplace-Gleichungen mit Quellen aus E(w), zeta(w) und Produkten niedrigerer Gewichte. Für w=5 erwarte ich, dass C(2,2,1) und C(3,1,1) beide in span{E(5), zeta(5)} liegen (Gewicht 5 hat keine Produktterme E(2)E(3) im Eigenraum). Dann wäre dim = 2 bei Basis {C(3,1,1), C(2,2,1), E(5), zeta(5)}. Für w=7 und 9 gibt es Produkte wie E(2)E(5) und E(3)E(4), aber die Basis enthält sie nicht, daher ist unklar, wie viele reine Relationen bestehen. Das messe ich, die Dimension wird nicht geraten. Ich teste w=5,7,9 mit PSLQ über mehrere Punkte und prüfe danach mit mgf_relationsraum.",
+     "plan": [
+      {
+       "op": "mgf_relationen",
+       "args": {
+        "basis": [
+         "C(3,1,1)",
+         "C(2,2,1)",
+         "E(5)",
+         "zeta(5)"
+        ],
+        "seed": 1,
+        "n_punkte": 4
+       }
+      },
+      {
+       "op": "mgf_relationen",
+       "args": {
+        "basis": [
+         "C(5,1,1)",
+         "C(4,2,1)",
+         "C(3,3,1)",
+         "C(3,2,2)",
+         "E(7)",
+         "zeta(7)"
+        ],
+        "seed": 2,
+        "n_punkte": 5
+       }
+      },
+      {
+       "op": "mgf_relationen",
+       "args": {
+        "basis": [
+         "C(7,1,1)",
+         "C(6,2,1)",
+         "C(5,3,1)",
+         "C(5,2,2)",
+         "C(4,4,1)",
+         "C(4,3,2)",
+         "C(3,3,3)",
+         "E(9)",
+         "zeta(9)"
+        ],
+        "seed": 3,
+        "n_punkte": 6
+       }
+      },
+      {
+       "op": "mgf_leitkoeffizient",
+       "args": {
+        "ausdruck": "C(3,1,1)"
+       }
+      },
+      {
+       "op": "mgf_leitkoeffizient",
+       "args": {
+        "ausdruck": "C(2,2,1)"
+       }
+      }
+     ]
+    },
+    {
+     "antwort": "Je Gewicht genau 1 unabhängige Relation (w=3,5,7,9), jeweils dim 1",
+     "zahl": 4,
+     "konfidenz": 0.6,
+     "pruefungen": [
+      {
+       "typ": "mgf_relationsraum",
+       "basis": [
+        "C(1,1,1)",
+        "E(3)",
+        "zeta(3)"
+       ],
+       "dim": 1,
+       "relationen": [
+        [
+         1,
+         -1,
+         -1
+        ]
+       ]
+      },
+      {
+       "typ": "mgf_relationsraum",
+       "basis": [
+        "C(3,1,1)",
+        "C(2,2,1)",
+        "E(5)",
+        "zeta(5)"
+       ],
+       "dim": 1,
+       "relationen": [
+        [
+         0,
+         -30,
+         12,
+         1
+        ]
+       ]
+      },
+      {
+       "typ": "mgf_relationsraum",
+       "basis": [
+        "C(5,1,1)",
+        "C(4,2,1)",
+        "C(3,3,1)",
+        "C(3,2,2)",
+        "E(7)",
+        "zeta(7)"
+       ],
+       "dim": 1,
+       "relationen": [
+        [
+         0,
+         0,
+         -252,
+         -252,
+         108,
+         1
+        ]
+       ]
+      },
+      {
+       "typ": "mgf_relationsraum",
+       "basis": [
+        "C(7,1,1)",
+        "C(6,2,1)",
+        "C(5,3,1)",
+        "C(5,2,2)",
+        "C(4,4,1)",
+        "C(4,3,2)",
+        "C(3,3,3)",
+        "E(9)",
+        "zeta(9)"
+       ],
+       "dim": 1,
+       "relationen": [
+        [
+         0,
+         0,
+         0,
+         0,
+         -2160,
+         -4320,
+         -960,
+         960,
+         1
+        ]
+       ]
+      }
+     ],
+     "begruendung": "Für die Gewichte 5, 7 und 9 lieferte PSLQ über mehrere Zufallspunkte jeweils genau einen ganzzahligen Relationsvektor (E14–E16). Gewicht 3 ist die bereits geprüfte Relation C(1,1,1)=E(3)+zeta(3). Die Vollständigkeit (dim = 1 je Gewicht) ist nur numerisch gestützt und noch nicht vom Prüfer zertifiziert."
+    }
+   ],
+   "experimente": [
+    14,
+    15,
+    16,
+    17,
+    18
+   ],
+   "final": {
+    "antwort": "Je Gewicht genau 1 unabhängige Relation (w=3,5,7,9), jeweils dim 1",
+    "zahl": 4,
+    "konfidenz": 0.6,
+    "pruefungen": [
+     {
+      "typ": "mgf_relationsraum",
+      "basis": [
+       "C(1,1,1)",
+       "E(3)",
+       "zeta(3)"
+      ],
+      "dim": 1,
+      "relationen": [
+       [
+        1,
+        -1,
+        -1
+       ]
+      ]
+     },
+     {
+      "typ": "mgf_relationsraum",
+      "basis": [
+       "C(3,1,1)",
+       "C(2,2,1)",
+       "E(5)",
+       "zeta(5)"
+      ],
+      "dim": 1,
+      "relationen": [
+       [
+        0,
+        -30,
+        12,
+        1
+       ]
+      ]
+     },
+     {
+      "typ": "mgf_relationsraum",
+      "basis": [
+       "C(5,1,1)",
+       "C(4,2,1)",
+       "C(3,3,1)",
+       "C(3,2,2)",
+       "E(7)",
+       "zeta(7)"
+      ],
+      "dim": 1,
+      "relationen": [
+       [
+        0,
+        0,
+        -252,
+        -252,
+        108,
+        1
+       ]
+      ]
+     },
+     {
+      "typ": "mgf_relationsraum",
+      "basis": [
+       "C(7,1,1)",
+       "C(6,2,1)",
+       "C(5,3,1)",
+       "C(5,2,2)",
+       "C(4,4,1)",
+       "C(4,3,2)",
+       "C(3,3,3)",
+       "E(9)",
+       "zeta(9)"
+      ],
+      "dim": 1,
+      "relationen": [
+       [
+        0,
+        0,
+        0,
+        0,
+        -2160,
+        -4320,
+        -960,
+        960,
+        1
+       ]
+      ]
+     }
+    ],
+    "begruendung": "Für die Gewichte 5, 7 und 9 lieferte PSLQ über mehrere Zufallspunkte jeweils genau einen ganzzahligen Relationsvektor (E14–E16). Gewicht 3 ist die bereits geprüfte Relation C(1,1,1)=E(3)+zeta(3). Die Vollständigkeit (dim = 1 je Gewicht) ist nur numerisch gestützt und noch nicht vom Prüfer zertifiziert."
+   },
+   "modell": "sonnet",
+   "staerkungsversuch": 2,
+   "pruefung": {
+    "bestanden": true,
+    "grund": "1 Relationen einzeln bestätigt; Singulärwerte der normierten 6x3-Wertematrix (Seed 4712): 1 < 1e-24, 2 > 1e-8, kleinster großer 0.731 | 1 Relationen einzeln bestätigt; Singulärwerte der normierten 7x4-Wertematrix (Seed 4712): 1 < 1e-24, 3 > 1e-8, kleinster großer 0.0372 | 1 Relationen einzeln bestätigt; Singulärwerte der normierten 9x6-Wertematrix (Seed 4712): 1 < 1e-24, 5 > 1e-8, kleinster großer 0.000127 | 1 Relationen einzeln bestätigt; Singulärwerte der normierten 12x9-Wertematrix (Seed 4712): 1 < 1e-24, 8 > 1e-8, kleinster großer 8.6e-7"
+   },
+   "staerke": 3
+  }
+ ],
+ "experimente": [
+  {
+   "id": 0,
+   "wer": "forscher-sparsam",
+   "op": "mgf_relationen",
+   "args": {
+    "basis": [
+     "C(1,1,1)",
+     "E(3)",
+     "zeta(3)"
+    ]
+   },
+   "ergebnis": {
+    "basis": [
+     "C(1,1,1)",
+     "E(3)",
+     "zeta(3)"
+    ],
+    "relationen": [
+     [
+      1,
+      -1,
+      -1
+     ]
+    ],
+    "punkte": [
+     [
+      "-0.365636",
+      "2.271151"
+     ],
+     [
+      "0.263775",
+      "1.382604"
+     ],
+     [
+      "-0.004565",
+      "1.674237"
+     ]
+    ],
+    "dps": 32,
+    "lesart": "sum_j relation[j] * basis[j] = 0 an allen Punkten (numerisch, Kandidat)",
+    "hinweis": "Kandidaten; zertifiziert erst durch mgf_relation / mgf_relationsraum"
+   },
+   "sek": 3.63
+  },
+  {
+   "id": 1,
+   "wer": "forscher-sparsam",
+   "op": "mgf_relationen",
+   "args": {
+    "basis": [
+     "C(1,1,3)",
+     "C(1,2,2)",
+     "E(5)",
+     "zeta(5)"
+    ]
+   },
+   "ergebnis": {
+    "basis": [
+     "C(1,1,3)",
+     "C(1,2,2)",
+     "E(5)",
+     "zeta(5)"
+    ],
+    "relationen": [
+     [
+      0,
+      -30,
+      12,
+      1
+     ]
+    ],
+    "punkte": [
+     [
+      "-0.365636",
+      "2.271151"
+     ],
+     [
+      "0.263775",
+      "1.382604"
+     ],
+     [
+      "-0.004565",
+      "1.674237"
+     ],
+     [
+      "0.151593",
+      "2.183085"
+     ]
+    ],
+    "dps": 32,
+    "lesart": "sum_j relation[j] * basis[j] = 0 an allen Punkten (numerisch, Kandidat)",
+    "hinweis": "Kandidaten; zertifiziert erst durch mgf_relation / mgf_relationsraum"
+   },
+   "sek": 30.58
+  },
+  {
+   "id": 2,
+   "wer": "forscher-sparsam",
+   "op": "mgf_relationen",
+   "args": {
+    "basis": [
+     "C(1,1,5)",
+     "C(1,2,4)",
+     "C(1,3,3)",
+     "C(2,2,3)",
+     "E(7)",
+     "zeta(7)"
+    ]
+   },
+   "ergebnis": {
+    "basis": [
+     "C(1,1,5)",
+     "C(1,2,4)",
+     "C(1,3,3)",
+     "C(2,2,3)",
+     "E(7)",
+     "zeta(7)"
+    ],
+    "relationen": [
+     [
+      0,
+      0,
+      252,
+      252,
+      -108,
+      -1
+     ]
+    ],
+    "punkte": [
+     [
+      "-0.365636",
+      "2.271151"
+     ],
+     [
+      "0.263775",
+      "1.382604"
+     ],
+     [
+      "-0.004565",
+      "1.674237"
+     ],
+     [
+      "0.151593",
+      "2.183085"
+     ],
+     [
+      "-0.406140",
+      "1.042521"
+     ],
+     [
+      "0.335765",
+      "1.649151"
+     ]
+    ],
+    "dps": 32,
+    "lesart": "sum_j relation[j] * basis[j] = 0 an allen Punkten (numerisch, Kandidat)",
+    "hinweis": "Kandidaten; zertifiziert erst durch mgf_relation / mgf_relationsraum"
+   },
+   "sek": 176.54
+  },
+  {
+   "id": 3,
+   "wer": "forscher-sparsam",
+   "op": "mgf_relationen",
+   "args": {
+    "basis": [
+     "C(1,1,7)",
+     "C(1,2,6)",
+     "C(1,3,5)",
+     "C(1,4,4)",
+     "C(2,2,5)",
+     "C(2,3,4)",
+     "C(3,3,3)",
+     "E(9)",
+     "zeta(9)"
+    ]
+   },
+   "ergebnis": {
+    "basis": [
+     "C(1,1,7)",
+     "C(1,2,6)",
+     "C(1,3,5)",
+     "C(1,4,4)",
+     "C(2,2,5)",
+     "C(2,3,4)",
+     "C(3,3,3)",
+     "E(9)",
+     "zeta(9)"
+    ],
+    "relationen": [
+     [
+      0,
+      0,
+      0,
+      -2160,
+      0,
+      -4320,
+      -960,
+      960,
+      1
+     ]
+    ],
+    "punkte": [
+     [
+      "-0.365636",
+      "2.271151"
+     ],
+     [
+      "0.263775",
+      "1.382604"
+     ],
+     [
+      "-0.004565",
+      "1.674237"
+     ],
+     [
+      "0.151593",
+      "2.183085"
+     ],
+     [
+      "-0.406140",
+      "1.042521"
+     ],
+     [
+      "0.335765",
+      "1.649151"
+     ]
+    ],
+    "dps": 45,
+    "lesart": "sum_j relation[j] * basis[j] = 0 an allen Punkten (numerisch, Kandidat)",
+    "hinweis": "Kandidaten; zertifiziert erst durch mgf_relation / mgf_relationsraum"
+   },
+   "sek": 699.63
+  },
+  {
+   "id": 4,
+   "wer": "forscher-sparsam",
+   "op": "mgf_relationsraum",
+   "args": {
+    "basis": [
+     "C(1,1,1)",
+     "E(3)",
+     "zeta(3)"
+    ]
+   },
+   "ergebnis": {
+    "fehler": "unbekannte op mgf_relationsraum"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 5,
+   "wer": "forscher-sparsam",
+   "op": "mgf_relationsraum",
+   "args": {
+    "basis": [
+     "C(1,1,3)",
+     "C(1,2,2)",
+     "E(5)",
+     "zeta(5)"
+    ]
+   },
+   "ergebnis": {
+    "fehler": "unbekannte op mgf_relationsraum"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 6,
+   "wer": "forscher-sparsam",
+   "op": "mgf_relationsraum",
+   "args": {
+    "basis": [
+     "C(1,1,5)",
+     "C(1,2,4)",
+     "C(1,3,3)",
+     "C(2,2,3)",
+     "E(7)",
+     "zeta(7)"
+    ]
+   },
+   "ergebnis": {
+    "fehler": "unbekannte op mgf_relationsraum"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 7,
+   "wer": "forscher-sparsam",
+   "op": "mgf_relationsraum",
+   "args": {
+    "basis": [
+     "C(1,1,7)",
+     "C(1,2,6)",
+     "C(1,3,5)",
+     "C(1,4,4)",
+     "C(2,2,5)",
+     "C(2,3,4)",
+     "C(3,3,3)",
+     "E(9)",
+     "zeta(9)"
+    ]
+   },
+   "ergebnis": {
+    "fehler": "unbekannte op mgf_relationsraum"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 8,
+   "wer": "forscher-skeptiker",
+   "op": "mgf_relationen",
+   "args": {
+    "basis": [
+     "C(1,1,1)",
+     "E(3)",
+     "zeta(3)"
+    ],
+    "seed": 1,
+    "n_punkte": 4
+   },
+   "ergebnis": {
+    "basis": [
+     "C(1,1,1)",
+     "E(3)",
+     "zeta(3)"
+    ],
+    "relationen": [
+     [
+      1,
+      -1,
+      -1
+     ]
+    ],
+    "punkte": [
+     [
+      "-0.365636",
+      "2.271151"
+     ],
+     [
+      "0.263775",
+      "1.382604"
+     ],
+     [
+      "-0.004565",
+      "1.674237"
+     ],
+     [
+      "0.151593",
+      "2.183085"
+     ]
+    ],
+    "dps": 32,
+    "lesart": "sum_j relation[j] * basis[j] = 0 an allen Punkten (numerisch, Kandidat)",
+    "hinweis": "Kandidaten; zertifiziert erst durch mgf_relation / mgf_relationsraum"
+   },
+   "sek": 0.89
+  },
+  {
+   "id": 9,
+   "wer": "forscher-skeptiker",
+   "op": "mgf_relationen",
+   "args": {
+    "basis": [
+     "C(3,1,1)",
+     "C(2,2,1)",
+     "E(5)",
+     "zeta(5)"
+    ],
+    "seed": 1,
+    "n_punkte": 5
+   },
+   "ergebnis": {
+    "basis": [
+     "C(3,1,1)",
+     "C(2,2,1)",
+     "E(5)",
+     "zeta(5)"
+    ],
+    "relationen": [
+     [
+      0,
+      30,
+      -12,
+      -1
+     ]
+    ],
+    "punkte": [
+     [
+      "-0.365636",
+      "2.271151"
+     ],
+     [
+      "0.263775",
+      "1.382604"
+     ],
+     [
+      "-0.004565",
+      "1.674237"
+     ],
+     [
+      "0.151593",
+      "2.183085"
+     ],
+     [
+      "-0.406140",
+      "1.042521"
+     ]
+    ],
+    "dps": 32,
+    "lesart": "sum_j relation[j] * basis[j] = 0 an allen Punkten (numerisch, Kandidat)",
+    "hinweis": "Kandidaten; zertifiziert erst durch mgf_relation / mgf_relationsraum"
+   },
+   "sek": 14.05
+  },
+  {
+   "id": 10,
+   "wer": "forscher-skeptiker",
+   "op": "mgf_relationen",
+   "args": {
+    "basis": [
+     "C(5,1,1)",
+     "C(4,2,1)",
+     "C(3,3,1)",
+     "C(3,2,2)",
+     "E(7)",
+     "zeta(7)"
+    ],
+    "seed": 1,
+    "n_punkte": 7
+   },
+   "ergebnis": {
+    "basis": [
+     "C(5,1,1)",
+     "C(4,2,1)",
+     "C(3,3,1)",
+     "C(3,2,2)",
+     "E(7)",
+     "zeta(7)"
+    ],
+    "relationen": [
+     [
+      0,
+      0,
+      252,
+      252,
+      -108,
+      -1
+     ]
+    ],
+    "punkte": [
+     [
+      "-0.365636",
+      "2.271151"
+     ],
+     [
+      "0.263775",
+      "1.382604"
+     ],
+     [
+      "-0.004565",
+      "1.674237"
+     ],
+     [
+      "0.151593",
+      "2.183085"
+     ],
+     [
+      "-0.406140",
+      "1.042521"
+     ],
+     [
+      "0.335765",
+      "1.649151"
+     ],
+     [
+      "0.262280",
+      "1.003159"
+     ]
+    ],
+    "dps": 32,
+    "lesart": "sum_j relation[j] * basis[j] = 0 an allen Punkten (numerisch, Kandidat)",
+    "hinweis": "Kandidaten; zertifiziert erst durch mgf_relation / mgf_relationsraum"
+   },
+   "sek": 49.32
+  },
+  {
+   "id": 11,
+   "wer": "forscher-skeptiker",
+   "op": "mgf_relationen",
+   "args": {
+    "basis": [
+     "C(7,1,1)",
+     "C(6,2,1)",
+     "C(5,3,1)",
+     "C(5,2,2)",
+     "C(4,4,1)",
+     "C(4,3,2)",
+     "C(3,3,3)",
+     "E(9)",
+     "zeta(9)"
+    ],
+    "seed": 1,
+    "n_punkte": 10
+   },
+   "ergebnis": {
+    "basis": [
+     "C(7,1,1)",
+     "C(6,2,1)",
+     "C(5,3,1)",
+     "C(5,2,2)",
+     "C(4,4,1)",
+     "C(4,3,2)",
+     "C(3,3,3)",
+     "E(9)",
+     "zeta(9)"
+    ],
+    "relationen": [
+     [
+      0,
+      0,
+      0,
+      0,
+      -2160,
+      -4320,
+      -960,
+      960,
+      1
+     ]
+    ],
+    "punkte": [
+     [
+      "-0.365636",
+      "2.271151"
+     ],
+     [
+      "0.263775",
+      "1.382604"
+     ],
+     [
+      "-0.004565",
+      "1.674237"
+     ],
+     [
+      "0.151593",
+      "2.183085"
+     ],
+     [
+      "-0.406140",
+      "1.042521"
+     ],
+     [
+      "0.335765",
+      "1.649151"
+     ],
+     [
+      "0.262280",
+      "1.003159"
+     ],
+     [
+      "-0.054613",
+      "2.082310"
+     ],
+     [
+      "-0.271238",
+      "2.417906"
+     ],
+     [
+      "0.401427",
+      "1.045885"
+     ]
+    ],
+    "dps": 45,
+    "lesart": "sum_j relation[j] * basis[j] = 0 an allen Punkten (numerisch, Kandidat)",
+    "hinweis": "Kandidaten; zertifiziert erst durch mgf_relation / mgf_relationsraum"
+   },
+   "sek": 553.12
+  },
+  {
+   "id": 12,
+   "wer": "forscher-skeptiker",
+   "op": "mgf_leitkoeffizient",
+   "args": {
+    "ausdruck": "C(3,1,1)"
+   },
+   "ergebnis": {
+    "grad": 5,
+    "koeffizient": "2/155925",
+    "zeta_faktoren": [],
+    "lesart": "F = koeffizient * prod zeta * y^grad + O(y^(grad-1)), y = pi*tau2 (exakt)"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 13,
+   "wer": "forscher-skeptiker",
+   "op": "mgf_leitkoeffizient",
+   "args": {
+    "ausdruck": "C(2,2,1)"
+   },
+   "ergebnis": {
+    "grad": 5,
+    "koeffizient": "4/467775",
+    "zeta_faktoren": [],
+    "lesart": "F = koeffizient * prod zeta * y^grad + O(y^(grad-1)), y = pi*tau2 (exakt)"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 14,
+   "wer": "forscher-theoretiker",
+   "op": "mgf_relationen",
+   "args": {
+    "basis": [
+     "C(3,1,1)",
+     "C(2,2,1)",
+     "E(5)",
+     "zeta(5)"
+    ],
+    "seed": 1,
+    "n_punkte": 4
+   },
+   "ergebnis": {
+    "basis": [
+     "C(3,1,1)",
+     "C(2,2,1)",
+     "E(5)",
+     "zeta(5)"
+    ],
+    "relationen": [
+     [
+      0,
+      -30,
+      12,
+      1
+     ]
+    ],
+    "punkte": [
+     [
+      "-0.365636",
+      "2.271151"
+     ],
+     [
+      "0.263775",
+      "1.382604"
+     ],
+     [
+      "-0.004565",
+      "1.674237"
+     ],
+     [
+      "0.151593",
+      "2.183085"
+     ]
+    ],
+    "dps": 32,
+    "lesart": "sum_j relation[j] * basis[j] = 0 an allen Punkten (numerisch, Kandidat)",
+    "hinweis": "Kandidaten; zertifiziert erst durch mgf_relation / mgf_relationsraum"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 15,
+   "wer": "forscher-theoretiker",
+   "op": "mgf_relationen",
+   "args": {
+    "basis": [
+     "C(5,1,1)",
+     "C(4,2,1)",
+     "C(3,3,1)",
+     "C(3,2,2)",
+     "E(7)",
+     "zeta(7)"
+    ],
+    "seed": 2,
+    "n_punkte": 5
+   },
+   "ergebnis": {
+    "basis": [
+     "C(5,1,1)",
+     "C(4,2,1)",
+     "C(3,3,1)",
+     "C(3,2,2)",
+     "E(7)",
+     "zeta(7)"
+    ],
+    "relationen": [
+     [
+      0,
+      0,
+      -252,
+      -252,
+      108,
+      1
+     ]
+    ],
+    "punkte": [
+     [
+      "0.456034",
+      "2.421741"
+     ],
+     [
+      "-0.443449",
+      "1.127308"
+     ],
+     [
+      "0.335499",
+      "2.103955"
+     ],
+     [
+      "0.169730",
+      "1.462205"
+     ],
+     [
+      "0.105944",
+      "1.910203"
+     ]
+    ],
+    "dps": 32,
+    "lesart": "sum_j relation[j] * basis[j] = 0 an allen Punkten (numerisch, Kandidat)",
+    "hinweis": "Kandidaten; zertifiziert erst durch mgf_relation / mgf_relationsraum"
+   },
+   "sek": 135.74
+  },
+  {
+   "id": 16,
+   "wer": "forscher-theoretiker",
+   "op": "mgf_relationen",
+   "args": {
+    "basis": [
+     "C(7,1,1)",
+     "C(6,2,1)",
+     "C(5,3,1)",
+     "C(5,2,2)",
+     "C(4,4,1)",
+     "C(4,3,2)",
+     "C(3,3,3)",
+     "E(9)",
+     "zeta(9)"
+    ],
+    "seed": 3,
+    "n_punkte": 6
+   },
+   "ergebnis": {
+    "basis": [
+     "C(7,1,1)",
+     "C(6,2,1)",
+     "C(5,3,1)",
+     "C(5,2,2)",
+     "C(4,4,1)",
+     "C(4,3,2)",
+     "C(3,3,3)",
+     "E(9)",
+     "zeta(9)"
+    ],
+    "relationen": [
+     [
+      0,
+      0,
+      0,
+      0,
+      -2160,
+      -4320,
+      -960,
+      960,
+      1
+     ]
+    ],
+    "punkte": [
+     [
+      "-0.262035",
+      "1.816344"
+     ],
+     [
+      "-0.130045",
+      "1.905880"
+     ],
+     [
+      "0.125720",
+      "1.098293"
+     ],
+     [
+      "-0.486832",
+      "2.256204"
+     ],
+     [
+      "-0.240646",
+      "1.351496"
+     ],
+     [
+      "0.495645",
+      "1.705395"
+     ]
+    ],
+    "dps": 45,
+    "lesart": "sum_j relation[j] * basis[j] = 0 an allen Punkten (numerisch, Kandidat)",
+    "hinweis": "Kandidaten; zertifiziert erst durch mgf_relation / mgf_relationsraum"
+   },
+   "sek": 683.76
+  },
+  {
+   "id": 17,
+   "wer": "forscher-theoretiker",
+   "op": "mgf_leitkoeffizient",
+   "args": {
+    "ausdruck": "C(3,1,1)"
+   },
+   "ergebnis": {
+    "grad": 5,
+    "koeffizient": "2/155925",
+    "zeta_faktoren": [],
+    "lesart": "F = koeffizient * prod zeta * y^grad + O(y^(grad-1)), y = pi*tau2 (exakt)"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 18,
+   "wer": "forscher-theoretiker",
+   "op": "mgf_leitkoeffizient",
+   "args": {
+    "ausdruck": "C(2,2,1)"
+   },
+   "ergebnis": {
+    "grad": 5,
+    "koeffizient": "4/467775",
+    "zeta_faktoren": [],
+    "lesart": "F = koeffizient * prod zeta * y^grad + O(y^(grad-1)), y = pi*tau2 (exakt)"
+   },
+   "sek": 0.0
+  }
+ ],
+ "sek": 4132.7
+}

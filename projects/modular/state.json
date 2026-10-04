@@ -1,0 +1,499 @@
+{
+ "domain": "modular",
+ "wissen": [],
+ "fragen": [
+  {
+   "frage": "Gibt es eine rationale lineare Relation zwischen den sieben dihedralen Modulgraphfunktionen vom Gewicht 9 (C(7,1,1), C(6,2,1), C(5,3,1), C(5,2,2), C(4,4,1), C(4,3,2), C(3,3,3)), E(9) und zeta(9)? Finde sie explizit und lasse sie als mgf_relation prüfen.",
+   "neuheit": 0.7,
+   "machbarkeit": 0.8,
+   "lueckenkarte": "L1",
+   "id": "F1",
+   "status": "offen",
+   "quelle": "lueckenkarte",
+   "faden_id": "F1"
+  },
+  {
+   "frage": "Wie viele unabhängige rationale lineare Relationen bestehen zwischen allen C(a,b,c) vom Gewicht w, E(w) und zeta(w) für w = 3, 5, 7, 9? Bestimme den Relationsraum je Gewicht vollständig (mgf_relationsraum).",
+   "neuheit": 0.6,
+   "machbarkeit": 0.7,
+   "lueckenkarte": "L3",
+   "id": "F2",
+   "status": "beantwortet",
+   "quelle": "lueckenkarte",
+   "faden_id": "F2"
+  },
+  {
+   "frage": "Gibt es eine rationale lineare Relation zwischen den zehn dihedralen Modulgraphfunktionen vom Gewicht 11, E(11) und zeta(11)? Finde sie explizit (hohe Präzision nötig).",
+   "neuheit": 0.7,
+   "machbarkeit": 0.5,
+   "lueckenkarte": "L2",
+   "id": "F3",
+   "status": "offen",
+   "quelle": "lueckenkarte",
+   "faden_id": "F3"
+  },
+  {
+   "frage": "Gibt es bei Gewicht 6 rationale lineare Relationen zwischen C(4,1,1), C(3,2,1), C(2,2,2), E(6), E(2)*E(4), E(3)^2, E(2)^3, zeta(3)*E(3), zeta(3)^2? Bestimme die Dimension des Relationsraums (auch 0 ist ein Ergebnis).",
+   "neuheit": 0.4,
+   "machbarkeit": 0.7,
+   "lueckenkarte": "L4",
+   "id": "F4",
+   "status": "offen",
+   "quelle": "lueckenkarte",
+   "faden_id": "F4"
+  },
+  {
+   "frage": "Für welche Level N <= 30 spannen die holomorphen Eta-Quotienten mit trivialem Charakter den ganzen Raum M_4(Gamma_0(N))? Exakte Tabelle (eta_span_tabelle).",
+   "neuheit": 0.3,
+   "machbarkeit": 0.9,
+   "lueckenkarte": "L6",
+   "id": "F5",
+   "status": "offen",
+   "quelle": "lueckenkarte",
+   "faden_id": "F5"
+  },
+  {
+   "frage": "Welche Laplace-Gleichung (L[C] - s(s-1) C = Quellen aus Eisenstein-Produkten und Zetawerten) erfüllt C(3,1,1)? Finde Eigenwert und Quellterme und lasse sie prüfen.",
+   "neuheit": 0.1,
+   "machbarkeit": 0.8,
+   "lueckenkarte": "L5",
+   "anker": true,
+   "id": "F6",
+   "status": "offen",
+   "quelle": "lueckenkarte",
+   "faden_id": "F6"
+  },
+  {
+   "frage": "Beweise die holomorphen Stringtheorie-Identitäten mit Sturm-Zertifikat: Jacobis Identität (theta-Funktionen als Eta-Quotienten auf Gamma_0(4)), theta_E8^2 = theta_D16 (heterotische Gitter) und Delta = (E4^3 - E6^2)/1728.",
+   "neuheit": 0.05,
+   "machbarkeit": 1.0,
+   "lueckenkarte": "L7",
+   "anker": true,
+   "id": "F7",
+   "status": "offen",
+   "quelle": "lueckenkarte",
+   "faden_id": "F7"
+  }
+ ],
+ "claims": [
+  {
+   "id": "modular-R1",
+   "frage": "Wie viele unabhängige rationale lineare Relationen bestehen zwischen allen C(a,b,c) vom Gewicht w, E(w) und zeta(w) für w = 3, 5, 7, 9? Bestimme den Relationsraum je Gewicht vollständig (mgf_relationsraum).",
+   "text": "Numerisch bilden die rationalen linearen Relationen zwischen ['C(1,1,1)', 'E(3)', 'zeta(3)'] einen Raum der Dimension genau 1, aufgespannt von [[1, -1, -1]] (jede Relation auf 1e-24 geprüft; Vollständigkeit über Singulärwertabstand).",
+   "interpretation_ungeprueft": "Für jedes der Gewichte w = 3, 5, 7, 9 gibt es genau eine unabhängige rationale Relation (je Gewicht Relationsraum der Dimension 1, insgesamt 4).",
+   "pruefung": {
+    "typ": "mgf_relationsraum",
+    "basis": [
+     "C(1,1,1)",
+     "E(3)",
+     "zeta(3)"
+    ],
+    "dim": 1,
+    "relationen": [
+     [
+      1,
+      -1,
+      -1
+     ]
+    ]
+   },
+   "grund": "1 Relationen einzeln bestätigt; Singulärwerte der normierten 6x3-Wertematrix (Seed 4712): 1 < 1e-24, 2 > 1e-8, kleinster großer 0.731 | 1 Relationen einzeln bestätigt; Singulärwerte der normierten 7x4-Wertematrix (Seed 4712): 1 < 1e-24, 3 > 1e-8, kleinster großer 0.0372 | 1 Relationen einzeln bestätigt; Singulärwerte der normierten 9x6-Wertematrix (Seed 4712): 1 < 1e-24, 5 > 1e-8, kleinster großer 0.000127 | 1 Relationen einzeln bestätigt; Singulärwerte der normierten 12x9-Wertematrix (Seed 4712): 1 < 1e-24, 8 > 1e-8, kleinster großer 8.6e-7",
+   "level": "observed",
+   "status": "bestätigt",
+   "red_team": [
+    {
+     "pruefung": {
+      "typ": "mgf_relationsraum",
+      "basis": [
+       "C(5,1,1)",
+       "C(4,2,1)",
+       "C(3,3,1)",
+       "C(3,2,2)",
+       "E(7)",
+       "zeta(7)"
+      ],
+      "dim": 0,
+      "relationen": []
+     },
+     "idee": "Randfall w=7: Die behauptete Relation 252 C(3,3,1) + 252 C(3,2,2) - 108 E(7) - zeta(7) = 0 wurde nur numerisch per PSLQ gefunden und nicht über den exakten Leitkoeffizienten bestätigt. Wäre sie ein numerisches Artefakt, wäre der Relationsraum 0-dimensional. Ich habe das nicht nachgerechnet.",
+     "bestanden": false,
+     "ergebnis": "nicht_bestanden",
+     "grund": "0 Relationen einzeln bestätigt; Singulärwerte der normierten 9x6-Wertematrix (Seed 4712): 1 < 1e-24, 5 > 1e-8, kleinster großer 0.000127",
+     "widerspruch": false
+    },
+    {
+     "pruefung": {
+      "typ": "mgf_relationsraum",
+      "basis": [
+       "C(7,1,1)",
+       "C(6,2,1)",
+       "C(5,3,1)",
+       "C(5,2,2)",
+       "C(4,4,1)",
+       "C(4,3,2)",
+       "C(3,3,3)",
+       "E(9)",
+       "zeta(9)"
+      ],
+      "dim": 2,
+      "relationen": [
+       [
+        0,
+        0,
+        0,
+        0,
+        -2160,
+        -4320,
+        -960,
+        960,
+        1
+       ]
+      ]
+     },
+     "idee": "Randfall w=9: Mit sieben C-Funktionen gibt es womöglich mehr als eine Relation, also Dimension 2 statt 1. Ich kenne die zweite Relation nicht und habe nur den bekannten Vektor eingetragen. Diese Prüfung ist daher spekulativ und besteht nur, wenn der Raum tatsächlich größer ist und die Vollständigkeitsprüfung dies zulässt.",
+     "bestanden": false,
+     "ergebnis": "nicht_bestanden",
+     "grund": "1 Relationen angegeben, behauptete Dimension 2",
+     "widerspruch": false
+    }
+   ],
+   "runde": 1,
+   "relevanz": "hauptresultat",
+   "neuheit": {
+    "suchanfragen": [
+     "modular graph function identities",
+     "Eisenstein series zeta(3) relation",
+     "non-holomorphic Eisenstein string amplitude",
+     "higher genus amplitude modular form",
+     "dihedral graph Eisenstein series"
+    ],
+    "treffer": {
+     "modular graph function identities": 17,
+     "Eisenstein series zeta(3) relation": 16,
+     "non-holomorphic Eisenstein string amplitude": 9,
+     "higher genus amplitude modular form": 19,
+     "dihedral graph Eisenstein series": 9
+    },
+    "quellen_geprueft": 68,
+    "datum": "2026-10-04",
+    "status": "nicht_gefunden"
+   }
+  },
+  {
+   "id": "modular-R1b",
+   "frage": "Wie viele unabhängige rationale lineare Relationen bestehen zwischen allen C(a,b,c) vom Gewicht w, E(w) und zeta(w) für w = 3, 5, 7, 9? Bestimme den Relationsraum je Gewicht vollständig (mgf_relationsraum).",
+   "text": "Numerisch bilden die rationalen linearen Relationen zwischen ['C(3,1,1)', 'C(2,2,1)', 'E(5)', 'zeta(5)'] einen Raum der Dimension genau 1, aufgespannt von [[0, 30, -12, -1]] (jede Relation auf 1e-24 geprüft; Vollständigkeit über Singulärwertabstand).",
+   "interpretation_ungeprueft": "Für jedes der Gewichte w = 3, 5, 7, 9 gibt es genau eine unabhängige rationale Relation (je Gewicht Relationsraum der Dimension 1, insgesamt 4).",
+   "pruefung": {
+    "typ": "mgf_relationsraum",
+    "basis": [
+     "C(3,1,1)",
+     "C(2,2,1)",
+     "E(5)",
+     "zeta(5)"
+    ],
+    "dim": 1,
+    "relationen": [
+     [
+      0,
+      30,
+      -12,
+      -1
+     ]
+    ]
+   },
+   "grund": "1 Relationen einzeln bestätigt; Singulärwerte der normierten 7x4-Wertematrix (Seed 4712): 1 < 1e-24, 3 > 1e-8, kleinster großer 0.0372",
+   "level": "observed",
+   "status": "bestätigt",
+   "red_team": [
+    {
+     "pruefung": {
+      "typ": "mgf_relationsraum",
+      "basis": [
+       "C(5,1,1)",
+       "C(4,2,1)",
+       "C(3,3,1)",
+       "C(3,2,2)",
+       "E(7)",
+       "zeta(7)"
+      ],
+      "dim": 0,
+      "relationen": []
+     },
+     "idee": "Randfall Gewicht 7: Die Antwort behauptet dort genau eine Relation, die nur numerisch gefunden und nicht über den Leitkoeffizienten bestätigt wurde. Die Eigenwert-Multiplizitäten (s=5: 2, s=3: 1, s=1: 1) entsprechen genau den 4 C-Funktionen. Dann gäbe es keine zusätzliche Relation mit E(7) und zeta(7). Die PSLQ-Relation wäre dann ein Artefakt, und der Relationsraum hätte Dimension 0.",
+     "bestanden": false,
+     "ergebnis": "nicht_bestanden",
+     "grund": "0 Relationen einzeln bestätigt; Singulärwerte der normierten 9x6-Wertematrix (Seed 4712): 1 < 1e-24, 5 > 1e-8, kleinster großer 0.000127",
+     "widerspruch": false
+    },
+    {
+     "pruefung": {
+      "typ": "mgf_relationsraum",
+      "basis": [
+       "C(7,1,1)",
+       "C(6,2,1)",
+       "C(5,3,1)",
+       "C(5,2,2)",
+       "C(4,4,1)",
+       "C(4,3,2)",
+       "C(3,3,3)",
+       "E(9)",
+       "zeta(9)"
+      ],
+      "dim": 0,
+      "relationen": []
+     },
+     "idee": "Randfall Gewicht 9: Auch hier ist die behauptete einzelne Relation nur numerisch gefunden und nicht exakt bestätigt. Sie könnte ein PSLQ-Artefakt bei zu wenigen Stellen oder zu großen Koeffizienten sein. Dann wäre der Relationsraum trivial, mit Dimension 0.",
+     "bestanden": false,
+     "ergebnis": "nicht_bestanden",
+     "grund": "0 Relationen einzeln bestätigt; Singulärwerte der normierten 12x9-Wertematrix (Seed 4712): 1 < 1e-24, 8 > 1e-8, kleinster großer 8.6e-7",
+     "widerspruch": false
+    }
+   ],
+   "runde": 1,
+   "relevanz": "hauptresultat",
+   "nachtrag": true,
+   "neuheit": {
+    "suchanfragen": [
+     "modular graph functions linear relations",
+     "string amplitude modular graph functions",
+     "rational linear relations modular forms",
+     "two-loop amplitudes modular identities",
+     "non-holomorphic Eisenstein string amplitudes"
+    ],
+    "treffer": {
+     "modular graph functions linear relations": 15,
+     "string amplitude modular graph functions": 18,
+     "rational linear relations modular forms": 19,
+     "two-loop amplitudes modular identities": 16,
+     "non-holomorphic Eisenstein string amplitudes": 9
+    },
+    "quellen_geprueft": 71,
+    "datum": "2026-10-04",
+    "status": "nicht_gefunden"
+   }
+  },
+  {
+   "id": "modular-R1c",
+   "frage": "Wie viele unabhängige rationale lineare Relationen bestehen zwischen allen C(a,b,c) vom Gewicht w, E(w) und zeta(w) für w = 3, 5, 7, 9? Bestimme den Relationsraum je Gewicht vollständig (mgf_relationsraum).",
+   "text": "Numerisch bilden die rationalen linearen Relationen zwischen ['C(5,1,1)', 'C(4,2,1)', 'C(3,3,1)', 'C(3,2,2)', 'E(7)', 'zeta(7)'] einen Raum der Dimension genau 1, aufgespannt von [[0, 0, 252, 252, -108, -1]] (jede Relation auf 1e-24 geprüft; Vollständigkeit über Singulärwertabstand).",
+   "interpretation_ungeprueft": "Für jedes der Gewichte w = 3, 5, 7, 9 gibt es genau eine unabhängige rationale Relation (je Gewicht Relationsraum der Dimension 1, insgesamt 4).",
+   "pruefung": {
+    "typ": "mgf_relationsraum",
+    "basis": [
+     "C(5,1,1)",
+     "C(4,2,1)",
+     "C(3,3,1)",
+     "C(3,2,2)",
+     "E(7)",
+     "zeta(7)"
+    ],
+    "dim": 1,
+    "relationen": [
+     [
+      0,
+      0,
+      252,
+      252,
+      -108,
+      -1
+     ]
+    ]
+   },
+   "grund": "1 Relationen einzeln bestätigt; Singulärwerte der normierten 9x6-Wertematrix (Seed 4712): 1 < 1e-24, 5 > 1e-8, kleinster großer 0.000127",
+   "level": "observed",
+   "status": "bestätigt",
+   "red_team": [
+    {
+     "pruefung": {
+      "typ": "mgf_relationsraum",
+      "basis": [
+       "C(3,1,1)",
+       "E(5)",
+       "zeta(5)"
+      ],
+      "dim": 0,
+      "relationen": []
+     },
+     "idee": "Randfall w=5: C(3,1,1) liegt nicht in der bekannten Relation (Leitkoeffizient 2/155925). Zwischen C(3,1,1), E(5) und zeta(5) allein gibt es daher keine Relation. Das ist nur eine Konsistenzprüfung und kein echtes Gegenbeispiel. Die Relation 30 C(2,2,1) = 12 E(5) + zeta(5) bleibt davon unberührt.",
+     "bestanden": true,
+     "ergebnis": "bestanden",
+     "grund": "0 Relationen einzeln bestätigt; Singulärwerte der normierten 6x3-Wertematrix (Seed 4712): 0 < 1e-24, 3 > 1e-8, kleinster großer 0.0281",
+     "widerspruch": false
+    },
+    {
+     "pruefung": {
+      "typ": "mgf_relation",
+      "terme": [
+       [
+        "1",
+        "C(3,1,1)"
+       ],
+       [
+        "-2/5",
+        "E(5)"
+       ],
+       [
+        "-1/30",
+        "zeta(5)"
+       ]
+      ]
+     },
+     "idee": "Falsche Zuordnung der w=5-Relation auf C(3,1,1) statt C(2,2,1). Sie scheitert schon am Leitkoeffizienten (2/155925 gegen 2/93555) und ist hier nur als Negativkontrolle gedacht. Ich habe kein belastbares Gegenbeispiel zur Dimension 1 pro Gewicht. Besonders wäre w=9 (7 C-Funktionen) auf eine zweite Relation zu prüfen. Ich kenne dafür aber keine exakten Koeffizienten und rate keine.",
+     "bestanden": false,
+     "ergebnis": "nicht_bestanden",
+     "grund": "exakt widerlegt: exakter Leitkoeffizient von y^5: 2/467775 != 0",
+     "widerspruch": false
+    }
+   ],
+   "runde": 1,
+   "relevanz": "hauptresultat",
+   "nachtrag": true,
+   "neuheit": {
+    "suchanfragen": [
+     "modular graph functions Eisenstein relations",
+     "string amplitudes two-loop modular forms",
+     "rational relations automorphic forms zeta",
+     "modular graph functions string theory"
+    ],
+    "treffer": {
+     "modular graph functions Eisenstein relations": 6,
+     "string amplitudes two-loop modular forms": 17,
+     "rational relations automorphic forms zeta": 11,
+     "modular graph functions string theory": 18
+    },
+    "quellen_geprueft": 45,
+    "datum": "2026-10-04",
+    "status": "nicht_gefunden"
+   }
+  },
+  {
+   "id": "modular-R1d",
+   "frage": "Wie viele unabhängige rationale lineare Relationen bestehen zwischen allen C(a,b,c) vom Gewicht w, E(w) und zeta(w) für w = 3, 5, 7, 9? Bestimme den Relationsraum je Gewicht vollständig (mgf_relationsraum).",
+   "text": "Numerisch bilden die rationalen linearen Relationen zwischen ['C(7,1,1)', 'C(6,2,1)', 'C(5,3,1)', 'C(5,2,2)', 'C(4,4,1)', 'C(4,3,2)', 'C(3,3,3)', 'E(9)', 'zeta(9)'] einen Raum der Dimension genau 1, aufgespannt von [[0, 0, 0, 0, -2160, -4320, -960, 960, 1]] (jede Relation auf 1e-24 geprüft; Vollständigkeit über Singulärwertabstand).",
+   "interpretation_ungeprueft": "Für jedes der Gewichte w = 3, 5, 7, 9 gibt es genau eine unabhängige rationale Relation (je Gewicht Relationsraum der Dimension 1, insgesamt 4).",
+   "pruefung": {
+    "typ": "mgf_relationsraum",
+    "basis": [
+     "C(7,1,1)",
+     "C(6,2,1)",
+     "C(5,3,1)",
+     "C(5,2,2)",
+     "C(4,4,1)",
+     "C(4,3,2)",
+     "C(3,3,3)",
+     "E(9)",
+     "zeta(9)"
+    ],
+    "dim": 1,
+    "relationen": [
+     [
+      0,
+      0,
+      0,
+      0,
+      -2160,
+      -4320,
+      -960,
+      960,
+      1
+     ]
+    ]
+   },
+   "grund": "1 Relationen einzeln bestätigt; Singulärwerte der normierten 12x9-Wertematrix (Seed 4712): 1 < 1e-24, 8 > 1e-8, kleinster großer 8.6e-7",
+   "level": "observed",
+   "status": "bestätigt",
+   "red_team": [],
+   "runde": 1,
+   "relevanz": "hauptresultat",
+   "nachtrag": true,
+   "neuheit": {
+    "suchanfragen": [
+     "modular graph functions rational relations",
+     "non-holomorphic modular forms string amplitudes",
+     "C(a,b,c) functions linear dependence",
+     "dihedral graph functions string theory",
+     "Eisenstein series modular graph identities"
+    ],
+    "treffer": {
+     "modular graph functions rational relations": 14,
+     "non-holomorphic modular forms string amplitudes": 12,
+     "C(a,b,c) functions linear dependence": 16,
+     "dihedral graph functions string theory": 13,
+     "Eisenstein series modular graph identities": 6
+    },
+    "quellen_geprueft": 59,
+    "datum": "2026-10-04",
+    "status": "nicht_gefunden"
+   }
+  }
+ ],
+ "widerlegt": [],
+ "runden": [
+  {
+   "runde": 1,
+   "frage": "F2",
+   "status": "beantwortet",
+   "red_team": [
+    {
+     "pruefung": {
+      "typ": "mgf_relationsraum",
+      "basis": [
+       "C(5,1,1)",
+       "C(4,2,1)",
+       "C(3,3,1)",
+       "C(3,2,2)",
+       "E(7)",
+       "zeta(7)"
+      ],
+      "dim": 0,
+      "relationen": []
+     },
+     "idee": "Randfall w=7: Die behauptete Relation 252 C(3,3,1) + 252 C(3,2,2) - 108 E(7) - zeta(7) = 0 wurde nur numerisch per PSLQ gefunden und nicht über den exakten Leitkoeffizienten bestätigt. Wäre sie ein numerisches Artefakt, wäre der Relationsraum 0-dimensional. Ich habe das nicht nachgerechnet.",
+     "bestanden": false,
+     "ergebnis": "nicht_bestanden",
+     "grund": "0 Relationen einzeln bestätigt; Singulärwerte der normierten 9x6-Wertematrix (Seed 4712): 1 < 1e-24, 5 > 1e-8, kleinster großer 0.000127",
+     "widerspruch": false
+    },
+    {
+     "pruefung": {
+      "typ": "mgf_relationsraum",
+      "basis": [
+       "C(7,1,1)",
+       "C(6,2,1)",
+       "C(5,3,1)",
+       "C(5,2,2)",
+       "C(4,4,1)",
+       "C(4,3,2)",
+       "C(3,3,3)",
+       "E(9)",
+       "zeta(9)"
+      ],
+      "dim": 2,
+      "relationen": [
+       [
+        0,
+        0,
+        0,
+        0,
+        -2160,
+        -4320,
+        -960,
+        960,
+        1
+       ]
+      ]
+     },
+     "idee": "Randfall w=9: Mit sieben C-Funktionen gibt es womöglich mehr als eine Relation, also Dimension 2 statt 1. Ich kenne die zweite Relation nicht und habe nur den bekannten Vektor eingetragen. Diese Prüfung ist daher spekulativ und besteht nur, wenn der Raum tatsächlich größer ist und die Vollständigkeitsprüfung dies zulässt.",
+     "bestanden": false,
+     "ergebnis": "nicht_bestanden",
+     "grund": "1 Relationen angegeben, behauptete Dimension 2",
+     "widerspruch": false
+    }
+   ],
+   "sek": 4132.7,
+   "faden_id": "F2"
+  }
+ ],
+ "kosten_usd": 0.0
+}
