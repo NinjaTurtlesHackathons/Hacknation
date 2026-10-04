@@ -319,28 +319,42 @@ def certify_identity(terme, N, extra=10):
 
 # ---------------- Eta-Quotienten-Familie ----------------
 
-def holomorphic_eta_quotients(N, k, trivial_char=True, limit=200000):
+def holomorphic_eta_quotients(N, k, trivial_char=True, limit=20_000_000):
     """Alle holomorphen Eta-Quotienten vom Gewicht k auf Gamma_0(N) (Gordon-Hughes-Newman), ueber die Ordnungsvektoren:
-    Valenzformel: sum ueber alle Spitzen der Ordnungen = k * index / 12."""
+    Valenzformel: sum ueber alle Spitzen der Ordnungen = k * index / 12. Vollstaendige Aufzaehlung aller nichtnegativen
+    Ordnungsvektoren (vektorisiert, exakte Ganzzahlarithmetik: r = (L * A^-1) v / L mit Hauptnenner L)."""
+    import numpy as np
     D = divisors(N); cc = cusp_classes(N); total = Fr(k * index(N), 12)
     if total.denominator != 1: return []
+    T = int(total); mult = [c[1] for c in cc]
     A = [[Fr(N, 24) * Fr(math.gcd(d, delta) ** 2, math.gcd(d, N // d) * d * delta) for delta in D] for d in D]
-    Ainv = _inv(A); mult = [c[1] for c in cc]; out = []; cnt = [0]
-    def rec(i, rest, v):
-        if cnt[0] > limit: raise RuntimeError("zu viele Kandidaten")
-        if i == len(D) - 1:
-            if rest % mult[i]: return
-            v = v + [rest // mult[i]]; cnt[0] += 1
-            r = [sum(Ainv[a][b] * v[b] for b in range(len(D))) for a in range(len(D))]
-            if any(x.denominator != 1 for x in r): return
-            eta = {d: int(x) for d, x in zip(D, r) if x}
-            if sum(eta.values()) != 2 * k: return
-            ok, _ = newman_ok(eta, N)
-            if not ok: return
-            if trivial_char and character(eta, k) != 1: return
-            out.append(eta); return
-        for x in range(0, rest // mult[i] + 1): rec(i + 1, rest - x * mult[i], v + [x])
-    rec(0, int(total), [])
+    Ainv = _inv(A); L = math.lcm(*[x.denominator for row in Ainv for x in row])
+    M = np.array([[int(x * L) for x in row] for row in Ainv], dtype=object)
+    # alle v >= 0 mit sum mult_i v_i = T (Schichtweise aufgebaut)
+    parts = [(np.zeros((1, 0), dtype=np.int64), np.array([T], dtype=np.int64))]
+    V, R = parts[0]
+    for i, m in enumerate(mult):
+        last = i == len(mult) - 1
+        newV, newR = [], []
+        for x in range(0, T // m + 1):
+            ok = R >= x * m if not last else (R == x * m)
+            if not ok.any(): continue
+            newV.append(np.hstack([V[ok], np.full((int(ok.sum()), 1), x, dtype=np.int64)])); newR.append(R[ok] - x * m)
+        if not newV: return []
+        V, R = np.vstack(newV), np.concatenate(newR)
+        if len(V) > limit: raise RuntimeError(f"zu viele Kandidaten ({len(V)})")
+    Mi = np.array([[int(x * L) for x in row] for row in Ainv], dtype=np.int64)
+    if np.abs(Mi).max() * T * len(D) >= 2 ** 62: raise RuntimeError("Ganzzahlueberlauf moeglich")
+    RL = V @ Mi.T                                            # L * r
+    keep = np.all(RL % L == 0, axis=1)
+    out = []
+    for row in (RL[keep] // L):
+        eta = {d: int(x) for d, x in zip(D, row) if x}
+        if sum(eta.values()) != 2 * k: continue
+        ok, _ = newman_ok(eta, N)
+        if not ok: continue
+        if trivial_char and character(eta, k) != 1: continue
+        out.append(eta)
     return out
 
 
