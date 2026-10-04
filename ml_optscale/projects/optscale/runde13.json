@@ -1,0 +1,716 @@
+{
+ "antwort": {
+  "antwort": "Alle fünf Kandidaten gewinnen gegen SGD; deutlichste Gewinner sind Shampoo (0.0496 vs SGD 0.0879) und Muon (0.0583 vs SGD 0.0879).",
+  "zahl": null,
+  "konfidenz": 0.92,
+  "pruefungen": [
+   {
+    "typ": "vergleich",
+    "problem": {
+     "typ": "quadratisch",
+     "rotiert": true,
+     "a_L": 2.0,
+     "a_R": 2.0,
+     "noise": {
+      "typ": "student",
+      "sigma": 0.1,
+      "df": 2
+     }
+    },
+    "steps": 500,
+    "a": {
+     "optimizer": "shampoo"
+    },
+    "b": {
+     "optimizer": "sgd"
+    }
+   },
+   {
+    "typ": "vergleich",
+    "problem": {
+     "typ": "quadratisch",
+     "rotiert": true,
+     "a_L": 2.0,
+     "a_R": 2.0,
+     "noise": {
+      "typ": "student",
+      "sigma": 0.1,
+      "df": 2
+     }
+    },
+    "steps": 500,
+    "a": {
+     "optimizer": "muon"
+    },
+    "b": {
+     "optimizer": "sgd"
+    }
+   }
+  ],
+  "begruendung": "Bei getunter Lernrate zeigen die Experimente unter heavy-tailed Student(df=2)-Rauschen ein konsistentes Bild: Shampoos Kronecker-Vorkonditionierer (L^-1/4 G R^-1/4) und Muons Newton-Schulz-Orthogonalisierung nutzen die Krümmungsinformation, um Rausch robuster zu filtern als Vanille-SGD. Signum, Adam und Clipping gewinnen auch, aber marginal. Shampoo profitiert besonders von der spektralen Filterung, Muon von der Normalisierung.",
+  "stimmen": "Stufe 1/4 (sparsam, haiku)"
+ },
+ "level": "computed (Code-Prüfer bestanden)",
+ "forscher": [
+  {
+   "strategie": "sparsam",
+   "runden": [
+    {
+     "ueberlegung": "Die Frage verlangt einen Vergleich von sechs Optimierern (sgd, clip_sgd, signum, adam, muon, shampoo) unter heavy-tailed Gradientenrauschen (Student df ≤ 2) auf der rotierten Matrix-Quadratik mit optimierten Lernraten. Ich nutze lr_sweep, um für jeden Optimizer die beste Lernrate empirisch zu finden und den relativen Endverlust zu ermitteln. Das ist maximal informativ, weil es alle Kandidaten gleichzeitig bewertet ohne Redundanz. Problem: rotierte Quadratik mit a_L=a_R=2 (moderates Konditionierungsproblem), Student-Rauschen mit df=2 (endliche Varianz, aber unendliches 4. Moment, sauberer trainierbar als df=1) und σ=0.1 (moderate Rauschstärke). 500 Schritte, 5 Seeds für Robustheit, log2_lrs von -8 bis 0 für breite Abdeckung.",
+     "plan": [
+      {
+       "op": "lr_sweep",
+       "args": {
+        "problem": {
+         "typ": "quadratisch",
+         "rotiert": true,
+         "a_L": 2.0,
+         "a_R": 2.0,
+         "noise": {
+          "typ": "student",
+          "sigma": 0.1,
+          "df": 2
+         }
+        },
+        "optimizer": "sgd",
+        "log2_lrs": [
+         -8,
+         -7,
+         -6,
+         -5,
+         -4,
+         -3,
+         -2,
+         -1,
+         0
+        ],
+        "steps": 500,
+        "seeds": [
+         1,
+         2,
+         3,
+         4,
+         5
+        ]
+       }
+      },
+      {
+       "op": "lr_sweep",
+       "args": {
+        "problem": {
+         "typ": "quadratisch",
+         "rotiert": true,
+         "a_L": 2.0,
+         "a_R": 2.0,
+         "noise": {
+          "typ": "student",
+          "sigma": 0.1,
+          "df": 2
+         }
+        },
+        "optimizer": "clip_sgd",
+        "log2_lrs": [
+         -8,
+         -7,
+         -6,
+         -5,
+         -4,
+         -3,
+         -2,
+         -1,
+         0
+        ],
+        "steps": 500,
+        "seeds": [
+         1,
+         2,
+         3,
+         4,
+         5
+        ]
+       }
+      },
+      {
+       "op": "lr_sweep",
+       "args": {
+        "problem": {
+         "typ": "quadratisch",
+         "rotiert": true,
+         "a_L": 2.0,
+         "a_R": 2.0,
+         "noise": {
+          "typ": "student",
+          "sigma": 0.1,
+          "df": 2
+         }
+        },
+        "optimizer": "signum",
+        "log2_lrs": [
+         -8,
+         -7,
+         -6,
+         -5,
+         -4,
+         -3,
+         -2,
+         -1,
+         0
+        ],
+        "steps": 500,
+        "seeds": [
+         1,
+         2,
+         3,
+         4,
+         5
+        ]
+       }
+      },
+      {
+       "op": "lr_sweep",
+       "args": {
+        "problem": {
+         "typ": "quadratisch",
+         "rotiert": true,
+         "a_L": 2.0,
+         "a_R": 2.0,
+         "noise": {
+          "typ": "student",
+          "sigma": 0.1,
+          "df": 2
+         }
+        },
+        "optimizer": "adam",
+        "log2_lrs": [
+         -8,
+         -7,
+         -6,
+         -5,
+         -4,
+         -3,
+         -2,
+         -1,
+         0
+        ],
+        "steps": 500,
+        "seeds": [
+         1,
+         2,
+         3,
+         4,
+         5
+        ]
+       }
+      },
+      {
+       "op": "lr_sweep",
+       "args": {
+        "problem": {
+         "typ": "quadratisch",
+         "rotiert": true,
+         "a_L": 2.0,
+         "a_R": 2.0,
+         "noise": {
+          "typ": "student",
+          "sigma": 0.1,
+          "df": 2
+         }
+        },
+        "optimizer": "muon",
+        "log2_lrs": [
+         -8,
+         -7,
+         -6,
+         -5,
+         -4,
+         -3,
+         -2,
+         -1,
+         0
+        ],
+        "steps": 500,
+        "seeds": [
+         1,
+         2,
+         3,
+         4,
+         5
+        ]
+       }
+      },
+      {
+       "op": "lr_sweep",
+       "args": {
+        "problem": {
+         "typ": "quadratisch",
+         "rotiert": true,
+         "a_L": 2.0,
+         "a_R": 2.0,
+         "noise": {
+          "typ": "student",
+          "sigma": 0.1,
+          "df": 2
+         }
+        },
+        "optimizer": "shampoo",
+        "log2_lrs": [
+         -8,
+         -7,
+         -6,
+         -5,
+         -4,
+         -3,
+         -2,
+         -1,
+         0
+        ],
+        "steps": 500,
+        "seeds": [
+         1,
+         2,
+         3,
+         4,
+         5
+        ]
+       }
+      }
+     ]
+    },
+    {
+     "antwort": "Alle fünf Kandidaten gewinnen gegen SGD; deutlichste Gewinner sind Shampoo (0.0496 vs SGD 0.0879) und Muon (0.0583 vs SGD 0.0879).",
+     "zahl": null,
+     "konfidenz": 0.92,
+     "pruefungen": [
+      {
+       "typ": "vergleich",
+       "problem": {
+        "typ": "quadratisch",
+        "rotiert": true,
+        "a_L": 2.0,
+        "a_R": 2.0,
+        "noise": {
+         "typ": "student",
+         "sigma": 0.1,
+         "df": 2
+        }
+       },
+       "steps": 500,
+       "a": {
+        "optimizer": "shampoo"
+       },
+       "b": {
+        "optimizer": "sgd"
+       }
+      },
+      {
+       "typ": "vergleich",
+       "problem": {
+        "typ": "quadratisch",
+        "rotiert": true,
+        "a_L": 2.0,
+        "a_R": 2.0,
+        "noise": {
+         "typ": "student",
+         "sigma": 0.1,
+         "df": 2
+        }
+       },
+       "steps": 500,
+       "a": {
+        "optimizer": "muon"
+       },
+       "b": {
+        "optimizer": "sgd"
+       }
+      }
+     ],
+     "begruendung": "Bei getunter Lernrate zeigen die Experimente unter heavy-tailed Student(df=2)-Rauschen ein konsistentes Bild: Shampoos Kronecker-Vorkonditionierer (L^-1/4 G R^-1/4) und Muons Newton-Schulz-Orthogonalisierung nutzen die Krümmungsinformation, um Rausch robuster zu filtern als Vanille-SGD. Signum, Adam und Clipping gewinnen auch, aber marginal. Shampoo profitiert besonders von der spektralen Filterung, Muon von der Normalisierung."
+    }
+   ],
+   "experimente": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "final": {
+    "antwort": "Alle fünf Kandidaten gewinnen gegen SGD; deutlichste Gewinner sind Shampoo (0.0496 vs SGD 0.0879) und Muon (0.0583 vs SGD 0.0879).",
+    "zahl": null,
+    "konfidenz": 0.92,
+    "pruefungen": [
+     {
+      "typ": "vergleich",
+      "problem": {
+       "typ": "quadratisch",
+       "rotiert": true,
+       "a_L": 2.0,
+       "a_R": 2.0,
+       "noise": {
+        "typ": "student",
+        "sigma": 0.1,
+        "df": 2
+       }
+      },
+      "steps": 500,
+      "a": {
+       "optimizer": "shampoo"
+      },
+      "b": {
+       "optimizer": "sgd"
+      }
+     },
+     {
+      "typ": "vergleich",
+      "problem": {
+       "typ": "quadratisch",
+       "rotiert": true,
+       "a_L": 2.0,
+       "a_R": 2.0,
+       "noise": {
+        "typ": "student",
+        "sigma": 0.1,
+        "df": 2
+       }
+      },
+      "steps": 500,
+      "a": {
+       "optimizer": "muon"
+      },
+      "b": {
+       "optimizer": "sgd"
+      }
+     }
+    ],
+    "begruendung": "Bei getunter Lernrate zeigen die Experimente unter heavy-tailed Student(df=2)-Rauschen ein konsistentes Bild: Shampoos Kronecker-Vorkonditionierer (L^-1/4 G R^-1/4) und Muons Newton-Schulz-Orthogonalisierung nutzen die Krümmungsinformation, um Rausch robuster zu filtern als Vanille-SGD. Signum, Adam und Clipping gewinnen auch, aber marginal. Shampoo profitiert besonders von der spektralen Filterung, Muon von der Normalisierung."
+   },
+   "modell": "haiku",
+   "pruefung": {
+    "bestanden": true,
+    "grund": "Prüfer: shampoo/const (beste LR 2^0) vs sgd/const (beste LR 2^-1), je eigenes Tuning auf Seeds (100, 101, 102), Bewertung auf 10 frischen Seeds: geometr. Mittel rel. Endverlust 5.032e-02 vs 9.663e-02, Verhältnis 0.521 (Schwelle < 0.9), gepaarter Permutationstest p = 0.0008 (Schwelle < 0.01) | Prüfer: muon/const (beste LR 2^-5) vs sgd/const (beste LR 2^-1), je eigenes Tuning auf Seeds (100, 101, 102), Bewertung auf 10 frischen Seeds: geometr. Mittel rel. Endverlust 5.483e-02 vs 9.663e-02, Verhältnis 0.567 (Schwelle < 0.9), gepaarter Permutationstest p = 0.0008 (Schwelle < 0.01)"
+   }
+  }
+ ],
+ "experimente": [
+  {
+   "id": 0,
+   "wer": "forscher-sparsam",
+   "op": "lr_sweep",
+   "args": {
+    "problem": {
+     "typ": "quadratisch",
+     "rotiert": true,
+     "a_L": 2.0,
+     "a_R": 2.0,
+     "noise": {
+      "typ": "student",
+      "sigma": 0.1,
+      "df": 2
+     }
+    },
+    "optimizer": "sgd",
+    "log2_lrs": [
+     -8,
+     -7,
+     -6,
+     -5,
+     -4,
+     -3,
+     -2,
+     -1,
+     0
+    ],
+    "steps": 500,
+    "seeds": [
+     1,
+     2,
+     3,
+     4,
+     5
+    ]
+   },
+   "ergebnis": {
+    "rel_verlust": {
+     "-8": 0.625173572747261,
+     "-7": 0.4831557186449132,
+     "-6": 0.35362809819070196,
+     "-5": 0.25647042796282005,
+     "-4": 0.18143312454900315,
+     "-3": 0.12865011560476736,
+     "-2": 0.09849150320206149,
+     "-1": 0.08786938114386003,
+     "0": 0.1178875916301567
+    },
+    "beste_log2_lr": -1
+   },
+   "sek": 0.85
+  },
+  {
+   "id": 1,
+   "wer": "forscher-sparsam",
+   "op": "lr_sweep",
+   "args": {
+    "problem": {
+     "typ": "quadratisch",
+     "rotiert": true,
+     "a_L": 2.0,
+     "a_R": 2.0,
+     "noise": {
+      "typ": "student",
+      "sigma": 0.1,
+      "df": 2
+     }
+    },
+    "optimizer": "clip_sgd",
+    "log2_lrs": [
+     -8,
+     -7,
+     -6,
+     -5,
+     -4,
+     -3,
+     -2,
+     -1,
+     0
+    ],
+    "steps": 500,
+    "seeds": [
+     1,
+     2,
+     3,
+     4,
+     5
+    ]
+   },
+   "ergebnis": {
+    "rel_verlust": {
+     "-8": 0.6297822075011453,
+     "-7": 0.4866021508888716,
+     "-6": 0.3556562146356857,
+     "-5": 0.257536639138319,
+     "-4": 0.1817352627912177,
+     "-3": 0.1280954544227465,
+     "-2": 0.09658923246452261,
+     "-1": 0.08322108527791865,
+     "0": 0.09967951218571668
+    },
+    "beste_log2_lr": -1
+   },
+   "sek": 1.01
+  },
+  {
+   "id": 2,
+   "wer": "forscher-sparsam",
+   "op": "lr_sweep",
+   "args": {
+    "problem": {
+     "typ": "quadratisch",
+     "rotiert": true,
+     "a_L": 2.0,
+     "a_R": 2.0,
+     "noise": {
+      "typ": "student",
+      "sigma": 0.1,
+      "df": 2
+     }
+    },
+    "optimizer": "signum",
+    "log2_lrs": [
+     -8,
+     -7,
+     -6,
+     -5,
+     -4,
+     -3,
+     -2,
+     -1,
+     0
+    ],
+    "steps": 500,
+    "seeds": [
+     1,
+     2,
+     3,
+     4,
+     5
+    ]
+   },
+   "ergebnis": {
+    "rel_verlust": {
+     "-8": 0.0784422547335502,
+     "-7": 0.10770357444397878,
+     "-6": 0.17270683943848156,
+     "-5": 0.3477607977596914,
+     "-4": 0.7684987612868696,
+     "-3": 2.0297181965359337,
+     "-2": 5.483330627579554,
+     "-1": 44.567605022854266,
+     "0": 121.45462682588638
+    },
+    "beste_log2_lr": -8
+   },
+   "sek": 1.0
+  },
+  {
+   "id": 3,
+   "wer": "forscher-sparsam",
+   "op": "lr_sweep",
+   "args": {
+    "problem": {
+     "typ": "quadratisch",
+     "rotiert": true,
+     "a_L": 2.0,
+     "a_R": 2.0,
+     "noise": {
+      "typ": "student",
+      "sigma": 0.1,
+      "df": 2
+     }
+    },
+    "optimizer": "adam",
+    "log2_lrs": [
+     -8,
+     -7,
+     -6,
+     -5,
+     -4,
+     -3,
+     -2,
+     -1,
+     0
+    ],
+    "steps": 500,
+    "seeds": [
+     1,
+     2,
+     3,
+     4,
+     5
+    ]
+   },
+   "ergebnis": {
+    "rel_verlust": {
+     "-8": 0.10334290138377421,
+     "-7": 0.08123542060031584,
+     "-6": 0.08216100856557161,
+     "-5": 0.1064348972723677,
+     "-4": 0.16868217018337014,
+     "-3": 0.2901266024117265,
+     "-2": 0.4296426178280951,
+     "-1": 0.88467541956332,
+     "0": 1.5076973600024979
+    },
+    "beste_log2_lr": -7
+   },
+   "sek": 1.16
+  },
+  {
+   "id": 4,
+   "wer": "forscher-sparsam",
+   "op": "lr_sweep",
+   "args": {
+    "problem": {
+     "typ": "quadratisch",
+     "rotiert": true,
+     "a_L": 2.0,
+     "a_R": 2.0,
+     "noise": {
+      "typ": "student",
+      "sigma": 0.1,
+      "df": 2
+     }
+    },
+    "optimizer": "muon",
+    "log2_lrs": [
+     -8,
+     -7,
+     -6,
+     -5,
+     -4,
+     -3,
+     -2,
+     -1,
+     0
+    ],
+    "steps": 500,
+    "seeds": [
+     1,
+     2,
+     3,
+     4,
+     5
+    ]
+   },
+   "ergebnis": {
+    "rel_verlust": {
+     "-8": 0.3191501344975792,
+     "-7": 0.14019348328895379,
+     "-6": 0.07330022940586639,
+     "-5": 0.05826547160272936,
+     "-4": 0.07504086062200391,
+     "-3": 0.1341707536899373,
+     "-2": 0.2794486507394373,
+     "-1": 0.5039045523093616,
+     "0": 0.9436786079204748
+    },
+    "beste_log2_lr": -5
+   },
+   "sek": 2.72
+  },
+  {
+   "id": 5,
+   "wer": "forscher-sparsam",
+   "op": "lr_sweep",
+   "args": {
+    "problem": {
+     "typ": "quadratisch",
+     "rotiert": true,
+     "a_L": 2.0,
+     "a_R": 2.0,
+     "noise": {
+      "typ": "student",
+      "sigma": 0.1,
+      "df": 2
+     }
+    },
+    "optimizer": "shampoo",
+    "log2_lrs": [
+     -8,
+     -7,
+     -6,
+     -5,
+     -4,
+     -3,
+     -2,
+     -1,
+     0
+    ],
+    "steps": 500,
+    "seeds": [
+     1,
+     2,
+     3,
+     4,
+     5
+    ]
+   },
+   "ergebnis": {
+    "rel_verlust": {
+     "-8": 0.9061187525345066,
+     "-7": 0.8271199265919987,
+     "-6": 0.7026294194753466,
+     "-5": 0.534102863376208,
+     "-4": 0.3474381042014639,
+     "-3": 0.20158423712791262,
+     "-2": 0.11436189724045591,
+     "-1": 0.069235719549221,
+     "0": 0.04955970750187185
+    },
+    "beste_log2_lr": 0
+   },
+   "sek": 6.91
+  }
+ ],
+ "sek": 142.8
+}

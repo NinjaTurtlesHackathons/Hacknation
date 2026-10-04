@@ -656,7 +656,7 @@
    "neuheit": 0.5,
    "machbarkeit": 0.8,
    "id": "F4",
-   "status": "offen"
+   "status": "beantwortet"
   },
   {
    "frage": "Wann schlagen Muon und Shampoo Adam: hängt der Vorteil davon ab, ob die Krümmung achsenparallel oder rotiert ist (Kronecker-Struktur vs. Diagonale)?",
@@ -913,6 +913,42 @@
    "id": "F33",
    "status": "zurückgestellt",
    "aus_runde": 12
+  },
+  {
+   "frage": "Ab welchem Tail-Index df kippt der Vorteil von Shampoo und Muon gegenüber SGD auf der rotierten Matrix-Quadratik (a_L=a_R=2)? Vergleich shampoo vs sgd und muon vs sgd bei student-Rauschen mit df in {1.2, 1.5, 2, 3, 5, gauss}, je mit selbst getunter Lernrate und 10 frischen Seeds. Dazu die Gegenprobe clip_sgd vs sgd und signum vs sgd bei denselben df.",
+   "begruendung": "Der letzte Befund (Shampoo 0.0496, Muon 0.0583 vs SGD 0.0879 bei df=2) zeigt nur einen einzigen Punkt. Die Literatur (Muon ohne Clipping, Adam unter heavy-tailed Rauschen) legt nahe, dass die Rangfolge vom Tail-Index abhängt. Ein Sweep über df lokalisiert die Grenze und trennt den Effekt des Rauschens vom Effekt der Konditionierung. Da R13 mit gewonnenem Verhältnis < 0.9 nur knapp (LR 2^0 vs 2^-1) bestanden hat, ist auch die Robustheit prüfenswert. Der Vergleich gauss vs student zeigt, ob der Vorteil überhaupt vom heavy-tailed Rauschen kommt oder nur von der Konditionierung.",
+   "neuheit": 0.7,
+   "machbarkeit": 0.9,
+   "id": "F34",
+   "status": "zurückgestellt",
+   "aus_runde": 13
+  },
+  {
+   "frage": "Erklärt die Rotation den Wechsel zwischen Adam und Muon, und wo liegt die Grenze im Krümmungsexponenten? Prüfe adam vs muon (const, getunt, 500 Schritte) für rotiert in {false, true} und a_L=a_R in {1, 1.5, 2, 2.5, 3}, jeweils mit 10 frischen Seeds. Zusätzlich shampoo als dritter Arm, um zu sehen, ob die Kronecker-Vorkonditionierung die Rotation ausgleicht.",
+   "begruendung": "Die geprüften Ergebnisse R2–R5 zeigen: Bei a=3 gewinnt Adam unrotiert und Muon rotiert, bei a=1 rotiert gewinnt Adam. Das deutet auf eine Wechselwirkung zwischen Rotation und Spektralexponent hin, die bislang nur an drei Punkten belegt ist (R2 und R3 sind zudem dieselbe Behauptung). Das fehlende Feld a=1 unrotiert und die Zwischenwerte erlauben eine Phasengrenze: Wo kippt der Sieger, und hängt sie von der Rotation ab? Shampoo als Zusatzarm prüft die Literaturthese, dass Eigenbasis-Methoden (SOAP/Shampoo) die Basisabhängigkeit von Adam beheben.",
+   "neuheit": 0.75,
+   "machbarkeit": 0.85,
+   "id": "F35",
+   "status": "beantwortet",
+   "aus_runde": 13
+  },
+  {
+   "frage": "Wo genau liegt die Adam↔Muon-Grenze im Krümmungsexponenten bei Rotation? Prüfe adam vs muon (const, getunt, 500 Schritte) auf {rotiert: true, a_L=a_R=a} für a in {2.1, 2.2, 2.3, 2.4, 2.6, 2.8} mit 10 frischen Seeds. Zusätzlich die Gegenprobe mit asymmetrischen Spektren (a_L=1, a_R=3 und umgekehrt) bei gleicher Rotation.",
+   "begruendung": "Die bisherigen Ergebnisse (R4, R5, R14) zeigen: Muon gewinnt bei a=2.5 und a=3 unter Rotation, Adam bei a=1. Die Grenze ist nur grob zwischen 1 und 2.5 eingegrenzt, die Angabe 'a≈2.5' im letzten Ergebnis passt nicht zu R14, wo Muon bei 2.5 bereits gewinnt. Eine feinere Auflösung klärt, ob es einen scharfen Übergang gibt. Asymmetrische Spektren trennen, ob der Treiber der Gesamtkonditionszahl oder der Kronecker-Struktur (links/rechts) entspringt, was die Hypothese 'spektrale Kopplung' prüft.",
+   "neuheit": 0.7,
+   "machbarkeit": 0.9,
+   "id": "F36",
+   "status": "zurückgestellt",
+   "aus_runde": 14
+  },
+  {
+   "frage": "Hängt der Adam/Muon-Vorteil von der Lernraten-Schedule und vom Rauschen ab? Prüfe adam vs muon auf {rotiert: true, a_L=a_R=2.5} mit wsd statt const, sowie mit Student-Rauschen (df=2, sigma=0.1) und Gauß-Rauschen (sigma=0.1), je getunt, 500 Schritte, 10 frische Seeds.",
+   "begruendung": "R14 gilt nur für const ohne Rauschen. Die Literatur nennt heavy-tailed Rauschen und Schedules als Faktoren, und R13 zeigt, dass Shampoo bei Student-Rauschen gegen SGD gewinnt. Ein Wechsel des Gewinners bei Rauschen oder Schedule würde zeigen, dass der Muon-Vorteil ein Effekt des rauschfreien, konstanten Regimes ist, und macht die Rotationsaussage robuster oder widerlegt sie.",
+   "neuheit": 0.6,
+   "machbarkeit": 0.85,
+   "id": "F37",
+   "status": "zurückgestellt",
+   "aus_runde": 14
   }
  ],
  "claims": [
@@ -1570,6 +1606,167 @@
     }
    ],
    "runde": 12
+  },
+  {
+   "id": "optscale-R13",
+   "frage": "Welche Optimierer gewinnen unter heavy-tailed Gradientenrauschen (student, df <= 2) auf der rotierten Matrix-Quadratik bei getunter Lernrate: Clipping, Signum, Adam, Muon oder Shampoo gegen SGD?",
+   "text": "Auf dem Problem {\"typ\": \"quadratisch\", \"rotiert\": true, \"a_L\": 2.0, \"a_R\": 2.0, \"noise\": {\"typ\": \"student\", \"sigma\": 0.1, \"df\": 2}} mit 500 Schritten erreicht shampoo (const) einen kleineren relativen Endverlust als sgd (const), beide mit selbst getunter Lernrate (Prüfer: 10 frische Seeds, p < 0.01, Verhältnis < 0.9).",
+   "interpretation_ungeprueft": "Alle fünf Kandidaten gewinnen gegen SGD; deutlichste Gewinner sind Shampoo (0.0496 vs SGD 0.0879) und Muon (0.0583 vs SGD 0.0879).",
+   "pruefung": {
+    "typ": "vergleich",
+    "problem": {
+     "typ": "quadratisch",
+     "rotiert": true,
+     "a_L": 2.0,
+     "a_R": 2.0,
+     "noise": {
+      "typ": "student",
+      "sigma": 0.1,
+      "df": 2
+     }
+    },
+    "steps": 500,
+    "a": {
+     "optimizer": "shampoo"
+    },
+    "b": {
+     "optimizer": "sgd"
+    }
+   },
+   "grund": "Prüfer: shampoo/const (beste LR 2^0) vs sgd/const (beste LR 2^-1), je eigenes Tuning auf Seeds (100, 101, 102), Bewertung auf 10 frischen Seeds: geometr. Mittel rel. Endverlust 5.032e-02 vs 9.663e-02, Verhältnis 0.521 (Schwelle < 0.9), gepaarter Permutationstest p = 0.0008 (Schwelle < 0.01) | Prüfer: muon/const (beste LR 2^-5) vs sgd/const (beste LR 2^-1), je eigenes Tuning auf Seeds (100, 101, 102), Bewertung auf 10 frischen Seeds: geometr. Mittel rel. Endverlust 5.483e-02 vs 9.663e-02, Verhältnis 0.567 (Schwelle < 0.9), gepaarter Permutationstest p = 0.0008 (Schwelle < 0.01)",
+   "level": "statistical",
+   "status": "bestätigt",
+   "red_team": [
+    {
+     "pruefung": {
+      "typ": "vergleich",
+      "problem": {
+       "typ": "quadratisch",
+       "rotiert": true,
+       "a_L": 2.0,
+       "a_R": 2.0,
+       "noise": {
+        "typ": "student",
+        "sigma": 0.1,
+        "df": 2
+       }
+      },
+      "steps": 500,
+      "a": {
+       "optimizer": "sgd"
+      },
+      "b": {
+       "optimizer": "adam"
+      }
+     },
+     "idee": "Gegenbeispiel zu 'alle fünf gewinnen': Adam ist koordinatenweise und daher nicht rotationsinvariant. Auf der rotierten Kronecker-Quadratik mit schlechter Konditionierung (a=2) liefert die diagonale Vorkonditionierung kaum Vorteil. Bei Student-Rauschen mit df=2 (unendliche Varianz) wird zudem die zweite Momentschätzung von Ausreißern dominiert. Deshalb erwarte ich, dass SGD mit getunter Lernrate einen kleineren Endverlust erreicht als Adam.",
+     "bestanden": false,
+     "grund": "Prüfer: sgd/const (beste LR 2^-1) vs adam/const (beste LR 2^-7), je eigenes Tuning auf Seeds (100, 101, 102), Bewertung auf 10 frischen Seeds: geometr. Mittel rel. Endverlust 9.663e-02 vs 8.435e-02, V"
+    },
+    {
+     "pruefung": {
+      "typ": "vergleich",
+      "problem": {
+       "typ": "quadratisch",
+       "rotiert": true,
+       "a_L": 2.0,
+       "a_R": 2.0,
+       "noise": {
+        "typ": "student",
+        "sigma": 0.1,
+        "df": 2
+       }
+      },
+      "steps": 500,
+      "a": {
+       "optimizer": "sgd"
+      },
+      "b": {
+       "optimizer": "signum"
+      }
+     },
+     "idee": "Signum macht bei konstanter Lernrate Schritte fester Größe und verwirft die Betragsinformation des Gradienten. Dadurch bleibt ein Rauschboden proportional zu lr*Dimension bestehen, und die Vorzeichen-Koordinaten sind in der rotierten Basis schlecht an die Krümmung angepasst. SGD kann dagegen seine Lernrate so klein wählen, dass der Rauschboden niedrig bleibt, und die Krümmungsrichtungen werden korrekt gewichtet. Daher sollte SGD bei getunter Lernrate Signum schlagen, was die Behauptung widerlegt, dass alle fünf Kandidaten gewinnen.",
+     "bestanden": false,
+     "grund": "Prüfer: sgd/const (beste LR 2^-1) vs signum/const (beste LR 2^-9), je eigenes Tuning auf Seeds (100, 101, 102), Bewertung auf 10 frischen Seeds: geometr. Mittel rel. Endverlust 9.663e-02 vs 8.455e-02,"
+    }
+   ],
+   "runde": 13
+  },
+  {
+   "id": "optscale-R14",
+   "frage": "Erklärt die Rotation den Wechsel zwischen Adam und Muon, und wo liegt die Grenze im Krümmungsexponenten? Prüfe adam vs muon (const, getunt, 500 Schritte) für rotiert in {false, true} und a_L=a_R in {1, 1.5, 2, 2.5, 3}, jeweils mit 10 frischen Seeds. Zusätzlich shampoo als dritter Arm, um zu sehen, ob die Kronecker-Vorkonditionierung die Rotation ausgleicht.",
+   "text": "Auf dem Problem {\"typ\": \"quadratisch\", \"rotiert\": true, \"a_L\": 2.5, \"a_R\": 2.5} mit 500 Schritten erreicht muon (const) einen kleineren relativen Endverlust als adam (const), beide mit selbst getunter Lernrate (Prüfer: 10 frische Seeds, p < 0.01, Verhältnis < 0.9).",
+   "interpretation_ungeprueft": "Rotation erklärt nicht direkt die Lernrate-Verschiebung zwischen Adam und Muon (beide zeigen stabile optimale LR über Rotation bei a≥2.0: Adam -2, Muon -4). Adam↔Muon-Grenze unter Rotation liegt bei a≈2.5. Shampoo dominiert konsistent bei flachen Spektren (a=1.0) und wird unter Rotation wieder konkurrenzfähig (a=2.0/rotiert: 64× besser als Adam). Spektrale Kopplung durch Rotation, nicht Rotation selbst, ist der Treiber.",
+   "pruefung": {
+    "typ": "vergleich",
+    "problem": {
+     "typ": "quadratisch",
+     "rotiert": true,
+     "a_L": 2.5,
+     "a_R": 2.5
+    },
+    "steps": 500,
+    "a": {
+     "optimizer": "muon",
+     "schedule": "const"
+    },
+    "b": {
+     "optimizer": "adam",
+     "schedule": "const"
+    }
+   },
+   "grund": "Prüfer: muon/const (beste LR 2^-5) vs adam/const (beste LR 2^-3), je eigenes Tuning auf Seeds (100, 101, 102), Bewertung auf 10 frischen Seeds: geometr. Mittel rel. Endverlust 1.814e-04 vs 1.683e-03, Verhältnis 0.108 (Schwelle < 0.9), gepaarter Permutationstest p = 0.0008 (Schwelle < 0.01)",
+   "level": "statistical",
+   "status": "bestätigt",
+   "red_team": [
+    {
+     "pruefung": {
+      "typ": "vergleich",
+      "problem": {
+       "typ": "quadratisch",
+       "rotiert": true,
+       "a_L": 2.5,
+       "a_R": 2.5
+      },
+      "steps": 500,
+      "a": {
+       "optimizer": "adam",
+       "schedule": "const"
+      },
+      "b": {
+       "optimizer": "muon",
+       "schedule": "const"
+      }
+     },
+     "idee": "Direkte Umkehrung der geprüften Behauptung am behaupteten Grenzpunkt a=2.5 (rotiert). Die Antwort sieht dort nur eine Grenze, keinen klaren Muon-Vorteil. Die Evidenz ist dünn (Stufe 1/4, haiku). Wenn Adam bei a=2.5 rotiert mit eigenem LR-Tuning und frischen Seeds noch besser abschneidet als Muon, liegt die Grenze höher und die Zahl 2.5 ist falsch.",
+     "bestanden": false,
+     "grund": "Prüfer: adam/const (beste LR 2^-3) vs muon/const (beste LR 2^-5), je eigenes Tuning auf Seeds (100, 101, 102), Bewertung auf 10 frischen Seeds: geometr. Mittel rel. Endverlust 1.683e-03 vs 1.814e-04, "
+    },
+    {
+     "pruefung": {
+      "typ": "vergleich",
+      "problem": {
+       "typ": "quadratisch",
+       "rotiert": true,
+       "a_L": 3.0,
+       "a_R": 3.0
+      },
+      "steps": 500,
+      "a": {
+       "optimizer": "adam",
+       "schedule": "const"
+      },
+      "b": {
+       "optimizer": "muon",
+       "schedule": "const"
+      }
+     },
+     "idee": "Die Antwort behauptet, bei a=3.0 rotiert dominiere Muon (R4). Das stützt sich auf wenige Experimente mit grobem LR-Gitter. Bei stark abfallendem Spektrum ist die Matrix effektiv niedrigrangig. Dann kann Muons Orthogonalisierung durch Aufblähen kleiner Singulärwerte schaden, und das Adam-Rauschen sowie die Schrittweitenanpassung gewinnen. Besteht diese Prüfung, trägt die Aussage 'jenseits von 2.5 gewinnt Muon' nicht, und die Grenze existiert so nicht.",
+     "bestanden": false,
+     "grund": "Prüfer: adam/const (beste LR 2^-3) vs muon/const (beste LR 2^-5), je eigenes Tuning auf Seeds (100, 101, 102), Bewertung auf 10 frischen Seeds: geometr. Mittel rel. Endverlust 1.810e-03 vs 4.481e-04, "
+    }
+   ],
+   "runde": 14
   }
  ],
  "widerlegt": [],
@@ -2050,7 +2247,121 @@
     }
    ],
    "sek": 811.6
+  },
+  {
+   "runde": 13,
+   "frage": "F4",
+   "status": "beantwortet",
+   "red_team": [
+    {
+     "pruefung": {
+      "typ": "vergleich",
+      "problem": {
+       "typ": "quadratisch",
+       "rotiert": true,
+       "a_L": 2.0,
+       "a_R": 2.0,
+       "noise": {
+        "typ": "student",
+        "sigma": 0.1,
+        "df": 2
+       }
+      },
+      "steps": 500,
+      "a": {
+       "optimizer": "sgd"
+      },
+      "b": {
+       "optimizer": "adam"
+      }
+     },
+     "idee": "Gegenbeispiel zu 'alle fünf gewinnen': Adam ist koordinatenweise und daher nicht rotationsinvariant. Auf der rotierten Kronecker-Quadratik mit schlechter Konditionierung (a=2) liefert die diagonale Vorkonditionierung kaum Vorteil. Bei Student-Rauschen mit df=2 (unendliche Varianz) wird zudem die zweite Momentschätzung von Ausreißern dominiert. Deshalb erwarte ich, dass SGD mit getunter Lernrate einen kleineren Endverlust erreicht als Adam.",
+     "bestanden": false,
+     "grund": "Prüfer: sgd/const (beste LR 2^-1) vs adam/const (beste LR 2^-7), je eigenes Tuning auf Seeds (100, 101, 102), Bewertung auf 10 frischen Seeds: geometr. Mittel rel. Endverlust 9.663e-02 vs 8.435e-02, V"
+    },
+    {
+     "pruefung": {
+      "typ": "vergleich",
+      "problem": {
+       "typ": "quadratisch",
+       "rotiert": true,
+       "a_L": 2.0,
+       "a_R": 2.0,
+       "noise": {
+        "typ": "student",
+        "sigma": 0.1,
+        "df": 2
+       }
+      },
+      "steps": 500,
+      "a": {
+       "optimizer": "sgd"
+      },
+      "b": {
+       "optimizer": "signum"
+      }
+     },
+     "idee": "Signum macht bei konstanter Lernrate Schritte fester Größe und verwirft die Betragsinformation des Gradienten. Dadurch bleibt ein Rauschboden proportional zu lr*Dimension bestehen, und die Vorzeichen-Koordinaten sind in der rotierten Basis schlecht an die Krümmung angepasst. SGD kann dagegen seine Lernrate so klein wählen, dass der Rauschboden niedrig bleibt, und die Krümmungsrichtungen werden korrekt gewichtet. Daher sollte SGD bei getunter Lernrate Signum schlagen, was die Behauptung widerlegt, dass alle fünf Kandidaten gewinnen.",
+     "bestanden": false,
+     "grund": "Prüfer: sgd/const (beste LR 2^-1) vs signum/const (beste LR 2^-9), je eigenes Tuning auf Seeds (100, 101, 102), Bewertung auf 10 frischen Seeds: geometr. Mittel rel. Endverlust 9.663e-02 vs 8.455e-02,"
+    }
+   ],
+   "sek": 142.8
+  },
+  {
+   "runde": 14,
+   "frage": "F35",
+   "status": "beantwortet",
+   "red_team": [
+    {
+     "pruefung": {
+      "typ": "vergleich",
+      "problem": {
+       "typ": "quadratisch",
+       "rotiert": true,
+       "a_L": 2.5,
+       "a_R": 2.5
+      },
+      "steps": 500,
+      "a": {
+       "optimizer": "adam",
+       "schedule": "const"
+      },
+      "b": {
+       "optimizer": "muon",
+       "schedule": "const"
+      }
+     },
+     "idee": "Direkte Umkehrung der geprüften Behauptung am behaupteten Grenzpunkt a=2.5 (rotiert). Die Antwort sieht dort nur eine Grenze, keinen klaren Muon-Vorteil. Die Evidenz ist dünn (Stufe 1/4, haiku). Wenn Adam bei a=2.5 rotiert mit eigenem LR-Tuning und frischen Seeds noch besser abschneidet als Muon, liegt die Grenze höher und die Zahl 2.5 ist falsch.",
+     "bestanden": false,
+     "grund": "Prüfer: adam/const (beste LR 2^-3) vs muon/const (beste LR 2^-5), je eigenes Tuning auf Seeds (100, 101, 102), Bewertung auf 10 frischen Seeds: geometr. Mittel rel. Endverlust 1.683e-03 vs 1.814e-04, "
+    },
+    {
+     "pruefung": {
+      "typ": "vergleich",
+      "problem": {
+       "typ": "quadratisch",
+       "rotiert": true,
+       "a_L": 3.0,
+       "a_R": 3.0
+      },
+      "steps": 500,
+      "a": {
+       "optimizer": "adam",
+       "schedule": "const"
+      },
+      "b": {
+       "optimizer": "muon",
+       "schedule": "const"
+      }
+     },
+     "idee": "Die Antwort behauptet, bei a=3.0 rotiert dominiere Muon (R4). Das stützt sich auf wenige Experimente mit grobem LR-Gitter. Bei stark abfallendem Spektrum ist die Matrix effektiv niedrigrangig. Dann kann Muons Orthogonalisierung durch Aufblähen kleiner Singulärwerte schaden, und das Adam-Rauschen sowie die Schrittweitenanpassung gewinnen. Besteht diese Prüfung, trägt die Aussage 'jenseits von 2.5 gewinnt Muon' nicht, und die Grenze existiert so nicht.",
+     "bestanden": false,
+     "grund": "Prüfer: adam/const (beste LR 2^-3) vs muon/const (beste LR 2^-5), je eigenes Tuning auf Seeds (100, 101, 102), Bewertung auf 10 frischen Seeds: geometr. Mittel rel. Endverlust 1.810e-03 vs 4.481e-04, "
+    }
+   ],
+   "sek": 190.9
   }
  ],
- "kosten_usd": 6.861177
+ "kosten_usd": 7.380249999999999
 }
