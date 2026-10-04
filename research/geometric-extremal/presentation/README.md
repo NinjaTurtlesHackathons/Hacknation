@@ -20,7 +20,7 @@ Deutschsprachiges, lokal ausführbares Demo-Paket zur Arbeit *Exact planar few-d
 - `assets/ergebnis-poster.svg` und `.png`: Hauptgrafik für Präsentation, Website und Posts.
 - `assets/konstruktion-81.svg` / `konstruktion-111.svg` und entsprechende PNGs: einzelne Punktdiagramme.
 - `MODERATION.md`: 3-Minuten-Demo, Sprechernotizen, Publikumsfragen und Caption.
-- `paper.pdf`: unverändertes Quellmanuskript.
+- `paper.pdf`: aktuelle redaktionelle Fassung des Quellmanuskripts.
 - `data/`: Koordinaten als CSV, Abstandshäufigkeiten als CSV und vollständige Definitionen als JSON.
 - `verify.py`: unabhängiger Prüfer mit Python-Standardbibliothek.
 

@@ -232,9 +232,9 @@ The shared half-plane representation suggests useful construction programs. Scal
 
 The 81-point witness arose from joint Boolean selection of lattice sites and distance classes in a radius-6 hexagonal window. For every pair, selecting both sites forces its squared-norm variable; at most 31 norm variables may be selected. Valid matching cuts accelerate the search. Seed 42102 returned 81 points in 4.143 seconds and nine search nodes. That runtime includes the logged finite instance, not the entire earlier research portfolio. A radius-7 continuation with a fixed 37-site interior reproduced 81, without improving it. Solver optimality in a finite or partly fixed model is never used as planar optimality.
 
-The Family agent received the 81-point support normals and independently enumerated support offsets. Its delta-2 run evaluated 9,765,625 support tuples in 54.379 seconds and produced the 111-point witness. This is independent construction development from a shared lead, not an independent rediscovery from an untouched problem statement. A subsequent canonical search evaluated 5,764,801 tuples in 31.9019 seconds. These are recorded batch timings, not the exact time to the first 111-point observation.
+The 81-point support normals provided the starting point for a separate enumeration of support offsets. The delta-2 run evaluated 9,765,625 support tuples in 54.379 seconds and produced the 111-point witness. This is independent construction development from a shared lead, not an independent rediscovery from an untouched problem statement. A subsequent canonical search evaluated 5,764,801 tuples in 31.9019 seconds. These are recorded batch timings, not the exact time to the first 111-point observation.
 
-The director's independent integer checker and the separate Cartesian/common-denominator verifier agreed on the original 81-point witness. For the 111-point witness, the same independent Cartesian verifier recomputed all 6105 pairs without importing the Family agent's search code. Candidate geometry, historical source values, and novelty are reviewed separately. No independent checker accepts discovery metadata as a mathematical bound.
+An independent integer checker and the separate Cartesian/common-denominator verifier agreed on the original 81-point witness. For the 111-point witness, the same independent Cartesian verifier recomputed all 6105 pairs without importing the support-enumeration search code. Candidate geometry, historical source values, and novelty are reviewed separately. No independent checker accepts discovery metadata as a mathematical bound.
 
 Reproduce both frozen witnesses, their half-plane/row agreement, every pair multiplicity, and artifact hashes with standard Python:
 
@@ -251,12 +251,6 @@ No optimization package, internet access, numerical tolerance, or random seed is
 | candidates/wave2_family/support_k41_n111_code7324998.json | 2d1216002f65a2c2cccbaa30299ea4f26c21c6f493fe3ad0e164de11ad0aa3b1 |
 
 The mathematical definitions and integer proof do not depend on those hashes; the hashes identify the exact files used in the reported checks. A corrupted or changed file is rejected by the frozen reproduction command.
-
-## 7. Contributions and autonomy
-
-Laurenz Thümmler supplied the research objective, repository, and authorization to use an agent team and computing resources. The initial human instruction supplied no coordinates or mathematical construction. The director coordinated problem selection, novelty review, trusted comparisons, and independent gates. The Structure agent researched sources, designed joint site/palette integer models, generated the 81-point witness, and wrote this draft. The Area/Family agent generalized its support representation and generated the 111-point witness. Independent certification of the 81-point discovery was performed by the director rather than its own discovery agent; the Structure agent separately certified the Family agent's 111-point witness. The Packing agent performed additional adversarial literature review.
-
-Known constructions, mathematical ideas, and comparison tables belong to their cited original authors. Bao's author repository served as attributed prior art; its code is not presented as new lab work. General-purpose HiGHS/SciPy, OR-Tools CP-SAT, Python, and a C++ support enumerator were external computational tools. The mathematical proof is the finite exact certificate, not a model's assertion. Agent decisions, source mistakes corrected during research, and a compacted-summary omission corrected by raw-register audit are documented in the research chronology. Human authorship and final scientific review should be settled before journal submission.
 
 ## References
 
