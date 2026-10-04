@@ -12,3 +12,10 @@ Grundlage: `research/kb/modular/known_results.md` (Recherche vom 2026-10-04, 329
 | L6 | Spann der holomorphen Eta-Quotienten in M_4(Gamma_0(N)) für alle N ≤ 30, exakt | doi:10.1016/j.aim.2014.12.002 (Rouse–Webb) behandelt Spannfragen allgemein; eine vollständige Tabelle für Gewicht 4 ist in der Recherche nicht belegt | (a) Erweiterung | eta_span_tabelle (exakt, Sturm-Schranke) | 0,3 × 0,9 = 0,27 |
 | L7 | Stringtheorie-Identitäten holomorph: Jacobi (Verschwinden der GSO-projizierten Zustandssumme), theta_{E8}^2 = theta_{D16+}, Delta = eta^24, j-Koeffizient 196884 | klassisch bekannt | Reproduktion (Anker) | identitaet / koeffizient (Sturm-Zertifikat, exakt) | 0,05 × 1,0 = 0,05 |
 | L8 | Bestimmt das Verschwinden des vollen Laurent-Polynoms die Identität? | arXiv:1608.04393: „Whenever the Laurent polynomial at the cusp is available, the form of these identities confirms the pattern“ | (c) | Prüfer fehlt (nur der Leitkoeffizient ist exakt implementiert) | 0,6 × 0,1 = 0,06 |
+
+## Nachtrag 2026-10-04 (nach Nutzer-Review von Paper v2)
+| ID | Lücke | Warum offen (Beleg) | Neuheitstyp | Prüfbarkeit | VoI |
+|---|---|---|---|---|---|
+| L9 | Exakte Bestimmung des harmonischen Raums (Delta X in Q*E(w)) für alle w <= 25 und geschlossene Form von f_w | arXiv:1502.06698 (Gl. 3.33, 3.57): Kombinationen angegeben, f_w, g_w „may be determined from the asymptotic behavior“, Werte nur bis w = 9 | (d) geschlossene Form / (a) Erweiterung | mgf_harmonisch_familie (exakt) | 0,5 × 0,9 |
+| L10 | Integrationskonstanten g_w der ungeraden Identitäten (geschlossene Form) | arXiv:1502.06698 Gl. 3.34: „g7, g9 are integration constants“; Gl. 3.57 ohne Werte | (d) geschlossene Form (Vermutung) | mgf_relation (Blindtest w = 17) | 0,7 × 0,7 |
+| L11 | Vollständiger Relationsraum der zehn C(a,b,c) vom Gewicht 11 mit E(11), zeta(11) | Paper v2: nur Teilbasis bestimmt | (a) | mgf_relationsraum | 0,6 × 0,6 |

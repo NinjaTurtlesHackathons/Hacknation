@@ -144,6 +144,57 @@ def check_mgf_relationsraum(p):
                "singulaerwerte": [mp.nstr(x, 4) for x in sv]}
 
 
+def _dgv_combo(w):
+    """Kombination aus D'Hoker-Green-Vanhove (arXiv:1502.06698, Gl. 3.57) für ungerades w = 2 mu + 3."""
+    from math import factorial as fa
+    mu = (w - 3) // 2; v = {}
+    for m1 in range(mu + 1):
+        for m2 in range(mu + 1 - m1):
+            c = Fr(fa(mu - m1) * fa(mu - m2) * fa(m1 + m2), fa(m1) * fa(m2) * fa(mu - m1 - m2))
+            k = tuple(sorted((1 + mu - m1, 1 + mu - m2, 1 + m1 + m2), reverse=True)); v[k] = v.get(k, 0) + c
+    return v
+
+
+def check_mgf_harmonisch(p):
+    """Exakt: Delta(sum c_abc C_abc) = lambda * E_w in der algebraischen Laplace-Darstellung (asd/domains/mgf_laplace.py)."""
+    from .mgf_laplace import laplace_combo, fmt
+    from . import mgf
+    w = int(p["gewicht"]); vec = {}
+    for k, c in p["kombination"].items():
+        pa = mgf.parse(k)
+        if pa[0] != "M" or len(pa[1]) != 1 or pa[1][0][0] != "C" or pa[1][0][2] != 1: return False, f"{k}: nur einzelne C(a,b,c)", {}
+        a = pa[1][0][1]
+        if sum(a) != w: return False, f"{k} hat nicht Gewicht {w}", {}
+        vec[a] = vec.get(a, 0) + _fr(c)
+    if not any(vec.values()): return False, "leere Kombination", {}
+    lam = _fr(p["lambda"]); out = laplace_combo(vec)
+    rest = {fmt(k): str(v) for k, v in out.items() if k != ("E", (w,))}
+    got = out.get(("E", (w,)), 0)
+    ok = not rest and got == lam
+    return ok, (f"exakte Laplace-Algebra: Delta X = {got}*E({w})" + (f" + Reste {rest}" if rest else "") + f"; behauptet lambda = {lam}"), {"rest": rest, "lambda": str(got)}
+
+
+def check_mgf_harmonisch_familie(p):
+    """Exakt für alle 3 <= w <= W: der Raum der C-Kombinationen mit Delta X in Q*E_w hat Dimension 1 (w ungerade) bzw. 0 (w gerade);
+    für ungerades w wird er von der DGV-Kombination (Gl. 3.57) aufgespannt und es gilt Delta X = w(w-1) f_w E_w mit f_w = 3((w-1)/2)!/w."""
+    from math import factorial as fa
+    from .mgf_laplace import harmonic_space
+    W = int(p["gewicht_bis"])
+    if not 3 <= W <= 25: return False, "gewicht_bis muss in 3..25 liegen", {}
+    fehler = []
+    for w in range(3, W + 1):
+        H = harmonic_space(w)
+        if w % 2 == 0:
+            if H: fehler.append(f"w={w}: dim {len(H)} statt 0")
+            continue
+        if len(H) != 1: fehler.append(f"w={w}: dim {len(H)} statt 1"); continue
+        (vec, lam), = H; d = _dgv_combo(w); k0 = next(iter(vec)); sc = d[k0] / vec[k0]
+        if set(d) != set(vec) or any(d[k] != sc * vec[k] for k in vec): fehler.append(f"w={w}: nicht die DGV-Kombination"); continue
+        if sc * lam / (w * (w - 1)) != Fr(3 * fa((w - 1) // 2), w): fehler.append(f"w={w}: f_w = {sc * lam / (w * (w - 1))}")
+    return (not fehler), ("exakt für alle 3 <= w <= %d: harmonischer Raum dim 1 (ungerade, DGV-Kombination, f_w = 3((w-1)/2)!/w) bzw. 0 (gerade)" % W
+                          + (f"; Abweichungen: {fehler}" if fehler else "")), {"fehler": fehler}
+
+
 class ModularDomain(Domain):
     name = "modular"
     recherche_ziel = ("Modular graph functions in the low-energy expansion of genus-one closed-string amplitudes: algebraic and "
@@ -191,6 +242,8 @@ class ModularDomain(Domain):
 - eta_quotienten {level, gewicht}: alle holomorphen Eta-Quotienten (Gordon-Hughes-Newman-Bedingungen) mit trivialem Charakter, Anzahl, Rang ihres Spanns, dim M_k (<= 64).
 - eta_span_scan {gewicht, level_bis}: Tabelle Rang vs. Dimension für alle N <= level_bis (<= 40).
 - mgf_wert {ausdruck, tau1, tau2, dps?}: numerischer Wert eines Monoms aus C(a,b,c), E(s), zeta(k) (auch L[...]) an einem Punkt (~5-60 s).
+- mgf_laplace_exakt {kombination: {"C(a,b,c)": c, ...}}: Delta der Kombination EXAKT als Summe von C's und Eisenstein-Produkten (schnell).
+- mgf_harmonisch_raum {gewicht}: exakt alle C-Kombinationen vom Gewicht w mit Delta X in Q*E(w) (schnell, w <= 25).
 - mgf_leitkoeffizient {ausdruck}: exakter rationaler Leitkoeffizient der Laurent-Entwicklung in y = pi*tau2 (schnell).
 - mgf_relationen {basis: [...], seed?, n_punkte?, dps?}: Kandidaten für alle ganzzahligen linearen Relationen zwischen den Basis-Funktionen
   (PSLQ über mehrere Zufallspunkte). Basis-Elemente sind Monome, z. B. "C(3,1,1)", "E(2)*E(3)", "zeta(3)*E(2)", "L[C(2,1,1)]". Teuer
@@ -207,6 +260,9 @@ class ModularDomain(Domain):
 - {"typ": "mgf_relation", "terme": [[c1, "ausdruck1"], ...]}: sum c_t * ausdruck_t = 0 als Funktion von tau. Zuerst exakte notwendige
   Bedingung: der rationale Leitkoeffizient der höchsten Potenz von y = pi*tau2 (Laurent-Entwicklung) muss verschwinden; dann numerisch an
   4 eigenen Zufallspunkten mit 32 Stellen, Schranke 1e-24 relativ (1e-14, falls ein L[...]-Term vorkommt).
+- {"typ": "mgf_harmonisch", "gewicht": w, "kombination": {"C(a,b,c)": c, ...}, "lambda": λ}: EXAKT in rationaler Arithmetik über die
+  algebraische Laplace-Darstellung: Delta(sum c C) = λ E(w) ohne weitere Terme.
+- {"typ": "mgf_harmonisch_familie", "gewicht_bis": W}: exakt für alle 3 <= w <= W (<= 25): harmonischer Raum dim 1/0, DGV-Kombination, f_w.
 - {"typ": "mgf_relationsraum", "basis": ["...", ...], "dim": r, "relationen": [[c_1, ..., c_n], ...]}: die rationalen linearen
   Relationen zwischen den Basis-Funktionen bilden GENAU einen r-dimensionalen Raum, aufgespannt von den angegebenen Vektoren
   (jede Relation geprüft wie mgf_relation; Vollständigkeit über Singulärwerte an n+3 Prüfer-Punkten; numerisch)."""
@@ -248,6 +304,19 @@ class ModularDomain(Domain):
                 from . import mgf
                 W, c, Z = mgf.lead(mgf.parse(args["ausdruck"]))
                 return {"grad": W, "koeffizient": str(c), "zeta_faktoren": list(Z), "lesart": "F = koeffizient * prod zeta * y^grad + O(y^(grad-1)), y = pi*tau2 (exakt)"}
+            if op == "mgf_laplace_exakt":
+                from .mgf_laplace import laplace_combo, fmt
+                from . import mgf
+                vec = {}
+                for k, c in args["kombination"].items():
+                    pa = mgf.parse(k); vec[pa[1][0][1]] = vec.get(pa[1][0][1], 0) + Fr(str(c))
+                return {"laplace": {fmt(k): str(v) for k, v in laplace_combo(vec).items()}, "hinweis": "exakt (algebraische Laplace-Darstellung)"}
+            if op == "mgf_harmonisch_raum":
+                from .mgf_laplace import harmonic_space
+                w = int(args["gewicht"])
+                if not 3 <= w <= 25: return {"fehler": "gewicht in 3..25"}
+                return {"basis": [{"kombination": {"C(%d,%d,%d)" % k: str(v) for k, v in vec.items()}, "lambda": str(lam)} for vec, lam in harmonic_space(w)],
+                        "lesart": "Delta(kombination) = lambda * E(w) exakt"}
             if op == "mgf_relationen":
                 from . import mgf
                 b = list(args["basis"])
@@ -268,16 +337,20 @@ class ModularDomain(Domain):
             if t == "eta_span_tabelle": return check_eta_span_tabelle(p)
             if t == "mgf_relation": return check_mgf_relation(p)
             if t == "mgf_relationsraum": return check_mgf_relationsraum(p)
+            if t == "mgf_harmonisch": return check_mgf_harmonisch(p)
+            if t == "mgf_harmonisch_familie": return check_mgf_harmonisch_familie(p)
             return False, f"unbekannter Prüfungstyp {t}", {}
         except Exception as e:
             return False, f"Prüfung nicht ausführbar: {type(e).__name__}: {e}"[:300], {}
 
     def level(self, p):
+        if p.get("typ") in ("mgf_harmonisch", "mgf_harmonisch_familie"): return "computed_rigorous"
         return "observed" if str(p.get("typ", "")).startswith("mgf") else "computed_rigorous"
 
     def relevanz(self, p):
         t = p.get("typ")
-        if t in ("eta_span_tabelle", "mgf_relationsraum"): return "hauptresultat"
+        if t in ("eta_span_tabelle", "mgf_relationsraum", "mgf_harmonisch_familie"): return "hauptresultat"
+        if t == "mgf_harmonisch": return "stuetze"
         if t == "mgf_relation":
             return "hauptresultat" if any("L[" in str(m) for _, m in p.get("terme", [])) or max(_w(m) for _, m in p.get("terme", [])) >= 6 else "stuetze"
         if t == "identitaet": return "stuetze"
@@ -323,6 +396,18 @@ class ModularDomain(Domain):
                 s = _fmt(_terme(p))
                 return (f"Numerically (32 digits, 4 verifier-chosen points, relative residual <= 1e-{TOL_LAP if 'L[' in s else TOL}): {s} = 0 as functions of tau." if en else
                         f"Numerisch (32 Stellen, 4 Prüfer-Punkte, rel. Residuum <= 1e-{TOL_LAP if 'L[' in s else TOL}): {s} = 0 als Funktionen von tau.")
+            if t == "mgf_harmonisch":
+                X = _fmt([(c, k) for k, c in p["kombination"].items()])
+                return (f"Exactly (algebraic Laplace representation of D'Hoker-Green-Vanhove, re-derived and checked in rational arithmetic): "
+                        f"Delta({X}) = {p['lambda']}*E({p['gewicht']}); hence {X} - {Fr(str(p['lambda'])) / (int(p['gewicht']) * (int(p['gewicht']) - 1))}*E({p['gewicht']}) "
+                        f"is annihilated by the Laplacian." if en else
+                        f"Exakt (algebraische Laplace-Darstellung nach D'Hoker-Green-Vanhove, nachgerechnet in rationaler Arithmetik): "
+                        f"Delta({X}) = {p['lambda']}*E({p['gewicht']}).")
+            if t == "mgf_harmonisch_familie":
+                return (f"Exactly, for every weight 3 <= w <= {p['gewicht_bis']}: the rational combinations X of dihedral C(a,b,c) of weight w with "
+                        f"Delta X in Q*E(w) form a space of dimension 1 for odd w and 0 for even w; for odd w = 2mu+3 it is spanned by the combination of "
+                        f"D'Hoker-Green-Vanhove (eq. 3.57 of arXiv:1502.06698), and Delta X = w(w-1) f_w E(w) with f_w = 3((w-1)/2)!/w in that normalisation." if en else
+                        f"Exakt für alle 3 <= w <= {p['gewicht_bis']}: harmonischer Raum dim 1 (ungerade, DGV-Kombination, f_w = 3((w-1)/2)!/w) bzw. 0 (gerade).")
             if t == "mgf_relationsraum":
                 formeln = "; ".join(_fmt([(c, b) for c, b in zip(r, p["basis"]) if Fr(str(c)) != 0]) + " = 0" for r in p.get("relationen", []))
                 ws = sorted({_w(b) for b in p["basis"] if _w(b)}); wtxt = f" (weight {ws[0]})" if len(ws) == 1 else ""
@@ -398,6 +483,13 @@ class ModularDomain(Domain):
             ({"typ": "mgf_relation", "terme": [[1, "L[C(2,1,1)]"], [-2, "C(2,1,1)"], [-9, "E(4)"], [1, "E(2)^2"]]}, True),  # D'Hoker-Green-Vanhove
             ({"typ": "mgf_relation", "terme": [[1, "L[C(2,1,1)]"], [-2, "C(2,1,1)"], [-8, "E(4)"], [1, "E(2)^2"]]}, False),
             ({"typ": "mgf_relationsraum", "basis": ["C(2,2,1)", "E(5)", "zeta(5)"], "dim": 1, "relationen": [[30, -12, -1]]}, True),
+            ({"typ": "mgf_harmonisch", "gewicht": 3, "kombination": {"C(1,1,1)": 1}, "lambda": 6}, True),             # Delta C111 = 6 E3
+            ({"typ": "mgf_harmonisch", "gewicht": 9, "kombination": {"C(4,4,1)": 9, "C(4,3,2)": 18, "C(3,3,3)": 4}, "lambda": 288}, True),  # DGV (3.33)
+            ({"typ": "mgf_harmonisch", "gewicht": 9, "kombination": {"C(4,4,1)": 9, "C(4,3,2)": 18, "C(3,3,3)": 4}, "lambda": 287}, False),
+            ({"typ": "mgf_harmonisch", "gewicht": 5, "kombination": {"C(3,1,1)": 1}, "lambda": 16}, False),          # Delta C311 hat C- und E-Produkt-Reste
+            ({"typ": "mgf_harmonisch", "gewicht": 5, "kombination": {"C(2,2,2)": 1}, "lambda": 8}, False),           # falsches Gewicht
+            ({"typ": "mgf_harmonisch_familie", "gewicht_bis": 15}, True),
+            ({"typ": "mgf_harmonisch_familie", "gewicht_bis": 99}, False),                                            # Regelverletzung
             ({"typ": "mgf_relationsraum", "basis": ["C(1,1,1)", "E(3)", "zeta(3)", "E(2)"], "dim": 0, "relationen": []}, False),  # verschweigt eine Relation
         ]
 

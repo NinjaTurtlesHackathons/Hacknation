@@ -1,0 +1,28 @@
+[
+ {
+  "frage": "Bestimme exakt für alle Gewichte 3 <= w <= 25 den Raum der Kombinationen dihedraler C(a,b,c) vom Gewicht w, deren Laplace-Operator in Q*E(w) liegt (mgf_harmonisch_familie), und gib für w = 9 und w = 11 die Gleichung Delta X = lambda E(w) als mgf_harmonisch an.",
+  "neuheit": 0.3,
+  "machbarkeit": 0.9,
+  "lueckenkarte": "L9"
+ },
+ {
+  "frage": "Blindtest der Konstantenformel bei Gewicht 17: Prüfe die Relation 51819264000*C(8,8,1) + 103638528000*C(8,7,2) + 103638528000*C(8,6,3) + 103638528000*C(8,5,4) + 88833024000*C(7,7,3) + 222082560000*C(7,6,4) + 118444032000*C(7,5,5) + 148055040000*C(6,6,5) + -24385536000*E(17) + -3617*zeta(17) = 0 (mgf_relation).",
+  "neuheit": 0.7,
+  "machbarkeit": 0.7,
+  "lueckenkarte": "L10",
+  "hypothese_herkunft": "Formel g_w = 6|B_(w-1)| zeta(w)/((w-1)/2)! aus Exploration w = 3..13, vorab präregistriert"
+ },
+ {
+  "frage": "Prüfe die Konstantenformel bei Gewicht 13 und 15: Relationen 117936000*C(6,6,1) + 235872000*C(6,5,2) + 235872000*C(6,4,3) + 188697600*C(5,5,3) + 212284800*C(5,4,4) + -54432000*E(13) + -691*zeta(13) = 0 ; 1555200*C(7,7,1) + 3110400*C(7,6,2) + 3110400*C(7,5,3) + 1555200*C(7,4,4) + 2592000*C(6,6,3) + 6220800*C(6,5,4) + 1244160*C(5,5,5) + -725760*E(15) + -1*zeta(15) = 0 (je mgf_relation).",
+  "neuheit": 0.6,
+  "machbarkeit": 0.8,
+  "lueckenkarte": "L10",
+  "hypothese_herkunft": "Exploration"
+ },
+ {
+  "frage": "Bestimme den Relationsraum der VOLLEN Basis vom Gewicht 11: C(9,1,1), C(8,2,1), C(7,3,1), C(7,2,2), C(6,4,1), C(6,3,2), C(5,5,1), C(5,4,2), C(5,3,3), C(4,4,3), E(11), zeta(11) (mgf_relationsraum). Bekannte Relation: 19008*C(5,5,1)+38016*C(5,4,2)+19008*C(5,3,3)+28512*C(4,4,3)-8640*E(11)-zeta(11)=0.",
+  "neuheit": 0.6,
+  "machbarkeit": 0.6,
+  "lueckenkarte": "L11"
+ }
+]

@@ -117,3 +117,23 @@ Mehrfachtests: Es werden keine p-Werte gebildet (deterministische Prüfungen), d
 - Erfolg: Für jedes N in 1..30 liegt eine exakte Zeile vor: dim M_4(Gamma_0(N)) (aus der Dimensionsformel, quer geprüft über Eisenstein- plus Spitzenform-Dimension), die Liste aller holomorphen Eta-Quotienten prod eta(d tau)^r_d (d | N, sum r_d = 8, sum d r_d ≡ 0 mod 24, sum (N/d) r_d ≡ 0 mod 24, Produkt d^r_d ein Quadrat für trivialen Charakter, Ordnung in jeder Spitze >= 0 per Ligozat-Formel), der exakte Rang ihrer q-Entwicklungen (ganzzahlige Matrix, mindestens bis zur Sturm-Schranke 4*Index/12 plus Reserve) und das Urteil 'spannt' bzw. 'spannt nicht' (Rang = dim). Für alle N, bei denen der Rang kleiner als die Dimension ist, wird zusätzlich die Kodimension angegeben. Der Code und die Ausgabe sind reproduzierbar.
 - Abbruch: Abbruch, wenn nach etwa 1 h Rechenzeit keine konsistente Dimensionsformel oder keine ausführbare Prüfung vorliegt, oder wenn die Aufzählung der Eta-Quotienten für ein N wegen unbeschränkter Exponenten nicht terminiert. In dem Fall wird auf die Beschränkung der Exponenten |r_d| <= 24 zurückgegriffen und das explizit als Einschränkung markiert (dann nur Untergrenze für den Rang). Ebenfalls Abbruch, wenn der Rang bei N = 1 und N = 2 nicht mit den bekannten Dimensionen 1 und 2 übereinstimmt, da dann ein Fehler im Verfahren vorliegt.
 - Erwartung: Das Ergebnis ist eine Tabelle, in der die Eta-Quotienten bei kleinen Leveln mit vielen Teilern (z. B. N = 2, 3, 4, 6, 8, 9, 12) den Raum M_4 voraussichtlich ganz aufspannen. Bei Primzahlleveln wie N = 11, 13, 17, 19, 23, 29 mit wenigen Teilern (nur 1 und N) und bei Leveln mit großem Spitzenform-Anteil ist ein Scheitern wahrscheinlich, weil dort die Dimension die Zahl der unabhängigen Eta-Quotienten übersteigt. Eine scharfe Grenze für N <= 30 ist wahrscheinlich, die Tabelle liefert aber auch einzelne Überraschungen bei zusammengesetzten Leveln (z. B. N = 16, 18, 20, 24, 30).
+
+## Nachtrag 2026-10-04 (vor den Läufen dieser Runde, nach Paper v2)
+Anlass: Nutzer-Review von Paper v2 (Vollständigkeit Gewicht 11, Beweis, Härtung, Neuheit). Literaturprüfung (Volltexte, per Tool
+abgerufen): arXiv:1502.06698 (DGV) gibt die algebraische Laplace-Darstellung, die Gewicht-0-Kombinationen für alle ungeraden
+Gewichte (Gl. 3.57) und lässt f_w, g_w ab Gewicht 9 offen; arXiv:1608.04393 zitiert die Existenz für jedes ungerade Gewicht;
+arXiv:1902.04180, Theorem 5.1 gibt das Laurent-Polynom aller zweischleifigen Funktionen (g_w folgt daraus im Prinzip).
+Herkunft der Hypothesen H7, H8: manuelle Exploration (asd/domains/mgf_laplace.py; numerische Konstanten bei w = 13, 15).
+Die Formel für g_w wurde aus w = 3..13 abgelesen; w = 15 war eine Vorhersage (vor dem Ablesen notiert, bestätigt), w = 17 ist hiermit
+vorab festgelegt und noch NICHT berechnet.
+
+- H6 (exakt): Für alle 3 <= w <= 25 ist der Raum der C-Kombinationen mit Delta X in Q*E(w) eindimensional (w ungerade, DGV-Kombination)
+  bzw. null (w gerade), und f_w = 3((w-1)/2)!/w (DGV-Normierung). Prüfung: mgf_harmonisch_familie, gewicht_bis 25.
+- H7 (numerisch, Blindtest): Mit X_17 = DGV-Kombination vom Gewicht 17 gilt X_17 = (120960/17) E(17) + (3617/3427200) zeta(17).
+  Prüfung: mgf_relation (4 Prüfer-Punkte, 32 Stellen, 1e-24). Erfolg: besteht. Scheitern wird als Widerlegung der Formel berichtet.
+- H8 (numerisch): dieselbe Formel bei w = 13 und w = 15 (bereits explorativ gesehen; hier nur Zertifizierung durch den Prüfer).
+- H9 (gemischt): Der Relationsraum der VOLLEN Basis vom Gewicht 11 (zehn C, E(11), zeta(11)) hat Dimension genau 1.
+  Untere Schranke exakt (H6 + Konstante), obere Schranke numerisch: mgf_relationsraum mit den unveränderten Kriterien (15 Punkte, Seed 4712).
+- H10 (Härtung, numerisch): Residuum der Gewicht-11-Relation an 8 neuen Punkten (Seed 9001, auch nahe tau = rho und tau2 bis 3)
+  bei 30, 45 und 60 Stellen; Erwartung: Residuum fällt mit der Präzision. Unabhängige Kontrolle: direkte Gittersumme in doppelter
+  Genauigkeit (asd/domains/mgf_brute.py), Erwartung: Übereinstimmung auf >= 1e-12 relativ.
