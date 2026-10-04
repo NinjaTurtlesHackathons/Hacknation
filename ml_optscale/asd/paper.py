@@ -27,6 +27,8 @@ def claims_of(domain):
     for j, w in enumerate(s["widerlegt"]): C.append({"claim_id": f"C-neg{j + 1}", "text": f"Negatives Ergebnis: {w}", "level": "observed", "status": "bestätigt"})
     for j, w in enumerate(s["wissen"][:30]):
         C.append({"claim_id": f"C-lit{j + 1}", "text": f"Literatur: {w['text']} (Zitat: „{w['zitat']}“, {w['quelle']})", "level": "observed", "status": "bestätigt"})
+    zp = f"projects/{domain}/zusatz_claims.json"                     # optionale, per Code erzeugte Zusatz-Claims (z. B. BH-Korrektur)
+    if os.path.exists(zp): C += json.load(open(zp))
     C.append({"claim_id": "C-methode", "text": f"Das Labor lief {len(s['runden'])} Runden, {len(s['claims'])} geprüfte Aussagen, {len(s['widerlegt'])} negative Ergebnisse, "
               f"Kosten {s['kosten_usd']:.2f} USD; jede Runde vor dem Experiment präregistriert (prereg.md).", "level": "observed", "status": "bestätigt"})
     return C
