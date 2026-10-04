@@ -41,7 +41,7 @@ Same models and budget in every condition
 
 <!-- replay:start -->
 Paired design: every condition ran on the same 25 seeds (1000–1024).
-Metric N = verifier calls to the first hit (31 = failed within budget 30). Source: `results/FROZEN.json` (frozen 2026-10-04T06:47:04, commit fac7d1d).
+Metric N = verifier calls to the first hit (31 = failed within budget 30). Source: `results/FROZEN.json` (frozen 2026-10-04T07:28:40, commit 69b42bc).
 
 | Condition | mean N | median N | hits |
 |---|---|---|---|
@@ -60,6 +60,7 @@ Metric N = verifier calls to the first hit (31 = failed within budget 30). Sourc
 - The strongest comparison is H8b: a hand-written heuristic that reaches the target in every seed still needs about 3.96× as many verifier calls as the lab.
 - Without verifier feedback the same agents are almost as fast on this easy task (H8c not supported): the gain comes from choosing the right question.
 - No human baseline was measured; nothing here compares the lab with a human or a real laboratory.
+- Independent scorer (`benchmarks/score_independent.py`, calls the verifier directly, not the benchmark's counting code): 68 of 68 hits with a logged claim re-verified, 0 disagreements; 29 hits from the earlier H7 runs (seeds 1000–1009) predate claim logging and are counted by the benchmark only.
 <!-- replay:end -->
 
 ## Probatum Lab (web frontend)
@@ -81,6 +82,32 @@ scripts/build_pages.sh --push               # publishes the same site on the gh-
 - **Re-verify:** for certificates, the unmodified standalone `check.py` runs in Pyodide, which loads only on click. For the run, the hash chain is recomputed with WebCrypto, exactly like `asd/chain.py`.
 - **Tamper and re-verify** changes one rate by a factor of 1.001, or one character of a record line, and shows FAIL or the broken link.
 - **Results page:** replay benchmark, wrong-answer rates with and without the gate, stress tests, the certified classification, and run metrics. Each section names its source file and the command that regenerates it.
+
+## Databricks (Delta tables, MLflow, Model Serving)
+
+The lab's logs go into Databricks as the single source for dashboards: the hash-chained ledger, the claims with their effective red-team votes, the policy decisions, the replay benchmark per seed, and the frozen numbers that README, paper and video use.
+
+```bash
+pip install -e ".[databricks]"
+python -m asd.databricks_export                 # without credentials: delta/<table>/ (Delta Lake) + mlflow.db (MLflow)
+export DATABRICKS_HOST=https://<workspace> DATABRICKS_TOKEN=<pat> DATABRICKS_WAREHOUSE_ID=<sql-warehouse-id>
+python -m asd.databricks_export --catalog main --schema probatum   # Unity Catalog tables + MLflow experiment /Shared/probatum
+```
+
+| Table | Rows | Content |
+|---|---|---|
+| `ledger` | one per `record.jsonl` line | agent, command, input/output ids, result, duration, hash-chain link |
+| `claims` | one per Omnigent claim | evidence level, status, effective red-team votes, contradictions |
+| `gates` | one per policy event | DENY / ASK / human approval with reason |
+| `experiments` | one per condition and seed | `run_id, seed, policy, dataset, step, x_index, y, mlflow_run_id, ts` (N = `step`) |
+| `frozen` | one per value in `results/FROZEN.json` | the numbers used in every text |
+
+- **MLflow:**
+  - one run per Omnigent session, with its metrics and the record, chain and trace files as artifacts;
+  - one run per benchmark condition, with N per seed and the H8 tests.
+- **Dashboard:** queries are in `databricks/dashboard.sql`.
+- **Model Serving:** with `ASD_LLM=databricks ASD_DBX_ENDPOINT=<endpoint>`, all agents call a Databricks serving endpoint. A different endpoint per role is possible via `ASD_DBX_ENDPOINT_SONNET`, `..._OPUS` and `..._HAIKU`. Caching and replay work unchanged.
+- **Status:** the local export (Delta + MLflow) is tested end to end. The Unity Catalog SQL and the serving call are tested against stand-ins in `tests/test_databricks_export.py`; they have not yet been run against a live workspace.
 
 ## Use it in your own Claude (MCP server `probatum`)
 

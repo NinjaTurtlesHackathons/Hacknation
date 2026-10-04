@@ -58,6 +58,11 @@ def readme_replay(F, pfad="README.md"):
           f"{T['H8b']['speedup']}× as many verifier calls as the lab." if T.get("H8b") else "",
           "- Without verifier feedback the same agents are almost as fast on this easy task (H8c not supported): the gain comes from choosing the right question.",
           "- No human baseline was measured; nothing here compares the lab with a human or a real laboratory."]
+    if os.path.exists("results/score_independent.json"):
+        si = json.load(open("results/score_independent.json")); ohne = len(si.get("ohne_behauptung", []))
+        L.append(f"- Independent scorer (`benchmarks/score_independent.py`, calls the verifier directly, not the benchmark's counting code): "
+                 f"{si['bestaetigt']} of {si['unabhaengig_geprueft']} hits with a logged claim re-verified, {len(si['abweichend'])} disagreements"
+                 + (f"; {ohne} hits from the earlier H7 runs (seeds 1000–1009) predate claim logging and are counted by the benchmark only." if ohne else "."))
     txt = open(pfad).read(); a, b = "<!-- replay:start -->", "<!-- replay:end -->"
     if a in txt and b in txt:
         txt = txt[:txt.index(a) + len(a)] + "\n" + "\n".join(x for x in L if x is not None) + "\n" + txt[txt.index(b):]
