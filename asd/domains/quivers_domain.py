@@ -6,7 +6,7 @@ Prüfer (alle exakt):
   * Familien V_t: Gauß-Elimination über Q(t) bzw. Q(s, t) mit protokollierten Pivots (Zertifikat für alle t außerhalb
     der genannten Ausnahmen): End(V_t) = k und Hom(V_s, V_t) = 0 für s != t.
   * Zählen über F_p: I_alpha(p) = Anzahl Isoklassen Unzerlegbarer. Der Prüfer zählt direkt (alle Darstellungen aufzählen,
-    End vollständig aufzählen, Lokalität testen, Bahnformel), wenn |Rep_alpha(F_p)| <= 70000; sonst über die Burnside-Summe
+    End vollständig aufzählen, Lokalität testen, Bahnformel), wenn |Rep_alpha(F_p)| <= 20000; sonst über die Burnside-Summe
     und den plethystischen Logarithmus (Krull-Schmidt). Welche Methode lief, steht in der Begründung und in describe().
 Toleranzen gibt es keine (alles exakt); Felder wie "toleranz" in der Behauptung werden ignoriert.
 """
@@ -15,8 +15,8 @@ from fractions import Fraction as Fr
 from .base import Domain
 from . import quivers as K
 
-BRUTE_MAX = 70000
-PRIMES = (2, 3, 5, 7, 11, 13)
+BRUTE_MAX = 20000
+PRIMES = (2, 3, 5, 7, 11, 13, 17)
 
 
 def _Q(p): return K.quiver(p["quiver"])
@@ -87,7 +87,7 @@ class QuiverDomain(Domain):
 - {"typ": "unzerlegbar", "quiver", "rep", "wert": bool}     absolut unzerlegbar über Q̄
 - {"typ": "familie", "quiver", "rep", "ausnahmen": [...]}   für alle t außerhalb: Ziegel, paarweise nicht isomorph
 - {"typ": "anzahl", "quiver", "alpha", "p", "anzahl"}       I_alpha(p)
-- {"typ": "kac_polynom", "quiver", "alpha", "koeffizienten": [c0, c1, ...]}  A_alpha(q) = sum c_i q^i für q = 2, 3, 5, 7
+- {"typ": "kac_polynom", "quiver", "alpha", "koeffizienten": [c0, c1, ...] | "formel": "Ausdruck in q"}  A_alpha(q) an deg + 2 Primzahlen
 - {"typ": "klassifikation", "quiver", "alpha", "p", "reps": [...]}  vollständige Liste der Isoklassen Unzerlegbarer über F_p
 - {"typ": "kac_box", "quiver", "schranke", "p"}             für alle 0 < beta <= schranke: I_beta(p) = 1 (reelle Wurzel), 0 (keine Wurzel)
 - {"typ": "zykel_box", "quiver": "cycle<n>_oriented", "schranke", "p"}  I_beta(p) = Vorhersage (Strings + Monodromie) für alle beta <= schranke"""
@@ -155,7 +155,14 @@ class QuiverDomain(Domain):
             a = _alpha(p, Q); q = _prime(p); v, m = count_I(Q, a, q)
             return v == int(p["anzahl"]), f"I_{a}({q}) = {v} (Methode: {m})", {"I": v, "methode": m}
         if typ == "kac_polynom":
-            a = _alpha(p, Q); co = [Fr(str(c)) for c in p["koeffizienten"]]
+            a = _alpha(p, Q)
+            if p.get("formel") is not None:                                  # geschlossene Formel in q -> muss ein Polynom sein
+                import sympy as sp
+                x = sp.Symbol("q"); e = sp.cancel(sp.sympify(p["formel"], locals={"q": x}))
+                if not e.is_polynomial(x): return False, f"Formel {p['formel']} ist kein Polynom in q", {}
+                P_ = sp.Poly(e, x); co = [Fr(str(P_.coeff_monomial(x ** i))) for i in range(P_.degree() + 1)]
+            else:
+                co = [Fr(str(c)) for c in p["koeffizienten"]]
             if math.gcd(*a) != 1: return False, "alpha muss unteilbar sein (dann I_alpha = A_alpha)", {}
             deg = 1 - K.tits(Q, a)
             if len(co) - 1 != deg: return False, f"Grad {len(co) - 1} != 1 - q(alpha) = {deg} (Kac)", {}
@@ -217,6 +224,9 @@ class QuiverDomain(Domain):
         if t == "anzahl":
             Q = _Q(p); m = method_for(Q, [int(x) for x in p["alpha"]], int(p["p"]))
             return f"Über F_{p['p']} hat {qn} genau {p['anzahl']} Isoklassen unzerlegbarer Darstellungen mit Dimensionsvektor {p['alpha']} (exakte Zählung, Methode {m})."
+        if t == "kac_polynom" and p.get("formel") is not None:
+            return (f"Für {qn} und alpha = {p['alpha']} stimmt die Anzahl absolut unzerlegbarer Darstellungen über F_q an deg + 2 Primzahlen q mit "
+                    f"{p['formel']} überein; da A_alpha nach Kac ein Polynom vom Grad 1 - q(alpha) ist, ist dies das Kac-Polynom.")
         if t == "kac_polynom":
             poly = " + ".join(f"{c}*q^{i}" for i, c in enumerate(p["koeffizienten"]) if str(c) != "0")
             return (f"Für {qn} und alpha = {p['alpha']} ist die Anzahl absolut unzerlegbarer Darstellungen über F_q für q = {', '.join(map(str, PRIMES[: max(4, len(p['koeffizienten']) + 1)]))} gleich {poly}; "
@@ -280,6 +290,9 @@ class QuiverDomain(Domain):
             ({"typ": "kac_polynom", "quiver": "cycle3_oriented", "alpha": [1, 1, 1], "koeffizienten": [2, 1]}, True),
             ({"typ": "kac_polynom", "quiver": "cycle3_oriented", "alpha": [1, 1, 1], "koeffizienten": [3, 1]}, False),
             ({"typ": "kac_polynom", "quiver": "cycle3_oriented", "alpha": [2, 2, 2], "koeffizienten": [2, 1]}, False),  # teilbar
+            ({"typ": "kac_polynom", "quiver": "star5", "alpha": [2, 1, 1, 1, 1, 1], "formel": "((q+1)**4 - 1 - 15*q)/(q*(q-1))"}, True),
+            ({"typ": "kac_polynom", "quiver": "star5", "alpha": [2, 1, 1, 1, 1, 1], "formel": "((q+1)**4 - 1 - 14*q)/(q*(q-1))"}, False),  # kein Polynom
+            ({"typ": "kac_polynom", "quiver": "star5", "alpha": [2, 1, 1, 1, 1, 1], "formel": "q**2 + 5*q + 12"}, False),               # um 1 daneben
             ({"typ": "kac_box", "quiver": "star3", "schranke": [2, 1, 1, 1], "p": 2}, True),             # Gabriel für D4
             ({"typ": "zykel_box", "quiver": "cycle3_oriented", "schranke": [2, 2, 1], "p": 2}, True),
             ({"typ": "zykel_box", "quiver": "cycle3_acyclic", "schranke": [1, 1, 1], "p": 2}, False),   # nur orientierte Zykel

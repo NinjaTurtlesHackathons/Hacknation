@@ -1,0 +1,102 @@
+{
+ "runde": 5,
+ "frage": "F5",
+ "text": "Vielfache von delta: Wie viele Unzerlegbare hat 2 delta, und ist A_{2 delta} = A_delta?",
+ "experimente": [
+  {
+   "op": "anzahl",
+   "args": {
+    "quiver": "cycle3_acyclic",
+    "alpha": [
+     2,
+     2,
+     2
+    ],
+    "p": 5
+   },
+   "ergebnis": {
+    "I": {
+     "[0, 0, 1]": 1,
+     "[0, 1, 0]": 1,
+     "[1, 0, 0]": 1,
+     "[0, 1, 1]": 1,
+     "[1, 0, 1]": 1,
+     "[1, 1, 0]": 1,
+     "[1, 1, 1]": 7,
+     "[1, 1, 2]": 1,
+     "[1, 2, 1]": 1,
+     "[2, 1, 1]": 1,
+     "[1, 2, 2]": 1,
+     "[2, 1, 2]": 1,
+     "[2, 2, 1]": 1,
+     "[2, 2, 2]": 17
+    },
+    "M_alpha": 93
+   },
+   "sek": 0.06
+  }
+ ],
+ "pruefungen": [
+  {
+   "id": "quivers-R5-67",
+   "bestanden": true,
+   "status": "bestätigt",
+   "grund": "I_[2, 2, 2](2) = 5 (Methode: direkt)"
+  },
+  {
+   "id": "quivers-R5-68",
+   "bestanden": true,
+   "status": "bestätigt",
+   "grund": "I_[2, 2, 2](3) = 8 (Methode: burnside)"
+  },
+  {
+   "id": "quivers-R5-69",
+   "bestanden": true,
+   "status": "bestätigt",
+   "grund": "I_[2, 2, 2](5) = 17 (Methode: burnside)"
+  },
+  {
+   "id": "quivers-R5-70",
+   "bestanden": true,
+   "status": "bestätigt",
+   "grund": "I_[2, 2, 2](2) = 5 (Methode: direkt)"
+  },
+  {
+   "id": "quivers-R5-71",
+   "bestanden": true,
+   "status": "bestätigt",
+   "grund": "I_[2, 2, 2](3) = 8 (Methode: burnside)"
+  },
+  {
+   "id": "quivers-R5-72",
+   "bestanden": true,
+   "status": "bestätigt",
+   "grund": "I_[2, 2, 2](5) = 17 (Methode: burnside)"
+  },
+  {
+   "id": "quivers-R5-73",
+   "bestanden": true,
+   "status": "bestätigt",
+   "grund": "I_[2, 2, 2, 2](2) = 6 (Methode: burnside)"
+  },
+  {
+   "id": "quivers-R5-74",
+   "bestanden": true,
+   "status": "bestätigt",
+   "grund": "I_[2, 2, 2, 2](3) = 9 (Methode: burnside)"
+  },
+  {
+   "id": "quivers-R5-75",
+   "bestanden": true,
+   "status": "bestätigt",
+   "grund": "I_[2, 2, 2, 2](2) = 6 (Methode: burnside)"
+  },
+  {
+   "id": "quivers-R5-76",
+   "bestanden": true,
+   "status": "bestätigt",
+   "grund": "I_[2, 2, 2, 2](3) = 9 (Methode: burnside)"
+  }
+ ],
+ "sek": 18.5
+}

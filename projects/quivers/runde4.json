@@ -1,0 +1,275 @@
+{
+ "runde": 4,
+ "frage": "F4",
+ "text": "3- und 4-Zykel: Klassifikation der Unzerlegbaren (orientiert und azyklisch), Unabhängigkeit von der Orientierung.",
+ "experimente": [
+  {
+   "op": "radikal",
+   "args": {
+    "quiver": "cycle3_oriented"
+   },
+   "ergebnis": {
+    "delta": [
+     1,
+     1,
+     1
+    ],
+    "dim_radikal": 1
+   },
+   "sek": 0.0
+  },
+  {
+   "op": "radikal",
+   "args": {
+    "quiver": "cycle3_acyclic"
+   },
+   "ergebnis": {
+    "delta": [
+     1,
+     1,
+     1
+    ],
+    "dim_radikal": 1
+   },
+   "sek": 0.0
+  },
+  {
+   "op": "radikal",
+   "args": {
+    "quiver": "cycle4_oriented"
+   },
+   "ergebnis": {
+    "delta": [
+     1,
+     1,
+     1,
+     1
+    ],
+    "dim_radikal": 1
+   },
+   "sek": 0.0
+  },
+  {
+   "op": "radikal",
+   "args": {
+    "quiver": "cycle4_acyclic31"
+   },
+   "ergebnis": {
+    "delta": [
+     1,
+     1,
+     1,
+     1
+    ],
+    "dim_radikal": 1
+   },
+   "sek": 0.0
+  },
+  {
+   "op": "radikal",
+   "args": {
+    "quiver": "cycle4_acyclic22"
+   },
+   "ergebnis": {
+    "delta": [
+     1,
+     1,
+     1,
+     1
+    ],
+    "dim_radikal": 1
+   },
+   "sek": 0.0
+  },
+  {
+   "op": "normalformen",
+   "args": {
+    "quiver": "cycle3_oriented",
+    "alpha": [
+     1,
+     1,
+     1
+    ],
+    "p": 3
+   },
+   "ergebnis": {
+    "anzahl": 5,
+    "fehler": null
+   },
+   "sek": 0.0
+  },
+  {
+   "op": "anzahl",
+   "args": {
+    "quiver": "cycle3_oriented",
+    "alpha": [
+     2,
+     2,
+     2
+    ],
+    "p": 3
+   },
+   "ergebnis": {
+    "I": {
+     "[0, 0, 1]": 1,
+     "[0, 1, 0]": 1,
+     "[1, 0, 0]": 1,
+     "[0, 1, 1]": 1,
+     "[1, 0, 1]": 1,
+     "[1, 1, 0]": 1,
+     "[1, 1, 1]": 5,
+     "[1, 1, 2]": 1,
+     "[1, 2, 1]": 1,
+     "[2, 1, 1]": 1,
+     "[1, 2, 2]": 1,
+     "[2, 1, 2]": 1,
+     "[2, 2, 1]": 1,
+     "[2, 2, 2]": 8
+    },
+    "M_alpha": 63
+   },
+   "sek": 0.01
+  }
+ ],
+ "pruefungen": [
+  {
+   "id": "quivers-R4-44",
+   "bestanden": true,
+   "status": "bestätigt",
+   "grund": "Radikal: Dimension 1, Erzeuger [1, 1, 1]"
+  },
+  {
+   "id": "quivers-R4-45",
+   "bestanden": true,
+   "status": "bestätigt",
+   "grund": "A_[1, 1, 1](q) stimmt an q = [2, 3, 5, 7] (Methoden ['direkt', 'direkt', 'direkt', 'direkt']) mit dem Polynom überein; Grad 1 = 1 - q(alpha)"
+  },
+  {
+   "id": "quivers-R4-46",
+   "bestanden": true,
+   "status": "bestätigt",
+   "grund": "5 paarweise nicht isomorphe Unzerlegbare über F_3; Zählung I = 5 (Methode direkt) -> Liste vollständig"
+  },
+  {
+   "id": "quivers-R4-47",
+   "bestanden": true,
+   "status": "bestätigt",
+   "grund": "Radikal: Dimension 1, Erzeuger [1, 1, 1]"
+  },
+  {
+   "id": "quivers-R4-48",
+   "bestanden": true,
+   "status": "bestätigt",
+   "grund": "A_[1, 1, 1](q) stimmt an q = [2, 3, 5, 7] (Methoden ['direkt', 'direkt', 'direkt', 'direkt']) mit dem Polynom überein; Grad 1 = 1 - q(alpha)"
+  },
+  {
+   "id": "quivers-R4-49",
+   "bestanden": true,
+   "status": "bestätigt",
+   "grund": "5 paarweise nicht isomorphe Unzerlegbare über F_3; Zählung I = 5 (Methode direkt) -> Liste vollständig"
+  },
+  {
+   "id": "quivers-R4-50",
+   "bestanden": true,
+   "status": "bestätigt",
+   "grund": "Radikal: Dimension 1, Erzeuger [1, 1, 1, 1]"
+  },
+  {
+   "id": "quivers-R4-51",
+   "bestanden": true,
+   "status": "bestätigt",
+   "grund": "A_[1, 1, 1, 1](q) stimmt an q = [2, 3, 5, 7] (Methoden ['direkt', 'direkt', 'direkt', 'direkt']) mit dem Polynom überein; Grad 1 = 1 - q(alpha)"
+  },
+  {
+   "id": "quivers-R4-52",
+   "bestanden": true,
+   "status": "bestätigt",
+   "grund": "6 paarweise nicht isomorphe Unzerlegbare über F_3; Zählung I = 6 (Methode direkt) -> Liste vollständig"
+  },
+  {
+   "id": "quivers-R4-53",
+   "bestanden": true,
+   "status": "bestätigt",
+   "grund": "Radikal: Dimension 1, Erzeuger [1, 1, 1, 1]"
+  },
+  {
+   "id": "quivers-R4-54",
+   "bestanden": true,
+   "status": "bestätigt",
+   "grund": "A_[1, 1, 1, 1](q) stimmt an q = [2, 3, 5, 7] (Methoden ['direkt', 'direkt', 'direkt', 'direkt']) mit dem Polynom überein; Grad 1 = 1 - q(alpha)"
+  },
+  {
+   "id": "quivers-R4-55",
+   "bestanden": true,
+   "status": "bestätigt",
+   "grund": "6 paarweise nicht isomorphe Unzerlegbare über F_3; Zählung I = 6 (Methode direkt) -> Liste vollständig"
+  },
+  {
+   "id": "quivers-R4-56",
+   "bestanden": true,
+   "status": "bestätigt",
+   "grund": "Radikal: Dimension 1, Erzeuger [1, 1, 1, 1]"
+  },
+  {
+   "id": "quivers-R4-57",
+   "bestanden": true,
+   "status": "bestätigt",
+   "grund": "A_[1, 1, 1, 1](q) stimmt an q = [2, 3, 5, 7] (Methoden ['direkt', 'direkt', 'direkt', 'direkt']) mit dem Polynom überein; Grad 1 = 1 - q(alpha)"
+  },
+  {
+   "id": "quivers-R4-58",
+   "bestanden": true,
+   "status": "bestätigt",
+   "grund": "6 paarweise nicht isomorphe Unzerlegbare über F_3; Zählung I = 6 (Methode direkt) -> Liste vollständig"
+  },
+  {
+   "id": "quivers-R4-59",
+   "bestanden": true,
+   "status": "bestätigt",
+   "grund": "Elimination über Q(t): rang(End-System) = 2 von 3 (dim End <= 1), Pivot-Faktoren []; Hom(V_s, V_t): rang 3 (dim Hom <= 0), Pivot-Faktoren ['-s_ + t']; gültig für t, s außerhalb ['0'], s != t"
+  },
+  {
+   "id": "quivers-R4-60",
+   "bestanden": true,
+   "status": "bestätigt",
+   "grund": "Elimination über Q(t): rang(End-System) = 3 von 4 (dim End <= 1), Pivot-Faktoren []; Hom(V_s, V_t): rang 4 (dim Hom <= 0), Pivot-Faktoren ['-s_ + t']; gültig für t, s außerhalb ['0'], s != t"
+  },
+  {
+   "id": "quivers-R4-61",
+   "bestanden": true,
+   "status": "bestätigt",
+   "grund": "dim End = 3, dim J(End) = 2: absolut unzerlegbar"
+  },
+  {
+   "id": "quivers-R4-62",
+   "bestanden": true,
+   "status": "bestätigt",
+   "grund": "dim End = 2, dim J(End) = 1: absolut unzerlegbar"
+  },
+  {
+   "id": "quivers-R4-63",
+   "bestanden": true,
+   "status": "bestätigt",
+   "grund": "26 Dimensionsvektoren <= [2, 2, 2] über F_2: Zählung = Vorhersage (Strings + Monodromie)"
+  },
+  {
+   "id": "quivers-R4-64",
+   "bestanden": true,
+   "status": "bestätigt",
+   "grund": "26 Dimensionsvektoren <= [2, 2, 2] über F_3: Zählung = Vorhersage (Strings + Monodromie)"
+  },
+  {
+   "id": "quivers-R4-65",
+   "bestanden": true,
+   "status": "bestätigt",
+   "grund": "80 Dimensionsvektoren <= [2, 2, 2, 2] über F_2: Zählung = Vorhersage (Strings + Monodromie)"
+  },
+  {
+   "id": "quivers-R4-66",
+   "bestanden": true,
+   "status": "bestätigt",
+   "grund": "26 Vektoren <= [2, 2, 2] über F_2: reelle Wurzeln genau 1, Nicht-Wurzeln 0; imaginäre Wurzeln: {'[1, 1, 1]': 4, '[2, 2, 2]': 5}"
+  }
+ ],
+ "sek": 7.3
+}

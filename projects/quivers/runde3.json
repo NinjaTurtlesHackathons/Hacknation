@@ -1,0 +1,199 @@
+{
+ "runde": 3,
+ "frage": "F3",
+ "text": "Wilde Sterne (star n, n >= 5): Wie wachsen Parameterzahl und Anzahl der Unzerlegbaren, gibt es eine geschlossene Formel für alpha_n = (2;1^n)?",
+ "experimente": [
+  {
+   "op": "interpolation",
+   "args": {
+    "quiver": "star5",
+    "alpha": [
+     2,
+     1,
+     1,
+     1,
+     1,
+     1
+    ],
+    "grad": 2
+   },
+   "ergebnis": {
+    "werte": {
+     "2": 25,
+     "3": 35,
+     "5": 61,
+     "7": 95
+    },
+    "polynom": "q**2 + 5*q + 11",
+    "koeffizienten": [
+     "11",
+     "5",
+     "1"
+    ]
+   },
+   "sek": 0.12
+  },
+  {
+   "op": "interpolation",
+   "args": {
+    "quiver": "star6",
+    "alpha": [
+     2,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1
+    ],
+    "grad": 3
+   },
+   "ergebnis": {
+    "werte": {
+     "2": 90,
+     "3": 155,
+     "5": 381,
+     "7": 775,
+     "11": 2259
+    },
+    "polynom": "q**3 + 6*q**2 + 16*q + 26",
+    "koeffizienten": [
+     "26",
+     "16",
+     "6",
+     "1"
+    ]
+   },
+   "sek": 1.09
+  },
+  {
+   "op": "interpolation",
+   "args": {
+    "quiver": "star7",
+    "alpha": [
+     2,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1
+    ],
+    "grad": 4
+   },
+   "ergebnis": {
+    "werte": {
+     "2": 301,
+     "3": 651,
+     "5": 2317,
+     "7": 6231,
+     "11": 27139,
+     "13": 48261
+    },
+    "polynom": "q**4 + 7*q**3 + 22*q**2 + 42*q + 57",
+    "koeffizienten": [
+     "57",
+     "42",
+     "22",
+     "7",
+     "1"
+    ]
+   },
+   "sek": 4.18
+  }
+ ],
+ "pruefungen": [
+  {
+   "id": "quivers-R3-29",
+   "bestanden": true,
+   "status": "bestätigt",
+   "grund": "[2, 1, 1, 1, 1, 1]: imaginaer, 1 - q = 2"
+  },
+  {
+   "id": "quivers-R3-30",
+   "bestanden": true,
+   "status": "bestätigt",
+   "grund": "[2, 1, 1, 1, 1, 1, 1]: imaginaer, 1 - q = 3"
+  },
+  {
+   "id": "quivers-R3-31",
+   "bestanden": true,
+   "status": "bestätigt",
+   "grund": "[2, 1, 1, 1, 1, 1, 1, 1]: imaginaer, 1 - q = 4"
+  },
+  {
+   "id": "quivers-R3-32",
+   "bestanden": true,
+   "status": "bestätigt",
+   "grund": "[2, 1, 1, 1, 1, 1, 1, 1, 1]: imaginaer, 1 - q = 5"
+  },
+  {
+   "id": "quivers-R3-33",
+   "bestanden": true,
+   "status": "bestätigt",
+   "grund": "[4, 2, 2, 2, 2, 2]: imaginaer, 1 - q = 5"
+  },
+  {
+   "id": "quivers-R3-34",
+   "bestanden": true,
+   "status": "bestätigt",
+   "grund": "[6, 3, 3, 3, 3, 3]: imaginaer, 1 - q = 10"
+  },
+  {
+   "id": "quivers-R3-35",
+   "bestanden": true,
+   "status": "bestätigt",
+   "grund": "A_[2, 1, 1, 1, 1](q) stimmt an q = [2, 3, 5, 7] (Methoden ['direkt', 'direkt', 'burnside', 'burnside']) mit dem Polynom überein; Grad 1 = 1 - q(alpha)"
+  },
+  {
+   "id": "quivers-R3-36",
+   "bestanden": true,
+   "status": "bestätigt",
+   "grund": "A_[2, 1, 1, 1, 1, 1](q) stimmt an q = [2, 3, 5, 7] (Methoden ['direkt', 'burnside', 'burnside', 'burnside']) mit dem Polynom überein; Grad 2 = 1 - q(alpha)"
+  },
+  {
+   "id": "quivers-R3-37",
+   "bestanden": true,
+   "status": "bestätigt",
+   "grund": "A_[2, 1, 1, 1, 1, 1, 1](q) stimmt an q = [2, 3, 5, 7, 11] (Methoden ['direkt', 'burnside', 'burnside', 'burnside', 'burnside']) mit dem Polynom überein; Grad 3 = 1 - q(alpha)"
+  },
+  {
+   "id": "quivers-R3-38",
+   "bestanden": true,
+   "status": "bestätigt",
+   "grund": "A_[2, 1, 1, 1, 1, 1, 1, 1](q) stimmt an q = [2, 3, 5, 7, 11, 13] (Methoden ['direkt', 'burnside', 'burnside', 'burnside', 'burnside', 'burnside']) mit dem Polynom überein; Grad 4 = 1 - q(alpha)"
+  },
+  {
+   "id": "quivers-R3-39",
+   "bestanden": true,
+   "status": "bestätigt",
+   "grund": "A_[2, 1, 1, 1, 1, 1, 1, 1, 1](q) stimmt an q = [2, 3, 5, 7, 11, 13, 17] (Methoden ['burnside', 'burnside', 'burnside', 'burnside', 'burnside', 'burnside', 'burnside']) mit dem Polynom überein; Grad 5 = 1 - q(alpha)"
+  },
+  {
+   "id": "quivers-R3-40",
+   "bestanden": true,
+   "status": "bestätigt",
+   "grund": "25 paarweise nicht isomorphe Unzerlegbare über F_2; Zählung I = 25 (Methode direkt) -> Liste vollständig"
+  },
+  {
+   "id": "quivers-R3-41",
+   "bestanden": true,
+   "status": "bestätigt",
+   "grund": "Elimination über Q(t): rang(End-System) = 8 von 9 (dim End <= 1), Pivot-Faktoren []; Hom(V_s, V_t): rang 9 (dim Hom <= 0), Pivot-Faktoren ['-s_ + t']; gültig für t, s außerhalb [], s != t"
+  },
+  {
+   "id": "quivers-R3-42",
+   "bestanden": true,
+   "status": "bestätigt",
+   "grund": "Elimination über Q(t): rang(End-System) = 8 von 9 (dim End <= 1), Pivot-Faktoren []; Hom(V_s, V_t): rang 9 (dim Hom <= 0), Pivot-Faktoren ['-s_ + t']; gültig für t, s außerhalb [], s != t"
+  },
+  {
+   "id": "quivers-R3-43",
+   "bestanden": true,
+   "status": "bestätigt",
+   "grund": "Elimination über Q(t): rang(End-System) = 8 von 9 (dim End <= 1), Pivot-Faktoren []; Hom(V_s, V_t): rang 9 (dim Hom <= 0), Pivot-Faktoren ['-s_ + t']; gültig für t, s außerhalb [], s != t"
+  }
+ ],
+ "sek": 83.5
+}

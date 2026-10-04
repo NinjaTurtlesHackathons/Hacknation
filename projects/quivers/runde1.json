@@ -1,0 +1,489 @@
+{
+ "runde": 1,
+ "frage": "F1",
+ "text": "Gabriel: Welche der betrachteten Köcher sind von endlichem Typ, und hat D4 = star3 genau eine Unzerlegbare je positiver Wurzel?",
+ "experimente": [
+  {
+   "op": "tits_typ",
+   "args": {
+    "quiver": "A2"
+   },
+   "ergebnis": {
+    "typ": "endlich",
+    "zeugen": {
+     "fuehrende_hauptminoren": [
+      "2",
+      "3"
+     ]
+    }
+   },
+   "sek": 0.0
+  },
+  {
+   "op": "tits_typ",
+   "args": {
+    "quiver": "A3"
+   },
+   "ergebnis": {
+    "typ": "endlich",
+    "zeugen": {
+     "fuehrende_hauptminoren": [
+      "2",
+      "3",
+      "4"
+     ]
+    }
+   },
+   "sek": 0.0
+  },
+  {
+   "op": "tits_typ",
+   "args": {
+    "quiver": "star1"
+   },
+   "ergebnis": {
+    "typ": "endlich",
+    "zeugen": {
+     "fuehrende_hauptminoren": [
+      "2",
+      "3"
+     ]
+    }
+   },
+   "sek": 0.0
+  },
+  {
+   "op": "tits_typ",
+   "args": {
+    "quiver": "star2"
+   },
+   "ergebnis": {
+    "typ": "endlich",
+    "zeugen": {
+     "fuehrende_hauptminoren": [
+      "2",
+      "3",
+      "4"
+     ]
+    }
+   },
+   "sek": 0.0
+  },
+  {
+   "op": "tits_typ",
+   "args": {
+    "quiver": "star3"
+   },
+   "ergebnis": {
+    "typ": "endlich",
+    "zeugen": {
+     "fuehrende_hauptminoren": [
+      "2",
+      "3",
+      "4",
+      "4"
+     ]
+    }
+   },
+   "sek": 0.0
+  },
+  {
+   "op": "tits_typ",
+   "args": {
+    "quiver": "star4"
+   },
+   "ergebnis": {
+    "typ": "zahm",
+    "zeugen": {
+     "alle_hauptminoren_nichtnegativ": 31,
+     "det": "0"
+    }
+   },
+   "sek": 0.0
+  },
+  {
+   "op": "tits_typ",
+   "args": {
+    "quiver": "star5"
+   },
+   "ergebnis": {
+    "typ": "wild",
+    "zeugen": {
+     "negativer_hauptminor": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5
+     ],
+     "zeuge_q_negativ": [
+      2,
+      1,
+      1,
+      1,
+      1,
+      1
+     ],
+     "q_zeuge": -1
+    }
+   },
+   "sek": 0.01
+  },
+  {
+   "op": "tits_typ",
+   "args": {
+    "quiver": "star6"
+   },
+   "ergebnis": {
+    "typ": "wild",
+    "zeugen": {
+     "negativer_hauptminor": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5
+     ],
+     "zeuge_q_negativ": [
+      2,
+      0,
+      1,
+      1,
+      1,
+      1,
+      1
+     ],
+     "q_zeuge": -1
+    }
+   },
+   "sek": 0.02
+  },
+  {
+   "op": "tits_typ",
+   "args": {
+    "quiver": "star7"
+   },
+   "ergebnis": {
+    "typ": "wild",
+    "zeugen": {
+     "negativer_hauptminor": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5
+     ],
+     "zeuge_q_negativ": [
+      2,
+      0,
+      0,
+      1,
+      1,
+      1,
+      1,
+      1
+     ],
+     "q_zeuge": -1
+    }
+   },
+   "sek": 0.06
+  },
+  {
+   "op": "tits_typ",
+   "args": {
+    "quiver": "kronecker"
+   },
+   "ergebnis": {
+    "typ": "zahm",
+    "zeugen": {
+     "alle_hauptminoren_nichtnegativ": 3,
+     "det": "0"
+    }
+   },
+   "sek": 0.0
+  },
+  {
+   "op": "tits_typ",
+   "args": {
+    "quiver": "cycle3_oriented"
+   },
+   "ergebnis": {
+    "typ": "zahm",
+    "zeugen": {
+     "alle_hauptminoren_nichtnegativ": 7,
+     "det": "0"
+    }
+   },
+   "sek": 0.0
+  },
+  {
+   "op": "tits_typ",
+   "args": {
+    "quiver": "cycle3_acyclic"
+   },
+   "ergebnis": {
+    "typ": "zahm",
+    "zeugen": {
+     "alle_hauptminoren_nichtnegativ": 7,
+     "det": "0"
+    }
+   },
+   "sek": 0.0
+  },
+  {
+   "op": "tits_typ",
+   "args": {
+    "quiver": "cycle4_oriented"
+   },
+   "ergebnis": {
+    "typ": "zahm",
+    "zeugen": {
+     "alle_hauptminoren_nichtnegativ": 15,
+     "det": "0"
+    }
+   },
+   "sek": 0.0
+  },
+  {
+   "op": "tits_typ",
+   "args": {
+    "quiver": "cycle4_acyclic22"
+   },
+   "ergebnis": {
+    "typ": "zahm",
+    "zeugen": {
+     "alle_hauptminoren_nichtnegativ": 15,
+     "det": "0"
+    }
+   },
+   "sek": 0.0
+  },
+  {
+   "op": "wurzeln",
+   "args": {
+    "quiver": "star3",
+    "schranke": [
+     2,
+     1,
+     1,
+     1
+    ]
+   },
+   "ergebnis": {
+    "wurzeln": [
+     [
+      [
+       0,
+       0,
+       0,
+       1
+      ],
+      "reell",
+      1
+     ],
+     [
+      [
+       0,
+       0,
+       1,
+       0
+      ],
+      "reell",
+      1
+     ],
+     [
+      [
+       0,
+       1,
+       0,
+       0
+      ],
+      "reell",
+      1
+     ],
+     [
+      [
+       1,
+       0,
+       0,
+       0
+      ],
+      "reell",
+      1
+     ],
+     [
+      [
+       1,
+       0,
+       0,
+       1
+      ],
+      "reell",
+      1
+     ],
+     [
+      [
+       1,
+       0,
+       1,
+       0
+      ],
+      "reell",
+      1
+     ],
+     [
+      [
+       1,
+       0,
+       1,
+       1
+      ],
+      "reell",
+      1
+     ],
+     [
+      [
+       1,
+       1,
+       0,
+       0
+      ],
+      "reell",
+      1
+     ],
+     [
+      [
+       1,
+       1,
+       0,
+       1
+      ],
+      "reell",
+      1
+     ],
+     [
+      [
+       1,
+       1,
+       1,
+       0
+      ],
+      "reell",
+      1
+     ],
+     [
+      [
+       1,
+       1,
+       1,
+       1
+      ],
+      "reell",
+      1
+     ],
+     [
+      [
+       2,
+       1,
+       1,
+       1
+      ],
+      "reell",
+      1
+     ]
+    ]
+   },
+   "sek": 0.0
+  }
+ ],
+ "pruefungen": [
+  {
+   "id": "quivers-R1-1",
+   "bestanden": true,
+   "status": "bestätigt",
+   "grund": "Tits-Form ist endlich (exakt, Hauptminoren): {'fuehrende_hauptminoren': ['2', '3']}"
+  },
+  {
+   "id": "quivers-R1-2",
+   "bestanden": true,
+   "status": "bestätigt",
+   "grund": "Tits-Form ist endlich (exakt, Hauptminoren): {'fuehrende_hauptminoren': ['2', '3', '4']}"
+  },
+  {
+   "id": "quivers-R1-3",
+   "bestanden": true,
+   "status": "bestätigt",
+   "grund": "Tits-Form ist endlich (exakt, Hauptminoren): {'fuehrende_hauptminoren': ['2', '3', '4', '4']}"
+  },
+  {
+   "id": "quivers-R1-4",
+   "bestanden": true,
+   "status": "bestätigt",
+   "grund": "Tits-Form ist zahm (exakt, Hauptminoren): {'alle_hauptminoren_nichtnegativ': 31, 'det': '0'}"
+  },
+  {
+   "id": "quivers-R1-5",
+   "bestanden": true,
+   "status": "bestätigt",
+   "grund": "Tits-Form ist wild (exakt, Hauptminoren): {'negativer_hauptminor': [0, 1, 2, 3, 4, 5], 'zeuge_q_negativ': [2, 1, 1, 1, 1, 1], 'q_zeuge': -1}"
+  },
+  {
+   "id": "quivers-R1-6",
+   "bestanden": true,
+   "status": "bestätigt",
+   "grund": "Tits-Form ist wild (exakt, Hauptminoren): {'negativer_hauptminor': [0, 1, 2, 3, 4, 5], 'zeuge_q_negativ': [2, 0, 1, 1, 1, 1, 1], 'q_zeuge': -1}"
+  },
+  {
+   "id": "quivers-R1-7",
+   "bestanden": true,
+   "status": "bestätigt",
+   "grund": "Tits-Form ist wild (exakt, Hauptminoren): {'negativer_hauptminor': [0, 1, 2, 3, 4, 5], 'zeuge_q_negativ': [2, 0, 0, 1, 1, 1, 1, 1], 'q_zeuge': -1}"
+  },
+  {
+   "id": "quivers-R1-8",
+   "bestanden": true,
+   "status": "bestätigt",
+   "grund": "Tits-Form ist zahm (exakt, Hauptminoren): {'alle_hauptminoren_nichtnegativ': 3, 'det': '0'}"
+  },
+  {
+   "id": "quivers-R1-9",
+   "bestanden": true,
+   "status": "bestätigt",
+   "grund": "Tits-Form ist zahm (exakt, Hauptminoren): {'alle_hauptminoren_nichtnegativ': 7, 'det': '0'}"
+  },
+  {
+   "id": "quivers-R1-10",
+   "bestanden": true,
+   "status": "bestätigt",
+   "grund": "Tits-Form ist zahm (exakt, Hauptminoren): {'alle_hauptminoren_nichtnegativ': 15, 'det': '0'}"
+  },
+  {
+   "id": "quivers-R1-11",
+   "bestanden": true,
+   "status": "bestätigt",
+   "grund": "12 positive Wurzeln (W-Bahn der einfachen Wurzeln): [(0, 0, 0, 1), (0, 0, 1, 0), (0, 1, 0, 0), (1, 0, 0, 0), (1, 0, 0, 1), (1, 0, 1, 0), (1, 0, 1, 1), (1, 1, 0, 0), (1, 1, 0, 1), (1, 1, 1, 0), (1, 1, 1, 1), (2, 1, 1, 1)]"
+  },
+  {
+   "id": "quivers-R1-12",
+   "bestanden": true,
+   "status": "bestätigt",
+   "grund": "23 Vektoren <= [2, 1, 1, 1] über F_2: reelle Wurzeln genau 1, Nicht-Wurzeln 0"
+  },
+  {
+   "id": "quivers-R1-13",
+   "bestanden": true,
+   "status": "bestätigt",
+   "grund": "23 Vektoren <= [2, 1, 1, 1] über F_3: reelle Wurzeln genau 1, Nicht-Wurzeln 0"
+  },
+  {
+   "id": "quivers-R1-14",
+   "bestanden": true,
+   "status": "bestätigt",
+   "grund": "26 Vektoren <= [2, 2, 2] über F_2: reelle Wurzeln genau 1, Nicht-Wurzeln 0"
+  }
+ ],
+ "sek": 0.9
+}

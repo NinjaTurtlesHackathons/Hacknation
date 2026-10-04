@@ -1,0 +1,9684 @@
+{
+ "domain": "quivers",
+ "wissen": [
+  {
+   "text": "Gabriel (1972): Ein zusammenhängender Köcher hat genau dann nur endlich viele Isoklassen unzerlegbarer Darstellungen, wenn der zugrunde liegende Graph ein Dynkin-Diagramm vom Typ A, D, E ist; dann entsprechen die Unzerlegbaren bijektiv den positiven Wurzeln über den Dimensionsvektor.",
+   "zitat": "Unzerlegbare Darstellungen I",
+   "quelle": "doi:10.1007/BF01298413",
+   "typ": "literatur",
+   "verifiziert": true,
+   "autoren": [
+    "Gabriel"
+   ],
+   "jahr": 1972,
+   "url": "https://doi.org/10.1007/BF01298413"
+  },
+  {
+   "text": "Bernstein, Gelfand, Ponomarev (1973): Beweis von Gabriels Satz mit Spiegelungsfunktoren (Coxeter-Funktoren).",
+   "zitat": "COXETER FUNCTORS AND GABRIEL'S THEOREM",
+   "quelle": "doi:10.1070/RM1973v028n02ABEH001526",
+   "typ": "literatur",
+   "verifiziert": true,
+   "autoren": [
+    "Bernstein",
+    "Gel'fand",
+    "Ponomarev"
+   ],
+   "jahr": 1973,
+   "url": "https://doi.org/10.1070/RM1973v028n02ABEH001526"
+  },
+  {
+   "text": "Kac (1980): Für jeden Köcher und algebraisch abgeschlossenen Körper sind die Dimensionsvektoren Unzerlegbarer genau die positiven Wurzeln; zu reellen Wurzeln gibt es genau eine Unzerlegbare, zu imaginären unendlich viele, mit 1 - q(alpha) Parametern.",
+   "zitat": "Infinite root systems, representations of graphs and invariant theory",
+   "quelle": "doi:10.1007/BF01403155",
+   "typ": "literatur",
+   "verifiziert": true,
+   "autoren": [
+    "Kac"
+   ],
+   "jahr": 1980,
+   "url": "https://doi.org/10.1007/BF01403155"
+  },
+  {
+   "text": "Kac (1983): Die Anzahl A_alpha(q) absolut unzerlegbarer Darstellungen über F_q ist ein Polynom in q mit ganzzahligen Koeffizienten, unabhängig von der Orientierung, vom Grad 1 - q(alpha), normiert.",
+   "zitat": "Root systems, representations of quivers and invariant theory",
+   "quelle": "doi:10.1007/BFb0063236",
+   "typ": "literatur",
+   "verifiziert": true,
+   "autoren": [
+    "Kac"
+   ],
+   "jahr": 1983,
+   "url": "https://doi.org/10.1007/BFb0063236"
+  },
+  {
+   "text": "Nazarova (1973): Klassifikation der Unzerlegbaren für die euklidischen (erweiterten Dynkin-) Köcher; diese sind genau die zahmen Köcher.",
+   "zitat": "REPRESENTATIONS OF QUIVERS OF INFINITE TYPE",
+   "quelle": "doi:10.1070/IM1973v007n04ABEH001975",
+   "typ": "literatur",
+   "verifiziert": true,
+   "autoren": [
+    "Nazarova"
+   ],
+   "jahr": 1973,
+   "url": "https://doi.org/10.1070/IM1973v007n04ABEH001975"
+  },
+  {
+   "text": "Ringel (1984): Tame Algebras and Integral Quadratic Forms; für euklidische Köcher zerfallen die regulären Unzerlegbaren in Röhren, parametrisiert durch P^1, mit endlich vielen Ausnahmeröhren.",
+   "zitat": "Tame Algebras and Integral Quadratic Forms",
+   "quelle": "doi:10.1007/BFb0072870",
+   "typ": "literatur",
+   "verifiziert": true,
+   "autoren": [
+    "Ringel"
+   ],
+   "jahr": 1984,
+   "url": "https://doi.org/10.1007/BFb0072870"
+  },
+  {
+   "text": "Hua (2000): Formel für die Anzahl der Isoklassen (absolut) unzerlegbarer Darstellungen eines Köchers über endlichen Körpern.",
+   "zitat": "Counting Representations of Quivers over Finite Fields",
+   "quelle": "doi:10.1006/jabr.1999.8220",
+   "typ": "literatur",
+   "verifiziert": true,
+   "autoren": [
+    "Hua"
+   ],
+   "jahr": 2000,
+   "url": "https://doi.org/10.1006/jabr.1999.8220"
+  },
+  {
+   "text": "Hausel, Letellier, Rodriguez-Villegas (2013): Die Koeffizienten der Kac-Polynome sind nichtnegativ.",
+   "zitat": "Positivity for Kac polynomials and DT-invariants of quivers",
+   "quelle": "doi:10.4007/annals.2013.177.3.8",
+   "typ": "literatur",
+   "verifiziert": true,
+   "autoren": [
+    "Hausel",
+    "Letellier",
+    "Rodriguez-Villegas"
+   ],
+   "jahr": 2013,
+   "url": "https://doi.org/10.4007/annals.2013.177.3.8"
+  }
+ ],
+ "fragen": {
+  "F1": "Gabriel: Welche der betrachteten Köcher sind von endlichem Typ, und hat D4 = star3 genau eine Unzerlegbare je positiver Wurzel?",
+  "F2": "Vier-Unterraum-Problem (star4 = D~4): Wie sehen alle Unzerlegbaren mit Dimensionsvektor delta aus, und wie viele gibt es über F_q?",
+  "F3": "Wilde Sterne (star n, n >= 5): Wie wachsen Parameterzahl und Anzahl der Unzerlegbaren, gibt es eine geschlossene Formel für alpha_n = (2;1^n)?",
+  "F4": "3- und 4-Zykel: Klassifikation der Unzerlegbaren (orientiert und azyklisch), Unabhängigkeit von der Orientierung.",
+  "F5": "Vielfache von delta: Wie viele Unzerlegbare hat 2 delta, und ist A_{2 delta} = A_delta?"
+ },
+ "claims": [
+  {
+   "id": "quivers-R1-1",
+   "frage": "Gabriel: Welche der betrachteten Köcher sind von endlichem Typ, und hat D4 = star3 genau eine Unzerlegbare je positiver Wurzel?",
+   "text": "Die Tits-Form von star1 ist positiv definit (endlicher Typ: Dynkin) (exakte Hauptminoren).",
+   "pruefung": {
+    "typ": "tits_typ",
+    "quiver": "star1",
+    "typ_wert": "endlich"
+   },
+   "grund": "Tits-Form ist endlich (exakt, Hauptminoren): {'fuehrende_hauptminoren': ['2', '3']}",
+   "level": "computed_rigorous",
+   "status": "bestätigt",
+   "interpretation_ungeprueft": "star1 hat endlichen Typ.",
+   "red_team": [
+    {
+     "pruefung": {
+      "typ": "tits_typ",
+      "quiver": "star1",
+      "typ_wert": "zahm"
+     },
+     "idee": "Wäre der Typ zahm, würde diese Prüfung bestehen.",
+     "bestanden": false,
+     "widerspruch": false,
+     "grund": "Tits-Form ist endlich (exakt, Hauptminoren): {'fuehrende_hauptminoren': ['2', '3']}"
+    }
+   ]
+  },
+  {
+   "id": "quivers-R1-2",
+   "frage": "Gabriel: Welche der betrachteten Köcher sind von endlichem Typ, und hat D4 = star3 genau eine Unzerlegbare je positiver Wurzel?",
+   "text": "Die Tits-Form von star2 ist positiv definit (endlicher Typ: Dynkin) (exakte Hauptminoren).",
+   "pruefung": {
+    "typ": "tits_typ",
+    "quiver": "star2",
+    "typ_wert": "endlich"
+   },
+   "grund": "Tits-Form ist endlich (exakt, Hauptminoren): {'fuehrende_hauptminoren': ['2', '3', '4']}",
+   "level": "computed_rigorous",
+   "status": "bestätigt",
+   "interpretation_ungeprueft": "star2 hat endlichen Typ.",
+   "red_team": [
+    {
+     "pruefung": {
+      "typ": "tits_typ",
+      "quiver": "star2",
+      "typ_wert": "zahm"
+     },
+     "idee": "Wäre der Typ zahm, würde diese Prüfung bestehen.",
+     "bestanden": false,
+     "widerspruch": false,
+     "grund": "Tits-Form ist endlich (exakt, Hauptminoren): {'fuehrende_hauptminoren': ['2', '3', '4']}"
+    }
+   ]
+  },
+  {
+   "id": "quivers-R1-3",
+   "frage": "Gabriel: Welche der betrachteten Köcher sind von endlichem Typ, und hat D4 = star3 genau eine Unzerlegbare je positiver Wurzel?",
+   "text": "Die Tits-Form von star3 ist positiv definit (endlicher Typ: Dynkin) (exakte Hauptminoren).",
+   "pruefung": {
+    "typ": "tits_typ",
+    "quiver": "star3",
+    "typ_wert": "endlich"
+   },
+   "grund": "Tits-Form ist endlich (exakt, Hauptminoren): {'fuehrende_hauptminoren': ['2', '3', '4', '4']}",
+   "level": "computed_rigorous",
+   "status": "bestätigt",
+   "interpretation_ungeprueft": "star3 hat endlichen Typ.",
+   "red_team": [
+    {
+     "pruefung": {
+      "typ": "tits_typ",
+      "quiver": "star3",
+      "typ_wert": "zahm"
+     },
+     "idee": "Wäre der Typ zahm, würde diese Prüfung bestehen.",
+     "bestanden": false,
+     "widerspruch": false,
+     "grund": "Tits-Form ist endlich (exakt, Hauptminoren): {'fuehrende_hauptminoren': ['2', '3', '4', '4']}"
+    }
+   ]
+  },
+  {
+   "id": "quivers-R1-4",
+   "frage": "Gabriel: Welche der betrachteten Köcher sind von endlichem Typ, und hat D4 = star3 genau eine Unzerlegbare je positiver Wurzel?",
+   "text": "Die Tits-Form von star4 ist positiv semidefinit, nicht definit (euklidisch, zahm) (exakte Hauptminoren).",
+   "pruefung": {
+    "typ": "tits_typ",
+    "quiver": "star4",
+    "typ_wert": "zahm"
+   },
+   "grund": "Tits-Form ist zahm (exakt, Hauptminoren): {'alle_hauptminoren_nichtnegativ': 31, 'det': '0'}",
+   "level": "computed_rigorous",
+   "status": "bestätigt",
+   "interpretation_ungeprueft": "star4 hat zahmen Typ.",
+   "red_team": [
+    {
+     "pruefung": {
+      "typ": "tits_typ",
+      "quiver": "star4",
+      "typ_wert": "endlich"
+     },
+     "idee": "Wäre der Typ endlich, würde diese Prüfung bestehen.",
+     "bestanden": false,
+     "widerspruch": false,
+     "grund": "Tits-Form ist zahm (exakt, Hauptminoren): {'alle_hauptminoren_nichtnegativ': 31, 'det': '0'}"
+    }
+   ]
+  },
+  {
+   "id": "quivers-R1-5",
+   "frage": "Gabriel: Welche der betrachteten Köcher sind von endlichem Typ, und hat D4 = star3 genau eine Unzerlegbare je positiver Wurzel?",
+   "text": "Die Tits-Form von star5 ist indefinit (wild) (exakte Hauptminoren).",
+   "pruefung": {
+    "typ": "tits_typ",
+    "quiver": "star5",
+    "typ_wert": "wild"
+   },
+   "grund": "Tits-Form ist wild (exakt, Hauptminoren): {'negativer_hauptminor': [0, 1, 2, 3, 4, 5], 'zeuge_q_negativ': [2, 1, 1, 1, 1, 1], 'q_zeuge': -1}",
+   "level": "computed_rigorous",
+   "status": "bestätigt",
+   "interpretation_ungeprueft": "star5 hat wilden Typ.",
+   "red_team": [
+    {
+     "pruefung": {
+      "typ": "tits_typ",
+      "quiver": "star5",
+      "typ_wert": "zahm"
+     },
+     "idee": "Wäre der Typ zahm, würde diese Prüfung bestehen.",
+     "bestanden": false,
+     "widerspruch": false,
+     "grund": "Tits-Form ist wild (exakt, Hauptminoren): {'negativer_hauptminor': [0, 1, 2, 3, 4, 5], 'zeuge_q_negativ': [2, 1, 1, 1, 1, 1], 'q_zeuge': -1}"
+    }
+   ]
+  },
+  {
+   "id": "quivers-R1-6",
+   "frage": "Gabriel: Welche der betrachteten Köcher sind von endlichem Typ, und hat D4 = star3 genau eine Unzerlegbare je positiver Wurzel?",
+   "text": "Die Tits-Form von star6 ist indefinit (wild) (exakte Hauptminoren).",
+   "pruefung": {
+    "typ": "tits_typ",
+    "quiver": "star6",
+    "typ_wert": "wild"
+   },
+   "grund": "Tits-Form ist wild (exakt, Hauptminoren): {'negativer_hauptminor': [0, 1, 2, 3, 4, 5], 'zeuge_q_negativ': [2, 0, 1, 1, 1, 1, 1], 'q_zeuge': -1}",
+   "level": "computed_rigorous",
+   "status": "bestätigt",
+   "interpretation_ungeprueft": "star6 hat wilden Typ.",
+   "red_team": [
+    {
+     "pruefung": {
+      "typ": "tits_typ",
+      "quiver": "star6",
+      "typ_wert": "zahm"
+     },
+     "idee": "Wäre der Typ zahm, würde diese Prüfung bestehen.",
+     "bestanden": false,
+     "widerspruch": false,
+     "grund": "Tits-Form ist wild (exakt, Hauptminoren): {'negativer_hauptminor': [0, 1, 2, 3, 4, 5], 'zeuge_q_negativ': [2, 0, 1, 1, 1, 1, 1], 'q_zeuge': -1}"
+    }
+   ]
+  },
+  {
+   "id": "quivers-R1-7",
+   "frage": "Gabriel: Welche der betrachteten Köcher sind von endlichem Typ, und hat D4 = star3 genau eine Unzerlegbare je positiver Wurzel?",
+   "text": "Die Tits-Form von star7 ist indefinit (wild) (exakte Hauptminoren).",
+   "pruefung": {
+    "typ": "tits_typ",
+    "quiver": "star7",
+    "typ_wert": "wild"
+   },
+   "grund": "Tits-Form ist wild (exakt, Hauptminoren): {'negativer_hauptminor': [0, 1, 2, 3, 4, 5], 'zeuge_q_negativ': [2, 0, 0, 1, 1, 1, 1, 1], 'q_zeuge': -1}",
+   "level": "computed_rigorous",
+   "status": "bestätigt",
+   "interpretation_ungeprueft": "star7 hat wilden Typ.",
+   "red_team": [
+    {
+     "pruefung": {
+      "typ": "tits_typ",
+      "quiver": "star7",
+      "typ_wert": "zahm"
+     },
+     "idee": "Wäre der Typ zahm, würde diese Prüfung bestehen.",
+     "bestanden": false,
+     "widerspruch": false,
+     "grund": "Tits-Form ist wild (exakt, Hauptminoren): {'negativer_hauptminor': [0, 1, 2, 3, 4, 5], 'zeuge_q_negativ': [2, 0, 0, 1, 1, 1, 1, 1], 'q_zeuge': -1}"
+    }
+   ]
+  },
+  {
+   "id": "quivers-R1-8",
+   "frage": "Gabriel: Welche der betrachteten Köcher sind von endlichem Typ, und hat D4 = star3 genau eine Unzerlegbare je positiver Wurzel?",
+   "text": "Die Tits-Form von kronecker ist positiv semidefinit, nicht definit (euklidisch, zahm) (exakte Hauptminoren).",
+   "pruefung": {
+    "typ": "tits_typ",
+    "quiver": "kronecker",
+    "typ_wert": "zahm"
+   },
+   "grund": "Tits-Form ist zahm (exakt, Hauptminoren): {'alle_hauptminoren_nichtnegativ': 3, 'det': '0'}",
+   "level": "computed_rigorous",
+   "status": "bestätigt",
+   "interpretation_ungeprueft": "kronecker hat zahmen Typ.",
+   "red_team": [
+    {
+     "pruefung": {
+      "typ": "tits_typ",
+      "quiver": "kronecker",
+      "typ_wert": "endlich"
+     },
+     "idee": "Wäre der Typ endlich, würde diese Prüfung bestehen.",
+     "bestanden": false,
+     "widerspruch": false,
+     "grund": "Tits-Form ist zahm (exakt, Hauptminoren): {'alle_hauptminoren_nichtnegativ': 3, 'det': '0'}"
+    }
+   ]
+  },
+  {
+   "id": "quivers-R1-9",
+   "frage": "Gabriel: Welche der betrachteten Köcher sind von endlichem Typ, und hat D4 = star3 genau eine Unzerlegbare je positiver Wurzel?",
+   "text": "Die Tits-Form von cycle3_oriented ist positiv semidefinit, nicht definit (euklidisch, zahm) (exakte Hauptminoren).",
+   "pruefung": {
+    "typ": "tits_typ",
+    "quiver": "cycle3_oriented",
+    "typ_wert": "zahm"
+   },
+   "grund": "Tits-Form ist zahm (exakt, Hauptminoren): {'alle_hauptminoren_nichtnegativ': 7, 'det': '0'}",
+   "level": "computed_rigorous",
+   "status": "bestätigt",
+   "interpretation_ungeprueft": "cycle3_oriented hat zahmen Typ.",
+   "red_team": [
+    {
+     "pruefung": {
+      "typ": "tits_typ",
+      "quiver": "cycle3_oriented",
+      "typ_wert": "endlich"
+     },
+     "idee": "Wäre der Typ endlich, würde diese Prüfung bestehen.",
+     "bestanden": false,
+     "widerspruch": false,
+     "grund": "Tits-Form ist zahm (exakt, Hauptminoren): {'alle_hauptminoren_nichtnegativ': 7, 'det': '0'}"
+    }
+   ]
+  },
+  {
+   "id": "quivers-R1-10",
+   "frage": "Gabriel: Welche der betrachteten Köcher sind von endlichem Typ, und hat D4 = star3 genau eine Unzerlegbare je positiver Wurzel?",
+   "text": "Die Tits-Form von cycle4_oriented ist positiv semidefinit, nicht definit (euklidisch, zahm) (exakte Hauptminoren).",
+   "pruefung": {
+    "typ": "tits_typ",
+    "quiver": "cycle4_oriented",
+    "typ_wert": "zahm"
+   },
+   "grund": "Tits-Form ist zahm (exakt, Hauptminoren): {'alle_hauptminoren_nichtnegativ': 15, 'det': '0'}",
+   "level": "computed_rigorous",
+   "status": "bestätigt",
+   "interpretation_ungeprueft": "cycle4_oriented hat zahmen Typ.",
+   "red_team": [
+    {
+     "pruefung": {
+      "typ": "tits_typ",
+      "quiver": "cycle4_oriented",
+      "typ_wert": "endlich"
+     },
+     "idee": "Wäre der Typ endlich, würde diese Prüfung bestehen.",
+     "bestanden": false,
+     "widerspruch": false,
+     "grund": "Tits-Form ist zahm (exakt, Hauptminoren): {'alle_hauptminoren_nichtnegativ': 15, 'det': '0'}"
+    }
+   ]
+  },
+  {
+   "id": "quivers-R1-11",
+   "frage": "Gabriel: Welche der betrachteten Köcher sind von endlichem Typ, und hat D4 = star3 genau eine Unzerlegbare je positiver Wurzel?",
+   "text": "star3 hat genau 12 positive Wurzeln.",
+   "pruefung": {
+    "typ": "wurzelzahl",
+    "quiver": "star3",
+    "anzahl": 12
+   },
+   "grund": "12 positive Wurzeln (W-Bahn der einfachen Wurzeln): [(0, 0, 0, 1), (0, 0, 1, 0), (0, 1, 0, 0), (1, 0, 0, 0), (1, 0, 0, 1), (1, 0, 1, 0), (1, 0, 1, 1), (1, 1, 0, 0), (1, 1, 0, 1), (1, 1, 1, 0), (1, 1, 1, 1), (2, 1, 1, 1)]",
+   "level": "computed_rigorous",
+   "status": "bestätigt",
+   "interpretation_ungeprueft": "D4 hat 12 positive Wurzeln.",
+   "red_team": [
+    {
+     "pruefung": {
+      "typ": "wurzelzahl",
+      "quiver": "star3",
+      "anzahl": 13
+     },
+     "idee": "Eine 13. Wurzel würde die Anzahl erhöhen.",
+     "bestanden": false,
+     "widerspruch": false,
+     "grund": "12 positive Wurzeln (W-Bahn der einfachen Wurzeln): [(0, 0, 0, 1), (0, 0, 1, 0), (0, 1, 0, 0), (1, 0, 0, 0), (1, 0, 0, 1), (1, 0, 1, 0), (1, 0, 1, 1), (1, 1, 0, 0), (1, 1, 0, 1), (1, 1, 1, 0), (1, 1, 1, 1), (2, 1, 1, 1)]"
+    }
+   ]
+  },
+  {
+   "id": "quivers-R1-12",
+   "frage": "Gabriel: Welche der betrachteten Köcher sind von endlichem Typ, und hat D4 = star3 genau eine Unzerlegbare je positiver Wurzel?",
+   "text": "Für star3 über F_2 und alle Dimensionsvektoren 0 < beta <= [2, 1, 1, 1]: genau eine Unzerlegbare für reelle Wurzeln, keine für Nicht-Wurzeln.",
+   "pruefung": {
+    "typ": "kac_box",
+    "quiver": "star3",
+    "schranke": [
+     2,
+     1,
+     1,
+     1
+    ],
+    "p": 2
+   },
+   "grund": "23 Vektoren <= [2, 1, 1, 1] über F_2: reelle Wurzeln genau 1, Nicht-Wurzeln 0",
+   "level": "computed_rigorous",
+   "status": "bestätigt",
+   "interpretation_ungeprueft": "Gabriel für D4 über F_p: Unzerlegbare entsprechen genau den positiven Wurzeln.",
+   "red_team": [
+    {
+     "pruefung": {
+      "typ": "anzahl",
+      "quiver": "star3",
+      "alpha": [
+       2,
+       1,
+       1,
+       1
+      ],
+      "p": 2,
+      "anzahl": 2
+     },
+     "idee": "Zwei Unzerlegbare zur maximalen Wurzel?",
+     "bestanden": false,
+     "widerspruch": false,
+     "grund": "I_[2, 1, 1, 1](2) = 1 (Methode: direkt)"
+    }
+   ]
+  },
+  {
+   "id": "quivers-R1-13",
+   "frage": "Gabriel: Welche der betrachteten Köcher sind von endlichem Typ, und hat D4 = star3 genau eine Unzerlegbare je positiver Wurzel?",
+   "text": "Für star3 über F_3 und alle Dimensionsvektoren 0 < beta <= [2, 1, 1, 1]: genau eine Unzerlegbare für reelle Wurzeln, keine für Nicht-Wurzeln.",
+   "pruefung": {
+    "typ": "kac_box",
+    "quiver": "star3",
+    "schranke": [
+     2,
+     1,
+     1,
+     1
+    ],
+    "p": 3
+   },
+   "grund": "23 Vektoren <= [2, 1, 1, 1] über F_3: reelle Wurzeln genau 1, Nicht-Wurzeln 0",
+   "level": "computed_rigorous",
+   "status": "bestätigt",
+   "interpretation_ungeprueft": "Gabriel für D4 über F_p: Unzerlegbare entsprechen genau den positiven Wurzeln.",
+   "red_team": [
+    {
+     "pruefung": {
+      "typ": "anzahl",
+      "quiver": "star3",
+      "alpha": [
+       2,
+       1,
+       1,
+       1
+      ],
+      "p": 3,
+      "anzahl": 2
+     },
+     "idee": "Zwei Unzerlegbare zur maximalen Wurzel?",
+     "bestanden": false,
+     "widerspruch": false,
+     "grund": "I_[2, 1, 1, 1](3) = 1 (Methode: direkt)"
+    }
+   ]
+  },
+  {
+   "id": "quivers-R1-14",
+   "frage": "Gabriel: Welche der betrachteten Köcher sind von endlichem Typ, und hat D4 = star3 genau eine Unzerlegbare je positiver Wurzel?",
+   "text": "Für A3 über F_2 und alle Dimensionsvektoren 0 < beta <= [2, 2, 2]: genau eine Unzerlegbare für reelle Wurzeln, keine für Nicht-Wurzeln.",
+   "pruefung": {
+    "typ": "kac_box",
+    "quiver": "A3",
+    "schranke": [
+     2,
+     2,
+     2
+    ],
+    "p": 2
+   },
+   "grund": "26 Vektoren <= [2, 2, 2] über F_2: reelle Wurzeln genau 1, Nicht-Wurzeln 0",
+   "level": "computed_rigorous",
+   "status": "bestätigt",
+   "interpretation_ungeprueft": "Gabriel für A3 über F_2.",
+   "red_team": [
+    {
+     "pruefung": {
+      "typ": "anzahl",
+      "quiver": "A3",
+      "alpha": [
+       1,
+       1,
+       1
+      ],
+      "p": 2,
+      "anzahl": 0
+     },
+     "idee": "Keine Unzerlegbare zur Wurzel (1,1,1)?",
+     "bestanden": false,
+     "widerspruch": false,
+     "grund": "I_[1, 1, 1](2) = 1 (Methode: direkt)"
+    }
+   ]
+  },
+  {
+   "id": "quivers-R2-15",
+   "frage": "Vier-Unterraum-Problem (star4 = D~4): Wie sehen alle Unzerlegbaren mit Dimensionsvektor delta aus, und wie viele gibt es über F_q?",
+   "text": "Das Radikal der Tits-Form von star4 ist eindimensional, erzeugt von delta = [2, 1, 1, 1, 1].",
+   "pruefung": {
+    "typ": "radikal",
+    "quiver": "star4",
+    "delta": [
+     2,
+     1,
+     1,
+     1,
+     1
+    ]
+   },
+   "grund": "Radikal: Dimension 1, Erzeuger [2, 1, 1, 1, 1]",
+   "level": "computed_rigorous",
+   "status": "bestätigt",
+   "interpretation_ungeprueft": "delta = (2;1,1,1,1).",
+   "red_team": [
+    {
+     "pruefung": {
+      "typ": "radikal",
+      "quiver": "star4",
+      "delta": [
+       1,
+       1,
+       1,
+       1,
+       1
+      ]
+     },
+     "idee": "Anderer Erzeuger?",
+     "bestanden": false,
+     "widerspruch": false,
+     "grund": "Radikal: Dimension 1, Erzeuger [2, 1, 1, 1, 1]"
+    }
+   ]
+  },
+  {
+   "id": "quivers-R2-16",
+   "frage": "Vier-Unterraum-Problem (star4 = D~4): Wie sehen alle Unzerlegbaren mit Dimensionsvektor delta aus, und wie viele gibt es über F_q?",
+   "text": "Für star4 ist [2, 1, 1, 1, 1] eine imaginäre Wurzel mit 1 - q(alpha) = 1.",
+   "pruefung": {
+    "typ": "parameter",
+    "quiver": "star4",
+    "alpha": [
+     2,
+     1,
+     1,
+     1,
+     1
+    ],
+    "anzahl": 1
+   },
+   "grund": "[2, 1, 1, 1, 1]: imaginaer, 1 - q = 1",
+   "level": "computed_rigorous",
+   "status": "bestätigt",
+   "interpretation_ungeprueft": "delta hat genau einen Parameter.",
+   "red_team": [
+    {
+     "pruefung": {
+      "typ": "parameter",
+      "quiver": "star4",
+      "alpha": [
+       2,
+       1,
+       1,
+       1,
+       1
+      ],
+      "anzahl": 2
+     },
+     "idee": "Zwei Parameter?",
+     "bestanden": false,
+     "widerspruch": false,
+     "grund": "[2, 1, 1, 1, 1]: imaginaer, 1 - q = 1"
+    }
+   ]
+  },
+  {
+   "id": "quivers-R2-17",
+   "frage": "Vier-Unterraum-Problem (star4 = D~4): Wie sehen alle Unzerlegbaren mit Dimensionsvektor delta aus, und wie viele gibt es über F_q?",
+   "text": "Für star4 ist [4, 2, 2, 2, 2] eine imaginäre Wurzel mit 1 - q(alpha) = 1.",
+   "pruefung": {
+    "typ": "parameter",
+    "quiver": "star4",
+    "alpha": [
+     4,
+     2,
+     2,
+     2,
+     2
+    ],
+    "anzahl": 1
+   },
+   "grund": "[4, 2, 2, 2, 2]: imaginaer, 1 - q = 1",
+   "level": "computed_rigorous",
+   "status": "bestätigt",
+   "interpretation_ungeprueft": "2 delta hat ebenfalls genau einen Parameter.",
+   "red_team": [
+    {
+     "pruefung": {
+      "typ": "wurzel",
+      "quiver": "star4",
+      "alpha": [
+       4,
+       2,
+       2,
+       2,
+       2
+      ],
+      "art": "keine"
+     },
+     "idee": "Ist 2 delta gar keine Wurzel?",
+     "bestanden": false,
+     "widerspruch": false,
+     "grund": "Kac-Reduktion: [4, 2, 2, 2, 2] ist imaginaer (q = 0)"
+    }
+   ]
+  },
+  {
+   "id": "quivers-R2-18",
+   "frage": "Vier-Unterraum-Problem (star4 = D~4): Wie sehen alle Unzerlegbaren mit Dimensionsvektor delta aus, und wie viele gibt es über F_q?",
+   "text": "Für star4 und alpha = [2, 1, 1, 1, 1] ist die Anzahl absolut unzerlegbarer Darstellungen über F_q für q = 2, 3, 5, 7 gleich 4*q^0 + 1*q^1; da A_alpha nach Kac ein Polynom vom Grad 1 - q(alpha) ist, ist dies das Kac-Polynom.",
+   "pruefung": {
+    "typ": "kac_polynom",
+    "quiver": "star4",
+    "alpha": [
+     2,
+     1,
+     1,
+     1,
+     1
+    ],
+    "koeffizienten": [
+     4,
+     1
+    ]
+   },
+   "grund": "A_[2, 1, 1, 1, 1](q) stimmt an q = [2, 3, 5, 7] (Methoden ['direkt', 'direkt', 'burnside', 'burnside']) mit dem Polynom überein; Grad 1 = 1 - q(alpha)",
+   "level": "computed_rigorous",
+   "status": "bestätigt",
+   "interpretation_ungeprueft": "A_delta(q) = q + 4.",
+   "red_team": [
+    {
+     "pruefung": {
+      "typ": "kac_polynom",
+      "quiver": "star4",
+      "alpha": [
+       2,
+       1,
+       1,
+       1,
+       1
+      ],
+      "koeffizienten": [
+       3,
+       1
+      ]
+     },
+     "idee": "q + 3 (nur P^1 plus zwei Ausnahmen)?",
+     "bestanden": false,
+     "widerspruch": false,
+     "grund": "q = 2: gezählt 6, Polynom 5"
+    }
+   ]
+  },
+  {
+   "id": "quivers-R2-19",
+   "frage": "Vier-Unterraum-Problem (star4 = D~4): Wie sehen alle Unzerlegbaren mit Dimensionsvektor delta aus, und wie viele gibt es über F_q?",
+   "text": "Für star4: die Familie V_t mit Dimensionsvektor [2, 1, 1, 1, 1] und Abbildungen {'0': [[1], [0]], '1': [[0], [1]], '2': [[1], [1]], '3': [[1], ['t']]} erfüllt für alle t außerhalb []: End(V_t) = k (Ziegel, absolut unzerlegbar) und Hom(V_s, V_t) = 0 für s != t (paarweise nicht isomorph); Zertifikat: Elimination über Q(s, t) mit protokollierten Pivots.",
+   "pruefung": {
+    "typ": "familie",
+    "quiver": "star4",
+    "rep": {
+     "dims": [
+      2,
+      1,
+      1,
+      1,
+      1
+     ],
+     "maps": {
+      "0": [
+       [
+        1
+       ],
+       [
+        0
+       ]
+      ],
+      "1": [
+       [
+        0
+       ],
+       [
+        1
+       ]
+      ],
+      "2": [
+       [
+        1
+       ],
+       [
+        1
+       ]
+      ],
+      "3": [
+       [
+        1
+       ],
+       [
+        "t"
+       ]
+      ]
+     }
+    },
+    "ausnahmen": []
+   },
+   "grund": "Elimination über Q(t): rang(End-System) = 7 von 8 (dim End <= 1), Pivot-Faktoren []; Hom(V_s, V_t): rang 8 (dim Hom <= 0), Pivot-Faktoren ['-s_ + t']; gültig für t, s außerhalb [], s != t",
+   "level": "computed_rigorous",
+   "status": "bestätigt",
+   "interpretation_ungeprueft": "Die Geraden-Familie V_t ist eine Ein-Parameter-Familie paarweise nicht isomorpher Ziegel (Doppelverhältnis t).",
+   "red_team": [
+    {
+     "pruefung": {
+      "typ": "unzerlegbar",
+      "quiver": "star4",
+      "rep": {
+       "dims": [
+        2,
+        1,
+        1,
+        1,
+        1
+       ],
+       "maps": {
+        "0": [
+         [
+          1
+         ],
+         [
+          0
+         ]
+        ],
+        "1": [
+         [
+          0
+         ],
+         [
+          1
+         ]
+        ],
+        "2": [
+         [
+          1
+         ],
+         [
+          1
+         ]
+        ],
+        "3": [
+         [
+          1
+         ],
+         [
+          5
+         ]
+        ]
+       }
+      },
+      "wert": false
+     },
+     "idee": "Zerfällt V_5?",
+     "bestanden": false,
+     "widerspruch": false,
+     "grund": "dim End = 1, dim J(End) = 0: absolut unzerlegbar"
+    }
+   ]
+  },
+  {
+   "id": "quivers-R2-20",
+   "frage": "Vier-Unterraum-Problem (star4 = D~4): Wie sehen alle Unzerlegbaren mit Dimensionsvektor delta aus, und wie viele gibt es über F_q?",
+   "text": "Über F_2 ist die angegebene Liste von 6 Darstellungen von star4 mit Dimensionsvektor [2, 1, 1, 1, 1] eine vollständige Liste der Isoklassen Unzerlegbarer.",
+   "pruefung": {
+    "typ": "klassifikation",
+    "quiver": "star4",
+    "alpha": [
+     2,
+     1,
+     1,
+     1,
+     1
+    ],
+    "p": 2,
+    "reps": [
+     {
+      "dims": [
+       2,
+       1,
+       1,
+       1,
+       1
+      ],
+      "maps": {
+       "0": [
+        [
+         1
+        ],
+        [
+         0
+        ]
+       ],
+       "1": [
+        [
+         1
+        ],
+        [
+         0
+        ]
+       ],
+       "2": [
+        [
+         0
+        ],
+        [
+         1
+        ]
+       ],
+       "3": [
+        [
+         1
+        ],
+        [
+         1
+        ]
+       ]
+      }
+     },
+     {
+      "dims": [
+       2,
+       1,
+       1,
+       1,
+       1
+      ],
+      "maps": {
+       "0": [
+        [
+         1
+        ],
+        [
+         0
+        ]
+       ],
+       "1": [
+        [
+         0
+        ],
+        [
+         1
+        ]
+       ],
+       "2": [
+        [
+         1
+        ],
+        [
+         0
+        ]
+       ],
+       "3": [
+        [
+         1
+        ],
+        [
+         1
+        ]
+       ]
+      }
+     },
+     {
+      "dims": [
+       2,
+       1,
+       1,
+       1,
+       1
+      ],
+      "maps": {
+       "0": [
+        [
+         1
+        ],
+        [
+         0
+        ]
+       ],
+       "1": [
+        [
+         0
+        ],
+        [
+         1
+        ]
+       ],
+       "2": [
+        [
+         1
+        ],
+        [
+         1
+        ]
+       ],
+       "3": [
+        [
+         1
+        ],
+        [
+         0
+        ]
+       ]
+      }
+     },
+     {
+      "dims": [
+       2,
+       1,
+       1,
+       1,
+       1
+      ],
+      "maps": {
+       "0": [
+        [
+         0
+        ],
+        [
+         1
+        ]
+       ],
+       "1": [
+        [
+         1
+        ],
+        [
+         0
+        ]
+       ],
+       "2": [
+        [
+         1
+        ],
+        [
+         0
+        ]
+       ],
+       "3": [
+        [
+         1
+        ],
+        [
+         1
+        ]
+       ]
+      }
+     },
+     {
+      "dims": [
+       2,
+       1,
+       1,
+       1,
+       1
+      ],
+      "maps": {
+       "0": [
+        [
+         0
+        ],
+        [
+         1
+        ]
+       ],
+       "1": [
+        [
+         1
+        ],
+        [
+         0
+        ]
+       ],
+       "2": [
+        [
+         1
+        ],
+        [
+         1
+        ]
+       ],
+       "3": [
+        [
+         1
+        ],
+        [
+         0
+        ]
+       ]
+      }
+     },
+     {
+      "dims": [
+       2,
+       1,
+       1,
+       1,
+       1
+      ],
+      "maps": {
+       "0": [
+        [
+         0
+        ],
+        [
+         1
+        ]
+       ],
+       "1": [
+        [
+         1
+        ],
+        [
+         1
+        ]
+       ],
+       "2": [
+        [
+         1
+        ],
+        [
+         0
+        ]
+       ],
+       "3": [
+        [
+         1
+        ],
+        [
+         0
+        ]
+       ]
+      }
+     }
+    ]
+   },
+   "grund": "6 paarweise nicht isomorphe Unzerlegbare über F_2; Zählung I = 6 (Methode direkt) -> Liste vollständig",
+   "level": "computed_rigorous",
+   "status": "bestätigt",
+   "interpretation_ungeprueft": "Über F_2: V_t (t != 0, 1) und 6 Konfigurationen mit genau einem Paar gleicher Geraden sind alle 6 Unzerlegbaren in delta.",
+   "red_team": [
+    {
+     "pruefung": {
+      "typ": "klassifikation",
+      "quiver": "star4",
+      "alpha": [
+       2,
+       1,
+       1,
+       1,
+       1
+      ],
+      "p": 2,
+      "reps": [
+       {
+        "dims": [
+         2,
+         1,
+         1,
+         1,
+         1
+        ],
+        "maps": {
+         "0": [
+          [
+           1
+          ],
+          [
+           0
+          ]
+         ],
+         "1": [
+          [
+           1
+          ],
+          [
+           0
+          ]
+         ],
+         "2": [
+          [
+           0
+          ],
+          [
+           1
+          ]
+         ],
+         "3": [
+          [
+           1
+          ],
+          [
+           1
+          ]
+         ]
+        }
+       },
+       {
+        "dims": [
+         2,
+         1,
+         1,
+         1,
+         1
+        ],
+        "maps": {
+         "0": [
+          [
+           1
+          ],
+          [
+           0
+          ]
+         ],
+         "1": [
+          [
+           0
+          ],
+          [
+           1
+          ]
+         ],
+         "2": [
+          [
+           1
+          ],
+          [
+           0
+          ]
+         ],
+         "3": [
+          [
+           1
+          ],
+          [
+           1
+          ]
+         ]
+        }
+       },
+       {
+        "dims": [
+         2,
+         1,
+         1,
+         1,
+         1
+        ],
+        "maps": {
+         "0": [
+          [
+           1
+          ],
+          [
+           0
+          ]
+         ],
+         "1": [
+          [
+           0
+          ],
+          [
+           1
+          ]
+         ],
+         "2": [
+          [
+           1
+          ],
+          [
+           1
+          ]
+         ],
+         "3": [
+          [
+           1
+          ],
+          [
+           0
+          ]
+         ]
+        }
+       },
+       {
+        "dims": [
+         2,
+         1,
+         1,
+         1,
+         1
+        ],
+        "maps": {
+         "0": [
+          [
+           0
+          ],
+          [
+           1
+          ]
+         ],
+         "1": [
+          [
+           1
+          ],
+          [
+           0
+          ]
+         ],
+         "2": [
+          [
+           1
+          ],
+          [
+           0
+          ]
+         ],
+         "3": [
+          [
+           1
+          ],
+          [
+           1
+          ]
+         ]
+        }
+       },
+       {
+        "dims": [
+         2,
+         1,
+         1,
+         1,
+         1
+        ],
+        "maps": {
+         "0": [
+          [
+           0
+          ],
+          [
+           1
+          ]
+         ],
+         "1": [
+          [
+           1
+          ],
+          [
+           0
+          ]
+         ],
+         "2": [
+          [
+           1
+          ],
+          [
+           1
+          ]
+         ],
+         "3": [
+          [
+           1
+          ],
+          [
+           0
+          ]
+         ]
+        }
+       }
+      ]
+     },
+     "idee": "Reicht die Liste ohne das letzte Element?",
+     "bestanden": false,
+     "widerspruch": false,
+     "grund": "5 paarweise nicht isomorphe Unzerlegbare über F_2; Zählung I = 6 (Methode direkt) -> Liste unvollständig"
+    }
+   ]
+  },
+  {
+   "id": "quivers-R2-21",
+   "frage": "Vier-Unterraum-Problem (star4 = D~4): Wie sehen alle Unzerlegbaren mit Dimensionsvektor delta aus, und wie viele gibt es über F_q?",
+   "text": "Über F_3 ist die angegebene Liste von 7 Darstellungen von star4 mit Dimensionsvektor [2, 1, 1, 1, 1] eine vollständige Liste der Isoklassen Unzerlegbarer.",
+   "pruefung": {
+    "typ": "klassifikation",
+    "quiver": "star4",
+    "alpha": [
+     2,
+     1,
+     1,
+     1,
+     1
+    ],
+    "p": 3,
+    "reps": [
+     {
+      "dims": [
+       2,
+       1,
+       1,
+       1,
+       1
+      ],
+      "maps": {
+       "0": [
+        [
+         1
+        ],
+        [
+         0
+        ]
+       ],
+       "1": [
+        [
+         0
+        ],
+        [
+         1
+        ]
+       ],
+       "2": [
+        [
+         1
+        ],
+        [
+         1
+        ]
+       ],
+       "3": [
+        [
+         1
+        ],
+        [
+         2
+        ]
+       ]
+      }
+     },
+     {
+      "dims": [
+       2,
+       1,
+       1,
+       1,
+       1
+      ],
+      "maps": {
+       "0": [
+        [
+         1
+        ],
+        [
+         0
+        ]
+       ],
+       "1": [
+        [
+         1
+        ],
+        [
+         0
+        ]
+       ],
+       "2": [
+        [
+         0
+        ],
+        [
+         1
+        ]
+       ],
+       "3": [
+        [
+         1
+        ],
+        [
+         1
+        ]
+       ]
+      }
+     },
+     {
+      "dims": [
+       2,
+       1,
+       1,
+       1,
+       1
+      ],
+      "maps": {
+       "0": [
+        [
+         1
+        ],
+        [
+         0
+        ]
+       ],
+       "1": [
+        [
+         0
+        ],
+        [
+         1
+        ]
+       ],
+       "2": [
+        [
+         1
+        ],
+        [
+         0
+        ]
+       ],
+       "3": [
+        [
+         1
+        ],
+        [
+         1
+        ]
+       ]
+      }
+     },
+     {
+      "dims": [
+       2,
+       1,
+       1,
+       1,
+       1
+      ],
+      "maps": {
+       "0": [
+        [
+         1
+        ],
+        [
+         0
+        ]
+       ],
+       "1": [
+        [
+         0
+        ],
+        [
+         1
+        ]
+       ],
+       "2": [
+        [
+         1
+        ],
+        [
+         1
+        ]
+       ],
+       "3": [
+        [
+         1
+        ],
+        [
+         0
+        ]
+       ]
+      }
+     },
+     {
+      "dims": [
+       2,
+       1,
+       1,
+       1,
+       1
+      ],
+      "maps": {
+       "0": [
+        [
+         0
+        ],
+        [
+         1
+        ]
+       ],
+       "1": [
+        [
+         1
+        ],
+        [
+         0
+        ]
+       ],
+       "2": [
+        [
+         1
+        ],
+        [
+         0
+        ]
+       ],
+       "3": [
+        [
+         1
+        ],
+        [
+         1
+        ]
+       ]
+      }
+     },
+     {
+      "dims": [
+       2,
+       1,
+       1,
+       1,
+       1
+      ],
+      "maps": {
+       "0": [
+        [
+         0
+        ],
+        [
+         1
+        ]
+       ],
+       "1": [
+        [
+         1
+        ],
+        [
+         0
+        ]
+       ],
+       "2": [
+        [
+         1
+        ],
+        [
+         1
+        ]
+       ],
+       "3": [
+        [
+         1
+        ],
+        [
+         0
+        ]
+       ]
+      }
+     },
+     {
+      "dims": [
+       2,
+       1,
+       1,
+       1,
+       1
+      ],
+      "maps": {
+       "0": [
+        [
+         0
+        ],
+        [
+         1
+        ]
+       ],
+       "1": [
+        [
+         1
+        ],
+        [
+         1
+        ]
+       ],
+       "2": [
+        [
+         1
+        ],
+        [
+         0
+        ]
+       ],
+       "3": [
+        [
+         1
+        ],
+        [
+         0
+        ]
+       ]
+      }
+     }
+    ]
+   },
+   "grund": "7 paarweise nicht isomorphe Unzerlegbare über F_3; Zählung I = 7 (Methode direkt) -> Liste vollständig",
+   "level": "computed_rigorous",
+   "status": "bestätigt",
+   "interpretation_ungeprueft": "Über F_3: V_t (t != 0, 1) und 6 Konfigurationen mit genau einem Paar gleicher Geraden sind alle 7 Unzerlegbaren in delta.",
+   "red_team": [
+    {
+     "pruefung": {
+      "typ": "klassifikation",
+      "quiver": "star4",
+      "alpha": [
+       2,
+       1,
+       1,
+       1,
+       1
+      ],
+      "p": 3,
+      "reps": [
+       {
+        "dims": [
+         2,
+         1,
+         1,
+         1,
+         1
+        ],
+        "maps": {
+         "0": [
+          [
+           1
+          ],
+          [
+           0
+          ]
+         ],
+         "1": [
+          [
+           0
+          ],
+          [
+           1
+          ]
+         ],
+         "2": [
+          [
+           1
+          ],
+          [
+           1
+          ]
+         ],
+         "3": [
+          [
+           1
+          ],
+          [
+           2
+          ]
+         ]
+        }
+       },
+       {
+        "dims": [
+         2,
+         1,
+         1,
+         1,
+         1
+        ],
+        "maps": {
+         "0": [
+          [
+           1
+          ],
+          [
+           0
+          ]
+         ],
+         "1": [
+          [
+           1
+          ],
+          [
+           0
+          ]
+         ],
+         "2": [
+          [
+           0
+          ],
+          [
+           1
+          ]
+         ],
+         "3": [
+          [
+           1
+          ],
+          [
+           1
+          ]
+         ]
+        }
+       },
+       {
+        "dims": [
+         2,
+         1,
+         1,
+         1,
+         1
+        ],
+        "maps": {
+         "0": [
+          [
+           1
+          ],
+          [
+           0
+          ]
+         ],
+         "1": [
+          [
+           0
+          ],
+          [
+           1
+          ]
+         ],
+         "2": [
+          [
+           1
+          ],
+          [
+           0
+          ]
+         ],
+         "3": [
+          [
+           1
+          ],
+          [
+           1
+          ]
+         ]
+        }
+       },
+       {
+        "dims": [
+         2,
+         1,
+         1,
+         1,
+         1
+        ],
+        "maps": {
+         "0": [
+          [
+           1
+          ],
+          [
+           0
+          ]
+         ],
+         "1": [
+          [
+           0
+          ],
+          [
+           1
+          ]
+         ],
+         "2": [
+          [
+           1
+          ],
+          [
+           1
+          ]
+         ],
+         "3": [
+          [
+           1
+          ],
+          [
+           0
+          ]
+         ]
+        }
+       },
+       {
+        "dims": [
+         2,
+         1,
+         1,
+         1,
+         1
+        ],
+        "maps": {
+         "0": [
+          [
+           0
+          ],
+          [
+           1
+          ]
+         ],
+         "1": [
+          [
+           1
+          ],
+          [
+           0
+          ]
+         ],
+         "2": [
+          [
+           1
+          ],
+          [
+           0
+          ]
+         ],
+         "3": [
+          [
+           1
+          ],
+          [
+           1
+          ]
+         ]
+        }
+       },
+       {
+        "dims": [
+         2,
+         1,
+         1,
+         1,
+         1
+        ],
+        "maps": {
+         "0": [
+          [
+           0
+          ],
+          [
+           1
+          ]
+         ],
+         "1": [
+          [
+           1
+          ],
+          [
+           0
+          ]
+         ],
+         "2": [
+          [
+           1
+          ],
+          [
+           1
+          ]
+         ],
+         "3": [
+          [
+           1
+          ],
+          [
+           0
+          ]
+         ]
+        }
+       }
+      ]
+     },
+     "idee": "Reicht die Liste ohne das letzte Element?",
+     "bestanden": false,
+     "widerspruch": false,
+     "grund": "6 paarweise nicht isomorphe Unzerlegbare über F_3; Zählung I = 7 (Methode direkt) -> Liste unvollständig"
+    }
+   ]
+  },
+  {
+   "id": "quivers-R2-22",
+   "frage": "Vier-Unterraum-Problem (star4 = D~4): Wie sehen alle Unzerlegbaren mit Dimensionsvektor delta aus, und wie viele gibt es über F_q?",
+   "text": "Über F_5 ist die angegebene Liste von 9 Darstellungen von star4 mit Dimensionsvektor [2, 1, 1, 1, 1] eine vollständige Liste der Isoklassen Unzerlegbarer.",
+   "pruefung": {
+    "typ": "klassifikation",
+    "quiver": "star4",
+    "alpha": [
+     2,
+     1,
+     1,
+     1,
+     1
+    ],
+    "p": 5,
+    "reps": [
+     {
+      "dims": [
+       2,
+       1,
+       1,
+       1,
+       1
+      ],
+      "maps": {
+       "0": [
+        [
+         1
+        ],
+        [
+         0
+        ]
+       ],
+       "1": [
+        [
+         0
+        ],
+        [
+         1
+        ]
+       ],
+       "2": [
+        [
+         1
+        ],
+        [
+         1
+        ]
+       ],
+       "3": [
+        [
+         1
+        ],
+        [
+         2
+        ]
+       ]
+      }
+     },
+     {
+      "dims": [
+       2,
+       1,
+       1,
+       1,
+       1
+      ],
+      "maps": {
+       "0": [
+        [
+         1
+        ],
+        [
+         0
+        ]
+       ],
+       "1": [
+        [
+         0
+        ],
+        [
+         1
+        ]
+       ],
+       "2": [
+        [
+         1
+        ],
+        [
+         1
+        ]
+       ],
+       "3": [
+        [
+         1
+        ],
+        [
+         3
+        ]
+       ]
+      }
+     },
+     {
+      "dims": [
+       2,
+       1,
+       1,
+       1,
+       1
+      ],
+      "maps": {
+       "0": [
+        [
+         1
+        ],
+        [
+         0
+        ]
+       ],
+       "1": [
+        [
+         0
+        ],
+        [
+         1
+        ]
+       ],
+       "2": [
+        [
+         1
+        ],
+        [
+         1
+        ]
+       ],
+       "3": [
+        [
+         1
+        ],
+        [
+         4
+        ]
+       ]
+      }
+     },
+     {
+      "dims": [
+       2,
+       1,
+       1,
+       1,
+       1
+      ],
+      "maps": {
+       "0": [
+        [
+         1
+        ],
+        [
+         0
+        ]
+       ],
+       "1": [
+        [
+         1
+        ],
+        [
+         0
+        ]
+       ],
+       "2": [
+        [
+         0
+        ],
+        [
+         1
+        ]
+       ],
+       "3": [
+        [
+         1
+        ],
+        [
+         1
+        ]
+       ]
+      }
+     },
+     {
+      "dims": [
+       2,
+       1,
+       1,
+       1,
+       1
+      ],
+      "maps": {
+       "0": [
+        [
+         1
+        ],
+        [
+         0
+        ]
+       ],
+       "1": [
+        [
+         0
+        ],
+        [
+         1
+        ]
+       ],
+       "2": [
+        [
+         1
+        ],
+        [
+         0
+        ]
+       ],
+       "3": [
+        [
+         1
+        ],
+        [
+         1
+        ]
+       ]
+      }
+     },
+     {
+      "dims": [
+       2,
+       1,
+       1,
+       1,
+       1
+      ],
+      "maps": {
+       "0": [
+        [
+         1
+        ],
+        [
+         0
+        ]
+       ],
+       "1": [
+        [
+         0
+        ],
+        [
+         1
+        ]
+       ],
+       "2": [
+        [
+         1
+        ],
+        [
+         1
+        ]
+       ],
+       "3": [
+        [
+         1
+        ],
+        [
+         0
+        ]
+       ]
+      }
+     },
+     {
+      "dims": [
+       2,
+       1,
+       1,
+       1,
+       1
+      ],
+      "maps": {
+       "0": [
+        [
+         0
+        ],
+        [
+         1
+        ]
+       ],
+       "1": [
+        [
+         1
+        ],
+        [
+         0
+        ]
+       ],
+       "2": [
+        [
+         1
+        ],
+        [
+         0
+        ]
+       ],
+       "3": [
+        [
+         1
+        ],
+        [
+         1
+        ]
+       ]
+      }
+     },
+     {
+      "dims": [
+       2,
+       1,
+       1,
+       1,
+       1
+      ],
+      "maps": {
+       "0": [
+        [
+         0
+        ],
+        [
+         1
+        ]
+       ],
+       "1": [
+        [
+         1
+        ],
+        [
+         0
+        ]
+       ],
+       "2": [
+        [
+         1
+        ],
+        [
+         1
+        ]
+       ],
+       "3": [
+        [
+         1
+        ],
+        [
+         0
+        ]
+       ]
+      }
+     },
+     {
+      "dims": [
+       2,
+       1,
+       1,
+       1,
+       1
+      ],
+      "maps": {
+       "0": [
+        [
+         0
+        ],
+        [
+         1
+        ]
+       ],
+       "1": [
+        [
+         1
+        ],
+        [
+         1
+        ]
+       ],
+       "2": [
+        [
+         1
+        ],
+        [
+         0
+        ]
+       ],
+       "3": [
+        [
+         1
+        ],
+        [
+         0
+        ]
+       ]
+      }
+     }
+    ]
+   },
+   "grund": "9 paarweise nicht isomorphe Unzerlegbare über F_5; Zählung I = 9 (Methode burnside) -> Liste vollständig",
+   "level": "computed_rigorous",
+   "status": "bestätigt",
+   "interpretation_ungeprueft": "Über F_5: V_t (t != 0, 1) und 6 Konfigurationen mit genau einem Paar gleicher Geraden sind alle 9 Unzerlegbaren in delta.",
+   "red_team": [
+    {
+     "pruefung": {
+      "typ": "klassifikation",
+      "quiver": "star4",
+      "alpha": [
+       2,
+       1,
+       1,
+       1,
+       1
+      ],
+      "p": 5,
+      "reps": [
+       {
+        "dims": [
+         2,
+         1,
+         1,
+         1,
+         1
+        ],
+        "maps": {
+         "0": [
+          [
+           1
+          ],
+          [
+           0
+          ]
+         ],
+         "1": [
+          [
+           0
+          ],
+          [
+           1
+          ]
+         ],
+         "2": [
+          [
+           1
+          ],
+          [
+           1
+          ]
+         ],
+         "3": [
+          [
+           1
+          ],
+          [
+           2
+          ]
+         ]
+        }
+       },
+       {
+        "dims": [
+         2,
+         1,
+         1,
+         1,
+         1
+        ],
+        "maps": {
+         "0": [
+          [
+           1
+          ],
+          [
+           0
+          ]
+         ],
+         "1": [
+          [
+           0
+          ],
+          [
+           1
+          ]
+         ],
+         "2": [
+          [
+           1
+          ],
+          [
+           1
+          ]
+         ],
+         "3": [
+          [
+           1
+          ],
+          [
+           3
+          ]
+         ]
+        }
+       },
+       {
+        "dims": [
+         2,
+         1,
+         1,
+         1,
+         1
+        ],
+        "maps": {
+         "0": [
+          [
+           1
+          ],
+          [
+           0
+          ]
+         ],
+         "1": [
+          [
+           0
+          ],
+          [
+           1
+          ]
+         ],
+         "2": [
+          [
+           1
+          ],
+          [
+           1
+          ]
+         ],
+         "3": [
+          [
+           1
+          ],
+          [
+           4
+          ]
+         ]
+        }
+       },
+       {
+        "dims": [
+         2,
+         1,
+         1,
+         1,
+         1
+        ],
+        "maps": {
+         "0": [
+          [
+           1
+          ],
+          [
+           0
+          ]
+         ],
+         "1": [
+          [
+           1
+          ],
+          [
+           0
+          ]
+         ],
+         "2": [
+          [
+           0
+          ],
+          [
+           1
+          ]
+         ],
+         "3": [
+          [
+           1
+          ],
+          [
+           1
+          ]
+         ]
+        }
+       },
+       {
+        "dims": [
+         2,
+         1,
+         1,
+         1,
+         1
+        ],
+        "maps": {
+         "0": [
+          [
+           1
+          ],
+          [
+           0
+          ]
+         ],
+         "1": [
+          [
+           0
+          ],
+          [
+           1
+          ]
+         ],
+         "2": [
+          [
+           1
+          ],
+          [
+           0
+          ]
+         ],
+         "3": [
+          [
+           1
+          ],
+          [
+           1
+          ]
+         ]
+        }
+       },
+       {
+        "dims": [
+         2,
+         1,
+         1,
+         1,
+         1
+        ],
+        "maps": {
+         "0": [
+          [
+           1
+          ],
+          [
+           0
+          ]
+         ],
+         "1": [
+          [
+           0
+          ],
+          [
+           1
+          ]
+         ],
+         "2": [
+          [
+           1
+          ],
+          [
+           1
+          ]
+         ],
+         "3": [
+          [
+           1
+          ],
+          [
+           0
+          ]
+         ]
+        }
+       },
+       {
+        "dims": [
+         2,
+         1,
+         1,
+         1,
+         1
+        ],
+        "maps": {
+         "0": [
+          [
+           0
+          ],
+          [
+           1
+          ]
+         ],
+         "1": [
+          [
+           1
+          ],
+          [
+           0
+          ]
+         ],
+         "2": [
+          [
+           1
+          ],
+          [
+           0
+          ]
+         ],
+         "3": [
+          [
+           1
+          ],
+          [
+           1
+          ]
+         ]
+        }
+       },
+       {
+        "dims": [
+         2,
+         1,
+         1,
+         1,
+         1
+        ],
+        "maps": {
+         "0": [
+          [
+           0
+          ],
+          [
+           1
+          ]
+         ],
+         "1": [
+          [
+           1
+          ],
+          [
+           0
+          ]
+         ],
+         "2": [
+          [
+           1
+          ],
+          [
+           1
+          ]
+         ],
+         "3": [
+          [
+           1
+          ],
+          [
+           0
+          ]
+         ]
+        }
+       }
+      ]
+     },
+     "idee": "Reicht die Liste ohne das letzte Element?",
+     "bestanden": false,
+     "widerspruch": false,
+     "grund": "8 paarweise nicht isomorphe Unzerlegbare über F_5; Zählung I = 9 (Methode burnside) -> Liste unvollständig"
+    }
+   ]
+  },
+  {
+   "id": "quivers-R2-23",
+   "frage": "Vier-Unterraum-Problem (star4 = D~4): Wie sehen alle Unzerlegbaren mit Dimensionsvektor delta aus, und wie viele gibt es über F_q?",
+   "text": "Die Darstellung von star4 mit Dimensionsvektor [1, 1, 1, 1, 1] und Abbildungen {'0': [[1]], '1': [[1]], '2': [[1]], '3': [[1]]} ist absolut unzerlegbar (End/Rad = k).",
+   "pruefung": {
+    "typ": "unzerlegbar",
+    "quiver": "star4",
+    "rep": {
+     "dims": [
+      1,
+      1,
+      1,
+      1,
+      1
+     ],
+     "maps": {
+      "0": [
+       [
+        1
+       ]
+      ],
+      "1": [
+       [
+        1
+       ]
+      ],
+      "2": [
+       [
+        1
+       ]
+      ],
+      "3": [
+       [
+        1
+       ]
+      ]
+     }
+    },
+    "wert": true
+   },
+   "grund": "dim End = 1, dim J(End) = 0: absolut unzerlegbar",
+   "level": "computed_rigorous",
+   "status": "bestätigt",
+   "interpretation_ungeprueft": "Explizite Unzerlegbare zur reellen Wurzel (1;1,1,1,1).",
+   "red_team": [
+    {
+     "pruefung": {
+      "typ": "wurzel",
+      "quiver": "star4",
+      "alpha": [
+       1,
+       1,
+       1,
+       1,
+       1
+      ],
+      "art": "imaginaer"
+     },
+     "idee": "Ist der Vektor imaginär?",
+     "bestanden": false,
+     "widerspruch": false,
+     "grund": "Kac-Reduktion: [1, 1, 1, 1, 1] ist reell (q = 1)"
+    }
+   ]
+  },
+  {
+   "id": "quivers-R2-24",
+   "frage": "Vier-Unterraum-Problem (star4 = D~4): Wie sehen alle Unzerlegbaren mit Dimensionsvektor delta aus, und wie viele gibt es über F_q?",
+   "text": "Die Darstellung von star4 mit Dimensionsvektor [3, 1, 1, 1, 1] und Abbildungen {'0': [[1], [0], [0]], '1': [[0], [1], [0]], '2': [[0], [0], [1]], '3': [[1], [1], [1]]} ist absolut unzerlegbar (End/Rad = k).",
+   "pruefung": {
+    "typ": "unzerlegbar",
+    "quiver": "star4",
+    "rep": {
+     "dims": [
+      3,
+      1,
+      1,
+      1,
+      1
+     ],
+     "maps": {
+      "0": [
+       [
+        1
+       ],
+       [
+        0
+       ],
+       [
+        0
+       ]
+      ],
+      "1": [
+       [
+        0
+       ],
+       [
+        1
+       ],
+       [
+        0
+       ]
+      ],
+      "2": [
+       [
+        0
+       ],
+       [
+        0
+       ],
+       [
+        1
+       ]
+      ],
+      "3": [
+       [
+        1
+       ],
+       [
+        1
+       ],
+       [
+        1
+       ]
+      ]
+     }
+    },
+    "wert": true
+   },
+   "grund": "dim End = 1, dim J(End) = 0: absolut unzerlegbar",
+   "level": "computed_rigorous",
+   "status": "bestätigt",
+   "interpretation_ungeprueft": "Explizite Unzerlegbare zur reellen Wurzel (3;1,1,1,1).",
+   "red_team": [
+    {
+     "pruefung": {
+      "typ": "wurzel",
+      "quiver": "star4",
+      "alpha": [
+       3,
+       1,
+       1,
+       1,
+       1
+      ],
+      "art": "imaginaer"
+     },
+     "idee": "Ist der Vektor imaginär?",
+     "bestanden": false,
+     "widerspruch": false,
+     "grund": "Kac-Reduktion: [3, 1, 1, 1, 1] ist reell (q = 1)"
+    }
+   ]
+  },
+  {
+   "id": "quivers-R2-25",
+   "frage": "Vier-Unterraum-Problem (star4 = D~4): Wie sehen alle Unzerlegbaren mit Dimensionsvektor delta aus, und wie viele gibt es über F_q?",
+   "text": "Die Darstellung von star4 mit Dimensionsvektor [2, 2, 1, 1, 1] und Abbildungen {'0': [[1, 0], [0, 1]], '1': [[1], [0]], '2': [[0], [1]], '3': [[1], [1]]} ist absolut unzerlegbar (End/Rad = k).",
+   "pruefung": {
+    "typ": "unzerlegbar",
+    "quiver": "star4",
+    "rep": {
+     "dims": [
+      2,
+      2,
+      1,
+      1,
+      1
+     ],
+     "maps": {
+      "0": [
+       [
+        1,
+        0
+       ],
+       [
+        0,
+        1
+       ]
+      ],
+      "1": [
+       [
+        1
+       ],
+       [
+        0
+       ]
+      ],
+      "2": [
+       [
+        0
+       ],
+       [
+        1
+       ]
+      ],
+      "3": [
+       [
+        1
+       ],
+       [
+        1
+       ]
+      ]
+     }
+    },
+    "wert": true
+   },
+   "grund": "dim End = 1, dim J(End) = 0: absolut unzerlegbar",
+   "level": "computed_rigorous",
+   "status": "bestätigt",
+   "interpretation_ungeprueft": "Explizite Unzerlegbare zur reellen Wurzel (2;2,1,1,1).",
+   "red_team": [
+    {
+     "pruefung": {
+      "typ": "wurzel",
+      "quiver": "star4",
+      "alpha": [
+       2,
+       2,
+       1,
+       1,
+       1
+      ],
+      "art": "imaginaer"
+     },
+     "idee": "Ist der Vektor imaginär?",
+     "bestanden": false,
+     "widerspruch": false,
+     "grund": "Kac-Reduktion: [2, 2, 1, 1, 1] ist reell (q = 1)"
+    }
+   ]
+  },
+  {
+   "id": "quivers-R2-26",
+   "frage": "Vier-Unterraum-Problem (star4 = D~4): Wie sehen alle Unzerlegbaren mit Dimensionsvektor delta aus, und wie viele gibt es über F_q?",
+   "text": "Die Darstellung von star4 mit Dimensionsvektor [2, 1, 1, 1, 1] und Abbildungen {'0': [[1], [0]], '1': [[1], [0]], '2': [[0], [1]], '3': [[0], [1]]} ist über dem algebraischen Abschluss zerlegbar.",
+   "pruefung": {
+    "typ": "unzerlegbar",
+    "quiver": "star4",
+    "rep": {
+     "dims": [
+      2,
+      1,
+      1,
+      1,
+      1
+     ],
+     "maps": {
+      "0": [
+       [
+        1
+       ],
+       [
+        0
+       ]
+      ],
+      "1": [
+       [
+        1
+       ],
+       [
+        0
+       ]
+      ],
+      "2": [
+       [
+        0
+       ],
+       [
+        1
+       ]
+      ],
+      "3": [
+       [
+        0
+       ],
+       [
+        1
+       ]
+      ]
+     }
+    },
+    "wert": false
+   },
+   "grund": "dim End = 2, dim J(End) = 0: zerlegbar über Q̄",
+   "level": "computed_rigorous",
+   "status": "bestätigt",
+   "interpretation_ungeprueft": "Zwei Paare gleicher Geraden: zerlegbar.",
+   "red_team": [
+    {
+     "pruefung": {
+      "typ": "unzerlegbar",
+      "quiver": "star4",
+      "rep": {
+       "dims": [
+        2,
+        1,
+        1,
+        1,
+        1
+       ],
+       "maps": {
+        "0": [
+         [
+          1
+         ],
+         [
+          0
+         ]
+        ],
+        "1": [
+         [
+          1
+         ],
+         [
+          0
+         ]
+        ],
+        "2": [
+         [
+          0
+         ],
+         [
+          1
+         ]
+        ],
+        "3": [
+         [
+          0
+         ],
+         [
+          1
+         ]
+        ]
+       }
+      },
+      "wert": true
+     },
+     "idee": "Doch unzerlegbar?",
+     "bestanden": false,
+     "widerspruch": false,
+     "grund": "dim End = 2, dim J(End) = 0: zerlegbar über Q̄"
+    }
+   ]
+  },
+  {
+   "id": "quivers-R2-27",
+   "frage": "Vier-Unterraum-Problem (star4 = D~4): Wie sehen alle Unzerlegbaren mit Dimensionsvektor delta aus, und wie viele gibt es über F_q?",
+   "text": "Für star4 über F_2 und alle Dimensionsvektoren 0 < beta <= [3, 1, 1, 1, 1]: genau eine Unzerlegbare für reelle Wurzeln, keine für Nicht-Wurzeln.",
+   "pruefung": {
+    "typ": "kac_box",
+    "quiver": "star4",
+    "schranke": [
+     3,
+     1,
+     1,
+     1,
+     1
+    ],
+    "p": 2
+   },
+   "grund": "63 Vektoren <= [3, 1, 1, 1, 1] über F_2: reelle Wurzeln genau 1, Nicht-Wurzeln 0; imaginäre Wurzeln: {'[2, 1, 1, 1, 1]': 6}",
+   "level": "computed_rigorous",
+   "status": "bestätigt",
+   "interpretation_ungeprueft": "Kac für D~4: reelle Wurzeln genau eine Unzerlegbare, Nicht-Wurzeln keine (alle Vektoren <= (3;1,1,1,1)).",
+   "red_team": [
+    {
+     "pruefung": {
+      "typ": "anzahl",
+      "quiver": "star4",
+      "alpha": [
+       3,
+       1,
+       1,
+       1,
+       1
+      ],
+      "p": 2,
+      "anzahl": 0
+     },
+     "idee": "Keine Unzerlegbare in (3;1,1,1,1)?",
+     "bestanden": false,
+     "widerspruch": false,
+     "grund": "I_[3, 1, 1, 1, 1](2) = 1 (Methode: direkt)"
+    }
+   ]
+  },
+  {
+   "id": "quivers-R2-28",
+   "frage": "Vier-Unterraum-Problem (star4 = D~4): Wie sehen alle Unzerlegbaren mit Dimensionsvektor delta aus, und wie viele gibt es über F_q?",
+   "text": "Für star4 über F_3 und alle Dimensionsvektoren 0 < beta <= [3, 1, 1, 1, 1]: genau eine Unzerlegbare für reelle Wurzeln, keine für Nicht-Wurzeln.",
+   "pruefung": {
+    "typ": "kac_box",
+    "quiver": "star4",
+    "schranke": [
+     3,
+     1,
+     1,
+     1,
+     1
+    ],
+    "p": 3
+   },
+   "grund": "63 Vektoren <= [3, 1, 1, 1, 1] über F_3: reelle Wurzeln genau 1, Nicht-Wurzeln 0; imaginäre Wurzeln: {'[2, 1, 1, 1, 1]': 7}",
+   "level": "computed_rigorous",
+   "status": "bestätigt",
+   "interpretation_ungeprueft": "Kac für D~4: reelle Wurzeln genau eine Unzerlegbare, Nicht-Wurzeln keine (alle Vektoren <= (3;1,1,1,1)).",
+   "red_team": [
+    {
+     "pruefung": {
+      "typ": "anzahl",
+      "quiver": "star4",
+      "alpha": [
+       3,
+       1,
+       1,
+       1,
+       1
+      ],
+      "p": 3,
+      "anzahl": 0
+     },
+     "idee": "Keine Unzerlegbare in (3;1,1,1,1)?",
+     "bestanden": false,
+     "widerspruch": false,
+     "grund": "I_[3, 1, 1, 1, 1](3) = 1 (Methode: burnside)"
+    }
+   ]
+  },
+  {
+   "id": "quivers-R3-29",
+   "frage": "Wilde Sterne (star n, n >= 5): Wie wachsen Parameterzahl und Anzahl der Unzerlegbaren, gibt es eine geschlossene Formel für alpha_n = (2;1^n)?",
+   "text": "Für star5 ist [2, 1, 1, 1, 1, 1] eine imaginäre Wurzel mit 1 - q(alpha) = 2.",
+   "pruefung": {
+    "typ": "parameter",
+    "quiver": "star5",
+    "alpha": [
+     2,
+     1,
+     1,
+     1,
+     1,
+     1
+    ],
+    "anzahl": 2
+   },
+   "grund": "[2, 1, 1, 1, 1, 1]: imaginaer, 1 - q = 2",
+   "level": "computed_rigorous",
+   "status": "bestätigt",
+   "interpretation_ungeprueft": "(2;1^5) hat 2 Parameter.",
+   "red_team": [
+    {
+     "pruefung": {
+      "typ": "parameter",
+      "quiver": "star5",
+      "alpha": [
+       2,
+       1,
+       1,
+       1,
+       1,
+       1
+      ],
+      "anzahl": 1
+     },
+     "idee": "Einen Parameter weniger?",
+     "bestanden": false,
+     "widerspruch": false,
+     "grund": "[2, 1, 1, 1, 1, 1]: imaginaer, 1 - q = 2"
+    }
+   ]
+  },
+  {
+   "id": "quivers-R3-30",
+   "frage": "Wilde Sterne (star n, n >= 5): Wie wachsen Parameterzahl und Anzahl der Unzerlegbaren, gibt es eine geschlossene Formel für alpha_n = (2;1^n)?",
+   "text": "Für star6 ist [2, 1, 1, 1, 1, 1, 1] eine imaginäre Wurzel mit 1 - q(alpha) = 3.",
+   "pruefung": {
+    "typ": "parameter",
+    "quiver": "star6",
+    "alpha": [
+     2,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1
+    ],
+    "anzahl": 3
+   },
+   "grund": "[2, 1, 1, 1, 1, 1, 1]: imaginaer, 1 - q = 3",
+   "level": "computed_rigorous",
+   "status": "bestätigt",
+   "interpretation_ungeprueft": "(2;1^6) hat 3 Parameter.",
+   "red_team": [
+    {
+     "pruefung": {
+      "typ": "parameter",
+      "quiver": "star6",
+      "alpha": [
+       2,
+       1,
+       1,
+       1,
+       1,
+       1,
+       1
+      ],
+      "anzahl": 2
+     },
+     "idee": "Einen Parameter weniger?",
+     "bestanden": false,
+     "widerspruch": false,
+     "grund": "[2, 1, 1, 1, 1, 1, 1]: imaginaer, 1 - q = 3"
+    }
+   ]
+  },
+  {
+   "id": "quivers-R3-31",
+   "frage": "Wilde Sterne (star n, n >= 5): Wie wachsen Parameterzahl und Anzahl der Unzerlegbaren, gibt es eine geschlossene Formel für alpha_n = (2;1^n)?",
+   "text": "Für star7 ist [2, 1, 1, 1, 1, 1, 1, 1] eine imaginäre Wurzel mit 1 - q(alpha) = 4.",
+   "pruefung": {
+    "typ": "parameter",
+    "quiver": "star7",
+    "alpha": [
+     2,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1
+    ],
+    "anzahl": 4
+   },
+   "grund": "[2, 1, 1, 1, 1, 1, 1, 1]: imaginaer, 1 - q = 4",
+   "level": "computed_rigorous",
+   "status": "bestätigt",
+   "interpretation_ungeprueft": "(2;1^7) hat 4 Parameter.",
+   "red_team": [
+    {
+     "pruefung": {
+      "typ": "parameter",
+      "quiver": "star7",
+      "alpha": [
+       2,
+       1,
+       1,
+       1,
+       1,
+       1,
+       1,
+       1
+      ],
+      "anzahl": 3
+     },
+     "idee": "Einen Parameter weniger?",
+     "bestanden": false,
+     "widerspruch": false,
+     "grund": "[2, 1, 1, 1, 1, 1, 1, 1]: imaginaer, 1 - q = 4"
+    }
+   ]
+  },
+  {
+   "id": "quivers-R3-32",
+   "frage": "Wilde Sterne (star n, n >= 5): Wie wachsen Parameterzahl und Anzahl der Unzerlegbaren, gibt es eine geschlossene Formel für alpha_n = (2;1^n)?",
+   "text": "Für star8 ist [2, 1, 1, 1, 1, 1, 1, 1, 1] eine imaginäre Wurzel mit 1 - q(alpha) = 5.",
+   "pruefung": {
+    "typ": "parameter",
+    "quiver": "star8",
+    "alpha": [
+     2,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1
+    ],
+    "anzahl": 5
+   },
+   "grund": "[2, 1, 1, 1, 1, 1, 1, 1, 1]: imaginaer, 1 - q = 5",
+   "level": "computed_rigorous",
+   "status": "bestätigt",
+   "interpretation_ungeprueft": "(2;1^8) hat 5 Parameter.",
+   "red_team": [
+    {
+     "pruefung": {
+      "typ": "parameter",
+      "quiver": "star8",
+      "alpha": [
+       2,
+       1,
+       1,
+       1,
+       1,
+       1,
+       1,
+       1,
+       1
+      ],
+      "anzahl": 4
+     },
+     "idee": "Einen Parameter weniger?",
+     "bestanden": false,
+     "widerspruch": false,
+     "grund": "[2, 1, 1, 1, 1, 1, 1, 1, 1]: imaginaer, 1 - q = 5"
+    }
+   ]
+  },
+  {
+   "id": "quivers-R3-33",
+   "frage": "Wilde Sterne (star n, n >= 5): Wie wachsen Parameterzahl und Anzahl der Unzerlegbaren, gibt es eine geschlossene Formel für alpha_n = (2;1^n)?",
+   "text": "Für star5 ist [4, 2, 2, 2, 2, 2] eine imaginäre Wurzel mit 1 - q(alpha) = 5.",
+   "pruefung": {
+    "typ": "parameter",
+    "quiver": "star5",
+    "alpha": [
+     4,
+     2,
+     2,
+     2,
+     2,
+     2
+    ],
+    "anzahl": 5
+   },
+   "grund": "[4, 2, 2, 2, 2, 2]: imaginaer, 1 - q = 5",
+   "level": "computed_rigorous",
+   "status": "bestätigt",
+   "interpretation_ungeprueft": "(2k;k^5) mit k = 2 hat 1 + k^2 Parameter.",
+   "red_team": [
+    {
+     "pruefung": {
+      "typ": "parameter",
+      "quiver": "star5",
+      "alpha": [
+       4,
+       2,
+       2,
+       2,
+       2,
+       2
+      ],
+      "anzahl": 2
+     },
+     "idee": "Bleibt die Parameterzahl beschränkt?",
+     "bestanden": false,
+     "widerspruch": false,
+     "grund": "[4, 2, 2, 2, 2, 2]: imaginaer, 1 - q = 5"
+    }
+   ]
+  },
+  {
+   "id": "quivers-R3-34",
+   "frage": "Wilde Sterne (star n, n >= 5): Wie wachsen Parameterzahl und Anzahl der Unzerlegbaren, gibt es eine geschlossene Formel für alpha_n = (2;1^n)?",
+   "text": "Für star5 ist [6, 3, 3, 3, 3, 3] eine imaginäre Wurzel mit 1 - q(alpha) = 10.",
+   "pruefung": {
+    "typ": "parameter",
+    "quiver": "star5",
+    "alpha": [
+     6,
+     3,
+     3,
+     3,
+     3,
+     3
+    ],
+    "anzahl": 10
+   },
+   "grund": "[6, 3, 3, 3, 3, 3]: imaginaer, 1 - q = 10",
+   "level": "computed_rigorous",
+   "status": "bestätigt",
+   "interpretation_ungeprueft": "(2k;k^5) mit k = 3 hat 1 + k^2 Parameter.",
+   "red_team": [
+    {
+     "pruefung": {
+      "typ": "parameter",
+      "quiver": "star5",
+      "alpha": [
+       6,
+       3,
+       3,
+       3,
+       3,
+       3
+      ],
+      "anzahl": 2
+     },
+     "idee": "Bleibt die Parameterzahl beschränkt?",
+     "bestanden": false,
+     "widerspruch": false,
+     "grund": "[6, 3, 3, 3, 3, 3]: imaginaer, 1 - q = 10"
+    }
+   ]
+  },
+  {
+   "id": "quivers-R3-35",
+   "frage": "Wilde Sterne (star n, n >= 5): Wie wachsen Parameterzahl und Anzahl der Unzerlegbaren, gibt es eine geschlossene Formel für alpha_n = (2;1^n)?",
+   "text": "Für star4 und alpha = [2, 1, 1, 1, 1] stimmt die Anzahl absolut unzerlegbarer Darstellungen über F_q an deg + 2 Primzahlen q mit ((q+1)**3 - 1 - 7*q)/(q*(q-1)) überein; da A_alpha nach Kac ein Polynom vom Grad 1 - q(alpha) ist, ist dies das Kac-Polynom.",
+   "pruefung": {
+    "typ": "kac_polynom",
+    "quiver": "star4",
+    "alpha": [
+     2,
+     1,
+     1,
+     1,
+     1
+    ],
+    "formel": "((q+1)**3 - 1 - 7*q)/(q*(q-1))"
+   },
+   "grund": "A_[2, 1, 1, 1, 1](q) stimmt an q = [2, 3, 5, 7] (Methoden ['direkt', 'direkt', 'burnside', 'burnside']) mit dem Polynom überein; Grad 1 = 1 - q(alpha)",
+   "level": "computed_rigorous",
+   "status": "bestätigt",
+   "interpretation_ungeprueft": "A_(2;1^4)(q) = ((q+1)^(n-1) - 1 - (2^(n-1) - 1) q)/(q(q-1)).",
+   "red_team": [
+    {
+     "pruefung": {
+      "typ": "kac_polynom",
+      "quiver": "star4",
+      "alpha": [
+       2,
+       1,
+       1,
+       1,
+       1
+      ],
+      "formel": "((q+1)**3 - 1 - 7*q)/(q*(q-1)) + 1"
+     },
+     "idee": "Konstante um 1 verschoben?",
+     "bestanden": false,
+     "widerspruch": false,
+     "grund": "q = 2: gezählt 6, Polynom 7"
+    }
+   ]
+  },
+  {
+   "id": "quivers-R3-36",
+   "frage": "Wilde Sterne (star n, n >= 5): Wie wachsen Parameterzahl und Anzahl der Unzerlegbaren, gibt es eine geschlossene Formel für alpha_n = (2;1^n)?",
+   "text": "Für star5 und alpha = [2, 1, 1, 1, 1, 1] stimmt die Anzahl absolut unzerlegbarer Darstellungen über F_q an deg + 2 Primzahlen q mit ((q+1)**4 - 1 - 15*q)/(q*(q-1)) überein; da A_alpha nach Kac ein Polynom vom Grad 1 - q(alpha) ist, ist dies das Kac-Polynom.",
+   "pruefung": {
+    "typ": "kac_polynom",
+    "quiver": "star5",
+    "alpha": [
+     2,
+     1,
+     1,
+     1,
+     1,
+     1
+    ],
+    "formel": "((q+1)**4 - 1 - 15*q)/(q*(q-1))"
+   },
+   "grund": "A_[2, 1, 1, 1, 1, 1](q) stimmt an q = [2, 3, 5, 7] (Methoden ['direkt', 'burnside', 'burnside', 'burnside']) mit dem Polynom überein; Grad 2 = 1 - q(alpha)",
+   "level": "computed_rigorous",
+   "status": "bestätigt",
+   "interpretation_ungeprueft": "A_(2;1^5)(q) = ((q+1)^(n-1) - 1 - (2^(n-1) - 1) q)/(q(q-1)).",
+   "red_team": [
+    {
+     "pruefung": {
+      "typ": "kac_polynom",
+      "quiver": "star5",
+      "alpha": [
+       2,
+       1,
+       1,
+       1,
+       1,
+       1
+      ],
+      "formel": "((q+1)**4 - 1 - 15*q)/(q*(q-1)) + 1"
+     },
+     "idee": "Konstante um 1 verschoben?",
+     "bestanden": false,
+     "widerspruch": false,
+     "grund": "q = 2: gezählt 25, Polynom 26"
+    }
+   ]
+  },
+  {
+   "id": "quivers-R3-37",
+   "frage": "Wilde Sterne (star n, n >= 5): Wie wachsen Parameterzahl und Anzahl der Unzerlegbaren, gibt es eine geschlossene Formel für alpha_n = (2;1^n)?",
+   "text": "Für star6 und alpha = [2, 1, 1, 1, 1, 1, 1] stimmt die Anzahl absolut unzerlegbarer Darstellungen über F_q an deg + 2 Primzahlen q mit ((q+1)**5 - 1 - 31*q)/(q*(q-1)) überein; da A_alpha nach Kac ein Polynom vom Grad 1 - q(alpha) ist, ist dies das Kac-Polynom.",
+   "pruefung": {
+    "typ": "kac_polynom",
+    "quiver": "star6",
+    "alpha": [
+     2,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1
+    ],
+    "formel": "((q+1)**5 - 1 - 31*q)/(q*(q-1))"
+   },
+   "grund": "A_[2, 1, 1, 1, 1, 1, 1](q) stimmt an q = [2, 3, 5, 7, 11] (Methoden ['direkt', 'burnside', 'burnside', 'burnside', 'burnside']) mit dem Polynom überein; Grad 3 = 1 - q(alpha)",
+   "level": "computed_rigorous",
+   "status": "bestätigt",
+   "interpretation_ungeprueft": "A_(2;1^6)(q) = ((q+1)^(n-1) - 1 - (2^(n-1) - 1) q)/(q(q-1)).",
+   "red_team": [
+    {
+     "pruefung": {
+      "typ": "kac_polynom",
+      "quiver": "star6",
+      "alpha": [
+       2,
+       1,
+       1,
+       1,
+       1,
+       1,
+       1
+      ],
+      "formel": "((q+1)**5 - 1 - 31*q)/(q*(q-1)) + 1"
+     },
+     "idee": "Konstante um 1 verschoben?",
+     "bestanden": false,
+     "widerspruch": false,
+     "grund": "q = 2: gezählt 90, Polynom 91"
+    }
+   ]
+  },
+  {
+   "id": "quivers-R3-38",
+   "frage": "Wilde Sterne (star n, n >= 5): Wie wachsen Parameterzahl und Anzahl der Unzerlegbaren, gibt es eine geschlossene Formel für alpha_n = (2;1^n)?",
+   "text": "Für star7 und alpha = [2, 1, 1, 1, 1, 1, 1, 1] stimmt die Anzahl absolut unzerlegbarer Darstellungen über F_q an deg + 2 Primzahlen q mit ((q+1)**6 - 1 - 63*q)/(q*(q-1)) überein; da A_alpha nach Kac ein Polynom vom Grad 1 - q(alpha) ist, ist dies das Kac-Polynom.",
+   "pruefung": {
+    "typ": "kac_polynom",
+    "quiver": "star7",
+    "alpha": [
+     2,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1
+    ],
+    "formel": "((q+1)**6 - 1 - 63*q)/(q*(q-1))"
+   },
+   "grund": "A_[2, 1, 1, 1, 1, 1, 1, 1](q) stimmt an q = [2, 3, 5, 7, 11, 13] (Methoden ['direkt', 'burnside', 'burnside', 'burnside', 'burnside', 'burnside']) mit dem Polynom überein; Grad 4 = 1 - q(alpha)",
+   "level": "computed_rigorous",
+   "status": "bestätigt",
+   "interpretation_ungeprueft": "A_(2;1^7)(q) = ((q+1)^(n-1) - 1 - (2^(n-1) - 1) q)/(q(q-1)).",
+   "red_team": [
+    {
+     "pruefung": {
+      "typ": "kac_polynom",
+      "quiver": "star7",
+      "alpha": [
+       2,
+       1,
+       1,
+       1,
+       1,
+       1,
+       1,
+       1
+      ],
+      "formel": "((q+1)**6 - 1 - 63*q)/(q*(q-1)) + 1"
+     },
+     "idee": "Konstante um 1 verschoben?",
+     "bestanden": false,
+     "widerspruch": false,
+     "grund": "q = 2: gezählt 301, Polynom 302"
+    }
+   ]
+  },
+  {
+   "id": "quivers-R3-39",
+   "frage": "Wilde Sterne (star n, n >= 5): Wie wachsen Parameterzahl und Anzahl der Unzerlegbaren, gibt es eine geschlossene Formel für alpha_n = (2;1^n)?",
+   "text": "Für star8 und alpha = [2, 1, 1, 1, 1, 1, 1, 1, 1] stimmt die Anzahl absolut unzerlegbarer Darstellungen über F_q an deg + 2 Primzahlen q mit ((q+1)**7 - 1 - 127*q)/(q*(q-1)) überein; da A_alpha nach Kac ein Polynom vom Grad 1 - q(alpha) ist, ist dies das Kac-Polynom.",
+   "pruefung": {
+    "typ": "kac_polynom",
+    "quiver": "star8",
+    "alpha": [
+     2,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1
+    ],
+    "formel": "((q+1)**7 - 1 - 127*q)/(q*(q-1))"
+   },
+   "grund": "A_[2, 1, 1, 1, 1, 1, 1, 1, 1](q) stimmt an q = [2, 3, 5, 7, 11, 13, 17] (Methoden ['burnside', 'burnside', 'burnside', 'burnside', 'burnside', 'burnside', 'burnside']) mit dem Polynom überein; Grad 5 = 1 - q(alpha)",
+   "level": "computed_rigorous",
+   "status": "bestätigt",
+   "interpretation_ungeprueft": "A_(2;1^8)(q) = ((q+1)^(n-1) - 1 - (2^(n-1) - 1) q)/(q(q-1)).",
+   "red_team": [
+    {
+     "pruefung": {
+      "typ": "kac_polynom",
+      "quiver": "star8",
+      "alpha": [
+       2,
+       1,
+       1,
+       1,
+       1,
+       1,
+       1,
+       1,
+       1
+      ],
+      "formel": "((q+1)**7 - 1 - 127*q)/(q*(q-1)) + 1"
+     },
+     "idee": "Konstante um 1 verschoben?",
+     "bestanden": false,
+     "widerspruch": false,
+     "grund": "q = 2: gezählt 966, Polynom 967"
+    }
+   ]
+  },
+  {
+   "id": "quivers-R3-40",
+   "frage": "Wilde Sterne (star n, n >= 5): Wie wachsen Parameterzahl und Anzahl der Unzerlegbaren, gibt es eine geschlossene Formel für alpha_n = (2;1^n)?",
+   "text": "Über F_2 ist die angegebene Liste von 25 Darstellungen von star5 mit Dimensionsvektor [2, 1, 1, 1, 1, 1] eine vollständige Liste der Isoklassen Unzerlegbarer.",
+   "pruefung": {
+    "typ": "klassifikation",
+    "quiver": "star5",
+    "alpha": [
+     2,
+     1,
+     1,
+     1,
+     1,
+     1
+    ],
+    "p": 2,
+    "reps": [
+     {
+      "dims": [
+       2,
+       1,
+       1,
+       1,
+       1,
+       1
+      ],
+      "maps": {
+       "0": [
+        [
+         0
+        ],
+        [
+         1
+        ]
+       ],
+       "1": [
+        [
+         0
+        ],
+        [
+         1
+        ]
+       ],
+       "2": [
+        [
+         0
+        ],
+        [
+         1
+        ]
+       ],
+       "3": [
+        [
+         1
+        ],
+        [
+         0
+        ]
+       ],
+       "4": [
+        [
+         1
+        ],
+        [
+         1
+        ]
+       ]
+      }
+     },
+     {
+      "dims": [
+       2,
+       1,
+       1,
+       1,
+       1,
+       1
+      ],
+      "maps": {
+       "0": [
+        [
+         0
+        ],
+        [
+         1
+        ]
+       ],
+       "1": [
+        [
+         0
+        ],
+        [
+         1
+        ]
+       ],
+       "2": [
+        [
+         1
+        ],
+        [
+         0
+        ]
+       ],
+       "3": [
+        [
+         0
+        ],
+        [
+         1
+        ]
+       ],
+       "4": [
+        [
+         1
+        ],
+        [
+         1
+        ]
+       ]
+      }
+     },
+     {
+      "dims": [
+       2,
+       1,
+       1,
+       1,
+       1,
+       1
+      ],
+      "maps": {
+       "0": [
+        [
+         0
+        ],
+        [
+         1
+        ]
+       ],
+       "1": [
+        [
+         0
+        ],
+        [
+         1
+        ]
+       ],
+       "2": [
+        [
+         1
+        ],
+        [
+         0
+        ]
+       ],
+       "3": [
+        [
+         1
+        ],
+        [
+         0
+        ]
+       ],
+       "4": [
+        [
+         1
+        ],
+        [
+         1
+        ]
+       ]
+      }
+     },
+     {
+      "dims": [
+       2,
+       1,
+       1,
+       1,
+       1,
+       1
+      ],
+      "maps": {
+       "0": [
+        [
+         0
+        ],
+        [
+         1
+        ]
+       ],
+       "1": [
+        [
+         0
+        ],
+        [
+         1
+        ]
+       ],
+       "2": [
+        [
+         1
+        ],
+        [
+         0
+        ]
+       ],
+       "3": [
+        [
+         1
+        ],
+        [
+         1
+        ]
+       ],
+       "4": [
+        [
+         0
+        ],
+        [
+         1
+        ]
+       ]
+      }
+     },
+     {
+      "dims": [
+       2,
+       1,
+       1,
+       1,
+       1,
+       1
+      ],
+      "maps": {
+       "0": [
+        [
+         0
+        ],
+        [
+         1
+        ]
+       ],
+       "1": [
+        [
+         0
+        ],
+        [
+         1
+        ]
+       ],
+       "2": [
+        [
+         1
+        ],
+        [
+         0
+        ]
+       ],
+       "3": [
+        [
+         1
+        ],
+        [
+         1
+        ]
+       ],
+       "4": [
+        [
+         1
+        ],
+        [
+         0
+        ]
+       ]
+      }
+     },
+     {
+      "dims": [
+       2,
+       1,
+       1,
+       1,
+       1,
+       1
+      ],
+      "maps": {
+       "0": [
+        [
+         0
+        ],
+        [
+         1
+        ]
+       ],
+       "1": [
+        [
+         0
+        ],
+        [
+         1
+        ]
+       ],
+       "2": [
+        [
+         1
+        ],
+        [
+         0
+        ]
+       ],
+       "3": [
+        [
+         1
+        ],
+        [
+         1
+        ]
+       ],
+       "4": [
+        [
+         1
+        ],
+        [
+         1
+        ]
+       ]
+      }
+     },
+     {
+      "dims": [
+       2,
+       1,
+       1,
+       1,
+       1,
+       1
+      ],
+      "maps": {
+       "0": [
+        [
+         0
+        ],
+        [
+         1
+        ]
+       ],
+       "1": [
+        [
+         1
+        ],
+        [
+         0
+        ]
+       ],
+       "2": [
+        [
+         0
+        ],
+        [
+         1
+        ]
+       ],
+       "3": [
+        [
+         0
+        ],
+        [
+         1
+        ]
+       ],
+       "4": [
+        [
+         1
+        ],
+        [
+         1
+        ]
+       ]
+      }
+     },
+     {
+      "dims": [
+       2,
+       1,
+       1,
+       1,
+       1,
+       1
+      ],
+      "maps": {
+       "0": [
+        [
+         0
+        ],
+        [
+         1
+        ]
+       ],
+       "1": [
+        [
+         1
+        ],
+        [
+         0
+        ]
+       ],
+       "2": [
+        [
+         0
+        ],
+        [
+         1
+        ]
+       ],
+       "3": [
+        [
+         1
+        ],
+        [
+         0
+        ]
+       ],
+       "4": [
+        [
+         1
+        ],
+        [
+         1
+        ]
+       ]
+      }
+     },
+     {
+      "dims": [
+       2,
+       1,
+       1,
+       1,
+       1,
+       1
+      ],
+      "maps": {
+       "0": [
+        [
+         0
+        ],
+        [
+         1
+        ]
+       ],
+       "1": [
+        [
+         1
+        ],
+        [
+         0
+        ]
+       ],
+       "2": [
+        [
+         0
+        ],
+        [
+         1
+        ]
+       ],
+       "3": [
+        [
+         1
+        ],
+        [
+         1
+        ]
+       ],
+       "4": [
+        [
+         0
+        ],
+        [
+         1
+        ]
+       ]
+      }
+     },
+     {
+      "dims": [
+       2,
+       1,
+       1,
+       1,
+       1,
+       1
+      ],
+      "maps": {
+       "0": [
+        [
+         0
+        ],
+        [
+         1
+        ]
+       ],
+       "1": [
+        [
+         1
+        ],
+        [
+         0
+        ]
+       ],
+       "2": [
+        [
+         0
+        ],
+        [
+         1
+        ]
+       ],
+       "3": [
+        [
+         1
+        ],
+        [
+         1
+        ]
+       ],
+       "4": [
+        [
+         1
+        ],
+        [
+         0
+        ]
+       ]
+      }
+     },
+     {
+      "dims": [
+       2,
+       1,
+       1,
+       1,
+       1,
+       1
+      ],
+      "maps": {
+       "0": [
+        [
+         0
+        ],
+        [
+         1
+        ]
+       ],
+       "1": [
+        [
+         1
+        ],
+        [
+         0
+        ]
+       ],
+       "2": [
+        [
+         0
+        ],
+        [
+         1
+        ]
+       ],
+       "3": [
+        [
+         1
+        ],
+        [
+         1
+        ]
+       ],
+       "4": [
+        [
+         1
+        ],
+        [
+         1
+        ]
+       ]
+      }
+     },
+     {
+      "dims": [
+       2,
+       1,
+       1,
+       1,
+       1,
+       1
+      ],
+      "maps": {
+       "0": [
+        [
+         0
+        ],
+        [
+         1
+        ]
+       ],
+       "1": [
+        [
+         1
+        ],
+        [
+         0
+        ]
+       ],
+       "2": [
+        [
+         1
+        ],
+        [
+         0
+        ]
+       ],
+       "3": [
+        [
+         0
+        ],
+        [
+         1
+        ]
+       ],
+       "4": [
+        [
+         1
+        ],
+        [
+         1
+        ]
+       ]
+      }
+     },
+     {
+      "dims": [
+       2,
+       1,
+       1,
+       1,
+       1,
+       1
+      ],
+      "maps": {
+       "0": [
+        [
+         0
+        ],
+        [
+         1
+        ]
+       ],
+       "1": [
+        [
+         1
+        ],
+        [
+         0
+        ]
+       ],
+       "2": [
+        [
+         1
+        ],
+        [
+         0
+        ]
+       ],
+       "3": [
+        [
+         1
+        ],
+        [
+         0
+        ]
+       ],
+       "4": [
+        [
+         1
+        ],
+        [
+         1
+        ]
+       ]
+      }
+     },
+     {
+      "dims": [
+       2,
+       1,
+       1,
+       1,
+       1,
+       1
+      ],
+      "maps": {
+       "0": [
+        [
+         0
+        ],
+        [
+         1
+        ]
+       ],
+       "1": [
+        [
+         1
+        ],
+        [
+         0
+        ]
+       ],
+       "2": [
+        [
+         1
+        ],
+        [
+         0
+        ]
+       ],
+       "3": [
+        [
+         1
+        ],
+        [
+         1
+        ]
+       ],
+       "4": [
+        [
+         0
+        ],
+        [
+         1
+        ]
+       ]
+      }
+     },
+     {
+      "dims": [
+       2,
+       1,
+       1,
+       1,
+       1,
+       1
+      ],
+      "maps": {
+       "0": [
+        [
+         0
+        ],
+        [
+         1
+        ]
+       ],
+       "1": [
+        [
+         1
+        ],
+        [
+         0
+        ]
+       ],
+       "2": [
+        [
+         1
+        ],
+        [
+         0
+        ]
+       ],
+       "3": [
+        [
+         1
+        ],
+        [
+         1
+        ]
+       ],
+       "4": [
+        [
+         1
+        ],
+        [
+         0
+        ]
+       ]
+      }
+     },
+     {
+      "dims": [
+       2,
+       1,
+       1,
+       1,
+       1,
+       1
+      ],
+      "maps": {
+       "0": [
+        [
+         0
+        ],
+        [
+         1
+        ]
+       ],
+       "1": [
+        [
+         1
+        ],
+        [
+         0
+        ]
+       ],
+       "2": [
+        [
+         1
+        ],
+        [
+         0
+        ]
+       ],
+       "3": [
+        [
+         1
+        ],
+        [
+         1
+        ]
+       ],
+       "4": [
+        [
+         1
+        ],
+        [
+         1
+        ]
+       ]
+      }
+     },
+     {
+      "dims": [
+       2,
+       1,
+       1,
+       1,
+       1,
+       1
+      ],
+      "maps": {
+       "0": [
+        [
+         0
+        ],
+        [
+         1
+        ]
+       ],
+       "1": [
+        [
+         1
+        ],
+        [
+         0
+        ]
+       ],
+       "2": [
+        [
+         1
+        ],
+        [
+         1
+        ]
+       ],
+       "3": [
+        [
+         0
+        ],
+        [
+         1
+        ]
+       ],
+       "4": [
+        [
+         0
+        ],
+        [
+         1
+        ]
+       ]
+      }
+     },
+     {
+      "dims": [
+       2,
+       1,
+       1,
+       1,
+       1,
+       1
+      ],
+      "maps": {
+       "0": [
+        [
+         0
+        ],
+        [
+         1
+        ]
+       ],
+       "1": [
+        [
+         1
+        ],
+        [
+         0
+        ]
+       ],
+       "2": [
+        [
+         1
+        ],
+        [
+         1
+        ]
+       ],
+       "3": [
+        [
+         0
+        ],
+        [
+         1
+        ]
+       ],
+       "4": [
+        [
+         1
+        ],
+        [
+         0
+        ]
+       ]
+      }
+     },
+     {
+      "dims": [
+       2,
+       1,
+       1,
+       1,
+       1,
+       1
+      ],
+      "maps": {
+       "0": [
+        [
+         0
+        ],
+        [
+         1
+        ]
+       ],
+       "1": [
+        [
+         1
+        ],
+        [
+         0
+        ]
+       ],
+       "2": [
+        [
+         1
+        ],
+        [
+         1
+        ]
+       ],
+       "3": [
+        [
+         0
+        ],
+        [
+         1
+        ]
+       ],
+       "4": [
+        [
+         1
+        ],
+        [
+         1
+        ]
+       ]
+      }
+     },
+     {
+      "dims": [
+       2,
+       1,
+       1,
+       1,
+       1,
+       1
+      ],
+      "maps": {
+       "0": [
+        [
+         0
+        ],
+        [
+         1
+        ]
+       ],
+       "1": [
+        [
+         1
+        ],
+        [
+         0
+        ]
+       ],
+       "2": [
+        [
+         1
+        ],
+        [
+         1
+        ]
+       ],
+       "3": [
+        [
+         1
+        ],
+        [
+         0
+        ]
+       ],
+       "4": [
+        [
+         0
+        ],
+        [
+         1
+        ]
+       ]
+      }
+     },
+     {
+      "dims": [
+       2,
+       1,
+       1,
+       1,
+       1,
+       1
+      ],
+      "maps": {
+       "0": [
+        [
+         0
+        ],
+        [
+         1
+        ]
+       ],
+       "1": [
+        [
+         1
+        ],
+        [
+         0
+        ]
+       ],
+       "2": [
+        [
+         1
+        ],
+        [
+         1
+        ]
+       ],
+       "3": [
+        [
+         1
+        ],
+        [
+         0
+        ]
+       ],
+       "4": [
+        [
+         1
+        ],
+        [
+         0
+        ]
+       ]
+      }
+     },
+     {
+      "dims": [
+       2,
+       1,
+       1,
+       1,
+       1,
+       1
+      ],
+      "maps": {
+       "0": [
+        [
+         0
+        ],
+        [
+         1
+        ]
+       ],
+       "1": [
+        [
+         1
+        ],
+        [
+         0
+        ]
+       ],
+       "2": [
+        [
+         1
+        ],
+        [
+         1
+        ]
+       ],
+       "3": [
+        [
+         1
+        ],
+        [
+         0
+        ]
+       ],
+       "4": [
+        [
+         1
+        ],
+        [
+         1
+        ]
+       ]
+      }
+     },
+     {
+      "dims": [
+       2,
+       1,
+       1,
+       1,
+       1,
+       1
+      ],
+      "maps": {
+       "0": [
+        [
+         0
+        ],
+        [
+         1
+        ]
+       ],
+       "1": [
+        [
+         1
+        ],
+        [
+         0
+        ]
+       ],
+       "2": [
+        [
+         1
+        ],
+        [
+         1
+        ]
+       ],
+       "3": [
+        [
+         1
+        ],
+        [
+         1
+        ]
+       ],
+       "4": [
+        [
+         0
+        ],
+        [
+         1
+        ]
+       ]
+      }
+     },
+     {
+      "dims": [
+       2,
+       1,
+       1,
+       1,
+       1,
+       1
+      ],
+      "maps": {
+       "0": [
+        [
+         0
+        ],
+        [
+         1
+        ]
+       ],
+       "1": [
+        [
+         1
+        ],
+        [
+         0
+        ]
+       ],
+       "2": [
+        [
+         1
+        ],
+        [
+         1
+        ]
+       ],
+       "3": [
+        [
+         1
+        ],
+        [
+         1
+        ]
+       ],
+       "4": [
+        [
+         1
+        ],
+        [
+         0
+        ]
+       ]
+      }
+     },
+     {
+      "dims": [
+       2,
+       1,
+       1,
+       1,
+       1,
+       1
+      ],
+      "maps": {
+       "0": [
+        [
+         0
+        ],
+        [
+         1
+        ]
+       ],
+       "1": [
+        [
+         1
+        ],
+        [
+         0
+        ]
+       ],
+       "2": [
+        [
+         1
+        ],
+        [
+         1
+        ]
+       ],
+       "3": [
+        [
+         1
+        ],
+        [
+         1
+        ]
+       ],
+       "4": [
+        [
+         1
+        ],
+        [
+         1
+        ]
+       ]
+      }
+     }
+    ]
+   },
+   "grund": "25 paarweise nicht isomorphe Unzerlegbare über F_2; Zählung I = 25 (Methode direkt) -> Liste vollständig",
+   "level": "computed_rigorous",
+   "status": "bestätigt",
+   "interpretation_ungeprueft": "Vollständige Liste über F_2: Konfigurationen von 5 Punkten in P^1(F_2) mit >= 3 verschiedenen Punkten modulo PGL_2.",
+   "red_team": [
+    {
+     "pruefung": {
+      "typ": "klassifikation",
+      "quiver": "star5",
+      "alpha": [
+       2,
+       1,
+       1,
+       1,
+       1,
+       1
+      ],
+      "p": 2,
+      "reps": [
+       {
+        "dims": [
+         2,
+         1,
+         1,
+         1,
+         1,
+         1
+        ],
+        "maps": {
+         "0": [
+          [
+           0
+          ],
+          [
+           1
+          ]
+         ],
+         "1": [
+          [
+           0
+          ],
+          [
+           1
+          ]
+         ],
+         "2": [
+          [
+           0
+          ],
+          [
+           1
+          ]
+         ],
+         "3": [
+          [
+           1
+          ],
+          [
+           0
+          ]
+         ],
+         "4": [
+          [
+           1
+          ],
+          [
+           1
+          ]
+         ]
+        }
+       },
+       {
+        "dims": [
+         2,
+         1,
+         1,
+         1,
+         1,
+         1
+        ],
+        "maps": {
+         "0": [
+          [
+           0
+          ],
+          [
+           1
+          ]
+         ],
+         "1": [
+          [
+           0
+          ],
+          [
+           1
+          ]
+         ],
+         "2": [
+          [
+           1
+          ],
+          [
+           0
+          ]
+         ],
+         "3": [
+          [
+           0
+          ],
+          [
+           1
+          ]
+         ],
+         "4": [
+          [
+           1
+          ],
+          [
+           1
+          ]
+         ]
+        }
+       },
+       {
+        "dims": [
+         2,
+         1,
+         1,
+         1,
+         1,
+         1
+        ],
+        "maps": {
+         "0": [
+          [
+           0
+          ],
+          [
+           1
+          ]
+         ],
+         "1": [
+          [
+           0
+          ],
+          [
+           1
+          ]
+         ],
+         "2": [
+          [
+           1
+          ],
+          [
+           0
+          ]
+         ],
+         "3": [
+          [
+           1
+          ],
+          [
+           0
+          ]
+         ],
+         "4": [
+          [
+           1
+          ],
+          [
+           1
+          ]
+         ]
+        }
+       },
+       {
+        "dims": [
+         2,
+         1,
+         1,
+         1,
+         1,
+         1
+        ],
+        "maps": {
+         "0": [
+          [
+           0
+          ],
+          [
+           1
+          ]
+         ],
+         "1": [
+          [
+           0
+          ],
+          [
+           1
+          ]
+         ],
+         "2": [
+          [
+           1
+          ],
+          [
+           0
+          ]
+         ],
+         "3": [
+          [
+           1
+          ],
+          [
+           1
+          ]
+         ],
+         "4": [
+          [
+           0
+          ],
+          [
+           1
+          ]
+         ]
+        }
+       },
+       {
+        "dims": [
+         2,
+         1,
+         1,
+         1,
+         1,
+         1
+        ],
+        "maps": {
+         "0": [
+          [
+           0
+          ],
+          [
+           1
+          ]
+         ],
+         "1": [
+          [
+           0
+          ],
+          [
+           1
+          ]
+         ],
+         "2": [
+          [
+           1
+          ],
+          [
+           0
+          ]
+         ],
+         "3": [
+          [
+           1
+          ],
+          [
+           1
+          ]
+         ],
+         "4": [
+          [
+           1
+          ],
+          [
+           0
+          ]
+         ]
+        }
+       },
+       {
+        "dims": [
+         2,
+         1,
+         1,
+         1,
+         1,
+         1
+        ],
+        "maps": {
+         "0": [
+          [
+           0
+          ],
+          [
+           1
+          ]
+         ],
+         "1": [
+          [
+           0
+          ],
+          [
+           1
+          ]
+         ],
+         "2": [
+          [
+           1
+          ],
+          [
+           0
+          ]
+         ],
+         "3": [
+          [
+           1
+          ],
+          [
+           1
+          ]
+         ],
+         "4": [
+          [
+           1
+          ],
+          [
+           1
+          ]
+         ]
+        }
+       },
+       {
+        "dims": [
+         2,
+         1,
+         1,
+         1,
+         1,
+         1
+        ],
+        "maps": {
+         "0": [
+          [
+           0
+          ],
+          [
+           1
+          ]
+         ],
+         "1": [
+          [
+           1
+          ],
+          [
+           0
+          ]
+         ],
+         "2": [
+          [
+           0
+          ],
+          [
+           1
+          ]
+         ],
+         "3": [
+          [
+           0
+          ],
+          [
+           1
+          ]
+         ],
+         "4": [
+          [
+           1
+          ],
+          [
+           1
+          ]
+         ]
+        }
+       },
+       {
+        "dims": [
+         2,
+         1,
+         1,
+         1,
+         1,
+         1
+        ],
+        "maps": {
+         "0": [
+          [
+           0
+          ],
+          [
+           1
+          ]
+         ],
+         "1": [
+          [
+           1
+          ],
+          [
+           0
+          ]
+         ],
+         "2": [
+          [
+           0
+          ],
+          [
+           1
+          ]
+         ],
+         "3": [
+          [
+           1
+          ],
+          [
+           0
+          ]
+         ],
+         "4": [
+          [
+           1
+          ],
+          [
+           1
+          ]
+         ]
+        }
+       },
+       {
+        "dims": [
+         2,
+         1,
+         1,
+         1,
+         1,
+         1
+        ],
+        "maps": {
+         "0": [
+          [
+           0
+          ],
+          [
+           1
+          ]
+         ],
+         "1": [
+          [
+           1
+          ],
+          [
+           0
+          ]
+         ],
+         "2": [
+          [
+           0
+          ],
+          [
+           1
+          ]
+         ],
+         "3": [
+          [
+           1
+          ],
+          [
+           1
+          ]
+         ],
+         "4": [
+          [
+           0
+          ],
+          [
+           1
+          ]
+         ]
+        }
+       },
+       {
+        "dims": [
+         2,
+         1,
+         1,
+         1,
+         1,
+         1
+        ],
+        "maps": {
+         "0": [
+          [
+           0
+          ],
+          [
+           1
+          ]
+         ],
+         "1": [
+          [
+           1
+          ],
+          [
+           0
+          ]
+         ],
+         "2": [
+          [
+           0
+          ],
+          [
+           1
+          ]
+         ],
+         "3": [
+          [
+           1
+          ],
+          [
+           1
+          ]
+         ],
+         "4": [
+          [
+           1
+          ],
+          [
+           0
+          ]
+         ]
+        }
+       },
+       {
+        "dims": [
+         2,
+         1,
+         1,
+         1,
+         1,
+         1
+        ],
+        "maps": {
+         "0": [
+          [
+           0
+          ],
+          [
+           1
+          ]
+         ],
+         "1": [
+          [
+           1
+          ],
+          [
+           0
+          ]
+         ],
+         "2": [
+          [
+           0
+          ],
+          [
+           1
+          ]
+         ],
+         "3": [
+          [
+           1
+          ],
+          [
+           1
+          ]
+         ],
+         "4": [
+          [
+           1
+          ],
+          [
+           1
+          ]
+         ]
+        }
+       },
+       {
+        "dims": [
+         2,
+         1,
+         1,
+         1,
+         1,
+         1
+        ],
+        "maps": {
+         "0": [
+          [
+           0
+          ],
+          [
+           1
+          ]
+         ],
+         "1": [
+          [
+           1
+          ],
+          [
+           0
+          ]
+         ],
+         "2": [
+          [
+           1
+          ],
+          [
+           0
+          ]
+         ],
+         "3": [
+          [
+           0
+          ],
+          [
+           1
+          ]
+         ],
+         "4": [
+          [
+           1
+          ],
+          [
+           1
+          ]
+         ]
+        }
+       },
+       {
+        "dims": [
+         2,
+         1,
+         1,
+         1,
+         1,
+         1
+        ],
+        "maps": {
+         "0": [
+          [
+           0
+          ],
+          [
+           1
+          ]
+         ],
+         "1": [
+          [
+           1
+          ],
+          [
+           0
+          ]
+         ],
+         "2": [
+          [
+           1
+          ],
+          [
+           0
+          ]
+         ],
+         "3": [
+          [
+           1
+          ],
+          [
+           0
+          ]
+         ],
+         "4": [
+          [
+           1
+          ],
+          [
+           1
+          ]
+         ]
+        }
+       },
+       {
+        "dims": [
+         2,
+         1,
+         1,
+         1,
+         1,
+         1
+        ],
+        "maps": {
+         "0": [
+          [
+           0
+          ],
+          [
+           1
+          ]
+         ],
+         "1": [
+          [
+           1
+          ],
+          [
+           0
+          ]
+         ],
+         "2": [
+          [
+           1
+          ],
+          [
+           0
+          ]
+         ],
+         "3": [
+          [
+           1
+          ],
+          [
+           1
+          ]
+         ],
+         "4": [
+          [
+           0
+          ],
+          [
+           1
+          ]
+         ]
+        }
+       },
+       {
+        "dims": [
+         2,
+         1,
+         1,
+         1,
+         1,
+         1
+        ],
+        "maps": {
+         "0": [
+          [
+           0
+          ],
+          [
+           1
+          ]
+         ],
+         "1": [
+          [
+           1
+          ],
+          [
+           0
+          ]
+         ],
+         "2": [
+          [
+           1
+          ],
+          [
+           0
+          ]
+         ],
+         "3": [
+          [
+           1
+          ],
+          [
+           1
+          ]
+         ],
+         "4": [
+          [
+           1
+          ],
+          [
+           0
+          ]
+         ]
+        }
+       },
+       {
+        "dims": [
+         2,
+         1,
+         1,
+         1,
+         1,
+         1
+        ],
+        "maps": {
+         "0": [
+          [
+           0
+          ],
+          [
+           1
+          ]
+         ],
+         "1": [
+          [
+           1
+          ],
+          [
+           0
+          ]
+         ],
+         "2": [
+          [
+           1
+          ],
+          [
+           0
+          ]
+         ],
+         "3": [
+          [
+           1
+          ],
+          [
+           1
+          ]
+         ],
+         "4": [
+          [
+           1
+          ],
+          [
+           1
+          ]
+         ]
+        }
+       },
+       {
+        "dims": [
+         2,
+         1,
+         1,
+         1,
+         1,
+         1
+        ],
+        "maps": {
+         "0": [
+          [
+           0
+          ],
+          [
+           1
+          ]
+         ],
+         "1": [
+          [
+           1
+          ],
+          [
+           0
+          ]
+         ],
+         "2": [
+          [
+           1
+          ],
+          [
+           1
+          ]
+         ],
+         "3": [
+          [
+           0
+          ],
+          [
+           1
+          ]
+         ],
+         "4": [
+          [
+           0
+          ],
+          [
+           1
+          ]
+         ]
+        }
+       },
+       {
+        "dims": [
+         2,
+         1,
+         1,
+         1,
+         1,
+         1
+        ],
+        "maps": {
+         "0": [
+          [
+           0
+          ],
+          [
+           1
+          ]
+         ],
+         "1": [
+          [
+           1
+          ],
+          [
+           0
+          ]
+         ],
+         "2": [
+          [
+           1
+          ],
+          [
+           1
+          ]
+         ],
+         "3": [
+          [
+           0
+          ],
+          [
+           1
+          ]
+         ],
+         "4": [
+          [
+           1
+          ],
+          [
+           0
+          ]
+         ]
+        }
+       },
+       {
+        "dims": [
+         2,
+         1,
+         1,
+         1,
+         1,
+         1
+        ],
+        "maps": {
+         "0": [
+          [
+           0
+          ],
+          [
+           1
+          ]
+         ],
+         "1": [
+          [
+           1
+          ],
+          [
+           0
+          ]
+         ],
+         "2": [
+          [
+           1
+          ],
+          [
+           1
+          ]
+         ],
+         "3": [
+          [
+           0
+          ],
+          [
+           1
+          ]
+         ],
+         "4": [
+          [
+           1
+          ],
+          [
+           1
+          ]
+         ]
+        }
+       },
+       {
+        "dims": [
+         2,
+         1,
+         1,
+         1,
+         1,
+         1
+        ],
+        "maps": {
+         "0": [
+          [
+           0
+          ],
+          [
+           1
+          ]
+         ],
+         "1": [
+          [
+           1
+          ],
+          [
+           0
+          ]
+         ],
+         "2": [
+          [
+           1
+          ],
+          [
+           1
+          ]
+         ],
+         "3": [
+          [
+           1
+          ],
+          [
+           0
+          ]
+         ],
+         "4": [
+          [
+           0
+          ],
+          [
+           1
+          ]
+         ]
+        }
+       },
+       {
+        "dims": [
+         2,
+         1,
+         1,
+         1,
+         1,
+         1
+        ],
+        "maps": {
+         "0": [
+          [
+           0
+          ],
+          [
+           1
+          ]
+         ],
+         "1": [
+          [
+           1
+          ],
+          [
+           0
+          ]
+         ],
+         "2": [
+          [
+           1
+          ],
+          [
+           1
+          ]
+         ],
+         "3": [
+          [
+           1
+          ],
+          [
+           0
+          ]
+         ],
+         "4": [
+          [
+           1
+          ],
+          [
+           0
+          ]
+         ]
+        }
+       },
+       {
+        "dims": [
+         2,
+         1,
+         1,
+         1,
+         1,
+         1
+        ],
+        "maps": {
+         "0": [
+          [
+           0
+          ],
+          [
+           1
+          ]
+         ],
+         "1": [
+          [
+           1
+          ],
+          [
+           0
+          ]
+         ],
+         "2": [
+          [
+           1
+          ],
+          [
+           1
+          ]
+         ],
+         "3": [
+          [
+           1
+          ],
+          [
+           0
+          ]
+         ],
+         "4": [
+          [
+           1
+          ],
+          [
+           1
+          ]
+         ]
+        }
+       },
+       {
+        "dims": [
+         2,
+         1,
+         1,
+         1,
+         1,
+         1
+        ],
+        "maps": {
+         "0": [
+          [
+           0
+          ],
+          [
+           1
+          ]
+         ],
+         "1": [
+          [
+           1
+          ],
+          [
+           0
+          ]
+         ],
+         "2": [
+          [
+           1
+          ],
+          [
+           1
+          ]
+         ],
+         "3": [
+          [
+           1
+          ],
+          [
+           1
+          ]
+         ],
+         "4": [
+          [
+           0
+          ],
+          [
+           1
+          ]
+         ]
+        }
+       },
+       {
+        "dims": [
+         2,
+         1,
+         1,
+         1,
+         1,
+         1
+        ],
+        "maps": {
+         "0": [
+          [
+           0
+          ],
+          [
+           1
+          ]
+         ],
+         "1": [
+          [
+           1
+          ],
+          [
+           0
+          ]
+         ],
+         "2": [
+          [
+           1
+          ],
+          [
+           1
+          ]
+         ],
+         "3": [
+          [
+           1
+          ],
+          [
+           1
+          ]
+         ],
+         "4": [
+          [
+           1
+          ],
+          [
+           0
+          ]
+         ]
+        }
+       }
+      ]
+     },
+     "idee": "Liste ohne letztes Element",
+     "bestanden": false,
+     "widerspruch": false,
+     "grund": "24 paarweise nicht isomorphe Unzerlegbare über F_2; Zählung I = 25 (Methode direkt) -> Liste unvollständig"
+    }
+   ]
+  },
+  {
+   "id": "quivers-R3-41",
+   "frage": "Wilde Sterne (star n, n >= 5): Wie wachsen Parameterzahl und Anzahl der Unzerlegbaren, gibt es eine geschlossene Formel für alpha_n = (2;1^n)?",
+   "text": "Für star5: die Familie V_t mit Dimensionsvektor [2, 1, 1, 1, 1, 1] und Abbildungen {'0': [[1], [0]], '1': [[0], [1]], '2': [[1], [1]], '3': [[1], [2]], '4': [[1], ['t']]} erfüllt für alle t außerhalb []: End(V_t) = k (Ziegel, absolut unzerlegbar) und Hom(V_s, V_t) = 0 für s != t (paarweise nicht isomorph); Zertifikat: Elimination über Q(s, t) mit protokollierten Pivots.",
+   "pruefung": {
+    "typ": "familie",
+    "quiver": "star5",
+    "rep": {
+     "dims": [
+      2,
+      1,
+      1,
+      1,
+      1,
+      1
+     ],
+     "maps": {
+      "0": [
+       [
+        1
+       ],
+       [
+        0
+       ]
+      ],
+      "1": [
+       [
+        0
+       ],
+       [
+        1
+       ]
+      ],
+      "2": [
+       [
+        1
+       ],
+       [
+        1
+       ]
+      ],
+      "3": [
+       [
+        1
+       ],
+       [
+        2
+       ]
+      ],
+      "4": [
+       [
+        1
+       ],
+       [
+        "t"
+       ]
+      ]
+     }
+    },
+    "ausnahmen": []
+   },
+   "grund": "Elimination über Q(t): rang(End-System) = 8 von 9 (dim End <= 1), Pivot-Faktoren []; Hom(V_s, V_t): rang 9 (dim Hom <= 0), Pivot-Faktoren ['-s_ + t']; gültig für t, s außerhalb [], s != t",
+   "level": "computed_rigorous",
+   "status": "bestätigt",
+   "interpretation_ungeprueft": "Schnitt s = 2 der Zwei-Parameter-Familie (Geraden (1,0), (0,1), (1,1), (1,s), (1,t)): paarweise nicht isomorphe Ziegel.",
+   "red_team": [
+    {
+     "pruefung": {
+      "typ": "unzerlegbar",
+      "quiver": "star5",
+      "rep": {
+       "dims": [
+        2,
+        1,
+        1,
+        1,
+        1,
+        1
+       ],
+       "maps": {
+        "0": [
+         [
+          1
+         ],
+         [
+          0
+         ]
+        ],
+        "1": [
+         [
+          0
+         ],
+         [
+          1
+         ]
+        ],
+        "2": [
+         [
+          1
+         ],
+         [
+          1
+         ]
+        ],
+        "3": [
+         [
+          1
+         ],
+         [
+          2
+         ]
+        ],
+        "4": [
+         [
+          1
+         ],
+         [
+          7
+         ]
+        ]
+       }
+      },
+      "wert": false
+     },
+     "idee": "Zerfällt ein Mitglied?",
+     "bestanden": false,
+     "widerspruch": false,
+     "grund": "dim End = 1, dim J(End) = 0: absolut unzerlegbar"
+    }
+   ]
+  },
+  {
+   "id": "quivers-R3-42",
+   "frage": "Wilde Sterne (star n, n >= 5): Wie wachsen Parameterzahl und Anzahl der Unzerlegbaren, gibt es eine geschlossene Formel für alpha_n = (2;1^n)?",
+   "text": "Für star5: die Familie V_t mit Dimensionsvektor [2, 1, 1, 1, 1, 1] und Abbildungen {'0': [[1], [0]], '1': [[0], [1]], '2': [[1], [1]], '3': [[1], [3]], '4': [[1], ['t']]} erfüllt für alle t außerhalb []: End(V_t) = k (Ziegel, absolut unzerlegbar) und Hom(V_s, V_t) = 0 für s != t (paarweise nicht isomorph); Zertifikat: Elimination über Q(s, t) mit protokollierten Pivots.",
+   "pruefung": {
+    "typ": "familie",
+    "quiver": "star5",
+    "rep": {
+     "dims": [
+      2,
+      1,
+      1,
+      1,
+      1,
+      1
+     ],
+     "maps": {
+      "0": [
+       [
+        1
+       ],
+       [
+        0
+       ]
+      ],
+      "1": [
+       [
+        0
+       ],
+       [
+        1
+       ]
+      ],
+      "2": [
+       [
+        1
+       ],
+       [
+        1
+       ]
+      ],
+      "3": [
+       [
+        1
+       ],
+       [
+        3
+       ]
+      ],
+      "4": [
+       [
+        1
+       ],
+       [
+        "t"
+       ]
+      ]
+     }
+    },
+    "ausnahmen": []
+   },
+   "grund": "Elimination über Q(t): rang(End-System) = 8 von 9 (dim End <= 1), Pivot-Faktoren []; Hom(V_s, V_t): rang 9 (dim Hom <= 0), Pivot-Faktoren ['-s_ + t']; gültig für t, s außerhalb [], s != t",
+   "level": "computed_rigorous",
+   "status": "bestätigt",
+   "interpretation_ungeprueft": "Schnitt s = 3 der Zwei-Parameter-Familie (Geraden (1,0), (0,1), (1,1), (1,s), (1,t)): paarweise nicht isomorphe Ziegel.",
+   "red_team": [
+    {
+     "pruefung": {
+      "typ": "unzerlegbar",
+      "quiver": "star5",
+      "rep": {
+       "dims": [
+        2,
+        1,
+        1,
+        1,
+        1,
+        1
+       ],
+       "maps": {
+        "0": [
+         [
+          1
+         ],
+         [
+          0
+         ]
+        ],
+        "1": [
+         [
+          0
+         ],
+         [
+          1
+         ]
+        ],
+        "2": [
+         [
+          1
+         ],
+         [
+          1
+         ]
+        ],
+        "3": [
+         [
+          1
+         ],
+         [
+          3
+         ]
+        ],
+        "4": [
+         [
+          1
+         ],
+         [
+          7
+         ]
+        ]
+       }
+      },
+      "wert": false
+     },
+     "idee": "Zerfällt ein Mitglied?",
+     "bestanden": false,
+     "widerspruch": false,
+     "grund": "dim End = 1, dim J(End) = 0: absolut unzerlegbar"
+    }
+   ]
+  },
+  {
+   "id": "quivers-R3-43",
+   "frage": "Wilde Sterne (star n, n >= 5): Wie wachsen Parameterzahl und Anzahl der Unzerlegbaren, gibt es eine geschlossene Formel für alpha_n = (2;1^n)?",
+   "text": "Für star5: die Familie V_t mit Dimensionsvektor [2, 1, 1, 1, 1, 1] und Abbildungen {'0': [[1], [0]], '1': [[0], [1]], '2': [[1], [1]], '3': [[1], [-1]], '4': [[1], ['t']]} erfüllt für alle t außerhalb []: End(V_t) = k (Ziegel, absolut unzerlegbar) und Hom(V_s, V_t) = 0 für s != t (paarweise nicht isomorph); Zertifikat: Elimination über Q(s, t) mit protokollierten Pivots.",
+   "pruefung": {
+    "typ": "familie",
+    "quiver": "star5",
+    "rep": {
+     "dims": [
+      2,
+      1,
+      1,
+      1,
+      1,
+      1
+     ],
+     "maps": {
+      "0": [
+       [
+        1
+       ],
+       [
+        0
+       ]
+      ],
+      "1": [
+       [
+        0
+       ],
+       [
+        1
+       ]
+      ],
+      "2": [
+       [
+        1
+       ],
+       [
+        1
+       ]
+      ],
+      "3": [
+       [
+        1
+       ],
+       [
+        -1
+       ]
+      ],
+      "4": [
+       [
+        1
+       ],
+       [
+        "t"
+       ]
+      ]
+     }
+    },
+    "ausnahmen": []
+   },
+   "grund": "Elimination über Q(t): rang(End-System) = 8 von 9 (dim End <= 1), Pivot-Faktoren []; Hom(V_s, V_t): rang 9 (dim Hom <= 0), Pivot-Faktoren ['-s_ + t']; gültig für t, s außerhalb [], s != t",
+   "level": "computed_rigorous",
+   "status": "bestätigt",
+   "interpretation_ungeprueft": "Schnitt s = -1 der Zwei-Parameter-Familie (Geraden (1,0), (0,1), (1,1), (1,s), (1,t)): paarweise nicht isomorphe Ziegel.",
+   "red_team": [
+    {
+     "pruefung": {
+      "typ": "unzerlegbar",
+      "quiver": "star5",
+      "rep": {
+       "dims": [
+        2,
+        1,
+        1,
+        1,
+        1,
+        1
+       ],
+       "maps": {
+        "0": [
+         [
+          1
+         ],
+         [
+          0
+         ]
+        ],
+        "1": [
+         [
+          0
+         ],
+         [
+          1
+         ]
+        ],
+        "2": [
+         [
+          1
+         ],
+         [
+          1
+         ]
+        ],
+        "3": [
+         [
+          1
+         ],
+         [
+          -1
+         ]
+        ],
+        "4": [
+         [
+          1
+         ],
+         [
+          7
+         ]
+        ]
+       }
+      },
+      "wert": false
+     },
+     "idee": "Zerfällt ein Mitglied?",
+     "bestanden": false,
+     "widerspruch": false,
+     "grund": "dim End = 1, dim J(End) = 0: absolut unzerlegbar"
+    }
+   ]
+  },
+  {
+   "id": "quivers-R4-44",
+   "frage": "3- und 4-Zykel: Klassifikation der Unzerlegbaren (orientiert und azyklisch), Unabhängigkeit von der Orientierung.",
+   "text": "Das Radikal der Tits-Form von cycle3_oriented ist eindimensional, erzeugt von delta = [1, 1, 1].",
+   "pruefung": {
+    "typ": "radikal",
+    "quiver": "cycle3_oriented",
+    "delta": [
+     1,
+     1,
+     1
+    ]
+   },
+   "grund": "Radikal: Dimension 1, Erzeuger [1, 1, 1]",
+   "level": "computed_rigorous",
+   "status": "bestätigt",
+   "interpretation_ungeprueft": "delta = (1,...,1) für cycle3_oriented.",
+   "red_team": [
+    {
+     "pruefung": {
+      "typ": "radikal",
+      "quiver": "cycle3_oriented",
+      "delta": [
+       2,
+       1,
+       1
+      ]
+     },
+     "idee": "Anderer Erzeuger?",
+     "bestanden": false,
+     "widerspruch": false,
+     "grund": "Radikal: Dimension 1, Erzeuger [1, 1, 1]"
+    }
+   ]
+  },
+  {
+   "id": "quivers-R4-45",
+   "frage": "3- und 4-Zykel: Klassifikation der Unzerlegbaren (orientiert und azyklisch), Unabhängigkeit von der Orientierung.",
+   "text": "Für cycle3_oriented und alpha = [1, 1, 1] ist die Anzahl absolut unzerlegbarer Darstellungen über F_q für q = 2, 3, 5, 7 gleich 2*q^0 + 1*q^1; da A_alpha nach Kac ein Polynom vom Grad 1 - q(alpha) ist, ist dies das Kac-Polynom.",
+   "pruefung": {
+    "typ": "kac_polynom",
+    "quiver": "cycle3_oriented",
+    "alpha": [
+     1,
+     1,
+     1
+    ],
+    "koeffizienten": [
+     2,
+     1
+    ]
+   },
+   "grund": "A_[1, 1, 1](q) stimmt an q = [2, 3, 5, 7] (Methoden ['direkt', 'direkt', 'direkt', 'direkt']) mit dem Polynom überein; Grad 1 = 1 - q(alpha)",
+   "level": "computed_rigorous",
+   "status": "bestätigt",
+   "interpretation_ungeprueft": "A_delta(q) = q + 2 für cycle3_oriented.",
+   "red_team": [
+    {
+     "pruefung": {
+      "typ": "kac_polynom",
+      "quiver": "cycle3_oriented",
+      "alpha": [
+       1,
+       1,
+       1
+      ],
+      "koeffizienten": [
+       1,
+       1
+      ]
+     },
+     "idee": "q + n - 2?",
+     "bestanden": false,
+     "widerspruch": false,
+     "grund": "q = 2: gezählt 4, Polynom 3"
+    }
+   ]
+  },
+  {
+   "id": "quivers-R4-46",
+   "frage": "3- und 4-Zykel: Klassifikation der Unzerlegbaren (orientiert und azyklisch), Unabhängigkeit von der Orientierung.",
+   "text": "Über F_3 ist die angegebene Liste von 5 Darstellungen von cycle3_oriented mit Dimensionsvektor [1, 1, 1] eine vollständige Liste der Isoklassen Unzerlegbarer.",
+   "pruefung": {
+    "typ": "klassifikation",
+    "quiver": "cycle3_oriented",
+    "alpha": [
+     1,
+     1,
+     1
+    ],
+    "p": 3,
+    "reps": [
+     {
+      "dims": [
+       1,
+       1,
+       1
+      ],
+      "maps": {
+       "0": [
+        [
+         1
+        ]
+       ],
+       "1": [
+        [
+         1
+        ]
+       ],
+       "2": [
+        [
+         1
+        ]
+       ]
+      }
+     },
+     {
+      "dims": [
+       1,
+       1,
+       1
+      ],
+      "maps": {
+       "0": [
+        [
+         1
+        ]
+       ],
+       "1": [
+        [
+         1
+        ]
+       ],
+       "2": [
+        [
+         2
+        ]
+       ]
+      }
+     },
+     {
+      "dims": [
+       1,
+       1,
+       1
+      ],
+      "maps": {
+       "0": [
+        [
+         0
+        ]
+       ],
+       "1": [
+        [
+         1
+        ]
+       ],
+       "2": [
+        [
+         1
+        ]
+       ]
+      }
+     },
+     {
+      "dims": [
+       1,
+       1,
+       1
+      ],
+      "maps": {
+       "0": [
+        [
+         1
+        ]
+       ],
+       "1": [
+        [
+         0
+        ]
+       ],
+       "2": [
+        [
+         1
+        ]
+       ]
+      }
+     },
+     {
+      "dims": [
+       1,
+       1,
+       1
+      ],
+      "maps": {
+       "0": [
+        [
+         1
+        ]
+       ],
+       "1": [
+        [
+         1
+        ]
+       ],
+       "2": [
+        [
+         0
+        ]
+       ]
+      }
+     }
+    ]
+   },
+   "grund": "5 paarweise nicht isomorphe Unzerlegbare über F_3; Zählung I = 5 (Methode direkt) -> Liste vollständig",
+   "level": "computed_rigorous",
+   "status": "bestätigt",
+   "interpretation_ungeprueft": "Über F_3: 2 Skalar-Darstellungen (Produkt der Pfeile = lambda != 0) und 3 mit genau einem Nullpfeil sind alle 5 Unzerlegbaren in delta.",
+   "red_team": [
+    {
+     "pruefung": {
+      "typ": "klassifikation",
+      "quiver": "cycle3_oriented",
+      "alpha": [
+       1,
+       1,
+       1
+      ],
+      "p": 3,
+      "reps": [
+       {
+        "dims": [
+         1,
+         1,
+         1
+        ],
+        "maps": {
+         "0": [
+          [
+           1
+          ]
+         ],
+         "1": [
+          [
+           1
+          ]
+         ],
+         "2": [
+          [
+           1
+          ]
+         ]
+        }
+       },
+       {
+        "dims": [
+         1,
+         1,
+         1
+        ],
+        "maps": {
+         "0": [
+          [
+           1
+          ]
+         ],
+         "1": [
+          [
+           1
+          ]
+         ],
+         "2": [
+          [
+           2
+          ]
+         ]
+        }
+       },
+       {
+        "dims": [
+         1,
+         1,
+         1
+        ],
+        "maps": {
+         "0": [
+          [
+           0
+          ]
+         ],
+         "1": [
+          [
+           1
+          ]
+         ],
+         "2": [
+          [
+           1
+          ]
+         ]
+        }
+       },
+       {
+        "dims": [
+         1,
+         1,
+         1
+        ],
+        "maps": {
+         "0": [
+          [
+           1
+          ]
+         ],
+         "1": [
+          [
+           0
+          ]
+         ],
+         "2": [
+          [
+           1
+          ]
+         ]
+        }
+       }
+      ]
+     },
+     "idee": "Liste ohne letztes Element vollständig?",
+     "bestanden": false,
+     "widerspruch": false,
+     "grund": "4 paarweise nicht isomorphe Unzerlegbare über F_3; Zählung I = 5 (Methode direkt) -> Liste unvollständig"
+    }
+   ]
+  },
+  {
+   "id": "quivers-R4-47",
+   "frage": "3- und 4-Zykel: Klassifikation der Unzerlegbaren (orientiert und azyklisch), Unabhängigkeit von der Orientierung.",
+   "text": "Das Radikal der Tits-Form von cycle3_acyclic ist eindimensional, erzeugt von delta = [1, 1, 1].",
+   "pruefung": {
+    "typ": "radikal",
+    "quiver": "cycle3_acyclic",
+    "delta": [
+     1,
+     1,
+     1
+    ]
+   },
+   "grund": "Radikal: Dimension 1, Erzeuger [1, 1, 1]",
+   "level": "computed_rigorous",
+   "status": "bestätigt",
+   "interpretation_ungeprueft": "delta = (1,...,1) für cycle3_acyclic.",
+   "red_team": [
+    {
+     "pruefung": {
+      "typ": "radikal",
+      "quiver": "cycle3_acyclic",
+      "delta": [
+       2,
+       1,
+       1
+      ]
+     },
+     "idee": "Anderer Erzeuger?",
+     "bestanden": false,
+     "widerspruch": false,
+     "grund": "Radikal: Dimension 1, Erzeuger [1, 1, 1]"
+    }
+   ]
+  },
+  {
+   "id": "quivers-R4-48",
+   "frage": "3- und 4-Zykel: Klassifikation der Unzerlegbaren (orientiert und azyklisch), Unabhängigkeit von der Orientierung.",
+   "text": "Für cycle3_acyclic und alpha = [1, 1, 1] ist die Anzahl absolut unzerlegbarer Darstellungen über F_q für q = 2, 3, 5, 7 gleich 2*q^0 + 1*q^1; da A_alpha nach Kac ein Polynom vom Grad 1 - q(alpha) ist, ist dies das Kac-Polynom.",
+   "pruefung": {
+    "typ": "kac_polynom",
+    "quiver": "cycle3_acyclic",
+    "alpha": [
+     1,
+     1,
+     1
+    ],
+    "koeffizienten": [
+     2,
+     1
+    ]
+   },
+   "grund": "A_[1, 1, 1](q) stimmt an q = [2, 3, 5, 7] (Methoden ['direkt', 'direkt', 'direkt', 'direkt']) mit dem Polynom überein; Grad 1 = 1 - q(alpha)",
+   "level": "computed_rigorous",
+   "status": "bestätigt",
+   "interpretation_ungeprueft": "A_delta(q) = q + 2 für cycle3_acyclic.",
+   "red_team": [
+    {
+     "pruefung": {
+      "typ": "kac_polynom",
+      "quiver": "cycle3_acyclic",
+      "alpha": [
+       1,
+       1,
+       1
+      ],
+      "koeffizienten": [
+       1,
+       1
+      ]
+     },
+     "idee": "q + n - 2?",
+     "bestanden": false,
+     "widerspruch": false,
+     "grund": "q = 2: gezählt 4, Polynom 3"
+    }
+   ]
+  },
+  {
+   "id": "quivers-R4-49",
+   "frage": "3- und 4-Zykel: Klassifikation der Unzerlegbaren (orientiert und azyklisch), Unabhängigkeit von der Orientierung.",
+   "text": "Über F_3 ist die angegebene Liste von 5 Darstellungen von cycle3_acyclic mit Dimensionsvektor [1, 1, 1] eine vollständige Liste der Isoklassen Unzerlegbarer.",
+   "pruefung": {
+    "typ": "klassifikation",
+    "quiver": "cycle3_acyclic",
+    "alpha": [
+     1,
+     1,
+     1
+    ],
+    "p": 3,
+    "reps": [
+     {
+      "dims": [
+       1,
+       1,
+       1
+      ],
+      "maps": {
+       "0": [
+        [
+         1
+        ]
+       ],
+       "1": [
+        [
+         1
+        ]
+       ],
+       "2": [
+        [
+         1
+        ]
+       ]
+      }
+     },
+     {
+      "dims": [
+       1,
+       1,
+       1
+      ],
+      "maps": {
+       "0": [
+        [
+         1
+        ]
+       ],
+       "1": [
+        [
+         1
+        ]
+       ],
+       "2": [
+        [
+         2
+        ]
+       ]
+      }
+     },
+     {
+      "dims": [
+       1,
+       1,
+       1
+      ],
+      "maps": {
+       "0": [
+        [
+         0
+        ]
+       ],
+       "1": [
+        [
+         1
+        ]
+       ],
+       "2": [
+        [
+         1
+        ]
+       ]
+      }
+     },
+     {
+      "dims": [
+       1,
+       1,
+       1
+      ],
+      "maps": {
+       "0": [
+        [
+         1
+        ]
+       ],
+       "1": [
+        [
+         0
+        ]
+       ],
+       "2": [
+        [
+         1
+        ]
+       ]
+      }
+     },
+     {
+      "dims": [
+       1,
+       1,
+       1
+      ],
+      "maps": {
+       "0": [
+        [
+         1
+        ]
+       ],
+       "1": [
+        [
+         1
+        ]
+       ],
+       "2": [
+        [
+         0
+        ]
+       ]
+      }
+     }
+    ]
+   },
+   "grund": "5 paarweise nicht isomorphe Unzerlegbare über F_3; Zählung I = 5 (Methode direkt) -> Liste vollständig",
+   "level": "computed_rigorous",
+   "status": "bestätigt",
+   "interpretation_ungeprueft": "Über F_3: 2 Skalar-Darstellungen (Produkt der Pfeile = lambda != 0) und 3 mit genau einem Nullpfeil sind alle 5 Unzerlegbaren in delta.",
+   "red_team": [
+    {
+     "pruefung": {
+      "typ": "klassifikation",
+      "quiver": "cycle3_acyclic",
+      "alpha": [
+       1,
+       1,
+       1
+      ],
+      "p": 3,
+      "reps": [
+       {
+        "dims": [
+         1,
+         1,
+         1
+        ],
+        "maps": {
+         "0": [
+          [
+           1
+          ]
+         ],
+         "1": [
+          [
+           1
+          ]
+         ],
+         "2": [
+          [
+           1
+          ]
+         ]
+        }
+       },
+       {
+        "dims": [
+         1,
+         1,
+         1
+        ],
+        "maps": {
+         "0": [
+          [
+           1
+          ]
+         ],
+         "1": [
+          [
+           1
+          ]
+         ],
+         "2": [
+          [
+           2
+          ]
+         ]
+        }
+       },
+       {
+        "dims": [
+         1,
+         1,
+         1
+        ],
+        "maps": {
+         "0": [
+          [
+           0
+          ]
+         ],
+         "1": [
+          [
+           1
+          ]
+         ],
+         "2": [
+          [
+           1
+          ]
+         ]
+        }
+       },
+       {
+        "dims": [
+         1,
+         1,
+         1
+        ],
+        "maps": {
+         "0": [
+          [
+           1
+          ]
+         ],
+         "1": [
+          [
+           0
+          ]
+         ],
+         "2": [
+          [
+           1
+          ]
+         ]
+        }
+       }
+      ]
+     },
+     "idee": "Liste ohne letztes Element vollständig?",
+     "bestanden": false,
+     "widerspruch": false,
+     "grund": "4 paarweise nicht isomorphe Unzerlegbare über F_3; Zählung I = 5 (Methode direkt) -> Liste unvollständig"
+    }
+   ]
+  },
+  {
+   "id": "quivers-R4-50",
+   "frage": "3- und 4-Zykel: Klassifikation der Unzerlegbaren (orientiert und azyklisch), Unabhängigkeit von der Orientierung.",
+   "text": "Das Radikal der Tits-Form von cycle4_oriented ist eindimensional, erzeugt von delta = [1, 1, 1, 1].",
+   "pruefung": {
+    "typ": "radikal",
+    "quiver": "cycle4_oriented",
+    "delta": [
+     1,
+     1,
+     1,
+     1
+    ]
+   },
+   "grund": "Radikal: Dimension 1, Erzeuger [1, 1, 1, 1]",
+   "level": "computed_rigorous",
+   "status": "bestätigt",
+   "interpretation_ungeprueft": "delta = (1,...,1) für cycle4_oriented.",
+   "red_team": [
+    {
+     "pruefung": {
+      "typ": "radikal",
+      "quiver": "cycle4_oriented",
+      "delta": [
+       2,
+       1,
+       1,
+       1
+      ]
+     },
+     "idee": "Anderer Erzeuger?",
+     "bestanden": false,
+     "widerspruch": false,
+     "grund": "Radikal: Dimension 1, Erzeuger [1, 1, 1, 1]"
+    }
+   ]
+  },
+  {
+   "id": "quivers-R4-51",
+   "frage": "3- und 4-Zykel: Klassifikation der Unzerlegbaren (orientiert und azyklisch), Unabhängigkeit von der Orientierung.",
+   "text": "Für cycle4_oriented und alpha = [1, 1, 1, 1] ist die Anzahl absolut unzerlegbarer Darstellungen über F_q für q = 2, 3, 5, 7 gleich 3*q^0 + 1*q^1; da A_alpha nach Kac ein Polynom vom Grad 1 - q(alpha) ist, ist dies das Kac-Polynom.",
+   "pruefung": {
+    "typ": "kac_polynom",
+    "quiver": "cycle4_oriented",
+    "alpha": [
+     1,
+     1,
+     1,
+     1
+    ],
+    "koeffizienten": [
+     3,
+     1
+    ]
+   },
+   "grund": "A_[1, 1, 1, 1](q) stimmt an q = [2, 3, 5, 7] (Methoden ['direkt', 'direkt', 'direkt', 'direkt']) mit dem Polynom überein; Grad 1 = 1 - q(alpha)",
+   "level": "computed_rigorous",
+   "status": "bestätigt",
+   "interpretation_ungeprueft": "A_delta(q) = q + 3 für cycle4_oriented.",
+   "red_team": [
+    {
+     "pruefung": {
+      "typ": "kac_polynom",
+      "quiver": "cycle4_oriented",
+      "alpha": [
+       1,
+       1,
+       1,
+       1
+      ],
+      "koeffizienten": [
+       2,
+       1
+      ]
+     },
+     "idee": "q + n - 2?",
+     "bestanden": false,
+     "widerspruch": false,
+     "grund": "q = 2: gezählt 5, Polynom 4"
+    }
+   ]
+  },
+  {
+   "id": "quivers-R4-52",
+   "frage": "3- und 4-Zykel: Klassifikation der Unzerlegbaren (orientiert und azyklisch), Unabhängigkeit von der Orientierung.",
+   "text": "Über F_3 ist die angegebene Liste von 6 Darstellungen von cycle4_oriented mit Dimensionsvektor [1, 1, 1, 1] eine vollständige Liste der Isoklassen Unzerlegbarer.",
+   "pruefung": {
+    "typ": "klassifikation",
+    "quiver": "cycle4_oriented",
+    "alpha": [
+     1,
+     1,
+     1,
+     1
+    ],
+    "p": 3,
+    "reps": [
+     {
+      "dims": [
+       1,
+       1,
+       1,
+       1
+      ],
+      "maps": {
+       "0": [
+        [
+         1
+        ]
+       ],
+       "1": [
+        [
+         1
+        ]
+       ],
+       "2": [
+        [
+         1
+        ]
+       ],
+       "3": [
+        [
+         1
+        ]
+       ]
+      }
+     },
+     {
+      "dims": [
+       1,
+       1,
+       1,
+       1
+      ],
+      "maps": {
+       "0": [
+        [
+         1
+        ]
+       ],
+       "1": [
+        [
+         1
+        ]
+       ],
+       "2": [
+        [
+         1
+        ]
+       ],
+       "3": [
+        [
+         2
+        ]
+       ]
+      }
+     },
+     {
+      "dims": [
+       1,
+       1,
+       1,
+       1
+      ],
+      "maps": {
+       "0": [
+        [
+         0
+        ]
+       ],
+       "1": [
+        [
+         1
+        ]
+       ],
+       "2": [
+        [
+         1
+        ]
+       ],
+       "3": [
+        [
+         1
+        ]
+       ]
+      }
+     },
+     {
+      "dims": [
+       1,
+       1,
+       1,
+       1
+      ],
+      "maps": {
+       "0": [
+        [
+         1
+        ]
+       ],
+       "1": [
+        [
+         0
+        ]
+       ],
+       "2": [
+        [
+         1
+        ]
+       ],
+       "3": [
+        [
+         1
+        ]
+       ]
+      }
+     },
+     {
+      "dims": [
+       1,
+       1,
+       1,
+       1
+      ],
+      "maps": {
+       "0": [
+        [
+         1
+        ]
+       ],
+       "1": [
+        [
+         1
+        ]
+       ],
+       "2": [
+        [
+         0
+        ]
+       ],
+       "3": [
+        [
+         1
+        ]
+       ]
+      }
+     },
+     {
+      "dims": [
+       1,
+       1,
+       1,
+       1
+      ],
+      "maps": {
+       "0": [
+        [
+         1
+        ]
+       ],
+       "1": [
+        [
+         1
+        ]
+       ],
+       "2": [
+        [
+         1
+        ]
+       ],
+       "3": [
+        [
+         0
+        ]
+       ]
+      }
+     }
+    ]
+   },
+   "grund": "6 paarweise nicht isomorphe Unzerlegbare über F_3; Zählung I = 6 (Methode direkt) -> Liste vollständig",
+   "level": "computed_rigorous",
+   "status": "bestätigt",
+   "interpretation_ungeprueft": "Über F_3: 2 Skalar-Darstellungen (Produkt der Pfeile = lambda != 0) und 4 mit genau einem Nullpfeil sind alle 6 Unzerlegbaren in delta.",
+   "red_team": [
+    {
+     "pruefung": {
+      "typ": "klassifikation",
+      "quiver": "cycle4_oriented",
+      "alpha": [
+       1,
+       1,
+       1,
+       1
+      ],
+      "p": 3,
+      "reps": [
+       {
+        "dims": [
+         1,
+         1,
+         1,
+         1
+        ],
+        "maps": {
+         "0": [
+          [
+           1
+          ]
+         ],
+         "1": [
+          [
+           1
+          ]
+         ],
+         "2": [
+          [
+           1
+          ]
+         ],
+         "3": [
+          [
+           1
+          ]
+         ]
+        }
+       },
+       {
+        "dims": [
+         1,
+         1,
+         1,
+         1
+        ],
+        "maps": {
+         "0": [
+          [
+           1
+          ]
+         ],
+         "1": [
+          [
+           1
+          ]
+         ],
+         "2": [
+          [
+           1
+          ]
+         ],
+         "3": [
+          [
+           2
+          ]
+         ]
+        }
+       },
+       {
+        "dims": [
+         1,
+         1,
+         1,
+         1
+        ],
+        "maps": {
+         "0": [
+          [
+           0
+          ]
+         ],
+         "1": [
+          [
+           1
+          ]
+         ],
+         "2": [
+          [
+           1
+          ]
+         ],
+         "3": [
+          [
+           1
+          ]
+         ]
+        }
+       },
+       {
+        "dims": [
+         1,
+         1,
+         1,
+         1
+        ],
+        "maps": {
+         "0": [
+          [
+           1
+          ]
+         ],
+         "1": [
+          [
+           0
+          ]
+         ],
+         "2": [
+          [
+           1
+          ]
+         ],
+         "3": [
+          [
+           1
+          ]
+         ]
+        }
+       },
+       {
+        "dims": [
+         1,
+         1,
+         1,
+         1
+        ],
+        "maps": {
+         "0": [
+          [
+           1
+          ]
+         ],
+         "1": [
+          [
+           1
+          ]
+         ],
+         "2": [
+          [
+           0
+          ]
+         ],
+         "3": [
+          [
+           1
+          ]
+         ]
+        }
+       }
+      ]
+     },
+     "idee": "Liste ohne letztes Element vollständig?",
+     "bestanden": false,
+     "widerspruch": false,
+     "grund": "5 paarweise nicht isomorphe Unzerlegbare über F_3; Zählung I = 6 (Methode direkt) -> Liste unvollständig"
+    }
+   ]
+  },
+  {
+   "id": "quivers-R4-53",
+   "frage": "3- und 4-Zykel: Klassifikation der Unzerlegbaren (orientiert und azyklisch), Unabhängigkeit von der Orientierung.",
+   "text": "Das Radikal der Tits-Form von cycle4_acyclic31 ist eindimensional, erzeugt von delta = [1, 1, 1, 1].",
+   "pruefung": {
+    "typ": "radikal",
+    "quiver": "cycle4_acyclic31",
+    "delta": [
+     1,
+     1,
+     1,
+     1
+    ]
+   },
+   "grund": "Radikal: Dimension 1, Erzeuger [1, 1, 1, 1]",
+   "level": "computed_rigorous",
+   "status": "bestätigt",
+   "interpretation_ungeprueft": "delta = (1,...,1) für cycle4_acyclic31.",
+   "red_team": [
+    {
+     "pruefung": {
+      "typ": "radikal",
+      "quiver": "cycle4_acyclic31",
+      "delta": [
+       2,
+       1,
+       1,
+       1
+      ]
+     },
+     "idee": "Anderer Erzeuger?",
+     "bestanden": false,
+     "widerspruch": false,
+     "grund": "Radikal: Dimension 1, Erzeuger [1, 1, 1, 1]"
+    }
+   ]
+  },
+  {
+   "id": "quivers-R4-54",
+   "frage": "3- und 4-Zykel: Klassifikation der Unzerlegbaren (orientiert und azyklisch), Unabhängigkeit von der Orientierung.",
+   "text": "Für cycle4_acyclic31 und alpha = [1, 1, 1, 1] ist die Anzahl absolut unzerlegbarer Darstellungen über F_q für q = 2, 3, 5, 7 gleich 3*q^0 + 1*q^1; da A_alpha nach Kac ein Polynom vom Grad 1 - q(alpha) ist, ist dies das Kac-Polynom.",
+   "pruefung": {
+    "typ": "kac_polynom",
+    "quiver": "cycle4_acyclic31",
+    "alpha": [
+     1,
+     1,
+     1,
+     1
+    ],
+    "koeffizienten": [
+     3,
+     1
+    ]
+   },
+   "grund": "A_[1, 1, 1, 1](q) stimmt an q = [2, 3, 5, 7] (Methoden ['direkt', 'direkt', 'direkt', 'direkt']) mit dem Polynom überein; Grad 1 = 1 - q(alpha)",
+   "level": "computed_rigorous",
+   "status": "bestätigt",
+   "interpretation_ungeprueft": "A_delta(q) = q + 3 für cycle4_acyclic31.",
+   "red_team": [
+    {
+     "pruefung": {
+      "typ": "kac_polynom",
+      "quiver": "cycle4_acyclic31",
+      "alpha": [
+       1,
+       1,
+       1,
+       1
+      ],
+      "koeffizienten": [
+       2,
+       1
+      ]
+     },
+     "idee": "q + n - 2?",
+     "bestanden": false,
+     "widerspruch": false,
+     "grund": "q = 2: gezählt 5, Polynom 4"
+    }
+   ]
+  },
+  {
+   "id": "quivers-R4-55",
+   "frage": "3- und 4-Zykel: Klassifikation der Unzerlegbaren (orientiert und azyklisch), Unabhängigkeit von der Orientierung.",
+   "text": "Über F_3 ist die angegebene Liste von 6 Darstellungen von cycle4_acyclic31 mit Dimensionsvektor [1, 1, 1, 1] eine vollständige Liste der Isoklassen Unzerlegbarer.",
+   "pruefung": {
+    "typ": "klassifikation",
+    "quiver": "cycle4_acyclic31",
+    "alpha": [
+     1,
+     1,
+     1,
+     1
+    ],
+    "p": 3,
+    "reps": [
+     {
+      "dims": [
+       1,
+       1,
+       1,
+       1
+      ],
+      "maps": {
+       "0": [
+        [
+         1
+        ]
+       ],
+       "1": [
+        [
+         1
+        ]
+       ],
+       "2": [
+        [
+         1
+        ]
+       ],
+       "3": [
+        [
+         1
+        ]
+       ]
+      }
+     },
+     {
+      "dims": [
+       1,
+       1,
+       1,
+       1
+      ],
+      "maps": {
+       "0": [
+        [
+         1
+        ]
+       ],
+       "1": [
+        [
+         1
+        ]
+       ],
+       "2": [
+        [
+         1
+        ]
+       ],
+       "3": [
+        [
+         2
+        ]
+       ]
+      }
+     },
+     {
+      "dims": [
+       1,
+       1,
+       1,
+       1
+      ],
+      "maps": {
+       "0": [
+        [
+         0
+        ]
+       ],
+       "1": [
+        [
+         1
+        ]
+       ],
+       "2": [
+        [
+         1
+        ]
+       ],
+       "3": [
+        [
+         1
+        ]
+       ]
+      }
+     },
+     {
+      "dims": [
+       1,
+       1,
+       1,
+       1
+      ],
+      "maps": {
+       "0": [
+        [
+         1
+        ]
+       ],
+       "1": [
+        [
+         0
+        ]
+       ],
+       "2": [
+        [
+         1
+        ]
+       ],
+       "3": [
+        [
+         1
+        ]
+       ]
+      }
+     },
+     {
+      "dims": [
+       1,
+       1,
+       1,
+       1
+      ],
+      "maps": {
+       "0": [
+        [
+         1
+        ]
+       ],
+       "1": [
+        [
+         1
+        ]
+       ],
+       "2": [
+        [
+         0
+        ]
+       ],
+       "3": [
+        [
+         1
+        ]
+       ]
+      }
+     },
+     {
+      "dims": [
+       1,
+       1,
+       1,
+       1
+      ],
+      "maps": {
+       "0": [
+        [
+         1
+        ]
+       ],
+       "1": [
+        [
+         1
+        ]
+       ],
+       "2": [
+        [
+         1
+        ]
+       ],
+       "3": [
+        [
+         0
+        ]
+       ]
+      }
+     }
+    ]
+   },
+   "grund": "6 paarweise nicht isomorphe Unzerlegbare über F_3; Zählung I = 6 (Methode direkt) -> Liste vollständig",
+   "level": "computed_rigorous",
+   "status": "bestätigt",
+   "interpretation_ungeprueft": "Über F_3: 2 Skalar-Darstellungen (Produkt der Pfeile = lambda != 0) und 4 mit genau einem Nullpfeil sind alle 6 Unzerlegbaren in delta.",
+   "red_team": [
+    {
+     "pruefung": {
+      "typ": "klassifikation",
+      "quiver": "cycle4_acyclic31",
+      "alpha": [
+       1,
+       1,
+       1,
+       1
+      ],
+      "p": 3,
+      "reps": [
+       {
+        "dims": [
+         1,
+         1,
+         1,
+         1
+        ],
+        "maps": {
+         "0": [
+          [
+           1
+          ]
+         ],
+         "1": [
+          [
+           1
+          ]
+         ],
+         "2": [
+          [
+           1
+          ]
+         ],
+         "3": [
+          [
+           1
+          ]
+         ]
+        }
+       },
+       {
+        "dims": [
+         1,
+         1,
+         1,
+         1
+        ],
+        "maps": {
+         "0": [
+          [
+           1
+          ]
+         ],
+         "1": [
+          [
+           1
+          ]
+         ],
+         "2": [
+          [
+           1
+          ]
+         ],
+         "3": [
+          [
+           2
+          ]
+         ]
+        }
+       },
+       {
+        "dims": [
+         1,
+         1,
+         1,
+         1
+        ],
+        "maps": {
+         "0": [
+          [
+           0
+          ]
+         ],
+         "1": [
+          [
+           1
+          ]
+         ],
+         "2": [
+          [
+           1
+          ]
+         ],
+         "3": [
+          [
+           1
+          ]
+         ]
+        }
+       },
+       {
+        "dims": [
+         1,
+         1,
+         1,
+         1
+        ],
+        "maps": {
+         "0": [
+          [
+           1
+          ]
+         ],
+         "1": [
+          [
+           0
+          ]
+         ],
+         "2": [
+          [
+           1
+          ]
+         ],
+         "3": [
+          [
+           1
+          ]
+         ]
+        }
+       },
+       {
+        "dims": [
+         1,
+         1,
+         1,
+         1
+        ],
+        "maps": {
+         "0": [
+          [
+           1
+          ]
+         ],
+         "1": [
+          [
+           1
+          ]
+         ],
+         "2": [
+          [
+           0
+          ]
+         ],
+         "3": [
+          [
+           1
+          ]
+         ]
+        }
+       }
+      ]
+     },
+     "idee": "Liste ohne letztes Element vollständig?",
+     "bestanden": false,
+     "widerspruch": false,
+     "grund": "5 paarweise nicht isomorphe Unzerlegbare über F_3; Zählung I = 6 (Methode direkt) -> Liste unvollständig"
+    }
+   ]
+  },
+  {
+   "id": "quivers-R4-56",
+   "frage": "3- und 4-Zykel: Klassifikation der Unzerlegbaren (orientiert und azyklisch), Unabhängigkeit von der Orientierung.",
+   "text": "Das Radikal der Tits-Form von cycle4_acyclic22 ist eindimensional, erzeugt von delta = [1, 1, 1, 1].",
+   "pruefung": {
+    "typ": "radikal",
+    "quiver": "cycle4_acyclic22",
+    "delta": [
+     1,
+     1,
+     1,
+     1
+    ]
+   },
+   "grund": "Radikal: Dimension 1, Erzeuger [1, 1, 1, 1]",
+   "level": "computed_rigorous",
+   "status": "bestätigt",
+   "interpretation_ungeprueft": "delta = (1,...,1) für cycle4_acyclic22.",
+   "red_team": [
+    {
+     "pruefung": {
+      "typ": "radikal",
+      "quiver": "cycle4_acyclic22",
+      "delta": [
+       2,
+       1,
+       1,
+       1
+      ]
+     },
+     "idee": "Anderer Erzeuger?",
+     "bestanden": false,
+     "widerspruch": false,
+     "grund": "Radikal: Dimension 1, Erzeuger [1, 1, 1, 1]"
+    }
+   ]
+  },
+  {
+   "id": "quivers-R4-57",
+   "frage": "3- und 4-Zykel: Klassifikation der Unzerlegbaren (orientiert und azyklisch), Unabhängigkeit von der Orientierung.",
+   "text": "Für cycle4_acyclic22 und alpha = [1, 1, 1, 1] ist die Anzahl absolut unzerlegbarer Darstellungen über F_q für q = 2, 3, 5, 7 gleich 3*q^0 + 1*q^1; da A_alpha nach Kac ein Polynom vom Grad 1 - q(alpha) ist, ist dies das Kac-Polynom.",
+   "pruefung": {
+    "typ": "kac_polynom",
+    "quiver": "cycle4_acyclic22",
+    "alpha": [
+     1,
+     1,
+     1,
+     1
+    ],
+    "koeffizienten": [
+     3,
+     1
+    ]
+   },
+   "grund": "A_[1, 1, 1, 1](q) stimmt an q = [2, 3, 5, 7] (Methoden ['direkt', 'direkt', 'direkt', 'direkt']) mit dem Polynom überein; Grad 1 = 1 - q(alpha)",
+   "level": "computed_rigorous",
+   "status": "bestätigt",
+   "interpretation_ungeprueft": "A_delta(q) = q + 3 für cycle4_acyclic22.",
+   "red_team": [
+    {
+     "pruefung": {
+      "typ": "kac_polynom",
+      "quiver": "cycle4_acyclic22",
+      "alpha": [
+       1,
+       1,
+       1,
+       1
+      ],
+      "koeffizienten": [
+       2,
+       1
+      ]
+     },
+     "idee": "q + n - 2?",
+     "bestanden": false,
+     "widerspruch": false,
+     "grund": "q = 2: gezählt 5, Polynom 4"
+    }
+   ]
+  },
+  {
+   "id": "quivers-R4-58",
+   "frage": "3- und 4-Zykel: Klassifikation der Unzerlegbaren (orientiert und azyklisch), Unabhängigkeit von der Orientierung.",
+   "text": "Über F_3 ist die angegebene Liste von 6 Darstellungen von cycle4_acyclic22 mit Dimensionsvektor [1, 1, 1, 1] eine vollständige Liste der Isoklassen Unzerlegbarer.",
+   "pruefung": {
+    "typ": "klassifikation",
+    "quiver": "cycle4_acyclic22",
+    "alpha": [
+     1,
+     1,
+     1,
+     1
+    ],
+    "p": 3,
+    "reps": [
+     {
+      "dims": [
+       1,
+       1,
+       1,
+       1
+      ],
+      "maps": {
+       "0": [
+        [
+         1
+        ]
+       ],
+       "1": [
+        [
+         1
+        ]
+       ],
+       "2": [
+        [
+         1
+        ]
+       ],
+       "3": [
+        [
+         1
+        ]
+       ]
+      }
+     },
+     {
+      "dims": [
+       1,
+       1,
+       1,
+       1
+      ],
+      "maps": {
+       "0": [
+        [
+         1
+        ]
+       ],
+       "1": [
+        [
+         1
+        ]
+       ],
+       "2": [
+        [
+         1
+        ]
+       ],
+       "3": [
+        [
+         2
+        ]
+       ]
+      }
+     },
+     {
+      "dims": [
+       1,
+       1,
+       1,
+       1
+      ],
+      "maps": {
+       "0": [
+        [
+         0
+        ]
+       ],
+       "1": [
+        [
+         1
+        ]
+       ],
+       "2": [
+        [
+         1
+        ]
+       ],
+       "3": [
+        [
+         1
+        ]
+       ]
+      }
+     },
+     {
+      "dims": [
+       1,
+       1,
+       1,
+       1
+      ],
+      "maps": {
+       "0": [
+        [
+         1
+        ]
+       ],
+       "1": [
+        [
+         0
+        ]
+       ],
+       "2": [
+        [
+         1
+        ]
+       ],
+       "3": [
+        [
+         1
+        ]
+       ]
+      }
+     },
+     {
+      "dims": [
+       1,
+       1,
+       1,
+       1
+      ],
+      "maps": {
+       "0": [
+        [
+         1
+        ]
+       ],
+       "1": [
+        [
+         1
+        ]
+       ],
+       "2": [
+        [
+         0
+        ]
+       ],
+       "3": [
+        [
+         1
+        ]
+       ]
+      }
+     },
+     {
+      "dims": [
+       1,
+       1,
+       1,
+       1
+      ],
+      "maps": {
+       "0": [
+        [
+         1
+        ]
+       ],
+       "1": [
+        [
+         1
+        ]
+       ],
+       "2": [
+        [
+         1
+        ]
+       ],
+       "3": [
+        [
+         0
+        ]
+       ]
+      }
+     }
+    ]
+   },
+   "grund": "6 paarweise nicht isomorphe Unzerlegbare über F_3; Zählung I = 6 (Methode direkt) -> Liste vollständig",
+   "level": "computed_rigorous",
+   "status": "bestätigt",
+   "interpretation_ungeprueft": "Über F_3: 2 Skalar-Darstellungen (Produkt der Pfeile = lambda != 0) und 4 mit genau einem Nullpfeil sind alle 6 Unzerlegbaren in delta.",
+   "red_team": [
+    {
+     "pruefung": {
+      "typ": "klassifikation",
+      "quiver": "cycle4_acyclic22",
+      "alpha": [
+       1,
+       1,
+       1,
+       1
+      ],
+      "p": 3,
+      "reps": [
+       {
+        "dims": [
+         1,
+         1,
+         1,
+         1
+        ],
+        "maps": {
+         "0": [
+          [
+           1
+          ]
+         ],
+         "1": [
+          [
+           1
+          ]
+         ],
+         "2": [
+          [
+           1
+          ]
+         ],
+         "3": [
+          [
+           1
+          ]
+         ]
+        }
+       },
+       {
+        "dims": [
+         1,
+         1,
+         1,
+         1
+        ],
+        "maps": {
+         "0": [
+          [
+           1
+          ]
+         ],
+         "1": [
+          [
+           1
+          ]
+         ],
+         "2": [
+          [
+           1
+          ]
+         ],
+         "3": [
+          [
+           2
+          ]
+         ]
+        }
+       },
+       {
+        "dims": [
+         1,
+         1,
+         1,
+         1
+        ],
+        "maps": {
+         "0": [
+          [
+           0
+          ]
+         ],
+         "1": [
+          [
+           1
+          ]
+         ],
+         "2": [
+          [
+           1
+          ]
+         ],
+         "3": [
+          [
+           1
+          ]
+         ]
+        }
+       },
+       {
+        "dims": [
+         1,
+         1,
+         1,
+         1
+        ],
+        "maps": {
+         "0": [
+          [
+           1
+          ]
+         ],
+         "1": [
+          [
+           0
+          ]
+         ],
+         "2": [
+          [
+           1
+          ]
+         ],
+         "3": [
+          [
+           1
+          ]
+         ]
+        }
+       },
+       {
+        "dims": [
+         1,
+         1,
+         1,
+         1
+        ],
+        "maps": {
+         "0": [
+          [
+           1
+          ]
+         ],
+         "1": [
+          [
+           1
+          ]
+         ],
+         "2": [
+          [
+           0
+          ]
+         ],
+         "3": [
+          [
+           1
+          ]
+         ]
+        }
+       }
+      ]
+     },
+     "idee": "Liste ohne letztes Element vollständig?",
+     "bestanden": false,
+     "widerspruch": false,
+     "grund": "5 paarweise nicht isomorphe Unzerlegbare über F_3; Zählung I = 6 (Methode direkt) -> Liste unvollständig"
+    }
+   ]
+  },
+  {
+   "id": "quivers-R4-59",
+   "frage": "3- und 4-Zykel: Klassifikation der Unzerlegbaren (orientiert und azyklisch), Unabhängigkeit von der Orientierung.",
+   "text": "Für cycle3_oriented: die Familie V_t mit Dimensionsvektor [1, 1, 1] und Abbildungen {'0': [[1]], '1': [[1]], '2': [['t']]} erfüllt für alle t außerhalb [0]: End(V_t) = k (Ziegel, absolut unzerlegbar) und Hom(V_s, V_t) = 0 für s != t (paarweise nicht isomorph); Zertifikat: Elimination über Q(s, t) mit protokollierten Pivots.",
+   "pruefung": {
+    "typ": "familie",
+    "quiver": "cycle3_oriented",
+    "rep": {
+     "dims": [
+      1,
+      1,
+      1
+     ],
+     "maps": {
+      "0": [
+       [
+        1
+       ]
+      ],
+      "1": [
+       [
+        1
+       ]
+      ],
+      "2": [
+       [
+        "t"
+       ]
+      ]
+     }
+    },
+    "ausnahmen": [
+     0
+    ]
+   },
+   "grund": "Elimination über Q(t): rang(End-System) = 2 von 3 (dim End <= 1), Pivot-Faktoren []; Hom(V_s, V_t): rang 3 (dim Hom <= 0), Pivot-Faktoren ['-s_ + t']; gültig für t, s außerhalb ['0'], s != t",
+   "level": "computed_rigorous",
+   "status": "bestätigt",
+   "interpretation_ungeprueft": "Die Familie (1, ..., 1, t), t != 0, auf cycle3_oriented: paarweise nicht isomorphe Ziegel.",
+   "red_team": [
+    {
+     "pruefung": {
+      "typ": "unzerlegbar",
+      "quiver": "cycle3_oriented",
+      "rep": {
+       "dims": [
+        1,
+        1,
+        1
+       ],
+       "maps": {
+        "0": [
+         [
+          1
+         ]
+        ],
+        "1": [
+         [
+          1
+         ]
+        ],
+        "2": [
+         [
+          4
+         ]
+        ]
+       }
+      },
+      "wert": false
+     },
+     "idee": "Zerfällt t = 4?",
+     "bestanden": false,
+     "widerspruch": false,
+     "grund": "dim End = 1, dim J(End) = 0: absolut unzerlegbar"
+    }
+   ]
+  },
+  {
+   "id": "quivers-R4-60",
+   "frage": "3- und 4-Zykel: Klassifikation der Unzerlegbaren (orientiert und azyklisch), Unabhängigkeit von der Orientierung.",
+   "text": "Für cycle4_acyclic22: die Familie V_t mit Dimensionsvektor [1, 1, 1, 1] und Abbildungen {'0': [[1]], '1': [[1]], '2': [[1]], '3': [['t']]} erfüllt für alle t außerhalb [0]: End(V_t) = k (Ziegel, absolut unzerlegbar) und Hom(V_s, V_t) = 0 für s != t (paarweise nicht isomorph); Zertifikat: Elimination über Q(s, t) mit protokollierten Pivots.",
+   "pruefung": {
+    "typ": "familie",
+    "quiver": "cycle4_acyclic22",
+    "rep": {
+     "dims": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "maps": {
+      "0": [
+       [
+        1
+       ]
+      ],
+      "1": [
+       [
+        1
+       ]
+      ],
+      "2": [
+       [
+        1
+       ]
+      ],
+      "3": [
+       [
+        "t"
+       ]
+      ]
+     }
+    },
+    "ausnahmen": [
+     0
+    ]
+   },
+   "grund": "Elimination über Q(t): rang(End-System) = 3 von 4 (dim End <= 1), Pivot-Faktoren []; Hom(V_s, V_t): rang 4 (dim Hom <= 0), Pivot-Faktoren ['-s_ + t']; gültig für t, s außerhalb ['0'], s != t",
+   "level": "computed_rigorous",
+   "status": "bestätigt",
+   "interpretation_ungeprueft": "Die Familie (1, ..., 1, t), t != 0, auf cycle4_acyclic22: paarweise nicht isomorphe Ziegel.",
+   "red_team": [
+    {
+     "pruefung": {
+      "typ": "unzerlegbar",
+      "quiver": "cycle4_acyclic22",
+      "rep": {
+       "dims": [
+        1,
+        1,
+        1,
+        1
+       ],
+       "maps": {
+        "0": [
+         [
+          1
+         ]
+        ],
+        "1": [
+         [
+          1
+         ]
+        ],
+        "2": [
+         [
+          1
+         ]
+        ],
+        "3": [
+         [
+          4
+         ]
+        ]
+       }
+      },
+      "wert": false
+     },
+     "idee": "Zerfällt t = 4?",
+     "bestanden": false,
+     "widerspruch": false,
+     "grund": "dim End = 1, dim J(End) = 0: absolut unzerlegbar"
+    }
+   ]
+  },
+  {
+   "id": "quivers-R4-61",
+   "frage": "3- und 4-Zykel: Klassifikation der Unzerlegbaren (orientiert und azyklisch), Unabhängigkeit von der Orientierung.",
+   "text": "Die Darstellung von cycle4_oriented mit Dimensionsvektor [3, 3, 3, 3] und Abbildungen {'0': [[1, 0, 0], [0, 1, 0], [0, 0, 1]], '1': [[1, 0, 0], [0, 1, 0], [0, 0, 1]], '2': [[1, 0, 0], [0, 1, 0], [0, 0, 1]], '3': [[2, 1, 0], [0, 2, 1], [0, 0, 2]]} ist absolut unzerlegbar (End/Rad = k).",
+   "pruefung": {
+    "typ": "unzerlegbar",
+    "quiver": "cycle4_oriented",
+    "rep": {
+     "dims": [
+      3,
+      3,
+      3,
+      3
+     ],
+     "maps": {
+      "0": [
+       [
+        1,
+        0,
+        0
+       ],
+       [
+        0,
+        1,
+        0
+       ],
+       [
+        0,
+        0,
+        1
+       ]
+      ],
+      "1": [
+       [
+        1,
+        0,
+        0
+       ],
+       [
+        0,
+        1,
+        0
+       ],
+       [
+        0,
+        0,
+        1
+       ]
+      ],
+      "2": [
+       [
+        1,
+        0,
+        0
+       ],
+       [
+        0,
+        1,
+        0
+       ],
+       [
+        0,
+        0,
+        1
+       ]
+      ],
+      "3": [
+       [
+        2,
+        1,
+        0
+       ],
+       [
+        0,
+        2,
+        1
+       ],
+       [
+        0,
+        0,
+        2
+       ]
+      ]
+     }
+    },
+    "wert": true
+   },
+   "grund": "dim End = 3, dim J(End) = 2: absolut unzerlegbar",
+   "level": "computed_rigorous",
+   "status": "bestätigt",
+   "interpretation_ungeprueft": "Jordanblock J_3(2) als Monodromie: unzerlegbar, Dimensionsvektor 3 delta.",
+   "red_team": [
+    {
+     "pruefung": {
+      "typ": "unzerlegbar",
+      "quiver": "cycle4_oriented",
+      "rep": {
+       "dims": [
+        3,
+        3,
+        3,
+        3
+       ],
+       "maps": {
+        "0": [
+         [
+          1,
+          0,
+          0
+         ],
+         [
+          0,
+          1,
+          0
+         ],
+         [
+          0,
+          0,
+          1
+         ]
+        ],
+        "1": [
+         [
+          1,
+          0,
+          0
+         ],
+         [
+          0,
+          1,
+          0
+         ],
+         [
+          0,
+          0,
+          1
+         ]
+        ],
+        "2": [
+         [
+          1,
+          0,
+          0
+         ],
+         [
+          0,
+          1,
+          0
+         ],
+         [
+          0,
+          0,
+          1
+         ]
+        ],
+        "3": [
+         [
+          2,
+          1,
+          0
+         ],
+         [
+          0,
+          2,
+          1
+         ],
+         [
+          0,
+          0,
+          2
+         ]
+        ]
+       }
+      },
+      "wert": false
+     },
+     "idee": "Zerlegbar?",
+     "bestanden": false,
+     "widerspruch": false,
+     "grund": "dim End = 3, dim J(End) = 2: absolut unzerlegbar"
+    }
+   ]
+  },
+  {
+   "id": "quivers-R4-62",
+   "frage": "3- und 4-Zykel: Klassifikation der Unzerlegbaren (orientiert und azyklisch), Unabhängigkeit von der Orientierung.",
+   "text": "Die Darstellung von cycle3_oriented mit Dimensionsvektor [2, 2, 1] und Abbildungen {'0': [[1, 0], [0, 1]], '1': [[1, 0]], '2': [[0], [1]]} ist absolut unzerlegbar (End/Rad = k).",
+   "pruefung": {
+    "typ": "unzerlegbar",
+    "quiver": "cycle3_oriented",
+    "rep": {
+     "dims": [
+      2,
+      2,
+      1
+     ],
+     "maps": {
+      "0": [
+       [
+        1,
+        0
+       ],
+       [
+        0,
+        1
+       ]
+      ],
+      "1": [
+       [
+        1,
+        0
+       ]
+      ],
+      "2": [
+       [
+        0
+       ],
+       [
+        1
+       ]
+      ]
+     }
+    },
+    "wert": true
+   },
+   "grund": "dim End = 2, dim J(End) = 1: absolut unzerlegbar",
+   "level": "computed_rigorous",
+   "status": "bestätigt",
+   "interpretation_ungeprueft": "Nilpotenter String S(0, 5) mit Dimensionsvektor (2,2,1): unzerlegbar.",
+   "red_team": [
+    {
+     "pruefung": {
+      "typ": "unzerlegbar",
+      "quiver": "cycle3_oriented",
+      "rep": {
+       "dims": [
+        2,
+        2,
+        1
+       ],
+       "maps": {
+        "0": [
+         [
+          1,
+          0
+         ],
+         [
+          0,
+          1
+         ]
+        ],
+        "1": [
+         [
+          1,
+          0
+         ]
+        ],
+        "2": [
+         [
+          0
+         ],
+         [
+          1
+         ]
+        ]
+       }
+      },
+      "wert": false
+     },
+     "idee": "Zerlegbar?",
+     "bestanden": false,
+     "widerspruch": false,
+     "grund": "dim End = 2, dim J(End) = 1: absolut unzerlegbar"
+    }
+   ]
+  },
+  {
+   "id": "quivers-R4-63",
+   "frage": "3- und 4-Zykel: Klassifikation der Unzerlegbaren (orientiert und azyklisch), Unabhängigkeit von der Orientierung.",
+   "text": "Für cycle3_oriented über F_2 und alle 0 < beta <= [2, 2, 2] stimmt die Zahl der Unzerlegbaren mit der Klassifikation (nilpotente Strings S(i, l) und unzerlegbare Moduln über F_q[x, 1/x] für beta = m delta) überein.",
+   "pruefung": {
+    "typ": "zykel_box",
+    "quiver": "cycle3_oriented",
+    "schranke": [
+     2,
+     2,
+     2
+    ],
+    "p": 2
+   },
+   "grund": "26 Dimensionsvektoren <= [2, 2, 2] über F_2: Zählung = Vorhersage (Strings + Monodromie)",
+   "level": "computed_rigorous",
+   "status": "bestätigt",
+   "interpretation_ungeprueft": "Klassifikation des orientierten Zykels für alle beta <= [2, 2, 2] über F_2 bestätigt.",
+   "red_team": [
+    {
+     "pruefung": {
+      "typ": "anzahl",
+      "quiver": "cycle3_oriented",
+      "alpha": [
+       2,
+       2,
+       2
+      ],
+      "p": 2,
+      "anzahl": 0
+     },
+     "idee": "Keine Unzerlegbare in der Schranke?",
+     "bestanden": false,
+     "widerspruch": false,
+     "grund": "I_[2, 2, 2](2) = 5 (Methode: direkt)"
+    }
+   ]
+  },
+  {
+   "id": "quivers-R4-64",
+   "frage": "3- und 4-Zykel: Klassifikation der Unzerlegbaren (orientiert und azyklisch), Unabhängigkeit von der Orientierung.",
+   "text": "Für cycle3_oriented über F_3 und alle 0 < beta <= [2, 2, 2] stimmt die Zahl der Unzerlegbaren mit der Klassifikation (nilpotente Strings S(i, l) und unzerlegbare Moduln über F_q[x, 1/x] für beta = m delta) überein.",
+   "pruefung": {
+    "typ": "zykel_box",
+    "quiver": "cycle3_oriented",
+    "schranke": [
+     2,
+     2,
+     2
+    ],
+    "p": 3
+   },
+   "grund": "26 Dimensionsvektoren <= [2, 2, 2] über F_3: Zählung = Vorhersage (Strings + Monodromie)",
+   "level": "computed_rigorous",
+   "status": "bestätigt",
+   "interpretation_ungeprueft": "Klassifikation des orientierten Zykels für alle beta <= [2, 2, 2] über F_3 bestätigt.",
+   "red_team": [
+    {
+     "pruefung": {
+      "typ": "anzahl",
+      "quiver": "cycle3_oriented",
+      "alpha": [
+       2,
+       2,
+       2
+      ],
+      "p": 3,
+      "anzahl": 0
+     },
+     "idee": "Keine Unzerlegbare in der Schranke?",
+     "bestanden": false,
+     "widerspruch": false,
+     "grund": "I_[2, 2, 2](3) = 8 (Methode: burnside)"
+    }
+   ]
+  },
+  {
+   "id": "quivers-R4-65",
+   "frage": "3- und 4-Zykel: Klassifikation der Unzerlegbaren (orientiert und azyklisch), Unabhängigkeit von der Orientierung.",
+   "text": "Für cycle4_oriented über F_2 und alle 0 < beta <= [2, 2, 2, 2] stimmt die Zahl der Unzerlegbaren mit der Klassifikation (nilpotente Strings S(i, l) und unzerlegbare Moduln über F_q[x, 1/x] für beta = m delta) überein.",
+   "pruefung": {
+    "typ": "zykel_box",
+    "quiver": "cycle4_oriented",
+    "schranke": [
+     2,
+     2,
+     2,
+     2
+    ],
+    "p": 2
+   },
+   "grund": "80 Dimensionsvektoren <= [2, 2, 2, 2] über F_2: Zählung = Vorhersage (Strings + Monodromie)",
+   "level": "computed_rigorous",
+   "status": "bestätigt",
+   "interpretation_ungeprueft": "Klassifikation des orientierten Zykels für alle beta <= [2, 2, 2, 2] über F_2 bestätigt.",
+   "red_team": [
+    {
+     "pruefung": {
+      "typ": "anzahl",
+      "quiver": "cycle4_oriented",
+      "alpha": [
+       2,
+       2,
+       2,
+       2
+      ],
+      "p": 2,
+      "anzahl": 0
+     },
+     "idee": "Keine Unzerlegbare in der Schranke?",
+     "bestanden": false,
+     "widerspruch": false,
+     "grund": "I_[2, 2, 2, 2](2) = 6 (Methode: burnside)"
+    }
+   ]
+  },
+  {
+   "id": "quivers-R4-66",
+   "frage": "3- und 4-Zykel: Klassifikation der Unzerlegbaren (orientiert und azyklisch), Unabhängigkeit von der Orientierung.",
+   "text": "Für cycle3_acyclic über F_2 und alle Dimensionsvektoren 0 < beta <= [2, 2, 2]: genau eine Unzerlegbare für reelle Wurzeln, keine für Nicht-Wurzeln.",
+   "pruefung": {
+    "typ": "kac_box",
+    "quiver": "cycle3_acyclic",
+    "schranke": [
+     2,
+     2,
+     2
+    ],
+    "p": 2
+   },
+   "grund": "26 Vektoren <= [2, 2, 2] über F_2: reelle Wurzeln genau 1, Nicht-Wurzeln 0; imaginäre Wurzeln: {'[1, 1, 1]': 4, '[2, 2, 2]': 5}",
+   "level": "computed_rigorous",
+   "status": "bestätigt",
+   "interpretation_ungeprueft": "Kac für azyklisches Ã2: reelle Wurzeln genau eine Unzerlegbare.",
+   "red_team": [
+    {
+     "pruefung": {
+      "typ": "anzahl",
+      "quiver": "cycle3_acyclic",
+      "alpha": [
+       1,
+       1,
+       0
+      ],
+      "p": 2,
+      "anzahl": 2
+     },
+     "idee": "Zwei Unzerlegbare in (1,1,0)?",
+     "bestanden": false,
+     "widerspruch": false,
+     "grund": "I_[1, 1, 0](2) = 1 (Methode: direkt)"
+    }
+   ]
+  },
+  {
+   "id": "quivers-R5-67",
+   "frage": "Vielfache von delta: Wie viele Unzerlegbare hat 2 delta, und ist A_{2 delta} = A_delta?",
+   "text": "Über F_2 hat cycle3_oriented genau 5 Isoklassen unzerlegbarer Darstellungen mit Dimensionsvektor [2, 2, 2] (exakte Zählung, Methode direkt).",
+   "pruefung": {
+    "typ": "anzahl",
+    "quiver": "cycle3_oriented",
+    "alpha": [
+     2,
+     2,
+     2
+    ],
+    "p": 2,
+    "anzahl": 5
+   },
+   "grund": "I_[2, 2, 2](2) = 5 (Methode: direkt)",
+   "level": "computed_rigorous",
+   "status": "bestätigt",
+   "interpretation_ungeprueft": "I_(2 delta)(2) = 5 = A_delta(q) + (A_delta(q^2) - A_delta(q))/2 mit A_(2 delta) = A_delta.",
+   "red_team": [
+    {
+     "pruefung": {
+      "typ": "anzahl",
+      "quiver": "cycle3_oriented",
+      "alpha": [
+       2,
+       2,
+       2
+      ],
+      "p": 2,
+      "anzahl": 6
+     },
+     "idee": "Eine Unzerlegbare mehr?",
+     "bestanden": false,
+     "widerspruch": false,
+     "grund": "I_[2, 2, 2](2) = 5 (Methode: direkt)"
+    }
+   ]
+  },
+  {
+   "id": "quivers-R5-68",
+   "frage": "Vielfache von delta: Wie viele Unzerlegbare hat 2 delta, und ist A_{2 delta} = A_delta?",
+   "text": "Über F_3 hat cycle3_oriented genau 8 Isoklassen unzerlegbarer Darstellungen mit Dimensionsvektor [2, 2, 2] (exakte Zählung, Methode burnside).",
+   "pruefung": {
+    "typ": "anzahl",
+    "quiver": "cycle3_oriented",
+    "alpha": [
+     2,
+     2,
+     2
+    ],
+    "p": 3,
+    "anzahl": 8
+   },
+   "grund": "I_[2, 2, 2](3) = 8 (Methode: burnside)",
+   "level": "computed_rigorous",
+   "status": "bestätigt",
+   "interpretation_ungeprueft": "I_(2 delta)(3) = 8 = A_delta(q) + (A_delta(q^2) - A_delta(q))/2 mit A_(2 delta) = A_delta.",
+   "red_team": [
+    {
+     "pruefung": {
+      "typ": "anzahl",
+      "quiver": "cycle3_oriented",
+      "alpha": [
+       2,
+       2,
+       2
+      ],
+      "p": 3,
+      "anzahl": 9
+     },
+     "idee": "Eine Unzerlegbare mehr?",
+     "bestanden": false,
+     "widerspruch": false,
+     "grund": "I_[2, 2, 2](3) = 8 (Methode: burnside)"
+    }
+   ]
+  },
+  {
+   "id": "quivers-R5-69",
+   "frage": "Vielfache von delta: Wie viele Unzerlegbare hat 2 delta, und ist A_{2 delta} = A_delta?",
+   "text": "Über F_5 hat cycle3_oriented genau 17 Isoklassen unzerlegbarer Darstellungen mit Dimensionsvektor [2, 2, 2] (exakte Zählung, Methode burnside).",
+   "pruefung": {
+    "typ": "anzahl",
+    "quiver": "cycle3_oriented",
+    "alpha": [
+     2,
+     2,
+     2
+    ],
+    "p": 5,
+    "anzahl": 17
+   },
+   "grund": "I_[2, 2, 2](5) = 17 (Methode: burnside)",
+   "level": "computed_rigorous",
+   "status": "bestätigt",
+   "interpretation_ungeprueft": "I_(2 delta)(5) = 17 = A_delta(q) + (A_delta(q^2) - A_delta(q))/2 mit A_(2 delta) = A_delta.",
+   "red_team": [
+    {
+     "pruefung": {
+      "typ": "anzahl",
+      "quiver": "cycle3_oriented",
+      "alpha": [
+       2,
+       2,
+       2
+      ],
+      "p": 5,
+      "anzahl": 18
+     },
+     "idee": "Eine Unzerlegbare mehr?",
+     "bestanden": false,
+     "widerspruch": false,
+     "grund": "I_[2, 2, 2](5) = 17 (Methode: burnside)"
+    }
+   ]
+  },
+  {
+   "id": "quivers-R5-70",
+   "frage": "Vielfache von delta: Wie viele Unzerlegbare hat 2 delta, und ist A_{2 delta} = A_delta?",
+   "text": "Über F_2 hat cycle3_acyclic genau 5 Isoklassen unzerlegbarer Darstellungen mit Dimensionsvektor [2, 2, 2] (exakte Zählung, Methode direkt).",
+   "pruefung": {
+    "typ": "anzahl",
+    "quiver": "cycle3_acyclic",
+    "alpha": [
+     2,
+     2,
+     2
+    ],
+    "p": 2,
+    "anzahl": 5
+   },
+   "grund": "I_[2, 2, 2](2) = 5 (Methode: direkt)",
+   "level": "computed_rigorous",
+   "status": "bestätigt",
+   "interpretation_ungeprueft": "I_(2 delta)(2) = 5 = A_delta(q) + (A_delta(q^2) - A_delta(q))/2 mit A_(2 delta) = A_delta.",
+   "red_team": [
+    {
+     "pruefung": {
+      "typ": "anzahl",
+      "quiver": "cycle3_acyclic",
+      "alpha": [
+       2,
+       2,
+       2
+      ],
+      "p": 2,
+      "anzahl": 6
+     },
+     "idee": "Eine Unzerlegbare mehr?",
+     "bestanden": false,
+     "widerspruch": false,
+     "grund": "I_[2, 2, 2](2) = 5 (Methode: direkt)"
+    }
+   ]
+  },
+  {
+   "id": "quivers-R5-71",
+   "frage": "Vielfache von delta: Wie viele Unzerlegbare hat 2 delta, und ist A_{2 delta} = A_delta?",
+   "text": "Über F_3 hat cycle3_acyclic genau 8 Isoklassen unzerlegbarer Darstellungen mit Dimensionsvektor [2, 2, 2] (exakte Zählung, Methode burnside).",
+   "pruefung": {
+    "typ": "anzahl",
+    "quiver": "cycle3_acyclic",
+    "alpha": [
+     2,
+     2,
+     2
+    ],
+    "p": 3,
+    "anzahl": 8
+   },
+   "grund": "I_[2, 2, 2](3) = 8 (Methode: burnside)",
+   "level": "computed_rigorous",
+   "status": "bestätigt",
+   "interpretation_ungeprueft": "I_(2 delta)(3) = 8 = A_delta(q) + (A_delta(q^2) - A_delta(q))/2 mit A_(2 delta) = A_delta.",
+   "red_team": [
+    {
+     "pruefung": {
+      "typ": "anzahl",
+      "quiver": "cycle3_acyclic",
+      "alpha": [
+       2,
+       2,
+       2
+      ],
+      "p": 3,
+      "anzahl": 9
+     },
+     "idee": "Eine Unzerlegbare mehr?",
+     "bestanden": false,
+     "widerspruch": false,
+     "grund": "I_[2, 2, 2](3) = 8 (Methode: burnside)"
+    }
+   ]
+  },
+  {
+   "id": "quivers-R5-72",
+   "frage": "Vielfache von delta: Wie viele Unzerlegbare hat 2 delta, und ist A_{2 delta} = A_delta?",
+   "text": "Über F_5 hat cycle3_acyclic genau 17 Isoklassen unzerlegbarer Darstellungen mit Dimensionsvektor [2, 2, 2] (exakte Zählung, Methode burnside).",
+   "pruefung": {
+    "typ": "anzahl",
+    "quiver": "cycle3_acyclic",
+    "alpha": [
+     2,
+     2,
+     2
+    ],
+    "p": 5,
+    "anzahl": 17
+   },
+   "grund": "I_[2, 2, 2](5) = 17 (Methode: burnside)",
+   "level": "computed_rigorous",
+   "status": "bestätigt",
+   "interpretation_ungeprueft": "I_(2 delta)(5) = 17 = A_delta(q) + (A_delta(q^2) - A_delta(q))/2 mit A_(2 delta) = A_delta.",
+   "red_team": [
+    {
+     "pruefung": {
+      "typ": "anzahl",
+      "quiver": "cycle3_acyclic",
+      "alpha": [
+       2,
+       2,
+       2
+      ],
+      "p": 5,
+      "anzahl": 18
+     },
+     "idee": "Eine Unzerlegbare mehr?",
+     "bestanden": false,
+     "widerspruch": false,
+     "grund": "I_[2, 2, 2](5) = 17 (Methode: burnside)"
+    }
+   ]
+  },
+  {
+   "id": "quivers-R5-73",
+   "frage": "Vielfache von delta: Wie viele Unzerlegbare hat 2 delta, und ist A_{2 delta} = A_delta?",
+   "text": "Über F_2 hat cycle4_oriented genau 6 Isoklassen unzerlegbarer Darstellungen mit Dimensionsvektor [2, 2, 2, 2] (exakte Zählung, Methode burnside).",
+   "pruefung": {
+    "typ": "anzahl",
+    "quiver": "cycle4_oriented",
+    "alpha": [
+     2,
+     2,
+     2,
+     2
+    ],
+    "p": 2,
+    "anzahl": 6
+   },
+   "grund": "I_[2, 2, 2, 2](2) = 6 (Methode: burnside)",
+   "level": "computed_rigorous",
+   "status": "bestätigt",
+   "interpretation_ungeprueft": "I_(2 delta)(2) = 6 = A_delta(q) + (A_delta(q^2) - A_delta(q))/2 mit A_(2 delta) = A_delta.",
+   "red_team": [
+    {
+     "pruefung": {
+      "typ": "anzahl",
+      "quiver": "cycle4_oriented",
+      "alpha": [
+       2,
+       2,
+       2,
+       2
+      ],
+      "p": 2,
+      "anzahl": 7
+     },
+     "idee": "Eine Unzerlegbare mehr?",
+     "bestanden": false,
+     "widerspruch": false,
+     "grund": "I_[2, 2, 2, 2](2) = 6 (Methode: burnside)"
+    }
+   ]
+  },
+  {
+   "id": "quivers-R5-74",
+   "frage": "Vielfache von delta: Wie viele Unzerlegbare hat 2 delta, und ist A_{2 delta} = A_delta?",
+   "text": "Über F_3 hat cycle4_oriented genau 9 Isoklassen unzerlegbarer Darstellungen mit Dimensionsvektor [2, 2, 2, 2] (exakte Zählung, Methode burnside).",
+   "pruefung": {
+    "typ": "anzahl",
+    "quiver": "cycle4_oriented",
+    "alpha": [
+     2,
+     2,
+     2,
+     2
+    ],
+    "p": 3,
+    "anzahl": 9
+   },
+   "grund": "I_[2, 2, 2, 2](3) = 9 (Methode: burnside)",
+   "level": "computed_rigorous",
+   "status": "bestätigt",
+   "interpretation_ungeprueft": "I_(2 delta)(3) = 9 = A_delta(q) + (A_delta(q^2) - A_delta(q))/2 mit A_(2 delta) = A_delta.",
+   "red_team": [
+    {
+     "pruefung": {
+      "typ": "anzahl",
+      "quiver": "cycle4_oriented",
+      "alpha": [
+       2,
+       2,
+       2,
+       2
+      ],
+      "p": 3,
+      "anzahl": 10
+     },
+     "idee": "Eine Unzerlegbare mehr?",
+     "bestanden": false,
+     "widerspruch": false,
+     "grund": "I_[2, 2, 2, 2](3) = 9 (Methode: burnside)"
+    }
+   ]
+  },
+  {
+   "id": "quivers-R5-75",
+   "frage": "Vielfache von delta: Wie viele Unzerlegbare hat 2 delta, und ist A_{2 delta} = A_delta?",
+   "text": "Über F_2 hat cycle4_acyclic22 genau 6 Isoklassen unzerlegbarer Darstellungen mit Dimensionsvektor [2, 2, 2, 2] (exakte Zählung, Methode burnside).",
+   "pruefung": {
+    "typ": "anzahl",
+    "quiver": "cycle4_acyclic22",
+    "alpha": [
+     2,
+     2,
+     2,
+     2
+    ],
+    "p": 2,
+    "anzahl": 6
+   },
+   "grund": "I_[2, 2, 2, 2](2) = 6 (Methode: burnside)",
+   "level": "computed_rigorous",
+   "status": "bestätigt",
+   "interpretation_ungeprueft": "I_(2 delta)(2) = 6 = A_delta(q) + (A_delta(q^2) - A_delta(q))/2 mit A_(2 delta) = A_delta.",
+   "red_team": [
+    {
+     "pruefung": {
+      "typ": "anzahl",
+      "quiver": "cycle4_acyclic22",
+      "alpha": [
+       2,
+       2,
+       2,
+       2
+      ],
+      "p": 2,
+      "anzahl": 7
+     },
+     "idee": "Eine Unzerlegbare mehr?",
+     "bestanden": false,
+     "widerspruch": false,
+     "grund": "I_[2, 2, 2, 2](2) = 6 (Methode: burnside)"
+    }
+   ]
+  },
+  {
+   "id": "quivers-R5-76",
+   "frage": "Vielfache von delta: Wie viele Unzerlegbare hat 2 delta, und ist A_{2 delta} = A_delta?",
+   "text": "Über F_3 hat cycle4_acyclic22 genau 9 Isoklassen unzerlegbarer Darstellungen mit Dimensionsvektor [2, 2, 2, 2] (exakte Zählung, Methode burnside).",
+   "pruefung": {
+    "typ": "anzahl",
+    "quiver": "cycle4_acyclic22",
+    "alpha": [
+     2,
+     2,
+     2,
+     2
+    ],
+    "p": 3,
+    "anzahl": 9
+   },
+   "grund": "I_[2, 2, 2, 2](3) = 9 (Methode: burnside)",
+   "level": "computed_rigorous",
+   "status": "bestätigt",
+   "interpretation_ungeprueft": "I_(2 delta)(3) = 9 = A_delta(q) + (A_delta(q^2) - A_delta(q))/2 mit A_(2 delta) = A_delta.",
+   "red_team": [
+    {
+     "pruefung": {
+      "typ": "anzahl",
+      "quiver": "cycle4_acyclic22",
+      "alpha": [
+       2,
+       2,
+       2,
+       2
+      ],
+      "p": 3,
+      "anzahl": 10
+     },
+     "idee": "Eine Unzerlegbare mehr?",
+     "bestanden": false,
+     "widerspruch": false,
+     "grund": "I_[2, 2, 2, 2](3) = 9 (Methode: burnside)"
+    }
+   ]
+  }
+ ],
+ "widerlegt": [],
+ "runden": [
+  {
+   "runde": 1,
+   "frage": "F1",
+   "status": "beantwortet",
+   "sek": 0.9
+  },
+  {
+   "runde": 2,
+   "frage": "F2",
+   "status": "beantwortet",
+   "sek": 33.5
+  },
+  {
+   "runde": 3,
+   "frage": "F3",
+   "status": "beantwortet",
+   "sek": 83.5
+  },
+  {
+   "runde": 4,
+   "frage": "F4",
+   "status": "beantwortet",
+   "sek": 7.3
+  },
+  {
+   "runde": 5,
+   "frage": "F5",
+   "status": "beantwortet",
+   "sek": 18.5
+  }
+ ],
+ "kosten_usd": 0.0
+}

@@ -1,0 +1,588 @@
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}\usepackage[T1]{fontenc}\usepackage{amsmath,amssymb,amsthm}\usepackage[margin=2.2cm]{geometry}
+\usepackage{longtable}\usepackage{hyperref}
+\newtheorem{theorem}{Theorem}\newtheorem{proposition}[theorem]{Proposition}\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{lemma}[theorem]{Lemma}
+\theoremstyle{definition}\newtheorem{definition}[theorem]{Definition}\newtheorem{remark}[theorem]{Remark}\newtheorem{observation}[theorem]{Numerical observation}
+\newcommand{\C}[1]{\texttt{[C-#1]}}
+\title{Representations of quivers beyond Dynkin type:\\ results ledger (theorems, proofs, verifications)}
+\author{Verifier-gated lab, domain \texttt{quivers}}
+\date{Generated from \texttt{projects/quivers/state.json}}
+\begin{document}\maketitle
+
+\noindent\textbf{What this file is.} This is the raw ledger of every statement that goes into the paper, written before the paper
+writer runs and without it. Each statement has one of these tags:
+\textbf{[Lit]}, a known theorem quoted with a DOI that was retrieved through Crossref;
+\textbf{[Proof]}, a proof written out here;
+\textbf{[Verified]}, an exact computer check by the domain verifier \texttt{asd/domains/quivers\_domain.py}, cited by claim id \C{\ldots}.
+Every claim id resolves to an entry in the appendix and in \texttt{state.json}, and
+\texttt{python -m asd.recheck quivers} rechecks all of them. Checks run in exact arithmetic only: rationals, $\mathbb F_p$,
+and symbolic elimination with logged pivots. No floating-point number enters any check.
+
+\section{Definitions}
+\begin{definition}
+A \emph{quiver} $Q=(Q_0,Q_1,s,t)$ consists of a finite set of vertices $Q_0$, a finite set of arrows $Q_1$, and maps $s,t$ that send each arrow
+to its source and its target. A \emph{representation} $V$ of $Q$ over a field $k$ assigns a finite-dimensional vector space $V_i$ to each vertex $i$
+and a linear map $V_a\colon V_{s(a)}\to V_{t(a)}$ to each arrow $a$. A morphism $f\colon V\to W$ is a family of linear maps
+$f_i\colon V_i\to W_i$ with $W_a f_{s(a)}=f_{t(a)}V_a$ for every arrow $a$. Direct sums are taken vertexwise. $V\neq0$ is
+\emph{indecomposable} if $V\cong V'\oplus V''$ forces $V'=0$ or $V''=0$. Its \emph{dimension vector} is
+$\underline{\dim}\,V=(\dim V_i)_{i\in Q_0}\in\mathbb N^{Q_0}$.
+\end{definition}
+\begin{definition}
+The \emph{Tits form} is $q_Q(x)=\sum_{i\in Q_0}x_i^2-\sum_{a\in Q_1}x_{s(a)}x_{t(a)}$, and its symmetrisation is $(x,y)=q(x+y)-q(x)-q(y)$.
+The simple reflections are $s_i(x)=x-(x,e_i)e_i$, and they generate the Weyl group $W$. \emph{Real roots} are the $W$-orbit of the $e_i$. \emph{Imaginary roots} are the
+$W$-orbit of the fundamental set $F=\{\alpha\in\mathbb N^{Q_0}\setminus0:\ \operatorname{supp}\alpha \text{ connected},\ (\alpha,e_i)\le0\ \forall i\}$
+and its negatives. For an imaginary root $\alpha$, the number $1-q(\alpha)$ is called its \emph{number of parameters}.
+\end{definition}
+\begin{definition}
+For a prime power $q$, $I_\alpha(q)$ is the number of isomorphism classes of indecomposable representations of dimension $\alpha$ over $\mathbb F_q$.
+$A_\alpha(q)$ is the number of isoclasses of \emph{absolutely} indecomposable ones, meaning those that stay indecomposable over $\overline{\mathbb F}_q$.
+If $\gcd(\alpha)=1$, then $I_\alpha=A_\alpha$: a non-absolutely indecomposable representation splits over an extension of degree $d>1$
+into $d$ Galois conjugates, so $d\mid\alpha$.
+\end{definition}
+Quivers used below: $S_n$ (\texttt{star}$n$) has a centre $0$ and leaves $1,\dots,n$ with arrows leaf$\to$centre (the subspace orientation).
+$\vec C_n$ (\texttt{cycle}$n$\texttt{\_oriented}) is the oriented $n$-cycle $0\to1\to\dots\to n-1\to0$. The acyclic $3$-cycle has arrows
+$0\to1\to2$ and $0\to2$. The acyclic $4$-cycles are \texttt{acyclic31} ($0\to1\to2\to3$, $0\to3$) and \texttt{acyclic22} ($0\to1\to2$, $0\to3\to2$).
+A dimension vector of $S_n$ is written $(x_0;x_1,\dots,x_n)$.
+
+\section{Classical background}
+\begin{theorem}[Krull--Schmidt; standard]
+Every representation is a direct sum of indecomposables, unique up to isomorphism and order.
+\end{theorem}
+\begin{theorem}[Gabriel 1972 {[Lit, doi:10.1007/BF01298413]}; BGP 1973 {[Lit, doi:10.1070/RM1973v028n02ABEH001526]}]
+A connected quiver has only finitely many isoclasses of indecomposables iff its underlying graph is of type $A_n,D_n,E_6,E_7,E_8$.
+In that case $V\mapsto\underline{\dim}\,V$ is a bijection from isoclasses of indecomposables onto the positive roots, which are the
+$\alpha\in\mathbb N^{Q_0}$ with $q(\alpha)=1$.
+\end{theorem}
+\begin{theorem}[Kac 1980 {[Lit, doi:10.1007/BF01403155]}; Kac 1983 {[Lit, doi:10.1007/BFb0063236]}]
+Let $k$ be algebraically closed. An indecomposable of dimension $\alpha$ exists iff $\alpha$ is a positive root. For a real root it is unique.
+For an imaginary root there are infinitely many, in families with $1-q(\alpha)$ parameters. Over $\mathbb F_q$, $A_\alpha(q)$ is a monic polynomial in $q$
+with integer coefficients. It does not depend on the orientation, and its degree is $1-q(\alpha)$ for $\alpha$ a root. It equals $1$ for real roots and $0$ for non-roots.
+\end{theorem}
+\begin{theorem}[Nazarova 1973 {[Lit, doi:10.1070/IM1973v007n04ABEH001975]}; Ringel 1984 {[Lit, doi:10.1007/BFb0072870]}]
+The connected quivers of tame infinite type are exactly the Euclidean (extended Dynkin) quivers. Their regular indecomposables form tubes
+indexed by $\mathbb P^1(k)$, all homogeneous (rank $1$) except finitely many. For $\widetilde D_4$ there are three exceptional tubes of rank $2$.
+For $\widetilde A_{n-1}$ with $p$ arrows clockwise and $r$ anticlockwise there are tubes of rank $p$ and $r$.
+\end{theorem}
+\begin{theorem}[Hua 2000 {[Lit, doi:10.1006/jabr.1999.8220]}; Hausel--Letellier--Rodriguez-Villegas 2013 {[Lit, doi:10.4007/annals.2013.177.3.8]}]
+There is a closed formula for $A_\alpha(q)$, and the coefficients of $A_\alpha$ are non-negative.
+\end{theorem}
+\begin{lemma}[Galois descent; standard, used in \S6]
+$I_\alpha(q)=\sum_{d\mid\gcd(\alpha)}\frac1d\sum_{r\mid d}\mu(d/r)\,A_{\alpha/d}(q^r)$.
+\end{lemma}
+\begin{proof}
+An indecomposable $V$ over $\mathbb F_q$ has $\operatorname{End}(V)/\operatorname{rad}\cong\mathbb F_{q^d}$. Over $\mathbb F_{q^d}$ it splits into
+$d$ Galois-conjugate absolutely indecomposables of dimension $\alpha/d$ that form one free Frobenius orbit. Conversely, every orbit of size exactly $d$
+descends to such a $V$. By M\"obius inversion, the number of orbits of size exactly $d$ is $\frac1d\sum_{r\mid d}\mu(d/r)A_{\alpha/d}(q^r)$.
+\end{proof}
+
+\section{How the verifier checks statements}
+\begin{itemize}
+\item \textbf{Tits type.} Leading principal minors give positive definiteness (Sylvester). All principal minors give semidefiniteness. An
+explicit $x$ with $q(x)<0$ witnesses indefiniteness.
+\item \textbf{Roots.} Kac's reduction: while $\alpha$ is not simple, apply $s_i$ for some $i$ with $(\alpha,e_i)>0$. A negative coordinate means $\alpha$ is
+not a root. Reaching the fundamental chamber with connected support means imaginary. This is a decision procedure, because $s_i$ permutes the
+positive roots other than $e_i$, and $F$ is a fundamental domain for the imaginary ones.
+\item \textbf{Absolute indecomposability over $\overline{\mathbb Q}$.} $V$ is defined over $\mathbb Q$, and $E=\operatorname{End}(V)$ is solved exactly.
+In characteristic $0$, $\operatorname{rad}E=\{x:\operatorname{tr}_V(xy)=0\ \forall y\}$ (Dickson's criterion; a faithful trace form suffices).
+Then $V\otimes\overline{\mathbb Q}$ is indecomposable iff $\dim E-\dim\operatorname{rad}E=1$, since $E\otimes\overline{\mathbb Q}$ is local iff
+$E/\operatorname{rad}E\otimes\overline{\mathbb Q}=\overline{\mathbb Q}$.
+\item \textbf{Families $V_t$.} Gaussian elimination over $\mathbb Q(s,t)$ on the linear systems for $\operatorname{End}(V_t)$ and
+$\operatorname{Hom}(V_s,V_t)$. Only pivots whose irreducible factors are on a declared list are allowed: $s-t$, plus the declared exceptional values.
+Rank $\ge r$ then holds at every point where no allowed factor vanishes, and the verifier logs the pivots it used.
+\item \textbf{Counting over $\mathbb F_p$.} Method \emph{direkt}: enumerate all of $\operatorname{Rep}_\alpha(\mathbb F_p)$. For each $V$,
+enumerate $\operatorname{End}(V)$ and test locality (in a finite ring, local iff every non-unit is nilpotent). Then
+$I_\alpha=\sum_{V\text{ indec}}|\operatorname{Aut}V|/|G_\alpha|$ by orbit--stabiliser. Method \emph{burnside}, used when $|\operatorname{Rep}_\alpha|>20000$:
+$M_\beta=\frac1{|G_\beta|}\sum_{g}p^{\sum_a\dim\{A:g_tA=Ag_s\}}$ over conjugacy classes, for all $\beta\le\alpha$, and then
+$\sum_\beta M_\beta X^\beta=\prod_\gamma(1-X^\gamma)^{-I_\gamma}$ (Krull--Schmidt) is solved for $I$. The two methods share no code path.
+\item \textbf{Kac polynomials.} The claimed polynomial must have degree $1-q(\alpha)$ and must match $A_\alpha(p)$ at $\deg+2$ primes, one more than needed.
+Polynomiality itself comes from Kac's theorem [Lit]. So the evidence level is ``exact at these primes, plus Kac''.
+\item \textbf{Complete lists.} Every listed representation is indecomposable over $\mathbb F_p$, the list is pairwise non-isomorphic
+(an exhaustive search for an invertible element of $\operatorname{Hom}$), and its length equals the independently computed $I_\alpha(p)$.
+\end{itemize}
+Every claim also gets a red-team counter-check: a statement that would pass if the claim were false (for example a count off by one, or a list
+with one element removed). All counter-checks failed, as they should, and no claim was contested.
+
+\section{Gabriel's theorem in the lab (F1)}
+\begin{proposition}[Verified \C{quivers-R1-1}--\C{quivers-R1-10}]
+The Tits form is positive definite for $S_1=A_2$, $S_2=A_3$ and $S_3=D_4$. It is positive semidefinite but not definite for $S_4=\widetilde D_4$, the Kronecker quiver,
+$\vec C_3$ and $\vec C_4$. It is indefinite for $S_5,S_6,S_7$.
+\end{proposition}
+\begin{proposition}[Proof]\label{prop:starform}
+For the star $S_n$, $q(x)=\sum_{i=1}^n\big(x_i-\tfrac{x_0}{2}\big)^2+\big(1-\tfrac n4\big)x_0^2$. Hence $S_n$ is Dynkin for $n\le3$, Euclidean for $n=4$
+with radical $\delta=(2;1,1,1,1)$, and wild for $n\ge5$, with $q(2;1^n)=4-n<0$.
+\end{proposition}
+\begin{proof}
+Expand: $\sum(x_i^2-x_0x_i+x_0^2/4)+x_0^2-nx_0^2/4=x_0^2+\sum x_i^2-x_0\sum x_i$. For $n=4$, $q=0$ forces $x_i=x_0/2$ for all $i$.
+\end{proof}
+\begin{proposition}[Verified \C{quivers-R1-11}--\C{quivers-R1-14}]
+$D_4$ has exactly $12$ positive roots. Over $\mathbb F_2$ and $\mathbb F_3$, every dimension vector $\beta\le(2;1,1,1)$ of $D_4$ has exactly one
+indecomposable if $\beta$ is a positive root and none otherwise. The same holds for $A_3$ with $\beta\le(2,2,2)$ over $\mathbb F_2$.
+This is Gabriel's theorem, checked by brute counting.
+\end{proposition}
+
+\section{Stars: the four subspace problem and beyond (F2, F3)}
+\begin{theorem}[Proof; checked in \C{quivers-R3-35}--\C{quivers-R3-39} and \C{quivers-R2-20}--\C{quivers-R2-22}, \C{quivers-R3-40}]\label{thm:star}
+Let $n\ge3$, let $k$ be any field, and let $\alpha_n=(2;1^n)$. A representation $V$ of $S_n$ of dimension $\alpha_n$ is the same thing as a tuple of
+vectors $v_1,\dots,v_n\in k^2$, the images of $1$ under the leaf maps. Then:
+\begin{enumerate}
+\item $V$ is indecomposable iff every $v_i\neq0$ and the lines $[v_i]\in\mathbb P^1(k)$ take at least three distinct values. Every such $V$ is a brick
+($\operatorname{End}V=k$), so it is absolutely indecomposable.
+\item $V\cong V'$ iff the point configurations $([v_i])_i$ and $([v'_i])_i$ lie in the same $\mathrm{PGL}_2(k)$-orbit. $\mathrm{PGL}_2(k)$ acts freely on
+configurations with at least three distinct points.
+\item Hence $A_{\alpha_n}(q)=\dfrac{(q+1)^{n-1}-1-(2^{n-1}-1)\,q}{q(q-1)}$. This is a monic polynomial of degree $n-3=1-q(\alpha_n)$ with constant term
+$2^{n-1}-n$.
+\end{enumerate}
+\end{theorem}
+\begin{proof}
+(1) If $v_i=0$, the simple $S_i$ at leaf $i$ splits off. If all lines lie in one line $L$, then $k^2=L\oplus L'$ splits off the simple $S_0$ on $L'$.
+If the lines take exactly two values $L\neq L'$, then $V$ splits as the leaves on $L$ plus the leaves on $L'$. Conversely, suppose there are three distinct lines.
+An endomorphism consists of $\varphi\in\operatorname{End}(k^2)$ and scalars $c_i$ with $\varphi(v_i)=c_iv_i$. Then $\varphi$ has three pairwise
+independent eigenvectors, so $\varphi=c\cdot\mathrm{id}$ and $c_i=c$. Thus $\operatorname{End}V=k$.
+(2) An isomorphism is $(g,(c_i))$ with $g v_i=c_iv'_i$, which means $g$ maps the configuration onto the other one. An element of $\mathrm{PGL}_2$ that fixes three
+distinct points of $\mathbb P^1$ is the identity.
+(3) Over $\mathbb F_q$ there are $(q+1)^n$ configurations in total. Of these, $q+1$ use one point and $\binom{q+1}2(2^n-2)$ use exactly two.
+Dividing by $|\mathrm{PGL}_2(\mathbb F_q)|=q(q^2-1)$ gives
+$\big[(q+1)^n-(q+1)-(q+1)q(2^{n-1}-1)\big]/\big(q(q-1)(q+1)\big)$, which is the formula. Its degree is $(n-1)-2=n-3$. Write
+$(q+1)^{n-1}-1-(2^{n-1}-1)q=q\big[(n-2^{n-1})+\binom{n-1}2q+\dots\big]$ and divide by $q(q-1)$: the constant term is $2^{n-1}-n$.
+Polynomiality also follows directly, since $q=0$ and $q=1$ are roots of the numerator; at $q=1$ it is $2^{n-1}-1-(2^{n-1}-1)=0$.
+\end{proof}
+\begin{corollary}[Explicit Kac polynomials; Verified \C{quivers-R3-35}--\C{quivers-R3-39}]
+$A_{(2;1^4)}=q+4$, $A_{(2;1^5)}=q^2+5q+11$, $A_{(2;1^6)}=q^3+6q^2+16q+26$, $A_{(2;1^7)}=q^4+7q^3+22q^2+42q+57$, and $A_{(2;1^8)}$ is given by the formula.
+Each was matched with the closed formula at $\deg+2$ primes among $2,3,5,7,11,13,17$. The raw values are, for example, $A_{(2;1^5)}(p)=25,35,61,95$ at $p=2,3,5,7$.
+All coefficients are non-negative, as Hausel--Letellier--Rodriguez-Villegas predict.
+\end{corollary}
+
+\subsection*{The four subspace problem $\widetilde D_4=S_4$}
+\begin{theorem}[Classification in dimension $\delta$; Proof by Theorem \ref{thm:star}; Verified \C{quivers-R2-15}--\C{quivers-R2-22}]
+For $S_4$, $\delta=(2;1,1,1,1)$ generates the radical (\C{quivers-R2-15}), and $\delta$ and $2\delta$ are imaginary roots with one parameter
+(\C{quivers-R2-16}, \C{quivers-R2-17}). Over any field, the indecomposables of dimension $\delta$ are exactly the following, up to isomorphism:
+\begin{itemize}
+\item $V_t$, given by the lines $(1,0),(0,1),(1,1),(1,t)$, for $t\in k\setminus\{0,1\}$. They are pairwise non-isomorphic bricks, parametrised by the cross ratio.
+\item Six representations $E_{ij}$ ($1\le i<j\le4$), in which $L_i=L_j$ and the other two lines are distinct from it and from each other.
+\end{itemize}
+In particular $A_\delta(q)=q+4$ (\C{quivers-R2-18}). Over $\mathbb F_2,\mathbb F_3,\mathbb F_5$, the list $\{V_t\}\cup\{E_{ij}\}$ has $q+4$ elements, and it was
+certified complete by an independent count (\C{quivers-R2-20}--\C{quivers-R2-22}).
+\end{theorem}
+\begin{proof}
+By Theorem~\ref{thm:star}, the indecomposables of dimension $\delta$ correspond to $4$ points of $\mathbb P^1$, at least $3$ of them distinct, modulo $\mathrm{PGL}_2$. If all $4$ are distinct,
+move the first three to $\infty,0,1$; the fourth point is the cross ratio $t\notin\{0,1,\infty\}$. If exactly $3$ are distinct, one pair $\{i,j\}$
+coincides, and $3$-transitivity of $\mathrm{PGL}_2$ leaves one class for each of the $6$ pairs.
+\end{proof}
+\begin{proposition}[Verified \C{quivers-R2-19}]
+The family $V_t$ is a family of bricks for \emph{all} $t\in\mathbb Q$, including $t=0,1$, where $V_0=E_{14}$ and $V_1=E_{34}$. Also
+$\operatorname{Hom}(V_s,V_t)=0$ for $s\neq t$. The elimination certificate needs no exceptional values at all.
+\end{proposition}
+\begin{remark}[Interpretation; uses Ringel {[Lit]}]
+$\mathbb P^1$ minus the three degenerate cross ratios $\{0,1,\infty\}$ gives $q-2$ classes, and the $6=3\times2$ classes $E_{ij}$ fill the three
+degenerate points with two classes each: $E_{14},E_{23}$ at $t=0$, $E_{34},E_{12}$ at $t=1$, $E_{24},E_{13}$ at $t=\infty$. This matches the three
+exceptional tubes of rank $2$ of $\widetilde D_4$, each of which has exactly two indecomposables of dimension $\delta$. The pairing is
+interpretation only and was not checked by the verifier.
+\end{remark}
+\begin{proposition}[Real roots; Verified \C{quivers-R2-23}--\C{quivers-R2-28}]
+The real roots $(1;1,1,1,1)$, $(3;1,1,1,1)$ and $(2;2,1,1,1)$ have explicit absolutely indecomposable representatives: all maps $1$; the lines
+$e_1,e_2,e_3,e_1+e_2+e_3$ in $k^3$; and the identity on the doubled leaf together with the lines $(1,0),(0,1),(1,1)$. Two pairs of equal lines give a decomposable representation
+(\C{quivers-R2-26}). Over $\mathbb F_2$ and $\mathbb F_3$, every $\beta\le(3;1,1,1,1)$ has $I_\beta=1$ for real roots and $0$ for non-roots
+(\C{quivers-R2-27}, \C{quivers-R2-28}). For the imaginary root $\delta$ the counts are $6$ and $7$.
+\end{proposition}
+
+\subsection*{Wild stars $S_n$, $n\ge5$}
+\begin{proposition}[Unbounded parameters; Proof; Verified \C{quivers-R3-29}--\C{quivers-R3-34}]
+$1-q(2;1^n)=n-3$ for $n=5,\dots,8$, and in general by Proposition~\ref{prop:starform}. For $S_5$, $1-q(2k;k^5)=1+k^2$, which is $2,5,10$ for $k=1,2,3$,
+and every $(2k;k^5)$ is an imaginary root. So the number of parameters is unbounded, and there is no classification by finitely many
+one-parameter families. That is the sense of ``wild''.
+\end{proposition}
+\begin{proof}
+$q(k\alpha)=k^2q(\alpha)$, and $q(2;1^5)=-1$.
+\end{proof}
+\begin{proposition}[Verified \C{quivers-R3-41}--\C{quivers-R3-43}; complete list \C{quivers-R3-40}]
+For $s\in\{2,3,-1\}$, the slice $t\mapsto V_{s,t}$ of the two-parameter family of $S_5$ with lines $(1,0),(0,1),(1,1),(1,s),(1,t)$ consists of pairwise
+non-isomorphic bricks for all $t\in\mathbb Q$. Over $\mathbb F_2$, the $25=A_{(2;1^5)}(2)$ normal forms found by orbit enumeration are a certified
+complete list.
+\end{proposition}
+By Theorem~\ref{thm:star}, the indecomposables of $S_n$ in dimension $\alpha_n$ are therefore fully classified: they form
+$\{(p_1,\dots,p_n)\in(\mathbb P^1)^n:\ |\{p_i\}|\ge3\}/\mathrm{PGL}_2$. This is an $(n-3)$-dimensional space containing
+$\mathcal M_{0,n}$, the configurations of $n$ distinct points, as the open stratum. The boundary strata, where points collide, are copies
+of $\mathcal M_{0,m}$ for $3\le m<n$.
+
+\section{3- and 4-cycles (F4)}
+\begin{proposition}[Proof; Verified \C{quivers-R4-44}, \C{quivers-R4-47}, \C{quivers-R4-50}, \C{quivers-R4-53}, \C{quivers-R4-56}]
+For every orientation of an $n$-cycle, $q(x)=\tfrac12\sum_{i\in\mathbb Z/n}(x_i-x_{i+1})^2$. It is positive semidefinite with radical spanned by $\delta=(1,\dots,1)$.
+\end{proposition}
+\begin{theorem}[Oriented cycle, any field; Proof; Verified \C{quivers-R4-63}--\C{quivers-R4-65}]\label{thm:cycle}
+The indecomposable (finite-dimensional) representations of $\vec C_n$ are of two kinds:
+\begin{enumerate}
+\item \emph{nilpotent strings} $S(i,\ell)$, for $i\in\mathbb Z/n$ and $\ell\ge1$, with basis $b_0\mapsto b_1\mapsto\dots\mapsto b_{\ell-1}\mapsto0$ and $b_j$ at vertex $i+j$;
+\item \emph{bands} $B(m,M)$: all $V_i=k^m$, the arrows $0\to1,\dots,n-2\to n-1$ are identities, and the last arrow is an invertible indecomposable
+$M\in\mathrm{GL}_m(k)$, up to conjugacy (a companion matrix of $f^r$ with $f$ irreducible, $f\neq x$).
+\end{enumerate}
+Hence over $\mathbb F_q$: $I_\beta(q)=\#\{(i,\ell):\underline{\dim}\,S(i,\ell)=\beta\}+[\beta=m\delta]\sum_{d\mid m}N^*_d(q)$, where $N^*_d$ is the number of
+monic irreducible polynomials of degree $d$ with non-zero constant term.
+\end{theorem}
+\begin{proof}
+Let $\rho_i$ be the composite of all arrows once around the cycle, starting at $i$. Fitting's lemma gives $V_i=\ker\rho_i^N\oplus\operatorname{im}\rho_i^N$
+for $N\gg0$, and the arrows respect this decomposition, so $V=V^{\mathrm{nil}}\oplus V^{\mathrm{inv}}$. On $V^{\mathrm{inv}}$ every arrow is an isomorphism.
+Base changes at vertices $1,\dots,n-1$ make the first $n-1$ arrows identities, and the remaining datum is $M\in\mathrm{GL}_m$ up to conjugacy,
+that is, a $k[x,x^{-1}]$-module. $V^{\mathrm{nil}}$ is a module over $kQ/J^N$, which is a Nakayama algebra, so its indecomposables are uniserial,
+and those are exactly the strings.
+\end{proof}
+\begin{corollary}[Verified \C{quivers-R4-45}--\C{quivers-R4-58}]
+$A_\delta(q)=q+n-1$ for $\vec C_3$, $\vec C_4$, the acyclic $3$-cycle and both acyclic $4$-cycles, which is independent of the orientation. Over $\mathbb F_3$, the complete
+lists in dimension $\delta$ are the scalar representations with product of arrows $\lambda\in\mathbb F_3^\times$ ($2$ classes) plus the $n$ representations with exactly one zero
+arrow, $n+2$ in total.
+\end{corollary}
+\begin{proposition}[Verified \C{quivers-R4-59}--\C{quivers-R4-62}, \C{quivers-R4-66}]
+The family $(1,\dots,1,t)$, $t\neq0$, consists of pairwise non-isomorphic bricks on $\vec C_3$ and on the acyclic $(2,2)$ $4$-cycle.
+The band $J_3(2)$ on $\vec C_4$ (dimension $3\delta$) and the string $S(0,5)$ on $\vec C_3$ (dimension $(2,2,1)$) are absolutely indecomposable.
+For the acyclic $3$-cycle, Kac's real-root count ($I_\beta=1$, resp.\ $0$) holds for all $\beta\le(2,2,2)$ over $\mathbb F_2$.
+\end{proposition}
+\begin{remark}
+Theorem~\ref{thm:cycle} checked exhaustively: for all $\beta\le(2,2,2)$ over $\mathbb F_2,\mathbb F_3$ and all $\beta\le(2,2,2,2)$ over $\mathbb F_2$,
+the brute count equals the prediction (\C{quivers-R4-63}--\C{quivers-R4-65}).
+\end{remark}
+
+\section{Multiples of $\delta$ (F5)}
+\begin{proposition}[Verified \C{quivers-R5-67}--\C{quivers-R5-76}]
+For $\widetilde A_2$ (both orientations) and $\widetilde A_3$ (oriented and $(2,2)$), $I_{2\delta}(q)=(q+n-1)+\tfrac{q^2-q}2$ at $q=2,3,5$ and $q=2,3$ respectively.
+For $\widetilde A_2$ the values are $5,8,17$. By the Galois-descent lemma,
+$I_{2\delta}(q)=A_{2\delta}(q)+\tfrac12\big(A_\delta(q^2)-A_\delta(q)\big)$, and with $A_\delta=q+n-1$ this gives $A_{2\delta}(q)=q+n-1=A_\delta(q)$ at these $q$.
+\end{proposition}
+\begin{proof}[Cross-check with Theorem~\ref{thm:cycle}]
+For $\vec C_n$ and $\beta=2\delta$: there are $n$ strings of length $2n$, plus $N^*_1+N^*_2=(q-1)+\frac{q^2-q}2$ bands. The total is $(q+n-1)+\frac{q^2-q}2$.
+\end{proof}
+
+\section{Negative results, gaps, and limitations}
+\begin{itemize}
+\item All $76$ preregistered hypotheses were confirmed. None was refuted or contested, so no negative result in the strict sense occurred.
+\item Not computed: $I_{2\delta}$ for $\widetilde D_4$, because $\mathrm{GL}_4(\mathbb F_2)$ conjugacy classes exhausted memory (about $4.5$ GB); and $(3;1^5)$ for $S_5$, because the verifier enumerates
+all of $\mathrm{GL}_3(\mathbb F_7)$.
+\item Kac polynomials are certified at finitely many primes. That they are polynomials at all comes from Kac's theorem. Theorem~\ref{thm:star}(3) has an
+independent proof valid for every $n$ and $q$.
+\item Families over $\overline{\mathbb Q}$ are certified only for the given parametrisation and for one-parameter slices. The two-parameter family of $S_5$ is covered by three slices
+and by Theorem~\ref{thm:star}.
+\item The tube interpretation (remark on tubes in the section on stars) relies on Ringel [Lit] and was not checked by the verifier.
+\item Gelfand--Ponomarev (four subspaces, 1972) and Donovan--Freislich (1973) have no DOI that we could retrieve and are not cited (\textsc{unverified}).
+\item Novelty: the classification of $(2;1^n)$ and the formula for $A_{(2;1^n)}$ follow from classical arguments (configurations in $\mathbb P^1$).
+We label them \emph{reproduction / folklore}. The literature scout was not run at full scale, so no novelty claim is made.
+\end{itemize}
+
+\appendix
+\section{All verified claims (generated from \texttt{state.json})}
+\small
+\noindent\textbf{\texttt{[C-quivers-R1-1]}} (computed_rigorous, bestätigt)\\
+\textit{Aussage:} Die Tits-Form von star1 ist positiv definit (endlicher Typ: Dynkin) (exakte Hauptminoren).\\
+\textit{Prüfer:} Tits-Form ist endlich (exakt, Hauptminoren): \{'fuehrende\_hauptminoren': ['2', '3']\}\\
+\textit{Red-Team:} Wäre der Typ zahm, würde diese Prüfung bestehen. $\to$ durchgefallen\par\medskip
+\noindent\textbf{\texttt{[C-quivers-R1-2]}} (computed_rigorous, bestätigt)\\
+\textit{Aussage:} Die Tits-Form von star2 ist positiv definit (endlicher Typ: Dynkin) (exakte Hauptminoren).\\
+\textit{Prüfer:} Tits-Form ist endlich (exakt, Hauptminoren): \{'fuehrende\_hauptminoren': ['2', '3', '4']\}\\
+\textit{Red-Team:} Wäre der Typ zahm, würde diese Prüfung bestehen. $\to$ durchgefallen\par\medskip
+\noindent\textbf{\texttt{[C-quivers-R1-3]}} (computed_rigorous, bestätigt)\\
+\textit{Aussage:} Die Tits-Form von star3 ist positiv definit (endlicher Typ: Dynkin) (exakte Hauptminoren).\\
+\textit{Prüfer:} Tits-Form ist endlich (exakt, Hauptminoren): \{'fuehrende\_hauptminoren': ['2', '3', '4', '4']\}\\
+\textit{Red-Team:} Wäre der Typ zahm, würde diese Prüfung bestehen. $\to$ durchgefallen\par\medskip
+\noindent\textbf{\texttt{[C-quivers-R1-4]}} (computed_rigorous, bestätigt)\\
+\textit{Aussage:} Die Tits-Form von star4 ist positiv semidefinit, nicht definit (euklidisch, zahm) (exakte Hauptminoren).\\
+\textit{Prüfer:} Tits-Form ist zahm (exakt, Hauptminoren): \{'alle\_hauptminoren\_nichtnegativ': 31, 'det': '0'\}\\
+\textit{Red-Team:} Wäre der Typ endlich, würde diese Prüfung bestehen. $\to$ durchgefallen\par\medskip
+\noindent\textbf{\texttt{[C-quivers-R1-5]}} (computed_rigorous, bestätigt)\\
+\textit{Aussage:} Die Tits-Form von star5 ist indefinit (wild) (exakte Hauptminoren).\\
+\textit{Prüfer:} Tits-Form ist wild (exakt, Hauptminoren): \{'negativer\_hauptminor': [0, 1, 2, 3, 4, 5], 'zeuge\_q\_negativ': [2, 1, 1, 1, 1, 1], 'q\_zeuge': -1\}\\
+\textit{Red-Team:} Wäre der Typ zahm, würde diese Prüfung bestehen. $\to$ durchgefallen\par\medskip
+\noindent\textbf{\texttt{[C-quivers-R1-6]}} (computed_rigorous, bestätigt)\\
+\textit{Aussage:} Die Tits-Form von star6 ist indefinit (wild) (exakte Hauptminoren).\\
+\textit{Prüfer:} Tits-Form ist wild (exakt, Hauptminoren): \{'negativer\_hauptminor': [0, 1, 2, 3, 4, 5], 'zeuge\_q\_negativ': [2, 0, 1, 1, 1, 1, 1], 'q\_zeuge': -1\}\\
+\textit{Red-Team:} Wäre der Typ zahm, würde diese Prüfung bestehen. $\to$ durchgefallen\par\medskip
+\noindent\textbf{\texttt{[C-quivers-R1-7]}} (computed_rigorous, bestätigt)\\
+\textit{Aussage:} Die Tits-Form von star7 ist indefinit (wild) (exakte Hauptminoren).\\
+\textit{Prüfer:} Tits-Form ist wild (exakt, Hauptminoren): \{'negativer\_hauptminor': [0, 1, 2, 3, 4, 5], 'zeuge\_q\_negativ': [2, 0, 0, 1, 1, 1, 1, 1], 'q\_zeuge': -1\}\\
+\textit{Red-Team:} Wäre der Typ zahm, würde diese Prüfung bestehen. $\to$ durchgefallen\par\medskip
+\noindent\textbf{\texttt{[C-quivers-R1-8]}} (computed_rigorous, bestätigt)\\
+\textit{Aussage:} Die Tits-Form von kronecker ist positiv semidefinit, nicht definit (euklidisch, zahm) (exakte Hauptminoren).\\
+\textit{Prüfer:} Tits-Form ist zahm (exakt, Hauptminoren): \{'alle\_hauptminoren\_nichtnegativ': 3, 'det': '0'\}\\
+\textit{Red-Team:} Wäre der Typ endlich, würde diese Prüfung bestehen. $\to$ durchgefallen\par\medskip
+\noindent\textbf{\texttt{[C-quivers-R1-9]}} (computed_rigorous, bestätigt)\\
+\textit{Aussage:} Die Tits-Form von cycle3\_oriented ist positiv semidefinit, nicht definit (euklidisch, zahm) (exakte Hauptminoren).\\
+\textit{Prüfer:} Tits-Form ist zahm (exakt, Hauptminoren): \{'alle\_hauptminoren\_nichtnegativ': 7, 'det': '0'\}\\
+\textit{Red-Team:} Wäre der Typ endlich, würde diese Prüfung bestehen. $\to$ durchgefallen\par\medskip
+\noindent\textbf{\texttt{[C-quivers-R1-10]}} (computed_rigorous, bestätigt)\\
+\textit{Aussage:} Die Tits-Form von cycle4\_oriented ist positiv semidefinit, nicht definit (euklidisch, zahm) (exakte Hauptminoren).\\
+\textit{Prüfer:} Tits-Form ist zahm (exakt, Hauptminoren): \{'alle\_hauptminoren\_nichtnegativ': 15, 'det': '0'\}\\
+\textit{Red-Team:} Wäre der Typ endlich, würde diese Prüfung bestehen. $\to$ durchgefallen\par\medskip
+\noindent\textbf{\texttt{[C-quivers-R1-11]}} (computed_rigorous, bestätigt)\\
+\textit{Aussage:} star3 hat genau 12 positive Wurzeln.\\
+\textit{Prüfer:} 12 positive Wurzeln (W-Bahn der einfachen Wurzeln): [(0, 0, 0, 1), (0, 0, 1, 0), (0, 1, 0, 0), (1, 0, 0, 0), (1, 0, 0, 1), (1, 0, 1, 0), (1, 0, 1, 1), (1, 1, 0, 0), (1, 1, 0, 1), (1, 1, 1, 0), (1, 1, 1, 1), (2, 1, 1, 1)]\\
+\textit{Red-Team:} Eine 13. Wurzel würde die Anzahl erhöhen. $\to$ durchgefallen\par\medskip
+\noindent\textbf{\texttt{[C-quivers-R1-12]}} (computed_rigorous, bestätigt)\\
+\textit{Aussage:} Für star3 über F\_2 und alle Dimensionsvektoren 0 < beta <= [2, 1, 1, 1]: genau eine Unzerlegbare für reelle Wurzeln, keine für Nicht-Wurzeln.\\
+\textit{Prüfer:} 23 Vektoren <= [2, 1, 1, 1] über F\_2: reelle Wurzeln genau 1, Nicht-Wurzeln 0\\
+\textit{Red-Team:} Zwei Unzerlegbare zur maximalen Wurzel? $\to$ durchgefallen\par\medskip
+\noindent\textbf{\texttt{[C-quivers-R1-13]}} (computed_rigorous, bestätigt)\\
+\textit{Aussage:} Für star3 über F\_3 und alle Dimensionsvektoren 0 < beta <= [2, 1, 1, 1]: genau eine Unzerlegbare für reelle Wurzeln, keine für Nicht-Wurzeln.\\
+\textit{Prüfer:} 23 Vektoren <= [2, 1, 1, 1] über F\_3: reelle Wurzeln genau 1, Nicht-Wurzeln 0\\
+\textit{Red-Team:} Zwei Unzerlegbare zur maximalen Wurzel? $\to$ durchgefallen\par\medskip
+\noindent\textbf{\texttt{[C-quivers-R1-14]}} (computed_rigorous, bestätigt)\\
+\textit{Aussage:} Für A3 über F\_2 und alle Dimensionsvektoren 0 < beta <= [2, 2, 2]: genau eine Unzerlegbare für reelle Wurzeln, keine für Nicht-Wurzeln.\\
+\textit{Prüfer:} 26 Vektoren <= [2, 2, 2] über F\_2: reelle Wurzeln genau 1, Nicht-Wurzeln 0\\
+\textit{Red-Team:} Keine Unzerlegbare zur Wurzel (1,1,1)? $\to$ durchgefallen\par\medskip
+\noindent\textbf{\texttt{[C-quivers-R2-15]}} (computed_rigorous, bestätigt)\\
+\textit{Aussage:} Das Radikal der Tits-Form von star4 ist eindimensional, erzeugt von delta = [2, 1, 1, 1, 1].\\
+\textit{Prüfer:} Radikal: Dimension 1, Erzeuger [2, 1, 1, 1, 1]\\
+\textit{Red-Team:} Anderer Erzeuger? $\to$ durchgefallen\par\medskip
+\noindent\textbf{\texttt{[C-quivers-R2-16]}} (computed_rigorous, bestätigt)\\
+\textit{Aussage:} Für star4 ist [2, 1, 1, 1, 1] eine imaginäre Wurzel mit 1 - q(alpha) = 1.\\
+\textit{Prüfer:} [2, 1, 1, 1, 1]: imaginaer, 1 - q = 1\\
+\textit{Red-Team:} Zwei Parameter? $\to$ durchgefallen\par\medskip
+\noindent\textbf{\texttt{[C-quivers-R2-17]}} (computed_rigorous, bestätigt)\\
+\textit{Aussage:} Für star4 ist [4, 2, 2, 2, 2] eine imaginäre Wurzel mit 1 - q(alpha) = 1.\\
+\textit{Prüfer:} [4, 2, 2, 2, 2]: imaginaer, 1 - q = 1\\
+\textit{Red-Team:} Ist 2 delta gar keine Wurzel? $\to$ durchgefallen\par\medskip
+\noindent\textbf{\texttt{[C-quivers-R2-18]}} (computed_rigorous, bestätigt)\\
+\textit{Aussage:} Für star4 und alpha = [2, 1, 1, 1, 1] ist die Anzahl absolut unzerlegbarer Darstellungen über F\_q für q = 2, 3, 5, 7 gleich 4*q\textasciicircum{}0 + 1*q\textasciicircum{}1; da A\_alpha nach Kac ein Polynom vom Grad 1 - q(alpha) ist, ist dies das Kac-Polynom.\\
+\textit{Prüfer:} A\_[2, 1, 1, 1, 1](q) stimmt an q = [2, 3, 5, 7] (Methoden ['direkt', 'direkt', 'burnside', 'burnside']) mit dem Polynom überein; Grad 1 = 1 - q(alpha)\\
+\textit{Red-Team:} q + 3 (nur P\textasciicircum{}1 plus zwei Ausnahmen)? $\to$ durchgefallen\par\medskip
+\noindent\textbf{\texttt{[C-quivers-R2-19]}} (computed_rigorous, bestätigt)\\
+\textit{Aussage:} Für star4: die Familie V\_t mit Dimensionsvektor [2, 1, 1, 1, 1] und Abbildungen \{'0': [[1], [0]], '1': [[0], [1]], '2': [[1], [1]], '3': [[1], ['t']]\} erfüllt für alle t außerhalb []: End(V\_t) = k (Ziegel, absolut unzerlegbar) und Hom(V\_s, V\_t) = 0 für s != t (paarweise nicht isomorph); Zertifikat: Elimination über Q(s, t) mit protokollierten Pivots.\\
+\textit{Prüfer:} Elimination über Q(t): rang(End-System) = 7 von 8 (dim End <= 1), Pivot-Faktoren []; Hom(V\_s, V\_t): rang 8 (dim Hom <= 0), Pivot-Faktoren ['-s\_ + t']; gültig für t, s außerhalb [], s != t\\
+\textit{Red-Team:} Zerfällt V\_5? $\to$ durchgefallen\par\medskip
+\noindent\textbf{\texttt{[C-quivers-R2-20]}} (computed_rigorous, bestätigt)\\
+\textit{Aussage:} Über F\_2 ist die angegebene Liste von 6 Darstellungen von star4 mit Dimensionsvektor [2, 1, 1, 1, 1] eine vollständige Liste der Isoklassen Unzerlegbarer.\\
+\textit{Prüfer:} 6 paarweise nicht isomorphe Unzerlegbare über F\_2; Zählung I = 6 (Methode direkt) -> Liste vollständig\\
+\textit{Red-Team:} Reicht die Liste ohne das letzte Element? $\to$ durchgefallen\par\medskip
+\noindent\textbf{\texttt{[C-quivers-R2-21]}} (computed_rigorous, bestätigt)\\
+\textit{Aussage:} Über F\_3 ist die angegebene Liste von 7 Darstellungen von star4 mit Dimensionsvektor [2, 1, 1, 1, 1] eine vollständige Liste der Isoklassen Unzerlegbarer.\\
+\textit{Prüfer:} 7 paarweise nicht isomorphe Unzerlegbare über F\_3; Zählung I = 7 (Methode direkt) -> Liste vollständig\\
+\textit{Red-Team:} Reicht die Liste ohne das letzte Element? $\to$ durchgefallen\par\medskip
+\noindent\textbf{\texttt{[C-quivers-R2-22]}} (computed_rigorous, bestätigt)\\
+\textit{Aussage:} Über F\_5 ist die angegebene Liste von 9 Darstellungen von star4 mit Dimensionsvektor [2, 1, 1, 1, 1] eine vollständige Liste der Isoklassen Unzerlegbarer.\\
+\textit{Prüfer:} 9 paarweise nicht isomorphe Unzerlegbare über F\_5; Zählung I = 9 (Methode burnside) -> Liste vollständig\\
+\textit{Red-Team:} Reicht die Liste ohne das letzte Element? $\to$ durchgefallen\par\medskip
+\noindent\textbf{\texttt{[C-quivers-R2-23]}} (computed_rigorous, bestätigt)\\
+\textit{Aussage:} Die Darstellung von star4 mit Dimensionsvektor [1, 1, 1, 1, 1] und Abbildungen \{'0': [[1]], '1': [[1]], '2': [[1]], '3': [[1]]\} ist absolut unzerlegbar (End/Rad = k).\\
+\textit{Prüfer:} dim End = 1, dim J(End) = 0: absolut unzerlegbar\\
+\textit{Red-Team:} Ist der Vektor imaginär? $\to$ durchgefallen\par\medskip
+\noindent\textbf{\texttt{[C-quivers-R2-24]}} (computed_rigorous, bestätigt)\\
+\textit{Aussage:} Die Darstellung von star4 mit Dimensionsvektor [3, 1, 1, 1, 1] und Abbildungen \{'0': [[1], [0], [0]], '1': [[0], [1], [0]], '2': [[0], [0], [1]], '3': [[1], [1], [1]]\} ist absolut unzerlegbar (End/Rad = k).\\
+\textit{Prüfer:} dim End = 1, dim J(End) = 0: absolut unzerlegbar\\
+\textit{Red-Team:} Ist der Vektor imaginär? $\to$ durchgefallen\par\medskip
+\noindent\textbf{\texttt{[C-quivers-R2-25]}} (computed_rigorous, bestätigt)\\
+\textit{Aussage:} Die Darstellung von star4 mit Dimensionsvektor [2, 2, 1, 1, 1] und Abbildungen \{'0': [[1, 0], [0, 1]], '1': [[1], [0]], '2': [[0], [1]], '3': [[1], [1]]\} ist absolut unzerlegbar (End/Rad = k).\\
+\textit{Prüfer:} dim End = 1, dim J(End) = 0: absolut unzerlegbar\\
+\textit{Red-Team:} Ist der Vektor imaginär? $\to$ durchgefallen\par\medskip
+\noindent\textbf{\texttt{[C-quivers-R2-26]}} (computed_rigorous, bestätigt)\\
+\textit{Aussage:} Die Darstellung von star4 mit Dimensionsvektor [2, 1, 1, 1, 1] und Abbildungen \{'0': [[1], [0]], '1': [[1], [0]], '2': [[0], [1]], '3': [[0], [1]]\} ist über dem algebraischen Abschluss zerlegbar.\\
+\textit{Prüfer:} dim End = 2, dim J(End) = 0: zerlegbar über $\overline{\mathbb Q}$\\
+\textit{Red-Team:} Doch unzerlegbar? $\to$ durchgefallen\par\medskip
+\noindent\textbf{\texttt{[C-quivers-R2-27]}} (computed_rigorous, bestätigt)\\
+\textit{Aussage:} Für star4 über F\_2 und alle Dimensionsvektoren 0 < beta <= [3, 1, 1, 1, 1]: genau eine Unzerlegbare für reelle Wurzeln, keine für Nicht-Wurzeln.\\
+\textit{Prüfer:} 63 Vektoren <= [3, 1, 1, 1, 1] über F\_2: reelle Wurzeln genau 1, Nicht-Wurzeln 0; imaginäre Wurzeln: \{'[2, 1, 1, 1, 1]': 6\}\\
+\textit{Red-Team:} Keine Unzerlegbare in (3;1,1,1,1)? $\to$ durchgefallen\par\medskip
+\noindent\textbf{\texttt{[C-quivers-R2-28]}} (computed_rigorous, bestätigt)\\
+\textit{Aussage:} Für star4 über F\_3 und alle Dimensionsvektoren 0 < beta <= [3, 1, 1, 1, 1]: genau eine Unzerlegbare für reelle Wurzeln, keine für Nicht-Wurzeln.\\
+\textit{Prüfer:} 63 Vektoren <= [3, 1, 1, 1, 1] über F\_3: reelle Wurzeln genau 1, Nicht-Wurzeln 0; imaginäre Wurzeln: \{'[2, 1, 1, 1, 1]': 7\}\\
+\textit{Red-Team:} Keine Unzerlegbare in (3;1,1,1,1)? $\to$ durchgefallen\par\medskip
+\noindent\textbf{\texttt{[C-quivers-R3-29]}} (computed_rigorous, bestätigt)\\
+\textit{Aussage:} Für star5 ist [2, 1, 1, 1, 1, 1] eine imaginäre Wurzel mit 1 - q(alpha) = 2.\\
+\textit{Prüfer:} [2, 1, 1, 1, 1, 1]: imaginaer, 1 - q = 2\\
+\textit{Red-Team:} Einen Parameter weniger? $\to$ durchgefallen\par\medskip
+\noindent\textbf{\texttt{[C-quivers-R3-30]}} (computed_rigorous, bestätigt)\\
+\textit{Aussage:} Für star6 ist [2, 1, 1, 1, 1, 1, 1] eine imaginäre Wurzel mit 1 - q(alpha) = 3.\\
+\textit{Prüfer:} [2, 1, 1, 1, 1, 1, 1]: imaginaer, 1 - q = 3\\
+\textit{Red-Team:} Einen Parameter weniger? $\to$ durchgefallen\par\medskip
+\noindent\textbf{\texttt{[C-quivers-R3-31]}} (computed_rigorous, bestätigt)\\
+\textit{Aussage:} Für star7 ist [2, 1, 1, 1, 1, 1, 1, 1] eine imaginäre Wurzel mit 1 - q(alpha) = 4.\\
+\textit{Prüfer:} [2, 1, 1, 1, 1, 1, 1, 1]: imaginaer, 1 - q = 4\\
+\textit{Red-Team:} Einen Parameter weniger? $\to$ durchgefallen\par\medskip
+\noindent\textbf{\texttt{[C-quivers-R3-32]}} (computed_rigorous, bestätigt)\\
+\textit{Aussage:} Für star8 ist [2, 1, 1, 1, 1, 1, 1, 1, 1] eine imaginäre Wurzel mit 1 - q(alpha) = 5.\\
+\textit{Prüfer:} [2, 1, 1, 1, 1, 1, 1, 1, 1]: imaginaer, 1 - q = 5\\
+\textit{Red-Team:} Einen Parameter weniger? $\to$ durchgefallen\par\medskip
+\noindent\textbf{\texttt{[C-quivers-R3-33]}} (computed_rigorous, bestätigt)\\
+\textit{Aussage:} Für star5 ist [4, 2, 2, 2, 2, 2] eine imaginäre Wurzel mit 1 - q(alpha) = 5.\\
+\textit{Prüfer:} [4, 2, 2, 2, 2, 2]: imaginaer, 1 - q = 5\\
+\textit{Red-Team:} Bleibt die Parameterzahl beschränkt? $\to$ durchgefallen\par\medskip
+\noindent\textbf{\texttt{[C-quivers-R3-34]}} (computed_rigorous, bestätigt)\\
+\textit{Aussage:} Für star5 ist [6, 3, 3, 3, 3, 3] eine imaginäre Wurzel mit 1 - q(alpha) = 10.\\
+\textit{Prüfer:} [6, 3, 3, 3, 3, 3]: imaginaer, 1 - q = 10\\
+\textit{Red-Team:} Bleibt die Parameterzahl beschränkt? $\to$ durchgefallen\par\medskip
+\noindent\textbf{\texttt{[C-quivers-R3-35]}} (computed_rigorous, bestätigt)\\
+\textit{Aussage:} Für star4 und alpha = [2, 1, 1, 1, 1] stimmt die Anzahl absolut unzerlegbarer Darstellungen über F\_q an deg + 2 Primzahlen q mit ((q+1)**3 - 1 - 7*q)/(q*(q-1)) überein; da A\_alpha nach Kac ein Polynom vom Grad 1 - q(alpha) ist, ist dies das Kac-Polynom.\\
+\textit{Prüfer:} A\_[2, 1, 1, 1, 1](q) stimmt an q = [2, 3, 5, 7] (Methoden ['direkt', 'direkt', 'burnside', 'burnside']) mit dem Polynom überein; Grad 1 = 1 - q(alpha)\\
+\textit{Red-Team:} Konstante um 1 verschoben? $\to$ durchgefallen\par\medskip
+\noindent\textbf{\texttt{[C-quivers-R3-36]}} (computed_rigorous, bestätigt)\\
+\textit{Aussage:} Für star5 und alpha = [2, 1, 1, 1, 1, 1] stimmt die Anzahl absolut unzerlegbarer Darstellungen über F\_q an deg + 2 Primzahlen q mit ((q+1)**4 - 1 - 15*q)/(q*(q-1)) überein; da A\_alpha nach Kac ein Polynom vom Grad 1 - q(alpha) ist, ist dies das Kac-Polynom.\\
+\textit{Prüfer:} A\_[2, 1, 1, 1, 1, 1](q) stimmt an q = [2, 3, 5, 7] (Methoden ['direkt', 'burnside', 'burnside', 'burnside']) mit dem Polynom überein; Grad 2 = 1 - q(alpha)\\
+\textit{Red-Team:} Konstante um 1 verschoben? $\to$ durchgefallen\par\medskip
+\noindent\textbf{\texttt{[C-quivers-R3-37]}} (computed_rigorous, bestätigt)\\
+\textit{Aussage:} Für star6 und alpha = [2, 1, 1, 1, 1, 1, 1] stimmt die Anzahl absolut unzerlegbarer Darstellungen über F\_q an deg + 2 Primzahlen q mit ((q+1)**5 - 1 - 31*q)/(q*(q-1)) überein; da A\_alpha nach Kac ein Polynom vom Grad 1 - q(alpha) ist, ist dies das Kac-Polynom.\\
+\textit{Prüfer:} A\_[2, 1, 1, 1, 1, 1, 1](q) stimmt an q = [2, 3, 5, 7, 11] (Methoden ['direkt', 'burnside', 'burnside', 'burnside', 'burnside']) mit dem Polynom überein; Grad 3 = 1 - q(alpha)\\
+\textit{Red-Team:} Konstante um 1 verschoben? $\to$ durchgefallen\par\medskip
+\noindent\textbf{\texttt{[C-quivers-R3-38]}} (computed_rigorous, bestätigt)\\
+\textit{Aussage:} Für star7 und alpha = [2, 1, 1, 1, 1, 1, 1, 1] stimmt die Anzahl absolut unzerlegbarer Darstellungen über F\_q an deg + 2 Primzahlen q mit ((q+1)**6 - 1 - 63*q)/(q*(q-1)) überein; da A\_alpha nach Kac ein Polynom vom Grad 1 - q(alpha) ist, ist dies das Kac-Polynom.\\
+\textit{Prüfer:} A\_[2, 1, 1, 1, 1, 1, 1, 1](q) stimmt an q = [2, 3, 5, 7, 11, 13] (Methoden ['direkt', 'burnside', 'burnside', 'burnside', 'burnside', 'burnside']) mit dem Polynom überein; Grad 4 = 1 - q(alpha)\\
+\textit{Red-Team:} Konstante um 1 verschoben? $\to$ durchgefallen\par\medskip
+\noindent\textbf{\texttt{[C-quivers-R3-39]}} (computed_rigorous, bestätigt)\\
+\textit{Aussage:} Für star8 und alpha = [2, 1, 1, 1, 1, 1, 1, 1, 1] stimmt die Anzahl absolut unzerlegbarer Darstellungen über F\_q an deg + 2 Primzahlen q mit ((q+1)**7 - 1 - 127*q)/(q*(q-1)) überein; da A\_alpha nach Kac ein Polynom vom Grad 1 - q(alpha) ist, ist dies das Kac-Polynom.\\
+\textit{Prüfer:} A\_[2, 1, 1, 1, 1, 1, 1, 1, 1](q) stimmt an q = [2, 3, 5, 7, 11, 13, 17] (Methoden ['burnside', 'burnside', 'burnside', 'burnside', 'burnside', 'burnside', 'burnside']) mit dem Polynom überein; Grad 5 = 1 - q(alpha)\\
+\textit{Red-Team:} Konstante um 1 verschoben? $\to$ durchgefallen\par\medskip
+\noindent\textbf{\texttt{[C-quivers-R3-40]}} (computed_rigorous, bestätigt)\\
+\textit{Aussage:} Über F\_2 ist die angegebene Liste von 25 Darstellungen von star5 mit Dimensionsvektor [2, 1, 1, 1, 1, 1] eine vollständige Liste der Isoklassen Unzerlegbarer.\\
+\textit{Prüfer:} 25 paarweise nicht isomorphe Unzerlegbare über F\_2; Zählung I = 25 (Methode direkt) -> Liste vollständig\\
+\textit{Red-Team:} Liste ohne letztes Element $\to$ durchgefallen\par\medskip
+\noindent\textbf{\texttt{[C-quivers-R3-41]}} (computed_rigorous, bestätigt)\\
+\textit{Aussage:} Für star5: die Familie V\_t mit Dimensionsvektor [2, 1, 1, 1, 1, 1] und Abbildungen \{'0': [[1], [0]], '1': [[0], [1]], '2': [[1], [1]], '3': [[1], [2]], '4': [[1], ['t']]\} erfüllt für alle t außerhalb []: End(V\_t) = k (Ziegel, absolut unzerlegbar) und Hom(V\_s, V\_t) = 0 für s != t (paarweise nicht isomorph); Zertifikat: Elimination über Q(s, t) mit protokollierten Pivots.\\
+\textit{Prüfer:} Elimination über Q(t): rang(End-System) = 8 von 9 (dim End <= 1), Pivot-Faktoren []; Hom(V\_s, V\_t): rang 9 (dim Hom <= 0), Pivot-Faktoren ['-s\_ + t']; gültig für t, s außerhalb [], s != t\\
+\textit{Red-Team:} Zerfällt ein Mitglied? $\to$ durchgefallen\par\medskip
+\noindent\textbf{\texttt{[C-quivers-R3-42]}} (computed_rigorous, bestätigt)\\
+\textit{Aussage:} Für star5: die Familie V\_t mit Dimensionsvektor [2, 1, 1, 1, 1, 1] und Abbildungen \{'0': [[1], [0]], '1': [[0], [1]], '2': [[1], [1]], '3': [[1], [3]], '4': [[1], ['t']]\} erfüllt für alle t außerhalb []: End(V\_t) = k (Ziegel, absolut unzerlegbar) und Hom(V\_s, V\_t) = 0 für s != t (paarweise nicht isomorph); Zertifikat: Elimination über Q(s, t) mit protokollierten Pivots.\\
+\textit{Prüfer:} Elimination über Q(t): rang(End-System) = 8 von 9 (dim End <= 1), Pivot-Faktoren []; Hom(V\_s, V\_t): rang 9 (dim Hom <= 0), Pivot-Faktoren ['-s\_ + t']; gültig für t, s außerhalb [], s != t\\
+\textit{Red-Team:} Zerfällt ein Mitglied? $\to$ durchgefallen\par\medskip
+\noindent\textbf{\texttt{[C-quivers-R3-43]}} (computed_rigorous, bestätigt)\\
+\textit{Aussage:} Für star5: die Familie V\_t mit Dimensionsvektor [2, 1, 1, 1, 1, 1] und Abbildungen \{'0': [[1], [0]], '1': [[0], [1]], '2': [[1], [1]], '3': [[1], [-1]], '4': [[1], ['t']]\} erfüllt für alle t außerhalb []: End(V\_t) = k (Ziegel, absolut unzerlegbar) und Hom(V\_s, V\_t) = 0 für s != t (paarweise nicht isomorph); Zertifikat: Elimination über Q(s, t) mit protokollierten Pivots.\\
+\textit{Prüfer:} Elimination über Q(t): rang(End-System) = 8 von 9 (dim End <= 1), Pivot-Faktoren []; Hom(V\_s, V\_t): rang 9 (dim Hom <= 0), Pivot-Faktoren ['-s\_ + t']; gültig für t, s außerhalb [], s != t\\
+\textit{Red-Team:} Zerfällt ein Mitglied? $\to$ durchgefallen\par\medskip
+\noindent\textbf{\texttt{[C-quivers-R4-44]}} (computed_rigorous, bestätigt)\\
+\textit{Aussage:} Das Radikal der Tits-Form von cycle3\_oriented ist eindimensional, erzeugt von delta = [1, 1, 1].\\
+\textit{Prüfer:} Radikal: Dimension 1, Erzeuger [1, 1, 1]\\
+\textit{Red-Team:} Anderer Erzeuger? $\to$ durchgefallen\par\medskip
+\noindent\textbf{\texttt{[C-quivers-R4-45]}} (computed_rigorous, bestätigt)\\
+\textit{Aussage:} Für cycle3\_oriented und alpha = [1, 1, 1] ist die Anzahl absolut unzerlegbarer Darstellungen über F\_q für q = 2, 3, 5, 7 gleich 2*q\textasciicircum{}0 + 1*q\textasciicircum{}1; da A\_alpha nach Kac ein Polynom vom Grad 1 - q(alpha) ist, ist dies das Kac-Polynom.\\
+\textit{Prüfer:} A\_[1, 1, 1](q) stimmt an q = [2, 3, 5, 7] (Methoden ['direkt', 'direkt', 'direkt', 'direkt']) mit dem Polynom überein; Grad 1 = 1 - q(alpha)\\
+\textit{Red-Team:} q + n - 2? $\to$ durchgefallen\par\medskip
+\noindent\textbf{\texttt{[C-quivers-R4-46]}} (computed_rigorous, bestätigt)\\
+\textit{Aussage:} Über F\_3 ist die angegebene Liste von 5 Darstellungen von cycle3\_oriented mit Dimensionsvektor [1, 1, 1] eine vollständige Liste der Isoklassen Unzerlegbarer.\\
+\textit{Prüfer:} 5 paarweise nicht isomorphe Unzerlegbare über F\_3; Zählung I = 5 (Methode direkt) -> Liste vollständig\\
+\textit{Red-Team:} Liste ohne letztes Element vollständig? $\to$ durchgefallen\par\medskip
+\noindent\textbf{\texttt{[C-quivers-R4-47]}} (computed_rigorous, bestätigt)\\
+\textit{Aussage:} Das Radikal der Tits-Form von cycle3\_acyclic ist eindimensional, erzeugt von delta = [1, 1, 1].\\
+\textit{Prüfer:} Radikal: Dimension 1, Erzeuger [1, 1, 1]\\
+\textit{Red-Team:} Anderer Erzeuger? $\to$ durchgefallen\par\medskip
+\noindent\textbf{\texttt{[C-quivers-R4-48]}} (computed_rigorous, bestätigt)\\
+\textit{Aussage:} Für cycle3\_acyclic und alpha = [1, 1, 1] ist die Anzahl absolut unzerlegbarer Darstellungen über F\_q für q = 2, 3, 5, 7 gleich 2*q\textasciicircum{}0 + 1*q\textasciicircum{}1; da A\_alpha nach Kac ein Polynom vom Grad 1 - q(alpha) ist, ist dies das Kac-Polynom.\\
+\textit{Prüfer:} A\_[1, 1, 1](q) stimmt an q = [2, 3, 5, 7] (Methoden ['direkt', 'direkt', 'direkt', 'direkt']) mit dem Polynom überein; Grad 1 = 1 - q(alpha)\\
+\textit{Red-Team:} q + n - 2? $\to$ durchgefallen\par\medskip
+\noindent\textbf{\texttt{[C-quivers-R4-49]}} (computed_rigorous, bestätigt)\\
+\textit{Aussage:} Über F\_3 ist die angegebene Liste von 5 Darstellungen von cycle3\_acyclic mit Dimensionsvektor [1, 1, 1] eine vollständige Liste der Isoklassen Unzerlegbarer.\\
+\textit{Prüfer:} 5 paarweise nicht isomorphe Unzerlegbare über F\_3; Zählung I = 5 (Methode direkt) -> Liste vollständig\\
+\textit{Red-Team:} Liste ohne letztes Element vollständig? $\to$ durchgefallen\par\medskip
+\noindent\textbf{\texttt{[C-quivers-R4-50]}} (computed_rigorous, bestätigt)\\
+\textit{Aussage:} Das Radikal der Tits-Form von cycle4\_oriented ist eindimensional, erzeugt von delta = [1, 1, 1, 1].\\
+\textit{Prüfer:} Radikal: Dimension 1, Erzeuger [1, 1, 1, 1]\\
+\textit{Red-Team:} Anderer Erzeuger? $\to$ durchgefallen\par\medskip
+\noindent\textbf{\texttt{[C-quivers-R4-51]}} (computed_rigorous, bestätigt)\\
+\textit{Aussage:} Für cycle4\_oriented und alpha = [1, 1, 1, 1] ist die Anzahl absolut unzerlegbarer Darstellungen über F\_q für q = 2, 3, 5, 7 gleich 3*q\textasciicircum{}0 + 1*q\textasciicircum{}1; da A\_alpha nach Kac ein Polynom vom Grad 1 - q(alpha) ist, ist dies das Kac-Polynom.\\
+\textit{Prüfer:} A\_[1, 1, 1, 1](q) stimmt an q = [2, 3, 5, 7] (Methoden ['direkt', 'direkt', 'direkt', 'direkt']) mit dem Polynom überein; Grad 1 = 1 - q(alpha)\\
+\textit{Red-Team:} q + n - 2? $\to$ durchgefallen\par\medskip
+\noindent\textbf{\texttt{[C-quivers-R4-52]}} (computed_rigorous, bestätigt)\\
+\textit{Aussage:} Über F\_3 ist die angegebene Liste von 6 Darstellungen von cycle4\_oriented mit Dimensionsvektor [1, 1, 1, 1] eine vollständige Liste der Isoklassen Unzerlegbarer.\\
+\textit{Prüfer:} 6 paarweise nicht isomorphe Unzerlegbare über F\_3; Zählung I = 6 (Methode direkt) -> Liste vollständig\\
+\textit{Red-Team:} Liste ohne letztes Element vollständig? $\to$ durchgefallen\par\medskip
+\noindent\textbf{\texttt{[C-quivers-R4-53]}} (computed_rigorous, bestätigt)\\
+\textit{Aussage:} Das Radikal der Tits-Form von cycle4\_acyclic31 ist eindimensional, erzeugt von delta = [1, 1, 1, 1].\\
+\textit{Prüfer:} Radikal: Dimension 1, Erzeuger [1, 1, 1, 1]\\
+\textit{Red-Team:} Anderer Erzeuger? $\to$ durchgefallen\par\medskip
+\noindent\textbf{\texttt{[C-quivers-R4-54]}} (computed_rigorous, bestätigt)\\
+\textit{Aussage:} Für cycle4\_acyclic31 und alpha = [1, 1, 1, 1] ist die Anzahl absolut unzerlegbarer Darstellungen über F\_q für q = 2, 3, 5, 7 gleich 3*q\textasciicircum{}0 + 1*q\textasciicircum{}1; da A\_alpha nach Kac ein Polynom vom Grad 1 - q(alpha) ist, ist dies das Kac-Polynom.\\
+\textit{Prüfer:} A\_[1, 1, 1, 1](q) stimmt an q = [2, 3, 5, 7] (Methoden ['direkt', 'direkt', 'direkt', 'direkt']) mit dem Polynom überein; Grad 1 = 1 - q(alpha)\\
+\textit{Red-Team:} q + n - 2? $\to$ durchgefallen\par\medskip
+\noindent\textbf{\texttt{[C-quivers-R4-55]}} (computed_rigorous, bestätigt)\\
+\textit{Aussage:} Über F\_3 ist die angegebene Liste von 6 Darstellungen von cycle4\_acyclic31 mit Dimensionsvektor [1, 1, 1, 1] eine vollständige Liste der Isoklassen Unzerlegbarer.\\
+\textit{Prüfer:} 6 paarweise nicht isomorphe Unzerlegbare über F\_3; Zählung I = 6 (Methode direkt) -> Liste vollständig\\
+\textit{Red-Team:} Liste ohne letztes Element vollständig? $\to$ durchgefallen\par\medskip
+\noindent\textbf{\texttt{[C-quivers-R4-56]}} (computed_rigorous, bestätigt)\\
+\textit{Aussage:} Das Radikal der Tits-Form von cycle4\_acyclic22 ist eindimensional, erzeugt von delta = [1, 1, 1, 1].\\
+\textit{Prüfer:} Radikal: Dimension 1, Erzeuger [1, 1, 1, 1]\\
+\textit{Red-Team:} Anderer Erzeuger? $\to$ durchgefallen\par\medskip
+\noindent\textbf{\texttt{[C-quivers-R4-57]}} (computed_rigorous, bestätigt)\\
+\textit{Aussage:} Für cycle4\_acyclic22 und alpha = [1, 1, 1, 1] ist die Anzahl absolut unzerlegbarer Darstellungen über F\_q für q = 2, 3, 5, 7 gleich 3*q\textasciicircum{}0 + 1*q\textasciicircum{}1; da A\_alpha nach Kac ein Polynom vom Grad 1 - q(alpha) ist, ist dies das Kac-Polynom.\\
+\textit{Prüfer:} A\_[1, 1, 1, 1](q) stimmt an q = [2, 3, 5, 7] (Methoden ['direkt', 'direkt', 'direkt', 'direkt']) mit dem Polynom überein; Grad 1 = 1 - q(alpha)\\
+\textit{Red-Team:} q + n - 2? $\to$ durchgefallen\par\medskip
+\noindent\textbf{\texttt{[C-quivers-R4-58]}} (computed_rigorous, bestätigt)\\
+\textit{Aussage:} Über F\_3 ist die angegebene Liste von 6 Darstellungen von cycle4\_acyclic22 mit Dimensionsvektor [1, 1, 1, 1] eine vollständige Liste der Isoklassen Unzerlegbarer.\\
+\textit{Prüfer:} 6 paarweise nicht isomorphe Unzerlegbare über F\_3; Zählung I = 6 (Methode direkt) -> Liste vollständig\\
+\textit{Red-Team:} Liste ohne letztes Element vollständig? $\to$ durchgefallen\par\medskip
+\noindent\textbf{\texttt{[C-quivers-R4-59]}} (computed_rigorous, bestätigt)\\
+\textit{Aussage:} Für cycle3\_oriented: die Familie V\_t mit Dimensionsvektor [1, 1, 1] und Abbildungen \{'0': [[1]], '1': [[1]], '2': [['t']]\} erfüllt für alle t außerhalb [0]: End(V\_t) = k (Ziegel, absolut unzerlegbar) und Hom(V\_s, V\_t) = 0 für s != t (paarweise nicht isomorph); Zertifikat: Elimination über Q(s, t) mit protokollierten Pivots.\\
+\textit{Prüfer:} Elimination über Q(t): rang(End-System) = 2 von 3 (dim End <= 1), Pivot-Faktoren []; Hom(V\_s, V\_t): rang 3 (dim Hom <= 0), Pivot-Faktoren ['-s\_ + t']; gültig für t, s außerhalb ['0'], s != t\\
+\textit{Red-Team:} Zerfällt t = 4? $\to$ durchgefallen\par\medskip
+\noindent\textbf{\texttt{[C-quivers-R4-60]}} (computed_rigorous, bestätigt)\\
+\textit{Aussage:} Für cycle4\_acyclic22: die Familie V\_t mit Dimensionsvektor [1, 1, 1, 1] und Abbildungen \{'0': [[1]], '1': [[1]], '2': [[1]], '3': [['t']]\} erfüllt für alle t außerhalb [0]: End(V\_t) = k (Ziegel, absolut unzerlegbar) und Hom(V\_s, V\_t) = 0 für s != t (paarweise nicht isomorph); Zertifikat: Elimination über Q(s, t) mit protokollierten Pivots.\\
+\textit{Prüfer:} Elimination über Q(t): rang(End-System) = 3 von 4 (dim End <= 1), Pivot-Faktoren []; Hom(V\_s, V\_t): rang 4 (dim Hom <= 0), Pivot-Faktoren ['-s\_ + t']; gültig für t, s außerhalb ['0'], s != t\\
+\textit{Red-Team:} Zerfällt t = 4? $\to$ durchgefallen\par\medskip
+\noindent\textbf{\texttt{[C-quivers-R4-61]}} (computed_rigorous, bestätigt)\\
+\textit{Aussage:} Die Darstellung von cycle4\_oriented mit Dimensionsvektor [3, 3, 3, 3] und Abbildungen \{'0': [[1, 0, 0], [0, 1, 0], [0, 0, 1]], '1': [[1, 0, 0], [0, 1, 0], [0, 0, 1]], '2': [[1, 0, 0], [0, 1, 0], [0, 0, 1]], '3': [[2, 1, 0], [0, 2, 1], [0, 0, 2]]\} ist absolut unzerlegbar (End/Rad = k).\\
+\textit{Prüfer:} dim End = 3, dim J(End) = 2: absolut unzerlegbar\\
+\textit{Red-Team:} Zerlegbar? $\to$ durchgefallen\par\medskip
+\noindent\textbf{\texttt{[C-quivers-R4-62]}} (computed_rigorous, bestätigt)\\
+\textit{Aussage:} Die Darstellung von cycle3\_oriented mit Dimensionsvektor [2, 2, 1] und Abbildungen \{'0': [[1, 0], [0, 1]], '1': [[1, 0]], '2': [[0], [1]]\} ist absolut unzerlegbar (End/Rad = k).\\
+\textit{Prüfer:} dim End = 2, dim J(End) = 1: absolut unzerlegbar\\
+\textit{Red-Team:} Zerlegbar? $\to$ durchgefallen\par\medskip
+\noindent\textbf{\texttt{[C-quivers-R4-63]}} (computed_rigorous, bestätigt)\\
+\textit{Aussage:} Für cycle3\_oriented über F\_2 und alle 0 < beta <= [2, 2, 2] stimmt die Zahl der Unzerlegbaren mit der Klassifikation (nilpotente Strings S(i, l) und unzerlegbare Moduln über F\_q[x, 1/x] für beta = m delta) überein.\\
+\textit{Prüfer:} 26 Dimensionsvektoren <= [2, 2, 2] über F\_2: Zählung = Vorhersage (Strings + Monodromie)\\
+\textit{Red-Team:} Keine Unzerlegbare in der Schranke? $\to$ durchgefallen\par\medskip
+\noindent\textbf{\texttt{[C-quivers-R4-64]}} (computed_rigorous, bestätigt)\\
+\textit{Aussage:} Für cycle3\_oriented über F\_3 und alle 0 < beta <= [2, 2, 2] stimmt die Zahl der Unzerlegbaren mit der Klassifikation (nilpotente Strings S(i, l) und unzerlegbare Moduln über F\_q[x, 1/x] für beta = m delta) überein.\\
+\textit{Prüfer:} 26 Dimensionsvektoren <= [2, 2, 2] über F\_3: Zählung = Vorhersage (Strings + Monodromie)\\
+\textit{Red-Team:} Keine Unzerlegbare in der Schranke? $\to$ durchgefallen\par\medskip
+\noindent\textbf{\texttt{[C-quivers-R4-65]}} (computed_rigorous, bestätigt)\\
+\textit{Aussage:} Für cycle4\_oriented über F\_2 und alle 0 < beta <= [2, 2, 2, 2] stimmt die Zahl der Unzerlegbaren mit der Klassifikation (nilpotente Strings S(i, l) und unzerlegbare Moduln über F\_q[x, 1/x] für beta = m delta) überein.\\
+\textit{Prüfer:} 80 Dimensionsvektoren <= [2, 2, 2, 2] über F\_2: Zählung = Vorhersage (Strings + Monodromie)\\
+\textit{Red-Team:} Keine Unzerlegbare in der Schranke? $\to$ durchgefallen\par\medskip
+\noindent\textbf{\texttt{[C-quivers-R4-66]}} (computed_rigorous, bestätigt)\\
+\textit{Aussage:} Für cycle3\_acyclic über F\_2 und alle Dimensionsvektoren 0 < beta <= [2, 2, 2]: genau eine Unzerlegbare für reelle Wurzeln, keine für Nicht-Wurzeln.\\
+\textit{Prüfer:} 26 Vektoren <= [2, 2, 2] über F\_2: reelle Wurzeln genau 1, Nicht-Wurzeln 0; imaginäre Wurzeln: \{'[1, 1, 1]': 4, '[2, 2, 2]': 5\}\\
+\textit{Red-Team:} Zwei Unzerlegbare in (1,1,0)? $\to$ durchgefallen\par\medskip
+\noindent\textbf{\texttt{[C-quivers-R5-67]}} (computed_rigorous, bestätigt)\\
+\textit{Aussage:} Über F\_2 hat cycle3\_oriented genau 5 Isoklassen unzerlegbarer Darstellungen mit Dimensionsvektor [2, 2, 2] (exakte Zählung, Methode direkt).\\
+\textit{Prüfer:} I\_[2, 2, 2](2) = 5 (Methode: direkt)\\
+\textit{Red-Team:} Eine Unzerlegbare mehr? $\to$ durchgefallen\par\medskip
+\noindent\textbf{\texttt{[C-quivers-R5-68]}} (computed_rigorous, bestätigt)\\
+\textit{Aussage:} Über F\_3 hat cycle3\_oriented genau 8 Isoklassen unzerlegbarer Darstellungen mit Dimensionsvektor [2, 2, 2] (exakte Zählung, Methode burnside).\\
+\textit{Prüfer:} I\_[2, 2, 2](3) = 8 (Methode: burnside)\\
+\textit{Red-Team:} Eine Unzerlegbare mehr? $\to$ durchgefallen\par\medskip
+\noindent\textbf{\texttt{[C-quivers-R5-69]}} (computed_rigorous, bestätigt)\\
+\textit{Aussage:} Über F\_5 hat cycle3\_oriented genau 17 Isoklassen unzerlegbarer Darstellungen mit Dimensionsvektor [2, 2, 2] (exakte Zählung, Methode burnside).\\
+\textit{Prüfer:} I\_[2, 2, 2](5) = 17 (Methode: burnside)\\
+\textit{Red-Team:} Eine Unzerlegbare mehr? $\to$ durchgefallen\par\medskip
+\noindent\textbf{\texttt{[C-quivers-R5-70]}} (computed_rigorous, bestätigt)\\
+\textit{Aussage:} Über F\_2 hat cycle3\_acyclic genau 5 Isoklassen unzerlegbarer Darstellungen mit Dimensionsvektor [2, 2, 2] (exakte Zählung, Methode direkt).\\
+\textit{Prüfer:} I\_[2, 2, 2](2) = 5 (Methode: direkt)\\
+\textit{Red-Team:} Eine Unzerlegbare mehr? $\to$ durchgefallen\par\medskip
+\noindent\textbf{\texttt{[C-quivers-R5-71]}} (computed_rigorous, bestätigt)\\
+\textit{Aussage:} Über F\_3 hat cycle3\_acyclic genau 8 Isoklassen unzerlegbarer Darstellungen mit Dimensionsvektor [2, 2, 2] (exakte Zählung, Methode burnside).\\
+\textit{Prüfer:} I\_[2, 2, 2](3) = 8 (Methode: burnside)\\
+\textit{Red-Team:} Eine Unzerlegbare mehr? $\to$ durchgefallen\par\medskip
+\noindent\textbf{\texttt{[C-quivers-R5-72]}} (computed_rigorous, bestätigt)\\
+\textit{Aussage:} Über F\_5 hat cycle3\_acyclic genau 17 Isoklassen unzerlegbarer Darstellungen mit Dimensionsvektor [2, 2, 2] (exakte Zählung, Methode burnside).\\
+\textit{Prüfer:} I\_[2, 2, 2](5) = 17 (Methode: burnside)\\
+\textit{Red-Team:} Eine Unzerlegbare mehr? $\to$ durchgefallen\par\medskip
+\noindent\textbf{\texttt{[C-quivers-R5-73]}} (computed_rigorous, bestätigt)\\
+\textit{Aussage:} Über F\_2 hat cycle4\_oriented genau 6 Isoklassen unzerlegbarer Darstellungen mit Dimensionsvektor [2, 2, 2, 2] (exakte Zählung, Methode burnside).\\
+\textit{Prüfer:} I\_[2, 2, 2, 2](2) = 6 (Methode: burnside)\\
+\textit{Red-Team:} Eine Unzerlegbare mehr? $\to$ durchgefallen\par\medskip
+\noindent\textbf{\texttt{[C-quivers-R5-74]}} (computed_rigorous, bestätigt)\\
+\textit{Aussage:} Über F\_3 hat cycle4\_oriented genau 9 Isoklassen unzerlegbarer Darstellungen mit Dimensionsvektor [2, 2, 2, 2] (exakte Zählung, Methode burnside).\\
+\textit{Prüfer:} I\_[2, 2, 2, 2](3) = 9 (Methode: burnside)\\
+\textit{Red-Team:} Eine Unzerlegbare mehr? $\to$ durchgefallen\par\medskip
+\noindent\textbf{\texttt{[C-quivers-R5-75]}} (computed_rigorous, bestätigt)\\
+\textit{Aussage:} Über F\_2 hat cycle4\_acyclic22 genau 6 Isoklassen unzerlegbarer Darstellungen mit Dimensionsvektor [2, 2, 2, 2] (exakte Zählung, Methode burnside).\\
+\textit{Prüfer:} I\_[2, 2, 2, 2](2) = 6 (Methode: burnside)\\
+\textit{Red-Team:} Eine Unzerlegbare mehr? $\to$ durchgefallen\par\medskip
+\noindent\textbf{\texttt{[C-quivers-R5-76]}} (computed_rigorous, bestätigt)\\
+\textit{Aussage:} Über F\_3 hat cycle4\_acyclic22 genau 9 Isoklassen unzerlegbarer Darstellungen mit Dimensionsvektor [2, 2, 2, 2] (exakte Zählung, Methode burnside).\\
+\textit{Prüfer:} I\_[2, 2, 2, 2](3) = 9 (Methode: burnside)\\
+\textit{Red-Team:} Eine Unzerlegbare mehr? $\to$ durchgefallen\par\medskip
+
+\section{Literature retrieved via Crossref}
+\noindent doi:10.1007/BF01298413: Unzerlegbare Darstellungen I (1972); Gabriel. Crossref-Titel per Code geprüft.\par
+\noindent doi:10.1070/RM1973v028n02ABEH001526: COXETER FUNCTORS AND GABRIEL'S THEOREM (1973); Bernstein, Gel'fand, Ponomarev. Crossref-Titel per Code geprüft.\par
+\noindent doi:10.1007/BF01403155: Infinite root systems, representations of graphs and invariant theory (1980); Kac. Crossref-Titel per Code geprüft.\par
+\noindent doi:10.1007/BFb0063236: Root systems, representations of quivers and invariant theory (1983); Kac. Crossref-Titel per Code geprüft.\par
+\noindent doi:10.1070/IM1973v007n04ABEH001975: REPRESENTATIONS OF QUIVERS OF INFINITE TYPE (1973); Nazarova. Crossref-Titel per Code geprüft.\par
+\noindent doi:10.1007/BFb0072870: Tame Algebras and Integral Quadratic Forms (1984); Ringel. Crossref-Titel per Code geprüft.\par
+\noindent doi:10.1006/jabr.1999.8220: Counting Representations of Quivers over Finite Fields (2000); Hua. Crossref-Titel per Code geprüft.\par
+\noindent doi:10.4007/annals.2013.177.3.8: Positivity for Kac polynomials and DT-invariants of quivers (2013); Hausel, Letellier, Rodriguez-Villegas. Crossref-Titel per Code geprüft.\par
+\par\medskip\noindent Claims in \texttt{state.json}: 76; cited in the body: 76; uncited: none.
+
+\end{document}
