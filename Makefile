@@ -1,0 +1,2 @@
+rehearse:
+	scripts/rehearse.sh
