@@ -1,0 +1,2086 @@
+{
+ "antwort": {
+  "antwort": "Teilweise ja – Cosine hilft bei rauschigen Quadratiken, nicht bei rauschfreien oder im MLP.",
+  "zahl": null,
+  "konfidenz": 0.65,
+  "pruefung": {
+   "typ": "vergleich",
+   "problem": {
+    "typ": "quadratisch",
+    "rotiert": true,
+    "a_L": 2.5,
+    "a_R": 2.5,
+    "noise": {
+     "typ": "gauss",
+     "sigma": 0.1
+    }
+   },
+   "steps": 500,
+   "a": {
+    "optimizer": "adam",
+    "schedule": "cosine"
+   },
+   "b": {
+    "optimizer": "adam",
+    "schedule": "const"
+   }
+  },
+  "begruendung": "E13 (cosine, beste_lr=-2, rel_verlust=0.0109) schlägt E12 (const, beste_lr=-6, 0.0280) auf Gauss-rauschiger Quadratik deutlich – Cosine findet effektivere Lernrate. E8–E11 (rauschfrei, linear/wsd): const besser. E14–E19 (MLP, alle Schedules): const besser oder ähnlich. Schedules nutzen vor allem bei Rausch.",
+  "stimmen": "Stufe 2/4 (numeriker, haiku)"
+ },
+ "level": "computed (Code-Prüfer bestanden)",
+ "forscher": [
+  {
+   "strategie": "sparsam",
+   "runden": [
+    {
+     "ueberlegung": "Forschungsfrage: Senken Lernraten-Schedules (cosine, linear, wsd) den Endverlust gegenüber konstanter Lernrate bei gleichem Tuning-Aufwand auf verrauschten Quadratiken und im nicht-konvexen MLP?\n\nExperimentelle Strategie:\n1. Zwei Problemtypen: (a) verrauschte Quadratik (rotiert, Gaußrauschen σ=0.1, schlecht konditioniert—realistisch), (b) MLP (nicht-konvex, wo Schedules de facto Standard sind).\n2. Für jeden Problemtyp vier lr_sweep-Experimente mit jeweils einer Schedule {const, cosine, linear, wsd}.\n3. Identisches LR-Gitter [2^−8, …, 2^0] für alle Sweeps garantiert fairen Tuning-Vergleich (gleicher Aufwand).\n4. Optimizer: adam (häufigste Kombination mit Schedules in der Praxis).\n5. Seed-Mittelung (5 Seeds, geometrisches Mittel) reduziert Rausch und gibt stabile Vergleiche.\n6. 500 Schritte: realistisches Budget, wo Schedules einen messbaren Effekt zeigen könnten.\n\nDesign:\n- Direkte Paarvergleiche durch Sweep-Ergebnisse: Unterscheiden sich beste LR und minimaler Endverlust je nach Schedule?\n- Quadratik testet Rausch-Robustheit, MLP testet nicht-konvexe Realität.\n- Nach Runde 1: Identifikation der besten Schedules je Problem, dann Verifikation mit vergleich-Tests.\n\nVermeidung von Redundanz: Jeder Sweep testet neue Schedule×Problem-Kombination.",
+     "plan": [
+      {
+       "op": "lr_sweep",
+       "args": {
+        "problem": {
+         "typ": "quadratisch",
+         "rotiert": true,
+         "a_L": 2.0,
+         "a_R": 2.0,
+         "noise": {
+          "typ": "gauss",
+          "sigma": 0.1
+         }
+        },
+        "optimizer": "adam",
+        "schedule": "const",
+        "log2_lrs": [
+         -8,
+         -7,
+         -6,
+         -5,
+         -4,
+         -3,
+         -2,
+         -1,
+         0
+        ],
+        "steps": 500,
+        "seeds": [
+         100,
+         101,
+         102,
+         103,
+         104
+        ]
+       }
+      },
+      {
+       "op": "lr_sweep",
+       "args": {
+        "problem": {
+         "typ": "quadratisch",
+         "rotiert": true,
+         "a_L": 2.0,
+         "a_R": 2.0,
+         "noise": {
+          "typ": "gauss",
+          "sigma": 0.1
+         }
+        },
+        "optimizer": "adam",
+        "schedule": "cosine",
+        "log2_lrs": [
+         -8,
+         -7,
+         -6,
+         -5,
+         -4,
+         -3,
+         -2,
+         -1,
+         0
+        ],
+        "steps": 500,
+        "seeds": [
+         100,
+         101,
+         102,
+         103,
+         104
+        ]
+       }
+      },
+      {
+       "op": "lr_sweep",
+       "args": {
+        "problem": {
+         "typ": "quadratisch",
+         "rotiert": true,
+         "a_L": 2.0,
+         "a_R": 2.0,
+         "noise": {
+          "typ": "gauss",
+          "sigma": 0.1
+         }
+        },
+        "optimizer": "adam",
+        "schedule": "linear",
+        "log2_lrs": [
+         -8,
+         -7,
+         -6,
+         -5,
+         -4,
+         -3,
+         -2,
+         -1,
+         0
+        ],
+        "steps": 500,
+        "seeds": [
+         100,
+         101,
+         102,
+         103,
+         104
+        ]
+       }
+      },
+      {
+       "op": "lr_sweep",
+       "args": {
+        "problem": {
+         "typ": "quadratisch",
+         "rotiert": true,
+         "a_L": 2.0,
+         "a_R": 2.0,
+         "noise": {
+          "typ": "gauss",
+          "sigma": 0.1
+         }
+        },
+        "optimizer": "adam",
+        "schedule": "wsd",
+        "log2_lrs": [
+         -8,
+         -7,
+         -6,
+         -5,
+         -4,
+         -3,
+         -2,
+         -1,
+         0
+        ],
+        "steps": 500,
+        "seeds": [
+         100,
+         101,
+         102,
+         103,
+         104
+        ]
+       }
+      },
+      {
+       "op": "lr_sweep",
+       "args": {
+        "problem": {
+         "typ": "mlp"
+        },
+        "optimizer": "adam",
+        "schedule": "const",
+        "log2_lrs": [
+         -8,
+         -7,
+         -6,
+         -5,
+         -4,
+         -3,
+         -2,
+         -1,
+         0
+        ],
+        "steps": 500,
+        "seeds": [
+         100,
+         101,
+         102,
+         103,
+         104
+        ]
+       }
+      },
+      {
+       "op": "lr_sweep",
+       "args": {
+        "problem": {
+         "typ": "mlp"
+        },
+        "optimizer": "adam",
+        "schedule": "cosine",
+        "log2_lrs": [
+         -8,
+         -7,
+         -6,
+         -5,
+         -4,
+         -3,
+         -2,
+         -1,
+         0
+        ],
+        "steps": 500,
+        "seeds": [
+         100,
+         101,
+         102,
+         103,
+         104
+        ]
+       }
+      },
+      {
+       "op": "lr_sweep",
+       "args": {
+        "problem": {
+         "typ": "mlp"
+        },
+        "optimizer": "adam",
+        "schedule": "linear",
+        "log2_lrs": [
+         -8,
+         -7,
+         -6,
+         -5,
+         -4,
+         -3,
+         -2,
+         -1,
+         0
+        ],
+        "steps": 500,
+        "seeds": [
+         100,
+         101,
+         102,
+         103,
+         104
+        ]
+       }
+      },
+      {
+       "op": "lr_sweep",
+       "args": {
+        "problem": {
+         "typ": "mlp"
+        },
+        "optimizer": "adam",
+        "schedule": "wsd",
+        "log2_lrs": [
+         -8,
+         -7,
+         -6,
+         -5,
+         -4,
+         -3,
+         -2,
+         -1,
+         0
+        ],
+        "steps": 500,
+        "seeds": [
+         100,
+         101,
+         102,
+         103,
+         104
+        ]
+       }
+      }
+     ]
+    },
+    {
+     "plan": [
+      {
+       "typ": "vergleich",
+       "problem": {
+        "typ": "quadratisch",
+        "rotiert": true,
+        "a_L": 2.0,
+        "a_R": 2.0,
+        "noise": {
+         "typ": "gauss",
+         "sigma": 0.1
+        }
+       },
+       "steps": 500,
+       "a": {
+        "optimizer": "adam",
+        "schedule": "cosine"
+       },
+       "b": {
+        "optimizer": "adam",
+        "schedule": "const"
+       }
+      },
+      {
+       "typ": "vergleich",
+       "problem": {
+        "typ": "quadratisch",
+        "rotiert": true,
+        "a_L": 2.0,
+        "a_R": 2.0,
+        "noise": {
+         "typ": "gauss",
+         "sigma": 0.1
+        }
+       },
+       "steps": 500,
+       "a": {
+        "optimizer": "adam",
+        "schedule": "linear"
+       },
+       "b": {
+        "optimizer": "adam",
+        "schedule": "const"
+       }
+      },
+      {
+       "typ": "vergleich",
+       "problem": {
+        "typ": "mlp"
+       },
+       "steps": 500,
+       "a": {
+        "optimizer": "adam",
+        "schedule": "wsd"
+       },
+       "b": {
+        "optimizer": "adam",
+        "schedule": "const"
+       }
+      }
+     ]
+    },
+    {
+     "antwort": "Nein, nicht universell. Auf verrauschten Quadratiken senken cosine, linear und wsd den Endverlust deutlich (32–57 %); im MLP ist nur wsd vorteilhaft, während cosine und linear es verschlechtern.",
+     "zahl": null,
+     "konfidenz": 0.9,
+     "begruendung": "Sweeps E0–E7 zeigen auf der Quadratik (gaussian noise σ=0.1, rotiert, a_L=a_R=2.0): cosine reduziert rel. Endverlust um 57 % (0.0327→0.0141), linear um 48 % (→0.0172), wsd um 32 % (→0.0221). Im MLP: nur wsd (0.00034) schlägt const (0.0007); cosine (0.00086) und linear (0.00078) verschlechtern es.",
+     "pruefungen": [
+      {
+       "typ": "vergleich",
+       "problem": {
+        "typ": "quadratisch",
+        "rotiert": true,
+        "a_L": 2.0,
+        "a_R": 2.0,
+        "noise": {
+         "typ": "gauss",
+         "sigma": 0.1
+        }
+       },
+       "steps": 500,
+       "a": {
+        "optimizer": "adam",
+        "schedule": "cosine"
+       },
+       "b": {
+        "optimizer": "adam",
+        "schedule": "const"
+       }
+      },
+      {
+       "typ": "vergleich",
+       "problem": {
+        "typ": "quadratisch",
+        "rotiert": true,
+        "a_L": 2.0,
+        "a_R": 2.0,
+        "noise": {
+         "typ": "gauss",
+         "sigma": 0.1
+        }
+       },
+       "steps": 500,
+       "a": {
+        "optimizer": "adam",
+        "schedule": "linear"
+       },
+       "b": {
+        "optimizer": "adam",
+        "schedule": "const"
+       }
+      },
+      {
+       "typ": "vergleich",
+       "problem": {
+        "typ": "quadratisch",
+        "rotiert": true,
+        "a_L": 2.0,
+        "a_R": 2.0,
+        "noise": {
+         "typ": "gauss",
+         "sigma": 0.1
+        }
+       },
+       "steps": 500,
+       "a": {
+        "optimizer": "adam",
+        "schedule": "wsd"
+       },
+       "b": {
+        "optimizer": "adam",
+        "schedule": "const"
+       }
+      },
+      {
+       "typ": "vergleich",
+       "problem": {
+        "typ": "mlp"
+       },
+       "steps": 500,
+       "a": {
+        "optimizer": "adam",
+        "schedule": "wsd"
+       },
+       "b": {
+        "optimizer": "adam",
+        "schedule": "const"
+       }
+      },
+      {
+       "typ": "vergleich",
+       "problem": {
+        "typ": "mlp"
+       },
+       "steps": 500,
+       "a": {
+        "optimizer": "adam",
+        "schedule": "const"
+       },
+       "b": {
+        "optimizer": "adam",
+        "schedule": "cosine"
+       }
+      }
+     ]
+    }
+   ],
+   "experimente": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+   ],
+   "final": {
+    "antwort": "Nein, nicht universell. Auf verrauschten Quadratiken senken cosine, linear und wsd den Endverlust deutlich (32–57 %); im MLP ist nur wsd vorteilhaft, während cosine und linear es verschlechtern.",
+    "zahl": null,
+    "konfidenz": 0.9,
+    "begruendung": "Sweeps E0–E7 zeigen auf der Quadratik (gaussian noise σ=0.1, rotiert, a_L=a_R=2.0): cosine reduziert rel. Endverlust um 57 % (0.0327→0.0141), linear um 48 % (→0.0172), wsd um 32 % (→0.0221). Im MLP: nur wsd (0.00034) schlägt const (0.0007); cosine (0.00086) und linear (0.00078) verschlechtern es.",
+    "pruefungen": [
+     {
+      "typ": "vergleich",
+      "problem": {
+       "typ": "quadratisch",
+       "rotiert": true,
+       "a_L": 2.0,
+       "a_R": 2.0,
+       "noise": {
+        "typ": "gauss",
+        "sigma": 0.1
+       }
+      },
+      "steps": 500,
+      "a": {
+       "optimizer": "adam",
+       "schedule": "cosine"
+      },
+      "b": {
+       "optimizer": "adam",
+       "schedule": "const"
+      }
+     },
+     {
+      "typ": "vergleich",
+      "problem": {
+       "typ": "quadratisch",
+       "rotiert": true,
+       "a_L": 2.0,
+       "a_R": 2.0,
+       "noise": {
+        "typ": "gauss",
+        "sigma": 0.1
+       }
+      },
+      "steps": 500,
+      "a": {
+       "optimizer": "adam",
+       "schedule": "linear"
+      },
+      "b": {
+       "optimizer": "adam",
+       "schedule": "const"
+      }
+     },
+     {
+      "typ": "vergleich",
+      "problem": {
+       "typ": "quadratisch",
+       "rotiert": true,
+       "a_L": 2.0,
+       "a_R": 2.0,
+       "noise": {
+        "typ": "gauss",
+        "sigma": 0.1
+       }
+      },
+      "steps": 500,
+      "a": {
+       "optimizer": "adam",
+       "schedule": "wsd"
+      },
+      "b": {
+       "optimizer": "adam",
+       "schedule": "const"
+      }
+     },
+     {
+      "typ": "vergleich",
+      "problem": {
+       "typ": "mlp"
+      },
+      "steps": 500,
+      "a": {
+       "optimizer": "adam",
+       "schedule": "wsd"
+      },
+      "b": {
+       "optimizer": "adam",
+       "schedule": "const"
+      }
+     },
+     {
+      "typ": "vergleich",
+      "problem": {
+       "typ": "mlp"
+      },
+      "steps": 500,
+      "a": {
+       "optimizer": "adam",
+       "schedule": "const"
+      },
+      "b": {
+       "optimizer": "adam",
+       "schedule": "cosine"
+      }
+     }
+    ]
+   },
+   "modell": "haiku",
+   "pruefung": {
+    "bestanden": false,
+    "grund": "Prüfer: adam/cosine (beste LR 2^-3) vs adam/const (beste LR 2^-6), je eigenes Tuning auf Seeds (100, 101, 102), Bewertung auf 10 frischen Seeds: geometr. Mittel rel. Endverlust 1.256e-02 vs 3.096e-02, Verhältnis 0.406 (Schwelle < 0.9), gepaarter Permutationstest p = 0.0008 (Schwelle < 0.01) | Prüfer: adam/linear (beste LR 2^-3) vs adam/const (beste LR 2^-6), je eigenes Tuning auf Seeds (100, 101, 102), Bewertung auf 10 frischen Seeds: geometr. Mittel rel. Endverlust 1.464e-02 vs 3.096e-02, Verhältnis 0.473 (Schwelle < 0.9), gepaarter Permutationstest p = 0.0008 (Schwelle < 0.01) | Prüfer: adam/wsd (beste LR 2^-4) vs adam/const (beste LR 2^-6), je eigenes Tuning auf Seeds (100, 101, 102), Bewertung auf 10 frischen Seeds: geometr. Mittel rel. Endverlust 2.000e-02 vs 3.096e-02, Verhältnis 0.646 (Schwelle < 0.9), gepaarter Permutationstest p = 0.0008 (Schwelle < 0.01) | Prüfer: adam/wsd (beste LR 2^-5) vs adam/const (beste LR 2^-6), je eigenes Tuning auf Seeds (100, 101, 102), Bewertung auf 10 frischen Seeds: geometr. Mittel rel. Endverlust 6.131e-04 vs 1.021e-03, Verhältnis 0.601 (Schwelle < 0.9), gepaarter Permutationstest p = 0.0008 (Schwelle < 0.01) | Prüfer: adam/const (beste LR 2^-6) vs adam/cosine (beste LR 2^-5), je eigenes Tuning auf Seeds (100, 101, 102), Bewertung auf 10 frischen Seeds: geometr. Mittel rel. Endverlust 1.021e-03 vs 1.240e-03, Verhältnis 0.823 (Schwelle < 0.9), gepaarter Permutationstest p = 0.0463 (Schwelle < 0.01)"
+   }
+  },
+  {
+   "strategie": "numeriker",
+   "runden": [
+    {
+     "ueberlegung": "Die Frage zielt darauf, ob moderne Lernraten-Schedules (cosine, linear, wsd) bei fairem Tuning-Aufwand (beide Arme werden optimal getunt) bessere Endverluste erreichen als konstante Lernrate. Dies ist eine empirische Frage, die auf mindestens drei Problem-Klassen getestet werden sollte: (1) saubere Quadratiken (als Baseline), (2) Gaussian-verrauschte Quadratiken (realistischer), (3) nicht-konvexes MLP (praktische Relevanz). Der Ansatz ist: Für jeden Problem-Typ und jedes Schedule (const, cosine, linear, wsd) führe ich ein lr_sweep durch, um die beste Lernrate für diese Kombination zu ermitteln. Ein unabhängiger Prüfer kann dann die resultierenden besten Endverluste vergleichen. Ich teste zuerst auf der sauberen, gut-konditionierten Quadratik mit a_L=2.0, a_R=2.0 (vier Schedules), dann auf einer verrauschten Variante (a_L=2.5, a_R=2.5, Gaussian sigma=0.1) mit zwei Schedules als Vergleich, schließlich auf dem MLP mit const vs. cosine.",
+     "plan": [
+      {
+       "op": "lr_sweep",
+       "args": {
+        "problem": {
+         "typ": "quadratisch",
+         "rotiert": true,
+         "a_L": 2.0,
+         "a_R": 2.0
+        },
+        "optimizer": "adam",
+        "log2_lrs": [
+         -8,
+         -7,
+         -6,
+         -5,
+         -4,
+         -3,
+         -2
+        ],
+        "steps": 500,
+        "seeds": [
+         100,
+         101,
+         102
+        ],
+        "schedule": "const"
+       }
+      },
+      {
+       "op": "lr_sweep",
+       "args": {
+        "problem": {
+         "typ": "quadratisch",
+         "rotiert": true,
+         "a_L": 2.0,
+         "a_R": 2.0
+        },
+        "optimizer": "adam",
+        "log2_lrs": [
+         -8,
+         -7,
+         -6,
+         -5,
+         -4,
+         -3,
+         -2
+        ],
+        "steps": 500,
+        "seeds": [
+         100,
+         101,
+         102
+        ],
+        "schedule": "cosine"
+       }
+      },
+      {
+       "op": "lr_sweep",
+       "args": {
+        "problem": {
+         "typ": "quadratisch",
+         "rotiert": true,
+         "a_L": 2.0,
+         "a_R": 2.0
+        },
+        "optimizer": "adam",
+        "log2_lrs": [
+         -8,
+         -7,
+         -6,
+         -5,
+         -4,
+         -3,
+         -2
+        ],
+        "steps": 500,
+        "seeds": [
+         100,
+         101,
+         102
+        ],
+        "schedule": "linear"
+       }
+      },
+      {
+       "op": "lr_sweep",
+       "args": {
+        "problem": {
+         "typ": "quadratisch",
+         "rotiert": true,
+         "a_L": 2.0,
+         "a_R": 2.0
+        },
+        "optimizer": "adam",
+        "log2_lrs": [
+         -8,
+         -7,
+         -6,
+         -5,
+         -4,
+         -3,
+         -2
+        ],
+        "steps": 500,
+        "seeds": [
+         100,
+         101,
+         102
+        ],
+        "schedule": "wsd"
+       }
+      },
+      {
+       "op": "lr_sweep",
+       "args": {
+        "problem": {
+         "typ": "quadratisch",
+         "rotiert": true,
+         "a_L": 2.5,
+         "a_R": 2.5,
+         "noise": {
+          "typ": "gauss",
+          "sigma": 0.1
+         }
+        },
+        "optimizer": "adam",
+        "log2_lrs": [
+         -8,
+         -7,
+         -6,
+         -5,
+         -4,
+         -3,
+         -2
+        ],
+        "steps": 500,
+        "seeds": [
+         200,
+         201,
+         202
+        ],
+        "schedule": "const"
+       }
+      },
+      {
+       "op": "lr_sweep",
+       "args": {
+        "problem": {
+         "typ": "quadratisch",
+         "rotiert": true,
+         "a_L": 2.5,
+         "a_R": 2.5,
+         "noise": {
+          "typ": "gauss",
+          "sigma": 0.1
+         }
+        },
+        "optimizer": "adam",
+        "log2_lrs": [
+         -8,
+         -7,
+         -6,
+         -5,
+         -4,
+         -3,
+         -2
+        ],
+        "steps": 500,
+        "seeds": [
+         200,
+         201,
+         202
+        ],
+        "schedule": "cosine"
+       }
+      },
+      {
+       "op": "lr_sweep",
+       "args": {
+        "problem": {
+         "typ": "mlp"
+        },
+        "optimizer": "adam",
+        "log2_lrs": [
+         -7,
+         -6,
+         -5,
+         -4,
+         -3,
+         -2,
+         -1
+        ],
+        "steps": 500,
+        "seeds": [
+         300,
+         301,
+         302
+        ],
+        "schedule": "const"
+       }
+      },
+      {
+       "op": "lr_sweep",
+       "args": {
+        "problem": {
+         "typ": "mlp"
+        },
+        "optimizer": "adam",
+        "log2_lrs": [
+         -7,
+         -6,
+         -5,
+         -4,
+         -3,
+         -2,
+         -1
+        ],
+        "steps": 500,
+        "seeds": [
+         300,
+         301,
+         302
+        ],
+        "schedule": "cosine"
+       }
+      }
+     ]
+    },
+    {
+     "plan": [
+      {
+       "op": "lr_sweep",
+       "args": {
+        "problem": {
+         "typ": "quadratisch",
+         "rotiert": true,
+         "a_L": 2.0,
+         "a_R": 2.0,
+         "noise": {
+          "typ": "student",
+          "sigma": 0.1,
+          "df": 2
+         }
+        },
+        "optimizer": "adam",
+        "log2_lrs": [
+         -8,
+         -7,
+         -6,
+         -5,
+         -4,
+         -3,
+         -2
+        ],
+        "steps": 500,
+        "seeds": [
+         450,
+         451,
+         452
+        ],
+        "schedule": "const"
+       }
+      },
+      {
+       "op": "lr_sweep",
+       "args": {
+        "problem": {
+         "typ": "quadratisch",
+         "rotiert": true,
+         "a_L": 2.0,
+         "a_R": 2.0,
+         "noise": {
+          "typ": "student",
+          "sigma": 0.1,
+          "df": 2
+         }
+        },
+        "optimizer": "adam",
+        "log2_lrs": [
+         -8,
+         -7,
+         -6,
+         -5,
+         -4,
+         -3,
+         -2
+        ],
+        "steps": 500,
+        "seeds": [
+         450,
+         451,
+         452
+        ],
+        "schedule": "cosine"
+       }
+      },
+      {
+       "op": "lr_sweep",
+       "args": {
+        "problem": {
+         "typ": "mlp"
+        },
+        "optimizer": "adam",
+        "log2_lrs": [
+         -7,
+         -6,
+         -5,
+         -4,
+         -3,
+         -2,
+         -1
+        ],
+        "steps": 500,
+        "seeds": [
+         450,
+         451,
+         452
+        ],
+        "schedule": "linear"
+       }
+      },
+      {
+       "op": "lr_sweep",
+       "args": {
+        "problem": {
+         "typ": "mlp"
+        },
+        "optimizer": "adam",
+        "log2_lrs": [
+         -7,
+         -6,
+         -5,
+         -4,
+         -3,
+         -2,
+         -1
+        ],
+        "steps": 500,
+        "seeds": [
+         450,
+         451,
+         452
+        ],
+        "schedule": "wsd"
+       }
+      },
+      {
+       "op": "lr_sweep",
+       "args": {
+        "problem": {
+         "typ": "quadratisch",
+         "rotiert": true,
+         "a_L": 2.0,
+         "a_R": 2.0
+        },
+        "optimizer": "adam",
+        "log2_lrs": [
+         -8,
+         -7,
+         -6,
+         -5,
+         -4,
+         -3,
+         -2
+        ],
+        "steps": 500,
+        "seeds": [
+         450,
+         451,
+         452
+        ],
+        "schedule": "linear"
+       }
+      },
+      {
+       "op": "lr_sweep",
+       "args": {
+        "problem": {
+         "typ": "quadratisch",
+         "rotiert": true,
+         "a_L": 2.0,
+         "a_R": 2.0
+        },
+        "optimizer": "adam",
+        "log2_lrs": [
+         -8,
+         -7,
+         -6,
+         -5,
+         -4,
+         -3,
+         -2
+        ],
+        "steps": 500,
+        "seeds": [
+         450,
+         451,
+         452
+        ],
+        "schedule": "wsd"
+       }
+      }
+     ]
+    },
+    {
+     "antwort": "Teilweise ja – Cosine hilft bei rauschigen Quadratiken, nicht bei rauschfreien oder im MLP.",
+     "zahl": null,
+     "konfidenz": 0.65,
+     "pruefung": {
+      "typ": "vergleich",
+      "problem": {
+       "typ": "quadratisch",
+       "rotiert": true,
+       "a_L": 2.5,
+       "a_R": 2.5,
+       "noise": {
+        "typ": "gauss",
+        "sigma": 0.1
+       }
+      },
+      "steps": 500,
+      "a": {
+       "optimizer": "adam",
+       "schedule": "cosine"
+      },
+      "b": {
+       "optimizer": "adam",
+       "schedule": "const"
+      }
+     },
+     "begruendung": "E13 (cosine, beste_lr=-2, rel_verlust=0.0109) schlägt E12 (const, beste_lr=-6, 0.0280) auf Gauss-rauschiger Quadratik deutlich – Cosine findet effektivere Lernrate. E8–E11 (rauschfrei, linear/wsd): const besser. E14–E19 (MLP, alle Schedules): const besser oder ähnlich. Schedules nutzen vor allem bei Rausch."
+    }
+   ],
+   "experimente": [
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19,
+    20,
+    21
+   ],
+   "final": {
+    "antwort": "Teilweise ja – Cosine hilft bei rauschigen Quadratiken, nicht bei rauschfreien oder im MLP.",
+    "zahl": null,
+    "konfidenz": 0.65,
+    "pruefung": {
+     "typ": "vergleich",
+     "problem": {
+      "typ": "quadratisch",
+      "rotiert": true,
+      "a_L": 2.5,
+      "a_R": 2.5,
+      "noise": {
+       "typ": "gauss",
+       "sigma": 0.1
+      }
+     },
+     "steps": 500,
+     "a": {
+      "optimizer": "adam",
+      "schedule": "cosine"
+     },
+     "b": {
+      "optimizer": "adam",
+      "schedule": "const"
+     }
+    },
+    "begruendung": "E13 (cosine, beste_lr=-2, rel_verlust=0.0109) schlägt E12 (const, beste_lr=-6, 0.0280) auf Gauss-rauschiger Quadratik deutlich – Cosine findet effektivere Lernrate. E8–E11 (rauschfrei, linear/wsd): const besser. E14–E19 (MLP, alle Schedules): const besser oder ähnlich. Schedules nutzen vor allem bei Rausch."
+   },
+   "modell": "haiku",
+   "pruefung": {
+    "bestanden": true,
+    "grund": "Prüfer: adam/cosine (beste LR 2^-2) vs adam/const (beste LR 2^-6), je eigenes Tuning auf Seeds (100, 101, 102), Bewertung auf 10 frischen Seeds: geometr. Mittel rel. Endverlust 1.142e-02 vs 3.190e-02, Verhältnis 0.358 (Schwelle < 0.9), gepaarter Permutationstest p = 0.0008 (Schwelle < 0.01)"
+   }
+  }
+ ],
+ "experimente": [
+  {
+   "id": 0,
+   "wer": "forscher-sparsam",
+   "op": "lr_sweep",
+   "args": {
+    "problem": {
+     "typ": "quadratisch",
+     "rotiert": true,
+     "a_L": 2.0,
+     "a_R": 2.0,
+     "noise": {
+      "typ": "gauss",
+      "sigma": 0.1
+     }
+    },
+    "optimizer": "adam",
+    "schedule": "const",
+    "log2_lrs": [
+     -8,
+     -7,
+     -6,
+     -5,
+     -4,
+     -3,
+     -2,
+     -1,
+     0
+    ],
+    "steps": 500,
+    "seeds": [
+     100,
+     101,
+     102,
+     103,
+     104
+    ]
+   },
+   "ergebnis": {
+    "rel_verlust": {
+     "-8": 0.0625999344076067,
+     "-7": 0.0432943901360373,
+     "-6": 0.03272335940703233,
+     "-5": 0.038249695217296584,
+     "-4": 0.05478957415307455,
+     "-3": 0.09323226240339695,
+     "-2": 0.1592297948431651,
+     "-1": 0.25670866492936145,
+     "0": 0.27541762948043735
+    },
+    "beste_log2_lr": -6
+   },
+   "sek": 0.97
+  },
+  {
+   "id": 1,
+   "wer": "forscher-sparsam",
+   "op": "lr_sweep",
+   "args": {
+    "problem": {
+     "typ": "quadratisch",
+     "rotiert": true,
+     "a_L": 2.0,
+     "a_R": 2.0,
+     "noise": {
+      "typ": "gauss",
+      "sigma": 0.1
+     }
+    },
+    "optimizer": "adam",
+    "schedule": "cosine",
+    "log2_lrs": [
+     -8,
+     -7,
+     -6,
+     -5,
+     -4,
+     -3,
+     -2,
+     -1,
+     0
+    ],
+    "steps": 500,
+    "seeds": [
+     100,
+     101,
+     102,
+     103,
+     104
+    ]
+   },
+   "ergebnis": {
+    "rel_verlust": {
+     "-8": 0.09861360953283807,
+     "-7": 0.058790968047967046,
+     "-6": 0.03599732778561981,
+     "-5": 0.023180005369451414,
+     "-4": 0.01657177679871067,
+     "-3": 0.014072869523763638,
+     "-2": 0.014334205533479688,
+     "-1": 0.015406920509495759,
+     "0": 0.01682674632507322
+    },
+    "beste_log2_lr": -3
+   },
+   "sek": 1.02
+  },
+  {
+   "id": 2,
+   "wer": "forscher-sparsam",
+   "op": "lr_sweep",
+   "args": {
+    "problem": {
+     "typ": "quadratisch",
+     "rotiert": true,
+     "a_L": 2.0,
+     "a_R": 2.0,
+     "noise": {
+      "typ": "gauss",
+      "sigma": 0.1
+     }
+    },
+    "optimizer": "adam",
+    "schedule": "linear",
+    "log2_lrs": [
+     -8,
+     -7,
+     -6,
+     -5,
+     -4,
+     -3,
+     -2,
+     -1,
+     0
+    ],
+    "steps": 500,
+    "seeds": [
+     100,
+     101,
+     102,
+     103,
+     104
+    ]
+   },
+   "ergebnis": {
+    "rel_verlust": {
+     "-8": 0.09770886069242546,
+     "-7": 0.058381179049552374,
+     "-6": 0.036116508082157356,
+     "-5": 0.023215996080387484,
+     "-4": 0.017919945188942046,
+     "-3": 0.017171410002061807,
+     "-2": 0.018604258685942822,
+     "-1": 0.02100471518283936,
+     "0": 0.022624717857038634
+    },
+    "beste_log2_lr": -3
+   },
+   "sek": 1.03
+  },
+  {
+   "id": 3,
+   "wer": "forscher-sparsam",
+   "op": "lr_sweep",
+   "args": {
+    "problem": {
+     "typ": "quadratisch",
+     "rotiert": true,
+     "a_L": 2.0,
+     "a_R": 2.0,
+     "noise": {
+      "typ": "gauss",
+      "sigma": 0.1
+     }
+    },
+    "optimizer": "adam",
+    "schedule": "wsd",
+    "log2_lrs": [
+     -8,
+     -7,
+     -6,
+     -5,
+     -4,
+     -3,
+     -2,
+     -1,
+     0
+    ],
+    "steps": 500,
+    "seeds": [
+     100,
+     101,
+     102,
+     103,
+     104
+    ]
+   },
+   "ergebnis": {
+    "rel_verlust": {
+     "-8": 0.06368187417624604,
+     "-7": 0.03907642818396168,
+     "-6": 0.026913800690872687,
+     "-5": 0.022147871253338246,
+     "-4": 0.022142484618195964,
+     "-3": 0.027040888046823117,
+     "-2": 0.03795465419519945,
+     "-1": 0.051816107504167715,
+     "0": 0.06055904615532845
+    },
+    "beste_log2_lr": -4
+   },
+   "sek": 1.0
+  },
+  {
+   "id": 4,
+   "wer": "forscher-sparsam",
+   "op": "lr_sweep",
+   "args": {
+    "problem": {
+     "typ": "mlp"
+    },
+    "optimizer": "adam",
+    "schedule": "const",
+    "log2_lrs": [
+     -8,
+     -7,
+     -6,
+     -5,
+     -4,
+     -3,
+     -2,
+     -1,
+     0
+    ],
+    "steps": 500,
+    "seeds": [
+     100,
+     101,
+     102,
+     103,
+     104
+    ]
+   },
+   "ergebnis": {
+    "rel_verlust": {
+     "-8": 0.004704203426615971,
+     "-7": 0.001256401049632628,
+     "-6": 0.0007000292914720737,
+     "-5": 0.0012784111458536307,
+     "-4": 0.008648843882225902,
+     "-3": 0.04110336544449215,
+     "-2": 0.08058578874728282,
+     "-1": 0.15428173634244488,
+     "0": 0.598498693538272
+    },
+    "beste_log2_lr": -6
+   },
+   "sek": 3.37
+  },
+  {
+   "id": 5,
+   "wer": "forscher-sparsam",
+   "op": "lr_sweep",
+   "args": {
+    "problem": {
+     "typ": "mlp"
+    },
+    "optimizer": "adam",
+    "schedule": "cosine",
+    "log2_lrs": [
+     -8,
+     -7,
+     -6,
+     -5,
+     -4,
+     -3,
+     -2,
+     -1,
+     0
+    ],
+    "steps": 500,
+    "seeds": [
+     100,
+     101,
+     102,
+     103,
+     104
+    ]
+   },
+   "ergebnis": {
+    "rel_verlust": {
+     "-8": 0.020016724097107138,
+     "-7": 0.005147230658069369,
+     "-6": 0.0016420804113916317,
+     "-5": 0.0008594470428996861,
+     "-4": 0.0011215529524136434,
+     "-3": 0.003234397222307286,
+     "-2": 0.02196701259044109,
+     "-1": 0.055409977451356035,
+     "0": 0.0934864381325136
+    },
+    "beste_log2_lr": -5
+   },
+   "sek": 3.32
+  },
+  {
+   "id": 6,
+   "wer": "forscher-sparsam",
+   "op": "lr_sweep",
+   "args": {
+    "problem": {
+     "typ": "mlp"
+    },
+    "optimizer": "adam",
+    "schedule": "linear",
+    "log2_lrs": [
+     -8,
+     -7,
+     -6,
+     -5,
+     -4,
+     -3,
+     -2,
+     -1,
+     0
+    ],
+    "steps": 500,
+    "seeds": [
+     100,
+     101,
+     102,
+     103,
+     104
+    ]
+   },
+   "ergebnis": {
+    "rel_verlust": {
+     "-8": 0.01931244316293386,
+     "-7": 0.004755412114927804,
+     "-6": 0.0014683860481801841,
+     "-5": 0.0007754392858193053,
+     "-4": 0.0009069467175065126,
+     "-3": 0.0025421522115543172,
+     "-2": 0.01967472397915121,
+     "-1": 0.054329576400282034,
+     "0": 0.09601648550166746
+    },
+    "beste_log2_lr": -5
+   },
+   "sek": 3.33
+  },
+  {
+   "id": 7,
+   "wer": "forscher-sparsam",
+   "op": "lr_sweep",
+   "args": {
+    "problem": {
+     "typ": "mlp"
+    },
+    "optimizer": "adam",
+    "schedule": "wsd",
+    "log2_lrs": [
+     -8,
+     -7,
+     -6,
+     -5,
+     -4,
+     -3,
+     -2,
+     -1,
+     0
+    ],
+    "steps": 500,
+    "seeds": [
+     100,
+     101,
+     102,
+     103,
+     104
+    ]
+   },
+   "ergebnis": {
+    "rel_verlust": {
+     "-8": 0.005463246301679576,
+     "-7": 0.001312328448372943,
+     "-6": 0.0005772946528401091,
+     "-5": 0.00034304368203485553,
+     "-4": 0.00136634469888537,
+     "-3": 0.009575301008532825,
+     "-2": 0.02309663442485597,
+     "-1": 0.050877110631403724,
+     "0": 0.09244466666006092
+    },
+    "beste_log2_lr": -5
+   },
+   "sek": 3.41
+  },
+  {
+   "id": 8,
+   "wer": "forscher-numeriker",
+   "op": "lr_sweep",
+   "args": {
+    "problem": {
+     "typ": "quadratisch",
+     "rotiert": true,
+     "a_L": 2.0,
+     "a_R": 2.0
+    },
+    "optimizer": "adam",
+    "log2_lrs": [
+     -8,
+     -7,
+     -6,
+     -5,
+     -4,
+     -3,
+     -2
+    ],
+    "steps": 500,
+    "seeds": [
+     100,
+     101,
+     102
+    ],
+    "schedule": "const"
+   },
+   "ergebnis": {
+    "rel_verlust": {
+     "-8": 0.0307425790668092,
+     "-7": 0.014445021578976678,
+     "-6": 0.007143061096774103,
+     "-5": 0.003930735317988153,
+     "-4": 0.0026312516896232407,
+     "-3": 0.0022399914394727553,
+     "-2": 0.002508911373714831
+    },
+    "beste_log2_lr": -3
+   },
+   "sek": 0.43
+  },
+  {
+   "id": 9,
+   "wer": "forscher-numeriker",
+   "op": "lr_sweep",
+   "args": {
+    "problem": {
+     "typ": "quadratisch",
+     "rotiert": true,
+     "a_L": 2.0,
+     "a_R": 2.0
+    },
+    "optimizer": "adam",
+    "log2_lrs": [
+     -8,
+     -7,
+     -6,
+     -5,
+     -4,
+     -3,
+     -2
+    ],
+    "steps": 500,
+    "seeds": [
+     100,
+     101,
+     102
+    ],
+    "schedule": "cosine"
+   },
+   "ergebnis": {
+    "rel_verlust": {
+     "-8": 0.06213156928552129,
+     "-7": 0.031218498722245074,
+     "-6": 0.015629757711640768,
+     "-5": 0.008449460050553161,
+     "-4": 0.005674327374244672,
+     "-3": 0.004736881186101688,
+     "-2": 0.00519776510228857
+    },
+    "beste_log2_lr": -3
+   },
+   "sek": 0.44
+  },
+  {
+   "id": 10,
+   "wer": "forscher-numeriker",
+   "op": "lr_sweep",
+   "args": {
+    "problem": {
+     "typ": "quadratisch",
+     "rotiert": true,
+     "a_L": 2.0,
+     "a_R": 2.0
+    },
+    "optimizer": "adam",
+    "log2_lrs": [
+     -8,
+     -7,
+     -6,
+     -5,
+     -4,
+     -3,
+     -2
+    ],
+    "steps": 500,
+    "seeds": [
+     100,
+     101,
+     102
+    ],
+    "schedule": "linear"
+   },
+   "ergebnis": {
+    "rel_verlust": {
+     "-8": 0.06054690238938372,
+     "-7": 0.030122593707126916,
+     "-6": 0.014965874183522881,
+     "-5": 0.008078761315485732,
+     "-4": 0.005423313658324698,
+     "-3": 0.004529901517730542,
+     "-2": 0.00497248042402231
+    },
+    "beste_log2_lr": -3
+   },
+   "sek": 0.41
+  },
+  {
+   "id": 11,
+   "wer": "forscher-numeriker",
+   "op": "lr_sweep",
+   "args": {
+    "problem": {
+     "typ": "quadratisch",
+     "rotiert": true,
+     "a_L": 2.0,
+     "a_R": 2.0
+    },
+    "optimizer": "adam",
+    "log2_lrs": [
+     -8,
+     -7,
+     -6,
+     -5,
+     -4,
+     -3,
+     -2
+    ],
+    "steps": 500,
+    "seeds": [
+     100,
+     101,
+     102
+    ],
+    "schedule": "wsd"
+   },
+   "ergebnis": {
+    "rel_verlust": {
+     "-8": 0.03385879538808368,
+     "-7": 0.016038006449400077,
+     "-6": 0.007914987123919569,
+     "-5": 0.004322522838101355,
+     "-4": 0.002923794925897348,
+     "-3": 0.0024829573014949874,
+     "-2": 0.002773186044216227
+    },
+    "beste_log2_lr": -3
+   },
+   "sek": 0.4
+  },
+  {
+   "id": 12,
+   "wer": "forscher-numeriker",
+   "op": "lr_sweep",
+   "args": {
+    "problem": {
+     "typ": "quadratisch",
+     "rotiert": true,
+     "a_L": 2.5,
+     "a_R": 2.5,
+     "noise": {
+      "typ": "gauss",
+      "sigma": 0.1
+     }
+    },
+    "optimizer": "adam",
+    "log2_lrs": [
+     -8,
+     -7,
+     -6,
+     -5,
+     -4,
+     -3,
+     -2
+    ],
+    "steps": 500,
+    "seeds": [
+     200,
+     201,
+     202
+    ],
+    "schedule": "const"
+   },
+   "ergebnis": {
+    "rel_verlust": {
+     "-8": 0.03395930111342175,
+     "-7": 0.028237693171993455,
+     "-6": 0.027993427723809125,
+     "-5": 0.042787633144458236,
+     "-4": 0.07384099716638975,
+     "-3": 0.10633234747562488,
+     "-2": 0.22989234283581528
+    },
+    "beste_log2_lr": -6
+   },
+   "sek": 0.73
+  },
+  {
+   "id": 13,
+   "wer": "forscher-numeriker",
+   "op": "lr_sweep",
+   "args": {
+    "problem": {
+     "typ": "quadratisch",
+     "rotiert": true,
+     "a_L": 2.5,
+     "a_R": 2.5,
+     "noise": {
+      "typ": "gauss",
+      "sigma": 0.1
+     }
+    },
+    "optimizer": "adam",
+    "log2_lrs": [
+     -8,
+     -7,
+     -6,
+     -5,
+     -4,
+     -3,
+     -2
+    ],
+    "steps": 500,
+    "seeds": [
+     200,
+     201,
+     202
+    ],
+    "schedule": "cosine"
+   },
+   "ergebnis": {
+    "rel_verlust": {
+     "-8": 0.04868274563706815,
+     "-7": 0.03126589514405198,
+     "-6": 0.0221314843898194,
+     "-5": 0.015814709876266497,
+     "-4": 0.012628261979414414,
+     "-3": 0.011461798779567925,
+     "-2": 0.010927979746735091
+    },
+    "beste_log2_lr": -2
+   },
+   "sek": 0.74
+  },
+  {
+   "id": 14,
+   "wer": "forscher-numeriker",
+   "op": "lr_sweep",
+   "args": {
+    "problem": {
+     "typ": "mlp"
+    },
+    "optimizer": "adam",
+    "log2_lrs": [
+     -7,
+     -6,
+     -5,
+     -4,
+     -3,
+     -2,
+     -1
+    ],
+    "steps": 500,
+    "seeds": [
+     300,
+     301,
+     302
+    ],
+    "schedule": "const"
+   },
+   "ergebnis": {
+    "rel_verlust": {
+     "-7": 0.0014313814300252864,
+     "-6": 0.0007855622309418618,
+     "-5": 0.0014604203280632663,
+     "-4": 0.012114247054190223,
+     "-3": 0.051997451872446476,
+     "-2": 0.08461506010736873,
+     "-1": 0.16653945221268618
+    },
+    "beste_log2_lr": -6
+   },
+   "sek": 2.4
+  },
+  {
+   "id": 15,
+   "wer": "forscher-numeriker",
+   "op": "lr_sweep",
+   "args": {
+    "problem": {
+     "typ": "mlp"
+    },
+    "optimizer": "adam",
+    "log2_lrs": [
+     -7,
+     -6,
+     -5,
+     -4,
+     -3,
+     -2,
+     -1
+    ],
+    "steps": 500,
+    "seeds": [
+     300,
+     301,
+     302
+    ],
+    "schedule": "cosine"
+   },
+   "ergebnis": {
+    "rel_verlust": {
+     "-7": 0.006066418951412033,
+     "-6": 0.0019295409245645577,
+     "-5": 0.001048294342298638,
+     "-4": 0.00137048109877701,
+     "-3": 0.006088211839669799,
+     "-2": 0.033525399421382836,
+     "-1": 0.10455734240104103
+    },
+    "beste_log2_lr": -5
+   },
+   "sek": 2.54
+  },
+  {
+   "id": 16,
+   "wer": "forscher-numeriker",
+   "op": "lr_sweep",
+   "args": {
+    "problem": {
+     "typ": "quadratisch",
+     "rotiert": true,
+     "a_L": 2.0,
+     "a_R": 2.0,
+     "noise": {
+      "typ": "student",
+      "sigma": 0.1,
+      "df": 2
+     }
+    },
+    "optimizer": "adam",
+    "log2_lrs": [
+     -8,
+     -7,
+     -6,
+     -5,
+     -4,
+     -3,
+     -2
+    ],
+    "steps": 500,
+    "seeds": [
+     450,
+     451,
+     452
+    ],
+    "schedule": "const"
+   },
+   "ergebnis": {
+    "rel_verlust": {
+     "-8": 0.11493935210532168,
+     "-7": 0.09341924586478918,
+     "-6": 0.09677980104354833,
+     "-5": 0.12819978851060929,
+     "-4": 0.2529373369381255,
+     "-3": 0.39580828010508207,
+     "-2": 0.7545226661603585
+    },
+    "beste_log2_lr": -7
+   },
+   "sek": 1.06
+  },
+  {
+   "id": 17,
+   "wer": "forscher-numeriker",
+   "op": "lr_sweep",
+   "args": {
+    "problem": {
+     "typ": "quadratisch",
+     "rotiert": true,
+     "a_L": 2.0,
+     "a_R": 2.0,
+     "noise": {
+      "typ": "student",
+      "sigma": 0.1,
+      "df": 2
+     }
+    },
+    "optimizer": "adam",
+    "log2_lrs": [
+     -8,
+     -7,
+     -6,
+     -5,
+     -4,
+     -3,
+     -2
+    ],
+    "steps": 500,
+    "seeds": [
+     450,
+     451,
+     452
+    ],
+    "schedule": "cosine"
+   },
+   "ergebnis": {
+    "rel_verlust": {
+     "-8": 0.1504275993407415,
+     "-7": 0.10612785904930257,
+     "-6": 0.07583448451586483,
+     "-5": 0.055803311429375724,
+     "-4": 0.048485956859820156,
+     "-3": 0.05535861401196121,
+     "-2": 0.0743958823637899
+    },
+    "beste_log2_lr": -4
+   },
+   "sek": 0.99
+  },
+  {
+   "id": 18,
+   "wer": "forscher-numeriker",
+   "op": "lr_sweep",
+   "args": {
+    "problem": {
+     "typ": "mlp"
+    },
+    "optimizer": "adam",
+    "log2_lrs": [
+     -7,
+     -6,
+     -5,
+     -4,
+     -3,
+     -2,
+     -1
+    ],
+    "steps": 500,
+    "seeds": [
+     450,
+     451,
+     452
+    ],
+    "schedule": "linear"
+   },
+   "ergebnis": {
+    "rel_verlust": {
+     "-7": 0.004539021702554523,
+     "-6": 0.0017398590592497903,
+     "-5": 0.0011290600794026328,
+     "-4": 0.001298966951284119,
+     "-3": 0.00486479907969636,
+     "-2": 0.03711612927217448,
+     "-1": 0.09457325915205664
+    },
+    "beste_log2_lr": -5
+   },
+   "sek": 2.63
+  },
+  {
+   "id": 19,
+   "wer": "forscher-numeriker",
+   "op": "lr_sweep",
+   "args": {
+    "problem": {
+     "typ": "mlp"
+    },
+    "optimizer": "adam",
+    "log2_lrs": [
+     -7,
+     -6,
+     -5,
+     -4,
+     -3,
+     -2,
+     -1
+    ],
+    "steps": 500,
+    "seeds": [
+     450,
+     451,
+     452
+    ],
+    "schedule": "wsd"
+   },
+   "ergebnis": {
+    "rel_verlust": {
+     "-7": 0.0015754215893412178,
+     "-6": 0.0007688999447962058,
+     "-5": 0.0008131217714966872,
+     "-4": 0.002372843747612736,
+     "-3": 0.015287993787263594,
+     "-2": 0.038396575682081976,
+     "-1": 0.08815563650877416
+    },
+    "beste_log2_lr": -6
+   },
+   "sek": 2.55
+  },
+  {
+   "id": 20,
+   "wer": "forscher-numeriker",
+   "op": "lr_sweep",
+   "args": {
+    "problem": {
+     "typ": "quadratisch",
+     "rotiert": true,
+     "a_L": 2.0,
+     "a_R": 2.0
+    },
+    "optimizer": "adam",
+    "log2_lrs": [
+     -8,
+     -7,
+     -6,
+     -5,
+     -4,
+     -3,
+     -2
+    ],
+    "steps": 500,
+    "seeds": [
+     450,
+     451,
+     452
+    ],
+    "schedule": "linear"
+   },
+   "ergebnis": {
+    "rel_verlust": {
+     "-8": 0.055214534568672514,
+     "-7": 0.027868888989949922,
+     "-6": 0.014352514934463005,
+     "-5": 0.007779725317121222,
+     "-4": 0.005052097736445231,
+     "-3": 0.004384761212666861,
+     "-2": 0.004895084100851324
+    },
+    "beste_log2_lr": -3
+   },
+   "sek": 0.41
+  },
+  {
+   "id": 21,
+   "wer": "forscher-numeriker",
+   "op": "lr_sweep",
+   "args": {
+    "problem": {
+     "typ": "quadratisch",
+     "rotiert": true,
+     "a_L": 2.0,
+     "a_R": 2.0
+    },
+    "optimizer": "adam",
+    "log2_lrs": [
+     -8,
+     -7,
+     -6,
+     -5,
+     -4,
+     -3,
+     -2
+    ],
+    "steps": 500,
+    "seeds": [
+     450,
+     451,
+     452
+    ],
+    "schedule": "wsd"
+   },
+   "ergebnis": {
+    "rel_verlust": {
+     "-8": 0.03122822541704499,
+     "-7": 0.015366544043473077,
+     "-6": 0.007666423684508574,
+     "-5": 0.004093570491069785,
+     "-4": 0.0027004074330083164,
+     "-3": 0.0023791901071493816,
+     "-2": 0.0027001455284753812
+    },
+    "beste_log2_lr": -3
+   },
+   "sek": 0.44
+  }
+ ],
+ "sek": 491.7
+}

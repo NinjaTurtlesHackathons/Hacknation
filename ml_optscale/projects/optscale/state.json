@@ -672,7 +672,7 @@
    "neuheit": 0.4,
    "machbarkeit": 0.9,
    "id": "F6",
-   "status": "offen"
+   "status": "beantwortet"
   },
   {
    "frage": "Ab welcher Lernrate operiert Voll-Batch-GD auf dem tanh-Netz an der Edge of Stability (lr*lambda_max/2 nahe 1) statt im stabilen Regime, und konvergiert der Verlust dort trotzdem?",
@@ -949,6 +949,24 @@
    "id": "F37",
    "status": "zurückgestellt",
    "aus_runde": 14
+  },
+  {
+   "frage": "Gilt der Cosine-Vorteil bei Adam auch bei Student-Rauschen mit unendlicher Varianz (df=2) und bei einem Vergleich WSD gegen Cosine auf derselben rotierten Quadratik (a_L=a_R=2.5, Gauß-Rauschen sigma=0.1, 500 Schritte)? Dazu eine Rauschskala-Variation (sigma 0.01, 0.1, 0.5) als Dosis-Wirkungs-Gegenprobe.",
+   "begruendung": "Das Ergebnis stützt sich auf einen einzelnen Gauß-Fall mit Konfidenz 0.65. Der Cosine-Gewinn kommt vermutlich daher, dass die Lernrate am Ende gegen 0 läuft und so das Rauschplateau gesenkt wird. Wenn das stimmt, sollte der Vorteil mit sigma wachsen, bei sigma gegen 0 verschwinden, und WSD (letzte 20 % linear auf 0) sollte Cosine annähernd erreichen. Bei heavy-tailed Rauschen ist das Verhalten offen. So werden Mechanismus, Dosisabhängigkeit und Verallgemeinerung geprüft. Prüfbar mit 'vergleich'-Prüfungen (Adam/cosine vs. Adam/const bzw. Adam/wsd vs. Adam/cosine) bei mehreren Rauschniveaus.",
+   "neuheit": 0.6,
+   "machbarkeit": 0.9,
+   "id": "F38",
+   "status": "zurückgestellt",
+   "aus_runde": 15
+  },
+  {
+   "frage": "Hängt der Schedule-Effekt vom Optimierer ab? Schlägt Muon mit Cosine Muon mit const auf der rauschigen rotierten Quadratik (a_L=a_R=2.5, Gauß sigma=0.1), und gilt dasselbe für SGD und Shampoo? Zusätzlich: Verschwindet der Cosine-Vorteil bei Adam, wenn ein Warmup hinzukommt?",
+   "begruendung": "Bisher wurde der Schedule-Effekt nur bei Adam bestätigt, während bei Muon frühere Ergebnisse (R4, R14) eine beste konstante LR von 2^-5 zeigen, also eine eher kleine Lernrate. Wenn der Vorteil aus dem Rauschplateau-Effekt folgt, müsste er optimiereruniversell sein. Wenn er bei Muon ausbleibt, weil die orthogonalisierte Updategröße ohnehin normiert ist, wäre das eine echte Grenze der Verallgemeinerung. Die Warmup-Variante trennt Schedule-Effekt von Frühphasen-Stabilisierung. Prüfbar mit 'vergleich'-Prüfungen pro Optimierer (sgd, muon, shampoo) mit identischem Problem und 500 Schritten.",
+   "neuheit": 0.7,
+   "machbarkeit": 0.85,
+   "id": "F39",
+   "status": "zurückgestellt",
+   "aus_runde": 15
   }
  ],
  "claims": [
@@ -1767,6 +1785,88 @@
     }
    ],
    "runde": 14
+  },
+  {
+   "id": "optscale-R15",
+   "frage": "Senken Lernraten-Schedules (cosine, linear, wsd) den Endverlust gegenüber konstanter Lernrate bei gleichem Tuning-Aufwand, auf verrauschten Quadratiken und im nicht-konvexen MLP?",
+   "text": "Auf dem Problem {\"typ\": \"quadratisch\", \"rotiert\": true, \"a_L\": 2.5, \"a_R\": 2.5, \"noise\": {\"typ\": \"gauss\", \"sigma\": 0.1}} mit 500 Schritten erreicht adam (cosine) einen kleineren relativen Endverlust als adam (const), beide mit selbst getunter Lernrate (Prüfer: 10 frische Seeds, p < 0.01, Verhältnis < 0.9).",
+   "interpretation_ungeprueft": "Teilweise ja – Cosine hilft bei rauschigen Quadratiken, nicht bei rauschfreien oder im MLP.",
+   "pruefung": {
+    "typ": "vergleich",
+    "problem": {
+     "typ": "quadratisch",
+     "rotiert": true,
+     "a_L": 2.5,
+     "a_R": 2.5,
+     "noise": {
+      "typ": "gauss",
+      "sigma": 0.1
+     }
+    },
+    "steps": 500,
+    "a": {
+     "optimizer": "adam",
+     "schedule": "cosine"
+    },
+    "b": {
+     "optimizer": "adam",
+     "schedule": "const"
+    }
+   },
+   "grund": "Prüfer: adam/cosine (beste LR 2^-2) vs adam/const (beste LR 2^-6), je eigenes Tuning auf Seeds (100, 101, 102), Bewertung auf 10 frischen Seeds: geometr. Mittel rel. Endverlust 1.142e-02 vs 3.190e-02, Verhältnis 0.358 (Schwelle < 0.9), gepaarter Permutationstest p = 0.0008 (Schwelle < 0.01)",
+   "level": "statistical",
+   "status": "angefochten",
+   "red_team": [
+    {
+     "pruefung": {
+      "typ": "vergleich",
+      "problem": {
+       "typ": "mlp"
+      },
+      "steps": 1000,
+      "a": {
+       "optimizer": "sgd",
+       "schedule": "cosine"
+      },
+      "b": {
+       "optimizer": "sgd",
+       "schedule": "const"
+      }
+     },
+     "idee": "Widerspricht dem Teil 'im MLP hilft nichts': Im nicht-konvexen Lehrer-Schüler-MLP mit Minibatch-Rauschen senkt das Abklingen der Lernrate auf 0 den Rauschboden. Mit SGD und neu getunter Lernrate sollte Cosine daher einen kleineren Endverlust erreichen als const. Die Behauptung 'const besser oder ähnlich' wäre damit falsch.",
+     "bestanden": false,
+     "grund": "Prüfer: sgd/cosine (beste LR 2^-1) vs sgd/const (beste LR 2^-1), je eigenes Tuning auf Seeds (100, 101, 102), Bewertung auf 10 frischen Seeds: geometr. Mittel rel. Endverlust 4.859e-03 vs 3.732e-03, V"
+    },
+    {
+     "pruefung": {
+      "typ": "vergleich",
+      "problem": {
+       "typ": "quadratisch",
+       "rotiert": false,
+       "a_L": 1.5,
+       "a_R": 1.5,
+       "noise": {
+        "typ": "student",
+        "df": 3,
+        "sigma": 0.1
+       }
+      },
+      "steps": 1000,
+      "a": {
+       "optimizer": "sgd",
+       "schedule": "wsd"
+      },
+      "b": {
+       "optimizer": "sgd",
+       "schedule": "const"
+      }
+     },
+     "idee": "Der Gewinn durch Schedules ist nicht auf Cosine mit Adam beschränkt und nicht auf Gauss-Rauschen. WSD (letzte 20 % linear auf 0) mit SGD auf einer Quadratik mit heavy-tailed Student-Rauschen (df=3) senkt den stationären Rauschboden deutlich. Ein getuntes const-SGD kann das nicht, weil es die Lernrate klein halten muss und dann langsam konvergiert. Wsd sollte also const schlagen. Das widerspricht der Verengung 'nur Cosine' und dem Verweis auf den Einzelvergleich E13 gegen E12 mit Adam.",
+     "bestanden": true,
+     "grund": "Prüfer: sgd/wsd (beste LR 2^1) vs sgd/const (beste LR 2^0), je eigenes Tuning auf Seeds (100, 101, 102), Bewertung auf 10 frischen Seeds: geometr. Mittel rel. Endverlust 1.422e-02 vs 2.563e-02, Verhäl"
+    }
+   ],
+   "runde": 15
   }
  ],
  "widerlegt": [],
@@ -2361,7 +2461,63 @@
     }
    ],
    "sek": 190.9
+  },
+  {
+   "runde": 15,
+   "frage": "F6",
+   "status": "beantwortet",
+   "red_team": [
+    {
+     "pruefung": {
+      "typ": "vergleich",
+      "problem": {
+       "typ": "mlp"
+      },
+      "steps": 1000,
+      "a": {
+       "optimizer": "sgd",
+       "schedule": "cosine"
+      },
+      "b": {
+       "optimizer": "sgd",
+       "schedule": "const"
+      }
+     },
+     "idee": "Widerspricht dem Teil 'im MLP hilft nichts': Im nicht-konvexen Lehrer-Schüler-MLP mit Minibatch-Rauschen senkt das Abklingen der Lernrate auf 0 den Rauschboden. Mit SGD und neu getunter Lernrate sollte Cosine daher einen kleineren Endverlust erreichen als const. Die Behauptung 'const besser oder ähnlich' wäre damit falsch.",
+     "bestanden": false,
+     "grund": "Prüfer: sgd/cosine (beste LR 2^-1) vs sgd/const (beste LR 2^-1), je eigenes Tuning auf Seeds (100, 101, 102), Bewertung auf 10 frischen Seeds: geometr. Mittel rel. Endverlust 4.859e-03 vs 3.732e-03, V"
+    },
+    {
+     "pruefung": {
+      "typ": "vergleich",
+      "problem": {
+       "typ": "quadratisch",
+       "rotiert": false,
+       "a_L": 1.5,
+       "a_R": 1.5,
+       "noise": {
+        "typ": "student",
+        "df": 3,
+        "sigma": 0.1
+       }
+      },
+      "steps": 1000,
+      "a": {
+       "optimizer": "sgd",
+       "schedule": "wsd"
+      },
+      "b": {
+       "optimizer": "sgd",
+       "schedule": "const"
+      }
+     },
+     "idee": "Der Gewinn durch Schedules ist nicht auf Cosine mit Adam beschränkt und nicht auf Gauss-Rauschen. WSD (letzte 20 % linear auf 0) mit SGD auf einer Quadratik mit heavy-tailed Student-Rauschen (df=3) senkt den stationären Rauschboden deutlich. Ein getuntes const-SGD kann das nicht, weil es die Lernrate klein halten muss und dann langsam konvergiert. Wsd sollte also const schlagen. Das widerspricht der Verengung 'nur Cosine' und dem Verweis auf den Einzelvergleich E13 gegen E12 mit Adam.",
+     "bestanden": true,
+     "grund": "Prüfer: sgd/wsd (beste LR 2^1) vs sgd/const (beste LR 2^0), je eigenes Tuning auf Seeds (100, 101, 102), Bewertung auf 10 frischen Seeds: geometr. Mittel rel. Endverlust 1.422e-02 vs 2.563e-02, Verhäl"
+    }
+   ],
+   "sek": 491.7
   }
  ],
- "kosten_usd": 7.380249999999999
+ "kosten_usd": 7.886671
 }
