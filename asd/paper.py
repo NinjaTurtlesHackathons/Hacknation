@@ -338,6 +338,50 @@ def build_latex(md, title, authors, aff, C, d, lang, figs, keywords):
     return prov
 
 
+def _env_statements(md):
+    return sorted(re.sub(r"\s+", " ", re.sub(r"\[[^\]]*\]", "", m.group(2))).strip()
+                  for m in re.finditer(r"^:::\s*\{?\.?(\w+)[^\n]*\n(.*?)^:::\s*$", md, re.M | re.S) if m.group(1).lower() in ENVS)
+
+
+def _numbers(md):
+    from .writer import _nums
+    return sorted(_nums(re.sub(r"\[[^\]]*\]", "", re.sub(r"C-[\w\-*.]+", "", md))))
+
+
+def editor_pass(md, C, gate, lang, salt):
+    """Lektorat: Sprache, Fluss, Übergänge. Harte Regel per Code: Zahlen, Theorem-Aussagen und zitierte IDs bleiben gleich, Gate bleibt bei 0."""
+    from .llm import ask
+    sys_ = ("You are a professional copy editor for physics/mathematics journals. Improve language, flow, transitions and academic style. "
+            "Do NOT change, add or remove any number, any formula, any formal statement inside ::: blocks, or any citation [C-...]. Return the full text.")
+    new = ask(f"Edit this article in {'English' if lang == 'en' else 'German'}:\n\n{md}", sys_, salt=f"editor-{salt}")
+    ok = (_numbers(new) == _numbers(md) and _env_statements(new) == _env_statements(md)
+          and sorted(set(re.findall(r"C-[\w\-*.]+", new))) == sorted(set(re.findall(r"C-[\w\-*.]+", md))) and not (check(new, C) + gate(new)))
+    return (new if ok else md), {"lektorat_uebernommen": ok}
+
+
+def referee_pass(pdf_text, md, C, gate, title, outline, lang, salt, d):
+    """Gutachter sieht nur den PDF-Text: 5 größte Schwächen. Behebbares wird mit den vorhandenen Claims behoben, Rest -> referee_report.md."""
+    from .llm import ask_json, ask
+    r = ask_json(f"Article (plain text of the PDF):\n\n{pdf_text[:60000]}\n\nAct as a demanding referee for a physics/mathematics journal. List the 5 most "
+                 "serious weaknesses. For each say whether it can be fixed by rewriting with the evidence already present in the paper (fixable_by_rewriting).\n"
+                 'JSON: {"weaknesses": [{"title": "...", "detail": "...", "fixable_by_rewriting": true|false, "suggestion": "..."}]}',
+                 "You are an expert referee. Answer with valid JSON only.", salt=f"referee-{salt}")
+    W = r.get("weaknesses", [])[:5]; fix = [w for w in W if w.get("fixable_by_rewriting")]; new = md; applied = False
+    if fix:
+        cl = "\n".join(f"- [{c['claim_id']}] ({c['level']}, {c['status']}" + (f", allowed environment={c['env']}" if c.get("env") else "") + f") {c['text']}" for c in C)
+        fb = "\n".join(f"- {w['title']}: {w['detail']} Suggestion: {w.get('suggestion', '')}" for w in fix)
+        cand = ask(f"Title: {title}\n\nOutline:\n{outline}\n\nClaim list (only allowed source):\n{cl}\n\nCurrent article:\n{md}\n\nA referee raised these points:\n{fb}\n\n"
+                   "Revise the article to address them using ONLY the claims above (keep all citations [C-...]). Return the full article in Markdown.",
+                   "You revise scientific articles. Every statement must cite its claim id; no number that is not in a cited claim.", salt=f"referee-fix-{salt}")
+        if not (check(cand, C) + gate(cand)): new, applied = cand, True
+    L = [f"# Referee report ({'en' if lang == 'en' else 'de'})", "", f"Fixable points addressed in a revision: {'yes' if applied else 'no (revision failed the checks or nothing fixable)'}", ""]
+    for j, w in enumerate(W, 1):
+        L += [f"## {j}. {w.get('title')}", "", w.get("detail", ""), "", f"- Fixable by rewriting: {w.get('fixable_by_rewriting')}",
+              f"- Suggestion: {w.get('suggestion', '')}", f"- Status: {'addressed in revision' if applied and w.get('fixable_by_rewriting') else 'open'}", ""]
+    open(f"{d}/referee_report.md", "w").write("\n".join(L))
+    return new, {"referee_schwaechen": len(W), "behoben_versucht": len(fix), "revision_uebernommen": applied}
+
+
 def main():
     ap = argparse.ArgumentParser(); ap.add_argument("--domain", required=True); ap.add_argument("--titel", default="", help="leer = informativer Titel aus der Kernaussage")
     ap.add_argument("--autoren", required=True); ap.add_argument("--affiliation", default=""); ap.add_argument("--sprache", default="en", choices=["de", "en"])
@@ -359,7 +403,7 @@ def main():
     for c in C: c["env"] = env_name(c) if c["claim_id"].startswith("C-" + a.domain) and not c["claim_id"].endswith("-I") and "-RT" not in c["claim_id"] else None
     gate = lambda m: rule_issues(m) + env_issues(m, C) + scope_issues(m, C)
     md, log = write(a.titel, f"Research field: {D.kontext}\n\n{outline}", C, salt=f"paper2-{a.domain}-{a.sprache}", lang=a.sprache, extra_check=gate)
-    rest = check(md, C) + gate(md)
+    md, ed_log = editor_pass(md, C, gate, a.sprache, salt=a.domain); log["lektorat"] = ed_log
     figs = []
     try: figs = D.figures(json.load(open(f"{d}/state.json")), d, lang=a.sprache)
     except TypeError: figs = [(f[0], f[1], []) for f in D.figures(json.load(open(f"{d}/state.json")), d)]
@@ -367,8 +411,16 @@ def main():
         md += f"\n<!-- Abbildung {fn}: Belege {', '.join(ids)} -->\n"
     open(f"{d}/paper.md", "w").write(f"# {a.titel}\n\n{a.autoren}, {a.affiliation}\n\n{md}\n")
     json.dump({"claims": C, "story": plan}, open(f"{d}/paper_belege.json", "w"), ensure_ascii=False, indent=1)
-    prov = build_latex(md, a.titel, a.autoren, a.affiliation, C, d, a.sprache, figs, a.keywords or plan.get("kernfrage", "")[:120])
+    kw = a.keywords or plan.get("kernfrage", "")[:120]
+    prov = build_latex(md, a.titel, a.autoren, a.affiliation, C, d, a.sprache, figs, kw)
+    pdf_text = sp.run(["pdftotext", f"{d}/paper.pdf", "-"], capture_output=True, text=True).stdout if os.path.exists(f"{d}/paper.pdf") else md
+    md, ref_log = referee_pass(pdf_text, md, C, gate, a.titel, outline, a.sprache, a.domain, d); log["referee"] = ref_log
+    if ref_log["revision_uebernommen"]:
+        open(f"{d}/paper.md", "w").write(f"# {a.titel}\n\n{a.autoren}, {a.affiliation}\n\n{md}\n")
+        prov = build_latex(md, a.titel, a.autoren, a.affiliation, C, d, a.sprache, figs, kw)
+    rest = check(md, C) + gate(md)
     proto = {"claims_zitiert": len(set(re.findall(r"C-[\w\-*.]+", md))), "korrekturrunden": log["runden"], "entfernt": log["entfernt"],
+             "lektorat": log.get("lektorat"), "referee": log.get("referee"),
              "verbleibende_verstoesse": [list(x) for x in rest], "story": plan, "provenance_zeilen": len(prov)}
     json.dump(proto, open(f"{d}/pruefprotokoll.json", "w"), ensure_ascii=False, indent=1)
     print(f"{d}/paper.pdf" if os.path.exists(f"{d}/paper.pdf") else "PDF fehlt", "| verbleibende Verstöße:", len(rest), "| Titel:", a.titel)
