@@ -170,7 +170,7 @@ class CLI:
         r = _jsonfest(self.D.run_op(self.a.op, args))
         self.P.s.setdefault("experimente", []).append({"ts": now(), "agent": self.agent, "op": self.a.op, "args": args, "frage": self.P.s.get("aktive_frage")})
         eid = f"E{len(self.P.s['experimente'])}"; self.P.save()
-        print(f"EXPERIMENT {eid} " + json.dumps(r, ensure_ascii=False)[:4000]); self.record("experiment", ergebnis=str(r)[:300], ein={"frage": self.P.s.get("aktive_frage"), "option": (self.P.s.get("aktive_option") or {}).get("id")},
+        print(f"EXPERIMENT {eid} " + json.dumps(r, ensure_ascii=False)[:4000]); self.record("experiment", ergebnis=str(r)[:300], ein={"frage": self.P.s.get("aktive_frage"), "option": self.a.option or (self.P.s.get("aktive_option") or {}).get("id")},
                     aus={"experiment": eid, "op": self.a.op}); return 0
 
     def pruefe(self):
@@ -209,7 +209,7 @@ class CLI:
             out["ueberraschung"] = True; out["widerspricht_annahme"] = ueb["annahme"]; out["ueberraschung_grund"] = ueb["grund"]
             self.P.s["claims"][-1]["ueberraschung"] = ueb; self.P.save()
         print("RESULT " + json.dumps(out, ensure_ascii=False))
-        self.record("pruefe", ein={"frage": qid, "option": (self.P.s.get("aktive_option") or {}).get("id")}, aus={"claim": cid}, ergebnis=out); return 0
+        self.record("pruefe", ein={"frage": qid, "option": self.a.option or (self.P.s.get("aktive_option") or {}).get("id")}, aus={"claim": cid}, ergebnis=out); return 0
 
     def redteam(self):
         c = next((x for x in self.P.s["claims"] if x["id"] == self.a.claim), None)

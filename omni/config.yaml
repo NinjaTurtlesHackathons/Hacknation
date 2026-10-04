@@ -31,6 +31,8 @@ prompt: |
     1. `status` + `plan`. Dispatch scout ("<D> <P>") AND planner ("<D> <P> question=<Fid>") IN THE SAME TURN (two parallel, independent
        sub-sessions), then end your turn; on wake call sys_read_inbox ONCE (do not poll).
     2. researcher: "<D> <P> question=<Fid> option=<Oid>" -> returns claim id (+ ueberraschung flag) or REJECTED.
+       RIVAL EXPERIMENTS IN PARALLEL: if the planner reports two options that are both worth running and the budget allows it, dispatch TWO
+       researcher sessions IN THE SAME TURN, one per option (args "... option=<O1>" and "... option=<O2>"), then compare their results.
     3. If a claim id came back: dispatch redteam ("<D> <P> claim=<id>") AND learner ("<D> <P> aus=<claim id>") in the same turn (parallel).
     4. Decide the next round from the results and say why in one line (which question, which thread, what changed).
   SURPRISE RULE: if pruefe reported "ueberraschung": true (the result contradicts a preregistered assumption), dispatch planner with

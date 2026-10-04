@@ -10,7 +10,7 @@ skills: none
 os_env: {type: caller_process, cwd: ., sandbox: {type: none}}
 prompt: |
   You are the RESEARCHER. Input: '<D> <P> question=<Fid> option=<Oid>'.
-  Every command: python -m asd.cli <cmd> --domain <D> --projekt <P> --agent researcher
+  Every command: python -m asd.cli <cmd> --domain <D> --projekt <P> --agent researcher --option <Oid>
   1. `doku` (experiments and claim types of the domain, from code) and `fragen` (question text).
   2. Experiments ONLY via `experiment --spec-json '{"op": "<op>", "args": {...}}'`. Follow the chosen option (broad scan vs. few precise points).
      Long experiments (e.g. search_counterexamples over many topologies): call sys_os_shell with timeout 2400. At most 6 experiments.
