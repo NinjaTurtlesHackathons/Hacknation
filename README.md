@@ -29,6 +29,78 @@ fünf geprüfte numerische Befunde zu offenen Fragen aus Suleman 2026 (`results/
 
 
 
+
+
+## Measured acceleration (preregistered replay, H7)
+
+Task: rediscover a known result without access to it (domain `lattice`, limit aspect ratio y_∞ ≈ 1.249621 of the optimal 2D lattice for
+ν → ∞). Leak guard: Suleman 2026 and derived knowledge files blocked; canary test of the whole agent context green before every run.
+Hit = a claim of type `grenzwert`/`y_inf` accepted by the unchanged verifier (numerical verifier, fixed tolerance 2·10⁻⁴ — not a proof).
+Metric N = verifier calls to the first hit (31 = failed within budget 30). 10 seeds per condition, same models and budget
+(`python -m benchmarks.replay_lattice`, raw data `results/replay_lattice/`, summary `results/replay_lattice.json`, figure `results/replay_lattice.png`).
+
+| Condition | N per seed | mean N | hits (95 % Clopper-Pearson) | mean wall time | rejected claims / run |
+|---|---|---|---|---|---|
+| LAB (integrator, code planner, verifier feedback, learning) | 1 3 3 3 3 1 4 3 1 2 | **2.4** | 10/10 (0.69–1.00) | 284 s | 0.9 |
+| NO FEEDBACK (same researchers, independent attempts) | 2 3 1 3 4 3 2 3 5 3 | 2.9 | 10/10 (0.69–1.00) | 306 s | 1.2 |
+| RANDOM (random sub-questions, no integrator/learning) | 9 1 6 8 12 7 12 21 3 31 | 11.0 | 9/10 (0.55–1.00) | 706 s | 2.5 |
+
+- **H7a, LAB vs. RANDOM: speedup 4.6× (paired bootstrap 95 % CI 2.6–7.5), one-sided paired permutation p = 0.003 (BH-adjusted 0.006) → supported.**
+- **H7b, LAB vs. NO FEEDBACK: 1.2× (CI 0.82–1.85), p = 0.26 → not supported.** On this easy task the gain comes from choosing the right
+  question, not from verifier feedback between attempts; the task is too easy (N ≤ 5 without feedback) to measure the feedback effect.
+- No human baseline was measured. "One paper in one night, about 12–14 h" for the authors' manual work is an estimate, not a measurement.
+
+## Use it in your own Claude (MCP server `probatum`)
+
+**Your Claude is the researcher; probatum is the only one that accepts claims.** `probatum` exposes the lab as a local stdio MCP server:
+your Claude proposes experiments and typed claims, probatum runs the experiments and decides every claim with the domain's code verifier
+(exact rational certificates, symbolic proofs, fixed tolerances). No API key, no LLM calls, no shell, no network inside the server.
+
+Requires [uv](https://docs.astral.sh/uv/) (`uvx`). The repository must be reachable for your git (public, or your GitHub credentials).
+`@claude/probatum-mcp` pins the branch the server currently lives on; drop it once merged into the default branch.
+
+**Claude Desktop** — edit `claude_desktop_config.json` (macOS `~/Library/Application Support/Claude/`, Windows `%APPDATA%\Claude\`):
+```json
+{
+  "mcpServers": {
+    "probatum": {
+      "command": "uvx",
+      "args": ["--from", "git+https://github.com/alizema700/HackNation-Ninja-Turtles@claude/probatum-mcp", "probatum-mcp"]
+    }
+  }
+}
+```
+Restart Claude Desktop, then pick the prompt **research_round** (or **verify_my_result**) from the attachment/prompt menu.
+
+**Claude Code** — one command (the `--` separates the server command):
+```bash
+claude mcp add --scope user probatum -- uvx --from git+https://github.com/alizema700/HackNation-Ninja-Turtles@claude/probatum-mcp probatum-mcp
+```
+
+**Claude Code plugin** (MCP server + the `verifier-gated-lab` skill):
+```
+/plugin marketplace add alizema700/HackNation-Ninja-Turtles
+/plugin install probatum@probatum
+```
+(`claude plugin validate --strict` passes for `plugin/` and `.claude-plugin/marketplace.json`.)
+
+| Tool | What it does |
+|---|---|
+| `list_domains` | domains (`lattice`, `proofreading`) with experiment and claim types |
+| `selftest(domain)` | verifier self-test (known true/false statements); **all other tools refuse a domain until it passed in this session** |
+| `describe(domain)` | context, experiment primitives and claim types with field schemas, rules |
+| `run_experiment(domain, spec)` | `{"op", "args"}` → experiment id + compact result (errors as `{"fehler": ...}`) |
+| `submit_claim(domain, claim)` | the only way to confirm a result: `bestanden`, `level`, `grund`, `claim_id`; tolerance fields are removed and reported, unknown fields rejected |
+| `challenge_claim(domain, claim_id, counter_claim)` | red-team by your Claude; a passing, contradicting counter-claim marks the claim contested |
+| `list_claims`, `research_record` | confirmed / contested / rejected claims; every call is logged |
+| `build_paper(domain, title, authors)` | confirmed claims + rejected attempts + writing rules (your Claude writes; every number must come from a claim) |
+
+Resources: `probatum://domains/{domain}/claims`, `probatum://domains/{domain}/record`, `probatum://guide`. Prompts: `research_round`, `verify_my_result`.
+Data: `PROBATUM_HOME` (default `~/.probatum/<domain>/state.json`, `record.jsonl`). Limits: `PROBATUM_TIMEOUT` (default 120 s per computation,
+hard-killed subprocess), `PROBATUM_SELFTEST_TIMEOUT` (900 s). Tests: `pytest tests/test_mcp_server.py` (9 tests: self-test gate, valid claim
+confirmed, claim shifted by 1e-6 rejected, own tolerance ignored, unknown field rejected, timeout), `python tests/mcp_protocol_check.py --voll`
+(real stdio session: lists tools/resources/prompts, self-test, one confirmed and one rejected claim). Example session: [`docs/probatum_example_session.md`](docs/probatum_example_session.md).
+
 ## Omnigent orchestration
 
 **Agents propose, Omnigent orchestrates, only the code verifier accepts.** The lab (`asd/`) stays the source of truth (verifier
