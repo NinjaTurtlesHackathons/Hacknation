@@ -32,3 +32,18 @@ The `asd.domains.geometric_extremal_domain` acceptance gate certifies witness fe
 The branch inherits the existing Lab infrastructure from `algo-efficiency` dff8d99. Review against that branch; main c622004 contains only the original chemistry script. Other lab domains are unchanged. The human supplied direction and authorized autonomous research; agents chose targets, implemented searches, exact certification and adversarial review. Public methods and constructions are credited. No researcher contact or external endorsement is implied.
 
 Raw negative and intermediate candidate trials are losslessly bundled in `trial_archives/` to keep the PR reviewable. Their per-file hashes are verified during restoration by `trial_archives/bundle_trials.py`. Both canonical result witnesses remain ordinary directly reviewable JSON files. The complete local release zip also contains every original unbundled trial. `verify_archive.py` and full pipeline reintegration restore missing trials from these bundles automatically.
+
+
+## Paper document.pdf and presentation materials
+
+The exact PDF supplied as `document.pdf` is preserved at [paper/document.pdf](paper/document.pdf), with a complete text extraction at [paper/document.txt](paper/document.txt). Earlier manuscript sources and the original research archive remain in this directory.
+
+The [presentation package](presentation/README.md) contains an offline interactive lab, six-slide HTML/PDF presentation, handout, SVG/PNG figures, speaker notes, coordinates, exact distance histograms, and an independent Python verifier. Open `presentation/index.html` in a browser or run:
+
+```sh
+python3 research/geometric-extremal/presentation/verify.py
+python3 research/geometric-extremal/results/reproduce.py
+python3 research/geometric-extremal/wave2/paper/verify_witnesses.py
+```
+
+The new publication supplement has a separate hash manifest at `presentation/CONTENTS_SHA256.json`. No global optimality is asserted: the certified statements are G(31) >= 81 and G(41) >= 111.
