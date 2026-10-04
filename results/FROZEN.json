@@ -1,0 +1,124 @@
+{
+ "zeitpunkt": "2026-10-04T03:59:02",
+ "commit": "8c47757",
+ "branch": "claude/submission-kit",
+ "metrics": {
+  "lauf": "runs/omnigent/2026-10-04",
+  "latenz_median_s": 10,
+  "latenz_n": 4,
+  "latenz_min_s": 7,
+  "latenz_max_s": 28,
+  "latenz_ohne_kaltstart_median_s": 7,
+  "frage_zu_zertifikat_median_s": 63,
+  "frage_zu_zertifikat_n": 3,
+  "zertifizierte_claims": 3,
+  "abgelehnte_behauptungen": 1,
+  "zertifiziert_pro_h": 16.5,
+  "kosten_pro_zertifikat_usd": 0.43,
+  "kosten_gesamt_usd": 1.29,
+  "laufzeit_min": 19,
+  "mensch_warten_min": 9,
+  "zeit_agenten_llm_s": 195,
+  "zeit_verifier_s": 57,
+  "zeit_experimente_s": 196,
+  "speedup_manuell": {
+   "status": "ausstehend: mindestens 3 Stoppuhr-Messungen in baselines/manual.jsonl nötig"
+  }
+ },
+ "replay": {
+  "seeds": 10,
+  "budget": 30,
+  "mean_N_lab": 2.4,
+  "mean_N_random": 11.0,
+  "mean_N_no_feedback": 2.9,
+  "speedup_vs_random": 4.6,
+  "speedup_vs_random_ci": [
+   2.6,
+   7.5
+  ],
+  "p_vs_random": 0.003,
+  "h7a_supported": true,
+  "speedup_vs_no_feedback": 1.2,
+  "speedup_vs_no_feedback_ci": [
+   0.82,
+   1.85
+  ],
+  "p_vs_no_feedback": 0.26,
+  "h7b_supported": false
+ },
+ "trust": {
+  "A1": {
+   "n": 36,
+   "richtig": 18,
+   "falsch": 13,
+   "anteil_richtig_pct": 50.0,
+   "anteil_falsch_pct": 36.1,
+   "falsch_ki95_pct": [
+    20.8,
+    53.8
+   ]
+  },
+  "A2": {
+   "n": 36,
+   "richtig": 26,
+   "falsch": 8,
+   "anteil_richtig_pct": 72.2,
+   "anteil_falsch_pct": 22.2,
+   "falsch_ki95_pct": [
+    10.1,
+    39.2
+   ]
+  },
+  "B": {
+   "n": 36,
+   "richtig": 36,
+   "falsch": 0,
+   "anteil_richtig_pct": 100.0,
+   "anteil_falsch_pct": 0.0,
+   "falsch_ki95_pct": [
+    0.0,
+    9.7
+   ]
+  },
+  "BK": {
+   "n": 36,
+   "richtig": 35,
+   "falsch": 1,
+   "anteil_richtig_pct": 97.2,
+   "anteil_falsch_pct": 2.8,
+   "falsch_ki95_pct": [
+    0.1,
+    14.5
+   ]
+  }
+ },
+ "verifier_stress": {
+  "blind_claims": 20,
+  "blind_akzeptiert": 0,
+  "redteam_fallen": 8,
+  "redteam_fallen_abgelehnt": 8,
+  "selbsttest_faelle": {
+   "proofreading": 18,
+   "lattice": 7
+  }
+ },
+ "flaggschiff": {
+  "topologien": 88,
+  "bewiesen": 50,
+  "verletzt": 11,
+  "offen": 27,
+  "neu_im_omnigent_lauf": 8,
+  "eta_min": 1.386398e-12
+ },
+ "claims": {
+  "omni_proofreading_bestaetigt": 14,
+  "omni_proofreading_negative": 2
+ },
+ "laeufe": {
+  "runs/omnigent/2026-10-04": "Kette intakt (82 Glieder, Kopf 1fcb11696c9a)"
+ },
+ "plan": {
+  "planungshorizont_stunden": 24,
+  "hinweis": "keine Messung: Zeithorizont des Abschnitts 'Next 24 h'"
+ }
+}

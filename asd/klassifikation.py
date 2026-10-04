@@ -31,4 +31,6 @@ fk.append({"id": "fakt-verletzungen-eta", "level": "computed_rigorous",
            "text": "Exakte Fehlerraten der zertifizierten Verletzungen (rationale Raten, exakte Arithmetik; alle strikt unter e^-2Delta = 1e-4): " +
                    "; ".join(f"{t}: eta = {e:.6e} ({cid})" for t, (e, cid) in sorted(verl.items(), key=lambda x: int(x[0].split('_')[1])))})
 json.dump(fk, open(f"{d}/fakten.json", "w"), ensure_ascii=False, indent=1)
-print(json.dumps({"bewiesen": len(bew), "verletzt": len(verl), "offen": len(offen), "verletzungen": sorted(verl)}, ensure_ascii=False))
+erg = {"familie": "gebunden<=2", "topologien": len(alle), "bewiesen": len(bew), "verletzt": len(verl), "offen": len(offen),
+       "verletzungen": sorted(verl, key=lambda x: int(x.split('_')[1])), "eta_min": min(e for e, _ in verl.values()) if verl else None, "projekt": a.projekt}
+json.dump(erg, open(f"{d}/klassifikation.json", "w"), indent=1); print(json.dumps(erg, ensure_ascii=False))

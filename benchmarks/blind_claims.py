@@ -34,4 +34,6 @@ for dom, claims in (("lattice", L), ("proofreading", PR)):
         print(f"{dom:12s} #{i:2d} bestanden={r['bestanden']!s:5s} {r.get('grund', '')[:90]}")
     shutil.rmtree(f"projects/{proj}", ignore_errors=True)
 print(f"\nAkzeptiert: {akz}/20  ->  {'GRÜN' if akz == 0 else 'ROT'}")
+os.makedirs("results", exist_ok=True)
+json.dump({"claims": 20, "akzeptiert": akz, "domaenen": ["lattice", "proofreading"], "skript": "benchmarks/blind_claims.py"}, open("results/blind_claims.json", "w"), indent=1)
 sys.exit(1 if akz else 0)

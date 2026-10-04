@@ -1,0 +1,80 @@
+{
+ "quelle": "results/benchmark/score.json (preregistered H3: 12 questions from Suleman 2026, 3 runs each)",
+ "bedingungen": {
+  "A1": {
+   "name": "Claude alone",
+   "n": 36,
+   "richtig": 18,
+   "falsch": 13,
+   "unbekannt": 5,
+   "anteil_richtig_pct": 50.0,
+   "anteil_falsch_pct": 36.1,
+   "falsch_ki95_pct": [
+    20.8,
+    53.8
+   ],
+   "richtig_ki95_pct": [
+    32.9,
+    67.1
+   ],
+   "falsch_pro_richtig": 0.72
+  },
+  "A2": {
+   "name": "Claude with Python",
+   "n": 36,
+   "richtig": 26,
+   "falsch": 8,
+   "unbekannt": 2,
+   "anteil_richtig_pct": 72.2,
+   "anteil_falsch_pct": 22.2,
+   "falsch_ki95_pct": [
+    10.1,
+    39.2
+   ],
+   "richtig_ki95_pct": [
+    54.8,
+    85.8
+   ],
+   "falsch_pro_richtig": 0.31
+  },
+  "B": {
+   "name": "Lab (4 researchers + code verifier)",
+   "n": 36,
+   "richtig": 36,
+   "falsch": 0,
+   "unbekannt": 0,
+   "anteil_richtig_pct": 100.0,
+   "anteil_falsch_pct": 0.0,
+   "falsch_ki95_pct": [
+    0.0,
+    9.7
+   ],
+   "richtig_ki95_pct": [
+    90.3,
+    100.0
+   ],
+   "falsch_pro_richtig": 0.0
+  },
+  "BK": {
+   "name": "Lab, cascade (Haiku first)",
+   "n": 36,
+   "richtig": 35,
+   "falsch": 1,
+   "unbekannt": 0,
+   "anteil_richtig_pct": 97.2,
+   "anteil_falsch_pct": 2.8,
+   "falsch_ki95_pct": [
+    0.1,
+    14.5
+   ],
+   "richtig_ki95_pct": [
+    85.5,
+    99.9
+   ],
+   "falsch_pro_richtig": 0.03
+  }
+ },
+ "manuelle_nachpruefzeit": {
+  "status": "pending: at least 3 stopwatch measurements of step 'behauptung_pruefen' in baselines/manual.jsonl"
+ }
+}
