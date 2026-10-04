@@ -1,50 +1,219 @@
 {
- "zeitpunkt": "2026-10-04T04:01:08",
- "commit": "26f21a9",
- "branch": "claude/submission-kit",
+ "zeitpunkt": "2026-10-04T06:19:53",
+ "commit": "123e300",
+ "branch": "claude/frontend-probatum",
  "metrics": {
-  "lauf": "runs/omnigent/2026-10-04",
-  "latenz_median_s": 10,
+  "lauf": "runs/omnigent/2026-10-04b",
+  "latenz_median_s": 24,
   "latenz_n": 4,
-  "latenz_min_s": 7,
-  "latenz_max_s": 28,
-  "latenz_ohne_kaltstart_median_s": 7,
-  "frage_zu_zertifikat_median_s": 63,
+  "latenz_min_s": 8,
+  "latenz_max_s": 36,
+  "latenz_ohne_kaltstart_median_s": 21,
+  "frage_zu_zertifikat_median_s": 234,
   "frage_zu_zertifikat_n": 3,
   "zertifizierte_claims": 3,
-  "abgelehnte_behauptungen": 1,
-  "zertifiziert_pro_h": 16.5,
-  "kosten_pro_zertifikat_usd": 0.43,
-  "kosten_gesamt_usd": 1.29,
-  "laufzeit_min": 19,
-  "mensch_warten_min": 9,
-  "zeit_agenten_llm_s": 195,
-  "zeit_verifier_s": 57,
-  "zeit_experimente_s": 196,
+  "abgelehnte_behauptungen": 2,
+  "zertifiziert_pro_h": 27.9,
+  "kosten_pro_zertifikat_usd": 0.34,
+  "kosten_gesamt_usd": 1.01,
+  "laufzeit_min": 6,
+  "mensch_warten_min": 0,
+  "zeit_agenten_llm_s": 98,
+  "zeit_verifier_s": 129,
+  "zeit_experimente_s": 362,
   "speedup_manuell": {
-   "status": "ausstehend: mindestens 3 Stoppuhr-Messungen in baselines/manual.jsonl nötig"
+   "status": "not measured"
   }
  },
  "replay": {
-  "seeds": 10,
+  "seeds": [
+   1000,
+   1001,
+   1002,
+   1003,
+   1004,
+   1005,
+   1006,
+   1007,
+   1008,
+   1009,
+   1010,
+   1011,
+   1013,
+   1014,
+   1015,
+   1016
+  ],
+  "n_seeds": 16,
   "budget": 30,
-  "mean_N_lab": 2.4,
-  "mean_N_random": 11.0,
-  "mean_N_no_feedback": 2.9,
-  "speedup_vs_random": 4.6,
-  "speedup_vs_random_ci": [
-   2.6,
-   7.5
-  ],
-  "p_vs_random": 0.003,
-  "h7a_supported": true,
-  "speedup_vs_no_feedback": 1.2,
-  "speedup_vs_no_feedback_ci": [
-   0.82,
-   1.85
-  ],
-  "p_vs_no_feedback": 0.26,
-  "h7b_supported": false
+  "paired": true,
+  "laeufe_je_bedingung": {
+   "LAB": 18,
+   "OHNE_FEEDBACK": 17,
+   "ZUFALL": 17,
+   "HEURISTIK": 17
+  },
+  "bedingungen": {
+   "LAB": {
+    "N": [
+     1,
+     3,
+     3,
+     3,
+     3,
+     1,
+     4,
+     3,
+     1,
+     2,
+     1,
+     3,
+     2,
+     3,
+     2,
+     3
+    ],
+    "mean_N": 2.38,
+    "median_N": 3.0,
+    "treffer": 16,
+    "analytisch": false
+   },
+   "OHNE_FEEDBACK": {
+    "N": [
+     2,
+     3,
+     1,
+     3,
+     4,
+     3,
+     2,
+     3,
+     5,
+     3,
+     4,
+     2,
+     1,
+     2,
+     3,
+     2
+    ],
+    "mean_N": 2.69,
+    "median_N": 3.0,
+    "treffer": 16,
+    "analytisch": false
+   },
+   "ZUFALL": {
+    "N": [
+     9,
+     1,
+     6,
+     8,
+     12,
+     7,
+     12,
+     21,
+     3,
+     31,
+     8,
+     2,
+     31,
+     20,
+     3,
+     7
+    ],
+    "mean_N": 11.31,
+    "median_N": 8.0,
+    "treffer": 14,
+    "analytisch": false
+   },
+   "HEURISTIK": {
+    "N": [
+     6,
+     8,
+     8,
+     7,
+     9,
+     8,
+     8,
+     9,
+     8,
+     8,
+     8,
+     9,
+     8,
+     8,
+     9,
+     6
+    ],
+    "mean_N": 7.94,
+    "median_N": 8.0,
+    "treffer": 16,
+    "analytisch": false
+   },
+   "ORAKEL": {
+    "N": [
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1
+    ],
+    "mean_N": 1.0,
+    "median_N": 1.0,
+    "treffer": null,
+    "analytisch": true
+   }
+  },
+  "tests": {
+   "H8a": {
+    "vergleich": "ZUFALL",
+    "speedup": 4.76,
+    "ki95": [
+     2.92,
+     7.23
+    ],
+    "p": 0.00017,
+    "p_bh": 0.00025,
+    "n_seeds": 16,
+    "supported": true
+   },
+   "H8b": {
+    "vergleich": "HEURISTIK",
+    "speedup": 3.34,
+    "ki95": [
+     2.81,
+     4.16
+    ],
+    "p": 1.5e-05,
+    "p_bh": 4.6e-05,
+    "n_seeds": 16,
+    "supported": true
+   },
+   "H8c": {
+    "vergleich": "OHNE_FEEDBACK",
+    "speedup": 1.13,
+    "ki95": [
+     0.84,
+     1.58
+    ],
+    "p": 0.28,
+    "p_bh": 0.28,
+    "n_seeds": 16,
+    "supported": false
+   }
+  },
+  "praeregistrierung": "prereg.md, Abschnitte H7 und H8"
  },
  "trust": {
   "A1": {
@@ -116,8 +285,8 @@
   "omni_proofreading_negative": 4
  },
  "laeufe": {
-  "runs/omnigent/2026-10-04": "Kette intakt (82 Glieder, Kopf 1fcb11696c9a)",
-  "runs/omnigent/2026-10-04b": "Kette intakt (63 Glieder, Kopf 2669b734ee86)"
+  "runs/omnigent/2026-10-04": "hash chain intact (82 links, head 1fcb11696c9a)",
+  "runs/omnigent/2026-10-04b": "hash chain intact (63 links, head 2669b734ee86)"
  },
  "plan": {
   "planungshorizont_stunden": 24,

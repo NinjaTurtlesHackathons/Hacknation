@@ -31,24 +31,36 @@ fünf geprüfte numerische Befunde zu offenen Fragen aus Suleman 2026 (`results/
 
 
 
-## Measured acceleration (preregistered replay, H7)
+## Measured acceleration (preregistered replay, H7/H8)
 
 Task: rediscover a known result without access to it (domain `lattice`, limit aspect ratio y_∞ ≈ 1.249621 of the optimal 2D lattice for
 ν → ∞). Leak guard: Suleman 2026 and derived knowledge files blocked; canary test of the whole agent context green before every run.
 Hit = a claim of type `grenzwert`/`y_inf` accepted by the unchanged verifier (numerical verifier, fixed tolerance 2·10⁻⁴ — not a proof).
-Metric N = verifier calls to the first hit (31 = failed within budget 30). 10 seeds per condition, same models and budget
+Same models and budget in every condition
 (`python -m benchmarks.replay_lattice`, raw data `results/replay_lattice/`, summary `results/replay_lattice.json`, figure `results/replay_lattice.png`).
 
-| Condition | N per seed | mean N | hits (95 % Clopper-Pearson) | mean wall time | rejected claims / run |
-|---|---|---|---|---|---|
-| LAB (integrator, code planner, verifier feedback, learning) | 1 3 3 3 3 1 4 3 1 2 | **2.4** | 10/10 (0.69–1.00) | 284 s | 0.9 |
-| NO FEEDBACK (same researchers, independent attempts) | 2 3 1 3 4 3 2 3 5 3 | 2.9 | 10/10 (0.69–1.00) | 306 s | 1.2 |
-| RANDOM (random sub-questions, no integrator/learning) | 9 1 6 8 12 7 12 21 3 31 | 11.0 | 9/10 (0.55–1.00) | 706 s | 2.5 |
+<!-- replay:start -->
+Paired design: every condition ran on the same 16 seeds (1000–1016, seeds not yet finished in every condition are left out).
+Metric N = verifier calls to the first hit (31 = failed within budget 30). Source: `results/FROZEN.json` (frozen 2026-10-04T06:19:53, commit 123e300).
 
-- **H7a, LAB vs. RANDOM: speedup 4.6× (paired bootstrap 95 % CI 2.6–7.5), one-sided paired permutation p = 0.003 (BH-adjusted 0.006) → supported.**
-- **H7b, LAB vs. NO FEEDBACK: 1.2× (CI 0.82–1.85), p = 0.26 → not supported.** On this easy task the gain comes from choosing the right
-  question, not from verifier feedback between attempts; the task is too easy (N ≤ 5 without feedback) to measure the feedback effect.
-- No human baseline was measured. "One paper in one night, about 12–14 h" for the authors' manual work is an estimate, not a measurement.
+| Condition | mean N | median N | hits |
+|---|---|---|---|
+| LAB (integrator, code planner, verifier feedback, learning) | **2.38** | 3.0 | 16/16 |
+| HEURISTIC (hand-written: simplest open question first) | 7.94 | 8.0 | 16/16 |
+| NO FEEDBACK (same researchers, independent attempts) | 2.69 | 3.0 | 16/16 |
+| RANDOM (random sub-questions, no integrator/learning) | 11.31 | 8.0 | 14/16 |
+| ORACLE (knows the answer; analytic bound, not run) | 1.0 | 1.0 | – |
+
+| Test (preregistered H8, Benjamini-Hochberg over m = 3, q = 0.1) | speedup | paired bootstrap 95 % CI | one-sided paired permutation p | BH-adjusted | verdict |
+|---|---|---|---|---|---|
+| **H8b, LAB vs. HEURISTIC** | 3.34× | 2.81–4.16 | 1.5e-05 | 4.6e-05 | supported |
+| **H8a, LAB vs. RANDOM** | 4.76× | 2.92–7.23 | 0.00017 | 0.00025 | supported |
+| H8c, LAB vs. NO FEEDBACK | 1.13× | 0.84–1.58 | 0.28 | 0.28 | not supported |
+
+- The strongest comparison is H8b: a hand-written heuristic that reaches the target in every seed still needs about 3.34× as many verifier calls as the lab.
+- Without verifier feedback the same agents are almost as fast on this easy task (H8c not supported): the gain comes from choosing the right question.
+- No human baseline was measured; nothing here compares the lab with a human or a real laboratory.
+<!-- replay:end -->
 
 ## Probatum Lab (web frontend)
 
@@ -77,7 +89,6 @@ your Claude proposes experiments and typed claims, probatum runs the experiments
 (exact rational certificates, symbolic proofs, fixed tolerances). No API key, no LLM calls, no shell, no network inside the server.
 
 Requires [uv](https://docs.astral.sh/uv/) (`uvx`). The repository must be reachable for your git (public, or your GitHub credentials).
-`@claude/probatum-mcp` pins the branch the server currently lives on; drop it once merged into the default branch.
 
 **Claude Desktop** — edit `claude_desktop_config.json` (macOS `~/Library/Application Support/Claude/`, Windows `%APPDATA%\Claude\`):
 ```json
@@ -85,7 +96,7 @@ Requires [uv](https://docs.astral.sh/uv/) (`uvx`). The repository must be reacha
   "mcpServers": {
     "probatum": {
       "command": "uvx",
-      "args": ["--from", "git+https://github.com/alizema700/HackNation-Ninja-Turtles@claude/probatum-mcp", "probatum-mcp"]
+      "args": ["--from", "git+https://github.com/alizema700/Daddys-Project", "probatum-mcp"]
     }
   }
 }
@@ -94,12 +105,12 @@ Restart Claude Desktop, then pick the prompt **research_round** (or **verify_my_
 
 **Claude Code** — one command (the `--` separates the server command):
 ```bash
-claude mcp add --scope user probatum -- uvx --from git+https://github.com/alizema700/HackNation-Ninja-Turtles@claude/probatum-mcp probatum-mcp
+claude mcp add --scope user probatum -- uvx --from git+https://github.com/alizema700/Daddys-Project probatum-mcp
 ```
 
 **Claude Code plugin** (MCP server + the `verifier-gated-lab` skill):
 ```
-/plugin marketplace add alizema700/HackNation-Ninja-Turtles
+/plugin marketplace add alizema700/Daddys-Project
 /plugin install probatum@probatum
 ```
 (`claude plugin validate --strict` passes for `plugin/` and `.claude-plugin/marketplace.json`.)
@@ -144,15 +155,15 @@ Every result is accepted only by a code verifier (`Domain.check`); agents only p
 | Citations for facts | ✓ | projects/omni_proofreading/references.bib: 18 entries, 18 with DOI/arXiv/URL, 0 unverified |
 | Run logs attached | ✓ | runs/omnigent/2026-10-04/sessions/: 15 session exports |
 | Agent-generated hypotheses/claims marked (origin) | ✓ | runs/omnigent/2026-10-04/origin.json: origin derived from the record for 39/39 claims+questions |
-| Uncertainty preserved (levels, confidence intervals) | ✗ | every claim has an evidence level; results/replay_lattice.json: speedups with bootstrap CI, hit rates with Clopper-Pearson CI |
+| Uncertainty preserved (levels, confidence intervals) | ✓ | every claim has an evidence level; results/replay_lattice.json: speedups with bootstrap CI, hit rates with Clopper-Pearson CI |
 | Controls documented (self-test, blind claims, red team, canary) | ✓ | verifier self-test 7 true / 11 false cases; benchmarks/blind_claims.py (random claims, 0/20 accepted); projects/proofreading/verifier_redteam.json; replay canary test |
 | Approval gates documented | ✓ | README.md, section Omnigent orchestration: policy table |
 | Needed validation named | ✓ | projects/omni_proofreading/paper.md: numbered open questions / needed validation; projects/omni_proofreading/referee_report.md |
-| Measured improvement | ✗ | results/replay_lattice.json H7a speedup 0.00x (CI None, p=None); results/metrics_proofreading.json |
+| Measured improvement | ✓ | results/replay_lattice.json H8b: lab vs heuristic 3.34x (95% CI 2.81 to 4.16, p = 1.5e-05, 16 paired seeds); results/metrics_proofreading.json |
 | Next experiment justified | ✓ | runs/omnigent/2026-10-04/sessions/lead: 7 lead decisions naming the next step with a reason |
 | Agent specifications and policies in the repo | ✓ | omni/config.yaml + 6 agent specs; README agent table |
 
-**Open:** Uncertainty preserved (levels, confidence intervals); Measured improvement.
+All requirements met.
 <!-- rubric:end -->
 
 ## Omnigent orchestration

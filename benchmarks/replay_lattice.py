@@ -133,8 +133,11 @@ def auswertung(seeds, budget):
         for s in seeds:
             fn = f"{OUT}/{b}_{s}.json"
             if os.path.exists(fn): R[b][s] = json.load(open(fn))
-    gem = [s for s in seeds if all(s in R[b] for b in ("LAB", "OHNE_FEEDBACK", "ZUFALL"))]
-    res = {"praeregistrierung": "prereg.md, Abschnitt H7", "budget": budget, "seeds": gem, "bedingungen": {}, "tests": {}}
+    gem = [s for s in seeds if all(s in R[b] for b in BED)]             # gepaart: nur Seeds, die ALLE Bedingungen abgeschlossen haben
+    res = {"praeregistrierung": "prereg.md, Abschnitte H7 und H8", "budget": budget, "seeds": gem,
+           "seeds_geplant": len(seeds), "laeufe_je_bedingung": {b: len(R[b]) for b in BED},
+           "hinweis": "alle Bedingungen auf denselben Seeds (gepaart); Seeds, die noch nicht in allen Bedingungen fertig sind, sind ausgelassen",
+           "bedingungen": {}, "tests": {}}
     for b in BED:
         rows = [R[b][s] for s in gem if s in R[b]]; N = [r["N"] for r in rows]; k = sum(r["treffer"] for r in rows)
         res["bedingungen"][b] = {"N": N, "mittel_N": float(np.mean(N)) if N else None, "median_N": float(np.median(N)) if N else None,

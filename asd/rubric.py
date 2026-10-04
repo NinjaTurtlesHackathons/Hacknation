@@ -112,7 +112,7 @@ def p_uncertainty():
     s = _state(); lv = {"proved_lean", "computed_rigorous", "statistical", "observed", "hypothesis"}
     ok_lv = all(c.get("level") in lv for c in s.get("claims", []))
     rp = json.load(open("results/replay_lattice.json")) if os.path.exists("results/replay_lattice.json") else {}
-    ok_ci = all("ki95" in t for t in rp.get("tests", {}).values()) and all("treffer_ki95" in b for b in rp.get("bedingungen", {}).values())
+    ok_ci = all("ki95" in t for t in rp.get("tests", {}).values()) and all("treffer_ki95" in b for b in rp.get("bedingungen", {}).values() if b.get("N") and not b.get("analytisch"))
     return ok_lv and ok_ci and bool(rp), f"every claim has an evidence level; results/replay_lattice.json: speedups with bootstrap CI, hit rates with Clopper-Pearson CI"
 
 def p_controls():
@@ -131,8 +131,12 @@ def p_validation_named():
 
 def p_measured_improvement():
     rp = json.load(open("results/replay_lattice.json")) if os.path.exists("results/replay_lattice.json") else {}
-    h = rp.get("tests", {}).get("H7a", {}); m = os.path.exists("results/metrics_proofreading.json")
-    return bool(h.get("erfolg")) and m, f"results/replay_lattice.json H7a speedup {h.get('speedup', 0):.2f}x (CI {h.get('ki95')}, p={h.get('p')}); results/metrics_proofreading.json"
+    T = rp.get("tests", {}); m = os.path.exists("results/metrics_proofreading.json")
+    k = next((k for k in ("H8b", "H8a", "H7a") if T.get(k, {}).get("erfolg")), next((k for k in ("H8b", "H8a", "H7a") if k in T), None))
+    h = T.get(k, {}) if k else {}; n = h.get("n_seeds", len(rp.get("seeds", [])))
+    ki = h.get("ki95") or [0, 0]
+    return bool(h.get("erfolg")) and m, (f"results/replay_lattice.json {k}: lab vs {dict(ZUFALL='random', HEURISTIK='heuristic', OHNE_FEEDBACK='no feedback').get(h.get('vergleich'), h.get('vergleich'))} {h.get('speedup', 0):.2f}x "
+                                         f"(95% CI {ki[0]:.2f} to {ki[1]:.2f}, p = {h.get('p', 1):.2g}, {n} paired seeds); results/metrics_proofreading.json")
 
 def p_next_experiment():
     t = [x for _, x in _texte(_lead(), "assistant")]

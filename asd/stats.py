@@ -5,8 +5,11 @@ import numpy as np
 def perm_test(a, b, B=20000, seed=1):
     """Gepaart (gleiche Seeds), einseitig: H1 'a braucht weniger Experimente als b'. Vorzeichen-Flip-Test."""
     d = np.asarray(b, float) - np.asarray(a, float); obs = d.mean()
+    if len(d) <= 16:                                   # exakt: alle 2^n Vorzeichen (enthält die Beobachtung selbst, also p >= 2^-n)
+        flips = 1 - 2 * ((np.arange(2 ** len(d))[:, None] >> np.arange(len(d))) & 1)
+        return float(((flips * d).mean(1) >= obs - 1e-12).mean())
     flips = np.random.default_rng(seed).choice([-1, 1], (B, len(d)))
-    return float(((flips * d).mean(1) >= obs).mean())
+    return float((((flips * d).mean(1) >= obs - 1e-12).sum() + 1) / (B + 1))   # Monte Carlo, nie 0
 
 
 def ratio_ci(num, den, B=5000, seed=0, paired=True):

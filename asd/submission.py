@@ -15,6 +15,8 @@ def gate(text, frozen_txt, wo):
 
 def texte(F):
     M, R, T, V, K = F["metrics"], F["replay"], F["trust"], F["verifier_stress"], F["flaggschiff"]
+    H = R["tests"]; a, b, c = H["H8a"], H["H8b"], H["H8c"]; BN = R["bedingungen"]
+    ci = lambda t: f"95% CI {t['ki95'][0]} to {t['ki95'][1]}"
     summary = f"""# Verifier-Gated Discovery Lab
 
 **Agents propose, Omnigent orchestrates, only a code verifier accepts.** Our lab turns the scientific method into an executable loop: a
@@ -28,11 +30,13 @@ claims and rejected {M['abgelehnte_behauptungen']}. Across {F['omnigent_laeufe']
 certified violations of the kinetic-proofreading bound. The {K['topologien']}-topology family now reads {K['bewiesen']} proved / {K['verletzt']} violated / {K['offen']} open.
 
 **Measured acceleration.** Verifier result to next decision: median {M['latenz_median_s']} s (n = {M['latenz_n']}); question to certified claim:
-median {M['frage_zu_zertifikat_median_s']} s. Replay benchmark ({R['seeds']} seeds): {R['speedup_vs_random']}x fewer verifier calls than random search
-(95% CI {R['speedup_vs_random_ci'][0]} to {R['speedup_vs_random_ci'][1]}, p = {R['p_vs_random']}); versus attempts without feedback {R['speedup_vs_no_feedback']}x, not significant.
+median {M['frage_zu_zertifikat_median_s']} s (one run, small n). Preregistered replay ({R['n_seeds']} paired seeds):
+the lab needs {BN['LAB']['mean_N']} verifier calls on average, a hand-written heuristic {BN['HEURISTIK']['mean_N']}, random proposals {BN['ZUFALL']['mean_N']}.
+That is {b['speedup']}x fewer calls than the strong heuristic ({ci(b)}, p = {b['p']}) and {a['speedup']}x fewer than random ({ci(a)}, p = {a['p']});
+versus the same agents without verifier feedback {c['speedup']}x, not significant.
 
 **Trust.** On {T['B']['n']} answers each: Claude alone {T['A1']['anteil_falsch_pct']}% false, Claude with Python {T['A2']['anteil_falsch_pct']}% false, the lab
-{T['B']['anteil_falsch_pct']}% false (95% CI {T['B']['falsch_ki95_pct'][0]} to {T['B']['falsch_ki95_pct'][1]}%). Blind stress test: {V['blind_akzeptiert']} of {V['blind_claims']} random claims accepted.
+{T['B']['anteil_falsch_pct']}% false (95% CI {T['B']['falsch_ki95_pct'][0]} to {T['B']['falsch_ki95_pct'][1]}%). Caveat: 12 questions from one paper, a small home-field sample. Blind stress test: {V['blind_akzeptiert']} of {V['blind_claims']} random claims accepted.
 
 The same lab runs as an MCP server inside anyone's own Claude.
 """
@@ -46,10 +50,10 @@ The same lab runs as an MCP server inside anyone's own Claude.
                      f"verifier at most {M['zeit_verifier_s']} s, experiments at most {M['zeit_experimente_s']} s."),
         ("Results", f"{K['verletzt']} exactly certified violations of the proofreading bound among {K['topologien']} topologies, {K['neu_in_omnigent_laeufen']} of them new in the recorded Omnigent runs; "
                     f"trust benchmark: lab {T['B']['anteil_falsch_pct']}% false vs. Claude alone {T['A1']['anteil_falsch_pct']}%."),
-        ("Measured speedup", f"Replay: {R['speedup_vs_random']}x vs. random search (95% CI {R['speedup_vs_random_ci'][0]} to {R['speedup_vs_random_ci'][1]}, p = {R['p_vs_random']}); "
-                             f"vs. no feedback {R['speedup_vs_no_feedback']}x (not significant). Result-to-decision latency median {M['latenz_median_s']} s (n = {M['latenz_n']}). "
-                             "A stopwatch baseline by the team is pending; no comparison with a real laboratory."),
-        ("Next 24 h", f"Decide the {K['offen']} open topologies (cycle decomposition for proofs, wider counterexample search); stopwatch baselines; second domain."),
+        ("Measured speedup", f"Replay, {R['n_seeds']} paired seeds: {b['speedup']}x vs. a hand-written heuristic ({ci(b)}, p = {b['p']}), {a['speedup']}x vs. random ({ci(a)}, p = {a['p']}); "
+                             f"vs. no feedback {c['speedup']}x (not significant). Result-to-decision latency median {M['latenz_median_s']} s (n = {M['latenz_n']}, one run). "
+                             "No comparison with a human or a real laboratory was measured."),
+        ("Next 24 h", f"Decide the {K['offen']} open topologies (cycle decomposition for proofs, wider counterexample search); second domain."),
     ]
     return summary, secs
 

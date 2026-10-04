@@ -134,7 +134,7 @@ def main():
     bl = b.get("ergebnis_zu_entscheidung")
     m["speedup_ergebnis_zu_entscheidung"] = ({"manuell_median_s": bl["median"], "labor_median_s": lab_med, "speedup": bl["median"] / lab_med,
                                                "einschraenkung": f"gemessen, n={bl['n']}, {bl['personen']} Person(en); ein Lauf; kein Vergleich mit einem echten Forschungslabor"}
-                                              if bl and bl["n"] >= 3 and lab_med else {"status": "ausstehend: mindestens 3 Stoppuhr-Messungen in baselines/manual.jsonl nötig"})
+                                              if bl and bl["n"] >= 3 and lab_med else {"status": "not measured"})
     os.makedirs("results", exist_ok=True)
     json.dump(m, open(f"results/metrics_{a.domain}.json", "w"), indent=1, ensure_ascii=False, default=str)
     abbildung(m, f"results/metrics_{a.domain}.png"); open(f"results/metrics_{a.domain}.md", "w").write(tabelle(m)); print(tabelle(m))
@@ -150,8 +150,9 @@ def tabelle(m):
             ("Certified claims per machine hour", f"{D['zertifiziert_pro_h']:.1f}"),
             ("Cost per certified claim", f"{D['kosten_usd_pro_zertifikat']:.2f} USD" if D.get("kosten_usd_pro_zertifikat") else "–"),
             ("Time split over all rounds (agents·LLM ≥ / verifier ≤ / experiments ≤ / tooling ≤ / human wait)",
-             f"{Z['agenten_llm_s']:.0f} / {Z['verifier_s']:.0f} / {Z['experiment_s']:.0f} / {Z['werkzeug_s']:.0f} / {Z['mensch_s']:.0f} s"),
-            ("Manual baseline (stopwatch, same step)", f"{sp['manuell_median_s']:.0f} s → speedup {sp['speedup']:.1f}× ({sp['einschraenkung']})" if "speedup" in sp else sp["status"])]
+             f"{Z['agenten_llm_s']:.0f} / {Z['verifier_s']:.0f} / {Z['experiment_s']:.0f} / {Z['werkzeug_s']:.0f} / {Z['mensch_s']:.0f} s")]
+    if "speedup" in sp:                                     # nur zeigen, wenn wirklich gemessen (>= 3 Stoppuhr-Messungen)
+        rows.append(("Manual baseline (stopwatch, same step)", f"{sp['manuell_median_s']:.0f} s → speedup {sp['speedup']:.1f}× ({sp['einschraenkung']})"))
     return "| Measure (one recorded Omnigent run) | Value |\n|---|---|\n" + "\n".join(f"| {a} | {b} |" for a, b in rows) + "\n"
 
 

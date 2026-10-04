@@ -34,6 +34,36 @@ def trust():
     json.dump(out, open("results/trust.json", "w"), indent=1, ensure_ascii=False); return out
 
 
+NAMEN = {"LAB": "LAB (integrator, code planner, verifier feedback, learning)", "HEURISTIK": "HEURISTIC (hand-written: simplest open question first)",
+         "OHNE_FEEDBACK": "NO FEEDBACK (same researchers, independent attempts)", "ZUFALL": "RANDOM (random sub-questions, no integrator/learning)",
+         "ORAKEL": "ORACLE (knows the answer; analytic bound, not run)"}
+
+
+def readme_replay(F, pfad="README.md"):
+    """Abschnitt 'Measured acceleration' im README zwischen <!-- replay:start --> und <!-- replay:end --> aus FROZEN.json schreiben."""
+    R = F["replay"]; B = R["bedingungen"]; T = R["tests"]; n = R["n_seeds"]
+    L = [f"Paired design: every condition ran on the same {n} seeds ({R['seeds'][0]}–{R['seeds'][-1]}{', seeds not yet finished in every condition are left out' if R.get('laeufe_je_bedingung') and max(R['laeufe_je_bedingung'].values()) > n else ''}).",
+         f"Metric N = verifier calls to the first hit ({R['budget'] + 1} = failed within budget {R['budget']}). Source: `results/FROZEN.json` (frozen {F['zeitpunkt']}, commit {F['commit']}).", "",
+         "| Condition | mean N | median N | hits |", "|---|---|---|---|"]
+    for k in ("LAB", "HEURISTIK", "OHNE_FEEDBACK", "ZUFALL", "ORAKEL"):
+        if k in B:
+            hits = "–" if B[k]["analytisch"] else f"{B[k]['treffer']}/{len(B[k]['N'])}"; st = "**" if k == "LAB" else ""
+            L.append(f"| {NAMEN[k]} | {st}{B[k]['mean_N']}{st} | {B[k]['median_N']} | {hits} |")
+    L += ["", "| Test (preregistered H8, Benjamini-Hochberg over m = 3, q = 0.1) | speedup | paired bootstrap 95 % CI | one-sided paired permutation p | BH-adjusted | verdict |", "|---|---|---|---|---|---|"]
+    lab = {"H8a": "LAB vs. RANDOM", "H8b": "LAB vs. HEURISTIC", "H8c": "LAB vs. NO FEEDBACK"}
+    for k in ("H8b", "H8a", "H8c"):
+        t = T.get(k)
+        if t: L.append(f"| {'**' if t['supported'] else ''}{k}, {lab[k]}{'**' if t['supported'] else ''} | {t['speedup']}× | {t['ki95'][0]}–{t['ki95'][1]} | {t['p']} | {t['p_bh']} | {'supported' if t['supported'] else 'not supported'} |")
+    L += ["", "- The strongest comparison is H8b: a hand-written heuristic that reaches the target in every seed still needs about "
+          f"{T['H8b']['speedup']}× as many verifier calls as the lab." if T.get("H8b") else "",
+          "- Without verifier feedback the same agents are almost as fast on this easy task (H8c not supported): the gain comes from choosing the right question.",
+          "- No human baseline was measured; nothing here compares the lab with a human or a real laboratory."]
+    txt = open(pfad).read(); a, b = "<!-- replay:start -->", "<!-- replay:end -->"
+    if a in txt and b in txt:
+        txt = txt[:txt.index(a) + len(a)] + "\n" + "\n".join(x for x in L if x is not None) + "\n" + txt[txt.index(b):]
+        open(pfad, "w").write(txt)
+
+
 def main():
     from .domains.base import get_domain
     from .chain import verify
@@ -44,7 +74,11 @@ def main():
     bc = json.load(open("results/blind_claims.json")); rt = json.load(open("projects/proofreading/verifier_redteam.json"))
     T = trust()
     L = m["latenz_ergebnis_entscheidung"]; F = m["frage_zu_zertifikat"]; D = m["durchsatz"]; Z = m["zerlegung_summe_s"]
-    H7a, H7b = rp["tests"]["H7a"], rp["tests"]["H7b"]
+    TS = rp["tests"]; B = rp["bedingungen"]
+    def test(k):
+        t = TS.get(k)
+        return None if not t else {"vergleich": t["vergleich"], "speedup": r(t["speedup"], 2), "ki95": [r(x, 2) for x in t["ki95"]], "p": float(f"{t['p']:.2g}"),
+                                   "p_bh": float(f"{t.get('p_bh', t['p']):.2g}"), "n_seeds": t["n_seeds"], "supported": bool(t.get("erfolg"))}
     fallen = rt.get("fallen", []); abgelehnt = sum(1 for f in fallen if f.get("ergebnis") == "korrekt_abgelehnt")
     runs = sorted(d for d in glob.glob("runs/omnigent/*") if os.path.isdir(d))
     F_ = {
@@ -57,10 +91,11 @@ def main():
                     "kosten_gesamt_usd": r(D["kosten_usd_gesamt"], 2), "laufzeit_min": r(m["laufzeit_gesamt_s"] / 60, 0), "mensch_warten_min": r(m["mensch_warten_s"] / 60, 0),
                     "zeit_agenten_llm_s": r(Z["agenten_llm_s"], 0), "zeit_verifier_s": r(Z["verifier_s"], 0), "zeit_experimente_s": r(Z["experiment_s"], 0),
                     "speedup_manuell": m["speedup_ergebnis_zu_entscheidung"]},
-        "replay": {"seeds": len(rp["seeds"]), "budget": rp["budget"], "mean_N_lab": r(rp["bedingungen"]["LAB"]["mittel_N"]), "mean_N_random": r(rp["bedingungen"]["ZUFALL"]["mittel_N"]),
-                   "mean_N_no_feedback": r(rp["bedingungen"]["OHNE_FEEDBACK"]["mittel_N"]),
-                   "speedup_vs_random": r(H7a["speedup"]), "speedup_vs_random_ci": [r(x) for x in H7a["ki95"]], "p_vs_random": r(H7a["p"], 3), "h7a_supported": H7a["erfolg"],
-                   "speedup_vs_no_feedback": r(H7b["speedup"]), "speedup_vs_no_feedback_ci": [r(x, 2) for x in H7b["ki95"]], "p_vs_no_feedback": r(H7b["p"], 2), "h7b_supported": H7b["erfolg"]},
+        "replay": {"seeds": rp["seeds"], "n_seeds": len(rp["seeds"]), "budget": rp["budget"], "paired": True, "laeufe_je_bedingung": rp.get("laeufe_je_bedingung"),
+                   "bedingungen": {k: {"N": v.get("N", []), "mean_N": r(v.get("mittel_N"), 2), "median_N": v.get("median_N"), "treffer": v.get("treffer"),
+                                       "analytisch": bool(v.get("analytisch"))} for k, v in B.items() if v.get("N")},
+                   "tests": {k: test(k) for k in ("H8a", "H8b", "H8c") if k in TS},
+                   "praeregistrierung": rp.get("praeregistrierung")},
         "trust": {b: {k: v[k] for k in ("n", "richtig", "falsch", "anteil_richtig_pct", "anteil_falsch_pct", "falsch_ki95_pct")} for b, v in T["bedingungen"].items()},
         "verifier_stress": {"blind_claims": bc["claims"], "blind_akzeptiert": bc["akzeptiert"], "redteam_fallen": len(fallen), "redteam_fallen_abgelehnt": abgelehnt,
                             "selbsttest_faelle": {d: len(list(get_domain(d).selftest())) for d in ("proofreading", "lattice")}},
@@ -79,7 +114,7 @@ def main():
             if isinstance(e, dict) and e.get("ueberraschung"): neu |= set(re.findall(r"fam2_\d+", e.get("ueberraschung_grund", "").split("ausserhalb")[0]))
     F_["flaggschiff"]["neu_in_omnigent_laeufen"] = len(neu); F_["flaggschiff"].pop("neu_im_omnigent_lauf", None)
     F_["flaggschiff"]["quelle"] = klp; F_["omnigent_laeufe"] = len(runs)
-    json.dump(F_, open("results/FROZEN.json", "w"), indent=1, ensure_ascii=False, default=str); print(json.dumps(F_, indent=1, ensure_ascii=False, default=str)[:3000])
+    json.dump(F_, open("results/FROZEN.json", "w"), indent=1, ensure_ascii=False, default=str); readme_replay(F_); print(json.dumps(F_, indent=1, ensure_ascii=False, default=str)[:3000])
 
 
 if __name__ == "__main__":
