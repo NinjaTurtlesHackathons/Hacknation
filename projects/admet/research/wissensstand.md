@@ -272,4 +272,3 @@ Nur Befunde mit bestätigtem Zitat stehen hier. Gesperrte Quellen (Leck-Schutz) 
   > „the inability to extrapolate predictive models to chemotypes that are not represented well“ — AI-driven drug discovery using transformer-based molecular representation learning. (2026), [doi:10.3389/frai.2026.1807340](https://doi.org/10.3389/frai.2026.1807340)
 
 ## Durch Leck-Filter gesperrt
-
