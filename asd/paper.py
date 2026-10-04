@@ -86,6 +86,10 @@ def rule_issues(md):
         for n in AGENT_NAMES:
             if re.search(r"(?<![a-z])" + re.escape(n) + r"(?![a-z])", low):
                 issues.append((para[:200], f"Agentenname „{n}“ steht im Haupttext; nur in den Anhängen erlaubt")); break
+    from .omni_policies import PHRASEN                                 # Geltungsanspruch nur, wenn ihn ein Claim trägt (Neuheit steht im Claim selbst)
+    for para in [p for p in main.split("\n") if p.strip()]:
+        m = PHRASEN.search(para)
+        if m and not re.search(r"\[C-[^\]]*\]", para): issues.append((para[:200], f"Formulierung mit Geltungsanspruch „{m.group(0)}“ ohne tragenden Claim"))
     for bad in ("TypeError", "NaN", "IndexError", "Traceback", "Exception"):
         if re.search(r"(?<![A-Za-z])" + bad + r"(?![A-Za-z])", md): issues.append((bad, f"interner Fehlertext „{bad}“ darf nicht im Paper stehen"))
     return issues
