@@ -1,128 +1,230 @@
-# Beyond the Hopfield chain: certified bounds and counterexamples for kinetic proofreading networks with two bound states
+# Error rates below $e^{-2\Delta}$ in two-bound-state proofreading networks: exact classification of 88 topologies and certified counterexamples
 
 Colin Ji, Laurenz Thümmler, Noah Schittenhelm, Ali Suleman, ETH Zürich
 
-
-# Beyond the Hopfield chain: certified bounds and counterexamples for kinetic proofreading networks with two bound states
+# Error rates below $e^{-2\Delta}$ in two-bound-state proofreading networks: exact classification of 88 topologies and certified counterexamples
 
 ## Abstract
 
-An enzyme discriminates a right substrate R from a wrong substrate W that traverse the same Markov network. W unbinds from bound states faster by a factor e^Δ. For the linear Hopfield chain with n = 2 proofreading stages, we certify symbolically that the error rate satisfies η ≥ e^{-3Δ} for all positive rates and all fuel potentials [C-proofreading-R9]. This makes the reproduction of Hopfield's bound rigorous [C-fakt-neuheit]. Our main new result concerns networks with two bound states. The generator produces 92 rule-conforming topologies, 4 of them degenerate, leaving 88 [C-fakt-familie]. Of these, 50 provably obey η ≥ e^{-2Δ}, 3 have exactly certified counterexamples below it (fam2_66, fam2_9, fam2_11), and 35 remain open [C-fakt-klassifikation]. We also give exactly certified achievable points of the chain at finite dissipation and speed, and we report negative results, red-team findings and deviations from the preregistration.
+An enzyme discriminates a right substrate R from a wrong substrate W by kinetic proofreading. For the linear Hopfield chain with $n$ stages, the error rate is compared with the limit $e^{-(n+1)\Delta}$ [C-proofreading-R3]. The classification of two-bound-state networks and its counterexamples were not found in a targeted literature search [C-fakt-neuheit]. We fix $\Delta=\ln 100$ [C-modell]. For $n=2$ we prove $\eta\ge e^{-3\Delta}$ for all positive rates and fuel potentials [C-proofreading-R9]. Among the 88 non-degenerate two-bound-state topologies [C-fakt-familie], 50 provably obey $\eta\ge e^{-2\Delta}$, three (fam2_66, fam2_9, fam2_11) have exactly certified counterexamples, and 35 remain open [C-fakt-klassifikation]. The topology fam2_66 reaches $\eta=$ 5.082802e-07 at speed $v=$ 1.4746e-03 [C-fakt-fam66]. The method combines symbolic positivity proofs with exact rational arithmetic. The main limitation is that 35 topologies are unresolved [C-fakt-klassifikation]. Moreover, the counterexamples are certified only for log-rates in $[-10,10]$ [C-modell].
 
-## 1 Introduction
+## Introduction
 
-**Question.** Is the Hopfield-type bound η ≥ e^{-(n+1)Δ} a property of the chain only, or does it hold for general proofreading networks with the same number of bound states? Hopfield showed that a simple kinetic pathway, driven strongly but nonspecifically, increases specificity beyond the equilibrium limit [C-lit8]. Later work addresses error–cost bounds [C-lit10], Pareto fronts [C-lit12][C-lit13][C-lit1] and scaling relations [C-lit22]. Whether the bound e^-2Delta is universal for two bound states is classified here [C-fakt-klassifikation]. The classification and its counterexamples were not found in the retrieved literature [C-fakt-neuheit].
+Kinetic proofreading raises specificity beyond what free-energy differences or kinetic barriers allow when the reaction is strongly but nonspecifically driven [C-lit8]. The accuracy of error-correcting pathways is set by the displacement of nucleoside triphosphates from equilibrium [C-lit3]. Several checking steps reach a given accuracy with less dissipation than a single step [C-lit4]. Models with more proofreading steps have better trade-offs between speed, error and dissipation [C-lit12]. These Pareto fronts are studied numerically [C-lit13]. Energy-relay proofreading shows trade-off relations and scaling laws [C-lit1]. Its mixed regime shows a dynamical phase transition in the error–entropy-production trade-off [C-lit2].
 
-**Contribution.** A verifier-gated agentic laboratory produced exact rational or symbolic certificates. These cover the chain bound, the achievable points of the chain, and a classification of the two-bound-state family [C-methode].
+Bounds also exist at the level of general principles. A fundamental error bound is fixed by the transition-state energy differences [C-lit10, C-lit20]. Thermodynamic uncertainty relations constrain the precision of outputs [C-lit14]. For Hopfield's original network there are scalings in which $\sigma\ln(\mu)/P$ is asymptotically infinite [C-lit22]. Numerical calculations suggest that more restrictive parametric assumptions restore a bound [C-lit23]. Discrimination that is too strong can remove the nonequilibrium advantage [C-lit26], and one regime is anti-proofreading [C-lit25].
+
+**Open question.** Does $\eta\ge e^{-(n+1)\Delta}$ hold for all rates and fuel potentials [C-proofreading-R9]? Which of the 88 non-degenerate topologies with two bound states obey $\eta\ge e^{-2\Delta}$, and which do not [C-fakt-klassifikation]?
+
+**Contribution.** We prove the bound for the chain with $n=2$ by a symbolic positivity argument [C-proofreading-R9]. We classify the 88 two-bound-state topologies [C-fakt-familie] into proved, refuted and open members [C-fakt-klassifikation]. For three members we give exactly certified counterexamples [C-fakt-klassifikation].
 
 **Summary of results.**
+- The Hopfield-bound theorem proves $\eta\ge e^{-3\Delta}$ for the chain with $n=2$ for all rates and fuel potentials [C-proofreading-R9].
+- The classification theorem sorts the 88 topologies into 50 proved, 3 refuted and 35 open [C-fakt-klassifikation].
+- The theorem on 50 topologies states the proved bound [C-proofreading-R11].
+- The counterexample theorems give exactly certified counterexamples for fam2_66 [C-proofreading-R4] and for fam2_9 and fam2_11 [C-proofreading-R12].
+- The supporting propositions and the lemma cover family generation [C-fakt-familie], subfamily bounds [C-proofreading-R6, C-proofreading-R7], verifier output [C-fakt-r12] and the self-test [C-fakt-selbsttest].
+- The examples give exactly certified attainable points for the chain with $n=1$ [C-proofreading-R1, C-proofreading-R3, C-proofreading-R8, C-proofreading-R10].
 
-- Chain with n = 2: η ≥ e^{-3Δ} for all positive rates and fuel potentials (Theorem A) [C-proofreading-R9].
-- Two bound states: the bound e^-2Delta is not universal [C-fakt-klassifikation]. The 88 non-degenerate networks split into 50 proved, 3 refuted and 35 open (Theorems B and C) [C-fakt-klassifikation].
-- Exact achievable points of the chain at finite σ and v (Theorems D–F) [C-proofreading-R1][C-proofreading-R2][C-proofreading-R10].
-- The reported kink in the Pareto front of hopfield_n1 is an optimizer artifact [C-proofreading-R1-RT1][C-proofreading-R1-RT2].
-- Negative results: the claimed necessity of a fuel-driven discard feature remains unresolved [C-neg1]. The L2c success criterion was missed [C-fakt-praereg].
+## Model and assumptions
 
-## 2 Model
+Two substrates R and W traverse the same Markov network. W leaves bound states faster by the factor $e^{\Delta}$ [C-modell]. The error rate is $\eta=J_W/J_R$, the speed is $v=J_R$, and $\sigma$ is the entropy production per product in units of $kT$. Every edge has a reverse edge, local detailed balance holds, and cycle affinities arise only from the fuel potential $\mu$ per activation and $\mu_P$ per product (modelling rules of the task). Write $D=e^{\Delta}$ and $G=e^{\mu}$ [C-proofreading-R9].
 
-The assumptions that carry the results are as follows.
+Fixed parameters; every entry is taken from [C-modell]:
 
-- Both substrates traverse the same Markov network. Every edge has a reverse edge. Local detailed balance holds, and cycle affinities arise only from the fuel potentials μ per activation and μ_P per product (as stated in the task specification).
-- Log-rates lie in [-10, 10], so rational rates lie in [e^{-10}, e^{10}] [C-proofreading-R1]. Symbolic bounds hold for all positive rates, independent of this range [C-proofreading-R9].
-- Observables are the error rate η = J_W/J_R, the dissipation σ in kT per product, and the speed v = J_R.
-- Notation: D = e^Δ and G = e^μ [C-proofreading-R9].
-- The family "bound states ≤ 2" has one unbound state and an edge catalog fixed by the model rules [C-proofreading-R11]. Networks with no possible net production (η = 0/0) are degenerate and excluded [C-fakt-familie].
-- Admissible edge attributes are constrained. For instance, a discriminating edge is allowed only for bound → unbound transitions [C-proofreading-R7-RT2].
+| Symbol | Value | Meaning |
+|---|---|---|
+| $\Delta$ | $\ln 100$ ($e^{\Delta}=100$, $e^{-\Delta}=0.01$) [C-modell] | discrimination free-energy difference in $kT$ |
+| $L$ | $10$ [C-modell] | every rate, including derived reverse rates, lies in $[e^{-10},e^{10}]$ |
+| $\mu$ | $\ge 0$, explored in $[0,20]$ [C-modell] | fuel potential per fuel-driven step |
+| $\mu_P$ | $\ge 0$, explored in $[0,20]$ [C-modell] | chemical potential of product formation |
+| max_states | $10$ [C-modell] | unbound states plus R and W copies of bound states |
+| concentrations | $1$ [C-modell] | absorbed into binding rates |
+| rationalisation | denominator $\le 10^{6}$ [C-modell] | rounding for exact certificates |
+| $k$ | $2$ [C-modell] | bound states in the enumerated family (88 non-degenerate members) |
 
-## 3 Method: the verifier-gated agentic lab
+The linear chain is called hopfield_n$n$ with $n$ proofreading stages. The Hopfield limit is $e^{-(n+1)\Delta}$ [C-proofreading-R3].
 
-The pipeline has the following components.
+## Method
 
-- **Scout.** Literature search over 2752 retrieved sources (arXiv, Europe PMC, Crossref, citation chain) [C-fakt-recherche]. 2502 were screened [C-fakt-recherche]. This gave 158 findings whose verbatim quote was confirmed by code in the abstract [C-fakt-recherche]. All 11 classic searches had hits [C-fakt-recherche].
-- **Integrator and preregistration.** Every round was preregistered before the experiment (prereg.md) [C-methode]. Preregistration H6 (commit 6184672) preceded the first run, and amendments are dated [C-fakt-praereg].
-- **Researcher agents.** They propose claims and parameters. Their interpretations are stored as hypotheses and are never used as results (claims with suffix -I).
-- **Code verifier.** It issues two kinds of certificate: (a) exact rational reachability, and (b) symbolic positivity proofs (a rational function N/D whose coefficients are all nonnegative) [C-proofreading-R9]. It passes its self-test on 18 of 18 cases (true, false, borderline, rule violations) [C-fakt-selbsttest].
-- **Red team.** It attacks each claim with a counter-claim. An attack may fail, may be inconclusive, or may be non-executable.
-- **Budget.** The lab ran 12 rounds with 11 verified statements and 1 negative result, at a cost of 3.53 USD [C-methode].
+Two certificate types are used.
 
-## 4 Results
+- **Certificate (a), exact reachability.** Rates are rounded to rationals with denominator at most $10^{6}$ [C-modell]. The error rate $\eta$ is evaluated exactly in rational arithmetic, and the entropy production is enclosed in an interval [C-proofreading-R1]. A statement of the form "$\eta\le\eta_{\max}$ is attainable" is certified if the rational rates lie in $[e^{-10},e^{10}]$ and satisfy local detailed balance [C-proofreading-R4].
+- **Certificate (b), symbolic positivity.** The difference between $\eta$ and the claimed bound is written as a quotient $N/D$ of polynomials. The bound holds for all positive rates and fuel potentials if all coefficients are nonnegative [C-proofreading-R9]. This proof is independent of the rate range [C-proofreading-R9].
 
-"Theorem" is used only for computed_rigorous claims. Every claim below carries this evidence level; none is proved in Lean.
+A verifier generates the topologies, enforces the model rules, and passes a self-test with 18 of 18 cases [C-fakt-selbsttest]. Its code is the trusted base. Optimiser output is only a numerical candidate until it is certified by (a). Numerical scans are labelled as numerical.
 
-**Theorem A (Hopfield bound, n = 2; computed_rigorous).** For hopfield_n2, η ≥ 1 * e^(-3 Delta) for all positive rates and all fuel potentials μ, μ_P ≥ 0 [C-proofreading-R9]. The certificate is a symbolic positivity proof, independent of the rate range [C-proofreading-R9]. The difference η − e^{-3Δ} is N/D with 1374 and 2048 terms, all coefficients nonnegative [C-proofreading-R9]. This is a reproduction of Hopfield's bound, made rigorous for all rates [C-fakt-neuheit].
+The work was carried out by an automated, verifier-gated laboratory. Every statement below was accepted only after code verification (details in Appendix A).
 
-**Theorem B (bound in a subfamily; computed_rigorous).** For 50 topologies of the family "bound states ≤ 2", η ≥ 1/D² for all positive rates and fuel, where D = e^Δ [C-proofreading-R11]. An earlier partial list with 3 of 3 members was proved [C-proofreading-R6][C-proofreading-R7].
+## Results
 
-**Theorem C (counterexamples; computed_rigorous).**
+### Main results
 
-- For fam2_66 there exist rational rates in [e^{-10}, e^{10}] with local detailed balance and η ≤ 0.0001, v ≥ 0.0001 [C-proofreading-R4]. The exact certificate gives η = 5.082802e-07, σ = 8.341626 kT per product and v = 1.4746e-03 [C-fakt-fam66].
-- The edges of fam2_66 are binding at C0, fuel-driven conversion C0→C1, fuel-driven discard from C1, and product formation from C1 [C-fakt-fam66].
-- Two further exact counterexamples with η ≤ 0.0001 exist for fam2_11 and fam2_9 [C-proofreading-R12][C-fakt-r12].
-- Consequently the bound e^-2Delta is not universal for two bound states [C-fakt-klassifikation]. The complete classification is 50 proved, 3 refuted and 35 open [C-fakt-klassifikation].
+::: theorem [Hopfield bound for the chain with $n=2$]
+For hopfield_n2, $\eta\ge e^{-3\Delta}$ holds for all positive rates and all fuel potentials $\mu,\mu_P\ge0$ [C-proofreading-R9].
+:::
 
-*Interpretation (not a theorem).* In fam2_66 the best candidate mechanism is fuel-driven unbinding from the product-forming state (editing), which is qualitatively known [C-fakt-neuheit]. Whether this feature is necessary is unresolved (see the negative results below) [C-neg1].
+**Certificate.** Symbolic positivity proof (b): $\eta-e^{-3\Delta}=N/D$ with 1374 and 2048 terms, respectively, and all coefficients nonnegative (checked in 6.8 s) [C-proofreading-R9]. Novelty status: not found in a targeted search of 40 abstracts on 2026-10-04 [C-proofreading-R9]. Qualitatively this is a reproduction of the Hopfield bound, here with a rigorous proof [C-fakt-neuheit].
 
-**Theorem D (achievable points of hopfield_n1, I; computed_rigorous).** There exist rational rates with local detailed balance and simultaneously η ≤ 0.0004, σ ≤ 6.0 kT per product and v ≥ 0.001 [C-proofreading-R1]. The exact point is η = 3.650169e-04, σ = 6.000000 kT, v = 1.0417e-01 [C-proofreading-R1].
+::: proposition [Family generation]
+For two bound states the verifier's generator produces 92 rule-conforming topologies [C-fakt-familie]. Four of these are degenerate (no net production possible, $\eta=0/0$) and are excluded [C-fakt-familie]. This leaves 88 non-degenerate topologies [C-fakt-familie].
+:::
 
-**Theorem E (achievable points of hopfield_n1, II; computed_rigorous).** The following points are exactly certified [C-proofreading-R2].
+::: theorem [Classification of two-bound-state topologies]
+Of the 88 non-degenerate topologies with two bound states [C-fakt-klassifikation], 50 satisfy a proved bound $\eta\ge e^{-2\Delta}$ (certificate (b)) [C-fakt-klassifikation]. Three of them (fam2_66, fam2_9, fam2_11) have an exactly certified counterexample $\eta<e^{-2\Delta}$ (certificate (a)) [C-fakt-klassifikation]. The remaining 35 are open [C-fakt-klassifikation].
+:::
 
-- η = 3.156120e-04 at σ = 6.000000 kT with v = 2.4255e-02 [C-proofreading-R2].
-- η = 2.043712e-04 at σ = 3.079633 kT with v = 2.2592e-03 [C-proofreading-R2].
+**Certificate.** The three theorems below on the bound for 50 topologies and on the counterexamples [C-proofreading-R11, C-proofreading-R4, C-proofreading-R12]. Novelty status: not found in the research [C-fakt-neuheit].
 
-Both are admissible under η ≤ 0.0004 and v ≥ 0.001 with σ_max = 8 [C-proofreading-R2]. The second is also admissible with σ_max = 6 [C-proofreading-R2-RT2].
+| Class | Members | Certificate |
+|---|---|---|
+| bound $\eta\ge e^{-2\Delta}$ proved | 50 [C-fakt-klassifikation] | (b) |
+| counterexample $\eta<e^{-2\Delta}$ | 3 [C-fakt-klassifikation] | (a) |
+| open | 35 [C-fakt-klassifikation] | none |
 
-**Theorem F (further achievable points, hopfield_n1; computed_rigorous).**
+*Table 1.* Classification of the 88 topologies [C-fakt-klassifikation].
 
-- η = 1.189200e-04 at σ = 4.271813 kT with v = 1.0000e-03, satisfying η ≤ 0.0002 and σ ≤ 10 kT [C-proofreading-R10].
-- η = 1.095823e-04 at σ = 0.006292 kT with v = 9.1487e-09, satisfying η ≤ 0.00012 and σ ≤ 0.2 kT [C-proofreading-R8].
-- η = 5.909757e-03 at σ = 3.998555 kT with v = 7.1214e-03, satisfying η ≤ 0.01 and v ≥ 0.001 [C-proofreading-R3].
+::: theorem [The bound for 50 topologies]
+For 50 topologies of the verifier-generated family with at most two bound states (one unbound state, edge catalogue of the model), $\eta\ge 1/D^{2}$ holds for all positive rates and fuel potentials [C-proofreading-R11].
+:::
 
-**Remark on the Pareto upper curve.** The feasible set grows with σ_max, so min η(σ_max) is non-increasing [C-proofreading-R1-RT1]. The point of Theorem D remains admissible at σ_max = 8 and σ_max = 20, which rules out a jump to η > 0.008 for σ ≥ 8 [C-proofreading-R1-RT1][C-proofreading-R1-RT2]. The reported kink, which would parallel the dynamical phase transition of the mixed regime in the literature [C-lit2], is therefore an optimizer artifact for hopfield_n1 [C-proofreading-R1-RT1].
+**Certificate.** Symbolic certificate (b): the bound is proved for 50 of 50 members [C-proofreading-R11]. Novelty status: not found in a targeted search of 48 abstracts on 2026-10-04 [C-proofreading-R11].
 
-## 5 Negative results and red-team findings
+::: theorem [Counterexample fam2_66]
+For fam2_66 there exist rational rates in $[e^{-10},e^{10}]$ satisfying local detailed balance with $\eta\le 0.0001$ and $v\ge 0.0001$ [C-proofreading-R4]. The exact values are $\eta=$ 5.082802e-07, $\sigma=$ 8.341626 $kT$ per product and $v=$ 1.4746e-03 [C-fakt-fam66].
+:::
 
-- **Necessity of a fuel-driven discard (L3).** No claim passed the check [C-neg1]. The red-team candidates without a discard at the product state were not executable (TypeError: Invalid NaN comparison) [C-proofreading-R7-RT1]. A second borderline topology violated the model rules (a discriminating edge is allowed only for bound → unbound) [C-proofreading-R7-RT2].
-- **Failed or non-executable red-team attacks.** Several attacks against certified claims did not conclude, because of NaN comparisons or index errors [C-proofreading-R4-RT1][C-proofreading-R4-RT2][C-proofreading-R9-RT1][C-proofreading-R11-RT1][C-proofreading-R11-RT2][C-proofreading-R12-RT2]. These are failures of the attack, not logical contradictions.
-- **Attacks that did not prove their counter-claim.**
-  - The symbolic attack that η ≥ 1.2·e^{-2Δ} holds for all rates failed (coefficients not all nonnegative), as expected given the certified point of Theorem F [C-proofreading-R8-RT1]. The attacker's own search found η_min = 1.0962e-04 at σ = 0.090, v = 6.296e-08, against a claimed 1.2500e-04 [C-proofreading-R8-RT2].
-  - For n = 2, the attacker's search found η_min = 3.1387e-05 at σ = 2665.585, v = 2.037e-06, and did not reach the claimed 1.0000e-07 [C-proofreading-R9-RT2].
-  - Attacks on fam2_9, fam2_11 and fam2_13 found the bound unprovable for them, consistent with counterexamples [C-proofreading-R12-RT1].
-- **Tighter bound for hopfield_n1.** The σ = 6 optimum (η ≈ 3.16e-4) does not meet the tighter bound η_max = 2.2e-4 at σ_max = 8 [C-proofreading-R2-RT1]. The point with η = 2.043712e-04 is nonetheless certified separately [C-proofreading-R2-RT2].
-- **Weak-driving check.** The attacker's search at the claimed parameter regime found η_min = 3.3490e-03 at σ = 0.422, v = 2.719e-03 [C-proofreading-R10-RT2]. The claimed value 2.0000e-03 was not matched [C-proofreading-R10-RT2]. The symbolic bound check was inconclusive [C-proofreading-R10-RT1]. The exact certificate of the corresponding achievable point stands independently [C-proofreading-R10].
-- **Saturation of the n = 1 front.** The symbolic attack on the saturation floor was not certified (symbolic computation > 600 s) [C-proofreading-R3-RT2]. The question of saturation toward the Hopfield limit is therefore not answered here.
-- **Preregistration deviations.** The L2c success criterion (at least 5 counterexamples in a round) was missed: 2 in round 12, 3 in total [C-fakt-praereg]. Degenerate networks (η = 0/0) were excluded [C-fakt-familie].
+**Certificate.** Certificate (a), exact rational evaluation, with $\sigma\in[8.341626,8.341626]$ [C-proofreading-R4]. The edges of fam2_66 are binding to C0, a fuel-driven conversion C0 to C1, a fuel-driven discard from C1, and product formation from C1 [C-fakt-fam66]. Novelty status: not found in a targeted search of 48 abstracts on 2026-10-04 [C-proofreading-R4].
 
-## 6 Limitations and open questions
+::: theorem [Counterexamples fam2_9 and fam2_11]
+For each of the two topologies fam2_11 and fam2_9 there exist rational rates in $[e^{-10},e^{10}]$ satisfying local detailed balance with $\eta\le 0.0001$ [C-proofreading-R12].
+:::
 
-- 35 of the 88 topologies with two bound states are open: neither a proof of η ≥ e^-2Delta nor an exact counterexample is available [C-fakt-klassifikation].
-- The mechanism behind fam2_66 is an interpretation. Its necessity is unresolved [C-neg1].
-- Within the claim list, only n = 2 carries a certified chain bound [C-proofreading-R9]. Corresponding certificates for other n are not part of the retained claims.
-- The certified achievable points are single points, not complete Pareto fronts. Saturation toward the Hopfield limit is not established [C-proofreading-R3-RT2].
-- Novelty: the classification and counterexamples were not found in the retrieved literature, but that search is limited to the 158 confirmed findings [C-fakt-neuheit][C-fakt-recherche].
+**Certificate.** Certificate (a) passed for 2 of 2 cases [C-proofreading-R12, C-fakt-r12]. Novelty status: not found in a targeted search of 42 abstracts on 2026-10-04 [C-proofreading-R12].
 
-## References
+### Supporting statements
 
-Only sources appearing in the claims are listed.
+::: proposition [Subfamily bound]
+For 3 topologies of the verifier-generated family with at most two bound states, $\eta\ge 1/D^{2}$ holds for all positive rates and fuel potentials [C-proofreading-R6].
+:::
 
-- Hopfield, kinetic proofreading, doi:10.1073/pnas.71.10.4135 [C-lit8].
-- Energy-relay proofreading and Pareto fronts, doi:10.1098/rsif.2024.0232 [C-lit1][C-lit2].
-- Ultimate accuracy and multiple checking steps, doi:10.1016/s0006-3495(80)85063-6 [C-lit3][C-lit4].
-- Error–cost bound, doi:10.1098/rsif.2021.0883 [C-lit10][C-lit11]; arXiv:2106.01418v2 [C-lit20][C-lit21].
-- Generalized Hopfield model Pareto front, doi:10.1088/1367-2630/acc757 [C-lit12][C-lit13].
-- Scaling and asymptotic bounds, arXiv:1710.06038v1 [C-lit22][C-lit23][C-lit24].
-- Dissipation–error trade-off, arXiv:2111.01189v3 [C-lit6][C-lit7].
-- Master-equation thermodynamics of proofreading, arXiv:1504.02494v1 [C-lit15][C-lit16].
-- Stochastic Hopfield–Ninio model, doi:10.1137/24m1664861 [C-lit5].
-- Discrimination regimes in the Hopfield network, doi:10.1063/5.0312257 [C-lit25][C-lit26].
-- Ribosome induced fit, doi:10.1093/emboj/18.13.3800 [C-lit27].
-- Speed–accuracy universality, doi:10.1128/mbio.02056-26 [C-lit9].
-- Thermodynamic uncertainty relation, doi:10.1103/physrevlett.114.158101 [C-lit14]; arXiv:2109.11890v1 [C-lit17].
-- Nonequilibrium receptors, arXiv:2002.10567v3 [C-lit28][C-lit29].
-- Concentration-estimation accuracy and energy, arXiv:1405.4001v3 [C-lit30].
-- Speed limits and dissipated work, arXiv:2402.17931v2 [C-lit18][C-lit19].
+**Certificate.** Symbolic certificate (b): 3 of 3 members proved [C-proofreading-R6].
 
-![Zweiseitige Pareto-Front: Punkte = zertifiziert erreichbar, gestrichelt = bewiesene untere Schranken. Belege: [C-proofreading-R1], [C-proofreading-R2], [C-proofreading-R8], [C-proofreading-R9], [C-proofreading-R10]](pareto_front.png)
+::: proposition [Subfamily bound, second question]
+The same conclusion holds for 3 topologies when the question is whether a fuel-driven discard exit at the product state is necessary [C-proofreading-R7].
+:::
 
+**Certificate.** Symbolic certificate (b): 3 of 3 members proved [C-proofreading-R7]. This verified result is subsumed by the theorem on 50 topologies [C-proofreading-R11], and by itself does not decide necessity of the discard exit.
 
----
-Prüfprotokoll: 70 Claims zitiert, Korrekturrunden [{"runde": 0, "verstoesse": 17}, {"runde": 1, "verstoesse": 0}, {"final_verstoesse_entfernt": 0}], 0 unbelegte Sätze entfernt, verbleibende Verstöße: 0.
+::: lemma [Verifier output of the counterexample round]
+The verifier output of round 12 is: certificate (a) passed for 2 of 2 cases [C-fakt-r12].
+:::
+
+::: proposition [Verifier self-test]
+The verifier passes its self-test with 18 of 18 cases (true, false, borderline, rule-violating) [C-fakt-selbsttest].
+:::
+
+### Examples (chain with $n=1$)
+
+These are attainable points. They certify reachability, not optimality.
+
+::: example [Moderate dissipation]
+For hopfield_n1 there exist rational rates in $[e^{-10},e^{10}]$ satisfying local detailed balance with $\eta\le 0.0004$, $\sigma\le 6.0$ $kT$ per product and $v\ge 0.001$ [C-proofreading-R1].
+:::
+
+The certificate gives $\eta=$ 3.650169e-04, $\sigma\in[6.000000,6.000000]$ and $v=$ 1.0417e-01 [C-proofreading-R1]. Novelty status: not found in a targeted search of 62 abstracts on 2026-10-04 [C-proofreading-R1].
+
+::: example [Moderate error rate]
+For hopfield_n1 there exist rational rates with $\eta\le 0.01$ and $v\ge 0.001$ [C-proofreading-R3].
+:::
+
+The certificate gives $\eta=$ 5.909757e-03, $\sigma\in[3.998555,3.998555]$ and $v=$ 7.1214e-03 [C-proofreading-R3]. Novelty status: not found in a targeted search of 45 abstracts on 2026-10-04 [C-proofreading-R3].
+
+::: example [Very low dissipation]
+For hopfield_n1 there exist rational rates with $\eta\le 0.00012$ and $\sigma\le 0.2$ $kT$ per product [C-proofreading-R8].
+:::
+
+The certificate gives $\eta=$ 1.095823e-04, $\sigma\in[0.006292,0.006292]$ and $v=$ 9.1487e-09 [C-proofreading-R8]. Novelty status: not found in a targeted search of 49 abstracts on 2026-10-04 [C-proofreading-R8].
+
+::: example [Speed constraint]
+For hopfield_n1 there exist rational rates with $\eta\le 0.0002$, $\sigma\le 10$ $kT$ per product and $v\ge 0.001$ [C-proofreading-R10].
+:::
+
+The certificate gives $\eta=$ 1.189200e-04, $\sigma\in[4.271813,4.271813]$ and $v=$ 1.0000e-03 [C-proofreading-R10]. Novelty status: not found in a targeted search of 37 abstracts on 2026-10-04 [C-proofreading-R10]. Attainable points of the chain are qualitatively known, and are here exact [C-fakt-neuheit].
+
+| Case | $\eta$ | $\sigma$ ($kT$) | $v$ | Source |
+|---|---|---|---|---|
+| fam2_66 | 5.082802e-07 | 8.341626 | 1.4746e-03 | [C-proofreading-R4] |
+| hopfield_n1, Ex. 1 | 3.650169e-04 | 6.000000 | 1.0417e-01 | [C-proofreading-R1] |
+| hopfield_n1, Ex. 2 | 5.909757e-03 | 3.998555 | 7.1214e-03 | [C-proofreading-R3] |
+| hopfield_n1, Ex. 3 | 1.095823e-04 | 0.006292 | 9.1487e-09 | [C-proofreading-R8] |
+| hopfield_n1, Ex. 4 | 1.189200e-04 | 4.271813 | 1.0000e-03 | [C-proofreading-R10] |
+
+*Table 2.* Certificate (a) data (exact rational $\eta$, interval enclosure of $\sigma$).
+
+**Remark (status of the computer-assisted parts).** The Hopfield-bound theorem and the theorem on 50 topologies rest on certificate (b) [C-proofreading-R9, C-proofreading-R11]. The counterexample theorems and the four examples rest on certificate (a) [C-proofreading-R4, C-proofreading-R12, C-proofreading-R1]. The trusted base is the verifier, including its exact rational arithmetic and its symbolic positivity check. A third party re-runs everything with the command in the Declarations [C-verfuegbarkeit]. The optimiser that finds candidates is not trusted.
+
+## Negative results
+
+- **The 35 open topologies.** For these members neither a proof of $\eta\ge e^{-2\Delta}$ (certificate (b)) nor a certified counterexample (certificate (a)) was obtained [C-fakt-klassifikation]. The reason is unknown.
+- **Necessity of a fuel-driven discard exit.** The question was posed in a form that asks for either a counterexample without the feature or a proof of the bound on the subfamily without it. The verified result covers only 3 topologies, so the question is not decided here [C-proofreading-R7]. The failed attempts and their causes (verifier faults, later fixed) are documented in Appendix A [C-neg1].
+
+## Discussion, limitations and open questions
+
+The chain with $n=2$ respects its Hopfield limit for all rates and fuel potentials [C-proofreading-R9]. Three two-bound-state topologies (fam2_66, fam2_9, fam2_11) have certified counterexamples to $\eta\ge e^{-2\Delta}$ [C-fakt-klassifikation]. The certified example fam2_66 uses a fuel-driven discard from the product-forming state [C-fakt-fam66]. A mixed regime with a phase transition in the front was reported in the literature [C-lit2]. A speed–accuracy trade-off need not be universal [C-lit9]. High dissipation can favour speed [C-lit11].
+
+**Limitations.**
+- The classification is for $\Delta=\ln 100$ and rates in $[e^{-10},e^{10}]$ [C-modell].
+- The counterexamples are certified for rational rates with denominator at most $10^{6}$, and for $\mu,\mu_P$ explored in $[0,20]$ [C-modell].
+- Counterexamples are certified at low speed. For fam2_66, $v=$ 1.4746e-03 [C-fakt-fam66].
+- The results concern at most $10$ states and substrate concentrations normalised to one [C-modell].
+- The four examples are attainable points, not Pareto optima.
+
+**Open questions.**
+1. (i) What decides the 35 open topologies [C-fakt-klassifikation]?
+2. (ii) Is a fuel-driven discard exit at the product state necessary to go below $e^{-2\Delta}$ [C-fakt-klassifikation]? Only a partial result for 3 topologies exists [C-proofreading-R7].
+3. (iii) Do bounds of the type $e^{-(n+1)\Delta}$ hold for other chains with $n=2$ and general branched topologies, beyond hopfield_n2 [C-proofreading-R9]?
+
+## Declarations
+
+**AI usage.** The results were produced and checked by an automated laboratory. Every statement was verified by code.
+
+**Code and data availability.** Repository https://github.com/alizema700/Daddys-Project, branch `claude/paper-pipeline-v2`, directory `projects/proofreading`. Reproduce all certificates with `python -m asd.recheck proofreading`. Rebuild the paper with `python -m asd.paper --domain proofreading` [C-verfuegbarkeit].
+
+**Competing interests.** None.
+
+## Appendix A: Agentic laboratory
+
+**Workflow.** The laboratory ran 12 rounds with 11 verified statements and 1 negative results [C-methode]. Every round was preregistered before the experiment [C-methode].
+
+**Roles.** The roles in the failed attempts of the negative result were sparsam, numeriker, skeptiker and theoretiker [C-neg1].
+
+**Preregistration.** Preregistration H6 (commit 6184672) was made before the first run, with dated addenda [C-fakt-praereg]. The L2c success criterion (at least 5 counterexamples in one round) was missed: 2 were found in round 12, and 3 in total [C-fakt-praereg].
+
+**Literature search.** 2752 sources were retrieved (arXiv, Europe PMC, Crossref, citation chain) [C-fakt-recherche]. 2502 were screened, and 158 findings have a verbatim quote confirmed in the abstract by code [C-fakt-recherche]. All 11 classic searches had hits [C-fakt-recherche].
+
+**Red team.** In total there were 22 counter-checks, of which 4 passed, 8 did not pass and 10 were not executable [C-redteam].
+
+**Negative result.** For the question on the necessity of a fuel-driven discard exit no claim passed the verifier. Four attempts (sparsam, numeriker, skeptiker, theoretiker) failed because of a verifier error that was later fixed [C-neg1]. One boundary-case topology was rejected by the rule check: a discriminating edge is allowed only from bound to unbound [C-proofreading-R7-RT2].
+
+**Additional counter-checks.**
+- A counter-check of Example 1 shows that the feasible set grows with the allowed dissipation, so the minimal $\eta$ is non-increasing. The same parameter set remains feasible at larger dissipation budgets. A reported kink in the front is therefore an optimiser artefact [C-proofreading-R1-RT1, C-proofreading-R1-RT2].
+- The attempt to prove $\eta\ge 1.2\,e^{-2\Delta}$ for the chain with $n=1$ fails symbolically, as expected from the very-low-dissipation example [C-proofreading-R8-RT1].
+- For fam2_9, fam2_11 and fam2_13 the attempt to prove the bound gave 0 of 3 members proved [C-proofreading-R12-RT1]. This is consistent with the certified counterexamples for fam2_9 and fam2_11 [C-proofreading-R12]. For fam2_13 no counterexample is claimed here [C-proofreading-R12-RT1].
+- An independent numerical search with 24 starts for the chain with $n=2$ found a minimum of 3.1387e-05, which did not support a claim of a value much below $e^{-3\Delta}$ [C-proofreading-R9-RT2]. This is numerical only, and not a proof.
+
+::: example [Supplementary: pareto-front check, appendix only]
+For hopfield_n1 there exist rational rates in $[e^{-10},e^{10}]$ satisfying local detailed balance with $\eta\le 0.0004$, $\sigma\le 8$ $kT$ per product and $v\ge 0.001$ [C-proofreading-R2]. The certificates give $\eta=$ 3.156120e-04 at $\sigma\in[6.000000,6.000000]$ with $v=$ 2.4255e-02, and $\eta=$ 2.043712e-04 at $\sigma\in[3.079633,3.079633]$ with $v=$ 2.2592e-03 [C-proofreading-R2]. Novelty status: not found in a targeted search of 57 abstracts on 2026-10-04 [C-proofreading-R2].
+:::
+
+## Appendix B: Provenance
+
+The provenance table mapping every statement to its evidence follows; it is generated automatically.
+
+## Appendix C: Verifier self-test
+
+The verifier of the domain passes its self-test with 18 of 18 cases, covering true statements, false statements, borderline cases and rule violations [C-fakt-selbsttest]. For example, a topology that violates the model rules is rejected by the rule check [C-proofreading-R7-RT2].
+<!-- Abbildung pareto_front.pdf: Belege C-proofreading-R1, C-proofreading-R2, C-proofreading-R8, C-proofreading-R9, C-proofreading-R10 -->
+
+<!-- Abbildung klassifikation.pdf: Belege C-proofreading-R4, C-proofreading-R6, C-proofreading-R7, C-proofreading-R11, C-proofreading-R12 -->
+
