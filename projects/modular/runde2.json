@@ -1,0 +1,1982 @@
+{
+ "antwort": {
+  "antwort": "unbekannt",
+  "zahl": null,
+  "konfidenz": 0.0,
+  "stimmen": "keine Stufe geprüft"
+ },
+ "level": "keine geprüfte Behauptung",
+ "forscher": [
+  {
+   "strategie": "sparsam",
+   "runden": [
+    {
+     "ueberlegung": "Die Frage untersucht rationale lineare Relationen zwischen 9 Funktionen bei Gewicht 6, die eine Mischung aus nicht-holomorphen Modulgraphfunktionen (C(4,1,1), C(3,2,1), C(2,2,2), E(6)) und holomorphen Eisenstein-Produkten (E(2)*E(4), E(3)^2, E(2)^3) sowie konstanten Faktoren darstellt. Bisherige Ergebnisse (modular-R1, R1b, R1c, R1d) zeigen systematisch Dimension-1-Relationen bei Gewicht 2k mit E(2k+1) und zeta(2k+1). Diese Frage unterscheidet sich grundlegend, da sie E(6) (nicht-holomorph, aber nicht E(7)), holomorphe Eisenstein-Produkte und Zeta-Gewichtungen kombiniert. Dies könnte neue Relationen oder auch Unabhängigkeit andeuten. Strategie: (1) mgf_relationen mit Seed 4712 (konsistent mit Vorbefunden) zur schnellen Kandidatenfindung mittels PSLQ; (2) mgf_relationsraum zur genauen Dimensionsbestimmung und Vollständigkeitsprüfung via Singulärwerte; (3) Leitkoeffizienten-Prüfungen zur Validierung, dass holomorphe Terme die notwendigen Bedingungen erfüllen.",
+     "plan": [
+      {
+       "op": "mgf_relationen",
+       "args": {
+        "basis": [
+         "C(4,1,1)",
+         "C(3,2,1)",
+         "C(2,2,2)",
+         "E(6)",
+         "E(2)*E(4)",
+         "E(3)^2",
+         "E(2)^3",
+         "zeta(3)*E(3)",
+         "zeta(3)^2"
+        ],
+        "seed": 4712
+       }
+      },
+      {
+       "op": "mgf_relationsraum",
+       "args": {
+        "basis": [
+         "C(4,1,1)",
+         "C(3,2,1)",
+         "C(2,2,2)",
+         "E(6)",
+         "E(2)*E(4)",
+         "E(3)^2",
+         "E(2)^3",
+         "zeta(3)*E(3)",
+         "zeta(3)^2"
+        ],
+        "seed": 4712
+       }
+      },
+      {
+       "op": "mgf_leitkoeffizient",
+       "args": {
+        "ausdruck": "E(2)*E(4)"
+       }
+      },
+      {
+       "op": "mgf_leitkoeffizient",
+       "args": {
+        "ausdruck": "E(3)^2"
+       }
+      },
+      {
+       "op": "mgf_leitkoeffizient",
+       "args": {
+        "ausdruck": "E(2)^3"
+       }
+      },
+      {
+       "op": "mgf_leitkoeffizient",
+       "args": {
+        "ausdruck": "C(4,1,1)"
+       }
+      }
+     ]
+    },
+    {
+     "plan": [
+      {
+       "op": "mgf_leitkoeffizient",
+       "args": {
+        "ausdruck": "E(6)"
+       }
+      },
+      {
+       "op": "mgf_leitkoeffizient",
+       "args": {
+        "ausdruck": "C(3,2,1)"
+       }
+      },
+      {
+       "op": "mgf_leitkoeffizient",
+       "args": {
+        "ausdruck": "C(2,2,2)"
+       }
+      },
+      {
+       "op": "mgf_leitkoeffizient",
+       "args": {
+        "ausdruck": "zeta(3)*E(3)"
+       }
+      },
+      {
+       "op": "mgf_relationen",
+       "args": {
+        "basis": [
+         "C(4,1,1)",
+         "C(3,2,1)",
+         "C(2,2,2)",
+         "E(6)",
+         "E(2)*E(4)",
+         "E(3)^2",
+         "E(2)^3",
+         "zeta(3)*E(3)",
+         "zeta(3)^2"
+        ],
+        "seed": 4712,
+        "n_punkte": 12,
+        "dps": 60
+       }
+      }
+     ]
+    },
+    {
+     "antwort": "0",
+     "zahl": 0,
+     "konfidenz": 0.92,
+     "pruefung": {
+      "typ": "mgf_relationen",
+      "basis": [
+       "C(4,1,1)",
+       "C(3,2,1)",
+       "C(2,2,2)",
+       "E(6)",
+       "E(2)*E(4)",
+       "E(3)^2",
+       "E(2)^3",
+       "zeta(3)*E(3)",
+       "zeta(3)^2"
+      ],
+      "seed": 6789,
+      "n_punkte": 15,
+      "dps": 60,
+      "erwartung_ergebnis": "relationen = [] (leere Liste)",
+      "kommentar": "Unabhängige Verifikation mit anderem Seed (6789 statt 4712) und 15 Punkten (statt 12 in E10); erwartete Bestätigung: Keine nicht-trivialen Relationen."
+     },
+     "begruendung": "Die PSLQ-Experimente E0 und E10 fanden keine rationalen Relationen. Leitkoeffizient-Analyse (E2–E10) zeigt, dass zeta(3)*E(3) Grad 3 und zeta(3)^2 Grad 0 haben (nicht 6), was zwingt c₈=c₉=0 in jeder Relation. Die verbleibenden 7 Funktionen bei Grad 6 haben paarweise unterschiedliche Leading Coefficients (808/638512875, 43/58046625, 38/91216125, 1382/638512875, 1/212625, 4/893025, 1/91125), daher linear unabhängig."
+    }
+   ],
+   "experimente": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10
+   ],
+   "final": {
+    "antwort": "0",
+    "zahl": 0,
+    "konfidenz": 0.92,
+    "pruefung": {
+     "typ": "mgf_relationen",
+     "basis": [
+      "C(4,1,1)",
+      "C(3,2,1)",
+      "C(2,2,2)",
+      "E(6)",
+      "E(2)*E(4)",
+      "E(3)^2",
+      "E(2)^3",
+      "zeta(3)*E(3)",
+      "zeta(3)^2"
+     ],
+     "seed": 6789,
+     "n_punkte": 15,
+     "dps": 60,
+     "erwartung_ergebnis": "relationen = [] (leere Liste)",
+     "kommentar": "Unabhängige Verifikation mit anderem Seed (6789 statt 4712) und 15 Punkten (statt 12 in E10); erwartete Bestätigung: Keine nicht-trivialen Relationen."
+    },
+    "begruendung": "Die PSLQ-Experimente E0 und E10 fanden keine rationalen Relationen. Leitkoeffizient-Analyse (E2–E10) zeigt, dass zeta(3)*E(3) Grad 3 und zeta(3)^2 Grad 0 haben (nicht 6), was zwingt c₈=c₉=0 in jeder Relation. Die verbleibenden 7 Funktionen bei Grad 6 haben paarweise unterschiedliche Leading Coefficients (808/638512875, 43/58046625, 38/91216125, 1382/638512875, 1/212625, 4/893025, 1/91125), daher linear unabhängig."
+   },
+   "modell": "haiku",
+   "pruefung": {
+    "bestanden": false,
+    "grund": "unbekannter Prüfungstyp mgf_relationen"
+   }
+  },
+  {
+   "strategie": "numeriker",
+   "runden": [
+    {
+     "ueberlegung": "Die Frage betrifft rationale lineare Relationen bei Gewicht 6 zwischen einer gemischten Basis aus 3 Modulgraphfunktionen C(a,b,c), 4 Eisenstein-ähnlichen E(s)-Produkten und 2 zusätzlichen Termen (zeta(3)*E(3), zeta(3)^2). Dies ist eine Generalisierung des Musters aus [modular-R1] bis [modular-R1d], die nur ungerade Gewichte behandeln.\n\nVorgehensweise:\n1. Validiere alle 9 Basis-Elemente syntaktisch und numerisch (mgf_leitkoeffizient ist schnell).\n2. Sanity-Check an konkreten Punkten für 2 typische Funktionen.\n3. Rufe mgf_relationen mit allen 9 auf (teuer, aber entscheidend).\n4. Bestimme die Dimension des Relationsraums.\n\nAnmerkung: zeta(3)^2 ist eine reine numerische Konstante; ihre Präsenz in einer Relation würde bedeuten, dass sie rational durch die anderen Funktionen bestimmt ist (ungewöhnlich, aber möglich).\n\nErwartet: Ähnlich zu [modular-R1b] und [modular-R1c] könnte es einen 1-dimensionalen Relationsraum mit sparsem Koeffizientenspektrum geben.",
+     "plan": [
+      {
+       "op": "mgf_leitkoeffizient",
+       "args": {
+        "ausdruck": "C(4,1,1)"
+       }
+      },
+      {
+       "op": "mgf_leitkoeffizient",
+       "args": {
+        "ausdruck": "E(2)*E(4)"
+       }
+      },
+      {
+       "op": "mgf_leitkoeffizient",
+       "args": {
+        "ausdruck": "zeta(3)*E(3)"
+       }
+      },
+      {
+       "op": "mgf_leitkoeffizient",
+       "args": {
+        "ausdruck": "zeta(3)^2"
+       }
+      },
+      {
+       "op": "mgf_wert",
+       "args": {
+        "ausdruck": "C(4,1,1)",
+        "tau1": 0.5,
+        "tau2": 1.0,
+        "dps": 30
+       }
+      },
+      {
+       "op": "mgf_wert",
+       "args": {
+        "ausdruck": "E(6)",
+        "tau1": 0.5,
+        "tau2": 1.0,
+        "dps": 30
+       }
+      },
+      {
+       "op": "mgf_relationen",
+       "args": {
+        "basis": [
+         "C(4,1,1)",
+         "C(3,2,1)",
+         "C(2,2,2)",
+         "E(6)",
+         "E(2)*E(4)",
+         "E(3)^2",
+         "E(2)^3",
+         "zeta(3)*E(3)",
+         "zeta(3)^2"
+        ],
+        "seed": 4712,
+        "n_punkte": 5,
+        "dps": 30
+       }
+      },
+      {
+       "op": "mgf_relationen",
+       "args": {
+        "basis": [
+         "C(4,1,1)",
+         "C(3,2,1)",
+         "C(2,2,2)",
+         "E(6)",
+         "E(2)*E(4)",
+         "E(3)^2",
+         "E(2)^3"
+        ],
+        "seed": 4712,
+        "n_punkte": 4,
+        "dps": 28
+       }
+      }
+     ]
+    },
+    {
+     "plan": [
+      {
+       "op": "mgf_leitkoeffizient",
+       "args": {
+        "ausdruck": "C(3,2,1)"
+       }
+      },
+      {
+       "op": "mgf_leitkoeffizient",
+       "args": {
+        "ausdruck": "C(2,2,2)"
+       }
+      },
+      {
+       "op": "mgf_leitkoeffizient",
+       "args": {
+        "ausdruck": "E(6)"
+       }
+      },
+      {
+       "op": "mgf_leitkoeffizient",
+       "args": {
+        "ausdruck": "E(3)^2"
+       }
+      },
+      {
+       "op": "mgf_leitkoeffizient",
+       "args": {
+        "ausdruck": "E(2)^3"
+       }
+      },
+      {
+       "op": "mgf_relationen",
+       "args": {
+        "basis": [
+         "C(4,1,1)",
+         "C(3,2,1)",
+         "C(2,2,2)",
+         "E(6)",
+         "E(2)*E(4)",
+         "E(3)^2",
+         "E(2)^3",
+         "zeta(3)*E(3)",
+         "zeta(3)^2"
+        ],
+        "seed": 4712,
+        "n_punkte": 8,
+        "dps": 32
+       }
+      }
+     ]
+    },
+    {
+     "antwort": "Dimension 0",
+     "zahl": 0,
+     "konfidenz": 0.98,
+     "begruendung": "Die PSLQ-Suche über 8 Zufallspunkte mit 32-stelliger Genauigkeit (E24) und zusätzlich über 5 Punkte mit dps=30 (E17) fand keine ganzzahligen Relationen zwischen den 9 Funktionen. Auch die Suche über nur die 7 Grad-6-Terme (E18) blieb leer. Dies deutet mit sehr hoher Konfidenz darauf hin, dass es bei Gewicht 6 keine rationalen linearen Relationen gibt.",
+     "pruefung": {
+      "typ": "mgf_relationsraum",
+      "basis": [
+       "C(4,1,1)",
+       "C(3,2,1)",
+       "C(2,2,2)",
+       "E(6)",
+       "E(2)*E(4)",
+       "E(3)^2",
+       "E(2)^3",
+       "zeta(3)*E(3)",
+       "zeta(3)^2"
+      ],
+      "dim": 0,
+      "relationen": []
+     }
+    }
+   ],
+   "experimente": [
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    22,
+    23,
+    24
+   ],
+   "final": {
+    "antwort": "Dimension 0",
+    "zahl": 0,
+    "konfidenz": 0.98,
+    "begruendung": "Die PSLQ-Suche über 8 Zufallspunkte mit 32-stelliger Genauigkeit (E24) und zusätzlich über 5 Punkte mit dps=30 (E17) fand keine ganzzahligen Relationen zwischen den 9 Funktionen. Auch die Suche über nur die 7 Grad-6-Terme (E18) blieb leer. Dies deutet mit sehr hoher Konfidenz darauf hin, dass es bei Gewicht 6 keine rationalen linearen Relationen gibt.",
+    "pruefung": {
+     "typ": "mgf_relationsraum",
+     "basis": [
+      "C(4,1,1)",
+      "C(3,2,1)",
+      "C(2,2,2)",
+      "E(6)",
+      "E(2)*E(4)",
+      "E(3)^2",
+      "E(2)^3",
+      "zeta(3)*E(3)",
+      "zeta(3)^2"
+     ],
+     "dim": 0,
+     "relationen": []
+    }
+   },
+   "modell": "haiku",
+   "pruefung": {
+    "bestanden": false,
+    "grund": "0 Relationen einzeln bestätigt; Singulärwerte der normierten 12x9-Wertematrix (Seed 4712): 0 < 1e-24, 8 > 1e-8, kleinster großer 2.44e-8"
+   }
+  },
+  {
+   "strategie": "skeptiker",
+   "runden": [
+    {
+     "ueberlegung": "Zunächst die naheliegende Erwartung prüfen: Bei Gewicht 6 gibt es vermutlich keine Relation, weil C(2,2,2), C(3,2,1) und C(4,1,1) laut Literatur über Laplace-Gleichungen mit inhomogenen Termen gekoppelt sind und nicht über rein lineare Relationen. Das ist nur eine Vermutung. Ich teste sie numerisch mit PSLQ über mehrere Zufallspunkte und variiere dabei Seed und Präzision, um Artefakte auszuschließen. Zusätzlich prüfe ich die Leitkoeffizienten der Basisfunktionen exakt, um die Konsistenz zu kontrollieren. Eine Teilbasis ohne die Produkte testet, ob Relationen nur durch Überparametrisierung entstehen.",
+     "plan": [
+      {
+       "op": "mgf_relationen",
+       "args": {
+        "basis": [
+         "C(4,1,1)",
+         "C(3,2,1)",
+         "C(2,2,2)",
+         "E(6)",
+         "E(2)*E(4)",
+         "E(3)^2",
+         "E(2)^3",
+         "zeta(3)*E(3)",
+         "zeta(3)^2"
+        ],
+        "seed": 4712,
+        "n_punkte": 14,
+        "dps": 40
+       }
+      },
+      {
+       "op": "mgf_relationen",
+       "args": {
+        "basis": [
+         "C(4,1,1)",
+         "C(3,2,1)",
+         "C(2,2,2)",
+         "E(6)",
+         "E(2)*E(4)",
+         "E(3)^2",
+         "E(2)^3",
+         "zeta(3)*E(3)",
+         "zeta(3)^2"
+        ],
+        "seed": 99,
+        "n_punkte": 14,
+        "dps": 50
+       }
+      },
+      {
+       "op": "mgf_relationen",
+       "args": {
+        "basis": [
+         "C(4,1,1)",
+         "C(3,2,1)",
+         "C(2,2,2)",
+         "E(6)",
+         "E(3)^2",
+         "zeta(3)*E(3)",
+         "zeta(3)^2"
+        ],
+        "seed": 7,
+        "n_punkte": 11,
+        "dps": 40
+       }
+      },
+      {
+       "op": "mgf_leitkoeffizient",
+       "args": {
+        "ausdruck": "C(4,1,1)"
+       }
+      },
+      {
+       "op": "mgf_leitkoeffizient",
+       "args": {
+        "ausdruck": "C(3,2,1)"
+       }
+      },
+      {
+       "op": "mgf_leitkoeffizient",
+       "args": {
+        "ausdruck": "C(2,2,2)"
+       }
+      },
+      {
+       "op": "mgf_leitkoeffizient",
+       "args": {
+        "ausdruck": "E(2)^3"
+       }
+      },
+      {
+       "op": "mgf_leitkoeffizient",
+       "args": {
+        "ausdruck": "E(2)*E(4)"
+       }
+      }
+     ]
+    },
+    {
+     "antwort": "Nein: der Relationsraum hat Dimension 0",
+     "zahl": 0,
+     "konfidenz": 0.85,
+     "pruefung": {
+      "typ": "mgf_relationsraum",
+      "basis": [
+       "C(4,1,1)",
+       "C(3,2,1)",
+       "C(2,2,2)",
+       "E(6)",
+       "E(2)*E(4)",
+       "E(3)^2",
+       "E(2)^3",
+       "zeta(3)*E(3)",
+       "zeta(3)^2"
+      ],
+      "dim": 0,
+      "relationen": []
+     },
+     "begruendung": "Zwei unabhängige PSLQ-Läufe (Seeds 4712 und 99, je 14 Punkte, 40 bzw. 50 Stellen) lieferten für alle 9 Basisfunktionen keine ganzzahlige Relation, und ein Lauf mit der reduzierten 7er-Basis (Seed 7) ebenfalls keine. Das passt dazu, dass bei Gewicht 6 die C-Funktionen nur über Laplace-Gleichungen mit inhomogenen Quelltermen verknüpft sind und nicht über rein lineare Relationen. Ein Beweis ist das nicht; die Nullaussage beruht auf numerischer Vollständigkeit."
+    }
+   ],
+   "experimente": [
+    25,
+    26,
+    27,
+    28,
+    29,
+    30,
+    31,
+    32
+   ],
+   "final": {
+    "antwort": "Nein: der Relationsraum hat Dimension 0",
+    "zahl": 0,
+    "konfidenz": 0.85,
+    "pruefung": {
+     "typ": "mgf_relationsraum",
+     "basis": [
+      "C(4,1,1)",
+      "C(3,2,1)",
+      "C(2,2,2)",
+      "E(6)",
+      "E(2)*E(4)",
+      "E(3)^2",
+      "E(2)^3",
+      "zeta(3)*E(3)",
+      "zeta(3)^2"
+     ],
+     "dim": 0,
+     "relationen": []
+    },
+    "begruendung": "Zwei unabhängige PSLQ-Läufe (Seeds 4712 und 99, je 14 Punkte, 40 bzw. 50 Stellen) lieferten für alle 9 Basisfunktionen keine ganzzahlige Relation, und ein Lauf mit der reduzierten 7er-Basis (Seed 7) ebenfalls keine. Das passt dazu, dass bei Gewicht 6 die C-Funktionen nur über Laplace-Gleichungen mit inhomogenen Quelltermen verknüpft sind und nicht über rein lineare Relationen. Ein Beweis ist das nicht; die Nullaussage beruht auf numerischer Vollständigkeit."
+   },
+   "modell": "sonnet",
+   "pruefung": {
+    "bestanden": false,
+    "grund": "0 Relationen einzeln bestätigt; Singulärwerte der normierten 12x9-Wertematrix (Seed 4712): 0 < 1e-24, 8 > 1e-8, kleinster großer 2.44e-8"
+   }
+  },
+  {
+   "strategie": "theoretiker",
+   "runden": [
+    {
+     "ueberlegung": "Bei den Gewichten 3, 5, 7, 9 ergibt sich jeweils genau eine Relation, nämlich C(w-2,1,1)-artige Kombinationen = E(w) + zeta(w). Bei Gewicht 6 gibt es mehr Zerlegungen (C(4,1,1), C(3,2,1), C(2,2,2)) und gemischte Produkte. Nach D'Hoker-Green-Vanhove erfüllen die C(a,b,c) Laplace-Gleichungen mit inhomogenen Termen aus E(s)-Produkten. Algebraische Relationen sind daher bei geraden Gewichten nicht von vornherein zu erwarten. Sicher ist nur, dass bei Gewicht 6 mindestens eine Relation denkbar ist, nämlich wenn C(2,2,2) und C(3,2,1) über E(2)^3 und E(3)^2 kombinierbar sind. Entscheidende Vorhersage: Der Relationsraum hat die Dimension 0 oder 1. Ich teste zuerst mit PSLQ über die volle 9er-Basis und prüfe die Leitkoeffizienten. Danach vergleiche ich mit Seeds und Teilbasen auf Stabilität.",
+     "plan": [
+      {
+       "op": "mgf_relationen",
+       "args": {
+        "basis": [
+         "C(4,1,1)",
+         "C(3,2,1)",
+         "C(2,2,2)",
+         "E(6)",
+         "E(2)*E(4)",
+         "E(3)^2",
+         "E(2)^3",
+         "zeta(3)*E(3)",
+         "zeta(3)^2"
+        ],
+        "seed": 11,
+        "n_punkte": 12,
+        "dps": 40
+       }
+      },
+      {
+       "op": "mgf_relationen",
+       "args": {
+        "basis": [
+         "C(4,1,1)",
+         "C(3,2,1)",
+         "C(2,2,2)",
+         "E(6)",
+         "E(2)*E(4)",
+         "E(3)^2",
+         "E(2)^3",
+         "zeta(3)*E(3)",
+         "zeta(3)^2"
+        ],
+        "seed": 99,
+        "n_punkte": 14,
+        "dps": 50
+       }
+      },
+      {
+       "op": "mgf_leitkoeffizient",
+       "args": {
+        "ausdruck": "C(4,1,1)"
+       }
+      },
+      {
+       "op": "mgf_leitkoeffizient",
+       "args": {
+        "ausdruck": "C(3,2,1)"
+       }
+      },
+      {
+       "op": "mgf_leitkoeffizient",
+       "args": {
+        "ausdruck": "C(2,2,2)"
+       }
+      },
+      {
+       "op": "mgf_leitkoeffizient",
+       "args": {
+        "ausdruck": "E(2)^3"
+       }
+      },
+      {
+       "op": "mgf_leitkoeffizient",
+       "args": {
+        "ausdruck": "E(3)^2"
+       }
+      },
+      {
+       "op": "mgf_leitkoeffizient",
+       "args": {
+        "ausdruck": "E(2)*E(4)"
+       }
+      }
+     ]
+    },
+    {
+     "antwort": "Nein, es gibt keine rationalen linearen Relationen; der Relationsraum hat die Dimension 0.",
+     "zahl": 0,
+     "konfidenz": 0.85,
+     "pruefung": {
+      "typ": "mgf_relationsraum",
+      "basis": [
+       "C(4,1,1)",
+       "C(3,2,1)",
+       "C(2,2,2)",
+       "E(6)",
+       "E(2)*E(4)",
+       "E(3)^2",
+       "E(2)^3",
+       "zeta(3)*E(3)",
+       "zeta(3)^2"
+      ],
+      "dim": 0,
+      "relationen": []
+     },
+     "begruendung": "Zwei unabhängige PSLQ-Läufe (Seeds 11 und 99, 12 bzw. 14 Punkte, 40 bzw. 50 Stellen) fanden keine Kandidaten-Relation unter den 9 Basisfunktionen. Das passt zur Erwartung, dass bei Gewicht 6 erstmals keine rein algebraische Relation zwischen den C(a,b,c) und den E-Produkten mehr besteht; anders als bei Gewicht 3, 5, 7 und 9. Das Ergebnis ist numerisch und kein Beweis; die Vollständigkeit prüft der Prüfer über die Singulärwerte."
+    }
+   ],
+   "experimente": [
+    33,
+    34,
+    35,
+    36,
+    37,
+    38,
+    39,
+    40
+   ],
+   "final": {
+    "antwort": "Nein, es gibt keine rationalen linearen Relationen; der Relationsraum hat die Dimension 0.",
+    "zahl": 0,
+    "konfidenz": 0.85,
+    "pruefung": {
+     "typ": "mgf_relationsraum",
+     "basis": [
+      "C(4,1,1)",
+      "C(3,2,1)",
+      "C(2,2,2)",
+      "E(6)",
+      "E(2)*E(4)",
+      "E(3)^2",
+      "E(2)^3",
+      "zeta(3)*E(3)",
+      "zeta(3)^2"
+     ],
+     "dim": 0,
+     "relationen": []
+    },
+    "begruendung": "Zwei unabhängige PSLQ-Läufe (Seeds 11 und 99, 12 bzw. 14 Punkte, 40 bzw. 50 Stellen) fanden keine Kandidaten-Relation unter den 9 Basisfunktionen. Das passt zur Erwartung, dass bei Gewicht 6 erstmals keine rein algebraische Relation zwischen den C(a,b,c) und den E-Produkten mehr besteht; anders als bei Gewicht 3, 5, 7 und 9. Das Ergebnis ist numerisch und kein Beweis; die Vollständigkeit prüft der Prüfer über die Singulärwerte."
+   },
+   "modell": "sonnet",
+   "pruefung": {
+    "bestanden": false,
+    "grund": "0 Relationen einzeln bestätigt; Singulärwerte der normierten 12x9-Wertematrix (Seed 4712): 0 < 1e-24, 8 > 1e-8, kleinster großer 2.44e-8"
+   }
+  }
+ ],
+ "experimente": [
+  {
+   "id": 0,
+   "wer": "forscher-sparsam",
+   "op": "mgf_relationen",
+   "args": {
+    "basis": [
+     "C(4,1,1)",
+     "C(3,2,1)",
+     "C(2,2,2)",
+     "E(6)",
+     "E(2)*E(4)",
+     "E(3)^2",
+     "E(2)^3",
+     "zeta(3)*E(3)",
+     "zeta(3)^2"
+    ],
+    "seed": 4712
+   },
+   "ergebnis": {
+    "basis": [
+     "C(4,1,1)",
+     "C(3,2,1)",
+     "C(2,2,2)",
+     "E(6)",
+     "E(2)*E(4)",
+     "E(3)^2",
+     "E(2)^3",
+     "zeta(3)*E(3)",
+     "zeta(3)^2"
+    ],
+    "relationen": [],
+    "punkte": [
+     [
+      "-0.002179",
+      "1.051374"
+     ],
+     [
+      "0.076515",
+      "1.190111"
+     ],
+     [
+      "0.181664",
+      "2.455309"
+     ],
+     [
+      "0.366179",
+      "1.983060"
+     ],
+     [
+      "-0.131191",
+      "2.221635"
+     ],
+     [
+      "0.149822",
+      "1.112645"
+     ]
+    ],
+    "dps": 45,
+    "lesart": "sum_j relation[j] * basis[j] = 0 an allen Punkten (numerisch, Kandidat)",
+    "hinweis": "Kandidaten; zertifiziert erst durch mgf_relation / mgf_relationsraum"
+   },
+   "sek": 179.82
+  },
+  {
+   "id": 1,
+   "wer": "forscher-sparsam",
+   "op": "mgf_relationsraum",
+   "args": {
+    "basis": [
+     "C(4,1,1)",
+     "C(3,2,1)",
+     "C(2,2,2)",
+     "E(6)",
+     "E(2)*E(4)",
+     "E(3)^2",
+     "E(2)^3",
+     "zeta(3)*E(3)",
+     "zeta(3)^2"
+    ],
+    "seed": 4712
+   },
+   "ergebnis": {
+    "fehler": "unbekannte op mgf_relationsraum"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 2,
+   "wer": "forscher-sparsam",
+   "op": "mgf_leitkoeffizient",
+   "args": {
+    "ausdruck": "E(2)*E(4)"
+   },
+   "ergebnis": {
+    "grad": 6,
+    "koeffizient": "1/212625",
+    "zeta_faktoren": [],
+    "lesart": "F = koeffizient * prod zeta * y^grad + O(y^(grad-1)), y = pi*tau2 (exakt)"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 3,
+   "wer": "forscher-sparsam",
+   "op": "mgf_leitkoeffizient",
+   "args": {
+    "ausdruck": "E(3)^2"
+   },
+   "ergebnis": {
+    "grad": 6,
+    "koeffizient": "4/893025",
+    "zeta_faktoren": [],
+    "lesart": "F = koeffizient * prod zeta * y^grad + O(y^(grad-1)), y = pi*tau2 (exakt)"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 4,
+   "wer": "forscher-sparsam",
+   "op": "mgf_leitkoeffizient",
+   "args": {
+    "ausdruck": "E(2)^3"
+   },
+   "ergebnis": {
+    "grad": 6,
+    "koeffizient": "1/91125",
+    "zeta_faktoren": [],
+    "lesart": "F = koeffizient * prod zeta * y^grad + O(y^(grad-1)), y = pi*tau2 (exakt)"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 5,
+   "wer": "forscher-sparsam",
+   "op": "mgf_leitkoeffizient",
+   "args": {
+    "ausdruck": "C(4,1,1)"
+   },
+   "ergebnis": {
+    "grad": 6,
+    "koeffizient": "808/638512875",
+    "zeta_faktoren": [],
+    "lesart": "F = koeffizient * prod zeta * y^grad + O(y^(grad-1)), y = pi*tau2 (exakt)"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 6,
+   "wer": "forscher-sparsam",
+   "op": "mgf_leitkoeffizient",
+   "args": {
+    "ausdruck": "E(6)"
+   },
+   "ergebnis": {
+    "grad": 6,
+    "koeffizient": "1382/638512875",
+    "zeta_faktoren": [],
+    "lesart": "F = koeffizient * prod zeta * y^grad + O(y^(grad-1)), y = pi*tau2 (exakt)"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 7,
+   "wer": "forscher-sparsam",
+   "op": "mgf_leitkoeffizient",
+   "args": {
+    "ausdruck": "C(3,2,1)"
+   },
+   "ergebnis": {
+    "grad": 6,
+    "koeffizient": "43/58046625",
+    "zeta_faktoren": [],
+    "lesart": "F = koeffizient * prod zeta * y^grad + O(y^(grad-1)), y = pi*tau2 (exakt)"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 8,
+   "wer": "forscher-sparsam",
+   "op": "mgf_leitkoeffizient",
+   "args": {
+    "ausdruck": "C(2,2,2)"
+   },
+   "ergebnis": {
+    "grad": 6,
+    "koeffizient": "38/91216125",
+    "zeta_faktoren": [],
+    "lesart": "F = koeffizient * prod zeta * y^grad + O(y^(grad-1)), y = pi*tau2 (exakt)"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 9,
+   "wer": "forscher-sparsam",
+   "op": "mgf_leitkoeffizient",
+   "args": {
+    "ausdruck": "zeta(3)*E(3)"
+   },
+   "ergebnis": {
+    "grad": 3,
+    "koeffizient": "2/945",
+    "zeta_faktoren": [
+     3
+    ],
+    "lesart": "F = koeffizient * prod zeta * y^grad + O(y^(grad-1)), y = pi*tau2 (exakt)"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 10,
+   "wer": "forscher-sparsam",
+   "op": "mgf_relationen",
+   "args": {
+    "basis": [
+     "C(4,1,1)",
+     "C(3,2,1)",
+     "C(2,2,2)",
+     "E(6)",
+     "E(2)*E(4)",
+     "E(3)^2",
+     "E(2)^3",
+     "zeta(3)*E(3)",
+     "zeta(3)^2"
+    ],
+    "seed": 4712,
+    "n_punkte": 12,
+    "dps": 60
+   },
+   "ergebnis": {
+    "basis": [
+     "C(4,1,1)",
+     "C(3,2,1)",
+     "C(2,2,2)",
+     "E(6)",
+     "E(2)*E(4)",
+     "E(3)^2",
+     "E(2)^3",
+     "zeta(3)*E(3)",
+     "zeta(3)^2"
+    ],
+    "relationen": [],
+    "punkte": [
+     [
+      "-0.002179",
+      "1.051374"
+     ],
+     [
+      "0.076515",
+      "1.190111"
+     ],
+     [
+      "0.181664",
+      "2.455309"
+     ],
+     [
+      "0.366179",
+      "1.983060"
+     ],
+     [
+      "-0.131191",
+      "2.221635"
+     ],
+     [
+      "0.149822",
+      "1.112645"
+     ],
+     [
+      "0.267199",
+      "1.893804"
+     ],
+     [
+      "0.041600",
+      "1.004403"
+     ],
+     [
+      "0.479337",
+      "1.739725"
+     ],
+     [
+      "0.332035",
+      "2.162744"
+     ],
+     [
+      "0.099221",
+      "1.159637"
+     ],
+     [
+      "0.368470",
+      "2.158598"
+     ]
+    ],
+    "dps": 60,
+    "lesart": "sum_j relation[j] * basis[j] = 0 an allen Punkten (numerisch, Kandidat)",
+    "hinweis": "Kandidaten; zertifiziert erst durch mgf_relation / mgf_relationsraum"
+   },
+   "sek": 565.0
+  },
+  {
+   "id": 11,
+   "wer": "forscher-numeriker",
+   "op": "mgf_leitkoeffizient",
+   "args": {
+    "ausdruck": "C(4,1,1)"
+   },
+   "ergebnis": {
+    "grad": 6,
+    "koeffizient": "808/638512875",
+    "zeta_faktoren": [],
+    "lesart": "F = koeffizient * prod zeta * y^grad + O(y^(grad-1)), y = pi*tau2 (exakt)"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 12,
+   "wer": "forscher-numeriker",
+   "op": "mgf_leitkoeffizient",
+   "args": {
+    "ausdruck": "E(2)*E(4)"
+   },
+   "ergebnis": {
+    "grad": 6,
+    "koeffizient": "1/212625",
+    "zeta_faktoren": [],
+    "lesart": "F = koeffizient * prod zeta * y^grad + O(y^(grad-1)), y = pi*tau2 (exakt)"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 13,
+   "wer": "forscher-numeriker",
+   "op": "mgf_leitkoeffizient",
+   "args": {
+    "ausdruck": "zeta(3)*E(3)"
+   },
+   "ergebnis": {
+    "grad": 3,
+    "koeffizient": "2/945",
+    "zeta_faktoren": [
+     3
+    ],
+    "lesart": "F = koeffizient * prod zeta * y^grad + O(y^(grad-1)), y = pi*tau2 (exakt)"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 14,
+   "wer": "forscher-numeriker",
+   "op": "mgf_leitkoeffizient",
+   "args": {
+    "ausdruck": "zeta(3)^2"
+   },
+   "ergebnis": {
+    "grad": 0,
+    "koeffizient": "1",
+    "zeta_faktoren": [
+     3,
+     3
+    ],
+    "lesart": "F = koeffizient * prod zeta * y^grad + O(y^(grad-1)), y = pi*tau2 (exakt)"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 15,
+   "wer": "forscher-numeriker",
+   "op": "mgf_wert",
+   "args": {
+    "ausdruck": "C(4,1,1)",
+    "tau1": 0.5,
+    "tau2": 1.0,
+    "dps": 30
+   },
+   "ergebnis": {
+    "wert": "0.01455383177311240722958982178",
+    "hinweis": "numerisch"
+   },
+   "sek": 11.36
+  },
+  {
+   "id": 16,
+   "wer": "forscher-numeriker",
+   "op": "mgf_wert",
+   "args": {
+    "ausdruck": "E(6)",
+    "tau1": 0.5,
+    "tau2": 1.0,
+    "dps": 30
+   },
+   "ergebnis": {
+    "wert": "0.003175883891136467874848158242",
+    "hinweis": "numerisch"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 17,
+   "wer": "forscher-numeriker",
+   "op": "mgf_relationen",
+   "args": {
+    "basis": [
+     "C(4,1,1)",
+     "C(3,2,1)",
+     "C(2,2,2)",
+     "E(6)",
+     "E(2)*E(4)",
+     "E(3)^2",
+     "E(2)^3",
+     "zeta(3)*E(3)",
+     "zeta(3)^2"
+    ],
+    "seed": 4712,
+    "n_punkte": 5,
+    "dps": 30
+   },
+   "ergebnis": {
+    "basis": [
+     "C(4,1,1)",
+     "C(3,2,1)",
+     "C(2,2,2)",
+     "E(6)",
+     "E(2)*E(4)",
+     "E(3)^2",
+     "E(2)^3",
+     "zeta(3)*E(3)",
+     "zeta(3)^2"
+    ],
+    "relationen": [],
+    "punkte": [
+     [
+      "-0.002179",
+      "1.051374"
+     ],
+     [
+      "0.076515",
+      "1.190111"
+     ],
+     [
+      "0.181664",
+      "2.455309"
+     ],
+     [
+      "0.366179",
+      "1.983060"
+     ],
+     [
+      "-0.131191",
+      "2.221635"
+     ]
+    ],
+    "dps": 30,
+    "lesart": "sum_j relation[j] * basis[j] = 0 an allen Punkten (numerisch, Kandidat)",
+    "hinweis": "Kandidaten; zertifiziert erst durch mgf_relation / mgf_relationsraum"
+   },
+   "sek": 76.24
+  },
+  {
+   "id": 18,
+   "wer": "forscher-numeriker",
+   "op": "mgf_relationen",
+   "args": {
+    "basis": [
+     "C(4,1,1)",
+     "C(3,2,1)",
+     "C(2,2,2)",
+     "E(6)",
+     "E(2)*E(4)",
+     "E(3)^2",
+     "E(2)^3"
+    ],
+    "seed": 4712,
+    "n_punkte": 4,
+    "dps": 28
+   },
+   "ergebnis": {
+    "basis": [
+     "C(4,1,1)",
+     "C(3,2,1)",
+     "C(2,2,2)",
+     "E(6)",
+     "E(2)*E(4)",
+     "E(3)^2",
+     "E(2)^3"
+    ],
+    "relationen": [],
+    "punkte": [
+     [
+      "-0.002179",
+      "1.051374"
+     ],
+     [
+      "0.076515",
+      "1.190111"
+     ],
+     [
+      "0.181664",
+      "2.455309"
+     ],
+     [
+      "0.366179",
+      "1.983060"
+     ]
+    ],
+    "dps": 28,
+    "lesart": "sum_j relation[j] * basis[j] = 0 an allen Punkten (numerisch, Kandidat)",
+    "hinweis": "Kandidaten; zertifiziert erst durch mgf_relation / mgf_relationsraum"
+   },
+   "sek": 64.36
+  },
+  {
+   "id": 19,
+   "wer": "forscher-numeriker",
+   "op": "mgf_leitkoeffizient",
+   "args": {
+    "ausdruck": "C(3,2,1)"
+   },
+   "ergebnis": {
+    "grad": 6,
+    "koeffizient": "43/58046625",
+    "zeta_faktoren": [],
+    "lesart": "F = koeffizient * prod zeta * y^grad + O(y^(grad-1)), y = pi*tau2 (exakt)"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 20,
+   "wer": "forscher-numeriker",
+   "op": "mgf_leitkoeffizient",
+   "args": {
+    "ausdruck": "C(2,2,2)"
+   },
+   "ergebnis": {
+    "grad": 6,
+    "koeffizient": "38/91216125",
+    "zeta_faktoren": [],
+    "lesart": "F = koeffizient * prod zeta * y^grad + O(y^(grad-1)), y = pi*tau2 (exakt)"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 21,
+   "wer": "forscher-numeriker",
+   "op": "mgf_leitkoeffizient",
+   "args": {
+    "ausdruck": "E(6)"
+   },
+   "ergebnis": {
+    "grad": 6,
+    "koeffizient": "1382/638512875",
+    "zeta_faktoren": [],
+    "lesart": "F = koeffizient * prod zeta * y^grad + O(y^(grad-1)), y = pi*tau2 (exakt)"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 22,
+   "wer": "forscher-numeriker",
+   "op": "mgf_leitkoeffizient",
+   "args": {
+    "ausdruck": "E(3)^2"
+   },
+   "ergebnis": {
+    "grad": 6,
+    "koeffizient": "4/893025",
+    "zeta_faktoren": [],
+    "lesart": "F = koeffizient * prod zeta * y^grad + O(y^(grad-1)), y = pi*tau2 (exakt)"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 23,
+   "wer": "forscher-numeriker",
+   "op": "mgf_leitkoeffizient",
+   "args": {
+    "ausdruck": "E(2)^3"
+   },
+   "ergebnis": {
+    "grad": 6,
+    "koeffizient": "1/91125",
+    "zeta_faktoren": [],
+    "lesart": "F = koeffizient * prod zeta * y^grad + O(y^(grad-1)), y = pi*tau2 (exakt)"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 24,
+   "wer": "forscher-numeriker",
+   "op": "mgf_relationen",
+   "args": {
+    "basis": [
+     "C(4,1,1)",
+     "C(3,2,1)",
+     "C(2,2,2)",
+     "E(6)",
+     "E(2)*E(4)",
+     "E(3)^2",
+     "E(2)^3",
+     "zeta(3)*E(3)",
+     "zeta(3)^2"
+    ],
+    "seed": 4712,
+    "n_punkte": 8,
+    "dps": 32
+   },
+   "ergebnis": {
+    "basis": [
+     "C(4,1,1)",
+     "C(3,2,1)",
+     "C(2,2,2)",
+     "E(6)",
+     "E(2)*E(4)",
+     "E(3)^2",
+     "E(2)^3",
+     "zeta(3)*E(3)",
+     "zeta(3)^2"
+    ],
+    "relationen": [],
+    "punkte": [
+     [
+      "-0.002179",
+      "1.051374"
+     ],
+     [
+      "0.076515",
+      "1.190111"
+     ],
+     [
+      "0.181664",
+      "2.455309"
+     ],
+     [
+      "0.366179",
+      "1.983060"
+     ],
+     [
+      "-0.131191",
+      "2.221635"
+     ],
+     [
+      "0.149822",
+      "1.112645"
+     ],
+     [
+      "0.267199",
+      "1.893804"
+     ],
+     [
+      "0.041600",
+      "1.004403"
+     ]
+    ],
+    "dps": 32,
+    "lesart": "sum_j relation[j] * basis[j] = 0 an allen Punkten (numerisch, Kandidat)",
+    "hinweis": "Kandidaten; zertifiziert erst durch mgf_relation / mgf_relationsraum"
+   },
+   "sek": 151.86
+  },
+  {
+   "id": 25,
+   "wer": "forscher-skeptiker",
+   "op": "mgf_relationen",
+   "args": {
+    "basis": [
+     "C(4,1,1)",
+     "C(3,2,1)",
+     "C(2,2,2)",
+     "E(6)",
+     "E(2)*E(4)",
+     "E(3)^2",
+     "E(2)^3",
+     "zeta(3)*E(3)",
+     "zeta(3)^2"
+    ],
+    "seed": 4712,
+    "n_punkte": 14,
+    "dps": 40
+   },
+   "ergebnis": {
+    "basis": [
+     "C(4,1,1)",
+     "C(3,2,1)",
+     "C(2,2,2)",
+     "E(6)",
+     "E(2)*E(4)",
+     "E(3)^2",
+     "E(2)^3",
+     "zeta(3)*E(3)",
+     "zeta(3)^2"
+    ],
+    "relationen": [],
+    "punkte": [
+     [
+      "-0.002179",
+      "1.051374"
+     ],
+     [
+      "0.076515",
+      "1.190111"
+     ],
+     [
+      "0.181664",
+      "2.455309"
+     ],
+     [
+      "0.366179",
+      "1.983060"
+     ],
+     [
+      "-0.131191",
+      "2.221635"
+     ],
+     [
+      "0.149822",
+      "1.112645"
+     ],
+     [
+      "0.267199",
+      "1.893804"
+     ],
+     [
+      "0.041600",
+      "1.004403"
+     ],
+     [
+      "0.479337",
+      "1.739725"
+     ],
+     [
+      "0.332035",
+      "2.162744"
+     ],
+     [
+      "0.099221",
+      "1.159637"
+     ],
+     [
+      "0.368470",
+      "2.158598"
+     ],
+     [
+      "0.077268",
+      "1.271421"
+     ],
+     [
+      "0.171286",
+      "2.382286"
+     ]
+    ],
+    "dps": 40,
+    "lesart": "sum_j relation[j] * basis[j] = 0 an allen Punkten (numerisch, Kandidat)",
+    "hinweis": "Kandidaten; zertifiziert erst durch mgf_relation / mgf_relationsraum"
+   },
+   "sek": 327.91
+  },
+  {
+   "id": 26,
+   "wer": "forscher-skeptiker",
+   "op": "mgf_relationen",
+   "args": {
+    "basis": [
+     "C(4,1,1)",
+     "C(3,2,1)",
+     "C(2,2,2)",
+     "E(6)",
+     "E(2)*E(4)",
+     "E(3)^2",
+     "E(2)^3",
+     "zeta(3)*E(3)",
+     "zeta(3)^2"
+    ],
+    "seed": 99,
+    "n_punkte": 14,
+    "dps": 50
+   },
+   "ergebnis": {
+    "basis": [
+     "C(4,1,1)",
+     "C(3,2,1)",
+     "C(2,2,2)",
+     "E(6)",
+     "E(2)*E(4)",
+     "E(3)^2",
+     "E(2)^3",
+     "zeta(3)*E(3)",
+     "zeta(3)^2"
+    ],
+    "relationen": [],
+    "punkte": [
+     [
+      "-0.096022",
+      "1.300113"
+     ],
+     [
+      "-0.321198",
+      "1.372647"
+     ],
+     [
+      "0.259877",
+      "1.376727"
+     ],
+     [
+      "-0.116932",
+      "2.026463"
+     ],
+     [
+      "0.038629",
+      "2.407565"
+     ],
+     [
+      "-0.010725",
+      "1.632459"
+     ],
+     [
+      "0.113216",
+      "1.325038"
+     ],
+     [
+      "0.401999",
+      "1.560970"
+     ],
+     [
+      "-0.111888",
+      "2.023553"
+     ],
+     [
+      "-0.347723",
+      "1.990852"
+     ],
+     [
+      "0.349967",
+      "1.508210"
+     ],
+     [
+      "0.446859",
+      "1.793074"
+     ],
+     [
+      "0.274474",
+      "1.703559"
+     ],
+     [
+      "-0.097377",
+      "1.404099"
+     ]
+    ],
+    "dps": 50,
+    "lesart": "sum_j relation[j] * basis[j] = 0 an allen Punkten (numerisch, Kandidat)",
+    "hinweis": "Kandidaten; zertifiziert erst durch mgf_relation / mgf_relationsraum"
+   },
+   "sek": 428.76
+  },
+  {
+   "id": 27,
+   "wer": "forscher-skeptiker",
+   "op": "mgf_relationen",
+   "args": {
+    "basis": [
+     "C(4,1,1)",
+     "C(3,2,1)",
+     "C(2,2,2)",
+     "E(6)",
+     "E(3)^2",
+     "zeta(3)*E(3)",
+     "zeta(3)^2"
+    ],
+    "seed": 7,
+    "n_punkte": 11,
+    "dps": 40
+   },
+   "ergebnis": {
+    "basis": [
+     "C(4,1,1)",
+     "C(3,2,1)",
+     "C(2,2,2)",
+     "E(6)",
+     "E(3)^2",
+     "zeta(3)*E(3)",
+     "zeta(3)^2"
+    ],
+    "relationen": [],
+    "punkte": [
+     [
+      "-0.176167",
+      "1.226274"
+     ],
+     [
+      "0.150934",
+      "1.108654"
+     ],
+     [
+      "0.035882",
+      "1.548533"
+     ],
+     [
+      "-0.442001",
+      "1.761154"
+     ],
+     [
+      "-0.462504",
+      "1.650469"
+     ],
+     [
+      "-0.430145",
+      "1.136070"
+     ],
+     [
+      "-0.075481",
+      "2.240278"
+     ],
+     [
+      "-0.376198",
+      "1.334858"
+     ],
+     [
+      "0.127433",
+      "2.421563"
+     ],
+     [
+      "0.077103",
+      "1.595021"
+     ],
+     [
+      "0.476255",
+      "1.069874"
+     ]
+    ],
+    "dps": 40,
+    "lesart": "sum_j relation[j] * basis[j] = 0 an allen Punkten (numerisch, Kandidat)",
+    "hinweis": "Kandidaten; zertifiziert erst durch mgf_relation / mgf_relationsraum"
+   },
+   "sek": 269.79
+  },
+  {
+   "id": 28,
+   "wer": "forscher-skeptiker",
+   "op": "mgf_leitkoeffizient",
+   "args": {
+    "ausdruck": "C(4,1,1)"
+   },
+   "ergebnis": {
+    "grad": 6,
+    "koeffizient": "808/638512875",
+    "zeta_faktoren": [],
+    "lesart": "F = koeffizient * prod zeta * y^grad + O(y^(grad-1)), y = pi*tau2 (exakt)"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 29,
+   "wer": "forscher-skeptiker",
+   "op": "mgf_leitkoeffizient",
+   "args": {
+    "ausdruck": "C(3,2,1)"
+   },
+   "ergebnis": {
+    "grad": 6,
+    "koeffizient": "43/58046625",
+    "zeta_faktoren": [],
+    "lesart": "F = koeffizient * prod zeta * y^grad + O(y^(grad-1)), y = pi*tau2 (exakt)"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 30,
+   "wer": "forscher-skeptiker",
+   "op": "mgf_leitkoeffizient",
+   "args": {
+    "ausdruck": "C(2,2,2)"
+   },
+   "ergebnis": {
+    "grad": 6,
+    "koeffizient": "38/91216125",
+    "zeta_faktoren": [],
+    "lesart": "F = koeffizient * prod zeta * y^grad + O(y^(grad-1)), y = pi*tau2 (exakt)"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 31,
+   "wer": "forscher-skeptiker",
+   "op": "mgf_leitkoeffizient",
+   "args": {
+    "ausdruck": "E(2)^3"
+   },
+   "ergebnis": {
+    "grad": 6,
+    "koeffizient": "1/91125",
+    "zeta_faktoren": [],
+    "lesart": "F = koeffizient * prod zeta * y^grad + O(y^(grad-1)), y = pi*tau2 (exakt)"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 32,
+   "wer": "forscher-skeptiker",
+   "op": "mgf_leitkoeffizient",
+   "args": {
+    "ausdruck": "E(2)*E(4)"
+   },
+   "ergebnis": {
+    "grad": 6,
+    "koeffizient": "1/212625",
+    "zeta_faktoren": [],
+    "lesart": "F = koeffizient * prod zeta * y^grad + O(y^(grad-1)), y = pi*tau2 (exakt)"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 33,
+   "wer": "forscher-theoretiker",
+   "op": "mgf_relationen",
+   "args": {
+    "basis": [
+     "C(4,1,1)",
+     "C(3,2,1)",
+     "C(2,2,2)",
+     "E(6)",
+     "E(2)*E(4)",
+     "E(3)^2",
+     "E(2)^3",
+     "zeta(3)*E(3)",
+     "zeta(3)^2"
+    ],
+    "seed": 11,
+    "n_punkte": 12,
+    "dps": 40
+   },
+   "ergebnis": {
+    "basis": [
+     "C(4,1,1)",
+     "C(3,2,1)",
+     "C(2,2,2)",
+     "E(6)",
+     "E(2)*E(4)",
+     "E(3)^2",
+     "E(2)^3",
+     "zeta(3)*E(3)",
+     "zeta(3)^2"
+    ],
+    "relationen": [],
+    "punkte": [
+     [
+      "-0.047620",
+      "1.839659"
+     ],
+     [
+      "0.424211",
+      "1.698475"
+     ],
+     [
+      "0.007841",
+      "1.881077"
+     ],
+     [
+      "-0.315340",
+      "1.767863"
+     ],
+     [
+      "0.129883",
+      "2.189465"
+     ],
+     [
+      "-0.405877",
+      "1.455102"
+     ],
+     [
+      "-0.409329",
+      "2.214467"
+     ],
+     [
+      "0.193438",
+      "1.062821"
+     ],
+     [
+      "0.482193",
+      "2.447137"
+     ],
+     [
+      "0.153923",
+      "1.923344"
+     ],
+     [
+      "-0.342506",
+      "1.022501"
+     ],
+     [
+      "0.028381",
+      "1.089327"
+     ]
+    ],
+    "dps": 40,
+    "lesart": "sum_j relation[j] * basis[j] = 0 an allen Punkten (numerisch, Kandidat)",
+    "hinweis": "Kandidaten; zertifiziert erst durch mgf_relation / mgf_relationsraum"
+   },
+   "sek": 269.69
+  },
+  {
+   "id": 34,
+   "wer": "forscher-theoretiker",
+   "op": "mgf_relationen",
+   "args": {
+    "basis": [
+     "C(4,1,1)",
+     "C(3,2,1)",
+     "C(2,2,2)",
+     "E(6)",
+     "E(2)*E(4)",
+     "E(3)^2",
+     "E(2)^3",
+     "zeta(3)*E(3)",
+     "zeta(3)^2"
+    ],
+    "seed": 99,
+    "n_punkte": 14,
+    "dps": 50
+   },
+   "ergebnis": {
+    "basis": [
+     "C(4,1,1)",
+     "C(3,2,1)",
+     "C(2,2,2)",
+     "E(6)",
+     "E(2)*E(4)",
+     "E(3)^2",
+     "E(2)^3",
+     "zeta(3)*E(3)",
+     "zeta(3)^2"
+    ],
+    "relationen": [],
+    "punkte": [
+     [
+      "-0.096022",
+      "1.300113"
+     ],
+     [
+      "-0.321198",
+      "1.372647"
+     ],
+     [
+      "0.259877",
+      "1.376727"
+     ],
+     [
+      "-0.116932",
+      "2.026463"
+     ],
+     [
+      "0.038629",
+      "2.407565"
+     ],
+     [
+      "-0.010725",
+      "1.632459"
+     ],
+     [
+      "0.113216",
+      "1.325038"
+     ],
+     [
+      "0.401999",
+      "1.560970"
+     ],
+     [
+      "-0.111888",
+      "2.023553"
+     ],
+     [
+      "-0.347723",
+      "1.990852"
+     ],
+     [
+      "0.349967",
+      "1.508210"
+     ],
+     [
+      "0.446859",
+      "1.793074"
+     ],
+     [
+      "0.274474",
+      "1.703559"
+     ],
+     [
+      "-0.097377",
+      "1.404099"
+     ]
+    ],
+    "dps": 50,
+    "lesart": "sum_j relation[j] * basis[j] = 0 an allen Punkten (numerisch, Kandidat)",
+    "hinweis": "Kandidaten; zertifiziert erst durch mgf_relation / mgf_relationsraum"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 35,
+   "wer": "forscher-theoretiker",
+   "op": "mgf_leitkoeffizient",
+   "args": {
+    "ausdruck": "C(4,1,1)"
+   },
+   "ergebnis": {
+    "grad": 6,
+    "koeffizient": "808/638512875",
+    "zeta_faktoren": [],
+    "lesart": "F = koeffizient * prod zeta * y^grad + O(y^(grad-1)), y = pi*tau2 (exakt)"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 36,
+   "wer": "forscher-theoretiker",
+   "op": "mgf_leitkoeffizient",
+   "args": {
+    "ausdruck": "C(3,2,1)"
+   },
+   "ergebnis": {
+    "grad": 6,
+    "koeffizient": "43/58046625",
+    "zeta_faktoren": [],
+    "lesart": "F = koeffizient * prod zeta * y^grad + O(y^(grad-1)), y = pi*tau2 (exakt)"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 37,
+   "wer": "forscher-theoretiker",
+   "op": "mgf_leitkoeffizient",
+   "args": {
+    "ausdruck": "C(2,2,2)"
+   },
+   "ergebnis": {
+    "grad": 6,
+    "koeffizient": "38/91216125",
+    "zeta_faktoren": [],
+    "lesart": "F = koeffizient * prod zeta * y^grad + O(y^(grad-1)), y = pi*tau2 (exakt)"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 38,
+   "wer": "forscher-theoretiker",
+   "op": "mgf_leitkoeffizient",
+   "args": {
+    "ausdruck": "E(2)^3"
+   },
+   "ergebnis": {
+    "grad": 6,
+    "koeffizient": "1/91125",
+    "zeta_faktoren": [],
+    "lesart": "F = koeffizient * prod zeta * y^grad + O(y^(grad-1)), y = pi*tau2 (exakt)"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 39,
+   "wer": "forscher-theoretiker",
+   "op": "mgf_leitkoeffizient",
+   "args": {
+    "ausdruck": "E(3)^2"
+   },
+   "ergebnis": {
+    "grad": 6,
+    "koeffizient": "4/893025",
+    "zeta_faktoren": [],
+    "lesart": "F = koeffizient * prod zeta * y^grad + O(y^(grad-1)), y = pi*tau2 (exakt)"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 40,
+   "wer": "forscher-theoretiker",
+   "op": "mgf_leitkoeffizient",
+   "args": {
+    "ausdruck": "E(2)*E(4)"
+   },
+   "ergebnis": {
+    "grad": 6,
+    "koeffizient": "1/212625",
+    "zeta_faktoren": [],
+    "lesart": "F = koeffizient * prod zeta * y^grad + O(y^(grad-1)), y = pi*tau2 (exakt)"
+   },
+   "sek": 0.0
+  }
+ ],
+ "sek": 2722.3
+}

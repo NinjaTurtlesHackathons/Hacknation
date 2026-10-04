@@ -3,3 +3,11 @@
 - 2026-10-04 05:27:33   Neuheit: nicht_gefunden
 - 2026-10-04 05:27:33   geprüft (observed): Numerisch bilden die rationalen linearen Relationen zwischen ['C(1,1,1)', 'E(3)', 'zeta(3)'] einen Raum der Dimension genau 1, aufgespannt von [[1, -1, -1]] (je | Red-Team: 2 Gegenprüfungen, 0 bestanden, 0 logische Widersprüche
 - 2026-10-04 05:28:01 Runde 2: Gibt es bei Gewicht 6 rationale lineare Relationen zwischen C(4,1,1), C(3,2,1), C(2,2,2), E(6), E(2)*E(4), E(3)^2, E(2)^3, zeta(3)*E(3), zeta(3)^2? Bestimme die Dimension des Relationsraums (auch 0 ist ein Ergebnis).
+- 2026-10-04 05:57:58 Selbsttest des Prüfers: bestanden
+- 2026-10-04 05:58:21 Runde 2: Gibt es eine rationale lineare Relation zwischen den zehn dihedralen Modulgraphfunktionen vom Gewicht 11, E(11) und zeta(11)? Finde sie explizit (hohe Präzision nötig).
+- 2026-10-04 06:02:53 Selbsttest des Prüfers: bestanden
+- 2026-10-04 06:03:09 Runde 2: Gibt es bei Gewicht 6 rationale lineare Relationen zwischen C(4,1,1), C(3,2,1), C(2,2,2), E(6), E(2)*E(4), E(3)^2, E(2)^3, zeta(3)*E(3), zeta(3)^2? Bestimme die Dimension des Relationsraums (auch 0 ist ein Ergebnis).
+- 2026-10-04 06:48:31   keine geprüfte Behauptung: sparsam/haiku: Prüfung nicht ausführbar; numeriker/haiku: 0 Relationen einzeln bestätigt; Singulärwerte der normierten 12x9-Wertematrix (S; skeptiker/sonnet: 0 Relationen einzeln bestätigt; Singulärwerte der normierten 12x9-Wertematrix (S; theoretiker/sonnet: 0 Relationen einzeln bestätigt; Singulärwerte der normierten 12x9-Wertematrix (S
+- 2026-10-04 06:48:50 Runde 3: Für welche Level N <= 30 spannen die holomorphen Eta-Quotienten mit trivialem Charakter den ganzen Raum M_4(Gamma_0(N))? Exakte Tabelle (eta_span_tabelle).
+- 2026-10-04 06:57:10   keine geprüfte Behauptung: sparsam/haiku: Prüfung nicht ausführbar; numeriker/haiku: keine Prüfung angegeben; skeptiker/sonnet: Prüfung nicht ausführbar; theoretiker/sonnet: Prüfung nicht ausführbar
+- 2026-10-04 06:57:26 Runde 4: Welche Laplace-Gleichung (L[C] - s(s-1) C = Quellen aus Eisenstein-Produkten und Zetawerten) erfüllt C(3,1,1)? Finde Eigenwert und Quellterme und lasse sie prüfen.

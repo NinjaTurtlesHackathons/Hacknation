@@ -28,7 +28,7 @@
    "machbarkeit": 0.5,
    "lueckenkarte": "L2",
    "id": "F3",
-   "status": "offen",
+   "status": "zurückgestellt",
    "quelle": "lueckenkarte",
    "faden_id": "F3"
   },
@@ -38,7 +38,7 @@
    "machbarkeit": 0.7,
    "lueckenkarte": "L4",
    "id": "F4",
-   "status": "offen",
+   "status": "ungeprüft",
    "quelle": "lueckenkarte",
    "faden_id": "F4"
   },
@@ -48,7 +48,7 @@
    "machbarkeit": 0.9,
    "lueckenkarte": "L6",
    "id": "F5",
-   "status": "offen",
+   "status": "ungeprüft",
    "quelle": "lueckenkarte",
    "faden_id": "F5"
   },
@@ -428,7 +428,62 @@
    }
   }
  ],
- "widerlegt": [],
+ "widerlegt": [
+  {
+   "frage_id": "F4",
+   "frage": "Gibt es bei Gewicht 6 rationale lineare Relationen zwischen C(4,1,1), C(3,2,1), C(2,2,2), E(6), E(2)*E(4), E(3)^2, E(2)^3, zeta(3)*E(3), zeta(3)^2? Bestimme die Dimension des Relationsraums (auch 0 ist ein Ergebnis).",
+   "runde": 2,
+   "gruende": [
+    {
+     "stufe": "sparsam/haiku",
+     "pruefungstyp": "mgf_relationen",
+     "grund": "Prüfung nicht ausführbar"
+    },
+    {
+     "stufe": "numeriker/haiku",
+     "pruefungstyp": "mgf_relationsraum",
+     "grund": "0 Relationen einzeln bestätigt; Singulärwerte der normierten 12x9-Wertematrix (Seed 4712): 0 < 1e-24, 8 > 1e-8, kleinster großer 2.44e-8"
+    },
+    {
+     "stufe": "skeptiker/sonnet",
+     "pruefungstyp": "mgf_relationsraum",
+     "grund": "0 Relationen einzeln bestätigt; Singulärwerte der normierten 12x9-Wertematrix (Seed 4712): 0 < 1e-24, 8 > 1e-8, kleinster großer 2.44e-8"
+    },
+    {
+     "stufe": "theoretiker/sonnet",
+     "pruefungstyp": "mgf_relationsraum",
+     "grund": "0 Relationen einzeln bestätigt; Singulärwerte der normierten 12x9-Wertematrix (Seed 4712): 0 < 1e-24, 8 > 1e-8, kleinster großer 2.44e-8"
+    }
+   ]
+  },
+  {
+   "frage_id": "F5",
+   "frage": "Für welche Level N <= 30 spannen die holomorphen Eta-Quotienten mit trivialem Charakter den ganzen Raum M_4(Gamma_0(N))? Exakte Tabelle (eta_span_tabelle).",
+   "runde": 3,
+   "gruende": [
+    {
+     "stufe": "sparsam/haiku",
+     "pruefungstyp": "eta_span_tabelle",
+     "grund": "Prüfung nicht ausführbar"
+    },
+    {
+     "stufe": "numeriker/haiku",
+     "pruefungstyp": null,
+     "grund": "keine Prüfung angegeben"
+    },
+    {
+     "stufe": "skeptiker/sonnet",
+     "pruefungstyp": "eta_span_tabelle",
+     "grund": "Prüfung nicht ausführbar"
+    },
+    {
+     "stufe": "theoretiker/sonnet",
+     "pruefungstyp": "eta_span_tabelle",
+     "grund": "Prüfung nicht ausführbar"
+    }
+   ]
+  }
+ ],
  "runden": [
   {
    "runde": 1,
@@ -493,6 +548,22 @@
    ],
    "sek": 4132.7,
    "faden_id": "F2"
+  },
+  {
+   "runde": 2,
+   "frage": "F4",
+   "status": "ungeprüft",
+   "red_team": [],
+   "sek": 2722.3,
+   "faden_id": "F4"
+  },
+  {
+   "runde": 3,
+   "frage": "F5",
+   "status": "ungeprüft",
+   "red_team": [],
+   "sek": 499.7,
+   "faden_id": "F5"
   }
  ],
  "kosten_usd": 0.0
