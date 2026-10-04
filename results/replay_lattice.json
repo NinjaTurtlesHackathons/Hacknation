@@ -36,7 +36,15 @@
     1.0
    ],
    "mittel_sek": 284.39,
-   "mittel_abgelehnt": 0.9
+   "mittel_abgelehnt": 0.9,
+   "recall_bei_budget": {
+    "5": 1.0,
+    "10": 1.0,
+    "20": 1.0,
+    "30": 1.0
+   },
+   "kosten_usd_neu_gesamt": null,
+   "kosten_usd_pro_treffer": null
   },
   "OHNE_FEEDBACK": {
    "N": [
@@ -60,7 +68,15 @@
     1.0
    ],
    "mittel_sek": 305.95,
-   "mittel_abgelehnt": 1.2
+   "mittel_abgelehnt": 1.2,
+   "recall_bei_budget": {
+    "5": 1.0,
+    "10": 1.0,
+    "20": 1.0,
+    "30": 1.0
+   },
+   "kosten_usd_neu_gesamt": null,
+   "kosten_usd_pro_treffer": null
   },
   "ZUFALL": {
    "N": [
@@ -84,11 +100,47 @@
     0.9974714214555382
    ],
    "mittel_sek": 705.78,
-   "mittel_abgelehnt": 2.5
+   "mittel_abgelehnt": 2.5,
+   "recall_bei_budget": {
+    "5": 0.2,
+    "10": 0.6,
+    "20": 0.8,
+    "30": 0.9
+   },
+   "kosten_usd_neu_gesamt": null,
+   "kosten_usd_pro_treffer": null
+  },
+  "HEURISTIK": {
+   "N": [],
+   "mittel_N": null,
+   "median_N": null,
+   "treffer": 0,
+   "trefferquote": null,
+   "treffer_ki95": null,
+   "mittel_sek": null,
+   "mittel_abgelehnt": null
+  },
+  "ORAKEL": {
+   "N": [
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1
+   ],
+   "mittel_N": 1.0,
+   "median_N": 1.0,
+   "analytisch": true,
+   "erklaerung": "kennt die Antwort und reicht die Treffer-Behauptung direkt ein (Obergrenze, nicht gerechnet)"
   }
  },
  "tests": {
-  "H7a": {
+  "H8a": {
    "vergleich": "ZUFALL",
    "speedup": 4.583333333333334,
    "ki95": [
@@ -96,8 +148,32 @@
     7.5005434782608615
    ],
    "p": 0.0029,
+   "n_seeds": 10,
    "p_bh": 0.0058,
    "erfolg": true
+  },
+  "H8c": {
+   "vergleich": "OHNE_FEEDBACK",
+   "speedup": 1.2083333333333333,
+   "ki95": [
+    0.8214285714285714,
+    1.8503409090909042
+   ],
+   "p": 0.2581,
+   "n_seeds": 10,
+   "p_bh": 0.2581,
+   "erfolg": false
+  }
+ },
+ "H7_10_seeds": {
+  "H7a": {
+   "vergleich": "ZUFALL",
+   "speedup": 4.583333333333334,
+   "ki95": [
+    2.5997727272727276,
+    7.5005434782608615
+   ],
+   "p": 0.0029
   },
   "H7b": {
    "vergleich": "OHNE_FEEDBACK",
@@ -106,9 +182,7 @@
     0.8214285714285714,
     1.8503409090909042
    ],
-   "p": 0.2581,
-   "p_bh": 0.2581,
-   "erfolg": false
+   "p": 0.2581
   }
  }
 }
