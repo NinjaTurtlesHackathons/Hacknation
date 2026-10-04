@@ -1,6 +1,6 @@
 """ADMET adapter; validation-only agent experiments, fixed verifier tolerances."""
 from .base import Domain
-import sys,math
+import sys,math,os
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[2]/'projects/admet'
 sys.path.insert(0,str(ROOT))
@@ -22,6 +22,12 @@ class ADMETDomain(Domain):
  def check(self,p):
   try:
    typ=p.get('typ')
+   if typ=='release_record':
+    if os.environ.get('ADMET_RELEASE')!='1' or set(p)!={'typ','key','text'}:return False,'release capability/schema rejected',{}
+    from release_records import records
+    known=records();r=known.get(p['key'])
+    if r is None:return False,'unknown release record',{}
+    return p['text']==r['text'],'canonical record regenerated from source-grounded predictions and audited protocol',r
    if typ=='mae_anchor':
     if set(p)!={'typ','y','pred','value'}:return False,'forbidden fields',{}
     v=mae(p['y'],p['pred'])
@@ -41,6 +47,14 @@ class ADMETDomain(Domain):
  def consistent(self,a,p):
   try:return math.isfinite(float(a['zahl'])) and abs(float(a['zahl'])-p['value'])<=TOL
   except:return False
- def level(self,p):return 'observed'
- def describe(self,p):return f"Fixed numerical validation {p['typ']} for {p.get('endpoint','synthetic anchor')}, method {p.get('method','Morgan/combined')}: {p['value']}. A fixed-dataset observation, not an independent clinical result."
+ def level(self,p):
+  if p.get('typ')=='release_record':
+   from release_records import records
+   return records()[p['key']]['level']
+  return 'observed'
+ def describe(self,p):
+  if p.get('typ')=='release_record':
+   from release_records import records
+   return records()[p['key']]['text']
+  return f"Fixed numerical validation {p['typ']} for {p.get('endpoint','synthetic anchor')}, method {p.get('method','Morgan/combined')}: {p['value']}. A fixed-dataset observation, not an independent clinical result."
 DOMAIN=ADMETDomain()

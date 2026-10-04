@@ -1,0 +1,360 @@
+<!doctype html><meta charset="utf-8"><title>ADMET Evidence Demo</title><style>body{font:16px system-ui;margin:50px;background:#f6f8fa;color:#182330}table{border-collapse:collapse;background:white}td,th{padding:8px 16px;border-bottom:1px solid #ddd}details{margin:20px 0}pre{white-space:pre-wrap}</style><h1>ADMET evidence laboratory</h1><p>Fixed CPU models · validation-only agents · verified test predictions</p><p>600 logged evaluations · 45 claims</p><h2>Gates</h2><pre>[
+  {
+    &quot;gate&quot;: &quot;0&quot;,
+    &quot;passed&quot;: &quot;True&quot;,
+    &quot;reason&quot;: &quot;Metric, verifier, model assumptions and fixed scope recorded&quot;,
+    &quot;ts&quot;: &quot;2026-10-04T01:06:33Z&quot;
+  },
+  {
+    &quot;gate&quot;: &quot;selftest&quot;,
+    &quot;passed&quot;: &quot;True&quot;,
+    &quot;reason&quot;: &quot;Ten verifier cases plus synthetic recovery pass&quot;,
+    &quot;ts&quot;: &quot;2026-10-04T01:06:33Z&quot;
+  },
+  {
+    &quot;gate&quot;: &quot;1&quot;,
+    &quot;passed&quot;: &quot;True&quot;,
+    &quot;reason&quot;: &quot;Naive baseline and 22-endpoint coverage audit complete&quot;,
+    &quot;ts&quot;: &quot;2026-10-04T01:06:33Z&quot;
+  },
+  {
+    &quot;gate&quot;: &quot;2&quot;,
+    &quot;passed&quot;: &quot;True&quot;,
+    &quot;reason&quot;: &quot;Fixed descriptor candidate passes validation precheck; alternatives stay exploratory&quot;,
+    &quot;ts&quot;: &quot;2026-10-04T01:06:33Z&quot;
+  },
+  {
+    &quot;gate&quot;: &quot;3&quot;,
+    &quot;passed&quot;: &quot;True&quot;,
+    &quot;reason&quot;: &quot;All three fixed validation improvements meet nominal criteria; expanded BH family reported; conditional dataset sensitivity only&quot;,
+    &quot;ts&quot;: &quot;2026-10-04T01:06:33Z&quot;
+  },
+  {
+    &quot;gate&quot;: &quot;4&quot;,
+    &quot;passed&quot;: &quot;True&quot;,
+    &quot;reason&quot;: &quot;Independent audit, negative controls, source-grounded scorer, completeness contracts; semantic shared-writer gap handled in deterministic release&quot;,
+    &quot;ts&quot;: &quot;2026-10-04T01:06:33Z&quot;
+  },
+  {
+    &quot;gate&quot;: &quot;5&quot;,
+    &quot;passed&quot;: &quot;False&quot;,
+    &quot;reason&quot;: &quot;Research pilot complete; independent assays, clinical validation and publication-level novelty absent&quot;,
+    &quot;ts&quot;: &quot;2026-10-04T01:06:33Z&quot;
+  }
+]</pre><details><summary>All fixed test evaluations</summary><table><tr><th>Endpoint</th><th>Method</th><th>Seed</th><th>MAE</th></tr><tr><td>solubility_aqsoldb</td><td>median</td><td>1000</td><td>1.8382338617618927</td></tr><tr><td>solubility_aqsoldb</td><td>morgan</td><td>1000</td><td>1.2419975886616692</td></tr><tr><td>solubility_aqsoldb</td><td>descriptors</td><td>1000</td><td>0.8865056025547918</td></tr><tr><td>solubility_aqsoldb</td><td>combined</td><td>1000</td><td>0.8303973940890218</td></tr><tr><td>solubility_aqsoldb</td><td>shuffled</td><td>1000</td><td>1.911455435605631</td></tr><tr><td>solubility_aqsoldb</td><td>median</td><td>1001</td><td>1.9433263541855534</td></tr><tr><td>solubility_aqsoldb</td><td>morgan</td><td>1001</td><td>1.306020997157156</td></tr><tr><td>solubility_aqsoldb</td><td>descriptors</td><td>1001</td><td>0.8974469171217948</td></tr><tr><td>solubility_aqsoldb</td><td>combined</td><td>1001</td><td>0.863946561110469</td></tr><tr><td>solubility_aqsoldb</td><td>shuffled</td><td>1001</td><td>1.8727382333710254</td></tr><tr><td>solubility_aqsoldb</td><td>median</td><td>1002</td><td>1.9440115468050074</td></tr><tr><td>solubility_aqsoldb</td><td>morgan</td><td>1002</td><td>1.3209952121492285</td></tr><tr><td>solubility_aqsoldb</td><td>descriptors</td><td>1002</td><td>0.9031090846927956</td></tr><tr><td>solubility_aqsoldb</td><td>combined</td><td>1002</td><td>0.8755942674361993</td></tr><tr><td>solubility_aqsoldb</td><td>shuffled</td><td>1002</td><td>1.8980394633362334</td></tr><tr><td>solubility_aqsoldb</td><td>median</td><td>1003</td><td>1.8382338617618927</td></tr><tr><td>solubility_aqsoldb</td><td>morgan</td><td>1003</td><td>1.2419975886616692</td></tr><tr><td>solubility_aqsoldb</td><td>descriptors</td><td>1003</td><td>0.8865056025547918</td></tr><tr><td>solubility_aqsoldb</td><td>combined</td><td>1003</td><td>0.8303973940890218</td></tr><tr><td>solubility_aqsoldb</td><td>shuffled</td><td>1003</td><td>1.864352250880998</td></tr><tr><td>solubility_aqsoldb</td><td>median</td><td>1004</td><td>1.8382338617618927</td></tr><tr><td>solubility_aqsoldb</td><td>morgan</td><td>1004</td><td>1.2419975886616692</td></tr><tr><td>solubility_aqsoldb</td><td>descriptors</td><td>1004</td><td>0.8865056025547918</td></tr><tr><td>solubility_aqsoldb</td><td>combined</td><td>1004</td><td>0.8303973940890218</td></tr><tr><td>solubility_aqsoldb</td><td>shuffled</td><td>1004</td><td>1.8059965547176524</td></tr><tr><td>solubility_aqsoldb</td><td>median</td><td>1005</td><td>1.9435035347869802</td></tr><tr><td>solubility_aqsoldb</td><td>morgan</td><td>1005</td><td>1.2979718979300459</td></tr><tr><td>solubility_aqsoldb</td><td>descriptors</td><td>1005</td><td>0.8999876048760084</td></tr><tr><td>solubility_aqsoldb</td><td>combined</td><td>1005</td><td>0.8563841842008016</td></tr><tr><td>solubility_aqsoldb</td><td>shuffled</td><td>1005</td><td>1.932166876224345</td></tr><tr><td>solubility_aqsoldb</td><td>median</td><td>1006</td><td>1.8382338617618927</td></tr><tr><td>solubility_aqsoldb</td><td>morgan</td><td>1006</td><td>1.2419975886616692</td></tr><tr><td>solubility_aqsoldb</td><td>descriptors</td><td>1006</td><td>0.8865056025547918</td></tr><tr><td>solubility_aqsoldb</td><td>combined</td><td>1006</td><td>0.8303973940890218</td></tr><tr><td>solubility_aqsoldb</td><td>shuffled</td><td>1006</td><td>1.8556122893430065</td></tr><tr><td>solubility_aqsoldb</td><td>median</td><td>1007</td><td>1.9467319774509766</td></tr><tr><td>solubility_aqsoldb</td><td>morgan</td><td>1007</td><td>1.2950634566236023</td></tr><tr><td>solubility_aqsoldb</td><td>descriptors</td><td>1007</td><td>0.9130897175603652</td></tr><tr><td>solubility_aqsoldb</td><td>combined</td><td>1007</td><td>0.8606216204929367</td></tr><tr><td>solubility_aqsoldb</td><td>shuffled</td><td>1007</td><td>1.9149853235312666</td></tr><tr><td>solubility_aqsoldb</td><td>median</td><td>1008</td><td>1.8382338617618927</td></tr><tr><td>solubility_aqsoldb</td><td>morgan</td><td>1008</td><td>1.2419975886616692</td></tr><tr><td>solubility_aqsoldb</td><td>descriptors</td><td>1008</td><td>0.8865056025547918</td></tr><tr><td>solubility_aqsoldb</td><td>combined</td><td>1008</td><td>0.8303973940890218</td></tr><tr><td>solubility_aqsoldb</td><td>shuffled</td><td>1008</td><td>1.8660931377258148</td></tr><tr><td>solubility_aqsoldb</td><td>median</td><td>1009</td><td>1.9407187113342763</td></tr><tr><td>solubility_aqsoldb</td><td>morgan</td><td>1009</td><td>1.3227333314529675</td></tr><tr><td>solubility_aqsoldb</td><td>descriptors</td><td>1009</td><td>0.914142713441728</td></tr><tr><td>solubility_aqsoldb</td><td>combined</td><td>1009</td><td>0.8704738318503361</td></tr><tr><td>solubility_aqsoldb</td><td>shuffled</td><td>1009</td><td>1.926736151801798</td></tr><tr><td>solubility_aqsoldb</td><td>median</td><td>1010</td><td>1.9095405007885828</td></tr><tr><td>solubility_aqsoldb</td><td>morgan</td><td>1010</td><td>1.2272047644870416</td></tr><tr><td>solubility_aqsoldb</td><td>descriptors</td><td>1010</td><td>0.907063060146429</td></tr><tr><td>solubility_aqsoldb</td><td>combined</td><td>1010</td><td>0.8462628695125837</td></tr><tr><td>solubility_aqsoldb</td><td>shuffled</td><td>1010</td><td>1.912122710112903</td></tr><tr><td>solubility_aqsoldb</td><td>median</td><td>1011</td><td>1.8382338617618927</td></tr><tr><td>solubility_aqsoldb</td><td>morgan</td><td>1011</td><td>1.2419975886616692</td></tr><tr><td>solubility_aqsoldb</td><td>descriptors</td><td>1011</td><td>0.8865056025547918</td></tr><tr><td>solubility_aqsoldb</td><td>combined</td><td>1011</td><td>0.8303973940890218</td></tr><tr><td>solubility_aqsoldb</td><td>shuffled</td><td>1011</td><td>1.8221113258040686</td></tr><tr><td>solubility_aqsoldb</td><td>median</td><td>1012</td><td>1.9465227135551328</td></tr><tr><td>solubility_aqsoldb</td><td>morgan</td><td>1012</td><td>1.3507131560065146</td></tr><tr><td>solubility_aqsoldb</td><td>descriptors</td><td>1012</td><td>0.910870425693926</td></tr><tr><td>solubility_aqsoldb</td><td>combined</td><td>1012</td><td>0.8784317180427735</td></tr><tr><td>solubility_aqsoldb</td><td>shuffled</td><td>1012</td><td>1.8913326699507673</td></tr><tr><td>solubility_aqsoldb</td><td>median</td><td>1013</td><td>1.9095405007885828</td></tr><tr><td>solubility_aqsoldb</td><td>morgan</td><td>1013</td><td>1.2272047644870416</td></tr><tr><td>solubility_aqsoldb</td><td>descriptors</td><td>1013</td><td>0.907063060146429</td></tr><tr><td>solubility_aqsoldb</td><td>combined</td><td>1013</td><td>0.8462628695125837</td></tr><tr><td>solubility_aqsoldb</td><td>shuffled</td><td>1013</td><td>1.9154025717556364</td></tr><tr><td>solubility_aqsoldb</td><td>median</td><td>1014</td><td>1.9095405007885828</td></tr><tr><td>solubility_aqsoldb</td><td>morgan</td><td>1014</td><td>1.2272047644870416</td></tr><tr><td>solubility_aqsoldb</td><td>descriptors</td><td>1014</td><td>0.907063060146429</td></tr><tr><td>solubility_aqsoldb</td><td>combined</td><td>1014</td><td>0.8462628695125837</td></tr><tr><td>solubility_aqsoldb</td><td>shuffled</td><td>1014</td><td>1.8937887867925507</td></tr><tr><td>solubility_aqsoldb</td><td>median</td><td>1015</td><td>1.8382338617618927</td></tr><tr><td>solubility_aqsoldb</td><td>morgan</td><td>1015</td><td>1.2419975886616692</td></tr><tr><td>solubility_aqsoldb</td><td>descriptors</td><td>1015</td><td>0.8865056025547918</td></tr><tr><td>solubility_aqsoldb</td><td>combined</td><td>1015</td><td>0.8303973940890218</td></tr><tr><td>solubility_aqsoldb</td><td>shuffled</td><td>1015</td><td>1.9658749257947807</td></tr><tr><td>solubility_aqsoldb</td><td>median</td><td>1016</td><td>1.9095405007885828</td></tr><tr><td>solubility_aqsoldb</td><td>morgan</td><td>1016</td><td>1.2272047644870416</td></tr><tr><td>solubility_aqsoldb</td><td>descriptors</td><td>1016</td><td>0.907063060146429</td></tr><tr><td>solubility_aqsoldb</td><td>combined</td><td>1016</td><td>0.8462628695125837</td></tr><tr><td>solubility_aqsoldb</td><td>shuffled</td><td>1016</td><td>1.9054450781742442</td></tr><tr><td>solubility_aqsoldb</td><td>median</td><td>1017</td><td>1.9394785473057585</td></tr><tr><td>solubility_aqsoldb</td><td>morgan</td><td>1017</td><td>1.2837831466117795</td></tr><tr><td>solubility_aqsoldb</td><td>descriptors</td><td>1017</td><td>0.9177044966420149</td></tr><tr><td>solubility_aqsoldb</td><td>combined</td><td>1017</td><td>0.861909173539043</td></tr><tr><td>solubility_aqsoldb</td><td>shuffled</td><td>1017</td><td>1.8974831724043404</td></tr><tr><td>solubility_aqsoldb</td><td>median</td><td>1018</td><td>1.8382338617618927</td></tr><tr><td>solubility_aqsoldb</td><td>morgan</td><td>1018</td><td>1.2419975886616692</td></tr><tr><td>solubility_aqsoldb</td><td>descriptors</td><td>1018</td><td>0.8865056025547918</td></tr><tr><td>solubility_aqsoldb</td><td>combined</td><td>1018</td><td>0.8303973940890218</td></tr><tr><td>solubility_aqsoldb</td><td>shuffled</td><td>1018</td><td>1.8718297587656436</td></tr><tr><td>solubility_aqsoldb</td><td>median</td><td>1019</td><td>1.9342899644314473</td></tr><tr><td>solubility_aqsoldb</td><td>morgan</td><td>1019</td><td>1.31369214750144</td></tr><tr><td>solubility_aqsoldb</td><td>descriptors</td><td>1019</td><td>0.9062177102517269</td></tr><tr><td>solubility_aqsoldb</td><td>combined</td><td>1019</td><td>0.8636435245001574</td></tr><tr><td>solubility_aqsoldb</td><td>shuffled</td><td>1019</td><td>1.8981295456791363</td></tr><tr><td>lipophilicity_astrazeneca</td><td>median</td><td>1000</td><td>0.9654285714285715</td></tr><tr><td>lipophilicity_astrazeneca</td><td>morgan</td><td>1000</td><td>0.7343418464330406</td></tr><tr><td>lipophilicity_astrazeneca</td><td>descriptors</td><td>1000</td><td>0.7707536999637102</td></tr><tr><td>lipophilicity_astrazeneca</td><td>combined</td><td>1000</td><td>0.649729517077261</td></tr><tr><td>lipophilicity_astrazeneca</td><td>shuffled</td><td>1000</td><td>0.9776604797316828</td></tr><tr><td>lipophilicity_astrazeneca</td><td>median</td><td>1001</td><td>0.9643809523809523</td></tr><tr><td>lipophilicity_astrazeneca</td><td>morgan</td><td>1001</td><td>0.7279920850459356</td></tr><tr><td>lipophilicity_astrazeneca</td><td>descriptors</td><td>1001</td><td>0.7722050274497705</td></tr><tr><td>lipophilicity_astrazeneca</td><td>combined</td><td>1001</td><td>0.6378984431868318</td></tr><tr><td>lipophilicity_astrazeneca</td><td>shuffled</td><td>1001</td><td>1.0009425932602602</td></tr><tr><td>lipophilicity_astrazeneca</td><td>median</td><td>1002</td><td>0.9654285714285715</td></tr><tr><td>lipophilicity_astrazeneca</td><td>morgan</td><td>1002</td><td>0.7367258040746776</td></tr><tr><td>lipophilicity_astrazeneca</td><td>descriptors</td><td>1002</td><td>0.7732184598946126</td></tr><tr><td>lipophilicity_astrazeneca</td><td>combined</td><td>1002</td><td>0.6345242259295324</td></tr><tr><td>lipophilicity_astrazeneca</td><td>shuffled</td><td>1002</td><td>1.0027650821607819</td></tr><tr><td>lipophilicity_astrazeneca</td><td>median</td><td>1003</td><td>0.9582142857142857</td></tr><tr><td>lipophilicity_astrazeneca</td><td>morgan</td><td>1003</td><td>0.7356138565757663</td></tr><tr><td>lipophilicity_astrazeneca</td><td>descriptors</td><td>1003</td><td>0.7754391673716636</td></tr><tr><td>lipophilicity_astrazeneca</td><td>combined</td><td>1003</td><td>0.6251481992061149</td></tr><tr><td>lipophilicity_astrazeneca</td><td>shuffled</td><td>1003</td><td>0.9931076401339821</td></tr><tr><td>lipophilicity_astrazeneca</td><td>median</td><td>1004</td><td>0.9633571428571429</td></tr><tr><td>lipophilicity_astrazeneca</td><td>morgan</td><td>1004</td><td>0.7354524885300517</td></tr><tr><td>lipophilicity_astrazeneca</td><td>descriptors</td><td>1004</td><td>0.7676394663143207</td></tr><tr><td>lipophilicity_astrazeneca</td><td>combined</td><td>1004</td><td>0.6288019824971753</td></tr><tr><td>lipophilicity_astrazeneca</td><td>shuffled</td><td>1004</td><td>1.0049468768152652</td></tr><tr><td>lipophilicity_astrazeneca</td><td>median</td><td>1005</td><td>0.9633571428571429</td></tr><tr><td>lipophilicity_astrazeneca</td><td>morgan</td><td>1005</td><td>0.7287657033062119</td></tr><tr><td>lipophilicity_astrazeneca</td><td>descriptors</td><td>1005</td><td>0.7728632296193445</td></tr><tr><td>lipophilicity_astrazeneca</td><td>combined</td><td>1005</td><td>0.6373700203452337</td></tr><tr><td>lipophilicity_astrazeneca</td><td>shuffled</td><td>1005</td><td>0.9896645819886283</td></tr><tr><td>lipophilicity_astrazeneca</td><td>median</td><td>1006</td><td>0.9665238095238097</td></tr><tr><td>lipophilicity_astrazeneca</td><td>morgan</td><td>1006</td><td>0.7208026314326017</td></tr><tr><td>lipophilicity_astrazeneca</td><td>descriptors</td><td>1006</td><td>0.7638418028653138</td></tr><tr><td>lipophilicity_astrazeneca</td><td>combined</td><td>1006</td><td>0.6323816043544278</td></tr><tr><td>lipophilicity_astrazeneca</td><td>shuffled</td><td>1006</td><td>1.0046788422585884</td></tr><tr><td>lipophilicity_astrazeneca</td><td>median</td><td>1007</td><td>0.961404761904762</td></tr><tr><td>lipophilicity_astrazeneca</td><td>morgan</td><td>1007</td><td>0.7363405285781811</td></tr><tr><td>lipophilicity_astrazeneca</td><td>descriptors</td><td>1007</td><td>0.7730747466504303</td></tr><tr><td>lipophilicity_astrazeneca</td><td>combined</td><td>1007</td><td>0.6238152626965225</td></tr><tr><td>lipophilicity_astrazeneca</td><td>shuffled</td><td>1007</td><td>1.0228756688579104</td></tr><tr><td>lipophilicity_astrazeneca</td><td>median</td><td>1008</td><td>0.9633571428571429</td></tr><tr><td>lipophilicity_astrazeneca</td><td>morgan</td><td>1008</td><td>0.7247415376092363</td></tr><tr><td>lipophilicity_astrazeneca</td><td>descriptors</td><td>1008</td><td>0.7694569717216377</td></tr><tr><td>lipophilicity_astrazeneca</td><td>combined</td><td>1008</td><td>0.6406783786961266</td></tr><tr><td>lipophilicity_astrazeneca</td><td>shuffled</td><td>1008</td><td>0.9976585148820423</td></tr><tr><td>lipophilicity_astrazeneca</td><td>median</td><td>1009</td><td>0.9678333333333333</td></tr><tr><td>lipophilicity_astrazeneca</td><td>morgan</td><td>1009</td><td>0.719974782065633</td></tr><tr><td>lipophilicity_astrazeneca</td><td>descriptors</td><td>1009</td><td>0.7638511174647667</td></tr><tr><td>lipophilicity_astrazeneca</td><td>combined</td><td>1009</td><td>0.6414468264264113</td></tr><tr><td>lipophilicity_astrazeneca</td><td>shuffled</td><td>1009</td><td>1.013834567657273</td></tr><tr><td>lipophilicity_astrazeneca</td><td>median</td><td>1010</td><td>0.962357142857143</td></tr><tr><td>lipophilicity_astrazeneca</td><td>morgan</td><td>1010</td><td>0.7315175440897274</td></tr><tr><td>lipophilicity_astrazeneca</td><td>descriptors</td><td>1010</td><td>0.7636857772566811</td></tr><tr><td>lipophilicity_astrazeneca</td><td>combined</td><td>1010</td><td>0.6301932732052896</td></tr><tr><td>lipophilicity_astrazeneca</td><td>shuffled</td><td>1010</td><td>1.038504119931359</td></tr><tr><td>lipophilicity_astrazeneca</td><td>median</td><td>1011</td><td>0.9643809523809523</td></tr><tr><td>lipophilicity_astrazeneca</td><td>morgan</td><td>1011</td><td>0.736257332311415</td></tr><tr><td>lipophilicity_astrazeneca</td><td>descriptors</td><td>1011</td><td>0.760797467325584</td></tr><tr><td>lipophilicity_astrazeneca</td><td>combined</td><td>1011</td><td>0.6202656701215328</td></tr><tr><td>lipophilicity_astrazeneca</td><td>shuffled</td><td>1011</td><td>1.0273356479315874</td></tr><tr><td>lipophilicity_astrazeneca</td><td>median</td><td>1012</td><td>0.9665238095238097</td></tr><tr><td>lipophilicity_astrazeneca</td><td>morgan</td><td>1012</td><td>0.7277040562291464</td></tr><tr><td>lipophilicity_astrazeneca</td><td>descriptors</td><td>1012</td><td>0.775025785597485</td></tr><tr><td>lipophilicity_astrazeneca</td><td>combined</td><td>1012</td><td>0.632991654622824</td></tr><tr><td>lipophilicity_astrazeneca</td><td>shuffled</td><td>1012</td><td>1.0319855681628662</td></tr><tr><td>lipophilicity_astrazeneca</td><td>median</td><td>1013</td><td>0.9633571428571429</td></tr><tr><td>lipophilicity_astrazeneca</td><td>morgan</td><td>1013</td><td>0.7281896954610426</td></tr><tr><td>lipophilicity_astrazeneca</td><td>descriptors</td><td>1013</td><td>0.7717665837207073</td></tr><tr><td>lipophilicity_astrazeneca</td><td>combined</td><td>1013</td><td>0.6386303063477899</td></tr><tr><td>lipophilicity_astrazeneca</td><td>shuffled</td><td>1013</td><td>1.0110167493876192</td></tr><tr><td>lipophilicity_astrazeneca</td><td>median</td><td>1014</td><td>0.9659761904761905</td></tr><tr><td>lipophilicity_astrazeneca</td><td>morgan</td><td>1014</td><td>0.7286511075011662</td></tr><tr><td>lipophilicity_astrazeneca</td><td>descriptors</td><td>1014</td><td>0.7704629935311421</td></tr><tr><td>lipophilicity_astrazeneca</td><td>combined</td><td>1014</td><td>0.6429615786655927</td></tr><tr><td>lipophilicity_astrazeneca</td><td>shuffled</td><td>1014</td><td>1.0016115184689678</td></tr><tr><td>lipophilicity_astrazeneca</td><td>median</td><td>1015</td><td>0.9618809523809524</td></tr><tr><td>lipophilicity_astrazeneca</td><td>morgan</td><td>1015</td><td>0.731546691997171</td></tr><tr><td>lipophilicity_astrazeneca</td><td>descriptors</td><td>1015</td><td>0.7683170843162757</td></tr><tr><td>lipophilicity_astrazeneca</td><td>combined</td><td>1015</td><td>0.6456350176078037</td></tr><tr><td>lipophilicity_astrazeneca</td><td>shuffled</td><td>1015</td><td>1.0401426964859408</td></tr><tr><td>lipophilicity_astrazeneca</td><td>median</td><td>1016</td><td>0.9628571428571429</td></tr><tr><td>lipophilicity_astrazeneca</td><td>morgan</td><td>1016</td><td>0.7261595558208954</td></tr><tr><td>lipophilicity_astrazeneca</td><td>descriptors</td><td>1016</td><td>0.7699184205827745</td></tr><tr><td>lipophilicity_astrazeneca</td><td>combined</td><td>1016</td><td>0.6400810733332253</td></tr><tr><td>lipophilicity_astrazeneca</td><td>shuffled</td><td>1016</td><td>1.0387737956176324</td></tr><tr><td>lipophilicity_astrazeneca</td><td>median</td><td>1017</td><td>0.9585833333333333</td></tr><tr><td>lipophilicity_astrazeneca</td><td>morgan</td><td>1017</td><td>0.7286750974638686</td></tr><tr><td>lipophilicity_astrazeneca</td><td>descriptors</td><td>1017</td><td>0.7698651134920472</td></tr><tr><td>lipophilicity_astrazeneca</td><td>combined</td><td>1017</td><td>0.6386560381416848</td></tr><tr><td>lipophilicity_astrazeneca</td><td>shuffled</td><td>1017</td><td>1.0119044138382554</td></tr><tr><td>lipophilicity_astrazeneca</td><td>median</td><td>1018</td><td>0.9605238095238094</td></tr><tr><td>lipophilicity_astrazeneca</td><td>morgan</td><td>1018</td><td>0.734971980362328</td></tr><tr><td>lipophilicity_astrazeneca</td><td>descriptors</td><td>1018</td><td>0.7610261032600231</td></tr><tr><td>lipophilicity_astrazeneca</td><td>combined</td><td>1018</td><td>0.6270019290053667</td></tr><tr><td>lipophilicity_astrazeneca</td><td>shuffled</td><td>1018</td><td>1.0413769455769855</td></tr><tr><td>lipophilicity_astrazeneca</td><td>median</td><td>1019</td><td>0.9665238095238097</td></tr><tr><td>lipophilicity_astrazeneca</td><td>morgan</td><td>1019</td><td>0.7329377143663677</td></tr><tr><td>lipophilicity_astrazeneca</td><td>descriptors</td><td>1019</td><td>0.7845224086549846</td></tr><tr><td>lipophilicity_astrazeneca</td><td>combined</td><td>1019</td><td>0.6416958650899542</td></tr><tr><td>lipophilicity_astrazeneca</td><td>shuffled</td><td>1019</td><td>1.02342877871375</td></tr><tr><td>caco2_wang</td><td>median</td><td>1000</td><td>0.5862641434065933</td></tr><tr><td>caco2_wang</td><td>morgan</td><td>1000</td><td>0.5175766515075262</td></tr><tr><td>caco2_wang</td><td>descriptors</td><td>1000</td><td>0.34083247204902356</td></tr><tr><td>caco2_wang</td><td>combined</td><td>1000</td><td>0.283320567174084</td></tr><tr><td>caco2_wang</td><td>shuffled</td><td>1000</td><td>0.5399545987797574</td></tr><tr><td>caco2_wang</td><td>median</td><td>1001</td><td>0.5810337192307693</td></tr><tr><td>caco2_wang</td><td>morgan</td><td>1001</td><td>0.445123172849114</td></tr><tr><td>caco2_wang</td><td>descriptors</td><td>1001</td><td>0.3401023736000208</td></tr><tr><td>caco2_wang</td><td>combined</td><td>1001</td><td>0.2781781228221192</td></tr><tr><td>caco2_wang</td><td>shuffled</td><td>1001</td><td>0.6736055251059221</td></tr><tr><td>caco2_wang</td><td>median</td><td>1002</td><td>0.5883963357142858</td></tr><tr><td>caco2_wang</td><td>morgan</td><td>1002</td><td>0.49013817697139506</td></tr><tr><td>caco2_wang</td><td>descriptors</td><td>1002</td><td>0.34898143089342987</td></tr><tr><td>caco2_wang</td><td>combined</td><td>1002</td><td>0.2887682871903741</td></tr><tr><td>caco2_wang</td><td>shuffled</td><td>1002</td><td>0.6044102910208072</td></tr><tr><td>caco2_wang</td><td>median</td><td>1003</td><td>0.5825833983516484</td></tr><tr><td>caco2_wang</td><td>morgan</td><td>1003</td><td>0.47089816796288436</td></tr><tr><td>caco2_wang</td><td>descriptors</td><td>1003</td><td>0.35680314069904995</td></tr><tr><td>caco2_wang</td><td>combined</td><td>1003</td><td>0.3265067651804053</td></tr><tr><td>caco2_wang</td><td>shuffled</td><td>1003</td><td>0.5661411887273613</td></tr><tr><td>caco2_wang</td><td>median</td><td>1004</td><td>0.5830806038461538</td></tr><tr><td>caco2_wang</td><td>morgan</td><td>1004</td><td>0.45936061254268795</td></tr><tr><td>caco2_wang</td><td>descriptors</td><td>1004</td><td>0.32185095768312594</td></tr><tr><td>caco2_wang</td><td>combined</td><td>1004</td><td>0.3071963749363399</td></tr><tr><td>caco2_wang</td><td>shuffled</td><td>1004</td><td>0.5719727813902733</td></tr><tr><td>caco2_wang</td><td>median</td><td>1005</td><td>0.5810337192307693</td></tr><tr><td>caco2_wang</td><td>morgan</td><td>1005</td><td>0.48967376172199606</td></tr><tr><td>caco2_wang</td><td>descriptors</td><td>1005</td><td>0.3348815966608508</td></tr><tr><td>caco2_wang</td><td>combined</td><td>1005</td><td>0.3151410610046542</td></tr><tr><td>caco2_wang</td><td>shuffled</td><td>1005</td><td>0.6863562226880172</td></tr><tr><td>caco2_wang</td><td>median</td><td>1006</td><td>0.5792755126373624</td></tr><tr><td>caco2_wang</td><td>morgan</td><td>1006</td><td>0.4588931748278628</td></tr><tr><td>caco2_wang</td><td>descriptors</td><td>1006</td><td>0.3537827407998616</td></tr><tr><td>caco2_wang</td><td>combined</td><td>1006</td><td>0.3010375968919918</td></tr><tr><td>caco2_wang</td><td>shuffled</td><td>1006</td><td>0.6149323348106841</td></tr><tr><td>caco2_wang</td><td>median</td><td>1007</td><td>0.5862641434065933</td></tr><tr><td>caco2_wang</td><td>morgan</td><td>1007</td><td>0.45334674277391374</td></tr><tr><td>caco2_wang</td><td>descriptors</td><td>1007</td><td>0.3155953060452394</td></tr><tr><td>caco2_wang</td><td>combined</td><td>1007</td><td>0.2996753241227844</td></tr><tr><td>caco2_wang</td><td>shuffled</td><td>1007</td><td>0.6383280115778259</td></tr><tr><td>caco2_wang</td><td>median</td><td>1008</td><td>0.6032551467032968</td></tr><tr><td>caco2_wang</td><td>morgan</td><td>1008</td><td>0.46281274784586274</td></tr><tr><td>caco2_wang</td><td>descriptors</td><td>1008</td><td>0.3441894544988677</td></tr><tr><td>caco2_wang</td><td>combined</td><td>1008</td><td>0.3027644220065624</td></tr><tr><td>caco2_wang</td><td>shuffled</td><td>1008</td><td>0.6142896146634004</td></tr><tr><td>caco2_wang</td><td>median</td><td>1009</td><td>0.5825833983516484</td></tr><tr><td>caco2_wang</td><td>morgan</td><td>1009</td><td>0.4943419934607754</td></tr><tr><td>caco2_wang</td><td>descriptors</td><td>1009</td><td>0.3498583101022716</td></tr><tr><td>caco2_wang</td><td>combined</td><td>1009</td><td>0.29102426399192516</td></tr><tr><td>caco2_wang</td><td>shuffled</td><td>1009</td><td>0.55434085805641</td></tr><tr><td>caco2_wang</td><td>median</td><td>1010</td><td>0.5883963357142858</td></tr><tr><td>caco2_wang</td><td>morgan</td><td>1010</td><td>0.45239890759608015</td></tr><tr><td>caco2_wang</td><td>descriptors</td><td>1010</td><td>0.33995144086689966</td></tr><tr><td>caco2_wang</td><td>combined</td><td>1010</td><td>0.31406545363679716</td></tr><tr><td>caco2_wang</td><td>shuffled</td><td>1010</td><td>0.635440224357214</td></tr><tr><td>caco2_wang</td><td>median</td><td>1011</td><td>0.5799521016483518</td></tr><tr><td>caco2_wang</td><td>morgan</td><td>1011</td><td>0.5332522032747449</td></tr><tr><td>caco2_wang</td><td>descriptors</td><td>1011</td><td>0.3500201451901546</td></tr><tr><td>caco2_wang</td><td>combined</td><td>1011</td><td>0.28451603925132757</td></tr><tr><td>caco2_wang</td><td>shuffled</td><td>1011</td><td>0.6298564662232281</td></tr><tr><td>caco2_wang</td><td>median</td><td>1012</td><td>0.5849172576923078</td></tr><tr><td>caco2_wang</td><td>morgan</td><td>1012</td><td>0.4690460039723567</td></tr><tr><td>caco2_wang</td><td>descriptors</td><td>1012</td><td>0.3499164514600567</td></tr><tr><td>caco2_wang</td><td>combined</td><td>1012</td><td>0.29019815329281007</td></tr><tr><td>caco2_wang</td><td>shuffled</td><td>1012</td><td>0.5656747257632236</td></tr><tr><td>caco2_wang</td><td>median</td><td>1013</td><td>0.5792755126373624</td></tr><tr><td>caco2_wang</td><td>morgan</td><td>1013</td><td>0.5506926091186556</td></tr><tr><td>caco2_wang</td><td>descriptors</td><td>1013</td><td>0.3375851803833559</td></tr><tr><td>caco2_wang</td><td>combined</td><td>1013</td><td>0.2893699148366595</td></tr><tr><td>caco2_wang</td><td>shuffled</td><td>1013</td><td>0.6510058713233013</td></tr><tr><td>caco2_wang</td><td>median</td><td>1014</td><td>0.5827281016483515</td></tr><tr><td>caco2_wang</td><td>morgan</td><td>1014</td><td>0.43956364775462037</td></tr><tr><td>caco2_wang</td><td>descriptors</td><td>1014</td><td>0.37900244373237385</td></tr><tr><td>caco2_wang</td><td>combined</td><td>1014</td><td>0.33243343449867</td></tr><tr><td>caco2_wang</td><td>shuffled</td><td>1014</td><td>0.5738290595155224</td></tr><tr><td>caco2_wang</td><td>median</td><td>1015</td><td>0.5902645236263736</td></tr><tr><td>caco2_wang</td><td>morgan</td><td>1015</td><td>0.42520184212073103</td></tr><tr><td>caco2_wang</td><td>descriptors</td><td>1015</td><td>0.3284761301693412</td></tr><tr><td>caco2_wang</td><td>combined</td><td>1015</td><td>0.311700726425653</td></tr><tr><td>caco2_wang</td><td>shuffled</td><td>1015</td><td>0.6967251581118746</td></tr><tr><td>caco2_wang</td><td>median</td><td>1016</td><td>0.590590904945055</td></tr><tr><td>caco2_wang</td><td>morgan</td><td>1016</td><td>0.5255961496736609</td></tr><tr><td>caco2_wang</td><td>descriptors</td><td>1016</td><td>0.32080190954106813</td></tr><tr><td>caco2_wang</td><td>combined</td><td>1016</td><td>0.29449429836275115</td></tr><tr><td>caco2_wang</td><td>shuffled</td><td>1016</td><td>0.7142350671812032</td></tr><tr><td>caco2_wang</td><td>median</td><td>1017</td><td>0.5902645236263736</td></tr><tr><td>caco2_wang</td><td>morgan</td><td>1017</td><td>0.44498579502916713</td></tr><tr><td>caco2_wang</td><td>descriptors</td><td>1017</td><td>0.33104526434405873</td></tr><tr><td>caco2_wang</td><td>combined</td><td>1017</td><td>0.2950717514015047</td></tr><tr><td>caco2_wang</td><td>shuffled</td><td>1017</td><td>0.6755581393819509</td></tr><tr><td>caco2_wang</td><td>median</td><td>1018</td><td>0.5869279467032966</td></tr><tr><td>caco2_wang</td><td>morgan</td><td>1018</td><td>0.5454362330241971</td></tr><tr><td>caco2_wang</td><td>descriptors</td><td>1018</td><td>0.34594776277421596</td></tr><tr><td>caco2_wang</td><td>combined</td><td>1018</td><td>0.320302861890343</td></tr><tr><td>caco2_wang</td><td>shuffled</td><td>1018</td><td>0.6807852628889847</td></tr><tr><td>caco2_wang</td><td>median</td><td>1019</td><td>0.600933051098901</td></tr><tr><td>caco2_wang</td><td>morgan</td><td>1019</td><td>0.45606824309840815</td></tr><tr><td>caco2_wang</td><td>descriptors</td><td>1019</td><td>0.3204835882889397</td></tr><tr><td>caco2_wang</td><td>combined</td><td>1019</td><td>0.31241746325113967</td></tr><tr><td>caco2_wang</td><td>shuffled</td><td>1019</td><td>0.6126845295325295</td></tr></table></details><details><summary>Claim ledger</summary><pre>[
+  {
+    &quot;claim_id&quot;: &quot;C-admet-R1&quot;,
+    &quot;text&quot;: &quot;Fixed numerical validation ratio for solubility_aqsoldb, method Morgan/combined: 1.6031589651001918. A fixed-dataset observation, not an independent clinical result.&quot;,
+    &quot;level&quot;: &quot;observed&quot;,
+    &quot;evidence_run_ids&quot;: &quot;runde1.json&quot;,
+    &quot;status&quot;: &quot;best\u00e4tigt&quot;
+  },
+  {
+    &quot;claim_id&quot;: &quot;C-admet-R3&quot;,
+    &quot;text&quot;: &quot;Fixed numerical validation ratio for lipophilicity_astrazeneca, method Morgan/combined: 1.2356652066077345. A fixed-dataset observation, not an independent clinical result.&quot;,
+    &quot;level&quot;: &quot;observed&quot;,
+    &quot;evidence_run_ids&quot;: &quot;runde3.json&quot;,
+    &quot;status&quot;: &quot;best\u00e4tigt&quot;
+  },
+  {
+    &quot;claim_id&quot;: &quot;C-release-scope&quot;,
+    &quot;text&quot;: &quot;This reproducible pilot compares fixed molecular representations on three preregistered TDC ADMET regression endpoints; the structural audit covers 22 endpoints and 44 source files; the pilot does not establish clinical utility, a leaderboard record, a novel representation algorithm, or accelerated scientific discovery&quot;,
+    &quot;level&quot;: &quot;observed&quot;,
+    &quot;evidence_run_ids&quot;: &quot;experiments.csv;predictions;verification.json&quot;,
+    &quot;status&quot;: &quot;best\u00e4tigt&quot;
+  },
+  {
+    &quot;claim_id&quot;: &quot;C-release-design&quot;,
+    &quot;text&quot;: &quot;The primary question is whether adding ten fixed physicochemical descriptors to radius-two 1024-bit Morgan fingerprints lowers solubility scaffold-validation MAE; identical lipophilicity and Caco-2 comparisons are secondary; the objective is mean absolute error in the distributed target units, with no test-based method selection&quot;,
+    &quot;level&quot;: &quot;observed&quot;,
+    &quot;evidence_run_ids&quot;: &quot;experiments.csv;predictions;verification.json&quot;,
+    &quot;status&quot;: &quot;best\u00e4tigt&quot;
+  },
+  {
+    &quot;claim_id&quot;: &quot;C-release-methods&quot;,
+    &quot;text&quot;: &quot;All learned models use LightGBM with 200 trees, learning rate 0.05, 15 leaves, minimum 20 samples per leaf, L2 penalty 1, two CPU threads and deterministic execution; descriptors are molecular weight, logP, TPSA, hydrogen-bond donors and acceptors, rotatable bonds, rings, fraction sp3, heavy atoms and aromatic rings; descriptor-only and fingerprint-only models are ablations, the training-target median is the naive baseline, and shuffled training targets define the negative control&quot;,
+    &quot;level&quot;: &quot;observed&quot;,
+    &quot;evidence_run_ids&quot;: &quot;experiments.csv;predictions;verification.json&quot;,
+    &quot;status&quot;: &quot;best\u00e4tigt&quot;
+  },
+  {
+    &quot;claim_id&quot;: &quot;C-release-splits&quot;,
+    &quot;text&quot;: &quot;Seeds 1000 through 1019 use the TDC scaffold splitter with train/validation/test fractions 0.875/0.125/0 inside train_val; an explicit source-row column survives index resetting; each saved model is evaluated on the official fixed test set without refitting on validation observations; no early stopping or hyperparameter search is performed; seeds 1000 through 1004 are also exported but are not asserted to be an official leaderboard seed protocol&quot;,
+    &quot;level&quot;: &quot;observed&quot;,
+    &quot;evidence_run_ids&quot;: &quot;experiments.csv;predictions;verification.json&quot;,
+    &quot;status&quot;: &quot;best\u00e4tigt&quot;
+  },
+  {
+    &quot;claim_id&quot;: &quot;C-release-inference&quot;,
+    &quot;text&quot;: &quot;The preregistered comparison uses paired one-sided sign flips with 20000 Monte Carlo draws and a plus-one correction, 5000 paired bootstrap resamples, and Benjamini-Hochberg at q=0.1; the primary hypothesis family has three endpoint comparisons; overlapping splits and reused test molecules make the intervals and p-values conditional sensitivity summaries rather than independent biological replication or prospective population inference&quot;,
+    &quot;level&quot;: &quot;observed&quot;,
+    &quot;evidence_run_ids&quot;: &quot;experiments.csv;predictions;verification.json&quot;,
+    &quot;status&quot;: &quot;best\u00e4tigt&quot;
+  },
+  {
+    &quot;claim_id&quot;: &quot;C-release-audit&quot;,
+    &quot;text&quot;: &quot;The source audit found 0 missing targets, 0 invalid training structures, 2 invalid test structures, and 0 canonical-molecule overlaps and 0 scaffold overlaps across train_val/test; within-split duplicates remain as distributed, so row-weighted scores need not equal unique-molecule-weighted scores&quot;,
+    &quot;level&quot;: &quot;observed&quot;,
+    &quot;evidence_run_ids&quot;: &quot;experiments.csv;predictions;verification.json&quot;,
+    &quot;status&quot;: &quot;best\u00e4tigt&quot;
+  },
+  {
+    &quot;claim_id&quot;: &quot;C-release-invalid&quot;,
+    &quot;text&quot;: &quot;Before any successful model fit or score inspection, two solubility test SMILES failed strict RDKit parsing; a documented amendment preserves both rows and uses the training-target median for every method on these structures, marks them invalid, and assigns similarity zero; no chemical repair or silent deletion is performed; structural audit read target completeness but no test score guided the amendment&quot;,
+    &quot;level&quot;: &quot;observed&quot;,
+    &quot;evidence_run_ids&quot;: &quot;experiments.csv;predictions;verification.json&quot;,
+    &quot;status&quot;: &quot;best\u00e4tigt&quot;
+  },
+  {
+    &quot;claim_id&quot;: &quot;C-release-precommit&quot;,
+    &quot;text&quot;: &quot;The protocol document existed before computation; a working-directory error prevented the intended first commit and the following training command failed a row-alignment assertion before any model fit or score inspection; the document and correction were committed before successful experiments; therefore strict commit-before-first-computation compliance is not claimed&quot;,
+    &quot;level&quot;: &quot;observed&quot;,
+    &quot;evidence_run_ids&quot;: &quot;experiments.csv;predictions;verification.json&quot;,
+    &quot;status&quot;: &quot;best\u00e4tigt&quot;
+  },
+  {
+    &quot;claim_id&quot;: &quot;C-release-verification&quot;,
+    &quot;text&quot;: &quot;The domain verifier passed 10 true/false, nonfinite, malformed, empty-input and self-assigned-tolerance selftests; an independently generated linear target is recovered at MAE 7.21644966006e-16, whereas shuffled synthetic training labels yield MAE 1.481077; the release validates all 600 experiment records and source-grounded predictions, and excludes nonfinite outputs and incomplete seed/method/row groups&quot;,
+    &quot;level&quot;: &quot;observed&quot;,
+    &quot;evidence_run_ids&quot;: &quot;experiments.csv;predictions;verification.json&quot;,
+    &quot;status&quot;: &quot;best\u00e4tigt&quot;
+  },
+  {
+    &quot;claim_id&quot;: &quot;C-release-trust&quot;,
+    &quot;text&quot;: &quot;The agent-facing laboratory exposes validation summaries only through domain.run_op; no benchmark molecular identities, per-molecule target rows or test scores are provided through these agent-facing operations; neutral identifier invariance follows from feature computation using SMILES alone and named endpoint labels without molecular identities; this narrower exposure check cannot certify absence of LLM training-corpus contamination or protect against a malicious process with filesystem access&quot;,
+    &quot;level&quot;: &quot;observed&quot;,
+    &quot;evidence_run_ids&quot;: &quot;experiments.csv;predictions;verification.json&quot;,
+    &quot;status&quot;: &quot;best\u00e4tigt&quot;
+  },
+  {
+    &quot;claim_id&quot;: &quot;C-release-redteam&quot;,
+    &quot;text&quot;: &quot;Independent review verified source-row alignment, disjoint molecular/scaffold partitions and rescoring, and reproduced saved seed-1000 predictions; it also found that a mutable prediction table could spoof the original scorer and that the shared manuscript gate checks numerical token membership rather than semantic truth; source grounding and frozen prediction hashes now reject the demonstrated target and hash tampering, while the final manuscript uses canonical verified state records rather than relying on the shared sentence gate alone&quot;,
+    &quot;level&quot;: &quot;observed&quot;,
+    &quot;evidence_run_ids&quot;: &quot;experiments.csv;predictions;verification.json&quot;,
+    &quot;status&quot;: &quot;best\u00e4tigt&quot;
+  },
+  {
+    &quot;claim_id&quot;: &quot;C-release-freeze&quot;,
+    &quot;text&quot;: &quot;All model files, split indices and validation predictions were hashed before the first final-test score; after scoring, only verifier grounding and documentation were hardened; the original seal is retained, its engine/document hash differences are disclosed, and release_hashes records the hardened implementation and unchanged prediction artifacts&quot;,
+    &quot;level&quot;: &quot;observed&quot;,
+    &quot;evidence_run_ids&quot;: &quot;experiments.csv;predictions;verification.json&quot;,
+    &quot;status&quot;: &quot;best\u00e4tigt&quot;
+  },
+  {
+    &quot;claim_id&quot;: &quot;C-release-limitations&quot;,
+    &quot;text&quot;: &quot;This pilot uses a single public benchmark snapshot and fixed model hyperparameters; it lacks prospective temporal validation, independent new assays, clinical evaluation, external expert review, and a comparison against competitive tuned models; descriptor effects cannot identify causal chemical mechanisms; a held-out benchmark result is evidence about the distributed assay targets, not patient safety&quot;,
+    &quot;level&quot;: &quot;observed&quot;,
+    &quot;evidence_run_ids&quot;: &quot;experiments.csv;predictions;verification.json&quot;,
+    &quot;status&quot;: &quot;best\u00e4tigt&quot;
+  },
+  {
+    &quot;claim_id&quot;: &quot;C-release-novelty&quot;,
+    &quot;text&quot;: &quot;Fingerprint and descriptor combinations, scaffold evaluation, and applicability-domain analysis have substantial prior art; the contribution here is an executed, auditable endpoint-specific ablation with falsification checks, rather than a new algorithm or a demonstrated publication-level scientific discovery; stronger impact requires replication and a specific mechanism or methodological improvement that survives stronger baselines&quot;,
+    &quot;level&quot;: &quot;observed&quot;,
+    &quot;evidence_run_ids&quot;: &quot;experiments.csv;predictions;verification.json&quot;,
+    &quot;status&quot;: &quot;best\u00e4tigt&quot;
+  },
+  {
+    &quot;claim_id&quot;: &quot;C-release-platform&quot;,
+    &quot;text&quot;: &quot;The run is local CPU research; Databricks, Unity Catalog and Spark have not been provisioned or tested; the experiment, claim and gate tables are the authoritative release inputs and can be imported into a platform integration; no live cloud deployment is claimed&quot;,
+    &quot;level&quot;: &quot;observed&quot;,
+    &quot;evidence_run_ids&quot;: &quot;experiments.csv;predictions;verification.json&quot;,
+    &quot;status&quot;: &quot;best\u00e4tigt&quot;
+  },
+  {
+    &quot;claim_id&quot;: &quot;C-release-test-solubility_aqsoldb&quot;,
+    &quot;text&quot;: &quot;On the fixed solubility_aqsoldb test set, across 20 training seeds, MAE mean +/- seed standard deviation is median: 1.894131 +/- 0.048473; morgan: 1.266789 +/- 0.039799; descriptors: 0.899143 +/- 0.011470; combined: 0.847962 +/- 0.017176; shuffled: 1.891085 +/- 0.037153; adding descriptors to Morgan reduces mean test MAE by 33.06% relative to Morgan alone; this is a conditional descriptive comparison with every official test row retained&quot;,
+    &quot;level&quot;: &quot;observed&quot;,
+    &quot;evidence_run_ids&quot;: &quot;experiments.csv;predictions;verification.json&quot;,
+    &quot;status&quot;: &quot;best\u00e4tigt&quot;
+  },
+  {
+    &quot;claim_id&quot;: &quot;C-release-valid-solubility_aqsoldb&quot;,
+    &quot;text&quot;: &quot;For solubility_aqsoldb validation, Morgan MAE is 1.449784, descriptors MAE is 0.942899, and combined MAE is 0.904329; the paired Morgan/combined ratio is 1.603159, with bootstrap 95% interval [1.488537, 1.750759] and nominal one-sided p=0.00005000&quot;,
+    &quot;level&quot;: &quot;statistical&quot;,
+    &quot;evidence_run_ids&quot;: &quot;experiments.csv;predictions;verification.json&quot;,
+    &quot;status&quot;: &quot;best\u00e4tigt&quot;
+  },
+  {
+    &quot;claim_id&quot;: &quot;C-release-coverage-solubility_aqsoldb&quot;,
+    &quot;text&quot;: &quot;solubility_aqsoldb has 1997 fixed test rows, validation size ranges from 999 to 2940 rows across seeds, and combined MAE restricted to strictly valid test structures is 0.846374; unequal validation sizes are induced by whole-scaffold groups, not silent row removal&quot;,
+    &quot;level&quot;: &quot;observed&quot;,
+    &quot;evidence_run_ids&quot;: &quot;experiments.csv;predictions;verification.json&quot;,
+    &quot;status&quot;: &quot;best\u00e4tigt&quot;
+  },
+  {
+    &quot;claim_id&quot;: &quot;C-release-test-lipophilicity_astrazeneca&quot;,
+    &quot;text&quot;: &quot;On the fixed lipophilicity_astrazeneca test set, across 20 training seeds, MAE mean +/- seed standard deviation is median: 0.963613 +/- 0.002624; morgan: 0.730368 +/- 0.005053; descriptors: 0.769887 +/- 0.005581; combined: 0.635495 +/- 0.007778; shuffled: 1.013711 +/- 0.018586; adding descriptors to Morgan reduces mean test MAE by 12.99% relative to Morgan alone; this is a conditional descriptive comparison with every official test row retained&quot;,
+    &quot;level&quot;: &quot;observed&quot;,
+    &quot;evidence_run_ids&quot;: &quot;experiments.csv;predictions;verification.json&quot;,
+    &quot;status&quot;: &quot;best\u00e4tigt&quot;
+  },
+  {
+    &quot;claim_id&quot;: &quot;C-release-valid-lipophilicity_astrazeneca&quot;,
+    &quot;text&quot;: &quot;For lipophilicity_astrazeneca validation, Morgan MAE is 0.754238, descriptors MAE is 0.760264, and combined MAE is 0.610390; the paired Morgan/combined ratio is 1.235665, with bootstrap 95% interval [1.217388, 1.253459] and nominal one-sided p=0.00005000&quot;,
+    &quot;level&quot;: &quot;statistical&quot;,
+    &quot;evidence_run_ids&quot;: &quot;experiments.csv;predictions;verification.json&quot;,
+    &quot;status&quot;: &quot;best\u00e4tigt&quot;
+  },
+  {
+    &quot;claim_id&quot;: &quot;C-release-coverage-lipophilicity_astrazeneca&quot;,
+    &quot;text&quot;: &quot;lipophilicity_astrazeneca has 840 fixed test rows, validation size ranges from 420 to 420 rows across seeds, and combined MAE restricted to strictly valid test structures is 0.635495; unequal validation sizes are induced by whole-scaffold groups, not silent row removal&quot;,
+    &quot;level&quot;: &quot;observed&quot;,
+    &quot;evidence_run_ids&quot;: &quot;experiments.csv;predictions;verification.json&quot;,
+    &quot;status&quot;: &quot;best\u00e4tigt&quot;
+  },
+  {
+    &quot;claim_id&quot;: &quot;C-release-test-caco2_wang&quot;,
+    &quot;text&quot;: &quot;On the fixed caco2_wang test set, across 20 training seeds, MAE mean +/- seed standard deviation is median: 0.586401 +/- 0.006519; morgan: 0.479220 +/- 0.037340; descriptors: 0.340505 +/- 0.015110; combined: 0.301909 +/- 0.015109; shuffled: 0.625006 +/- 0.051972; adding descriptors to Morgan reduces mean test MAE by 37.00% relative to Morgan alone; this is a conditional descriptive comparison with every official test row retained&quot;,
+    &quot;level&quot;: &quot;observed&quot;,
+    &quot;evidence_run_ids&quot;: &quot;experiments.csv;predictions;verification.json&quot;,
+    &quot;status&quot;: &quot;best\u00e4tigt&quot;
+  },
+  {
+    &quot;claim_id&quot;: &quot;C-release-valid-caco2_wang&quot;,
+    &quot;text&quot;: &quot;For caco2_wang validation, Morgan MAE is 0.437256, descriptors MAE is 0.407075, and combined MAE is 0.390865; the paired Morgan/combined ratio is 1.118689, with bootstrap 95% interval [1.048756, 1.190120] and nominal one-sided p=0.00214989&quot;,
+    &quot;level&quot;: &quot;statistical&quot;,
+    &quot;evidence_run_ids&quot;: &quot;experiments.csv;predictions;verification.json&quot;,
+    &quot;status&quot;: &quot;best\u00e4tigt&quot;
+  },
+  {
+    &quot;claim_id&quot;: &quot;C-release-coverage-caco2_wang&quot;,
+    &quot;text&quot;: &quot;caco2_wang has 182 fixed test rows, validation size ranges from 91 to 91 rows across seeds, and combined MAE restricted to strictly valid test structures is 0.301909; unequal validation sizes are induced by whole-scaffold groups, not silent row removal&quot;,
+    &quot;level&quot;: &quot;observed&quot;,
+    &quot;evidence_run_ids&quot;: &quot;experiments.csv;predictions;verification.json&quot;,
+    &quot;status&quot;: &quot;best\u00e4tigt&quot;
+  },
+  {
+    &quot;claim_id&quot;: &quot;C-release-abstract&quot;,
+    &quot;text&quot;: &quot;We evaluate a preregistered representation ablation for ADMET prediction with fixed CPU gradient-boosted models and an independently audited scorer; adding ten physicochemical descriptors to Morgan fingerprints reduces fixed-test mean absolute error by 33.06% for solubility, 12.99% for lipophilicity and 37.00% for Caco-2 permeability across twenty training seeds; descriptor-only ablations expose endpoint dependence and shuffled-label controls provide falsification checks; an audit covers twenty-two benchmark endpoints and preserves two invalid-structure test rows through a frozen median fallback; overlapping splits, public labels, assay heterogeneity and absent prospective validation limit interpretation; this pilot establishes endpoint-specific performance against fixed baselines, not a new algorithm, leaderboard record or clinical result&quot;,
+    &quot;level&quot;: &quot;observed&quot;,
+    &quot;evidence_run_ids&quot;: &quot;experiments.csv;predictions;verification.json&quot;,
+    &quot;status&quot;: &quot;best\u00e4tigt&quot;
+  },
+  {
+    &quot;claim_id&quot;: &quot;C-release-gate-solubility_aqsoldb&quot;,
+    &quot;text&quot;: &quot;The solubility_aqsoldb validation comparison passes the preregistered improvement criteria on this fixed dataset; after including all six additional negative-control comparisons in an expanded family of nine tests, the BH-adjusted p-value is 0.00022499; the larger family is a post-preregistration sensitivity check and does not strengthen prospective inference&quot;,
+    &quot;level&quot;: &quot;statistical&quot;,
+    &quot;evidence_run_ids&quot;: &quot;experiments.csv;predictions;verification.json&quot;,
+    &quot;status&quot;: &quot;best\u00e4tigt&quot;
+  },
+  {
+    &quot;claim_id&quot;: &quot;C-release-gate-lipophilicity_astrazeneca&quot;,
+    &quot;text&quot;: &quot;The lipophilicity_astrazeneca validation comparison passes the preregistered improvement criteria on this fixed dataset; after including all six additional negative-control comparisons in an expanded family of nine tests, the BH-adjusted p-value is 0.00022499; the larger family is a post-preregistration sensitivity check and does not strengthen prospective inference&quot;,
+    &quot;level&quot;: &quot;statistical&quot;,
+    &quot;evidence_run_ids&quot;: &quot;experiments.csv;predictions;verification.json&quot;,
+    &quot;status&quot;: &quot;best\u00e4tigt&quot;
+  },
+  {
+    &quot;claim_id&quot;: &quot;C-release-gate-caco2_wang&quot;,
+    &quot;text&quot;: &quot;The caco2_wang validation comparison passes the preregistered improvement criteria on this fixed dataset; after including all six additional negative-control comparisons in an expanded family of nine tests, the BH-adjusted p-value is 0.00644968; the larger family is a post-preregistration sensitivity check and does not strengthen prospective inference&quot;,
+    &quot;level&quot;: &quot;statistical&quot;,
+    &quot;evidence_run_ids&quot;: &quot;experiments.csv;predictions;verification.json&quot;,
+    &quot;status&quot;: &quot;best\u00e4tigt&quot;
+  },
+  {
+    &quot;claim_id&quot;: &quot;C-release-null-solubility_aqsoldb-validation&quot;,
+    &quot;text&quot;: &quot;The solubility_aqsoldb validation shuffled-label control has median-baseline/shuffled MAE ratio 0.961914, bootstrap 95% interval [0.943069, 0.982480], and nominal improvement p=0.99825009; it does not meet the improvement gate; failure to detect improvement is not proof of independence&quot;,
+    &quot;level&quot;: &quot;statistical&quot;,
+    &quot;evidence_run_ids&quot;: &quot;experiments.csv;predictions;verification.json&quot;,
+    &quot;status&quot;: &quot;best\u00e4tigt&quot;
+  },
+  {
+    &quot;claim_id&quot;: &quot;C-release-null-solubility_aqsoldb-test&quot;,
+    &quot;text&quot;: &quot;The solubility_aqsoldb test shuffled-label control has median-baseline/shuffled MAE ratio 1.001611, bootstrap 95% interval [0.991002, 1.011327], and nominal improvement p=0.39113044; it does not meet the improvement gate; failure to detect improvement is not proof of independence&quot;,
+    &quot;level&quot;: &quot;statistical&quot;,
+    &quot;evidence_run_ids&quot;: &quot;experiments.csv;predictions;verification.json&quot;,
+    &quot;status&quot;: &quot;best\u00e4tigt&quot;
+  },
+  {
+    &quot;claim_id&quot;: &quot;C-release-null-lipophilicity_astrazeneca-validation&quot;,
+    &quot;text&quot;: &quot;The lipophilicity_astrazeneca validation shuffled-label control has median-baseline/shuffled MAE ratio 0.973205, bootstrap 95% interval [0.958639, 0.988007], and nominal improvement p=0.99850007; it does not meet the improvement gate; failure to detect improvement is not proof of independence&quot;,
+    &quot;level&quot;: &quot;statistical&quot;,
+    &quot;evidence_run_ids&quot;: &quot;experiments.csv;predictions;verification.json&quot;,
+    &quot;status&quot;: &quot;best\u00e4tigt&quot;
+  },
+  {
+    &quot;claim_id&quot;: &quot;C-release-null-lipophilicity_astrazeneca-test&quot;,
+    &quot;text&quot;: &quot;The lipophilicity_astrazeneca test shuffled-label control has median-baseline/shuffled MAE ratio 0.950579, bootstrap 95% interval [0.942861, 0.958420], and nominal improvement p=1.00000000; it does not meet the improvement gate; failure to detect improvement is not proof of independence&quot;,
+    &quot;level&quot;: &quot;statistical&quot;,
+    &quot;evidence_run_ids&quot;: &quot;experiments.csv;predictions;verification.json&quot;,
+    &quot;status&quot;: &quot;best\u00e4tigt&quot;
+  },
+  {
+    &quot;claim_id&quot;: &quot;C-release-null-caco2_wang-validation&quot;,
+    &quot;text&quot;: &quot;The caco2_wang validation shuffled-label control has median-baseline/shuffled MAE ratio 0.940133, bootstrap 95% interval [0.910216, 0.973390], and nominal improvement p=0.99835008; it does not meet the improvement gate; failure to detect improvement is not proof of independence&quot;,
+    &quot;level&quot;: &quot;statistical&quot;,
+    &quot;evidence_run_ids&quot;: &quot;experiments.csv;predictions;verification.json&quot;,
+    &quot;status&quot;: &quot;best\u00e4tigt&quot;
+  },
+  {
+    &quot;claim_id&quot;: &quot;C-release-null-caco2_wang-test&quot;,
+    &quot;text&quot;: &quot;The caco2_wang test shuffled-label control has median-baseline/shuffled MAE ratio 0.938232, bootstrap 95% interval [0.905757, 0.973442], and nominal improvement p=0.99810009; it does not meet the improvement gate; failure to detect improvement is not proof of independence&quot;,
+    &quot;level&quot;: &quot;statistical&quot;,
+    &quot;evidence_run_ids&quot;: &quot;experiments.csv;predictions;verification.json&quot;,
+    &quot;status&quot;: &quot;best\u00e4tigt&quot;
+  },
+  {
+    &quot;claim_id&quot;: &quot;C-release-segments&quot;,
+    &quot;text&quot;: &quot;Exploratory nearest-training Morgan Tanimoto strata use thresholds 0.3 and 0.6; the pooled seed-row errors for the combined model are solubility_aqsoldb: low n-seed-row=4186, MAE=1.007285, medium n-seed-row=29434, MAE=0.856216, high n-seed-row=6320, MAE=0.703991; lipophilicity_astrazeneca: low n-seed-row=954, MAE=0.934878, medium n-seed-row=7590, MAE=0.719061, high n-seed-row=8256, MAE=0.524077; caco2_wang: low n-seed-row=1298, MAE=0.303108, medium n-seed-row=1554, MAE=0.319482, high n-seed-row=788, MAE=0.265280; counts reuse test molecules across seeds and are not unique molecule counts; these fixed descriptive strata neither certify an applicability domain nor explain a causal mechanism&quot;,
+    &quot;level&quot;: &quot;observed&quot;,
+    &quot;evidence_run_ids&quot;: &quot;experiments.csv;predictions;verification.json&quot;,
+    &quot;status&quot;: &quot;best\u00e4tigt&quot;
+  },
+  {
+    &quot;claim_id&quot;: &quot;C-release-lean&quot;,
+    &quot;text&quot;: &quot;A Lean 4 core proof checks that the sum of natural absolute values of integer residuals is zero exactly when every residual is zero; its trusted axioms are propext, Quot.sound; this arithmetic anchor does not certify floating-point model fitting, statistical significance, chemical mechanism or clinical validity&quot;,
+    &quot;level&quot;: &quot;proved_lean&quot;,
+    &quot;evidence_run_ids&quot;: &quot;experiments.csv;predictions;verification.json&quot;,
+    &quot;status&quot;: &quot;best\u00e4tigt&quot;
+  },
+  {
+    &quot;claim_id&quot;: &quot;C-release-agents&quot;,
+    &quot;text&quot;: &quot;The repository laboratory executed 3 recorded agent rounds, with 2 confirmed recorded claims before release enrichment and 1 recorded unsuccessful questions; model fitting was a preregistered fixed experiment matrix, while agents inspected validation summaries and proposed checked numerical statements; no agent-discovery speedup was measured&quot;,
+    &quot;level&quot;: &quot;observed&quot;,
+    &quot;evidence_run_ids&quot;: &quot;experiments.csv;predictions;verification.json&quot;,
+    &quot;status&quot;: &quot;best\u00e4tigt&quot;
+  },
+  {
+    &quot;claim_id&quot;: &quot;C-release-ref-0&quot;,
+    &quot;text&quot;: &quot;Yang et al.: Analyzing Learned Molecular Representations for Property Prediction.; DOI 10.1021/acs.jcim.9b00237; https://doi.org/10.1021/acs.jcim.9b00237; title/DOI verified through Crossref or Europe PMC; existence verification does not reproduce the paper findings&quot;,
+    &quot;level&quot;: &quot;observed&quot;,
+    &quot;evidence_run_ids&quot;: &quot;experiments.csv;predictions;verification.json&quot;,
+    &quot;status&quot;: &quot;best\u00e4tigt&quot;
+  },
+  {
+    &quot;claim_id&quot;: &quot;C-release-ref-1&quot;,
+    &quot;text&quot;: &quot;Bemis and Murcko: The Properties of Known Drugs. 1. Molecular Frameworks; DOI 10.1021/jm9602928; https://doi.org/10.1021/jm9602928; title/DOI verified through Crossref or Europe PMC; existence verification does not reproduce the paper findings&quot;,
+    &quot;level&quot;: &quot;observed&quot;,
+    &quot;evidence_run_ids&quot;: &quot;experiments.csv;predictions;verification.json&quot;,
+    &quot;status&quot;: &quot;best\u00e4tigt&quot;
+  },
+  {
+    &quot;claim_id&quot;: &quot;C-release-ref-2&quot;,
+    &quot;text&quot;: &quot;Hosni et al.: Explicit Applicability Domain Calculations Can Help Determine When Uncertainty Estimates Are Less Reliable.; DOI 10.1021/acsomega.5c11875; https://doi.org/10.1021/acsomega.5c11875; title/DOI verified through Crossref or Europe PMC; existence verification does not reproduce the paper findings&quot;,
+    &quot;level&quot;: &quot;observed&quot;,
+    &quot;evidence_run_ids&quot;: &quot;experiments.csv;predictions;verification.json&quot;,
+    &quot;status&quot;: &quot;best\u00e4tigt&quot;
+  },
+  {
+    &quot;claim_id&quot;: &quot;C-release-ref-3&quot;,
+    &quot;text&quot;: &quot;Deng et al.: A systematic study of\u00a0key elements underlying molecular property prediction; DOI 10.1038/s41467-023-41948-6; https://doi.org/10.1038/s41467-023-41948-6; title/DOI verified through Crossref or Europe PMC; existence verification does not reproduce the paper findings&quot;,
+    &quot;level&quot;: &quot;observed&quot;,
+    &quot;evidence_run_ids&quot;: &quot;experiments.csv;predictions;verification.json&quot;,
+    &quot;status&quot;: &quot;best\u00e4tigt&quot;
+  },
+  {
+    &quot;claim_id&quot;: &quot;C-release-reproduction&quot;,
+    &quot;text&quot;: &quot;A separate fresh numerical run downloaded identical source CSV hashes, refitted the entire fixed experiment matrix, froze models before test scoring and reproduced all 15 endpoint-method mean test MAEs within absolute tolerance 1e-8; the maximum mean-MAE difference was 0; numerical reproduction strengthens implementation evidence but is not an independent biological replication&quot;,
+    &quot;level&quot;: &quot;observed&quot;,
+    &quot;evidence_run_ids&quot;: &quot;experiments.csv;predictions;verification.json&quot;,
+    &quot;status&quot;: &quot;best\u00e4tigt&quot;
+  },
+  {
+    &quot;claim_id&quot;: &quot;C-release-ref-tdc&quot;,
+    &quot;text&quot;: &quot;Therapeutics Data Commons: ADMET Benchmark Group; official benchmark documentation, accessed 4 October 2026; https://tdcommons.ai/benchmark/admet_group/overview/; https://dataverse.harvard.edu/api/access/datafile/4426004; raw snapshot hashes are recorded in provenance.json&quot;,
+    &quot;level&quot;: &quot;observed&quot;,
+    &quot;evidence_run_ids&quot;: &quot;experiments.csv;predictions;verification.json&quot;,
+    &quot;status&quot;: &quot;best\u00e4tigt&quot;
+  }
+]</pre></details>

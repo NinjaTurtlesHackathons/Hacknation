@@ -1,0 +1,106 @@
+{
+ "antwort": {
+  "antwort": "1.2356652066077345",
+  "zahl": 1.2356652066077345,
+  "konfidenz": 1.0,
+  "pruefung": {
+   "typ": "ratio",
+   "endpoint": "lipophilicity_astrazeneca",
+   "value": 1.2356652066077345
+  },
+  "begruendung": "Das Morgan/combined-MAE-Verhältnis für lipophilicity_astrazeneca wurde durch Experiment E0 über 20 Scaffold-Splits gemessen. Der Wert 1.236 zeigt, dass Combined-Merkmalskombination Morgan-Fingerprints um etwa 23,6 % übertrifft. Die Prüfung vergleicht Morgan MAE (0.754) und Combined MAE (0.610) direkt.",
+  "stimmen": "Stufe 1/4 (sparsam, haiku)"
+ },
+ "level": "computed (Code-Prüfer bestanden)",
+ "forscher": [
+  {
+   "strategie": "sparsam",
+   "runden": [
+    {
+     "ueberlegung": "Die Frage verlangt das numerische Validierungs-MAE-Verhältnis Morgan/combined für lipophilicity_astrazeneca. Ein einzelnes Validierungsexperiment mit diesem Endpoint liefert direkt die gesuchte Metrik sowie alle anderen Methodenergebnisse. Redundanz wird vermieden: solubility_aqsoldb wurde bereits gemessen ([admet-R1]). Das Experiment ist ausreichend, um die Frage zu beantworten.",
+     "plan": [
+      {
+       "op": "validation",
+       "args": {
+        "endpoint": "lipophilicity_astrazeneca"
+       }
+      }
+     ]
+    },
+    {
+     "antwort": "1.2356652066077345",
+     "zahl": 1.2356652066077345,
+     "konfidenz": 1.0,
+     "pruefung": {
+      "typ": "ratio",
+      "endpoint": "lipophilicity_astrazeneca",
+      "value": 1.2356652066077345
+     },
+     "begruendung": "Das Morgan/combined-MAE-Verhältnis für lipophilicity_astrazeneca wurde durch Experiment E0 über 20 Scaffold-Splits gemessen. Der Wert 1.236 zeigt, dass Combined-Merkmalskombination Morgan-Fingerprints um etwa 23,6 % übertrifft. Die Prüfung vergleicht Morgan MAE (0.754) und Combined MAE (0.610) direkt."
+    }
+   ],
+   "experimente": [
+    0
+   ],
+   "final": {
+    "antwort": "1.2356652066077345",
+    "zahl": 1.2356652066077345,
+    "konfidenz": 1.0,
+    "pruefung": {
+     "typ": "ratio",
+     "endpoint": "lipophilicity_astrazeneca",
+     "value": 1.2356652066077345
+    },
+    "begruendung": "Das Morgan/combined-MAE-Verhältnis für lipophilicity_astrazeneca wurde durch Experiment E0 über 20 Scaffold-Splits gemessen. Der Wert 1.236 zeigt, dass Combined-Merkmalskombination Morgan-Fingerprints um etwa 23,6 % übertrifft. Die Prüfung vergleicht Morgan MAE (0.754) und Combined MAE (0.610) direkt."
+   },
+   "modell": "haiku",
+   "pruefung": {
+    "bestanden": true,
+    "grund": "independent numerical value=1.235665207; fixed tolerance=1e-06"
+   }
+  }
+ ],
+ "experimente": [
+  {
+   "id": 0,
+   "wer": "forscher-sparsam",
+   "op": "validation",
+   "args": {
+    "endpoint": "lipophilicity_astrazeneca"
+   },
+   "ergebnis": {
+    "median": {
+     "mean_mae": 1.0025821428571429,
+     "sd_mae": 0.06558035390765878
+    },
+    "morgan": {
+     "mean_mae": 0.7542376640353986,
+     "sd_mae": 0.04176175657978509
+    },
+    "descriptors": {
+     "mean_mae": 0.7602641234286182,
+     "sd_mae": 0.05070726219265035
+    },
+    "combined": {
+     "mean_mae": 0.6103899826604355,
+     "sd_mae": 0.028487327297322066
+    },
+    "shuffled": {
+     "mean_mae": 1.0301860686367872,
+     "sd_mae": 0.06506955180189761
+    },
+    "endpoint": "lipophilicity_astrazeneca",
+    "split": "valid",
+    "seeds": 20,
+    "comparison": {
+     "ratio": 1.2356652066077345,
+     "ci_low": 1.217388306758302,
+     "ci_high": 1.2534591463553943,
+     "p": 4.999750012499375e-05
+    }
+   },
+   "sek": 0.07
+  }
+ ],
+ "sek": 27.8
+}

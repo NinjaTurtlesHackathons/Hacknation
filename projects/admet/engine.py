@@ -49,7 +49,15 @@ def audit():
 
 def summary(endpoint,split='valid'):
  # Independent re-scoring from persisted rows, NOT model's reported score.
- pred=pd.read_csv(ROOT/'predictions'/f'{endpoint}_{split}.csv.gz')
+ prediction_path=ROOT/'predictions'/f'{endpoint}_{split}.csv.gz'
+ provenance=json.loads((ROOT/'provenance.json').read_text())
+ source_path=ROOT/'data/admet_group'/endpoint/('train_val.csv' if split=='valid' else 'test.csv')
+ if digest(source_path)!=provenance['files'][str(source_path.relative_to(ROOT))]:raise ValueError('Source hash mismatch')
+ if (ROOT/'seal.json').exists():
+  seal=json.loads((ROOT/'seal.json').read_text());rel=str(prediction_path.relative_to(ROOT))
+  if rel in seal['files'] and digest(prediction_path)!=seal['files'][rel]:raise ValueError('Prediction hash mismatch')
+ pred=pd.read_csv(prediction_path);source=pd.read_csv(source_path)
+ if not np.array_equal(source.iloc[pred['row'].to_numpy(int)].Y.to_numpy(float),pred.y.to_numpy(float)):raise ValueError('Prediction targets not grounded in source')
  rows=[]
  for (seed,method),df in pred.groupby(['seed','method']):
   score=math.fsum(abs(float(a)-float(b)) for a,b in zip(df.y,df.pred))/len(df)

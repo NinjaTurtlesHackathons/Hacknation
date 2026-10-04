@@ -1,0 +1,765 @@
+{
+ "claims": [
+  {
+   "claim_id": "C-admet-R1",
+   "text": "Untersuchte Frage: Wie gross ist das numerische Validierungs-MAE-Verhaeltnis Morgan/combined fuer solubility_aqsoldb? Berichte nur das unabhaengig gepruefte Verhaeltnis; keine Mechanismusbehauptung. Geprüftes Resultat: Fixed numerical validation ratio for solubility_aqsoldb, method Morgan/combined: 1.6031589651001918. A fixed-dataset observation, not an independent clinical result. Prüfer: independent numerical value=1.603158965; fixed tolerance=1e-06",
+   "level": "observed",
+   "status": "bestätigt"
+  },
+  {
+   "claim_id": "C-admet-R1-I",
+   "text": "Ungeprüfte Interpretation des Agenten zu admet-R1 (nicht als Resultat verwenden): 1.603",
+   "level": "hypothesis",
+   "status": "offen"
+  },
+  {
+   "claim_id": "C-admet-R1-RT1",
+   "text": "Red-Team-Gegenprüfung zu admet-R1: Gegenbeispiel: Ist die Morgan/combined-Verhältnis-Richtung umgekehrt (combined schlechter als Morgan), ergäbe der Kehrwert von 1,603 ungefähr 0,624. Prüft, ob die Antwort das Verhältnis korrekt als Morgan-MAE durch combined-MAE angibt und nicht umgekehrt. -> nicht bestanden; independent numerical value=1.603158965; fixed tolerance=1e-06",
+   "level": "computed_rigorous",
+   "status": "bestätigt"
+  },
+  {
+   "claim_id": "C-admet-R1-RT2",
+   "text": "Red-Team-Gegenprüfung zu admet-R1: Randfall: Wenn Morgan und combined gleich gut wären, läge das Verhältnis bei genau 1,0. Prüft, ob der Wert 1,603 tatsächlich von einem Unterschied zwischen den Methoden getragen wird und nicht von einer Konstante oder einem Rechenfehler. -> nicht bestanden; independent numerical value=1.603158965; fixed tolerance=1e-06",
+   "level": "computed_rigorous",
+   "status": "bestätigt"
+  },
+  {
+   "claim_id": "C-admet-R3",
+   "text": "Untersuchte Frage: Wie gross ist das numerische Validierungs-MAE-Verhaeltnis Morgan/combined fuer lipophilicity_astrazeneca? Berichte nur den geprueften Wert. Geprüftes Resultat: Fixed numerical validation ratio for lipophilicity_astrazeneca, method Morgan/combined: 1.2356652066077345. A fixed-dataset observation, not an independent clinical result. Prüfer: independent numerical value=1.235665207; fixed tolerance=1e-06",
+   "level": "observed",
+   "status": "bestätigt"
+  },
+  {
+   "claim_id": "C-admet-R3-I",
+   "text": "Ungeprüfte Interpretation des Agenten zu admet-R3 (nicht als Resultat verwenden): 1.2356652066077345",
+   "level": "hypothesis",
+   "status": "offen"
+  },
+  {
+   "claim_id": "C-admet-R3-RT1",
+   "text": "Red-Team-Gegenprüfung zu admet-R3: Gegenbeispiel: Falls Combined den Morgan-Fingerprint nicht schlägt, müsste das Verhältnis Morgan/combined unter 1 liegen. Der Wert 0.8095 entspricht dem Kehrwert von 1.2356 und prüft, ob die Richtung der Aussage vertauscht wurde. Ein Bestehen würde zeigen, dass die Prüfung nicht zwischen den Richtungen unterscheidet. -> nicht bestanden; independent numerical value=1.235665207; fixed tolerance=1e-06",
+   "level": "computed_rigorous",
+   "status": "bestätigt"
+  },
+  {
+   "claim_id": "C-admet-R3-RT2",
+   "text": "Red-Team-Gegenprüfung zu admet-R3: Randfall: Das Verhältnis 1.2357 wird fälschlich einem Shuffled-Modell mit Score-Typ zugeordnet. Falls die Prüfung nur den numerischen Wert vergleicht und den Endpunkt-Methodenbezug ignoriert, würde sie fälschlich bestehen. Ein Bestehen würde zeigen, dass die Antwort nicht an Morgan/combined gebunden ist. -> nicht bestanden; independent numerical value=1.030186069; fixed tolerance=1e-06",
+   "level": "computed_rigorous",
+   "status": "bestätigt"
+  },
+  {
+   "claim_id": "C-release-scope",
+   "text": "Untersuchte Frage: scope Geprüftes Resultat: This reproducible pilot compares fixed molecular representations on three preregistered TDC ADMET regression endpoints; the structural audit covers 22 endpoints and 44 source files; the pilot does not establish clinical utility, a leaderboard record, a novel representation algorithm, or accelerated scientific discovery Prüfer: canonical record regenerated from source-grounded predictions and audited protocol",
+   "level": "observed",
+   "status": "bestätigt"
+  },
+  {
+   "claim_id": "C-release-scope-I",
+   "text": "Ungeprüfte Interpretation des Agenten zu release-scope (nicht als Resultat verwenden): This reproducible pilot compares fixed molecular representations on three preregistered TDC ADMET regression endpoints; the structural audit covers 22 endpoints and 44 source files; the pilot does not establish clinical utility, a leaderboard record, a novel representation algorithm, or accelerated scientific discovery",
+   "level": "hypothesis",
+   "status": "offen"
+  },
+  {
+   "claim_id": "C-release-design",
+   "text": "Untersuchte Frage: design Geprüftes Resultat: The primary question is whether adding ten fixed physicochemical descriptors to radius-two 1024-bit Morgan fingerprints lowers solubility scaffold-validation MAE; identical lipophilicity and Caco-2 comparisons are secondary; the objective is mean absolute error in the distributed target units, with no test-based method selection Prüfer: canonical record regenerated from source-grounded predictions and audited protocol",
+   "level": "observed",
+   "status": "bestätigt"
+  },
+  {
+   "claim_id": "C-release-design-I",
+   "text": "Ungeprüfte Interpretation des Agenten zu release-design (nicht als Resultat verwenden): The primary question is whether adding ten fixed physicochemical descriptors to radius-two 1024-bit Morgan fingerprints lowers solubility scaffold-validation MAE; identical lipophilicity and Caco-2 comparisons are secondary; the objective is mean absolute error in the distributed target units, with no test-based method selection",
+   "level": "hypothesis",
+   "status": "offen"
+  },
+  {
+   "claim_id": "C-release-methods",
+   "text": "Untersuchte Frage: methods Geprüftes Resultat: All learned models use LightGBM with 200 trees, learning rate 0.05, 15 leaves, minimum 20 samples per leaf, L2 penalty 1, two CPU threads and deterministic execution; descriptors are molecular weight, logP, TPSA, hydrogen-bond donors and acceptors, rotatable bonds, rings, fraction sp3, heavy atoms and aromatic rings; descriptor-only and fingerprint-only models are ablations, the training-target median is the naive baseline, and shuffled training targets define the negative control Prüfer: canonical record regenerated from source-grounded predictions and audited protocol",
+   "level": "observed",
+   "status": "bestätigt"
+  },
+  {
+   "claim_id": "C-release-methods-I",
+   "text": "Ungeprüfte Interpretation des Agenten zu release-methods (nicht als Resultat verwenden): All learned models use LightGBM with 200 trees, learning rate 0.05, 15 leaves, minimum 20 samples per leaf, L2 penalty 1, two CPU threads and deterministic execution; descriptors are molecular weight, logP, TPSA, hydrogen-bond donors and acceptors, rotatable bonds, rings, fraction sp3, heavy atoms and aromatic rings; descriptor-only and fingerprint-only models are ablations, the training-target median is the naive baseline, and shuffled training targets define the negative control",
+   "level": "hypothesis",
+   "status": "offen"
+  },
+  {
+   "claim_id": "C-release-splits",
+   "text": "Untersuchte Frage: splits Geprüftes Resultat: Seeds 1000 through 1019 use the TDC scaffold splitter with train/validation/test fractions 0.875/0.125/0 inside train_val; an explicit source-row column survives index resetting; each saved model is evaluated on the official fixed test set without refitting on validation observations; no early stopping or hyperparameter search is performed; seeds 1000 through 1004 are also exported but are not asserted to be an official leaderboard seed protocol Prüfer: canonical record regenerated from source-grounded predictions and audited protocol",
+   "level": "observed",
+   "status": "bestätigt"
+  },
+  {
+   "claim_id": "C-release-splits-I",
+   "text": "Ungeprüfte Interpretation des Agenten zu release-splits (nicht als Resultat verwenden): Seeds 1000 through 1019 use the TDC scaffold splitter with train/validation/test fractions 0.875/0.125/0 inside train_val; an explicit source-row column survives index resetting; each saved model is evaluated on the official fixed test set without refitting on validation observations; no early stopping or hyperparameter search is performed; seeds 1000 through 1004 are also exported but are not asserted to be an official leaderboard seed protocol",
+   "level": "hypothesis",
+   "status": "offen"
+  },
+  {
+   "claim_id": "C-release-inference",
+   "text": "Untersuchte Frage: inference Geprüftes Resultat: The preregistered comparison uses paired one-sided sign flips with 20000 Monte Carlo draws and a plus-one correction, 5000 paired bootstrap resamples, and Benjamini-Hochberg at q=0.1; the primary hypothesis family has three endpoint comparisons; overlapping splits and reused test molecules make the intervals and p-values conditional sensitivity summaries rather than independent biological replication or prospective population inference Prüfer: canonical record regenerated from source-grounded predictions and audited protocol",
+   "level": "observed",
+   "status": "bestätigt"
+  },
+  {
+   "claim_id": "C-release-inference-I",
+   "text": "Ungeprüfte Interpretation des Agenten zu release-inference (nicht als Resultat verwenden): The preregistered comparison uses paired one-sided sign flips with 20000 Monte Carlo draws and a plus-one correction, 5000 paired bootstrap resamples, and Benjamini-Hochberg at q=0.1; the primary hypothesis family has three endpoint comparisons; overlapping splits and reused test molecules make the intervals and p-values conditional sensitivity summaries rather than independent biological replication or prospective population inference",
+   "level": "hypothesis",
+   "status": "offen"
+  },
+  {
+   "claim_id": "C-release-audit",
+   "text": "Untersuchte Frage: audit Geprüftes Resultat: The source audit found 0 missing targets, 0 invalid training structures, 2 invalid test structures, and 0 canonical-molecule overlaps and 0 scaffold overlaps across train_val/test; within-split duplicates remain as distributed, so row-weighted scores need not equal unique-molecule-weighted scores Prüfer: canonical record regenerated from source-grounded predictions and audited protocol",
+   "level": "observed",
+   "status": "bestätigt"
+  },
+  {
+   "claim_id": "C-release-audit-I",
+   "text": "Ungeprüfte Interpretation des Agenten zu release-audit (nicht als Resultat verwenden): The source audit found 0 missing targets, 0 invalid training structures, 2 invalid test structures, and 0 canonical-molecule overlaps and 0 scaffold overlaps across train_val/test; within-split duplicates remain as distributed, so row-weighted scores need not equal unique-molecule-weighted scores",
+   "level": "hypothesis",
+   "status": "offen"
+  },
+  {
+   "claim_id": "C-release-invalid",
+   "text": "Untersuchte Frage: invalid Geprüftes Resultat: Before any successful model fit or score inspection, two solubility test SMILES failed strict RDKit parsing; a documented amendment preserves both rows and uses the training-target median for every method on these structures, marks them invalid, and assigns similarity zero; no chemical repair or silent deletion is performed; structural audit read target completeness but no test score guided the amendment Prüfer: canonical record regenerated from source-grounded predictions and audited protocol",
+   "level": "observed",
+   "status": "bestätigt"
+  },
+  {
+   "claim_id": "C-release-invalid-I",
+   "text": "Ungeprüfte Interpretation des Agenten zu release-invalid (nicht als Resultat verwenden): Before any successful model fit or score inspection, two solubility test SMILES failed strict RDKit parsing; a documented amendment preserves both rows and uses the training-target median for every method on these structures, marks them invalid, and assigns similarity zero; no chemical repair or silent deletion is performed; structural audit read target completeness but no test score guided the amendment",
+   "level": "hypothesis",
+   "status": "offen"
+  },
+  {
+   "claim_id": "C-release-precommit",
+   "text": "Untersuchte Frage: precommit Geprüftes Resultat: The protocol document existed before computation; a working-directory error prevented the intended first commit and the following training command failed a row-alignment assertion before any model fit or score inspection; the document and correction were committed before successful experiments; therefore strict commit-before-first-computation compliance is not claimed Prüfer: canonical record regenerated from source-grounded predictions and audited protocol",
+   "level": "observed",
+   "status": "bestätigt"
+  },
+  {
+   "claim_id": "C-release-precommit-I",
+   "text": "Ungeprüfte Interpretation des Agenten zu release-precommit (nicht als Resultat verwenden): The protocol document existed before computation; a working-directory error prevented the intended first commit and the following training command failed a row-alignment assertion before any model fit or score inspection; the document and correction were committed before successful experiments; therefore strict commit-before-first-computation compliance is not claimed",
+   "level": "hypothesis",
+   "status": "offen"
+  },
+  {
+   "claim_id": "C-release-verification",
+   "text": "Untersuchte Frage: verification Geprüftes Resultat: The domain verifier passed 10 true/false, nonfinite, malformed, empty-input and self-assigned-tolerance selftests; an independently generated linear target is recovered at MAE 7.21644966006e-16, whereas shuffled synthetic training labels yield MAE 1.481077; the release validates all 600 experiment records and source-grounded predictions, and excludes nonfinite outputs and incomplete seed/method/row groups Prüfer: canonical record regenerated from source-grounded predictions and audited protocol",
+   "level": "observed",
+   "status": "bestätigt"
+  },
+  {
+   "claim_id": "C-release-verification-I",
+   "text": "Ungeprüfte Interpretation des Agenten zu release-verification (nicht als Resultat verwenden): The domain verifier passed 10 true/false, nonfinite, malformed, empty-input and self-assigned-tolerance selftests; an independently generated linear target is recovered at MAE 7.21644966006e-16, whereas shuffled synthetic training labels yield MAE 1.481077; the release validates all 600 experiment records and source-grounded predictions, and excludes nonfinite outputs and incomplete seed/method/row groups",
+   "level": "hypothesis",
+   "status": "offen"
+  },
+  {
+   "claim_id": "C-release-trust",
+   "text": "Untersuchte Frage: trust Geprüftes Resultat: The agent-facing laboratory exposes validation summaries only through domain.run_op; no SMILES, drug names, molecular target rows or test scores are included in prompts; neutral identifier invariance follows from feature computation using SMILES alone and opaque agent-facing endpoint codes; this narrower exposure check cannot certify absence of LLM training-corpus contamination or protect against a malicious process with filesystem access Prüfer: canonical record regenerated from source-grounded predictions and audited protocol",
+   "level": "observed",
+   "status": "bestätigt"
+  },
+  {
+   "claim_id": "C-release-trust-I",
+   "text": "Ungeprüfte Interpretation des Agenten zu release-trust (nicht als Resultat verwenden): The agent-facing laboratory exposes validation summaries only through domain.run_op; no SMILES, drug names, molecular target rows or test scores are included in prompts; neutral identifier invariance follows from feature computation using SMILES alone and opaque agent-facing endpoint codes; this narrower exposure check cannot certify absence of LLM training-corpus contamination or protect against a malicious process with filesystem access",
+   "level": "hypothesis",
+   "status": "offen"
+  },
+  {
+   "claim_id": "C-release-redteam",
+   "text": "Untersuchte Frage: redteam Geprüftes Resultat: Independent review verified source-row alignment, disjoint molecular/scaffold partitions and rescoring, and reproduced saved seed-1000 predictions; it also found that a mutable prediction table could spoof the original scorer and that the shared manuscript gate checks numerical token membership rather than semantic truth; source grounding and frozen prediction hashes now reject the demonstrated target and hash tampering, while the final manuscript uses canonical verified state records rather than relying on the shared sentence gate alone Prüfer: canonical record regenerated from source-grounded predictions and audited protocol",
+   "level": "observed",
+   "status": "bestätigt"
+  },
+  {
+   "claim_id": "C-release-redteam-I",
+   "text": "Ungeprüfte Interpretation des Agenten zu release-redteam (nicht als Resultat verwenden): Independent review verified source-row alignment, disjoint molecular/scaffold partitions and rescoring, and reproduced saved seed-1000 predictions; it also found that a mutable prediction table could spoof the original scorer and that the shared manuscript gate checks numerical token membership rather than semantic truth; source grounding and frozen prediction hashes now reject the demonstrated target and hash tampering, while the final manuscript uses canonical verified state records rather than relying on the shared sentence gate alone",
+   "level": "hypothesis",
+   "status": "offen"
+  },
+  {
+   "claim_id": "C-release-freeze",
+   "text": "Untersuchte Frage: freeze Geprüftes Resultat: All model files, split indices and validation predictions were hashed before the first final-test score; after scoring, only verifier grounding and documentation were hardened; the original seal is retained, its engine/document hash differences are disclosed, and release_hashes records the hardened implementation and unchanged prediction artifacts Prüfer: canonical record regenerated from source-grounded predictions and audited protocol",
+   "level": "observed",
+   "status": "bestätigt"
+  },
+  {
+   "claim_id": "C-release-freeze-I",
+   "text": "Ungeprüfte Interpretation des Agenten zu release-freeze (nicht als Resultat verwenden): All model files, split indices and validation predictions were hashed before the first final-test score; after scoring, only verifier grounding and documentation were hardened; the original seal is retained, its engine/document hash differences are disclosed, and release_hashes records the hardened implementation and unchanged prediction artifacts",
+   "level": "hypothesis",
+   "status": "offen"
+  },
+  {
+   "claim_id": "C-release-limitations",
+   "text": "Untersuchte Frage: limitations Geprüftes Resultat: This pilot uses a single public benchmark snapshot and fixed model hyperparameters; it lacks prospective temporal validation, independent new assays, clinical evaluation, external expert review, and a comparison against competitive tuned models; descriptor effects cannot identify causal chemical mechanisms; a held-out benchmark result is evidence about the distributed assay targets, not patient safety Prüfer: canonical record regenerated from source-grounded predictions and audited protocol",
+   "level": "observed",
+   "status": "bestätigt"
+  },
+  {
+   "claim_id": "C-release-limitations-I",
+   "text": "Ungeprüfte Interpretation des Agenten zu release-limitations (nicht als Resultat verwenden): This pilot uses a single public benchmark snapshot and fixed model hyperparameters; it lacks prospective temporal validation, independent new assays, clinical evaluation, external expert review, and a comparison against competitive tuned models; descriptor effects cannot identify causal chemical mechanisms; a held-out benchmark result is evidence about the distributed assay targets, not patient safety",
+   "level": "hypothesis",
+   "status": "offen"
+  },
+  {
+   "claim_id": "C-release-novelty",
+   "text": "Untersuchte Frage: novelty Geprüftes Resultat: Fingerprint and descriptor combinations, scaffold evaluation, and applicability-domain analysis have substantial prior art; the contribution here is an executed, auditable endpoint-specific ablation with falsification checks, rather than a new algorithm or a demonstrated publication-level scientific discovery; stronger impact requires replication and a specific mechanism or methodological improvement that survives stronger baselines Prüfer: canonical record regenerated from source-grounded predictions and audited protocol",
+   "level": "observed",
+   "status": "bestätigt"
+  },
+  {
+   "claim_id": "C-release-novelty-I",
+   "text": "Ungeprüfte Interpretation des Agenten zu release-novelty (nicht als Resultat verwenden): Fingerprint and descriptor combinations, scaffold evaluation, and applicability-domain analysis have substantial prior art; the contribution here is an executed, auditable endpoint-specific ablation with falsification checks, rather than a new algorithm or a demonstrated publication-level scientific discovery; stronger impact requires replication and a specific mechanism or methodological improvement that survives stronger baselines",
+   "level": "hypothesis",
+   "status": "offen"
+  },
+  {
+   "claim_id": "C-release-platform",
+   "text": "Untersuchte Frage: platform Geprüftes Resultat: The run is local CPU research; Databricks, Unity Catalog and Spark have not been provisioned or tested; the experiment, claim and gate tables are the authoritative release inputs and can be imported into a platform integration; no live cloud deployment is claimed Prüfer: canonical record regenerated from source-grounded predictions and audited protocol",
+   "level": "observed",
+   "status": "bestätigt"
+  },
+  {
+   "claim_id": "C-release-platform-I",
+   "text": "Ungeprüfte Interpretation des Agenten zu release-platform (nicht als Resultat verwenden): The run is local CPU research; Databricks, Unity Catalog and Spark have not been provisioned or tested; the experiment, claim and gate tables are the authoritative release inputs and can be imported into a platform integration; no live cloud deployment is claimed",
+   "level": "hypothesis",
+   "status": "offen"
+  },
+  {
+   "claim_id": "C-release-test-solubility_aqsoldb",
+   "text": "Untersuchte Frage: test-solubility_aqsoldb Geprüftes Resultat: On the fixed solubility_aqsoldb test set, across 20 training seeds, MAE mean +/- seed standard deviation is median: 1.894131 +/- 0.048473; morgan: 1.266789 +/- 0.039799; descriptors: 0.899143 +/- 0.011470; combined: 0.847962 +/- 0.017176; shuffled: 1.891085 +/- 0.037153; adding descriptors to Morgan reduces mean test MAE by 33.06% relative to Morgan alone; this is a conditional descriptive comparison with every official test row retained Prüfer: canonical record regenerated from source-grounded predictions and audited protocol",
+   "level": "observed",
+   "status": "bestätigt"
+  },
+  {
+   "claim_id": "C-release-test-solubility_aqsoldb-I",
+   "text": "Ungeprüfte Interpretation des Agenten zu release-test-solubility_aqsoldb (nicht als Resultat verwenden): On the fixed solubility_aqsoldb test set, across 20 training seeds, MAE mean +/- seed standard deviation is median: 1.894131 +/- 0.048473; morgan: 1.266789 +/- 0.039799; descriptors: 0.899143 +/- 0.011470; combined: 0.847962 +/- 0.017176; shuffled: 1.891085 +/- 0.037153; adding descriptors to Morgan reduces mean test MAE by 33.06% relative to Morgan alone; this is a conditional descriptive comparison with every official test row retained",
+   "level": "hypothesis",
+   "status": "offen"
+  },
+  {
+   "claim_id": "C-release-valid-solubility_aqsoldb",
+   "text": "Untersuchte Frage: valid-solubility_aqsoldb Geprüftes Resultat: For solubility_aqsoldb validation, Morgan MAE is 1.449784, descriptors MAE is 0.942899, and combined MAE is 0.904329; the paired Morgan/combined ratio is 1.603159, with bootstrap 95% interval [1.488537, 1.750759] and nominal one-sided p=0.00005000 Prüfer: canonical record regenerated from source-grounded predictions and audited protocol",
+   "level": "statistical",
+   "status": "bestätigt"
+  },
+  {
+   "claim_id": "C-release-valid-solubility_aqsoldb-I",
+   "text": "Ungeprüfte Interpretation des Agenten zu release-valid-solubility_aqsoldb (nicht als Resultat verwenden): For solubility_aqsoldb validation, Morgan MAE is 1.449784, descriptors MAE is 0.942899, and combined MAE is 0.904329; the paired Morgan/combined ratio is 1.603159, with bootstrap 95% interval [1.488537, 1.750759] and nominal one-sided p=0.00005000",
+   "level": "hypothesis",
+   "status": "offen"
+  },
+  {
+   "claim_id": "C-release-coverage-solubility_aqsoldb",
+   "text": "Untersuchte Frage: coverage-solubility_aqsoldb Geprüftes Resultat: solubility_aqsoldb has 1997 fixed test rows, validation size ranges from 999 to 2940 rows across seeds, and combined MAE restricted to strictly valid test structures is 0.846374; unequal validation sizes are induced by whole-scaffold groups, not silent row removal Prüfer: canonical record regenerated from source-grounded predictions and audited protocol",
+   "level": "observed",
+   "status": "bestätigt"
+  },
+  {
+   "claim_id": "C-release-coverage-solubility_aqsoldb-I",
+   "text": "Ungeprüfte Interpretation des Agenten zu release-coverage-solubility_aqsoldb (nicht als Resultat verwenden): solubility_aqsoldb has 1997 fixed test rows, validation size ranges from 999 to 2940 rows across seeds, and combined MAE restricted to strictly valid test structures is 0.846374; unequal validation sizes are induced by whole-scaffold groups, not silent row removal",
+   "level": "hypothesis",
+   "status": "offen"
+  },
+  {
+   "claim_id": "C-release-test-lipophilicity_astrazeneca",
+   "text": "Untersuchte Frage: test-lipophilicity_astrazeneca Geprüftes Resultat: On the fixed lipophilicity_astrazeneca test set, across 20 training seeds, MAE mean +/- seed standard deviation is median: 0.963613 +/- 0.002624; morgan: 0.730368 +/- 0.005053; descriptors: 0.769887 +/- 0.005581; combined: 0.635495 +/- 0.007778; shuffled: 1.013711 +/- 0.018586; adding descriptors to Morgan reduces mean test MAE by 12.99% relative to Morgan alone; this is a conditional descriptive comparison with every official test row retained Prüfer: canonical record regenerated from source-grounded predictions and audited protocol",
+   "level": "observed",
+   "status": "bestätigt"
+  },
+  {
+   "claim_id": "C-release-test-lipophilicity_astrazeneca-I",
+   "text": "Ungeprüfte Interpretation des Agenten zu release-test-lipophilicity_astrazeneca (nicht als Resultat verwenden): On the fixed lipophilicity_astrazeneca test set, across 20 training seeds, MAE mean +/- seed standard deviation is median: 0.963613 +/- 0.002624; morgan: 0.730368 +/- 0.005053; descriptors: 0.769887 +/- 0.005581; combined: 0.635495 +/- 0.007778; shuffled: 1.013711 +/- 0.018586; adding descriptors to Morgan reduces mean test MAE by 12.99% relative to Morgan alone; this is a conditional descriptive comparison with every official test row retained",
+   "level": "hypothesis",
+   "status": "offen"
+  },
+  {
+   "claim_id": "C-release-valid-lipophilicity_astrazeneca",
+   "text": "Untersuchte Frage: valid-lipophilicity_astrazeneca Geprüftes Resultat: For lipophilicity_astrazeneca validation, Morgan MAE is 0.754238, descriptors MAE is 0.760264, and combined MAE is 0.610390; the paired Morgan/combined ratio is 1.235665, with bootstrap 95% interval [1.217388, 1.253459] and nominal one-sided p=0.00005000 Prüfer: canonical record regenerated from source-grounded predictions and audited protocol",
+   "level": "statistical",
+   "status": "bestätigt"
+  },
+  {
+   "claim_id": "C-release-valid-lipophilicity_astrazeneca-I",
+   "text": "Ungeprüfte Interpretation des Agenten zu release-valid-lipophilicity_astrazeneca (nicht als Resultat verwenden): For lipophilicity_astrazeneca validation, Morgan MAE is 0.754238, descriptors MAE is 0.760264, and combined MAE is 0.610390; the paired Morgan/combined ratio is 1.235665, with bootstrap 95% interval [1.217388, 1.253459] and nominal one-sided p=0.00005000",
+   "level": "hypothesis",
+   "status": "offen"
+  },
+  {
+   "claim_id": "C-release-coverage-lipophilicity_astrazeneca",
+   "text": "Untersuchte Frage: coverage-lipophilicity_astrazeneca Geprüftes Resultat: lipophilicity_astrazeneca has 840 fixed test rows, validation size ranges from 420 to 420 rows across seeds, and combined MAE restricted to strictly valid test structures is 0.635495; unequal validation sizes are induced by whole-scaffold groups, not silent row removal Prüfer: canonical record regenerated from source-grounded predictions and audited protocol",
+   "level": "observed",
+   "status": "bestätigt"
+  },
+  {
+   "claim_id": "C-release-coverage-lipophilicity_astrazeneca-I",
+   "text": "Ungeprüfte Interpretation des Agenten zu release-coverage-lipophilicity_astrazeneca (nicht als Resultat verwenden): lipophilicity_astrazeneca has 840 fixed test rows, validation size ranges from 420 to 420 rows across seeds, and combined MAE restricted to strictly valid test structures is 0.635495; unequal validation sizes are induced by whole-scaffold groups, not silent row removal",
+   "level": "hypothesis",
+   "status": "offen"
+  },
+  {
+   "claim_id": "C-release-test-caco2_wang",
+   "text": "Untersuchte Frage: test-caco2_wang Geprüftes Resultat: On the fixed caco2_wang test set, across 20 training seeds, MAE mean +/- seed standard deviation is median: 0.586401 +/- 0.006519; morgan: 0.479220 +/- 0.037340; descriptors: 0.340505 +/- 0.015110; combined: 0.301909 +/- 0.015109; shuffled: 0.625006 +/- 0.051972; adding descriptors to Morgan reduces mean test MAE by 37.00% relative to Morgan alone; this is a conditional descriptive comparison with every official test row retained Prüfer: canonical record regenerated from source-grounded predictions and audited protocol",
+   "level": "observed",
+   "status": "bestätigt"
+  },
+  {
+   "claim_id": "C-release-test-caco2_wang-I",
+   "text": "Ungeprüfte Interpretation des Agenten zu release-test-caco2_wang (nicht als Resultat verwenden): On the fixed caco2_wang test set, across 20 training seeds, MAE mean +/- seed standard deviation is median: 0.586401 +/- 0.006519; morgan: 0.479220 +/- 0.037340; descriptors: 0.340505 +/- 0.015110; combined: 0.301909 +/- 0.015109; shuffled: 0.625006 +/- 0.051972; adding descriptors to Morgan reduces mean test MAE by 37.00% relative to Morgan alone; this is a conditional descriptive comparison with every official test row retained",
+   "level": "hypothesis",
+   "status": "offen"
+  },
+  {
+   "claim_id": "C-release-valid-caco2_wang",
+   "text": "Untersuchte Frage: valid-caco2_wang Geprüftes Resultat: For caco2_wang validation, Morgan MAE is 0.437256, descriptors MAE is 0.407075, and combined MAE is 0.390865; the paired Morgan/combined ratio is 1.118689, with bootstrap 95% interval [1.048756, 1.190120] and nominal one-sided p=0.00214989 Prüfer: canonical record regenerated from source-grounded predictions and audited protocol",
+   "level": "statistical",
+   "status": "bestätigt"
+  },
+  {
+   "claim_id": "C-release-valid-caco2_wang-I",
+   "text": "Ungeprüfte Interpretation des Agenten zu release-valid-caco2_wang (nicht als Resultat verwenden): For caco2_wang validation, Morgan MAE is 0.437256, descriptors MAE is 0.407075, and combined MAE is 0.390865; the paired Morgan/combined ratio is 1.118689, with bootstrap 95% interval [1.048756, 1.190120] and nominal one-sided p=0.00214989",
+   "level": "hypothesis",
+   "status": "offen"
+  },
+  {
+   "claim_id": "C-release-coverage-caco2_wang",
+   "text": "Untersuchte Frage: coverage-caco2_wang Geprüftes Resultat: caco2_wang has 182 fixed test rows, validation size ranges from 91 to 91 rows across seeds, and combined MAE restricted to strictly valid test structures is 0.301909; unequal validation sizes are induced by whole-scaffold groups, not silent row removal Prüfer: canonical record regenerated from source-grounded predictions and audited protocol",
+   "level": "observed",
+   "status": "bestätigt"
+  },
+  {
+   "claim_id": "C-release-coverage-caco2_wang-I",
+   "text": "Ungeprüfte Interpretation des Agenten zu release-coverage-caco2_wang (nicht als Resultat verwenden): caco2_wang has 182 fixed test rows, validation size ranges from 91 to 91 rows across seeds, and combined MAE restricted to strictly valid test structures is 0.301909; unequal validation sizes are induced by whole-scaffold groups, not silent row removal",
+   "level": "hypothesis",
+   "status": "offen"
+  },
+  {
+   "claim_id": "C-release-abstract",
+   "text": "Untersuchte Frage: abstract Geprüftes Resultat: We evaluate a preregistered representation ablation for ADMET prediction with fixed CPU gradient-boosted models and an independently audited scorer; adding ten physicochemical descriptors to Morgan fingerprints reduces fixed-test mean absolute error by 33.06% for solubility, 12.99% for lipophilicity and 37.00% for Caco-2 permeability across twenty training seeds; descriptor-only ablations and shuffled-label controls distinguish complementarity from generic model complexity; an audit covers twenty-two benchmark endpoints and preserves two invalid-structure test rows through a frozen median fallback; overlapping splits, public labels, assay heterogeneity and absent prospective validation limit interpretation; this pilot establishes endpoint-specific performance against fixed baselines, not a new algorithm, leaderboard record or clinical result Prüfer: canonical record regenerated from source-grounded predictions and audited protocol",
+   "level": "observed",
+   "status": "bestätigt"
+  },
+  {
+   "claim_id": "C-release-abstract-I",
+   "text": "Ungeprüfte Interpretation des Agenten zu release-abstract (nicht als Resultat verwenden): We evaluate a preregistered representation ablation for ADMET prediction with fixed CPU gradient-boosted models and an independently audited scorer; adding ten physicochemical descriptors to Morgan fingerprints reduces fixed-test mean absolute error by 33.06% for solubility, 12.99% for lipophilicity and 37.00% for Caco-2 permeability across twenty training seeds; descriptor-only ablations and shuffled-label controls distinguish complementarity from generic model complexity; an audit covers twenty-two benchmark endpoints and preserves two invalid-structure test rows through a frozen median fallback; overlapping splits, public labels, assay heterogeneity and absent prospective validation limit interpretation; this pilot establishes endpoint-specific performance against fixed baselines, not a new algorithm, leaderboard record or clinical result",
+   "level": "hypothesis",
+   "status": "offen"
+  },
+  {
+   "claim_id": "C-release-gate-solubility_aqsoldb",
+   "text": "Untersuchte Frage: gate-solubility_aqsoldb Geprüftes Resultat: The solubility_aqsoldb validation comparison passes the preregistered improvement criteria on this fixed dataset; after including all six additional negative-control comparisons in an expanded family of nine tests, the BH-adjusted p-value is 0.00022499; the larger family is a post-preregistration sensitivity check and does not strengthen prospective inference Prüfer: canonical record regenerated from source-grounded predictions and audited protocol",
+   "level": "statistical",
+   "status": "bestätigt"
+  },
+  {
+   "claim_id": "C-release-gate-solubility_aqsoldb-I",
+   "text": "Ungeprüfte Interpretation des Agenten zu release-gate-solubility_aqsoldb (nicht als Resultat verwenden): The solubility_aqsoldb validation comparison passes the preregistered improvement criteria on this fixed dataset; after including all six additional negative-control comparisons in an expanded family of nine tests, the BH-adjusted p-value is 0.00022499; the larger family is a post-preregistration sensitivity check and does not strengthen prospective inference",
+   "level": "hypothesis",
+   "status": "offen"
+  },
+  {
+   "claim_id": "C-release-gate-lipophilicity_astrazeneca",
+   "text": "Untersuchte Frage: gate-lipophilicity_astrazeneca Geprüftes Resultat: The lipophilicity_astrazeneca validation comparison passes the preregistered improvement criteria on this fixed dataset; after including all six additional negative-control comparisons in an expanded family of nine tests, the BH-adjusted p-value is 0.00022499; the larger family is a post-preregistration sensitivity check and does not strengthen prospective inference Prüfer: canonical record regenerated from source-grounded predictions and audited protocol",
+   "level": "statistical",
+   "status": "bestätigt"
+  },
+  {
+   "claim_id": "C-release-gate-lipophilicity_astrazeneca-I",
+   "text": "Ungeprüfte Interpretation des Agenten zu release-gate-lipophilicity_astrazeneca (nicht als Resultat verwenden): The lipophilicity_astrazeneca validation comparison passes the preregistered improvement criteria on this fixed dataset; after including all six additional negative-control comparisons in an expanded family of nine tests, the BH-adjusted p-value is 0.00022499; the larger family is a post-preregistration sensitivity check and does not strengthen prospective inference",
+   "level": "hypothesis",
+   "status": "offen"
+  },
+  {
+   "claim_id": "C-release-gate-caco2_wang",
+   "text": "Untersuchte Frage: gate-caco2_wang Geprüftes Resultat: The caco2_wang validation comparison passes the preregistered improvement criteria on this fixed dataset; after including all six additional negative-control comparisons in an expanded family of nine tests, the BH-adjusted p-value is 0.00644968; the larger family is a post-preregistration sensitivity check and does not strengthen prospective inference Prüfer: canonical record regenerated from source-grounded predictions and audited protocol",
+   "level": "statistical",
+   "status": "bestätigt"
+  },
+  {
+   "claim_id": "C-release-gate-caco2_wang-I",
+   "text": "Ungeprüfte Interpretation des Agenten zu release-gate-caco2_wang (nicht als Resultat verwenden): The caco2_wang validation comparison passes the preregistered improvement criteria on this fixed dataset; after including all six additional negative-control comparisons in an expanded family of nine tests, the BH-adjusted p-value is 0.00644968; the larger family is a post-preregistration sensitivity check and does not strengthen prospective inference",
+   "level": "hypothesis",
+   "status": "offen"
+  },
+  {
+   "claim_id": "C-release-null-solubility_aqsoldb-validation",
+   "text": "Untersuchte Frage: null-solubility_aqsoldb-validation Geprüftes Resultat: The solubility_aqsoldb validation shuffled-label control has median-baseline/shuffled MAE ratio 0.961914, bootstrap 95% interval [0.943069, 0.982480], and nominal improvement p=0.99825009; it does not meet the improvement gate; failure to detect improvement is not proof of independence Prüfer: canonical record regenerated from source-grounded predictions and audited protocol",
+   "level": "statistical",
+   "status": "bestätigt"
+  },
+  {
+   "claim_id": "C-release-null-solubility_aqsoldb-validation-I",
+   "text": "Ungeprüfte Interpretation des Agenten zu release-null-solubility_aqsoldb-validation (nicht als Resultat verwenden): The solubility_aqsoldb validation shuffled-label control has median-baseline/shuffled MAE ratio 0.961914, bootstrap 95% interval [0.943069, 0.982480], and nominal improvement p=0.99825009; it does not meet the improvement gate; failure to detect improvement is not proof of independence",
+   "level": "hypothesis",
+   "status": "offen"
+  },
+  {
+   "claim_id": "C-release-null-solubility_aqsoldb-test",
+   "text": "Untersuchte Frage: null-solubility_aqsoldb-test Geprüftes Resultat: The solubility_aqsoldb test shuffled-label control has median-baseline/shuffled MAE ratio 1.001611, bootstrap 95% interval [0.991002, 1.011327], and nominal improvement p=0.39113044; it does not meet the improvement gate; failure to detect improvement is not proof of independence Prüfer: canonical record regenerated from source-grounded predictions and audited protocol",
+   "level": "statistical",
+   "status": "bestätigt"
+  },
+  {
+   "claim_id": "C-release-null-solubility_aqsoldb-test-I",
+   "text": "Ungeprüfte Interpretation des Agenten zu release-null-solubility_aqsoldb-test (nicht als Resultat verwenden): The solubility_aqsoldb test shuffled-label control has median-baseline/shuffled MAE ratio 1.001611, bootstrap 95% interval [0.991002, 1.011327], and nominal improvement p=0.39113044; it does not meet the improvement gate; failure to detect improvement is not proof of independence",
+   "level": "hypothesis",
+   "status": "offen"
+  },
+  {
+   "claim_id": "C-release-null-lipophilicity_astrazeneca-validation",
+   "text": "Untersuchte Frage: null-lipophilicity_astrazeneca-validation Geprüftes Resultat: The lipophilicity_astrazeneca validation shuffled-label control has median-baseline/shuffled MAE ratio 0.973205, bootstrap 95% interval [0.958639, 0.988007], and nominal improvement p=0.99850007; it does not meet the improvement gate; failure to detect improvement is not proof of independence Prüfer: canonical record regenerated from source-grounded predictions and audited protocol",
+   "level": "statistical",
+   "status": "bestätigt"
+  },
+  {
+   "claim_id": "C-release-null-lipophilicity_astrazeneca-validation-I",
+   "text": "Ungeprüfte Interpretation des Agenten zu release-null-lipophilicity_astrazeneca-validation (nicht als Resultat verwenden): The lipophilicity_astrazeneca validation shuffled-label control has median-baseline/shuffled MAE ratio 0.973205, bootstrap 95% interval [0.958639, 0.988007], and nominal improvement p=0.99850007; it does not meet the improvement gate; failure to detect improvement is not proof of independence",
+   "level": "hypothesis",
+   "status": "offen"
+  },
+  {
+   "claim_id": "C-release-null-lipophilicity_astrazeneca-test",
+   "text": "Untersuchte Frage: null-lipophilicity_astrazeneca-test Geprüftes Resultat: The lipophilicity_astrazeneca test shuffled-label control has median-baseline/shuffled MAE ratio 0.950579, bootstrap 95% interval [0.942861, 0.958420], and nominal improvement p=1.00000000; it does not meet the improvement gate; failure to detect improvement is not proof of independence Prüfer: canonical record regenerated from source-grounded predictions and audited protocol",
+   "level": "statistical",
+   "status": "bestätigt"
+  },
+  {
+   "claim_id": "C-release-null-lipophilicity_astrazeneca-test-I",
+   "text": "Ungeprüfte Interpretation des Agenten zu release-null-lipophilicity_astrazeneca-test (nicht als Resultat verwenden): The lipophilicity_astrazeneca test shuffled-label control has median-baseline/shuffled MAE ratio 0.950579, bootstrap 95% interval [0.942861, 0.958420], and nominal improvement p=1.00000000; it does not meet the improvement gate; failure to detect improvement is not proof of independence",
+   "level": "hypothesis",
+   "status": "offen"
+  },
+  {
+   "claim_id": "C-release-null-caco2_wang-validation",
+   "text": "Untersuchte Frage: null-caco2_wang-validation Geprüftes Resultat: The caco2_wang validation shuffled-label control has median-baseline/shuffled MAE ratio 0.940133, bootstrap 95% interval [0.910216, 0.973390], and nominal improvement p=0.99835008; it does not meet the improvement gate; failure to detect improvement is not proof of independence Prüfer: canonical record regenerated from source-grounded predictions and audited protocol",
+   "level": "statistical",
+   "status": "bestätigt"
+  },
+  {
+   "claim_id": "C-release-null-caco2_wang-validation-I",
+   "text": "Ungeprüfte Interpretation des Agenten zu release-null-caco2_wang-validation (nicht als Resultat verwenden): The caco2_wang validation shuffled-label control has median-baseline/shuffled MAE ratio 0.940133, bootstrap 95% interval [0.910216, 0.973390], and nominal improvement p=0.99835008; it does not meet the improvement gate; failure to detect improvement is not proof of independence",
+   "level": "hypothesis",
+   "status": "offen"
+  },
+  {
+   "claim_id": "C-release-null-caco2_wang-test",
+   "text": "Untersuchte Frage: null-caco2_wang-test Geprüftes Resultat: The caco2_wang test shuffled-label control has median-baseline/shuffled MAE ratio 0.938232, bootstrap 95% interval [0.905757, 0.973442], and nominal improvement p=0.99810009; it does not meet the improvement gate; failure to detect improvement is not proof of independence Prüfer: canonical record regenerated from source-grounded predictions and audited protocol",
+   "level": "statistical",
+   "status": "bestätigt"
+  },
+  {
+   "claim_id": "C-release-null-caco2_wang-test-I",
+   "text": "Ungeprüfte Interpretation des Agenten zu release-null-caco2_wang-test (nicht als Resultat verwenden): The caco2_wang test shuffled-label control has median-baseline/shuffled MAE ratio 0.938232, bootstrap 95% interval [0.905757, 0.973442], and nominal improvement p=0.99810009; it does not meet the improvement gate; failure to detect improvement is not proof of independence",
+   "level": "hypothesis",
+   "status": "offen"
+  },
+  {
+   "claim_id": "C-release-segments",
+   "text": "Untersuchte Frage: segments Geprüftes Resultat: Exploratory nearest-training Morgan Tanimoto strata use thresholds 0.3 and 0.6; the pooled seed-row errors for the combined model are solubility_aqsoldb: low n-seed-row=4186, MAE=1.007285, medium n-seed-row=29434, MAE=0.856216, high n-seed-row=6320, MAE=0.703991; lipophilicity_astrazeneca: low n-seed-row=954, MAE=0.934878, medium n-seed-row=7590, MAE=0.719061, high n-seed-row=8256, MAE=0.524077; caco2_wang: low n-seed-row=1298, MAE=0.303108, medium n-seed-row=1554, MAE=0.319482, high n-seed-row=788, MAE=0.265280; counts reuse test molecules across seeds and are not unique molecule counts; these fixed descriptive strata neither certify an applicability domain nor explain a causal mechanism Prüfer: canonical record regenerated from source-grounded predictions and audited protocol",
+   "level": "observed",
+   "status": "bestätigt"
+  },
+  {
+   "claim_id": "C-release-segments-I",
+   "text": "Ungeprüfte Interpretation des Agenten zu release-segments (nicht als Resultat verwenden): Exploratory nearest-training Morgan Tanimoto strata use thresholds 0.3 and 0.6; the pooled seed-row errors for the combined model are solubility_aqsoldb: low n-seed-row=4186, MAE=1.007285, medium n-seed-row=29434, MAE=0.856216, high n-seed-row=6320, MAE=0.703991; lipophilicity_astrazeneca: low n-seed-row=954, MAE=0.934878, medium n-seed-row=7590, MAE=0.719061, high n-seed-row=8256, MAE=0.524077; caco2_wang: low n-seed-row=1298, MAE=0.303108, medium n-seed-row=1554, MAE=0.319482, high n-seed-row=788, MAE=0.265280; counts reuse test molecules across seeds and are not unique molecule counts; these fixed descriptive strata neither certify an applicability domain nor explain a causal mechanism",
+   "level": "hypothesis",
+   "status": "offen"
+  },
+  {
+   "claim_id": "C-release-lean",
+   "text": "Untersuchte Frage: lean Geprüftes Resultat: A Lean 4 core proof checks that the sum of natural absolute values of integer residuals is zero exactly when every residual is zero; its trusted axioms are propext, Classical.choice and Quot.sound; this arithmetic anchor does not certify floating-point model fitting, statistical significance, chemical mechanism or clinical validity Prüfer: canonical record regenerated from source-grounded predictions and audited protocol",
+   "level": "proved_lean",
+   "status": "bestätigt"
+  },
+  {
+   "claim_id": "C-release-lean-I",
+   "text": "Ungeprüfte Interpretation des Agenten zu release-lean (nicht als Resultat verwenden): A Lean 4 core proof checks that the sum of natural absolute values of integer residuals is zero exactly when every residual is zero; its trusted axioms are propext, Classical.choice and Quot.sound; this arithmetic anchor does not certify floating-point model fitting, statistical significance, chemical mechanism or clinical validity",
+   "level": "hypothesis",
+   "status": "offen"
+  },
+  {
+   "claim_id": "C-release-agents",
+   "text": "Untersuchte Frage: agents Geprüftes Resultat: The repository laboratory executed 3 recorded agent rounds, with 2 confirmed recorded claims before release enrichment and 1 recorded unsuccessful questions; model fitting was a preregistered fixed experiment matrix, while agents inspected validation summaries and proposed checked numerical statements; no agent-discovery speedup was measured Prüfer: canonical record regenerated from source-grounded predictions and audited protocol",
+   "level": "observed",
+   "status": "bestätigt"
+  },
+  {
+   "claim_id": "C-release-agents-I",
+   "text": "Ungeprüfte Interpretation des Agenten zu release-agents (nicht als Resultat verwenden): The repository laboratory executed 3 recorded agent rounds, with 2 confirmed recorded claims before release enrichment and 1 recorded unsuccessful questions; model fitting was a preregistered fixed experiment matrix, while agents inspected validation summaries and proposed checked numerical statements; no agent-discovery speedup was measured",
+   "level": "hypothesis",
+   "status": "offen"
+  },
+  {
+   "claim_id": "C-release-ref-0",
+   "text": "Untersuchte Frage: ref-0 Geprüftes Resultat: Yang et al.: Analyzing Learned Molecular Representations for Property Prediction.; DOI 10.1021/acs.jcim.9b00237; https://doi.org/10.1021/acs.jcim.9b00237; title/DOI verified through Crossref or Europe PMC; existence verification does not reproduce the paper findings Prüfer: canonical record regenerated from source-grounded predictions and audited protocol",
+   "level": "observed",
+   "status": "bestätigt"
+  },
+  {
+   "claim_id": "C-release-ref-0-I",
+   "text": "Ungeprüfte Interpretation des Agenten zu release-ref-0 (nicht als Resultat verwenden): Yang et al.: Analyzing Learned Molecular Representations for Property Prediction.; DOI 10.1021/acs.jcim.9b00237; https://doi.org/10.1021/acs.jcim.9b00237; title/DOI verified through Crossref or Europe PMC; existence verification does not reproduce the paper findings",
+   "level": "hypothesis",
+   "status": "offen"
+  },
+  {
+   "claim_id": "C-release-ref-1",
+   "text": "Untersuchte Frage: ref-1 Geprüftes Resultat: Bemis and Murcko: The Properties of Known Drugs. 1. Molecular Frameworks; DOI 10.1021/jm9602928; https://doi.org/10.1021/jm9602928; title/DOI verified through Crossref or Europe PMC; existence verification does not reproduce the paper findings Prüfer: canonical record regenerated from source-grounded predictions and audited protocol",
+   "level": "observed",
+   "status": "bestätigt"
+  },
+  {
+   "claim_id": "C-release-ref-1-I",
+   "text": "Ungeprüfte Interpretation des Agenten zu release-ref-1 (nicht als Resultat verwenden): Bemis and Murcko: The Properties of Known Drugs. 1. Molecular Frameworks; DOI 10.1021/jm9602928; https://doi.org/10.1021/jm9602928; title/DOI verified through Crossref or Europe PMC; existence verification does not reproduce the paper findings",
+   "level": "hypothesis",
+   "status": "offen"
+  },
+  {
+   "claim_id": "C-release-ref-2",
+   "text": "Untersuchte Frage: ref-2 Geprüftes Resultat: Hosni et al.: Explicit Applicability Domain Calculations Can Help Determine When Uncertainty Estimates Are Less Reliable.; DOI 10.1021/acsomega.5c11875; https://doi.org/10.1021/acsomega.5c11875; title/DOI verified through Crossref or Europe PMC; existence verification does not reproduce the paper findings Prüfer: canonical record regenerated from source-grounded predictions and audited protocol",
+   "level": "observed",
+   "status": "bestätigt"
+  },
+  {
+   "claim_id": "C-release-ref-2-I",
+   "text": "Ungeprüfte Interpretation des Agenten zu release-ref-2 (nicht als Resultat verwenden): Hosni et al.: Explicit Applicability Domain Calculations Can Help Determine When Uncertainty Estimates Are Less Reliable.; DOI 10.1021/acsomega.5c11875; https://doi.org/10.1021/acsomega.5c11875; title/DOI verified through Crossref or Europe PMC; existence verification does not reproduce the paper findings",
+   "level": "hypothesis",
+   "status": "offen"
+  },
+  {
+   "claim_id": "C-release-ref-3",
+   "text": "Untersuchte Frage: ref-3 Geprüftes Resultat: Deng et al.: A systematic study of key elements underlying molecular property prediction; DOI 10.1038/s41467-023-41948-6; https://doi.org/10.1038/s41467-023-41948-6; title/DOI verified through Crossref or Europe PMC; existence verification does not reproduce the paper findings Prüfer: canonical record regenerated from source-grounded predictions and audited protocol",
+   "level": "observed",
+   "status": "bestätigt"
+  },
+  {
+   "claim_id": "C-release-ref-3-I",
+   "text": "Ungeprüfte Interpretation des Agenten zu release-ref-3 (nicht als Resultat verwenden): Deng et al.: A systematic study of key elements underlying molecular property prediction; DOI 10.1038/s41467-023-41948-6; https://doi.org/10.1038/s41467-023-41948-6; title/DOI verified through Crossref or Europe PMC; existence verification does not reproduce the paper findings",
+   "level": "hypothesis",
+   "status": "offen"
+  },
+  {
+   "claim_id": "C-neg1",
+   "text": "Negatives Ergebnis: [F4] Bleibt das Morgan/combined-MAE-Verhältnis von 1,603 für solubility_aqsoldb bestehen, wenn die Scaffold-Splits durch zufällige Splits ersetzt werden?: keine Behauptung bestand die Prüfung",
+   "level": "observed",
+   "status": "bestätigt"
+  },
+  {
+   "claim_id": "C-lit1",
+   "text": "Literatur: Gegenüber einer 70/10/20-Scaffold-Kontrolle erhöht der strukturelle Frontier-Split den gewichteten Primärfehler im Median über die Aufgaben um 87,0 Prozent und im Mittel um 130,3 Prozent. (Zitat: „the frontier inflates equally weighted primary error with a taskwise median of 87.0% and a skew-sensitive mean of 130.3%“, arXiv:2607.10729v3)",
+   "level": "observed",
+   "status": "bestätigt"
+  },
+  {
+   "claim_id": "C-lit2",
+   "text": "Literatur: Die Autoren vergleichen den Frontier-Split direkt mit einer Scaffold-Kontrolle, die dieselbe azyklische Gruppierung verwendet, um den Effekt der Splitkonstruktion zu isolieren. (Zitat: „Against a 70/10/20 scaffold control with identical acyclic grouping, the frontier inflates“, arXiv:2607.10729v3)",
+   "level": "observed",
+   "status": "bestätigt"
+  },
+  {
+   "claim_id": "C-lit3",
+   "text": "Literatur: Ein Graphennetz-Modell zeigt ebenfalls eine große Lücke am Frontier, sodass die Kapazität des Kopfes den Effekt nicht erklärt. (Zitat: „A message-passing graph-network control still shows a large gap (mean 82.8% over four tasks) and does not invert“, arXiv:2607.10729v3)",
+   "level": "observed",
+   "status": "bestätigt"
+  },
+  {
+   "claim_id": "C-lit4",
+   "text": "Literatur: Die getesteten Trainingsstrafen lösen die beobachteten Frontier-Fehler nicht, sodass die Frage nach robusten Trainingsmethoden offen bleibt. (Zitat: „the tested training penalties do not resolve the frontier failures we observe“, arXiv:2607.10729v3)",
+   "level": "observed",
+   "status": "bestätigt"
+  },
+  {
+   "claim_id": "C-lit5",
+   "text": "Literatur: Splitkonstruktion und Herkunft der Labels gelten als eigenständige, wichtige Randbedingungen für die Evaluation von Modellen. (Zitat: „Split construction and label provenance are important evaluation constraints in their own right“, arXiv:2607.10729v3)",
+   "level": "observed",
+   "status": "bestätigt"
+  },
+  {
+   "claim_id": "C-lit6",
+   "text": "Literatur: Von den Spitzenmodellen der TDC-ADMET-Rangliste ließen sich nur drei vollständig reproduzieren und bestätigten ihre berichtete Leistung. (Zitat: „Only three models (CaliciBoost, MapLight, and MapLight + GNN) passed all stages and reproduced their reported performance.“, doi:10.1021/acs.jcim.6c00819)",
+   "level": "observed",
+   "status": "bestätigt"
+  },
+  {
+   "claim_id": "C-lit7",
+   "text": "Literatur: Bei mehreren Modellen wurde direkte oder indirekte Datenleckage nachgewiesen, was die Vergleichbarkeit der Rangliste beeinträchtigt. (Zitat: „We traced direct or indirect data leakage in the MiniMol, GradientBoost, and XGBoost models“, doi:10.1021/acs.jcim.6c00819)",
+   "level": "observed",
+   "status": "bestätigt"
+  },
+  {
+   "claim_id": "C-lit8",
+   "text": "Literatur: Optimierung auf dem öffentlichen Testset kann sowohl die Metriken als auch den Ranglistenplatz deutlich aufblähen. (Zitat: „can substantially inflate both metrics and leaderboard rank“, doi:10.1021/acs.jcim.6c00819)",
+   "level": "observed",
+   "status": "bestätigt"
+  },
+  {
+   "claim_id": "C-lit9",
+   "text": "Literatur: Herkömmliche Benchmark-Splits können die Verlässlichkeit eines Modells im Einsatz überschätzen, weshalb Toxizitätsmodelle auch nach ihrer Konfidenz beurteilt werden sollten. (Zitat: „conventional benchmark splits can overstate deployment reliability“, doi:10.1016/j.compbiolchem.2026.109213)",
+   "level": "observed",
+   "status": "bestätigt"
+  },
+  {
+   "claim_id": "C-lit10",
+   "text": "Literatur: Im Vergleich zu einem Random-Forest-Modell mit Morgan-Fingerprints senkt der Anker-Ansatz den ECE über die Transferpaare von 0,176 auf 0,127. (Zitat: „Across the retained transfer pairs, Ours-Anchor reduces ECE from 0.176 to 0.127 relative to random-forest Morgan-fingerprint (RF-Morgan)“, doi:10.1016/j.compbiolchem.2026.109213)",
+   "level": "observed",
+   "status": "bestätigt"
+  },
+  {
+   "claim_id": "C-lit11",
+   "text": "Literatur: Die Studie vergleicht drei Merkmalsfamilien (Morgan-Fingerprints, RDKit-Deskriptoren, SMILES-Bigramme) über vier Lernalgorithmen hinweg, um Featurisierung und Modellarchitektur getrennt zu betrachten. (Zitat: „We evaluate three feature families (Morgan fingerprints, RDKit physicochemical descriptors, SMILES bigrams) across four learning algorithms.“, arXiv:2609.29076v1)",
+   "level": "observed",
+   "status": "bestätigt"
+  },
+  {
+   "claim_id": "C-lit12",
+   "text": "Literatur: Die prädiktive Leistung hängt gemeinsam von der Merkmalsrepräsentation und dem Algorithmus ab, nicht nur von einem der beiden. (Zitat: „Results demonstrate that predictive performance depends jointly on feature representation and algorithm.“, arXiv:2609.29076v1)",
+   "level": "observed",
+   "status": "bestätigt"
+  },
+  {
+   "claim_id": "C-lit13",
+   "text": "Literatur: Das DNN-Modell mit Morgan-Fingerprints fällt auf dem Testset deutlich schwächer aus als auf dem Trainingsset (R² 0,7731 statt 0,9389), was auf eine Generalisierungslücke hinweist. (Zitat: „Although performance decreased slightly on the test set (R squared = 0.7731)“, arXiv:2501.05607v1)",
+   "level": "observed",
+   "status": "bestätigt"
+  },
+  {
+   "claim_id": "C-lit14",
+   "text": "Literatur: In einer externen Evaluation lagen mehr als 75 Prozent der ADMET-Vorhersagen innerhalb eines Fehlerbereichs von dem Dreifachen des Messwerts. (Zitat: „Clinically relevant predictive accuracy was achieved, with more than 75% of predictions falling within a 3-fold error range.“, arXiv:2607.24314v1)",
+   "level": "observed",
+   "status": "bestätigt"
+  },
+  {
+   "claim_id": "C-lit15",
+   "text": "Literatur: Die Gruppierung der Moleküle in Layer 1 erfolgt ohne Verwendung von Löslichkeitswerten oder Modellmetriken, sodass die Validierung nicht durch den Endpunkt beeinflusst wird. (Zitat: „No solubility values, supervised descriptor rankings, model residuals, or predictive metrics were used to construct or adjust Layer 1.“, doi:10.21203/rs.3.rs-10363603/v1)",
+   "level": "observed",
+   "status": "bestätigt"
+  },
+  {
+   "claim_id": "C-lit16",
+   "text": "Literatur: Mit gruppierter, verschachtelter Validierung erreicht das LightGBM-Modell auf dem ESOL-Datensatz einen MAE von 0,459 logS und ein R² von 0,897 über drei Seeds. (Zitat: „the final model achieved MAE = 0.459 ± 0.004 logS units and R² = 0.897 ± 0.007 across seed-wise means“, doi:10.21203/rs.3.rs-10363603/v1)",
+   "level": "observed",
+   "status": "bestätigt"
+  },
+  {
+   "claim_id": "C-lit17",
+   "text": "Literatur: Die Autoren betonen, dass das Validierungsprotokoll chemische Generalisierung statt Interpolation zwischen eng verwandten Verbindungen messen soll. (Zitat: „Reliable quantitative structure-property relationship (QSPR) modeling requires validation protocols that measure chemical generalization rather than interpolation among closely related compounds.“, doi:10.21203/rs.3.rs-10363603/v1)",
+   "level": "observed",
+   "status": "bestätigt"
+  },
+  {
+   "claim_id": "C-lit18",
+   "text": "Literatur: Unter Bemis-Murcko-Scaffold-Kreuzvalidierung erreicht das multimodale Modell AUROC-Werte von 0,794 bis 0,811 über drei Lebermikrosomen-Spezies hinweg. (Zitat: „the model achieved AUROC values of 0.811, 0.806, and 0.794 and AUPR values of 0.854, 0.860, and 0.862 for HLM, RLM, and MLM“, doi:10.34133/csbj.0184)",
+   "level": "observed",
+   "status": "bestätigt"
+  },
+  {
+   "claim_id": "C-lit19",
+   "text": "Literatur: Scaffold-basierte Splits werden genutzt, um Strukturleckagen bei der Bewertung von ADMET-Modellen zu vermeiden, und Morgan-Fingerprints sind Teil der eingesetzten Repräsentation. (Zitat: „SMILES-derived fingerprints (Morgan and MACCS/RDKit), molecular graphs, and in silico absorption, distribution, metabolism, and excretion (ADME)/physicochemical descriptors“, doi:10.34133/csbj.0184)",
+   "level": "observed",
+   "status": "bestätigt"
+  },
+  {
+   "claim_id": "C-lit20",
+   "text": "Literatur: Scaffold-basierte Splits mit verschachtelter Kreuzvalidierung verhindern laut den Autoren Leckagen durch chemische Serien und liefern ROC-AUC-Werte von etwa 0,88 bis 0,89. (Zitat: „Models were trained using scaffold-based splitting and nested cross-validation to prevent chemical series leakage.“, doi:10.1021/acs.jcim.6c00967)",
+   "level": "observed",
+   "status": "bestätigt"
+  },
+  {
+   "claim_id": "C-lit21",
+   "text": "Literatur: Vortraining von GNNs auf ECFPs verbessert die Leistung in OOD-Splits bei fünf von sechs Biogen-Benchmarks, schneidet jedoch bei heterogenen Datensätzen und Bindungsaffinität schlechter ab. (Zitat: „for more heterogeneous datasets and more complex endpoints, such as binding affinity prediction, pre-trained GNNs underperformed in OOD settings“, arXiv:2605.10722v1)",
+   "level": "observed",
+   "status": "bestätigt"
+  },
+  {
+   "claim_id": "C-lit22",
+   "text": "Literatur: Die Autoren untersuchen, ob Substruktur-Leckagen während des Vortrainings die nachgelagerte Leistung verfälschen. (Zitat: „we investigated the impact of substructure-level data leakage during pre-training on downstream performance“, arXiv:2605.10722v1)",
+   "level": "observed",
+   "status": "bestätigt"
+  },
+  {
+   "claim_id": "C-lit23",
+   "text": "Literatur: Die Übersichtsarbeit warnt, dass Hybridmodelle bei Datenlecks und Overfitting validiert werden müssen, da ein ML-Zusatz ohne messbaren Gewinn das Risiko erhöht. (Zitat: „When mechanistic models fit well and sample sizes are small, adding an ML layer risks overfitting without measurable gain.“, doi:10.3389/fphar.2026.1815118)",
+   "level": "observed",
+   "status": "bestätigt"
+  },
+  {
+   "claim_id": "C-lit24",
+   "text": "Literatur: Topologische Fingerprints auf Basis persistenter Homologie übertreffen nach Angaben der Autoren Stand-der-Technik-Methoden bei Virtual Screening deutlich. (Zitat: „outperform state-of-the-art methods on benchmark datasets by a wide and highly statistically significant margin“, arXiv:2211.03808v1)",
+   "level": "observed",
+   "status": "bestätigt"
+  },
+  {
+   "claim_id": "C-lit25",
+   "text": "Literatur: Von 768 modellierbaren MedDRA-Preferred-Terms erreichten 71 (9,2 %) die High-Confidence-Kriterien mit FDR-Korrektur, überwiegend aus Nervensystem- und psychiatrischen Störungen. (Zitat: „Among the 768 modelable PTs, 71 (9.2%) met the high-confidence significance criteria (FDR q < 0.05), predominantly comprising nervous system disorders“, doi:10.64898/2026.09.27.754850)",
+   "level": "observed",
+   "status": "bestätigt"
+  },
+  {
+   "claim_id": "C-lit26",
+   "text": "Literatur: Der MACCS-Fingerprint (166 Bit) erreichte nahezu die Leistung des Morgan-Fingerprints (2048 Bit) bei deutlich geringerer Dimensionalität, mit einem ΔAUC von −0,012. (Zitat: „the low-dimensional MACCS fingerprint (166-bit) demonstrated near-equivalent performance to the high-dimensional Morgan fingerprint (2048-bit)“, doi:10.64898/2026.09.27.754850)",
+   "level": "observed",
+   "status": "bestätigt"
+  },
+  {
+   "claim_id": "C-lit27",
+   "text": "Literatur: Unter Scaffold-Split-Validierung sank die mediane AUC nur um 0,042, und 66 % der PTs behielten eine AUC von mindestens 0,70. (Zitat: „Bemis-Murcko scaffold-based stratified split validation revealed a median AUC decrease of merely 0.042, with 66% of PTs maintaining an AUC ≥ 0.70“, doi:10.64898/2026.09.27.754850)",
+   "level": "observed",
+   "status": "bestätigt"
+  },
+  {
+   "claim_id": "C-lit28",
+   "text": "Literatur: Immunvermittelte und multifaktorielle Endpunkte blieben unter den aktuellen Dateibedingungen strukturell kaum vorhersagbar. (Zitat: „Immune-mediated and multifactorial endpoints remained structurally opaque under the current data conditions.“, doi:10.64898/2026.09.27.754850)",
+   "level": "observed",
+   "status": "bestätigt"
+  },
+  {
+   "claim_id": "C-lit29",
+   "text": "Literatur: Bei HER2-Analoga zeigte Random Forest unter Scaffold-Split einen leichten Leistungsabfall der ROC-AUC von 0,973 auf 0,956 gegenüber zufälliger Aufteilung. (Zitat: „random forest ROC-AUC decreasing from 0.973 ± 0.006 under repeated random splits to 0.956 ± 0.015 under repeated scaffold splits“, doi:10.1016/j.compbiolchem.2026.109288)",
+   "level": "observed",
+   "status": "bestätigt"
+  },
+  {
+   "claim_id": "C-lit30",
+   "text": "Literatur: Die Applicability-Domain wurde über die maximale Referenz-Tanimoto-Ähnlichkeit operationalisiert, um die Extrapolation der Modelle bei der Analogauswahl explizit zu machen. (Zitat: „maximum-reference Tanimoto similarity as an applicability-domain measure“, doi:10.1016/j.compbiolchem.2026.109288)",
+   "level": "observed",
+   "status": "bestätigt"
+  },
+  {
+   "claim_id": "C-methode",
+   "text": "Das Labor lief 3 Runden, 43 geprüfte Aussagen, 1 negative Ergebnisse, Kosten 2.87 USD; jede Runde vor dem Experiment präregistriert (prereg.md).",
+   "level": "observed",
+   "status": "bestätigt"
+  }
+ ],
+ "log": {
+  "runden": [
+   {
+    "runde": 0,
+    "verstoesse": 18
+   },
+   {
+    "runde": 1,
+    "verstoesse": 1
+   },
+   {
+    "final_verstoesse_entfernt": 3
+   }
+  ],
+  "entfernt": [
+   {
+    "satz": "Korrigiert wurde nur die beanstandete Stelle: Die Meta-Notiz zu den entfernten Überschriften „Numerical observation 1 bis 8“ mit der nicht belegten Zahl 7 ist vollständig gestrichen.",
+    "grund": "Zahl ohne Beleg"
+   },
+   {
+    "satz": "Zusätzlich habe ich drei Zahlwörter, die nicht wörtlich in den Claims stehen, durch die Claim-Form ersetzt („2 confirmed“, „1 negative result“, „1 recorded unsuccessful question“, „20 overlapping“), die Angabe „Four red-team checks“ entfernt und „1.603“ durch den in der Claim belegten Wert 1.603159 ersetzt.",
+    "grund": "Zahl ohne Beleg"
+   },
+   {
+    "satz": "Ten fixed physicochemical descriptors are added to radius-two 1024-bit Morgan fingerprints and compared with fixed gradient-boosted baselines on 20 overlapping scaffold splits [C-release-design] [C-release-splits].",
+    "grund": "Zahl(en) [20.0] stehen in keiner zitierten Claim"
+   }
+  ]
+ }
+}
