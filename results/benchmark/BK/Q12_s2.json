@@ -1,0 +1,219 @@
+{
+ "antwort": {
+  "antwort": "quadratisch",
+  "zahl": null,
+  "konfidenz": 0.98,
+  "pruefung": {
+   "typ": "argmin2d",
+   "nu": 6,
+   "erwartet": "quadratisch"
+  },
+  "begruendung": "Die experimentellen Ergebnisse zeigen eindeutig: (1) E2 findet beim Minimieren über den gesamten Fundamentalbereich nur das quadratische Gitter τ=[0,1] als lokales Minimum. (2) E1 und E0 belegen T₆(quadratisch)=3.250 < T₆(hexagonal)=3.746. (3) E4 bestätigt, dass das quadratische Gitter stabil ist (beide Hesse-Eigenwerte positiv). (4) E3 zeigt, dass das hexagonale Gitter kein Minimum ist (beide Hesse-Eigenwerte negativ). Das Minimum der Modulgraphfunktion C₃,₃,₃(τ) liegt daher beim Punkt τ=i (quadratisches Gitter), nicht bei ρ=exp(iπ/3) oder anderen Punkten.",
+  "stimmen": "Stufe 1/4 (sparsam, haiku)"
+ },
+ "level": "computed (Code-Prüfer bestanden)",
+ "forscher": [
+  {
+   "strategie": "sparsam",
+   "runden": [
+    {
+     "ueberlegung": "Die Frage fragt nach dem Minimum von C_{3,3,3}(tau), das proportional zu T_6 ist, im Fundamentalbereich der 2D-Gitter. Es sind drei explizite Kandidaten genannt: rho = exp(i*pi/3) (hexagonales Gitter), i (quadratisches Gitter), oder ein anderer Punkt. Meine Strategie: (1) Evaluiere T_6 an den speziellen Punkten hexagonal und quadratisch, (2) führe eine globale Minimierungssuche durch, um zu sehen, ob das Optimum an einem dieser Punkte liegt oder woanders, (3) berechne die Hessematrix an kritischen Punkten, um Stabilität zu prüfen. Dies sollte direkt zeigen, welcher Punkt das globale Minimum ist.",
+     "plan": [
+      {
+       "op": "energy2d",
+       "args": {
+        "tau": [
+         0.5,
+         0.8660254
+        ],
+        "nu": 6
+       },
+       "label": "T_6 am hexagonalen Punkt (rho = e^{i*pi/3})"
+      },
+      {
+       "op": "energy2d",
+       "args": {
+        "tau": [
+         0,
+         1
+        ],
+        "nu": 6
+       },
+       "label": "T_6 am quadratischen Punkt (i)"
+      },
+      {
+       "op": "minimize2d",
+       "args": {
+        "nu": 6
+       },
+       "label": "Globale Minimierungssuche für T_6 im Fundamentalbereich"
+      },
+      {
+       "op": "hessian2d",
+       "args": {
+        "tau": [
+         0.5,
+         0.8660254
+        ],
+        "nu": 6
+       },
+       "label": "Stabilitätscheck am hexagonalen Punkt"
+      },
+      {
+       "op": "hessian2d",
+       "args": {
+        "tau": [
+         0,
+         1
+        ],
+        "nu": 6
+       },
+       "label": "Stabilitätscheck am quadratischen Punkt"
+      }
+     ]
+    },
+    {
+     "antwort": "quadratisch",
+     "zahl": null,
+     "konfidenz": 0.98,
+     "pruefung": {
+      "typ": "argmin2d",
+      "nu": 6,
+      "erwartet": "quadratisch"
+     },
+     "begruendung": "Die experimentellen Ergebnisse zeigen eindeutig: (1) E2 findet beim Minimieren über den gesamten Fundamentalbereich nur das quadratische Gitter τ=[0,1] als lokales Minimum. (2) E1 und E0 belegen T₆(quadratisch)=3.250 < T₆(hexagonal)=3.746. (3) E4 bestätigt, dass das quadratische Gitter stabil ist (beide Hesse-Eigenwerte positiv). (4) E3 zeigt, dass das hexagonale Gitter kein Minimum ist (beide Hesse-Eigenwerte negativ). Das Minimum der Modulgraphfunktion C₃,₃,₃(τ) liegt daher beim Punkt τ=i (quadratisches Gitter), nicht bei ρ=exp(iπ/3) oder anderen Punkten."
+    }
+   ],
+   "experimente": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ],
+   "final": {
+    "antwort": "quadratisch",
+    "zahl": null,
+    "konfidenz": 0.98,
+    "pruefung": {
+     "typ": "argmin2d",
+     "nu": 6,
+     "erwartet": "quadratisch"
+    },
+    "begruendung": "Die experimentellen Ergebnisse zeigen eindeutig: (1) E2 findet beim Minimieren über den gesamten Fundamentalbereich nur das quadratische Gitter τ=[0,1] als lokales Minimum. (2) E1 und E0 belegen T₆(quadratisch)=3.250 < T₆(hexagonal)=3.746. (3) E4 bestätigt, dass das quadratische Gitter stabil ist (beide Hesse-Eigenwerte positiv). (4) E3 zeigt, dass das hexagonale Gitter kein Minimum ist (beide Hesse-Eigenwerte negativ). Das Minimum der Modulgraphfunktion C₃,₃,₃(τ) liegt daher beim Punkt τ=i (quadratisches Gitter), nicht bei ρ=exp(iπ/3) oder anderen Punkten."
+   },
+   "modell": "haiku",
+   "pruefung": {
+    "bestanden": true,
+    "grund": "Prüfer-Suche (18er-Raster, 6 Polituren, R=(48, 64)): quadratisch"
+   }
+  }
+ ],
+ "experimente": [
+  {
+   "id": 0,
+   "wer": "forscher-sparsam",
+   "op": "energy2d",
+   "args": {
+    "tau": [
+     0.5,
+     0.8660254
+    ],
+    "nu": 6
+   },
+   "ergebnis": {
+    "T": 3.7457712638354064,
+    "err": 4.440892098500626e-16
+   },
+   "sek": 0.01
+  },
+  {
+   "id": 1,
+   "wer": "forscher-sparsam",
+   "op": "energy2d",
+   "args": {
+    "tau": [
+     0,
+     1
+    ],
+    "nu": 6
+   },
+   "ergebnis": {
+    "T": 3.2499743124415903,
+    "err": 4.440892098500626e-16
+   },
+   "sek": 0.01
+  },
+  {
+   "id": 2,
+   "wer": "forscher-sparsam",
+   "op": "minimize2d",
+   "args": {
+    "nu": 6
+   },
+   "ergebnis": {
+    "tau": [
+     0.0,
+     1.0
+    ],
+    "T": 3.2499743124415903,
+    "typ": "quadratisch",
+    "lokale_minima": [
+     {
+      "tau": [
+       0.0,
+       1.0
+      ],
+      "T": 3.2499743124415903,
+      "typ": "quadratisch"
+     }
+    ]
+   },
+   "sek": 3.37
+  },
+  {
+   "id": 3,
+   "wer": "forscher-sparsam",
+   "op": "hessian2d",
+   "args": {
+    "tau": [
+     0.5,
+     0.8660254
+    ],
+    "nu": 6
+   },
+   "ergebnis": {
+    "eigenwerte": [
+     -9.343042596809958,
+     -9.342992517868964
+    ],
+    "stabil": false
+   },
+   "sek": 0.1
+  },
+  {
+   "id": 4,
+   "wer": "forscher-sparsam",
+   "op": "hessian2d",
+   "args": {
+    "tau": [
+     0,
+     1
+    ],
+    "nu": 6
+   },
+   "ergebnis": {
+    "eigenwerte": [
+     7.142302888230034,
+     8.54377267378581
+    ],
+    "stabil": true
+   },
+   "sek": 0.1
+  }
+ ],
+ "sek": 42.9,
+ "frage": "Q12",
+ "salt": 2,
+ "bedingung": "BK"
+}

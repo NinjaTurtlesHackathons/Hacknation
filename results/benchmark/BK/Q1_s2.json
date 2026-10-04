@@ -1,0 +1,318 @@
+{
+ "antwort": {
+  "antwort": "hexagonal",
+  "zahl": null,
+  "konfidenz": 0.98,
+  "pruefung": {
+   "typ": "argmin2d",
+   "nu": 3,
+   "erwartet": "hexagonal"
+  },
+  "begruendung": "Die globale Minimierung (E0) findet hexagonal als einziges lokales Minimum bei ν=3. Der Hessian-Test bestätigt: hexagonal hat beide positiven Eigenwerte (9.38), ist also stabil; quadratisch hat einen negativen Eigenwert, ist kein Minimum. Der Energievergleich (E3) zeigt robust (sicher=true), dass hexagonal um 0.261 Energieeinheiten niedriger liegt als quadratisch. Die rect_optimum-Suche unter Rechtecken findet das optimum bei y≈1 (quadratisch). Das crossing-Experiment zeigt, dass der Übergang erst bei ν≈3.92 stattfindet, also deutlich oberhalb von ν=3.",
+  "stimmen": "Stufe 1/4 (sparsam, haiku)"
+ },
+ "level": "computed (Code-Prüfer bestanden)",
+ "forscher": [
+  {
+   "strategie": "sparsam",
+   "runden": [
+    {
+     "ueberlegung": "Zur Beantwortung nutze ich eine hierarchische Strategie: (1) Globale Minimierung mit minimize2d, um sofort den Kandidaten zu identifizieren; (2) direkte Energieberechnungen der Haupt-Kandidaten (hexagonal, quadratisch); (3) robuste Vergleiche zwischen den Top-Kandidaten mit compare2d; (4) Stabilitätsprüfung via Hessian an den vielversprechendsten Positionen; (5) Optimierung von Rechteck-Gittern als separate Familie. Dies vermeidet Redundanz, da minimize2d bereits einen starken Hinweis gibt, den ich dann gezielt validiere.",
+     "plan": [
+      {
+       "op": "minimize2d",
+       "args": {
+        "nu": 3
+       }
+      },
+      {
+       "op": "energy2d",
+       "args": {
+        "tau": [
+         0.5,
+         0.8660254
+        ],
+        "nu": 3
+       }
+      },
+      {
+       "op": "energy2d",
+       "args": {
+        "tau": [
+         0,
+         1
+        ],
+        "nu": 3
+       }
+      },
+      {
+       "op": "compare2d",
+       "args": {
+        "tau_a": [
+         0.5,
+         0.8660254
+        ],
+        "tau_b": [
+         0,
+         1
+        ],
+        "nu": 3
+       }
+      },
+      {
+       "op": "hessian2d",
+       "args": {
+        "tau": [
+         0.5,
+         0.8660254
+        ],
+        "nu": 3
+       }
+      },
+      {
+       "op": "hessian2d",
+       "args": {
+        "tau": [
+         0,
+         1
+        ],
+        "nu": 3
+       }
+      },
+      {
+       "op": "rect_optimum",
+       "args": {
+        "nu": 3,
+        "y_lo": 1.0,
+        "y_hi": 3.0
+       }
+      },
+      {
+       "op": "crossing2d",
+       "args": {
+        "tau_a": [
+         0.5,
+         0.8660254
+        ],
+        "tau_b": [
+         0,
+         1
+        ],
+        "nu_lo": 2.0,
+        "nu_hi": 5.0
+       }
+      }
+     ]
+    },
+    {
+     "antwort": "hexagonal",
+     "zahl": null,
+     "konfidenz": 0.98,
+     "pruefung": {
+      "typ": "argmin2d",
+      "nu": 3,
+      "erwartet": "hexagonal"
+     },
+     "begruendung": "Die globale Minimierung (E0) findet hexagonal als einziges lokales Minimum bei ν=3. Der Hessian-Test bestätigt: hexagonal hat beide positiven Eigenwerte (9.38), ist also stabil; quadratisch hat einen negativen Eigenwert, ist kein Minimum. Der Energievergleich (E3) zeigt robust (sicher=true), dass hexagonal um 0.261 Energieeinheiten niedriger liegt als quadratisch. Die rect_optimum-Suche unter Rechtecken findet das optimum bei y≈1 (quadratisch). Das crossing-Experiment zeigt, dass der Übergang erst bei ν≈3.92 stattfindet, also deutlich oberhalb von ν=3."
+    }
+   ],
+   "experimente": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+   ],
+   "final": {
+    "antwort": "hexagonal",
+    "zahl": null,
+    "konfidenz": 0.98,
+    "pruefung": {
+     "typ": "argmin2d",
+     "nu": 3,
+     "erwartet": "hexagonal"
+    },
+    "begruendung": "Die globale Minimierung (E0) findet hexagonal als einziges lokales Minimum bei ν=3. Der Hessian-Test bestätigt: hexagonal hat beide positiven Eigenwerte (9.38), ist also stabil; quadratisch hat einen negativen Eigenwert, ist kein Minimum. Der Energievergleich (E3) zeigt robust (sicher=true), dass hexagonal um 0.261 Energieeinheiten niedriger liegt als quadratisch. Die rect_optimum-Suche unter Rechtecken findet das optimum bei y≈1 (quadratisch). Das crossing-Experiment zeigt, dass der Übergang erst bei ν≈3.92 stattfindet, also deutlich oberhalb von ν=3."
+   },
+   "modell": "haiku",
+   "pruefung": {
+    "bestanden": true,
+    "grund": "Prüfer-Suche (18er-Raster, 6 Polituren, R=(48, 64)): hexagonal"
+   }
+  }
+ ],
+ "experimente": [
+  {
+   "id": 0,
+   "wer": "forscher-sparsam",
+   "op": "minimize2d",
+   "args": {
+    "nu": 3
+   },
+   "ergebnis": {
+    "tau": [
+     0.5,
+     0.8660254037844386
+    ],
+    "T": 13.391794004874814,
+    "typ": "hexagonal",
+    "lokale_minima": [
+     {
+      "tau": [
+       0.5,
+       0.8660254037844386
+      ],
+      "T": 13.391794004874814,
+      "typ": "hexagonal"
+     }
+    ]
+   },
+   "sek": 4.59
+  },
+  {
+   "id": 1,
+   "wer": "forscher-sparsam",
+   "op": "energy2d",
+   "args": {
+    "tau": [
+     0.5,
+     0.8660254
+    ],
+    "nu": 3
+   },
+   "ergebnis": {
+    "T": 13.391794004874818,
+    "err": 6.634331393584603e-06
+   },
+   "sek": 0.01
+  },
+  {
+   "id": 2,
+   "wer": "forscher-sparsam",
+   "op": "energy2d",
+   "args": {
+    "tau": [
+     0,
+     1
+    ],
+    "nu": 3
+   },
+   "ergebnis": {
+    "T": 13.652893626113212,
+    "err": 5.371253838148959e-06
+   },
+   "sek": 0.01
+  },
+  {
+   "id": 3,
+   "wer": "forscher-sparsam",
+   "op": "compare2d",
+   "args": {
+    "tau_a": [
+     0.5,
+     0.8660254
+    ],
+    "tau_b": [
+     0,
+     1
+    ],
+    "nu": 3
+   },
+   "ergebnis": {
+    "T_a": 13.391794004874818,
+    "T_b": 13.652893626113212,
+    "diff": -0.2610996212383938,
+    "err": 1.2005586597022925e-05,
+    "sicher": true
+   },
+   "sek": 0.03
+  },
+  {
+   "id": 4,
+   "wer": "forscher-sparsam",
+   "op": "hessian2d",
+   "args": {
+    "tau": [
+     0.5,
+     0.8660254
+    ],
+    "nu": 3
+   },
+   "ergebnis": {
+    "eigenwerte": [
+     9.379147103416585,
+     9.37918757282219
+    ],
+    "stabil": true
+   },
+   "sek": 0.1
+  },
+  {
+   "id": 5,
+   "wer": "forscher-sparsam",
+   "op": "hessian2d",
+   "args": {
+    "tau": [
+     0,
+     1
+    ],
+    "nu": 3
+   },
+   "ergebnis": {
+    "eigenwerte": [
+     -3.5057713168029636,
+     26.981139804593823
+    ],
+    "stabil": false
+   },
+   "sek": 0.1
+  },
+  {
+   "id": 6,
+   "wer": "forscher-sparsam",
+   "op": "rect_optimum",
+   "args": {
+    "nu": 3,
+    "y_lo": 1.0,
+    "y_hi": 3.0
+   },
+   "ergebnis": {
+    "y": 1.0000000545460743,
+    "T": 13.652893626113238
+   },
+   "sek": 0.42
+  },
+  {
+   "id": 7,
+   "wer": "forscher-sparsam",
+   "op": "crossing2d",
+   "args": {
+    "tau_a": [
+     0.5,
+     0.8660254
+    ],
+    "tau_b": [
+     0,
+     1
+    ],
+    "nu_lo": 2.0,
+    "nu_hi": 5.0
+   },
+   "ergebnis": {
+    "gefunden": true,
+    "intervall": [
+     3.9183645248413086,
+     3.918365240097046
+    ]
+   },
+   "sek": 0.56
+  }
+ ],
+ "sek": 58.0,
+ "frage": "Q1",
+ "salt": 2,
+ "bedingung": "BK"
+}

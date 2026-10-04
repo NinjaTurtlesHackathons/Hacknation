@@ -1,0 +1,39 @@
+{
+ "antwort": {
+  "antwort": "i",
+  "zahl": 3.25,
+  "konfidenz": 0.85,
+  "begruendung": "Numerische Summe von T_6 (Fenster |z|<6, N=25): τ=i ≈ 3.250, ρ ≈ 3.746; entlang Rand |τ|=1 und der imaginären Achse steigt der Wert von i aus monoton an."
+ },
+ "kosten_usd": 0.025853400000000002,
+ "tool_calls": 2,
+ "verstoss": [],
+ "sek": 15.5,
+ "transkript_tools": [
+  {
+   "type": "tool_use",
+   "id": "toolu_01BvrDYkkh5vrik4h1m226rM",
+   "name": "Bash",
+   "input": {
+    "command": "cat > a.py <<'E'\nimport numpy as np\nN=25\nr=np.arange(-N,N+1)\nA,B=np.meshgrid(r,r)\nA=A.ravel();B=B.ravel()\nm=(A!=0)|(B!=0);A=A[m];B=B[m]\ndef T(t,nu=6):\n    s=np.sqrt(t.imag)\n    z=(A+t*B)/s\n    a=np.abs(z)\n    k=a<6\n    z=z[k]\n    X=z[:,None];Y=z[None,:]\n    d=np.abs(X-Y);ax=np.abs(X)*np.abs(Y)\n    with np.errstate(divide='ignore'):\n        v=(ax*d)**(-nu)\n    v[~np.isfinite(v)]=0\n    return v.sum()\nfor t in [np.exp(1j*np.pi/3),1j,0.25+1j*1.0,0.5+1j*1.0,0.5+1.5j,0.3+1j*1.0,1.2j,0.5+0.9j]:\n    if abs(t)>=1-1e-9: print(t,T(t))\nE\npython3 a.py"
+   },
+   "caller": {
+    "type": "direct"
+   }
+  },
+  {
+   "type": "tool_use",
+   "id": "toolu_012WQDeg1mMnZVVzqtccpLbj",
+   "name": "Bash",
+   "input": {
+    "command": "cat >> a.py <<'E'\nprint('--')\nfor x in [0,0.05,0.1,0.2,0.3,0.4]:\n    print(x,T(x+1j*np.sqrt(1-x*x)))\nfor y in [1.02,1.05,1.1]: print(y,T(1j*y))\nE\npython3 a.py | sed -n '/--/,$p'"
+   },
+   "caller": {
+    "type": "direct"
+   }
+  }
+ ],
+ "frage": "Q12",
+ "salt": 0,
+ "bedingung": "A2"
+}

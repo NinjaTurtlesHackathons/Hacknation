@@ -1,0 +1,332 @@
+{
+ "antwort": {
+  "antwort": "rechteckig",
+  "zahl": 1.0998011111753185,
+  "konfidenz": 0.95,
+  "pruefung": {
+   "typ": "argmin2d",
+   "nu": 10,
+   "erwartet": "rechteckig",
+   "y": 1.0998011111753185
+  },
+  "begruendung": "Die globale Suche (minimize2d, E0) durchsucht systematisch den Fundamentalbereich mit Raster und Nelder-Mead-Optimierung und findet ein einziges lokales Minimum: das Rechteckgitter τ = i·1.0998 mit T = 0.7597. Das hexagonale Gitter (E1, T = 1.4064) und quadratische Gitter (E2, T = 0.7622) haben deutlich höhere Energien bzw. sind keine stabilen Minima (Hessian-Eigenwerte negativ in E4, E5). Die optimale Rechteck-Parameter werden unabhängig von rect_optimum (E3) bestätigt. Die Stabilität bei y = 1.0998 ist verifiziert durch positive Hessian-Eigenwerte (E6).",
+  "stimmen": "Stufe 1/4 (sparsam, haiku)"
+ },
+ "level": "computed (Code-Prüfer bestanden)",
+ "forscher": [
+  {
+   "strategie": "sparsam",
+   "runden": [
+    {
+     "ueberlegung": "Zur Beantwortung der Frage nach dem energieminimierenden 2D-Gitter bei nu = 10 plane ich eine strukturierte Untersuchung: (1) Globale Optimierung über den gesamten Fundamentalbereich mit minimize2d, um das absolute Minimum und seinen Gittertyp zu finden. (2) Bestimmung von Referenzenergien für die beiden Hauptkandidaten (hexagonal und quadratisch), die bei unterschiedlichen nu-Werten dominieren können. (3) Falls das Minimum rechteckig ist, Optimierung über Seitenverhältnisse mit rect_optimum. (4) Stabilitätsanalyse durch Hessian-Eigenwerte für lokale Minima, um Sättel auszuschließen. Bei nu = 10 (relativ groß) werden kurze Vektoren sehr stark gewichtet; das hexagonale Gitter gilt als optimale Packung und ist daher Hauptkandidat. Die Experimente sind redundanzarm und sollen mit <8 Aufrufen Klarheit über Typ und Parameter schaffen.",
+     "plan": [
+      {
+       "op": "minimize2d",
+       "args": {
+        "nu": 10
+       }
+      },
+      {
+       "op": "energy2d",
+       "args": {
+        "tau": [
+         0.5,
+         0.8660254
+        ],
+        "nu": 10
+       }
+      },
+      {
+       "op": "energy2d",
+       "args": {
+        "tau": [
+         0,
+         1
+        ],
+        "nu": 10
+       }
+      },
+      {
+       "op": "rect_optimum",
+       "args": {
+        "nu": 10,
+        "y_lo": 0.5,
+        "y_hi": 2.0
+       }
+      },
+      {
+       "op": "hessian2d",
+       "args": {
+        "tau": [
+         0.5,
+         0.8660254
+        ],
+        "nu": 10
+       }
+      },
+      {
+       "op": "hessian2d",
+       "args": {
+        "tau": [
+         0,
+         1
+        ],
+        "nu": 10
+       }
+      }
+     ]
+    },
+    {
+     "plan": [
+      {
+       "op": "hessian2d",
+       "args": {
+        "tau": [
+         0,
+         1.0998011111753185
+        ],
+        "nu": 10
+       }
+      },
+      {
+       "op": "energy2d",
+       "args": {
+        "tau": [
+         0.33,
+         1.0
+        ],
+        "nu": 10
+       }
+      },
+      {
+       "op": "energy2d",
+       "args": {
+        "tau": [
+         0.25,
+         1.1
+        ],
+        "nu": 10
+       }
+      }
+     ]
+    },
+    {
+     "antwort": "rechteckig",
+     "zahl": 1.0998011111753185,
+     "konfidenz": 0.95,
+     "pruefung": {
+      "typ": "argmin2d",
+      "nu": 10,
+      "erwartet": "rechteckig",
+      "y": 1.0998011111753185
+     },
+     "begruendung": "Die globale Suche (minimize2d, E0) durchsucht systematisch den Fundamentalbereich mit Raster und Nelder-Mead-Optimierung und findet ein einziges lokales Minimum: das Rechteckgitter τ = i·1.0998 mit T = 0.7597. Das hexagonale Gitter (E1, T = 1.4064) und quadratische Gitter (E2, T = 0.7622) haben deutlich höhere Energien bzw. sind keine stabilen Minima (Hessian-Eigenwerte negativ in E4, E5). Die optimale Rechteck-Parameter werden unabhängig von rect_optimum (E3) bestätigt. Die Stabilität bei y = 1.0998 ist verifiziert durch positive Hessian-Eigenwerte (E6)."
+    }
+   ],
+   "experimente": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8
+   ],
+   "final": {
+    "antwort": "rechteckig",
+    "zahl": 1.0998011111753185,
+    "konfidenz": 0.95,
+    "pruefung": {
+     "typ": "argmin2d",
+     "nu": 10,
+     "erwartet": "rechteckig",
+     "y": 1.0998011111753185
+    },
+    "begruendung": "Die globale Suche (minimize2d, E0) durchsucht systematisch den Fundamentalbereich mit Raster und Nelder-Mead-Optimierung und findet ein einziges lokales Minimum: das Rechteckgitter τ = i·1.0998 mit T = 0.7597. Das hexagonale Gitter (E1, T = 1.4064) und quadratische Gitter (E2, T = 0.7622) haben deutlich höhere Energien bzw. sind keine stabilen Minima (Hessian-Eigenwerte negativ in E4, E5). Die optimale Rechteck-Parameter werden unabhängig von rect_optimum (E3) bestätigt. Die Stabilität bei y = 1.0998 ist verifiziert durch positive Hessian-Eigenwerte (E6)."
+   },
+   "modell": "haiku",
+   "pruefung": {
+    "bestanden": true,
+    "grund": "Prüfer-Suche (18er-Raster, 6 Polituren, R=(48, 64)): rechteckig(y=1.0998), y_pruefer=1.09980"
+   }
+  }
+ ],
+ "experimente": [
+  {
+   "id": 0,
+   "wer": "forscher-sparsam",
+   "op": "minimize2d",
+   "args": {
+    "nu": 10
+   },
+   "ergebnis": {
+    "tau": [
+     2.6815039352087345e-08,
+     1.0998012115859472
+    ],
+    "T": 0.7597084276608771,
+    "typ": "rechteckig(y=1.0998)",
+    "lokale_minima": [
+     {
+      "tau": [
+       2.6815039352087345e-08,
+       1.0998012115859472
+      ],
+      "T": 0.7597084276608771,
+      "typ": "rechteckig(y=1.0998)"
+     }
+    ]
+   },
+   "sek": 3.77
+  },
+  {
+   "id": 1,
+   "wer": "forscher-sparsam",
+   "op": "energy2d",
+   "args": {
+    "tau": [
+     0.5,
+     0.8660254
+    ],
+    "nu": 10
+   },
+   "ergebnis": {
+    "T": 1.4063994404338633,
+    "err": 2.220446049250313e-16
+   },
+   "sek": 0.01
+  },
+  {
+   "id": 2,
+   "wer": "forscher-sparsam",
+   "op": "energy2d",
+   "args": {
+    "tau": [
+     0,
+     1
+    ],
+    "nu": 10
+   },
+   "ergebnis": {
+    "T": 0.7622381339474606,
+    "err": 0.0
+   },
+   "sek": 0.01
+  },
+  {
+   "id": 3,
+   "wer": "forscher-sparsam",
+   "op": "rect_optimum",
+   "args": {
+    "nu": 10,
+    "y_lo": 0.5,
+    "y_hi": 2.0
+   },
+   "ergebnis": {
+    "y": 1.0998011111753185,
+    "T": 0.7597084276608651
+   },
+   "sek": 0.18
+  },
+  {
+   "id": 4,
+   "wer": "forscher-sparsam",
+   "op": "hessian2d",
+   "args": {
+    "tau": [
+     0.5,
+     0.8660254
+    ],
+    "nu": 10
+   },
+   "ergebnis": {
+    "eigenwerte": [
+     -12.616517201857746,
+     -12.616449710844968
+    ],
+    "stabil": false
+   },
+   "sek": 0.1
+  },
+  {
+   "id": 5,
+   "wer": "forscher-sparsam",
+   "op": "hessian2d",
+   "args": {
+    "tau": [
+     0,
+     1
+    ],
+    "nu": 10
+   },
+   "ergebnis": {
+    "eigenwerte": [
+     -1.0857473168868204,
+     11.109749033233474
+    ],
+    "stabil": false
+   },
+   "sek": 0.13
+  },
+  {
+   "id": 6,
+   "wer": "forscher-sparsam",
+   "op": "hessian2d",
+   "args": {
+    "tau": [
+     0,
+     1.0998011111753185
+    ],
+    "nu": 10
+   },
+   "ergebnis": {
+    "eigenwerte": [
+     1.9594262767597126,
+     8.647481314461025
+    ],
+    "stabil": true
+   },
+   "sek": 0.12
+  },
+  {
+   "id": 7,
+   "wer": "forscher-sparsam",
+   "op": "energy2d",
+   "args": {
+    "tau": [
+     0.33,
+     1.0
+    ],
+    "nu": 10
+   },
+   "ergebnis": {
+    "T": 1.1752991151406267,
+    "err": 0.0
+   },
+   "sek": 0.01
+  },
+  {
+   "id": 8,
+   "wer": "forscher-sparsam",
+   "op": "energy2d",
+   "args": {
+    "tau": [
+     0.25,
+     1.1
+    ],
+    "nu": 10
+   },
+   "ergebnis": {
+    "T": 0.9779136739290061,
+    "err": 1.1102230246251565e-16
+   },
+   "sek": 0.01
+  }
+ ],
+ "sek": 113.1,
+ "frage": "Q4",
+ "salt": 0,
+ "bedingung": "BK"
+}

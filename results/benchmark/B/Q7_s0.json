@@ -1,0 +1,1916 @@
+{
+ "antwort": {
+  "antwort": "Das quadratische Gitter verliert seine Stabilität gegen rechteckige Verformung bei nu_2 ≈ 8.6. Der kleinste Hesse-Eigenwert wechselt dort das Vorzeichen. Zwischen etwa 3.8 und 8.6 ist das Gitter lokal stabil.",
+  "zahl": 8.6,
+  "konfidenz": 0.8,
+  "pruefung": {
+   "typ": "vorzeichenwechsel",
+   "groesse": "eig_min_quadrat",
+   "nu_lo": 8.575,
+   "nu_hi": 8.625
+  },
+  "begruendung": "Der kleinste Hesse-Eigenwert am quadratischen Gitter ist bei nu=8 gleich 0.922, bei 8.5 gleich 0.137 und bei 9 gleich -0.432. Eine quadratische Interpolation durch diese drei Werte ergibt die Nullstelle bei nu ≈ 8.60. Ich habe die Nullstelle nicht durch eine zusätzliche Messung eingegrenzt, sondern nur aus diesen drei Punkten interpoliert. Unterhalb von nu ≈ 3.8 ist das Gitter ebenfalls instabil (Eigenwert -1.37 bei 3.5, +0.87 bei 4), das ist aber der untere Wechsel und nicht gefragt.",
+  "stimmen": "3/4 (geprüft: 4)"
+ },
+ "level": "computed (Code-Prüfer bestanden)",
+ "forscher": [
+  {
+   "strategie": "numeriker",
+   "runden": [
+    {
+     "ueberlegung": "Zuerst grob scannen: Hesse-Eigenwerte am quadratischen Gitter bei mehreren nu, um den Vorzeichenwechsel des kleinsten Eigenwerts einzugrenzen. Danach mit minimize2d/rect_optimum gegenprüfen, ob bei größerem nu rechteckige Minima auftreten.",
+     "plan": [
+      {
+       "op": "hessian2d",
+       "args": {
+        "tau": [
+         0,
+         1
+        ],
+        "nu": 1
+       }
+      },
+      {
+       "op": "hessian2d",
+       "args": {
+        "tau": [
+         0,
+         1
+        ],
+        "nu": 2
+       }
+      },
+      {
+       "op": "hessian2d",
+       "args": {
+        "tau": [
+         0,
+         1
+        ],
+        "nu": 3
+       }
+      },
+      {
+       "op": "hessian2d",
+       "args": {
+        "tau": [
+         0,
+         1
+        ],
+        "nu": 4
+       }
+      },
+      {
+       "op": "hessian2d",
+       "args": {
+        "tau": [
+         0,
+         1
+        ],
+        "nu": 6
+       }
+      },
+      {
+       "op": "hessian2d",
+       "args": {
+        "tau": [
+         0,
+         1
+        ],
+        "nu": 10
+       }
+      },
+      {
+       "op": "minimize2d",
+       "args": {
+        "nu": 6
+       }
+      },
+      {
+       "op": "rect_optimum",
+       "args": {
+        "nu": 6,
+        "y_lo": 0.5,
+        "y_hi": 2
+       }
+      }
+     ]
+    },
+    {
+     "plan": [
+      {
+       "op": "hessian2d",
+       "args": {
+        "tau": [
+         0,
+         1
+        ],
+        "nu": 7
+       }
+      },
+      {
+       "op": "hessian2d",
+       "args": {
+        "tau": [
+         0,
+         1
+        ],
+        "nu": 8
+       }
+      },
+      {
+       "op": "hessian2d",
+       "args": {
+        "tau": [
+         0,
+         1
+        ],
+        "nu": 9
+       }
+      },
+      {
+       "op": "hessian2d",
+       "args": {
+        "tau": [
+         0,
+         1
+        ],
+        "nu": 8.5
+       }
+      },
+      {
+       "op": "hessian2d",
+       "args": {
+        "tau": [
+         0,
+         1
+        ],
+        "nu": 7.5
+       }
+      },
+      {
+       "op": "hessian2d",
+       "args": {
+        "tau": [
+         0,
+         1
+        ],
+        "nu": 3.5
+       }
+      }
+     ]
+    },
+    {
+     "antwort": "Das quadratische Gitter verliert seine Stabilität gegen rechteckige Verformung bei nu_2 ≈ 8.6. Der kleinste Hesse-Eigenwert wechselt dort das Vorzeichen. Zwischen etwa 3.8 und 8.6 ist das Gitter lokal stabil.",
+     "zahl": 8.6,
+     "konfidenz": 0.8,
+     "pruefung": {
+      "typ": "vorzeichenwechsel",
+      "groesse": "eig_min_quadrat",
+      "nu_lo": 8.575,
+      "nu_hi": 8.625
+     },
+     "begruendung": "Der kleinste Hesse-Eigenwert am quadratischen Gitter ist bei nu=8 gleich 0.922, bei 8.5 gleich 0.137 und bei 9 gleich -0.432. Eine quadratische Interpolation durch diese drei Werte ergibt die Nullstelle bei nu ≈ 8.60. Ich habe die Nullstelle nicht durch eine zusätzliche Messung eingegrenzt, sondern nur aus diesen drei Punkten interpoliert. Unterhalb von nu ≈ 3.8 ist das Gitter ebenfalls instabil (Eigenwert -1.37 bei 3.5, +0.87 bei 4), das ist aber der untere Wechsel und nicht gefragt."
+    }
+   ],
+   "experimente": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    26,
+    27,
+    28,
+    29,
+    30,
+    31,
+    32,
+    33
+   ],
+   "final": {
+    "antwort": "Das quadratische Gitter verliert seine Stabilität gegen rechteckige Verformung bei nu_2 ≈ 8.6. Der kleinste Hesse-Eigenwert wechselt dort das Vorzeichen. Zwischen etwa 3.8 und 8.6 ist das Gitter lokal stabil.",
+    "zahl": 8.6,
+    "konfidenz": 0.8,
+    "pruefung": {
+     "typ": "vorzeichenwechsel",
+     "groesse": "eig_min_quadrat",
+     "nu_lo": 8.575,
+     "nu_hi": 8.625
+    },
+    "begruendung": "Der kleinste Hesse-Eigenwert am quadratischen Gitter ist bei nu=8 gleich 0.922, bei 8.5 gleich 0.137 und bei 9 gleich -0.432. Eine quadratische Interpolation durch diese drei Werte ergibt die Nullstelle bei nu ≈ 8.60. Ich habe die Nullstelle nicht durch eine zusätzliche Messung eingegrenzt, sondern nur aus diesen drei Punkten interpoliert. Unterhalb von nu ≈ 3.8 ist das Gitter ebenfalls instabil (Eigenwert -1.37 bei 3.5, +0.87 bei 4), das ist aber der untere Wechsel und nicht gefragt."
+   },
+   "pruefung": {
+    "bestanden": true,
+    "grund": "eig_min_quadrat: f(8.575)=3.926e-02, f(8.625)=-2.348e-02"
+   }
+  },
+  {
+   "strategie": "theoretiker",
+   "runden": [
+    {
+     "ueberlegung": "Symmetrie: Das quadratische Gitter (tau=i) ist ein kritischer Punkt von T in tau (Symmetrie unter Spiegelung x->-x und Inversion tau->-1/tau, die i fixiert). Stabilität hängt von den Hesse-Eigenwerten ab; die rechteckige Richtung (y-Richtung, tau=iy) ist die kritische, da y -> 1/y Symmetrie (Rechteck y und 1/y gleiches Gitter) y=1 als Fixpunkt macht. Für nu->0 (log-artig) bzw. kleines nu ist hexagonal/quadratisch zu prüfen; bei großem nu dominieren kurze Vektoren, Rechteck mit y_inf. Vorhersage: der kleinste Hesse-Eigenwert am quadratischen Gitter wechselt bei einem nu_2 das Vorzeichen. Plan: Hesse-Eigenwerte bei mehreren nu scannen, dann Rechteckoptimum zur Bestätigung der Verzweigung (y != 1 oberhalb von nu_2) und Bisektion über crossing-artige Werte.",
+     "plan": [
+      {
+       "op": "hessian2d",
+       "args": {
+        "tau": [
+         0,
+         1
+        ],
+        "nu": 2
+       }
+      },
+      {
+       "op": "hessian2d",
+       "args": {
+        "tau": [
+         0,
+         1
+        ],
+        "nu": 4
+       }
+      },
+      {
+       "op": "hessian2d",
+       "args": {
+        "tau": [
+         0,
+         1
+        ],
+        "nu": 6
+       }
+      },
+      {
+       "op": "hessian2d",
+       "args": {
+        "tau": [
+         0,
+         1
+        ],
+        "nu": 8
+       }
+      },
+      {
+       "op": "hessian2d",
+       "args": {
+        "tau": [
+         0,
+         1
+        ],
+        "nu": 12
+       }
+      },
+      {
+       "op": "rect_optimum",
+       "args": {
+        "nu": 6,
+        "y_lo": 1.0,
+        "y_hi": 3.0
+       }
+      },
+      {
+       "op": "rect_optimum",
+       "args": {
+        "nu": 12,
+        "y_lo": 1.0,
+        "y_hi": 3.0
+       }
+      },
+      {
+       "op": "minimize2d",
+       "args": {
+        "nu": 8
+       }
+      }
+     ]
+    },
+    {
+     "plan": [
+      {
+       "op": "hessian2d",
+       "args": {
+        "tau": [
+         0,
+         1
+        ],
+        "nu": 8.5
+       }
+      },
+      {
+       "op": "hessian2d",
+       "args": {
+        "tau": [
+         0,
+         1
+        ],
+        "nu": 9
+       }
+      },
+      {
+       "op": "hessian2d",
+       "args": {
+        "tau": [
+         0,
+         1
+        ],
+        "nu": 9.5
+       }
+      },
+      {
+       "op": "hessian2d",
+       "args": {
+        "tau": [
+         0,
+         1
+        ],
+        "nu": 10
+       }
+      },
+      {
+       "op": "hessian2d",
+       "args": {
+        "tau": [
+         0,
+         1
+        ],
+        "nu": 10.5
+       }
+      },
+      {
+       "op": "hessian2d",
+       "args": {
+        "tau": [
+         0,
+         1
+        ],
+        "nu": 11
+       }
+      }
+     ]
+    },
+    {
+     "antwort": "Das quadratische Gitter wird bei nu_2 ≈ 8,60 instabil; der kleinste Hesse-Eigenwert wechselt dort von + nach −.",
+     "zahl": 8.6,
+     "konfidenz": 0.8,
+     "pruefung": {
+      "typ": "vorzeichenwechsel",
+      "groesse": "eig_min_quadrat",
+      "nu_lo": 8.58,
+      "nu_hi": 8.63
+     },
+     "begruendung": "Der kleinste Hesse-Eigenwert am quadratischen Gitter ist bei nu=8 gleich +0,922, bei 8,5 gleich +0,137 und bei 9 gleich −0,432, bleibt danach negativ bis nu=12. Eine quadratische Interpolation durch diese drei Punkte ergibt die Nullstelle bei nu ≈ 8,60. Der Wechsel bei nu zwischen 2 und 4 ist der untere, hier nicht gefragte Übergang. Die Nullstelle ist interpoliert und nicht direkt gemessen, daher die Konfidenz von 0,8."
+    }
+   ],
+   "experimente": [
+    17,
+    18,
+    19,
+    20,
+    21,
+    24,
+    25,
+    36,
+    39,
+    40,
+    42,
+    43,
+    45,
+    47
+   ],
+   "final": {
+    "antwort": "Das quadratische Gitter wird bei nu_2 ≈ 8,60 instabil; der kleinste Hesse-Eigenwert wechselt dort von + nach −.",
+    "zahl": 8.6,
+    "konfidenz": 0.8,
+    "pruefung": {
+     "typ": "vorzeichenwechsel",
+     "groesse": "eig_min_quadrat",
+     "nu_lo": 8.58,
+     "nu_hi": 8.63
+    },
+    "begruendung": "Der kleinste Hesse-Eigenwert am quadratischen Gitter ist bei nu=8 gleich +0,922, bei 8,5 gleich +0,137 und bei 9 gleich −0,432, bleibt danach negativ bis nu=12. Eine quadratische Interpolation durch diese drei Punkte ergibt die Nullstelle bei nu ≈ 8,60. Der Wechsel bei nu zwischen 2 und 4 ist der untere, hier nicht gefragte Übergang. Die Nullstelle ist interpoliert und nicht direkt gemessen, daher die Konfidenz von 0,8."
+   },
+   "pruefung": {
+    "bestanden": true,
+    "grund": "eig_min_quadrat: f(8.58)=3.289e-02, f(8.63)=-2.964e-02"
+   }
+  },
+  {
+   "strategie": "skeptiker",
+   "runden": [
+    {
+     "ueberlegung": "Ziel: den Exponenten nu_2 finden, ab dem das quadratische Gitter nicht mehr lokales Minimum ist, also der Vorzeichenwechsel des kleinsten Hesse-Eigenwerts am quadratischen Gitter. Ich misstraue der naheliegenden Annahme eines einzigen Wechsels, deshalb scanne ich die Hesse-Eigenwerte bei mehreren nu, um mögliche Mehrfachwechsel oder Wiedereintritt der Stabilität zu erkennen. Zusätzlich prüfe ich mit rect_optimum, ob die Instabilität tatsächlich rechteckig ist (y != 1), und mit minimize2d, welches Gitter bei großen nu global minimal ist. Danach wird das Intervall verfeinert (Breite <= 0,05) und mit crossing2d bzw. weiteren hessian2d-Aufrufen eingegrenzt.",
+     "plan": [
+      {
+       "op": "hessian2d",
+       "args": {
+        "tau": [
+         0,
+         1
+        ],
+        "nu": 2
+       }
+      },
+      {
+       "op": "hessian2d",
+       "args": {
+        "tau": [
+         0,
+         1
+        ],
+        "nu": 4
+       }
+      },
+      {
+       "op": "hessian2d",
+       "args": {
+        "tau": [
+         0,
+         1
+        ],
+        "nu": 6
+       }
+      },
+      {
+       "op": "hessian2d",
+       "args": {
+        "tau": [
+         0,
+         1
+        ],
+        "nu": 8
+       }
+      },
+      {
+       "op": "hessian2d",
+       "args": {
+        "tau": [
+         0,
+         1
+        ],
+        "nu": 12
+       }
+      },
+      {
+       "op": "hessian2d",
+       "args": {
+        "tau": [
+         0,
+         1
+        ],
+        "nu": 20
+       }
+      },
+      {
+       "op": "rect_optimum",
+       "args": {
+        "nu": 10,
+        "y_lo": 0.5,
+        "y_hi": 2.0
+       }
+      },
+      {
+       "op": "minimize2d",
+       "args": {
+        "nu": 10
+       }
+      }
+     ]
+    },
+    {
+     "plan": [
+      {
+       "op": "hessian2d",
+       "args": {
+        "tau": [
+         0,
+         1
+        ],
+        "nu": 8.4
+       }
+      },
+      {
+       "op": "hessian2d",
+       "args": {
+        "tau": [
+         0,
+         1
+        ],
+        "nu": 8.8
+       }
+      },
+      {
+       "op": "hessian2d",
+       "args": {
+        "tau": [
+         0,
+         1
+        ],
+        "nu": 9.0
+       }
+      },
+      {
+       "op": "hessian2d",
+       "args": {
+        "tau": [
+         0,
+         1
+        ],
+        "nu": 9.3
+       }
+      },
+      {
+       "op": "hessian2d",
+       "args": {
+        "tau": [
+         0,
+         1
+        ],
+        "nu": 9.6
+       }
+      },
+      {
+       "op": "hessian2d",
+       "args": {
+        "tau": [
+         0,
+         1
+        ],
+        "nu": 10.0
+       }
+      }
+     ]
+    },
+    {
+     "antwort": "nu_2 ≈ 8.61: Oberhalb davon ist das quadratische Gitter instabil gegen rechteckige Verformung.",
+     "zahl": 8.61,
+     "konfidenz": 0.7,
+     "pruefung": {
+      "typ": "vorzeichenwechsel",
+      "groesse": "eig_min_quadrat",
+      "nu_lo": 8.58,
+      "nu_hi": 8.63
+     },
+     "begruendung": "Der kleinste Hesse-Eigenwert am quadratischen Gitter ist bei nu=8.4 positiv (0.276) und bei nu=8.8 negativ (-0.227). Eine quadratische Interpolation durch die Punkte 8.4, 8.8 und 9.0 (Eigenwerte 0.276, -0.227, -0.432) ergibt die Nullstelle bei etwa 8.61. Bei nu=10 liegt das Rechteckoptimum bei y≈1.0998, was zur Instabilität passt. Der Wechsel bei niedrigem nu (zwischen 2 und 4) ist ein anderer Übergang und gehört nicht zu nu_2. Ich habe die Nullstelle nicht direkt per Bisektion eingegrenzt, daher stammt der Wert nur aus der Interpolation."
+    }
+   ],
+   "experimente": [
+    8,
+    9,
+    10,
+    12,
+    14,
+    16,
+    23,
+    35,
+    37,
+    38,
+    41,
+    44,
+    46,
+    48
+   ],
+   "final": {
+    "antwort": "nu_2 ≈ 8.61: Oberhalb davon ist das quadratische Gitter instabil gegen rechteckige Verformung.",
+    "zahl": 8.61,
+    "konfidenz": 0.7,
+    "pruefung": {
+     "typ": "vorzeichenwechsel",
+     "groesse": "eig_min_quadrat",
+     "nu_lo": 8.58,
+     "nu_hi": 8.63
+    },
+    "begruendung": "Der kleinste Hesse-Eigenwert am quadratischen Gitter ist bei nu=8.4 positiv (0.276) und bei nu=8.8 negativ (-0.227). Eine quadratische Interpolation durch die Punkte 8.4, 8.8 und 9.0 (Eigenwerte 0.276, -0.227, -0.432) ergibt die Nullstelle bei etwa 8.61. Bei nu=10 liegt das Rechteckoptimum bei y≈1.0998, was zur Instabilität passt. Der Wechsel bei niedrigem nu (zwischen 2 und 4) ist ein anderer Übergang und gehört nicht zu nu_2. Ich habe die Nullstelle nicht direkt per Bisektion eingegrenzt, daher stammt der Wert nur aus der Interpolation."
+   },
+   "pruefung": {
+    "bestanden": true,
+    "grund": "eig_min_quadrat: f(8.58)=3.289e-02, f(8.63)=-2.964e-02"
+   }
+  },
+  {
+   "strategie": "sparsam",
+   "runden": [
+    {
+     "ueberlegung": "Ziel: nu_2, bei dem der kleinste Hesse-Eigenwert am quadratischen Gitter das Vorzeichen wechselt. Zuerst grob scannen mit hessian2d bei mehreren nu, danach mit crossing2d verfeinern. Zusätzlich Rechteck-Optimum zur Bestätigung der rechteckigen Instabilität. Ich kenne keine Ergebnisse vorab; die Werte nu sind Suchpunkte, keine Annahmen.",
+     "plan": [
+      {
+       "op": "hessian2d",
+       "args": {
+        "tau": [
+         0,
+         1
+        ],
+        "nu": 3
+       }
+      },
+      {
+       "op": "hessian2d",
+       "args": {
+        "tau": [
+         0,
+         1
+        ],
+        "nu": 5
+       }
+      },
+      {
+       "op": "hessian2d",
+       "args": {
+        "tau": [
+         0,
+         1
+        ],
+        "nu": 8
+       }
+      },
+      {
+       "op": "hessian2d",
+       "args": {
+        "tau": [
+         0,
+         1
+        ],
+        "nu": 12
+       }
+      },
+      {
+       "op": "hessian2d",
+       "args": {
+        "tau": [
+         0,
+         1
+        ],
+        "nu": 20
+       }
+      },
+      {
+       "op": "rect_optimum",
+       "args": {
+        "nu": 8,
+        "y_lo": 0.5,
+        "y_hi": 2.0
+       }
+      },
+      {
+       "op": "minimize2d",
+       "args": {
+        "nu": 8
+       }
+      },
+      {
+       "op": "minimize2d",
+       "args": {
+        "nu": 15
+       }
+      }
+     ]
+    },
+    {
+     "plan": [
+      {
+       "op": "hessian2d",
+       "args": {
+        "tau": [
+         0,
+         1
+        ],
+        "nu": 8.5
+       }
+      },
+      {
+       "op": "hessian2d",
+       "args": {
+        "tau": [
+         0,
+         1
+        ],
+        "nu": 9
+       }
+      },
+      {
+       "op": "hessian2d",
+       "args": {
+        "tau": [
+         0,
+         1
+        ],
+        "nu": 9.5
+       }
+      },
+      {
+       "op": "hessian2d",
+       "args": {
+        "tau": [
+         0,
+         1
+        ],
+        "nu": 10
+       }
+      },
+      {
+       "op": "hessian2d",
+       "args": {
+        "tau": [
+         0,
+         1
+        ],
+        "nu": 11
+       }
+      },
+      {
+       "op": "hessian2d",
+       "args": {
+        "tau": [
+         0,
+         1
+        ],
+        "nu": 7
+       }
+      }
+     ]
+    },
+    {
+     "antwort": "Das quadratische Gitter verliert seine lokale Stabilität bei nu_2 ≈ 8,6 (kleinster Hesse-Eigenwert wechselt dort das Vorzeichen).",
+     "zahl": 8.6,
+     "konfidenz": 0.8,
+     "pruefung": {
+      "typ": "vorzeichenwechsel",
+      "groesse": "eig_min_quadrat",
+      "nu_lo": 8.58,
+      "nu_hi": 8.63
+     },
+     "begruendung": "Der kleinste Hesse-Eigenwert am quadratischen Gitter ist bei nu=8 gleich +0,92, bei 8,5 gleich +0,137 und bei 9 gleich -0,432. Eine quadratische Interpolation durch diese drei Punkte ergibt die Nullstelle bei nu ≈ 8,605. Für nu = 9 bis 20 bleibt das Gitter instabil, bei nu=15 ist das Minimum rechteckig (y≈1,17). Der Wert ist interpoliert, nicht durch eine Bisektion (crossing2d) bestätigt."
+    }
+   ],
+   "experimente": [
+    6,
+    7,
+    11,
+    13,
+    15,
+    22,
+    34,
+    49,
+    50,
+    51,
+    52,
+    53,
+    54,
+    55
+   ],
+   "final": {
+    "antwort": "Das quadratische Gitter verliert seine lokale Stabilität bei nu_2 ≈ 8,6 (kleinster Hesse-Eigenwert wechselt dort das Vorzeichen).",
+    "zahl": 8.6,
+    "konfidenz": 0.8,
+    "pruefung": {
+     "typ": "vorzeichenwechsel",
+     "groesse": "eig_min_quadrat",
+     "nu_lo": 8.58,
+     "nu_hi": 8.63
+    },
+    "begruendung": "Der kleinste Hesse-Eigenwert am quadratischen Gitter ist bei nu=8 gleich +0,92, bei 8,5 gleich +0,137 und bei 9 gleich -0,432. Eine quadratische Interpolation durch diese drei Punkte ergibt die Nullstelle bei nu ≈ 8,605. Für nu = 9 bis 20 bleibt das Gitter instabil, bei nu=15 ist das Minimum rechteckig (y≈1,17). Der Wert ist interpoliert, nicht durch eine Bisektion (crossing2d) bestätigt."
+   },
+   "pruefung": {
+    "bestanden": true,
+    "grund": "eig_min_quadrat: f(8.58)=3.289e-02, f(8.63)=-2.964e-02"
+   }
+  }
+ ],
+ "experimente": [
+  {
+   "id": 0,
+   "wer": "forscher-numeriker",
+   "op": "hessian2d",
+   "args": {
+    "tau": [
+     0,
+     1
+    ],
+    "nu": 1
+   },
+   "ergebnis": {
+    "eigenwerte": [
+     -10.67634343598911,
+     77.35698579836026
+    ],
+    "stabil": false
+   },
+   "sek": 0.11
+  },
+  {
+   "id": 1,
+   "wer": "forscher-numeriker",
+   "op": "hessian2d",
+   "args": {
+    "tau": [
+     0,
+     1
+    ],
+    "nu": 2
+   },
+   "ergebnis": {
+    "eigenwerte": [
+     -7.2906738068923005,
+     35.21153012897571
+    ],
+    "stabil": false
+   },
+   "sek": 0.11
+  },
+  {
+   "id": 2,
+   "wer": "forscher-numeriker",
+   "op": "hessian2d",
+   "args": {
+    "tau": [
+     0,
+     1
+    ],
+    "nu": 3
+   },
+   "ergebnis": {
+    "eigenwerte": [
+     -3.5057713168029636,
+     26.981139804593823
+    ],
+    "stabil": false
+   },
+   "sek": 0.11
+  },
+  {
+   "id": 3,
+   "wer": "forscher-numeriker",
+   "op": "hessian2d",
+   "args": {
+    "tau": [
+     0,
+     1
+    ],
+    "nu": 4
+   },
+   "ergebnis": {
+    "eigenwerte": [
+     0.8737672088088289,
+     19.51610753447852
+    ],
+    "stabil": true
+   },
+   "sek": 0.13
+  },
+  {
+   "id": 4,
+   "wer": "forscher-numeriker",
+   "op": "hessian2d",
+   "args": {
+    "tau": [
+     0,
+     1
+    ],
+    "nu": 6
+   },
+   "ergebnis": {
+    "eigenwerte": [
+     7.142302888230034,
+     8.54377267378581
+    ],
+    "stabil": true
+   },
+   "sek": 0.11
+  },
+  {
+   "id": 5,
+   "wer": "forscher-numeriker",
+   "op": "hessian2d",
+   "args": {
+    "tau": [
+     0,
+     1
+    ],
+    "nu": 10
+   },
+   "ergebnis": {
+    "eigenwerte": [
+     -1.0857473168868204,
+     11.109749033233474
+    ],
+    "stabil": false
+   },
+   "sek": 0.11
+  },
+  {
+   "id": 6,
+   "wer": "forscher-sparsam",
+   "op": "hessian2d",
+   "args": {
+    "tau": [
+     0,
+     1
+    ],
+    "nu": 3
+   },
+   "ergebnis": {
+    "eigenwerte": [
+     -3.5057713168029636,
+     26.981139804593823
+    ],
+    "stabil": false
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 7,
+   "wer": "forscher-sparsam",
+   "op": "hessian2d",
+   "args": {
+    "tau": [
+     0,
+     1
+    ],
+    "nu": 5
+   },
+   "ergebnis": {
+    "eigenwerte": [
+     5.16430270236512,
+     12.60835014171846
+    ],
+    "stabil": true
+   },
+   "sek": 0.29
+  },
+  {
+   "id": 8,
+   "wer": "forscher-skeptiker",
+   "op": "hessian2d",
+   "args": {
+    "tau": [
+     0,
+     1
+    ],
+    "nu": 2
+   },
+   "ergebnis": {
+    "eigenwerte": [
+     -7.2906738068923005,
+     35.21153012897571
+    ],
+    "stabil": false
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 9,
+   "wer": "forscher-skeptiker",
+   "op": "hessian2d",
+   "args": {
+    "tau": [
+     0,
+     1
+    ],
+    "nu": 4
+   },
+   "ergebnis": {
+    "eigenwerte": [
+     0.8737672088088289,
+     19.51610753447852
+    ],
+    "stabil": true
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 10,
+   "wer": "forscher-skeptiker",
+   "op": "hessian2d",
+   "args": {
+    "tau": [
+     0,
+     1
+    ],
+    "nu": 6
+   },
+   "ergebnis": {
+    "eigenwerte": [
+     7.142302888230034,
+     8.54377267378581
+    ],
+    "stabil": true
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 11,
+   "wer": "forscher-sparsam",
+   "op": "hessian2d",
+   "args": {
+    "tau": [
+     0,
+     1
+    ],
+    "nu": 8
+   },
+   "ergebnis": {
+    "eigenwerte": [
+     0.9219640558222331,
+     11.661456612577226
+    ],
+    "stabil": true
+   },
+   "sek": 0.44
+  },
+  {
+   "id": 12,
+   "wer": "forscher-skeptiker",
+   "op": "hessian2d",
+   "args": {
+    "tau": [
+     0,
+     1
+    ],
+    "nu": 8
+   },
+   "ergebnis": {
+    "eigenwerte": [
+     0.9219640558222331,
+     11.661456612577226
+    ],
+    "stabil": true
+   },
+   "sek": 0.5
+  },
+  {
+   "id": 13,
+   "wer": "forscher-sparsam",
+   "op": "hessian2d",
+   "args": {
+    "tau": [
+     0,
+     1
+    ],
+    "nu": 12
+   },
+   "ergebnis": {
+    "eigenwerte": [
+     -1.296671946052208,
+     8.952358530600613
+    ],
+    "stabil": false
+   },
+   "sek": 0.3
+  },
+  {
+   "id": 14,
+   "wer": "forscher-skeptiker",
+   "op": "hessian2d",
+   "args": {
+    "tau": [
+     0,
+     1
+    ],
+    "nu": 12
+   },
+   "ergebnis": {
+    "eigenwerte": [
+     -1.296671946052208,
+     8.952358530600613
+    ],
+    "stabil": false
+   },
+   "sek": 0.25
+  },
+  {
+   "id": 15,
+   "wer": "forscher-sparsam",
+   "op": "hessian2d",
+   "args": {
+    "tau": [
+     0,
+     1
+    ],
+    "nu": 20
+   },
+   "ergebnis": {
+    "eigenwerte": [
+     -0.22406939655193053,
+     1.8746495164048693
+    ],
+    "stabil": false
+   },
+   "sek": 0.24
+  },
+  {
+   "id": 16,
+   "wer": "forscher-skeptiker",
+   "op": "hessian2d",
+   "args": {
+    "tau": [
+     0,
+     1
+    ],
+    "nu": 20
+   },
+   "ergebnis": {
+    "eigenwerte": [
+     -0.22406939655193053,
+     1.8746495164048693
+    ],
+    "stabil": false
+   },
+   "sek": 0.32
+  },
+  {
+   "id": 17,
+   "wer": "forscher-theoretiker",
+   "op": "hessian2d",
+   "args": {
+    "tau": [
+     0,
+     1
+    ],
+    "nu": 2
+   },
+   "ergebnis": {
+    "eigenwerte": [
+     -7.2906738068923005,
+     35.21153012897571
+    ],
+    "stabil": false
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 18,
+   "wer": "forscher-theoretiker",
+   "op": "hessian2d",
+   "args": {
+    "tau": [
+     0,
+     1
+    ],
+    "nu": 4
+   },
+   "ergebnis": {
+    "eigenwerte": [
+     0.8737672088088289,
+     19.51610753447852
+    ],
+    "stabil": true
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 19,
+   "wer": "forscher-theoretiker",
+   "op": "hessian2d",
+   "args": {
+    "tau": [
+     0,
+     1
+    ],
+    "nu": 6
+   },
+   "ergebnis": {
+    "eigenwerte": [
+     7.142302888230034,
+     8.54377267378581
+    ],
+    "stabil": true
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 20,
+   "wer": "forscher-theoretiker",
+   "op": "hessian2d",
+   "args": {
+    "tau": [
+     0,
+     1
+    ],
+    "nu": 8
+   },
+   "ergebnis": {
+    "eigenwerte": [
+     0.9219640558222331,
+     11.661456612577226
+    ],
+    "stabil": true
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 21,
+   "wer": "forscher-theoretiker",
+   "op": "hessian2d",
+   "args": {
+    "tau": [
+     0,
+     1
+    ],
+    "nu": 12
+   },
+   "ergebnis": {
+    "eigenwerte": [
+     -1.296671946052208,
+     8.952358530600613
+    ],
+    "stabil": false
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 22,
+   "wer": "forscher-sparsam",
+   "op": "rect_optimum",
+   "args": {
+    "nu": 8,
+    "y_lo": 0.5,
+    "y_hi": 2.0
+   },
+   "ergebnis": {
+    "y": 1.00000004482148,
+    "T": 1.552401212575746
+   },
+   "sek": 0.99
+  },
+  {
+   "id": 23,
+   "wer": "forscher-skeptiker",
+   "op": "rect_optimum",
+   "args": {
+    "nu": 10,
+    "y_lo": 0.5,
+    "y_hi": 2.0
+   },
+   "ergebnis": {
+    "y": 1.0998011111753185,
+    "T": 0.7597084276608651
+   },
+   "sek": 1.39
+  },
+  {
+   "id": 24,
+   "wer": "forscher-theoretiker",
+   "op": "rect_optimum",
+   "args": {
+    "nu": 6,
+    "y_lo": 1.0,
+    "y_hi": 3.0
+   },
+   "ergebnis": {
+    "y": 1.000000072232061,
+    "T": 3.2499743124416147
+   },
+   "sek": 3.1
+  },
+  {
+   "id": 25,
+   "wer": "forscher-theoretiker",
+   "op": "rect_optimum",
+   "args": {
+    "nu": 12,
+    "y_lo": 1.0,
+    "y_hi": 3.0
+   },
+   "ergebnis": {
+    "y": 1.140547193106349,
+    "T": 0.3719422445994461
+   },
+   "sek": 0.7
+  },
+  {
+   "id": 26,
+   "wer": "forscher-numeriker",
+   "op": "minimize2d",
+   "args": {
+    "nu": 6
+   },
+   "ergebnis": {
+    "tau": [
+     0.0,
+     1.0
+    ],
+    "T": 3.2499743124415903,
+    "typ": "quadratisch",
+    "lokale_minima": [
+     {
+      "tau": [
+       0.0,
+       1.0
+      ],
+      "T": 3.2499743124415903,
+      "typ": "quadratisch"
+     }
+    ]
+   },
+   "sek": 25.63
+  },
+  {
+   "id": 27,
+   "wer": "forscher-numeriker",
+   "op": "rect_optimum",
+   "args": {
+    "nu": 6,
+    "y_lo": 0.5,
+    "y_hi": 2
+   },
+   "ergebnis": {
+    "y": 0.9999999969226824,
+    "T": 3.249974312441581
+   },
+   "sek": 1.73
+  },
+  {
+   "id": 28,
+   "wer": "forscher-numeriker",
+   "op": "hessian2d",
+   "args": {
+    "tau": [
+     0,
+     1
+    ],
+    "nu": 7
+   },
+   "ergebnis": {
+    "eigenwerte": [
+     3.323792240328416,
+     10.688897327915114
+    ],
+    "stabil": true
+   },
+   "sek": 1.24
+  },
+  {
+   "id": 29,
+   "wer": "forscher-numeriker",
+   "op": "hessian2d",
+   "args": {
+    "tau": [
+     0,
+     1
+    ],
+    "nu": 8
+   },
+   "ergebnis": {
+    "eigenwerte": [
+     0.9219640558222331,
+     11.661456612577226
+    ],
+    "stabil": true
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 30,
+   "wer": "forscher-numeriker",
+   "op": "hessian2d",
+   "args": {
+    "tau": [
+     0,
+     1
+    ],
+    "nu": 9
+   },
+   "ergebnis": {
+    "eigenwerte": [
+     -0.43186666592864853,
+     11.706464431382457
+    ],
+    "stabil": false
+   },
+   "sek": 1.16
+  },
+  {
+   "id": 31,
+   "wer": "forscher-numeriker",
+   "op": "hessian2d",
+   "args": {
+    "tau": [
+     0,
+     1
+    ],
+    "nu": 8.5
+   },
+   "ergebnis": {
+    "eigenwerte": [
+     0.13729920589344857,
+     11.781857695347675
+    ],
+    "stabil": true
+   },
+   "sek": 1.04
+  },
+  {
+   "id": 32,
+   "wer": "forscher-numeriker",
+   "op": "hessian2d",
+   "args": {
+    "tau": [
+     0,
+     1
+    ],
+    "nu": 7.5
+   },
+   "ergebnis": {
+    "eigenwerte": [
+     1.968108630123755,
+     11.308674369381322
+    ],
+    "stabil": true
+   },
+   "sek": 1.29
+  },
+  {
+   "id": 33,
+   "wer": "forscher-numeriker",
+   "op": "hessian2d",
+   "args": {
+    "tau": [
+     0,
+     1
+    ],
+    "nu": 3.5
+   },
+   "ergebnis": {
+    "eigenwerte": [
+     -1.3704741776976448,
+     23.251341426000494
+    ],
+    "stabil": false
+   },
+   "sek": 0.93
+  },
+  {
+   "id": 34,
+   "wer": "forscher-sparsam",
+   "op": "minimize2d",
+   "args": {
+    "nu": 8
+   },
+   "ergebnis": {
+    "tau": [
+     0.0,
+     1.0
+    ],
+    "T": 1.5524012125757505,
+    "typ": "quadratisch",
+    "lokale_minima": [
+     {
+      "tau": [
+       0.0,
+       1.0
+      ],
+      "T": 1.5524012125757505,
+      "typ": "quadratisch"
+     }
+    ]
+   },
+   "sek": 40.6
+  },
+  {
+   "id": 35,
+   "wer": "forscher-skeptiker",
+   "op": "minimize2d",
+   "args": {
+    "nu": 10
+   },
+   "ergebnis": {
+    "tau": [
+     2.6815039352087345e-08,
+     1.0998012115859472
+    ],
+    "T": 0.7597084276608771,
+    "typ": "rechteckig(y=1.0998)",
+    "lokale_minima": [
+     {
+      "tau": [
+       2.6815039352087345e-08,
+       1.0998012115859472
+      ],
+      "T": 0.7597084276608771,
+      "typ": "rechteckig(y=1.0998)"
+     }
+    ]
+   },
+   "sek": 40.73
+  },
+  {
+   "id": 36,
+   "wer": "forscher-theoretiker",
+   "op": "minimize2d",
+   "args": {
+    "nu": 8
+   },
+   "ergebnis": {
+    "tau": [
+     0.0,
+     1.0
+    ],
+    "T": 1.5524012125757505,
+    "typ": "quadratisch",
+    "lokale_minima": [
+     {
+      "tau": [
+       0.0,
+       1.0
+      ],
+      "T": 1.5524012125757505,
+      "typ": "quadratisch"
+     }
+    ]
+   },
+   "sek": 41.14
+  },
+  {
+   "id": 37,
+   "wer": "forscher-skeptiker",
+   "op": "hessian2d",
+   "args": {
+    "tau": [
+     0,
+     1
+    ],
+    "nu": 8.4
+   },
+   "ergebnis": {
+    "eigenwerte": [
+     0.275571550134579,
+     11.774616010651329
+    ],
+    "stabil": true
+   },
+   "sek": 0.83
+  },
+  {
+   "id": 38,
+   "wer": "forscher-skeptiker",
+   "op": "hessian2d",
+   "args": {
+    "tau": [
+     0,
+     1
+    ],
+    "nu": 8.8
+   },
+   "ergebnis": {
+    "eigenwerte": [
+     -0.22727541149070163,
+     11.757778951126951
+    ],
+    "stabil": false
+   },
+   "sek": 0.82
+  },
+  {
+   "id": 39,
+   "wer": "forscher-theoretiker",
+   "op": "hessian2d",
+   "args": {
+    "tau": [
+     0,
+     1
+    ],
+    "nu": 8.5
+   },
+   "ergebnis": {
+    "eigenwerte": [
+     0.13729920589344857,
+     11.781857695347675
+    ],
+    "stabil": true
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 40,
+   "wer": "forscher-theoretiker",
+   "op": "hessian2d",
+   "args": {
+    "tau": [
+     0,
+     1
+    ],
+    "nu": 9
+   },
+   "ergebnis": {
+    "eigenwerte": [
+     -0.43186666592864853,
+     11.706464431382457
+    ],
+    "stabil": false
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 41,
+   "wer": "forscher-skeptiker",
+   "op": "hessian2d",
+   "args": {
+    "tau": [
+     0,
+     1
+    ],
+    "nu": 9.0
+   },
+   "ergebnis": {
+    "eigenwerte": [
+     -0.43186666592864853,
+     11.706464431382457
+    ],
+    "stabil": false
+   },
+   "sek": 1.13
+  },
+  {
+   "id": 42,
+   "wer": "forscher-theoretiker",
+   "op": "hessian2d",
+   "args": {
+    "tau": [
+     0,
+     1
+    ],
+    "nu": 9.5
+   },
+   "ergebnis": {
+    "eigenwerte": [
+     -0.8273381403578473,
+     11.471219890535345
+    ],
+    "stabil": false
+   },
+   "sek": 0.83
+  },
+  {
+   "id": 43,
+   "wer": "forscher-theoretiker",
+   "op": "hessian2d",
+   "args": {
+    "tau": [
+     0,
+     1
+    ],
+    "nu": 10
+   },
+   "ergebnis": {
+    "eigenwerte": [
+     -1.0857473168868204,
+     11.109749033233474
+    ],
+    "stabil": false
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 44,
+   "wer": "forscher-skeptiker",
+   "op": "hessian2d",
+   "args": {
+    "tau": [
+     0,
+     1
+    ],
+    "nu": 9.3
+   },
+   "ergebnis": {
+    "eigenwerte": [
+     -0.6875268093453624,
+     11.582281947419837
+    ],
+    "stabil": false
+   },
+   "sek": 0.82
+  },
+  {
+   "id": 45,
+   "wer": "forscher-theoretiker",
+   "op": "hessian2d",
+   "args": {
+    "tau": [
+     0,
+     1
+    ],
+    "nu": 10.5
+   },
+   "ergebnis": {
+    "eigenwerte": [
+     -1.2382876262984066,
+     10.652399109856159
+    ],
+    "stabil": false
+   },
+   "sek": 0.93
+  },
+  {
+   "id": 46,
+   "wer": "forscher-skeptiker",
+   "op": "hessian2d",
+   "args": {
+    "tau": [
+     0,
+     1
+    ],
+    "nu": 9.6
+   },
+   "ergebnis": {
+    "eigenwerte": [
+     -0.8889086119401313,
+     11.408001415302849
+    ],
+    "stabil": false
+   },
+   "sek": 0.92
+  },
+  {
+   "id": 47,
+   "wer": "forscher-theoretiker",
+   "op": "hessian2d",
+   "args": {
+    "tau": [
+     0,
+     1
+    ],
+    "nu": 11
+   },
+   "ergebnis": {
+    "eigenwerte": [
+     -1.310901841772294,
+     10.125794014048672
+    ],
+    "stabil": false
+   },
+   "sek": 0.7
+  },
+  {
+   "id": 48,
+   "wer": "forscher-skeptiker",
+   "op": "hessian2d",
+   "args": {
+    "tau": [
+     0,
+     1
+    ],
+    "nu": 10.0
+   },
+   "ergebnis": {
+    "eigenwerte": [
+     -1.0857473168868204,
+     11.109749033233474
+    ],
+    "stabil": false
+   },
+   "sek": 0.75
+  },
+  {
+   "id": 49,
+   "wer": "forscher-sparsam",
+   "op": "minimize2d",
+   "args": {
+    "nu": 15
+   },
+   "ergebnis": {
+    "tau": [
+     1.6306457238706495e-08,
+     1.170170652396107
+    ],
+    "T": 0.12719603974286744,
+    "typ": "rechteckig(y=1.1702)",
+    "lokale_minima": [
+     {
+      "tau": [
+       1.6306457238706495e-08,
+       1.170170652396107
+      ],
+      "T": 0.12719603974286744,
+      "typ": "rechteckig(y=1.1702)"
+     }
+    ]
+   },
+   "sek": 19.7
+  },
+  {
+   "id": 50,
+   "wer": "forscher-sparsam",
+   "op": "hessian2d",
+   "args": {
+    "tau": [
+     0,
+     1
+    ],
+    "nu": 8.5
+   },
+   "ergebnis": {
+    "eigenwerte": [
+     0.13729920589344857,
+     11.781857695347675
+    ],
+    "stabil": true
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 51,
+   "wer": "forscher-sparsam",
+   "op": "hessian2d",
+   "args": {
+    "tau": [
+     0,
+     1
+    ],
+    "nu": 9
+   },
+   "ergebnis": {
+    "eigenwerte": [
+     -0.43186666592864853,
+     11.706464431382457
+    ],
+    "stabil": false
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 52,
+   "wer": "forscher-sparsam",
+   "op": "hessian2d",
+   "args": {
+    "tau": [
+     0,
+     1
+    ],
+    "nu": 9.5
+   },
+   "ergebnis": {
+    "eigenwerte": [
+     -0.8273381403578473,
+     11.471219890535345
+    ],
+    "stabil": false
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 53,
+   "wer": "forscher-sparsam",
+   "op": "hessian2d",
+   "args": {
+    "tau": [
+     0,
+     1
+    ],
+    "nu": 10
+   },
+   "ergebnis": {
+    "eigenwerte": [
+     -1.0857473168868204,
+     11.109749033233474
+    ],
+    "stabil": false
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 54,
+   "wer": "forscher-sparsam",
+   "op": "hessian2d",
+   "args": {
+    "tau": [
+     0,
+     1
+    ],
+    "nu": 11
+   },
+   "ergebnis": {
+    "eigenwerte": [
+     -1.310901841772294,
+     10.125794014048672
+    ],
+    "stabil": false
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 55,
+   "wer": "forscher-sparsam",
+   "op": "hessian2d",
+   "args": {
+    "tau": [
+     0,
+     1
+    ],
+    "nu": 7
+   },
+   "ergebnis": {
+    "eigenwerte": [
+     3.323792240328416,
+     10.688897327915114
+    ],
+    "stabil": true
+   },
+   "sek": 0.0
+  }
+ ],
+ "sek": 96.0,
+ "frage": "Q7",
+ "salt": 0,
+ "bedingung": "B"
+}

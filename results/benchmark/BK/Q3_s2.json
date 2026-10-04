@@ -1,0 +1,324 @@
+{
+ "antwort": {
+  "antwort": "quadratisch",
+  "zahl": null,
+  "konfidenz": 0.98,
+  "pruefung": {
+   "typ": "argmin2d",
+   "nu": 7,
+   "erwartet": "quadratisch"
+  },
+  "begruendung": "Die globale Suche (E0) mit minimize2d findet bei ν=7 das quadratische Gitter τ=[0, 1] als eindeutiges Minimum mit T=2.233446. Der Energievergleich (E2 vs E1) zeigt quadratisch 27% niedriger als hexagonal. Die Hessian-Eigenwerte (E4) sind beide positiv, was lokale Stabilität bestätigt, während hexagonal (E3) mit zwei negativen Eigenwerten instabil ist. Rechteckgitter-Optimierung (E5) und Vorzeichenwechsel-Analyse (E7) schließen alternative Kandidaten aus.",
+  "stimmen": "Stufe 1/4 (sparsam, haiku)"
+ },
+ "level": "computed (Code-Prüfer bestanden)",
+ "forscher": [
+  {
+   "strategie": "sparsam",
+   "runden": [
+    {
+     "ueberlegung": "Die Aufgabe verlangt nach dem 2D-Gitter, das T_nu bei nu=7 minimiert. Strategie: (1) Globale Suche mit minimize2d liefert den direkten Kandidaten; (2) Vergleich mit bekannten hochsymmetrischen Gittern (hexagonal, quadratisch); (3) Stabilitätsprüfung des Kandidaten via Hessian; (4) Falls das Minimum ein Rechteckgitter ist, Optimierung mit rect_optimum zur genauen Bestimmung des Seitenverhältnisses; (5) Optional: Verifikation durch Energie-Vergleiche. Mit nu=7 ist nicht klar, ob hexagonal oder eine weniger symmetrische Struktur optimal ist - minimize2d sollte das aufdecken. Maximale Informationsdichte durch Fokus auf globale Suche + Stabilitätsprüfung + Referenzvergleiche.",
+     "plan": [
+      {
+       "op": "minimize2d",
+       "args": {
+        "nu": 7
+       }
+      },
+      {
+       "op": "energy2d",
+       "args": {
+        "tau": [
+         0.5,
+         0.8660254
+        ],
+        "nu": 7
+       }
+      },
+      {
+       "op": "energy2d",
+       "args": {
+        "tau": [
+         0,
+         1
+        ],
+        "nu": 7
+       }
+      },
+      {
+       "op": "hessian2d",
+       "args": {
+        "tau": [
+         0.5,
+         0.8660254
+        ],
+        "nu": 7
+       }
+      },
+      {
+       "op": "hessian2d",
+       "args": {
+        "tau": [
+         0,
+         1
+        ],
+        "nu": 7
+       }
+      },
+      {
+       "op": "rect_optimum",
+       "args": {
+        "nu": 7,
+        "y_lo": 0.5,
+        "y_hi": 3
+       }
+      },
+      {
+       "op": "asymptote",
+       "args": {
+        "nus": [
+         3,
+         5,
+         7,
+         9,
+         11
+        ]
+       }
+      },
+      {
+       "op": "crossing2d",
+       "args": {
+        "tau_a": [
+         0.5,
+         0.8660254
+        ],
+        "tau_b": [
+         0,
+         1
+        ],
+        "nu_lo": 5,
+        "nu_hi": 10
+       }
+      }
+     ]
+    },
+    {
+     "antwort": "quadratisch",
+     "zahl": null,
+     "konfidenz": 0.98,
+     "pruefung": {
+      "typ": "argmin2d",
+      "nu": 7,
+      "erwartet": "quadratisch"
+     },
+     "begruendung": "Die globale Suche (E0) mit minimize2d findet bei ν=7 das quadratische Gitter τ=[0, 1] als eindeutiges Minimum mit T=2.233446. Der Energievergleich (E2 vs E1) zeigt quadratisch 27% niedriger als hexagonal. Die Hessian-Eigenwerte (E4) sind beide positiv, was lokale Stabilität bestätigt, während hexagonal (E3) mit zwei negativen Eigenwerten instabil ist. Rechteckgitter-Optimierung (E5) und Vorzeichenwechsel-Analyse (E7) schließen alternative Kandidaten aus."
+    }
+   ],
+   "experimente": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+   ],
+   "final": {
+    "antwort": "quadratisch",
+    "zahl": null,
+    "konfidenz": 0.98,
+    "pruefung": {
+     "typ": "argmin2d",
+     "nu": 7,
+     "erwartet": "quadratisch"
+    },
+    "begruendung": "Die globale Suche (E0) mit minimize2d findet bei ν=7 das quadratische Gitter τ=[0, 1] als eindeutiges Minimum mit T=2.233446. Der Energievergleich (E2 vs E1) zeigt quadratisch 27% niedriger als hexagonal. Die Hessian-Eigenwerte (E4) sind beide positiv, was lokale Stabilität bestätigt, während hexagonal (E3) mit zwei negativen Eigenwerten instabil ist. Rechteckgitter-Optimierung (E5) und Vorzeichenwechsel-Analyse (E7) schließen alternative Kandidaten aus."
+   },
+   "modell": "haiku",
+   "pruefung": {
+    "bestanden": true,
+    "grund": "Prüfer-Suche (18er-Raster, 6 Polituren, R=(48, 64)): quadratisch"
+   }
+  }
+ ],
+ "experimente": [
+  {
+   "id": 0,
+   "wer": "forscher-sparsam",
+   "op": "minimize2d",
+   "args": {
+    "nu": 7
+   },
+   "ergebnis": {
+    "tau": [
+     0.0,
+     1.0
+    ],
+    "T": 2.233446174786402,
+    "typ": "quadratisch",
+    "lokale_minima": [
+     {
+      "tau": [
+       0.0,
+       1.0
+      ],
+      "T": 2.233446174786402,
+      "typ": "quadratisch"
+     }
+    ]
+   },
+   "sek": 4.06
+  },
+  {
+   "id": 1,
+   "wer": "forscher-sparsam",
+   "op": "energy2d",
+   "args": {
+    "tau": [
+     0.5,
+     0.8660254
+    ],
+    "nu": 7
+   },
+   "ergebnis": {
+    "T": 2.8543520638117146,
+    "err": 0.0
+   },
+   "sek": 0.01
+  },
+  {
+   "id": 2,
+   "wer": "forscher-sparsam",
+   "op": "energy2d",
+   "args": {
+    "tau": [
+     0,
+     1
+    ],
+    "nu": 7
+   },
+   "ergebnis": {
+    "T": 2.233446174786402,
+    "err": 0.0
+   },
+   "sek": 0.01
+  },
+  {
+   "id": 3,
+   "wer": "forscher-sparsam",
+   "op": "hessian2d",
+   "args": {
+    "tau": [
+     0.5,
+     0.8660254
+    ],
+    "nu": 7
+   },
+   "ergebnis": {
+    "eigenwerte": [
+     -12.092963656895606,
+     -12.092898927118512
+    ],
+    "stabil": false
+   },
+   "sek": 0.1
+  },
+  {
+   "id": 4,
+   "wer": "forscher-sparsam",
+   "op": "hessian2d",
+   "args": {
+    "tau": [
+     0,
+     1
+    ],
+    "nu": 7
+   },
+   "ergebnis": {
+    "eigenwerte": [
+     3.323792240328416,
+     10.688897327915114
+    ],
+    "stabil": true
+   },
+   "sek": 0.09
+  },
+  {
+   "id": 5,
+   "wer": "forscher-sparsam",
+   "op": "rect_optimum",
+   "args": {
+    "nu": 7,
+    "y_lo": 0.5,
+    "y_hi": 3
+   },
+   "ergebnis": {
+    "y": 1.0000000011026062,
+    "T": 2.233446174786396
+   },
+   "sek": 0.17
+  },
+  {
+   "id": 6,
+   "wer": "forscher-sparsam",
+   "op": "asymptote",
+   "args": {
+    "nus": [
+     3,
+     5,
+     7,
+     9,
+     11
+    ]
+   },
+   "ergebnis": {
+    "nus": [
+     3,
+     5,
+     7,
+     9,
+     11
+    ],
+    "ys": [
+     1.1000000578491282,
+     1.1000000578491282,
+     1.1000000578491282,
+     1.1000000881568972,
+     1.1240076421556013
+    ],
+    "y_inf_fit": 1.1497601163463813,
+    "kappa_fit": 0.4643697302089987,
+    "c2": 0.9525963356182281
+   },
+   "sek": 0.68
+  },
+  {
+   "id": 7,
+   "wer": "forscher-sparsam",
+   "op": "crossing2d",
+   "args": {
+    "tau_a": [
+     0.5,
+     0.8660254
+    ],
+    "tau_b": [
+     0,
+     1
+    ],
+    "nu_lo": 5,
+    "nu_hi": 10
+   },
+   "ergebnis": {
+    "gefunden": false,
+    "diff_lo": 0.2918747540489095,
+    "diff_hi": 0.6441613064864027
+   },
+   "sek": 0.04
+  }
+ ],
+ "sek": 46.5,
+ "frage": "Q3",
+ "salt": 2,
+ "bedingung": "BK"
+}

@@ -1,0 +1,42 @@
+B Q4 0 {"antwort": "rechteckig", "zahl": 1.0998, "konfidenz": 0.88, "pruefung": {"typ": "argmin2d", "nu": 10, "erwartet": "rechteckig", "y": 1.0998}, "begruendung": "D
+B Q3 0 {"antwort": "quadratisch", "zahl": null, "konfidenz": 0.93, "pruefung": {"typ": "argmin2d", "nu": 7, "erwartet": "quadratisch"}, "begruendung": "Die globale Suc
+B Q1 0 {"antwort": "hexagonal", "zahl": null, "konfidenz": 0.95, "pruefung": {"typ": "argmin2d", "nu": 3, "erwartet": "hexagonal"}, "begruendung": "Die globale Suche (
+B Q7 0 {"antwort": "unbekannt", "zahl": null, "konfidenz": 0.0, "stimmen": "0/4 geprüft"}
+B Q6 0 {"antwort": "unstetig", "zahl": 3.9184, "konfidenz": 0.9, "pruefung": {"typ": "koexistenz", "nu": 3.918}, "begruendung": "Die Energiedifferenz T(hex) − T(quadr)
+/home/user/HackNation-Ninja-Turtles/asd/domains/lattice.py:59: RuntimeWarning: overflow encountered in exp
+  return float(np.exp(-nu * L).sum())
+/usr/local/lib/python3.11/dist-packages/scipy/optimize/_optimize.py:2357: RuntimeWarning: invalid value encountered in scalar multiply
+  q = (xf - fulc) * (fx - fnfc)
+B Q8 0 {"antwort": "y_inf ≈ 1.2496 (numerisch, vermutlich 5/4 = 1.25; keine gesicherte geschlossene Form)", "zahl": 1.2496, "konfidenz": 0.6, "pruefung": {"typ": "gren
+B Q7 0 {"antwort": "Das quadratische Gitter verliert seine Stabilität gegen rechteckige Verformung bei nu_2 ≈ 8.6. Der kleinste Hesse-Eigenwert wechselt dort das Vorze
+/usr/local/lib/python3.11/dist-packages/scipy/optimize/_optimize.py:1190: LineSearchWarning: The line search algorithm did not converge
+  ret = line_search_wolfe2(f, fprime, xk, pk, gfk,
+B Q10 0 {"antwort": "FCC verliert die lokale Stabilität entlang des Bain-Pfads bei nu_c ≈ 3,75", "zahl": 3.752, "konfidenz": 0.85, "pruefung": {"typ": "vorzeichenwechse
+B Q5 0 {"antwort": "nu* ≈ 3.9184 (Wechsel von hexagonal zu quadratisch)", "zahl": 3.91837, "konfidenz": 0.85, "pruefung": {"typ": "vorzeichenwechsel", "groesse": "diff
+B Q11 0 {"antwort": "kappa ≈ 0.955 (y_inf = sqrt((sqrt(17)-1)/2) ≈ 1.24962)", "zahl": 0.955, "konfidenz": 0.8, "pruefung": {"typ": "grenzwert", "groesse": "kappa", "erw
+B Q12 0 {"antwort": "i (quadratisches Gitter, tau = i)", "zahl": null, "konfidenz": 0.93, "pruefung": {"typ": "argmin2d", "nu": 6, "erwartet": "quadratisch"}, "begruend
+B Q1 1 {"antwort": "hexagonal", "zahl": null, "konfidenz": 0.95, "pruefung": {"typ": "argmin2d", "nu": 3, "erwartet": "hexagonal"}, "begruendung": "Die globale Suche m
+B Q9 0 {"antwort": "bcc", "zahl": 13.1146, "konfidenz": 0.93, "pruefung": {"typ": "argmin3d", "nu": 5, "erwartet": "bcc"}, "begruendung": "Bei nu=5 ist T(bcc)=13.1146 
+B Q2 1 {"antwort": "quadratisch", "zahl": null, "konfidenz": 0.93, "pruefung": {"typ": "argmin2d", "nu": 5, "erwartet": "quadratisch"}, "begruendung": "Die globale Suc
+B Q3 1 {"antwort": "quadratisch", "zahl": null, "konfidenz": 0.95, "pruefung": {"typ": "argmin2d", "nu": 7, "erwartet": "quadratisch"}, "begruendung": "Die globale Suc
+B Q4 1 {"antwort": "rechteckig", "zahl": 1.0998, "konfidenz": 0.88, "pruefung": {"typ": "argmin2d", "nu": 10, "erwartet": "rechteckig", "y": 1.0998}, "begruendung": "m
+B Q7 1 {"antwort": "nu_2 ≈ 8,6 (kleinster Hesse-Eigenwert am quadratischen Gitter wechselt zwischen nu=8,5 und 9 das Vorzeichen)", "zahl": 8.605, "konfidenz": 0.7, "pr
+B Q5 1 {"antwort": "nu* ≈ 3.9184 (Wechsel hexagonal → quadratisch)", "zahl": 3.91837, "konfidenz": 0.8, "pruefung": {"typ": "vorzeichenwechsel", "groesse": "diff_hex_q
+B Q6 1 {"antwort": "unstetig", "zahl": 3.9184, "konfidenz": 0.9, "pruefung": {"typ": "koexistenz", "nu": 3.9}, "begruendung": "Die Energiekurven von hexagonalem und qu
+B Q10 1 {"antwort": "nu_c ≈ 3.752", "zahl": 3.752, "konfidenz": 0.93, "pruefung": {"typ": "vorzeichenwechsel", "groesse": "bain_fcc", "nu_lo": 3.73, "nu_hi": 3.77}, "be
+B Q8 1 {"antwort": "y_inf = sqrt((sqrt(17)-1)/2) ≈ 1.2496", "zahl": 1.24962, "konfidenz": 0.9, "pruefung": {"typ": "grenzwert", "groesse": "y_inf", "erwartet": 1.24962
+B Q11 1 {"antwort": "kappa ≈ 0.954 (y_inf = sqrt((sqrt(17)-1)/2) ≈ 1.2496)", "zahl": 0.954, "konfidenz": 0.88, "pruefung": {"typ": "grenzwert", "groesse": "kappa", "erw
+B Q12 1 {"antwort": "i (quadratisches Gitter, tau = i)", "zahl": null, "konfidenz": 0.9, "pruefung": {"typ": "argmin2d", "nu": 6, "erwartet": "quadratisch"}, "begruendu
+B Q1 2 {"antwort": "hexagonal", "zahl": null, "konfidenz": 0.95, "pruefung": {"typ": "argmin2d", "nu": 3, "erwartet": "hexagonal"}, "begruendung": "Die globale Suche m
+B Q2 2 {"antwort": "quadratisch", "zahl": null, "konfidenz": 0.93, "pruefung": {"typ": "argmin2d", "nu": 5, "erwartet": "quadratisch"}, "begruendung": "Die globale Suc
+B Q9 1 {"antwort": "bcc", "zahl": null, "konfidenz": 0.93, "pruefung": {"typ": "argmin3d", "nu": 5, "erwartet": "bcc"}, "begruendung": "Bei nu=5 ist T(bcc)=13.1146 kle
+B Q3 2 {"antwort": "quadratisch", "zahl": null, "konfidenz": 0.93, "pruefung": {"typ": "argmin2d", "nu": 7, "erwartet": "quadratisch"}, "begruendung": "minimize2d find
+B Q4 2 {"antwort": "rechteckig", "zahl": 1.0998, "konfidenz": 0.85, "pruefung": {"typ": "argmin2d", "nu": 10, "erwartet": "rechteckig", "y": 1.0998}, "begruendung": "m
+B Q7 2 {"antwort": "nu_2 ≈ 8.6 (das quadratische Gitter wird zwischen nu=8.5 und nu=9 instabil)", "zahl": 8.6, "konfidenz": 0.75, "pruefung": {"typ": "vorzeichenwechse
+B Q6 2 {"antwort": "unstetig", "zahl": 3.918, "konfidenz": 0.8, "pruefung": {"typ": "koexistenz", "nu": 3.9}, "begruendung": "Bei nu=3.9 sind beide Hesse-Matrizen posi
+B Q5 2 {"antwort": "nu* ≈ 3.9184", "zahl": 3.91836, "konfidenz": 0.93, "pruefung": {"typ": "vorzeichenwechsel", "groesse": "diff_hex_quadrat", "nu_lo": 3.9, "nu_hi": 3
+B Q10 2 {"antwort": "nu_c ≈ 3.752", "zahl": 3.752, "konfidenz": 0.9, "pruefung": {"typ": "vorzeichenwechsel", "groesse": "bain_fcc", "nu_lo": 3.74, "nu_hi": 3.78}, "beg
+B Q8 2 {"antwort": "y_inf = sqrt((sqrt(17)-1)/2) ≈ 1.24962", "zahl": 1.249621, "konfidenz": 0.9, "pruefung": {"typ": "grenzwert", "groesse": "y_inf", "erwartet": 1.249
+B Q11 2 {"antwort": "kappa ≈ 0.955", "zahl": 0.955, "konfidenz": 0.85, "pruefung": {"typ": "grenzwert", "groesse": "kappa", "erwartet": 0.955, "toleranz": 0.02}, "begru
+B Q12 2 {"antwort": "i (quadratisches Gitter, tau = i)", "zahl": null, "konfidenz": 0.9, "pruefung": {"typ": "argmin2d", "nu": 6, "erwartet": "quadratisch"}, "begruendu
+B Q9 2 {"antwort": "bcc", "zahl": null, "konfidenz": 0.93, "pruefung": {"typ": "argmin3d", "nu": 5, "erwartet": "bcc"}, "begruendung": "Bei nu=5 gilt T(bcc)=13.1146 < 

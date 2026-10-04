@@ -1,0 +1,1000 @@
+Preprint
+Mathematical Physics
+
+
+
+Optimal lattices for a three-body power-law energy: steep-decay
+limits, computer-assisted proofs and the minima of the modular
+graph functions Cs,s,s
+Ali Suleman
+Independent researcher, Zürich, Switzerland
+
+Preprint, September 2026
+
+
+Abstract We study which Bravais lattice of fixed density                 1 Introduction
+minimises the three-body energy Tν (Λ) = ∑′x,y∈Λ (|x| |y| |x −           Which periodic arrangement of points minimises a given
+y|)−ν , the sum over all lattice triangles through the origin            interaction energy is one of the classical questions linking
+of the product of their side lengths to the power −ν. In two             number theory, geometry and the physics of crystals. For
+dimensions T2s coincides, up to a factor, with the two-loop              pair interactions a great deal is known: for completely mono-
+modular graph function Cs,s,s (τ). We prove that in the steep-           tone functions of the squared distance the hexagonal lattice
+decay limit ν → ∞ the minimisers
+                            q√        converge to the rectangular        is optimal in the plane among all lattices of fixed density
+lattice with aspect ratio ( 17 − 1)/2 in d = 2, by solving               [1, 2, 3, 4, 5], universal optimality has been established for
+exactly the associated max–min problem for the smallest tri-             E8 and the Leech lattice [6], and phase transitions between
+angle product, and to the body-centred cubic lattice in d = 3,           optimal lattices have been classified for many two-term and
+by a computer-assisted argument. For finite exponents we                 ratio-type pair energies [7, 8, 9]. In three dimensions the opti-
+give computer-assisted proofs, carried out in rigorous inter-            mality of the face-centred cubic lattice for Epstein zeta func-
+val arithmetic, that C2,2,2 , C3,3,3 and C4,4,4 attain their mini-       tions (the Sarnak–Strömbergsson conjecture) has recently
+mum only at the square point τ = i (whereas C1,1,1 is minimal            been claimed [10]. We refer to [18] for a survey of the
+at the hexagonal point), that the square lattice is the unique           crystallisation problem.
+minimiser also for ν = 5, 7, that the hexagonal lattice is the              Much less is known for genuine many-body energies. The
+unique minimiser for ν = 3.5, that the hexagonal and square              simplest one is the product-form three-body power law
+energies cross in (3.918364, 3.918366), that the square lat-                                                              −ν
+                                                                                       Tν (Λ) = ∑          |x| |y| |x − y|    ,       (1)
+tice loses local minimality at some ν2 ∈ (8.604, 8.608),                                        x,y∈Λ\{0}
+and that for the exponents ν = 9, 9.5, 10, 11, . . . , 20 and                                      x̸=y
+ν = 22, 24, . . . , 30 the minimiser is a rectangular lattice. To-
+gether this determines the minimiser of Cs,s,s for every in-             which converges for ν > 2d/3. At ν = 3 it is the radial
+teger 1 ≤ s ≤ 15. Beyond the limits, we show that for all                part of the Axilrod–Teller–Muto (ATM) triple-dipole energy;
+sufficiently large exponents the minimiser is exactly BCC in             under the name three-body zeta function it was introduced
+d = 3. In pd = 2 it is the rectangular lattice whose aspect ratio        and evaluated for selected lattices and along the Bain path
+solves (y 1 + y2 /2)ν = 4(y2 − 1)/(3(y2 + 1)) up to an ex-               in [11], and efficient algorithms for such many-body lattice
+ponentially small error, so that yν = y∞ −κ/ν +O(ν −2 ) with             sums were developed in [12, 13]. We stress that (1) is a
+an explicit κ ≈ 0.95489. This rests on a local uniqueness                model energy: physical three-body dispersion carries an an-
+principle for smoothed max–min problems, a many-body                     gular factor and always comes with pair terms. Three-body
+version of Ryshkov’s argument for the Epstein zeta func-                 terms do appear in rigorous crystallisation results for finite
+tion. The computer-assisted proofs rest on a majorant series             particle systems, but in a different form: as angular poten-
+that bounds all Taylor coefficients of every summand uni-                tials that favour prescribed bond angles, in the square lattice
+formly in the lattice vectors; the elementary planar results             [19, 20], in general stratified settings [21, 22] and for the
+are also formalised in Lean 4. Numerically, the planar min-              FCC lattice [23]; many-body embedded-atom models were
+imiser switches discontinuously from hexagonal to square                 treated in [24]. These works minimise over configurations
+at ν ∗ ≈ 3.91836 and bifurcates continuously from square                 with short-range interactions and do not concern the long-
+to rectangular at ν2 . In three dimensions BCC is the best               range power-law sum (1) over lattices. Our motivation is
+lattice found for all tested exponents 3.2 ≤ ν ≤ 12, FCC                 mathematical. In d = 2, the energy T2s is (up to normalisa-
+loses local stability at νc = 3.7521 ± 0.0001, and hcp with              tion) the two-loop modular graph function Cs,s,s (τ) from the
+c/a ∈ [1.45, 1.85] is never optimal at the tested exponents.             low-energy expansion of genus-one string amplitudes [15];
+                                                                         its minimum over the fundamental domain appears not to
+                                                                         have been studied.
+                                                                            Two remarks delimit the content. First, Tν is invariant
+                                                                         under isometries, so the hexagonal and the square lattice (the
+Keywords Lattice energy minimisation · Three-body inter-                 elliptic fixed points ρ = eiπ/3 and i of the modular group)
+actions · Modular graph functions · Computer-assisted proof              are always critical points [16]. The substance of the results
+· Max–min problems · Crystallisation                                     below is global minimality and the location of the switches
+
+
+                                                                     1
+Preprint (2026)                                                                  A. Suleman: Optimal lattices for a three-body power-law energy
+
+
+
+between minimisers. Second, the reduction of a steep-decay                     3 The planar steep-decay limit
+limit to a packing-type problem is standard for pair energies                                √
+                                                                               Let a∗ = ((1+ 17)/8)1/4 ≈ 0.894563, so that 4a8∗ = a4∗ +1,
+[7]; here it leads to a new max–min problem for triangles,
+                                                                               and put
+related in spirit to three-point packing problems on the sphere
+[17].                                                                                      q
+                                                                               P∗ = 2a∗ = a2∗ + a−2
+                                                                                       3
+                                                                                                 ∗ ≈ 1.431734,      Λ∗ = a∗ Z × a−1 ∗ Z.
+Summary of results. Fig. 1 summarises the planar picture.
+                                                                                                                           q√
+   • Theorem 1 solves exactly the planar max–min problem
+                                                                               The aspect ratio of Λ∗ is y∞ = a−2
+                                                                                                               ∗ =          ( 17 − 1)/2 ≈
+     for the smallest triangle product; Theorem 2 deduces
+                                                                               1.249621.
+     that minimisers of Tν converge
+                            q √ to a rectangular lattice
+     with aspect ratio y∞ = ( 17 − 1)/2.                                       Theorem 1. For every lattice Λ ⊂ R2 of unit covolume,
+                                                                               P(Λ) ≤ P∗ , with equality if and only if Λ is isometric to Λ∗ .
+   • Theorem 3 (computer-assisted) shows that in d = 3 the
+     body-centred cubic (BCC) lattice is the unique max-                       Lemma 1. After a rotation and a reflection, Λ has a basis
+     imiser of the smallest triangle product; minimisers of                    u = (a, 0), v = (p, a−1 ) with a = λ1 (Λ), 0 ≤ p ≤ a/2 and
+     Tν converge to BCC.                                                       |v| ≥ a; moreover a4 ≤ 4/3.
+   • Theorems 4 and 5 go beyond the limits. For all suffi-                     Proof. Lagrange–Gauss reduction; the bound is Hermite’s
+     ciently large ν the minimiser is exactly BCC in d = 3.                                    √
+                                                                               constant γ2 = 2/ 3.
+     In d = 2 it is a rectangular lattice whose aspect ratio is
+     given, up to an exponentially small error, by an explicit                 Lemma 2.                                √ ≤ G(a) :=
+                                                                                         √ In the notation of Lemma 1, P(Λ)
+     transcendental equation. Both follow from a general                       min{2a3 , a2 + a−2 }, and π(0, u, v) ≤ a2 + a−2 with
+     local uniqueness principle (Lemma 7).                                     equality if and only if p = 0.
+   • Theorem 6 (computer-assisted, rigorous interval arith-                    Proof. The collinear triple (0, u, 2u) gives 2a3 . For (0, u, v)
+     metic) establishes the minimiser for the finite expo-                     we have π 2 = a2 (p2 + k)((a − p)2 + k) with k = a−2 . With
+     nents ν ∈ {3.5, 4, 5, 6, 7, 8}; in particular C2,2,2 , C3,3,3 ,           m = p(a − p) ∈ [0, a2 /4] and p2 + (a − p)2 = a2 − 2m,
+     C4,4,4 are minimal only at τ = i. It also encloses
+     the crossing ν ∗ and the loss of stability ν2 of the                              (p2 + k)((a − p)2 + k) = (ka2 + k2 ) + m(m − 2k).
+     square lattice, and it proves rectangular minimisers for
+     ν = 9, 9.5, 10, 11, . . . , 20 and ν = 22, 24, . . . , 30. Hence          Since a4 < 8, m ≤ a2 /4 < 2k, so the last term is ≤ 0, with
+     the minimiser of Cs,s,s is known rigorously for every                     equality iff m = 0, i.e. p = 0. Hence π 2 ≤ a2 (ka2 + k2 ) =
+     integer 1 ≤ s ≤ 15.                                                       a2 + a−2 .
+   • Sections 7 and 8 give the numerical phase diagrams
+                                                                               Lemma 3. For 0 < a ≤ (4/3)1/4 , G(a) ≤ P∗ with equality
+     with error bars, including hcp, unequal exponents and
+                                                                               iff a = a∗ .
+     mixed pair plus three-body energies.
+                                                                               Proof. For a ≤ a∗ , G(a) ≤ 2a3 ≤ 2a3∗ . The function g(a) =
+2 Setting and the modular graph function                                       a2 +a−2 decreases
+                                                                                            p on (0,p   1] and increases on [1, ∞). For a∗ <
+                                                                               a ≤ 1, G(a) ≤√ g(a) < g(a∗ ) = P∗ . For 1 ≤ a ≤ (4/3)     1/4 ,
+Throughout, lattices are Bravais lattices of unit covolume,                                                                         √
+                                                                                       2     3      7          7   2   49        1+  17  3
+considered up to isometry. For three pairwise distinct points                  g(a) ≤ √3 + 2 = 2√3 and ( 2√3 ) = 12 < 16( 8 ) =
+p, q, r put π(p, q, r) = |p − q| |q − r| |r − p|, and let                      P∗4 .
+   P(Λ) = min{π(p, q, r) : p, q, r ∈ Λ pairwise distinct},                     Lemma 4. P(Λ∗ ) = P∗ .
+the smallest triangle product; collinear triples are admitted.                 Proof. The triples in Fig. 1(a) give P(Λ∗ ) ≤ P∗ . Collinear
+Every triple can be translated to contain the origin, hence                    triples lie on a lattice line with spacing s ≥ a∗ and have π =
+                                                                               s3 (k − j)(l − k)(l − j) ≥ 2s3 ≥ P∗ . A non-collinear lattice
+                       Tν (Λ) ≥ P(Λ)−ν .                             (2)       triangle has area ≥ 12 ; with side lengths d1 ≤ d2 ≤ d3 and γ
+                                             √                                 the angle between the two shorter sides, d1 d2 ≥ d1 d2 sin γ ≥
+In d = 2 we write Λτ = (Z + τZ)/ Im τ with τ = x + iy
+in the fundamental domain. The modular graph function of                       qhence π ≥ d3 . The only vectors of Λ∗ shorter than D =
+                                                                               1,
+[15] is Ca,b,c (τ) = ∑ p1 +p2 +p3 =0, pi ̸=0 ∏i (Im τ/π|pi |2 )ai , pi ∈         a2∗ + a−2                                       −1
+                                                                                        ∗ are ±u, ±v with u = (a∗ , 0), v = (0, a∗ ): for
+Z + τZ, and a direct comparison gives                                                   −1
+                                                                               (ma∗ , na∗ ) with n ̸= 0 one gets m = 0 and n < 1 + a4∗ < 2,
+                                                                                                                            2
+
+                    Cs,s,s (τ) = π −3s T2s (Λτ ).                   (3)        and for n = 0, m2 < 1 + y2∞ < 4. They span two directions,
+                                                                               whereas the three sides of a triangle are pairwise linearly
+At s = 1, Zagier’s identity C1,1,1 = E3 + ζ (3) and the mini-                  independent. Thus d3 ≥ D = P∗ .
+mality of the Epstein zeta function at ρ [1, 2, 3, 4] show that
+C1,1,1 is minimal only at ρ. We verified (3) numerically, and                  Proof of Theorem 1. Lemmas 1–3 give P(Λ) ≤q
+                                                                                                                         G(a) ≤ P∗ .
+the identities C1,1,1 = E3 + ζ (3) and C2,2,1 = 25 E5 + ζ (5)/30               Equality forces a = a∗ and π(0, u, v) ≥ P∗ = a2∗ + a−2
+                                                                                                                                   ∗ ,
+to relative accuracy 10−14 and 10−15 at five values of τ (Ap-                  hence p = 0 by Lemma 2, i.e. Λ = Λ∗ . The converse is
+pendix A).                                                                     Lemma 4.
+
+
+                                                                           2
+Preprint (2026)                                                                        A. Suleman: Optimal lattices for a three-body power-law energy
+
+
+      (a) extremal lattice Λ *
+                                        a   *          (b) minimiser of ν in = 2
+                                                                           T       d
+
+
+
+
+                                                       hexagonal       square                                 rectangular → ∞
+                                                                                                                          y
+
+
+
+
+                                                1/ *
+                                                 a
+
+
+
+
+                                                                                                                           markers: proved unique minimiser
+
+                                                                                ν2 ∈ (8.604, 8.608)
+                                                               ν * ∈ (3.918364, 3.918366)
+
+      collinear triple: π = 2 3*                                   5                    10            15             20              25               30
+      right triangle: π = √ 2* + −* 2
+                            a
+
+
+
+                           a     a                                                                    exponent ν
+
+Fig. 1 (a) The extremal lattice Λ∗ of Theorem 1: the collinear triple (red) and the right triangle (blue) have the same side-length product P∗ .
+(b) Minimiser of Tν in d = 2. Shaded regions: numerical phase diagram (Sect. 7); symbols: exponents at which the minimiser is established
+rigorously (ν = 2 classical, the others by Theorem 6). For ν → ∞ the minimiser converges to Λ∗ (Theorem 2).
+
+
+Theorem 2. For every ν > 4/3, Tν attains its minimum                               to BCC. Consequently, for ν > 2 minimisers of Tν exist and
+among planar lattices of unit covolume. If Λν is any min-                          converge to BCC as ν → ∞, with (min Tν )1/ν → 2/3.
+imiser, then Λν → Λ∗ up to isometries as ν → ∞, and
+(min Tν )1/ν → 1/P∗ . Equivalently, minimisers τs of Cs,s,s                          Let G = BT B be the Gram matrix of√a basis, normalised
+on the fundamental domain satisfy τs → i y∞ as s → ∞.                              by G11 = λ12 = 1, and Q(G) = P(Λ)/ det G (scale invari-
+                                                                                   ant). The remaining entries q = (g22 , g33 , g12 , g13 , g23 ) are
+Proof. P is continuous and P(Λ) ≤ 2λ1 (Λ)3 ; Tν is lower                           the parameters.
+semicontinuous as a sum of non-negative continuous func-
+                                                                                   Lemma 5. Every lattice has, up to isometry and scaling,
+tions. By (2), sublevel sets of Tν lie in {λ1 ≥ ε}, compact
+                                                                                   a Gram matrix in the region R given by 1 ≤ g22 ≤ g33 ,
+by Mahler’s criterion, so minimisers exist. Every term of
+                                                                                   0 ≤ g12 , g13 ≤ 21 , |g23 | ≤ g22 /2 and 1 + g22 + 2(ε1 ε2 g12 +
+Tν (Λ∗ ) has π ≥ P∗ , whence Tν (Λ∗ ) ≤ C P∗−ν for ν ≥ ν0 with
+                                                                                   ε1 g13 + ε2 g23 ) ≥ 0 for εi = ±1. On R, det G ≥ g22 g33 /4;
+C = Tν0 (Λ∗ )P∗ 0 . With (2), P(Λν )−ν ≤ Tν (Λν ) ≤ Tν (Λ∗ ) ≤
+               ν
+                                                                                   hence Q < 3/2 whenever g22 g33 > 64/9.
+CP∗ , so P∗ ≥ P(Λν ) ≥ C−1/ν P∗ → P∗ . The Λν lie in a com-
+    −ν
+
+pact set; every limit point has P = P∗ and is Λ∗ by Theorem 1.                     Proof. Take a Minkowski-reduced basis and flip the signs of
+The statement for Cs,s,s follows from (3).                                         b2 , b3 . The triangle (0, b1 , b2 ) is acute, so the covering radius
+                                                                                   of L2 = Zb1 + Zb2 is its circumradius ρ, with ρ 2 = g22 |b2 −
+  The numerical minimisers for finite ν (Sect. 7) approach                         b1 |2 /(4(g22 − g212 )) ≤ (1 + g22 )/3. Minkowski reduction
+Λ∗ monotonically: the optimal aspect ratio is 1.056, 1.100,                        places the projection of b3 onto the plane of L2 in its Voronoi
+1.141, 1.170, 1.194 and 1.215 at ν = 9, 10, 12, 15, 20, 30.                        cell, so the height h of b3 satisfies h2 ≥ g33 − ρ 2 ≥ g33 /3,
+A random test on 2 · 104 lattices confirmed the bound of                           and det G = (g22 − g212 )h√   2 ≥ g g /4. The collinear triple
+                                                                                                                         22 33
+Lemma 2, and a grid maximisation of P located the maxi-                            (0, b1 , 2b1 ) gives Q ≤ 2/ det G.
+mum at τ ≈ 1.2475 i.
+                                                                                      Within R, BCC has the single representative q0 =
+Formal verification. Both mathematical parts of the proof
+                                                                                   (1, 1, 13 , 13 , − 13 ), found by enumerating unimodular changes
+of Theorem 1 are formalised in Lean 4 with Mathlib. The
+                                                                                   of basis.
+first is the upper bound min{4a6 , Φ(a, p)} ≤ P∗2 for reduced
+bases, with Φ(a, p) = π(0, u, v)2 , together with its equal-                       Lemmap     6 (local lemma). For a triangle t = (0, m, n) put
+ity case a = a∗ , p = 0 (Lemmas 2 and 3). The second is                             ft (q) = ℓm ℓn ℓm−n / det G with ℓv = vT Gv. At q0 exactly 36
+the lower √ bound for
+                    √ all lattice triangles of the rectangular                     triangles are active, ft (q0 ) = 3/2, and their gradients take
+lattices s Z × Z/ s with 1/3 < s2 < 1 (Lemma 4). The for-                          6 distinct values whose convex hull contains the origin at
+malisation contains no sorry, and #print axioms reports                            distance c from its boundary, where c2 = 27/1400 exactly
+only the standard axioms (propext, Classical.choice,                               (c = 0.138873 . . .; computed in rational arithmetic). On q0 +
+Quot.sound). Not formalised are the classical facts used in                        [−r, r]5 with r = 0.007, interval arithmetic gives ∥∇2 ft ∥F ≤
+Lemma 1 (existence of a reduced basis, Hermite’s bound),                           M = 14.92 for all active t. Hence mint ft (q0 + δ ) ≤ 32 −
+                                                                                                                       √
+the translation invariance of π, and the compactness argu-                         c|δ | + M2 |δ |2 < 32 for 0 < |δ | ≤ 5 r = 0.0157 < 2c/M =
+ment of Theorem 2.                                                                 0.0186.
+4 Three dimensions                                                                 Branch and bound. On a box B of parameters each ℓv
+In d = 3 the energy converges for ν > 2. For BCC of unit                           is linear in q and det G is a cubic polynomial, so Q ≤
+covolume P(BCC) = 3/2, attained by isosceles triangles                             mint∈S (∏ maxB ℓ)1/2 (minB det G)−1/2 for any set S of can-
+with two nearest-neighbour sides and one second-neighbour                          didate triangles; we use all (0, m, n) with m, n ∈ {−1, 0, 1}3
+                                              √                                    and the collinear (0, m, 2m). Starting from the compact box
+side; in contrast P(FCC) = P(SC) = P(hcp) = 2.
+                                                                                   [1, 83 ] × [1, 64        1 2      4 4
+                                                                                                  9 ] × [0, 2 ] × [− 3 , 3 ], boxes are discarded when
+Theorem 3 (computer-assisted). For every lattice Λ ⊂ R3 of                         they violate a constraint of R, lie in q0 + [−r, r]5 , or have
+unit covolume, P(Λ) ≤ 3/2, with equality iff Λ is isometric                        upper bound < 3/2, and bisected otherwise. All bounds
+
+
+                                                                               3
+Preprint (2026)                                                         A. Suleman: Optimal lattices for a three-body power-law energy
+
+
+
+are evaluated with directed (outward) rounding, so that each           Corollary 1. Let Eν = Cν ∑t e−νht , Cν > 0, be a lattice
+computed upper bound is a true upper bound (Appendix B).               energy. Suppose that minimisers exist and that every choice
+The run terminates after 9 868 069 boxes with every box cer-           of minimisers converges to a lattice L0 as ν → ∞. Suppose
+tified. With Lemmas 5 and 6 this proves Q ≤ 3/2 on R with              also that (H1)–(H3) hold in an orbifold chart at L0 . (Any
+equality only at q0 . The convergence statement follows as in          lift of a minimiser to the chart is a local minimiser of the
+Theorem 2.                                                             chart function, hence a critical point.) Then for all large ν
+                                                                       the minimiser is unique and equals δν . If moreover L0 is a
+5 Exact minimisers for large exponents                                 critical point of every Eν , then it is the minimiser.
+Theorems 2 and 3 identify the limits of the minimisers. We             Theorem 4. There is ν0 such that for every ν ≥ ν0 the body-
+now show that the max–min structure behind them deter-                 centred cubic lattice is the unique minimiser of Tν among all
+mines the minimisers themselves for all large ν: exactly in            lattices in R3 of unit covolume.
+d = 3, and up to an exponentially small error in d = 2. The
+mechanism is a local statement about smoothed max–min                  Proof. We use ht = log(πt / 32 ) for ordered pairs t = (x, y), in
+problems. It extends to many-body energies the classical               the Gram chart of Sect. 4. Convergence holds by Theorem 3.
+argument of Ryshkov for the Epstein zeta function at large             The active set consists of the 72 ordered pairs   pof the 36 tri-
+exponents [27].                                                        angles of Lemma 6. (H3) holds with c ≥ 23 27/1400 by
+   Let U = Bρ0 (0) ⊂ Rn and Tν (δ ) = ∑t∈I e−νht (δ ) for a            that lemma, since ∇ht = ∇ ft / ft . (H1) holds because the ht
+countable family of C2 functions ht on U. Suppose that                 are smooth near q0 and A is finite. For (H2): the derivatives
+a finite active set A ⊂ I has ht (0) = 0 and:                          of log ℓv in the chart are bounded uniformly in v on a small
+                                                                       neighbourhood U. Only finitely many triangles have product
+(H1) ∥∇2 ht ∥ ≤ M on U for t ∈ A;
+                                                                       below any bound, and the 36 triangles of Lemma    √ 6 are the
+                              2    2      −νht ≤ C e−νγ on
+        / (1 + |∇ht | + |∇ht | + ∥∇ ht ∥)e
+(H2) ∑t ∈A                                        0                    only ones with product 32 (the next value is 32 2). By conti-
+     U for some γ > 0 and all ν ≥ ν1 ;                                 nuity, πt ≥ 32 e2γ on U for all inactive t, for some γ > 0. Then
+(H3) 0 is an interior point of conv{at : t ∈ A}, at = ∇ht (0);         the inactive sum is at most e−(ν−ν1p   )2γ sup
+                                                                                                                      U ∑(· · · )e
+                                                                                                                                  −ν1 ht for
+
+     equivalently c := min|V |=1 maxt∈A (−at ·V ) > 0.                                                      2
+                                                                       any ν1 > 2. (H3) holds with c = 3 27/1400, by Lemma 6
+Condition (H3) says that mint ht has a strict, conical local           and ∇ht = ∇ ft / ft . Finally, BCC is critical for every ν. On
+maximum at 0. It is the analogue of Voronoi’s perfection and           the full space of Gram matrices, Tν is invariant under scaling
+eutaxy.                                                                and under the point group Oh of BCC, which acts on trace-
+                                                                       free quadratic forms as Eg ⊕ T2g , without trivial summand.
+Lemma 7. The function Φ(ζ ) = ∑t∈A e−at ·ζ is strictly con-            So the full gradient at BCC vanishes, and hence so does its
+vex and coercive, with a unique minimiser ζ ∗ . There are              restriction to the slice g11 = 1.
+ρ > 0, ν0 and C such that for all ν ≥ ν0 , Tν has exactly one
+critical point δν in Bρ . It is the unique minimiser of Tν on          Theorem 5. There are ν0 and c0 > 0 such that for all ν ≥ ν0
+Bρ , it is non-degenerate, and |νδν − ζ ∗ | ≤ C/ν.                     the unique minimiser of Tν in d = 2 is the rectangular lattice
+                                                                       Λiyν . Here |yν − ŷν | ≤ e−c0 ν , where ŷν is the root near y∞ of
+Proof. By (H3), Φ(ζ ) ≥ ec|ζ | , and the at span Rn , so ∇2 Φ =
+∑ e−at ·ζ at atT is positive definite. Choose ρ ≤ ρ0 with Mρ ≤                           yp1 + y2 ν 4(y2 − 1)
+c/4, and let ν be so large that K1 /ν ≤ ρ, with K, K1 defined                                              =             .             (4)
+                                                                                                2            3(y2 + 1)
+below.
+   Annulus. Let δ = sV with |V | = 1 and 0 < s ≤ ρ. Let                In particular yν = y∞ − κ/ν + O(ν −2 ) with
+                                               2
+m = minA at ·V ≤ −c and E = e−ν(sm+Ms /2) . Put A1 = {t :                        y∞ (y2∞ + 1)     3(y2∞ + 1)
+at · V ≤ m + c/2}. For t ∈ A1 , ∇ht (δ ) · V ≤ −c/4, and the               κ=        2
+                                                                                              log            = 0.9548949636 . . . ,
+                                                                                  2y∞ + 1         4(y2∞ − 1)
+minimising index has weight e−νht ≥ E. The terms in A \ A1
+have weight at most Ee−νsc/4 . Since sm + Ms2 /2 ≤ −7cs/8,             and the minimiser of Cs,s,s is τs = i y2s for all large s.
+we have E ≥ 1, so the inactive terms are at most C0 e−νγ E.            Proof. Work in the chart τ = x +iy at iy∞ ; convergence holds
+Hence ∑I e−νht ∇ht · V ≤ −cE/8 < 0, i.e. ∂s Tν (sV ) > 0,              by Theorem 2. By Lemma 4 and its proof, the active set
+as soon as νs ≥ K := max{0, 4c log 16N(maxc|at |+Mρ) } and             consists of two families. The first is the collinear triples
+C0 e−νγ ≤ c/16; here N = |A|. All bounds are uniform in                along u: 6 ordered pairs with π = 2y−3/2 . The second is
+V.                                                                     the 12 right triangles of the four rectangles at 0: 24 ordered
+   Inner ball. On |ζ | ≤ K1 := max(K, |ζ ∗ | + 1), the rescaled        pairs; for (0, 1, τ), π 2 = |τ|2 |τ − 1|2 /y3 . At iy∞ their gradi-
+function Ψν (ζ ) = Tν (ζ /ν) satisfies ∥∇k Ψν −∇k Φ∥ ≤ Ck /ν           ents are (0, −β ) (6 pairs), (α, γ) and (−α, γ) (12 pairs each),
+                                                                                                                 2
+                                                                                                               y∞ −1
+for k = 1, 2, by Taylor expansion of the active ht and by (H2).        with β = 2y3∞ , α = 1+y
+                                                                                             1
+                                                                                               2 and γ = 2y (1+y2 ) , all positive. So
+Since ∇2 Φ ≥ λ > 0 there, Ψν is λ /2-strongly convex on                                        ∞              ∞      ∞
+                                                                       (H3) holds; (H1) and (H2) follow as in the proof of Theo-
+BK1 for large ν, so it has at most one critical point there.           rem 4, with a gap γ ′ > 0 for all inactive terms, uniformly
+As |∇Ψν (ζ ∗ )| ≤ C1 /ν, strong convexity puts the minimiser           near iy∞ . Lemma 7 gives a unique critical point near iy∞ ;
+of Ψν over B(ζ ∗ , 4C1 /(λ ν)) ⊂ BK1 in the interior, so it is a       since Tν (−τ̄) = Tν (τ), it lies on the imaginary axis. On the
+critical point, within O(1/ν) of ζ ∗ .                                 axis the active terms in each family coincide, and all other
+   Every critical point in Bρ lies in BK/ν by the first step.                                               ′
+                                                                       terms are smaller by a factor e−νγ . Hence ∂y Tν = 0 reads
+The minimum over Bρ is not attained on the boundary, so it
+                                                                                                                        ′
+is attained at the unique critical point.                                       6H1′ e−νH1 + 24H2′ e−νH2 = O(e−νγ ) e−νH1 ,
+
+
+                                                                   4
+     Preprint (2026)                                                                                           A. Suleman: Optimal lattices for a three-body power-law energy
+
+
+                                                                                                     y∞       Table 1 Rigorous localisation of the rectangular minimiser Λiy
+                          1.25
+                                 balance equation                                                             for ν > ν2 (Theorem 6). Local lemma: strong convexity on the
+                                                                                                              box |A|, |B| ≤ rloc around y0 , together with a gradient at the centre
+                          1.20                                 − κ/ν
+optimal aspect ratio yν
+
+
+
+                                                          y∞
+                                                                                                              smaller than the convexity bound times rloc .
+
+                                                                       1.3
+                                                                                   ν ( y∞   −y )→κ
+                                                                                              ν
+
+                          1.15                                                                                           ν      Cs,s,s           y∈             rloc    boxes
+                                                                       1.2
+                                                                                                                          9       –        [1.0550, 1.0569]   0.00084   525
+                                                                       1.1                                               9.5      –        [1.0808, 1.0834]   0.00115   475
+                          1.10                                                                                           10     C5,5,5     [1.0983, 1.1013]   0.00129   471
+                                                                       1.0
+                                                                                                                         11       –        [1.1223, 1.1257]   0.00145   447
+                                   numerical minimisers                0.9                                               12     C6,6,6     [1.1388, 1.1423]   0.00150   461
+                          1.05                                                20             100
+                                                                                                                         13       –        [1.1511, 1.1546]   0.00150   465
+                                                                                                                         14     C7,7,7     [1.1606, 1.1642]   0.00150   479
+                                 101                                         102                                         15       –        [1.1684, 1.1719]   0.00145   497
+                                                                                                                         16     C8,8,8     [1.1748, 1.1783]   0.00145   509
+                                                          exponent ν                                                     17       –        [1.1803, 1.1837]   0.00139   513
+                                                                                                                         18     C9,9,9     [1.1850, 1.1883]   0.00134   533
+     Fig. 2 Optimal aspect ratio yν in the rectangular regime: numerical                                                 19       –        [1.1890, 1.1923]   0.00134   549
+     minimisers (dots), the root of the balance equation (4) (line) and                                                  20    C10,10,10   [1.1926, 1.1957]   0.00129   579
+     the first-order law y∞ − κ/ν (dashed). Inset: ν(y∞ − yν ) → κ.                                                      22    C11,11,11   [1.1985, 1.2016]   0.00124   603
+                                                                                                                         24    C12,12,12   [1.2033, 1.2062]   0.00115   637
+                                                                                                                         26    C13,13,13   [1.2073, 1.2101]   0.00111   653
+                                                                                                                         28    C14,14,14   [1.2106, 1.2133]   0.00106   715
+     with H1 = log(2y−3/2 ) and H2 = 12 log(y + y−1 ). Since                                                             30    C15,15,15   [1.2135, 1.2160]   0.00098   789
+                                              √
+                      2 −1)                  y 1+y2
+     −4H2′ /H1′ = 4(y 2
+                   3(y +1)
+                            and H2 −H1 = log    2   , this is (4) up
+     to an exponentially small perturbation. The y-derivative of
+                                                                                                              {4, 4.25, 4.5, 4.75, 5, 5.5, 6, 6.5, 7, 7.5, 8, 8.25, 8.5},     and
+                                  p gives the bound on yν − ŷν .
+     the equation is of order ν, which
+                                                                                                              the hexagonal lattice is the unique minimiser for
+     Linearising at y∞ , where y 1 + y2 = 2, gives κ; it is also
+                                                                                                              ν ∈ {3.25, 3.5, 3.75}. In particular C2,2,2 , C3,3,3 and
+     −ζy∗ for Φ(ζ ) = 6eβ ζy + 12e−αζx −γζy + 12eαζx −γζy .
+                                                                                                              C4,4,4 attain their minimum on the fundamental do-
+        Numerically, the root of (4) agrees with the minimiser                                                main only at τ = i.                 Moreover Tν (Z2 ) − Tν (Λρ )
+     computed by direct summation to 6 · 10−7 at ν = 20 and                                                   changes sign in (3.918364, 3.918366), and the sec-
+     to better than 10−9 for ν ≥ 50. A fit gives yν = y∞ −                                                    ond derivative of y 7→ Tν (Λiy ) at y = 1 changes
+     0.95489/ν − 2.319/ν 2 + . . . (Fig. 2). Neither theorem gives                                            sign in (8.604, 8.608); in particular the square lat-
+     an explicit ν0 ; the constants produced by the proof are astro-                                          tice is not a local minimiser for ν = 8.608.                    For
+     nomically large. For finite exponents the rectangular regime                                             ν ∈ {9, 9.5, 10, 11, 12, . . . , 20, 22, 24, 26, 28, 30} the unique
+     is covered rigorously at individual exponents in Sect. 6.                                                minimiser is a rectangular lattice Λiy with y in the interval
+                                                                                                              of Table 1.
+     Remark 1. Lemma 7 and Corollary 1 also apply to the lat-
+                                                   2
+     tice theta function θ (L, α) = ∑v∈L e−πα|v| as α → ∞. One                                                   Together with the case s = 1, this determines the minimiser
+     minimises θ − 1, i.e. sums over v ̸= 0, with ν = πα and                                                  of Cs,s,s rigorously for every integer 1 ≤ s ≤ 15: it is ρ for
+     hv = |v|2 − λ1 (L0 )2 at unit covolume. Minimisers converge                                              s = 1, i for s = 2, 3, 4, and a point iys with ys > 1 given in
+                                                     2
+     to the densest lattice, by θ − 1 ≥ 2e−παλ1 , Mahler com-                                                 Table 1 for 5 ≤ s ≤ 15. The proof of the rectangular cases
+     pactness and uniqueness of the densest lattice. Condition                                                uses the local lemma in its convexity form around a floating-
+     (H3) becomes Voronoi’s condition that L0 is perfect and                                                  point candidate iy0 on the axis. There c10 = c11 = c30 =
+     strictly eutactic: perfection gives the spanning, and pos-                                               c12 = 0 by the reflection x 7→ −x, and |c01 | is certified to be
+     itive eutaxy coefficients put 0 in the interior. In dimen-                                               small.
+     sions 4 ≤ d ≤ 7 the densest lattices D4 , D5 , E6 , E7 are unique                                           For large s, Theorem 5 gives the minimiser iy2s , with y2s
+     (Korkine–Zolotarev, Blichfeldt, Vetčinkin), perfect and eu-                                             given by (4) up to an exponentially small error for all large s.
+     tactic. Their automorphism groups act absolutely irreducibly,                                            A universal majorant. For v = (m, n) and τ = x + iy let ℓv =
+     which makes them critical for every α. So each is the unique                                             |m + nτ|2 /y, so that Tν = ∑ ∏sides ℓ−s with s = ν/2. Around
+     minimiser of θ (·, α) among lattices of its dimension for                                                (x0 , y0 ) put A = a/y0 , B = b/y0 . A short computation gives
+     all sufficiently large α, and by Poisson summation its dual
+     is the unique minimiser for all sufficiently small α. The                                                ℓv (x0 + a, y0 + b)      (2α 2 − 1)B + 2αβ A + α 2 (A2 + B2 )
+     Epstein analogue is due to Ryshkov [27], and local ver-                                                                      = 1+                                      ,
+                                                                                                                   ℓv (x0 , y0 )                      1+B
+     sions are due to Sarnak–Strömbergsson and Coulangeon–
+     Schürmann [28, 29]. We did not find the global theta state-                                              where α 2 + β 2 = 1 depend on v. Coefficientwise, therefore,
+     ment in the literature, but it may well be known to experts.                                             ℓ/ℓ0 − 1 ≪ ε̂ := (A + B + A2 + B2 )/(1 − B), and every trian-
+                                                                                                              gle term t satisfies t/t0 ≪ (1 − ε̂)−3s , uniformly in the lattice
+     6 Finite exponents: computer-assisted proofs                                                             vectors. Consequently all Taylor coefficients of Tν at τ0 are
+     Theorem     6   (computer-assisted). Among pla-                                                          bounded by Tν (τ0 ) times the coefficients Ĝi j of (1 − ε̂)−3s .
+     nar lattices of unit covolume, the square lat-                                                           This yields explicit Taylor remainders and explicit bounds
+     tice is the unique minimiser of Tν for ν ∈                                                               for the terms omitted by a finite truncation.
+
+
+                                                                                                          5
+Preprint (2026)                                                                A. Suleman: Optimal lattices for a three-body power-law energy
+
+
+Table 2 Data of the rigorous computer-assisted proofs of Theo-                method did not succeed for the hexagonal lattice at ν = 3.
+rem 6.                                                                        Close to ν = d the truncation tail decays only like R2−2ν
+                                                                              with a large constant, and at R = 40 the error exceeds the
+ ν     point         Tν (τ0 ) (enclosure)       c20 ≥     rloc    boxes       energy gap next to ρ.
+ 3.5    ρ      [9.77228723809, 9.77246454156]   2.127    0.0018   373
+  4     i      [7.58266977279, 7.58267002399]   0.4368   0.0031   531         Continua of exponents. Theorem 6 covers individual expo-
+  5     i      [4.83802684659, 4.83802684684]   2.5821   0.0069   303         nents. Extending it to an interval such as ν ∈ [4, 8] requires
+  6     i      [3.24997431242, 3.24997431246]   4.2719   0.0076   307         enclosures that are uniform in ν; the majorant is monotone
+  7     i      [2.23344617477, 2.23344617480]   5.3445   0.0050   323         in s, and ∂ν of every summand is bounded by log of the side-
+  8     i      [1.55240121256, 1.55240121259]   5.8308   0.0026   385
+                                                                              length product times the summand, so a covering of [4, 8]
+                                                                              by ν-intervals is possible in principle. We implemented
+                                                                              this as a branch and bound over (x, y, ν). In the local re-
+Proof structure. Let τ0 ∈ {i, ρ} be the candidate. (i) For
+                                                                              gion |x|, |y − 1| ≤ 0.06 it uses Taylor coefficients of order
+y > Y0 the collinear triples along the vector 1 give Tν (τ) ≥
+                                                                              12 at τ = i that are enclosed for whole ν-intervals at once,
+y3s ∑ j̸=k (| j||k|| j − k|)−2s > Tν (τ0 ). (ii) Local lemma: the re-
+                                                                              so that Tν (i) cancels exactly. Outside, it uses the bound
+flections fixing τ0 (x 7→ −x and τ 7→ 1/τ̄ at i; x 7→ 1 − x and
+                                                                              |∂ν Tν | ≤ (Tν−1 + Tν+1 )/e. The local part succeeds for ν-
+the order-three rotation at ρ) force c10 = c01 = c11 = c30 =
+                                                                              intervals of length 0.05. The outer part, however, needs of
+c12 = 0 in the Taylor expansion. With rigorous enclosures
+                                                                              the order of 104 boxes per 0.05 in ν with the present imple-
+of c20 , c02 , c21 , c03 and the majorant remainder, T (τ0 + δ ) −
+                                                                              mentation, so a covering of [4, 8] is left for future work.
+T (τ0 ) ≥ A2 (c20 − |c21 |r − ρ) + B2 (c02 − |c03 |r − ρ) > 0 for
+0 < max(|A|, |B|) ≤ rloc , where ρ = T ∑i+ j≥4 Ĝi j ri+ j−2 . (iii)          7 Numerical phase diagram
+The rest of [0, 21 ] × [0.8,Y0 ] is covered by boxes on which
+the second-order Taylor polynomial at the centre, with rig-                   The numerical results use an independent reference sum-
+orous coefficient enclosures, minus the majorant remainder                    mation, described in Appendix A. It agrees with the library
+exceeds an upper bound for T (τ0 ). All coefficients are en-                  of [13] to better than 2 · 10−10 relative in 55 test cases and
+closed rigorously: the summands are evaluated in outward-                     reproduces the published values of [11] at ν = 3.
+rounded interval arithmetic (powers in Arb [25]), the cube-                   Two dimensions. A global search over the fundamental
+truncated sums (R = 40) by direct, non-FFT convolution with                   domain gives the following picture (Figs. 3–5).
+a Higham-type bound for the accumulated rounding error,
+and the omitted terms by an explicit tail bound (Appendix B).                    • For 2.2 ≤ ν < ν ∗ the global search returns the hexag-
+All comparisons are done on the resulting enclosures. Table 2                      onal lattice. Below ν = 2 we only compared the four
+lists the data.                                                                    candidates hexagonal, square, rectangular (y = 1.1) and
+   The crossing statement uses the same enclosures at                              rhombic (75◦ ) at ν = 1.4, 1.5, . . . , 1.9, using an extrap-
+R = 100 and gives Tν (Z2 ) − Tν (Λρ ) ∈ [2.31, 2.90] · 10−7 at                     olation ansatz with the two exponent families Rd−2ν
+ν = 3.918364 and ∈ [−3.46, −2.87] · 10−7 at ν = 3.918366.                          and R2d−3ν ; the hexagonal lattice is the best of them,
+For ν2 , the coefficient c02 at τ = i, i.e. half the second B-                     with a stability of 10−8 across cut-off sets. The range
+derivative, is enclosed in [1.1544, 1.1545]·10−3 at ν = 8.604                      4/3 < ν < 1.4 was not computed.
+and in [−1.3452, −1.3451] · 10−3 at ν = 8.608, while c20 ≈                       • At ν ∗ = 3.9183649026 the global minimiser switches
+5.89 > 0 at both exponents.                                                        from the hexagonal to the square lattice. The switch
+                                                                                   is discontinuous: both lattices are local minima for
+Remark 2 (status of the computer-assisted parts). All
+                                                                                   3.80632 < ν < 4.27848 (errors below 6 · 10−5 ), their
+computer-assisted statements (Theorems 3 and 6) are proved
+                                                                                   energies simply cross, and along the arc |τ| = 1 the
+with rigorous error control. Every floating-point operation
+                                                                                   barrier between them is 0.14%.
+that enters a certificate is either rounded outward (interval
+arithmetic with nextafter, relying on correctly rounded                          • At ν2 = 8.6063 ± 0.0005 (rigorously ν2 ∈
+                        √
+IEEE-754 +, −, ×, ÷, ) or evaluated in the ball arithmetic                         (8.604, 8.608), Theorem 6) the square lattice be-
+of Arb [25]; large sums are computed by direct convolution                         comes unstable towards rectangular deformations,
+in double precision with an a-priori bound of the accumulated                      and the optimal aspect ratio then grows continuously
+rounding error of the form γn ∑ |ai ||b j |, γn = nu/(1 − nu)                      towards y∞ .
+[26]. The trusted base therefore consists of IEEE-754 double
+arithmetic, the direct convolution routine of SciPy, Arb (via                 Error bars are the spread over three finite-difference steps
+python-flint), and the short Python drivers. The code, the                    and two cut-off sets. We use the words switch and bifurcation
+logs and the certificates are publicly available (see Declara-                in the sense of the lattice-minimisation literature: a change
+tions). As independent sanity checks, the three-dimensional                   of the global minimiser as the parameter ν varies. At zero
+box bounds were compared with brute-force values at 1200                      temperature this is a level crossing of two local minima (at
+random points, and the provers fail, as they must, when asked                 ν ∗ ) or a loss of stability (at ν2 ); no thermodynamic phase
+to certify false statements such as Q < 1.49.                                 transition is implied.
+
+  The data for the additional exponents ν =                                   Conjecture 1. In d = 2 the minimiser of Tν is hexagonal for
+3.25, 3.75, 4.25, 4.5, 4.75, 5.5, 6.5, 7.5, 8.25, 8.5 (between                4/3 < ν < ν ∗ , square for ν ∗ < ν ≤ ν2 , and rectangular with
+281 and 499 boxes each) are in the code archive. The same                     aspect ratio increasing from 1 to y∞ for ν > ν2 .
+
+
+                                                                          6
+      Preprint (2026)                                                                                             A. Suleman: Optimal lattices for a three-body power-law energy
+
+
+
+                                                                                     hexagonal (reference)
+                                                                                                                 8 Mixed pair and three-body energies
+                                  0
+
+                                                                                                                 Physical three-body terms always come with pair terms. As
+                              −                                                                                  a first step we consider Eλ = Zν + λ Tν at unit density, where
+            (%)
+
+
+
+
+                                  10
+                                                                    square
+
+
+                                                                                                                 Zν = ∑′ |x|−ν is the Epstein (Riesz) pair energy, evaluated
+                              −
+            1
+
+
+
+
+                                  20
+                                                                                                                 with [14], and λ = c3 /c2 ≥ 0 is the ratio of the coupling
+−           (hex)
+
+
+
+
+                              −   30
+                                                                                                                 constants. Both terms use the same exponent. Pair repulsion
+                                                                                                                 favours the hexagonal lattice in d = 2 and, numerically, FCC
+  Tν Tν
+
+
+
+
+                              −                                                           best rectangle
+            /
+
+
+
+
+                                  40
+                                                                                                                 in d = 3; the three-body term favours the square lattice (for
+                              −   50
+                                                                                                                 ν > ν ∗ ) and BCC, respectively. For two competing lattices
+                                                  ν   *
+                                                                                     ν
+                                                                                                                 L1 (preferred by Zν ) and L2 (preferred by Tν ) the energies
+                              −   60
+                                                                                     2
+
+                                                                                                                 cross at
+                                       2         4            6              8             10           12
+                                                                                                                                   Zν (L2 ) − Zν (L1 ) Zν (L1 ) δ Z
+                                                                  exponent   ν                                             λc =                        =         ·    ,           (5)
+                                                                                                                                   Tν (L1 ) − Tν (L2 )   Tν (L1 ) δ T
+      Fig. 3 Relative energy of the square lattice (line) and of the best                                        where δ Z and δ T are the relative energy gaps. We computed
+      rectangular lattice (dots) with respect to the hexagonal lattice. The                                      λc on a grid of spacing 0.25 in ν (Fig. 7). In d = 3 we
+      zeros mark the switch at ν ∗ and the bifurcation at ν2 .                                                   compared FCC, BCC, hcp with optimised c/a ∈ [1.45, 1.85]
+                                                                                                                 and the Bain family. In d = 2 we compared the hexagonal,
+                                               hexagonal                                                         the square and the rectangular lattices.
+                                  10
+                                                                       square                                    Three dimensions. The minimiser jumps directly from FCC
+smallest Hessian eigenvalue
+
+
+
+
+                                                                                                                 to BCC, and hcp was never optimal among the compared
+                                  5                                                                              structures. The critical ratio grows monotonically, from
+                                                                                                                 λc = 0.049 at ν = 3.5 through 0.103 at ν = 6 and 0.289
+                                  0                                                                              at ν = 9 to 0.81 at ν = 12. The pair energy distinguishes
+                                                                                                                 FCC and BCC only weakly: the relative gap δ Z is 2 · 10−4 at
+                                                                                                                 ν = 3.5 and 5.5% at ν = 12. The three-body gap δ T is larger
+                              −5                                                                                 by a factor between 5 and 15. The growth of λc therefore
+                                                    both
+                                                 local min.                                       ν2             comes mainly from the prefactor Zν /Tν in (5). This prefactor
+                              −10                                                                                grows exponentially. For large ν one has Zν ≈ k2 λ1−ν and
+                                           3              4   5        6         7         8        9            Tν ≈ k3 P−ν , with λ1 the shortest distance and P the smallest
+                                                                  exponent ν                                     triangle product. Hence Zν /Tν grows like (P/λ1 )ν = λ12ν
+                                                                                                                 for FCC (P = λ13 ), i.e. by a factor of about 2 per three units
+      Fig. 4 Smallest Hessian eigenvalue of Tν at the hexagonal and at                                           of ν, as observed.
+      the square point. Grey: both are local minima, so the switch at ν ∗                                        Two dimensions. The minimiser jumps from hexagonal
+      is discontinuous. Right: loss of stability of the square lattice at ν2 .                                   to square, and λc is not monotone. It diverges as ν ↓ ν ∗ ,
+                                                                                                                 has a minimum λc ≈ 1.04 at ν ≈ 6.25, and grows again,
+                                                                                                                 to λc ≈ 2.9 at ν = 12. Both effects follow from (5). Near
+      Unequal exponents. Replacing the exponent of the side                                                      ν ∗ the three-body advantage of the square lattice vanishes,
+      |x − y| by µ gives, up to normalisation, Cν/2,ν/2,µ/2 . The                                                δ T → 0, while the pair penalty δ Z ≈ 4% stays finite. For
+      curve of Fig. 1(b) then becomes a phase map (Fig. 6). The                                                  large ν the relative gaps δ Z and δ T become comparable
+      square phase occupies a broad band around the diagonal;                                                    (0.60 and 0.58 at ν = 12), and the prefactor Zν /Tν ∼ λ12ν
+      for 4 ≤ ν ≤ 5.5 the hexagonal lattice returns at large µ;                                                  (with λ1 = 1.0746 for the hexagonal lattice) takes over. For
+      the rectangular phase appears only for ν ≳ 9 in a window                                                   ν < ν ∗ both terms favour the hexagonal lattice and there
+      8.5 ≲ µ ≲ 11. No rhombic or oblique minimiser was found.                                                   is no switch. At ν = 9, with ν > ν2 , a further switch to a
+     Three dimensions. A global search over all Bravais lattices                                                 rectangular lattice occurs at very large λ .
+     used 67 starts per exponent (FCC, BCC, SC and 64 random),                                                      The numerical values of λc depend on the normalisation
+     Nelder–Mead and accurate re-evaluation. It returned BCC                                                     of the two terms and should be read as a comparison between
+     as the best lattice, to 10−9 relative, for every tested ν ∈                                                 exponents, not as physical coupling constants. For the ATM
+     {3.2, 3.5, 4, 4.5, 5, 6, 7, 8, 12}; between 87% and 100% of                                                 energy the three-body term carries an angular factor that
+     the starts converged to BCC. For 2.2 ≤ ν ≤ 2.8 we only                                                      changes sign, so these results do not transfer directly.
+     compared BCC, FCC and SC; the ordering BCC < FCC <
+     SC persists. The curvature of Tν at FCC along the Bain path                                                 9 More bodies and dimension four
+     changes sign at νc = 3.7521 ± 0.0001, so FCC is a saddle                                                    The steep-decay mechanism is not special to three bodies.
+     point for larger ν. Optimised over c/a ∈ [1.45, 1.85], hcp                                                  For k ≥ 2 let
+     lies slightly above FCC for all tested ν ∈ {3.5, 4.5, 6, 9} and
+                                                                                                                   Ek,ν (L) =      ∑           ∏          |pi − p j |−ν ,   p0 = 0,
+     is therefore never optimal there; other non-Bravais structures                                                             p1 ,...,pk−1 0≤i< j≤k−1
+     were not examined; at ν = 4.5, for example, the values are
+     17.9724 against 17.9624, while BCC gives 17.7406. BCC                                                       where the sum runs over (k − 1)-tuples of distinct non-zero
+     is stationary along the Bain path for every exponent [11].                                                  lattice points. Let Qk (L) be the smallest product of the 2k
+
+
+                                                                                                             7
+Preprint (2026)                                                                                           A. Suleman: Optimal lattices for a three-body power-law energy
+
+
+
+                                                      ν=3                           ν=ν
+                                                                                           *                                                                      ν = 10
+                                                                                                                               ν=6
+                                   1.6                                                                                                                                                0
+                                   1.5
+                                                                                                                                                                                      −1
+                                   1.4
+
+
+
+
+                                                                                                                                                                                          log10 (Tν /min Tν − 1)
+                                   1.3                                                                                                                                                −2
+                            Im τ
+
+
+
+                                   1.2
+                                                                                                                                                                                      −3
+                                   1.1
+                                   1.0                                                                                                                                                −4
+                                   0.9
+                                                                                                                                                                                      −5
+                                         0           0.2        0.4         0       0.2        0.4   0                        0.2                   0.4   0       0.2      0.4
+                                                      Re τ                              Re τ                                   Re τ                                Re τ
+
+Fig. 5 Energy landscape log10 (Tν / min Tν − 1) on the fundamental domain for four exponents. Circle: hexagonal point; square: square
+point. At ν = 10 the minimum lies on the imaginary axis above τ = i.
+
+
+                           12
+                                                                                                                                10
+                                                                                                                                        1
+                                                                                                                                            ν   *
+
+
+
+                                   hexagonal
+
+                                                                                                                                                                                   d = 2: hex → square
+
+
+
+                                                                                                                   2
+                                                                                                          λc = c /c
+                                                                                rect.
+
+
+
+                                                                                                                   3
+                           10
+ μ (exponent of |x − y|)
+
+
+
+
+                                                                                                                                        0
+                                                                                                                                10
+                                                                                                             critical ratio
+
+
+
+
+                           8
+                                                                                                                                                              d = 3: FCC → BCC
+
+
+                                                               square
+
+                                                                                                                                    −
+                                                                                                                                    1
+                                                 ν
+
+
+
+
+                                                                                                                              10
+                                                 =
+
+
+
+
+                           6
+                                             μ
+
+
+
+
+                                                                                                                                                     4        6            8          10                           12
+
+
+
+                           4
+                                                                                                                                                                    exponent   ν
+
+                                                                                                         Fig. 7 Critical ratio λc = c3 /c2 of the mixed energy Zν + λ Tν ,
+                                                                                                         above which the three-body favourite wins: BCC over FCC in
+                                             4             6            8         10           12
+                                                                                                         d = 3, square over hexagonal in d = 2. Dashed: the crossing ν ∗ of
+                                                                                                         the pure three-body energy.
+                                                 ν (exponent of |x| and |y|)
+
+Fig. 6 Minimiser for the exponents (ν, ν, µ) on a grid of spacing                                        Consequently, for all sufficiently large ν the unique min-
+0.5. Dashed: equal exponents.
+                                                                                                         imiser of E4,ν and of E6,ν is the hexagonal lattice, and that
+                                                                                                         of E5,ν is the square lattice.
+mutual distances of k distinct lattice points. As in Theorem 2,                                          Proof. For (a)–(c), the collinear k-tuple along the shortest
+the minimisers of Ek,ν converge to the maximisers of Qk . By                                             vector gives Qk ≤ ck y−k(k−1)/4 with ck = ∏i< j ( j − i), which
+Corollary 1, they coincide with them for all large ν whenever                                            bounds y. The rest of the half fundamental domain is covered
+the maximiser is unique, satisfies (H3) and is critical by                                               by a branch and bound in outward-rounded interval arith-
+symmetry. For k = 2 this is the classical packing problem                                                metic. It uses, as candidates, all k-sets built from the 13–14
+(hexagonal lattice); for k = 3 it is Theorem 1.                                                          shortest vectors, and a local lemma at the centre. The active
+                                                                                                         sets there have √gradients whose√convex hull contains 0 with
+Theorem 7 (computer-assisted). Among planar lattices of                                                  margin c = 1/ 3, 0.9 and 1/ 3, and an interval Hessian
+unit covolume:                                                                                           bound gives Qk < Q∗k in a punctured neighbourhood. This
+                                                                                                         takes 225, 263 and 871 boxes. The value at the centre, Q∗k ,
+(a) Q4 ≤ 83 , with equality only for the hexagonal lattice;
+                                                                                                         is obtained by exhaustive enumeration in exact integer arith-
+           √
+(b) Q5 ≤ 4 10, with equality only for the square lattice;                                                metic, pruned by a rigorous completeness bound: 12, 40 and
+                                                                                                         36 extremal sets.
+ (c) Q6 ≤ 219/2 3−7/4 , with equality only for the hexagonal                                                For (d) the same branch and bound compares with a rigor-
+     lattice;                                                                                            ous lower bound for Q7 (τ7 ). That bound is obtained by ex-
+(d) every maximiser of Q7 lies in the box |x − x7 |, |y −                                                haustive enumeration, made complete by a recursive bound:
+                                                                                                                                                                   2( j−2)
+    y7 | ≤ 10−4 around τ7 = x7 + iy7 = 0.194050097 +                                                     a set containing p has squared product at least |p|2 λ1
+    1.248035038 i. This box meets none of the symmetry                                                   times the minimum for j − 1 points.
+    lines x = 0, x = 12 , |τ| = 1 of the fundamental domain,                                                The consequences follow from Corollary 1. (H3) holds
+    so the maximiser is an oblique lattice.                                                              at the three centres, since their point groups act absolutely
+
+
+                                                                                                     8
+Preprint (2026)                                                         A. Suleman: Optimal lattices for a three-body power-law energy
+
+
+
+irreducibly (so the sum of the active gradients vanishes)              of the steep-decay regime. (iii) Physically relevant three-
+and the active gradients span the tangent space; this rank             body energies include the angular ATM factor; the mixed
+condition was checked exactly for k = 4 and numerically,               energies of Sect. 8 are only a first step. (iv) Theorem 5 and
+with the margins above, for k = 5, 6.                                  the finite-ν proofs locate the minimiser on the imaginary
+                                                                       axis for large ν and at individual exponents; that this holds
+   Numerically the maximiser of Q7 is a non-degenerate                 for every ν > ν2 is supported numerically but unproven.
+vertex of the max–min problem: three distinct active gradi-
+ents surround 0, with angular gaps below π. So (H3) holds              Declarations
+there, and for large ν the minimiser of E7,ν is an oblique             Affiliation The author is a student at ETH Zürich; this work
+lattice close to Λτ7 . For k = 8 the numerical maximiser is            was carried out independently of any course or research
+the rhombic lattice τ ≈ 21 + 1.3067 i. The resulting sequence          group.
+of steep-decay lattices for k = 2, . . . , 8 is
+                                                                       Acknowledgements Computations, literature searches and
+          k     2       3      4     5    6      7     8               parts of the manuscript were prepared with the assistance of
+       lattice hex     rect   hex   sq   hex    obl   rh               the AI system Claude (Anthropic). The author checked the
+                                                                       mathematical arguments and is responsible for the content.
+It shows that the pair case is not representative: already for         Lattice sums were cross-checked against the Graph Zeta
+moderate k the optimal lattice need not have any symmetry              Library [13] and EpsteinLib [14].
+beyond ±1.                                                             Code and data availability All scripts, raw data, logs
+Dimension four. A search for the maximiser of P = Q3                   and certificates are publicly archived at Zenodo, https:
+among four-dimensional lattices (sequential linear program-            //doi.org/10.5281/zenodo.22975868. This includes the rig-
+ming, 80 random starts) returned D4 as the best lattice, with          orous provers (rigorous/), the Lean formalisation (lean/)
+P(D4 ) = 23/4 ; the other local maxima have P = 1.6487 and             and the numerical experiments (extended/). Each prover
+1.6358. At D4 exactly 96 triangles are active, namely the              is a single Python script that prints its certificate and can be
+equilateral triangles of roots. An exact rational computation          re-run on a laptop. The planar provers take 20–40 minutes
+shows that their gradients span the 9-dimensional tangent              per exponent, and the three-dimensional branch and bound
+space. Since W (D4 ) acts absolutely irreducibly, (H3) holds.          takes about 4 minutes.
+By Lemma 7, for all large ν the lattice D4 is therefore a strict       Competing interests The author declares no competing
+local minimiser of Tν and the only critical point in a fixed           interests.
+neighbourhood.
+                                                                       A Numerical methods and error control
+Conjecture 2. D4 is the unique maximiser of P among four-
+                                                                       Reference summation. Tν is summed over all integer labels
+dimensional lattices, and hence the unique minimiser of Tν
+                                                                       in the cube [−R, R]d for the two free vertices, with the kernel
+for all large ν.
+                                                                       of the third side on [−2R, 2R]d . The inner convolution is
+   So in dimension four the three-body problem selects the             evaluated by FFT for exploratory computations and by direct
+densest lattice, unlike in dimensions two and three. Since D4          convolution in the rigorous parts. The truncation error is
+is similar to its dual, it is also the four-dimensional analogue       dominated by configurations with one distant vertex and
+of BCC = D∗3 .                                                         decays like Rd−2ν for ν > d. For 2d/3 < ν ≤ d it decays like
+                                                                       R2d−3ν (with logarithms at ν = d); Richardson extrapolation
+10 Discussion                                                          uses the corresponding exponents.
+A purely three-body repulsion of product type selects differ-          Tail bound. A term is missing only if a free vertex x
+ent lattices than pair repulsion does. In the plane it penalises       lies outside the cube. For fixed x, ∑y |y|−ν |x − y|−ν ≤
+the equilateral triangles of the hexagonal lattice once the de-        2(|x|/2)−ν Zν , and |Am| ≥ σmin (A)|m|∞ , whence 0 ≤ T −
+                                                                                        −2ν 2−2ν
+cay is steep enough. In space it favours BCC, whose smallest           TR ≤ 2ν+2 Zν 8σmin  R     /(2ν − 2) in d = 2.
+triangles are isosceles with one second-neighbour side, over                                                     S
+                                                                       Non-Bravais structures. For a crystal j (L + s j ) the per-
+the close-packed FCC and hcp. The steep-decay limits re-               atom energy decomposes into sums ∑m Fi j (m)(Fik ∗ G jk )(m)
+duce to max–min problems for triangles. The planar one has             over the Bravais lattice L. The implementation reproduces
+the closed-form answer of Theorem 1; the spatial one we                the FCC value with a four-atom cubic basis to 10−10 .
+solved by a computer-assisted argument. Through (3) the
+                                                                       Validation. Besides the agreement with [13, 11] mentioned
+planar results translate into statements on the minima of the
+                                                                       above, the reference summation reproduces the identities
+modular graph functions Cs,s,s .
+                                                                       C1,1,1 = E3 + ζ (3) (with logarithmic extrapolation, since all
+   Several questions remain open. (i) A proof of the full                                                         (5)
+planar phase diagram, in particular hexagonal optimality for           exponents equal d) and C2,2,1 = 52 E5 + ζ30    [15] to 10−14
+                                                                              −15
+all ν < ν ∗ , would require the finite-ν method on continua            and 10 .
+of exponents (Sect. 6) and sharper tail bounds near ν =
+d, for instance via the Epstein-zeta representation of [12].           B The computer-assisted proofs in detail
+(ii) An analytic proof of Theorem 3 is missing, and so are             Rigorous arithmetic. An interval is a pair of doubles [x, x].
+explicit values of ν0 in Theorems 4 and 5; the latter would            Sums, products, quotients and square roots are computed
+combine with the finite-ν proofs into a complete description           in round-to-nearest and then widened by one ulp in each
+
+
+                                                                   9
+Preprint (2026)                                                               A. Suleman: Optimal lattices for a three-body power-law energy
+
+
+
+direction with nextafter. Since IEEE-754 rounds these                         2. Large y. The exact lower bound T ≥ y3s Ks with a finite
+operations correctly, the result encloses the exact value. Non-                  partial sum Ks (Arb) gives a cut Y0 .
+algebraic functions  (x−s for non-integer s, binomial coeffi-                 3. Local lemma. At i, the symmetry zeros are exact,
+        −3s
+cients j , the majorant (1 − ε̂)−3s and its Taylor coeffi-                       and the direct inequality of Sect. 6 is checked for
+cients) are evaluated in Arb [25] with 128-bit precision and                     r = rloc . At ρ, where the expansion point is only
+rounded outward to doubles. A sum ∑i ai bi of n products,                        within 10−16 of ρ, we instead bound the Hessian of
+computed in floating point as Ŝ from rounded values âi , b̂i                   T in (A, B) on the box |A|, |B| ≤ r from below. We
+enclosed with radii ri , ρi , satisfies                                          use the enclosed coefficients up to order three and
+                                                                                 the majorant remainder T ∑k≥4 gk k2 rk−2 , where gk =
+     ∑ ai bi − Ŝ ≤ γn ∑ |âi ||b̂i |                                            ∑i+ j=k Ĝi j . This remainder is computed in closed form
+                                                                   
+                    + ∑ (|âi | + ri )(|b̂i | + ρi ) − |âi ||b̂i | ,            from g(t) = (1 − h(t))−3s , h(t) = (2t + 2t 2 )/(1 −t), via
+                                                                                 ∑k gk k2t k = tg′ + t 2 g′′ . A positive definite Hessian on
+with γn = nu/(1 − nu) and u = 2−53 [26]. The two sums                            the box, together with criticality of ρ (by symmetry),
+on the right are themselves computed in floating point and                       shows that ρ is the unique minimiser in the box.
+inflated by the factor 1 + γn . We apply this to each output                  4. Branch and bound on [0, 21 ] × [0.8,Y0 ], minus the
+entry of the direct convolutions, with n the total number of                     unit disc and the local box.                     On a box with
+products; this is valid for any summation order.                                 centre τc and scaled half-widths (Â, B̂), the lower
+Theorem 3. The parameter region R of Lemma 5 is inter-                           bound is c00 − |c10 |Â − |c01 |B̂ − (c20 )− Â2 − |c11 |ÂB̂ −
+sected with g22 g33 ≤ 64/9 and covered by the initial box                        (c02 )− B̂2 − T ∑i+ j≥3 Ĝi j Âi B̂ j , all at τc . The box is cer-
+[1, 83 ] × [1, 64        1 2      4 4                                            tified if this exceeds the upper end of the enclosure
+               9 ] × [0, 2 ] × [− 3 , 3 ]. On a box B we compute:
+(a) Infeasibility: B is discarded if a linear constraint of R                    of T (τ0 ). Close to τ0 , where the gap is smaller than
+is violated on all of B, i.e. if its maximum over the vertices,                  the tail bound BR , we compare the truncated sums
+computed with upward rounding, is negative. (b) Exclu-                           instead. The tails at τ and at τ0 differ by at most
+sion: B is discarded if it lies inside q0 + [−0.0069, 0.0069]5 ,                 BR (τ0 )(Ĝ(A0 , B0 ) − 1), where (A0 , B0 ) is the scaled dis-
+which is contained in the box of Lemma 6. (c) Upper bound:                       tance of the box from τ0 .
+for each candidate triangle t = (0, m, n), the three squared                 For τ0 = ρ the value used in step 4 is an upper bound of T
+side lengths ℓv = vT Gv are linear in q, so their maxima                     at the double (x0 , y0 ). It is admissible because ρ minimises
+over B are attained at vertices and are evaluated with up-                   T on the local box, which contains (x0 , y0 ).
+ward rounding. For det G, a cubic in q, we use the lower
+bound obtained by bounding each monomial from below                          References
+over B with downward rounding. The bound is U(B) =                            [1] R.A. Rankin, A minimum problem for the Epstein zeta-function.
+mint (∏ maxB ℓ)1/2 /(minB det G)1/2 , evaluated with upward                       Proc. Glasgow Math. Assoc. 1, 149–158 (1953). https://doi.org/10.
+rounding. The candidate triangles are the (0, m, n) with                          1017/S2040618500035668
+m, n ∈ {−1, 0, 1}3 \ {0} and the collinear triples (0, m, 2m).                [2] J.W.S. Cassels, On a problem of Rankin about the Epstein zeta-
+For each box, the 24 candidates with the smallest product                         function. Proc. Glasgow Math. Assoc. 4, 73–80 (1959). https://doi.
+at the box centre enter the minimum. Any subset gives a                           org/10.1017/S2040618500033906
+valid upper bound, so this heuristic choice affects only the                  [3] V. Ennola, A lemma about the Epstein zeta-function. Proc. Glas-
+speed. If U(B) < 3/2, the box is certified. (d) Otherwise B                       gow Math. Assoc. 6, 198–201 (1964). https://doi.org/10.1017/
+is bisected along its widest coordinate, with widths scaled                       S2040618500035024
+by the size of the initial box. The run processed 9 868 069                   [4] P.H. Diananda, Notes on two lemmas concerning the Epstein zeta-
+boxes and ended with an empty queue. The local lemma                              function. Proc. Glasgow Math. Assoc. 6, 202–204 (1964). https:
+(Lemma 6) is proved separately. The 36 active triangles are                       //doi.org/10.1017/S2040618500035036
+enumerated exactly. The minimum-norm point of the con-                        [5] H.L. Montgomery, Minimal theta functions. Glasgow Math. J. 30,
+vex hull of their gradients is computed in rational arithmetic                    75–85 (1988). https://doi.org/10.1017/S0017089500007047
+(c2 = 27/1400, attained with equal weights 1/6 on six gra-                    [6] H. Cohn, A. Kumar, S.D. Miller, D. Radchenko, M. Viazovska,
+dients). The Hessian bound M uses interval arithmetic over                        Universal optimality of the E8 and Leech lattices and interpolation
+the whole box q0 + [−r, r]5 .                                                     formulas. Ann. Math. 196, 983–1082 (2022). https://doi.org/10.4007/
+                                                                                  annals.2022.196.3.3
+Theorem 6. Let τ0 ∈ {i, ρ} and let (x0 , y0 ) be the double
+nearest to τ0 (exact for i). The proof has four steps.                        [7] L. Bétermin, L. Šamaj, I. Travěnec, Three-dimensional lattice
+                                                                                  ground states for Riesz and Lennard-Jones-type energies. Stud.
+                                                                                  Appl. Math. 150, 69–91 (2023). https://doi.org/10.1111/sapm.12533.
+  1. Jets. For every lattice vector v in the cube [−2R, 2R]2                      arXiv:2107.14020
+     we enclose the Taylor coefficients up to order K of ℓ−s
+                                                           v
+                                                                              [8] L. Bétermin, L. Šamaj, I. Travěnec, Structural transitions in in-
+     in (A, B) = (a, b)/y0 , using the closed form of ℓv /ℓv,0                    teracting lattice systems. Anal. Math. Phys. 14, 27 (2024). https:
+     from Sect. 6 and the binomial series. The coefficients                       //doi.org/10.1007/s13324-024-00888-0. arXiv:2312.01395
+     ci j of Tν are sums over triangles of products of three
+                                                                              [9] S. Luo, J. Wei, On minima of sum of theta functions and ap-
+     such jets. Each is a double sum of convolution type,                         plication to Mueller–Ho conjecture. Arch. Ration. Mech. Anal.
+     evaluated by direct convolution with the error bound                         243, 139–199 (2022). https://doi.org/10.1007/s00205-021-01725-5.
+     above, plus the tail BR times Ĝi j .                                        arXiv:2004.13882
+
+
+                                                                        10
+Preprint (2026)                                                                      A. Suleman: Optimal lattices for a three-body power-law energy
+
+
+
+[10] S. Luo, J. Wei, On              Sarnak–Strömbergsson        conjecture.         [28] P. Sarnak, A. Strömbergsson, Minima of Epstein’s zeta function
+     arXiv:2609.17356 (2026)                                                              and heights of flat tori. Invent. Math. 165, 115–151 (2006). https:
+                                                                                          //doi.org/10.1007/s00222-005-0488-2
+[11] A. Robles-Navarro, S. Cooper, A.A. Buchheit, J.T. Busse, A.
+     Burrows, O.R. Smits, P. Schwerdtfeger, Exact lattice sum-                       [29] R. Coulangeon, A. Schürmann, Energy minimization, periodic sets
+     mations for Lennard-Jones potentials coupled to a three-body                         and spherical designs. Int. Math. Res. Not. IMRN 2012(4), 829–848
+     Axilrod–Teller–Muto term applied to cuboidal phase transitions. J.                   (2012). https://doi.org/10.1093/imrn/rnr048. arXiv:1005.4373
+     Chem. Phys. 163, 094104 (2025). https://doi.org/10.1063/5.0276677.
+     arXiv:2504.07338
+
+[12] A.A. Buchheit, J.T. Busse, Epstein zeta method for many-
+     body lattice sums. Numer. Math. (2026). https://doi.org/10.1007/
+     s00211-026-01558-y. arXiv:2504.11989
+
+[13] A.A. Buchheit, A. Rupp, Graph lattice sums and graph zeta functions
+     for long-range interacting quantum lattice models. arXiv:2609.18918
+     (2026); Graph Zeta Library, https://github.com/graph-zeta/gzl
+
+[14] A.A. Buchheit, J.T. Busse, R. Gutendorf, Computation and proper-
+     ties of the Epstein zeta function with applications to quantum sys-
+     tems. IMA J. Numer. Anal. (2026). https://doi.org/10.1093/imanum/
+     drag057. arXiv:2412.16317
+
+[15] E. D’Hoker, M.B. Green, P. Vanhove, On the modular structure of the
+     genus-one type II superstring low energy expansion. J. High Energy
+     Phys. 2015(08), 041 (2015). https://doi.org/10.1007/JHEP08(2015)
+     041. arXiv:1502.06698
+
+[16] L. Bétermin, Local optimality of cubic lattices for interaction ener-
+     gies. Anal. Math. Phys. 9, 403–426 (2019). https://doi.org/10.1007/
+     s13324-017-0205-5. arXiv:1611.07798
+
+[17] D. Bilyk, D. Ferizović, A. Glazyrin, R.W. Matzke, J. Park, O. Vla-
+     siuk, Optimizers of three-point energies and nearly orthogonal sets.
+     Proc. Amer. Math. Soc. (2024). https://doi.org/10.1090/proc/16868.
+     arXiv:2303.12283
+
+[18] X. Blanc, M. Lewin, The crystallization conjecture: a review. EMS
+     Surv. Math. Sci. 2, 255–306 (2015). https://doi.org/10.4171/EMSS/
+     13. arXiv:1504.01153
+
+[19] E. Mainini, P. Piovano, U. Stefanelli, Finite crystallization in the
+     square lattice. Nonlinearity 27, 717–737 (2014). https://doi.org/10.
+     1088/0951-7715/27/4/717
+
+[20] M. Friedrich, L. Kreutz, Finite crystallization and Wulff shape
+     emergence for ionic compounds in the square lattice. Nonlinearity
+     33, 1240–1296 (2020). https://doi.org/10.1088/1361-6544/ab591f.
+     arXiv:1903.00331
+
+[21] M. Friedrich, L. Kreutz, A proof of finite crystallization via strat-
+     ification. J. Stat. Phys. 190, 199 (2023). https://doi.org/10.1007/
+     s10955-023-03202-7. arXiv:2209.14880
+
+[22] M. Friedrich, L. Kreutz, U. Stefanelli, Crystallization in the Winter-
+     bottom shape and sharp fluctuation laws. arXiv:2509.05642 (2025)
+
+[23] L.C. Flatley, F. Theil, Face-centered cubic crystallization of atomistic
+     configurations. Arch. Ration. Mech. Anal. 218, 363–416 (2015).
+     https://doi.org/10.1007/s00205-015-0862-1. arXiv:1407.0692
+
+[24] L. Bétermin, M. Friedrich, U. Stefanelli, Lattice ground states
+     for embedded-atom models in 2D and 3D. Lett. Math. Phys.
+     111, 107 (2021). https://doi.org/10.1007/s11005-021-01446-6.
+     arXiv:2101.05602
+
+[25] F. Johansson, Arb: efficient arbitrary-precision midpoint-radius
+     interval arithmetic. IEEE Trans. Comput. 66, 1281–1292 (2017).
+     https://doi.org/10.1109/TC.2017.2690633
+
+[26] N.J. Higham, Accuracy and Stability of Numerical Algorithms,
+     2nd edn. SIAM, Philadelphia (2002). https://doi.org/10.1137/1.
+     9780898718027
+
+[27] S.S. Ryshkov, On the question of final ζ -optimality of lattices provid-
+     ing the closest lattice packing of n-dimensional spheres. Sib. Math. J.
+     14, 743–750 (1973). https://doi.org/10.1007/BF00969911
+
+
+                                                                                11
+

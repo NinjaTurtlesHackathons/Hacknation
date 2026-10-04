@@ -1,0 +1,395 @@
+{
+ "antwort": {
+  "antwort": "1.2496",
+  "zahl": 1.2495921484763286,
+  "konfidenz": 0.95,
+  "begruendung": "Die asymptote-Fits (E3, E9) zeigen konsistente Konvergenz des optimalen Seitenverhältnisses y gegen 1.2495921... Die Daten von nu=30 bis nu=500 folgen dem Modell y(nu) = y_inf + κ/nu + c₂/nu². Eine geschlossene Form ist aus den Experimenten nicht erkennbar.",
+  "pruefung": {
+   "typ": "grenzwert",
+   "groesse": "y_inf",
+   "erwartet": 1.2496,
+   "toleranz": 0.0005,
+   "beleg": "E9: Asymptote-Fit mit 8 Datenpunkten (nu ∈ [30, 500]) liefert y_inf_fit = 1.2495921; monotone Konvergenz der rect_optimum-Resultate E0, E1, E2, E7, E8 bestätigt Trend."
+  },
+  "stimmen": "Stufe 1/4 (sparsam, haiku)"
+ },
+ "level": "computed (Code-Prüfer bestanden)",
+ "forscher": [
+  {
+   "strategie": "sparsam",
+   "runden": [
+    {
+     "ueberlegung": "Für große ν dominieren die kürzesten Gittervektoren die Dreikörper-Energie exponentiell. Das optimale Rechteckgitter τ = iy sollte gegen einen Grenzwert y_∞ konvergieren. Meine Strategie: (1) Mit rect_optimum das beste Seitenverhältnis bei mehreren großen ν-Werten bestimmen, um die Konvergenz zu beobachten. (2) Mit asymptote einen Fit y = a + b/ν + c/ν² durchführen, um y_∞ durch Extrapolation zu berechnen. (3) Mit minimize2d bei großem ν überprüfen, dass Rechteckgitter noch global optimal ist und nicht von anderen Gittern (hexagonal, rhombisch) verdrängt werden.",
+     "plan": [
+      {
+       "op": "rect_optimum",
+       "args": {
+        "nu": 50,
+        "y_lo": 0.5,
+        "y_hi": 2.5
+       }
+      },
+      {
+       "op": "rect_optimum",
+       "args": {
+        "nu": 100,
+        "y_lo": 0.5,
+        "y_hi": 2.5
+       }
+      },
+      {
+       "op": "rect_optimum",
+       "args": {
+        "nu": 200,
+        "y_lo": 0.5,
+        "y_hi": 2.5
+       }
+      },
+      {
+       "op": "asymptote",
+       "args": {
+        "nus": [
+         30,
+         50,
+         75,
+         100,
+         150,
+         200
+        ]
+       }
+      },
+      {
+       "op": "minimize2d",
+       "args": {
+        "nu": 150
+       }
+      },
+      {
+       "op": "energy2d",
+       "args": {
+        "tau": [
+         0.5,
+         0.866
+        ],
+        "nu": 150
+       }
+      },
+      {
+       "op": "hessian2d",
+       "args": {
+        "tau": [
+         0,
+         1.54
+        ],
+        "nu": 150
+       }
+      }
+     ]
+    },
+    {
+     "plan": [
+      {
+       "op": "rect_optimum",
+       "args": {
+        "nu": 300,
+        "y_lo": 1.2,
+        "y_hi": 1.3
+       }
+      },
+      {
+       "op": "rect_optimum",
+       "args": {
+        "nu": 500,
+        "y_lo": 1.2,
+        "y_hi": 1.3
+       }
+      },
+      {
+       "op": "asymptote",
+       "args": {
+        "nus": [
+         30,
+         50,
+         75,
+         100,
+         150,
+         200,
+         300,
+         500
+        ]
+       }
+      }
+     ]
+    },
+    {
+     "antwort": "1.2496",
+     "zahl": 1.2495921484763286,
+     "konfidenz": 0.95,
+     "begruendung": "Die asymptote-Fits (E3, E9) zeigen konsistente Konvergenz des optimalen Seitenverhältnisses y gegen 1.2495921... Die Daten von nu=30 bis nu=500 folgen dem Modell y(nu) = y_inf + κ/nu + c₂/nu². Eine geschlossene Form ist aus den Experimenten nicht erkennbar.",
+     "pruefung": {
+      "typ": "grenzwert",
+      "groesse": "y_inf",
+      "erwartet": 1.2496,
+      "toleranz": 0.0005,
+      "beleg": "E9: Asymptote-Fit mit 8 Datenpunkten (nu ∈ [30, 500]) liefert y_inf_fit = 1.2495921; monotone Konvergenz der rect_optimum-Resultate E0, E1, E2, E7, E8 bestätigt Trend."
+     }
+    }
+   ],
+   "experimente": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9
+   ],
+   "final": {
+    "antwort": "1.2496",
+    "zahl": 1.2495921484763286,
+    "konfidenz": 0.95,
+    "begruendung": "Die asymptote-Fits (E3, E9) zeigen konsistente Konvergenz des optimalen Seitenverhältnisses y gegen 1.2495921... Die Daten von nu=30 bis nu=500 folgen dem Modell y(nu) = y_inf + κ/nu + c₂/nu². Eine geschlossene Form ist aus den Experimenten nicht erkennbar.",
+    "pruefung": {
+     "typ": "grenzwert",
+     "groesse": "y_inf",
+     "erwartet": 1.2496,
+     "toleranz": 0.0005,
+     "beleg": "E9: Asymptote-Fit mit 8 Datenpunkten (nu ∈ [30, 500]) liefert y_inf_fit = 1.2495921; monotone Konvergenz der rect_optimum-Resultate E0, E1, E2, E7, E8 bestätigt Trend."
+    }
+   },
+   "modell": "haiku",
+   "pruefung": {
+    "bestanden": true,
+    "grund": "Prüfer-Fit über nu=[100, 160, 250, 400, 640, 1000]: y_inf_fit=1.249620 (Toleranz 0.0005)"
+   }
+  }
+ ],
+ "experimente": [
+  {
+   "id": 0,
+   "wer": "forscher-sparsam",
+   "op": "rect_optimum",
+   "args": {
+    "nu": 50,
+    "y_lo": 0.5,
+    "y_hi": 2.5
+   },
+   "ergebnis": {
+    "y": 1.229499015470699,
+    "T": 4.496696746911355e-07
+   },
+   "sek": 0.12
+  },
+  {
+   "id": 1,
+   "wer": "forscher-sparsam",
+   "op": "rect_optimum",
+   "args": {
+    "nu": 100,
+    "y_lo": 0.5,
+    "y_hi": 2.5
+   },
+   "ergebnis": {
+    "y": 1.2398289509433693,
+    "T": 7.250841730619288e-15
+   },
+   "sek": 0.12
+  },
+  {
+   "id": 2,
+   "wer": "forscher-sparsam",
+   "op": "rect_optimum",
+   "args": {
+    "nu": 200,
+    "y_lo": 0.5,
+    "y_hi": 2.5
+   },
+   "ergebnis": {
+    "y": 1.2447872590461475,
+    "T": 1.881197102942184e-30
+   },
+   "sek": 0.16
+  },
+  {
+   "id": 3,
+   "wer": "forscher-sparsam",
+   "op": "asymptote",
+   "args": {
+    "nus": [
+     30,
+     50,
+     75,
+     100,
+     150,
+     200
+    ]
+   },
+   "ergebnis": {
+    "nus": [
+     30,
+     50,
+     75,
+     100,
+     150,
+     200
+    ],
+    "ys": [
+     1.214720794977329,
+     1.2294990295173194,
+     1.2364495210817703,
+     1.2398289302268253,
+     1.2431487471372693,
+     1.244787248153771
+    ],
+    "y_inf_fit": 1.2495665901826374,
+    "kappa_fit": 0.9418744189512054,
+    "c2": -3.102975602249995
+   },
+   "sek": 0.65
+  },
+  {
+   "id": 4,
+   "wer": "forscher-sparsam",
+   "op": "minimize2d",
+   "args": {
+    "nu": 150
+   },
+   "ergebnis": {
+    "tau": [
+     6.182559882290681e-07,
+     1.2431475218666161
+    ],
+    "T": 1.1680502238962775e-22,
+    "typ": "rechteckig(y=1.2431)",
+    "lokale_minima": [
+     {
+      "tau": [
+       6.182559882290681e-07,
+       1.2431475218666161
+      ],
+      "T": 1.1680502238962775e-22,
+      "typ": "rechteckig(y=1.2431)"
+     }
+    ]
+   },
+   "sek": 4.3
+  },
+  {
+   "id": 5,
+   "wer": "forscher-sparsam",
+   "op": "energy2d",
+   "args": {
+    "tau": [
+     0.5,
+     0.866
+    ],
+    "nu": 150
+   },
+   "ergebnis": {
+    "T": 1.055779819710359e-13,
+    "err": 0.0
+   },
+   "sek": 0.01
+  },
+  {
+   "id": 6,
+   "wer": "forscher-sparsam",
+   "op": "hessian2d",
+   "args": {
+    "tau": [
+     0,
+     1.54
+    ],
+    "nu": 150
+   },
+   "ergebnis": {
+    "eigenwerte": [
+     0.0,
+     140.03056118484227
+    ],
+    "stabil": false
+   },
+   "sek": 0.1
+  },
+  {
+   "id": 7,
+   "wer": "forscher-sparsam",
+   "op": "rect_optimum",
+   "args": {
+    "nu": 300,
+    "y_lo": 1.2,
+    "y_hi": 1.3
+   },
+   "ergebnis": {
+    "y": 1.2464119127818545,
+    "T": 4.87844798039009e-46
+   },
+   "sek": 0.12
+  },
+  {
+   "id": 8,
+   "wer": "forscher-sparsam",
+   "op": "rect_optimum",
+   "args": {
+    "nu": 500,
+    "y_lo": 1.2,
+    "y_hi": 1.3
+   },
+   "ergebnis": {
+    "y": 1.2477019012797654,
+    "T": 3.2798978136368648e-77
+   },
+   "sek": 0.13
+  },
+  {
+   "id": 9,
+   "wer": "forscher-sparsam",
+   "op": "asymptote",
+   "args": {
+    "nus": [
+     30,
+     50,
+     75,
+     100,
+     150,
+     200,
+     300,
+     500
+    ]
+   },
+   "ergebnis": {
+    "nus": [
+     30,
+     50,
+     75,
+     100,
+     150,
+     200,
+     300,
+     500
+    ],
+    "ys": [
+     1.214720794977329,
+     1.2294990295173194,
+     1.2364495210817703,
+     1.2398289302268253,
+     1.2431487471372693,
+     1.244787248153771,
+     1.2464119000103815,
+     1.2477019213303677
+    ],
+    "y_inf_fit": 1.2495921484763286,
+    "kappa_fit": 0.9449279251680989,
+    "c2": -3.0323004249184264
+   },
+   "sek": 0.78
+  }
+ ],
+ "sek": 69.9,
+ "frage": "Q8",
+ "salt": 0,
+ "bedingung": "BK"
+}

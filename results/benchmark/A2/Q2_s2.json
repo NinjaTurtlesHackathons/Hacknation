@@ -1,0 +1,39 @@
+{
+ "antwort": {
+  "antwort": "Quadratgitter (tau = i)",
+  "zahl": null,
+  "konfidenz": 0.85,
+  "begruendung": "Ich habe T_5 numerisch mit abgeschnittener Gittersumme berechnet. Beim Quadratgitter (tau=i) ergibt sich 4.838, beim hexagonalen Gitter 5.130. Ein Scan über den Fundamentalbereich (x von 0 bis 0.5, y von 0.85 bis 1.6) hat das Minimum bei tau=i gefunden."
+ },
+ "kosten_usd": 0.0209086,
+ "tool_calls": 2,
+ "verstoss": [],
+ "sek": 20.1,
+ "transkript_tools": [
+  {
+   "type": "tool_use",
+   "id": "toolu_019SBkm5MkX5s5G8sPgBCEm9",
+   "name": "Bash",
+   "input": {
+    "command": "cat > a.py <<'E'\nimport numpy as np\nfrom scipy.optimize import minimize\nnu=5;N=9\ndef T(p):\n    x,y=p\n    if y<=0:return 1e9\n    r=np.arange(-N,N+1)\n    a,b=np.meshgrid(r,r);a=a.ravel();b=b.ravel()\n    m=(a!=0)|(b!=0);a=a[m];b=b[m]\n    P=np.stack([a+b*x,b*y],1)/np.sqrt(y)\n    n=np.linalg.norm(P,axis=1)\n    keep=n<6;P=P[keep];n=n[keep]\n    D=np.linalg.norm(P[:,None]-P[None],axis=2)\n    np.fill_diagonal(D,np.inf)\n    return ((n[:,None]*n[None]*D)**-nu).sum()\nfor x,y in [(0,1),(.5,np.sqrt(3)/2),(.5,1.2),(.5,2),(.3,1.1),(0,1.5)]:\n    print(x,y,T((x,y)))\nE\npython3 a.py"
+   },
+   "caller": {
+    "type": "direct"
+   }
+  },
+  {
+   "type": "tool_use",
+   "id": "toolu_019ZWNTmrJTKcTEzqw6yQh1F",
+   "name": "Bash",
+   "input": {
+    "command": "cat >> a.py <<'E'\nbest=min(((T((x,y)),x,y) for x in np.linspace(0,.5,11) for y in np.linspace(.85,1.6,16) if x*x+y*y>=.999))\nprint(best)\nE\npython3 a.py | tail -1"
+   },
+   "caller": {
+    "type": "direct"
+   }
+  }
+ ],
+ "frage": "Q2",
+ "salt": 2,
+ "bedingung": "A2"
+}

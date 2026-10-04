@@ -1,0 +1,253 @@
+{
+ "antwort": {
+  "antwort": "hexagonal",
+  "zahl": null,
+  "konfidenz": 0.98,
+  "beggruendung": "Die globale Optimierung (E0) mit Raster + Nelder-Mead findet im Fundamentalbereich nur das hexagonale Gitter als lokales Minimum (T = 13.3918). Das quadratische Gitter hat höhere Energie (T = 13.6529, sicher 0.261 größer, E5) und ist nicht einmal lokal stabil (negative Hessian-Eigenwerte bei E4). Keine anderen Gittertypen werden als Kandidaten in E0 gemeldet.",
+  "pruefung": {
+   "typ": "argmin2d",
+   "nu": 3,
+   "erwartet": "hexagonal"
+  },
+  "stimmen": "Stufe 1/4 (sparsam, haiku)"
+ },
+ "level": "computed (Code-Prüfer bestanden)",
+ "forscher": [
+  {
+   "strategie": "sparsam",
+   "runden": [
+    {
+     "ueberlegung": "Zur Beantwortung der Frage nach dem optimalen 2D-Gitter bei ν=3 plane ich eine systematische Exploration: (1) Globale Minimierungssuche, um das absolute Optimum zu identifizieren, (2) Evaluierung der Standardkandidaten (hexagonal, quadratisch), (3) Stabilitätsprüfungen via Hessematrix, (4) robuste Vergleiche zwischen Top-Kandidaten. Mit ν=3 im mittleren Reichweitenbereich erwarte ich hexagonal als stark, quadratisch als alternative Kandidat. Die Experimente sind so gewählt, dass minimize2d die Antwort liefert und die folgenden Tests diese definitiv bestätigen und stabilisieren.",
+     "plan": [
+      {
+       "op": "minimize2d",
+       "args": {
+        "nu": 3
+       }
+      },
+      {
+       "op": "energy2d",
+       "args": {
+        "tau": [
+         0.5,
+         0.8660254
+        ],
+        "nu": 3
+       }
+      },
+      {
+       "op": "energy2d",
+       "args": {
+        "tau": [
+         0,
+         1
+        ],
+        "nu": 3
+       }
+      },
+      {
+       "op": "hessian2d",
+       "args": {
+        "tau": [
+         0.5,
+         0.8660254
+        ],
+        "nu": 3
+       }
+      },
+      {
+       "op": "hessian2d",
+       "args": {
+        "tau": [
+         0,
+         1
+        ],
+        "nu": 3
+       }
+      },
+      {
+       "op": "compare2d",
+       "args": {
+        "tau_a": [
+         0.5,
+         0.8660254
+        ],
+        "tau_b": [
+         0,
+         1
+        ],
+        "nu": 3
+       }
+      }
+     ]
+    },
+    {
+     "antwort": "hexagonal",
+     "zahl": null,
+     "konfidenz": 0.98,
+     "beggruendung": "Die globale Optimierung (E0) mit Raster + Nelder-Mead findet im Fundamentalbereich nur das hexagonale Gitter als lokales Minimum (T = 13.3918). Das quadratische Gitter hat höhere Energie (T = 13.6529, sicher 0.261 größer, E5) und ist nicht einmal lokal stabil (negative Hessian-Eigenwerte bei E4). Keine anderen Gittertypen werden als Kandidaten in E0 gemeldet.",
+     "pruefung": {
+      "typ": "argmin2d",
+      "nu": 3,
+      "erwartet": "hexagonal"
+     }
+    }
+   ],
+   "experimente": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "final": {
+    "antwort": "hexagonal",
+    "zahl": null,
+    "konfidenz": 0.98,
+    "beggruendung": "Die globale Optimierung (E0) mit Raster + Nelder-Mead findet im Fundamentalbereich nur das hexagonale Gitter als lokales Minimum (T = 13.3918). Das quadratische Gitter hat höhere Energie (T = 13.6529, sicher 0.261 größer, E5) und ist nicht einmal lokal stabil (negative Hessian-Eigenwerte bei E4). Keine anderen Gittertypen werden als Kandidaten in E0 gemeldet.",
+    "pruefung": {
+     "typ": "argmin2d",
+     "nu": 3,
+     "erwartet": "hexagonal"
+    }
+   },
+   "modell": "haiku",
+   "pruefung": {
+    "bestanden": true,
+    "grund": "Prüfer-Suche (18er-Raster, 6 Polituren, R=(48, 64)): hexagonal"
+   }
+  }
+ ],
+ "experimente": [
+  {
+   "id": 0,
+   "wer": "forscher-sparsam",
+   "op": "minimize2d",
+   "args": {
+    "nu": 3
+   },
+   "ergebnis": {
+    "tau": [
+     0.5,
+     0.8660254037844386
+    ],
+    "T": 13.391794004874814,
+    "typ": "hexagonal",
+    "lokale_minima": [
+     {
+      "tau": [
+       0.5,
+       0.8660254037844386
+      ],
+      "T": 13.391794004874814,
+      "typ": "hexagonal"
+     }
+    ]
+   },
+   "sek": 4.28
+  },
+  {
+   "id": 1,
+   "wer": "forscher-sparsam",
+   "op": "energy2d",
+   "args": {
+    "tau": [
+     0.5,
+     0.8660254
+    ],
+    "nu": 3
+   },
+   "ergebnis": {
+    "T": 13.391794004874818,
+    "err": 6.634331393584603e-06
+   },
+   "sek": 0.01
+  },
+  {
+   "id": 2,
+   "wer": "forscher-sparsam",
+   "op": "energy2d",
+   "args": {
+    "tau": [
+     0,
+     1
+    ],
+    "nu": 3
+   },
+   "ergebnis": {
+    "T": 13.652893626113212,
+    "err": 5.371253838148959e-06
+   },
+   "sek": 0.01
+  },
+  {
+   "id": 3,
+   "wer": "forscher-sparsam",
+   "op": "hessian2d",
+   "args": {
+    "tau": [
+     0.5,
+     0.8660254
+    ],
+    "nu": 3
+   },
+   "ergebnis": {
+    "eigenwerte": [
+     9.379147103416585,
+     9.37918757282219
+    ],
+    "stabil": true
+   },
+   "sek": 0.09
+  },
+  {
+   "id": 4,
+   "wer": "forscher-sparsam",
+   "op": "hessian2d",
+   "args": {
+    "tau": [
+     0,
+     1
+    ],
+    "nu": 3
+   },
+   "ergebnis": {
+    "eigenwerte": [
+     -3.5057713168029636,
+     26.981139804593823
+    ],
+    "stabil": false
+   },
+   "sek": 0.09
+  },
+  {
+   "id": 5,
+   "wer": "forscher-sparsam",
+   "op": "compare2d",
+   "args": {
+    "tau_a": [
+     0.5,
+     0.8660254
+    ],
+    "tau_b": [
+     0,
+     1
+    ],
+    "nu": 3
+   },
+   "ergebnis": {
+    "T_a": 13.391794004874818,
+    "T_b": 13.652893626113212,
+    "diff": -0.2610996212383938,
+    "err": 1.2005586597022925e-05,
+    "sicher": true
+   },
+   "sek": 0.02
+  }
+ ],
+ "sek": 55.0,
+ "frage": "Q1",
+ "salt": 1,
+ "bedingung": "BK"
+}

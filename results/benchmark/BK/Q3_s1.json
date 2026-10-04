@@ -1,0 +1,238 @@
+{
+ "antwort": {
+  "antwort": "quadratisch",
+  "zahl": null,
+  "konfidenz": 0.98,
+  "pruefung": {
+   "typ": "argmin2d",
+   "nu": 7,
+   "erwartet": "quadratisch"
+  },
+  "begruendung": "Die globale Minimierung (E0) findet das quadratische Gitter τ = [0, 1] mit T₇ = 2.234 als einziges lokales Minimum im Fundamentalbereich. Die Hessematrix dort hat beide positiven Eigenwerte (E5: 3.32, 10.69), bestätigt ein lokales Minimum. Das Hexagon-Gitter hat dagegen höhere Energie (E1: 2.854) und beide negativen Hessian-Eigenwerte (E4: -12.09), ist also kein lokales Minimum. Die Suche über Rechtecke (E3) konvergiert ebenfalls auf y=1 (Quadrat).",
+  "stimmen": "Stufe 1/4 (sparsam, haiku)"
+ },
+ "level": "computed (Code-Prüfer bestanden)",
+ "forscher": [
+  {
+   "strategie": "sparsam",
+   "runden": [
+    {
+     "ueberlegung": "Die Frage zielt direkt auf das optimale 2D-Gitter bei ν=7 ab. Das Werkzeug minimize2d führt eine globale Suche über den gesamten Fundamentalbereich durch und identifiziert nicht nur das beste Gitter, sondern auch lokale Minima mit deren Typ (hexagonal, quadratisch, rechteckig, rhombisch, schief). Um diese Antwort zu verifizieren und die Energielandschaft zu verstehen, werden wir: (1) die bekannten Kandidaten Hexagon und Quadrat direkt untersuchen (energy2d), (2) deren lokale Stabilität prüfen (hessian2d), und (3) prüfen, ob ein optimiertes Rechteckgitter konkurriert. Diese Kombination liefert sowohl die direkte Antwort als auch eine robuste Verifizierung.",
+     "plan": [
+      {
+       "op": "minimize2d",
+       "args": {
+        "nu": 7
+       }
+      },
+      {
+       "op": "energy2d",
+       "args": {
+        "tau": [
+         0.5,
+         0.8660254
+        ],
+        "nu": 7
+       }
+      },
+      {
+       "op": "energy2d",
+       "args": {
+        "tau": [
+         0,
+         1
+        ],
+        "nu": 7
+       }
+      },
+      {
+       "op": "rect_optimum",
+       "args": {
+        "nu": 7,
+        "y_lo": 0.8,
+        "y_hi": 2.0
+       }
+      },
+      {
+       "op": "hessian2d",
+       "args": {
+        "tau": [
+         0.5,
+         0.8660254
+        ],
+        "nu": 7
+       }
+      },
+      {
+       "op": "hessian2d",
+       "args": {
+        "tau": [
+         0,
+         1
+        ],
+        "nu": 7
+       }
+      }
+     ]
+    },
+    {
+     "antwort": "quadratisch",
+     "zahl": null,
+     "konfidenz": 0.98,
+     "pruefung": {
+      "typ": "argmin2d",
+      "nu": 7,
+      "erwartet": "quadratisch"
+     },
+     "begruendung": "Die globale Minimierung (E0) findet das quadratische Gitter τ = [0, 1] mit T₇ = 2.234 als einziges lokales Minimum im Fundamentalbereich. Die Hessematrix dort hat beide positiven Eigenwerte (E5: 3.32, 10.69), bestätigt ein lokales Minimum. Das Hexagon-Gitter hat dagegen höhere Energie (E1: 2.854) und beide negativen Hessian-Eigenwerte (E4: -12.09), ist also kein lokales Minimum. Die Suche über Rechtecke (E3) konvergiert ebenfalls auf y=1 (Quadrat)."
+    }
+   ],
+   "experimente": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "final": {
+    "antwort": "quadratisch",
+    "zahl": null,
+    "konfidenz": 0.98,
+    "pruefung": {
+     "typ": "argmin2d",
+     "nu": 7,
+     "erwartet": "quadratisch"
+    },
+    "begruendung": "Die globale Minimierung (E0) findet das quadratische Gitter τ = [0, 1] mit T₇ = 2.234 als einziges lokales Minimum im Fundamentalbereich. Die Hessematrix dort hat beide positiven Eigenwerte (E5: 3.32, 10.69), bestätigt ein lokales Minimum. Das Hexagon-Gitter hat dagegen höhere Energie (E1: 2.854) und beide negativen Hessian-Eigenwerte (E4: -12.09), ist also kein lokales Minimum. Die Suche über Rechtecke (E3) konvergiert ebenfalls auf y=1 (Quadrat)."
+   },
+   "modell": "haiku",
+   "pruefung": {
+    "bestanden": true,
+    "grund": "Prüfer-Suche (18er-Raster, 6 Polituren, R=(48, 64)): quadratisch"
+   }
+  }
+ ],
+ "experimente": [
+  {
+   "id": 0,
+   "wer": "forscher-sparsam",
+   "op": "minimize2d",
+   "args": {
+    "nu": 7
+   },
+   "ergebnis": {
+    "tau": [
+     0.0,
+     1.0
+    ],
+    "T": 2.233446174786402,
+    "typ": "quadratisch",
+    "lokale_minima": [
+     {
+      "tau": [
+       0.0,
+       1.0
+      ],
+      "T": 2.233446174786402,
+      "typ": "quadratisch"
+     }
+    ]
+   },
+   "sek": 5.35
+  },
+  {
+   "id": 1,
+   "wer": "forscher-sparsam",
+   "op": "energy2d",
+   "args": {
+    "tau": [
+     0.5,
+     0.8660254
+    ],
+    "nu": 7
+   },
+   "ergebnis": {
+    "T": 2.8543520638117146,
+    "err": 0.0
+   },
+   "sek": 0.02
+  },
+  {
+   "id": 2,
+   "wer": "forscher-sparsam",
+   "op": "energy2d",
+   "args": {
+    "tau": [
+     0,
+     1
+    ],
+    "nu": 7
+   },
+   "ergebnis": {
+    "T": 2.233446174786402,
+    "err": 0.0
+   },
+   "sek": 0.02
+  },
+  {
+   "id": 3,
+   "wer": "forscher-sparsam",
+   "op": "rect_optimum",
+   "args": {
+    "nu": 7,
+    "y_lo": 0.8,
+    "y_hi": 2.0
+   },
+   "ergebnis": {
+    "y": 0.9999999911969396,
+    "T": 2.2334461747864003
+   },
+   "sek": 0.27
+  },
+  {
+   "id": 4,
+   "wer": "forscher-sparsam",
+   "op": "hessian2d",
+   "args": {
+    "tau": [
+     0.5,
+     0.8660254
+    ],
+    "nu": 7
+   },
+   "ergebnis": {
+    "eigenwerte": [
+     -12.092963656895606,
+     -12.092898927118512
+    ],
+    "stabil": false
+   },
+   "sek": 0.3
+  },
+  {
+   "id": 5,
+   "wer": "forscher-sparsam",
+   "op": "hessian2d",
+   "args": {
+    "tau": [
+     0,
+     1
+    ],
+    "nu": 7
+   },
+   "ergebnis": {
+    "eigenwerte": [
+     3.323792240328416,
+     10.688897327915114
+    ],
+    "stabil": true
+   },
+   "sek": 0.27
+  }
+ ],
+ "sek": 82.6,
+ "frage": "Q3",
+ "salt": 1,
+ "bedingung": "BK"
+}

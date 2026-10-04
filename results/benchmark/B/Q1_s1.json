@@ -1,0 +1,1128 @@
+{
+ "antwort": {
+  "antwort": "hexagonal",
+  "zahl": null,
+  "konfidenz": 0.95,
+  "pruefung": {
+   "typ": "argmin2d",
+   "nu": 3,
+   "erwartet": "hexagonal"
+  },
+  "begruendung": "Die globale Suche minimize2d findet bei nu=3 nur ein lokales Minimum, das hexagonale Gitter (T≈13.3918). Es ist stabil (Hesse-Eigenwerte ≈9.38 > 0), während das quadratische Gitter ein Sattelpunkt ist (Eigenwert -3.51) und mit ΔT≈+0.261 deutlich höher liegt; auch das Rechteck-Optimum liegt bei y=1 (quadratisch) und ist damit nicht besser.",
+  "stimmen": "4/4 (geprüft: 4)"
+ },
+ "level": "computed (Code-Prüfer bestanden)",
+ "forscher": [
+  {
+   "strategie": "numeriker",
+   "runden": [
+    {
+     "ueberlegung": "Erst grob scannen: globale Suche bei nu=3, dann Energien und Vergleich hexagonal vs. quadratisch, Hesse-Eigenwerte an beiden Punkten, Rechteck-Optimum zur Kontrolle, sowie ein rhombischer Zwischenpunkt. Danach entscheiden und gezielt verfeinern.",
+     "plan": [
+      {
+       "op": "minimize2d",
+       "args": {
+        "nu": 3
+       }
+      },
+      {
+       "op": "energy2d",
+       "args": {
+        "tau": [
+         0.5,
+         0.8660254
+        ],
+        "nu": 3
+       }
+      },
+      {
+       "op": "energy2d",
+       "args": {
+        "tau": [
+         0,
+         1
+        ],
+        "nu": 3
+       }
+      },
+      {
+       "op": "compare2d",
+       "args": {
+        "tau_a": [
+         0.5,
+         0.8660254
+        ],
+        "tau_b": [
+         0,
+         1
+        ],
+        "nu": 3
+       }
+      },
+      {
+       "op": "hessian2d",
+       "args": {
+        "tau": [
+         0.5,
+         0.8660254
+        ],
+        "nu": 3
+       }
+      },
+      {
+       "op": "hessian2d",
+       "args": {
+        "tau": [
+         0,
+         1
+        ],
+        "nu": 3
+       }
+      },
+      {
+       "op": "rect_optimum",
+       "args": {
+        "nu": 3,
+        "y_lo": 1,
+        "y_hi": 3
+       }
+      },
+      {
+       "op": "compare2d",
+       "args": {
+        "tau_a": [
+         0.5,
+         0.8660254
+        ],
+        "tau_b": [
+         0.25,
+         1.0
+        ],
+        "nu": 3
+       }
+      }
+     ]
+    },
+    {
+     "antwort": "hexagonal",
+     "zahl": null,
+     "konfidenz": 0.95,
+     "pruefung": {
+      "typ": "argmin2d",
+      "nu": 3,
+      "erwartet": "hexagonal"
+     },
+     "begruendung": "Die globale Suche minimize2d findet bei nu=3 nur ein lokales Minimum, das hexagonale Gitter (T≈13.3918). Es ist stabil (Hesse-Eigenwerte ≈9.38 > 0), während das quadratische Gitter ein Sattelpunkt ist (Eigenwert -3.51) und mit ΔT≈+0.261 deutlich höher liegt; auch das Rechteck-Optimum liegt bei y=1 (quadratisch) und ist damit nicht besser."
+    }
+   ],
+   "experimente": [
+    0,
+    1,
+    2,
+    3,
+    6,
+    11,
+    24,
+    27
+   ],
+   "final": {
+    "antwort": "hexagonal",
+    "zahl": null,
+    "konfidenz": 0.95,
+    "pruefung": {
+     "typ": "argmin2d",
+     "nu": 3,
+     "erwartet": "hexagonal"
+    },
+    "begruendung": "Die globale Suche minimize2d findet bei nu=3 nur ein lokales Minimum, das hexagonale Gitter (T≈13.3918). Es ist stabil (Hesse-Eigenwerte ≈9.38 > 0), während das quadratische Gitter ein Sattelpunkt ist (Eigenwert -3.51) und mit ΔT≈+0.261 deutlich höher liegt; auch das Rechteck-Optimum liegt bei y=1 (quadratisch) und ist damit nicht besser."
+   },
+   "pruefung": {
+    "bestanden": true,
+    "grund": "Prüfer-Suche (18er-Raster, 6 Polituren, R=(48, 64)): hexagonal"
+   }
+  },
+  {
+   "strategie": "theoretiker",
+   "runden": [
+    {
+     "ueberlegung": "Symmetrie: Hexagonal und quadratisch sind kritische Punkte der Energie (Fundamentalbereich-Symmetrie), daher Hesse-Test sinnvoll. Grenzfälle: Für große nu dominieren die kürzesten Dreiecke (x, y, x-y), also maximale Anzahl gleichseitiger kürzester Dreiecke, was das hexagonale Gitter begünstigt; für kleine nu (nahe der Konvergenzgrenze nu>4 in 2D) könnte etwas anderes eine Rolle spielen. Bei nu=3 konvergiert die Summe in 2D möglicherweise nur schwach bzw. nicht (Summe über x,y: Dichte ~ |x|^-3 |y|^-3 |x-y|^-3, konvergent bei Skalierung beider Vektoren: Anzahl ~R^4, Terme R^-9, also konvergent). Ich teste die entscheidende Vorhersage: hexagonal ist globales Minimum bei nu=3. Dazu globale Suche, direkter Vergleich hex vs. quadratisch, und Hesse-Eigenwerte an beiden Punkten sowie Rechteck-Optimum als Gegenprobe.",
+     "plan": [
+      {
+       "op": "minimize2d",
+       "args": {
+        "nu": 3
+       }
+      },
+      {
+       "op": "compare2d",
+       "args": {
+        "tau_a": [
+         0.5,
+         0.8660254
+        ],
+        "tau_b": [
+         0,
+         1
+        ],
+        "nu": 3
+       }
+      },
+      {
+       "op": "hessian2d",
+       "args": {
+        "tau": [
+         0.5,
+         0.8660254
+        ],
+        "nu": 3
+       }
+      },
+      {
+       "op": "hessian2d",
+       "args": {
+        "tau": [
+         0,
+         1
+        ],
+        "nu": 3
+       }
+      },
+      {
+       "op": "rect_optimum",
+       "args": {
+        "nu": 3,
+        "y_lo": 0.5,
+        "y_hi": 3
+       }
+      },
+      {
+       "op": "energy2d",
+       "args": {
+        "tau": [
+         0.5,
+         0.8660254
+        ],
+        "nu": 3
+       }
+      },
+      {
+       "op": "energy2d",
+       "args": {
+        "tau": [
+         0,
+         1
+        ],
+        "nu": 3
+       }
+      },
+      {
+       "op": "crossing2d",
+       "args": {
+        "tau_a": [
+         0.5,
+         0.8660254
+        ],
+        "tau_b": [
+         0,
+         1
+        ],
+        "nu_lo": 1,
+        "nu_hi": 10
+       }
+      }
+     ]
+    },
+    {
+     "antwort": "hexagonal",
+     "zahl": null,
+     "konfidenz": 0.95,
+     "pruefung": {
+      "typ": "argmin2d",
+      "nu": 3,
+      "erwartet": "hexagonal"
+     },
+     "begruendung": "Die globale Suche minimize2d bei nu=3 findet als einziges lokales Minimum das hexagonale Gitter (T≈13.3918). Das quadratische Gitter hat höhere Energie (13.6529, Differenz −0.261, sicher) und ist ein Sattelpunkt (Hesse-Eigenwert −3.51), während das hexagonale Gitter stabil ist (beide Eigenwerte ≈ 9.38). Der Vorzeichenwechsel der Differenz liegt erst bei nu≈3.918, also oberhalb von nu=3."
+    }
+   ],
+   "experimente": [
+    8,
+    9,
+    10,
+    13,
+    18,
+    19,
+    20,
+    28
+   ],
+   "final": {
+    "antwort": "hexagonal",
+    "zahl": null,
+    "konfidenz": 0.95,
+    "pruefung": {
+     "typ": "argmin2d",
+     "nu": 3,
+     "erwartet": "hexagonal"
+    },
+    "begruendung": "Die globale Suche minimize2d bei nu=3 findet als einziges lokales Minimum das hexagonale Gitter (T≈13.3918). Das quadratische Gitter hat höhere Energie (13.6529, Differenz −0.261, sicher) und ist ein Sattelpunkt (Hesse-Eigenwert −3.51), während das hexagonale Gitter stabil ist (beide Eigenwerte ≈ 9.38). Der Vorzeichenwechsel der Differenz liegt erst bei nu≈3.918, also oberhalb von nu=3."
+   },
+   "pruefung": {
+    "bestanden": true,
+    "grund": "Prüfer-Suche (18er-Raster, 6 Polituren, R=(48, 64)): hexagonal"
+   }
+  },
+  {
+   "strategie": "skeptiker",
+   "runden": [
+    {
+     "ueberlegung": "Die naheliegende Antwort ist hexagonal, aber das ist bei nu=3 nicht gesichert: Die Dreikörper-Energie könnte bei kleinem nu ein anderes Minimum haben (z.B. quadratisch oder rechteckig) und es kann Koexistenz lokaler Minima geben. Ich prüfe daher global mit minimize2d, vergleiche hexagonal und quadratisch direkt mit Fehlerabschätzung, bestimme Hesse-Eigenwerte an beiden Punkten, suche das beste Rechteck und prüfe zur Kontrolle benachbarte nu-Werte sowie einen rhombischen Zwischenpunkt, um Alternativen auszuschließen.",
+     "plan": [
+      {
+       "op": "minimize2d",
+       "args": {
+        "nu": 3
+       }
+      },
+      {
+       "op": "compare2d",
+       "args": {
+        "tau_a": [
+         0.5,
+         0.8660254
+        ],
+        "tau_b": [
+         0,
+         1
+        ],
+        "nu": 3
+       }
+      },
+      {
+       "op": "hessian2d",
+       "args": {
+        "tau": [
+         0.5,
+         0.8660254
+        ],
+        "nu": 3
+       }
+      },
+      {
+       "op": "hessian2d",
+       "args": {
+        "tau": [
+         0,
+         1
+        ],
+        "nu": 3
+       }
+      },
+      {
+       "op": "rect_optimum",
+       "args": {
+        "nu": 3,
+        "y_lo": 0.5,
+        "y_hi": 3
+       }
+      },
+      {
+       "op": "energy2d",
+       "args": {
+        "tau": [
+         0.5,
+         0.8660254
+        ],
+        "nu": 3
+       }
+      },
+      {
+       "op": "energy2d",
+       "args": {
+        "tau": [
+         0.3,
+         1.0
+        ],
+        "nu": 3
+       }
+      },
+      {
+       "op": "crossing2d",
+       "args": {
+        "tau_a": [
+         0.5,
+         0.8660254
+        ],
+        "tau_b": [
+         0,
+         1
+        ],
+        "nu_lo": 1.5,
+        "nu_hi": 8
+       }
+      }
+     ]
+    },
+    {
+     "antwort": "hexagonal",
+     "zahl": null,
+     "konfidenz": 0.93,
+     "pruefung": {
+      "typ": "argmin2d",
+      "nu": 3,
+      "erwartet": "hexagonal"
+     },
+     "begruendung": "Die globale Suche (minimize2d) findet bei nu=3 als einziges lokales Minimum das hexagonale Gitter (T≈13,3918). Das quadratische Gitter ist mit T≈13,6529 deutlich höher (Differenz -0,261, sicher) und ein Sattelpunkt (Hesse-Eigenwert -3,51). Das hexagonale Gitter ist stabil (beide Eigenwerte ≈9,38), und die Rechteck-Optimierung landet nur beim Quadrat, nicht bei einem besseren Rechteck. Der Vorzeichenwechsel von T(hex)-T(quad) liegt erst bei nu≈3,918, also oberhalb von 3."
+    }
+   ],
+   "experimente": [
+    14,
+    15,
+    16,
+    17,
+    21,
+    22,
+    23,
+    29
+   ],
+   "final": {
+    "antwort": "hexagonal",
+    "zahl": null,
+    "konfidenz": 0.93,
+    "pruefung": {
+     "typ": "argmin2d",
+     "nu": 3,
+     "erwartet": "hexagonal"
+    },
+    "begruendung": "Die globale Suche (minimize2d) findet bei nu=3 als einziges lokales Minimum das hexagonale Gitter (T≈13,3918). Das quadratische Gitter ist mit T≈13,6529 deutlich höher (Differenz -0,261, sicher) und ein Sattelpunkt (Hesse-Eigenwert -3,51). Das hexagonale Gitter ist stabil (beide Eigenwerte ≈9,38), und die Rechteck-Optimierung landet nur beim Quadrat, nicht bei einem besseren Rechteck. Der Vorzeichenwechsel von T(hex)-T(quad) liegt erst bei nu≈3,918, also oberhalb von 3."
+   },
+   "pruefung": {
+    "bestanden": true,
+    "grund": "Prüfer-Suche (18er-Raster, 6 Polituren, R=(48, 64)): hexagonal"
+   }
+  },
+  {
+   "strategie": "sparsam",
+   "runden": [
+    {
+     "ueberlegung": "Ich kenne das Ergebnis nicht vorab und muss es experimentell bestimmen. Plan: (1) globale Suche minimize2d bei nu=3 liefert Kandidaten und lokale Minima. (2) compare2d hexagonal vs. quadratisch bei nu=3 mit Fehler und Sicherheits-Flag. (3) hessian2d am hexagonalen Gitter prüft Stabilität. (4) hessian2d am quadratischen Gitter prüft, ob es ebenfalls ein lokales Minimum ist. (5) rect_optimum bei nu=3 prüft, ob ein Rechteck mit y ungleich 1 oder y ungleich sqrt(3)/2-Äquivalent besser ist. (6) energy2d hexagonal als Referenzwert mit Fehlerschätzung. Das sind wenige, nicht redundante Experimente; je nach Ergebnis wähle ich dann die Prüfung argmin2d mit passendem Typ (ggf. mit y).",
+     "plan": [
+      {
+       "op": "minimize2d",
+       "args": {
+        "nu": 3
+       }
+      },
+      {
+       "op": "compare2d",
+       "args": {
+        "tau_a": [
+         0.5,
+         0.8660254
+        ],
+        "tau_b": [
+         0,
+         1
+        ],
+        "nu": 3
+       }
+      },
+      {
+       "op": "hessian2d",
+       "args": {
+        "tau": [
+         0.5,
+         0.8660254
+        ],
+        "nu": 3
+       }
+      },
+      {
+       "op": "hessian2d",
+       "args": {
+        "tau": [
+         0,
+         1
+        ],
+        "nu": 3
+       }
+      },
+      {
+       "op": "rect_optimum",
+       "args": {
+        "nu": 3,
+        "y_lo": 1,
+        "y_hi": 3
+       }
+      },
+      {
+       "op": "energy2d",
+       "args": {
+        "tau": [
+         0.5,
+         0.8660254
+        ],
+        "nu": 3
+       }
+      }
+     ]
+    },
+    {
+     "antwort": "hexagonal",
+     "zahl": null,
+     "konfidenz": 0.96,
+     "pruefung": {
+      "typ": "argmin2d",
+      "nu": 3,
+      "erwartet": "hexagonal"
+     },
+     "begruendung": "Die globale Suche minimize2d bei nu=3 liefert als einziges lokales Minimum das hexagonale Gitter (T≈13,3918). Das quadratische Gitter hat eine höhere Energie (Differenz −0,261, sicher) und ist ein Sattelpunkt (Hesse-Eigenwert −3,51), während das hexagonale Gitter stabil ist (beide Eigenwerte ≈9,38)."
+    }
+   ],
+   "experimente": [
+    4,
+    5,
+    7,
+    12,
+    25,
+    26
+   ],
+   "final": {
+    "antwort": "hexagonal",
+    "zahl": null,
+    "konfidenz": 0.96,
+    "pruefung": {
+     "typ": "argmin2d",
+     "nu": 3,
+     "erwartet": "hexagonal"
+    },
+    "begruendung": "Die globale Suche minimize2d bei nu=3 liefert als einziges lokales Minimum das hexagonale Gitter (T≈13,3918). Das quadratische Gitter hat eine höhere Energie (Differenz −0,261, sicher) und ist ein Sattelpunkt (Hesse-Eigenwert −3,51), während das hexagonale Gitter stabil ist (beide Eigenwerte ≈9,38)."
+   },
+   "pruefung": {
+    "bestanden": true,
+    "grund": "Prüfer-Suche (18er-Raster, 6 Polituren, R=(48, 64)): hexagonal"
+   }
+  }
+ ],
+ "experimente": [
+  {
+   "id": 0,
+   "wer": "forscher-numeriker",
+   "op": "minimize2d",
+   "args": {
+    "nu": 3
+   },
+   "ergebnis": {
+    "tau": [
+     0.5,
+     0.8660254037844386
+    ],
+    "T": 13.391794004874814,
+    "typ": "hexagonal",
+    "lokale_minima": [
+     {
+      "tau": [
+       0.5,
+       0.8660254037844386
+      ],
+      "T": 13.391794004874814,
+      "typ": "hexagonal"
+     }
+    ]
+   },
+   "sek": 32.54
+  },
+  {
+   "id": 1,
+   "wer": "forscher-numeriker",
+   "op": "energy2d",
+   "args": {
+    "tau": [
+     0.5,
+     0.8660254
+    ],
+    "nu": 3
+   },
+   "ergebnis": {
+    "T": 13.391794004874818,
+    "err": 6.634331393584603e-06
+   },
+   "sek": 0.05
+  },
+  {
+   "id": 2,
+   "wer": "forscher-numeriker",
+   "op": "energy2d",
+   "args": {
+    "tau": [
+     0,
+     1
+    ],
+    "nu": 3
+   },
+   "ergebnis": {
+    "T": 13.652893626113212,
+    "err": 5.371253838148959e-06
+   },
+   "sek": 0.07
+  },
+  {
+   "id": 3,
+   "wer": "forscher-numeriker",
+   "op": "compare2d",
+   "args": {
+    "tau_a": [
+     0.5,
+     0.8660254
+    ],
+    "tau_b": [
+     0,
+     1
+    ],
+    "nu": 3
+   },
+   "ergebnis": {
+    "T_a": 13.391794004874818,
+    "T_b": 13.652893626113212,
+    "diff": -0.2610996212383938,
+    "err": 1.2005586597022925e-05,
+    "sicher": true
+   },
+   "sek": 0.12
+  },
+  {
+   "id": 4,
+   "wer": "forscher-sparsam",
+   "op": "minimize2d",
+   "args": {
+    "nu": 3
+   },
+   "ergebnis": {
+    "tau": [
+     0.5,
+     0.8660254037844386
+    ],
+    "T": 13.391794004874814,
+    "typ": "hexagonal",
+    "lokale_minima": [
+     {
+      "tau": [
+       0.5,
+       0.8660254037844386
+      ],
+      "T": 13.391794004874814,
+      "typ": "hexagonal"
+     }
+    ]
+   },
+   "sek": 31.47
+  },
+  {
+   "id": 5,
+   "wer": "forscher-sparsam",
+   "op": "compare2d",
+   "args": {
+    "tau_a": [
+     0.5,
+     0.8660254
+    ],
+    "tau_b": [
+     0,
+     1
+    ],
+    "nu": 3
+   },
+   "ergebnis": {
+    "T_a": 13.391794004874818,
+    "T_b": 13.652893626113212,
+    "diff": -0.2610996212383938,
+    "err": 1.2005586597022925e-05,
+    "sicher": true
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 6,
+   "wer": "forscher-numeriker",
+   "op": "hessian2d",
+   "args": {
+    "tau": [
+     0.5,
+     0.8660254
+    ],
+    "nu": 3
+   },
+   "ergebnis": {
+    "eigenwerte": [
+     9.379147103416585,
+     9.37918757282219
+    ],
+    "stabil": true
+   },
+   "sek": 0.69
+  },
+  {
+   "id": 7,
+   "wer": "forscher-sparsam",
+   "op": "hessian2d",
+   "args": {
+    "tau": [
+     0.5,
+     0.8660254
+    ],
+    "nu": 3
+   },
+   "ergebnis": {
+    "eigenwerte": [
+     9.379147103416585,
+     9.37918757282219
+    ],
+    "stabil": true
+   },
+   "sek": 0.63
+  },
+  {
+   "id": 8,
+   "wer": "forscher-theoretiker",
+   "op": "minimize2d",
+   "args": {
+    "nu": 3
+   },
+   "ergebnis": {
+    "tau": [
+     0.5,
+     0.8660254037844386
+    ],
+    "T": 13.391794004874814,
+    "typ": "hexagonal",
+    "lokale_minima": [
+     {
+      "tau": [
+       0.5,
+       0.8660254037844386
+      ],
+      "T": 13.391794004874814,
+      "typ": "hexagonal"
+     }
+    ]
+   },
+   "sek": 29.97
+  },
+  {
+   "id": 9,
+   "wer": "forscher-theoretiker",
+   "op": "compare2d",
+   "args": {
+    "tau_a": [
+     0.5,
+     0.8660254
+    ],
+    "tau_b": [
+     0,
+     1
+    ],
+    "nu": 3
+   },
+   "ergebnis": {
+    "T_a": 13.391794004874818,
+    "T_b": 13.652893626113212,
+    "diff": -0.2610996212383938,
+    "err": 1.2005586597022925e-05,
+    "sicher": true
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 10,
+   "wer": "forscher-theoretiker",
+   "op": "hessian2d",
+   "args": {
+    "tau": [
+     0.5,
+     0.8660254
+    ],
+    "nu": 3
+   },
+   "ergebnis": {
+    "eigenwerte": [
+     9.379147103416585,
+     9.37918757282219
+    ],
+    "stabil": true
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 11,
+   "wer": "forscher-numeriker",
+   "op": "hessian2d",
+   "args": {
+    "tau": [
+     0,
+     1
+    ],
+    "nu": 3
+   },
+   "ergebnis": {
+    "eigenwerte": [
+     -3.5057713168029636,
+     26.981139804593823
+    ],
+    "stabil": false
+   },
+   "sek": 0.58
+  },
+  {
+   "id": 12,
+   "wer": "forscher-sparsam",
+   "op": "hessian2d",
+   "args": {
+    "tau": [
+     0,
+     1
+    ],
+    "nu": 3
+   },
+   "ergebnis": {
+    "eigenwerte": [
+     -3.5057713168029636,
+     26.981139804593823
+    ],
+    "stabil": false
+   },
+   "sek": 0.65
+  },
+  {
+   "id": 13,
+   "wer": "forscher-theoretiker",
+   "op": "hessian2d",
+   "args": {
+    "tau": [
+     0,
+     1
+    ],
+    "nu": 3
+   },
+   "ergebnis": {
+    "eigenwerte": [
+     -3.5057713168029636,
+     26.981139804593823
+    ],
+    "stabil": false
+   },
+   "sek": 0.62
+  },
+  {
+   "id": 14,
+   "wer": "forscher-skeptiker",
+   "op": "minimize2d",
+   "args": {
+    "nu": 3
+   },
+   "ergebnis": {
+    "tau": [
+     0.5,
+     0.8660254037844386
+    ],
+    "T": 13.391794004874814,
+    "typ": "hexagonal",
+    "lokale_minima": [
+     {
+      "tau": [
+       0.5,
+       0.8660254037844386
+      ],
+      "T": 13.391794004874814,
+      "typ": "hexagonal"
+     }
+    ]
+   },
+   "sek": 32.89
+  },
+  {
+   "id": 15,
+   "wer": "forscher-skeptiker",
+   "op": "compare2d",
+   "args": {
+    "tau_a": [
+     0.5,
+     0.8660254
+    ],
+    "tau_b": [
+     0,
+     1
+    ],
+    "nu": 3
+   },
+   "ergebnis": {
+    "T_a": 13.391794004874818,
+    "T_b": 13.652893626113212,
+    "diff": -0.2610996212383938,
+    "err": 1.2005586597022925e-05,
+    "sicher": true
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 16,
+   "wer": "forscher-skeptiker",
+   "op": "hessian2d",
+   "args": {
+    "tau": [
+     0.5,
+     0.8660254
+    ],
+    "nu": 3
+   },
+   "ergebnis": {
+    "eigenwerte": [
+     9.379147103416585,
+     9.37918757282219
+    ],
+    "stabil": true
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 17,
+   "wer": "forscher-skeptiker",
+   "op": "hessian2d",
+   "args": {
+    "tau": [
+     0,
+     1
+    ],
+    "nu": 3
+   },
+   "ergebnis": {
+    "eigenwerte": [
+     -3.5057713168029636,
+     26.981139804593823
+    ],
+    "stabil": false
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 18,
+   "wer": "forscher-theoretiker",
+   "op": "rect_optimum",
+   "args": {
+    "nu": 3,
+    "y_lo": 0.5,
+    "y_hi": 3
+   },
+   "ergebnis": {
+    "y": 0.999999992039984,
+    "T": 13.652893626113197
+   },
+   "sek": 0.81
+  },
+  {
+   "id": 19,
+   "wer": "forscher-theoretiker",
+   "op": "energy2d",
+   "args": {
+    "tau": [
+     0.5,
+     0.8660254
+    ],
+    "nu": 3
+   },
+   "ergebnis": {
+    "T": 13.391794004874818,
+    "err": 6.634331393584603e-06
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 20,
+   "wer": "forscher-theoretiker",
+   "op": "energy2d",
+   "args": {
+    "tau": [
+     0,
+     1
+    ],
+    "nu": 3
+   },
+   "ergebnis": {
+    "T": 13.652893626113212,
+    "err": 5.371253838148959e-06
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 21,
+   "wer": "forscher-skeptiker",
+   "op": "rect_optimum",
+   "args": {
+    "nu": 3,
+    "y_lo": 0.5,
+    "y_hi": 3
+   },
+   "ergebnis": {
+    "y": 0.999999992039984,
+    "T": 13.652893626113197
+   },
+   "sek": 0.79
+  },
+  {
+   "id": 22,
+   "wer": "forscher-skeptiker",
+   "op": "energy2d",
+   "args": {
+    "tau": [
+     0.5,
+     0.8660254
+    ],
+    "nu": 3
+   },
+   "ergebnis": {
+    "T": 13.391794004874818,
+    "err": 6.634331393584603e-06
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 23,
+   "wer": "forscher-skeptiker",
+   "op": "energy2d",
+   "args": {
+    "tau": [
+     0.3,
+     1.0
+    ],
+    "nu": 3
+   },
+   "ergebnis": {
+    "T": 13.54246117047076,
+    "err": 5.729553857136693e-06
+   },
+   "sek": 0.1
+  },
+  {
+   "id": 24,
+   "wer": "forscher-numeriker",
+   "op": "rect_optimum",
+   "args": {
+    "nu": 3,
+    "y_lo": 1,
+    "y_hi": 3
+   },
+   "ergebnis": {
+    "y": 1.0000000545460743,
+    "T": 13.652893626113238
+   },
+   "sek": 2.83
+  },
+  {
+   "id": 25,
+   "wer": "forscher-sparsam",
+   "op": "rect_optimum",
+   "args": {
+    "nu": 3,
+    "y_lo": 1,
+    "y_hi": 3
+   },
+   "ergebnis": {
+    "y": 1.0000000545460743,
+    "T": 13.652893626113238
+   },
+   "sek": 2.77
+  },
+  {
+   "id": 26,
+   "wer": "forscher-sparsam",
+   "op": "energy2d",
+   "args": {
+    "tau": [
+     0.5,
+     0.8660254
+    ],
+    "nu": 3
+   },
+   "ergebnis": {
+    "T": 13.391794004874818,
+    "err": 6.634331393584603e-06
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 27,
+   "wer": "forscher-numeriker",
+   "op": "compare2d",
+   "args": {
+    "tau_a": [
+     0.5,
+     0.8660254
+    ],
+    "tau_b": [
+     0.25,
+     1.0
+    ],
+    "nu": 3
+   },
+   "ergebnis": {
+    "T_a": 13.391794004874818,
+    "T_b": 13.56749597527722,
+    "diff": -0.1757019704024021,
+    "err": 1.2247281606260647e-05,
+    "sicher": true
+   },
+   "sek": 0.19
+  },
+  {
+   "id": 28,
+   "wer": "forscher-theoretiker",
+   "op": "crossing2d",
+   "args": {
+    "tau_a": [
+     0.5,
+     0.8660254
+    ],
+    "tau_b": [
+     0,
+     1
+    ],
+    "nu_lo": 1,
+    "nu_hi": 10
+   },
+   "ergebnis": {
+    "gefunden": true,
+    "intervall": [
+     3.918364644050598,
+     3.918365180492401
+    ]
+   },
+   "sek": 4.33
+  },
+  {
+   "id": 29,
+   "wer": "forscher-skeptiker",
+   "op": "crossing2d",
+   "args": {
+    "tau_a": [
+     0.5,
+     0.8660254
+    ],
+    "tau_b": [
+     0,
+     1
+    ],
+    "nu_lo": 1.5,
+    "nu_hi": 8
+   },
+   "ergebnis": {
+    "gefunden": true,
+    "intervall": [
+     3.9183648228645325,
+     3.9183655977249146
+    ]
+   },
+   "sek": 4.01
+  }
+ ],
+ "sek": 81.2,
+ "frage": "Q1",
+ "salt": 1,
+ "bedingung": "B"
+}

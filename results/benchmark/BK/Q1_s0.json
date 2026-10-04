@@ -1,0 +1,277 @@
+{
+ "antwort": {
+  "antwort": "hexagonal",
+  "zahl": null,
+  "konfidenz": 0.98,
+  "begruendung": "Die globale Minimierung (E0) über den Fundamentalbereich findet das hexagonale Gitter τ = [0.5, 0.866...] als einziges lokales Minimum mit T(3) = 13.3918. Das quadratische Gitter hat höhere Energie (13.6529) und ist nach der Hessian (E5) nur ein Sattelpunkt (negative Eigenwerte), nicht mal ein lokales Minimum. Das hexagonale Gitter ist hingegen stabil (beide Hessian-Eigenwerte ≈ 9.38 > 0, E4). Die Energiedifferenz ist signifikant und sicher gemessen (E3).",
+  "pruefung": {
+   "typ": "argmin2d",
+   "nu": 3,
+   "erwartet": "hexagonal"
+  },
+  "stimmen": "Stufe 1/4 (sparsam, haiku)"
+ },
+ "level": "computed (Code-Prüfer bestanden)",
+ "forscher": [
+  {
+   "strategie": "sparsam",
+   "runden": [
+    {
+     "ueberlegung": "Bei nu=3 suchen wir das globale Minimum von T_3(L) über alle 2D-Bravais-Gitter mit Kovolumen 1. Die Kandidaten sind hexagonal, quadratisch, rechteckig, rhombisch und schief. Strategie: (1) Direkte globale Suche mit minimize2d – sollte den Typ und optimales tau identifizieren. (2) Explizite Energieberechnung der Hauptkandidaten (hexagonal tau=[0.5, 0.8660254], quadratisch tau=[0,1]) zur numerischen Validierung. (3) Stabilitätsprüfung via Hessian an den Top-Kandidaten – nur lokale Minima sind relevant. (4) Spezialisierte Suche über Rechteckgitter via rect_optimum, falls dieser Typ konkurriert. Dies vermeidet Redundanz durch Fokus auf wenige, maximale informative Messungen.",
+     "plan": [
+      {
+       "op": "minimize2d",
+       "args": {
+        "nu": 3
+       }
+      },
+      {
+       "op": "energy2d",
+       "args": {
+        "tau": [
+         0.5,
+         0.8660254
+        ],
+        "nu": 3
+       }
+      },
+      {
+       "op": "energy2d",
+       "args": {
+        "tau": [
+         0,
+         1
+        ],
+        "nu": 3
+       }
+      },
+      {
+       "op": "compare2d",
+       "args": {
+        "tau_a": [
+         0.5,
+         0.8660254
+        ],
+        "tau_b": [
+         0,
+         1
+        ],
+        "nu": 3
+       }
+      },
+      {
+       "op": "hessian2d",
+       "args": {
+        "tau": [
+         0.5,
+         0.8660254
+        ],
+        "nu": 3
+       }
+      },
+      {
+       "op": "hessian2d",
+       "args": {
+        "tau": [
+         0,
+         1
+        ],
+        "nu": 3
+       }
+      },
+      {
+       "op": "rect_optimum",
+       "args": {
+        "nu": 3,
+        "y_lo": 0.5,
+        "y_hi": 2.0
+       }
+      }
+     ]
+    },
+    {
+     "antwort": "hexagonal",
+     "zahl": null,
+     "konfidenz": 0.98,
+     "begruendung": "Die globale Minimierung (E0) über den Fundamentalbereich findet das hexagonale Gitter τ = [0.5, 0.866...] als einziges lokales Minimum mit T(3) = 13.3918. Das quadratische Gitter hat höhere Energie (13.6529) und ist nach der Hessian (E5) nur ein Sattelpunkt (negative Eigenwerte), nicht mal ein lokales Minimum. Das hexagonale Gitter ist hingegen stabil (beide Hessian-Eigenwerte ≈ 9.38 > 0, E4). Die Energiedifferenz ist signifikant und sicher gemessen (E3).",
+     "pruefung": {
+      "typ": "argmin2d",
+      "nu": 3,
+      "erwartet": "hexagonal"
+     }
+    }
+   ],
+   "experimente": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+   ],
+   "final": {
+    "antwort": "hexagonal",
+    "zahl": null,
+    "konfidenz": 0.98,
+    "begruendung": "Die globale Minimierung (E0) über den Fundamentalbereich findet das hexagonale Gitter τ = [0.5, 0.866...] als einziges lokales Minimum mit T(3) = 13.3918. Das quadratische Gitter hat höhere Energie (13.6529) und ist nach der Hessian (E5) nur ein Sattelpunkt (negative Eigenwerte), nicht mal ein lokales Minimum. Das hexagonale Gitter ist hingegen stabil (beide Hessian-Eigenwerte ≈ 9.38 > 0, E4). Die Energiedifferenz ist signifikant und sicher gemessen (E3).",
+    "pruefung": {
+     "typ": "argmin2d",
+     "nu": 3,
+     "erwartet": "hexagonal"
+    }
+   },
+   "modell": "haiku",
+   "pruefung": {
+    "bestanden": true,
+    "grund": "Prüfer-Suche (18er-Raster, 6 Polituren, R=(48, 64)): hexagonal"
+   }
+  }
+ ],
+ "experimente": [
+  {
+   "id": 0,
+   "wer": "forscher-sparsam",
+   "op": "minimize2d",
+   "args": {
+    "nu": 3
+   },
+   "ergebnis": {
+    "tau": [
+     0.5,
+     0.8660254037844386
+    ],
+    "T": 13.391794004874814,
+    "typ": "hexagonal",
+    "lokale_minima": [
+     {
+      "tau": [
+       0.5,
+       0.8660254037844386
+      ],
+      "T": 13.391794004874814,
+      "typ": "hexagonal"
+     }
+    ]
+   },
+   "sek": 4.83
+  },
+  {
+   "id": 1,
+   "wer": "forscher-sparsam",
+   "op": "energy2d",
+   "args": {
+    "tau": [
+     0.5,
+     0.8660254
+    ],
+    "nu": 3
+   },
+   "ergebnis": {
+    "T": 13.391794004874818,
+    "err": 6.634331393584603e-06
+   },
+   "sek": 0.02
+  },
+  {
+   "id": 2,
+   "wer": "forscher-sparsam",
+   "op": "energy2d",
+   "args": {
+    "tau": [
+     0,
+     1
+    ],
+    "nu": 3
+   },
+   "ergebnis": {
+    "T": 13.652893626113212,
+    "err": 5.371253838148959e-06
+   },
+   "sek": 0.02
+  },
+  {
+   "id": 3,
+   "wer": "forscher-sparsam",
+   "op": "compare2d",
+   "args": {
+    "tau_a": [
+     0.5,
+     0.8660254
+    ],
+    "tau_b": [
+     0,
+     1
+    ],
+    "nu": 3
+   },
+   "ergebnis": {
+    "T_a": 13.391794004874818,
+    "T_b": 13.652893626113212,
+    "diff": -0.2610996212383938,
+    "err": 1.2005586597022925e-05,
+    "sicher": true
+   },
+   "sek": 0.03
+  },
+  {
+   "id": 4,
+   "wer": "forscher-sparsam",
+   "op": "hessian2d",
+   "args": {
+    "tau": [
+     0.5,
+     0.8660254
+    ],
+    "nu": 3
+   },
+   "ergebnis": {
+    "eigenwerte": [
+     9.379147103416585,
+     9.37918757282219
+    ],
+    "stabil": true
+   },
+   "sek": 0.15
+  },
+  {
+   "id": 5,
+   "wer": "forscher-sparsam",
+   "op": "hessian2d",
+   "args": {
+    "tau": [
+     0,
+     1
+    ],
+    "nu": 3
+   },
+   "ergebnis": {
+    "eigenwerte": [
+     -3.5057713168029636,
+     26.981139804593823
+    ],
+    "stabil": false
+   },
+   "sek": 0.12
+  },
+  {
+   "id": 6,
+   "wer": "forscher-sparsam",
+   "op": "rect_optimum",
+   "args": {
+    "nu": 3,
+    "y_lo": 0.5,
+    "y_hi": 2.0
+   },
+   "ergebnis": {
+    "y": 1.0000000351910066,
+    "T": 13.652893626113212
+   },
+   "sek": 0.2
+  }
+ ],
+ "sek": 56.6,
+ "frage": "Q1",
+ "salt": 0,
+ "bedingung": "BK"
+}

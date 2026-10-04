@@ -1,0 +1,11 @@
+{
+ "antwort": {
+  "antwort": "rechteckig",
+  "zahl": 1.25,
+  "konfidenz": 0.5,
+  "begruendung": "Heuristische Abschätzung, keine numerische Rechnung. Bei nu=10 dominieren die Tripel mit dem kleinsten Produkt |x||y||x-y|. Für ein Rechteckgitter mit Seiten a und b=1/a (a≤b) sind das (a,2a) mit Produkt 2a^3 und (a,b) mit Produkt sqrt(a^2+b^2). Maximiert man das kleinste Produkt, so folgt 4u^4=u^2+1 mit u=a^2, also u≈0.80 und y=1/u≈1.25. Das kleinste Produkt ist dort ≈1.43. Das ist mehr als beim hexagonalen Gitter (≈1.24) und beim quadratischen Gitter (≈1.41), die also schlechter sind. Bei endlichem nu=10 kann das Optimum leicht von 1.25 abweichen."
+ },
+ "frage": "Q4",
+ "salt": 1,
+ "bedingung": "A1"
+}

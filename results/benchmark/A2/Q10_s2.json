@@ -1,0 +1,52 @@
+{
+ "antwort": {
+  "antwort": "nu_c ≈ 3.8",
+  "zahl": 3.8,
+  "konfidenz": 0.6,
+  "begruendung": "Ich habe die Bain-Pfad-Energie T(c/a) numerisch aufsummiert: bct-Gitter mit Kovolumen 1, harter Cutoff R=9 und R=11, zweite Ableitung per Finite-Differenz bei c/a=√2. Die Krümmung ist für kleine nu positiv und wird negativ, wenn nu größer wird. Die Nullstelle liegt bei R=9 bei etwa 3.78 und bei R=11 bei etwa 3.79. Der Cutoff beeinflusst das Ergebnis noch leicht, deshalb ist 3.8 eine Näherung. Ich habe nur nu ≥ 3 gescannt. Für nu um 3 und darunter (R=4.5 etwa 3) war die Summe noch nicht konvergiert."
+ },
+ "kosten_usd": 0.043338999999999996,
+ "tool_calls": 3,
+ "verstoss": [],
+ "sek": 100.6,
+ "transkript_tools": [
+  {
+   "type": "tool_use",
+   "id": "toolu_01PDYoWMjv7AZpYvtqcAWD6U",
+   "name": "Bash",
+   "input": {
+    "command": "cat > a.py <<'E'\nimport numpy as np\nfrom scipy.optimize import brentq\ndef T(r,nu,R=6.0):\n    # a^2*c/2=1, c=r a\n    a=(2/r)**(1/3); c=r*a\n    n=np.arange(-14,15)\n    I,J,K=np.meshgrid(n,n,n,indexing='ij')\n    I=I.ravel();J=J.ravel();K=K.ravel()\n    P=np.stack([I*a+K*a/2,J*a+K*a/2,K*c/2],1)\n    d=np.linalg.norm(P,axis=1)\n    m=(d>1e-9)&(d<R*1.0)\n    P=P[m];d=d[m]\n    D=np.linalg.norm(P[:,None]-P[None],axis=2)\n    np.fill_diagonal(D,np.inf)\n    return (d[:,None]*d[None]*D)**(-nu)\ndef Ts(r,nu,R):\n    return T(r,nu,R).sum()\ndef curv(nu,R,h=0.02):\n    r=2**.5\n    return (Ts(r+h,nu,R)-2*Ts(r,nu,R)+Ts(r-h,nu,R))/h**2\nfor R in [3.5,4.5]:\n    for nu in [3,4,5,6,8,10]:\n        print(R,nu,curv(nu,R))\nE\npython3 a.py"
+   },
+   "caller": {
+    "type": "direct"
+   }
+  },
+  {
+   "type": "tool_use",
+   "id": "toolu_01HF3pp99P486K9ZFiNQXz12",
+   "name": "Bash",
+   "input": {
+    "command": "cat >> a.py <<'E'\nprint('----')\nfor R in [7.0,9.0]:\n    for nu in [3.5,4,4.5,5,5.5]:\n        print(R,nu,curv(nu,R,0.03))\nE\nsed -i 's/n=np.arange(-14,15)/n=np.arange(-20,21)/; s/^for R in \\[3.5,4.5\\]:/for R in []:/' a.py\npython3 a.py",
+    "timeout": 600000
+   },
+   "caller": {
+    "type": "direct"
+   }
+  },
+  {
+   "type": "tool_use",
+   "id": "toolu_01Kki9VhcQ2nD9rMFwyRAUMh",
+   "name": "Bash",
+   "input": {
+    "command": "cat >> a.py <<'E'\nprint('====')\nfor R in [9.0,11.0]:\n    for nu in [3.6,3.7,3.8,3.9]:\n        print(R,nu,curv(nu,R,0.03))\nE\nsed -i 's/^for R in \\[7.0,9.0\\]:/for R in []:/' a.py\npython3 a.py",
+    "timeout": 600000
+   },
+   "caller": {
+    "type": "direct"
+   }
+  }
+ ],
+ "frage": "Q10",
+ "salt": 2,
+ "bedingung": "A2"
+}

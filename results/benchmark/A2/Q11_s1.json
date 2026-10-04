@@ -1,0 +1,28 @@
+{
+ "antwort": {
+  "antwort": "kappa = 2 ln(3)/sqrt(7) ≈ 0.8305 (mit y_inf = sqrt(7)/2)",
+  "zahl": 0.8305,
+  "konfidenz": 0.9,
+  "begruendung": "Numerisch minimiert (x=1/2, Gittersummen bis N=14, nu bis 320): y_nu geht gegen sqrt(7)/2 ≈ 1.3229, und nu·(y_inf − y_nu) geht gegen etwa 0.83. Analytisch: Für große nu kreuzen sich zwei Tripelklassen, (1, τ, τ−1) mit Produkt (1/4+y²)/y^1.5 und (a, 2a) mit Produkt 2/y^1.5. Beide sind bei y = sqrt(7)/2 gleich. Das Multiplizitätsverhältnis ist 3, die Ableitung des Log-Verhältnisses ist y_inf. Daraus folgt kappa = ln3 / y_inf = 2 ln3/sqrt(7). Die Multiplizität 3 habe ich aus dem Zahlenwert 0.83 ≈ 2 ln3/sqrt(7) erschlossen, nicht durch Abzählen der Tripel."
+ },
+ "kosten_usd": 0.0409572,
+ "tool_calls": 1,
+ "verstoss": [],
+ "sek": 35.9,
+ "transkript_tools": [
+  {
+   "type": "tool_use",
+   "id": "toolu_015as9P9WaMm1WefaejWZp5X",
+   "name": "Bash",
+   "input": {
+    "command": "cat > a.py <<'E'\nimport numpy as np\nfrom scipy.optimize import minimize_scalar\nN=14\nr=range(-N,N+1)\nP=np.array([(i,j) for i in r for j in r if (i,j)!=(0,0)])\ndef E(y,nu,x=0.5):\n    v=P[:,0]+ (x+1j*y)*P[:,1]\n    v=v/np.sqrt(y)\n    a=np.abs(v)\n    D=np.abs(v[:,None]-v[None,:])\n    with np.errstate(all='ignore'):\n        L=-nu*(np.log(a)[:,None]+np.log(a)[None,:]+np.log(D))\n    L[D<1e-9]=-np.inf\n    m=L.max()\n    return -(m+np.log(np.exp(L-m).sum()))*0+ (m+np.log(np.exp(L-m).sum()))\nfor nu in [20,40,80,160,320]:\n    r_=minimize_scalar(lambda y:E(y,nu),bounds=(0.9,2),method='bounded',options={'xatol':1e-12})\n    print(nu,r_.x)\nE\npython3 a.py"
+   },
+   "caller": {
+    "type": "direct"
+   }
+  }
+ ],
+ "frage": "Q11",
+ "salt": 1,
+ "bedingung": "A2"
+}

@@ -1,0 +1,18 @@
+{
+ "quelle": "A. Suleman, Optimal lattices for a three-body power-law energy, Preprint, Sept. 2026 (nach dem Trainingsstand der verwendeten Modelle). Antworten aus dem Paper; für Agenten verdeckt.",
+ "kontext": "Betrachtet wird die Dreikörper-Energie T_nu(L) = Summe über alle Paare verschiedener Gittervektoren x != y, beide ungleich 0, von (|x| |y| |x-y|)^(-nu), für Bravais-Gitter L mit Kovolumen 1. In 2D wird ein Gitter durch tau = x + i y im Fundamentalbereich (0 <= x <= 1/2, |tau| >= 1) beschrieben: L = (Z + tau Z)/sqrt(Im tau). Gesucht ist das Gitter mit minimaler Energie.",
+ "fragen": [
+  {"id": "Q1", "frage": "Welches 2D-Gitter minimiert T_nu bei nu = 3? (hexagonal, quadratisch, rechteckig, rhombisch oder schief)", "typ": "kategorie", "antwort": "hexagonal"},
+  {"id": "Q2", "frage": "Welches 2D-Gitter minimiert T_nu bei nu = 5?", "typ": "kategorie", "antwort": "quadratisch"},
+  {"id": "Q3", "frage": "Welches 2D-Gitter minimiert T_nu bei nu = 7?", "typ": "kategorie", "antwort": "quadratisch"},
+  {"id": "Q4", "frage": "Welches 2D-Gitter minimiert T_nu bei nu = 10? Falls rechteckig: gib zusätzlich das Seitenverhältnis y (tau = i y) an.", "typ": "kategorie+zahl", "antwort": "rechteckig", "zahl": 1.0998, "toleranz": 0.0015},
+  {"id": "Q5", "frage": "Bei welchem Exponenten nu* wechselt das globale Minimum in 2D vom hexagonalen zum quadratischen Gitter? Gib einen Zahlenwert an.", "typ": "zahl", "zahl": 3.918365, "toleranz": 0.001},
+  {"id": "Q6", "frage": "Ist dieser Wechsel unstetig (beide Gitter sind in einem Bereich um nu* gleichzeitig lokale Minima) oder stetig?", "typ": "kategorie", "antwort": "unstetig"},
+  {"id": "Q7", "frage": "Ab welchem Exponenten nu_2 ist das quadratische Gitter kein lokales Minimum mehr (Instabilität gegen rechteckige Verformung)? Gib einen Zahlenwert an.", "typ": "zahl", "zahl": 8.606, "toleranz": 0.01},
+  {"id": "Q8", "frage": "Gegen welches Seitenverhältnis y_inf konvergiert das optimale Rechteckgitter für nu -> unendlich? Gib einen Zahlenwert an (falls bekannt, auch die geschlossene Form).", "typ": "zahl", "zahl": 1.249621, "toleranz": 0.0005},
+  {"id": "Q9", "frage": "Welches 3D-Bravais-Gitter minimiert T_nu bei nu = 5? (bcc, fcc, sc oder anderes)", "typ": "kategorie", "antwort": "bcc"},
+  {"id": "Q10", "frage": "Entlang des Bain-Pfads (raumzentriert-tetragonal, c/a von 1 = BCC bis sqrt(2) = FCC): bei welchem Exponenten nu_c verliert FCC die lokale Stabilität (Krümmung wechselt das Vorzeichen)? Gib einen Zahlenwert an.", "typ": "zahl", "zahl": 3.7521, "toleranz": 0.003},
+  {"id": "Q11", "frage": "In der Entwicklung y_nu = y_inf - kappa/nu + O(nu^-2) des optimalen Seitenverhältnisses: wie groß ist kappa?", "typ": "zahl", "zahl": 0.95489, "toleranz": 0.01},
+  {"id": "Q12", "frage": "Die Modulgraphfunktion C_{3,3,3}(tau) ist bis auf einen Faktor gleich T_6 auf dem Gitter zu tau. Wo im Fundamentalbereich liegt ihr Minimum? (rho = exp(i pi/3), i, oder anderer Punkt)", "typ": "kategorie", "antwort": "i"}
+ ]
+}

@@ -1,0 +1,453 @@
+Eine katalytische Kupplungsreaktion mit vier variablen Komponenten: ligand, base, aryl_halide (Substrat) und additive. Die Komponenten sind nur mit neutralen Codes und berechneten DFT-Deskriptoren angegeben (Ladungen in e, Orbitalenergien in Hartree, Dipol in Debye, NMR-Verschiebungen in ppm, Volumen in Å³, Masse in g/mol):
+{
+ "base": [
+  {
+   "level": "B1",
+   "*N1_electrostatic_charge": -0.784,
+   "E_HOMO": -0.2148,
+   "E_LUMO": 0.0029,
+   "dipole_moment": 1.126227,
+   "molecular_volume": 214.2,
+   "molecular_weight": 171.288
+  },
+  {
+   "level": "B2",
+   "*N1_electrostatic_charge": -0.611,
+   "E_HOMO": -0.1913,
+   "E_LUMO": 0.0505,
+   "dipole_moment": 2.703408,
+   "molecular_volume": 170.58,
+   "molecular_weight": 153.229
+  },
+  {
+   "level": "B3",
+   "*N1_electrostatic_charge": -0.755,
+   "E_HOMO": -0.1703,
+   "E_LUMO": 0.0569,
+   "dipole_moment": 5.039158,
+   "molecular_volume": 376.47,
+   "molecular_weight": 339.409
+  }
+ ],
+ "ligand": [
+  {
+   "level": "L1",
+   "*P1_electrostatic_charge": -0.925,
+   "*C1_NMR_shift": 125.25,
+   "*C1_electrostatic_charge": 0.158,
+   "dipole_moment": 3.735286
+  },
+  {
+   "level": "L2",
+   "*P1_electrostatic_charge": -0.741,
+   "*C1_NMR_shift": 126.51,
+   "*C1_electrostatic_charge": 0.22,
+   "dipole_moment": 3.792624
+  },
+  {
+   "level": "L3",
+   "*P1_electrostatic_charge": -0.96,
+   "*C1_NMR_shift": 129.99,
+   "*C1_electrostatic_charge": 0.448,
+   "dipole_moment": 1.282615
+  },
+  {
+   "level": "L4",
+   "*P1_electrostatic_charge": -0.676,
+   "*C1_NMR_shift": 135.09,
+   "*C1_electrostatic_charge": 0.143,
+   "dipole_moment": 1.212924
+  }
+ ],
+ "aryl_halide": [
+  {
+   "level": "H1",
+   "*C1_NMR_shift": 134.48,
+   "*C1_electrostatic_charge": -0.127,
+   "E_HOMO": -0.2614,
+   "E_LUMO": -0.038,
+   "dipole_moment": 2.089781,
+   "molecular_volume": 106.61,
+   "molecular_weight": 113.547
+  },
+  {
+   "level": "H2",
+   "*C1_NMR_shift": -332.15,
+   "*C1_electrostatic_charge": -0.557,
+   "E_HOMO": -0.2495,
+   "E_LUMO": -0.0395,
+   "dipole_moment": 1.988625,
+   "molecular_volume": 118.02,
+   "molecular_weight": 204.994
+  },
+  {
+   "level": "H3",
+   "*C1_NMR_shift": 139.77,
+   "*C1_electrostatic_charge": 0.128,
+   "E_HOMO": -0.2648,
+   "E_LUMO": -0.0396,
+   "dipole_moment": 0.770806,
+   "molecular_volume": 145.02,
+   "molecular_weight": 180.556
+  },
+  {
+   "level": "H4",
+   "*C1_NMR_shift": -625.55,
+   "*C1_electrostatic_charge": -0.377,
+   "E_HOMO": -0.2176,
+   "E_LUMO": -0.0269,
+   "dipole_moment": 2.775967,
+   "molecular_volume": 151.48,
+   "molecular_weight": 234.032
+  },
+  {
+   "level": "H5",
+   "*C1_NMR_shift": 125.44,
+   "*C1_electrostatic_charge": -0.101,
+   "E_HOMO": -6.0,
+   "E_LUMO": -0.35,
+   "dipole_moment": 2.97534,
+   "molecular_volume": 144.61,
+   "molecular_weight": 187.036
+  },
+  {
+   "level": "H6",
+   "*C1_NMR_shift": 132.85,
+   "*C1_electrostatic_charge": -0.025,
+   "E_HOMO": -0.2364,
+   "E_LUMO": -0.0115,
+   "dipole_moment": 2.410215,
+   "molecular_volume": 154.31,
+   "molecular_weight": 185.069
+  },
+  {
+   "level": "H7",
+   "*C1_NMR_shift": 134.17,
+   "*C1_electrostatic_charge": 0.186,
+   "E_HOMO": -0.2373,
+   "E_LUMO": -0.0104,
+   "dipole_moment": 2.32974,
+   "molecular_volume": 149.79,
+   "molecular_weight": 140.613
+  },
+  {
+   "level": "H8",
+   "*C1_NMR_shift": 154.47,
+   "*C1_electrostatic_charge": 0.537,
+   "E_HOMO": -0.2614,
+   "E_LUMO": -0.0375,
+   "dipole_moment": 3.519084,
+   "molecular_volume": 106.57,
+   "molecular_weight": 113.547
+  },
+  {
+   "level": "H9",
+   "*C1_NMR_shift": 138.83,
+   "*C1_electrostatic_charge": -0.093,
+   "E_HOMO": -0.2616,
+   "E_LUMO": -0.0413,
+   "dipole_moment": 0.754193,
+   "molecular_volume": 149.53,
+   "molecular_weight": 225.012
+  },
+  {
+   "level": "H10",
+   "*C1_NMR_shift": 48.97,
+   "*C1_electrostatic_charge": -0.183,
+   "E_HOMO": -0.2525,
+   "E_LUMO": -0.0429,
+   "dipole_moment": 1.059432,
+   "molecular_volume": 156.41,
+   "molecular_weight": 272.003
+  },
+  {
+   "level": "H11",
+   "*C1_NMR_shift": 127.68,
+   "*C1_electrostatic_charge": 0.021,
+   "E_HOMO": -0.2202,
+   "E_LUMO": -0.0118,
+   "dipole_moment": 2.894904,
+   "molecular_volume": 140.11,
+   "molecular_weight": 142.585
+  },
+  {
+   "level": "H12",
+   "*C1_NMR_shift": 133.69,
+   "*C1_electrostatic_charge": -0.304,
+   "E_HOMO": -0.2585,
+   "E_LUMO": -0.039,
+   "dipole_moment": 2.086875,
+   "molecular_volume": 111.13,
+   "molecular_weight": 158.003
+  },
+  {
+   "level": "H13",
+   "*C1_NMR_shift": -1201.76,
+   "*C1_electrostatic_charge": 0.194,
+   "E_HOMO": -0.2465,
+   "E_LUMO": -0.0383,
+   "dipole_moment": 3.355629,
+   "molecular_volume": 118.1,
+   "molecular_weight": 204.994
+  },
+  {
+   "level": "H14",
+   "*C1_NMR_shift": -339.2,
+   "*C1_electrostatic_charge": -0.139,
+   "E_HOMO": -0.2309,
+   "E_LUMO": -0.0286,
+   "dipole_moment": 2.177715,
+   "molecular_volume": 161.18,
+   "molecular_weight": 232.06
+  },
+  {
+   "level": "H15",
+   "*C1_NMR_shift": 156.88,
+   "*C1_electrostatic_charge": 0.362,
+   "E_HOMO": -0.2576,
+   "E_LUMO": -0.0391,
+   "dipole_moment": 3.579429,
+   "molecular_volume": 111.15,
+   "molecular_weight": 158.003
+  }
+ ],
+ "additive": [
+  {
+   "level": "A1",
+   "*N1_electrostatic_charge": -0.367,
+   "*O1_electrostatic_charge": -0.113,
+   "E_HOMO": -0.2147,
+   "E_LUMO": -0.0191,
+   "dipole_moment": 3.387206,
+   "molecular_volume": 156.08,
+   "molecular_weight": 148.165
+  },
+  {
+   "level": "A2",
+   "*N1_electrostatic_charge": -0.322,
+   "*O1_electrostatic_charge": -0.096,
+   "E_HOMO": -0.264,
+   "E_LUMO": -0.0474,
+   "dipole_moment": 4.848261,
+   "molecular_volume": 155.89,
+   "molecular_weight": 155.153
+  },
+  {
+   "level": "A3",
+   "*N1_electrostatic_charge": -0.25,
+   "*O1_electrostatic_charge": -0.158,
+   "E_HOMO": -0.2485,
+   "E_LUMO": -0.0459,
+   "dipole_moment": 3.184221,
+   "molecular_volume": 121.96,
+   "molecular_weight": 119.123
+  },
+  {
+   "level": "A4",
+   "*N1_electrostatic_charge": -0.394,
+   "*O1_electrostatic_charge": -0.009,
+   "E_HOMO": -0.2233,
+   "E_LUMO": -0.0628,
+   "dipole_moment": 3.198581,
+   "molecular_volume": 122.07,
+   "molecular_weight": 119.123
+  },
+  {
+   "level": "A5",
+   "*N1_electrostatic_charge": -0.384,
+   "*O1_electrostatic_charge": -0.077,
+   "E_HOMO": -0.2612,
+   "E_LUMO": -0.0106,
+   "dipole_moment": 2.94125,
+   "molecular_volume": 88.98,
+   "molecular_weight": 83.09
+  },
+  {
+   "level": "A6",
+   "*N1_electrostatic_charge": -0.31,
+   "*O1_electrostatic_charge": -0.112,
+   "E_HOMO": -0.2671,
+   "E_LUMO": -0.0395,
+   "dipole_moment": 3.973089,
+   "molecular_volume": 155.65,
+   "molecular_weight": 155.153
+  },
+  {
+   "level": "A7",
+   "*N1_electrostatic_charge": -0.334,
+   "*O1_electrostatic_charge": -0.057,
+   "E_HOMO": -0.2317,
+   "E_LUMO": -0.0487,
+   "dipole_moment": 3.210447,
+   "molecular_volume": 154.41,
+   "molecular_weight": 145.161
+  },
+  {
+   "level": "A8",
+   "*N1_electrostatic_charge": -0.29,
+   "*O1_electrostatic_charge": -0.059,
+   "E_HOMO": -0.2806,
+   "E_LUMO": -0.0655,
+   "dipole_moment": 4.564313,
+   "molecular_volume": 118.95,
+   "molecular_weight": 127.099
+  },
+  {
+   "level": "A9",
+   "*N1_electrostatic_charge": -0.368,
+   "*O1_electrostatic_charge": -0.113,
+   "E_HOMO": -0.2069,
+   "E_LUMO": -0.0069,
+   "dipole_moment": 3.036368,
+   "molecular_volume": 289.15,
+   "molecular_weight": 264.328
+  },
+  {
+   "level": "A10",
+   "*N1_electrostatic_charge": -0.383,
+   "*O1_electrostatic_charge": -0.106,
+   "E_HOMO": -0.2605,
+   "E_LUMO": -0.0587,
+   "dipole_moment": 3.44567,
+   "molecular_volume": 164.92,
+   "molecular_weight": 171.152
+  },
+  {
+   "level": "A11",
+   "*N1_electrostatic_charge": -0.396,
+   "*O1_electrostatic_charge": -0.073,
+   "E_HOMO": -0.2272,
+   "E_LUMO": -0.0455,
+   "dipole_moment": 2.980515,
+   "molecular_volume": 172.8,
+   "molecular_weight": 159.188
+  },
+  {
+   "level": "A12",
+   "hinweis": "keine Deskriptoren verfügbar"
+  },
+  {
+   "level": "A13",
+   "*N1_electrostatic_charge": -0.313,
+   "*O1_electrostatic_charge": -0.067,
+   "E_HOMO": -0.2332,
+   "E_LUMO": -0.0323,
+   "dipole_moment": 3.268545,
+   "molecular_volume": 154.39,
+   "molecular_weight": 145.161
+  },
+  {
+   "level": "A14",
+   "*N1_electrostatic_charge": -0.342,
+   "*O1_electrostatic_charge": -0.097,
+   "E_HOMO": -0.2303,
+   "E_LUMO": -0.0633,
+   "dipole_moment": 3.85783,
+   "molecular_volume": 181.39,
+   "molecular_weight": 193.158
+  },
+  {
+   "level": "A15",
+   "*N1_electrostatic_charge": -0.364,
+   "*O1_electrostatic_charge": -0.087,
+   "E_HOMO": -0.2736,
+   "E_LUMO": -0.0589,
+   "dipole_moment": 4.695918,
+   "molecular_volume": 155.9,
+   "molecular_weight": 155.153
+  },
+  {
+   "level": "A16",
+   "*N1_electrostatic_charge": -0.379,
+   "*O1_electrostatic_charge": -0.089,
+   "E_HOMO": -0.2037,
+   "E_LUMO": -0.0161,
+   "dipole_moment": 3.974105,
+   "molecular_volume": 288.72,
+   "molecular_weight": 264.328
+  },
+  {
+   "level": "A17",
+   "*N1_electrostatic_charge": -0.278,
+   "*O1_electrostatic_charge": -0.049,
+   "E_HOMO": -0.2792,
+   "E_LUMO": -0.0443,
+   "dipole_moment": 2.703396,
+   "molecular_volume": 137.47,
+   "molecular_weight": 141.126
+  },
+  {
+   "level": "A18",
+   "*N1_electrostatic_charge": -0.321,
+   "*O1_electrostatic_charge": -0.112,
+   "E_HOMO": -0.2538,
+   "E_LUMO": -0.0088,
+   "dipole_moment": 3.203762,
+   "molecular_volume": 88.9,
+   "molecular_weight": 83.09
+  },
+  {
+   "level": "A19",
+   "*N1_electrostatic_charge": -0.357,
+   "*O1_electrostatic_charge": -0.073,
+   "E_HOMO": -0.2805,
+   "E_LUMO": -0.0568,
+   "dipole_moment": 2.516823,
+   "molecular_volume": 137.4,
+   "molecular_weight": 141.126
+  },
+  {
+   "level": "A20",
+   "*N1_electrostatic_charge": -0.332,
+   "*O1_electrostatic_charge": -0.081,
+   "E_HOMO": -0.2382,
+   "E_LUMO": -0.0385,
+   "dipole_moment": 2.752454,
+   "molecular_volume": 154.42,
+   "molecular_weight": 145.161
+  },
+  {
+   "level": "A21",
+   "*N1_electrostatic_charge": -0.398,
+   "*O1_electrostatic_charge": -0.128,
+   "E_HOMO": -0.2472,
+   "E_LUMO": -0.0049,
+   "dipole_moment": 3.059464,
+   "molecular_volume": 107.29,
+   "molecular_weight": 97.117
+  },
+  {
+   "level": "A22",
+   "*N1_electrostatic_charge": -0.35,
+   "*O1_electrostatic_charge": -0.068,
+   "E_HOMO": -0.2337,
+   "E_LUMO": -0.0696,
+   "dipole_moment": 3.719695,
+   "molecular_volume": 190.33,
+   "molecular_weight": 209.223
+  },
+  {
+   "level": "A23",
+   "*N1_electrostatic_charge": -0.339,
+   "*O1_electrostatic_charge": -0.052,
+   "E_HOMO": -0.2388,
+   "E_LUMO": -0.057,
+   "dipole_moment": 3.94018,
+   "molecular_volume": 163.12,
+   "molecular_weight": 181.141
+  }
+ ]
+}
+
+Aufgabe: Formuliere 6 bis 12 überprüfbare Hypothesen, welche Faktorstufen die Ausbeute erhöhen oder senken.
+Du kennst keine Messwerte. Stütze dich nur auf chemisches Vorwissen und die Angaben oben.
+
+Antworte ausschließlich mit JSON in genau diesem Format, ohne weiteren Text:
+{"hypotheses": [
+  {"id": "H1", "text": "<ein Satz mit Begründung>", "effect": {"<faktor>=<stufe>": <zahl>, ...}},
+  ...
+]}
+Regeln für "effect":
+- Schlüssel exakt als "<faktor>=<stufe>" mit faktor aus {ligand, base, aryl_halide, additive} und einer Stufe aus der Liste oben.
+- Zahl = erwartete Änderung der Ausbeute in Standardabweichungen gegenüber dem Durchschnitt, zwischen -2 und 2.
+- Eine Hypothese darf mehrere Stufen umfassen (z. B. alle Arylchloride negativ).

@@ -1,0 +1,314 @@
+{
+ "antwort": {
+  "antwort": "bcc",
+  "zahl": null,
+  "konfidenz": 0.99,
+  "begruendung": "Die globale Minimierung über 3D-Bravais-Gitter (minimize_nd, 4 unabhängige Läufe, Seed 42) identifizierte konsistent BCC mit T ≈ 13.1146 als Optimum. Direktmessungen bestätigen: BCC = 13.1146, FCC = 13.3809, SC = 16.2167. Alle Läufe konvergierten zu BCC; keine bessere Alternative gefunden.",
+  "pruefung": {
+   "typ": "argmin_nd",
+   "d": 3,
+   "nu": 5,
+   "erwartet": "bcc"
+  },
+  "stimmen": "Stufe 1/4 (sparsam, haiku)"
+ },
+ "level": "computed (Code-Prüfer bestanden)",
+ "forscher": [
+  {
+   "strategie": "sparsam",
+   "runden": [
+    {
+     "ueberlegung": "Bei der Dreikörper-Energie T_nu(L) mit nu=5 (relativ hohe Potenz) werden kurze Gittervektoren stark bestraft. Dies sollte dicht gepackte, isotrope Strukturen bevorzugen. Strategie: (1) Direkte Energieberechnung für die drei Kandidaten BCC, FCC, SC; (2) Vergleich mit höherer Auflösung zur Sicherung gegen numerische Fehler; (3) Globale Optimierungssuche über alle möglichen 3D-Bravais-Gitter, um versteckte Kandidaten auszuschließen; (4) optional weitere benannte Strukturen (z4, d4, a4) testen falls plausibel.",
+     "plan": [
+      {
+       "op": "energy3d",
+       "args": {
+        "name_or_ca": "bcc",
+        "nu": 5
+       }
+      },
+      {
+       "op": "energy3d",
+       "args": {
+        "name_or_ca": "fcc",
+        "nu": 5
+       }
+      },
+      {
+       "op": "energy3d",
+       "args": {
+        "name_or_ca": "sc",
+        "nu": 5
+       }
+      },
+      {
+       "op": "energy_nd",
+       "args": {
+        "name": "bcc",
+        "nu": 5,
+        "R": [
+         6,
+         8
+        ]
+       }
+      },
+      {
+       "op": "energy_nd",
+       "args": {
+        "name": "fcc",
+        "nu": 5,
+        "R": [
+         6,
+         8
+        ]
+       }
+      },
+      {
+       "op": "minimize_nd",
+       "args": {
+        "d": 3,
+        "nu": 5,
+        "starts": 4,
+        "seed": 42
+       }
+      },
+      {
+       "op": "energy_nd",
+       "args": {
+        "name": "z4",
+        "nu": 5,
+        "R": [
+         6,
+         8
+        ]
+       }
+      },
+      {
+       "op": "energy_nd",
+       "args": {
+        "name": "a4",
+        "nu": 5,
+        "R": [
+         6,
+         8
+        ]
+       }
+      }
+     ]
+    },
+    {
+     "antwort": "bcc",
+     "zahl": null,
+     "konfidenz": 0.99,
+     "begruendung": "Die globale Minimierung über 3D-Bravais-Gitter (minimize_nd, 4 unabhängige Läufe, Seed 42) identifizierte konsistent BCC mit T ≈ 13.1146 als Optimum. Direktmessungen bestätigen: BCC = 13.1146, FCC = 13.3809, SC = 16.2167. Alle Läufe konvergierten zu BCC; keine bessere Alternative gefunden.",
+     "pruefung": {
+      "typ": "argmin_nd",
+      "d": 3,
+      "nu": 5,
+      "erwartet": "bcc"
+     }
+    }
+   ],
+   "experimente": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+   ],
+   "final": {
+    "antwort": "bcc",
+    "zahl": null,
+    "konfidenz": 0.99,
+    "begruendung": "Die globale Minimierung über 3D-Bravais-Gitter (minimize_nd, 4 unabhängige Läufe, Seed 42) identifizierte konsistent BCC mit T ≈ 13.1146 als Optimum. Direktmessungen bestätigen: BCC = 13.1146, FCC = 13.3809, SC = 16.2167. Alle Läufe konvergierten zu BCC; keine bessere Alternative gefunden.",
+    "pruefung": {
+     "typ": "argmin_nd",
+     "d": 3,
+     "nu": 5,
+     "erwartet": "bcc"
+    }
+   },
+   "modell": "haiku",
+   "pruefung": {
+    "bestanden": true,
+    "grund": "Prüfer-Suche d=3, nu=5.0, 4 Starts (Seed 1234): Gitter ['bcc', 'bcc', 'bcc', 'bcc'], T [13.1146, 13.1146, 13.1146, 13.1146], T(bcc)=13.11460, besser als bcc: 0"
+   }
+  }
+ ],
+ "experimente": [
+  {
+   "id": 0,
+   "wer": "forscher-sparsam",
+   "op": "energy3d",
+   "args": {
+    "name_or_ca": "bcc",
+    "nu": 5
+   },
+   "ergebnis": {
+    "T": 13.114603783122936,
+    "err": 8.054560787229548e-07
+   },
+   "sek": 0.06
+  },
+  {
+   "id": 1,
+   "wer": "forscher-sparsam",
+   "op": "energy3d",
+   "args": {
+    "name_or_ca": "fcc",
+    "nu": 5
+   },
+   "ergebnis": {
+    "T": 13.380899049738176,
+    "err": 6.881492815580259e-07
+   },
+   "sek": 0.05
+  },
+  {
+   "id": 2,
+   "wer": "forscher-sparsam",
+   "op": "energy3d",
+   "args": {
+    "name_or_ca": "sc",
+    "nu": 5
+   },
+   "ergebnis": {
+    "T": 16.21657895938287,
+    "err": 4.118577301426285e-07
+   },
+   "sek": 0.05
+  },
+  {
+   "id": 3,
+   "wer": "forscher-sparsam",
+   "op": "energy_nd",
+   "args": {
+    "name": "bcc",
+    "nu": 5,
+    "R": [
+     6,
+     8
+    ]
+   },
+   "ergebnis": {
+    "T": 13.114602396914874,
+    "err": 1.2375764161021152e-05
+   },
+   "sek": 0.01
+  },
+  {
+   "id": 4,
+   "wer": "forscher-sparsam",
+   "op": "energy_nd",
+   "args": {
+    "name": "fcc",
+    "nu": 5,
+    "R": [
+     6,
+     8
+    ]
+   },
+   "ergebnis": {
+    "T": 13.380897854492474,
+    "err": 1.0562429906713078e-05
+   },
+   "sek": 0.01
+  },
+  {
+   "id": 5,
+   "wer": "forscher-sparsam",
+   "op": "minimize_nd",
+   "args": {
+    "d": 3,
+    "nu": 5,
+    "starts": 4,
+    "seed": 42
+   },
+   "ergebnis": {
+    "laeufe": [
+     {
+      "start": 1,
+      "T_suche": 13.114584388849389,
+      "T": 13.114603783127961,
+      "gitter": "bcc",
+      "iterationen": 24
+     },
+     {
+      "start": 0,
+      "T_suche": 13.114584388850501,
+      "T": 13.114603783129514,
+      "gitter": "bcc",
+      "iterationen": 24
+     },
+     {
+      "start": 2,
+      "T_suche": 13.114584388849208,
+      "T": 13.1146037831302,
+      "gitter": "bcc",
+      "iterationen": 22
+     },
+     {
+      "start": 3,
+      "T_suche": 13.11458438887394,
+      "T": 13.114603783143219,
+      "gitter": "bcc",
+      "iterationen": 21
+     }
+    ],
+    "referenz_T": {
+     "bcc": 13.114603783122936,
+     "fcc": 13.380899049738176,
+     "sc": 16.21657895938287
+    },
+    "R": [
+     4,
+     6
+    ]
+   },
+   "sek": 12.04
+  },
+  {
+   "id": 6,
+   "wer": "forscher-sparsam",
+   "op": "energy_nd",
+   "args": {
+    "name": "z4",
+    "nu": 5,
+    "R": [
+     6,
+     8
+    ]
+   },
+   "ergebnis": {
+    "T": 38.938575647494304,
+    "err": 0.0001641228448363563
+   },
+   "sek": 1.82
+  },
+  {
+   "id": 7,
+   "wer": "forscher-sparsam",
+   "op": "energy_nd",
+   "args": {
+    "name": "a4",
+    "nu": 5,
+    "R": [
+     6,
+     8
+    ]
+   },
+   "ergebnis": {
+    "T": 28.611680538368404,
+    "err": 0.0005033986075204666
+   },
+   "sek": 1.38
+  }
+ ],
+ "sek": 61.2,
+ "frage": "Q9",
+ "salt": 1,
+ "bedingung": "BK"
+}

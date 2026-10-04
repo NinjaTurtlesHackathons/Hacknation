@@ -1,0 +1,549 @@
+{
+ "antwort": {
+  "antwort": "unstetig",
+  "zahl": 3.92,
+  "konfidenz": 0.95,
+  "pruefung": {
+   "typ": "koexistenz",
+   "nu": 3.92
+  },
+  "begruendung": "Experiment E11 zeigt bei ν=3.92, dass hexagonal und quadratisch gleichzeitig lokale Minima sind (T_hex=7.8925, T_quad=7.8920 mit positiven Hessian-Eigenwerten für beide). Das Crossing E4 lokalisiert den Übergangspunkt auf ν≈3.918. Dies definiert eine Koexistenzzone, wo beide Gitter-Typen stabil und konkurrierend sind – charakteristisch für einen unstetigen Wechsel (First-Order-ähnlich), nicht kontinuierlich.",
+  "stimmen": "Stufe 1/4 (sparsam, haiku)"
+ },
+ "level": "computed (Code-Prüfer bestanden)",
+ "forscher": [
+  {
+   "strategie": "sparsam",
+   "runden": [
+    {
+     "ueberlegung": "Die Frage zielt explizit darauf ab, zwischen zwei Szenarien zu unterscheiden: (1) unstetiger Übergang mit Koexistenz lokaler Minima in einem Bereich um ν*, oder (2) stetiger Übergang mit kontinuierlichem Wechsel des globalen Optimums. Strategie: Zunächst breite Suche über ν-Werte, um zu erkennen, welche Gitter konkurrieren und wo der Wechsel stattfindet. Dann präzise Lokalisierung des Umschlagpunkts mittels Energiedifferenz-Bisektionen. Schließlich Stabilitätsprüfung: Falls beide Gitter im kritischen Bereich mit positiv definiter Hessematrix koexistieren (beide lokale Minima), ist der Übergang unstetig; andernfalls stetig.",
+     "plan": [
+      {
+       "op": "minimize2d",
+       "args": {
+        "nu": 1.0
+       }
+      },
+      {
+       "op": "minimize2d",
+       "args": {
+        "nu": 5.0
+       }
+      },
+      {
+       "op": "minimize2d",
+       "args": {
+        "nu": 15.0
+       }
+      },
+      {
+       "op": "minimize2d",
+       "args": {
+        "nu": 40.0
+       }
+      },
+      {
+       "op": "crossing2d",
+       "args": {
+        "tau_a": [
+         0.5,
+         0.8660254
+        ],
+        "tau_b": [
+         0,
+         1
+        ],
+        "nu_lo": 1.0,
+        "nu_hi": 40.0
+       }
+      },
+      {
+       "op": "hessian2d",
+       "args": {
+        "tau": [
+         0.5,
+         0.8660254
+        ],
+        "nu": 8.0
+       }
+      },
+      {
+       "op": "hessian2d",
+       "args": {
+        "tau": [
+         0,
+         1
+        ],
+        "nu": 8.0
+       }
+      },
+      {
+       "op": "compare2d",
+       "args": {
+        "tau_a": [
+         0.5,
+         0.8660254
+        ],
+        "tau_b": [
+         0,
+         1
+        ],
+        "nu": 8.0
+       }
+      }
+     ]
+    },
+    {
+     "plan": [
+      {
+       "op": "hessian2d",
+       "args": {
+        "tau": [
+         0.5,
+         0.8660254
+        ],
+        "nu": 3.92
+       }
+      },
+      {
+       "op": "hessian2d",
+       "args": {
+        "tau": [
+         0.5,
+         0.8660254
+        ],
+        "nu": 3.95
+       }
+      },
+      {
+       "op": "hessian2d",
+       "args": {
+        "tau": [
+         0,
+         1
+        ],
+        "nu": 3.92
+       }
+      },
+      {
+       "op": "minimize2d",
+       "args": {
+        "nu": 3.92
+       }
+      },
+      {
+       "op": "minimize2d",
+       "args": {
+        "nu": 3.95
+       }
+      },
+      {
+       "op": "compare2d",
+       "args": {
+        "tau_a": [
+         0.5,
+         0.8660254
+        ],
+        "tau_b": [
+         0,
+         1
+        ],
+        "nu": 3.92
+       }
+      }
+     ]
+    },
+    {
+     "antwort": "unstetig",
+     "zahl": 3.92,
+     "konfidenz": 0.95,
+     "pruefung": {
+      "typ": "koexistenz",
+      "nu": 3.92
+     },
+     "begruendung": "Experiment E11 zeigt bei ν=3.92, dass hexagonal und quadratisch gleichzeitig lokale Minima sind (T_hex=7.8925, T_quad=7.8920 mit positiven Hessian-Eigenwerten für beide). Das Crossing E4 lokalisiert den Übergangspunkt auf ν≈3.918. Dies definiert eine Koexistenzzone, wo beide Gitter-Typen stabil und konkurrierend sind – charakteristisch für einen unstetigen Wechsel (First-Order-ähnlich), nicht kontinuierlich."
+    }
+   ],
+   "experimente": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13
+   ],
+   "final": {
+    "antwort": "unstetig",
+    "zahl": 3.92,
+    "konfidenz": 0.95,
+    "pruefung": {
+     "typ": "koexistenz",
+     "nu": 3.92
+    },
+    "begruendung": "Experiment E11 zeigt bei ν=3.92, dass hexagonal und quadratisch gleichzeitig lokale Minima sind (T_hex=7.8925, T_quad=7.8920 mit positiven Hessian-Eigenwerten für beide). Das Crossing E4 lokalisiert den Übergangspunkt auf ν≈3.918. Dies definiert eine Koexistenzzone, wo beide Gitter-Typen stabil und konkurrierend sind – charakteristisch für einen unstetigen Wechsel (First-Order-ähnlich), nicht kontinuierlich."
+   },
+   "modell": "haiku",
+   "pruefung": {
+    "bestanden": true,
+    "grund": "bei nu=3.92: quadratisch stabil=True, hexagonal stabil=True"
+   }
+  }
+ ],
+ "experimente": [
+  {
+   "id": 0,
+   "wer": "forscher-sparsam",
+   "op": "minimize2d",
+   "args": {
+    "nu": 1.0
+   },
+   "ergebnis": {
+    "tau": [
+     0.4113864307554788,
+     0.9114611380071853
+    ],
+    "T": -246.41549589111443,
+    "typ": "rhombisch",
+    "lokale_minima": [
+     {
+      "tau": [
+       0.4113864307554788,
+       0.9114611380071853
+      ],
+      "T": -246.41549589111443,
+      "typ": "rhombisch"
+     }
+    ]
+   },
+   "sek": 7.09
+  },
+  {
+   "id": 1,
+   "wer": "forscher-sparsam",
+   "op": "minimize2d",
+   "args": {
+    "nu": 5.0
+   },
+   "ergebnis": {
+    "tau": [
+     0.0,
+     1.0
+    ],
+    "T": 4.838026846713883,
+    "typ": "quadratisch",
+    "lokale_minima": [
+     {
+      "tau": [
+       0.0,
+       1.0
+      ],
+      "T": 4.838026846713883,
+      "typ": "quadratisch"
+     }
+    ]
+   },
+   "sek": 3.9
+  },
+  {
+   "id": 2,
+   "wer": "forscher-sparsam",
+   "op": "minimize2d",
+   "args": {
+    "nu": 15.0
+   },
+   "ergebnis": {
+    "tau": [
+     1.6306457238706495e-08,
+     1.170170652396107
+    ],
+    "T": 0.12719603974286744,
+    "typ": "rechteckig(y=1.1702)",
+    "lokale_minima": [
+     {
+      "tau": [
+       1.6306457238706495e-08,
+       1.170170652396107
+      ],
+      "T": 0.12719603974286744,
+      "typ": "rechteckig(y=1.1702)"
+     }
+    ]
+   },
+   "sek": 2.69
+  },
+  {
+   "id": 3,
+   "wer": "forscher-sparsam",
+   "op": "minimize2d",
+   "args": {
+    "nu": 40.0
+   },
+   "ergebnis": {
+    "tau": [
+     6.339880637824676e-07,
+     1.2241068547290366
+    ],
+    "T": 1.6262692177717823e-05,
+    "typ": "rechteckig(y=1.2241)",
+    "lokale_minima": [
+     {
+      "tau": [
+       6.339880637824676e-07,
+       1.2241068547290366
+      ],
+      "T": 1.6262692177717823e-05,
+      "typ": "rechteckig(y=1.2241)"
+     }
+    ]
+   },
+   "sek": 2.18
+  },
+  {
+   "id": 4,
+   "wer": "forscher-sparsam",
+   "op": "crossing2d",
+   "args": {
+    "tau_a": [
+     0.5,
+     0.8660254
+    ],
+    "tau_b": [
+     0,
+     1
+    ],
+    "nu_lo": 1.0,
+    "nu_hi": 40.0
+   },
+   "ergebnis": {
+    "gefunden": true,
+    "intervall": [
+     3.9183645993471146,
+     3.918365180492401
+    ]
+   },
+   "sek": 0.59
+  },
+  {
+   "id": 5,
+   "wer": "forscher-sparsam",
+   "op": "hessian2d",
+   "args": {
+    "tau": [
+     0.5,
+     0.8660254
+    ],
+    "nu": 8.0
+   },
+   "ergebnis": {
+    "eigenwerte": [
+     -13.235010640211264,
+     -13.234939828743464
+    ],
+    "stabil": false
+   },
+   "sek": 0.09
+  },
+  {
+   "id": 6,
+   "wer": "forscher-sparsam",
+   "op": "hessian2d",
+   "args": {
+    "tau": [
+     0,
+     1
+    ],
+    "nu": 8.0
+   },
+   "ergebnis": {
+    "eigenwerte": [
+     0.9219640558222331,
+     11.661456612577226
+    ],
+    "stabil": true
+   },
+   "sek": 0.09
+  },
+  {
+   "id": 7,
+   "wer": "forscher-sparsam",
+   "op": "compare2d",
+   "args": {
+    "tau_a": [
+     0.5,
+     0.8660254
+    ],
+    "tau_b": [
+     0,
+     1
+    ],
+    "nu": 8.0
+   },
+   "ergebnis": {
+    "T_a": 2.228073519951608,
+    "T_b": 1.5524012125757505,
+    "diff": 0.6756723073758577,
+    "err": 2.2280735199516082e-13,
+    "sicher": true
+   },
+   "sek": 0.02
+  },
+  {
+   "id": 8,
+   "wer": "forscher-sparsam",
+   "op": "hessian2d",
+   "args": {
+    "tau": [
+     0.5,
+     0.8660254
+    ],
+    "nu": 3.92
+   },
+   "ergebnis": {
+    "eigenwerte": [
+     2.561947385348873,
+     2.561960706026767
+    ],
+    "stabil": true
+   },
+   "sek": 0.12
+  },
+  {
+   "id": 9,
+   "wer": "forscher-sparsam",
+   "op": "hessian2d",
+   "args": {
+    "tau": [
+     0.5,
+     0.8660254
+    ],
+    "nu": 3.95
+   },
+   "ergebnis": {
+    "eigenwerte": [
+     2.342842873481743,
+     2.342855028647506
+    ],
+    "stabil": true
+   },
+   "sek": 0.12
+  },
+  {
+   "id": 10,
+   "wer": "forscher-sparsam",
+   "op": "hessian2d",
+   "args": {
+    "tau": [
+     0,
+     1
+    ],
+    "nu": 3.92
+   },
+   "ergebnis": {
+    "eigenwerte": [
+     0.5129087248256781,
+     20.108386957984337
+    ],
+    "stabil": true
+   },
+   "sek": 0.11
+  },
+  {
+   "id": 11,
+   "wer": "forscher-sparsam",
+   "op": "minimize2d",
+   "args": {
+    "nu": 3.92
+   },
+   "ergebnis": {
+    "tau": [
+     0.0,
+     1.0
+    ],
+    "T": 7.891990305803682,
+    "typ": "quadratisch",
+    "lokale_minima": [
+     {
+      "tau": [
+       0.0,
+       1.0
+      ],
+      "T": 7.891990305803682,
+      "typ": "quadratisch"
+     },
+     {
+      "tau": [
+       0.5,
+       0.8660254037844386
+      ],
+      "T": 7.892461950071012,
+      "typ": "hexagonal"
+     }
+    ]
+   },
+   "sek": 4.11
+  },
+  {
+   "id": 12,
+   "wer": "forscher-sparsam",
+   "op": "minimize2d",
+   "args": {
+    "nu": 3.95
+   },
+   "ergebnis": {
+    "tau": [
+     0.0,
+     1.0
+    ],
+    "T": 7.773790408126613,
+    "typ": "quadratisch",
+    "lokale_minima": [
+     {
+      "tau": [
+       0.0,
+       1.0
+      ],
+      "T": 7.773790408126613,
+      "typ": "quadratisch"
+     }
+    ]
+   },
+   "sek": 4.35
+  },
+  {
+   "id": 13,
+   "wer": "forscher-sparsam",
+   "op": "compare2d",
+   "args": {
+    "tau_a": [
+     0.5,
+     0.8660254
+    ],
+    "tau_b": [
+     0,
+     1
+    ],
+    "nu": 3.92
+   },
+   "ergebnis": {
+    "T_a": 7.892461950071012,
+    "T_b": 7.891990305803682,
+    "diff": 0.0004716442673302623,
+    "err": 4.149443111083282e-09,
+    "sicher": true
+   },
+   "sek": 0.02
+  }
+ ],
+ "sek": 117.1,
+ "frage": "Q6",
+ "salt": 1,
+ "bedingung": "BK"
+}

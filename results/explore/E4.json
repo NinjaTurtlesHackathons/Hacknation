@@ -1,0 +1,1565 @@
+{
+ "antwort": {
+  "antwort": "D4",
+  "zahl": null,
+  "konfidenz": 0.85,
+  "pruefung": {
+   "typ": "argmin_nd",
+   "d": 4,
+   "nu": 5,
+   "erwartet": "d4"
+  },
+  "begruendung": "Bei nu=5 liegt D4 (T≈26,51) deutlich unter A4* (≈28,18), A4 (≈28,61) und Z4 (≈38,94); das bestätigt sich in beiden Richardson-Auflösungen. 12 lokale BFGS-Suchen aus zufälligen Startbasen (zwei Seeds) konvergierten ausnahmslos zu D4, es wurde kein besseres Gitter gefunden. Vermutung 2 passt also auch bei endlichem nu=5, ein Beweis ist das numerisch nicht.",
+  "stimmen": "2/4 (geprüft: 4)"
+ },
+ "level": "computed (Code-Prüfer bestanden)",
+ "forscher": [
+  {
+   "strategie": "numeriker",
+   "runden": [
+    {
+     "ueberlegung": "Plan: Zuerst bei nu=5 die Energien der benannten 4D-Gitter (D4, Z4, A4, A4*) vergleichen, dann eine globale lokale BFGS-Suche in 4D mit mehreren Starts, um zu sehen, ob etwas Besseres als D4 existiert oder ob D4 das Minimum ist. Zur Robustheit zusätzlich eine zweite Auflösung (R=[6,8]) für D4 und die engste Konkurrenz. Danach entscheide ich über die Prüfung (argmin_nd bzw. vergleich_nd). Keine Ergebnisse werden vorab angenommen.",
+     "plan": [
+      {
+       "op": "energy_nd",
+       "args": {
+        "name": "d4",
+        "nu": 5
+       }
+      },
+      {
+       "op": "energy_nd",
+       "args": {
+        "name": "z4",
+        "nu": 5
+       }
+      },
+      {
+       "op": "energy_nd",
+       "args": {
+        "name": "a4",
+        "nu": 5
+       }
+      },
+      {
+       "op": "energy_nd",
+       "args": {
+        "name": "a4*",
+        "nu": 5
+       }
+      },
+      {
+       "op": "minimize_nd",
+       "args": {
+        "d": 4,
+        "nu": 5,
+        "starts": 6,
+        "seed": 1
+       }
+      },
+      {
+       "op": "minimize_nd",
+       "args": {
+        "d": 4,
+        "nu": 5,
+        "starts": 6,
+        "seed": 2
+       }
+      },
+      {
+       "op": "energy_nd",
+       "args": {
+        "name": "d4",
+        "nu": 5,
+        "R": [
+         6,
+         8
+        ]
+       }
+      },
+      {
+       "op": "energy_nd",
+       "args": {
+        "name": "a4*",
+        "nu": 5,
+        "R": [
+         6,
+         8
+        ]
+       }
+      }
+     ]
+    },
+    {
+     "antwort": "D4",
+     "zahl": null,
+     "konfidenz": 0.85,
+     "pruefung": {
+      "typ": "argmin_nd",
+      "d": 4,
+      "nu": 5,
+      "erwartet": "d4"
+     },
+     "begruendung": "Bei nu=5 liegt D4 (T≈26,51) deutlich unter A4* (≈28,18), A4 (≈28,61) und Z4 (≈38,94); das bestätigt sich in beiden Richardson-Auflösungen. 12 lokale BFGS-Suchen aus zufälligen Startbasen (zwei Seeds) konvergierten ausnahmslos zu D4, es wurde kein besseres Gitter gefunden. Vermutung 2 passt also auch bei endlichem nu=5, ein Beweis ist das numerisch nicht."
+    }
+   ],
+   "experimente": [
+    1,
+    5,
+    9,
+    15,
+    18,
+    22,
+    23,
+    25
+   ],
+   "final": {
+    "antwort": "D4",
+    "zahl": null,
+    "konfidenz": 0.85,
+    "pruefung": {
+     "typ": "argmin_nd",
+     "d": 4,
+     "nu": 5,
+     "erwartet": "d4"
+    },
+    "begruendung": "Bei nu=5 liegt D4 (T≈26,51) deutlich unter A4* (≈28,18), A4 (≈28,61) und Z4 (≈38,94); das bestätigt sich in beiden Richardson-Auflösungen. 12 lokale BFGS-Suchen aus zufälligen Startbasen (zwei Seeds) konvergierten ausnahmslos zu D4, es wurde kein besseres Gitter gefunden. Vermutung 2 passt also auch bei endlichem nu=5, ein Beweis ist das numerisch nicht."
+   },
+   "pruefung": {
+    "bestanden": true,
+    "grund": "Prüfer-Suche d=4, nu=5.0, 4 Starts (Seed 1234): Gitter ['d4', 'd4', 'd4', 'unbekannt'], T [26.51417, 26.51439, 26.51508, 26.55146], T(d4)=26.51390, besser als d4: 0"
+   }
+  },
+  {
+   "strategie": "theoretiker",
+   "runden": [
+    {
+     "ueberlegung": "Symmetrie/Grenzfall: Für große nu dominiert das kleinste Dreiecksprodukt, D4 ist dort Kandidat. Bei nu=5 (moderat) können aber andere Gitter (A4, A4*, Z4, oder unbekannte, z.B. nichtsymmetrische) konkurrieren; die Energie ist eine Summe über viele Dreiecke, nicht nur über das minimale. Vorhersage zum Test: Wenn D4 global optimal ist, muss eine unabhängige globale BFGS-Suche in 4D bei nu=5 D4 finden und D4 muss energetisch unter A4, A4*, Z4 liegen. Zuerst direkte Energievergleiche der benannten Gitter, dann globale Suche mit mehreren Seeds, plus Kontrolle bei größerem nu (z.B. 8) und Sanity-Check in 3D (BCC bei nu=5), um die Suche zu validieren.",
+     "plan": [
+      {
+       "op": "energy_nd",
+       "args": {
+        "name": "d4",
+        "nu": 5
+       }
+      },
+      {
+       "op": "energy_nd",
+       "args": {
+        "name": "z4",
+        "nu": 5
+       }
+      },
+      {
+       "op": "energy_nd",
+       "args": {
+        "name": "a4",
+        "nu": 5
+       }
+      },
+      {
+       "op": "energy_nd",
+       "args": {
+        "name": "a4*",
+        "nu": 5
+       }
+      },
+      {
+       "op": "energy_nd",
+       "args": {
+        "name": "d4",
+        "nu": 5,
+        "R": [
+         6,
+         8
+        ]
+       }
+      },
+      {
+       "op": "minimize_nd",
+       "args": {
+        "d": 4,
+        "nu": 5,
+        "starts": 6,
+        "seed": 1
+       }
+      },
+      {
+       "op": "minimize_nd",
+       "args": {
+        "d": 4,
+        "nu": 5,
+        "starts": 6,
+        "seed": 2
+       }
+      },
+      {
+       "op": "minimize_nd",
+       "args": {
+        "d": 3,
+        "nu": 5,
+        "starts": 6,
+        "seed": 1
+       }
+      }
+     ]
+    },
+    {
+     "antwort": "D4",
+     "zahl": 26.5139,
+     "konfidenz": 0.85,
+     "pruefungen": [
+      {
+       "typ": "argmin_nd",
+       "d": 4,
+       "nu": 5,
+       "erwartet": "d4"
+      },
+      {
+       "typ": "vergleich_nd",
+       "nu": 5,
+       "gitter": "d4",
+       "gegen": [
+        "z4",
+        "a4",
+        "a4*"
+       ]
+      }
+     ],
+     "begruendung": "Bei nu=5 liegt D4 mit T≈26,514 (Richardson R=[6,8]: 26,515) deutlich unter A4* (28,18), A4 (28,61) und Z4 (38,94). Alle 12 lokalen BFGS-Läufe aus zufälligen Startbasen (zwei Seeds) konvergierten auf D4, es wurde kein besseres oder anderes Minimum gefunden. Das stützt Vermutung 2 auch bei endlichem nu=5, ist aber nur numerisch und beruht auf einer begrenzten Zahl von Starts, daher keine volle Gewissheit."
+    }
+   ],
+   "experimente": [
+    2,
+    6,
+    10,
+    14,
+    17,
+    19,
+    24,
+    28
+   ],
+   "final": {
+    "antwort": "D4",
+    "zahl": 26.5139,
+    "konfidenz": 0.85,
+    "pruefungen": [
+     {
+      "typ": "argmin_nd",
+      "d": 4,
+      "nu": 5,
+      "erwartet": "d4"
+     },
+     {
+      "typ": "vergleich_nd",
+      "nu": 5,
+      "gitter": "d4",
+      "gegen": [
+       "z4",
+       "a4",
+       "a4*"
+      ]
+     }
+    ],
+    "begruendung": "Bei nu=5 liegt D4 mit T≈26,514 (Richardson R=[6,8]: 26,515) deutlich unter A4* (28,18), A4 (28,61) und Z4 (38,94). Alle 12 lokalen BFGS-Läufe aus zufälligen Startbasen (zwei Seeds) konvergierten auf D4, es wurde kein besseres oder anderes Minimum gefunden. Das stützt Vermutung 2 auch bei endlichem nu=5, ist aber nur numerisch und beruht auf einer begrenzten Zahl von Starts, daher keine volle Gewissheit."
+   },
+   "pruefung": {
+    "bestanden": true,
+    "grund": "Prüfer-Suche d=4, nu=5.0, 4 Starts (Seed 1234): Gitter ['d4', 'd4', 'd4', 'unbekannt'], T [26.51417, 26.51439, 26.51508, 26.55146], T(d4)=26.51390, besser als d4: 0 | nu=5.0: T(andere)-T(d4) bei R=[(4, 6), (6, 8)]: z4: 12.42/12.42, a4: 2.097/2.096, a4*: 1.671/1.67"
+   }
+  },
+  {
+   "strategie": "skeptiker",
+   "runden": [
+    {
+     "ueberlegung": "Ich nehme D4 nicht als gegeben an. Bei nu=5 in 4D vergleiche ich zuerst direkt die benannten Gitter (z4, d4, a4, a4*) bei zwei Aufloesungen, dann laeuft eine globale BFGS-Suche mit vielen Starts, um unbekannte Kandidaten zu finden. Dazu pruefe ich, ob D4 der Sieger bleibt, und zur Einordnung die Nachbarwerte nu=4 und nu=8 (Trend zu grossen nu). Falls die Suche ein anderes Gitter findet, wird die Antwort entsprechend geaendert.",
+     "plan": [
+      {
+       "op": "energy_nd",
+       "args": {
+        "name": "d4",
+        "nu": 5
+       }
+      },
+      {
+       "op": "energy_nd",
+       "args": {
+        "name": "z4",
+        "nu": 5
+       }
+      },
+      {
+       "op": "energy_nd",
+       "args": {
+        "name": "a4",
+        "nu": 5
+       }
+      },
+      {
+       "op": "energy_nd",
+       "args": {
+        "name": "a4*",
+        "nu": 5
+       }
+      },
+      {
+       "op": "energy_nd",
+       "args": {
+        "name": "d4",
+        "nu": 5,
+        "R": [
+         6,
+         8
+        ]
+       }
+      },
+      {
+       "op": "minimize_nd",
+       "args": {
+        "d": 4,
+        "nu": 5,
+        "starts": 6,
+        "seed": 1
+       }
+      },
+      {
+       "op": "minimize_nd",
+       "args": {
+        "d": 4,
+        "nu": 5,
+        "starts": 6,
+        "seed": 2
+       }
+      },
+      {
+       "op": "minimize_nd",
+       "args": {
+        "d": 4,
+        "nu": 8,
+        "starts": 4,
+        "seed": 3
+       }
+      }
+     ]
+    },
+    {
+     "antwort": "d4",
+     "zahl": 26.5139,
+     "konfidenz": 0.85,
+     "pruefung": {
+      "typ": "argmin_nd",
+      "d": 4,
+      "nu": 5,
+      "erwartet": "d4"
+     },
+     "begruendung": "Bei nu=5 liefen alle 12 lokalen BFGS-Suchen in 4D (Seeds 1 und 2, je 6 Starts aus zufälligen Basen) auf D4 mit T≈26,514 zusammen. Es wurde kein anderes Gitter gefunden. Die Referenzgitter liegen deutlich höher (A4* 28,18, A4 28,61, Z4 38,94), und bei nu=8 landete D4 ebenfalls im besten Minimum (3,5676, A4* 4,104). Die Suche ist lokal und stichprobenartig, daher bleibt ein Restzweifel, ob ein seltenes anderes Minimum existiert."
+    }
+   ],
+   "experimente": [
+    0,
+    4,
+    8,
+    11,
+    16,
+    20,
+    26,
+    31
+   ],
+   "final": {
+    "antwort": "d4",
+    "zahl": 26.5139,
+    "konfidenz": 0.85,
+    "pruefung": {
+     "typ": "argmin_nd",
+     "d": 4,
+     "nu": 5,
+     "erwartet": "d4"
+    },
+    "begruendung": "Bei nu=5 liefen alle 12 lokalen BFGS-Suchen in 4D (Seeds 1 und 2, je 6 Starts aus zufälligen Basen) auf D4 mit T≈26,514 zusammen. Es wurde kein anderes Gitter gefunden. Die Referenzgitter liegen deutlich höher (A4* 28,18, A4 28,61, Z4 38,94), und bei nu=8 landete D4 ebenfalls im besten Minimum (3,5676, A4* 4,104). Die Suche ist lokal und stichprobenartig, daher bleibt ein Restzweifel, ob ein seltenes anderes Minimum existiert."
+   },
+   "pruefung": {
+    "bestanden": true,
+    "grund": "Prüfer-Suche d=4, nu=5.0, 4 Starts (Seed 1234): Gitter ['d4', 'd4', 'd4', 'unbekannt'], T [26.51417, 26.51439, 26.51508, 26.55146], T(d4)=26.51390, besser als d4: 0"
+   }
+  },
+  {
+   "strategie": "sparsam",
+   "runden": [
+    {
+     "ueberlegung": "Ziel: globales 4D-Minimum bei nu=5. Zuerst direkte Energien der Kandidaten (z4, d4, a4, a4*) bei nu=5 vergleichen, dann unabhängige globale lokale Suchen mit mehreren Starts, um zu sehen, ob etwas Besseres als D4 existiert (z.B. A4, A4*, oder unbekannte Gitter). Zur Robustheit zweite Auflösung R=[6,8] für die Kandidaten. Zusätzlich 3D-Suche als Kontrollexperiment, um die Methode zu validieren (erwartet BCC bei nu=5). Wenige Experimente, keine Redundanz.",
+     "plan": [
+      {
+       "op": "energy_nd",
+       "args": {
+        "name": "d4",
+        "nu": 5
+       }
+      },
+      {
+       "op": "energy_nd",
+       "args": {
+        "name": "a4",
+        "nu": 5
+       }
+      },
+      {
+       "op": "energy_nd",
+       "args": {
+        "name": "a4*",
+        "nu": 5
+       }
+      },
+      {
+       "op": "energy_nd",
+       "args": {
+        "name": "z4",
+        "nu": 5
+       }
+      },
+      {
+       "op": "minimize_nd",
+       "args": {
+        "d": 4,
+        "nu": 5,
+        "starts": 6,
+        "seed": 1
+       }
+      },
+      {
+       "op": "minimize_nd",
+       "args": {
+        "d": 4,
+        "nu": 5,
+        "starts": 6,
+        "seed": 2
+       }
+      },
+      {
+       "op": "minimize_nd",
+       "args": {
+        "d": 3,
+        "nu": 5,
+        "starts": 8,
+        "seed": 1
+       }
+      },
+      {
+       "op": "energy_nd",
+       "args": {
+        "name": "d4",
+        "nu": 5,
+        "R": [
+         6,
+         8
+        ]
+       }
+      }
+     ]
+    },
+    {
+     "antwort": "D4",
+     "zahl": null,
+     "konfidenz": 0.85,
+     "pruefung": {
+      "typ": "argmin_nd",
+      "d": 4,
+      "nu": 5,
+      "erwartet": "d4"
+     },
+     "begruendung": "Bei nu = 5 liefert die lokale BFGS-Suche in 4D aus 12 zufälligen Startbasen (zwei Seeds) in allen Läufen D4 (T ≈ 26,51), nie ein anderes oder besseres Gitter. Die direkten Vergleiche zeigen D4 (26,514) deutlich unter A4* (28,185), A4 (28,611) und Z4 (38,938), die Differenzen liegen weit über den Fehlerschätzungen (≈0,005). Das stützt Vermutung 2 auch bei endlichem nu = 5, ist aber numerisch und kein Beweis."
+    }
+   ],
+   "experimente": [
+    3,
+    7,
+    12,
+    13,
+    21,
+    27,
+    29,
+    30
+   ],
+   "final": {
+    "antwort": "D4",
+    "zahl": null,
+    "konfidenz": 0.85,
+    "pruefung": {
+     "typ": "argmin_nd",
+     "d": 4,
+     "nu": 5,
+     "erwartet": "d4"
+    },
+    "begruendung": "Bei nu = 5 liefert die lokale BFGS-Suche in 4D aus 12 zufälligen Startbasen (zwei Seeds) in allen Läufen D4 (T ≈ 26,51), nie ein anderes oder besseres Gitter. Die direkten Vergleiche zeigen D4 (26,514) deutlich unter A4* (28,185), A4 (28,611) und Z4 (38,938), die Differenzen liegen weit über den Fehlerschätzungen (≈0,005). Das stützt Vermutung 2 auch bei endlichem nu = 5, ist aber numerisch und kein Beweis."
+   },
+   "pruefung": {
+    "bestanden": true,
+    "grund": "Prüfer-Suche d=4, nu=5.0, 4 Starts (Seed 1234): Gitter ['d4', 'd4', 'd4', 'unbekannt'], T [26.51417, 26.51439, 26.51508, 26.55146], T(d4)=26.51390, besser als d4: 0"
+   }
+  }
+ ],
+ "experimente": [
+  {
+   "id": 0,
+   "wer": "forscher-skeptiker",
+   "op": "energy_nd",
+   "args": {
+    "name": "d4",
+    "nu": 5
+   },
+   "ergebnis": {
+    "T": 26.513899981585322,
+    "err": 0.004530710513538594
+   },
+   "sek": 1.52
+  },
+  {
+   "id": 1,
+   "wer": "forscher-numeriker",
+   "op": "energy_nd",
+   "args": {
+    "name": "d4",
+    "nu": 5
+   },
+   "ergebnis": {
+    "T": 26.513899981585322,
+    "err": 0.004530710513538594
+   },
+   "sek": 1.32
+  },
+  {
+   "id": 2,
+   "wer": "forscher-theoretiker",
+   "op": "energy_nd",
+   "args": {
+    "name": "d4",
+    "nu": 5
+   },
+   "ergebnis": {
+    "T": 26.513899981585322,
+    "err": 0.004530710513538594
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 3,
+   "wer": "forscher-sparsam",
+   "op": "energy_nd",
+   "args": {
+    "name": "d4",
+    "nu": 5
+   },
+   "ergebnis": {
+    "T": 26.513899981585322,
+    "err": 0.004530710513538594
+   },
+   "sek": 1.35
+  },
+  {
+   "id": 4,
+   "wer": "forscher-skeptiker",
+   "op": "energy_nd",
+   "args": {
+    "name": "z4",
+    "nu": 5
+   },
+   "ergebnis": {
+    "T": 38.938358646188455,
+    "err": 0.0007051484505780081
+   },
+   "sek": 0.55
+  },
+  {
+   "id": 5,
+   "wer": "forscher-numeriker",
+   "op": "energy_nd",
+   "args": {
+    "name": "z4",
+    "nu": 5
+   },
+   "ergebnis": {
+    "T": 38.938358646188455,
+    "err": 0.0007051484505780081
+   },
+   "sek": 0.89
+  },
+  {
+   "id": 6,
+   "wer": "forscher-theoretiker",
+   "op": "energy_nd",
+   "args": {
+    "name": "z4",
+    "nu": 5
+   },
+   "ergebnis": {
+    "T": 38.938358646188455,
+    "err": 0.0007051484505780081
+   },
+   "sek": 0.7
+  },
+  {
+   "id": 7,
+   "wer": "forscher-sparsam",
+   "op": "energy_nd",
+   "args": {
+    "name": "a4",
+    "nu": 5
+   },
+   "ergebnis": {
+    "T": 28.610975515180666,
+    "err": 0.002123400264132158
+   },
+   "sek": 1.11
+  },
+  {
+   "id": 8,
+   "wer": "forscher-skeptiker",
+   "op": "energy_nd",
+   "args": {
+    "name": "a4",
+    "nu": 5
+   },
+   "ergebnis": {
+    "T": 28.610975515180666,
+    "err": 0.002123400264132158
+   },
+   "sek": 0.98
+  },
+  {
+   "id": 9,
+   "wer": "forscher-numeriker",
+   "op": "energy_nd",
+   "args": {
+    "name": "a4",
+    "nu": 5
+   },
+   "ergebnis": {
+    "T": 28.610975515180666,
+    "err": 0.002123400264132158
+   },
+   "sek": 0.99
+  },
+  {
+   "id": 10,
+   "wer": "forscher-theoretiker",
+   "op": "energy_nd",
+   "args": {
+    "name": "a4",
+    "nu": 5
+   },
+   "ergebnis": {
+    "T": 28.610975515180666,
+    "err": 0.002123400264132158
+   },
+   "sek": 1.01
+  },
+  {
+   "id": 11,
+   "wer": "forscher-skeptiker",
+   "op": "energy_nd",
+   "args": {
+    "name": "a4*",
+    "nu": 5
+   },
+   "ergebnis": {
+    "T": 28.184686957820382,
+    "err": 0.0014657690024897363
+   },
+   "sek": 0.74
+  },
+  {
+   "id": 12,
+   "wer": "forscher-sparsam",
+   "op": "energy_nd",
+   "args": {
+    "name": "a4*",
+    "nu": 5
+   },
+   "ergebnis": {
+    "T": 28.184686957820382,
+    "err": 0.0014657690024897363
+   },
+   "sek": 0.86
+  },
+  {
+   "id": 13,
+   "wer": "forscher-sparsam",
+   "op": "energy_nd",
+   "args": {
+    "name": "z4",
+    "nu": 5
+   },
+   "ergebnis": {
+    "T": 38.938358646188455,
+    "err": 0.0007051484505780081
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 14,
+   "wer": "forscher-theoretiker",
+   "op": "energy_nd",
+   "args": {
+    "name": "a4*",
+    "nu": 5
+   },
+   "ergebnis": {
+    "T": 28.184686957820382,
+    "err": 0.0014657690024897363
+   },
+   "sek": 0.57
+  },
+  {
+   "id": 15,
+   "wer": "forscher-numeriker",
+   "op": "energy_nd",
+   "args": {
+    "name": "a4*",
+    "nu": 5
+   },
+   "ergebnis": {
+    "T": 28.184686957820382,
+    "err": 0.0014657690024897363
+   },
+   "sek": 0.83
+  },
+  {
+   "id": 16,
+   "wer": "forscher-skeptiker",
+   "op": "energy_nd",
+   "args": {
+    "name": "d4",
+    "nu": 5,
+    "R": [
+     6,
+     8
+    ]
+   },
+   "ergebnis": {
+    "T": 26.51548389458092,
+    "err": 0.0010882716157603056
+   },
+   "sek": 3.19
+  },
+  {
+   "id": 17,
+   "wer": "forscher-theoretiker",
+   "op": "energy_nd",
+   "args": {
+    "name": "d4",
+    "nu": 5,
+    "R": [
+     6,
+     8
+    ]
+   },
+   "ergebnis": {
+    "T": 26.51548389458092,
+    "err": 0.0010882716157603056
+   },
+   "sek": 3.01
+  },
+  {
+   "id": 18,
+   "wer": "forscher-numeriker",
+   "op": "minimize_nd",
+   "args": {
+    "d": 4,
+    "nu": 5,
+    "starts": 6,
+    "seed": 1
+   },
+   "ergebnis": {
+    "laeufe": [
+     {
+      "start": 0,
+      "T_suche": 26.49827635756031,
+      "T": 26.513901756272926,
+      "gitter": "d4",
+      "iterationen": 27
+     },
+     {
+      "start": 3,
+      "T_suche": 26.49891754555929,
+      "T": 26.514412995448694,
+      "gitter": "d4",
+      "iterationen": 30
+     },
+     {
+      "start": 4,
+      "T_suche": 26.509709991764556,
+      "T": 26.515083826688866,
+      "gitter": "d4",
+      "iterationen": 36
+     },
+     {
+      "start": 5,
+      "T_suche": 26.509709189348502,
+      "T": 26.515084126990192,
+      "gitter": "d4",
+      "iterationen": 29
+     },
+     {
+      "start": 2,
+      "T_suche": 26.502136067026992,
+      "T": 26.517248173055304,
+      "gitter": "d4",
+      "iterationen": 23
+     },
+     {
+      "start": 1,
+      "T_suche": 26.502937959752227,
+      "T": 26.518146190647677,
+      "gitter": "d4",
+      "iterationen": 17
+     }
+    ],
+    "referenz_T": {
+     "z4": 38.938358646188455,
+     "d4": 26.513899981585322,
+     "a4": 28.610975515180666,
+     "a4*": 28.184686957820382
+    },
+    "R": [
+     3,
+     4
+    ]
+   },
+   "sek": 903.73
+  },
+  {
+   "id": 19,
+   "wer": "forscher-theoretiker",
+   "op": "minimize_nd",
+   "args": {
+    "d": 4,
+    "nu": 5,
+    "starts": 6,
+    "seed": 1
+   },
+   "ergebnis": {
+    "laeufe": [
+     {
+      "start": 0,
+      "T_suche": 26.49827635756031,
+      "T": 26.513901756272926,
+      "gitter": "d4",
+      "iterationen": 27
+     },
+     {
+      "start": 3,
+      "T_suche": 26.49891754555929,
+      "T": 26.514412995448694,
+      "gitter": "d4",
+      "iterationen": 30
+     },
+     {
+      "start": 4,
+      "T_suche": 26.509709991764556,
+      "T": 26.515083826688866,
+      "gitter": "d4",
+      "iterationen": 36
+     },
+     {
+      "start": 5,
+      "T_suche": 26.509709189348502,
+      "T": 26.515084126990192,
+      "gitter": "d4",
+      "iterationen": 29
+     },
+     {
+      "start": 2,
+      "T_suche": 26.502136067026992,
+      "T": 26.517248173055304,
+      "gitter": "d4",
+      "iterationen": 23
+     },
+     {
+      "start": 1,
+      "T_suche": 26.502937959752227,
+      "T": 26.518146190647677,
+      "gitter": "d4",
+      "iterationen": 17
+     }
+    ],
+    "referenz_T": {
+     "z4": 38.938358646188455,
+     "d4": 26.513899981585322,
+     "a4": 28.610975515180666,
+     "a4*": 28.184686957820382
+    },
+    "R": [
+     3,
+     4
+    ]
+   },
+   "sek": 903.03
+  },
+  {
+   "id": 20,
+   "wer": "forscher-skeptiker",
+   "op": "minimize_nd",
+   "args": {
+    "d": 4,
+    "nu": 5,
+    "starts": 6,
+    "seed": 1
+   },
+   "ergebnis": {
+    "laeufe": [
+     {
+      "start": 0,
+      "T_suche": 26.49827635756031,
+      "T": 26.513901756272926,
+      "gitter": "d4",
+      "iterationen": 27
+     },
+     {
+      "start": 3,
+      "T_suche": 26.49891754555929,
+      "T": 26.514412995448694,
+      "gitter": "d4",
+      "iterationen": 30
+     },
+     {
+      "start": 4,
+      "T_suche": 26.509709991764556,
+      "T": 26.515083826688866,
+      "gitter": "d4",
+      "iterationen": 36
+     },
+     {
+      "start": 5,
+      "T_suche": 26.509709189348502,
+      "T": 26.515084126990192,
+      "gitter": "d4",
+      "iterationen": 29
+     },
+     {
+      "start": 2,
+      "T_suche": 26.502136067026992,
+      "T": 26.517248173055304,
+      "gitter": "d4",
+      "iterationen": 23
+     },
+     {
+      "start": 1,
+      "T_suche": 26.502937959752227,
+      "T": 26.518146190647677,
+      "gitter": "d4",
+      "iterationen": 17
+     }
+    ],
+    "referenz_T": {
+     "z4": 38.938358646188455,
+     "d4": 26.513899981585322,
+     "a4": 28.610975515180666,
+     "a4*": 28.184686957820382
+    },
+    "R": [
+     3,
+     4
+    ]
+   },
+   "sek": 905.04
+  },
+  {
+   "id": 21,
+   "wer": "forscher-sparsam",
+   "op": "minimize_nd",
+   "args": {
+    "d": 4,
+    "nu": 5,
+    "starts": 6,
+    "seed": 1
+   },
+   "ergebnis": {
+    "laeufe": [
+     {
+      "start": 0,
+      "T_suche": 26.49827635756031,
+      "T": 26.513901756272926,
+      "gitter": "d4",
+      "iterationen": 27
+     },
+     {
+      "start": 3,
+      "T_suche": 26.49891754555929,
+      "T": 26.514412995448694,
+      "gitter": "d4",
+      "iterationen": 30
+     },
+     {
+      "start": 4,
+      "T_suche": 26.509709991764556,
+      "T": 26.515083826688866,
+      "gitter": "d4",
+      "iterationen": 36
+     },
+     {
+      "start": 5,
+      "T_suche": 26.509709189348502,
+      "T": 26.515084126990192,
+      "gitter": "d4",
+      "iterationen": 29
+     },
+     {
+      "start": 2,
+      "T_suche": 26.502136067026992,
+      "T": 26.517248173055304,
+      "gitter": "d4",
+      "iterationen": 23
+     },
+     {
+      "start": 1,
+      "T_suche": 26.502937959752227,
+      "T": 26.518146190647677,
+      "gitter": "d4",
+      "iterationen": 17
+     }
+    ],
+    "referenz_T": {
+     "z4": 38.938358646188455,
+     "d4": 26.513899981585322,
+     "a4": 28.610975515180666,
+     "a4*": 28.184686957820382
+    },
+    "R": [
+     3,
+     4
+    ]
+   },
+   "sek": 909.45
+  },
+  {
+   "id": 22,
+   "wer": "forscher-numeriker",
+   "op": "minimize_nd",
+   "args": {
+    "d": 4,
+    "nu": 5,
+    "starts": 6,
+    "seed": 2
+   },
+   "ergebnis": {
+    "laeufe": [
+     {
+      "start": 4,
+      "T_suche": 26.49865079047623,
+      "T": 26.51419466111695,
+      "gitter": "d4",
+      "iterationen": 24
+     },
+     {
+      "start": 3,
+      "T_suche": 26.498636608599703,
+      "T": 26.51422840976176,
+      "gitter": "d4",
+      "iterationen": 30
+     },
+     {
+      "start": 2,
+      "T_suche": 26.50963248106135,
+      "T": 26.515076375693226,
+      "gitter": "d4",
+      "iterationen": 34
+     },
+     {
+      "start": 1,
+      "T_suche": 26.49978954319504,
+      "T": 26.51533861071609,
+      "gitter": "d4",
+      "iterationen": 19
+     },
+     {
+      "start": 5,
+      "T_suche": 26.505396992527857,
+      "T": 26.520820292420858,
+      "gitter": "d4",
+      "iterationen": 21
+     },
+     {
+      "start": 0,
+      "T_suche": 26.50810303431583,
+      "T": 26.523089329492894,
+      "gitter": "d4",
+      "iterationen": 19
+     }
+    ],
+    "referenz_T": {
+     "z4": 38.938358646188455,
+     "d4": 26.513899981585322,
+     "a4": 28.610975515180666,
+     "a4*": 28.184686957820382
+    },
+    "R": [
+     3,
+     4
+    ]
+   },
+   "sek": 634.82
+  },
+  {
+   "id": 23,
+   "wer": "forscher-numeriker",
+   "op": "energy_nd",
+   "args": {
+    "name": "d4",
+    "nu": 5,
+    "R": [
+     6,
+     8
+    ]
+   },
+   "ergebnis": {
+    "T": 26.51548389458092,
+    "err": 0.0010882716157603056
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 24,
+   "wer": "forscher-theoretiker",
+   "op": "minimize_nd",
+   "args": {
+    "d": 4,
+    "nu": 5,
+    "starts": 6,
+    "seed": 2
+   },
+   "ergebnis": {
+    "laeufe": [
+     {
+      "start": 4,
+      "T_suche": 26.49865079047623,
+      "T": 26.51419466111695,
+      "gitter": "d4",
+      "iterationen": 24
+     },
+     {
+      "start": 3,
+      "T_suche": 26.498636608599703,
+      "T": 26.51422840976176,
+      "gitter": "d4",
+      "iterationen": 30
+     },
+     {
+      "start": 2,
+      "T_suche": 26.50963248106135,
+      "T": 26.515076375693226,
+      "gitter": "d4",
+      "iterationen": 34
+     },
+     {
+      "start": 1,
+      "T_suche": 26.49978954319504,
+      "T": 26.51533861071609,
+      "gitter": "d4",
+      "iterationen": 19
+     },
+     {
+      "start": 5,
+      "T_suche": 26.505396992527857,
+      "T": 26.520820292420858,
+      "gitter": "d4",
+      "iterationen": 21
+     },
+     {
+      "start": 0,
+      "T_suche": 26.50810303431583,
+      "T": 26.523089329492894,
+      "gitter": "d4",
+      "iterationen": 19
+     }
+    ],
+    "referenz_T": {
+     "z4": 38.938358646188455,
+     "d4": 26.513899981585322,
+     "a4": 28.610975515180666,
+     "a4*": 28.184686957820382
+    },
+    "R": [
+     3,
+     4
+    ]
+   },
+   "sek": 633.59
+  },
+  {
+   "id": 25,
+   "wer": "forscher-numeriker",
+   "op": "energy_nd",
+   "args": {
+    "name": "a4*",
+    "nu": 5,
+    "R": [
+     6,
+     8
+    ]
+   },
+   "ergebnis": {
+    "T": 28.185157263740233,
+    "err": 0.00034457974081547604
+   },
+   "sek": 1.46
+  },
+  {
+   "id": 26,
+   "wer": "forscher-skeptiker",
+   "op": "minimize_nd",
+   "args": {
+    "d": 4,
+    "nu": 5,
+    "starts": 6,
+    "seed": 2
+   },
+   "ergebnis": {
+    "laeufe": [
+     {
+      "start": 4,
+      "T_suche": 26.49865079047623,
+      "T": 26.51419466111695,
+      "gitter": "d4",
+      "iterationen": 24
+     },
+     {
+      "start": 3,
+      "T_suche": 26.498636608599703,
+      "T": 26.51422840976176,
+      "gitter": "d4",
+      "iterationen": 30
+     },
+     {
+      "start": 2,
+      "T_suche": 26.50963248106135,
+      "T": 26.515076375693226,
+      "gitter": "d4",
+      "iterationen": 34
+     },
+     {
+      "start": 1,
+      "T_suche": 26.49978954319504,
+      "T": 26.51533861071609,
+      "gitter": "d4",
+      "iterationen": 19
+     },
+     {
+      "start": 5,
+      "T_suche": 26.505396992527857,
+      "T": 26.520820292420858,
+      "gitter": "d4",
+      "iterationen": 21
+     },
+     {
+      "start": 0,
+      "T_suche": 26.50810303431583,
+      "T": 26.523089329492894,
+      "gitter": "d4",
+      "iterationen": 19
+     }
+    ],
+    "referenz_T": {
+     "z4": 38.938358646188455,
+     "d4": 26.513899981585322,
+     "a4": 28.610975515180666,
+     "a4*": 28.184686957820382
+    },
+    "R": [
+     3,
+     4
+    ]
+   },
+   "sek": 633.26
+  },
+  {
+   "id": 27,
+   "wer": "forscher-sparsam",
+   "op": "minimize_nd",
+   "args": {
+    "d": 4,
+    "nu": 5,
+    "starts": 6,
+    "seed": 2
+   },
+   "ergebnis": {
+    "laeufe": [
+     {
+      "start": 4,
+      "T_suche": 26.49865079047623,
+      "T": 26.51419466111695,
+      "gitter": "d4",
+      "iterationen": 24
+     },
+     {
+      "start": 3,
+      "T_suche": 26.498636608599703,
+      "T": 26.51422840976176,
+      "gitter": "d4",
+      "iterationen": 30
+     },
+     {
+      "start": 2,
+      "T_suche": 26.50963248106135,
+      "T": 26.515076375693226,
+      "gitter": "d4",
+      "iterationen": 34
+     },
+     {
+      "start": 1,
+      "T_suche": 26.49978954319504,
+      "T": 26.51533861071609,
+      "gitter": "d4",
+      "iterationen": 19
+     },
+     {
+      "start": 5,
+      "T_suche": 26.505396992527857,
+      "T": 26.520820292420858,
+      "gitter": "d4",
+      "iterationen": 21
+     },
+     {
+      "start": 0,
+      "T_suche": 26.50810303431583,
+      "T": 26.523089329492894,
+      "gitter": "d4",
+      "iterationen": 19
+     }
+    ],
+    "referenz_T": {
+     "z4": 38.938358646188455,
+     "d4": 26.513899981585322,
+     "a4": 28.610975515180666,
+     "a4*": 28.184686957820382
+    },
+    "R": [
+     3,
+     4
+    ]
+   },
+   "sek": 634.36
+  },
+  {
+   "id": 28,
+   "wer": "forscher-theoretiker",
+   "op": "minimize_nd",
+   "args": {
+    "d": 3,
+    "nu": 5,
+    "starts": 6,
+    "seed": 1
+   },
+   "ergebnis": {
+    "laeufe": [
+     {
+      "start": 2,
+      "T_suche": 13.114583946460526,
+      "T": 13.114603781232624,
+      "gitter": "bcc",
+      "iterationen": 29
+     },
+     {
+      "start": 0,
+      "T_suche": 13.114583946468224,
+      "T": 13.114603781234749,
+      "gitter": "bcc",
+      "iterationen": 39
+     },
+     {
+      "start": 4,
+      "T_suche": 13.114584388849302,
+      "T": 13.11460378312959,
+      "gitter": "bcc",
+      "iterationen": 21
+     },
+     {
+      "start": 5,
+      "T_suche": 13.114584388849167,
+      "T": 13.114603783130772,
+      "gitter": "bcc",
+      "iterationen": 16
+     },
+     {
+      "start": 1,
+      "T_suche": 13.11458438884903,
+      "T": 13.114603783133576,
+      "gitter": "bcc",
+      "iterationen": 26
+     },
+     {
+      "start": 3,
+      "T_suche": 13.114584388856626,
+      "T": 13.114603783165924,
+      "gitter": "bcc",
+      "iterationen": 19
+     }
+    ],
+    "referenz_T": {
+     "bcc": 13.114603783122936,
+     "fcc": 13.380899049738176,
+     "sc": 16.21657895938287
+    },
+    "R": [
+     4,
+     6
+    ]
+   },
+   "sek": 58.14
+  },
+  {
+   "id": 29,
+   "wer": "forscher-sparsam",
+   "op": "minimize_nd",
+   "args": {
+    "d": 3,
+    "nu": 5,
+    "starts": 8,
+    "seed": 1
+   },
+   "ergebnis": {
+    "laeufe": [
+     {
+      "start": 2,
+      "T_suche": 13.114583946460526,
+      "T": 13.114603781232624,
+      "gitter": "bcc",
+      "iterationen": 29
+     },
+     {
+      "start": 0,
+      "T_suche": 13.114583946468224,
+      "T": 13.114603781234749,
+      "gitter": "bcc",
+      "iterationen": 39
+     },
+     {
+      "start": 4,
+      "T_suche": 13.114584388849302,
+      "T": 13.11460378312959,
+      "gitter": "bcc",
+      "iterationen": 21
+     },
+     {
+      "start": 7,
+      "T_suche": 13.114584388848838,
+      "T": 13.114603783129892,
+      "gitter": "bcc",
+      "iterationen": 32
+     },
+     {
+      "start": 5,
+      "T_suche": 13.114584388849167,
+      "T": 13.114603783130772,
+      "gitter": "bcc",
+      "iterationen": 16
+     },
+     {
+      "start": 1,
+      "T_suche": 13.11458438884903,
+      "T": 13.114603783133576,
+      "gitter": "bcc",
+      "iterationen": 26
+     },
+     {
+      "start": 3,
+      "T_suche": 13.114584388856626,
+      "T": 13.114603783165924,
+      "gitter": "bcc",
+      "iterationen": 19
+     },
+     {
+      "start": 6,
+      "T_suche": 13.114583952544946,
+      "T": 13.11460378724921,
+      "gitter": "bcc",
+      "iterationen": 15
+     }
+    ],
+    "referenz_T": {
+     "bcc": 13.114603783122936,
+     "fcc": 13.380899049738176,
+     "sc": 16.21657895938287
+    },
+    "R": [
+     4,
+     6
+    ]
+   },
+   "sek": 74.59
+  },
+  {
+   "id": 30,
+   "wer": "forscher-sparsam",
+   "op": "energy_nd",
+   "args": {
+    "name": "d4",
+    "nu": 5,
+    "R": [
+     6,
+     8
+    ]
+   },
+   "ergebnis": {
+    "T": 26.51548389458092,
+    "err": 0.0010882716157603056
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 31,
+   "wer": "forscher-skeptiker",
+   "op": "minimize_nd",
+   "args": {
+    "d": 4,
+    "nu": 8,
+    "starts": 4,
+    "seed": 3
+   },
+   "ergebnis": {
+    "laeufe": [
+     {
+      "start": 2,
+      "T_suche": 3.5676305300548883,
+      "T": 3.5676312721698378,
+      "gitter": "d4",
+      "iterationen": 37
+     },
+     {
+      "start": 3,
+      "T_suche": 3.567630530054954,
+      "T": 3.5676312721699013,
+      "gitter": "d4",
+      "iterationen": 47
+     },
+     {
+      "start": 0,
+      "T_suche": 3.5676305635013668,
+      "T": 3.56763130695475,
+      "gitter": "d4",
+      "iterationen": 54
+     },
+     {
+      "start": 1,
+      "T_suche": 4.1037037598622215,
+      "T": 4.103703920668269,
+      "gitter": "a4*",
+      "iterationen": 40
+     }
+    ],
+    "referenz_T": {
+     "z4": 9.659534421119432,
+     "d4": 3.567631272141847,
+     "a4": 4.568450192259489,
+     "a4*": 4.103703920650225
+    },
+    "R": [
+     3,
+     4
+    ]
+   },
+   "sek": 217.44
+  }
+ ],
+ "sek": 1988.8,
+ "id": "E4",
+ "frage": "Welches 4D-Bravais-Gitter minimiert T_nu bei nu = 5 global? Ist es D4, wie es Vermutung 2 für große nu nahelegt?"
+}

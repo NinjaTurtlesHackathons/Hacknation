@@ -1,0 +1,2061 @@
+{
+ "antwort": {
+  "antwort": "unstetig",
+  "zahl": 3.9184,
+  "konfidenz": 0.9,
+  "pruefung": {
+   "typ": "koexistenz",
+   "nu": 3.918
+  },
+  "begruendung": "Die Energiedifferenz T(hex) − T(quadr) wechselt bei ν* ≈ 3.91836 das Vorzeichen (E30). minimize2d bei ν=3.918 liefert hexagonal und quadratisch gleichzeitig als lokale Minima (E48). Die Hesse-Matrizen beider Gitter sind bei ν=3.9 und 3.93 positiv definit (E37, E39, E40, E41), also koexistieren beide Minima um ν* herum. Das spricht für einen Übergang erster Ordnung, also unstetig.",
+  "stimmen": "3/4 (geprüft: 4)"
+ },
+ "level": "computed (Code-Prüfer bestanden)",
+ "forscher": [
+  {
+   "strategie": "numeriker",
+   "runden": [
+    {
+     "ueberlegung": "Zuerst grob scannen: minimize2d bei mehreren nu zeigt, welches Gitter global minimal ist und welche lokalen Minima existieren. Dann crossing2d zwischen hexagonal und quadratisch, um den Wechselpunkt nu* zu finden. Hessematrix am quadratischen und hexagonalen Gitter nahe nu* zeigt, ob beide gleichzeitig stabil (lokale Minima) sind. Falls ja: unstetig (Koexistenz). Falls nein: stetig, eventuell über Zwischenphasen (rechteckig/rhombisch).",
+     "plan": [
+      {
+       "op": "minimize2d",
+       "args": {
+        "nu": 2
+       }
+      },
+      {
+       "op": "minimize2d",
+       "args": {
+        "nu": 4
+       }
+      },
+      {
+       "op": "minimize2d",
+       "args": {
+        "nu": 8
+       }
+      },
+      {
+       "op": "minimize2d",
+       "args": {
+        "nu": 16
+       }
+      },
+      {
+       "op": "crossing2d",
+       "args": {
+        "tau_a": [
+         0.5,
+         0.8660254
+        ],
+        "tau_b": [
+         0,
+         1
+        ],
+        "nu_lo": 2,
+        "nu_hi": 30
+       }
+      },
+      {
+       "op": "hessian2d",
+       "args": {
+        "tau": [
+         0,
+         1
+        ],
+        "nu": 6
+       }
+      },
+      {
+       "op": "hessian2d",
+       "args": {
+        "tau": [
+         0.5,
+         0.8660254
+        ],
+        "nu": 6
+       }
+      },
+      {
+       "op": "rect_optimum",
+       "args": {
+        "nu": 6,
+        "y_lo": 0.5,
+        "y_hi": 2
+       }
+      }
+     ]
+    },
+    {
+     "plan": [
+      {
+       "op": "hessian2d",
+       "args": {
+        "tau": [
+         0.5,
+         0.8660254
+        ],
+        "nu": 3.9
+       }
+      },
+      {
+       "op": "hessian2d",
+       "args": {
+        "tau": [
+         0,
+         1
+        ],
+        "nu": 3.9
+       }
+      },
+      {
+       "op": "hessian2d",
+       "args": {
+        "tau": [
+         0.5,
+         0.8660254
+        ],
+        "nu": 3.93
+       }
+      },
+      {
+       "op": "hessian2d",
+       "args": {
+        "tau": [
+         0,
+         1
+        ],
+        "nu": 3.93
+       }
+      },
+      {
+       "op": "minimize2d",
+       "args": {
+        "nu": 3.918
+       }
+      },
+      {
+       "op": "crossing2d",
+       "args": {
+        "tau_a": [
+         0,
+         1
+        ],
+        "tau_b": [
+         0.5,
+         0.8660254
+        ],
+        "nu_lo": 2,
+        "nu_hi": 3.0
+       }
+      }
+     ]
+    },
+    {
+     "antwort": "unstetig",
+     "zahl": 3.9184,
+     "konfidenz": 0.9,
+     "pruefung": {
+      "typ": "koexistenz",
+      "nu": 3.918
+     },
+     "begruendung": "Die Energiedifferenz T(hex) − T(quadr) wechselt bei ν* ≈ 3.91836 das Vorzeichen (E30). minimize2d bei ν=3.918 liefert hexagonal und quadratisch gleichzeitig als lokale Minima (E48). Die Hesse-Matrizen beider Gitter sind bei ν=3.9 und 3.93 positiv definit (E37, E39, E40, E41), also koexistieren beide Minima um ν* herum. Das spricht für einen Übergang erster Ordnung, also unstetig."
+    }
+   ],
+   "experimente": [
+    5,
+    6,
+    15,
+    23,
+    30,
+    31,
+    32,
+    33,
+    37,
+    39,
+    40,
+    41,
+    48,
+    49
+   ],
+   "final": {
+    "antwort": "unstetig",
+    "zahl": 3.9184,
+    "konfidenz": 0.9,
+    "pruefung": {
+     "typ": "koexistenz",
+     "nu": 3.918
+    },
+    "begruendung": "Die Energiedifferenz T(hex) − T(quadr) wechselt bei ν* ≈ 3.91836 das Vorzeichen (E30). minimize2d bei ν=3.918 liefert hexagonal und quadratisch gleichzeitig als lokale Minima (E48). Die Hesse-Matrizen beider Gitter sind bei ν=3.9 und 3.93 positiv definit (E37, E39, E40, E41), also koexistieren beide Minima um ν* herum. Das spricht für einen Übergang erster Ordnung, also unstetig."
+   },
+   "pruefung": {
+    "bestanden": true,
+    "grund": "bei nu=3.918: quadratisch stabil=True, hexagonal stabil=True"
+   }
+  },
+  {
+   "strategie": "theoretiker",
+   "runden": [
+    {
+     "ueberlegung": "Symmetrie: Hexagonal (tau=e^{i pi/3}) und quadratisch (tau=i) sind beide kritische Punkte von T im Fundamentalbereich, da sie Fixpunkte von Gittersymmetrien sind (Gradient verschwindet). Für kleine nu (Coulomb-artig, langreichweitig) wird vermutlich hexagonal bevorzugt; für große nu dominieren kurze Vektoren, und das Rechteck/Quadrat-Verhalten (y_nu -> y_inf) tritt auf. Ein stetiger Übergang würde bedeuten, dass das quadratische Gitter bei nu* seine Stabilität verliert (kleinster Hesse-Eigenwert wechselt Vorzeichen) und ein rechteckiges/rhombisches Gitter kontinuierlich abzweigt. Ein unstetiger Übergang bedeutet: T(quadr)-T(hex) wechselt das Vorzeichen, während beide in einem Intervall um nu* gleichzeitig stabil sind. Entscheidende Vorhersage: Koexistenz bei nu nahe dem Kreuzungspunkt. Plan: erst die Kreuzung der Energien suchen, dann Hesse-Eigenwerte beider Gitter dort prüfen, und globale Minimierung kurz davor und danach, um den Typ des Minimums zu bestimmen. Außerdem Stabilitätsgrenzen des quadratischen Gitters bestimmen, um zu sehen, ob sie von der Kreuzung abweichen.",
+     "plan": [
+      {
+       "op": "crossing2d",
+       "args": {
+        "tau_a": [
+         0,
+         1
+        ],
+        "tau_b": [
+         0.5,
+         0.8660254
+        ],
+        "nu_lo": 3,
+        "nu_hi": 12
+       }
+      },
+      {
+       "op": "minimize2d",
+       "args": {
+        "nu": 4
+       }
+      },
+      {
+       "op": "minimize2d",
+       "args": {
+        "nu": 8
+       }
+      },
+      {
+       "op": "minimize2d",
+       "args": {
+        "nu": 6
+       }
+      },
+      {
+       "op": "hessian2d",
+       "args": {
+        "tau": [
+         0,
+         1
+        ],
+        "nu": 6
+       }
+      },
+      {
+       "op": "hessian2d",
+       "args": {
+        "tau": [
+         0.5,
+         0.8660254
+        ],
+        "nu": 6
+       }
+      },
+      {
+       "op": "rect_optimum",
+       "args": {
+        "nu": 8,
+        "y_lo": 0.5,
+        "y_hi": 2
+       }
+      },
+      {
+       "op": "asymptote",
+       "args": {
+        "nus": [
+         20,
+         40,
+         80,
+         160
+        ]
+       }
+      }
+     ]
+    },
+    {
+     "plan": [
+      {
+       "op": "minimize2d",
+       "args": {
+        "nu": 3.8
+       }
+      },
+      {
+       "op": "minimize2d",
+       "args": {
+        "nu": 3.9
+       }
+      },
+      {
+       "op": "minimize2d",
+       "args": {
+        "nu": 3.95
+       }
+      },
+      {
+       "op": "hessian2d",
+       "args": {
+        "tau": [
+         0.5,
+         0.8660254
+        ],
+        "nu": 3.9
+       }
+      },
+      {
+       "op": "hessian2d",
+       "args": {
+        "tau": [
+         0,
+         1
+        ],
+        "nu": 3.9
+       }
+      },
+      {
+       "op": "hessian2d",
+       "args": {
+        "tau": [
+         0.5,
+         0.8660254
+        ],
+        "nu": 3.5
+       }
+      }
+     ]
+    },
+    {
+     "antwort": "unstetig (Übergang erster Ordnung): hexagonal und quadratisch koexistieren als lokale Minima bei nu≈3.9; Wechsel bei nu*≈3.918",
+     "zahl": 3.918365,
+     "konfidenz": 0.9,
+     "pruefung": {
+      "typ": "koexistenz",
+      "nu": 3.9
+     },
+     "begruendung": "Bei nu=3.9 listet minimize2d sowohl das hexagonale (T=7.96702) als auch das quadratische Gitter (T=7.97232) als lokale Minima, und beide Hesse-Matrizen sind positiv definit (E51, E52). Der Energiegleichstand liegt bei nu*≈3.91836 (E1), wobei bei nu=3.8 nur hexagonal und bei 3.95 nur quadratisch Minimum ist, also ein Sprung des globalen Minimums mit Koexistenzbereich."
+    }
+   ],
+   "experimente": [
+    1,
+    4,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    34,
+    46,
+    50,
+    51,
+    52,
+    53
+   ],
+   "final": {
+    "antwort": "unstetig (Übergang erster Ordnung): hexagonal und quadratisch koexistieren als lokale Minima bei nu≈3.9; Wechsel bei nu*≈3.918",
+    "zahl": 3.918365,
+    "konfidenz": 0.9,
+    "pruefung": {
+     "typ": "koexistenz",
+     "nu": 3.9
+    },
+    "begruendung": "Bei nu=3.9 listet minimize2d sowohl das hexagonale (T=7.96702) als auch das quadratische Gitter (T=7.97232) als lokale Minima, und beide Hesse-Matrizen sind positiv definit (E51, E52). Der Energiegleichstand liegt bei nu*≈3.91836 (E1), wobei bei nu=3.8 nur hexagonal und bei 3.95 nur quadratisch Minimum ist, also ein Sprung des globalen Minimums mit Koexistenzbereich."
+   },
+   "pruefung": {
+    "bestanden": true,
+    "grund": "bei nu=3.9: quadratisch stabil=True, hexagonal stabil=True"
+   }
+  },
+  {
+   "strategie": "skeptiker",
+   "runden": [
+    {
+     "ueberlegung": "Ich nehme die naheliegende Antwort (Wechsel hexagonal -> quadratisch/rechteckig bei einem nu*) nicht als gegeben hin. Zuerst lokalisiere ich den Wechsel über minimize2d bei mehreren nu (klein, mittel, groß), um zu sehen, welche Gitter global minimal sind und welche lokalen Minima existieren. Danach suche ich per crossing2d den Vorzeichenwechsel von T(quadratisch)-T(hexagonal). Zur Frage stetig vs. unstetig prüfe ich mit hessian2d die Stabilität beider Gitter nahe dem Übergang: Koexistenz (beide stabil) spricht für unstetig; wenn das eine Gitter instabil wird, bevor die Energien sich kreuzen, spricht das für stetig. Gegenhypothesen: Zwischenphase (rhombisch/rechteckig) oder Übergang über ein Zwischengitter. Deshalb zusätzlich rect_optimum und asymptote zur Kontrolle der Struktur bei großen nu. Das Ergebnis der ersten Experimente bestimmt die genaue Prüfung (koexistenz bei einem nu im Überlappungsbereich vs. vorzeichenwechsel).",
+     "plan": [
+      {
+       "op": "minimize2d",
+       "args": {
+        "nu": 3
+       }
+      },
+      {
+       "op": "minimize2d",
+       "args": {
+        "nu": 6
+       }
+      },
+      {
+       "op": "minimize2d",
+       "args": {
+        "nu": 12
+       }
+      },
+      {
+       "op": "crossing2d",
+       "args": {
+        "tau_a": [
+         0,
+         1
+        ],
+        "tau_b": [
+         0.5,
+         0.8660254
+        ],
+        "nu_lo": 2,
+        "nu_hi": 20
+       }
+      },
+      {
+       "op": "hessian2d",
+       "args": {
+        "tau": [
+         0,
+         1
+        ],
+        "nu": 6
+       }
+      },
+      {
+       "op": "hessian2d",
+       "args": {
+        "tau": [
+         0.5,
+         0.8660254
+        ],
+        "nu": 6
+       }
+      },
+      {
+       "op": "rect_optimum",
+       "args": {
+        "nu": 8,
+        "y_lo": 0.5,
+        "y_hi": 3
+       }
+      },
+      {
+       "op": "asymptote",
+       "args": {
+        "nus": [
+         10,
+         20,
+         40,
+         80
+        ]
+       }
+      }
+     ]
+    },
+    {
+     "plan": [
+      {
+       "op": "hessian2d",
+       "args": {
+        "tau": [
+         0,
+         1
+        ],
+        "nu": 3.918
+       }
+      },
+      {
+       "op": "hessian2d",
+       "args": {
+        "tau": [
+         0.5,
+         0.8660254
+        ],
+        "nu": 3.918
+       }
+      },
+      {
+       "op": "minimize2d",
+       "args": {
+        "nu": 3.918
+       }
+      },
+      {
+       "op": "hessian2d",
+       "args": {
+        "tau": [
+         0,
+         1
+        ],
+        "nu": 3.5
+       }
+      },
+      {
+       "op": "hessian2d",
+       "args": {
+        "tau": [
+         0.5,
+         0.8660254
+        ],
+        "nu": 4.5
+       }
+      },
+      {
+       "op": "hessian2d",
+       "args": {
+        "tau": [
+         0,
+         1
+        ],
+        "nu": 3.0
+       }
+      }
+     ]
+    },
+    {
+     "antwort": "unstetig",
+     "zahl": 3.9184,
+     "konfidenz": 0.93,
+     "pruefung": {
+      "typ": "koexistenz",
+      "nu": 3.918
+     },
+     "begruendung": "Bei nu=3.918 findet minimize2d sowohl das hexagonale als auch das quadratische Gitter als lokale Minima (E42), und beide Hesse-Matrizen sind positiv definit (E28, E29). Die Energien kreuzen sich bei nu≈3.91836 (E17), also unterhalb von nu*=3.918 ist hexagonal global minimal, darüber quadratisch. Das Quadrat ist bei nu=3.5 instabil und das Hexagon bei nu=4.5 instabil, die Stabilitätsbereiche überlappen also. Das ist ein Übergang erster Ordnung (unstetig) mit Koexistenz, kein stetiger Übergang."
+    }
+   ],
+   "experimente": [
+    2,
+    7,
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    28,
+    29,
+    42,
+    43,
+    44,
+    45
+   ],
+   "final": {
+    "antwort": "unstetig",
+    "zahl": 3.9184,
+    "konfidenz": 0.93,
+    "pruefung": {
+     "typ": "koexistenz",
+     "nu": 3.918
+    },
+    "begruendung": "Bei nu=3.918 findet minimize2d sowohl das hexagonale als auch das quadratische Gitter als lokale Minima (E42), und beide Hesse-Matrizen sind positiv definit (E28, E29). Die Energien kreuzen sich bei nu≈3.91836 (E17), also unterhalb von nu*=3.918 ist hexagonal global minimal, darüber quadratisch. Das Quadrat ist bei nu=3.5 instabil und das Hexagon bei nu=4.5 instabil, die Stabilitätsbereiche überlappen also. Das ist ein Übergang erster Ordnung (unstetig) mit Koexistenz, kein stetiger Übergang."
+   },
+   "pruefung": {
+    "bestanden": true,
+    "grund": "bei nu=3.918: quadratisch stabil=True, hexagonal stabil=True"
+   }
+  },
+  {
+   "strategie": "sparsam",
+   "runden": [
+    {
+     "ueberlegung": "Ziel: klären, ob der Übergang zwischen hexagonal und quadratisch (bzw. rechteckig) in nu unstetig ist, d.h. Koexistenz zweier lokaler Minima. Plan: Zuerst Vorzeichenwechsel von T(quadratisch)-T(hexagonal) per crossing2d lokalisieren (weiter Bereich). Dann an nu nahe dem Kreuzungspunkt minimize2d und hessian2d an beiden Gittern prüfen, ob beide stabil sind (Koexistenz). Zusätzlich den Hesse-Eigenwert am quadratischen Gitter bei kleinerem und größerem nu prüfen, um zu sehen, ob das quadratische Gitter am Kreuzungspunkt noch stabil ist. Ich nehme keine Ergebnisse vorweg; nu-Bereiche sind Startwerte und werden in Runde 2 verfeinert.",
+     "plan": [
+      {
+       "op": "crossing2d",
+       "args": {
+        "tau_a": [
+         0,
+         1
+        ],
+        "tau_b": [
+         0.5,
+         0.8660254
+        ],
+        "nu_lo": 2.5,
+        "nu_hi": 12
+       }
+      },
+      {
+       "op": "minimize2d",
+       "args": {
+        "nu": 4
+       }
+      },
+      {
+       "op": "minimize2d",
+       "args": {
+        "nu": 6
+       }
+      },
+      {
+       "op": "minimize2d",
+       "args": {
+        "nu": 8
+       }
+      },
+      {
+       "op": "hessian2d",
+       "args": {
+        "tau": [
+         0,
+         1
+        ],
+        "nu": 4
+       }
+      },
+      {
+       "op": "hessian2d",
+       "args": {
+        "tau": [
+         0,
+         1
+        ],
+        "nu": 6
+       }
+      },
+      {
+       "op": "hessian2d",
+       "args": {
+        "tau": [
+         0.5,
+         0.8660254
+        ],
+        "nu": 6
+       }
+      },
+      {
+       "op": "hessian2d",
+       "args": {
+        "tau": [
+         0,
+         1
+        ],
+        "nu": 8
+       }
+      }
+     ]
+    },
+    {
+     "plan": [
+      {
+       "op": "hessian2d",
+       "args": {
+        "tau": [
+         0.5,
+         0.8660254
+        ],
+        "nu": 3.9
+       }
+      },
+      {
+       "op": "hessian2d",
+       "args": {
+        "tau": [
+         0.5,
+         0.8660254
+        ],
+        "nu": 3.95
+       }
+      },
+      {
+       "op": "hessian2d",
+       "args": {
+        "tau": [
+         0,
+         1
+        ],
+        "nu": 3.9
+       }
+      },
+      {
+       "op": "minimize2d",
+       "args": {
+        "nu": 3.9
+       }
+      },
+      {
+       "op": "minimize2d",
+       "args": {
+        "nu": 3.94
+       }
+      },
+      {
+       "op": "hessian2d",
+       "args": {
+        "tau": [
+         0.5,
+         0.8660254
+        ],
+        "nu": 3.5
+       }
+      }
+     ]
+    },
+    {
+     "antwort": "unstetig",
+     "zahl": 3.9183646,
+     "konfidenz": 0.93,
+     "pruefung": {
+      "typ": "koexistenz",
+      "nu": 3.9
+     },
+     "begruendung": "Bei nu=3.9 sind beide Gitter lokale Minima: Die Hesse-Eigenwerte sind für hexagonal (2.71, 2.71) und quadratisch (0.42, 20.26) positiv, und minimize2d (E47) listet beide Minima. Die Energien kreuzen sich bei nu≈3.91836 (E0), und das Minimum springt von hexagonal (nu < 3.918) zu quadratisch. Das ist ein Übergang erster Ordnung, also unstetig."
+    }
+   ],
+   "experimente": [
+    0,
+    3,
+    8,
+    22,
+    24,
+    25,
+    26,
+    27,
+    35,
+    36,
+    38,
+    47,
+    54,
+    55
+   ],
+   "final": {
+    "antwort": "unstetig",
+    "zahl": 3.9183646,
+    "konfidenz": 0.93,
+    "pruefung": {
+     "typ": "koexistenz",
+     "nu": 3.9
+    },
+    "begruendung": "Bei nu=3.9 sind beide Gitter lokale Minima: Die Hesse-Eigenwerte sind für hexagonal (2.71, 2.71) und quadratisch (0.42, 20.26) positiv, und minimize2d (E47) listet beide Minima. Die Energien kreuzen sich bei nu≈3.91836 (E0), und das Minimum springt von hexagonal (nu < 3.918) zu quadratisch. Das ist ein Übergang erster Ordnung, also unstetig."
+   },
+   "pruefung": {
+    "bestanden": true,
+    "grund": "bei nu=3.9: quadratisch stabil=True, hexagonal stabil=True"
+   }
+  }
+ ],
+ "experimente": [
+  {
+   "id": 0,
+   "wer": "forscher-sparsam",
+   "op": "crossing2d",
+   "args": {
+    "tau_a": [
+     0,
+     1
+    ],
+    "tau_b": [
+     0.5,
+     0.8660254
+    ],
+    "nu_lo": 2.5,
+    "nu_hi": 12
+   },
+   "ergebnis": {
+    "gefunden": true,
+    "intervall": [
+     3.9183645248413086,
+     3.918365091085434
+    ]
+   },
+   "sek": 7.57
+  },
+  {
+   "id": 1,
+   "wer": "forscher-theoretiker",
+   "op": "crossing2d",
+   "args": {
+    "tau_a": [
+     0,
+     1
+    ],
+    "tau_b": [
+     0.5,
+     0.8660254
+    ],
+    "nu_lo": 3,
+    "nu_hi": 12
+   },
+   "ergebnis": {
+    "gefunden": true,
+    "intervall": [
+     3.9183647632598877,
+     3.9183652997016907
+    ]
+   },
+   "sek": 7.43
+  },
+  {
+   "id": 2,
+   "wer": "forscher-skeptiker",
+   "op": "minimize2d",
+   "args": {
+    "nu": 3
+   },
+   "ergebnis": {
+    "tau": [
+     0.5,
+     0.8660254037844386
+    ],
+    "T": 13.391794004874814,
+    "typ": "hexagonal",
+    "lokale_minima": [
+     {
+      "tau": [
+       0.5,
+       0.8660254037844386
+      ],
+      "T": 13.391794004874814,
+      "typ": "hexagonal"
+     }
+    ]
+   },
+   "sek": 42.64
+  },
+  {
+   "id": 3,
+   "wer": "forscher-sparsam",
+   "op": "minimize2d",
+   "args": {
+    "nu": 4
+   },
+   "ergebnis": {
+    "tau": [
+     0.0,
+     1.0
+    ],
+    "T": 7.58266990103469,
+    "typ": "quadratisch",
+    "lokale_minima": [
+     {
+      "tau": [
+       0.0,
+       1.0
+      ],
+      "T": 7.58266990103469,
+      "typ": "quadratisch"
+     }
+    ]
+   },
+   "sek": 42.54
+  },
+  {
+   "id": 4,
+   "wer": "forscher-theoretiker",
+   "op": "minimize2d",
+   "args": {
+    "nu": 4
+   },
+   "ergebnis": {
+    "tau": [
+     0.0,
+     1.0
+    ],
+    "T": 7.58266990103469,
+    "typ": "quadratisch",
+    "lokale_minima": [
+     {
+      "tau": [
+       0.0,
+       1.0
+      ],
+      "T": 7.58266990103469,
+      "typ": "quadratisch"
+     }
+    ]
+   },
+   "sek": 43.64
+  },
+  {
+   "id": 5,
+   "wer": "forscher-numeriker",
+   "op": "minimize2d",
+   "args": {
+    "nu": 2
+   },
+   "ergebnis": {
+    "tau": [
+     0.5,
+     0.8660254037844386
+    ],
+    "T": 41.39438591508116,
+    "typ": "hexagonal",
+    "lokale_minima": [
+     {
+      "tau": [
+       0.5,
+       0.8660254037844386
+      ],
+      "T": 41.39438591508116,
+      "typ": "hexagonal"
+     }
+    ]
+   },
+   "sek": 70.6
+  },
+  {
+   "id": 6,
+   "wer": "forscher-numeriker",
+   "op": "minimize2d",
+   "args": {
+    "nu": 4
+   },
+   "ergebnis": {
+    "tau": [
+     0.0,
+     1.0
+    ],
+    "T": 7.58266990103469,
+    "typ": "quadratisch",
+    "lokale_minima": [
+     {
+      "tau": [
+       0.0,
+       1.0
+      ],
+      "T": 7.58266990103469,
+      "typ": "quadratisch"
+     }
+    ]
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 7,
+   "wer": "forscher-skeptiker",
+   "op": "minimize2d",
+   "args": {
+    "nu": 6
+   },
+   "ergebnis": {
+    "tau": [
+     0.0,
+     1.0
+    ],
+    "T": 3.2499743124415903,
+    "typ": "quadratisch",
+    "lokale_minima": [
+     {
+      "tau": [
+       0.0,
+       1.0
+      ],
+      "T": 3.2499743124415903,
+      "typ": "quadratisch"
+     }
+    ]
+   },
+   "sek": 38.12
+  },
+  {
+   "id": 8,
+   "wer": "forscher-sparsam",
+   "op": "minimize2d",
+   "args": {
+    "nu": 6
+   },
+   "ergebnis": {
+    "tau": [
+     0.0,
+     1.0
+    ],
+    "T": 3.2499743124415903,
+    "typ": "quadratisch",
+    "lokale_minima": [
+     {
+      "tau": [
+       0.0,
+       1.0
+      ],
+      "T": 3.2499743124415903,
+      "typ": "quadratisch"
+     }
+    ]
+   },
+   "sek": 35.84
+  },
+  {
+   "id": 9,
+   "wer": "forscher-theoretiker",
+   "op": "minimize2d",
+   "args": {
+    "nu": 8
+   },
+   "ergebnis": {
+    "tau": [
+     0.0,
+     1.0
+    ],
+    "T": 1.5524012125757505,
+    "typ": "quadratisch",
+    "lokale_minima": [
+     {
+      "tau": [
+       0.0,
+       1.0
+      ],
+      "T": 1.5524012125757505,
+      "typ": "quadratisch"
+     }
+    ]
+   },
+   "sek": 33.25
+  },
+  {
+   "id": 10,
+   "wer": "forscher-theoretiker",
+   "op": "minimize2d",
+   "args": {
+    "nu": 6
+   },
+   "ergebnis": {
+    "tau": [
+     0.0,
+     1.0
+    ],
+    "T": 3.2499743124415903,
+    "typ": "quadratisch",
+    "lokale_minima": [
+     {
+      "tau": [
+       0.0,
+       1.0
+      ],
+      "T": 3.2499743124415903,
+      "typ": "quadratisch"
+     }
+    ]
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 11,
+   "wer": "forscher-theoretiker",
+   "op": "hessian2d",
+   "args": {
+    "tau": [
+     0,
+     1
+    ],
+    "nu": 6
+   },
+   "ergebnis": {
+    "eigenwerte": [
+     7.142302888230034,
+     8.54377267378581
+    ],
+    "stabil": true
+   },
+   "sek": 0.54
+  },
+  {
+   "id": 12,
+   "wer": "forscher-theoretiker",
+   "op": "hessian2d",
+   "args": {
+    "tau": [
+     0.5,
+     0.8660254
+    ],
+    "nu": 6
+   },
+   "ergebnis": {
+    "eigenwerte": [
+     -9.343042596809958,
+     -9.342992517868964
+    ],
+    "stabil": false
+   },
+   "sek": 0.6
+  },
+  {
+   "id": 13,
+   "wer": "forscher-theoretiker",
+   "op": "rect_optimum",
+   "args": {
+    "nu": 8,
+    "y_lo": 0.5,
+    "y_hi": 2
+   },
+   "ergebnis": {
+    "y": 1.00000004482148,
+    "T": 1.552401212575746
+   },
+   "sek": 0.97
+  },
+  {
+   "id": 14,
+   "wer": "forscher-theoretiker",
+   "op": "asymptote",
+   "args": {
+    "nus": [
+     20,
+     40,
+     80,
+     160
+    ]
+   },
+   "ergebnis": {
+    "nus": [
+     20,
+     40,
+     80,
+     160
+    ],
+    "ys": [
+     1.1941481768268276,
+     1.2241038787780216,
+     1.2373001468860219,
+     1.2435596945485956
+    ],
+    "y_inf_fit": 1.249451105516254,
+    "kappa_fit": 0.9233182596900749,
+    "c2": -3.653703734093571
+   },
+   "sek": 3.54
+  },
+  {
+   "id": 15,
+   "wer": "forscher-numeriker",
+   "op": "minimize2d",
+   "args": {
+    "nu": 8
+   },
+   "ergebnis": {
+    "tau": [
+     0.0,
+     1.0
+    ],
+    "T": 1.5524012125757505,
+    "typ": "quadratisch",
+    "lokale_minima": [
+     {
+      "tau": [
+       0.0,
+       1.0
+      ],
+      "T": 1.5524012125757505,
+      "typ": "quadratisch"
+     }
+    ]
+   },
+   "sek": 30.72
+  },
+  {
+   "id": 16,
+   "wer": "forscher-skeptiker",
+   "op": "minimize2d",
+   "args": {
+    "nu": 12
+   },
+   "ergebnis": {
+    "tau": [
+     1.901278345215948e-09,
+     1.140547024376348
+    ],
+    "T": 0.37194224459947567,
+    "typ": "rechteckig(y=1.1405)",
+    "lokale_minima": [
+     {
+      "tau": [
+       1.901278345215948e-09,
+       1.140547024376348
+      ],
+      "T": 0.37194224459947567,
+      "typ": "rechteckig(y=1.1405)"
+     }
+    ]
+   },
+   "sek": 23.74
+  },
+  {
+   "id": 17,
+   "wer": "forscher-skeptiker",
+   "op": "crossing2d",
+   "args": {
+    "tau_a": [
+     0,
+     1
+    ],
+    "tau_b": [
+     0.5,
+     0.8660254
+    ],
+    "nu_lo": 2,
+    "nu_hi": 20
+   },
+   "ergebnis": {
+    "gefunden": true,
+    "intervall": [
+     3.918364703655243,
+     3.918365240097046
+    ]
+   },
+   "sek": 4.89
+  },
+  {
+   "id": 18,
+   "wer": "forscher-skeptiker",
+   "op": "hessian2d",
+   "args": {
+    "tau": [
+     0,
+     1
+    ],
+    "nu": 6
+   },
+   "ergebnis": {
+    "eigenwerte": [
+     7.142302888230034,
+     8.54377267378581
+    ],
+    "stabil": true
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 19,
+   "wer": "forscher-skeptiker",
+   "op": "hessian2d",
+   "args": {
+    "tau": [
+     0.5,
+     0.8660254
+    ],
+    "nu": 6
+   },
+   "ergebnis": {
+    "eigenwerte": [
+     -9.343042596809958,
+     -9.342992517868964
+    ],
+    "stabil": false
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 20,
+   "wer": "forscher-skeptiker",
+   "op": "rect_optimum",
+   "args": {
+    "nu": 8,
+    "y_lo": 0.5,
+    "y_hi": 3
+   },
+   "ergebnis": {
+    "y": 0.9999999919313506,
+    "T": 1.5524012125757447
+   },
+   "sek": 1.98
+  },
+  {
+   "id": 21,
+   "wer": "forscher-skeptiker",
+   "op": "asymptote",
+   "args": {
+    "nus": [
+     10,
+     20,
+     40,
+     80
+    ]
+   },
+   "ergebnis": {
+    "nus": [
+     10,
+     20,
+     40,
+     80
+    ],
+    "ys": [
+     1.1000000945131598,
+     1.1941481768268276,
+     1.2241038787780216,
+     1.2373001468860219
+    ],
+    "y_inf_fit": 1.2459780238372078,
+    "kappa_fit": 0.6321093113245397,
+    "c2": -8.270253362556208
+   },
+   "sek": 2.6
+  },
+  {
+   "id": 22,
+   "wer": "forscher-sparsam",
+   "op": "minimize2d",
+   "args": {
+    "nu": 8
+   },
+   "ergebnis": {
+    "tau": [
+     0.0,
+     1.0
+    ],
+    "T": 1.5524012125757505,
+    "typ": "quadratisch",
+    "lokale_minima": [
+     {
+      "tau": [
+       0.0,
+       1.0
+      ],
+      "T": 1.5524012125757505,
+      "typ": "quadratisch"
+     }
+    ]
+   },
+   "sek": 34.04
+  },
+  {
+   "id": 23,
+   "wer": "forscher-numeriker",
+   "op": "minimize2d",
+   "args": {
+    "nu": 16
+   },
+   "ergebnis": {
+    "tau": [
+     8.407157606275496e-08,
+     1.1765782794551207
+    ],
+    "T": 0.08891805007287504,
+    "typ": "rechteckig(y=1.1766)",
+    "lokale_minima": [
+     {
+      "tau": [
+       8.407157606275496e-08,
+       1.1765782794551207
+      ],
+      "T": 0.08891805007287504,
+      "typ": "rechteckig(y=1.1766)"
+     }
+    ]
+   },
+   "sek": 20.39
+  },
+  {
+   "id": 24,
+   "wer": "forscher-sparsam",
+   "op": "hessian2d",
+   "args": {
+    "tau": [
+     0,
+     1
+    ],
+    "nu": 4
+   },
+   "ergebnis": {
+    "eigenwerte": [
+     0.8737672088088289,
+     19.51610753447852
+    ],
+    "stabil": true
+   },
+   "sek": 1.46
+  },
+  {
+   "id": 25,
+   "wer": "forscher-sparsam",
+   "op": "hessian2d",
+   "args": {
+    "tau": [
+     0,
+     1
+    ],
+    "nu": 6
+   },
+   "ergebnis": {
+    "eigenwerte": [
+     7.142302888230034,
+     8.54377267378581
+    ],
+    "stabil": true
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 26,
+   "wer": "forscher-sparsam",
+   "op": "hessian2d",
+   "args": {
+    "tau": [
+     0.5,
+     0.8660254
+    ],
+    "nu": 6
+   },
+   "ergebnis": {
+    "eigenwerte": [
+     -9.343042596809958,
+     -9.342992517868964
+    ],
+    "stabil": false
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 27,
+   "wer": "forscher-sparsam",
+   "op": "hessian2d",
+   "args": {
+    "tau": [
+     0,
+     1
+    ],
+    "nu": 8
+   },
+   "ergebnis": {
+    "eigenwerte": [
+     0.9219640558222331,
+     11.661456612577226
+    ],
+    "stabil": true
+   },
+   "sek": 1.31
+  },
+  {
+   "id": 28,
+   "wer": "forscher-skeptiker",
+   "op": "hessian2d",
+   "args": {
+    "tau": [
+     0,
+     1
+    ],
+    "nu": 3.918
+   },
+   "ergebnis": {
+    "eigenwerte": [
+     0.5038832502357593,
+     20.123234973246085
+    ],
+    "stabil": true
+   },
+   "sek": 1.75
+  },
+  {
+   "id": 29,
+   "wer": "forscher-skeptiker",
+   "op": "hessian2d",
+   "args": {
+    "tau": [
+     0.5,
+     0.8660254
+    ],
+    "nu": 3.918
+   },
+   "ergebnis": {
+    "eigenwerte": [
+     2.576578629565063,
+     2.576592027736524
+    ],
+    "stabil": true
+   },
+   "sek": 1.67
+  },
+  {
+   "id": 30,
+   "wer": "forscher-numeriker",
+   "op": "crossing2d",
+   "args": {
+    "tau_a": [
+     0.5,
+     0.8660254
+    ],
+    "tau_b": [
+     0,
+     1
+    ],
+    "nu_lo": 2,
+    "nu_hi": 30
+   },
+   "ergebnis": {
+    "gefunden": true,
+    "intervall": [
+     3.91836416721344,
+     3.918365001678467
+    ]
+   },
+   "sek": 8.46
+  },
+  {
+   "id": 31,
+   "wer": "forscher-numeriker",
+   "op": "hessian2d",
+   "args": {
+    "tau": [
+     0,
+     1
+    ],
+    "nu": 6
+   },
+   "ergebnis": {
+    "eigenwerte": [
+     7.142302888230034,
+     8.54377267378581
+    ],
+    "stabil": true
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 32,
+   "wer": "forscher-numeriker",
+   "op": "hessian2d",
+   "args": {
+    "tau": [
+     0.5,
+     0.8660254
+    ],
+    "nu": 6
+   },
+   "ergebnis": {
+    "eigenwerte": [
+     -9.343042596809958,
+     -9.342992517868964
+    ],
+    "stabil": false
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 33,
+   "wer": "forscher-numeriker",
+   "op": "rect_optimum",
+   "args": {
+    "nu": 6,
+    "y_lo": 0.5,
+    "y_hi": 2
+   },
+   "ergebnis": {
+    "y": 0.9999999969226824,
+    "T": 3.249974312441581
+   },
+   "sek": 1.71
+  },
+  {
+   "id": 34,
+   "wer": "forscher-theoretiker",
+   "op": "minimize2d",
+   "args": {
+    "nu": 3.8
+   },
+   "ergebnis": {
+    "tau": [
+     0.5,
+     0.8660254037844386
+    ],
+    "T": 8.359304105628636,
+    "typ": "hexagonal",
+    "lokale_minima": [
+     {
+      "tau": [
+       0.5,
+       0.8660254037844386
+      ],
+      "T": 8.359304105628636,
+      "typ": "hexagonal"
+     }
+    ]
+   },
+   "sek": 37.39
+  },
+  {
+   "id": 35,
+   "wer": "forscher-sparsam",
+   "op": "hessian2d",
+   "args": {
+    "tau": [
+     0.5,
+     0.8660254
+    ],
+    "nu": 3.9
+   },
+   "ergebnis": {
+    "eigenwerte": [
+     2.7083913729519793,
+     2.7084054718962136
+    ],
+    "stabil": true
+   },
+   "sek": 1.42
+  },
+  {
+   "id": 36,
+   "wer": "forscher-sparsam",
+   "op": "hessian2d",
+   "args": {
+    "tau": [
+     0.5,
+     0.8660254
+    ],
+    "nu": 3.95
+   },
+   "ergebnis": {
+    "eigenwerte": [
+     2.342842873481743,
+     2.342855028647506
+    ],
+    "stabil": true
+   },
+   "sek": 1.39
+  },
+  {
+   "id": 37,
+   "wer": "forscher-numeriker",
+   "op": "hessian2d",
+   "args": {
+    "tau": [
+     0.5,
+     0.8660254
+    ],
+    "nu": 3.9
+   },
+   "ergebnis": {
+    "eigenwerte": [
+     2.7083913729519793,
+     2.7084054718962136
+    ],
+    "stabil": true
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 38,
+   "wer": "forscher-sparsam",
+   "op": "hessian2d",
+   "args": {
+    "tau": [
+     0,
+     1
+    ],
+    "nu": 3.9
+   },
+   "ergebnis": {
+    "eigenwerte": [
+     0.4226517704708499,
+     20.25694934770783
+    ],
+    "stabil": true
+   },
+   "sek": 1.6
+  },
+  {
+   "id": 39,
+   "wer": "forscher-numeriker",
+   "op": "hessian2d",
+   "args": {
+    "tau": [
+     0,
+     1
+    ],
+    "nu": 3.9
+   },
+   "ergebnis": {
+    "eigenwerte": [
+     0.4226517704708499,
+     20.25694934770783
+    ],
+    "stabil": true
+   },
+   "sek": 1.38
+  },
+  {
+   "id": 40,
+   "wer": "forscher-numeriker",
+   "op": "hessian2d",
+   "args": {
+    "tau": [
+     0.5,
+     0.8660254
+    ],
+    "nu": 3.93
+   },
+   "ergebnis": {
+    "eigenwerte": [
+     2.4888360163899392,
+     2.4888489458252394
+    ],
+    "stabil": true
+   },
+   "sek": 1.25
+  },
+  {
+   "id": 41,
+   "wer": "forscher-numeriker",
+   "op": "hessian2d",
+   "args": {
+    "tau": [
+     0,
+     1
+    ],
+    "nu": 3.93
+   },
+   "ergebnis": {
+    "eigenwerte": [
+     0.5580346953415471,
+     20.03417507356886
+    ],
+    "stabil": true
+   },
+   "sek": 1.25
+  },
+  {
+   "id": 42,
+   "wer": "forscher-skeptiker",
+   "op": "minimize2d",
+   "args": {
+    "nu": 3.918
+   },
+   "ergebnis": {
+    "tau": [
+     0.5,
+     0.8660254037844386
+    ],
+    "T": 7.8998622495841255,
+    "typ": "hexagonal",
+    "lokale_minima": [
+     {
+      "tau": [
+       0.5,
+       0.8660254037844386
+      ],
+      "T": 7.8998622495841255,
+      "typ": "hexagonal"
+     },
+     {
+      "tau": [
+       0.0,
+       1.0
+      ],
+      "T": 7.899967510388372,
+      "typ": "quadratisch"
+     }
+    ]
+   },
+   "sek": 37.99
+  },
+  {
+   "id": 43,
+   "wer": "forscher-skeptiker",
+   "op": "hessian2d",
+   "args": {
+    "tau": [
+     0,
+     1
+    ],
+    "nu": 3.5
+   },
+   "ergebnis": {
+    "eigenwerte": [
+     -1.3704741776976448,
+     23.251341426000494
+    ],
+    "stabil": false
+   },
+   "sek": 0.7
+  },
+  {
+   "id": 44,
+   "wer": "forscher-skeptiker",
+   "op": "hessian2d",
+   "args": {
+    "tau": [
+     0.5,
+     0.8660254
+    ],
+    "nu": 4.5
+   },
+   "ergebnis": {
+    "eigenwerte": [
+     -1.5056113620293132,
+     -1.5056030284732458
+    ],
+    "stabil": false
+   },
+   "sek": 0.72
+  },
+  {
+   "id": 45,
+   "wer": "forscher-skeptiker",
+   "op": "hessian2d",
+   "args": {
+    "tau": [
+     0,
+     1
+    ],
+    "nu": 3.0
+   },
+   "ergebnis": {
+    "eigenwerte": [
+     -3.5057713168029636,
+     26.981139804593823
+    ],
+    "stabil": false
+   },
+   "sek": 0.76
+  },
+  {
+   "id": 46,
+   "wer": "forscher-theoretiker",
+   "op": "minimize2d",
+   "args": {
+    "nu": 3.9
+   },
+   "ergebnis": {
+    "tau": [
+     0.5,
+     0.8660254037844386
+    ],
+    "T": 7.967020829928695,
+    "typ": "hexagonal",
+    "lokale_minima": [
+     {
+      "tau": [
+       0.5,
+       0.8660254037844386
+      ],
+      "T": 7.967020829928695,
+      "typ": "hexagonal"
+     },
+     {
+      "tau": [
+       0.0,
+       1.0
+      ],
+      "T": 7.97232040252814,
+      "typ": "quadratisch"
+     }
+    ]
+   },
+   "sek": 32.91
+  },
+  {
+   "id": 47,
+   "wer": "forscher-sparsam",
+   "op": "minimize2d",
+   "args": {
+    "nu": 3.9
+   },
+   "ergebnis": {
+    "tau": [
+     0.5,
+     0.8660254037844386
+    ],
+    "T": 7.967020829928695,
+    "typ": "hexagonal",
+    "lokale_minima": [
+     {
+      "tau": [
+       0.5,
+       0.8660254037844386
+      ],
+      "T": 7.967020829928695,
+      "typ": "hexagonal"
+     },
+     {
+      "tau": [
+       0.0,
+       1.0
+      ],
+      "T": 7.97232040252814,
+      "typ": "quadratisch"
+     }
+    ]
+   },
+   "sek": 30.9
+  },
+  {
+   "id": 48,
+   "wer": "forscher-numeriker",
+   "op": "minimize2d",
+   "args": {
+    "nu": 3.918
+   },
+   "ergebnis": {
+    "tau": [
+     0.5,
+     0.8660254037844386
+    ],
+    "T": 7.8998622495841255,
+    "typ": "hexagonal",
+    "lokale_minima": [
+     {
+      "tau": [
+       0.5,
+       0.8660254037844386
+      ],
+      "T": 7.8998622495841255,
+      "typ": "hexagonal"
+     },
+     {
+      "tau": [
+       0.0,
+       1.0
+      ],
+      "T": 7.899967510388372,
+      "typ": "quadratisch"
+     }
+    ]
+   },
+   "sek": 29.34
+  },
+  {
+   "id": 49,
+   "wer": "forscher-numeriker",
+   "op": "crossing2d",
+   "args": {
+    "tau_a": [
+     0,
+     1
+    ],
+    "tau_b": [
+     0.5,
+     0.8660254
+    ],
+    "nu_lo": 2,
+    "nu_hi": 3.0
+   },
+   "ergebnis": {
+    "gefunden": false,
+    "diff_lo": 0.5192066281199743,
+    "diff_hi": 0.2610996212383938
+   },
+   "sek": 0.16
+  },
+  {
+   "id": 50,
+   "wer": "forscher-theoretiker",
+   "op": "minimize2d",
+   "args": {
+    "nu": 3.95
+   },
+   "ergebnis": {
+    "tau": [
+     0.0,
+     1.0
+    ],
+    "T": 7.773790408126613,
+    "typ": "quadratisch",
+    "lokale_minima": [
+     {
+      "tau": [
+       0.0,
+       1.0
+      ],
+      "T": 7.773790408126613,
+      "typ": "quadratisch"
+     }
+    ]
+   },
+   "sek": 13.13
+  },
+  {
+   "id": 51,
+   "wer": "forscher-theoretiker",
+   "op": "hessian2d",
+   "args": {
+    "tau": [
+     0.5,
+     0.8660254
+    ],
+    "nu": 3.9
+   },
+   "ergebnis": {
+    "eigenwerte": [
+     2.7083913729519793,
+     2.7084054718962136
+    ],
+    "stabil": true
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 52,
+   "wer": "forscher-theoretiker",
+   "op": "hessian2d",
+   "args": {
+    "tau": [
+     0,
+     1
+    ],
+    "nu": 3.9
+   },
+   "ergebnis": {
+    "eigenwerte": [
+     0.4226517704708499,
+     20.25694934770783
+    ],
+    "stabil": true
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 53,
+   "wer": "forscher-theoretiker",
+   "op": "hessian2d",
+   "args": {
+    "tau": [
+     0.5,
+     0.8660254
+    ],
+    "nu": 3.5
+   },
+   "ergebnis": {
+    "eigenwerte": [
+     5.6782661062015904,
+     5.678295917910248
+    ],
+    "stabil": true
+   },
+   "sek": 0.15
+  },
+  {
+   "id": 54,
+   "wer": "forscher-sparsam",
+   "op": "minimize2d",
+   "args": {
+    "nu": 3.94
+   },
+   "ergebnis": {
+    "tau": [
+     0.0,
+     1.0
+    ],
+    "T": 7.812889289111807,
+    "typ": "quadratisch",
+    "lokale_minima": [
+     {
+      "tau": [
+       0.0,
+       1.0
+      ],
+      "T": 7.812889289111807,
+      "typ": "quadratisch"
+     }
+    ]
+   },
+   "sek": 11.67
+  },
+  {
+   "id": 55,
+   "wer": "forscher-sparsam",
+   "op": "hessian2d",
+   "args": {
+    "tau": [
+     0.5,
+     0.8660254
+    ],
+    "nu": 3.5
+   },
+   "ergebnis": {
+    "eigenwerte": [
+     5.6782661062015904,
+     5.678295917910248
+    ],
+    "stabil": true
+   },
+   "sek": 0.0
+  }
+ ],
+ "sek": 208.3,
+ "frage": "Q6",
+ "salt": 0,
+ "bedingung": "B"
+}

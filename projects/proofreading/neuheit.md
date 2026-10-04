@@ -1,0 +1,17 @@
+# Novelty check (2026-10-04)
+
+Status per verified claim: bekannt (verbatim quote confirmed) | offen_laut_literatur | nicht_gefunden.
+
+| Claim | Status | Evidence / queries |
+|---|---|---|
+| proofreading-R1 | nicht_gefunden | 62 abstracts checked; queries: Hopfield kinetic proofreading error bounds; enzyme discrimination dissipation speed trade-off; substrate specificity proofreading optimization; kinetic networks detailed balance; molecular recognition accuracy dissipation |
+| proofreading-R2 | nicht_gefunden | 57 abstracts checked; queries: Hopfield single stage proofreading bound; Kinetic proofreading error rate dissipation; Substrate discrimination speed accuracy tradeoff; Markov chain proofreading thermodynamic bounds; Hopfield model achievable error bound |
+| proofreading-R3 | nicht_gefunden | 45 abstracts checked; queries: Hopfield kinetic proofreading error bound; Hopfield proofreading substrate discrimination bound; Kinetic proofreading dissipation error rate; Enzyme error discrimination hopfield network; Hopfield thermodynamic proofreading bounds optimal |
+| proofreading-R4 | nicht_gefunden | 48 abstracts checked; queries: kinetic proofreading error rate dissipation; enzyme discrimination rational kinetic rates; Hopfield substrate discrimination network optimization; proofreading speed accuracy reachability bound; kinetic network local detailed balance verification |
+| proofreading-R6 | nicht_gefunden | 41 abstracts checked; queries: kinetic proofreading error rate lower bound; enzyme substrate discrimination dissipation bound; Hopfield kinetic proofreading theoretical result; proofreading dissipation accuracy trade-off limit; kinetic discrimination network error bound |
+| proofreading-R7 | nicht_gefunden | 35 abstracts checked; queries: kinetic proofreading error rate lower bound; Hopfield substrate discrimination topology optimality; proofreading dissipation energy cost bound; enzyme discrimination fidelity kinetic bound; Markov kinetic scheme proofreading error |
+| proofreading-R8 | nicht_gefunden | 49 abstracts checked; queries: Hopfield kinetic proofreading dissipation bound; Single proofreading checkpoint error saturation; Substrate discrimination accuracy dissipation tradeoff; Enzyme discrimination local detailed balance; Hopfield n1 network optimization saturation |
+| proofreading-R9 | nicht_gefunden | 40 abstracts checked; queries: Hopfield proofreading error bound; kinetic proofreading cascade markov chain; enzyme discrimination hopfield network; kinetic proofreading selectivity bound; hopfield two-stage cascade proofreading |
+| proofreading-R10 | nicht_gefunden | 37 abstracts checked; queries: kinetic proofreading Hopfield local detailed balance; enzyme discrimination error rate dissipation tradeoff; proofreading single stage rational rates; kinetic proofreading Markov network entropy production; Hopfield discrimination exact reachability certificate |
+| proofreading-R11 | nicht_gefunden | 48 abstracts checked; queries: kinetic proofreading error rate bound; Hopfield enzyme discrimination accuracy; proofreading dissipation accuracy limit; molecular discrimination lower bound proof; Markov chain kinetic cascade bound |
+| proofreading-R12 | nicht_gefunden | 42 abstracts checked; queries: kinetic proofreading error rate topology; enzyme discrimination Markov detailed balance; Hopfield substrate selectivity error bound; proofreading dissipation rational rates scheme; kinetic scheme fidelity amplification optimization |
