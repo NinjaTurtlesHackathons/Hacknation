@@ -91,7 +91,7 @@ const P = (() => {
     let i = 0, timer = null, playing = false, speed = 1;
     const total = events.length ? events[events.length - 1].s - events[0].s : 0;
     const scale = total > 0 ? target / total : 1;          // whole run in about `target` seconds at speed 1
-    const gap = (k) => k === 0 ? 0 : Math.min(2600, Math.max(180, (events[k].s - events[k - 1].s) * scale * 1000)) / speed;
+    const gap = (k) => (k === 0 || k >= events.length) ? 0 : Math.min(2600, Math.max(180, (events[k].s - events[k - 1].s) * scale * 1000)) / speed;
     function step() {
       if (i >= events.length) { playing = false; onDone && onDone(); onTick && onTick(i, playing); return; }
       onEvent(events[i], i); i++; onTick && onTick(i, playing);
