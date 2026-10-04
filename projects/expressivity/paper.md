@@ -2,11 +2,9 @@
 
 Team Ninja Turtles, Hack-Nation 2026, Challenge 3 (Agentic Scientific Discovery)
 
-# How Many Householders Does State Tracking Need? A Representation-Theoretic Characterisation for One-Layer Linear RNNs, and Where Training Falls Short
-
 ## Abstract
 
-Why do architectures fail at state tracking? Circuit complexity places log-precision Transformers and diagonal state-space models in $\mathsf{TC}^0$ [C-lit-merrill-tc0][C-lit-illusion]. Bounded-width branching programs, by contrast, recognise exactly NC1 [C-lit-barrington]. We study one-layer linear RNNs whose transitions are products of Householder factors, as in DeltaNet and DeltaProduct. We assume real states, finitely many reachable states and token-local transitions, and we allow $\beta = 2$. Under these assumptions, $k$ factors per token suffice if and only if $k \ge h^*(G,\Sigma)$, an invariant defined over covering groups [C-thm1]. This gives the first lower bound on factors per token for general groups and alphabets [C-novelty]. $A_5$ with involution inputs needs one reflection. $A_5$ with all inputs needs two, and so do the $S_4$/$A_5$ formats of the closest prior work [C-T-A5-involutions][C-T-A5-all][C-T-S4-tn][C-T-A5-c3c5]. An atlas covers all groups of order at most 63 [C-atlas]. Upper bounds are exact certificates. Lower bounds combine Lean-checked lemmas with a compression lemma proved by hand [C-L1][C-L4][C-L2].
+Why do architectures fail at state tracking? Circuit complexity places log-precision Transformers and diagonal state-space models in $\mathsf{TC}^0$ [C-lit-merrill-tc0][C-lit-illusion]. Bounded-width branching programs, by contrast, recognise exactly NC1 [C-lit-barrington]. We study one-layer linear RNNs whose transitions are products of Householder factors, as in DeltaNet and DeltaProduct. We assume real states, finitely many reachable states and token-local transitions, and we allow $\beta = 2$. Under these assumptions, we prove by hand (not machine-checked) that $k$ factors per token suffice if and only if $k \ge h^*(G,\Sigma)$, an invariant defined over covering groups [C-thm1]. We did not find a lower bound on factors per token for general groups and alphabets in prior work; for $S_5$ alone, Complex KDA proves that four factors are the minimum [C-novelty][C-lit-ckda-four-body]. $A_5$ with involution inputs needs one reflection. $A_5$ with all inputs needs two, and so do the $S_4$/$A_5$ formats of the closest prior work [C-T-A5-involutions][C-T-A5-all][C-T-S4-tn][C-T-A5-c3c5]. An atlas covers all 319 groups of order at most 63 and determines $h^*$ exactly for 138 of them [C-atlas]. Upper bounds are exact certificates. Lower bounds combine Lean-checked lemmas with a compression lemma proved by hand [C-L1][C-L4][C-L2].
 
 Training falls short of the theory. On the preregistered H-EX1 grid our predictor matched 47 of 61 cells [C-H-accuracy]. The representation baselines matched 50 and 48 [C-H-accuracy]. The H-EX2 criterion was not met [C-X-result]. hh1 did not learn $A_5$/involutions, and no architecture learned $A_5$/all [C-G-hh1-A5-involutions][C-G-hh4-A5-all]. One cell succeeded in 18 of 20 seeds on the GPU and in 0 of 20 on the CPU [C-H-replication].
 
@@ -17,7 +15,7 @@ Training falls short of the theory. On the preregistered H-EX1 grid our predicto
 Self-attention has further limits on periodic finite-state languages [C-lit-hahn]. In experiments, LSTMs solve regular and counter-language tasks, while RNNs and Transformers fail to generalise on non-regular ones [C-lit-deletang]. Transformers find shallow shortcuts to automata, and Krohn–Rhodes theory helps explain them [C-lit-liu]. Chain of thought increases the expressive power of Transformers [C-lit-cot][C-lit-li-cot].
 
 **The gap.** Several constructions show that linear RNNs can track state:
-- Linear RNNs whose transitions are products of identity-minus-outer-product matrices "can learn any regular language". With only positive eigenvalues they cannot solve parity [C-lit-grazzi].
+- Linear RNNs whose transitions are products of identity-minus-outer-product matrices "can learn any regular language". At finite precision, with only positive eigenvalues, they cannot solve parity [C-lit-grazzi].
 - RWKV-7 recognises all regular languages [C-lit-rwkv7] and can track swaps on five elements [C-lit-rwkv7-swaps-body].
 - DeltaProduct uses products of $n_h$ generalized Householder transformations, and its state tracking improves as $n_h$ grows [C-lit-deltaproduct].
 
@@ -29,10 +27,10 @@ Complex KDA (arXiv:2609.24797) proves a lower bound [C-lit-ckda-thm4-body]. It r
 - Complex KDA covers scalar gates, its own parameterisation, and several heads.
 - Our result covers expansive transitions and every finite group and alphabet.
 
-Before this work, no general minimum was known for an arbitrary finite group and input alphabet [C-novelty][C-ckda-relation].
+We found no general minimum for an arbitrary finite group and input alphabet in prior work [C-novelty][C-ckda-relation].
 
 **Contributions.**
-- *An exact law, proved by hand.* For every finite group $G$ and generating alphabet $\Sigma$, a finite-state one-layer realisation with $k$ Householder factors per token exists if and only if $k \ge h^*(G,\Sigma)$ [C-thm1]. Here $h^*$ minimises over covering groups and their faithful real representations. We did not find this invariant in prior work; the closest notion, generation in codimension $k$, has no alphabet [C-novelty][C-lit-martino-singh-body]. The necessity half rests on a compression lemma that needs no norm bound and is proved by hand [C-L2]. The compression idea appears for $S_5$ in Complex KDA [C-novelty].
+- *An exact law, proved by hand.* For every finite group $G$ and generating alphabet $\Sigma$, a real, finite-state, token-local one-layer realisation (with $\beta = 2$ allowed) with $k$ Householder factors per token exists if and only if $k \ge h^*(G,\Sigma)$ [C-thm1]. Here $h^*$ minimises over covering groups and their faithful real representations. We did not find this invariant in prior work; the closest notion, generation in codimension $k$, has no alphabet [C-novelty][C-lit-martino-singh-body]. The necessity half rests on a compression lemma that needs no norm bound and is proved by hand [C-L2]. The compression idea appears for $S_5$ in Complex KDA [C-novelty].
 - *Machine-checked rank lemmas* in Lean 4 [C-L1][C-L4].
 - *Certified instances.*
   - One reflection suffices for $A_5$ with involution inputs [C-T-A5-involutions]. Complex KDA does not state this [C-ckda-relation].
@@ -40,7 +38,7 @@ Before this work, no general minimum was known for an arbitrary finite group and
   - The generator formats of prior work need two [C-T-S4-tn][C-T-A5-c3c5]. The upper bound of two comes from DeltaProduct's SO(3) construction [C-lit-deltaproduct-so3-body][C-lit-deltaproduct-body]. We add the matching lower bound, from L4 and L2.
 - *$S_5$, from a hand step plus a cited theorem, building on Complex KDA.* We obtain $h^*(S_5,\text{all}) = 4$, but this is not a certified instance [C-S5][C-T-S5-all].
 - *An atlas* over all groups of order at most 63 [C-atlas]. We did not find a comparable atlas in prior work [C-novelty].
-- *A preregistered training grid and addendum.* On both, our invariant largely fails as a predictor of learnability [C-H-gates][C-X-result].
+- *A preregistered training grid and addendum.* Neither preregistered success criterion was met; on the grid, both representation baselines predicted learnability better than our invariant [C-H-gates][C-X-result][C-H-accuracy].
 
 ## Setting and definitions
 
@@ -112,7 +110,7 @@ The construction needs $\beta = 2$ exactly, with unit keys. With a zero initial 
 - with real entries in $[-1,1]$, exactly for elementary abelian $2$-groups;
 - with complex entries of modulus at most $1$, exactly for abelian groups.
 
-This agrees with prior theorems on diagonal SSMs [C-L5]. For example, single-layer DCD SSMs cannot track any non-abelian group [C-lit-shakerinava].
+This agrees with prior theorems on diagonal SSMs [C-L5]. For example, single-layer DCD SSMs cannot track any non-abelian group at finite precision [C-lit-shakerinava].
 
 **Abelian groups (Lemma L7; proved by hand, instances certified).** For a nontrivial abelian group, $h^*(G,\Sigma)$ is $1$ if every letter is an involution and $2$ otherwise [C-L7]. The upper bound uses a count cover, which tracks each letter's count modulo its order. Its dimension is the number of involution letters plus twice the number of other letters. This is an upper bound on the dimension, not the minimum [C-L7].
 
@@ -136,7 +134,7 @@ Table 1 lists every certified instance. The two bounds in each row have differen
 
 In the permutation representation these formats cost 3 and 4 [C-T-S4-tn][C-T-A5-c3c5], which are the values of Howe's law [C-lit-howe-law-body]. Howe's law is an empirical statement about length generalisation without the additive input pathway [C-lit-howe]. Our values are exact expressivity values for a realisation that may use the additive term [C-L3]. The lower values here therefore do not contradict that law.
 
-The SO(3) upper-bound constructions for $S_4$ and $A_5$ are due to DeltaProduct, which attributes their efficiency to "their isomorphism to subgroups of $\mathrm{SO}(3,\mathbb{R})$" [C-lit-deltaproduct-so3-body]. Complex KDA states a related one-head result for subgroups of SO(3) [C-lit-ckda-so3-body]. For these formats we contribute the matching lower bound [C-T-S4-tn][C-T-A5-c3c5]. Under our hypotheses, this explains DeltaProduct's unexpected $n_h = 2$ observation as exact optimality [C-lit-deltaproduct-body].
+The SO(3) upper-bound constructions for $S_4$ and $A_5$ are due to DeltaProduct, which attributes their efficiency to "their isomorphism to subgroups of $\mathrm{SO}(3,\mathbb{R})$" [C-lit-deltaproduct-so3-body]. Complex KDA states a related one-head result for subgroups of SO(3) [C-lit-ckda-so3-body]. For these formats we contribute the matching lower bound [C-T-S4-tn][C-T-A5-c3c5]. Under our hypotheses, two factors are exactly optimal for these formats in exact expressivity [C-T-S4-tn][C-T-A5-c3c5]. This is consistent with DeltaProduct's unexpected $n_h = 2$ observation, but an expressivity bound alone does not explain a learning result [C-lit-deltaproduct-body].
 
 **Transposition alphabets.** $S_3$, $S_4$ and $S_5$ with transposition alphabets each need exactly one reflection [C-T-S3-transpositions][C-T-S4-transpositions][C-T-S5-transpositions].
 
@@ -155,7 +153,7 @@ Our argument only needs an alphabet that contains a 5-cycle and a transposition 
 
 An independent hand argument gives $h^*(S_5,\text{all}) \ge 3$ and $h^*(S_5,\text{tn}) \ge 3$ unconditionally. Combined with the classification of arXiv:1509.06922, it gives $4$ for every alphabet that contains a 5-cycle [C-S5-hand3][C-lit-lange-mikhailova-body]. For $S_5$ the value $4$ matches Howe's law [C-lit-howe-law-body]. Here the two agree, whereas on $S_4$ and $A_5$ they differ.
 
-**Contrast with circuit complexity.** The non-solvable $A_5$ with all inputs costs exactly as much as the solvable $S_3$ [C-T-A5-all][C-T-S3-all], the cyclic $\mathbb{Z}_3$ [C-T-Z3-all], or $A_4$ [C-T-A4-all]. With involution inputs, $A_5$ costs as much as parity [C-T-A5-involutions][C-T-Z2-all]. Within this architecture class, the alphabet and the representation theory set the Householder budget, not solvability [C-thm1].
+**Contrast with circuit complexity.** The non-solvable $A_5$ with all inputs costs exactly as much as the solvable $S_3$ [C-T-A5-all][C-T-S3-all], the cyclic $\mathbb{Z}_3$ [C-T-Z3-all], or $A_4$ [C-T-A4-all]. With involution inputs, $A_5$ costs as much as parity [C-T-A5-involutions][C-T-Z2-all]. In these instances solvability does not determine the Householder budget; under Theorem 1 (proved by hand) it is set by the alphabet and the representation theory [C-thm1].
 
 ## Results III: the atlas
 
@@ -262,12 +260,12 @@ D5 needs a further caveat. Its 18 successes come from the MPS run, for which onl
 ### H-EX2 addendum: the generator formats of prior work
 
 **Protocol.** The addendum was preregistered before its runs [C-X-protocol]:
-- *Tasks:* $S_4$/tn and $A_5$/c3c5.
+- *Tasks:* $S_4$/tn and $A_5$/c3c5 [C-X-protocol].
 - *Architectures:* hh1, hh2 and hh3, with 20 seeds each [C-X-protocol].
-- *Setup:* the H-EX1 protocol, run on the MPS GPU.
-- *Predictions:* we predicted that hh1 fails while hh2 and hh3 succeed. The permutation law predicts that $S_4$/tn needs 3 factors and $A_5$/c3c5 needs 4.
+- *Setup:* the H-EX1 protocol, run on the MPS GPU [C-X-protocol].
+- *Predictions:* we predicted that hh1 fails while hh2 and hh3 succeed. The permutation law predicts that $S_4$/tn needs 3 factors and $A_5$/c3c5 needs 4 [C-X-protocol].
 
-There is a device confound. H-EX2 ran entirely on MPS, whereas most H-EX1 cells for hh2–hh4 ran on the CPU, and the device changed outcomes in the replication [C-X-protocol][C-H-replication]. Table 4 and Figure 3 show the results.
+There is a device confound. H-EX2 ran entirely on MPS; in H-EX1 the hh2–hh4 and LSTM cells ran on the CPU while the primary hh1 and diagonal cells ran on MPS, so device and architecture are partly confounded, and the device changed outcomes in the replication [C-X-protocol][C-H-replication][C-G-hh1-Z3-all]. Table 4 and Figure 3 show the results.
 
 **Outcomes.** Successful seeds, with the 7x-8x outcome in parentheses [C-X-hh2-A5-c3c5]:
 - hh1 on $A_5$/c3c5: 0 of 20 (0 of 20) [C-X-hh1-A5-c3c5].
@@ -277,10 +275,10 @@ There is a device confound. H-EX2 ran entirely on MPS, whereas most H-EX1 cells 
 - hh2 on $S_4$/tn: 6 of 20 (4 of 20) [C-X-hh2-S4-tn]. This is a failure, contrary to our prediction [C-X-hh2-S4-tn].
 - hh3 on $S_4$/tn: 19 of 20 (3 of 20) [C-X-hh3-S4-tn].
 
-E1 and E3 (on $A_5$) and E2 (on $S_4$) are significant after correction [C-X-E1][C-X-E2][C-X-E3]. Our predictor matched 5 of 6 cells and the permutation law 4 of 6 [C-X-result]. The preregistered success criterion of H-EX2 was not met [C-X-result].
+E1 and E3 (on $A_5$) and E2 (on $S_4$) are significant after correction [C-X-E1][C-X-E2][C-X-E3]. For E2 the supplementary paired permutation test gives p = 0.110 with an accuracy-ratio interval 0.75-2.39 that includes 1, so it does not meet the project criterion [C-X-E2]. Our predictor matched 5 of 6 cells and the permutation law 4 of 6 [C-X-result]. The preregistered success criterion of H-EX2 was not met [C-X-result].
 
 **What H-EX2 supports and what it does not.**
-- *Supported:* the necessity claim of the permutation law fails for $A_5$/c3c5, because under our protocol and readout two factors learn this format [C-X-hh2-A5-c3c5][C-lit-howe-law-body]. This agrees with DeltaProduct's observation [C-lit-deltaproduct-body]. Howe's law was stated without the additive input pathway [C-lit-howe], so this is a test under a different architecture variant, not a direct refutation.
+- *Supported:* under our protocol and readout, two factors learn $A_5$/c3c5 (18 of 20 seeds, also 18 of 20 at 7x-8x), below the permutation law's value of 4 [C-X-hh2-A5-c3c5][C-lit-howe-law-body]. Howe measures length generalisation at 16x the training length, beyond our longest test [C-lit-howe]. This agrees with DeltaProduct's observation [C-lit-deltaproduct-body]. Howe's law was stated without the additive input pathway [C-lit-howe], so this is a test under a different architecture variant, not a direct refutation.
 - *Not supported:* that two factors are learnable for $S_4$/tn, where hh2 failed [C-X-hh2-S4-tn].
 - *Scope:* our predictor is a sufficiency statement about exact expressivity [C-thm1]. H-EX2 tests it against a necessity claim of prior work, under one protocol, one device and our readout [C-X-protocol].
 
@@ -300,7 +298,7 @@ E1 and E3 (on $A_5$) and E2 (on $S_4$) are significant after correction [C-X-E1]
 
 The rounds on $Q_8$, $A_5$ with involutions, and $\mathbb{Z}_2^2$ carry the status "contested by red-team counter-check" [C-expressivity-R4][C-expressivity-R6][C-expressivity-R8]. "Contested" means the red team disputed the round in a counter-check. "Withdrawn" would mean the verified sentence failed re-checking, which happened for no round [C-lab]. The certified $h^*(A_5,\text{all}) = 2$ from the fifth round rests on the hand-proved L2 for its lower bound [C-expressivity-R5].
 
-We did not inspect the agents' own interpretations, and they are not results. Several are inconsistent with the hardened consistency rule. For example, one interpretation reads "$> 1$" for $A_5$ with involutions [C-expressivity-R3-I], which contradicts the certified value $1$ [C-T-A5-involutions]. The scout kept 60 literature findings whose verbatim quote was found by code in the abstract [C-lab].
+The agents' own free-text interpretations were not checked by the verifier and are not results. Several are inconsistent with the hardened consistency rule. For example, one interpretation reads "$> 1$" for $A_5$ with involutions [C-expressivity-R3-I], which contradicts the certified value $1$ [C-T-A5-involutions]. The scout kept 60 literature findings whose verbatim quote was found by code in the abstract [C-lab].
 
 **Loophole found and closed.** In round one, an agent answered that one reflection is not enough for $A_5$ with involution inputs. It supported this with two true but weaker checks, while the verifier had itself found a certificate with $k = 1$ [C-loophole1]. The consistency rule now requires an impossibility certificate for negative answers and exact-value checks for numbers [C-loophole1].
 
@@ -330,16 +328,11 @@ All of these checks gave 0 disagreements [C-redteam]. The theory red team found 
   - $S_5$: the value $4$ rests on hand steps [C-S5][C-S5-hand3].
   - Most non-abelian groups in the atlas remain undetermined [C-atlas].
 - **Chain of thought and padding.** Prior work shows that intermediate generation increases expressive power [C-lit-cot][C-lit-li-cot]. Whether intermediate tokens act as an additional Householder budget per input symbol is an open question that we have not tested.
-- **Learnability.** The theory predicts exact expressivity, not learnability. On our grid, the representation baselines predicted training outcomes at least as well as our predictor [C-H-accuracy][C-H-gates].
+- **Learnability.** The theory predicts exact expressivity, not learnability. On our grid, both representation baselines predicted training outcomes better than our predictor (50 and 48 vs 47 of 61 cells) [C-H-accuracy][C-H-gates].
 
-![Figure 1. Preregistered grid: number of seeds (out of 20) whose accuracy on positions 257-512 is at least 0.9, with the outcome predicted by the algebraic law (+ success, − failure, ? undetermined). Table 2 is the table view. Claims [C-G-*].](fig_grid.png)
+![Figure 1. Preregistered grid: number of seeds (out of 20) whose accuracy on positions 257-512 is at least 0.9, with the outcome predicted by the algebraic law (+ success, − failure, ? undetermined). Table 2 is the table view. Evidence: one claim per cell, C-G-(model)-(task), listed in the claim-trace appendix.](fig_grid.png)
 
-*Figure 1. Preregistered grid: number of seeds (out of 20) whose accuracy on positions 257-512 is at least 0.9, with the outcome predicted by the algebraic law (+ success, − failure, ? undetermined). Table 2 is the table view. Claims [C-G-*].*
-
-
-![Figure 3. Preregistered addendum H-EX2 on the generator formats of the closest prior work: successful seeds (of 20) for one, two and three Householder factors per token; solid line: minimum predicted by our law (h* = 2, certified); dotted line: the permutation-representation law (3 for S4, 4 for A5); dashed line: the cell-success threshold of 10 seeds. Evidence: claims C-X-(model)-(task) and C-X-E1 to C-X-E3, listed in Appendix C.](fig_hex2.png)
-
-*Figure 3. Preregistered addendum H-EX2 on the generator formats of the closest prior work: successful seeds (of 20) for one, two and three Householder factors per token; solid line: minimum predicted by our law (h* = 2, certified); dotted line: the permutation-representation law (3 for S4, 4 for A5); dashed line: the cell-success threshold of 10 seeds. Evidence: claims C-X-(model)-(task) and C-X-E1 to C-X-E3, listed in Appendix C.*
+*Figure 1. Preregistered grid: number of seeds (out of 20) whose accuracy on positions 257-512 is at least 0.9, with the outcome predicted by the algebraic law (+ success, − failure, ? undetermined). Table 2 is the table view. Evidence: one claim per cell, C-G-(model)-(task), listed in the claim-trace appendix.*
 
 
 ![Figure 2. Atlas of all non-abelian groups of order at most 63: faithful h against group order (dot area = number of groups with that order and h). The only non-solvable group, A5, sits at the minimum value 2 while most solvable groups need more. Claims [C-atlas-monotone], [C-atlas-nonsolvable].](fig_atlas.png)
@@ -347,11 +340,16 @@ All of these checks gave 0 disagreements [C-redteam]. The theory red team found 
 *Figure 2. Atlas of all non-abelian groups of order at most 63: faithful h against group order (dot area = number of groups with that order and h). The only non-solvable group, A5, sits at the minimum value 2 while most solvable groups need more. Claims [C-atlas-monotone], [C-atlas-nonsolvable].*
 
 
+![Figure 3. Preregistered addendum H-EX2 on the generator formats of the closest prior work: successful seeds (of 20) for one, two and three Householder factors per token; solid line: minimum predicted by our law (h* = 2, certified); dotted line: the permutation-representation law (3 for S4, 4 for A5); dashed line: the cell-success threshold of 10 seeds. Evidence: claims C-X-(model)-(task) and C-X-E1 to C-X-E3, listed in the claim-trace appendix.](fig_hex2.png)
+
+*Figure 3. Preregistered addendum H-EX2 on the generator formats of the closest prior work: successful seeds (of 20) for one, two and three Householder factors per token; solid line: minimum predicted by our law (h* = 2, certified); dotted line: the permutation-representation law (3 for S4, 4 for A5); dashed line: the cell-success threshold of 10 seeds. Evidence: claims C-X-(model)-(task) and C-X-E1 to C-X-E3, listed in the claim-trace appendix.*
+
+
 ## Tables
 
-**Table 1.** Certified one-layer Householder complexity (exact verifier). lower: certified lower bound (Lemma L4 for 2); upper: best exact realisation found by the verifier (construction / sign twist, covering-group order |H|, dimension d); h: faithful representations of G only (own and GAP character tables); perm: cost in the permutation representation (the representation law of prior work). Claims [C-T-*].
+**Table 1.** Certified one-layer Householder complexity (exact verifier). lower: certified lower bound (Lemma L4 for 2); upper: best exact realisation found by the verifier (construction / sign twist, covering-group order |H|, dimension d); h: faithful representations of G only (own and GAP character tables); perm: cost in the permutation representation (the representation law of prior work). Evidence: claims C-T-(group)-(alphabet) and C-T-Q8-cover, listed in the claim-trace appendix.
 
-| G | alphabet | order | solvable | lower | upper | construction | abs(H) | d | h | perm |
+| G | alphabet | order | solvable | lower | upper | construction | H order | d | h | perm |
 |---|---|---|---|---|---|---|---|---|---|---|
 | Z2 | all | 2 | yes | 1 | 1 | perm/none | 2 | 2 | 1 | 1 |
 | Z3 | all | 3 | yes | 2 | 2 | perm/none | 3 | 3 | 2 | 2 |
@@ -377,7 +375,7 @@ All of these checks gave 0 disagreements [C-redteam]. The theory red team found 
 | S5 | transpositions | 120 | no | 1 | 1 | perm/none | 120 | 5 | 1 | 1 |
 | S5 | all | 120 | no | 2 | 4 | perm/none | 120 | 5 | 4 | 4 |
 
-**Table 2.** Preregistered grid: successful seeds out of 20 (accuracy >= 0.9 on positions 257-512 of length-512 sequences); mark: predicted success (+), predicted failure (-), undetermined (?) by our predictor. Claims [C-G-*].
+**Table 2.** Preregistered grid: successful seeds out of 20 (accuracy >= 0.9 on positions 257-512 of length-512 sequences); mark: predicted success (+), predicted failure (-), undetermined (?) by our predictor. Evidence: claims C-G-(model)-(task).
 
 | task | diag_pos | diag_pm | hh1 | hh2 | hh3 | hh4 | lstm |
 |---|---|---|---|---|---|---|---|
@@ -391,7 +389,16 @@ All of these checks gave 0 disagreements [C-redteam]. The theory red team found 
 | S5/transpositions | 0 - | 0 - | 20 + | 19 + | 20 + | 19 + | 8 + |
 | S5/all | 0 - | 0 - | 0 - | 0 ? | 0 ? | 0 + | 0 + |
 
-**Table 4.** Preregistered addendum H-EX2: the generator formats of the closest prior work. Successful seeds of 20 at 2x-4x (7x-8x); predicted outcome by our law (h* = 2 for both tasks) and by the permutation-representation law. Claims [C-X-*].
+**Table 3.** Atlas, all 319 groups of order <= 63, full alphabet. Evidence: claims C-atlas, C-atlas-nonsolvable, C-atlas-monotone, C-atlas-dist.
+
+| class | groups | h* exact | faithful h = 1 | faithful h = 2 | faithful h >= 3 |
+|---|---|---|---|---|---|
+| trivial | 1 | 1 | 0 | 0 | 0 |
+| abelian (nontrivial) | 105 | 105 | 1 | 62 | 42 |
+| solvable non-abelian | 212 | 31 | 0 | 31 | 181 |
+| non-solvable | 1 | 1 | 0 | 1 | 0 |
+
+**Table 4.** Preregistered addendum H-EX2: the generator formats of the closest prior work. Successful seeds of 20 at 2x-4x (7x-8x); predicted outcome by our law (h* = 2 for both tasks) and by the permutation-representation law. Evidence: claims C-X-(model)-(task), C-X-E1 to C-X-E3.
 
 | task | model | seeds 2x-4x | seeds 7x-8x | ours | permutation law |
 |---|---|---|---|---|---|
@@ -402,14 +409,5 @@ All of these checks gave 0 disagreements [C-redteam]. The theory red team found 
 | S4/tn | hh2 | 6 | 4 | success | failure |
 | S4/tn | hh3 | 19 | 3 | success | success |
 
-**Table 3.** Atlas, all 319 groups of order <= 63, full alphabet. Claims [C-atlas*].
-
-| class | groups | h* exact | faithful h = 2 | faithful h >= 3 |
-|---|---|---|---|---|
-| trivial | 1 | 1 | 0 | 0 |
-| abelian (nontrivial) | 105 | 105 | 62 | 42 |
-| solvable non-abelian | 212 | 31 | 31 | 181 |
-| non-solvable | 1 | 1 | 1 | 0 |
-
 ---
-Verification log: 137 claims cited, correction rounds [{"round": 0, "violations": 44}, {"round": 1, "violations": 0}, {"final_removed": 0}], 0 unsupported sentences removed, errata applied after the gate: [], remaining violations: 0. Tables and figures are generated by code from expressivity/results/.
+Verification log: 137 claims cited, correction rounds [{"round": 0, "violations": 44}, {"round": 1, "violations": 0}, {"final_removed": 0}], 0 unsupported sentences removed, errata applied after the gate: ["C-thm1 is a hand proof (level hypothesis, status open); the abstract states it as an established theorem without its proof status.", "C-novelty only says the law was 'not found in prior work'; 'first' overstates it. The abstract should also credit the existing S5 lower bound of Complex KDA (arXiv:2609.24797) right here.", "As written, the abstract suggests h* is known across the atlas; C-atlas determines it for only 138 of 319 groups (32 of 213 non-abelian).", "Prior work stated without its hypothesis: the cited quote restricts this to 'finite precision LRNNs'.", "C-novelty supports 'not found in prior work', not 'no general minimum was known'.", "Missing hypotheses of C-thm1 (real states, token-local transitions, beta allowed to equal 2). The beta = 2 hypothesis matters: by C-open-beta, nothing nontrivial is realisable with beta in [0, 2).", "Misstates C-X-result. On H-EX2 the predictor matched 5 of 6 cells (the permutation law 4 of 6), so 'largely fails' is wrong there. The real failures are the unmet criteria and the H-EX1 baselines, so name those.", "Overstatement: DeltaProduct's observation concerns learned extrapolation at finite precision, while our result concerns exact expressivity. Our own H-EX2 shows that hh2 fails to learn S4/tn despite h* = 2.", "Over-generalises a few instances into a class-wide statement. C-atlas-monotone explicitly claims no strict separation in h*, and C-thm1 is a hand proof.", "Prior work stated without its hypothesis: the source quote says 'at finite precision'.", "Unfair to Howe (arXiv:2609.18966). 'Fails' contradicts the bullet's own conclusion ('not a direct refutation'). The test also differs in evaluation length (16x vs 7x-8x), not only in the additive pathway.", "Self-contradictory meta text: the next sentences do inspect one interpretation (round 3) and judge it.", "Softens a preregistered failure: per C-H-accuracy both baselines did strictly better, not 'at least as well'.", "Uncited bullet (the paper's citation rule); flagged earlier and not fixed.", "Uncited bullets (the paper's citation rule); flagged earlier and not fixed.", "E2 fails the project criterion (permutation p = 0.110); report it (final referee)", "device confounded with architecture within H-EX1 (final referee)"], remaining violations: 0. Tables and figures are generated by code from expressivity/results/.

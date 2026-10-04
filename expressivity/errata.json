@@ -1,0 +1,87 @@
+[
+ [
+  "Under these assumptions, $k$ factors per token suffice if and only if",
+  "Under these assumptions, we prove by hand (not machine-checked) that $k$ factors per token suffice if and only if",
+  "C-thm1 is a hand proof (level hypothesis, status open); the abstract states it as an established theorem without its proof status."
+ ],
+ [
+  "This gives the first lower bound on factors per token for general groups and alphabets [C-novelty].",
+  "We did not find a lower bound on factors per token for general groups and alphabets in prior work; for $S_5$ alone, Complex KDA proves that four factors are the minimum [C-novelty][C-lit-ckda-four-body].",
+  "C-novelty only says the law was 'not found in prior work'; 'first' overstates it. The abstract should also credit the existing S5 lower bound of Complex KDA (arXiv:2609.24797) right here."
+ ],
+ [
+  "An atlas covers all groups of order at most 63 [C-atlas].",
+  "An atlas covers all 319 groups of order at most 63 and determines $h^*$ exactly for 138 of them [C-atlas].",
+  "As written, the abstract suggests h* is known across the atlas; C-atlas determines it for only 138 of 319 groups (32 of 213 non-abelian)."
+ ],
+ [
+  "With only positive eigenvalues they cannot solve parity [C-lit-grazzi].",
+  "At finite precision, with only positive eigenvalues, they cannot solve parity [C-lit-grazzi].",
+  "Prior work stated without its hypothesis: the cited quote restricts this to 'finite precision LRNNs'."
+ ],
+ [
+  "Before this work, no general minimum was known for an arbitrary finite group and input alphabet [C-novelty][C-ckda-relation].",
+  "We found no general minimum for an arbitrary finite group and input alphabet in prior work [C-novelty][C-ckda-relation].",
+  "C-novelty supports 'not found in prior work', not 'no general minimum was known'."
+ ],
+ [
+  "*An exact law, proved by hand.* For every finite group $G$ and generating alphabet $\\Sigma$, a finite-state one-layer realisation with $k$ Householder factors per token exists if and only if $k \\ge h^*(G,\\Sigma)$ [C-thm1].",
+  "*An exact law, proved by hand.* For every finite group $G$ and generating alphabet $\\Sigma$, a real, finite-state, token-local one-layer realisation (with $\\beta = 2$ allowed) with $k$ Householder factors per token exists if and only if $k \\ge h^*(G,\\Sigma)$ [C-thm1].",
+  "Missing hypotheses of C-thm1 (real states, token-local transitions, beta allowed to equal 2). The beta = 2 hypothesis matters: by C-open-beta, nothing nontrivial is realisable with beta in [0, 2)."
+ ],
+ [
+  "*A preregistered training grid and addendum.* On both, our invariant largely fails as a predictor of learnability [C-H-gates][C-X-result].",
+  "*A preregistered training grid and addendum.* Neither preregistered success criterion was met; on the grid, both representation baselines predicted learnability better than our invariant [C-H-gates][C-X-result][C-H-accuracy].",
+  "Misstates C-X-result. On H-EX2 the predictor matched 5 of 6 cells (the permutation law 4 of 6), so 'largely fails' is wrong there. The real failures are the unmet criteria and the H-EX1 baselines, so name those."
+ ],
+ [
+  "Under our hypotheses, this explains DeltaProduct's unexpected $n_h = 2$ observation as exact optimality [C-lit-deltaproduct-body].",
+  "Under our hypotheses, two factors are exactly optimal for these formats in exact expressivity [C-T-S4-tn][C-T-A5-c3c5]. This is consistent with DeltaProduct's unexpected $n_h = 2$ observation, but an expressivity bound alone does not explain a learning result [C-lit-deltaproduct-body].",
+  "Overstatement: DeltaProduct's observation concerns learned extrapolation at finite precision, while our result concerns exact expressivity. Our own H-EX2 shows that hh2 fails to learn S4/tn despite h* = 2."
+ ],
+ [
+  "Within this architecture class, the alphabet and the representation theory set the Householder budget, not solvability [C-thm1].",
+  "In these instances solvability does not determine the Householder budget; under Theorem 1 (proved by hand) it is set by the alphabet and the representation theory [C-thm1].",
+  "Over-generalises a few instances into a class-wide statement. C-atlas-monotone explicitly claims no strict separation in h*, and C-thm1 is a hand proof."
+ ],
+ [
+  "For example, single-layer DCD SSMs cannot track any non-abelian group [C-lit-shakerinava].",
+  "For example, single-layer DCD SSMs cannot track any non-abelian group at finite precision [C-lit-shakerinava].",
+  "Prior work stated without its hypothesis: the source quote says 'at finite precision'."
+ ],
+ [
+  "*Supported:* the necessity claim of the permutation law fails for $A_5$/c3c5, because under our protocol and readout two factors learn this format [C-X-hh2-A5-c3c5][C-lit-howe-law-body].",
+  "*Supported:* under our protocol and readout, two factors learn $A_5$/c3c5 (18 of 20 seeds, also 18 of 20 at 7x-8x), below the permutation law's value of 4 [C-X-hh2-A5-c3c5][C-lit-howe-law-body]. Howe measures length generalisation at 16x the training length, beyond our longest test [C-lit-howe].",
+  "Unfair to Howe (arXiv:2609.18966). 'Fails' contradicts the bullet's own conclusion ('not a direct refutation'). The test also differs in evaluation length (16x vs 7x-8x), not only in the additive pathway."
+ ],
+ [
+  "We did not inspect the agents' own interpretations, and they are not results.",
+  "The agents' own free-text interpretations were not checked by the verifier and are not results.",
+  "Self-contradictory meta text: the next sentences do inspect one interpretation (round 3) and judge it."
+ ],
+ [
+  "On our grid, the representation baselines predicted training outcomes at least as well as our predictor [C-H-accuracy][C-H-gates].",
+  "On our grid, both representation baselines predicted training outcomes better than our predictor (50 and 48 vs 47 of 61 cells) [C-H-accuracy][C-H-gates].",
+  "Softens a preregistered failure: per C-H-accuracy both baselines did strictly better, not 'at least as well'."
+ ],
+ [
+  "- *Tasks:* $S_4$/tn and $A_5$/c3c5.\n",
+  "- *Tasks:* $S_4$/tn and $A_5$/c3c5 [C-X-protocol].\n",
+  "Uncited bullet (the paper's citation rule); flagged earlier and not fixed."
+ ],
+ [
+  "- *Setup:* the H-EX1 protocol, run on the MPS GPU.\n- *Predictions:* we predicted that hh1 fails while hh2 and hh3 succeed. The permutation law predicts that $S_4$/tn needs 3 factors and $A_5$/c3c5 needs 4.",
+  "- *Setup:* the H-EX1 protocol, run on the MPS GPU [C-X-protocol].\n- *Predictions:* we predicted that hh1 fails while hh2 and hh3 succeed. The permutation law predicts that $S_4$/tn needs 3 factors and $A_5$/c3c5 needs 4 [C-X-protocol].",
+  "Uncited bullets (the paper's citation rule); flagged earlier and not fixed."
+ ],
+ [
+  "E1 and E3 (on $A_5$) and E2 (on $S_4$) are significant after correction [C-X-E1][C-X-E2][C-X-E3].",
+  "E1 and E3 (on $A_5$) and E2 (on $S_4$) are significant after correction [C-X-E1][C-X-E2][C-X-E3]. For E2 the supplementary paired permutation test gives p = 0.110 with an accuracy-ratio interval 0.75-2.39 that includes 1, so it does not meet the project criterion [C-X-E2].",
+  "E2 fails the project criterion (permutation p = 0.110); report it (final referee)"
+ ],
+ [
+  "H-EX2 ran entirely on MPS, whereas most H-EX1 cells for hh2\u2013hh4 ran on the CPU, and the device changed outcomes in the replication [C-X-protocol][C-H-replication].",
+  "H-EX2 ran entirely on MPS; in H-EX1 the hh2\u2013hh4 and LSTM cells ran on the CPU while the primary hh1 and diagonal cells ran on MPS, so device and architecture are partly confounded, and the device changed outcomes in the replication [C-X-protocol][C-H-replication][C-G-hh1-Z3-all].",
+  "device confounded with architecture within H-EX1 (final referee)"
+ ]
+]

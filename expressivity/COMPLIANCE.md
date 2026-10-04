@@ -77,4 +77,6 @@ Legend: DONE = satisfied with evidence; DEVIATION = intentionally different, wit
 | Novelty check (novelty.md) and full-text comparison (ckda_comparison.md) | Complex KDA (arXiv:2609.24797) anticipates the compression idea and S5 = 4 under non-expansion | positioning claims C-ckda-relation, C-novelty; S5 = 4 as C-S5 (hand step + literature) |
 | Compliance audit (compliance_audit.md) | 4 WRONG, 10 GAP | addressed (EX24, EX25, prereg addendum 07:00) |
 | Referee review (review_report.md, review.json) | major revision (text only) | fed to the writer as a reviewer round; structural fixes in write_paper.py |
+| Final referee (final_review.md, errata.json) | minor revision | 17 errata applied after the gate and re-gated; code-side layout fixes (EX28) |
+| Explorer (explore_open/findings.md) | 18 rational certificates (Q8 <= 3, 17 atlas bounds), hand arguments | certificates re-checked independently (18/18); hand arguments at level hypothesis (EX26) |
 | Team conventions after fetching the repository (EX23) | preprint form, claim-trace appendix, recheck, ledger | adopted |

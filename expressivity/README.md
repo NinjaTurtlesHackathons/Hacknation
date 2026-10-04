@@ -43,6 +43,9 @@ python expressivity/scripts/build_ledger.py         # companion proof ledger pro
 | `certify.py`, `atlas.py` | certified table, atlas |
 | `train.py`, `predict.py`, `confirm.py`, `analyze.py` | models, predictions, preregistered grid, preregistered analysis |
 | `run_lab.py`, `questions.json` | lab loop wrapper (robust JSON parsing, shared core untouched) and start questions |
+| `explore_open/` | explorer agent: cover searches (GAP), 18 rational certificates re-checked by `python -m expressivity.explore_open.recheck_all`, findings.md |
+| `recheck.py`, `scripts/` | one-command reproduction of all certificates; citation, quote and ledger scripts |
+| `pitch/` | rubric mapping, 3-minute technical video script, live demo path, one-pager |
 | `write_paper.py`, `export_tables.py` | paper under the framework's hallucination gate; project tables and gates |
 | `context.md`, `assumptions.md`, `candidates.md`, `evidence.md`, `prereg.md`, `decisions.md` | rigorous-innovation artefacts (Full mode) |
 | `scout_evidence.md`, `analogist_candidates.md`, `analysis/redteam.md` | reports of the scout, analogist and red-team subagents |

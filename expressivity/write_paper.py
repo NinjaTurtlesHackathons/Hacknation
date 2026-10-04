@@ -342,8 +342,8 @@ def tables():
         out.append("**Table 1.** Certified one-layer Householder complexity (exact verifier). lower: certified lower bound (Lemma L4 for 2); "
                    "upper: best exact realisation found by the verifier (construction / sign twist, covering-group order |H|, dimension d); h: faithful "
                    "representations of G only (own and GAP character tables); perm: cost in the permutation representation (the representation law of "
-                   "prior work). Claims [C-T-*].\n")
-        out.append("| G | alphabet | order | solvable | lower | upper | construction | abs(H) | d | h | perm |\n|---|---|---|---|---|---|---|---|---|---|---|")
+                   "prior work). Evidence: claims C-T-(group)-(alphabet) and C-T-Q8-cover, listed in the claim-trace appendix.\n")
+        out.append("| G | alphabet | order | solvable | lower | upper | construction | H order | d | h | perm |\n|---|---|---|---|---|---|---|---|---|---|---|")
         xc = {x["file"]: x for x in (json.load(open(f"{R}/explore_certified.json")) if os.path.exists(f"{R}/explore_certified.json") else [])}
         for r in cert["rows"]:
             if r["group"] == "Q8" and r["alphabet"] == "all" and xc.get("SG8_4_k3.json", {}).get("passed"):
@@ -357,27 +357,27 @@ def tables():
         for c in CF["cells"]:
             if (c["group"], c["alphabet"]) not in tasks: tasks.append((c["group"], c["alphabet"]))
         out.append("\n**Table 2.** Preregistered grid: successful seeds out of 20 (accuracy >= 0.9 on positions 257-512 of length-512 sequences); "
-                   "mark: predicted success (+), predicted failure (-), undetermined (?) by our predictor. Claims [C-G-*].\n")
+                   "mark: predicted success (+), predicted failure (-), undetermined (?) by our predictor. Evidence: claims C-G-(model)-(task).\n")
         out.append("| task | " + " | ".join(archs) + " |\n|---|" + "---|" * len(archs))
         sym = {True: "+", False: "-", None: "?"}
         for g, a in tasks:
             out.append(f"| {g}/{a} | " + " | ".join((f"{idx[(ar, g, a)]['succ_primary']} {sym[idx[(ar, g, a)]['pred']['ALG']]}" if (ar, g, a) in idx else "n/a") for ar in archs) + " |")
+    if os.path.exists(f"{R}/atlas.json"):
+        A = json.load(open(f"{R}/atlas.json")); rows = A["rows"]
+        out.append(f"\n**Table 3.** Atlas, all {A['summary']['groups']} groups of order <= {A['summary']['N']}, full alphabet. Evidence: claims C-atlas, C-atlas-nonsolvable, C-atlas-monotone, C-atlas-dist.\n")
+        out.append("| class | groups | h* exact | faithful h = 1 | faithful h = 2 | faithful h >= 3 |\n|---|---|---|---|---|---|")
+        for name, sel in [("trivial", lambda r: r["order"] == 1), ("abelian (nontrivial)", lambda r: r.get("abelian", True) and r["order"] > 1), ("solvable non-abelian", lambda r: r.get("solvable") and not r.get("abelian", True)),
+                          ("non-solvable", lambda r: not r.get("solvable", True))]:
+            rr = [r for r in rows if sel(r)]
+            out.append(f"| {name} | {len(rr)} | {sum(r['exact'] for r in rr)} | {sum(r['h'] == 1 for r in rr)} | {sum(r['h'] == 2 for r in rr)} | {sum(r['h'] >= 3 for r in rr)} |")
     if os.path.exists(f"{R}/confirmatory.json") and json.load(open(f"{R}/confirmatory.json")).get("H-EX2", {}).get("cells"):
         E = json.load(open(f"{R}/confirmatory.json"))["H-EX2"]
         out.append("\n**Table 4.** Preregistered addendum H-EX2: the generator formats of the closest prior work. Successful seeds of 20 at 2x-4x "
-                   "(7x-8x); predicted outcome by our law (h* = 2 for both tasks) and by the permutation-representation law. Claims [C-X-*].\n")
+                   "(7x-8x); predicted outcome by our law (h* = 2 for both tasks) and by the permutation-representation law. Evidence: claims C-X-(model)-(task), C-X-E1 to C-X-E3.\n")
         out.append("| task | model | seeds 2x-4x | seeds 7x-8x | ours | permutation law |\n|---|---|---|---|---|---|")
         for c in E["cells"]:
             out.append(f"| {c['group']}/{c['alphabet']} | {c['arch']} | {c['succ_primary']} | {c['succ_secondary']} | {'success' if c['pred_ALG'] else 'failure'} | "
                        f"{'success' if c['pred_B4'] else 'failure'} |")
-    if os.path.exists(f"{R}/atlas.json"):
-        A = json.load(open(f"{R}/atlas.json")); rows = A["rows"]
-        out.append(f"\n**Table 3.** Atlas, all {A['summary']['groups']} groups of order <= {A['summary']['N']}, full alphabet. Claims [C-atlas*].\n")
-        out.append("| class | groups | h* exact | faithful h = 2 | faithful h >= 3 |\n|---|---|---|---|---|")
-        for name, sel in [("trivial", lambda r: r["order"] == 1), ("abelian (nontrivial)", lambda r: r.get("abelian", True) and r["order"] > 1), ("solvable non-abelian", lambda r: r.get("solvable") and not r.get("abelian", True)),
-                          ("non-solvable", lambda r: not r.get("solvable", True))]:
-            rr = [r for r in rows if sel(r)]
-            out.append(f"| {name} | {len(rr)} | {sum(r['exact'] for r in rr)} | {sum(r['h'] == 2 for r in rr)} | {sum(r['h'] >= 3 for r in rr)} |")
     return "\n".join(out)
 
 
@@ -411,7 +411,7 @@ def figures(outdir):
         ax.set_title("Seeds (of 20) that length-generalise; + / − / ? = our predicted outcome", fontsize=8.5, color=ink, loc="left")
         fig.tight_layout(); p = f"{outdir}/fig_grid"; fig.savefig(p + ".pdf"); fig.savefig(p + ".png"); plt.close(fig)
         figs.append(("fig_grid", "Figure 1. Preregistered grid: number of seeds (out of 20) whose accuracy on positions 257-512 is at least 0.9, with the "
-                     "outcome predicted by the algebraic law (+ success, − failure, ? undetermined). Table 2 is the table view. Claims [C-G-*]."))
+                     "outcome predicted by the algebraic law (+ success, − failure, ? undetermined). Table 2 is the table view. Evidence: one claim per cell, C-G-(model)-(task), listed in the claim-trace appendix."))
     CF = json.load(open(f"{R}/confirmatory.json")) if os.path.exists(f"{R}/confirmatory.json") else {}
     E = CF.get("H-EX2", {}).get("cells", [])
     if E:
@@ -434,7 +434,7 @@ def figures(outdir):
         fig.tight_layout(); p = f"{outdir}/fig_hex2"; fig.savefig(p + ".pdf"); fig.savefig(p + ".png"); plt.close(fig)
         figs.append(("fig_hex2", "Figure 3. Preregistered addendum H-EX2 on the generator formats of the closest prior work: successful seeds (of 20) for one, two "
                      "and three Householder factors per token; solid line: minimum predicted by our law (h* = 2, certified); dotted line: the "
-                     "permutation-representation law (3 for S4, 4 for A5); dashed line: the cell-success threshold of 10 seeds. Evidence: claims C-X-(model)-(task) and C-X-E1 to C-X-E3, listed in Appendix C."))
+                     "permutation-representation law (3 for S4, 4 for A5); dashed line: the cell-success threshold of 10 seeds. Evidence: claims C-X-(model)-(task) and C-X-E1 to C-X-E3, listed in the claim-trace appendix."))
     if os.path.exists(f"{R}/atlas.json"):
         rows = [r for r in json.load(open(f"{R}/atlas.json"))["rows"] if not r.get("abelian", True)]
         fig, ax = plt.subplots(figsize=(5.4, 3.2), dpi=200); fig.patch.set_facecolor(surf); ax.set_facecolor(surf)
@@ -461,7 +461,8 @@ def figures(outdir):
         fig.tight_layout(); p = f"{outdir}/fig_atlas"; fig.savefig(p + ".pdf"); fig.savefig(p + ".png"); plt.close(fig)
         figs.append(("fig_atlas", "Figure 2. Atlas of all non-abelian groups of order at most 63: faithful h against group order (dot area = number of groups with that order and h). "
                      "The only non-solvable group, A5, sits at the minimum value 2 while most solvable groups need more. Claims [C-atlas-monotone], [C-atlas-nonsolvable]."))
-    return figs
+    order = {"fig_grid": 1, "fig_atlas": 2, "fig_hex2": 3}
+    return sorted(figs, key=lambda f: order.get(f[0], 9))
 
 
 TEX_MAP = {"≤": r"$\le$", "≥": r"$\ge$", "×": r"$\times$", "∈": r"$\in$", "→": r"$\to$", "−": "-", "…": "...", "ρ": r"$\rho$", "π": r"$\pi$",
@@ -513,7 +514,7 @@ def pdf_via_pandoc(md_path, authors, affiliation):
 
 
 SULEMAN = r"""% Team convention (paper-bell, research/admet): preprint form in the style of Suleman 2026. Every numbered statement is traced to its
-% verifier claims in Appendix C (claim ids from projects/expressivity/paper_evidence.json). Built by expressivity/write_paper.py.
+% verifier claims in the claim-trace appendix (claim ids from projects/expressivity/paper_evidence.json). Built by expressivity/write_paper.py.
 \documentclass[10pt,twocolumn,a4paper]{article}
 \usepackage{fontspec}\setmainfont{STIXGeneral}
 \usepackage{amsmath,amssymb}\usepackage{unicode-math}\setmathfont{STIX Two Math}
@@ -546,6 +547,7 @@ proofs of the hand-proved lemmas: expressivity/theory.md (companion ledger).
 
 
 def pandoc_fragment(md):
+    md = re.sub(r"(?m)^(?![ \t]*(?:[-*]|\d+\.)\s)([^\n|#][^\n]*)\n(?=[ \t]*(?:[-*]|\d+\.)\s)", r"\1\n\n", md)   # pandoc needs a blank line before a list
     md = md.replace("≥", "$\\geq$").replace("≤", "$\\leq$").replace("⊆", "$\\subseteq$").replace("→", "$\\to$")
     r = subprocess.run(["pandoc", "-f", "markdown-implicit_figures", "-t", "latex", "--wrap=preserve", "--shift-heading-level-by=-1"],
                        input=md, capture_output=True, text=True)
@@ -601,6 +603,7 @@ def main():
     if a.claims_only: print(len(C), "claims"); return
     review = [tuple(x) for x in json.load(open(a.review))] if a.review else []
     md, log = write(C, review=review); md = renumber(md); errata = []
+    md = "\n".join(l for l in md.split("\n") if not l.startswith("# ")).strip()      # the title is set by the code (duplicate title, final referee)
     for old, new, why in (json.load(open(a.errata)) if a.errata else []):
         if old in md: md = md.replace(old, new); errata.append(why)
         else: errata.append(f"NOT APPLIED (text not found): {why}")
