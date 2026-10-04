@@ -147,6 +147,12 @@ def main():
            "cells": cells, "missing": missing, "accuracy": acc, "tests": tests, "negative_control": neg, "H-EX2": ex2, "replication_mps_vs_cpu": repl,
            "gates": {"H-EX1.1_accuracy_beats_all_baselines": gate_acc, "H-EX1.2_discriminating_tests_BH": disc_ok,
                      "negative_control_clean": nc_ok, "H-EX1_success": gate_acc and disc_ok and nc_ok}}
+    # exploratory (post hoc, NOT preregistered): cells of tasks whose LSTM positive control succeeded, LSTM cells excluded
+    ok_tasks = {(x["group"], x["alphabet"]) for x in cells if x["arch"] == "lstm" and x["outcome"]}
+    sel = [x for x in cells if (x["group"], x["alphabet"]) in ok_tasks and x["arch"] != "lstm" and x["pred"]["ALG"] is not None]
+    out["exploratory_positive_control_tasks"] = {"note": "post hoc, not preregistered", "tasks": sorted(map(list, ok_tasks)), "cells": len(sel),
+        "accuracy": {P: sum(x["pred"][P] == x["outcome"] for x in sel) for P in PREDICTORS},
+        "alg_errors": [(x["arch"], x["group"], x["alphabet"], x["succ_primary"]) for x in sel if x["pred"]["ALG"] != x["outcome"]]}
     json.dump(out, open("expressivity/results/confirmatory.json", "w"), indent=1, default=str)
     print(json.dumps({"accuracy": acc, "gates": out["gates"], "missing": len(missing)}, indent=1, default=str))
     for c in cells:

@@ -16,7 +16,7 @@ from asd.paper import to_tex
 from .domain import DOMAIN as D
 
 PROJ = "projects/expressivity"; R = "expressivity/results"
-TITLE = "How Many Householders Does State Tracking Need? An Exact Law for One-Layer Linear RNNs That Circuit Complexity Does Not Predict"
+TITLE = "How Many Householders Does State Tracking Need? A Representation-Theoretic Characterisation for One-Layer Linear RNNs, and Where Training Falls Short"
 
 SYS = ("You write precise, sober scientific English for a machine-learning theory preprint. Return ONLY the paper body (Markdown): "
        "no notes, comments or explanations addressed to the reader or to the checker, in any language. You may ONLY use statements "
@@ -27,13 +27,13 @@ SYS = ("You write precise, sober scientific English for a machine-learning theor
        "Claims with level 'proved_lean' may be called machine-checked. Use 'Theorem' only for the combination stated in C-thm1.")
 
 OUTLINE = r"""Style: concise ML-theory preprint (6-8 pages), sober, no marketing. Sections:
-Abstract (<= 180 words): the question (why do architectures fail at state tracking; circuit complexity says TC0 vs NC1), our answer for one-layer linear RNNs with Householder-product transitions (DeltaNet, DeltaProduct): an exact law h*, the first lower bound on Householder factors per token, the headline instances (A5 with involution inputs needs one reflection; A5 needs two; the S4/A5 formats of the closest prior work need two), the atlas, the preregistered training grid and its outcome, and that every statement is machine-verified or certified.
+Abstract (<= 170 words; must state the hypotheses real states, finite-state, token-local transitions, beta = 2 allowed; must state the failures: on the preregistered H-EX1 grid our predictor matched fewer cells than the representation baselines (numbers from C-H-accuracy), the H-EX2 criterion was not met, A5/involutions with one reflection and all A5/all cells were not learned, device sensitivity C-H-replication; and must not call hand proofs certified): the question (why do architectures fail at state tracking; circuit complexity says TC0 vs NC1), our answer for one-layer linear RNNs with Householder-product transitions (DeltaNet, DeltaProduct): an exact law h*, the first lower bound on Householder factors per token, the headline instances (A5 with involution inputs needs one reflection; A5 needs two; the S4/A5 formats of the closest prior work need two), the atlas, the preregistered training grid and its outcome, and that every statement is machine-verified or certified.
 1 Introduction: architecture debate (Transformers and diagonal SSMs in TC0, non-solvable word problems NC1-complete) from literature claims; the gap (constructions in DeltaProduct/Grazzi/RWKV-7; DeltaProduct's unexpected S4/A5 observation; Howe's representation law; Complex KDA's S5 lower bound under non-expansion, C-ckda-relation, C-lit-ckda-*); contributions as a bullet list, positioned honestly with C-novelty (the exact law for all groups and alphabets, the norm-free compression, the one-reflection A5 result and the atlas are new; S5 = 4 builds on Complex KDA).
 2 Setting and definitions: word problem, one-layer realisation, finite-state, transition families, h and h*.
 3 Results I (theory): Lemma L1 (machine-checked), Lemma L4 (machine-checked), Lemma L2 (hand proof), L3, Theorem 1 (state 'proof in the companion ledger' and cite C-ledger), diagonal families (L5), abelian cover (L7); explain what is proved how.
-4 Results II (certified instances): Table 1 (appended by code); A5 with involutions (H3 cover), A5/all, S4 and A5 in the generator format of prior work, S5, Z2^3; contrast with circuit complexity.
+4 Results II (certified instances): Table 1 (appended by code); credit the SO(3) upper-bound constructions for S4 and A5 to DeltaProduct (C-lit-deltaproduct-so3-body); keep h*(S5, all) = 4 separate from the certified instances because its lower bound uses a hand step (C-S5); A5 with involutions (H3 cover), A5/all, S4 and A5 in the generator format of prior work, S5, Z2^3; contrast with circuit complexity.
 5 Results III (atlas): coverage, own-vs-GAP agreement, non-monotonicity of h with respect to solvability; Figure 2 and Table 3 are appended by code.
-6 Results IV (preregistered experiments): (a) H-EX1 grid: protocol, predictors, cell outcomes, accuracy of each predictor, discriminating tests with BH, negative and positive controls; Figure 1 and Table 2. Report learnability failures honestly. (b) H-EX2 addendum: the prior work's own generator formats, Table 4 and Figure 3; state precisely what it supports and what not (it tests a sufficiency prediction against a necessity claim of prior work under our protocol and readout).
+6 Results IV (preregistered experiments): (a) H-EX1 grid: protocol, predictors, cell outcomes, accuracy of each predictor, discriminating tests with BH, negative and positive controls; Figure 1 and Table 2. Report learnability failures honestly and completely (every cell where our predictor errs), and report the preregistered secondary outcome at 7x-8x for every highlighted cell (it is in every C-G claim); state that the discriminating tests that separate our predictor from the representation baselines (D1-D3) failed while D4-D6 do not separate them; D5 rests on the MPS run whose CPU replication gave 0 of 20 (C-H-replication). (b) H-EX2 addendum: the prior work's own generator formats, Table 4 and Figure 3; state precisely what it supports and what not (it tests a sufficiency prediction against a necessity claim of prior work under our protocol and readout).
 7 The agentic lab and the verification pipeline: scout, integrator, cascade, verifier, red team; negative rounds; loopholes found and closed; red-team bugs fixed.
 8 Limitations and open questions (finite-state assumption, real states (C-complex), token-local transitions without short convolution, one layer, exact arithmetic vs float, open parameterisations only approximate (C-open-beta), remaining open intervals such as Q8, multi-layer, chain of thought / padding as a Householder budget as a hypothesis, device sensitivity of training (C-H-replication)).
 Refer to Tables 1-4 and Figures 1-3 by name only; do not write tables yourself.
@@ -64,7 +64,7 @@ def claims():
     add("C-L2", "Lemma L2 (compression lemma; proved by hand, not machine-checked; reviewed by two independent red-team agents, the second of "
         "which checked the construction exactly on adversarial instances and found it valid after wording fixes, for real states, affine input "
         "terms, beta in [0, 2] including singular transitions, matrix-valued states and arbitrary readouts; expressivity/analysis/redteam_theory.md): "
-        "if a one-layer real recurrence h_t = A(s_t) h_{t-1} + B(s_t) with an arbitrary readout solves the word problem of (G, Sigma) "
+        "if a one-layer real recurrence z_t = A(s_t) z_{t-1} + B(s_t) with an arbitrary readout solves the word problem of (G, Sigma) "
         "for every length with finitely many reachable states, and rank(A(s) - I) <= k for every letter, then h*(G, Sigma) <= k. Proof idea: "
         "the reachable states form a finite transformation monoid mapping onto G; an idempotent e of its minimal ideal gives a group eTe mapping "
         "onto G; the compressed maps A(u)A(s) restricted to the column space of the affine span of e(Q) form a faithful representation of a "
@@ -73,7 +73,7 @@ def claims():
         "maps onto G with generating lifts t_s and a faithful real representation rho with rank(rho(t_s) - I) <= k, then an exact finite-state "
         "one-layer realisation with k Householder reflections per token (beta in {0, 2}) exists in dimension dim rho: an H-invariant inner "
         "product makes rho orthogonal, Cartan-Dieudonne factors each rho(t_s) into rank(rho(t_s) - I) reflections, a generic initial state "
-        "separates H, and the readout maps rho(x) h_0 to pi(x). It needs beta = 2 exactly with unit keys; with a zero initial state, as in DeltaNet, the "
+        "separates H, and the readout maps rho(x) z_0 to pi(x). It needs beta = 2 exactly with unit keys; with a zero initial state, as in DeltaNet, the "
         "input term v = -c k supplies the offset.", "hypothesis", "open")
     add("C-thm1", "Theorem 1 (from Lemma L2, proved by hand, and Lemma L3): for every finite group G and generating alphabet Sigma, a "
         "finite-state one-layer realisation of the word problem with k Householder factors per token exists if and only if k >= h*(G, Sigma), "
@@ -105,7 +105,8 @@ def claims():
         "compression passes from finite reachability to a finite group mapping onto S5 via a minimal-norm idempotent word and needs non-expansive "
         "transitions; our Lemma L2 uses the minimal ideal of the transition monoid, needs no norm bound and transfers the rank bound; that paper "
         "proves the S5 minimum of four Householder factors under its assumptions, but defines no invariant like h* and does not state the "
-        "one-reflection realisation of A5 with involution inputs.", "observed")
+        "one-reflection realisation of A5 with involution inputs. Neither result contains the other: theirs covers scalar gates, the Complex KDA "
+        "parameterisation and several heads; ours covers expansive transitions and every finite group and alphabet.", "observed")
     add("C-novelty", "Novelty check against the literature (expressivity/novelty.md): the exact law h* over covering groups with a fixed alphabet "
         "and the atlas were not found in prior work; the closest notion, minimal generation in codimension k (arXiv:1804.05089), concerns faithful "
         "representations without an alphabet; that a real reflection has order 2 is classical; the compression idea appears for S5 in "
@@ -124,6 +125,23 @@ def claims():
             f"lower bound {r['lower']}, best certified realisation k = {r['upper']} via {r['upper_construction']} (covering group of order "
             f"{r['upper_H_order']}, dimension {r['upper_dim']}), faithful h = {r['h_faithful']}, permutation-representation cost {r['perm_law']}"
             f"{', h* determined exactly' if r['exact'] else ', h* not determined (bounds differ)'}. {stm} {diag}", "computed_rigorous")
+    xc = json.load(open(f"{R}/explore_certified.json")) if os.path.exists(f"{R}/explore_certified.json") else []
+    q8 = next((x for x in xc if x["file"] == "SG8_4_k3.json" and x["passed"]), None)
+    if q8:
+        add("C-T-Q8-cover", f"Certified (explorer agent, re-checked by the exact verifier): h*(Q8, all) <= 3, strictly below the faithful value h = 4: the "
+            f"covering group C4:C4 of order 16 maps onto Q8 (a -> i, b -> j) with a rational 4-dimensional representation in which every letter "
+            f"satisfies rank(M - I) <= 3. Verifier: {q8['reason'][:150]}.", "computed_rigorous")
+        add("C-Q8-lower", "Hand argument (explorer agent, not machine-checked): h*(Q8, all) >= 3, hence h*(Q8, all) = 3: lifts of i and j would be planar "
+            "rotations in SO(4), and the classification of finite subgroups of S^3 x S^3 / {+-1} with a Goursat argument excludes a quotient Q8; a GAP "
+            "search found no cover of order at most 120 with k = 2.", "hypothesis", "open")
+    imp = [x for x in xc if x["passed"] and x["file"] != "SG8_4_k3.json"]
+    if imp:
+        add("C-atlas-improved", f"{len(imp)} upper bounds of the atlas were lowered by covering groups of order twice the group order (explorer agent; every "
+            "certificate re-checked by the exact verifier, rational entries): " + ", ".join(f"{x['file'].split('_k')[0][2:]} -> k = {x['k']}" for x in imp)
+            + "; the lower bounds stay 2, so these groups remain undetermined.", "computed_rigorous")
+    add("C-S5-hand3", "Hand argument (explorer agent, unconditional, not machine-checked): h*(S5, all) >= 3 and h*(S5, tn) >= 3, since no finite subgroup "
+        "of SO(4) or O(3) maps onto S5 and a rank-2 orthogonal transposition lift is impossible; with the classification of arXiv:1509.06922 the "
+        "value 4 follows for every alphabet containing a 5-cycle, consistent with C-S5.", "hypothesis", "open")
     add("C-verifier", f"The domain verifier passed its mandatory self-test of {len(D.selftest())} known true and known false claims (near-boundary "
         "cases such as the same matrices without the sign lift, k one below the certified value, rule violations, and regressions for every bug "
         "found by the red team).", "computed_rigorous")
@@ -202,6 +220,11 @@ def claims():
                     f"BH over all 12 tests: adjusted p = {fp(t['p_bh_all'])}, {'significant' if t['bh_all_reject'] else 'not significant'}.", "statistical")
             add("C-X-result", f"H-EX2 outcome: our predictor matches {E['accuracy']['ALG']} of {len(E['cells'])} cells, the permutation-representation law "
                 f"matches {E['accuracy']['B4']} of {len(E['cells'])}; preregistered success criterion of H-EX2: {E['success']}.", "statistical")
+        ex = CF.get("exploratory_positive_control_tasks")
+        if ex:
+            add("C-H-exploratory", f"Exploratory analysis (post hoc, not preregistered): restricted to the {len(ex['tasks'])} tasks on which the LSTM positive control "
+                f"succeeded ({', '.join(g + '/' + a for g, a in ex['tasks'])}), {ex['cells']} non-LSTM cells: " + "; ".join(f"{names[k]} {v} of {ex['cells']}" for k, v in ex['accuracy'].items())
+                + ". On the remaining tasks (A5 with both alphabets, S5 with both alphabets) even the LSTM positive control failed, so these cells mainly measure the training budget.", "observed")
         rp = [r for r in CF.get("replication_mps_vs_cpu", []) if r.get("cpu_succ") is not None]
         if rp:
             add("C-H-replication", "Device replication (the same protocol and seeds run twice, once on the MPS GPU and once on the CPU, because of a runner "
@@ -321,7 +344,10 @@ def tables():
                    "representations of G only (own and GAP character tables); perm: cost in the permutation representation (the representation law of "
                    "prior work). Claims [C-T-*].\n")
         out.append("| G | alphabet | order | solvable | lower | upper | construction | abs(H) | d | h | perm |\n|---|---|---|---|---|---|---|---|---|---|---|")
+        xc = {x["file"]: x for x in (json.load(open(f"{R}/explore_certified.json")) if os.path.exists(f"{R}/explore_certified.json") else [])}
         for r in cert["rows"]:
+            if r["group"] == "Q8" and r["alphabet"] == "all" and xc.get("SG8_4_k3.json", {}).get("passed"):
+                r = {**r, "upper": "3", "upper_construction": "cover C4:C4 (explorer)", "upper_H_order": 16, "upper_dim": 4}
             out.append(f"| {r['group']} | {r['alphabet']} | {r['order']} | {'yes' if r['solvable'] else 'no'} | {r['lower']} | {r['upper']} | "
                        f"{r['upper_construction']} | {r['upper_H_order']} | {r['upper_dim']} | {r['h_faithful']} | {r['perm_law']} |")
     if os.path.exists(f"{R}/confirmatory.json"):
@@ -348,7 +374,7 @@ def tables():
         A = json.load(open(f"{R}/atlas.json")); rows = A["rows"]
         out.append(f"\n**Table 3.** Atlas, all {A['summary']['groups']} groups of order <= {A['summary']['N']}, full alphabet. Claims [C-atlas*].\n")
         out.append("| class | groups | h* exact | faithful h = 2 | faithful h >= 3 |\n|---|---|---|---|---|")
-        for name, sel in [("abelian", lambda r: r.get("abelian", True) and r["order"] > 1), ("solvable non-abelian", lambda r: r.get("solvable") and not r.get("abelian", True)),
+        for name, sel in [("trivial", lambda r: r["order"] == 1), ("abelian (nontrivial)", lambda r: r.get("abelian", True) and r["order"] > 1), ("solvable non-abelian", lambda r: r.get("solvable") and not r.get("abelian", True)),
                           ("non-solvable", lambda r: not r.get("solvable", True))]:
             rr = [r for r in rows if sel(r)]
             out.append(f"| {name} | {len(rr)} | {sum(r['exact'] for r in rr)} | {sum(r['h'] == 2 for r in rr)} | {sum(r['h'] >= 3 for r in rr)} |")
@@ -408,7 +434,7 @@ def figures(outdir):
         fig.tight_layout(); p = f"{outdir}/fig_hex2"; fig.savefig(p + ".pdf"); fig.savefig(p + ".png"); plt.close(fig)
         figs.append(("fig_hex2", "Figure 3. Preregistered addendum H-EX2 on the generator formats of the closest prior work: successful seeds (of 20) for one, two "
                      "and three Householder factors per token; solid line: minimum predicted by our law (h* = 2, certified); dotted line: the "
-                     "permutation-representation law (3 for S4, 4 for A5); dashed line: the cell-success threshold of 10 seeds. Evidence: claims C-X-hh1/hh2/hh3-<task>, C-X-E1-E3 (Appendix C)."))
+                     "permutation-representation law (3 for S4, 4 for A5); dashed line: the cell-success threshold of 10 seeds. Evidence: claims C-X-(model)-(task) and C-X-E1 to C-X-E3, listed in Appendix C."))
     if os.path.exists(f"{R}/atlas.json"):
         rows = [r for r in json.load(open(f"{R}/atlas.json"))["rows"] if not r.get("abelian", True)]
         fig, ax = plt.subplots(figsize=(5.4, 3.2), dpi=200); fig.patch.set_facecolor(surf); ax.set_facecolor(surf)
@@ -542,7 +568,7 @@ def build_suleman_pdf(md, figs, tab, C, authors, affiliation):
     body_tex = pandoc_fragment(protect_hstar(body))
     abs_tex = pandoc_fragment(protect_hstar(abstract)).strip()
     floats = "".join("\\begin{figure*}[t]\\centering\\includegraphics[width=0.78\\textwidth]{" + name + ".pdf}\\caption{" +
-                     pandoc_fragment(cap.split(". ", 1)[1]).strip() + "}\\end{figure*}\n" for name, cap in figs)
+                     pandoc_fragment(protect_hstar(cap.split(". ", 1)[1])).strip() + "}\\end{figure*}\n" for name, cap in figs)
     floats += tables_tex(tab)
     trace_md = "| claim | level | status | canonical text (start) |\n|---|---|---|---|\n" + "\n".join(
         f"| {c['claim_id']} | {c['level']} | {c['status']} | {c['text'][:150].replace('|', '/')}... |" for c in C)

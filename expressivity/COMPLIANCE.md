@@ -40,14 +40,14 @@ Legend: DONE = satisfied with evidence; DEVIATION = intentionally different, wit
 |---|---|---|
 | AI is only a generator; acceptance only via gate, statistics or Lean | DONE | lab cascade + exact verifier; Lean for L1, L4; preregistered statistics |
 | No sentence in the paper without claim_id; no citation without tool evidence (else UNVERIFIED) | DONE | gate; 2 scout quotes not found verbatim are marked UNVERIFIED and unused |
-| One pipeline, one demo path; rebuildable; seeds fixed 1000-1019 | DONE | README pipeline; grid seeds 1000-1019; pilots used other seeds (disclosed) |
+| One pipeline, one demo path; rebuildable; seeds fixed 1000-1019 | DONE with disclosed incident | README pipeline; grid seeds 1000-1019; pilots used other seeds (disclosed). A second runner on the MPS GPU (EX21) caused overwritten cells (compliance audit); fixed by a watcher, backups, and a dated prereg addendum (primary = first completed run, duplicates reported as replication); `python -m expressivity.recheck` reproduces every certificate with one command |
 | Lean 4 where possible | DONE | lean/: rank lemma L1 and order lemma L4 with negative control and axiom check (EX13, EX16) |
 | Mandatory check 1: paired permutation test + bootstrap CI, >= 20 seeds | DONE | 20 seeds per cell; preregistered decision tests are one-sided Fisher exact tests on success counts (binary outcome); in addition analyze.py reports the paired sign-flip permutation test on per-seed accuracies (same seeds) and the paired bootstrap 95% CI of the accuracy ratio for every discriminating comparison |
-| Mandatory check 2: negative control | see results | random-target cells (prereg.md) |
+| Mandatory check 2: negative control | see results | random-target cells hh4/S5, lstm/S5, hh2/A5 (prereg.md); analyze.py gate negative_control_clean |
 | Mandatory check 3: contamination test | N/A with reason | no learned prior is used as evidence; the agents' prior knowledge cannot make a false claim pass the exact verifier (assumptions A7) |
-| Mandatory check 4: Benjamini-Hochberg with m = all tests | DONE | m = 9 (6 discriminating + 3 negative-control tests), analyze.py |
+| Mandatory check 4: Benjamini-Hochberg with m = all tests | DONE | preregistered families (H-EX1 m = 9, H-EX2 m = 3) AND BH over all 12 tests reported together (prereg addendum 07:00, EX24) |
 | Theory check with every run | DONE | chance accuracy 1/|G| and in-distribution accuracy per cell; certified bounds as theory for every task |
-| Tables experiments/claims/gates; claims cite run ids | DONE | export_tables.py, asd.tables.validate |
+| Tables experiments/claims/gates; claims cite run ids | DONE | export_tables.py -> projects/expressivity/tables/, asd.tables.validate (gate EX_G12) |
 | Interface changes only via decisions.md | N/A | no shared interface changed; the framework bug (EX9) was handled by an own wrapper |
 | Each role writes only its own files | DONE | all files in expressivity/, projects/expressivity/ and one shim |
 
@@ -66,5 +66,15 @@ Legend: DONE = satisfied with evidence; DEVIATION = intentionally different, wit
 | Scout without solution ideas; Analogist with only the functional abstraction | DONE | scout_evidence.md, analogist_candidates.md (EX5) |
 | Citations verified by script (section 8) | DONE | scripts/verify_evidence.py (+ body_quotes.py) |
 | Decisions logged with ID, time, alternatives, evidence, reversibility | DONE | decisions.md EX1-EX20+ |
-| Figures follow the dataviz method | DONE | validated palette (validate_palette.js), sequential blue ramp, direct labels, table views (Tables 2, 3) |
-| Language | DONE | all files of this domain in English (EX2); framework-generated lab logs (lab_report.md) contain the framework's German strings (shared core not edited) |
+| Figures follow the dataviz method | DONE | validated palette (results/palette_validation.txt), sequential blue ramp, direct labels, table views (Tables 2-4) |
+| Language | DONE with stated exception | all files written for this domain are English (EX2); agent texts (lab questions/answers in German) are translated before they become paper claims and the language gate scans all claim texts (EX24); exception: framework-generated logs and lab records (projects/expressivity/lab_report.md, decisions.md, prereg.md, runde*.json, state.json, results/lab_loop_run*.log) contain the shared core's German strings and the agents' raw German outputs (shared core not edited); context.md renders the German challenge text in English |
+
+## Additional reviews (all reports in expressivity/analysis/ and expressivity/)
+| Review | Outcome | Handling |
+|---|---|---|
+| Verifier red team (redteam.md) | 3 bugs | fixed with regression cases (EX15) |
+| Theory red team (redteam_theory.md) | no counterexample; wording fixes; open-beta corollary | theory.md revised; paper claims C-L2, C-L3, C-thm1, C-L5, C-L7, C-open-beta, C-complex |
+| Novelty check (novelty.md) and full-text comparison (ckda_comparison.md) | Complex KDA (arXiv:2609.24797) anticipates the compression idea and S5 = 4 under non-expansion | positioning claims C-ckda-relation, C-novelty; S5 = 4 as C-S5 (hand step + literature) |
+| Compliance audit (compliance_audit.md) | 4 WRONG, 10 GAP | addressed (EX24, EX25, prereg addendum 07:00) |
+| Referee review (review_report.md, review.json) | major revision (text only) | fed to the writer as a reviewer round; structural fixes in write_paper.py |
+| Team conventions after fetching the repository (EX23) | preprint form, claim-trace appendix, recheck, ledger | adopted |

@@ -1,0 +1,45 @@
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/Users/laurenzthummler/Library/Application Support/Claude/scratch-workspaces/3a7eebbe-4628-44b6-b200-a604a338ffb4/3fcc420b-a650-4cbf-96c9-ed4e2054dcfd/scratch-2026-10-03-ff18d6/Hacknation/expressivity/analyze.py", line 167, in <module>
+    main()
+    ~~~~^^
+  File "/Users/laurenzthummler/Library/Application Support/Claude/scratch-workspaces/3a7eebbe-4628-44b6-b200-a604a338ffb4/3fcc420b-a650-4cbf-96c9-ed4e2054dcfd/scratch-2026-10-03-ff18d6/Hacknation/expressivity/analyze.py", line 159, in main
+    print(f"{c['arch']:9s} {c['group']:5s} {c['alphabet']:15s} succ {c['succ_primary']:2d}/20 (8x {c['succ_secondary']:2d}) indist {c['mean_indist']:.2f} "
+                                                                                                  ^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: unsupported format string passed to NoneType.__format__
+{
+ "accuracy": {
+  "ALG": {
+   "correct": 47,
+   "cells": 61
+  },
+  "B1_circuit": {
+   "correct": 41,
+   "cells": 61
+  },
+  "B2_abelian": {
+   "correct": 37,
+   "cells": 61
+  },
+  "B3_size": {
+   "correct": 41,
+   "cells": 61
+  },
+  "B4_perm_law": {
+   "correct": 50,
+   "cells": 61
+  },
+  "B5_faithful": {
+   "correct": 48,
+   "cells": 61
+  }
+ },
+ "gates": {
+  "H-EX1.1_accuracy_beats_all_baselines": false,
+  "H-EX1.2_discriminating_tests_BH": false,
+  "negative_control_clean": true,
+  "H-EX1_success": false
+ },
+ "missing": 0
+}

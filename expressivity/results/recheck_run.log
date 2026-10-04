@@ -1,0 +1,16 @@
+1 self-test: passed (46/46)
+2 consistency regressions: consistent() regressions: 8/8 PASS
+3 certified table: 158/158 checks pass again
+   [OK ] expressivity-R2 (bestätigt): h(Z2^3, all) = 3 over faithful real representations of Z2^3 (own numerical character table and GAP exact agree).
+   [OK ] expressivity-R3 (bestätigt): h(A5, involutions) = 2 over faithful real representations of A5 (own numerical character table and GAP exact agree).
+   [OK ] expressivity-R4 (angefochten): h(Q8, all) = 4 over faithful real representations of Q8 (own numerical character table and GAP exact agree).
+   [OK ] expressivity-R5 (bestätigt): h*(A5, all) = 2: for finite-state one-layer realisations, exactly 2 Householder factors per token are necessary (lower b
+   [OK ] expressivity-R6 (angefochten): h(A5, involutions) = 2 over faithful real representations of A5 (own numerical character table and GAP exact agree).
+   [OK ] expressivity-R7 (bestätigt): h*(S4, all) >= 2 (a letter of order >= 3; Lemma L4, Lean-checked); by Lemma L2 every finite-state one-layer realisation 
+   [OK ] expressivity-R8 (angefochten): The count construction is an exact one-layer realisation of the word problem of Z2^2 with alphabet 'all' using at most 1
+   [OK ] expressivity-R9 (bestätigt): h*(S5, all) >= 2 (a letter of order >= 3; Lemma L4, Lean-checked); by Lemma L2 every finite-state one-layer realisation 
+   [OK ] expressivity-R15 (bestätigt): h*(A5, all) = 2: for finite-state one-layer realisations, exactly 2 Householder factors per token are necessary (lower b
+4 lab claims: 9/9 pass the current verifier (failures are reported as withdrawn in the paper)
+5 atlas spot check: 20/20 groups reproduce h (own table = GAP = stored)
+6 Lean: 5 theorems, no sorryAx: True (rebuild: see expressivity/lean/README.md)
+RECHECK PASSED

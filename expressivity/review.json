@@ -1,0 +1,102 @@
+[
+ [
+  "In a preregistered training grid, our predictor matched 42 of 52 cells, and the preregistered overall criterion was not met [C-H-accuracy][C-H-gates].",
+  "Abstract under-reports the failures. It must also say (i) that two baselines beat the predictor: the permutation-representation law 45/52 and faithful-only 43/52 [C-H-accuracy]; (ii) that the preregistered H-EX2 criterion was False (S4/tn with hh2: 6/20) [C-X-result][C-X-hh2-S4-tn]; (iii) that the flagship one-reflection A5/involutions realisation was not learned (hh1 0/20) and no width learned A5/all [C-G-hh1-A5-involutions][C-G-hh4-A5-all]; (iv) device sensitivity, 18/20 vs 0/20 [C-H-replication]. To stay within 180 words, cut the circuit-complexity framing sentence."
+ ],
+ [
+  "Its errors are the learnability failures listed above, in cells it predicts as realisable [C-G-hh1-A5-involutions][C-G-hh2-A5-all].",
+  "The error list is incomplete. The predictor makes 10 errors, but the learnability-failure list has only 9 cells. It leaves out hh4 on S5/all: predicted success because the certified perm construction has k = 4, observed 0 of 20 seeds [C-G-hh4-S5-all]. Add that cell to the 'Learnability failures' list and cite all ten error cells here (C-G-hh1/hh2-A5-involutions, C-G-hh2/hh3/hh4-A5-all, C-G-hh1-Z2p3-all, C-G-hh2-Z2-all, C-G-hh4-Z2-all, C-G-hh3-Z3-all, C-G-hh4-S5-all)."
+ ],
+ [
+  "Seed success:** token accuracy at least 0.9 on positions 257–512 of length-512 sequences [C-H-protocol].",
+  "The preregistered secondary outcome (positions 897–1024 of length-1024 sequences; prereg.md 'Outcome definitions') is never reported for H-EX1, although the claims contain it. Many reported successes collapse at 7x–8x: diag_pm Z2^3/all 20→0 [C-G-diag_pm-Z2p3-all], hh3 Z2^3/all 20→0 [C-G-hh3-Z2p3-all], hh4 A5/involutions 20→0 and hh3 3/20 [C-G-hh4-A5-involutions][C-G-hh3-A5-involutions], hh2 S3/all 19→1 [C-G-hh2-S3-all]. Add a secondary column to Table 2 and a sentence in the results, and qualify the 'outcomes match the theory' bullets accordingly."
+ ],
+ [
+  "**D5** contrasts hh1 on $\\mathbb{Z}_2$/all with $\\mathbb{Z}_3$/all: 18 vs 0 successes, adjusted $p$ = 4.5e-09, significant [C-H-D5].",
+  "Add the caveat here: the 18 successes come from the MPS run, whose per-seed values were overwritten (count only, so no paired test), and the CPU replication of the same cell gave 0/20. With the CPU run, D5 would be 0 vs 0 and not significant [C-H-replication][C-G-hh1-Z2-all]."
+ ],
+ [
+  "Our predictor clearly beats the circuit-class baseline but not the two representation-based baselines [C-H-accuracy].",
+  "Remove 'clearly': no test of 42 vs 32 was run. Say instead that the predictor is beaten by both representation baselines (45 and 43 of 52) [C-H-accuracy]. Also add that the significant tests D4–D6 do not separate our predictor from those baselines (they predict the same outcomes there; prereg.md), and that the only tests that do (D1–D3) were not significant [C-H-D1][C-H-D2][C-H-D3]. H-EX1 therefore gives no evidence for the predictor over the representation baselines."
+ ],
+ [
+  "The two tests aimed at the one-reflection $A_5$ result, D1 and D2, are uninformative because no seed learned either cell [C-H-D1][C-H-D2].",
+  "Factual error: D2 (hh2 vs hh1 on A5/all) tests the two-factor A5/all prediction, not the one-reflection result. Correct to: 'D1 (one reflection for A5/involutions) and D2 (two factors for A5/all) are uninformative ...' [C-H-D1][C-H-D2]."
+ ],
+ [
+  "None of these results gives the minimal number of Householder factors per token for a given group and input alphabet.",
+  "Uncited, and contradicted two sentences later: Complex KDA proves the minimum (four) for S5 with all inputs [C-lit-ckda-four-body], and Howe states an empirical minimal-n_h law [C-lit-howe-law-body]. Rephrase to 'for a general finite group and input alphabet' and cite [C-novelty][C-ckda-relation]."
+ ],
+ [
+  "A recent representation law states that the minimal $n_h$ equals the maximal reflection length $\\operatorname{rank}(I-P)$ in the representation pinned by the task format (parity 1, $S_4$ 3, $A_5$/$S_5$ 4) [C-lit-howe][C-lit-howe-law-body].",
+  "This drops 'that length-generalizes' from the cited quote. Howe's law is empirical, about learning, and is stated for input acting only through the orthogonal transitions, without the additive pathway [C-lit-howe]. Our zero-initial-state realisation uses exactly that additive term (v = -c k) [C-L3]. State both points here, and again where Results II says our values are 'below the format-pinned values', so the comparison with expressivity values is not read as a contradiction."
+ ],
+ [
+  "Every instance value is certified by an exact verifier, and the hand-proved steps are labelled as such [C-verifier][C-redteam].",
+  "Overstated, and the wrong claims are cited. Only the upper bounds are exact certificates. Every lower bound of 2 combines Lean L4 with hand-proved L2, and h*(S5,all)=4 is not certified (C-T-S5-all: 'h* not determined') but rests on a hand step [C-S5]. C-verifier only reports the self-test, and C-redteam reports bugs. Rewrite as: 'Upper bounds are exact certificates; lower bounds combine Lean-checked L4 with the hand-proved L2' [C-T-A5-all][C-T-Z3-all]."
+ ],
+ [
+  "A finite-state realisation with $k$ factors per token exists if and only if $k \\ge h^*(G,\\Sigma)$, an invariant defined over covering groups.",
+  "The abstract omits the hypotheses that the red team already flagged once for this sentence (C-redteam bug 2): real states, token-local transitions, and beta allowed to equal 2. The beta hypothesis matters: with beta in [0,2), as in sigmoid DeltaNet, no nontrivial group is exactly realisable [C-open-beta]. Add 'real, token-local, with beta = 2 allowed' [C-thm1]. The abstract is also 190 words without citations; the limit is 180."
+ ],
+ [
+  "**Certified instances.** We show $h^*(A_5,\\text{involutions}) = 1$, $h^*(A_5,\\text{all}) = 2$, and $h^* = 2$ for both generator formats of prior work [C-T-A5-involutions][C-T-A5-all][C-T-S4-tn][C-T-A5-c3c5]. We also show $h^*(S_5,\\text{all}) = 4$; this result builds on Complex KDA and includes a hand step [C-S5].",
+  "h*(S5,all)=4 is not a certified instance: its certified bounds are [2,4] [C-T-S5-all], and the closing step is hand-proved (hypothesis) [C-S5]. Move it to a separate bullet labelled 'hand step + cited theorem'. Also credit prior work for the upper bound 2 on the S4/A5 formats: it is DeltaProduct's SO(3) construction [C-lit-deltaproduct-so3-body][C-lit-deltaproduct-body]. Our new part is the matching lower bound (L4 + L2)."
+ ],
+ [
+  "Our Lemma L2 replaces the norm-minimal word by the minimal ideal of the transition monoid. It therefore needs no norm bound and transfers the rank bound.",
+  "'Replaces' implies that L2 strictly improves on CKDA's compression. The full-text comparison (ckda_comparison.md §3.1) concludes that neither result contains the other: CKDA's version keeps spectral information and covers multiple heads and gated transitions, which L2 does not. That trade-off is not yet in C-ckda-relation. Add it to the claim, then state it here. Otherwise write 'differs from' rather than 'replaces' [C-ckda-relation]."
+ ],
+ [
+  "The argument only needs an alphabet containing a 5-cycle and a transposition [C-S5]. It therefore also covers the tn alphabet of $S_5$, whose certified bounds alone are 2 and 4 [C-T-S5-tn][C-lit-howe-format-body].",
+  "Complex KDA states its theorem for inputs ranging over all of S5. Extending it to the tn alphabet is our hand reading of their proof, not their result. Label it 'our observation (hand), not a statement of arXiv:2609.24797' [C-S5]. Also note that h*(S5,·)=4 coincides with the representation law's S5 value [C-lit-howe-law-body], which is the fair counterpart to the S4/A5 disagreement."
+ ],
+ [
+  "One-layer realisation.** A one-layer real recurrence has the form $h_t = A(s_t)h_{t-1} + B(s_t)$, with an arbitrary readout [C-L2].",
+  "Notation clash: $h_t$ denotes the state, while $h$ and $h^*$ denote the invariants (see also $\\rho(x)h_0$ in L3). Rename the state, for example to $x_t$ or $S_t$, throughout the paper."
+ ],
+ [
+  "Rounds 4, 6 and 8 are marked as contested by a red-team counter-check [C-expressivity-R4][C-expressivity-R6][C-expressivity-R8].",
+  "This conflicts with the earlier sentence 'all nine survive re-checking with the hardened verifier, with 0 withdrawn' [C-lab]. Explain what 'contested' means and how it differs from 'withdrawn'. Also state that 'certified h*(A5,all)=2 (round 5)' rests on the hand-proved L2 for its lower bound [C-expressivity-R5]."
+ ],
+ [
+  "Empirically, LSTMs solve regular tasks while other networks often fail [C-lit-deletang]",
+  "This misstates the source, which says RNNs and Transformers fail on non-regular tasks and LSTMs solve regular and counter-language tasks. Correct to 'LSTMs solve regular and counter-language tasks, while RNNs and Transformers fail to generalise on non-regular ones' [C-lit-deletang]."
+ ],
+ [
+  "# How Many Householders Does State Tracking Need? An Exact Law for One-Layer Linear RNNs That Circuit Complexity Does Not Predict",
+  "The title is duplicated (lines 1 and 5). 'Exact law' is a hand-proved theorem with claim status hypothesis/open [C-thm1]. 'Circuit complexity does not predict' rests on faithful h only; for h* the paper itself says no strict separation is claimed [C-atlas-monotone]. Suggest qualifying, for example 'A Conjectured-Exact (Hand-Proved) Law ...', or dropping the circuit-complexity clause."
+ ],
+ [
+  "**Hand proofs.** The compression lemma, the theorem, Lemmas L5 and L7, and the $S_5$ lower bound are hand proofs, not machine-checked [C-L2][C-thm1][C-L5][C-L7][C-S5].",
+  "The list is incomplete. Lemma L3 (sufficiency) and the open-beta corollary are also hand proofs [C-L3][C-open-beta]. Add both."
+ ],
+ [
+  "- Symmetric groups with transposition alphabets need one [C-T-S3-transpositions][C-T-S4-transpositions][C-T-S5-transpositions].",
+  "This generalises beyond the evidence: only S3, S4 and S5 are certified. Write '$S_3$, $S_4$ and $S_5$ with transposition alphabets need one'. The same applies to 'cdiag realises the cyclic and elementary abelian instances but no non-abelian one' and 'diag_pos realises none of the instances', each of which cites only two claims for a statement about all instances. Cite every C-T-* claim involved."
+ ],
+ [
+  "The supplementary paired permutation test on per-seed accuracies gives $p$ = 5.0e-05, with ratio of mean accuracies 1.98 [C-H-D3].",
+  "Supplementary results are reported only where they favour the theory (D3). Report them for D1 as well (perm p = 0.145, CI 0.99–1.03, criterion not met) [C-H-D1], or for none of the tests, and state that the BH-over-all-12 adjusted Fisher p for D3 is 0.786."
+ ],
+ [
+  "**Discriminating tests.** Each test is a one-sided Fisher exact test with Benjamini–Hochberg correction ($m = 8$, $q = 0.1$) [C-H-D1].",
+  "The preregistration fixes m = 9 (including the LSTM negative control, prereg.md 'Multiple testing'). State that m = 8 is a deviation caused by the missing LSTM cell, to be restored in the final run. Also mention that the addendum reports BH over all 12 tests [C-H-D1]."
+ ],
+ [
+  "- **Setup:** protocol identical to H-EX1, run on the MPS GPU.",
+  "This bullet and the 'Tasks' and 'Predictions' bullets carry no claim id, which breaks the paper's citation rule. Add [C-X-protocol]. Also note the device confound: H-EX2 ran entirely on MPS, while most H-EX1 Householder cells ran on CPU, and the device changed outcomes [C-H-replication]."
+ ],
+ [
+  "**Coverage and agreement.** The atlas covers all 319 groups of order at most 63 in the GAP SmallGroups library, with the full alphabet [C-atlas].",
+  "Table 3 is internally inconsistent with this text. Its rows sum to 318 groups (105+212+1), the 'h* exact' column sums to 137 rather than 138, and in the abelian row 62+42 = 104, not 105. The trivial group and/or the h = 1 group (Z2) are presumably missing. Add an 'h <= 1' column or a trivial-group row [C-atlas]."
+ ],
+ [
+  "Evidence: claims C-X-hh1/hh2/hh3-<task>, C-X-E1-E3 (Appendix C).",
+  "There is no Appendix C. Remove the dangling reference and the claim-id meta text from the figure captions. Also number figures and tables in order of appearance (currently Figure 1, 3, 2 and Table 1, 2, 4, 3), remove duplicated captions, and delete the trailing 'Verification log' block, which is meta text."
+ ],
+ [
+  "Whether extra tokens can act as an additional Householder budget per input symbol is a hypothesis we have not tested [C-lit-cot].",
+  "This is our own conjecture, so a literature claim cannot support it. Mark it as an open question without a claim id, or add an explicit hypothesis-level claim. The same applies to the uncited 'A multi-layer analogue of $h^*$ is open.'"
+ ]
+]

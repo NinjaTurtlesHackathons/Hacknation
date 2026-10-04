@@ -37,6 +37,8 @@ Expected:
 ```
 Say: "|H| = 120 is the icosahedral reflection group H3 = A5 x Z2; the kernel of order 2 is the sign. Exact arithmetic in
 Q(2 cos 2 pi/5), no floating point."
+Honest caveat (say it): this is realisable, not learned. In the preregistered grid hh1 on A5/involutions length-generalises in 0/20
+seeds (hh2 0/20, hh3 20/20; `results/confirmatory.json`, `cells`). Learnability is a separate bottleneck.
 
 ## D3 The verifier REJECTS k = 1 without the sign lift (~1 s)
 ```bash
@@ -79,7 +81,9 @@ Expected:
 (False, 'rank(R[s] - I) = 2 > k = 1 for a letter of order 3', {'max_rank': 2})
 (True, 'certified lower bound h* >= 2 (Lemma L4: a letter of order >= 3 cannot lift to a reflection (a rank-1 finite-order real deviation from I has order 2)); claimed >= 2', {'lower': 2})
 ```
-Then show `projects/expressivity/fig_hex2.png`: trained models agree (hh1 0/20, hh2 18/20; `results/confirmatory.json`, `H-EX2`).
+Then show `projects/expressivity/fig_hex2.png`: trained models agree (hh1 0/20, hh2 18/20, Fisher p = 1.7e-9;
+`results/confirmatory.json`, `H-EX2`). Also say: the preregistered H-EX2 criterion failed overall (S4/tn with 2 reflections: 6/20,
+`H-EX2.success` false), and on the full H-EX1 grid our predictor (47/61) did not beat the permutation law (50/61).
 
 ## D5 The verifier refuses a wrong agent answer (~1 s and ~16 s)
 The agents' wrong answer from lab rounds 3 and 6 ("more than one reflection is needed for A5/involutions"):
@@ -131,7 +135,9 @@ Say: "No `sorry`, only the three standard axioms; `strengthened_bound_false` is 
 ## Not in the live demo (too long; show results only)
 `python -m expressivity.certify`, `python -m expressivity.atlas 63`, `python -m expressivity.confirm*`, `python -m expressivity.run_lab ...`
 run for minutes to hours; show `results/certified.json`, `results/atlas.json` (summary), `results/confirmatory.json` and
-`projects/expressivity/lab_report.md` instead.
+`projects/expressivity/lab_report.md` instead. Explorer certificates (Q8 via C4:C4, 17 lowered atlas bounds) are re-checked by
+`python -m expressivity.explore_open.recheck_all` -> `results/explore_certified.json` (18/18 pass); the full re-check
+`projects/expressivity/recheck.log` ends with `RECHECK PASSED`.
 
 ## Suggested order and timing (about 6 minutes with D1 and D7 pre-started)
 D1 started in background -> D2 -> D3 -> D4 + fig_hex2 -> D5 -> D6 -> D1 result -> D7 output.

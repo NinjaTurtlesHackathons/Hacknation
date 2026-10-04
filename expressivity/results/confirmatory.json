@@ -157,6 +157,31 @@
    "source": "result file"
   },
   {
+   "arch": "lstm",
+   "group": "Z2",
+   "alphabet": "all",
+   "succ_primary": 20,
+   "succ_secondary": 20,
+   "n": 20,
+   "outcome": true,
+   "mean_primary": 1.0,
+   "median_primary": 1.0,
+   "mean_secondary": 1.0,
+   "mean_indist": 1.0,
+   "indist_success": 20,
+   "chance": 0.5,
+   "pred": {
+    "ALG": true,
+    "B1_circuit": true,
+    "B2_abelian": true,
+    "B3_size": true,
+    "B4_perm_law": true,
+    "B5_faithful": true
+   },
+   "device": "cpu",
+   "source": "result file"
+  },
+  {
    "arch": "diag_pos",
    "group": "Z3",
    "alphabet": "all",
@@ -292,6 +317,31 @@
    "mean_primary": 0.6979615,
    "median_primary": 0.9217299999999999,
    "mean_secondary": 0.6771280000000001,
+   "mean_indist": 1.0,
+   "indist_success": 20,
+   "chance": 0.3333333333333333,
+   "pred": {
+    "ALG": true,
+    "B1_circuit": true,
+    "B2_abelian": true,
+    "B3_size": true,
+    "B4_perm_law": true,
+    "B5_faithful": true
+   },
+   "device": "cpu",
+   "source": "result file"
+  },
+  {
+   "arch": "lstm",
+   "group": "Z3",
+   "alphabet": "all",
+   "succ_primary": 19,
+   "succ_secondary": 4,
+   "n": 20,
+   "outcome": true,
+   "mean_primary": 0.950367,
+   "median_primary": 0.952755,
+   "mean_secondary": 0.708177,
    "mean_indist": 1.0,
    "indist_success": 20,
    "chance": 0.3333333333333333,
@@ -457,6 +507,31 @@
    "source": "result file"
   },
   {
+   "arch": "lstm",
+   "group": "Z2^3",
+   "alphabet": "all",
+   "succ_primary": 20,
+   "succ_secondary": 20,
+   "n": 20,
+   "outcome": true,
+   "mean_primary": 1.0,
+   "median_primary": 1.0,
+   "mean_secondary": 1.0,
+   "mean_indist": 1.0,
+   "indist_success": 20,
+   "chance": 0.125,
+   "pred": {
+    "ALG": true,
+    "B1_circuit": true,
+    "B2_abelian": true,
+    "B3_size": true,
+    "B4_perm_law": true,
+    "B5_faithful": true
+   },
+   "device": "cpu",
+   "source": "result file"
+  },
+  {
    "arch": "diag_pos",
    "group": "S3",
    "alphabet": "transpositions",
@@ -592,6 +667,31 @@
    "mean_primary": 0.9372170000000001,
    "median_primary": 0.9994000000000001,
    "mean_secondary": 0.7761350000000001,
+   "mean_indist": 1.0,
+   "indist_success": 20,
+   "chance": 0.16666666666666666,
+   "pred": {
+    "ALG": true,
+    "B1_circuit": true,
+    "B2_abelian": false,
+    "B3_size": true,
+    "B4_perm_law": true,
+    "B5_faithful": true
+   },
+   "device": "cpu",
+   "source": "result file"
+  },
+  {
+   "arch": "lstm",
+   "group": "S3",
+   "alphabet": "transpositions",
+   "succ_primary": 20,
+   "succ_secondary": 20,
+   "n": 20,
+   "outcome": true,
+   "mean_primary": 1.0,
+   "median_primary": 1.0,
+   "mean_secondary": 1.0,
    "mean_indist": 1.0,
    "indist_success": 20,
    "chance": 0.16666666666666666,
@@ -757,6 +857,31 @@
    "source": "result file"
   },
   {
+   "arch": "lstm",
+   "group": "S3",
+   "alphabet": "all",
+   "succ_primary": 20,
+   "succ_secondary": 20,
+   "n": 20,
+   "outcome": true,
+   "mean_primary": 1.0,
+   "median_primary": 1.0,
+   "mean_secondary": 1.0,
+   "mean_indist": 1.0,
+   "indist_success": 20,
+   "chance": 0.16666666666666666,
+   "pred": {
+    "ALG": true,
+    "B1_circuit": true,
+    "B2_abelian": false,
+    "B3_size": true,
+    "B4_perm_law": true,
+    "B5_faithful": true
+   },
+   "device": "cpu",
+   "source": "result file"
+  },
+  {
    "arch": "diag_pos",
    "group": "A5",
    "alphabet": "involutions",
@@ -907,6 +1032,31 @@
    "source": "result file"
   },
   {
+   "arch": "lstm",
+   "group": "A5",
+   "alphabet": "involutions",
+   "succ_primary": 0,
+   "succ_secondary": 0,
+   "n": 20,
+   "outcome": false,
+   "mean_primary": 0.0166955,
+   "median_primary": 0.016655000000000003,
+   "mean_secondary": 0.016615500000000002,
+   "mean_indist": 0.016655999999999997,
+   "indist_success": 0,
+   "chance": 0.016666666666666666,
+   "pred": {
+    "ALG": true,
+    "B1_circuit": false,
+    "B2_abelian": false,
+    "B3_size": false,
+    "B4_perm_law": true,
+    "B5_faithful": true
+   },
+   "device": "cpu",
+   "source": "result file"
+  },
+  {
    "arch": "diag_pos",
    "group": "A5",
    "alphabet": "all",
@@ -1043,6 +1193,31 @@
    "median_primary": 0.016544999999999997,
    "mean_secondary": 0.016605,
    "mean_indist": 0.03876500000000001,
+   "indist_success": 0,
+   "chance": 0.016666666666666666,
+   "pred": {
+    "ALG": true,
+    "B1_circuit": false,
+    "B2_abelian": false,
+    "B3_size": false,
+    "B4_perm_law": true,
+    "B5_faithful": true
+   },
+   "device": "cpu",
+   "source": "result file"
+  },
+  {
+   "arch": "lstm",
+   "group": "A5",
+   "alphabet": "all",
+   "succ_primary": 0,
+   "succ_secondary": 0,
+   "n": 20,
+   "outcome": false,
+   "mean_primary": 0.016637,
+   "median_primary": 0.016614999999999998,
+   "mean_secondary": 0.016536500000000003,
+   "mean_indist": 0.04692799999999999,
    "indist_success": 0,
    "chance": 0.016666666666666666,
    "pred": {
@@ -1207,6 +1382,31 @@
    "source": "result file"
   },
   {
+   "arch": "lstm",
+   "group": "S5",
+   "alphabet": "transpositions",
+   "succ_primary": 8,
+   "succ_secondary": 1,
+   "n": 20,
+   "outcome": false,
+   "mean_primary": 0.8534915,
+   "median_primary": 0.868985,
+   "mean_secondary": 0.6861145000000001,
+   "mean_indist": 0.989274,
+   "indist_success": 20,
+   "chance": 0.008333333333333333,
+   "pred": {
+    "ALG": true,
+    "B1_circuit": false,
+    "B2_abelian": false,
+    "B3_size": false,
+    "B4_perm_law": true,
+    "B5_faithful": true
+   },
+   "device": "cpu",
+   "source": "result file"
+  },
+  {
    "arch": "diag_pos",
    "group": "S5",
    "alphabet": "all",
@@ -1355,79 +1555,58 @@
    },
    "device": "cpu",
    "source": "result file"
+  },
+  {
+   "arch": "lstm",
+   "group": "S5",
+   "alphabet": "all",
+   "succ_primary": 0,
+   "succ_secondary": 0,
+   "n": 20,
+   "outcome": false,
+   "mean_primary": 0.0083265,
+   "median_primary": 0.0083,
+   "mean_secondary": 0.008309500000000001,
+   "mean_indist": 0.0248515,
+   "indist_success": 0,
+   "chance": 0.008333333333333333,
+   "pred": {
+    "ALG": true,
+    "B1_circuit": false,
+    "B2_abelian": false,
+    "B3_size": false,
+    "B4_perm_law": true,
+    "B5_faithful": true
+   },
+   "device": "cpu",
+   "source": "result file"
   }
  ],
- "missing": [
-  [
-   "lstm",
-   "Z2",
-   "all"
-  ],
-  [
-   "lstm",
-   "Z3",
-   "all"
-  ],
-  [
-   "lstm",
-   "Z2^3",
-   "all"
-  ],
-  [
-   "lstm",
-   "S3",
-   "transpositions"
-  ],
-  [
-   "lstm",
-   "S3",
-   "all"
-  ],
-  [
-   "lstm",
-   "A5",
-   "involutions"
-  ],
-  [
-   "lstm",
-   "A5",
-   "all"
-  ],
-  [
-   "lstm",
-   "S5",
-   "transpositions"
-  ],
-  [
-   "lstm",
-   "S5",
-   "all"
-  ]
- ],
+ "missing": [],
  "accuracy": {
   "ALG": {
-   "correct": 42,
-   "cells": 52
+   "correct": 47,
+   "cells": 61
   },
   "B1_circuit": {
-   "correct": 32,
-   "cells": 52
+   "correct": 41,
+   "cells": 61
   },
   "B2_abelian": {
-   "correct": 30,
-   "cells": 52
+   "correct": 37,
+   "cells": 61
   },
   "B3_size": {
-   "correct": 32,
-   "cells": 52
+   "correct": 41,
+   "cells": 61
   },
   "B4_perm_law": {
-   "correct": 45,
-   "cells": 52
+   "correct": 50,
+   "cells": 61
   },
   "B5_faithful": {
-   "correct": 43,
-   "cells": 52
+   "correct": 48,
+   "cells": 61
   }
  },
  "tests": [
@@ -1515,7 +1694,7 @@
    "bh_reject": false,
    "p_bh": 1.0,
    "bh_all_reject": false,
-   "p_bh_all": 0.7857142857142857,
+   "p_bh_all": 0.8571428571428571,
    "claude_md_criterion": true
   },
   {
@@ -1542,9 +1721,9 @@
     121.30829641540679
    ],
    "bh_reject": true,
-   "p_bh": 2.9017778207699375e-11,
+   "p_bh": 3.26450004836618e-11,
    "bh_all_reject": true,
-   "p_bh_all": 3.989944503558664e-11,
+   "p_bh_all": 4.352666731154906e-11,
    "claude_md_criterion": true
   },
   {
@@ -1569,9 +1748,9 @@
    "acc_ratio_ci95": null,
    "note": "per-seed values unavailable for one cell",
    "bh_reject": true,
-   "p_bh": 4.468737843985704e-09,
+   "p_bh": 5.027330074483917e-09,
    "bh_all_reject": true,
-   "p_bh_all": 3.6867087212882057e-09
+   "p_bh_all": 4.021864059587133e-09
   },
   {
    "test": "D6",
@@ -1597,15 +1776,32 @@
     1.6543349236184723
    ],
    "bh_reject": true,
-   "p_bh": 2.9017778207699375e-11,
+   "p_bh": 3.26450004836618e-11,
    "bh_all_reject": true,
-   "p_bh_all": 3.989944503558664e-11,
+   "p_bh_all": 4.352666731154906e-11,
    "claude_md_criterion": true
   },
   {
    "test": "NC-hh4-S5",
    "cell": [
     "hh4",
+    "S5",
+    "all"
+   ],
+   "succ": [
+    0
+   ],
+   "p": 1.0,
+   "negative_control": true,
+   "bh_reject": false,
+   "p_bh": 1.0,
+   "bh_all_reject": false,
+   "p_bh_all": 1.0
+  },
+  {
+   "test": "NC-lstm-S5",
+   "cell": [
+    "lstm",
     "S5",
     "all"
    ],
@@ -1647,6 +1843,18 @@
    "succ": 0,
    "n": 20,
    "mean_primary": 0.0082895,
+   "chance": 0.008333333333333333,
+   "p": 1.0
+  },
+  {
+   "cell": [
+    "lstm",
+    "S5",
+    "all"
+   ],
+   "succ": 0,
+   "n": 20,
+   "mean_primary": 0.008286499999999999,
    "chance": 0.008333333333333333,
    "p": 1.0
   },
@@ -1783,7 +1991,7 @@
     "bh_reject": true,
     "p_bh": 2.5136650372419585e-09,
     "bh_all_reject": true,
-    "p_bh_all": 3.6867087212882057e-09,
+    "p_bh_all": 4.021864059587133e-09,
     "claude_md_criterion": true
    },
    {
@@ -1812,7 +2020,7 @@
     "bh_reject": true,
     "p_bh": 0.0100980100980101,
     "bh_all_reject": true,
-    "p_bh_all": 0.018513018513018516,
+    "p_bh_all": 0.0201960201960202,
     "claude_md_criterion": false
    },
    {
@@ -1841,7 +2049,7 @@
     "bh_reject": true,
     "p_bh": 2.5136650372419585e-09,
     "bh_all_reject": true,
-    "p_bh_all": 3.6867087212882057e-09,
+    "p_bh_all": 4.021864059587133e-09,
     "claude_md_criterion": true
    }
   ],
@@ -1899,7 +2107,7 @@
    "group": "Z2",
    "alphabet": "all",
    "mps_succ": 18,
-   "cpu_succ": null
+   "cpu_succ": 19
   },
   {
    "arch": "diag_pm",
@@ -1913,7 +2121,7 @@
    "group": "Z3",
    "alphabet": "all",
    "mps_succ": 0,
-   "cpu_succ": null
+   "cpu_succ": 0
   },
   {
    "arch": "diag_pos",
@@ -1969,7 +2177,7 @@
    "group": "Z3",
    "alphabet": "all",
    "mps_succ": 0,
-   "cpu_succ": null
+   "cpu_succ": 0
   },
   {
    "arch": "hh1",
@@ -2018,14 +2226,14 @@
    "group": "Z2^3",
    "alphabet": "all",
    "mps_succ": 1,
-   "cpu_succ": null
+   "cpu_succ": 0
   },
   {
    "arch": "hh1",
    "group": "Z3",
    "alphabet": "all",
    "mps_succ": 0,
-   "cpu_succ": null
+   "cpu_succ": 0
   },
   {
    "arch": "hh1",
@@ -2049,5 +2257,65 @@
   "H-EX1.2_discriminating_tests_BH": false,
   "negative_control_clean": true,
   "H-EX1_success": false
+ },
+ "exploratory_positive_control_tasks": {
+  "note": "post hoc, not preregistered",
+  "tasks": [
+   [
+    "S3",
+    "all"
+   ],
+   [
+    "S3",
+    "transpositions"
+   ],
+   [
+    "Z2",
+    "all"
+   ],
+   [
+    "Z2^3",
+    "all"
+   ],
+   [
+    "Z3",
+    "all"
+   ]
+  ],
+  "cells": 30,
+  "accuracy": {
+   "ALG": 26,
+   "B1_circuit": 16,
+   "B2_abelian": 14,
+   "B3_size": 16,
+   "B4_perm_law": 26,
+   "B5_faithful": 26
+  },
+  "alg_errors": [
+   [
+    "hh2",
+    "Z2",
+    "all",
+    3
+   ],
+   [
+    "hh4",
+    "Z2",
+    "all",
+    6
+   ],
+   [
+    "hh3",
+    "Z3",
+    "all",
+    6
+   ],
+   [
+    "hh1",
+    "Z2^3",
+    "all",
+    1
+   ]
+  ]
  }
 }

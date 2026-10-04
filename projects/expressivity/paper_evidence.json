@@ -14,33 +14,69 @@
   },
   {
    "claim_id": "C-L2",
-   "text": "Lemma L2 (compression lemma; proved by hand, not machine-checked; reviewed by an independent red-team agent, which found it valid for finite-state realisations, including affine input terms, beta in [0, 2], matrix-valued states and singular transitions): if a one-layer recurrence h_t = A(s_t) h_{t-1} + B(s_t) with an arbitrary readout solves the word problem of (G, Sigma) for every length with finitely many reachable states, and rank(A(s) - I) <= k for every letter, then h*(G, Sigma) <= k. Proof idea: the reachable states form a finite transformation monoid mapping onto G; an idempotent e of its minimal ideal gives a group eTe mapping onto G; the compressed maps A(u)A(s) restricted to the column space of the affine span of e(Q) form a faithful representation of a covering group whose generators satisfy rank(A(u)(A(s) - I)) <= k.",
+   "text": "Lemma L2 (compression lemma; proved by hand, not machine-checked; reviewed by two independent red-team agents, the second of which checked the construction exactly on adversarial instances and found it valid after wording fixes, for real states, affine input terms, beta in [0, 2] including singular transitions, matrix-valued states and arbitrary readouts; expressivity/analysis/redteam_theory.md): if a one-layer real recurrence z_t = A(s_t) z_{t-1} + B(s_t) with an arbitrary readout solves the word problem of (G, Sigma) for every length with finitely many reachable states, and rank(A(s) - I) <= k for every letter, then h*(G, Sigma) <= k. Proof idea: the reachable states form a finite transformation monoid mapping onto G; an idempotent e of its minimal ideal gives a group eTe mapping onto G; the compressed maps A(u)A(s) restricted to the column space of the affine span of e(Q) form a faithful representation of a covering group whose generators satisfy rank(A(u)(A(s) - I)) <= k.",
    "level": "hypothesis",
    "status": "open"
   },
   {
    "claim_id": "C-L3",
-   "text": "Lemma L3 (sufficiency; proved by hand, and re-verified on every concrete instance by the exact verifier): if a finite group H maps onto G with generating lifts t_s and a faithful real representation rho with rank(rho(t_s) - I) <= k, then an exact finite-state one-layer realisation with k Householder reflections per token (beta in {0, 2}) exists in dimension dim rho: an H-invariant inner product makes rho orthogonal, Cartan-Dieudonne factors each rho(t_s) into rank(rho(t_s) - I) reflections, a generic initial state separates H, and the readout maps rho(x) h_0 to pi(x).",
+   "text": "Lemma L3 (sufficiency; proved by hand, and re-verified on every concrete instance by the exact verifier): if a finite group H maps onto G with generating lifts t_s and a faithful real representation rho with rank(rho(t_s) - I) <= k, then an exact finite-state one-layer realisation with k Householder reflections per token (beta in {0, 2}) exists in dimension dim rho: an H-invariant inner product makes rho orthogonal, Cartan-Dieudonne factors each rho(t_s) into rank(rho(t_s) - I) reflections, a generic initial state separates H, and the readout maps rho(x) z_0 to pi(x). It needs beta = 2 exactly with unit keys; with a zero initial state, as in DeltaNet, the input term v = -c k supplies the offset.",
    "level": "hypothesis",
    "status": "open"
   },
   {
    "claim_id": "C-thm1",
-   "text": "Theorem 1 (from Lemma L2, proved by hand, and Lemma L3): for every finite group G and generating alphabet Sigma, a finite-state one-layer realisation of the word problem with k Householder factors per token exists if and only if k >= h*(G, Sigma), where h*(G, Sigma) is the least k for which a finite group H, a surjection pi: H -> G, generating lifts t_s of the letters and a faithful real representation rho of H exist with rank(rho(t_s) - I) <= k for every letter; h(G, Sigma) denotes the same minimum restricted to H = G.",
+   "text": "Theorem 1 (from Lemma L2, proved by hand, and Lemma L3): for every finite group G and generating alphabet Sigma, a finite-state one-layer realisation of the word problem with k Householder factors per token exists if and only if k >= h*(G, Sigma), where h*(G, Sigma) is the least k for which a finite group H, a surjection pi: H -> G, generating lifts t_s of the letters and a faithful real representation rho of H exist with rank(rho(t_s) - I) <= k for every letter; h(G, Sigma) denotes the same minimum restricted to H = G. Hypotheses: real states, finitely many reachable states, transitions depending only on the current token (no short convolution), one layer, beta allowed to equal 2; requiring the lifts to generate H does not change h*.",
    "level": "hypothesis",
    "status": "open"
   },
   {
+   "claim_id": "C-open-beta",
+   "text": "Corollary (proved by hand; found by the theory red team): if beta is confined to [0, 2), as with a sigmoid parameterisation, no nontrivial group is exactly realisable for any number of factors; likewise open intervals for diagonal entries admit only the trivial group. Trained models with open parameterisations can therefore only approximate, and the theory's predictions for them concern approximation; our preregistered protocol uses a parameterisation that reaches beta = 0 and beta = 2 exactly.",
+   "level": "hypothesis",
+   "status": "open"
+  },
+  {
+   "claim_id": "C-complex",
+   "text": "Remark (theory red team): the law is stated for real states; a complex realisation of complex rank k only gives h* <= 2k (a 1x1 complex rotation tracks Z3 with complex rank 1, while h*(Z3, all) = 2).",
+   "level": "hypothesis",
+   "status": "open"
+  },
+  {
+   "claim_id": "C-ledger",
+   "text": "The definitions and the complete written proofs of Lemmas L2, L3, L4, L5, L7 and Theorem 1 are given in the companion ledger (projects/expressivity/theory_ledger.pdf, built from expressivity/theory.md); the Lean sources of L1 and L4 are in expressivity/lean.",
+   "level": "observed",
+   "status": "confirmed"
+  },
+  {
    "claim_id": "C-L5",
-   "text": "Lemma L5 (proved by hand via the compression lemma, not machine-checked; consistent with prior theorems on diagonal SSMs): a finite-state one-layer realisation exists for diagonal transitions with entries in [0, 1] only for the trivial group, for real diagonal transitions with entries in [-1, 1] exactly for elementary abelian 2-groups, and for complex diagonal transitions exactly for abelian groups.",
+   "text": "Lemma L5 (proved by hand via the compression lemma, not machine-checked; consistent with prior theorems on diagonal SSMs): a finite-state one-layer realisation exists for diagonal transitions with entries in [0, 1] only for the trivial group, for real diagonal transitions with entries in [-1, 1] exactly for elementary abelian 2-groups, and for complex diagonal transitions exactly for abelian groups (closed parameter sets; complex entries of modulus at most 1).",
    "level": "hypothesis",
    "status": "open"
   },
   {
    "claim_id": "C-L7",
-   "text": "Lemma L7 (proved by hand; instances certified): for an abelian group h*(G, Sigma) is 1 if every letter is an involution and 2 otherwise; the upper bound tracks each letter's count modulo its order (count cover), which needs a dimension equal to the number of involution letters plus twice the number of other letters.",
+   "text": "Lemma L7 (proved by hand; instances certified): for a nontrivial abelian group h*(G, Sigma) is 1 if every letter is an involution and 2 otherwise; the upper bound tracks each letter's count modulo its order (count cover), which uses a dimension equal to the number of involution letters plus twice the number of other letters (an upper bound on the dimension, not the minimum).",
    "level": "hypothesis",
    "status": "open"
+  },
+  {
+   "claim_id": "C-S5",
+   "text": "Result (lower bound by a hand step combined with a published theorem; upper bound certified): h*(S5, all) = 4 under exact finite reachability. A cover with rank(rho(t_s) - I) <= 3 can be made orthogonal by averaging; rank at most 3 leaves at most one non-real eigenvalue pair, so it is a single-head, orthogonal, finite-state tracker of S5 of the kind excluded by Theorem 4 of arXiv:2609.24797 (our step, by hand); the upper bound 4 is the certified permutation construction. The argument only needs an alphabet containing a 5-cycle and a transposition.",
+   "level": "hypothesis",
+   "status": "open"
+  },
+  {
+   "claim_id": "C-ckda-relation",
+   "text": "Relation to arXiv:2609.24797 (Complex KDA), from a full-text comparison (expressivity/ckda_comparison.md): its compression passes from finite reachability to a finite group mapping onto S5 via a minimal-norm idempotent word and needs non-expansive transitions; our Lemma L2 uses the minimal ideal of the transition monoid, needs no norm bound and transfers the rank bound; that paper proves the S5 minimum of four Householder factors under its assumptions, but defines no invariant like h* and does not state the one-reflection realisation of A5 with involution inputs. Neither result contains the other: theirs covers scalar gates, the Complex KDA parameterisation and several heads; ours covers expansive transitions and every finite group and alphabet.",
+   "level": "observed",
+   "status": "confirmed"
+  },
+  {
+   "claim_id": "C-novelty",
+   "text": "Novelty check against the literature (expressivity/novelty.md): the exact law h* over covering groups with a fixed alphabet and the atlas were not found in prior work; the closest notion, minimal generation in codimension k (arXiv:1804.05089), concerns faithful representations without an alphabet; that a real reflection has order 2 is classical; the compression idea appears for S5 in arXiv:2609.24797.",
+   "level": "observed",
+   "status": "confirmed"
   },
   {
    "claim_id": "C-L6",
@@ -187,6 +223,30 @@
    "status": "confirmed"
   },
   {
+   "claim_id": "C-T-Q8-cover",
+   "text": "Certified (explorer agent, re-checked by the exact verifier): h*(Q8, all) <= 3, strictly below the faithful value h = 4: the covering group C4:C4 of order 16 maps onto Q8 (a -> i, b -> j) with a rational 4-dimensional representation in which every letter satisfies rank(M - I) <= 3. Verifier: certified: |H| = 16, pi: H -> G onto (8 elements), consistent readout, dimension 4, field K_1, max rank(R[s] - I) = 3 <= k = 3, every letter factored .",
+   "level": "computed_rigorous",
+   "status": "confirmed"
+  },
+  {
+   "claim_id": "C-Q8-lower",
+   "text": "Hand argument (explorer agent, not machine-checked): h*(Q8, all) >= 3, hence h*(Q8, all) = 3: lifts of i and j would be planar rotations in SO(4), and the classification of finite subgroups of S^3 x S^3 / {+-1} with a Goursat argument excludes a quotient Q8; a GAP search found no cover of order at most 120 with k = 2.",
+   "level": "hypothesis",
+   "status": "open"
+  },
+  {
+   "claim_id": "C-atlas-improved",
+   "text": "17 upper bounds of the atlas were lowered by covering groups of order twice the group order (explorer agent; every certificate re-checked by the exact verifier, rational entries): 16_12 -> k = 4, 16_13 -> k = 3, 32_24 -> k = 4, 32_26 -> k = 5, 32_29 -> k = 4, 32_30 -> k = 4, 32_31 -> k = 4, 32_32 -> k = 5, 32_33 -> k = 4, 32_35 -> k = 4, 32_44 -> k = 5, 32_48 -> k = 4, 32_50 -> k = 5, 32_8 -> k = 5, 48_34 -> k = 4, 48_39 -> k = 4, 48_40 -> k = 5; the lower bounds stay 2, so these groups remain undetermined.",
+   "level": "computed_rigorous",
+   "status": "confirmed"
+  },
+  {
+   "claim_id": "C-S5-hand3",
+   "text": "Hand argument (explorer agent, unconditional, not machine-checked): h*(S5, all) >= 3 and h*(S5, tn) >= 3, since no finite subgroup of SO(4) or O(3) maps onto S5 and a rank-2 orthogonal transposition lift is impossible; with the classification of arXiv:1509.06922 the value 4 follows for every alphabet containing a 5-cycle, consistent with C-S5.",
+   "level": "hypothesis",
+   "status": "open"
+  },
+  {
    "claim_id": "C-verifier",
    "text": "The domain verifier passed its mandatory self-test of 46 known true and known false claims (near-boundary cases such as the same matrices without the sign lift, k one below the certified value, rule violations, and regressions for every bug found by the red team).",
    "level": "computed_rigorous",
@@ -229,86 +289,518 @@
    "status": "confirmed"
   },
   {
+   "claim_id": "C-G-diag_pos-Z2-all",
+   "text": "Grid cell diag_pos on Z2/all: 0 of 20 seeds succeed at 2x-4x the longest training length (primary run on the MPS GPU; only the success count survives in the runner log, see prereg addendum 07:00); cell outcome failure; our predictor failure.",
+   "level": "statistical",
+   "status": "confirmed"
+  },
+  {
+   "claim_id": "C-G-diag_pm-Z2-all",
+   "text": "Grid cell diag_pm on Z2/all (mps): 18 of 20 seeds succeed at 2x-4x the longest training length (17 of 20 at 7x-8x); mean accuracy 0.969 (chance 0.500); in-distribution mean accuracy 1.000; cell outcome success; our predictor success.",
+   "level": "statistical",
+   "status": "confirmed"
+  },
+  {
+   "claim_id": "C-G-hh1-Z2-all",
+   "text": "Grid cell hh1 on Z2/all: 18 of 20 seeds succeed at 2x-4x the longest training length (primary run on the MPS GPU; only the success count survives in the runner log, see prereg addendum 07:00); cell outcome success; our predictor success.",
+   "level": "statistical",
+   "status": "confirmed"
+  },
+  {
+   "claim_id": "C-G-hh2-Z2-all",
+   "text": "Grid cell hh2 on Z2/all (cpu): 3 of 20 seeds succeed at 2x-4x the longest training length (9 of 20 at 7x-8x); mean accuracy 0.597 (chance 0.500); in-distribution mean accuracy 0.975; cell outcome failure; our predictor success.",
+   "level": "statistical",
+   "status": "confirmed"
+  },
+  {
    "claim_id": "C-G-hh3-Z2-all",
-   "text": "Grid cell hh3 on Z2/all: 20 of 20 seeds succeed at 2x-4x the longest training length (18 of 20 at 7x-8x); mean accuracy 0.996 (chance 0.500); in-distribution mean accuracy 1.000; cell outcome success; our predictor success.",
+   "text": "Grid cell hh3 on Z2/all (cpu): 20 of 20 seeds succeed at 2x-4x the longest training length (18 of 20 at 7x-8x); mean accuracy 0.996 (chance 0.500); in-distribution mean accuracy 1.000; cell outcome success; our predictor success.",
    "level": "statistical",
    "status": "confirmed"
   },
   {
    "claim_id": "C-G-hh4-Z2-all",
-   "text": "Grid cell hh4 on Z2/all: 6 of 20 seeds succeed at 2x-4x the longest training length (7 of 20 at 7x-8x); mean accuracy 0.515 (chance 0.500); in-distribution mean accuracy 1.000; cell outcome failure; our predictor success.",
+   "text": "Grid cell hh4 on Z2/all (cpu): 6 of 20 seeds succeed at 2x-4x the longest training length (7 of 20 at 7x-8x); mean accuracy 0.515 (chance 0.500); in-distribution mean accuracy 1.000; cell outcome failure; our predictor success.",
+   "level": "statistical",
+   "status": "confirmed"
+  },
+  {
+   "claim_id": "C-G-lstm-Z2-all",
+   "text": "Grid cell lstm on Z2/all (cpu): 20 of 20 seeds succeed at 2x-4x the longest training length (20 of 20 at 7x-8x); mean accuracy 1.000 (chance 0.500); in-distribution mean accuracy 1.000; cell outcome success; our predictor success.",
+   "level": "statistical",
+   "status": "confirmed"
+  },
+  {
+   "claim_id": "C-G-diag_pos-Z3-all",
+   "text": "Grid cell diag_pos on Z3/all (mps): 0 of 20 seeds succeed at 2x-4x the longest training length (0 of 20 at 7x-8x); mean accuracy 0.466 (chance 0.333); in-distribution mean accuracy 0.870; cell outcome failure; our predictor failure.",
+   "level": "statistical",
+   "status": "confirmed"
+  },
+  {
+   "claim_id": "C-G-diag_pm-Z3-all",
+   "text": "Grid cell diag_pm on Z3/all (mps): 0 of 20 seeds succeed at 2x-4x the longest training length (0 of 20 at 7x-8x); mean accuracy 0.604 (chance 0.333); in-distribution mean accuracy 0.967; cell outcome failure; our predictor failure.",
+   "level": "statistical",
+   "status": "confirmed"
+  },
+  {
+   "claim_id": "C-G-hh1-Z3-all",
+   "text": "Grid cell hh1 on Z3/all (mps): 0 of 20 seeds succeed at 2x-4x the longest training length (0 of 20 at 7x-8x); mean accuracy 0.333 (chance 0.333); in-distribution mean accuracy 0.362; cell outcome failure; our predictor failure.",
+   "level": "statistical",
+   "status": "confirmed"
+  },
+  {
+   "claim_id": "C-G-hh2-Z3-all",
+   "text": "Grid cell hh2 on Z3/all (cpu): 10 of 20 seeds succeed at 2x-4x the longest training length (7 of 20 at 7x-8x); mean accuracy 0.519 (chance 0.333); in-distribution mean accuracy 1.000; cell outcome success; our predictor success.",
    "level": "statistical",
    "status": "confirmed"
   },
   {
    "claim_id": "C-G-hh3-Z3-all",
-   "text": "Grid cell hh3 on Z3/all: 6 of 20 seeds succeed at 2x-4x the longest training length (5 of 20 at 7x-8x); mean accuracy 0.444 (chance 0.333); in-distribution mean accuracy 1.000; cell outcome failure; our predictor success.",
+   "text": "Grid cell hh3 on Z3/all (cpu): 6 of 20 seeds succeed at 2x-4x the longest training length (5 of 20 at 7x-8x); mean accuracy 0.444 (chance 0.333); in-distribution mean accuracy 1.000; cell outcome failure; our predictor success.",
    "level": "statistical",
    "status": "confirmed"
   },
   {
    "claim_id": "C-G-hh4-Z3-all",
-   "text": "Grid cell hh4 on Z3/all: 12 of 20 seeds succeed at 2x-4x the longest training length (10 of 20 at 7x-8x); mean accuracy 0.698 (chance 0.333); in-distribution mean accuracy 1.000; cell outcome success; our predictor success.",
+   "text": "Grid cell hh4 on Z3/all (cpu): 12 of 20 seeds succeed at 2x-4x the longest training length (10 of 20 at 7x-8x); mean accuracy 0.698 (chance 0.333); in-distribution mean accuracy 1.000; cell outcome success; our predictor success.",
+   "level": "statistical",
+   "status": "confirmed"
+  },
+  {
+   "claim_id": "C-G-lstm-Z3-all",
+   "text": "Grid cell lstm on Z3/all (cpu): 19 of 20 seeds succeed at 2x-4x the longest training length (4 of 20 at 7x-8x); mean accuracy 0.950 (chance 0.333); in-distribution mean accuracy 1.000; cell outcome success; our predictor success.",
+   "level": "statistical",
+   "status": "confirmed"
+  },
+  {
+   "claim_id": "C-G-diag_pos-Z2p3-all",
+   "text": "Grid cell diag_pos on Z2^3/all (mps): 0 of 20 seeds succeed at 2x-4x the longest training length (0 of 20 at 7x-8x); mean accuracy 0.126 (chance 0.125); in-distribution mean accuracy 0.318; cell outcome failure; our predictor failure.",
+   "level": "statistical",
+   "status": "confirmed"
+  },
+  {
+   "claim_id": "C-G-diag_pm-Z2p3-all",
+   "text": "Grid cell diag_pm on Z2^3/all (mps): 20 of 20 seeds succeed at 2x-4x the longest training length (0 of 20 at 7x-8x); mean accuracy 0.973 (chance 0.125); in-distribution mean accuracy 1.000; cell outcome success; our predictor success.",
+   "level": "statistical",
+   "status": "confirmed"
+  },
+  {
+   "claim_id": "C-G-hh1-Z2p3-all",
+   "text": "Grid cell hh1 on Z2^3/all (mps): 1 of 20 seeds succeed at 2x-4x the longest training length (1 of 20 at 7x-8x); mean accuracy 0.660 (chance 0.125); in-distribution mean accuracy 0.963; cell outcome failure; our predictor success.",
+   "level": "statistical",
+   "status": "confirmed"
+  },
+  {
+   "claim_id": "C-G-hh2-Z2p3-all",
+   "text": "Grid cell hh2 on Z2^3/all (cpu): 20 of 20 seeds succeed at 2x-4x the longest training length (12 of 20 at 7x-8x); mean accuracy 0.991 (chance 0.125); in-distribution mean accuracy 1.000; cell outcome success; our predictor success.",
    "level": "statistical",
    "status": "confirmed"
   },
   {
    "claim_id": "C-G-hh3-Z2p3-all",
-   "text": "Grid cell hh3 on Z2^3/all: 20 of 20 seeds succeed at 2x-4x the longest training length (0 of 20 at 7x-8x); mean accuracy 0.989 (chance 0.125); in-distribution mean accuracy 1.000; cell outcome success; our predictor success.",
+   "text": "Grid cell hh3 on Z2^3/all (cpu): 20 of 20 seeds succeed at 2x-4x the longest training length (0 of 20 at 7x-8x); mean accuracy 0.989 (chance 0.125); in-distribution mean accuracy 1.000; cell outcome success; our predictor success.",
    "level": "statistical",
    "status": "confirmed"
   },
   {
    "claim_id": "C-G-hh4-Z2p3-all",
-   "text": "Grid cell hh4 on Z2^3/all: 20 of 20 seeds succeed at 2x-4x the longest training length (1 of 20 at 7x-8x); mean accuracy 0.981 (chance 0.125); in-distribution mean accuracy 1.000; cell outcome success; our predictor success.",
+   "text": "Grid cell hh4 on Z2^3/all (cpu): 20 of 20 seeds succeed at 2x-4x the longest training length (1 of 20 at 7x-8x); mean accuracy 0.981 (chance 0.125); in-distribution mean accuracy 1.000; cell outcome success; our predictor success.",
+   "level": "statistical",
+   "status": "confirmed"
+  },
+  {
+   "claim_id": "C-G-lstm-Z2p3-all",
+   "text": "Grid cell lstm on Z2^3/all (cpu): 20 of 20 seeds succeed at 2x-4x the longest training length (20 of 20 at 7x-8x); mean accuracy 1.000 (chance 0.125); in-distribution mean accuracy 1.000; cell outcome success; our predictor success.",
+   "level": "statistical",
+   "status": "confirmed"
+  },
+  {
+   "claim_id": "C-G-diag_pos-S3-transpositions",
+   "text": "Grid cell diag_pos on S3/transpositions (mps): 0 of 20 seeds succeed at 2x-4x the longest training length (0 of 20 at 7x-8x); mean accuracy 0.166 (chance 0.167); in-distribution mean accuracy 0.244; cell outcome failure; our predictor failure.",
+   "level": "statistical",
+   "status": "confirmed"
+  },
+  {
+   "claim_id": "C-G-diag_pm-S3-transpositions",
+   "text": "Grid cell diag_pm on S3/transpositions (mps): 0 of 20 seeds succeed at 2x-4x the longest training length (0 of 20 at 7x-8x); mean accuracy 0.693 (chance 0.167); in-distribution mean accuracy 0.987; cell outcome failure; our predictor failure.",
+   "level": "statistical",
+   "status": "confirmed"
+  },
+  {
+   "claim_id": "C-G-hh1-S3-transpositions",
+   "text": "Grid cell hh1 on S3/transpositions (mps): 20 of 20 seeds succeed at 2x-4x the longest training length (18 of 20 at 7x-8x); mean accuracy 0.998 (chance 0.167); in-distribution mean accuracy 1.000; cell outcome success; our predictor success.",
+   "level": "statistical",
+   "status": "confirmed"
+  },
+  {
+   "claim_id": "C-G-hh2-S3-transpositions",
+   "text": "Grid cell hh2 on S3/transpositions (cpu): 10 of 20 seeds succeed at 2x-4x the longest training length (7 of 20 at 7x-8x); mean accuracy 0.662 (chance 0.167); in-distribution mean accuracy 1.000; cell outcome success; our predictor success.",
+   "level": "statistical",
+   "status": "confirmed"
+  },
+  {
+   "claim_id": "C-G-hh3-S3-transpositions",
+   "text": "Grid cell hh3 on S3/transpositions (cpu): 19 of 20 seeds succeed at 2x-4x the longest training length (17 of 20 at 7x-8x); mean accuracy 0.969 (chance 0.167); in-distribution mean accuracy 1.000; cell outcome success; our predictor success.",
    "level": "statistical",
    "status": "confirmed"
   },
   {
    "claim_id": "C-G-hh4-S3-transpositions",
-   "text": "Grid cell hh4 on S3/transpositions: 18 of 20 seeds succeed at 2x-4x the longest training length (12 of 20 at 7x-8x); mean accuracy 0.937 (chance 0.167); in-distribution mean accuracy 1.000; cell outcome success; our predictor success.",
+   "text": "Grid cell hh4 on S3/transpositions (cpu): 18 of 20 seeds succeed at 2x-4x the longest training length (12 of 20 at 7x-8x); mean accuracy 0.937 (chance 0.167); in-distribution mean accuracy 1.000; cell outcome success; our predictor success.",
+   "level": "statistical",
+   "status": "confirmed"
+  },
+  {
+   "claim_id": "C-G-lstm-S3-transpositions",
+   "text": "Grid cell lstm on S3/transpositions (cpu): 20 of 20 seeds succeed at 2x-4x the longest training length (20 of 20 at 7x-8x); mean accuracy 1.000 (chance 0.167); in-distribution mean accuracy 1.000; cell outcome success; our predictor success.",
+   "level": "statistical",
+   "status": "confirmed"
+  },
+  {
+   "claim_id": "C-G-diag_pos-S3-all",
+   "text": "Grid cell diag_pos on S3/all (mps): 0 of 20 seeds succeed at 2x-4x the longest training length (0 of 20 at 7x-8x); mean accuracy 0.166 (chance 0.167); in-distribution mean accuracy 0.239; cell outcome failure; our predictor failure.",
+   "level": "statistical",
+   "status": "confirmed"
+  },
+  {
+   "claim_id": "C-G-diag_pm-S3-all",
+   "text": "Grid cell diag_pm on S3/all (mps): 0 of 20 seeds succeed at 2x-4x the longest training length (0 of 20 at 7x-8x); mean accuracy 0.647 (chance 0.167); in-distribution mean accuracy 0.973; cell outcome failure; our predictor failure.",
+   "level": "statistical",
+   "status": "confirmed"
+  },
+  {
+   "claim_id": "C-G-hh1-S3-all",
+   "text": "Grid cell hh1 on S3/all (mps): 0 of 20 seeds succeed at 2x-4x the longest training length (0 of 20 at 7x-8x); mean accuracy 0.303 (chance 0.167); in-distribution mean accuracy 0.376; cell outcome failure; our predictor failure.",
+   "level": "statistical",
+   "status": "confirmed"
+  },
+  {
+   "claim_id": "C-G-hh2-S3-all",
+   "text": "Grid cell hh2 on S3/all (cpu): 19 of 20 seeds succeed at 2x-4x the longest training length (1 of 20 at 7x-8x); mean accuracy 0.948 (chance 0.167); in-distribution mean accuracy 0.972; cell outcome success; our predictor success.",
+   "level": "statistical",
+   "status": "confirmed"
+  },
+  {
+   "claim_id": "C-G-hh3-S3-all",
+   "text": "Grid cell hh3 on S3/all (cpu): 20 of 20 seeds succeed at 2x-4x the longest training length (1 of 20 at 7x-8x); mean accuracy 0.985 (chance 0.167); in-distribution mean accuracy 1.000; cell outcome success; our predictor success.",
    "level": "statistical",
    "status": "confirmed"
   },
   {
    "claim_id": "C-G-hh4-S3-all",
-   "text": "Grid cell hh4 on S3/all: 19 of 20 seeds succeed at 2x-4x the longest training length (6 of 20 at 7x-8x); mean accuracy 0.971 (chance 0.167); in-distribution mean accuracy 1.000; cell outcome success; our predictor success.",
+   "text": "Grid cell hh4 on S3/all (cpu): 19 of 20 seeds succeed at 2x-4x the longest training length (6 of 20 at 7x-8x); mean accuracy 0.971 (chance 0.167); in-distribution mean accuracy 1.000; cell outcome success; our predictor success.",
+   "level": "statistical",
+   "status": "confirmed"
+  },
+  {
+   "claim_id": "C-G-lstm-S3-all",
+   "text": "Grid cell lstm on S3/all (cpu): 20 of 20 seeds succeed at 2x-4x the longest training length (20 of 20 at 7x-8x); mean accuracy 1.000 (chance 0.167); in-distribution mean accuracy 1.000; cell outcome success; our predictor success.",
+   "level": "statistical",
+   "status": "confirmed"
+  },
+  {
+   "claim_id": "C-G-diag_pos-A5-involutions",
+   "text": "Grid cell diag_pos on A5/involutions (mps): 0 of 20 seeds succeed at 2x-4x the longest training length (0 of 20 at 7x-8x); mean accuracy 0.017 (chance 0.017); in-distribution mean accuracy 0.060; cell outcome failure; our predictor failure.",
+   "level": "statistical",
+   "status": "confirmed"
+  },
+  {
+   "claim_id": "C-G-diag_pm-A5-involutions",
+   "text": "Grid cell diag_pm on A5/involutions (mps): 0 of 20 seeds succeed at 2x-4x the longest training length (0 of 20 at 7x-8x); mean accuracy 0.017 (chance 0.017); in-distribution mean accuracy 0.074; cell outcome failure; our predictor failure.",
+   "level": "statistical",
+   "status": "confirmed"
+  },
+  {
+   "claim_id": "C-G-hh1-A5-involutions",
+   "text": "Grid cell hh1 on A5/involutions (mps): 0 of 20 seeds succeed at 2x-4x the longest training length (0 of 20 at 7x-8x); mean accuracy 0.017 (chance 0.017); in-distribution mean accuracy 0.074; cell outcome failure; our predictor success.",
+   "level": "statistical",
+   "status": "confirmed"
+  },
+  {
+   "claim_id": "C-G-hh2-A5-involutions",
+   "text": "Grid cell hh2 on A5/involutions (cpu): 0 of 20 seeds succeed at 2x-4x the longest training length (0 of 20 at 7x-8x); mean accuracy 0.017 (chance 0.017); in-distribution mean accuracy 0.017; cell outcome failure; our predictor success.",
+   "level": "statistical",
+   "status": "confirmed"
+  },
+  {
+   "claim_id": "C-G-hh3-A5-involutions",
+   "text": "Grid cell hh3 on A5/involutions (cpu): 20 of 20 seeds succeed at 2x-4x the longest training length (3 of 20 at 7x-8x); mean accuracy 0.996 (chance 0.017); in-distribution mean accuracy 1.000; cell outcome success; our predictor success.",
    "level": "statistical",
    "status": "confirmed"
   },
   {
    "claim_id": "C-G-hh4-A5-involutions",
-   "text": "Grid cell hh4 on A5/involutions: 20 of 20 seeds succeed at 2x-4x the longest training length (0 of 20 at 7x-8x); mean accuracy 0.990 (chance 0.017); in-distribution mean accuracy 1.000; cell outcome success; our predictor success.",
+   "text": "Grid cell hh4 on A5/involutions (cpu): 20 of 20 seeds succeed at 2x-4x the longest training length (0 of 20 at 7x-8x); mean accuracy 0.990 (chance 0.017); in-distribution mean accuracy 1.000; cell outcome success; our predictor success.",
+   "level": "statistical",
+   "status": "confirmed"
+  },
+  {
+   "claim_id": "C-G-lstm-A5-involutions",
+   "text": "Grid cell lstm on A5/involutions (cpu): 0 of 20 seeds succeed at 2x-4x the longest training length (0 of 20 at 7x-8x); mean accuracy 0.017 (chance 0.017); in-distribution mean accuracy 0.017; cell outcome failure; our predictor success.",
+   "level": "statistical",
+   "status": "confirmed"
+  },
+  {
+   "claim_id": "C-G-diag_pos-A5-all",
+   "text": "Grid cell diag_pos on A5/all (mps): 0 of 20 seeds succeed at 2x-4x the longest training length (0 of 20 at 7x-8x); mean accuracy 0.017 (chance 0.017); in-distribution mean accuracy 0.037; cell outcome failure; our predictor failure.",
+   "level": "statistical",
+   "status": "confirmed"
+  },
+  {
+   "claim_id": "C-G-diag_pm-A5-all",
+   "text": "Grid cell diag_pm on A5/all (mps): 0 of 20 seeds succeed at 2x-4x the longest training length (0 of 20 at 7x-8x); mean accuracy 0.017 (chance 0.017); in-distribution mean accuracy 0.044; cell outcome failure; our predictor failure.",
+   "level": "statistical",
+   "status": "confirmed"
+  },
+  {
+   "claim_id": "C-G-hh1-A5-all",
+   "text": "Grid cell hh1 on A5/all (mps): 0 of 20 seeds succeed at 2x-4x the longest training length (0 of 20 at 7x-8x); mean accuracy 0.017 (chance 0.017); in-distribution mean accuracy 0.037; cell outcome failure; our predictor failure.",
+   "level": "statistical",
+   "status": "confirmed"
+  },
+  {
+   "claim_id": "C-G-hh2-A5-all",
+   "text": "Grid cell hh2 on A5/all (cpu): 0 of 20 seeds succeed at 2x-4x the longest training length (0 of 20 at 7x-8x); mean accuracy 0.017 (chance 0.017); in-distribution mean accuracy 0.038; cell outcome failure; our predictor success.",
+   "level": "statistical",
+   "status": "confirmed"
+  },
+  {
+   "claim_id": "C-G-hh3-A5-all",
+   "text": "Grid cell hh3 on A5/all (cpu): 0 of 20 seeds succeed at 2x-4x the longest training length (0 of 20 at 7x-8x); mean accuracy 0.017 (chance 0.017); in-distribution mean accuracy 0.038; cell outcome failure; our predictor success.",
    "level": "statistical",
    "status": "confirmed"
   },
   {
    "claim_id": "C-G-hh4-A5-all",
-   "text": "Grid cell hh4 on A5/all: 0 of 20 seeds succeed at 2x-4x the longest training length (0 of 20 at 7x-8x); mean accuracy 0.017 (chance 0.017); in-distribution mean accuracy 0.039; cell outcome failure; our predictor success.",
+   "text": "Grid cell hh4 on A5/all (cpu): 0 of 20 seeds succeed at 2x-4x the longest training length (0 of 20 at 7x-8x); mean accuracy 0.017 (chance 0.017); in-distribution mean accuracy 0.039; cell outcome failure; our predictor success.",
+   "level": "statistical",
+   "status": "confirmed"
+  },
+  {
+   "claim_id": "C-G-lstm-A5-all",
+   "text": "Grid cell lstm on A5/all (cpu): 0 of 20 seeds succeed at 2x-4x the longest training length (0 of 20 at 7x-8x); mean accuracy 0.017 (chance 0.017); in-distribution mean accuracy 0.047; cell outcome failure; our predictor success.",
+   "level": "statistical",
+   "status": "confirmed"
+  },
+  {
+   "claim_id": "C-G-diag_pos-S5-transpositions",
+   "text": "Grid cell diag_pos on S5/transpositions (mps): 0 of 20 seeds succeed at 2x-4x the longest training length (0 of 20 at 7x-8x); mean accuracy 0.008 (chance 0.008); in-distribution mean accuracy 0.074; cell outcome failure; our predictor failure.",
+   "level": "statistical",
+   "status": "confirmed"
+  },
+  {
+   "claim_id": "C-G-diag_pm-S5-transpositions",
+   "text": "Grid cell diag_pm on S5/transpositions (mps): 0 of 20 seeds succeed at 2x-4x the longest training length (0 of 20 at 7x-8x); mean accuracy 0.016 (chance 0.008); in-distribution mean accuracy 0.105; cell outcome failure; our predictor failure.",
+   "level": "statistical",
+   "status": "confirmed"
+  },
+  {
+   "claim_id": "C-G-hh1-S5-transpositions",
+   "text": "Grid cell hh1 on S5/transpositions (mps): 20 of 20 seeds succeed at 2x-4x the longest training length (20 of 20 at 7x-8x); mean accuracy 0.999 (chance 0.008); in-distribution mean accuracy 1.000; cell outcome success; our predictor success.",
+   "level": "statistical",
+   "status": "confirmed"
+  },
+  {
+   "claim_id": "C-G-hh2-S5-transpositions",
+   "text": "Grid cell hh2 on S5/transpositions (cpu): 19 of 20 seeds succeed at 2x-4x the longest training length (17 of 20 at 7x-8x); mean accuracy 0.955 (chance 0.008); in-distribution mean accuracy 1.000; cell outcome success; our predictor success.",
+   "level": "statistical",
+   "status": "confirmed"
+  },
+  {
+   "claim_id": "C-G-hh3-S5-transpositions",
+   "text": "Grid cell hh3 on S5/transpositions (cpu): 20 of 20 seeds succeed at 2x-4x the longest training length (14 of 20 at 7x-8x); mean accuracy 1.000 (chance 0.008); in-distribution mean accuracy 1.000; cell outcome success; our predictor success.",
    "level": "statistical",
    "status": "confirmed"
   },
   {
    "claim_id": "C-G-hh4-S5-transpositions",
-   "text": "Grid cell hh4 on S5/transpositions: 19 of 20 seeds succeed at 2x-4x the longest training length (11 of 20 at 7x-8x); mean accuracy 0.964 (chance 0.008); in-distribution mean accuracy 1.000; cell outcome success; our predictor success.",
+   "text": "Grid cell hh4 on S5/transpositions (cpu): 19 of 20 seeds succeed at 2x-4x the longest training length (11 of 20 at 7x-8x); mean accuracy 0.964 (chance 0.008); in-distribution mean accuracy 1.000; cell outcome success; our predictor success.",
+   "level": "statistical",
+   "status": "confirmed"
+  },
+  {
+   "claim_id": "C-G-lstm-S5-transpositions",
+   "text": "Grid cell lstm on S5/transpositions (cpu): 8 of 20 seeds succeed at 2x-4x the longest training length (1 of 20 at 7x-8x); mean accuracy 0.853 (chance 0.008); in-distribution mean accuracy 0.989; cell outcome failure; our predictor success.",
+   "level": "statistical",
+   "status": "confirmed"
+  },
+  {
+   "claim_id": "C-G-diag_pos-S5-all",
+   "text": "Grid cell diag_pos on S5/all (mps): 0 of 20 seeds succeed at 2x-4x the longest training length (0 of 20 at 7x-8x); mean accuracy 0.008 (chance 0.008); in-distribution mean accuracy 0.024; cell outcome failure; our predictor failure.",
+   "level": "statistical",
+   "status": "confirmed"
+  },
+  {
+   "claim_id": "C-G-diag_pm-S5-all",
+   "text": "Grid cell diag_pm on S5/all (mps): 0 of 20 seeds succeed at 2x-4x the longest training length (0 of 20 at 7x-8x); mean accuracy 0.008 (chance 0.008); in-distribution mean accuracy 0.024; cell outcome failure; our predictor failure.",
+   "level": "statistical",
+   "status": "confirmed"
+  },
+  {
+   "claim_id": "C-G-hh1-S5-all",
+   "text": "Grid cell hh1 on S5/all (mps): 0 of 20 seeds succeed at 2x-4x the longest training length (0 of 20 at 7x-8x); mean accuracy 0.008 (chance 0.008); in-distribution mean accuracy 0.024; cell outcome failure; our predictor failure.",
+   "level": "statistical",
+   "status": "confirmed"
+  },
+  {
+   "claim_id": "C-G-hh2-S5-all",
+   "text": "Grid cell hh2 on S5/all (cpu): 0 of 20 seeds succeed at 2x-4x the longest training length (0 of 20 at 7x-8x); mean accuracy 0.008 (chance 0.008); in-distribution mean accuracy 0.024; cell outcome failure; our predictor undetermined.",
+   "level": "statistical",
+   "status": "confirmed"
+  },
+  {
+   "claim_id": "C-G-hh3-S5-all",
+   "text": "Grid cell hh3 on S5/all (cpu): 0 of 20 seeds succeed at 2x-4x the longest training length (0 of 20 at 7x-8x); mean accuracy 0.008 (chance 0.008); in-distribution mean accuracy 0.024; cell outcome failure; our predictor undetermined.",
    "level": "statistical",
    "status": "confirmed"
   },
   {
    "claim_id": "C-G-hh4-S5-all",
-   "text": "Grid cell hh4 on S5/all: 0 of 20 seeds succeed at 2x-4x the longest training length (0 of 20 at 7x-8x); mean accuracy 0.008 (chance 0.008); in-distribution mean accuracy 0.024; cell outcome failure; our predictor success.",
+   "text": "Grid cell hh4 on S5/all (cpu): 0 of 20 seeds succeed at 2x-4x the longest training length (0 of 20 at 7x-8x); mean accuracy 0.008 (chance 0.008); in-distribution mean accuracy 0.024; cell outcome failure; our predictor success.",
+   "level": "statistical",
+   "status": "confirmed"
+  },
+  {
+   "claim_id": "C-G-lstm-S5-all",
+   "text": "Grid cell lstm on S5/all (cpu): 0 of 20 seeds succeed at 2x-4x the longest training length (0 of 20 at 7x-8x); mean accuracy 0.008 (chance 0.008); in-distribution mean accuracy 0.025; cell outcome failure; our predictor success.",
    "level": "statistical",
    "status": "confirmed"
   },
   {
    "claim_id": "C-H-accuracy",
-   "text": "Agreement of each predictor with the cell outcomes on the determined cells: our algebraic predictor 8 of 12; circuit class (solvable) 8 of 12; abelian 6 of 12; group size 8 of 12; representation law in the permutation representation 8 of 12; faithful representations only 8 of 12.",
+   "text": "Agreement of each predictor with the cell outcomes on the determined cells: our algebraic predictor 47 of 61; circuit class (solvable) 41 of 61; abelian 37 of 61; group size 41 of 61; representation law in the permutation representation 50 of 61; faithful representations only 48 of 61.",
+   "level": "statistical",
+   "status": "confirmed"
+  },
+  {
+   "claim_id": "C-H-D1",
+   "text": "Preregistered test D1 (one-sided Fisher exact test): cell ['hh1', 'A5', 'involutions'] vs control ['hh1', 'A5', 'all'], successful seeds [0, 0], p = 1.000, Benjamini-Hochberg adjusted p = 1.000 (m = 9, q = 0.1), not significant; supplementary paired permutation test on per-seed accuracies p = 0.145, ratio of mean accuracies 1.01 (paired bootstrap 95% CI 0.99-1.03); project criterion (permutation p < 0.05 and CI excluding 1) not met; BH over all 12 tests: adjusted p = 1.000, not significant.",
+   "level": "statistical",
+   "status": "confirmed"
+  },
+  {
+   "claim_id": "C-H-D2",
+   "text": "Preregistered test D2 (one-sided Fisher exact test): cell ['hh2', 'A5', 'all'] vs control ['hh1', 'A5', 'all'], successful seeds [0, 0], p = 1.000, Benjamini-Hochberg adjusted p = 1.000 (m = 9, q = 0.1), not significant; supplementary paired permutation test on per-seed accuracies p = 0.946, ratio of mean accuracies 1.00 (paired bootstrap 95% CI 0.99-1.00); project criterion (permutation p < 0.05 and CI excluding 1) not met; BH over all 12 tests: adjusted p = 1.000, not significant.",
+   "level": "statistical",
+   "status": "confirmed"
+  },
+  {
+   "claim_id": "C-H-D3",
+   "text": "Preregistered test D3 (one-sided Fisher exact test): cell ['hh1', 'Z2^3', 'all'] vs control ['hh1', 'Z3', 'all'], successful seeds [1, 0], p = 0.500, Benjamini-Hochberg adjusted p = 1.000 (m = 9, q = 0.1), not significant; supplementary paired permutation test on per-seed accuracies p = 5.0e-05, ratio of mean accuracies 1.98 (paired bootstrap 95% CI 1.78-2.17); project criterion (permutation p < 0.05 and CI excluding 1) met; BH over all 12 tests: adjusted p = 0.857, not significant.",
+   "level": "statistical",
+   "status": "confirmed"
+  },
+  {
+   "claim_id": "C-H-D4",
+   "text": "Preregistered test D4 (one-sided Fisher exact test): cell ['hh1', 'S5', 'transpositions'] vs control ['hh1', 'S5', 'all'], successful seeds [20, 0], p = 7.3e-12, Benjamini-Hochberg adjusted p = 3.3e-11 (m = 9, q = 0.1), significant; supplementary paired permutation test on per-seed accuracies p = 5.0e-05, ratio of mean accuracies 119.64 (paired bootstrap 95% CI 117.93-121.31); project criterion (permutation p < 0.05 and CI excluding 1) met; BH over all 12 tests: adjusted p = 4.4e-11, significant.",
+   "level": "statistical",
+   "status": "confirmed"
+  },
+  {
+   "claim_id": "C-H-D5",
+   "text": "Preregistered test D5 (one-sided Fisher exact test): cell ['hh1', 'Z2', 'all'] vs control ['hh1', 'Z3', 'all'], successful seeds [18, 0], p = 1.7e-09, Benjamini-Hochberg adjusted p = 5.0e-09 (m = 9, q = 0.1), significant; BH over all 12 tests: adjusted p = 4.0e-09, significant.",
+   "level": "statistical",
+   "status": "confirmed"
+  },
+  {
+   "claim_id": "C-H-D6",
+   "text": "Preregistered test D6 (one-sided Fisher exact test): cell ['diag_pm', 'Z2^3', 'all'] vs control ['diag_pm', 'Z3', 'all'], successful seeds [20, 0], p = 7.3e-12, Benjamini-Hochberg adjusted p = 3.3e-11 (m = 9, q = 0.1), significant; supplementary paired permutation test on per-seed accuracies p = 5.0e-05, ratio of mean accuracies 1.61 (paired bootstrap 95% CI 1.57-1.65); project criterion (permutation p < 0.05 and CI excluding 1) met; BH over all 12 tests: adjusted p = 4.4e-11, significant.",
    "level": "statistical",
    "status": "confirmed"
   },
   {
    "claim_id": "C-H-NC-hh4-S5",
-   "text": "Preregistered test NC-hh4-S5 (negative control, random targets): cell ['hh4', 'S5', 'all'], successful seeds [0], p = 1.000, Benjamini-Hochberg adjusted p = 1.000 (m = 1, q = 0.1), not significant.",
+   "text": "Preregistered test NC-hh4-S5 (negative control, random targets): cell ['hh4', 'S5', 'all'], successful seeds [0], p = 1.000, Benjamini-Hochberg adjusted p = 1.000 (m = 9, q = 0.1), not significant; BH over all 12 tests: adjusted p = 1.000, not significant.",
+   "level": "statistical",
+   "status": "confirmed"
+  },
+  {
+   "claim_id": "C-H-NC-lstm-S5",
+   "text": "Preregistered test NC-lstm-S5 (negative control, random targets): cell ['lstm', 'S5', 'all'], successful seeds [0], p = 1.000, Benjamini-Hochberg adjusted p = 1.000 (m = 9, q = 0.1), not significant; BH over all 12 tests: adjusted p = 1.000, not significant.",
+   "level": "statistical",
+   "status": "confirmed"
+  },
+  {
+   "claim_id": "C-H-NC-hh2-A5",
+   "text": "Preregistered test NC-hh2-A5 (negative control, random targets): cell ['hh2', 'A5', 'all'], successful seeds [0], p = 1.000, Benjamini-Hochberg adjusted p = 1.000 (m = 9, q = 0.1), not significant; BH over all 12 tests: adjusted p = 1.000, not significant.",
+   "level": "statistical",
+   "status": "confirmed"
+  },
+  {
+   "claim_id": "C-X-protocol",
+   "text": "Preregistered addendum H-EX2 (committed before its runs, prereg.md 2026-10-04 05:00): the closest prior work's generator formats S4/tn (a transposition and a 4-cycle) and A5/c3c5 (a 3-cycle and a 5-cycle), architectures hh1, hh2, hh3, 20 seeds each, protocol identical to H-EX1, run on the MPS GPU; predictions: ours hh1 fails and hh2, hh3 succeed; the representation law in the permutation representation predicts that S4/tn needs 3 and A5/c3c5 needs 4 factors.",
+   "level": "observed",
+   "status": "confirmed"
+  },
+  {
+   "claim_id": "C-X-hh1-A5-c3c5",
+   "text": "H-EX2 cell hh1 on A5/c3c5: 0 of 20 seeds succeed at 2x-4x the longest training length (0 of 20 at 7x-8x); mean accuracy 0.017 (chance 0.017); in-distribution 0.074; outcome failure; predicted by us: failure; predicted by the permutation-representation law: failure.",
+   "level": "statistical",
+   "status": "confirmed"
+  },
+  {
+   "claim_id": "C-X-hh2-A5-c3c5",
+   "text": "H-EX2 cell hh2 on A5/c3c5: 18 of 20 seeds succeed at 2x-4x the longest training length (18 of 20 at 7x-8x); mean accuracy 0.901 (chance 0.017); in-distribution 0.923; outcome success; predicted by us: success; predicted by the permutation-representation law: failure.",
+   "level": "statistical",
+   "status": "confirmed"
+  },
+  {
+   "claim_id": "C-X-hh3-A5-c3c5",
+   "text": "H-EX2 cell hh3 on A5/c3c5: 18 of 20 seeds succeed at 2x-4x the longest training length (10 of 20 at 7x-8x); mean accuracy 0.923 (chance 0.017); in-distribution 0.971; outcome success; predicted by us: success; predicted by the permutation-representation law: failure.",
+   "level": "statistical",
+   "status": "confirmed"
+  },
+  {
+   "claim_id": "C-X-hh1-S4-tn",
+   "text": "H-EX2 cell hh1 on S4/tn: 0 of 20 seeds succeed at 2x-4x the longest training length (0 of 20 at 7x-8x); mean accuracy 0.225 (chance 0.042); in-distribution 0.304; outcome failure; predicted by us: failure; predicted by the permutation-representation law: failure.",
+   "level": "statistical",
+   "status": "confirmed"
+  },
+  {
+   "claim_id": "C-X-hh2-S4-tn",
+   "text": "H-EX2 cell hh2 on S4/tn: 6 of 20 seeds succeed at 2x-4x the longest training length (4 of 20 at 7x-8x); mean accuracy 0.347 (chance 0.042); in-distribution 0.611; outcome failure; predicted by us: success; predicted by the permutation-representation law: failure.",
+   "level": "statistical",
+   "status": "confirmed"
+  },
+  {
+   "claim_id": "C-X-hh3-S4-tn",
+   "text": "H-EX2 cell hh3 on S4/tn: 19 of 20 seeds succeed at 2x-4x the longest training length (3 of 20 at 7x-8x); mean accuracy 0.945 (chance 0.042); in-distribution 0.993; outcome success; predicted by us: success; predicted by the permutation-representation law: success.",
+   "level": "statistical",
+   "status": "confirmed"
+  },
+  {
+   "claim_id": "C-X-E1",
+   "text": "H-EX2 test E1 (one-sided Fisher exact): ['hh2', 'A5', 'c3c5'] vs ['hh1', 'A5', 'c3c5'], successful seeds [18, 0], p = 1.7e-09, BH-adjusted p = 2.5e-09 (m = 3, q = 0.1), significant; supplementary paired permutation p = 5.0e-05, accuracy ratio 54.49 (95% CI 45.56-60.72); BH over all 12 tests: adjusted p = 4.0e-09, significant.",
+   "level": "statistical",
+   "status": "confirmed"
+  },
+  {
+   "claim_id": "C-X-E2",
+   "text": "H-EX2 test E2 (one-sided Fisher exact): ['hh2', 'S4', 'tn'] vs ['hh1', 'S4', 'tn'], successful seeds [6, 0], p = 0.010, BH-adjusted p = 0.010 (m = 3, q = 0.1), significant; supplementary paired permutation p = 0.110, accuracy ratio 1.54 (95% CI 0.75-2.39); BH over all 12 tests: adjusted p = 0.020, significant.",
+   "level": "statistical",
+   "status": "confirmed"
+  },
+  {
+   "claim_id": "C-X-E3",
+   "text": "H-EX2 test E3 (one-sided Fisher exact): ['hh3', 'A5', 'c3c5'] vs ['hh1', 'A5', 'c3c5'], successful seeds [18, 0], p = 1.7e-09, BH-adjusted p = 2.5e-09 (m = 3, q = 0.1), significant; supplementary paired permutation p = 5.0e-05, accuracy ratio 55.80 (95% CI 48.16-60.78); BH over all 12 tests: adjusted p = 4.0e-09, significant.",
+   "level": "statistical",
+   "status": "confirmed"
+  },
+  {
+   "claim_id": "C-X-result",
+   "text": "H-EX2 outcome: our predictor matches 5 of 6 cells, the permutation-representation law matches 4 of 6; preregistered success criterion of H-EX2: False.",
+   "level": "statistical",
+   "status": "confirmed"
+  },
+  {
+   "claim_id": "C-H-exploratory",
+   "text": "Exploratory analysis (post hoc, not preregistered): restricted to the 5 tasks on which the LSTM positive control succeeded (S3/all, S3/transpositions, Z2/all, Z2^3/all, Z3/all), 30 non-LSTM cells: our algebraic predictor 26 of 30; circuit class (solvable) 16 of 30; abelian 14 of 30; group size 16 of 30; representation law in the permutation representation 26 of 30; faithful representations only 26 of 30. On the remaining tasks (A5 with both alphabets, S5 with both alphabets) even the LSTM positive control failed, so these cells mainly measure the training budget.",
+   "level": "observed",
+   "status": "confirmed"
+  },
+  {
+   "claim_id": "C-H-replication",
+   "text": "Device replication (the same protocol and seeds run twice, once on the MPS GPU and once on the CPU, because of a runner bug, prereg addendum 07:00): diag_pm on Z2/all: MPS 18 of 20, CPU 19 of 20; diag_pm on Z3/all: MPS 0 of 20, CPU 0 of 20; diag_pos on Z3/all: MPS 0 of 20, CPU 0 of 20; hh1 on Z2^3/all: MPS 1 of 20, CPU 0 of 20; hh1 on Z3/all: MPS 0 of 20, CPU 0 of 20; hh1 on Z2/all: MPS 18 of 20, CPU 0 of 20; diag_pos on Z2/all: MPS 0 of 20, CPU 0 of 20. Training outcomes can depend strongly on floating-point details of the device.",
    "level": "statistical",
    "status": "confirmed"
   },
@@ -326,13 +818,13 @@
   },
   {
    "claim_id": "C-expressivity-R2-I",
-   "text": "Uninspected interpretation by the agent for expressivity-R2 (not a result; NOT consistent with the hardened consistency rule): h(Z2^3, all) = 3 (faithful, reell); h*(Z2^3, all) <= 3, nur diag_pm und cdiag realisieren es exakt, diag_pos nicht",
+   "text": "Uninspected interpretation by the agent for expressivity-R2 (not a result; NOT consistent with the hardened consistency rule): h(Z2^3, all) = 3 (faithful, real); h*(Z2^3, all) <= 3, only diag_pm and cdiag realize it exactly, diag_pos does not (translated from the agent's German)",
    "level": "hypothesis",
    "status": "open"
   },
   {
    "claim_id": "C-expressivity-R3",
-   "text": "Lab round 3. Question: Liegt h*(A5, involutions) bei 1 oder dar\u00fcber, wenn man nur ein einzelnes Householder-Produkt pro Token (HH_1) zul\u00e4sst, und gilt die Antwort auch dann, wenn man die treue Darstellung von A5 durch eine beliebige endliche Gruppe H mit surjektivem Readout ersetzt? Verified result: h(A5, involutions) = 2 over faithful real representations of A5 (own numerical character table and GAP exact agree).",
+   "text": "Lab round 3. Question: Is h*(A5, involutions) at 1 or above if only a single Householder product per token (HH_1) is allowed, and does the answer still hold when the faithful representation of A5 is replaced by an arbitrary finite group H with surjective readout? (translated from the agent's German) Verified result: h(A5, involutions) = 2 over faithful real representations of A5 (own numerical character table and GAP exact agree).",
    "level": "computed_rigorous",
    "status": "confirmed"
   },
@@ -362,13 +854,13 @@
   },
   {
    "claim_id": "C-expressivity-R5-I",
-   "text": "Uninspected interpretation by the agent for expressivity-R5 (not a result; consistent with the hardened consistency rule): Ja, 2 Householder-Reflektionen pro Token gen\u00fcgen; h*(A5, all) = 2",
+   "text": "Uninspected interpretation by the agent for expressivity-R5 (not a result; consistent with the hardened consistency rule): Yes, 2 Householder reflections per token suffice; h*(A5, all) = 2 (translated from the agent's German)",
    "level": "hypothesis",
    "status": "open"
   },
   {
    "claim_id": "C-expressivity-R6",
-   "text": "Lab round 6. Question: Wie verh\u00e4lt sich h*(A5, involutions) gegen\u00fcber h*(A5, all), wenn man nur die Involutionen als Alphabet zul\u00e4sst, und ist der Wert 1 (eine Reflektion pro Token) dort m\u00f6glich? Verified result: h(A5, involutions) = 2 over faithful real representations of A5 (own numerical character table and GAP exact agree).",
+   "text": "Lab round 6. Question: How does h*(A5, involutions) compare with h*(A5, all) when only the involutions are allowed as the alphabet, and is the value 1 (one reflection per token) possible there? (translated from the agent's German) Verified result: h(A5, involutions) = 2 over faithful real representations of A5 (own numerical character table and GAP exact agree).",
    "level": "computed_rigorous",
    "status": "contested by red-team counter-check"
   },
@@ -392,7 +884,7 @@
   },
   {
    "claim_id": "C-expressivity-R8",
-   "text": "Lab round 8. Question: Welche Gruppen mit Involutionen als Alphabet (z. B. S4, D4, Z2^2 oder Q8 mit geeignetem Twist) besitzen h*(G, involutions) = 1, und l\u00e4sst sich das Muster an den Konjugationsklassen der Involutionen ablesen, etwa \u00fcber die Codimension des Fixraums per real_irreps? Verified result: The count construction is an exact one-layer realisation of the word problem of Z2^2 with alphabet 'all' using at most 1 Householder reflections per token (certified); hence h*(Z2^2, all) <= 1.",
+   "text": "Lab round 8. Question: Which groups with involutions as alphabet (e.g. S4, D4, Z2^2, or Q8 with a suitable twist) have h*(G, involutions) = 1, and can the pattern be read off from the conjugacy classes of the involutions, for example via the codimension of the fixed space per real_irreps? (translated from the agent's German) Verified result: The count construction is an exact one-layer realisation of the word problem of Z2^2 with alphabet 'all' using at most 1 Householder reflections per token (certified); hence h*(Z2^2, all) <= 1.",
    "level": "computed_rigorous",
    "status": "contested by red-team counter-check"
   },
@@ -410,19 +902,61 @@
   },
   {
    "claim_id": "C-expressivity-R9-I",
-   "text": "Uninspected interpretation by the agent for expressivity-R9 (not a result; NOT consistent with the hardened consistency rule): h*(S5,all): untere Schranke \u2265 2, obere Schranke \u2264 4; h(S5,all) = 4",
+   "text": "Uninspected interpretation by the agent for expressivity-R9 (not a result; NOT consistent with the hardened consistency rule): h*(S5,all): lower bound \u2265 2, upper bound \u2264 4; h(S5,all) = 4 (translated from the agent's German)",
+   "level": "hypothesis",
+   "status": "open"
+  },
+  {
+   "claim_id": "C-expressivity-R15",
+   "text": "Lab round 15. Question: How does h*(A5, all) = 2 compare with h(A5, involutions) = 2 when the involution alphabets are compared with the completeness of all letters? Does h*(G, Sigma) = h(G, Sigma) hold for all pairs of group and alphabet in the test set, or are there cases with a genuine gap between the two values? (translated from the agent's German) Verified result: h*(A5, all) = 2: for finite-state one-layer realisations, exactly 2 Householder factors per token are necessary (lower bound: Lemma L4 (Lean-checked) and Lemma L2 (hand proof)) and sufficient (exact certificate).",
+   "level": "computed_rigorous",
+   "status": "confirmed"
+  },
+  {
+   "claim_id": "C-expressivity-R15-I",
+   "text": "Uninspected interpretation by the agent for expressivity-R15 (not a result; consistent with the hardened consistency rule): No distance detected (h*(A5, all) = h(A5, involutions) = 2; equality h* = h for all pairs not proven) (translated from the agent's German)",
    "level": "hypothesis",
    "status": "open"
   },
   {
    "claim_id": "C-neg1",
-   "text": "Negative result of the lab (no claim passed the verifier and the consistency rule): [F3] Is one Householder reflection per token (plain DeltaNet with beta in [0,2]) enough to track A5 exactly when the inputs are the involutions of A5? Determine h*(A5, involutions) and compare with h(A5, involutions) over faithful representations of A5 only.: keine Behauptung bestand die Pr\u00fcfung",
+   "text": "Negative result of the lab (no claim passed the verifier and the consistency rule): [F3] Is one Householder reflection per token (plain DeltaNet with beta in [0,2]) enough to track A5 exactly when the inputs are the involutions of A5? Determine h*(A5, involutions) and compare with h(A5, involutions) over faithful representations of A5 only.: no claim passed the test (translated from the agent's German)",
+   "level": "observed",
+   "status": "confirmed"
+  },
+  {
+   "claim_id": "C-neg2",
+   "text": "Negative result of the lab (no claim passed the verifier and the consistency rule): [F25] Does the bound h*(S5, all) \u2264 4 also hold without a permutation representation, i.e. can an HH_k realization with k = 2 or 3 be found via a non-permutational faithful representation of S5?: no claim passed the check (translated from the agent's German)",
+   "level": "observed",
+   "status": "confirmed"
+  },
+  {
+   "claim_id": "C-neg3",
+   "text": "Negative result of the lab (no claim passed the verifier and the consistency rule): [F26] How does h(S4, all) and h*(S4, all) compare with S5, and can a pattern be recognized in the dependence on n for S_n with alphabet 'all'?: no claim passed the check (translated from the agent's German)",
+   "level": "observed",
+   "status": "confirmed"
+  },
+  {
+   "claim_id": "C-neg4",
+   "text": "Negative result of the lab (no claim passed the verifier and the consistency rule): [F13] Does h*(A5, involutions) = 2 still hold when, instead of faithful representations of A5, arbitrary finite groups H with a surjective readout H -> A5 are allowed, and can the lower bound k >= 2 be certified exactly without recourse to numerical character tables?: no claim passed the test (translated from the agent's German)",
+   "level": "observed",
+   "status": "confirmed"
+  },
+  {
+   "claim_id": "C-neg5",
+   "text": "Negative result of the lab (no claim passed the verifier and the consistency rule): [F21] Does h*(S4, all) = 2 still hold even when only involutions are permitted as the alphabet (that is, S4 with the subset of transpositions and double transpositions), and how does h*(S4, involutions) relate to h(S4, involutions) via faithful real representations?: no claim passed the test (translated from the agent's German)",
+   "level": "observed",
+   "status": "confirmed"
+  },
+  {
+   "claim_id": "C-neg6",
+   "text": "Negative result of the lab (no claim passed the verifier and the consistency rule): [F11] Does h(Z2^3, all) = 3 still hold even when the range of faithful real representations is extended to representations with a sign twist (letters multiplied by -1), i.e., when comparing h*(Z2^3, all) against h(Z2^3, all), and how does the minimum over all finite groups H with surjective readout behave in this case?: no claim survived the check (translated from the agent's German)",
    "level": "observed",
    "status": "confirmed"
   },
   {
    "claim_id": "C-lab",
-   "text": "The agentic lab (literature scout with code-checked quotes, integrator, cascade of four researcher agents, exact verifier, red-team agent, per-round preregistration) ran 9 rounds at a cost of 5.17 USD: 8 rounds produced an accepted claim (8 survive re-checking with the hardened verifier, 0 withdrawn) and 1 rounds produced a negative result; the scout kept 60 literature findings whose verbatim quote was found by code in the abstract.",
+   "text": "The agentic lab (literature scout with code-checked quotes, integrator, cascade of four researcher agents, exact verifier, red-team agent, per-round preregistration) ran 15 rounds at a cost of 10.51 USD: 9 rounds produced an accepted claim (9 survive re-checking with the hardened verifier, 0 withdrawn) and 6 rounds produced a negative result; the scout kept 60 literature findings whose verbatim quote was found by code in the abstract.",
    "level": "observed",
    "status": "confirmed"
   },
@@ -553,6 +1087,48 @@
    "status": "confirmed"
   },
   {
+   "claim_id": "C-lit-ckda-thm4-body",
+   "text": "Reference arXiv:2609.24797 (full-text quote checked by code against the arXiv HTML): \"We rule out one-layer S 5 tracking for CKDA and DeltaProduct k ( k \u2264 3 ) with non-expansive transitions and finite reachability\"",
+   "level": "observed",
+   "status": "confirmed"
+  },
+  {
+   "claim_id": "C-lit-ckda-four-body",
+   "text": "Reference arXiv:2609.24797 (full-text quote checked by code against the arXiv HTML): \"this proves that four is the minimum number of Householder transformations needed for single-layer Gated DeltaProduct tracking of S 5 under these assumptions.\"",
+   "level": "observed",
+   "status": "confirmed"
+  },
+  {
+   "claim_id": "C-lit-ckda-compression-body",
+   "text": "Reference arXiv:2609.24797 (full-text quote checked by code against the arXiv HTML): \"We first choose a word whose linear part has minimum Frobenius norm and repeat it until it acts as a projection without changing the decoded value.\"",
+   "level": "observed",
+   "status": "confirmed"
+  },
+  {
+   "claim_id": "C-lit-ckda-decoder-body",
+   "text": "Reference arXiv:2609.24797 (full-text quote checked by code against the arXiv HTML): \"Tracking does not require a faithful representation: a many-to-one decoder can map distinct hidden states to the same group element, and the input transitions need not themselves form a representation.\"",
+   "level": "observed",
+   "status": "confirmed"
+  },
+  {
+   "claim_id": "C-lit-ckda-so3-body",
+   "text": "Reference arXiv:2609.24797 (full-text quote checked by code against the arXiv HTML): \"A single CKDA layer (one head) tracks every finite group isomorphic to a subgroup of S \u200b O \u200b ( 3 ) .\"",
+   "level": "observed",
+   "status": "confirmed"
+  },
+  {
+   "claim_id": "C-lit-martino-singh-body",
+   "text": "Reference arXiv:1804.05089 (full-text quote checked by code against the arXiv HTML): \"We say that a group $G$ is generated (resp. strictly generated) in codimension $k$ if it is generated by its elements that fix point-wise a subspace of codimension at most $k$ (resp. precisely $k$).\"",
+   "level": "observed",
+   "status": "confirmed"
+  },
+  {
+   "claim_id": "C-lit-lange-mikhailova-body",
+   "text": "Reference arXiv:1509.06922 (full-text quote checked by code against the arXiv HTML): \"We survey the existing parts of a classification of finite groups generated by orthogonal transformations in a finite-dimensional Euclidean space whose fixed point subspace has codimension one or two and extend it to a complete classification.\"",
+   "level": "observed",
+   "status": "confirmed"
+  },
+  {
    "claim_id": "C-lit-barrington",
    "text": "Reference (doi:10.1016/0022-0000(89)90037-8, title verified by code against Crossref): \"Bounded-width polynomial-size branching programs recognize exactly those languages in NC1\" (Barrington).",
    "level": "observed",
@@ -563,7 +1139,7 @@
   "rounds": [
    {
     "round": 0,
-    "violations": 15
+    "violations": 44
    },
    {
     "round": 1,
