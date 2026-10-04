@@ -37,6 +37,22 @@ class LatticeDomain(Domain):
                 ({"typ": "argmin3d", "nu": 5, "erwartet": "fcc"}, False)]
 
 
+    def gegenbeispiel(self, p, grund, beleg):
+        """CEGIS für lattice: aus den Belegdaten des Prüfers (Funktionswerte, gefundenes Minimum, Fit)."""
+        t = p.get("typ"); b = beleg or {}
+        if t == "vorzeichenwechsel" and "f_lo" in b:
+            return {"art": "kein_vorzeichenwechsel", "parameter": {"nu_lo": p["nu_lo"], "nu_hi": p["nu_hi"]}, "berechnet": {"f_lo": b["f_lo"], "f_hi": b["f_hi"]},
+                    "verletzt": f"{p['groesse']} hat an beiden Intervallenden dasselbe Vorzeichen"}
+        if t == "argmin2d" and b.get("typ"):
+            return {"art": "wert", "parameter": {"nu": p["nu"]}, "berechnet": {"typ": b["typ"], "tau": b.get("tau")}, "behauptet": p.get("erwartet"),
+                    "verletzt": "die unabhängige Suche des Prüfers findet ein anderes Minimum"}
+        if t == "grenzwert" and b:
+            k = {"y_inf": "y_inf_fit", "kappa": "kappa_fit"}.get(p.get("groesse"))
+            if k in b: return {"art": "wert", "berechnet": b[k], "behauptet": p.get("erwartet"), "abstand": float(p["erwartet"]) - b[k], "verletzt": "außerhalb der festen Toleranz"}
+        if t == "argmin3d" and "E" in b:
+            return {"art": "wert", "berechnet": b["E"], "behauptet": p.get("erwartet"), "verletzt": "ein anderes Gitter hat niedrigere Energie"}
+        return {"art": "verletzt", "verletzt": grund[:200]}
+
     def parameter(self):
         return {"covolume": ("1", "all Bravais lattices have unit covolume"),
                 "cutoff": ("R in {32, 48, 64, 96}", "summation cube [-R, R]^d in lattice coordinates, Richardson extrapolation in R"),

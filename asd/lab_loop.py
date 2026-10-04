@@ -280,6 +280,12 @@ def runde_ausfuehren(P, D, a, runde, log):
         res = solve_cascade(D.kontext + "\n\n" + wissen_text(P), q["frage"], salt=f"{D.name}-{runde}", domain=D,
                             **({"stufen": (("sparsam", "sonnet"),), "staerkung": 0} if exp else {}))
         q["status"] = "beantwortet" if res["level"].startswith("computed") else "ungeprüft"
+        for st in res.get("cegis") or []:                         # CEGIS-Zeitleiste: Vermutung -> Gegenbeispiel -> verfeinerte Vermutung
+            if st.get("bestanden"): log(f"  CEGIS v{st['v']} ({st['stufe']}): verfeinerte Vermutung BESTANDEN")
+            else: log(f"  CEGIS v{st['v']} ({st['stufe']}): abgelehnt; Gegenbeispiel: {json.dumps(st['gegenbeispiel'], ensure_ascii=False, default=str)[:200]}")
+        if res.get("cegis"):
+            P.append("decisions.md", f"| {now()} | FORSCHER-KASKADE | Runde {runde}: CEGIS mit {sum(1 for x in res['cegis'] if not x.get('bestanden'))} Gegenbeispiel(en) | " +
+                     " -> ".join(f"v{x['v']}{'✓' if x.get('bestanden') else '✗'}" for x in res["cegis"]) + " |")
         if exp and q["status"] != "beantwortet":
             wart = [tr for tr in res["forscher"] if "wartet auf Messdaten" in (tr.get("pruefung") or {}).get("grund", "")]
             if wart:
@@ -322,7 +328,10 @@ def runde_ausfuehren(P, D, a, runde, log):
             log("  keine geprüfte Behauptung: " + "; ".join(f"{x['stufe']}: {x['grund'][:80]}" for x in gruende)[:400])
         json.dump(res, open(f"{P.dir}/runde{runde}.json", "w"), ensure_ascii=False, indent=1, default=str)
         if not (a.fragen or a.gezielt): lernen(P, D, q["frage"], res, runde, parent=q)   # gezielter Lauf: keine frei erzeugten Folgefragen
-        P.s["runden"].append({"runde": runde, "frage": q["id"], "status": q["status"], "red_team": rt, "sek": res["sek"], "faden_id": q.get("faden_id")})
+        cg = res.get("cegis") or []
+        P.s["runden"].append({"runde": runde, "frage": q["id"], "status": q["status"], "red_team": rt, "sek": res["sek"], "faden_id": q.get("faden_id"),
+                              "cegis": {"verfeinerungen": sum(1 for x in cg if not x.get("bestanden")), "verfeinert_bestanden": bool(cg) and bool(cg[-1].get("bestanden")),
+                                        "schritte": cg}})
         COST_LOG.clear(); P.save()
         return True
 

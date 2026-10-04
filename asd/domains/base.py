@@ -37,6 +37,21 @@ class Domain:
     def consistent(self, antwort, p):
         return True
 
+    def gegenbeispiel(self, p, grund, beleg):
+        """CEGIS: Bei GESCHEITERTER Prüfung ein strukturiertes Gegenbeispiel oder die verletzte Bedingung, z. B.
+        {"art": "zertifiziertes_gegenbeispiel"|"wert"|"verletzt", "parameter": ..., "berechnet": ..., "behauptet": ..., "abstand": ..., "verletzt": "..."}.
+        Ändert nichts an der Wahrheitsentscheidung von check(). Standard: kein Gegenbeispiel."""
+        return None
+
+    def check_cegis(self, p):
+        """check() plus Gegenbeispiel bei Scheitern: (ok, grund, beleg, gegenbeispiel|None)."""
+        ok, why, ev = self.check(p)
+        gb = None
+        if not ok:
+            try: gb = self.gegenbeispiel(p, why, ev or {})
+            except Exception as e: gb = {"art": "fehler", "verletzt": f"Gegenbeispiel nicht ermittelbar: {type(e).__name__}"}
+        return ok, why, ev, gb
+
     def level(self, p):
         return "observed"
 

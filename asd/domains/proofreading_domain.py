@@ -298,6 +298,41 @@ class ProofreadingDomain(Domain):
         except Exception as e:
             return False, f"Prüfung nicht ausführbar: {type(e).__name__}: {e}"[:300], {}
 
+    def gegenbeispiel(self, p, grund, beleg):
+        """CEGIS für proofreading. Untere Schranke für alle Raten gescheitert: numerische Suche nach eta < Schranke, der gefundene Punkt
+        wird danach EXAKT zertifiziert (Zertifikat a, Schranke c*100^-k ist rational) -> zertifiziertes Gegenbeispiel."""
+        import re as _re
+        t = p.get("typ")
+        if t == "untere_schranke" and not p.get("ausdruck") and isinstance(p.get("topologie"), str):
+            schranke = P.Fraction(str(p.get("c", 1))) / P.Fraction(100) ** int(p.get("k", 0))
+            r = optimize(p["topologie"], starts=6, seed=7)
+            if r["feasible"] and r["eta"] < float(schranke):
+                ok, why, _ = check_erreichbar({"typ": "erreichbar", "topologie": p["topologie"], "params": r["params"], "eta_max": float(schranke)})
+                m = _re.search(r"eta = ([0-9.eE+-]+)", why)
+                if ok and m and float(m.group(1)) < float(schranke):
+                    return {"art": "zertifiziertes_gegenbeispiel", "topologie": p["topologie"], "parameter": r["params"], "berechnet": float(m.group(1)),
+                            "behauptet": f"eta >= {float(schranke):.6g} für alle Raten", "abstand": float(schranke) - float(m.group(1)),
+                            "verletzt": "Allaussage: an diesem exakt zertifizierten Punkt liegt eta unter der behaupteten Schranke"}
+            return {"art": "verletzt", "verletzt": "Koeffizienten-Positivität scheitert (Beweis fehlt); numerisch kein Punkt unter der Schranke gefunden",
+                    "eta_min_numerisch": r.get("eta")}
+        if t == "schranke_familie":
+            nb = (beleg or {}).get("nicht_bewiesen") or []
+            return {"art": "verletzt", "verletzt": f"Schranke {p.get('ausdruck')} nicht bewiesen für {len(nb)} Mitglieder", "mitglieder": nb,
+                    "hinweis": "Gültigkeitsbereich auf die bewiesenen Mitglieder einschränken oder die Ausnahmen als Gegenbeispiele zertifizieren"}
+        if t == "erreichbar":
+            m = _re.search(r"eta = ([0-9.eE+-]+)", grund)
+            if m and p.get("eta_max") is not None:
+                return {"art": "wert", "parameter": p.get("params"), "berechnet": float(m.group(1)), "behauptet": f"eta <= {p['eta_max']}",
+                        "abstand": float(m.group(1)) - float(p["eta_max"]), "verletzt": "eta liegt über eta_max"}
+            return {"art": "verletzt", "verletzt": grund[:200]}
+        if t == "erreichbar_liste":
+            bad = [(t_, w) for t_, ok_, w in (beleg or {}).get("ergebnisse", []) if not ok_]
+            return {"art": "verletzt", "verletzt": f"{len(bad)} Fälle nicht bestanden", "faelle": [{"topologie": t_, "grund": w[:120]} for t_, w in bad]}
+        if t == "optimum" and isinstance(beleg, dict) and beleg.get("eta") is not None:
+            return {"art": "wert", "berechnet": beleg["eta"], "behauptet": p.get("eta_min"), "abstand": beleg["eta"] - float(p.get("eta_min", 0)),
+                    "parameter": beleg.get("params"), "verletzt": "Minimum des Prüfers weicht um mehr als 2 % ab"}
+        return {"art": "verletzt", "verletzt": grund[:200]}
+
     def ueberraschung(self, p, state):
         """Widerspricht ein BESTANDENES Zertifikat einer aktiven Annahme (z. B. 'genau diese Topologien verletzen die Schranke')?
         Ändert nichts am Prüfer; liefert nur {annahme, grund} für Planänderung/Reopen."""

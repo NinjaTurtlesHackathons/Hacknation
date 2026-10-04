@@ -144,19 +144,34 @@ KASKADE = (("sparsam", "haiku"), ("numeriker", "haiku"), ("skeptiker", "sonnet")
 def solve_cascade(kontext, frage, salt=0, stufen=KASKADE, domain=None, staerkung=2):
     """Kostenoptimiert: Forscher nacheinander, günstiges Modell zuerst; Stopp bei der ersten Behauptung, die den
     Code-Prüfer besteht und zur Antwort passt. Der Prüfer garantiert die Wahrheit, also reicht eine geprüfte Behauptung."""
-    lab = Lab(domain); D = lab.domain; t0 = time.time(); traces = []; checks = {}
+    lab = Lab(domain); D = lab.domain; t0 = time.time(); traces = []; checks = {}; full = {}
+    frage_akt, cegis = frage, []                                   # CEGIS: Vermutung v1 -> Gegenbeispiel -> v2 ... (höchstens 3 Verfeinerungen)
     for strategie, model in stufen:
-        try: tr = forscher(kontext, frage, strategie, lab, f"K{salt}-{model}", model=model)
+        try: tr = forscher(kontext, frage_akt, strategie, lab, f"K{salt}-{model}" + (f"-v{len(cegis) + 1}" if cegis else ""), model=model)
         except (LLMError, json.JSONDecodeError, KeyError, TypeError) as e: traces.append({"strategie": strategie, "modell": model, "fehler": str(e)[:300]}); continue
         tr["modell"] = model; a = tr.get("final") or {}
         ps = [p for p in (a.get("pruefungen") or ([a["pruefung"]] if isinstance(a.get("pruefung"), dict) else [])) if isinstance(p, dict)]
         res = []
         for p in ps:
             k = json.dumps(p, sort_keys=True)
-            if k not in checks: checks[k] = D.check(p)[:2]
+            if k not in checks: full[k] = D.check(p); checks[k] = full[k][:2]
             res.append(checks[k])
         ok = bool(ps) and all(o for o, _ in res) and all(D.consistent(a, p) for p in ps)
         tr["pruefung"] = {"bestanden": ok, "grund": " | ".join(w for _, w in res) or "keine Prüfung angegeben"}; traces.append(tr)
+        if ps and cegis is not None: tr["vermutung_v"] = len(cegis) + 1
+        if not ok and ps and len(cegis) < 3:
+            p_bad = next((p for p, (o, _) in zip(ps, res) if not o), None)
+            if p_bad is not None:
+                kb = json.dumps(p_bad, sort_keys=True); _, why_b, ev_b = full[kb]
+                try: gb = D.gegenbeispiel(p_bad, why_b, ev_b or {})
+                except Exception: gb = None
+                if gb:
+                    try: dsc = D.describe(p_bad)
+                    except Exception: dsc = json.dumps(p_bad, ensure_ascii=False)
+                    cegis.append({"v": len(cegis) + 1, "stufe": f"{strategie}/{model}", "pruefung": p_bad, "aussage": dsc, "bestanden": False, "gegenbeispiel": gb})
+                    frage_akt = (frage + f"\n\nVERMUTUNG v{len(cegis)}: {dsc}\nDer Prüfer hat sie ABGELEHNT. Gegenbeispiel bzw. verletzte Bedingung (vom Prüfer): "
+                                 f"{json.dumps(gb, ensure_ascii=False, default=str)[:1500]}\nAuftrag: Verfeinere die Vermutung so, dass sie dieses Gegenbeispiel ausschließt, "
+                                 "oder schränke ihren Gültigkeitsbereich ein; formuliere dann eine neue, prüfbare Behauptung.")
         if ok:
             tr["staerke"] = D.staerke(ps[0]) if hasattr(D, "staerke") else 0
             best = tr
@@ -184,6 +199,7 @@ def solve_cascade(kontext, frage, salt=0, stufen=KASKADE, domain=None, staerkung
                     t2["staerke"] = D.staerke(p2[0]) if hasattr(D, "staerke") else 0
                     if t2["staerke"] > best["staerke"]: best = t2
             ans = dict(best["final"]); ans["stimmen"] = f"Stufe {len(traces)} ({best['strategie']}, {best.get('modell')}), Stärke {best['staerke']:.2f}"
-            return {"antwort": ans, "level": "computed (Code-Prüfer bestanden)", "forscher": traces, "experimente": lab.log, "sek": round(time.time() - t0, 1)}
+            if cegis: cegis.append({"v": len(cegis) + 1, "stufe": f"{strategie}/{model}", "pruefung": ps[0], "bestanden": True})
+            return {"antwort": ans, "level": "computed (Code-Prüfer bestanden)", "forscher": traces, "experimente": lab.log, "sek": round(time.time() - t0, 1), "cegis": cegis}
     return {"antwort": {"antwort": "unbekannt", "zahl": None, "konfidenz": 0.0, "stimmen": "keine Stufe geprüft"}, "level": "keine geprüfte Behauptung",
-            "forscher": traces, "experimente": lab.log, "sek": round(time.time() - t0, 1)}
+            "forscher": traces, "experimente": lab.log, "sek": round(time.time() - t0, 1), "cegis": cegis}
