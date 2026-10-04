@@ -1,0 +1,29 @@
+Selbsttest des Prüfers: bestanden
+Suchanfragen: ['Transformers finite automata expressiveness', 'State-space models circuit complexity bounds', 'Linear RNNs group word problems', 'Householder reflections state tracking', 'Diagonal transitions Mamba theory', 'DeltaNet DeltaProduct transformer limitations', 'Krohn-Rhodes theorem neural circuits', 'TC0 NC1 complexity transformers', 'Formal languages RNNs impossibility results', 'Reflection groups automata recognition']
+203 Quellen, 0 durch Leck-Filter gesperrt
+88 Befunde extrahiert, 60 Zitate per Code bestätigt, 28 verworfen
+Runde 1: Is one Householder reflection per token (plain DeltaNet with beta in [0,2]) enough to track A5 exactly when the inputs are the involutions of A5? Determine h*(A5, involutions) and compare with h(A5, involutions) over faithful representations of A5 only.
+  geprüft (computed_rigorous): Nein | Red-Team: 2 Gegenprüfungen, 1 bestanden
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/Users/laurenzthummler/Library/Application Support/Claude/scratch-workspaces/3a7eebbe-4628-44b6-b200-a604a338ffb4/3fcc420b-a650-4cbf-96c9-ed4e2054dcfd/scratch-2026-10-03-ff18d6/Hacknation/asd/lab_loop.py", line 142, in <module>
+    main()
+    ~~~~^^
+  File "/Users/laurenzthummler/Library/Application Support/Claude/scratch-workspaces/3a7eebbe-4628-44b6-b200-a604a338ffb4/3fcc420b-a650-4cbf-96c9-ed4e2054dcfd/scratch-2026-10-03-ff18d6/Hacknation/asd/lab_loop.py", line 135, in main
+    lernen(P, D, q["frage"], res, runde)
+    ~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/laurenzthummler/Library/Application Support/Claude/scratch-workspaces/3a7eebbe-4628-44b6-b200-a604a338ffb4/3fcc420b-a650-4cbf-96c9-ed4e2054dcfd/scratch-2026-10-03-ff18d6/Hacknation/asd/lab_loop.py", line 87, in lernen
+    r = ask_json(f"{D.kontext}\n\n{wissen_text(P)}\n\nZuletzt untersucht: {frage}\nErgebnis: {json.dumps(res['antwort'], ensure_ascii=False)[:600]} ({res['level']})\n\n"
+                 f"{D.primitive_doc}\n\n{D.claim_doc}\n\nLeite 1-2 Folgefragen ab, die aus diesem Ergebnis am meisten lernen (Grenzen ausloten, "
+                 'Verallgemeinerung, Gegenprobe). JSON: {"fragen": [{"frage": "...", "begruendung": "...", "neuheit": 0-1, "machbarkeit": 0-1}]}',
+                 SYS.format(rolle="der Lern-Agent"), salt=f"lernen-{runde}")
+  File "/Users/laurenzthummler/Library/Application Support/Claude/scratch-workspaces/3a7eebbe-4628-44b6-b200-a604a338ffb4/3fcc420b-a650-4cbf-96c9-ed4e2054dcfd/scratch-2026-10-03-ff18d6/Hacknation/asd/llm.py", line 66, in ask_json
+    return json.loads(m.group(1))
+           ~~~~~~~~~~^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.13/json/__init__.py", line 346, in loads
+    return _default_decoder.decode(s)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^
+  File "/opt/anaconda3/lib/python3.13/json/decoder.py", line 348, in decode
+    raise JSONDecodeError("Extra data", s, end)
+json.decoder.JSONDecodeError: Extra data: line 3 column 1 (char 2382)

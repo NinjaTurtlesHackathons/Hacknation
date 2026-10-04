@@ -1,0 +1,978 @@
+{
+ "tasks": [
+  {
+   "group": "Z2",
+   "alphabet": "all",
+   "order": 2,
+   "letters": 1,
+   "abelian": true,
+   "solvable": true,
+   "exp2_abelian": true,
+   "hstar_lower": 1,
+   "hstar_upper": 1,
+   "upper_construction": "perm/none",
+   "upper_H_order": 2,
+   "upper_dim": 2,
+   "h_faithful": 1,
+   "perm_law": 1
+  },
+  {
+   "group": "Z3",
+   "alphabet": "all",
+   "order": 3,
+   "letters": 2,
+   "abelian": true,
+   "solvable": true,
+   "exp2_abelian": false,
+   "hstar_lower": 2,
+   "hstar_upper": 2,
+   "upper_construction": "perm/none",
+   "upper_H_order": 3,
+   "upper_dim": 3,
+   "h_faithful": 2,
+   "perm_law": 2
+  },
+  {
+   "group": "Z2^3",
+   "alphabet": "all",
+   "order": 8,
+   "letters": 7,
+   "abelian": true,
+   "solvable": true,
+   "exp2_abelian": true,
+   "hstar_lower": 1,
+   "hstar_upper": 1,
+   "upper_construction": "count/none",
+   "upper_H_order": 128,
+   "upper_dim": 7,
+   "h_faithful": 3,
+   "perm_law": 3
+  },
+  {
+   "group": "S3",
+   "alphabet": "transpositions",
+   "order": 6,
+   "letters": 3,
+   "abelian": false,
+   "solvable": true,
+   "exp2_abelian": false,
+   "hstar_lower": 1,
+   "hstar_upper": 1,
+   "upper_construction": "perm/none",
+   "upper_H_order": 6,
+   "upper_dim": 3,
+   "h_faithful": 1,
+   "perm_law": 1
+  },
+  {
+   "group": "S3",
+   "alphabet": "all",
+   "order": 6,
+   "letters": 5,
+   "abelian": false,
+   "solvable": true,
+   "exp2_abelian": false,
+   "hstar_lower": 2,
+   "hstar_upper": 2,
+   "upper_construction": "perm/none",
+   "upper_H_order": 6,
+   "upper_dim": 3,
+   "h_faithful": 2,
+   "perm_law": 2
+  },
+  {
+   "group": "A5",
+   "alphabet": "involutions",
+   "order": 60,
+   "letters": 15,
+   "abelian": false,
+   "solvable": false,
+   "exp2_abelian": false,
+   "hstar_lower": 1,
+   "hstar_upper": 1,
+   "upper_construction": "so3/involutions",
+   "upper_H_order": 120,
+   "upper_dim": 3,
+   "h_faithful": 2,
+   "perm_law": 2
+  },
+  {
+   "group": "A5",
+   "alphabet": "all",
+   "order": 60,
+   "letters": 59,
+   "abelian": false,
+   "solvable": false,
+   "exp2_abelian": false,
+   "hstar_lower": 2,
+   "hstar_upper": 2,
+   "upper_construction": "so3/none",
+   "upper_H_order": 60,
+   "upper_dim": 3,
+   "h_faithful": 2,
+   "perm_law": 4
+  },
+  {
+   "group": "S5",
+   "alphabet": "transpositions",
+   "order": 120,
+   "letters": 10,
+   "abelian": false,
+   "solvable": false,
+   "exp2_abelian": false,
+   "hstar_lower": 1,
+   "hstar_upper": 1,
+   "upper_construction": "perm/none",
+   "upper_H_order": 120,
+   "upper_dim": 5,
+   "h_faithful": 1,
+   "perm_law": 1
+  },
+  {
+   "group": "S5",
+   "alphabet": "all",
+   "order": 120,
+   "letters": 119,
+   "abelian": false,
+   "solvable": false,
+   "exp2_abelian": false,
+   "hstar_lower": 2,
+   "hstar_upper": 4,
+   "upper_construction": "perm/none",
+   "upper_H_order": 120,
+   "upper_dim": 5,
+   "h_faithful": 4,
+   "perm_law": 4
+  }
+ ],
+ "archs": [
+  "diag_pos",
+  "diag_pm",
+  "hh1",
+  "hh2",
+  "hh3",
+  "hh4",
+  "lstm"
+ ],
+ "cells": [
+  {
+   "arch": "diag_pos",
+   "group": "Z2",
+   "alphabet": "all",
+   "pred": {
+    "ALG": false,
+    "B1_circuit": true,
+    "B2_abelian": true,
+    "B3_size": true,
+    "B4_perm_law": false,
+    "B5_faithful": false
+   }
+  },
+  {
+   "arch": "diag_pm",
+   "group": "Z2",
+   "alphabet": "all",
+   "pred": {
+    "ALG": true,
+    "B1_circuit": true,
+    "B2_abelian": true,
+    "B3_size": true,
+    "B4_perm_law": true,
+    "B5_faithful": true
+   }
+  },
+  {
+   "arch": "hh1",
+   "group": "Z2",
+   "alphabet": "all",
+   "pred": {
+    "ALG": true,
+    "B1_circuit": true,
+    "B2_abelian": true,
+    "B3_size": true,
+    "B4_perm_law": true,
+    "B5_faithful": true
+   }
+  },
+  {
+   "arch": "hh2",
+   "group": "Z2",
+   "alphabet": "all",
+   "pred": {
+    "ALG": true,
+    "B1_circuit": true,
+    "B2_abelian": true,
+    "B3_size": true,
+    "B4_perm_law": true,
+    "B5_faithful": true
+   }
+  },
+  {
+   "arch": "hh3",
+   "group": "Z2",
+   "alphabet": "all",
+   "pred": {
+    "ALG": true,
+    "B1_circuit": true,
+    "B2_abelian": true,
+    "B3_size": true,
+    "B4_perm_law": true,
+    "B5_faithful": true
+   }
+  },
+  {
+   "arch": "hh4",
+   "group": "Z2",
+   "alphabet": "all",
+   "pred": {
+    "ALG": true,
+    "B1_circuit": true,
+    "B2_abelian": true,
+    "B3_size": true,
+    "B4_perm_law": true,
+    "B5_faithful": true
+   }
+  },
+  {
+   "arch": "lstm",
+   "group": "Z2",
+   "alphabet": "all",
+   "pred": {
+    "ALG": true,
+    "B1_circuit": true,
+    "B2_abelian": true,
+    "B3_size": true,
+    "B4_perm_law": true,
+    "B5_faithful": true
+   }
+  },
+  {
+   "arch": "diag_pos",
+   "group": "Z3",
+   "alphabet": "all",
+   "pred": {
+    "ALG": false,
+    "B1_circuit": true,
+    "B2_abelian": true,
+    "B3_size": true,
+    "B4_perm_law": false,
+    "B5_faithful": false
+   }
+  },
+  {
+   "arch": "diag_pm",
+   "group": "Z3",
+   "alphabet": "all",
+   "pred": {
+    "ALG": false,
+    "B1_circuit": true,
+    "B2_abelian": true,
+    "B3_size": true,
+    "B4_perm_law": false,
+    "B5_faithful": false
+   }
+  },
+  {
+   "arch": "hh1",
+   "group": "Z3",
+   "alphabet": "all",
+   "pred": {
+    "ALG": false,
+    "B1_circuit": true,
+    "B2_abelian": true,
+    "B3_size": true,
+    "B4_perm_law": false,
+    "B5_faithful": false
+   }
+  },
+  {
+   "arch": "hh2",
+   "group": "Z3",
+   "alphabet": "all",
+   "pred": {
+    "ALG": true,
+    "B1_circuit": true,
+    "B2_abelian": true,
+    "B3_size": true,
+    "B4_perm_law": true,
+    "B5_faithful": true
+   }
+  },
+  {
+   "arch": "hh3",
+   "group": "Z3",
+   "alphabet": "all",
+   "pred": {
+    "ALG": true,
+    "B1_circuit": true,
+    "B2_abelian": true,
+    "B3_size": true,
+    "B4_perm_law": true,
+    "B5_faithful": true
+   }
+  },
+  {
+   "arch": "hh4",
+   "group": "Z3",
+   "alphabet": "all",
+   "pred": {
+    "ALG": true,
+    "B1_circuit": true,
+    "B2_abelian": true,
+    "B3_size": true,
+    "B4_perm_law": true,
+    "B5_faithful": true
+   }
+  },
+  {
+   "arch": "lstm",
+   "group": "Z3",
+   "alphabet": "all",
+   "pred": {
+    "ALG": true,
+    "B1_circuit": true,
+    "B2_abelian": true,
+    "B3_size": true,
+    "B4_perm_law": true,
+    "B5_faithful": true
+   }
+  },
+  {
+   "arch": "diag_pos",
+   "group": "Z2^3",
+   "alphabet": "all",
+   "pred": {
+    "ALG": false,
+    "B1_circuit": true,
+    "B2_abelian": true,
+    "B3_size": true,
+    "B4_perm_law": false,
+    "B5_faithful": false
+   }
+  },
+  {
+   "arch": "diag_pm",
+   "group": "Z2^3",
+   "alphabet": "all",
+   "pred": {
+    "ALG": true,
+    "B1_circuit": true,
+    "B2_abelian": true,
+    "B3_size": true,
+    "B4_perm_law": true,
+    "B5_faithful": true
+   }
+  },
+  {
+   "arch": "hh1",
+   "group": "Z2^3",
+   "alphabet": "all",
+   "pred": {
+    "ALG": true,
+    "B1_circuit": true,
+    "B2_abelian": true,
+    "B3_size": true,
+    "B4_perm_law": false,
+    "B5_faithful": false
+   }
+  },
+  {
+   "arch": "hh2",
+   "group": "Z2^3",
+   "alphabet": "all",
+   "pred": {
+    "ALG": true,
+    "B1_circuit": true,
+    "B2_abelian": true,
+    "B3_size": true,
+    "B4_perm_law": false,
+    "B5_faithful": false
+   }
+  },
+  {
+   "arch": "hh3",
+   "group": "Z2^3",
+   "alphabet": "all",
+   "pred": {
+    "ALG": true,
+    "B1_circuit": true,
+    "B2_abelian": true,
+    "B3_size": true,
+    "B4_perm_law": true,
+    "B5_faithful": true
+   }
+  },
+  {
+   "arch": "hh4",
+   "group": "Z2^3",
+   "alphabet": "all",
+   "pred": {
+    "ALG": true,
+    "B1_circuit": true,
+    "B2_abelian": true,
+    "B3_size": true,
+    "B4_perm_law": true,
+    "B5_faithful": true
+   }
+  },
+  {
+   "arch": "lstm",
+   "group": "Z2^3",
+   "alphabet": "all",
+   "pred": {
+    "ALG": true,
+    "B1_circuit": true,
+    "B2_abelian": true,
+    "B3_size": true,
+    "B4_perm_law": true,
+    "B5_faithful": true
+   }
+  },
+  {
+   "arch": "diag_pos",
+   "group": "S3",
+   "alphabet": "transpositions",
+   "pred": {
+    "ALG": false,
+    "B1_circuit": true,
+    "B2_abelian": false,
+    "B3_size": true,
+    "B4_perm_law": false,
+    "B5_faithful": false
+   }
+  },
+  {
+   "arch": "diag_pm",
+   "group": "S3",
+   "alphabet": "transpositions",
+   "pred": {
+    "ALG": false,
+    "B1_circuit": true,
+    "B2_abelian": false,
+    "B3_size": true,
+    "B4_perm_law": false,
+    "B5_faithful": false
+   }
+  },
+  {
+   "arch": "hh1",
+   "group": "S3",
+   "alphabet": "transpositions",
+   "pred": {
+    "ALG": true,
+    "B1_circuit": true,
+    "B2_abelian": false,
+    "B3_size": true,
+    "B4_perm_law": true,
+    "B5_faithful": true
+   }
+  },
+  {
+   "arch": "hh2",
+   "group": "S3",
+   "alphabet": "transpositions",
+   "pred": {
+    "ALG": true,
+    "B1_circuit": true,
+    "B2_abelian": false,
+    "B3_size": true,
+    "B4_perm_law": true,
+    "B5_faithful": true
+   }
+  },
+  {
+   "arch": "hh3",
+   "group": "S3",
+   "alphabet": "transpositions",
+   "pred": {
+    "ALG": true,
+    "B1_circuit": true,
+    "B2_abelian": false,
+    "B3_size": true,
+    "B4_perm_law": true,
+    "B5_faithful": true
+   }
+  },
+  {
+   "arch": "hh4",
+   "group": "S3",
+   "alphabet": "transpositions",
+   "pred": {
+    "ALG": true,
+    "B1_circuit": true,
+    "B2_abelian": false,
+    "B3_size": true,
+    "B4_perm_law": true,
+    "B5_faithful": true
+   }
+  },
+  {
+   "arch": "lstm",
+   "group": "S3",
+   "alphabet": "transpositions",
+   "pred": {
+    "ALG": true,
+    "B1_circuit": true,
+    "B2_abelian": false,
+    "B3_size": true,
+    "B4_perm_law": true,
+    "B5_faithful": true
+   }
+  },
+  {
+   "arch": "diag_pos",
+   "group": "S3",
+   "alphabet": "all",
+   "pred": {
+    "ALG": false,
+    "B1_circuit": true,
+    "B2_abelian": false,
+    "B3_size": true,
+    "B4_perm_law": false,
+    "B5_faithful": false
+   }
+  },
+  {
+   "arch": "diag_pm",
+   "group": "S3",
+   "alphabet": "all",
+   "pred": {
+    "ALG": false,
+    "B1_circuit": true,
+    "B2_abelian": false,
+    "B3_size": true,
+    "B4_perm_law": false,
+    "B5_faithful": false
+   }
+  },
+  {
+   "arch": "hh1",
+   "group": "S3",
+   "alphabet": "all",
+   "pred": {
+    "ALG": false,
+    "B1_circuit": true,
+    "B2_abelian": false,
+    "B3_size": true,
+    "B4_perm_law": false,
+    "B5_faithful": false
+   }
+  },
+  {
+   "arch": "hh2",
+   "group": "S3",
+   "alphabet": "all",
+   "pred": {
+    "ALG": true,
+    "B1_circuit": true,
+    "B2_abelian": false,
+    "B3_size": true,
+    "B4_perm_law": true,
+    "B5_faithful": true
+   }
+  },
+  {
+   "arch": "hh3",
+   "group": "S3",
+   "alphabet": "all",
+   "pred": {
+    "ALG": true,
+    "B1_circuit": true,
+    "B2_abelian": false,
+    "B3_size": true,
+    "B4_perm_law": true,
+    "B5_faithful": true
+   }
+  },
+  {
+   "arch": "hh4",
+   "group": "S3",
+   "alphabet": "all",
+   "pred": {
+    "ALG": true,
+    "B1_circuit": true,
+    "B2_abelian": false,
+    "B3_size": true,
+    "B4_perm_law": true,
+    "B5_faithful": true
+   }
+  },
+  {
+   "arch": "lstm",
+   "group": "S3",
+   "alphabet": "all",
+   "pred": {
+    "ALG": true,
+    "B1_circuit": true,
+    "B2_abelian": false,
+    "B3_size": true,
+    "B4_perm_law": true,
+    "B5_faithful": true
+   }
+  },
+  {
+   "arch": "diag_pos",
+   "group": "A5",
+   "alphabet": "involutions",
+   "pred": {
+    "ALG": false,
+    "B1_circuit": false,
+    "B2_abelian": false,
+    "B3_size": false,
+    "B4_perm_law": false,
+    "B5_faithful": false
+   }
+  },
+  {
+   "arch": "diag_pm",
+   "group": "A5",
+   "alphabet": "involutions",
+   "pred": {
+    "ALG": false,
+    "B1_circuit": false,
+    "B2_abelian": false,
+    "B3_size": false,
+    "B4_perm_law": false,
+    "B5_faithful": false
+   }
+  },
+  {
+   "arch": "hh1",
+   "group": "A5",
+   "alphabet": "involutions",
+   "pred": {
+    "ALG": true,
+    "B1_circuit": false,
+    "B2_abelian": false,
+    "B3_size": false,
+    "B4_perm_law": false,
+    "B5_faithful": false
+   }
+  },
+  {
+   "arch": "hh2",
+   "group": "A5",
+   "alphabet": "involutions",
+   "pred": {
+    "ALG": true,
+    "B1_circuit": false,
+    "B2_abelian": false,
+    "B3_size": false,
+    "B4_perm_law": true,
+    "B5_faithful": true
+   }
+  },
+  {
+   "arch": "hh3",
+   "group": "A5",
+   "alphabet": "involutions",
+   "pred": {
+    "ALG": true,
+    "B1_circuit": false,
+    "B2_abelian": false,
+    "B3_size": false,
+    "B4_perm_law": true,
+    "B5_faithful": true
+   }
+  },
+  {
+   "arch": "hh4",
+   "group": "A5",
+   "alphabet": "involutions",
+   "pred": {
+    "ALG": true,
+    "B1_circuit": false,
+    "B2_abelian": false,
+    "B3_size": false,
+    "B4_perm_law": true,
+    "B5_faithful": true
+   }
+  },
+  {
+   "arch": "lstm",
+   "group": "A5",
+   "alphabet": "involutions",
+   "pred": {
+    "ALG": true,
+    "B1_circuit": false,
+    "B2_abelian": false,
+    "B3_size": false,
+    "B4_perm_law": true,
+    "B5_faithful": true
+   }
+  },
+  {
+   "arch": "diag_pos",
+   "group": "A5",
+   "alphabet": "all",
+   "pred": {
+    "ALG": false,
+    "B1_circuit": false,
+    "B2_abelian": false,
+    "B3_size": false,
+    "B4_perm_law": false,
+    "B5_faithful": false
+   }
+  },
+  {
+   "arch": "diag_pm",
+   "group": "A5",
+   "alphabet": "all",
+   "pred": {
+    "ALG": false,
+    "B1_circuit": false,
+    "B2_abelian": false,
+    "B3_size": false,
+    "B4_perm_law": false,
+    "B5_faithful": false
+   }
+  },
+  {
+   "arch": "hh1",
+   "group": "A5",
+   "alphabet": "all",
+   "pred": {
+    "ALG": false,
+    "B1_circuit": false,
+    "B2_abelian": false,
+    "B3_size": false,
+    "B4_perm_law": false,
+    "B5_faithful": false
+   }
+  },
+  {
+   "arch": "hh2",
+   "group": "A5",
+   "alphabet": "all",
+   "pred": {
+    "ALG": true,
+    "B1_circuit": false,
+    "B2_abelian": false,
+    "B3_size": false,
+    "B4_perm_law": false,
+    "B5_faithful": true
+   }
+  },
+  {
+   "arch": "hh3",
+   "group": "A5",
+   "alphabet": "all",
+   "pred": {
+    "ALG": true,
+    "B1_circuit": false,
+    "B2_abelian": false,
+    "B3_size": false,
+    "B4_perm_law": false,
+    "B5_faithful": true
+   }
+  },
+  {
+   "arch": "hh4",
+   "group": "A5",
+   "alphabet": "all",
+   "pred": {
+    "ALG": true,
+    "B1_circuit": false,
+    "B2_abelian": false,
+    "B3_size": false,
+    "B4_perm_law": true,
+    "B5_faithful": true
+   }
+  },
+  {
+   "arch": "lstm",
+   "group": "A5",
+   "alphabet": "all",
+   "pred": {
+    "ALG": true,
+    "B1_circuit": false,
+    "B2_abelian": false,
+    "B3_size": false,
+    "B4_perm_law": true,
+    "B5_faithful": true
+   }
+  },
+  {
+   "arch": "diag_pos",
+   "group": "S5",
+   "alphabet": "transpositions",
+   "pred": {
+    "ALG": false,
+    "B1_circuit": false,
+    "B2_abelian": false,
+    "B3_size": false,
+    "B4_perm_law": false,
+    "B5_faithful": false
+   }
+  },
+  {
+   "arch": "diag_pm",
+   "group": "S5",
+   "alphabet": "transpositions",
+   "pred": {
+    "ALG": false,
+    "B1_circuit": false,
+    "B2_abelian": false,
+    "B3_size": false,
+    "B4_perm_law": false,
+    "B5_faithful": false
+   }
+  },
+  {
+   "arch": "hh1",
+   "group": "S5",
+   "alphabet": "transpositions",
+   "pred": {
+    "ALG": true,
+    "B1_circuit": false,
+    "B2_abelian": false,
+    "B3_size": false,
+    "B4_perm_law": true,
+    "B5_faithful": true
+   }
+  },
+  {
+   "arch": "hh2",
+   "group": "S5",
+   "alphabet": "transpositions",
+   "pred": {
+    "ALG": true,
+    "B1_circuit": false,
+    "B2_abelian": false,
+    "B3_size": false,
+    "B4_perm_law": true,
+    "B5_faithful": true
+   }
+  },
+  {
+   "arch": "hh3",
+   "group": "S5",
+   "alphabet": "transpositions",
+   "pred": {
+    "ALG": true,
+    "B1_circuit": false,
+    "B2_abelian": false,
+    "B3_size": false,
+    "B4_perm_law": true,
+    "B5_faithful": true
+   }
+  },
+  {
+   "arch": "hh4",
+   "group": "S5",
+   "alphabet": "transpositions",
+   "pred": {
+    "ALG": true,
+    "B1_circuit": false,
+    "B2_abelian": false,
+    "B3_size": false,
+    "B4_perm_law": true,
+    "B5_faithful": true
+   }
+  },
+  {
+   "arch": "lstm",
+   "group": "S5",
+   "alphabet": "transpositions",
+   "pred": {
+    "ALG": true,
+    "B1_circuit": false,
+    "B2_abelian": false,
+    "B3_size": false,
+    "B4_perm_law": true,
+    "B5_faithful": true
+   }
+  },
+  {
+   "arch": "diag_pos",
+   "group": "S5",
+   "alphabet": "all",
+   "pred": {
+    "ALG": false,
+    "B1_circuit": false,
+    "B2_abelian": false,
+    "B3_size": false,
+    "B4_perm_law": false,
+    "B5_faithful": false
+   }
+  },
+  {
+   "arch": "diag_pm",
+   "group": "S5",
+   "alphabet": "all",
+   "pred": {
+    "ALG": false,
+    "B1_circuit": false,
+    "B2_abelian": false,
+    "B3_size": false,
+    "B4_perm_law": false,
+    "B5_faithful": false
+   }
+  },
+  {
+   "arch": "hh1",
+   "group": "S5",
+   "alphabet": "all",
+   "pred": {
+    "ALG": false,
+    "B1_circuit": false,
+    "B2_abelian": false,
+    "B3_size": false,
+    "B4_perm_law": false,
+    "B5_faithful": false
+   }
+  },
+  {
+   "arch": "hh2",
+   "group": "S5",
+   "alphabet": "all",
+   "pred": {
+    "ALG": null,
+    "B1_circuit": false,
+    "B2_abelian": false,
+    "B3_size": false,
+    "B4_perm_law": false,
+    "B5_faithful": false
+   }
+  },
+  {
+   "arch": "hh3",
+   "group": "S5",
+   "alphabet": "all",
+   "pred": {
+    "ALG": null,
+    "B1_circuit": false,
+    "B2_abelian": false,
+    "B3_size": false,
+    "B4_perm_law": false,
+    "B5_faithful": false
+   }
+  },
+  {
+   "arch": "hh4",
+   "group": "S5",
+   "alphabet": "all",
+   "pred": {
+    "ALG": true,
+    "B1_circuit": false,
+    "B2_abelian": false,
+    "B3_size": false,
+    "B4_perm_law": true,
+    "B5_faithful": true
+   }
+  },
+  {
+   "arch": "lstm",
+   "group": "S5",
+   "alphabet": "all",
+   "pred": {
+    "ALG": true,
+    "B1_circuit": false,
+    "B2_abelian": false,
+    "B3_size": false,
+    "B4_perm_law": true,
+    "B5_faithful": true
+   }
+  }
+ ]
+}

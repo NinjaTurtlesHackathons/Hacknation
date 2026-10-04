@@ -270,12 +270,23 @@ transpositions, gens, cycles3, cycles5."""
         ]
 
     def consistent(self, antwort, p):
+        """The answer must match what the checks certify (closes loopholes found in lab round 1, decision EX10):
+        - 'unknown'/empty answers never count;
+        - a negative / impossibility answer ("no", "not enough", "cannot", ...) needs an impossibility certificate among the checks
+          (hstar_lower, hstar_value, or diag_realisable with value false);
+        - a number in the answer must be certified as an exact value (hstar_value or h_faithful with that value)."""
         t = str(antwort.get("antwort", "")).strip().lower()
         if t in ("", "unbekannt", "unknown", "none", "null", "n/a"): return False
+        ps = [q for q in (antwort.get("pruefungen") or [antwort.get("pruefung")]) if isinstance(q, dict)] or [p]
+        negative = bool(re.match(r"^(nein|no|not|false|falsch|impossible|unm\u00f6glich|cannot|kann nicht|nicht)\b", t)) or \
+            any(w in t for w in (" not enough", " cannot ", " impossible", " nicht ", "reicht nicht"))
+        if negative and not any(q.get("typ") in ("hstar_lower", "hstar_value") or (q.get("typ") == "diag_realisable" and q.get("value") is False) for q in ps):
+            return False
         z = antwort.get("zahl")
-        if p.get("typ") in ("hstar_value", "h_faithful") and z is not None:
-            try: return float(z) == float(p.get("value"))
+        if z is not None:
+            try: zf = float(z)
             except (TypeError, ValueError): return False
+            if not any(q.get("typ") in ("hstar_value", "h_faithful") and float(q.get("value", -1)) == zf for q in ps): return False
         return True
 
     def level(self, p):
