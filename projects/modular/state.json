@@ -126,6 +126,16 @@
    "status": "offen",
    "quelle": "lueckenkarte",
    "faden_id": "F12"
+  },
+  {
+   "id": "F13",
+   "frage": "Bestätige exakt mit mgf_harmonisch_familie (gewicht_bis 25): für alle 3 <= w <= 25 ist der Raum der C-Kombinationen mit Delta X in Q*E(w) eindimensional (ungerade w, DGV-Kombination, f_w = 3((w-1)/2)!/w) bzw. null (gerade w).",
+   "neuheit": 0.4,
+   "machbarkeit": 0.95,
+   "status": "offen",
+   "quelle": "lueckenkarte",
+   "lueckenkarte": "L9",
+   "faden_id": "F13"
   }
  ],
  "claims": [
@@ -2428,6 +2438,33 @@
      "grund": "PSLQ über die volle 12-elementige Basis (zehn C(a,b,c), E(11), zeta(11)) mit 6-8 Punkten und bis zu 64 Stellen fand keine Relation; Lauf aus Zeitgründen abgebrochen, kein geprüfter Claim. Vermutete Ursache: Präzision im Verhältnis zur Koeffizientenhöhe zu gering."
     }
    ]
+  },
+  {
+   "frage_id": "F11",
+   "frage": "Prüfe die Konstantenformel bei Gewicht 13 und 15: Relationen 117936000*C(6,6,1) + 235872000*C(6,5,2) + 235872000*C(6,4,3) + 188697600*C(5,5,3) + 212284800*C(5,4,4) + -54432000*E(13) + -691*zeta(13) = 0 ; 1555200*C(7,7,1) + 3110400*C(7,6,2) + 3110400*C(7,5,3) + 1555200*C(7,4,4) + 2592000*C(6,6,3) + 6220800*C(6,5,4) + 1244160*C(5,5,5) + -725760*E(15) + -1*zeta(15) = 0 (je mgf_relation).",
+   "runde": 10,
+   "gruende": [
+    {
+     "stufe": "sparsam/haiku",
+     "pruefungstyp": "mgf_relationsraum",
+     "grund": "Prüfung nicht ausführbar"
+    },
+    {
+     "stufe": "numeriker/haiku",
+     "pruefungstyp": "validierung",
+     "grund": "Prüfung nicht ausführbar"
+    },
+    {
+     "stufe": "skeptiker/sonnet",
+     "pruefungstyp": "mgf_harmonisch",
+     "grund": "Prüfung nicht ausführbar"
+    },
+    {
+     "stufe": "theoretiker/sonnet",
+     "pruefungstyp": "mgf_harmonisch",
+     "grund": "Prüfung nicht ausführbar"
+    }
+   ]
   }
  ],
  "runden": [
@@ -3252,6 +3289,14 @@
    ],
    "sek": 116.4,
    "faden_id": "F9"
+  },
+  {
+   "runde": 10,
+   "frage": "F11",
+   "status": "ungeprüft",
+   "red_team": [],
+   "sek": 277.9,
+   "faden_id": "F11"
   }
  ],
  "kosten_usd": 0.0

@@ -264,15 +264,15 @@ def parse(expr):
         if p < 1 or p > 6: raise ValueError("Potenz ausserhalb 1..6")
         if m.group(2):
             a3 = tuple(sorted((int(m.group(2)), int(m.group(3)), int(m.group(4))), reverse=True))
-            if min(a3) < 1 or sum(a3) > 12: raise ValueError("C(a,b,c): a,b,c >= 1 und a+b+c <= 12")
+            if min(a3) < 1 or sum(a3) > 25: raise ValueError("C(a,b,c): a,b,c >= 1 und a+b+c <= 25")
             out.append(("C", a3, p))
         elif m.group(5):
             s = int(m.group(5))
-            if not 2 <= s <= 12: raise ValueError("E(s): 2 <= s <= 12")
+            if not 2 <= s <= 25: raise ValueError("E(s): 2 <= s <= 25")
             out.append(("E", s, p))
         else:
             k = int(m.group(6))
-            if not 2 <= k <= 15: raise ValueError("zeta(k): 2 <= k <= 15")
+            if not 2 <= k <= 25: raise ValueError("zeta(k): 2 <= k <= 25")
             out.append(("z", k, p))
     return ("M", out)
 
