@@ -1,0 +1,16 @@
+{
+  "name": "probatum",
+  "owner": { "name": "HackNation Ninja Turtles (ETH Zürich)" },
+  "description": "Verifier-gated research lab for Claude: experiments + a code verifier that is the only authority that accepts claims.",
+  "version": "0.1.0",
+  "plugins": [
+    {
+      "name": "probatum",
+      "source": "./plugin",
+      "description": "MCP server probatum (run_experiment, submit_claim, challenge_claim, ...) plus the verifier-gated-lab skill.",
+      "version": "0.1.0",
+      "category": "research",
+      "tags": ["science", "verification", "mcp"]
+    }
+  ]
+}

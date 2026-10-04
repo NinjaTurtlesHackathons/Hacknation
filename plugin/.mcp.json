@@ -1,0 +1,10 @@
+{
+  "mcpServers": {
+    "probatum": {
+      "type": "stdio",
+      "command": "uvx",
+      "args": ["--from", "git+https://github.com/alizema700/HackNation-Ninja-Turtles@claude/probatum-mcp", "probatum-mcp"],
+      "env": { "PROBATUM_HOME": "${CLAUDE_PLUGIN_DATA}" }
+    }
+  }
+}
