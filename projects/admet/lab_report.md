@@ -1,0 +1,11 @@
+- 2026-10-04 02:42:26 Selbsttest des Prüfers: bestanden
+- 2026-10-04 02:42:38 Suchanfragen: ['ADMET scaffold split prediction', 'Morgan fingerprints molecular descriptors', 'Scaffold bias machine learning overfitting', 'ADMET model validation reliability metrics', 'Fingerprint generalization drug discovery', 'Molecular descriptor ADMET properties', 'Scaffold hopping prediction performance', 'Chemical fingerprints benchmark datasets', 'ADMET prediction evaluation framework', 'Descriptor selection drug activity']
+- 2026-10-04 02:43:06 304 Quellen, 0 durch Leck-Filter gesperrt
+- 2026-10-04 02:50:27 129 Befunde extrahiert, 128 Zitate per Code bestätigt, 1 verworfen
+- 2026-10-04 02:50:35 Runde 1: Wie gross ist das numerische Validierungs-MAE-Verhaeltnis Morgan/combined fuer solubility_aqsoldb? Berichte nur das unabhaengig gepruefte Verhaeltnis; keine Mechanismusbehauptung.
+- 2026-10-04 02:51:12   geprüft (observed): 1.603 | Red-Team: 2 Gegenprüfungen, 0 bestanden
+- 2026-10-04 02:51:34 Runde 2: Bleibt das Morgan/combined-MAE-Verhältnis von 1,603 für solubility_aqsoldb bestehen, wenn die Scaffold-Splits durch zufällige Splits ersetzt werden?
+- 2026-10-04 02:54:33   keine geprüfte Behauptung (als negatives Ergebnis protokolliert)
+- 2026-10-04 02:54:57 Runde 3: Wie gross ist das numerische Validierungs-MAE-Verhaeltnis Morgan/combined fuer lipophilicity_astrazeneca? Berichte nur den geprueften Wert.
+- 2026-10-04 02:55:31   geprüft (observed): 1.2356652066077345 | Red-Team: 2 Gegenprüfungen, 0 bestanden
+- 2026-10-04 02:55:41 Fertig: 2 geprüfte Aussagen, 1 negative Ergebnisse, Kosten 2.87 USD

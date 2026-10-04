@@ -1,0 +1,8 @@
+{
+  "experiments": {"grain":"one endpoint/method/seed/evaluation partition", "pk":["run_id"], "required":{"run_id":"str","seed":"int","policy":"str","dataset":"str","step":"int","x_index":"int","y":"float","mlflow_run_id":"nullable str","ts":"UTC str","seconds":"float"},"constraints":{"seed":[1000,1019],"step":[0,1],"y":"finite nonnegative MAE in endpoint target units","seconds":"nonnegative","x_index":"-1 (aggregate, not one molecule)"}},
+  "claims": {"grain":"one typed checked statement", "pk":["claim_id"],"required":{"claim_id":"str","text":"str","level":"str","evidence_run_ids":"str","status":"str"},"levels":["proved_lean","computed_rigorous","statistical","observed","hypothesis"]},
+  "gates": {"grain":"one gate in current release", "pk":["gate"],"required":{"gate":"str","passed":"bool","reason":"str","ts":"UTC str"}},
+  "predictions": {"grain":"one source row per endpoint/seed/method/partition", "pk":["seed","method","row"], "required":{"seed":"int","method":"str","row":"int","y":"finite float","pred":"finite float"},"test_extra":{"similarity":"float in [0,1]","invalid_structure":"bool"}},
+  "provenance": {"source":"Harvard Dataverse TDC ADMET group download 4426004","derives_from":"raw CSV SHA256 -> features -> frozen fitted models -> predictions -> independent scores -> checked state claims -> release tables -> paper/demo"},
+  "validation":"validate.py --release executes the contract and independent score checks, blocks on incompleteness; JSON documents the static schema"
+}

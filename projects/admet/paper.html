@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>paper</title>
+  <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    html {
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    svg {
+      height: auto;
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      border: none;
+      border-top: 1px solid #1a1a1a;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+</head>
+<body>
+<p><strong>Abstract</strong> We study a fixed representation ablation on
+three public ADMET regression endpoints. A common gradient-boosted
+learner is fitted to Morgan fingerprints, ten physicochemical
+descriptors, and their concatenation under twenty scaffold-training
+splits. On the fixed test sets, concatenation reduces mean absolute
+error relative to fingerprints alone by 33.06% for solubility, 12.99%
+for lipophilicity, and 37.00% for Caco-2 permeability. Descriptor-only
+models expose endpoint dependence, while shuffled-target controls fail
+the prespecified improvement criterion. A structural audit covers
+twenty-two endpoints; two invalid solubility test structures are
+retained through a frozen median fallback. Source-grounded rescoring and
+a fresh numerical rerun reproduce the reported results. The observations
+concern a fixed benchmark and fixed learner. They establish neither a
+novel representation method nor prospective biological or clinical
+validity.</p>
+<p><strong>Keywords:</strong> ADMET; molecular representations; scaffold
+splitting; numerical reproducibility; verification.</p>
+<h1 id="sec:intro">Introduction</h1>
+<p>Molecular property prediction assigns a numerical assay target to a
+molecular structure. Its evaluation depends both on the representation
+supplied to the learner and on the relationship between training and
+evaluation molecules. Learned molecular representations and the elements
+underlying molecular property prediction have been studied in the
+literature <span class="citation" data-cites="yang deng"></span>. Here
+we isolate a narrower empirical question: for a fixed learner and fixed
+scaffold protocol, does supplementing a binary fingerprint with a small
+physicochemical descriptor vector reduce prediction error?</p>
+<p>Let <span class="math inline"><em>F</em></span>, <span
+class="math inline"><em>D</em></span>, and <span
+class="math inline"><em>F</em> ⊕ <em>D</em></span> denote the
+fingerprint, descriptor, and concatenated representations. The primary
+comparison concerns solubility; the same lipophilicity and Caco-2
+comparisons are secondary. The benchmark source is the Therapeutics Data
+Commons (TDC) ADMET group <span class="citation"
+data-cites="tdc"></span>. We use its fixed test rows and construct
+repeated scaffold partitions within the distributed training and
+validation portion.</p>
+<p>Two remarks delimit the content. First, fingerprint–descriptor
+combinations are established tools; our contribution is an executed,
+auditable ablation, rather than a new algorithm or a leaderboard record.
+Second, the repeated partitions overlap and share the same fixed test
+molecules. Variation across seeds therefore measures conditional
+sensitivity on these datasets, rather than independent biological
+replication.</p>
+<p><strong>Summary of results.</strong></p>
+<ul>
+<li><p>Concatenation lowers mean fixed-test error relative to
+fingerprints on all three endpoints (Observation <a href="#obs:test"
+data-reference-type="ref" data-reference="obs:test">1</a> and Table <a
+href="#tab:test" data-reference-type="ref"
+data-reference="tab:test">[tab:test]</a>).</p></li>
+<li><p>Descriptor-only performance differs by endpoint, preventing a
+uniform conclusion that one representation dominates (Observation <a
+href="#obs:ablation" data-reference-type="ref"
+data-reference="obs:ablation">2</a>).</p></li>
+<li><p>The prespecified validation gates pass, whereas the
+shuffled-target controls do not (Section <a href="#sec:validation"
+data-reference-type="ref"
+data-reference="sec:validation">4</a>).</p></li>
+<li><p>Independent rescoring and a fresh rerun reproduce the numerical
+release; the verification boundary is made explicit (Section <a
+href="#sec:verification" data-reference-type="ref"
+data-reference="sec:verification">5</a> and Appendices <a
+href="#app:protocol" data-reference-type="ref"
+data-reference="app:protocol">7</a>–<a href="#app:evidence"
+data-reference-type="ref" data-reference="app:evidence">9</a>).</p></li>
+</ul>
+<h1 id="sec:setting">Setting and evaluation</h1>
+<h2 id="data-and-partitions">Data and partitions</h2>
+<p>The three fitted endpoints are <code>solubility_aqsoldb</code>,
+<code>lipophilicity_astrazeneca</code>, and <code>caco2_wang</code>.
+Their fixed test sets contain 1997, 840, and 182 rows, respectively.
+Targets remain in the units supplied by the benchmark; errors from
+different endpoints are not pooled into one score.</p>
+<p>For seeds <span
+class="math inline"><em>s</em> ∈ {1000, …, 1019}</span>, the TDC
+scaffold splitter partitions the distributed <code>train_val</code> rows
+into training and validation fractions 0.875 and 0.125. An explicit
+source-row column survives index resetting. Whole-scaffold grouping
+produces validation sizes of 999–2940 for solubility, 420 for
+lipophilicity, and 91 for Caco-2. Molecular frameworks provide the
+structural basis for this kind of partition <span class="citation"
+data-cites="bemis"></span>. We do not refit on validation rows before
+final-test evaluation.</p>
+<h2 id="representations-and-learner">Representations and learner</h2>
+<p>The fingerprint is a radius-two, 1024-bit Morgan vector. The
+descriptor vector consists of molecular weight, logP, topological polar
+surface area, hydrogen-bond donor and acceptor counts, rotatable bonds,
+ring count, fraction sp3, heavy-atom count, and aromatic-ring count. We
+compare <span class="math inline"><em>F</em></span>, <span
+class="math inline"><em>D</em></span>, and <span
+class="math inline"><em>F</em> ⊕ <em>D</em></span>, together with a
+training-target median baseline and a shuffled-training-target control
+using concatenated features with permuted training labels.</p>
+<p>Every learned model uses LightGBM with 200 trees, learning rate 0.05,
+at most 15 leaves, at least 20 samples per leaf, and L2 penalty 1.
+Execution is deterministic with two CPU threads. There is no
+hyperparameter search or early stopping. Consequently, a representation
+effect in this study is conditional on this particular learner
+configuration.</p>
+<h2 id="scores-and-comparisons">Scores and comparisons</h2>
+<p>For evaluation rows <span class="math inline"><em>I</em></span>,
+targets <span
+class="math inline"><em>y</em><sub><em>i</em></sub></span>, and
+predictions <span
+class="math inline"><em>ŷ</em><sub><em>i</em>, <em>m</em>, <em>s</em></sub></span>
+from method <span class="math inline"><em>m</em></span> and seed <span
+class="math inline"><em>s</em></span>, define <span
+class="math display">$$\begin{equation}
+\label{eq:mae}
+E_{m,s}(I)=\frac{1}{|I|}\sum_{i\in I}|y_i-\widehat y_{i,m,s}|.
+\end{equation}$$</span> The reported seed-average error and relative
+reduction are <span class="math display">$$\begin{align}
+\overline E_m&amp;=\frac1{20}\sum_s E_{m,s},\label{eq:mean}\\
+\Delta&amp;=100\left(1-\frac{\overline E_{F\oplus D}}{\overline
+E_F}\right).\label{eq:reduction}
+\end{align}$$</span> Thus <span
+class="math inline"><em>Δ</em> &gt; 0</span> means lower error for
+concatenation. Validation inference uses paired seed scores, 20000
+one-sided Monte Carlo sign flips with a plus-one correction, and 5000
+paired bootstrap resamples. Benjamini–Hochberg correction uses <span
+class="math inline"><em>q</em> = 0.1</span> for the three endpoint
+comparisons. The improvement gate requires twenty seeds, nominal <span
+class="math inline"><em>p</em> &lt; 0.05</span>, BH rejection, and a
+ratio interval with lower bound greater than one. These are
+fixed-dataset summaries; overlapping partitions do not justify
+population-level confidence claims.</p>
+<h1 id="sec:results">Fixed-test observations</h1>
+<div class="table*">
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Endpoint</th>
+<th style="text-align: right;">Median</th>
+<th style="text-align: right;">Fingerprint <span
+class="math inline"><em>F</em></span></th>
+<th style="text-align: right;">Descriptors <span
+class="math inline"><em>D</em></span></th>
+<th style="text-align: right;"><span
+class="math inline"><em>F</em> ⊕ <em>D</em></span></th>
+<th style="text-align: right;">Shuffled</th>
+<th style="text-align: right;">Reduction</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">Solubility</td>
+<td style="text-align: right;">1.894 (0.048)</td>
+<td style="text-align: right;">1.267 (0.040)</td>
+<td style="text-align: right;">0.899 (0.011)</td>
+<td style="text-align: right;">0.848 (0.017)</td>
+<td style="text-align: right;">1.891 (0.037)</td>
+<td style="text-align: right;">33.06%</td>
+</tr>
+<tr>
+<td style="text-align: left;">Lipophilicity</td>
+<td style="text-align: right;">0.964 (0.003)</td>
+<td style="text-align: right;">0.730 (0.005)</td>
+<td style="text-align: right;">0.770 (0.006)</td>
+<td style="text-align: right;">0.635 (0.008)</td>
+<td style="text-align: right;">1.014 (0.019)</td>
+<td style="text-align: right;">12.99%</td>
+</tr>
+<tr>
+<td style="text-align: left;">Caco-2</td>
+<td style="text-align: right;">0.586 (0.007)</td>
+<td style="text-align: right;">0.479 (0.037)</td>
+<td style="text-align: right;">0.341 (0.015)</td>
+<td style="text-align: right;">0.302 (0.015)</td>
+<td style="text-align: right;">0.625 (0.052)</td>
+<td style="text-align: right;">37.00%</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="obs:test" class="observation">
+<p><strong>Numerical observation 1</strong>. For the fixed test rows and
+twenty fitted models per representation, concatenation reduces
+seed-average MAE relative to the fingerprint model by 33.06%, 12.99%,
+and 37.00% for solubility, lipophilicity, and Caco-2, respectively.</p>
+</div>
+<p><em>Numerical verification.</em> Apply equations <a href="#eq:mae"
+data-reference-type="eqref" data-reference="eq:mae">[eq:mae]</a>–<a
+href="#eq:reduction" data-reference-type="eqref"
+data-reference="eq:reduction">[eq:reduction]</a> to the saved
+predictions after matching source rows and targets. Table <a
+href="#tab:test" data-reference-type="ref"
+data-reference="tab:test">[tab:test]</a> reports the resulting errors;
+Figure <a href="#fig:reduction" data-reference-type="ref"
+data-reference="fig:reduction">1</a> displays their relative reductions.
+The models and validation predictions were sealed before the first
+final-test score. This procedure is a reproducible calculation, not a
+mathematical proof of future predictive performance.</p>
+<div id="obs:ablation" class="observation">
+<p><strong>Numerical observation 2</strong>. The descriptor-only model
+has lower mean test MAE than the fingerprint model for solubility and
+Caco-2, but higher mean test MAE for lipophilicity. Concatenation has
+lower mean error than either constituent representation on all three
+endpoints.</p>
+</div>
+<p><em>Numerical verification.</em> Compare the three representation
+columns of Table <a href="#tab:test" data-reference-type="ref"
+data-reference="tab:test">[tab:test]</a>. The endpoint dependence
+supports reporting the ablations separately. It does not identify which
+descriptors cause the improvement, and it does not establish a chemical
+mechanism.</p>
+<figure id="fig:reduction" data-latex-placement="t">
+
+<figcaption>Reduction from concatenating descriptors with fingerprints,
+relative to the fixed fingerprint model, using equation <a
+href="#eq:reduction" data-reference-type="eqref"
+data-reference="eq:reduction">[eq:reduction]</a>. Each bar is a ratio of
+seed-average MAEs on one fixed test set. No independent-population
+uncertainty is implied.</figcaption>
+</figure>
+<h1 id="sec:validation">Validation and falsification</h1>
+<div id="tab:valid">
+<table>
+<caption>Validation fingerprint/combined MAE ratio and paired bootstrap
+interval. Intervals describe repeated partitions of fixed
+data.</caption>
+<thead>
+<tr>
+<th style="text-align: left;">Endpoint</th>
+<th style="text-align: right;">Ratio</th>
+<th style="text-align: right;">95% interval</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">Solubility</td>
+<td style="text-align: right;">1.603159</td>
+<td style="text-align: right;">[1.488537, 1.750759]</td>
+</tr>
+<tr>
+<td style="text-align: left;">Lipophilicity</td>
+<td style="text-align: right;">1.235665</td>
+<td style="text-align: right;">[1.217388, 1.253459]</td>
+</tr>
+<tr>
+<td style="text-align: left;">Caco-2</td>
+<td style="text-align: right;">1.118689</td>
+<td style="text-align: right;">[1.048756, 1.190120]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>The mean validation MAEs for fingerprints and concatenation are
+1.449784 and 0.904329 for solubility, 0.754238 and 0.610390 for
+lipophilicity, and 0.437256 and 0.390865 for Caco-2. All three
+comparisons pass the prespecified gate. The nominal one-sided <span
+class="math inline"><em>p</em></span>-values are 0.00005000, 0.00005000,
+and 0.00214989. Table <a href="#tab:valid" data-reference-type="ref"
+data-reference="tab:valid">1</a> reports the corresponding ratio
+intervals.</p>
+<p>An expanded family includes six shuffled-target comparisons, giving
+nine tests in total. This post-preregistration sensitivity analysis
+yields BH-adjusted <span class="math inline"><em>p</em></span>-values of
+0.00022499, 0.00022499, and 0.00644968 for the representation
+comparisons. It does not strengthen prospective inference.</p>
+<p>For every endpoint, shuffled-label controls fail the improvement gate
+on both validation and test. Their validation median-baseline/shuffled
+MAE ratios are 0.961914, 0.973205, and 0.940133; the corresponding test
+ratios are 1.001611, 0.950579, and 0.938232. The solubility test ratio
+is close to one, while the other test ratios favour the median. Failure
+to detect improvement is not proof that every possible leakage channel
+is absent.</p>
+<h2 id="exploratory-similarity-strata">Exploratory similarity
+strata</h2>
+<p>We also partition test predictions by nearest-training Morgan
+Tanimoto similarity, using thresholds 0.3 and 0.6. For the combined
+model, pooled seed-row MAEs in the low, medium, and high strata are
+1.007285, 0.856216, and 0.703991 for solubility; 0.934878, 0.719061, and
+0.524077 for lipophilicity; and 0.303108, 0.319482, and 0.265280 for
+Caco-2. Caco-2 does not exhibit a monotone low-to-high sequence. These
+descriptive strata reuse test molecules across seeds. They neither
+certify an applicability domain nor explain a causal mechanism; explicit
+applicability-domain calculations are a separate research question <span
+class="citation" data-cites="hosni"></span>.</p>
+<h1 id="sec:verification">Source-grounded verification</h1>
+<p>The release verifier matches prediction rows and targets against the
+pinned source snapshot, rejects nonfinite values and incomplete groups,
+and recomputes MAE independently of the experiment logger. It checks 600
+logged evaluations, including all endpoint, seed, method, and partition
+groups. Independent review also checks source-row alignment and
+partition disjointness.</p>
+<p>A fresh numerical run downloads identical source CSV hashes, refits
+the complete fixed experiment matrix, and freezes models before scoring
+its test predictions. All fifteen endpoint–method mean test MAEs match
+the release; the maximum absolute difference is zero under a tolerance
+of <span class="math inline">10<sup>−8</sup></span>. This establishes
+numerical reproduction in the tested environment. It is not an
+independent assay replication.</p>
+<div id="lem:zero" class="lemma">
+<p><strong>Lemma 1</strong>. <em>For a finite list of integer residuals
+<span
+class="math inline"><em>r</em><sub>1</sub>, …, <em>r</em><sub><em>n</em></sub></span>,
+the sum of their natural absolute values is zero if and only if every
+residual is zero.</em></p>
+</div>
+<div class="proof">
+<p><em>Proof.</em> Each summand is nonnegative. If their sum is zero,
+each summand is zero, so every residual is zero. Conversely, zero
+residuals give a zero sum. The repository contains a Lean 4 check by
+induction on the residual list. ◻</p>
+</div>
+<p>The printed trusted axioms for this Lean check are
+<code>propext</code> and <code>Quot.sound</code>. Lemma <a
+href="#lem:zero" data-reference-type="ref"
+data-reference="lem:zero">1</a> is an exact arithmetic anchor only. It
+does not certify floating-point fitting, statistical significance,
+chemical mechanism, or clinical validity.</p>
+<h1 id="sec:discussion">Discussion</h1>
+<p>Under a shared fixed learner, ten physicochemical descriptors improve
+the fingerprint baseline on the three evaluated endpoints. The
+descriptor-only comparison changes direction for lipophilicity, so the
+result cannot be reduced to a uniform ranking of fingerprints and
+descriptors. Concatenation performs best among these fixed
+representations, but competitive tuned models remain untested.</p>
+<p>The principal limitations are the single public snapshot, fixed
+hyperparameters, overlapping partitions, assay heterogeneity, and absent
+prospective temporal validation or new assays. No clinical evaluation or
+external expert review has been completed. Public benchmark labels also
+preclude a general claim of freedom from training-corpus contamination.
+A held-out assay score is not evidence of patient safety.</p>
+<p>The next scientific step is independent replication with competitive
+baselines and a specific methodological or mechanistic hypothesis.
+Publication-level novelty remains an open gate. No agent-discovery
+speedup has been measured, and the local CPU experiment has not been
+deployed to Databricks, Unity Catalog, or Spark.</p>
+<h1 id="app:protocol">Protocol and structural audit</h1>
+<p>The audit covers twenty-two endpoints and forty-four source files. It
+finds no missing targets, no invalid training structures, and two
+invalid test structures. Canonical-molecule and scaffold overlaps
+between the distributed <code>train_val</code> and test portions are
+zero. Within-partition duplicates remain as distributed, so row-weighted
+scores need not equal unique-molecule-weighted scores.</p>
+<p>The invalid structures are solubility test rows with zero-based
+source indices 1159 and 1160. Before successful fitting or score
+inspection, a documented amendment fixed the training-target median
+fallback for every method on both rows. No chemical repair or deletion
+was performed. Restricting solubility evaluation to valid structures
+gives combined mean MAE 0.846374, compared with 0.847962 with all rows
+retained.</p>
+<p>The protocol document existed before computation. A working-directory
+error prevented its intended first commit; the subsequent training
+command failed a row-alignment assertion before any fit or score
+inspection. The document and correction were committed before successful
+experiments. Accordingly, strict commit-before-first-computation
+compliance is not claimed. The structural audit checked target
+completeness, but no test score guided the fallback amendment.</p>
+<p>All models, split indices, and validation predictions were hashed
+before final-test scoring. Later changes hardened verifier grounding and
+documentation. The original seal remains available, with engine and
+document hash differences disclosed; the release hashes identify the
+hardened implementation and unchanged prediction artifacts.</p>
+<h1 id="app:verifier">Verifier and laboratory boundary</h1>
+<p>The domain verifier passes ten true/false, nonfinite, malformed,
+empty-input, and self-assigned-tolerance checks. A synthetic linear
+target is recovered at MAE <span
+class="math inline">7.21644966006 × 10<sup>−16</sup></span>, while
+shuffled synthetic training labels yield 1.481077.</p>
+<p>Review found that mutable prediction targets could spoof the original
+scorer. Source grounding and frozen prediction hashes now reject the
+demonstrated target and hash tampering. Review also found that the
+shared writer’s numerical-token gate does not establish semantic truth.
+The present manuscript is an editorial rewrite of checked records with
+an explicit support map; its wording is reviewed separately rather than
+declared machine-proved.</p>
+<p>The agent-facing domain operations expose validation summaries
+without molecular identities, per-molecule target rows, or test scores.
+They do not defend against a malicious process with filesystem access.
+Three recorded laboratory rounds produced two confirmed claims and one
+unanswered, out-of-protocol question. The experiments themselves are a
+fixed matrix, not adaptively selected discoveries.</p>
+<h1 id="app:evidence">Evidence and reproducibility</h1>
+<p>The project directory <code>projects/admet/</code> contains the
+frozen protocol, raw-source provenance, split indices, model seals,
+saved predictions, experiment and gate tables, verifier reports,
+numerical reproduction report, and Lean source. The machine-readable
+ledger <code>paper_belege.json</code> retains forty-three canonical
+checked records and maps manuscript sections to them. It records
+support, rather than a proof of semantic equivalence between every
+editorial sentence and a checker output.</p>
+<p>Table <a href="#tab:test" data-reference-type="ref"
+data-reference="tab:test">[tab:test]</a> is generated directly from the
+authoritative experiment table after source-grounded validation. The
+standalone LaTeX source, accompanying Markdown, and PDF are built from
+one manuscript. The repository retains the original framework-generated
+draft separately. A fresh numerical rerun uses
+<code>reproduce.py</code>; manuscript rendering uses
+<code>render_release.py</code> without fitting new models or calling a
+language model.</p>
+<div class="thebibliography">
+<p><span>9</span> Yang et al. <em>Analyzing Learned Molecular
+Representations for Property Prediction</em>. <a
+href="https://doi.org/10.1021/acs.jcim.9b00237">doi:10.1021/acs.jcim.9b00237</a>.
+Deng et al. <em>A systematic study of key elements underlying molecular
+property prediction</em>. <a
+href="https://doi.org/10.1038/s41467-023-41948-6">doi:10.1038/s41467-023-41948-6</a>.
+Therapeutics Data Commons. <em>ADMET Benchmark Group</em>. <a
+href="https://tdcommons.ai/benchmark/admet_group/overview/"
+class="uri">https://tdcommons.ai/benchmark/admet_group/overview/</a>.
+Accessed 4 October 2026. Raw snapshot hashes are recorded in
+<code>provenance.json</code>. Bemis and Murcko. <em>The Properties of
+Known Drugs. 1. Molecular Frameworks</em>. <a
+href="https://doi.org/10.1021/jm9602928">doi:10.1021/jm9602928</a>.
+Hosni et al. <em>Explicit Applicability Domain Calculations Can Help
+Determine When Uncertainty Estimates Are Less Reliable</em>. <a
+href="https://doi.org/10.1021/acsomega.5c11875">doi:10.1021/acsomega.5c11875</a>.</p>
+</div>
+</body>
+</html>

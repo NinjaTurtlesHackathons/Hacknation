@@ -1,0 +1,181 @@
+{
+  "checks": {
+    "domain_selftest": true,
+    "synthetic_recovery": {
+      "mae": 7.216449660063518e-16,
+      "shuffled_mae": 1.4810769820969112
+    },
+    "BH_known_answer": true,
+    "scorer_independent_agreement": true,
+    "row_permutation_invariance": true,
+    "neutral_identifier_invariance": "Features depend only on SMILES; no names or IDs enter any fit or agent prompts; no LLM memorization guarantee.",
+    "coverage_contract": true,
+    "predictions_contract_and_rescoring": true
+  },
+  "selftest": [
+    {
+      "pruefung": {
+        "typ": "mae_anchor",
+        "y": [
+          0,
+          2
+        ],
+        "pred": [
+          1,
+          2
+        ],
+        "value": 0.5
+      },
+      "erwartet": true,
+      "ergebnis": true,
+      "korrekt": true,
+      "grund": "independent numerical value=0.500000000; fixed tolerance=1e-06",
+      "sek": 0.0
+    },
+    {
+      "pruefung": {
+        "typ": "mae_anchor",
+        "y": [
+          1,
+          1
+        ],
+        "pred": [
+          1,
+          1
+        ],
+        "value": 0
+      },
+      "erwartet": true,
+      "ergebnis": true,
+      "korrekt": true,
+      "grund": "independent numerical value=0.000000000; fixed tolerance=1e-06",
+      "sek": 0.0
+    },
+    {
+      "pruefung": {
+        "typ": "mae_anchor",
+        "y": [
+          0,
+          2
+        ],
+        "pred": [
+          1,
+          2
+        ],
+        "value": 0.51
+      },
+      "erwartet": false,
+      "ergebnis": false,
+      "korrekt": true,
+      "grund": "independent numerical value=0.500000000; fixed tolerance=1e-06",
+      "sek": 0.0
+    },
+    {
+      "pruefung": {
+        "typ": "mae_anchor",
+        "y": [
+          1
+        ],
+        "pred": [
+          1
+        ],
+        "value": 0.01
+      },
+      "erwartet": false,
+      "ergebnis": false,
+      "korrekt": true,
+      "grund": "independent numerical value=0.000000000; fixed tolerance=1e-06",
+      "sek": 0.0
+    },
+    {
+      "pruefung": {
+        "typ": "mae_anchor",
+        "y": [
+          0
+        ],
+        "pred": [
+          0
+        ],
+        "value": 100,
+        "toleranz": 1000
+      },
+      "erwartet": false,
+      "ergebnis": false,
+      "korrekt": true,
+      "grund": "forbidden fields",
+      "sek": 0.0
+    },
+    {
+      "pruefung": {
+        "typ": "mae_anchor",
+        "y": [],
+        "pred": [],
+        "value": 0
+      },
+      "erwartet": false,
+      "ergebnis": false,
+      "korrekt": true,
+      "grund": "invalid check: empty/misaligned",
+      "sek": 0.0
+    },
+    {
+      "pruefung": {
+        "typ": "mae_anchor",
+        "y": [
+          0
+        ],
+        "pred": [
+          NaN
+        ],
+        "value": 0
+      },
+      "erwartet": false,
+      "ergebnis": false,
+      "korrekt": true,
+      "grund": "invalid check: nonfinite",
+      "sek": 0.0
+    },
+    {
+      "pruefung": {
+        "typ": "mae_anchor",
+        "y": [
+          0
+        ],
+        "pred": [
+          0
+        ],
+        "value": true
+      },
+      "erwartet": false,
+      "ergebnis": false,
+      "korrekt": true,
+      "grund": "nonfinite claim",
+      "sek": 0.0
+    },
+    {
+      "pruefung": {
+        "typ": "score",
+        "endpoint": "arbitrary",
+        "method": "combined",
+        "value": 0
+      },
+      "erwartet": false,
+      "ergebnis": false,
+      "korrekt": true,
+      "grund": "invalid protocol/schema",
+      "sek": 0.0
+    },
+    {
+      "pruefung": {
+        "typ": "test_score",
+        "value": 0
+      },
+      "erwartet": false,
+      "ergebnis": false,
+      "korrekt": true,
+      "grund": "unknown check",
+      "sek": 0.0
+    }
+  ],
+  "passed": true
+}
