@@ -232,7 +232,7 @@ def run(topic, n_queries=10, per_query=25, keep=60, model_cheap="haiku", model_m
     def extract(b):
         batch = top[b:b + 6]
         listing = "\n\n".join(f"<<{i}>>\nTitel: {pool[i]['titel']}\nAbstract: {pool[i]['abstract']}" for i in batch)
-        try: r = ask_json(f"Forschungsziel: {T['ziel']}\n\n{listing}\n\nExtrahiere die für das Ziel wichtigsten Befunde. Jeder Befund braucht ein "
+        try: r = ask_json(f"Forschungsziel: {T['ziel']}\n\n{listing}\n\nExtrahiere die für das Ziel wichtigsten Befunde. Achte besonders auf OFFENE FRAGEN: Formulierungen wie "remains open", "it is unknown whether", "we conjecture", "open problem", "has not been proven", "left for future work", "it would be interesting", "numerically but not analytically"; diese als typ "offene_frage". Jeder Befund braucht ein "
                      "WÖRTLICHES Zitat (mindestens 6 Wörter, exakt kopiert) aus dem jeweiligen Abstract." + fac +
                      ' JSON: {"befunde": [{"quelle": "<id>", "aussage": "<deutsch, ein Satz>", "zitat": "<wörtlich>", "typ": "ergebnis|methode|offene_frage"}]}',
                      model=model_main, salt=f"research-{topic}-extract-{b}")

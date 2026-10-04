@@ -38,6 +38,7 @@ def scout(P, D, log):
     spec = {"ziel": ziel, "sperre": list(getattr(D, "recherche_sperre", [])), "klassiker": list(getattr(D, "recherche_klassiker", [])),
             "crossref": bool(getattr(D, "recherche_crossref", True))}
     ok, st = research_run(f"{D.name}", n_queries=40, per_query=30, keep=150, kette=15, spec=spec, log=log)
+    P.s["offen_lit"] = [{"text": f["aussage"], "zitat": f["zitat"], "quelle": f["quelle"]} for f in ok if f.get("typ") == "offene_frage"]
     P.s["wissen"] = [{"text": f["aussage"], "zitat": f["zitat"], "quelle": f["quelle"], "typ": f.get("typ"), "url": f.get("url"), "status": f.get("status")} for f in ok]
     P.append("decisions.md", f"| {now()} | SCOUT | {st['abgerufen']} Quellen, {st['gesperrt']} gesperrt, {st['verifiziert']} Befunde mit per Code bestätigtem Zitat | research/kb/{D.name}/wissensstand.md |")
 
@@ -71,11 +72,20 @@ def faden_fortschritt(P, faden, fenster=2):
     return any(r["runde"] in ok_runden for r in rs)
 
 
+def offen_lit(P):
+    """Offene Fragen aus der Literatur (mit Wortzitat); Altbestand: aus wissen mit typ offene_frage."""
+    if P.s.get("offen_lit"): return P.s["offen_lit"]
+    return [{"text": w["text"], "zitat": w["zitat"], "quelle": w["quelle"]} for w in P.s.get("wissen", []) if w.get("typ") == "offene_frage"]
+
+
 def integrator_fragen(P, D, k=5, salt=""):
-    r = ask_json(f"{D.kontext}\n\n{wissen_text(P)}\n\n{D.primitive_doc}\n\n{D.claim_doc}\n\nSchlage {k} neue Forschungsfragen vor, die (1) mit den "
-                 "Experimenten beantwortbar und (2) mit den Prüfungstypen nachprüfbar sind, (3) über das Bekannte hinausgehen. Mische sichere "
-                 "Anker (Bekanntes reproduzieren) und offene Fragen. "
-                 'JSON: {"fragen": [{"frage": "...", "begruendung": "...", "neuheit": 0-1, "machbarkeit": 0-1}]}',
+    ol = offen_lit(P)
+    oltxt = "\n".join(f"- [{x['quelle']}] {x['text']} (Zitat: \"{x['zitat'][:200]}\")" for x in ol[:25]) or "-"
+    r = ask_json(f"{D.kontext}\n\n{wissen_text(P)}\n\nOFFENE FRAGEN AUS DER LITERATUR (mit Wortzitat):\n{oltxt}\n\n{D.primitive_doc}\n\n{D.claim_doc}\n\n"
+                 f"Schlage {k} neue Forschungsfragen vor, die (1) mit den Experimenten beantwortbar und (2) mit den Prüfungstypen nachprüfbar sind und "
+                 "(3) über das Bekannte hinausgehen. Mindestens die Hälfte muss eine der offenen Literaturfragen angehen oder verallgemeinern; trage dann "
+                 "deren Quelle in \"lit_offen\" ein. Höchstens EINE Frage darf ein Anker sein (Bekanntes reproduzieren, nur zur Validierung, \"anker\": true). "
+                 'JSON: {"fragen": [{"frage": "...", "begruendung": "...", "lit_offen": "<quelle oder leer>", "anker": false, "neuheit": 0-1, "machbarkeit": 0-1}]}',
                  SYS.format(rolle="der Integrator (Forschungsleiter)"), salt=f"integrator-fragen-{salt}")
     for q in r.get("fragen", []):
         qid = f"F{len(P.s['fragen']) + 1}"; q.update(id=qid, status="offen", faden_id=qid); P.s["fragen"].append(q)
@@ -94,9 +104,11 @@ def integrator_plan(P, D, runde):
         elif faden:
             P.append("decisions.md", f"| {now()} | INTEGRATOR | Runde {runde}: Fadenwechsel weg von {faden} | " +
                      ("keine offenen Folgefragen im Faden" if not im_faden else "kein neuer bestätigter Claim in den letzten 2 Runden des Fadens") + " |")
-    liste = "\n".join(f"[{q['id']}] {q['frage']} (Neuheit {q.get('neuheit')}, Machbarkeit {q.get('machbarkeit')})" for q in offen)
+    liste = "\n".join(f"[{q['id']}] {q['frage']} (Machbarkeit {q.get('machbarkeit')}" + (f", greift offene Literaturfrage {q['lit_offen']} an" if q.get("lit_offen") else "") +
+                      (", ANKER" if q.get("anker") else "") + ")" for q in offen)
     r = ask_json(f"{D.kontext}\n\n{wissen_text(P)}\n\nOffene Fragen:\n{liste}\n\nWähle die EINE Frage mit dem höchsten erwarteten Erkenntnisgewinn "
-                 "(Value of Information: Neuheit x Machbarkeit x Lücke zum bisher Bewiesenen). Formuliere vorab ein Erfolgskriterium und ein "
+                 "(Value of Information). Bevorzuge Fragen, die eine offene Literaturfrage angehen (lit_offen); die selbstgeschätzte Neuheit entscheidet nicht allein; "
+                 "Anker nur, wenn noch keiner validiert wurde. Formuliere vorab ein Erfolgskriterium und ein "
                  'Abbruchkriterium. JSON: {"id": "F..", "begruendung": "...", "erfolg": "...", "abbruch": "...", "erwartung": "..."}',
                  SYS.format(rolle="der Integrator (Forschungsleiter)"), salt=f"integrator-plan-{runde}")
     q = next((q for q in offen if q["id"] == r.get("id")), offen[0]); q.setdefault("faden_id", faden_of(P, q)); return q, r
@@ -201,6 +213,11 @@ def runde_ausfuehren(P, D, a, runde, log):
                                   "pruefung": p, "grund": grund,
                                   "level": D.level(p), "status": "angefochten" if angefochten else "bestätigt", "red_team": rt, "runde": runde,
                                   "relevanz": D.relevanz(p) if hasattr(D, "relevanz") else "stuetze"})
+            if not angefochten:
+                from .novelty import check_claim
+                try: P.s["claims"][-1]["neuheit"] = check_claim(D, P.s["claims"][-1], salt=cid)
+                except Exception as e: P.s["claims"][-1]["neuheit"] = {"status": "nicht_geprueft", "grund": str(e)[:120]}
+                log(f"  Neuheit: {P.s['claims'][-1]['neuheit'].get('status')}")
             log(f"  geprüft ({D.level(p)}): {D.describe(p)[:160]} | Red-Team: {len(rt)} Gegenprüfungen, {sum(x['bestanden'] for x in rt)} bestanden, {len(angefochten)} logische Widersprüche")
         else:
             gruende = []

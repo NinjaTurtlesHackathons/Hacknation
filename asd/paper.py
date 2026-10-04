@@ -19,6 +19,7 @@ numerical re-computation), what the trusted base is, and what counts only as a n
 mention that the work was carried out by an automated, verifier-gated laboratory, in one paragraph, without naming any of its agents or roles.
 ## Results
 Follow the story plan: main results first, then supporting statements, then examples. Use the environments given in the story plan.
+After every main result add one half-sentence on its novelty status exactly as given in its claim (never call anything "new" or "novel" yourself).
 ## Negative results
 What was attempted and failed, with the reason for each failure.
 ## Discussion, limitations and open questions
@@ -129,7 +130,11 @@ def claims_of(domain, lang="en"):
         try: text = D.describe(c["pruefung"], lang=lang) if c.get("pruefung") else c["text"]   # nur was die Prüfung beweist
         except TypeError: text = D.describe(c["pruefung"])
         rel = c.get("relevanz") or (D.relevanz(c["pruefung"]) if c.get("pruefung") and hasattr(D, "relevanz") else "stuetze")
-        C.append({"claim_id": f"C-{c['id']}", "text": f"Question studied: {c['frage']} Verified result: {text} Verifier: {sanitize(c['grund'])}",
+        nv = c.get("neuheit") or {}
+        ntxt = {"bekannt": f" Novelty status: already stated in the literature ({nv.get('quelle')}: \"{nv.get('zitat', '')[:160]}\").",
+                "offen_laut_literatur": f" Novelty status: stated as open in the literature ({nv.get('quelle')}).",
+                "nicht_gefunden": f" Novelty status: not found in a targeted search of {nv.get('quellen_geprueft', 0)} abstracts on {nv.get('datum', '')}."}.get(nv.get("status"), " Novelty status: not checked.")
+        C.append({"claim_id": f"C-{c['id']}", "text": f"Question studied: {c['frage']} Verified result: {text} Verifier: {sanitize(c['grund'])}.{ntxt}",
                   "level": c["level"], "status": c["status"], "relevanz": rel, "scope": scope_of(text, c.get("pruefung"))})
         interp = c.get("interpretation_ungeprueft") or c["text"].split("->")[-1]
         C.append({"claim_id": f"C-{c['id']}-I", "text": f"Unverified interpretation of {c['id']} (never use as a result): {interp}",
@@ -153,6 +158,9 @@ def claims_of(domain, lang="en"):
     fp = f"projects/{domain}/fakten.json"                               # per Code ermittelte Zusatzfakten (Zertifikats-Logs, Zählungen)
     if os.path.exists(fp):
         for f in json.load(open(fp)): C.append({"claim_id": f"C-{f['id']}", "text": f["text"], "level": f.get("level", "observed"), "status": "bestätigt"})
+    qs = [(c["id"], c["neuheit"]) for c in s["claims"] if (c.get("neuheit") or {}).get("suchanfragen")]
+    if qs: C.append({"claim_id": "C-neuheit-suche", "text": "Novelty search queries per result: " + " | ".join(f"{i}: " + "; ".join(n["suchanfragen"]) + f" ({n['quellen_geprueft']} abstracts)" for i, n in qs),
+                     "level": "observed", "status": "bestätigt", "anhang": True})
     C.append({"claim_id": "C-redteam", "text": f"Counter-checks (adversarial tests) in total: {sum(RT_STAT.values())}; passed: {RT_STAT.get('bestanden', 0)}, "
               f"did not pass: {RT_STAT.get('nicht_bestanden', 0)}, not executable: {RT_STAT.get('nicht_ausfuehrbar', 0)}.", "level": "observed", "status": "bestätigt", "anhang": True})
     C.append({"claim_id": "C-methode", "text": f"The laboratory ran {len(s['runden'])} rounds with {len(s['claims'])} verified statements and {len(s['widerlegt'])} negative results; "
