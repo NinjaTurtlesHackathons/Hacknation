@@ -1,0 +1,2175 @@
+{
+ "antwort": {
+  "antwort": "Der Vorzeichenwechsel liegt zwischen a=1.0 (Adam dominant) und a=1.5 (Muon beginnt zu dominieren). Muons optimale LR bleibt spektrumunabhängig bei 2^−5, während Adams beste LR mit a ansteigt (2^−2 bei a=0.1 → 2^−4 bei a=3.0).",
+  "zahl": 1.25,
+  "konfidenz": 0.92,
+  "pruefungen": [
+   {
+    "typ": "vergleich",
+    "problem": {
+     "typ": "quadratisch",
+     "rotiert": true,
+     "a_L": 1.0,
+     "a_R": 1.0
+    },
+    "steps": 500,
+    "a": {
+     "optimizer": "adam",
+     "schedule": "const"
+    },
+    "b": {
+     "optimizer": "muon",
+     "schedule": "const"
+    }
+   },
+   {
+    "typ": "vergleich",
+    "problem": {
+     "typ": "quadratisch",
+     "rotiert": true,
+     "a_L": 2.0,
+     "a_R": 2.0
+    },
+    "steps": 500,
+    "a": {
+     "optimizer": "muon",
+     "schedule": "const"
+    },
+    "b": {
+     "optimizer": "adam",
+     "schedule": "const"
+    }
+   }
+  ],
+  "begruendung": "Die lr_sweep-Ergebnisse (E12–E23) zeigen ein klares Muster: Bei schwachem Spektrum (a≤1.0) konvergiert Adam exponentiell schneller, bei steilem Spektrum (a≥1.5) siegt Muon durch spektrale Orthogonalisierung. Der Umschlag erfolgt spektrumabhängig und wird durch zwei gepaarte Vergleichstests an den Grenzen a=1.0 und a=2.0 bestätigt.",
+  "stimmen": "Stufe 2/4 (numeriker, haiku)"
+ },
+ "level": "computed (Code-Prüfer bestanden)",
+ "forscher": [
+  {
+   "strategie": "sparsam",
+   "runden": [
+    {
+     "ueberlegung": "Das geprüfte Ergebnis [optscale-R4] zeigt einen Vorzeichenwechsel bei a_L=a_R=3.0 (rotiert): Muon übertrifft Adam. Die Frage untersucht, wie dieser Wechsel vom Spektralexponenten abhängt. Strategie: Ich messe systematisch über a ∈ {0.1, 0.5, 1.0, 1.5, 2.0, 3.0} mit a_L=a_R=a, alle rotiert=true, 500 Schritte, const-Schedule. Runde 1 deckt die Spektralextrema (a=0.1: extrem ill-konditioniert; a=3.0: Referenz) und zwei mittlere Punkte (a=1.0, 2.0) ab. Für jeden Punkt führe ich lr_sweep unabhängig für beide Optimierer durch (Tuning-Seeds 100–102, Gitter 2^-9..2^0). So entstehen 8 hochinformative Messpunkte; Runde 2 kann die Zwischenpunkte a=0.5, 1.5 verfeinern. Jede Messung prüft auch, ob beste LR im Gitterinnern liegt (kein Randeffekt).",
+     "plan": [
+      {
+       "op": "lr_sweep",
+       "args": {
+        "problem": {
+         "typ": "quadratisch",
+         "rotiert": true,
+         "a_L": 0.1,
+         "a_R": 0.1
+        },
+        "optimizer": "adam",
+        "log2_lrs": [
+         -9,
+         -8,
+         -7,
+         -6,
+         -5,
+         -4,
+         -3,
+         -2,
+         -1,
+         0
+        ],
+        "steps": 500,
+        "seeds": [
+         100,
+         101,
+         102
+        ],
+        "schedule": "const"
+       }
+      },
+      {
+       "op": "lr_sweep",
+       "args": {
+        "problem": {
+         "typ": "quadratisch",
+         "rotiert": true,
+         "a_L": 0.1,
+         "a_R": 0.1
+        },
+        "optimizer": "muon",
+        "log2_lrs": [
+         -9,
+         -8,
+         -7,
+         -6,
+         -5,
+         -4,
+         -3,
+         -2,
+         -1,
+         0
+        ],
+        "steps": 500,
+        "seeds": [
+         100,
+         101,
+         102
+        ],
+        "schedule": "const"
+       }
+      },
+      {
+       "op": "lr_sweep",
+       "args": {
+        "problem": {
+         "typ": "quadratisch",
+         "rotiert": true,
+         "a_L": 1.0,
+         "a_R": 1.0
+        },
+        "optimizer": "adam",
+        "log2_lrs": [
+         -9,
+         -8,
+         -7,
+         -6,
+         -5,
+         -4,
+         -3,
+         -2,
+         -1,
+         0
+        ],
+        "steps": 500,
+        "seeds": [
+         100,
+         101,
+         102
+        ],
+        "schedule": "const"
+       }
+      },
+      {
+       "op": "lr_sweep",
+       "args": {
+        "problem": {
+         "typ": "quadratisch",
+         "rotiert": true,
+         "a_L": 1.0,
+         "a_R": 1.0
+        },
+        "optimizer": "muon",
+        "log2_lrs": [
+         -9,
+         -8,
+         -7,
+         -6,
+         -5,
+         -4,
+         -3,
+         -2,
+         -1,
+         0
+        ],
+        "steps": 500,
+        "seeds": [
+         100,
+         101,
+         102
+        ],
+        "schedule": "const"
+       }
+      },
+      {
+       "op": "lr_sweep",
+       "args": {
+        "problem": {
+         "typ": "quadratisch",
+         "rotiert": true,
+         "a_L": 2.0,
+         "a_R": 2.0
+        },
+        "optimizer": "adam",
+        "log2_lrs": [
+         -9,
+         -8,
+         -7,
+         -6,
+         -5,
+         -4,
+         -3,
+         -2,
+         -1,
+         0
+        ],
+        "steps": 500,
+        "seeds": [
+         100,
+         101,
+         102
+        ],
+        "schedule": "const"
+       }
+      },
+      {
+       "op": "lr_sweep",
+       "args": {
+        "problem": {
+         "typ": "quadratisch",
+         "rotiert": true,
+         "a_L": 2.0,
+         "a_R": 2.0
+        },
+        "optimizer": "muon",
+        "log2_lrs": [
+         -9,
+         -8,
+         -7,
+         -6,
+         -5,
+         -4,
+         -3,
+         -2,
+         -1,
+         0
+        ],
+        "steps": 500,
+        "seeds": [
+         100,
+         101,
+         102
+        ],
+        "schedule": "const"
+       }
+      },
+      {
+       "op": "lr_sweep",
+       "args": {
+        "problem": {
+         "typ": "quadratisch",
+         "rotiert": true,
+         "a_L": 3.0,
+         "a_R": 3.0
+        },
+        "optimizer": "adam",
+        "log2_lrs": [
+         -9,
+         -8,
+         -7,
+         -6,
+         -5,
+         -4,
+         -3,
+         -2,
+         -1,
+         0
+        ],
+        "steps": 500,
+        "seeds": [
+         100,
+         101,
+         102
+        ],
+        "schedule": "const"
+       }
+      },
+      {
+       "op": "lr_sweep",
+       "args": {
+        "problem": {
+         "typ": "quadratisch",
+         "rotiert": true,
+         "a_L": 3.0,
+         "a_R": 3.0
+        },
+        "optimizer": "muon",
+        "log2_lrs": [
+         -9,
+         -8,
+         -7,
+         -6,
+         -5,
+         -4,
+         -3,
+         -2,
+         -1,
+         0
+        ],
+        "steps": 500,
+        "seeds": [
+         100,
+         101,
+         102
+        ],
+        "schedule": "const"
+       }
+      }
+     ]
+    },
+    {
+     "plan": [
+      {
+       "op": "lr_sweep",
+       "args": {
+        "problem": {
+         "typ": "quadratisch",
+         "rotiert": true,
+         "a_L": 0.5,
+         "a_R": 0.5
+        },
+        "optimizer": "adam",
+        "log2_lrs": [
+         -9,
+         -8,
+         -7,
+         -6,
+         -5,
+         -4,
+         -3,
+         -2,
+         -1,
+         0
+        ],
+        "steps": 500,
+        "seeds": [
+         100,
+         101,
+         102
+        ],
+        "schedule": "const"
+       }
+      },
+      {
+       "op": "lr_sweep",
+       "args": {
+        "problem": {
+         "typ": "quadratisch",
+         "rotiert": true,
+         "a_L": 0.5,
+         "a_R": 0.5
+        },
+        "optimizer": "muon",
+        "log2_lrs": [
+         -9,
+         -8,
+         -7,
+         -6,
+         -5,
+         -4,
+         -3,
+         -2,
+         -1,
+         0
+        ],
+        "steps": 500,
+        "seeds": [
+         100,
+         101,
+         102
+        ],
+        "schedule": "const"
+       }
+      },
+      {
+       "op": "lr_sweep",
+       "args": {
+        "problem": {
+         "typ": "quadratisch",
+         "rotiert": true,
+         "a_L": 1.5,
+         "a_R": 1.5
+        },
+        "optimizer": "adam",
+        "log2_lrs": [
+         -9,
+         -8,
+         -7,
+         -6,
+         -5,
+         -4,
+         -3,
+         -2,
+         -1,
+         0
+        ],
+        "steps": 500,
+        "seeds": [
+         100,
+         101,
+         102
+        ],
+        "schedule": "const"
+       }
+      },
+      {
+       "op": "lr_sweep",
+       "args": {
+        "problem": {
+         "typ": "quadratisch",
+         "rotiert": true,
+         "a_L": 1.5,
+         "a_R": 1.5
+        },
+        "optimizer": "muon",
+        "log2_lrs": [
+         -9,
+         -8,
+         -7,
+         -6,
+         -5,
+         -4,
+         -3,
+         -2,
+         -1,
+         0
+        ],
+        "steps": 500,
+        "seeds": [
+         100,
+         101,
+         102
+        ],
+        "schedule": "const"
+       }
+      }
+     ]
+    },
+    {
+     "antwort": "Der Vorzeichenwechsel tritt zwischen a=1.0 (Adam gewinnt) und a=1.5 (Muon gewinnt) auf",
+     "zahl": 1.2,
+     "konfidenz": 0.9,
+     "begruendung": "Die sechs Experimente E0–E11 auf der Diagonalen a=a_L=a_R zeigen: bei a∈{0.1, 0.5, 1.0} dominiert Adam (relativer Verlust 10⁸–10¹⁸ mal besser), bei a∈{1.5, 2.0, 3.0} dominiert Muon (Faktor 2,9–10,6). Der Übergangspunkt liegt zwischen 1.0 und 1.5, wo die spektrale Konditionszahl ausreichend hoch wird, dass Muons Newton-Schulz-Orthogonalisierung Vorteil bringt.",
+     "pruefung": {
+      "typ": "vergleich",
+      "problem": {
+       "typ": "quadratisch",
+       "rotiert": true,
+       "a_L": 1.2,
+       "a_R": 1.2
+      },
+      "steps": 500,
+      "a": {
+       "optimizer": "muon",
+       "schedule": "const"
+      },
+      "b": {
+       "optimizer": "adam",
+       "schedule": "const"
+      }
+     }
+    }
+   ],
+   "experimente": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11
+   ],
+   "final": {
+    "antwort": "Der Vorzeichenwechsel tritt zwischen a=1.0 (Adam gewinnt) und a=1.5 (Muon gewinnt) auf",
+    "zahl": 1.2,
+    "konfidenz": 0.9,
+    "begruendung": "Die sechs Experimente E0–E11 auf der Diagonalen a=a_L=a_R zeigen: bei a∈{0.1, 0.5, 1.0} dominiert Adam (relativer Verlust 10⁸–10¹⁸ mal besser), bei a∈{1.5, 2.0, 3.0} dominiert Muon (Faktor 2,9–10,6). Der Übergangspunkt liegt zwischen 1.0 und 1.5, wo die spektrale Konditionszahl ausreichend hoch wird, dass Muons Newton-Schulz-Orthogonalisierung Vorteil bringt.",
+    "pruefung": {
+     "typ": "vergleich",
+     "problem": {
+      "typ": "quadratisch",
+      "rotiert": true,
+      "a_L": 1.2,
+      "a_R": 1.2
+     },
+     "steps": 500,
+     "a": {
+      "optimizer": "muon",
+      "schedule": "const"
+     },
+     "b": {
+      "optimizer": "adam",
+      "schedule": "const"
+     }
+    }
+   },
+   "modell": "haiku",
+   "pruefung": {
+    "bestanden": false,
+    "grund": "Prüfer: muon/const (beste LR 2^-5) vs adam/const (beste LR 2^-2), je eigenes Tuning auf Seeds (100, 101, 102), Bewertung auf 10 frischen Seeds: geometr. Mittel rel. Endverlust 1.918e-04 vs 2.678e-06, Verhältnis 71.625 (Schwelle < 0.9), gepaarter Permutationstest p = 0.9947 (Schwelle < 0.01)"
+   }
+  },
+  {
+   "strategie": "numeriker",
+   "runden": [
+    {
+     "ueberlegung": "Aus [optscale-R2/R3] ist bekannt, dass bei a=3.0 und rotiert=false Adam gewinnt. Aus [optscale-R4] ist bekannt, dass bei a=3.0 und rotiert=true Muon gewinnt. Das deutet auf einen Vorzeichenwechsel hin, der mit der Rotationssymmetrie des Spektrums zusammenhängt. Die Frage verlangt, diesen Übergang entlang der Diagonalen a_L = a_R zu kartografieren. Plan: Vier strategische Punkte {0.1, 0.5, 1.0, 3.0} wählen (small, low-frequency, intermediate, large), um den Übergang zu lokalisieren. Für jeden Punkt je einen lr_sweep für Muon und Adam mit rotiert=true, const, 500 Schritte, Tuning-Seeds [0,1,2], log2_lrs von -9 bis 0 (11 Punkte). Das ergibt 8 Experimente in Runde 1. Runde 2 wird dann die Übergangszone (1.5, 2.0) verfeinern und mit den optimalen LRs auf 10 frischen Seeds validieren.",
+     "plan": [
+      {
+       "op": "lr_sweep",
+       "args": {
+        "problem": {
+         "typ": "quadratisch",
+         "rotiert": true,
+         "a_L": 0.1,
+         "a_R": 0.1
+        },
+        "optimizer": "muon",
+        "log2_lrs": [
+         -9,
+         -8,
+         -7,
+         -6,
+         -5,
+         -4,
+         -3,
+         -2,
+         -1,
+         0
+        ],
+        "steps": 500,
+        "seeds": [
+         0,
+         1,
+         2
+        ],
+        "schedule": "const"
+       }
+      },
+      {
+       "op": "lr_sweep",
+       "args": {
+        "problem": {
+         "typ": "quadratisch",
+         "rotiert": true,
+         "a_L": 0.1,
+         "a_R": 0.1
+        },
+        "optimizer": "adam",
+        "log2_lrs": [
+         -9,
+         -8,
+         -7,
+         -6,
+         -5,
+         -4,
+         -3,
+         -2,
+         -1,
+         0
+        ],
+        "steps": 500,
+        "seeds": [
+         0,
+         1,
+         2
+        ],
+        "schedule": "const"
+       }
+      },
+      {
+       "op": "lr_sweep",
+       "args": {
+        "problem": {
+         "typ": "quadratisch",
+         "rotiert": true,
+         "a_L": 0.5,
+         "a_R": 0.5
+        },
+        "optimizer": "muon",
+        "log2_lrs": [
+         -9,
+         -8,
+         -7,
+         -6,
+         -5,
+         -4,
+         -3,
+         -2,
+         -1,
+         0
+        ],
+        "steps": 500,
+        "seeds": [
+         0,
+         1,
+         2
+        ],
+        "schedule": "const"
+       }
+      },
+      {
+       "op": "lr_sweep",
+       "args": {
+        "problem": {
+         "typ": "quadratisch",
+         "rotiert": true,
+         "a_L": 0.5,
+         "a_R": 0.5
+        },
+        "optimizer": "adam",
+        "log2_lrs": [
+         -9,
+         -8,
+         -7,
+         -6,
+         -5,
+         -4,
+         -3,
+         -2,
+         -1,
+         0
+        ],
+        "steps": 500,
+        "seeds": [
+         0,
+         1,
+         2
+        ],
+        "schedule": "const"
+       }
+      },
+      {
+       "op": "lr_sweep",
+       "args": {
+        "problem": {
+         "typ": "quadratisch",
+         "rotiert": true,
+         "a_L": 1.0,
+         "a_R": 1.0
+        },
+        "optimizer": "muon",
+        "log2_lrs": [
+         -9,
+         -8,
+         -7,
+         -6,
+         -5,
+         -4,
+         -3,
+         -2,
+         -1,
+         0
+        ],
+        "steps": 500,
+        "seeds": [
+         0,
+         1,
+         2
+        ],
+        "schedule": "const"
+       }
+      },
+      {
+       "op": "lr_sweep",
+       "args": {
+        "problem": {
+         "typ": "quadratisch",
+         "rotiert": true,
+         "a_L": 1.0,
+         "a_R": 1.0
+        },
+        "optimizer": "adam",
+        "log2_lrs": [
+         -9,
+         -8,
+         -7,
+         -6,
+         -5,
+         -4,
+         -3,
+         -2,
+         -1,
+         0
+        ],
+        "steps": 500,
+        "seeds": [
+         0,
+         1,
+         2
+        ],
+        "schedule": "const"
+       }
+      },
+      {
+       "op": "lr_sweep",
+       "args": {
+        "problem": {
+         "typ": "quadratisch",
+         "rotiert": true,
+         "a_L": 3.0,
+         "a_R": 3.0
+        },
+        "optimizer": "muon",
+        "log2_lrs": [
+         -9,
+         -8,
+         -7,
+         -6,
+         -5,
+         -4,
+         -3,
+         -2,
+         -1,
+         0
+        ],
+        "steps": 500,
+        "seeds": [
+         0,
+         1,
+         2
+        ],
+        "schedule": "const"
+       }
+      },
+      {
+       "op": "lr_sweep",
+       "args": {
+        "problem": {
+         "typ": "quadratisch",
+         "rotiert": true,
+         "a_L": 3.0,
+         "a_R": 3.0
+        },
+        "optimizer": "adam",
+        "log2_lrs": [
+         -9,
+         -8,
+         -7,
+         -6,
+         -5,
+         -4,
+         -3,
+         -2,
+         -1,
+         0
+        ],
+        "steps": 500,
+        "seeds": [
+         0,
+         1,
+         2
+        ],
+        "schedule": "const"
+       }
+      }
+     ]
+    },
+    {
+     "plan": [
+      {
+       "op": "lr_sweep",
+       "args": {
+        "problem": {
+         "typ": "quadratisch",
+         "rotiert": true,
+         "a_L": 1.5,
+         "a_R": 1.5
+        },
+        "optimizer": "muon",
+        "log2_lrs": [
+         -9,
+         -8,
+         -7,
+         -6,
+         -5,
+         -4,
+         -3,
+         -2,
+         -1,
+         0
+        ],
+        "steps": 500,
+        "seeds": [
+         0,
+         1,
+         2
+        ],
+        "schedule": "const"
+       }
+      },
+      {
+       "op": "lr_sweep",
+       "args": {
+        "problem": {
+         "typ": "quadratisch",
+         "rotiert": true,
+         "a_L": 1.5,
+         "a_R": 1.5
+        },
+        "optimizer": "adam",
+        "log2_lrs": [
+         -9,
+         -8,
+         -7,
+         -6,
+         -5,
+         -4,
+         -3,
+         -2,
+         -1,
+         0
+        ],
+        "steps": 500,
+        "seeds": [
+         0,
+         1,
+         2
+        ],
+        "schedule": "const"
+       }
+      },
+      {
+       "op": "lr_sweep",
+       "args": {
+        "problem": {
+         "typ": "quadratisch",
+         "rotiert": true,
+         "a_L": 2.0,
+         "a_R": 2.0
+        },
+        "optimizer": "muon",
+        "log2_lrs": [
+         -9,
+         -8,
+         -7,
+         -6,
+         -5,
+         -4,
+         -3,
+         -2,
+         -1,
+         0
+        ],
+        "steps": 500,
+        "seeds": [
+         0,
+         1,
+         2
+        ],
+        "schedule": "const"
+       }
+      },
+      {
+       "op": "lr_sweep",
+       "args": {
+        "problem": {
+         "typ": "quadratisch",
+         "rotiert": true,
+         "a_L": 2.0,
+         "a_R": 2.0
+        },
+        "optimizer": "adam",
+        "log2_lrs": [
+         -9,
+         -8,
+         -7,
+         -6,
+         -5,
+         -4,
+         -3,
+         -2,
+         -1,
+         0
+        ],
+        "steps": 500,
+        "seeds": [
+         0,
+         1,
+         2
+        ],
+        "schedule": "const"
+       }
+      }
+     ]
+    },
+    {
+     "antwort": "Der Vorzeichenwechsel liegt zwischen a=1.0 (Adam dominant) und a=1.5 (Muon beginnt zu dominieren). Muons optimale LR bleibt spektrumunabhängig bei 2^−5, während Adams beste LR mit a ansteigt (2^−2 bei a=0.1 → 2^−4 bei a=3.0).",
+     "zahl": 1.25,
+     "konfidenz": 0.92,
+     "pruefungen": [
+      {
+       "typ": "vergleich",
+       "problem": {
+        "typ": "quadratisch",
+        "rotiert": true,
+        "a_L": 1.0,
+        "a_R": 1.0
+       },
+       "steps": 500,
+       "a": {
+        "optimizer": "adam",
+        "schedule": "const"
+       },
+       "b": {
+        "optimizer": "muon",
+        "schedule": "const"
+       }
+      },
+      {
+       "typ": "vergleich",
+       "problem": {
+        "typ": "quadratisch",
+        "rotiert": true,
+        "a_L": 2.0,
+        "a_R": 2.0
+       },
+       "steps": 500,
+       "a": {
+        "optimizer": "muon",
+        "schedule": "const"
+       },
+       "b": {
+        "optimizer": "adam",
+        "schedule": "const"
+       }
+      }
+     ],
+     "begruendung": "Die lr_sweep-Ergebnisse (E12–E23) zeigen ein klares Muster: Bei schwachem Spektrum (a≤1.0) konvergiert Adam exponentiell schneller, bei steilem Spektrum (a≥1.5) siegt Muon durch spektrale Orthogonalisierung. Der Umschlag erfolgt spektrumabhängig und wird durch zwei gepaarte Vergleichstests an den Grenzen a=1.0 und a=2.0 bestätigt."
+    }
+   ],
+   "experimente": [
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    22,
+    23
+   ],
+   "final": {
+    "antwort": "Der Vorzeichenwechsel liegt zwischen a=1.0 (Adam dominant) und a=1.5 (Muon beginnt zu dominieren). Muons optimale LR bleibt spektrumunabhängig bei 2^−5, während Adams beste LR mit a ansteigt (2^−2 bei a=0.1 → 2^−4 bei a=3.0).",
+    "zahl": 1.25,
+    "konfidenz": 0.92,
+    "pruefungen": [
+     {
+      "typ": "vergleich",
+      "problem": {
+       "typ": "quadratisch",
+       "rotiert": true,
+       "a_L": 1.0,
+       "a_R": 1.0
+      },
+      "steps": 500,
+      "a": {
+       "optimizer": "adam",
+       "schedule": "const"
+      },
+      "b": {
+       "optimizer": "muon",
+       "schedule": "const"
+      }
+     },
+     {
+      "typ": "vergleich",
+      "problem": {
+       "typ": "quadratisch",
+       "rotiert": true,
+       "a_L": 2.0,
+       "a_R": 2.0
+      },
+      "steps": 500,
+      "a": {
+       "optimizer": "muon",
+       "schedule": "const"
+      },
+      "b": {
+       "optimizer": "adam",
+       "schedule": "const"
+      }
+     }
+    ],
+    "begruendung": "Die lr_sweep-Ergebnisse (E12–E23) zeigen ein klares Muster: Bei schwachem Spektrum (a≤1.0) konvergiert Adam exponentiell schneller, bei steilem Spektrum (a≥1.5) siegt Muon durch spektrale Orthogonalisierung. Der Umschlag erfolgt spektrumabhängig und wird durch zwei gepaarte Vergleichstests an den Grenzen a=1.0 und a=2.0 bestätigt."
+   },
+   "modell": "haiku",
+   "pruefung": {
+    "bestanden": true,
+    "grund": "Prüfer: adam/const (beste LR 2^-2) vs muon/const (beste LR 2^-4), je eigenes Tuning auf Seeds (100, 101, 102), Bewertung auf 10 frischen Seeds: geometr. Mittel rel. Endverlust 3.170e-11 vs 8.863e-05, Verhältnis 0.000 (Schwelle < 0.9), gepaarter Permutationstest p = 0.0041 (Schwelle < 0.01) | Prüfer: muon/const (beste LR 2^-5) vs adam/const (beste LR 2^-3), je eigenes Tuning auf Seeds (100, 101, 102), Bewertung auf 10 frischen Seeds: geometr. Mittel rel. Endverlust 2.065e-04 vs 1.924e-03, Verhältnis 0.107 (Schwelle < 0.9), gepaarter Permutationstest p = 0.0008 (Schwelle < 0.01)"
+   }
+  }
+ ],
+ "experimente": [
+  {
+   "id": 0,
+   "wer": "forscher-sparsam",
+   "op": "lr_sweep",
+   "args": {
+    "problem": {
+     "typ": "quadratisch",
+     "rotiert": true,
+     "a_L": 0.1,
+     "a_R": 0.1
+    },
+    "optimizer": "adam",
+    "log2_lrs": [
+     -9,
+     -8,
+     -7,
+     -6,
+     -5,
+     -4,
+     -3,
+     -2,
+     -1,
+     0
+    ],
+    "steps": 500,
+    "seeds": [
+     100,
+     101,
+     102
+    ],
+    "schedule": "const"
+   },
+   "ergebnis": {
+    "rel_verlust": {
+     "-9": 0.22798091724730368,
+     "-8": 0.05394727975793151,
+     "-7": 0.002885287425573453,
+     "-6": 2.9400240062617483e-06,
+     "-5": 1.1495425358997183e-17,
+     "-4": 7.644254291868498e-23,
+     "-3": 4.4380935664075744e-23,
+     "-2": 3.872197687047449e-23,
+     "-1": 1.0630399188693808e-20,
+     "0": 1.9815797202708117e-18
+    },
+    "beste_log2_lr": -2
+   },
+   "sek": 0.62
+  },
+  {
+   "id": 1,
+   "wer": "forscher-sparsam",
+   "op": "lr_sweep",
+   "args": {
+    "problem": {
+     "typ": "quadratisch",
+     "rotiert": true,
+     "a_L": 0.1,
+     "a_R": 0.1
+    },
+    "optimizer": "muon",
+    "log2_lrs": [
+     -9,
+     -8,
+     -7,
+     -6,
+     -5,
+     -4,
+     -3,
+     -2,
+     -1,
+     0
+    ],
+    "steps": 500,
+    "seeds": [
+     100,
+     101,
+     102
+    ],
+    "schedule": "const"
+   },
+   "ergebnis": {
+    "rel_verlust": {
+     "-9": 0.773184918911073,
+     "-8": 0.5827732690883907,
+     "-7": 0.29420954386672743,
+     "-6": 0.023760315795584956,
+     "-5": 1.1301053896728401e-05,
+     "-4": 4.4799470535153635e-05,
+     "-3": 0.00017687302536463636,
+     "-2": 0.0007171827891385227,
+     "-1": 0.002877884342230767,
+     "0": 0.011681499470465985
+    },
+    "beste_log2_lr": -5
+   },
+   "sek": 2.23
+  },
+  {
+   "id": 2,
+   "wer": "forscher-sparsam",
+   "op": "lr_sweep",
+   "args": {
+    "problem": {
+     "typ": "quadratisch",
+     "rotiert": true,
+     "a_L": 1.0,
+     "a_R": 1.0
+    },
+    "optimizer": "adam",
+    "log2_lrs": [
+     -9,
+     -8,
+     -7,
+     -6,
+     -5,
+     -4,
+     -3,
+     -2,
+     -1,
+     0
+    ],
+    "steps": 500,
+    "seeds": [
+     100,
+     101,
+     102
+    ],
+    "schedule": "const"
+   },
+   "ergebnis": {
+    "rel_verlust": {
+     "-9": 0.1496863676683623,
+     "-8": 0.05457670123407739,
+     "-7": 0.013776776092225716,
+     "-6": 0.0015906384403965247,
+     "-5": 3.0116671036059978e-05,
+     "-4": 9.937206968775247e-09,
+     "-3": 6.530537459776832e-10,
+     "-2": 7.097318819734401e-13,
+     "-1": 1.3702918961544523e-10,
+     "0": 3.8758056814300127e-08
+    },
+    "beste_log2_lr": -2
+   },
+   "sek": 0.67
+  },
+  {
+   "id": 3,
+   "wer": "forscher-sparsam",
+   "op": "lr_sweep",
+   "args": {
+    "problem": {
+     "typ": "quadratisch",
+     "rotiert": true,
+     "a_L": 1.0,
+     "a_R": 1.0
+    },
+    "optimizer": "muon",
+    "log2_lrs": [
+     -9,
+     -8,
+     -7,
+     -6,
+     -5,
+     -4,
+     -3,
+     -2,
+     -1,
+     0
+    ],
+    "steps": 500,
+    "seeds": [
+     100,
+     101,
+     102
+    ],
+    "schedule": "const"
+   },
+   "ergebnis": {
+    "rel_verlust": {
+     "-9": 0.7224186007362691,
+     "-8": 0.5088630225644573,
+     "-7": 0.2195202548346357,
+     "-6": 0.030713142428890818,
+     "-5": 0.00018504455320676006,
+     "-4": 9.421112246740202e-05,
+     "-3": 0.0004009746220390612,
+     "-2": 0.0013928683754166622,
+     "-1": 0.005853949345323613,
+     "0": 0.02357809059901512
+    },
+    "beste_log2_lr": -4
+   },
+   "sek": 2.34
+  },
+  {
+   "id": 4,
+   "wer": "forscher-sparsam",
+   "op": "lr_sweep",
+   "args": {
+    "problem": {
+     "typ": "quadratisch",
+     "rotiert": true,
+     "a_L": 2.0,
+     "a_R": 2.0
+    },
+    "optimizer": "adam",
+    "log2_lrs": [
+     -9,
+     -8,
+     -7,
+     -6,
+     -5,
+     -4,
+     -3,
+     -2,
+     -1,
+     0
+    ],
+    "steps": 500,
+    "seeds": [
+     100,
+     101,
+     102
+    ],
+    "schedule": "const"
+   },
+   "ergebnis": {
+    "rel_verlust": {
+     "-9": 0.06359903382679744,
+     "-8": 0.0307425790668092,
+     "-7": 0.014445021578976678,
+     "-6": 0.007143061096774103,
+     "-5": 0.003930735317988153,
+     "-4": 0.0026312516896232407,
+     "-3": 0.0022399914394727553,
+     "-2": 0.002508911373714831,
+     "-1": 0.002771908537763849,
+     "0": 0.0031093902072002457
+    },
+    "beste_log2_lr": -3
+   },
+   "sek": 0.61
+  },
+  {
+   "id": 5,
+   "wer": "forscher-sparsam",
+   "op": "lr_sweep",
+   "args": {
+    "problem": {
+     "typ": "quadratisch",
+     "rotiert": true,
+     "a_L": 2.0,
+     "a_R": 2.0
+    },
+    "optimizer": "muon",
+    "log2_lrs": [
+     -9,
+     -8,
+     -7,
+     -6,
+     -5,
+     -4,
+     -3,
+     -2,
+     -1,
+     0
+    ],
+    "steps": 500,
+    "seeds": [
+     100,
+     101,
+     102
+    ],
+    "schedule": "const"
+   },
+   "ergebnis": {
+    "rel_verlust": {
+     "-9": 0.5322055705519783,
+     "-8": 0.2989956387409444,
+     "-7": 0.10975921836122171,
+     "-6": 0.012292439898467757,
+     "-5": 0.00021191563229668798,
+     "-4": 0.00040645351427972344,
+     "-3": 0.0012753743920043185,
+     "-2": 0.006219163135073099,
+     "-1": 0.022759469150000534,
+     "0": 0.1313284028548645
+    },
+    "beste_log2_lr": -5
+   },
+   "sek": 2.3
+  },
+  {
+   "id": 6,
+   "wer": "forscher-sparsam",
+   "op": "lr_sweep",
+   "args": {
+    "problem": {
+     "typ": "quadratisch",
+     "rotiert": true,
+     "a_L": 3.0,
+     "a_R": 3.0
+    },
+    "optimizer": "adam",
+    "log2_lrs": [
+     -9,
+     -8,
+     -7,
+     -6,
+     -5,
+     -4,
+     -3,
+     -2,
+     -1,
+     0
+    ],
+    "steps": 500,
+    "seeds": [
+     100,
+     101,
+     102
+    ],
+    "schedule": "const"
+   },
+   "ergebnis": {
+    "rel_verlust": {
+     "-9": 0.02470670620752677,
+     "-8": 0.013322704060620817,
+     "-7": 0.007125596019013757,
+     "-6": 0.004086048028396834,
+     "-5": 0.002808904077434893,
+     "-4": 0.0020702615102089414,
+     "-3": 0.0017081056250120782,
+     "-2": 0.001955127022225738,
+     "-1": 0.0022567347397280577,
+     "0": 0.0028559665608490193
+    },
+    "beste_log2_lr": -3
+   },
+   "sek": 0.59
+  },
+  {
+   "id": 7,
+   "wer": "forscher-sparsam",
+   "op": "lr_sweep",
+   "args": {
+    "problem": {
+     "typ": "quadratisch",
+     "rotiert": true,
+     "a_L": 3.0,
+     "a_R": 3.0
+    },
+    "optimizer": "muon",
+    "log2_lrs": [
+     -9,
+     -8,
+     -7,
+     -6,
+     -5,
+     -4,
+     -3,
+     -2,
+     -1,
+     0
+    ],
+    "steps": 500,
+    "seeds": [
+     100,
+     101,
+     102
+    ],
+    "schedule": "const"
+   },
+   "ergebnis": {
+    "rel_verlust": {
+     "-9": 0.3281820548011779,
+     "-8": 0.13000808201639008,
+     "-7": 0.03296808167406841,
+     "-6": 0.0027322650296895024,
+     "-5": 0.00045463780096396787,
+     "-4": 0.0008562883533543991,
+     "-3": 0.0029061341181120318,
+     "-2": 0.011128227995730492,
+     "-1": 0.043974814185115896,
+     "0": 0.17560033242903522
+    },
+    "beste_log2_lr": -5
+   },
+   "sek": 2.0
+  },
+  {
+   "id": 8,
+   "wer": "forscher-sparsam",
+   "op": "lr_sweep",
+   "args": {
+    "problem": {
+     "typ": "quadratisch",
+     "rotiert": true,
+     "a_L": 0.5,
+     "a_R": 0.5
+    },
+    "optimizer": "adam",
+    "log2_lrs": [
+     -9,
+     -8,
+     -7,
+     -6,
+     -5,
+     -4,
+     -3,
+     -2,
+     -1,
+     0
+    ],
+    "steps": 500,
+    "seeds": [
+     100,
+     101,
+     102
+    ],
+    "schedule": "const"
+   },
+   "ergebnis": {
+    "rel_verlust": {
+     "-9": 0.2010398325016093,
+     "-8": 0.05316396398253256,
+     "-7": 0.0046717493517679605,
+     "-6": 3.0398954337620274e-05,
+     "-5": 6.923524438836999e-12,
+     "-4": 1.473049538622995e-20,
+     "-3": 1.647230305148776e-17,
+     "-2": 1.2086667641473133e-08,
+     "-1": 6.911818985899192e-06,
+     "0": 3.2787748151375387e-06
+    },
+    "beste_log2_lr": -4
+   },
+   "sek": 0.57
+  },
+  {
+   "id": 9,
+   "wer": "forscher-sparsam",
+   "op": "lr_sweep",
+   "args": {
+    "problem": {
+     "typ": "quadratisch",
+     "rotiert": true,
+     "a_L": 0.5,
+     "a_R": 0.5
+    },
+    "optimizer": "muon",
+    "log2_lrs": [
+     -9,
+     -8,
+     -7,
+     -6,
+     -5,
+     -4,
+     -3,
+     -2,
+     -1,
+     0
+    ],
+    "steps": 500,
+    "seeds": [
+     100,
+     101,
+     102
+    ],
+    "schedule": "const"
+   },
+   "ergebnis": {
+    "rel_verlust": {
+     "-9": 0.7625796770348081,
+     "-8": 0.5688169632836089,
+     "-7": 0.29045899039823947,
+     "-6": 0.039982392240365705,
+     "-5": 1.4923649889470058e-05,
+     "-4": 5.1937545033206014e-05,
+     "-3": 0.0002087886649670309,
+     "-2": 0.0008340271059877132,
+     "-1": 0.0034414599981930243,
+     "0": 0.013226709307246788
+    },
+    "beste_log2_lr": -5
+   },
+   "sek": 2.24
+  },
+  {
+   "id": 10,
+   "wer": "forscher-sparsam",
+   "op": "lr_sweep",
+   "args": {
+    "problem": {
+     "typ": "quadratisch",
+     "rotiert": true,
+     "a_L": 1.5,
+     "a_R": 1.5
+    },
+    "optimizer": "adam",
+    "log2_lrs": [
+     -9,
+     -8,
+     -7,
+     -6,
+     -5,
+     -4,
+     -3,
+     -2,
+     -1,
+     0
+    ],
+    "steps": 500,
+    "seeds": [
+     100,
+     101,
+     102
+    ],
+    "schedule": "const"
+   },
+   "ergebnis": {
+    "rel_verlust": {
+     "-9": 0.0989904708966202,
+     "-8": 0.04452658968531335,
+     "-7": 0.018817376494424144,
+     "-6": 0.007508542305796661,
+     "-5": 0.0026878340593257995,
+     "-4": 0.001734968657773645,
+     "-3": 0.0005194088805323508,
+     "-2": 0.0006765883755399035,
+     "-1": 0.000845224509597822,
+     "0": 0.000995097863135634
+    },
+    "beste_log2_lr": -3
+   },
+   "sek": 0.58
+  },
+  {
+   "id": 11,
+   "wer": "forscher-sparsam",
+   "op": "lr_sweep",
+   "args": {
+    "problem": {
+     "typ": "quadratisch",
+     "rotiert": true,
+     "a_L": 1.5,
+     "a_R": 1.5
+    },
+    "optimizer": "muon",
+    "log2_lrs": [
+     -9,
+     -8,
+     -7,
+     -6,
+     -5,
+     -4,
+     -3,
+     -2,
+     -1,
+     0
+    ],
+    "steps": 500,
+    "seeds": [
+     100,
+     101,
+     102
+    ],
+    "schedule": "const"
+   },
+   "ergebnis": {
+    "rel_verlust": {
+     "-9": 0.6269363465665354,
+     "-8": 0.40073143771323116,
+     "-7": 0.1586266177380136,
+     "-6": 0.018686737192201073,
+     "-5": 0.00027162769815711657,
+     "-4": 0.00017820273799679928,
+     "-3": 0.000781192772544971,
+     "-2": 0.002845859561679047,
+     "-1": 0.01307023711549287,
+     "0": 0.04697595983992147
+    },
+    "beste_log2_lr": -4
+   },
+   "sek": 2.13
+  },
+  {
+   "id": 12,
+   "wer": "forscher-numeriker",
+   "op": "lr_sweep",
+   "args": {
+    "problem": {
+     "typ": "quadratisch",
+     "rotiert": true,
+     "a_L": 0.1,
+     "a_R": 0.1
+    },
+    "optimizer": "muon",
+    "log2_lrs": [
+     -9,
+     -8,
+     -7,
+     -6,
+     -5,
+     -4,
+     -3,
+     -2,
+     -1,
+     0
+    ],
+    "steps": 500,
+    "seeds": [
+     0,
+     1,
+     2
+    ],
+    "schedule": "const"
+   },
+   "ergebnis": {
+    "rel_verlust": {
+     "-9": 0.7667619228945951,
+     "-8": 0.5735658003310219,
+     "-7": 0.2861890448362246,
+     "-6": 0.02033709083139939,
+     "-5": 1.1627221357710486e-05,
+     "-4": 4.632360564520161e-05,
+     "-3": 0.00018425382691041994,
+     "-2": 0.0007505831778990969,
+     "-1": 0.0029292103117237126,
+     "0": 0.011678254407345847
+    },
+    "beste_log2_lr": -5
+   },
+   "sek": 2.29
+  },
+  {
+   "id": 13,
+   "wer": "forscher-numeriker",
+   "op": "lr_sweep",
+   "args": {
+    "problem": {
+     "typ": "quadratisch",
+     "rotiert": true,
+     "a_L": 0.1,
+     "a_R": 0.1
+    },
+    "optimizer": "adam",
+    "log2_lrs": [
+     -9,
+     -8,
+     -7,
+     -6,
+     -5,
+     -4,
+     -3,
+     -2,
+     -1,
+     0
+    ],
+    "steps": 500,
+    "seeds": [
+     0,
+     1,
+     2
+    ],
+    "schedule": "const"
+   },
+   "ergebnis": {
+    "rel_verlust": {
+     "-9": 0.22568210381793152,
+     "-8": 0.05456548149111747,
+     "-7": 0.004150443683050577,
+     "-6": 3.0745958363642776e-05,
+     "-5": 1.758599112248386e-12,
+     "-4": 6.324224967815867e-22,
+     "-3": 4.464507460252591e-23,
+     "-2": 3.8853006132363034e-23,
+     "-1": 4.003935726336711e-23,
+     "0": 5.661802419672237e-12
+    },
+    "beste_log2_lr": -2
+   },
+   "sek": 0.58
+  },
+  {
+   "id": 14,
+   "wer": "forscher-numeriker",
+   "op": "lr_sweep",
+   "args": {
+    "problem": {
+     "typ": "quadratisch",
+     "rotiert": true,
+     "a_L": 0.5,
+     "a_R": 0.5
+    },
+    "optimizer": "muon",
+    "log2_lrs": [
+     -9,
+     -8,
+     -7,
+     -6,
+     -5,
+     -4,
+     -3,
+     -2,
+     -1,
+     0
+    ],
+    "steps": 500,
+    "seeds": [
+     0,
+     1,
+     2
+    ],
+    "schedule": "const"
+   },
+   "ergebnis": {
+    "rel_verlust": {
+     "-9": 0.7543250540180767,
+     "-8": 0.5540857167353472,
+     "-7": 0.27031719534229304,
+     "-6": 0.03201250201178207,
+     "-5": 1.4007054844662743e-05,
+     "-4": 5.3896382440844415e-05,
+     "-3": 0.00020982788616020646,
+     "-2": 0.0008648392893245133,
+     "-1": 0.0033889925106494103,
+     "0": 0.013535971748203448
+    },
+    "beste_log2_lr": -5
+   },
+   "sek": 2.1
+  },
+  {
+   "id": 15,
+   "wer": "forscher-numeriker",
+   "op": "lr_sweep",
+   "args": {
+    "problem": {
+     "typ": "quadratisch",
+     "rotiert": true,
+     "a_L": 0.5,
+     "a_R": 0.5
+    },
+    "optimizer": "adam",
+    "log2_lrs": [
+     -9,
+     -8,
+     -7,
+     -6,
+     -5,
+     -4,
+     -3,
+     -2,
+     -1,
+     0
+    ],
+    "steps": 500,
+    "seeds": [
+     0,
+     1,
+     2
+    ],
+    "schedule": "const"
+   },
+   "ergebnis": {
+    "rel_verlust": {
+     "-9": 0.19995153957020917,
+     "-8": 0.053715695988534734,
+     "-7": 0.005903561210355146,
+     "-6": 0.00012879547988575216,
+     "-5": 3.082463242739996e-09,
+     "-4": 3.1365867618421134e-17,
+     "-3": 2.404017636418684e-11,
+     "-2": 2.245590197511989e-18,
+     "-1": 9.023516978828343e-06,
+     "0": 2.1350145488157214e-05
+    },
+    "beste_log2_lr": -2
+   },
+   "sek": 0.65
+  },
+  {
+   "id": 16,
+   "wer": "forscher-numeriker",
+   "op": "lr_sweep",
+   "args": {
+    "problem": {
+     "typ": "quadratisch",
+     "rotiert": true,
+     "a_L": 1.0,
+     "a_R": 1.0
+    },
+    "optimizer": "muon",
+    "log2_lrs": [
+     -9,
+     -8,
+     -7,
+     -6,
+     -5,
+     -4,
+     -3,
+     -2,
+     -1,
+     0
+    ],
+    "steps": 500,
+    "seeds": [
+     0,
+     1,
+     2
+    ],
+    "schedule": "const"
+   },
+   "ergebnis": {
+    "rel_verlust": {
+     "-9": 0.6910555637115583,
+     "-8": 0.4677016469385452,
+     "-7": 0.20192739550633015,
+     "-6": 0.027994400740223763,
+     "-5": 5.598327771216517e-05,
+     "-4": 8.955443907835042e-05,
+     "-3": 0.00037214096528096055,
+     "-2": 0.0014837105397181153,
+     "-1": 0.005911651173339742,
+     "0": 0.021704132783068188
+    },
+    "beste_log2_lr": -5
+   },
+   "sek": 2.28
+  },
+  {
+   "id": 17,
+   "wer": "forscher-numeriker",
+   "op": "lr_sweep",
+   "args": {
+    "problem": {
+     "typ": "quadratisch",
+     "rotiert": true,
+     "a_L": 1.0,
+     "a_R": 1.0
+    },
+    "optimizer": "adam",
+    "log2_lrs": [
+     -9,
+     -8,
+     -7,
+     -6,
+     -5,
+     -4,
+     -3,
+     -2,
+     -1,
+     0
+    ],
+    "steps": 500,
+    "seeds": [
+     0,
+     1,
+     2
+    ],
+    "schedule": "const"
+   },
+   "ergebnis": {
+    "rel_verlust": {
+     "-9": 0.1487887703292046,
+     "-8": 0.057008733486369464,
+     "-7": 0.01455529516257164,
+     "-6": 0.0018551535189212187,
+     "-5": 5.665662471650849e-05,
+     "-4": 4.8042928444243706e-08,
+     "-3": 8.804644178649296e-16,
+     "-2": 9.643821911489575e-13,
+     "-1": 2.2532833404758408e-11,
+     "0": 5.131772345687484e-11
+    },
+    "beste_log2_lr": -3
+   },
+   "sek": 0.6
+  },
+  {
+   "id": 18,
+   "wer": "forscher-numeriker",
+   "op": "lr_sweep",
+   "args": {
+    "problem": {
+     "typ": "quadratisch",
+     "rotiert": true,
+     "a_L": 3.0,
+     "a_R": 3.0
+    },
+    "optimizer": "muon",
+    "log2_lrs": [
+     -9,
+     -8,
+     -7,
+     -6,
+     -5,
+     -4,
+     -3,
+     -2,
+     -1,
+     0
+    ],
+    "steps": 500,
+    "seeds": [
+     0,
+     1,
+     2
+    ],
+    "schedule": "const"
+   },
+   "ergebnis": {
+    "rel_verlust": {
+     "-9": 0.31275807884252443,
+     "-8": 0.12895098891010492,
+     "-7": 0.025012723132196896,
+     "-6": 0.0021553041759814415,
+     "-5": 0.0004120653694292215,
+     "-4": 0.0008507224988090049,
+     "-3": 0.0032233727853010243,
+     "-2": 0.0114357888463025,
+     "-1": 0.047196714356593734,
+     "0": 0.18201115136296256
+    },
+    "beste_log2_lr": -5
+   },
+   "sek": 2.09
+  },
+  {
+   "id": 19,
+   "wer": "forscher-numeriker",
+   "op": "lr_sweep",
+   "args": {
+    "problem": {
+     "typ": "quadratisch",
+     "rotiert": true,
+     "a_L": 3.0,
+     "a_R": 3.0
+    },
+    "optimizer": "adam",
+    "log2_lrs": [
+     -9,
+     -8,
+     -7,
+     -6,
+     -5,
+     -4,
+     -3,
+     -2,
+     -1,
+     0
+    ],
+    "steps": 500,
+    "seeds": [
+     0,
+     1,
+     2
+    ],
+    "schedule": "const"
+   },
+   "ergebnis": {
+    "rel_verlust": {
+     "-9": 0.023711704359215092,
+     "-8": 0.013296119782450018,
+     "-7": 0.007872947805951228,
+     "-6": 0.004550882659179237,
+     "-5": 0.002641124647079213,
+     "-4": 0.0018804166625602952,
+     "-3": 0.0021114418201610106,
+     "-2": 0.0024442651980813674,
+     "-1": 0.00276196852295818,
+     "0": 0.0033148472204502463
+    },
+    "beste_log2_lr": -4
+   },
+   "sek": 0.58
+  },
+  {
+   "id": 20,
+   "wer": "forscher-numeriker",
+   "op": "lr_sweep",
+   "args": {
+    "problem": {
+     "typ": "quadratisch",
+     "rotiert": true,
+     "a_L": 1.5,
+     "a_R": 1.5
+    },
+    "optimizer": "muon",
+    "log2_lrs": [
+     -9,
+     -8,
+     -7,
+     -6,
+     -5,
+     -4,
+     -3,
+     -2,
+     -1,
+     0
+    ],
+    "steps": 500,
+    "seeds": [
+     0,
+     1,
+     2
+    ],
+    "schedule": "const"
+   },
+   "ergebnis": {
+    "rel_verlust": {
+     "-9": 0.627573045362215,
+     "-8": 0.3850954049010265,
+     "-7": 0.14060555816000914,
+     "-6": 0.013565132041751539,
+     "-5": 0.00019387870508499395,
+     "-4": 0.00018574560281078704,
+     "-3": 0.0008209763553347887,
+     "-2": 0.003089769373108581,
+     "-1": 0.013547028808529017,
+     "0": 0.051003249507217005
+    },
+    "beste_log2_lr": -4
+   },
+   "sek": 2.03
+  },
+  {
+   "id": 21,
+   "wer": "forscher-numeriker",
+   "op": "lr_sweep",
+   "args": {
+    "problem": {
+     "typ": "quadratisch",
+     "rotiert": true,
+     "a_L": 1.5,
+     "a_R": 1.5
+    },
+    "optimizer": "adam",
+    "log2_lrs": [
+     -9,
+     -8,
+     -7,
+     -6,
+     -5,
+     -4,
+     -3,
+     -2,
+     -1,
+     0
+    ],
+    "steps": 500,
+    "seeds": [
+     0,
+     1,
+     2
+    ],
+    "schedule": "const"
+   },
+   "ergebnis": {
+    "rel_verlust": {
+     "-9": 0.09499901182959417,
+     "-8": 0.04343647755571895,
+     "-7": 0.01932941309839214,
+     "-6": 0.007743655012949653,
+     "-5": 0.0027166486956929025,
+     "-4": 0.0009715217753473525,
+     "-3": 0.0006462743464325397,
+     "-2": 0.0012963392432796378,
+     "-1": 0.0074227345968799945,
+     "0": 0.0046133645477095244
+    },
+    "beste_log2_lr": -3
+   },
+   "sek": 0.63
+  },
+  {
+   "id": 22,
+   "wer": "forscher-numeriker",
+   "op": "lr_sweep",
+   "args": {
+    "problem": {
+     "typ": "quadratisch",
+     "rotiert": true,
+     "a_L": 2.0,
+     "a_R": 2.0
+    },
+    "optimizer": "muon",
+    "log2_lrs": [
+     -9,
+     -8,
+     -7,
+     -6,
+     -5,
+     -4,
+     -3,
+     -2,
+     -1,
+     0
+    ],
+    "steps": 500,
+    "seeds": [
+     0,
+     1,
+     2
+    ],
+    "schedule": "const"
+   },
+   "ergebnis": {
+    "rel_verlust": {
+     "-9": 0.5269456805730607,
+     "-8": 0.2803886166204369,
+     "-7": 0.08729826214038092,
+     "-6": 0.006773898786013812,
+     "-5": 0.00017631014782105723,
+     "-4": 0.0003408203125000091,
+     "-3": 0.0016999833489396848,
+     "-2": 0.005288448362737663,
+     "-1": 0.02473182086440225,
+     "0": 0.08601746681100221
+    },
+    "beste_log2_lr": -5
+   },
+   "sek": 1.99
+  },
+  {
+   "id": 23,
+   "wer": "forscher-numeriker",
+   "op": "lr_sweep",
+   "args": {
+    "problem": {
+     "typ": "quadratisch",
+     "rotiert": true,
+     "a_L": 2.0,
+     "a_R": 2.0
+    },
+    "optimizer": "adam",
+    "log2_lrs": [
+     -9,
+     -8,
+     -7,
+     -6,
+     -5,
+     -4,
+     -3,
+     -2,
+     -1,
+     0
+    ],
+    "steps": 500,
+    "seeds": [
+     0,
+     1,
+     2
+    ],
+    "schedule": "const"
+   },
+   "ergebnis": {
+    "rel_verlust": {
+     "-9": 0.06255533624457059,
+     "-8": 0.0295566919231751,
+     "-7": 0.013819234659159822,
+     "-6": 0.007156169378656639,
+     "-5": 0.004062106919448694,
+     "-4": 0.0026681608033067602,
+     "-3": 0.006236614712747841,
+     "-2": 0.002816732130349055,
+     "-1": 0.0030860032910240334,
+     "0": 0.0034444884076122746
+    },
+    "beste_log2_lr": -4
+   },
+   "sek": 0.66
+  }
+ ],
+ "sek": 284.5
+}

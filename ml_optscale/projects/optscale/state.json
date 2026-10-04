@@ -731,7 +731,7 @@
    "neuheit": 0.7,
    "machbarkeit": 0.85,
    "id": "F13",
-   "status": "offen",
+   "status": "zurückgestellt",
    "aus_runde": 2
   },
   {
@@ -749,7 +749,7 @@
    "neuheit": 0.6,
    "machbarkeit": 0.8,
    "id": "F15",
-   "status": "offen",
+   "status": "zurückgestellt",
    "aus_runde": 3
   },
   {
@@ -758,7 +758,7 @@
    "neuheit": 0.7,
    "machbarkeit": 0.9,
    "id": "F16",
-   "status": "offen",
+   "status": "beantwortet",
    "aus_runde": 4
   },
   {
@@ -767,8 +767,26 @@
    "neuheit": 0.5,
    "machbarkeit": 0.95,
    "id": "F17",
-   "status": "offen",
+   "status": "zurückgestellt",
    "aus_runde": 4
+  },
+  {
+   "frage": "Gilt der Vorzeichenwechsel zwischen Adam und Muon bei a≈1,0–1,5 (rotiert, Diagonale a_L=a_R) auch bei asymmetrischen Spektren (z. B. a_L=0,5 mit a_R=3 und umgekehrt) sowie bei längerem Training (2000 statt 500 Schritte)? Jeweils eigenes lr_sweep (Gitter 2^-9..2^0), 3 Tuning-Seeds, Bewertung auf 10 frischen Seeds, und Prüfung, ob die beste LR am Gitterrand liegt.",
+   "begruendung": "Bisher wurde nur die Diagonale bei 500 Schritten untersucht. Der Wechselpunkt (Zahl 1,25) ist nur zwischen zwei Rasterpunkten eingegrenzt und könnte vom Schrittbudget oder von der Asymmetrie der Kronecker-Krümmung abhängen. Das Experiment prüft, ob es sich um eine Eigenschaft des Spektrums oder um ein Artefakt von Diagonale und Budget handelt. Zusätzlich verfeinert man das Raster um a=1,25 (z. B. 1,1; 1,25; 1,4), um den Wechselpunkt genauer zu lokalisieren.",
+   "neuheit": 0.6,
+   "machbarkeit": 0.9,
+   "id": "F18",
+   "status": "zurückgestellt",
+   "aus_runde": 5
+  },
+  {
+   "frage": "Ist der Muon-Vorteil im rotierten Fall (a≥1,5) eine Folge der Orthogonalisierung oder bloß der Basisunabhängigkeit der Matrix-Vorkonditionierung? Gegenprobe: Shampoo und Muon gegen Adam auf rotiert=true und rotiert=false bei a=3 und a=1, jeweils mit eigenem Tuning, 500 Schritte, 10 frische Seeds, als 'vergleich'-Prüfungen.",
+   "begruendung": "Die Literatur (SOAP/Shampoo-Äquivalenz mit Adafactor in der Eigenbasis) legt nahe, dass Adam an die Koordinatenbasis gebunden ist und Verfahren mit Kronecker-Vorkonditionierung die Rotation ausgleichen. Wenn Shampoo auf rotierten Problemen ähnlich gut abschneidet wie Muon, liegt der Effekt an der Basisinvarianz. Gewinnt Muon klar, wirkt die Orthogonalisierung selbst. Zudem zeigt sich, ob Muons Nachteil bei a=1 und unrotiert (Adam gewinnt) auch für Shampoo gilt.",
+   "neuheit": 0.65,
+   "machbarkeit": 0.85,
+   "id": "F19",
+   "status": "zurückgestellt",
+   "aus_runde": 5
   }
  ],
  "claims": [
@@ -1030,6 +1048,82 @@
     }
    ],
    "runde": 4
+  },
+  {
+   "id": "optscale-R5",
+   "frage": "Wie hängt der Vorzeichenwechsel zwischen Muon und Adam auf dem rotierten Problem vom Spektrum ab, wenn man das Raster (a_L, a_R) entlang der Diagonalen a = a_L = a_R ∈ {0,1; 0,5; 1; 1,5; 2; 3} feiner auflöst? Dabei werden für jeden Punkt beide Optimierer (Muon und Adam, rotiert=true, 500 Schritte, const) mit eigenem lr_sweep (Gitter 2^-9..2^0) auf drei Tuning-Seeds getunt und auf 10 frischen Seeds bewertet. Zusätzlich wird je Punkt geprüft, ob die beste LR am Rand des Gitters liegt, und das Ergebnis mit dem Vergleichstyp des Prüfers bestätigt.",
+   "text": "Auf dem Problem {\"typ\": \"quadratisch\", \"rotiert\": true, \"a_L\": 1.0, \"a_R\": 1.0} mit 500 Schritten erreicht adam (const) einen kleineren relativen Endverlust als muon (const), beide mit selbst getunter Lernrate (Prüfer: 10 frische Seeds, p < 0.01, Verhältnis < 0.9).",
+   "interpretation_ungeprueft": "Der Vorzeichenwechsel liegt zwischen a=1.0 (Adam dominant) und a=1.5 (Muon beginnt zu dominieren). Muons optimale LR bleibt spektrumunabhängig bei 2^−5, während Adams beste LR mit a ansteigt (2^−2 bei a=0.1 → 2^−4 bei a=3.0).",
+   "pruefung": {
+    "typ": "vergleich",
+    "problem": {
+     "typ": "quadratisch",
+     "rotiert": true,
+     "a_L": 1.0,
+     "a_R": 1.0
+    },
+    "steps": 500,
+    "a": {
+     "optimizer": "adam",
+     "schedule": "const"
+    },
+    "b": {
+     "optimizer": "muon",
+     "schedule": "const"
+    }
+   },
+   "grund": "Prüfer: adam/const (beste LR 2^-2) vs muon/const (beste LR 2^-4), je eigenes Tuning auf Seeds (100, 101, 102), Bewertung auf 10 frischen Seeds: geometr. Mittel rel. Endverlust 3.170e-11 vs 8.863e-05, Verhältnis 0.000 (Schwelle < 0.9), gepaarter Permutationstest p = 0.0041 (Schwelle < 0.01) | Prüfer: muon/const (beste LR 2^-5) vs adam/const (beste LR 2^-3), je eigenes Tuning auf Seeds (100, 101, 102), Bewertung auf 10 frischen Seeds: geometr. Mittel rel. Endverlust 2.065e-04 vs 1.924e-03, Verhältnis 0.107 (Schwelle < 0.9), gepaarter Permutationstest p = 0.0008 (Schwelle < 0.01)",
+   "level": "statistical",
+   "status": "bestätigt",
+   "red_team": [
+    {
+     "pruefung": {
+      "typ": "vergleich",
+      "problem": {
+       "typ": "quadratisch",
+       "rotiert": true,
+       "a_L": 1.0,
+       "a_R": 1.0
+      },
+      "steps": 500,
+      "a": {
+       "optimizer": "muon",
+       "schedule": "const"
+      },
+      "b": {
+       "optimizer": "adam",
+       "schedule": "const"
+      }
+     },
+     "idee": "Die Antwort behauptet, bei a=1.0 dominiere Adam (Vorzeichenwechsel erst zwischen 1.0 und 1.5). Diese Prüfung behauptet das Gegenteil: Muon schlägt Adam bereits bei a=1.0 auf dem rotierten Problem. Muon ist rotationsinvariant (Orthogonalisierung der Matrixgradienten), Adam dagegen koordinatenweise und bei rotierter Krümmung benachteiligt. Wenn der Wechsel also unterhalb von 1.0 liegt, besteht diese Prüfung, und die Aussage Adam dominant bei a=1.0 ist widerlegt.",
+     "bestanden": false,
+     "grund": "Prüfer: muon/const (beste LR 2^-4) vs adam/const (beste LR 2^-2), je eigenes Tuning auf Seeds (100, 101, 102), Bewertung auf 10 frischen Seeds: geometr. Mittel rel. Endverlust 8.863e-05 vs 3.170e-11, "
+    },
+    {
+     "pruefung": {
+      "typ": "vergleich",
+      "problem": {
+       "typ": "quadratisch",
+       "rotiert": true,
+       "a_L": 0.1,
+       "a_R": 0.1
+      },
+      "steps": 500,
+      "a": {
+       "optimizer": "muon",
+       "schedule": "const"
+      },
+      "b": {
+       "optimizer": "adam",
+       "schedule": "const"
+      }
+     },
+     "idee": "Randfall am schwach konditionierten Ende (a=0.1, nahezu flaches Spektrum). Die Antwort behauptet, dort dominiere Adam klar. Bei fast isotroper Krümmung ist Vorkonditionierung kaum nötig, und Muon mit gut getunter LR (Gitter 2^-9..2^0) kann Adam trotzdem schlagen, da Adam im rotierten Fall keinen Vorteil aus der Koordinatenstruktur zieht. Falls Muon hier gewinnt, gibt es keinen Vorzeichenwechsel zwischen 1.0 und 1.5, und die Aussage über die Lage des Wechsels ist falsch.",
+     "bestanden": false,
+     "grund": "Prüfer: muon/const (beste LR 2^-5) vs adam/const (beste LR 2^-2), je eigenes Tuning auf Seeds (100, 101, 102), Bewertung auf 10 frischen Seeds: geometr. Mittel rel. Endverlust 1.131e-05 vs 3.873e-23, "
+    }
+   ],
+   "runde": 5
   }
  ],
  "widerlegt": [],
@@ -1219,7 +1313,61 @@
     }
    ],
    "sek": 479.6
+  },
+  {
+   "runde": 5,
+   "frage": "F16",
+   "status": "beantwortet",
+   "red_team": [
+    {
+     "pruefung": {
+      "typ": "vergleich",
+      "problem": {
+       "typ": "quadratisch",
+       "rotiert": true,
+       "a_L": 1.0,
+       "a_R": 1.0
+      },
+      "steps": 500,
+      "a": {
+       "optimizer": "muon",
+       "schedule": "const"
+      },
+      "b": {
+       "optimizer": "adam",
+       "schedule": "const"
+      }
+     },
+     "idee": "Die Antwort behauptet, bei a=1.0 dominiere Adam (Vorzeichenwechsel erst zwischen 1.0 und 1.5). Diese Prüfung behauptet das Gegenteil: Muon schlägt Adam bereits bei a=1.0 auf dem rotierten Problem. Muon ist rotationsinvariant (Orthogonalisierung der Matrixgradienten), Adam dagegen koordinatenweise und bei rotierter Krümmung benachteiligt. Wenn der Wechsel also unterhalb von 1.0 liegt, besteht diese Prüfung, und die Aussage Adam dominant bei a=1.0 ist widerlegt.",
+     "bestanden": false,
+     "grund": "Prüfer: muon/const (beste LR 2^-4) vs adam/const (beste LR 2^-2), je eigenes Tuning auf Seeds (100, 101, 102), Bewertung auf 10 frischen Seeds: geometr. Mittel rel. Endverlust 8.863e-05 vs 3.170e-11, "
+    },
+    {
+     "pruefung": {
+      "typ": "vergleich",
+      "problem": {
+       "typ": "quadratisch",
+       "rotiert": true,
+       "a_L": 0.1,
+       "a_R": 0.1
+      },
+      "steps": 500,
+      "a": {
+       "optimizer": "muon",
+       "schedule": "const"
+      },
+      "b": {
+       "optimizer": "adam",
+       "schedule": "const"
+      }
+     },
+     "idee": "Randfall am schwach konditionierten Ende (a=0.1, nahezu flaches Spektrum). Die Antwort behauptet, dort dominiere Adam klar. Bei fast isotroper Krümmung ist Vorkonditionierung kaum nötig, und Muon mit gut getunter LR (Gitter 2^-9..2^0) kann Adam trotzdem schlagen, da Adam im rotierten Fall keinen Vorteil aus der Koordinatenstruktur zieht. Falls Muon hier gewinnt, gibt es keinen Vorzeichenwechsel zwischen 1.0 und 1.5, und die Aussage über die Lage des Wechsels ist falsch.",
+     "bestanden": false,
+     "grund": "Prüfer: muon/const (beste LR 2^-5) vs adam/const (beste LR 2^-2), je eigenes Tuning auf Seeds (100, 101, 102), Bewertung auf 10 frischen Seeds: geometr. Mittel rel. Endverlust 1.131e-05 vs 3.873e-23, "
+    }
+   ],
+   "sek": 284.5
   }
  ],
- "kosten_usd": 2.607602
+ "kosten_usd": 2.966466
 }
