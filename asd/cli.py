@@ -219,7 +219,7 @@ class CLI:
             if not isinstance(p, dict): continue
             ok, why = self.D.check(p)[:2]; self.P.s["verifier_aufrufe"] = self.P.s.get("verifier_aufrufe", 0) + 1
             wid = bool(ok and self.D.widerspricht(c["pruefung"], p))
-            c["red_team"].append({"pruefung": p, "bestanden": bool(ok), "widerspruch": wid, "grund": why[:200], "agent": self.agent}); out.append({"bestanden": bool(ok), "widerspruch": wid, "grund": why[:200]})
+            c["red_team"].append({"pruefung": p, "idee": (x.get("idee") if isinstance(x, dict) else "") or "", "bestanden": bool(ok), "widerspruch": wid, "grund": why[:200], "agent": self.agent}); out.append({"bestanden": bool(ok), "widerspruch": wid, "grund": why[:200]})
             if wid: c["status"] = "angefochten"
         self.P.save()
         print("REDTEAM " + json.dumps({"claim": c["id"], "status": c["status"], "gegenpruefungen": out}, ensure_ascii=False))

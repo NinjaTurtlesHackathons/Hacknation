@@ -45,9 +45,10 @@ def main():
             key = (agent, str(it.get("output"))[:80])
             if key in seen_calls: continue
             seen_calls.add(key); H.append((it["created_at"], "DENY (policy)", f"{agent}: {json.loads(it['output']).get('error', '')[:140]}"))
-        s = json.dumps(it, ensure_ascii=False)
-        if ("publish_gate" in s or "elicitation" in it.get("type", "")) and "Denied by policy" not in s:
-            H.append((it.get("created_at"), "ASK (human approval)", f"{agent}: {it.get('type')} {s[:160]}"))
+        if agent == "lead" and it.get("type") == "message" and it.get("role") == "user":
+            t = " ".join(x.get("text", "") for x in it.get("content", []) if isinstance(x, dict))
+            if "awaiting human approval" in t: H.append((it["created_at"], "ASK raised (policy publish_gate)", t[:200]))
+            if "approval has been resolved" in t: H.append((it["created_at"], "ASK approved by a human", t[:200]))
     # parallele Dispatches: >= 2 sys_session_send derselben Lead-Antwort (gleiche response_id) an verschiedene Agenten
     by_resp = {}
     for agent, it in rows:

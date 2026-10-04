@@ -164,7 +164,7 @@ def claims_of(domain, lang="en", projekt=None):
             if erg == "nicht_ausfuehrbar": continue                        # lief nie: nur als Anzahl in Appendix A
             res = ("passed and logically contradicts the statement (statement contested)" if r.get("widerspruch") else
                    "passed, but does not contradict the statement") if erg == "bestanden" else "did not pass"
-            C.append({"claim_id": f"C-{c['id']}-RT{j + 1}", "text": f"Counter-check (adversarial test) of {c['id']}: {r['idee']} Result: {res}. Verifier: {sanitize(r.get('grund', ''))}",
+            C.append({"claim_id": f"C-{c['id']}-RT{j + 1}", "text": f"Counter-check (adversarial test) of {c['id']}: {r.get('idee') or json.dumps(r.get('pruefung', {}), ensure_ascii=False)[:160]} Result: {res}. Verifier: {sanitize(r.get('grund', ''))}",
                       "level": D.level(r["pruefung"]) if erg == "bestanden" else "observed", "status": "bestätigt", "anhang": True})
     for j, w in enumerate(s["widerlegt"]):
         if isinstance(w, str): txt = f"Negative result: {w}"

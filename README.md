@@ -72,8 +72,11 @@ python -m asd.omni_setup --quelle proofreading --projekt omni_proofreading     #
 omnigent run omni -p "Domain proofreading, project omni_proofreading, start question F20, 3 rounds."
 python benchmarks/omni_watch.py <session_id>                                   # status, pending approvals, record.jsonl
 ```
-Recorded run: see [`runs/omnigent/`](runs/omnigent/) (session logs of the lead and every sub-agent, `record.jsonl`, `decisions.md`,
-`HIGHLIGHTS.md` with timestamps of the key moments).
+Recorded run: [`runs/omnigent/2026-10-04/`](runs/omnigent/2026-10-04/README.md) — session logs of the lead and all 14 sub-sessions,
+`record.jsonl`, `decisions.md`, and [`HIGHLIGHTS.md`](runs/omnigent/2026-10-04/HIGHLIGHTS.md) with timestamps: 12 policy DENYs (leak_guard,
+verifier_only, harness_only), 4 parallel dispatches, 3 option choices, 1 verifier rejection, 3 confirmed claims, a surprise that reopened
+assumption A1 and changed the plan, opus red team, and a `publish_gate` ASK approved by a human. Result of the run: 8 new exactly
+certified violations of η ≥ e^(−2Δ); classification of the two-bound-state family now 50 proved / 11 violations / 27 open.
 
 ## Dauerbetrieb
 
