@@ -20,4 +20,6 @@ Stop criteria: verifier/audit fails => feature stop; hypothesis gate fails => ho
 Structural audit (no test targets inspected) found two unparsable solubility test SMILES, rows 1159 and 1160. Preserve every row; use training-target median on invalid structures for all methods, mark invalid_structure and similarity=0. Training invalids still block. No chemical repair or row deletion. Report valid-structure-only sensitivity.
 
 ## Execution deviation
-A shell working-directory error prevented the planned preregistration commit, while the following training command started. It was terminated during first split initialization before a completed seed or any score was inspected. No result informed protocol changes. The protocol document existed before this command; the commit is later. This is not a clean commit-before-first-computation claim.
+A shell working-directory error prevented the planned preregistration commit, while the following training command started. It failed an index-alignment assertion during first split initialization before any model fit, completed seed, or score inspection. No result informed protocol changes. The protocol document existed before this command; the commit is later. This is not a clean commit-before-first-computation claim.
+
+Implementation correction before first model fit: TDC resets dataframe indices. Use its identical create_scaffold_split helper with frac=[.875,.125,0] and an extra _row column to preserve source-row identity; no split design changes.

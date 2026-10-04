@@ -66,8 +66,10 @@ def fit_validation():
   # TDC retains source indices in scaffold splits; map exact rows, never by molecule alone.
   source['_row']=np.arange(len(source));store=[]
   for seed in SEEDS:
-   train,valid=G.get_train_valid_split(seed,endpoint)
-   tr=train.index.to_numpy();va=valid.index.to_numpy()
+   from tdc.utils import create_scaffold_split
+   split=create_scaffold_split(source,seed,frac=[.875,.125,0.],entity='Drug')
+   train,valid=split['train'],split['valid']
+   tr=train['_row'].to_numpy();va=valid['_row'].to_numpy()
    if not np.array_equal(source.iloc[tr].Y.to_numpy(),train.Y.to_numpy()):raise ValueError('Index alignment')
    y=train.Y.to_numpy(float);yv=valid.Y.to_numpy(float)
    for method in METHODS:
