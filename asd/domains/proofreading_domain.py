@@ -297,6 +297,18 @@ class ProofreadingDomain(Domain):
         except Exception as e:
             return False, f"Prüfung nicht ausführbar: {type(e).__name__}: {e}"[:300], {}
 
+    def ueberraschung(self, p, state):
+        """Widerspricht ein BESTANDENES Zertifikat einer aktiven Annahme (z. B. 'genau diese Topologien verletzen die Schranke')?
+        Ändert nichts am Prüfer; liefert nur {annahme, grund} für Planänderung/Reopen."""
+        faelle = p.get("faelle") if p.get("typ") == "erreichbar_liste" else ([p] if p.get("typ") == "erreichbar" else [])
+        for an in state.get("annahmen", []):
+            if an.get("status", "aktiv") != "aktiv" or "gegenbeispiele" not in an: continue
+            schwelle = float(an.get("schwelle", 1e-4))
+            neu = sorted({f.get("topologie") for f in faelle if isinstance(f.get("topologie"), str) and f["topologie"] not in an["gegenbeispiele"]
+                          and float(f.get("eta_max", 1)) <= schwelle})
+            if neu: return {"annahme": an["id"], "grund": f"neue zertifizierte Verletzung(en) {neu} ausserhalb der angenommenen Menge {an['gegenbeispiele']}: {an['text'][:120]}"}
+        return None
+
     def level(self, p): return "observed" if p.get("typ") == "optimum" else "computed_rigorous"
 
     def relevanz(self, p):

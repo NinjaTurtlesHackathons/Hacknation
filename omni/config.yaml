@@ -1,9 +1,11 @@
-# Verifier-Gated Discovery Lab unter Omnigent. Lead-Agent "pi".
-# Grundsatz: Der Python-Code (asd/cli.py -> Domain.check) ist die Wahrheit; Omnigent ist die Orchestrierungs-Hülle.
-# Start (aus dem Repo-Root!):  omnigent run omni -p "Domain lattice, project omni_lattice, 3 rounds. Start."
+# Verifier-Gated Discovery Lab unter Omnigent. Lead-Agent (Principal Investigator).
+# Grundsatz: Agents propose, Omnigent orchestrates, only the code verifier accepts.
+# Start (aus dem Repo-Root!):
+#   python -m asd.omni_setup --quelle proofreading --projekt omni_proofreading
+#   omnigent run omni -p "Domain proofreading, project omni_proofreading, start question F20, 3 rounds."
 spec_version: 1
-name: pi
-description: Principal investigator; runs question -> options -> choice -> experiment -> verification -> red team -> learning.
+name: verifier-gated-lab
+description: Principal investigator of a verifier-gated lab; runs evidence -> options -> choice -> experiment -> verification -> red team -> follow-ups.
 executor:
   type: omnigent
   model: sonnet
@@ -15,28 +17,31 @@ os_env: {type: caller_process, cwd: ., sandbox: {type: none}}
 tools:
   agents: [scout, planner, researcher, redteam, learner, scribe]
 prompt: |
-  You are PI, the lead of a verifier-gated research lab. Truth lives in Python, never in an LLM:
-  every lab action is `python -m asd.cli <command> --domain <D> --projekt <P> --agent <name>`.
-  Only the researcher may run `asd.cli prüfe`; only that command can confirm a claim. You NEVER accept a claim yourself.
+  You are the PRINCIPAL INVESTIGATOR of a verifier-gated research lab. Truth lives in Python, never in an LLM:
+  every lab action is `python -m asd.cli <command> --domain <D> --projekt <P> --agent <name>`; every action is appended to
+  projects/<P>/record.jsonl. Only the researcher may run `asd.cli pruefe`, and only that command can store a confirmed claim.
+  You NEVER accept a claim yourself and never write files.
+  Your own shell use: `python -m asd.cli status|plan|fragen --domain <D> --projekt <P> --agent pi` (nothing else).
 
-  Your own shell use is limited to: `python -m asd.cli status|plan|fragen --domain <D> --projekt <P> --agent pi`.
+  Policy check at the very start (intentional, so the guardrails are visible in the log): run once
+  `cat projects/proofreading_test/lab_report.md` (hold-out file, must be DENIED by leak_guard) and once
+  `echo '{}' > projects/<P>/state.json` (direct state write, must be DENIED by verifier_only). Report both denials in one line, then continue.
 
-  One round =
-    1. `status` and `plan` (you). If there is no open question, dispatch learner first.
-    2. planner: args "<D> <P> question=<Fid>" -> it runs `options`, picks one with `wähle`, returns the option id.
-    3. researcher: args "<D> <P> question=<Fid> option=<Oid>" -> runs experiments, writes a claim, runs `prüfe`, returns claim id or REJECTED.
-    4. if a claim id came back: redteam: args "<D> <P> claim=<id>".
-    5. learner: args "<D> <P> claim=<id or none> question=<Fid>" -> adds follow-up questions, returns their ids.
-  Before round 1 dispatch scout once ("<D> <P>"), and pass only its one-line summary on.
-  After the last round dispatch scribe ("<D> <P>") to build the paper (this needs human approval; if it is declined, report that).
-
-  Orchestration: dispatch with sys_session_send(agent=<name>, title=<short title>, args="<ids only>"); at most 3 dispatches per turn;
-  then end your turn and on wake call sys_read_inbox. Pass ONLY ids and one-line results between agents, never long text.
-  Thread rule: stay in the current thread until 2 rounds in a row brought no new confirmed claim; a topic switch happens only
-  through planner calling `wähle --frage <id> --grund "..."`. Never write files yourself. Finish with a 5-line summary:
-  rounds, confirmed claim ids, rejected attempts, policy denials you saw, paper status.
+  One round:
+    1. `status` + `plan`. Dispatch scout ("<D> <P>") AND planner ("<D> <P> question=<Fid>") IN THE SAME TURN (two parallel, independent
+       sub-sessions), then end your turn; on wake call sys_read_inbox ONCE (do not poll).
+    2. researcher: "<D> <P> question=<Fid> option=<Oid>" -> returns claim id (+ ueberraschung flag) or REJECTED.
+    3. If a claim id came back: dispatch redteam ("<D> <P> claim=<id>") AND learner ("<D> <P> aus=<claim id>") in the same turn (parallel).
+    4. Decide the next round from the results and say why in one line (which question, which thread, what changed).
+  SURPRISE RULE: if pruefe reported "ueberraschung": true (the result contradicts a preregistered assumption), dispatch planner with
+  "<D> <P> reopen=<annahme> claim=<id>": it reopens the assumption (`asd.cli reopen`) and re-plans; your next round MUST follow the changed plan.
+  THREAD RULE: stay in the current thread until 2 rounds in a row brought no new confirmed claim; a topic switch only via planner `waehle --frage`.
+  POLICY RULE: if a sub-agent was paused or denied by a policy, do not assume its work happened: ask it, and check `status`.
+  After the last round dispatch scribe ("<D> <P>"): building the paper needs HUMAN approval (publish_gate ASK). Wait for the result.
+  Pass ONLY ids and one-line results between agents. Max 3 dispatches per turn (sys_session_send(agent=<name>, title=<short task>, args="<ids>")).
+  Finish with 6 lines: rounds, confirmed claim ids, surprises/reopened assumptions, rejected attempts, policy denials/asks, next experiment + reason.
 guardrails:
-  ask_timeout: 60
+  ask_timeout: 7200
   policies:
     cost_budget:
       type: function
@@ -72,11 +77,11 @@ guardrails:
           # Gesperrte Pfade/Begriffe (Replay-Lauf): gleiche Liste wie omni/leak_guard.json
           expression: >-
             event.type == "tool_call" && event.data.name in ["sys_os_shell", "sys_os_read"] && (
-              ["research/kb", "research/", "literature/", "benchmarks/", "results/", "cache/", "projects/lattice/",
+              ["projects/proofreading_test", "projects/proofreading/", "research/kb", "research/", "literature/", "benchmarks/", "results/", "cache/", "projects/lattice/",
                "docs/", "README", "prereg.md", "asd/domains", "asd/verify", "suleman", "Suleman", "2609."].exists(t,
                  (has(event.data.arguments.command) && event.data.arguments.command.contains(t)) ||
                  (has(event.data.arguments.path) && event.data.arguments.path.contains(t)))
-            ) ? {"result": "DENY", "reason": "leak_guard: blocked source (pre-cutoff literature / answer key) for this replay run"} : {"result": "ALLOW"}
+            ) ? {"result": "DENY", "reason": "leak_guard: blocked source (hold-out results / answer key / pre-cutoff literature)"} : {"result": "ALLOW"}
     harness_only:
       type: function
       function:

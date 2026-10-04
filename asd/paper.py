@@ -142,9 +142,9 @@ def modell_claim(D):
     return [{"claim_id": "C-modell", "text": f"Fixed model parameters and assumptions: {txt}.", "level": "computed_rigorous", "status": "bestätigt"}]
 
 
-def claims_of(domain, lang="en"):
-    RT_STAT.clear()
-    s = json.load(open(f"projects/{domain}/state.json")); D = get_domain(domain); C = modell_claim(D)
+def claims_of(domain, lang="en", projekt=None):
+    RT_STAT.clear(); projekt = projekt or domain
+    s = json.load(open(f"projects/{projekt}/state.json")); D = get_domain(domain); C = modell_claim(D)
     for c in s["claims"]:
         try: text = D.describe(c["pruefung"], lang=lang) if c.get("pruefung") else c["text"]   # nur was die Prüfung beweist
         except TypeError: text = D.describe(c["pruefung"])
@@ -174,7 +174,7 @@ def claims_of(domain, lang="en"):
     for j, w in enumerate(s["wissen"][:30]):
         C.append({"claim_id": f"C-lit{j + 1}", "text": f"Literature: {w['text']} (verbatim quote: \"{w['zitat']}\", source {w['quelle']})", "level": "observed",
                   "status": "bestätigt", "quelle": w["quelle"]})
-    fp = f"projects/{domain}/fakten.json"                               # per Code ermittelte Zusatzfakten (Zertifikats-Logs, Zählungen)
+    fp = f"projects/{projekt}/fakten.json"                               # per Code ermittelte Zusatzfakten (Zertifikats-Logs, Zählungen)
     if os.path.exists(fp):
         for f in json.load(open(fp)): C.append({"claim_id": f"C-{f['id']}", "text": f["text"], "level": f.get("level", "observed"), "status": "bestätigt"})
     qs = [(c["id"], c["neuheit"]) for c in s["claims"] if (c.get("neuheit") or {}).get("suchanfragen")]
@@ -440,7 +440,7 @@ def main():
     if not a.ohne_gates:
         from .phases import require
         require(a.projekt or a.domain, [1, 2, 3, 4, 5, 6], a.domain)
-    D = get_domain(a.domain); d = f"projects/{a.domain}"; C = claims_of(a.domain, a.sprache)
+    D = get_domain(a.domain); d = f"projects/{a.projekt or a.domain}"; C = claims_of(a.domain, a.sprache, a.projekt or a.domain)
     import subprocess as sp
     branch = sp.run(["git", "branch", "--show-current"], capture_output=True, text=True).stdout.strip()
     C.append({"claim_id": "C-verfuegbarkeit", "text": f"Code and data: repository {a.repo}, branch {branch}, directory {d}; reproduce all certificates with "
