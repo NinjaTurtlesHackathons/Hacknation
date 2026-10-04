@@ -90,6 +90,7 @@ class QuiverDomain(Domain):
 - {"typ": "kac_polynom", "quiver", "alpha", "koeffizienten": [c0, c1, ...] | "formel": "Ausdruck in q"}  A_alpha(q) an deg + 2 Primzahlen
 - {"typ": "klassifikation", "quiver", "alpha", "p", "reps": [...]}  vollständige Liste der Isoklassen Unzerlegbarer über F_p
 - {"typ": "kac_box", "quiver", "schranke", "p"}             für alle 0 < beta <= schranke: I_beta(p) = 1 (reelle Wurzel), 0 (keine Wurzel)
+- {"typ": "stern_kriterium", "n", "p"}   Kriterium „alle v_i != 0 und >= 3 Geraden“ <=> unzerlegbar, für ALLE Darstellungen (2;1^n) über F_p
 - {"typ": "zykel_box", "quiver": "cycle<n>_oriented", "schranke", "p"}  I_beta(p) = Vorhersage (Strings + Monodromie) für alle beta <= schranke"""
 
     # ------------------------------------------------------------------ Experimente
@@ -128,7 +129,7 @@ class QuiverDomain(Domain):
             return False, f"Prüfung nicht ausführbar: {type(e).__name__}: {e}"[:300], {}
 
     def _check(self, p):
-        typ = p.get("typ"); Q = _Q(p)
+        typ = p.get("typ"); Q = _Q(p) if typ != "stern_kriterium" else None
         if typ == "tits_typ":
             t, w = K.tits_type(Q); return t == p["typ_wert"], f"Tits-Form ist {t} (exakt, Hauptminoren): {w}", w
         if typ == "radikal":
@@ -193,6 +194,23 @@ class QuiverDomain(Domain):
             return (not bad and not (K.tits_type(Q)[0] == "endlich" and imag)), (
                 f"{len(I)} Vektoren <= {B} über F_{q}: reelle Wurzeln genau 1, Nicht-Wurzeln 0" + (f"; Abweichungen {bad[:5]}" if bad else "")
                 + (f"; imaginäre Wurzeln: {imag}" if imag else "")), {"imaginaer": imag}
+        if typ == "stern_kriterium":
+            n = int(p["n"]); q = _prime(p); Q = K.quiver(f"star{n}"); a = [2] + [1] * n
+            if n < 3 or K.rep_space_size(Q, a, q) > 70000: return False, "nur 3 <= n und |Rep| <= 70000", {}
+            bad, tot, order = [], 0, K.gl_order(2, q) * (q - 1) ** n
+            for V in K.all_reps(Q, a, q):
+                vs = [tuple(r[0] for r in V["maps"][str(i)]) for i in range(n)]
+                lines = set()
+                for v in vs:
+                    if any(v): j = next(i for i in range(2) if v[i]); iv = pow(v[j], q - 2, q); lines.add(tuple(x * iv % q for x in v))
+                krit = all(any(v) for v in vs) and len(lines) >= 3
+                loc, u = K.local_aut(Q, V, q)
+                if loc != krit: bad.append(vs)
+                if loc: tot += u
+            I = Fr(tot, order); f = Fr((q + 1) ** (n - 1) - 1 - (2 ** (n - 1) - 1) * q, q * (q - 1))
+            ok = not bad and I == f
+            return ok, (f"alle {K.rep_space_size(Q, a, q)} Darstellungen von star{n} mit (2;1^{n}) über F_{q} aufgezählt: unzerlegbar <=> alle v_i != 0 und >= 3 "
+                        f"verschiedene Geraden ({'keine Abweichung' if not bad else f'{len(bad)} Abweichungen, z. B. {bad[:2]}'}); I = {I}, Formel = {f}"), {"I": str(I)}
         if typ == "zykel_box":
             name = str(p["quiver"])
             if not (name.startswith("cycle") and name.endswith("_oriented")): return False, "nur orientierte Zykel", {}
@@ -235,6 +253,11 @@ class QuiverDomain(Domain):
             return f"Über F_{p['p']} ist die angegebene Liste von {len(p['reps'])} Darstellungen von {qn} mit Dimensionsvektor {p['alpha']} eine vollständige Liste der Isoklassen Unzerlegbarer."
         if t == "kac_box":
             return f"Für {qn} über F_{p['p']} und alle Dimensionsvektoren 0 < beta <= {p['schranke']}: genau eine Unzerlegbare für reelle Wurzeln, keine für Nicht-Wurzeln."
+        if t == "stern_kriterium":
+            n = int(p["n"])
+            return (f"Über F_{p['p']} ist eine Darstellung von star{n} mit Dimensionsvektor (2;1^{n}), gegeben durch Vektoren v_1, ..., v_{n} in k^2, genau dann "
+                    f"unzerlegbar, wenn alle v_i != 0 sind und mindestens drei verschiedene Geraden aufspannen; die Zahl der Isoklassen ist "
+                    f"((q+1)^{n - 1} - 1 - {2 ** (n - 1) - 1} q)/(q(q-1)) bei q = {p['p']} (alle Darstellungen exakt aufgezählt).")
         if t == "zykel_box":
             return (f"Für {qn} über F_{p['p']} und alle 0 < beta <= {p['schranke']} stimmt die Zahl der Unzerlegbaren mit der Klassifikation "
                     "(nilpotente Strings S(i, l) und unzerlegbare Moduln über F_q[x, 1/x] für beta = m delta) überein.")
@@ -293,6 +316,8 @@ class QuiverDomain(Domain):
             ({"typ": "kac_polynom", "quiver": "star5", "alpha": [2, 1, 1, 1, 1, 1], "formel": "((q+1)**4 - 1 - 15*q)/(q*(q-1))"}, True),
             ({"typ": "kac_polynom", "quiver": "star5", "alpha": [2, 1, 1, 1, 1, 1], "formel": "((q+1)**4 - 1 - 14*q)/(q*(q-1))"}, False),  # kein Polynom
             ({"typ": "kac_polynom", "quiver": "star5", "alpha": [2, 1, 1, 1, 1, 1], "formel": "q**2 + 5*q + 12"}, False),               # um 1 daneben
+            ({"typ": "stern_kriterium", "n": 4, "p": 2}, True),
+            ({"typ": "stern_kriterium", "n": 4, "p": 4}, False),                                     # Regelverletzung: keine Primzahl
             ({"typ": "kac_box", "quiver": "star3", "schranke": [2, 1, 1, 1], "p": 2}, True),             # Gabriel für D4
             ({"typ": "zykel_box", "quiver": "cycle3_oriented", "schranke": [2, 2, 1], "p": 2}, True),
             ({"typ": "zykel_box", "quiver": "cycle3_acyclic", "schranke": [1, 1, 1], "p": 2}, False),   # nur orientierte Zykel

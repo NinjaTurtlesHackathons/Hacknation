@@ -20,3 +20,11 @@ Bewusste Annahmen, die die Resultate tragen:
 | F5 Vielfache von delta | I_{2 delta}(q) = (q + n - 1) + (q^2 - q)/2 für Ã2 (n = 3) und D~4 (n = 5), d. h. A_{2 delta}(q) = A_delta(q) | `anzahl` | bestätigt für q = 2, 3 (Ã2 auch 5) | Abweichung: negatives Ergebnis |
 
 Budget: keine LLM-Kosten im Labor (Fragen aus dieser Präregistrierung, Prüfer exakt); Paper-Schreiber: höchstens 3 USD.
+
+## Nachtrag 2026-10-04 (nach dem ersten Lauf, vor Runde F6)
+Anlass: Der Paper-Schreiber hat den Klassifikationssatz für (2;1^n) nicht als Resultat übernommen, weil nur Einzelfälle (Kac-Polynome)
+geprüft waren. Neuer Prüfungstyp `stern_kriterium` (Selbsttest danach 39/39). Die Kriterien F1–F5 bleiben unverändert.
+
+| Frage | Hypothese (erwartet) | Prüfungstyp | Erfolg | Abbruch |
+|---|---|---|---|---|
+| F6 Kriterium für (2;1^n) | Für ALLE Darstellungen von star n mit (2;1^n) über F_p gilt: unzerlegbar <=> alle v_i != 0 und >= 3 verschiedene Geraden; Anzahl = ((q+1)^(n-1) - 1 - (2^(n-1) - 1) q)/(q(q-1)); geprüft für (n, p) = (4, 2), (4, 3), (5, 2), (5, 3), (6, 2), (7, 2) | `stern_kriterium` | alle bestätigt | eine Abweichung: Satz falsch, negatives Ergebnis |

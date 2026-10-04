@@ -53,6 +53,7 @@ FRAGEN = {
     "F3": "Wilde Sterne (star n, n >= 5): Wie wachsen Parameterzahl und Anzahl der Unzerlegbaren, gibt es eine geschlossene Formel für alpha_n = (2;1^n)?",
     "F4": "3- und 4-Zykel: Klassifikation der Unzerlegbaren (orientiert und azyklisch), Unabhängigkeit von der Orientierung.",
     "F5": "Vielfache von delta: Wie viele Unzerlegbare hat 2 delta, und ist A_{2 delta} = A_delta?",
+    "F6": "Gilt das Unzerlegbarkeitskriterium für (2;1^n) (alle v_i != 0, mindestens drei verschiedene Geraden) für ausnahmslos alle Darstellungen?",
 }
 
 STAR = lambda n: "((q+1)**%d - 1 - %d*q)/(q*(q-1))" % (n - 1, 2 ** (n - 1) - 1)
@@ -174,6 +175,12 @@ def plan():
                        f"I_(2 delta)({p}) = {v} = A_delta(q) + (A_delta(q^2) - A_delta(q))/2 mit A_(2 delta) = A_delta.",
                        {"typ": "anzahl", "quiver": q, "alpha": [2] * n, "p": p, "anzahl": v + 1}, "Eine Unzerlegbare mehr?"))
     P.append(("F5", ex, cl))
+    # ---------------------------------------------------------------- F6 (Nachtrag in prereg.md)
+    cl = []
+    for n, p in ((4, 2), (4, 3), (5, 2), (5, 3), (6, 2), (7, 2)):
+        cl.append(({"typ": "stern_kriterium", "n": n, "p": p}, f"Kriterium und Anzahlformel für star{n} über F_{p} für alle Darstellungen bestätigt.",
+                   {"typ": "anzahl", "quiver": f"star{n}", "alpha": [2] + [1] * n, "p": p, "anzahl": 0}, "Gibt es gar keine Unzerlegbaren?"))
+    P.append(("F6", [("tits_typ", {"quiver": "star5"})], cl))
     return P
 
 
