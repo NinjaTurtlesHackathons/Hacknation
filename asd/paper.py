@@ -418,7 +418,11 @@ def main():
     ap = argparse.ArgumentParser(); ap.add_argument("--domain", required=True); ap.add_argument("--titel", default="", help="leer = informativer Titel aus der Kernaussage")
     ap.add_argument("--autoren", required=True); ap.add_argument("--affiliation", default=""); ap.add_argument("--sprache", default="en", choices=["de", "en"])
     ap.add_argument("--keywords", default=""); ap.add_argument("--hinweise", default="", help="zusätzliche Gliederungshinweise (Datei oder Text)")
-    ap.add_argument("--repo", default="https://github.com/alizema700/Daddys-Project"); a = ap.parse_args()
+    ap.add_argument("--repo", default="https://github.com/alizema700/Daddys-Project"); ap.add_argument("--projekt", default="")
+    ap.add_argument("--ohne-gates", action="store_true", help="Phasen-Gates 1-6 übergehen (nur Entwicklung)"); a = ap.parse_args()
+    if not a.ohne_gates:
+        from .phases import require
+        require(a.projekt or a.domain, [1, 2, 3, 4, 5, 6], a.domain)
     D = get_domain(a.domain); d = f"projects/{a.domain}"; C = claims_of(a.domain, a.sprache)
     import subprocess as sp
     branch = sp.run(["git", "branch", "--show-current"], capture_output=True, text=True).stdout.strip()
