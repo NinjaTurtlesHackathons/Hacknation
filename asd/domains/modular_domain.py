@@ -41,8 +41,10 @@ def _fmt(terme):
     for c, m in terme:
         c = Fr(c); sign = "-" if c < 0 else "+"; a = abs(c)
         s.append(f"{sign} {'' if a == 1 else str(a) + '·'}{m}")
-    out = " ".join(s).lstrip("+ ").strip()
-    return out[2:] if out.startswith("- ") and False else out
+    out = " ".join(s).strip()
+    if out.startswith("+ "): out = out[2:]
+    elif out.startswith("- "): out = "-" + out[2:]
+    return out
 
 
 # ---------------- holomorphe Prüfungen ----------------
@@ -322,10 +324,14 @@ class ModularDomain(Domain):
                 return (f"Numerically (32 digits, 4 verifier-chosen points, relative residual <= 1e-{TOL_LAP if 'L[' in s else TOL}): {s} = 0 as functions of tau." if en else
                         f"Numerisch (32 Stellen, 4 Prüfer-Punkte, rel. Residuum <= 1e-{TOL_LAP if 'L[' in s else TOL}): {s} = 0 als Funktionen von tau.")
             if t == "mgf_relationsraum":
-                return (f"Numerically, the rational linear relations among {p['basis']} form a space of dimension exactly {p['dim']}, spanned by "
-                        f"{p.get('relationen')} (each relation checked to 1e-{TOL}; completeness by a singular-value gap)." if en else
-                        f"Numerisch bilden die rationalen linearen Relationen zwischen {p['basis']} einen Raum der Dimension genau {p['dim']}, aufgespannt von "
-                        f"{p.get('relationen')} (jede Relation auf 1e-{TOL} geprüft; Vollständigkeit über Singulärwertabstand).")
+                formeln = "; ".join(_fmt([(c, b) for c, b in zip(r, p["basis"]) if Fr(str(c)) != 0]) + " = 0" for r in p.get("relationen", []))
+                ws = sorted({_w(b) for b in p["basis"] if _w(b)}); wtxt = f" (weight {ws[0]})" if len(ws) == 1 else ""
+                return (f"Numerically, the rational linear relations among the modular graph functions {', '.join(p['basis'])}{wtxt} form a space of dimension "
+                        f"exactly {p['dim']}" + (f", spanned by the identity {formeln}" if formeln else ", i.e. there is no such relation") +
+                        f" (each relation checked to 1e-{TOL} at verifier points with exact leading Laurent coefficient; completeness by a singular-value gap)." if en else
+                        f"Numerisch bilden die rationalen linearen Relationen zwischen {', '.join(p['basis'])}{wtxt.replace('weight', 'Gewicht')} einen Raum der Dimension genau {p['dim']}" +
+                        (f", aufgespannt von der Identität {formeln}" if formeln else ", d. h. es gibt keine solche Relation") +
+                        f" (jede Relation auf 1e-{TOL} an Prüfer-Punkten geprüft, exakter Laurent-Leitkoeffizient; Vollständigkeit über Singulärwertabstand).")
         except Exception:
             pass
         return ("Verified: " if en else "Geprüft: ") + json.dumps(p, ensure_ascii=False)

@@ -11,7 +11,7 @@ import json, re, sys, time
 
 def check_claim(D, claim, salt=""):
     from .llm import ask_json
-    from .research import search_arxiv, search_europepmc, search_crossref, quote_ok
+    from .research import search_arxiv, search_europepmc, search_crossref, search_inspire, quote_ok
     try: aussage = D.describe(claim["pruefung"], lang="en")
     except TypeError: aussage = D.describe(claim["pruefung"])
     q = ask_json(f"Research field: {D.kontext}\n\nVerified result: {aussage}\n\nFormulate 3-5 short, specific English search queries (3-7 words) "
@@ -20,15 +20,18 @@ def check_claim(D, claim, salt=""):
     docs, treffer = {}, {}
     for qq in q:
         n = 0
-        for src in (search_arxiv, search_europepmc, search_crossref):
+        for src in (search_arxiv, search_europepmc, search_crossref) + ((search_inspire,) if getattr(D, "recherche_inspire", False) else ()):
             try:
                 for d in src(qq, 8):
                     if d.get("abstract") and len(d["abstract"]) > 150: docs.setdefault(d["id"], d); n += 1
             except Exception: pass
         treffer[qq] = n
-    listing = "\n\n".join(f"<<{i}>> {d['titel']}\n{d['abstract'][:1500]}" for i, d in list(docs.items())[:30])
-    r = ask_json(f"Result to check: {aussage}\n\nCandidate abstracts:\n{listing}\n\nDoes any abstract state THIS result (same model class, same statement) or "
-                 "state explicitly that it is open? Only answer with a verbatim quote (at least 8 words, copied exactly). "
+    for d in kb_kandidaten(D, aussage + " " + " ".join(q)):          # eigene Recherche (Phase 1) zählt mit: dort stehen die Klassiker
+        docs.setdefault(d["id"], d)
+    listing = "\n\n".join(f"<<{i}>> {d['titel']}\n{d['abstract'][:1500]}" for i, d in list(docs.items())[:45])
+    r = ask_json(f"Result to check: {aussage}\n\nCandidate abstracts:\n{listing}\n\nDoes any abstract state THIS result (same model class, same statement), "
+                 "or a MORE GENERAL result that contains it as a special case (e.g. 'all identities at weight w are obtained' covers every identity of weight w; "
+                 "a named classical identity covers itself), or state explicitly that it is open? Both the result itself and a covering general result count as 'bekannt'. Only answer with a verbatim quote (at least 8 words, copied exactly). "
                  'JSON: {"befund": "bekannt|offen|keiner", "quelle": "<id>", "zitat": "<verbatim>"}',
                  "You judge literature overlap strictly. Answer with valid JSON only.", model="sonnet", salt=f"novelty-j-{salt}")
     st = {"suchanfragen": q, "treffer": treffer, "quellen_geprueft": len(docs), "datum": time.strftime("%Y-%m-%d")}
@@ -38,6 +41,20 @@ def check_claim(D, claim, salt=""):
     else:
         st["status"] = "nicht_gefunden"
     return st
+
+
+def kb_kandidaten(D, text, n=15):
+    """Die relevantesten Quellen des Recherche-Korpus der Domäne (Wortüberlappung mit Aussage und Suchanfragen)."""
+    import os
+    p = f"research/kb/{D.name}/kb.json"
+    if not os.path.exists(p): return []
+    kb = json.load(open(p)); korpus = kb.get("korpus", {}); scores = kb.get("scores", {})
+    w = {x for x in re.findall(r"[a-z]{4,}", text.lower())}
+    def sc(i):
+        d = korpus[i]; t = (d.get("titel", "") + " " + d.get("abstract", "")).lower()
+        return sum(1 for x in w if x in t) + 0.3 * float(scores.get(i, 0))
+    ids = sorted((i for i in korpus if len(korpus[i].get("abstract", "")) > 150), key=sc, reverse=True)[:n]
+    return [korpus[i] for i in ids]
 
 
 def main():
