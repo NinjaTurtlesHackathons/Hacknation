@@ -1,0 +1,156 @@
+{
+ "lauf": "runs/omnigent/2026-10-04",
+ "kette": "Kette intakt (82 Glieder, Kopf 1fcb11696c9a)",
+ "domain_projekt": null,
+ "laufzeit_gesamt_s": 1167,
+ "mensch_warten_s": 512,
+ "maschinenzeit_h": 0.18194444444444444,
+ "latenz_ergebnis_entscheidung": {
+  "einzeln": [
+   {
+    "ergebnis_ts": "2026-10-04T02:25:30",
+    "claim": null,
+    "bestanden": false,
+    "latenz_s": 28.0
+   },
+   {
+    "ergebnis_ts": "2026-10-04T02:25:45",
+    "claim": "proofreading-O14",
+    "bestanden": true,
+    "latenz_s": 13.0
+   },
+   {
+    "ergebnis_ts": "2026-10-04T02:27:31",
+    "claim": "proofreading-O15",
+    "bestanden": true,
+    "latenz_s": 7.0
+   },
+   {
+    "ergebnis_ts": "2026-10-04T02:28:43",
+    "claim": "proofreading-O16",
+    "bestanden": true,
+    "latenz_s": 7.0
+   }
+  ],
+  "alle": {
+   "n": 4,
+   "median": 10.0,
+   "min": 7.0,
+   "max": 28.0,
+   "ki95_median": [
+    7.0,
+    28.0
+   ]
+  },
+  "ohne_kaltstart": {
+   "n": 3,
+   "median": 7.0,
+   "min": 7.0,
+   "max": 13.0,
+   "ki95_median": [
+    7.0,
+    13.0
+   ]
+  },
+  "kaltstart_s": 28.0
+ },
+ "frage_zu_zertifikat": {
+  "einzeln": [
+   {
+    "frage": "F20",
+    "claim": "proofreading-O14",
+    "sekunden": 278.0
+   },
+   {
+    "frage": "F21",
+    "claim": "proofreading-O15",
+    "sekunden": 63.0
+   },
+   {
+    "frage": "F24",
+    "claim": "proofreading-O16",
+    "sekunden": 25.0
+   }
+  ],
+  "alle": {
+   "n": 3,
+   "median": 63.0,
+   "min": 25.0,
+   "max": 278.0,
+   "ki95_median": [
+    25.0,
+    278.0
+   ]
+  },
+  "ohne_kaltstart": {
+   "n": 2,
+   "median": 44.0,
+   "min": 25.0,
+   "max": 63.0,
+   "ki95_median": [
+    25.0,
+    63.0
+   ]
+  },
+  "kaltstart_s": 278.0
+ },
+ "runden": [
+  {
+   "runde": 1,
+   "session": "researcher-research_F20_O2_R1__1e400c6d",
+   "claim": "proofreading-O14",
+   "wanduhr_s": 274,
+   "redteam_s": 59,
+   "agenten_llm_s": 131.0,
+   "verifier_s": 32.0,
+   "experiment_s": 131.0,
+   "werkzeug_s": 39.0,
+   "mensch_s": 0.0
+  },
+  {
+   "runde": 2,
+   "session": "researcher-research_F21_O2_R2__560bcade",
+   "claim": "proofreading-O15",
+   "wanduhr_s": 50,
+   "redteam_s": 69,
+   "agenten_llm_s": 24.0,
+   "verifier_s": 13.0,
+   "experiment_s": 47.0,
+   "werkzeug_s": 35.0,
+   "mensch_s": 0.0
+  },
+  {
+   "runde": 3,
+   "session": "researcher-research_F24_O2_R3__370098cf",
+   "claim": "proofreading-O16",
+   "wanduhr_s": 21,
+   "redteam_s": 88,
+   "agenten_llm_s": 40.0,
+   "verifier_s": 12.0,
+   "experiment_s": 18.0,
+   "werkzeug_s": 39.0,
+   "mensch_s": 0.0
+  }
+ ],
+ "zerlegung_summe_s": {
+  "agenten_llm_s": 195.0,
+  "verifier_s": 57.0,
+  "experiment_s": 196.0,
+  "werkzeug_s": 113.0,
+  "mensch_s": 512
+ },
+ "durchsatz": {
+  "zertifizierte_claims": 3,
+  "abgelehnte_behauptungen": 1,
+  "zertifiziert_pro_h": 16.48854961832061,
+  "abgelehnt_pro_h": 5.4961832061068705,
+  "kosten_usd_gesamt": 1.2894507,
+  "kosten_usd_pro_zertifikat": 0.4298169
+ },
+ "hinweis": "Messung aus einem einzigen aufgezeichneten Lauf; Zeitstempel mit Sekundenauflösung; n jeweils angegeben; Kaltstart (erste Runde) getrennt. Zerlegung: Verifier-/Experiment-Zeiten sind obere Schranken (Export kennt nur Abschluss-Zeitstempel), Agenten-/LLM-Zeit entsprechend untere Schranke.",
+ "domain": "proofreading",
+ "manuelle_baseline": {},
+ "speedup_ergebnis_zu_entscheidung": {
+  "status": "ausstehend: mindestens 3 Stoppuhr-Messungen in baselines/manual.jsonl nötig"
+ }
+}

@@ -15,6 +15,7 @@ from .domains.base import get_domain
 from .lab_loop import Project, wissen_text, faden_of, faden_fortschritt, now
 from . import planner
 
+T0 = time.time()                                                   # Start dieses CLI-Aufrufs (Dauer je Befehl ins Protokoll)
 LEAK_CFG = os.environ.get("ASD_LEAK_GUARD", "omni/leak_guard.json")
 
 
@@ -54,7 +55,7 @@ class CLI:
             f.write(json.dumps({"ts": time.strftime("%Y-%m-%dT%H:%M:%S"), "agent": self.agent, "befehl": befehl,
                                 "eingabe_ids": ein if ein is not None else {k: v for k, v in ids.items() if k in ("frage", "claim", "option", "aus", "annahme")},
                                 "ausgabe_ids": aus if aus is not None else {k: v for k, v in ids.items() if k not in ("frage", "claim", "option", "aus", "annahme")},
-                                "ergebnis": ergebnis}, ensure_ascii=False, default=str) + "\n")
+                                "ergebnis": ergebnis, "dauer_s": round(time.time() - T0, 2)}, ensure_ascii=False, default=str) + "\n")
 
     def frage(self, qid):
         q = next((x for x in self.P.s["fragen"] if x["id"] == qid), None)
