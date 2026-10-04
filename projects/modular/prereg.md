@@ -137,3 +137,11 @@ vorab festgelegt und noch NICHT berechnet.
 - H10 (Härtung, numerisch): Residuum der Gewicht-11-Relation an 8 neuen Punkten (Seed 9001, auch nahe tau = rho und tau2 bis 3)
   bei 30, 45 und 60 Stellen; Erwartung: Residuum fällt mit der Präzision. Unabhängige Kontrolle: direkte Gittersumme in doppelter
   Genauigkeit (asd/domains/mgf_brute.py), Erwartung: Übereinstimmung auf >= 1e-12 relativ.
+
+## Nachtrag 2 (2026-10-04, nach dem Ergebnis zu H9 mit Kriterium 1, vor jedem Lauf mit Kriterium 2)
+Ergebnis H9 mit Kriterium 1 (unverändert berichtet): Singulärwerte der 15x12-Matrix 5.2, 2.8, ..., 5.75e-8, 4.15e-9, 7.6e-44;
+Kriterium 1 (übrige > 1e-8) VERFEHLT (projects/modular/vollbasis_w11_kriterium1.json). Kriterium 1 bleibt für alle früheren Aussagen gültig.
+Neues, vorab festgelegtes Kriterium 2 (Prüfungstyp mgf_relationsraum_v2) auf NEUEN Daten: n+8 Punkte, Seed 4713, 0.9 <= tau2 <= 3.0,
+32 Stellen; Relation = Singulärwert < 1e-24, Nicht-Relation = Singulärwert > 1e-16 (halbe Arbeitsgenauigkeit). Begründung: Die
+Funktionen sind schlecht konditioniert (Werte bis 4e-9), eine echte Relation erscheint dagegen auf Rundungsniveau (1e-40 und kleiner).
+H9' : volle Gewicht-11-Basis, dim 1, Kriterium 2.

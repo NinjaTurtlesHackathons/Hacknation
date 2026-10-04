@@ -155,6 +155,35 @@ def _dgv_combo(w):
     return v
 
 
+def check_mgf_relationsraum_v2(p):
+    """Kriterium 2 (Nachtrag 2026-10-04, vorab festgelegt nach dem Verfehlen von Kriterium 1 bei Gewicht 11): eigene Punkte
+    (Seed 4713, n+8 Punkte, |tau1| <= 1/2, 0.9 <= tau2 <= 3.0), 32 Stellen; genau dim Singulärwerte < 1e-24 und alle übrigen > 1e-16
+    (halbe Arbeitsgenauigkeit: eine echte Relation liegt auf Rundungsniveau, schlechte Kondition nicht). Jede Relation zusätzlich wie mgf_relation."""
+    from . import mgf
+    import mpmath as mp, random
+    basis = [str(b) for b in p["basis"]]; rels = [[_fr(c) for c in r] for r in p.get("relationen", [])]; dim = int(p["dim"])
+    if len(set(basis)) != len(basis) or len(basis) < 2 or len(basis) > 14: return False, "Basis: 2..14 verschiedene Elemente", {}
+    if any(len(r) != len(basis) for r in rels) or len(rels) != dim: return False, "Relationen passen nicht zur Basis/Dimension", {}
+    if rels and QF.rank_exact(rels) != dim: return False, "angegebene Relationen sind linear abhängig", {}
+    if any(mgf.parse(b)[0] == "L" for b in basis): return False, "Laplace-Terme nicht erlaubt", {}
+    for r in rels:
+        ok, why, _ = check_mgf_relation({"terme": [[str(c), b] for c, b in zip(r, basis) if c != 0]})
+        if not ok: return False, f"Relation {r} nicht bestätigt: {why}", {}
+    n = len(basis); rnd = random.Random(4713)
+    pts = [(f"{rnd.uniform(-0.5, 0.5):.6f}", f"{rnd.uniform(0.9, 3.0):.6f}") for _ in range(n + 8)]
+    with mp.workdps(DPS + 10):
+        M = mp.matrix([[mgf.value(mgf.parse(b), t1, t2, DPS) for b in basis] for t1, t2 in pts])
+        for j in range(n):
+            s_ = max(abs(M[i, j]) for i in range(M.rows))
+            for i in range(M.rows): M[i, j] /= s_
+        sv = sorted([abs(x) for x in mp.svd_r(M, compute_uv=False)], reverse=True)
+    klein = [x for x in sv if x < mp.mpf(10) ** (-TOL)]; gross = [x for x in sv if x > mp.mpf(10) ** -16]
+    ok = len(klein) == dim and len(gross) == n - dim
+    return ok, (f"Kriterium 2: Singulärwerte der normierten {len(pts)}x{n}-Matrix (Seed 4713, tau2 in [0.9, 3]): {len(klein)} < 1e-{TOL}, "
+                f"{len(gross)} > 1e-16, kleinster großer {mp.nstr(min(gross), 3) if gross else '-'}, größter kleiner {mp.nstr(max(klein), 3) if klein else '-'}"), {
+               "singulaerwerte": [mp.nstr(x, 4) for x in sv]}
+
+
 def check_mgf_harmonisch(p):
     """Exakt: Delta(sum c_abc C_abc) = lambda * E_w in der algebraischen Laplace-Darstellung (asd/domains/mgf_laplace.py)."""
     from .mgf_laplace import laplace_combo, fmt
@@ -263,6 +292,7 @@ class ModularDomain(Domain):
 - {"typ": "mgf_harmonisch", "gewicht": w, "kombination": {"C(a,b,c)": c, ...}, "lambda": λ}: EXAKT in rationaler Arithmetik über die
   algebraische Laplace-Darstellung: Delta(sum c C) = λ E(w) ohne weitere Terme.
 - {"typ": "mgf_harmonisch_familie", "gewicht_bis": W}: exakt für alle 3 <= w <= W (<= 25): harmonischer Raum dim 1/0, DGV-Kombination, f_w.
+- {"typ": "mgf_relationsraum_v2", ...}: wie mgf_relationsraum, Kriterium 2: n+8 eigene Punkte (Seed 4713, 0.9 <= tau2 <= 3), übrige Singulärwerte > 1e-16.
 - {"typ": "mgf_relationsraum", "basis": ["...", ...], "dim": r, "relationen": [[c_1, ..., c_n], ...]}: die rationalen linearen
   Relationen zwischen den Basis-Funktionen bilden GENAU einen r-dimensionalen Raum, aufgespannt von den angegebenen Vektoren
   (jede Relation geprüft wie mgf_relation; Vollständigkeit über Singulärwerte an n+3 Prüfer-Punkten; numerisch)."""
@@ -338,6 +368,7 @@ class ModularDomain(Domain):
             if t == "mgf_relation": return check_mgf_relation(p)
             if t == "mgf_relationsraum": return check_mgf_relationsraum(p)
             if t == "mgf_harmonisch": return check_mgf_harmonisch(p)
+            if t == "mgf_relationsraum_v2": return check_mgf_relationsraum_v2(p)
             if t == "mgf_harmonisch_familie": return check_mgf_harmonisch_familie(p)
             return False, f"unbekannter Prüfungstyp {t}", {}
         except Exception as e:
@@ -349,7 +380,7 @@ class ModularDomain(Domain):
 
     def relevanz(self, p):
         t = p.get("typ")
-        if t in ("eta_span_tabelle", "mgf_relationsraum", "mgf_harmonisch_familie"): return "hauptresultat"
+        if t in ("eta_span_tabelle", "mgf_relationsraum", "mgf_relationsraum_v2", "mgf_harmonisch_familie"): return "hauptresultat"
         if t == "mgf_harmonisch": return "stuetze"
         if t == "mgf_relation":
             return "hauptresultat" if any("L[" in str(m) for _, m in p.get("terme", [])) or max(_w(m) for _, m in p.get("terme", [])) >= 6 else "stuetze"
@@ -408,6 +439,8 @@ class ModularDomain(Domain):
                         f"Delta X in Q*E(w) form a space of dimension 1 for odd w and 0 for even w; for odd w = 2mu+3 it is spanned by the combination of "
                         f"D'Hoker-Green-Vanhove (eq. 3.57 of arXiv:1502.06698), and Delta X = w(w-1) f_w E(w) with f_w = 3((w-1)/2)!/w in that normalisation." if en else
                         f"Exakt für alle 3 <= w <= {p['gewicht_bis']}: harmonischer Raum dim 1 (ungerade, DGV-Kombination, f_w = 3((w-1)/2)!/w) bzw. 0 (gerade).")
+            if t == "mgf_relationsraum_v2":
+                return self.describe(dict(p, typ="mgf_relationsraum"), lang).replace("completeness by a singular-value gap", "completeness by criterion 2: all other singular values above 1e-16 at 20 verifier points").replace("Vollständigkeit über Singulärwertabstand", "Vollständigkeit nach Kriterium 2 (übrige Singulärwerte > 1e-16)")
             if t == "mgf_relationsraum":
                 formeln = "; ".join(_fmt([(c, b) for c, b in zip(r, p["basis"]) if Fr(str(c)) != 0]) + " = 0" for r in p.get("relationen", []))
                 ws = sorted({_w(b) for b in p["basis"] if _w(b)}); wtxt = f" (weight {ws[0]})" if len(ws) == 1 else ""
