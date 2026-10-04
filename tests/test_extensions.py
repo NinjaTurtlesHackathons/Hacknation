@@ -85,3 +85,11 @@ def test_lean_chsh_klassische_schranke():
     ok = pruefe({**chsh, "schranke": "2"}); assert ok["bestanden"] is True and ok["level"] == "proved_lean" and "sorryAx" not in ok["axiome"]
     assert pruefe({**chsh, "schranke": "1.99"})["bestanden"] is False
     assert pruefe({**chsh, "schranke": "2"}, taktik="sorry")["bestanden"] is False
+
+
+def test_lean_bin_ignoriert_elan_huelle_ohne_toolchain(tmp_path, monkeypatch):
+    """Die elan-Hülle existiert auch ohne Toolchain; lean_bin() darf sie dann nicht als 'Lean vorhanden' melden (Test soll skippen, nicht scheitern)."""
+    import asd.lean_check as lc
+    fake = tmp_path / "lean"; fake.write_text("#!/bin/sh\necho 'error: no default toolchain configured' >&2\nexit 1\n"); fake.chmod(0o755)
+    monkeypatch.setattr(lc.shutil, "which", lambda n: str(fake)); monkeypatch.setattr(lc.os.path, "expanduser", lambda p: str(fake))
+    assert lc.lean_bin() is None

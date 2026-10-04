@@ -16,7 +16,14 @@ ERLAUBTE_AXIOME = {"propext", "Quot.sound", "Classical.choice"}
 
 
 def lean_bin():
-    return shutil.which("lean") or (os.path.expanduser("~/.elan/bin/lean") if os.path.exists(os.path.expanduser("~/.elan/bin/lean")) else None)
+    """Pfad zu einem lauffähigen lean, sonst None. Die elan-Hülle existiert auch ohne installierte Toolchain; deshalb `lean --version` ausführen."""
+    for c in (shutil.which("lean"), os.path.expanduser("~/.elan/bin/lean")):
+        if not c or not os.path.exists(c): continue
+        try:
+            r = subprocess.run([c, "--version"], capture_output=True, text=True, timeout=30)
+            if r.returncode == 0 and "Lean" in (r.stdout + r.stderr): return c
+        except (OSError, subprocess.TimeoutExpired): pass
+    return None
 
 
 def aussage_klassische_schranke(claim):
