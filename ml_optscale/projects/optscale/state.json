@@ -632,7 +632,7 @@
    "neuheit": 0.3,
    "machbarkeit": 0.9,
    "id": "F1",
-   "status": "offen"
+   "status": "beantwortet"
   },
   {
    "frage": "Wie hängt der Exponent des rechenoptimalen Verlusts L*(C) bei Budget C = P*t von a und b ab, und wie teilt sich das Budget optimal auf P und t auf?",
@@ -985,6 +985,24 @@
    "id": "F41",
    "status": "zurückgestellt",
    "aus_runde": 16
+  },
+  {
+   "frage": "Gilt die Skalierungsformel e = (b−1)/a auch für den Verlust mit nur P Merkmalen (param_kurve) und für den rechenoptimalen Verlust (compute_kurve) mit den gleichen (a, b)-Paaren? Konkret: Ist der param-Exponent b−1 (unabhängig von a, in Einheiten von P), und ergibt sich für compute ein Exponent, der sich aus beiden Exponenten kombinieren lässt, z. B. (b−1)/(a+b−1) bzw. 0,5 bei a=1, b=2? Teste mindestens vier (a, b)-Paare, darunter eines mit a ≠ 1 und eines nahe der Grenze b → 1,1.",
+   "begruendung": "Das gf-Ergebnis (b−1)/a ist bestätigt. Die R6/R8/R9-Ergebnisse stützen den compute-Exponenten 0,5 nur bei a=1, b=2, wo viele Formeln zusammenfallen. Mit a ≠ 1 lässt sich entscheiden, welche Kombinationsformel gilt, und es zeigt sich, ob die drei Kurven ein konsistentes Gesetz bilden (gf in t, param in P, compute in C = P·t). Der Prüfer kann alle drei per Exponent-Prüfung nachrechnen.",
+   "neuheit": 0.6,
+   "machbarkeit": 0.9,
+   "id": "F42",
+   "status": "zurückgestellt",
+   "aus_runde": 17
+  },
+  {
+   "frage": "Wo bricht die asymptotische Formel e = (b−1)/a im Gradientenfluss an den Rändern des Parameterbereichs (b → 1,1; a = 3; endliche Modenzahl M) zusammen, und wie groß ist die Abweichung des gefitteten Exponenten in Abhängigkeit vom Fitfenster? Vergleiche gf_kurve mit M = 1e3, 1e4, 1e5 bei (a, b) = (3, 1,1), (0,3, 4) und (1, 1,1) in zwei Zeitfenstern.",
+   "begruendung": "Die bisherigen Prüfungen lagen alle im Inneren des Bereichs (a ≤ 2, b ≥ 1,5). Bei kleinem Exponenten (b−1)/a = 0,03 oder großem Exponenten (3,7/0,3 ≈ 12) kann die Endlichkeit von M oder der Fenster die Potenzgesetz-Näherung verfälschen. Das ist eine Gegenprobe, die die Gültigkeitsgrenzen der Formel und der Konfidenz 0,95 quantifiziert.",
+   "neuheit": 0.5,
+   "machbarkeit": 0.85,
+   "id": "F43",
+   "status": "zurückgestellt",
+   "aus_runde": 17
   }
  ],
  "claims": [
@@ -1928,6 +1946,49 @@
     }
    ],
    "runde": 16
+  },
+  {
+   "id": "optscale-R17",
+   "frage": "Welcher Skalierungsexponent ergibt sich für den Verlust des Gradientenflusses L(t) im linearen Modell mit Spektrum k^-a und Zielanteilen k^-b, und wie hängt er von a und b ab? Teste mindestens drei (a, b)-Paare.",
+   "text": "Im linearen Modell mit Spektrum lambda_k = k^-1.0 und Zielanteilen k^-2.0 fällt der Verlust des Gradientenflusses über die Zeit t wie x^-1.0 (numerischer Fit des Prüfers in zwei Fenstern, Toleranz 0.03).",
+   "interpretation_ungeprueft": "e = (b − 1) / a; daher L(t) ~ t^−(b−1)/a",
+   "pruefung": {
+    "typ": "exponent",
+    "kurve": "gf",
+    "a": 1.0,
+    "b": 2.0,
+    "exponent": 1.0
+   },
+   "grund": "Prüfer-Fit gf (a=1.0, b=2.0): Exponent 1.0000 (Fenster 1) und 1.0000 (Fenster 2), behauptet 1.0, feste Toleranz 0.03 | Prüfer-Fit gf (a=1.0, b=3.0): Exponent 2.0000 (Fenster 1) und 2.0000 (Fenster 2), behauptet 2.0, feste Toleranz 0.03 | Prüfer-Fit gf (a=2.0, b=4.0): Exponent 1.5000 (Fenster 1) und 1.5000 (Fenster 2), behauptet 1.5, feste Toleranz 0.03 | Prüfer-Fit gf (a=0.5, b=1.5): Exponent 1.0000 (Fenster 1) und 1.0000 (Fenster 2), behauptet 1.0, feste Toleranz 0.03",
+   "level": "observed",
+   "status": "bestätigt",
+   "red_team": [
+    {
+     "pruefung": {
+      "typ": "exponent",
+      "kurve": "gf",
+      "a": 2.0,
+      "b": 3.0,
+      "exponent": 4.0
+     },
+     "idee": "Alternativhypothese e = (b−1)·a statt (b−1)/a. Bei a=2, b=3 liefert die behauptete Formel e=1, die Alternative e=4. Die Prüfung besteht nur, wenn die Antwort falsch ist. Ich erwarte nach Summe_k k^-b exp(−2 k^-a t) ≈ t^-(b−1)/a, dass sie scheitert.",
+     "bestanden": false,
+     "grund": "Prüfer-Fit gf (a=2.0, b=3.0): Exponent 1.0000 (Fenster 1) und 1.0000 (Fenster 2), behauptet 4.0, feste Toleranz 0.03"
+    },
+    {
+     "pruefung": {
+      "typ": "exponent",
+      "kurve": "gf",
+      "a": 0.5,
+      "b": 3.0,
+      "exponent": 1.0
+     },
+     "idee": "Dieselbe Alternative e = (b−1)·a im anderen Regime. Bei a=0,5 und b=3 sagt die Antwort e=4 voraus, die Alternative e=1. Wer die Rollen von a vertauscht, besteht nur hier. Ich erwarte, dass die Prüfung bei korrekter Formel scheitert.",
+     "bestanden": false,
+     "grund": "Prüfer-Fit gf (a=0.5, b=3.0): Exponent 4.0000 (Fenster 1) und 4.0000 (Fenster 2), behauptet 1.0, feste Toleranz 0.03"
+    }
+   ],
+   "runde": 17
   }
  ],
  "widerlegt": [],
@@ -2610,7 +2671,39 @@
     }
    ],
    "sek": 94.4
+  },
+  {
+   "runde": 17,
+   "frage": "F1",
+   "status": "beantwortet",
+   "red_team": [
+    {
+     "pruefung": {
+      "typ": "exponent",
+      "kurve": "gf",
+      "a": 2.0,
+      "b": 3.0,
+      "exponent": 4.0
+     },
+     "idee": "Alternativhypothese e = (b−1)·a statt (b−1)/a. Bei a=2, b=3 liefert die behauptete Formel e=1, die Alternative e=4. Die Prüfung besteht nur, wenn die Antwort falsch ist. Ich erwarte nach Summe_k k^-b exp(−2 k^-a t) ≈ t^-(b−1)/a, dass sie scheitert.",
+     "bestanden": false,
+     "grund": "Prüfer-Fit gf (a=2.0, b=3.0): Exponent 1.0000 (Fenster 1) und 1.0000 (Fenster 2), behauptet 4.0, feste Toleranz 0.03"
+    },
+    {
+     "pruefung": {
+      "typ": "exponent",
+      "kurve": "gf",
+      "a": 0.5,
+      "b": 3.0,
+      "exponent": 1.0
+     },
+     "idee": "Dieselbe Alternative e = (b−1)·a im anderen Regime. Bei a=0,5 und b=3 sagt die Antwort e=4 voraus, die Alternative e=1. Wer die Rollen von a vertauscht, besteht nur hier. Ich erwarte, dass die Prüfung bei korrekter Formel scheitert.",
+     "bestanden": false,
+     "grund": "Prüfer-Fit gf (a=0.5, b=3.0): Exponent 4.0000 (Fenster 1) und 4.0000 (Fenster 2), behauptet 1.0, feste Toleranz 0.03"
+    }
+   ],
+   "sek": 177.8
   }
  ],
- "kosten_usd": 8.124841
+ "kosten_usd": 8.429114
 }

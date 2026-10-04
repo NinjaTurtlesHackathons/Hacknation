@@ -9,3 +9,8 @@ Runde 16: Ab welcher Lernrate operiert Voll-Batch-GD auf dem tanh-Netz an der Ed
   geprüft (observed): Etwa lr = 1.0 (bei width=16); ja, Verlust konvergiert trotzdem | Red-Team: 2 Gegenprüfungen, 0 bestanden
 Fertig: 16 geprüfte Aussagen, 0 negative Ergebnisse, Kosten 8.12 USD
 offen: ['F1', 'F9']
+Selbsttest des Prüfers: bestanden
+Runde 17: Welcher Skalierungsexponent ergibt sich für den Verlust des Gradientenflusses L(t) im linearen Modell mit Spektrum k^-a und Zielanteilen k^-b, und wie hängt er von a und b ab? Teste mindestens drei (a, b)-Paare.
+  geprüft (observed): e = (b − 1) / a; daher L(t) ~ t^−(b−1)/a | Red-Team: 2 Gegenprüfungen, 0 bestanden
+Fertig: 17 geprüfte Aussagen, 0 negative Ergebnisse, Kosten 8.43 USD
+offen: ['F9']
