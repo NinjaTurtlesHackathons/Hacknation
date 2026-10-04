@@ -55,6 +55,16 @@ class Domain:
         if t in ("erreichbar", "wert", "value", "reachable"): return "beispiel"
         return "stuetze"
 
+    def staerke(self, p):
+        """Wie stark ist eine bestandene Prüfung? Höher = besser. Standard: Relevanz, Allaussage, Umfang (Mitglieder/Fälle)."""
+        import math
+        r = {"hauptresultat": 3, "stuetze": 2, "beispiel": 1}.get(self.relevanz(p), 1)
+        try: d = self.describe(p, lang="en").lower()
+        except TypeError: d = self.describe(p).lower()
+        alle = 1 if any(k in d for k in ("for all", "für alle", "every member")) else 0
+        umfang = len(p.get("mitglieder") or p.get("faelle") or [])
+        return r + alle + (math.log10(1 + umfang) if umfang else 0)
+
     def widerspricht(self, p, q):
         """True, wenn die bestandenen Prüfungen p und q logisch nicht beide wahr sein können (Red-Team-Kriterium).
         Standard: kein bekannter Widerspruch. Domänen sollten das für ihre Prüfungstypen definieren."""

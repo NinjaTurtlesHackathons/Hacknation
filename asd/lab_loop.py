@@ -208,7 +208,10 @@ def runde_ausfuehren(P, D, a, runde, log):
             rt = red_team(P, D, q["frage"], res["antwort"], runde)
             for x in rt: x["widerspruch"] = bool(x["bestanden"] and D.widerspricht(p, x["pruefung"]))
             angefochten = [x for x in rt if x["widerspruch"]]
-            grund = next(tr["pruefung"]["grund"] for tr in res["forscher"] if tr.get("pruefung", {}).get("bestanden"))
+            p_key = json.dumps(p, sort_keys=True)
+            grund = next((tr["pruefung"]["grund"] for tr in res["forscher"] if tr.get("pruefung", {}).get("bestanden") and
+                          json.dumps((tr.get("final") or {}).get("pruefung") or ((tr.get("final") or {}).get("pruefungen") or [None])[0], sort_keys=True) == p_key),
+                         next(tr["pruefung"]["grund"] for tr in res["forscher"] if tr.get("pruefung", {}).get("bestanden")))
             P.s["claims"].append({"id": cid, "frage": q["frage"], "text": D.describe(p), "interpretation_ungeprueft": str(res["antwort"].get("antwort")),
                                   "pruefung": p, "grund": grund,
                                   "level": D.level(p), "status": "angefochten" if angefochten else "bestätigt", "red_team": rt, "runde": runde,
