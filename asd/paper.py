@@ -173,6 +173,17 @@ def claims_of(domain, lang="en"):
         else: txt = (f"Negative result for the question '{w['frage']}': no claim passed the verifier. Reasons per attempt: " +
                      "; ".join(f"{g['stufe']} ({g.get('pruefungstyp') or 'no check'}): {sanitize(g['grund'])}" for g in w["gruende"]))
         C.append({"claim_id": f"C-neg{j + 1}", "text": txt, "level": "observed", "status": "bestätigt"})
+    lit_nov = {}                                                        # Neuheitsbelege als zitierbare Literatur (sonst fehlen sie im BibTeX)
+    for c in s["claims"]:
+        nv = c.get("neuheit") or {}
+        if nv.get("quelle") and nv.get("zitat") and nv["quelle"] not in lit_nov:
+            lit_nov[nv["quelle"]] = f"C-litn{len(lit_nov) + 1}"
+            C.append({"claim_id": lit_nov[nv["quelle"]], "text": f"Literature: {nv.get('titel') or nv['quelle']} (verbatim quote: \"{nv['zitat']}\", source {nv['quelle']})",
+                      "level": "observed", "status": "bestätigt", "quelle": nv["quelle"]})
+    for c in C:
+        q = next((q for q in lit_nov if q in c.get("text", "")), None)
+        if q and not c["claim_id"].startswith("C-lit"):
+            c["text"] += f" (Literature claim for this source: [{lit_nov[q]}].)"
     for j, w in enumerate(s["wissen"][:30]):
         C.append({"claim_id": f"C-lit{j + 1}", "text": f"Literature: {w['text']} (verbatim quote: \"{w['zitat']}\", source {w['quelle']})", "level": "observed",
                   "status": "bestätigt", "quelle": w["quelle"]})
@@ -211,6 +222,9 @@ def apply_story(C, plan):
     out = []
     for c in C:
         role = plan["zuordnung"].get(c["claim_id"])
+        if role == "weglassen" and c["claim_id"].startswith("C-neg"): role = None          # G7: Negativergebnisse werden immer berichtet
+        if role == "weglassen" and c.get("level") in ("computed_rigorous", "proved_lean") and c["claim_id"] != "C-modell" and not c["claim_id"].startswith("C-lit"):
+            role = "stuetze"                                                                    # zertifizierte Resultate werden nie gestrichen
         if role == "weglassen": continue
         if role == "anhang": c = dict(c, anhang=True)
         if role in ("hauptresultat", "stuetze", "beispiel"): c = dict(c, rolle=role)
