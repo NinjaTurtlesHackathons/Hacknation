@@ -7,47 +7,43 @@ start frames in video/frames/<shot>.jpg. If your own start frame already exists 
   pip install higgsfield-client
   export HF_KEY="<key-id>:<key-secret>"            # from console.higgsfield.ai, never commit
   python scripts/higgsfield_render.py               # dry run: shows what would be generated, costs nothing
-  python scripts/higgsfield_render.py --run --only 1a,7a     # generate just these shots (costs credits)
-  python scripts/higgsfield_render.py --run                  # all 14 shots
+  python scripts/higgsfield_render.py --run --only 08,09     # generate just these shots (costs credits)
+  python scripts/higgsfield_render.py --run                  # all 15 shots
 
 Endpoints as in docs.higgsfield.ai (OpenAPI): higgsfield-ai/soul/standard, kling-video/v2.5-turbo/pro/image-to-video."""
 import argparse, json, os, sys, urllib.request
 
 BILD = "higgsfield-ai/soul/standard"
 VIDEO = "kling-video/v2.5-turbo/pro/image-to-video"
-STIL = ("cinematic, 35mm film look, soft natural light, muted palette with one deep blue accent, shallow depth of field, "
-        "no text, no letters, no logos")
-NEG = "text, letters, numbers, watermark, logo, garbled screen text, extra fingers, distorted hands, neon, purple gradient"
+STIL = ("cinematic, 35mm film look, dramatic chiaroscuro light, warm library tones with cool deep-blue light accents, "
+        "volumetric light through dust, shallow depth of field, no text, no letters, no logos")
+NEG = "text, letters, numbers, watermark, logo, garbled writing, faces on the light figures, extra fingers, distorted hands, purple neon, cartoon"
 MIA = ("young woman about 24, warm brown skin, curly dark hair in a loose bun, round thin-framed glasses, "
        "oversized dark green knit sweater")
 PROF = "woman in her late fifties, short silver hair, dark navy blazer, reading glasses on a chain"
-DOK = "man about 28, short black hair, light stubble, grey hoodie"
-LEITER = "man in his forties, rolled-up shirt sleeves, lab badge on a lanyard"
+AGENT = "a faceless humanoid figure made of soft translucent deep-blue light and thin floating paper ribbons"
+RED = "faceless humanoid figures made of dark smoky graphite light with a thin red edge"
+ORT = "in an old university library at night that has become a laboratory"
 
-SHOTS = {   # shot: (start frame, motion/video prompt), from the storyboard (60 s version)
-    "1a": (f"{MIA} sitting alone at a long wooden library table at night, laptop with a red glow on her face, paper coffee cup, "
-           "tall stack of printed papers, warm desk lamp, dark bookshelves, rain on a tall window",
-           "slow dolly in toward her, she stares at the screen and exhales, rain streaks on the window"),
-    "1b": (f"close-up of {MIA} lit by a laptop screen at night in a library",
-           "static camera, she takes off her glasses and rubs her eyes, tired"),
-    "2a": (f"{DOK} standing in a university corridor staring at a laptop", "he shakes his head slowly, camera whip pans right at the end"),
-    "2b": (f"{PROF} in her office holding a red pen over a printed manuscript, frowning", "she taps the pen on the page, camera whip pans right at the end"),
-    "2c": (f"{LEITER} in a bright modern lab corridor holding a sheet of paper up to the light, sceptical",
-           "quick crash zoom onto his face as he lowers the paper and shakes his head"),
-    "3a": (f"{MIA} at the same library table in early morning light, sitting up straight and typing, laptop screen plain off-white and blank",
-           "camera arcs slowly to the right around her, she types with focus, morning light grows"),
-    "3b": (f"over-the-shoulder shot of {MIA} at a laptop with a blank off-white screen, morning library",
-           "slow dolly in over her shoulder as she leans forward expectantly"),
-    "5a": (f"{PROF} at her desk reading a printout, laptop beside her with a blank screen", "slow dolly in, she reads and nods with approval"),
-    "5b": (f"{DOK} at a desk looking at his laptop with a blank screen", "static camera, he looks surprised and points at the screen"),
-    "6a": (f"{MIA} laughing with relief in a sunlit library, {PROF} standing behind her looking at the laptop",
-           "slow dolly out, Mia laughs and covers her mouth, the professor nods"),
-    "6b": ("close-up of a few blank printed paper pages on a wooden library table, sunlight", "slow crane down onto the pages"),
-    "7a": (f"{MIA} with friends in graduation gowns on a sunny lawn throwing their caps into the air, golden hour",
-           "slow motion, the caps leave their hands, gowns flutter, everyone laughing"),
-    "7b": ("low angle of graduation caps spinning in the air against a clear deep blue sky", "slow crane up in slow motion"),
-    "8a": ("a single black graduation cap spinning toward the camera against a deep blue sky",
-           "the cap flies straight into the lens until it fills the whole frame"),
+SHOTS = {   # shot: (start frame, motion/video prompt), from docs/HIGGSFIELD_STORYBOARD_MIA.md (60 s, 40 s "How it works")
+    "01": (f"{MIA} alone at a long wooden library table at night, laptop with a red glow on her face, stack of printed papers, coffee cup, rain on a tall window",
+           "slow dolly in toward her, she stares at the screen and exhales"),
+    "02": (f"close-up of {MIA} lit by a laptop screen at night", "she takes off her glasses, rubs her eyes, then sets her jaw and starts typing, slight push in"),
+    "03": (f"glowing paper ribbons rising from a laptop screen into the dark air {ORT}, tall bookshelves", "crane up following the ribbons, the shelves light up one after another"),
+    "04": (f"{AGENT} standing in the center of a round domed reading room {ORT}, six empty desks around it", "slow 180 degree orbit, the figure sends thin threads of blue light out to the six desks"),
+    "05": (f"a small {AGENT} reaching for a heavy locked archive door with a brass lock {ORT}", "dolly in, the brass lock flashes amber, the door stays shut, the figure turns back"),
+    "06": (f"{AGENT} leaning over a huge old map table {ORT}", "top down view tilting up, two routes of blue light spread across the map and split in two directions"),
+    "07": (f"two copies of {AGENT} at two facing wooden desks, mirror symmetric composition {ORT}", "arc left, sheets of calculations swirl above both desks at the same time"),
+    "08": (f"a single blank paper card floating on a beam of light toward a massive brass gate full of interlocking gears {ORT}",
+           "crash zoom in, the gears lock with red light, the card is thrown back and tears"),
+    "09": (f"a blank paper card sliding into a massive brass gate full of gears {ORT}, a heavy stamp above it",
+           "dolly in, gears turn smoothly, slow motion as the heavy stamp presses a solid deep blue square into the paper"),
+    "10": (f"{AGENT} at the old map table with a brass pin standing on the map {ORT}", "the pin topples, one route of light fades out and a new route is drawn, slight handheld camera"),
+    "11": (f"{RED} around a paper card stamped with a solid blue square floating in the air {ORT}", "whip pan in, the figures strike the card with hammers of light, sparks fly, the card stays whole"),
+    "12": (f"a chain of small glowing blue blocks forming across the underside of a library dome {ORT}", "crane up into the dome as the chain links up and locks shut"),
+    "13": (f"{MIA} laughing with relief in a sunlit library, {PROF} standing behind her looking at the laptop", "slow dolly out, Mia laughs and covers her mouth, the professor nods"),
+    "14": ("a few blank printed paper pages on a wooden library table in morning sunlight", "slow crane down, a solid deep blue square is stamped onto the top sheet"),
+    "15": ("a single small solid deep blue square of light floating above a sheet of paper", "the blue square lifts off and flies straight into the lens until it fills the frame"),
 }
 
 
