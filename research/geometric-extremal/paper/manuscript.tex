@@ -2,10 +2,9 @@
 \PassOptionsToPackage{unicode}{hyperref}
 \PassOptionsToPackage{hyphens}{url}
 \documentclass[
-  a4paper,
 ]{article}
 \usepackage{xcolor}
-\usepackage[margin=24mm]{geometry}
+\usepackage[margin=22mm]{geometry}
 \usepackage{amsmath,amssymb}
 \setcounter{secnumdepth}{-\maxdimen} % remove section numbering
 \usepackage{iftex}
@@ -63,364 +62,855 @@
 
 \begin{document}
 
-\section{Certificate-First Search for Geometric Extremal
-Problems}\label{certificate-first-search-for-geometric-extremal-problems}
+\section{Exact planar few-distance constructions with 111 and 81
+points}\label{exact-planar-few-distance-constructions-with-111-and-81-points}
 
-\subsection{A reproducible negative research
-checkpoint}\label{a-reproducible-negative-research-checkpoint}
+AI Agent Lab --- research draft, 4 October 2026
 
-AI Agent Lab · Human research direction: Laurenz Thümmler · Computation,
-coordination and drafting: Codex agent team · 4 October 2026
+\textbf{Status.} Both existence statements below are exact and
+independently checked. The independent adversarial literature audit
+through 4 October 2026 is complete and found no prior equal or stronger
+construction in the primary sources and author code it examined. These
+are improvements over the named published lower bounds. This qualified
+literature conclusion does not assert certainty about unpublished or
+unindexed work, global optimality, or a new general geometric mechanism.
 
-\textbf{Status:} working manuscript for review. No new geometric
-discovery is established. {[}GE-STATUS{]}
+\subsection{Abstract}\label{abstract}
 
-\subsubsection{Abstract}\label{abstract}
+We give an explicit planar set of 111 points determining exactly 41
+distances, together with an 81-point set determining exactly 31
+distances. Consequently, for the unrestricted Euclidean-plane problem
+with at most k distinct distances, G(31) \ensuremath{\ge} 81 and G(41) \ensuremath{\ge} 111. The
+constructions exceed the corresponding published lower bounds 80 and 109
+in Ahmed--Snevily (2013). The recent Bao--Yu (2025) table gives 79 at 31
+and does not cover 41. Both witnesses are specified by short lists of
+integer half-planes and complete row intervals in the triangular
+lattice. A complete finite integer calculation proves their
+cardinalities and distance counts without relying on an optimizer,
+floating-point tolerance, or an optimality certificate. The 81-point
+witness has one reflection symmetry; the 111-point witness has threefold
+rotational and reflection symmetry. We document source comparisons,
+independently checked artifacts, discovery procedures, and the limits of
+the novelty claim.
 
-The strongest confirmed derived result of this checkpoint is a
-quantitative local-exclusion lemma for a known fifteen-point
-square-torus packing: after fixing translation, no distinct
-equal-or-better labelled configuration exists within a strict
-displacement neighborhood of radius 1/3920 in the maximum coordinate
-norm. An elementary cycle-sum proof and an independent exact dependency
-checker establish the explicit constant. The mechanism and baseline are
-known; novelty is not established. We also independently certify
-inherited area, packing and few-distance witnesses. An adaptive area
-campaign of 1,840 candidate trials found no certified improvement of at
-least 0.05\% over frozen comparison witnesses. The archive retains
-source snapshots, seeds, negative trials and claim identifiers. No new
-record, global optimum, counterexample or exceptional-discovery goal is
-achieved. {[}GE-LOCAL-CYCLE; GE-BASE-TRIANGLE14; GE-BASE-CONVEX15;
-GE-AREA-NEGATIVE; GE-STATUS{]}
+\begin{figure}[ht]
+\centering
+\setlength{\unitlength}{1pt}
+\begin{picture}(440,200)
+{\color{red}
+\qbezier(59.000,76.019)(107.000,107.196)(155.000,138.373)
+\qbezier(59.000,76.019)(110.000,102.000)(161.000,127.981)
+\qbezier(107.000,159.158)(110.000,102.000)(113.000,44.842)
+\qbezier(119.000,159.158)(116.000,102.000)(113.000,44.842)
+}
+\put(59.000,117.588){\circle*{2.8}}
+\put(65.000,127.981){\circle*{2.8}}
+\put(71.000,138.373){\circle*{2.8}}
+\put(59.000,96.804){\circle*{2.8}}
+\put(65.000,107.196){\circle*{2.8}}
+\put(71.000,117.588){\circle*{2.8}}
+\put(77.000,127.981){\circle*{2.8}}
+\put(83.000,138.373){\circle*{2.8}}
+\put(89.000,148.765){\circle*{2.8}}
+\put(59.000,76.019){\circle*{2.8}}
+\put(65.000,86.412){\circle*{2.8}}
+\put(71.000,96.804){\circle*{2.8}}
+\put(77.000,107.196){\circle*{2.8}}
+\put(83.000,117.588){\circle*{2.8}}
+\put(89.000,127.981){\circle*{2.8}}
+\put(95.000,138.373){\circle*{2.8}}
+\put(101.000,148.765){\circle*{2.8}}
+\put(107.000,159.158){\circle*{2.8}}
+\put(71.000,76.019){\circle*{2.8}}
+\put(77.000,86.412){\circle*{2.8}}
+\put(83.000,96.804){\circle*{2.8}}
+\put(89.000,107.196){\circle*{2.8}}
+\put(95.000,117.588){\circle*{2.8}}
+\put(101.000,127.981){\circle*{2.8}}
+\put(107.000,138.373){\circle*{2.8}}
+\put(113.000,148.765){\circle*{2.8}}
+\put(119.000,159.158){\circle*{2.8}}
+\put(77.000,65.627){\circle*{2.8}}
+\put(83.000,76.019){\circle*{2.8}}
+\put(89.000,86.412){\circle*{2.8}}
+\put(95.000,96.804){\circle*{2.8}}
+\put(101.000,107.196){\circle*{2.8}}
+\put(107.000,117.588){\circle*{2.8}}
+\put(113.000,127.981){\circle*{2.8}}
+\put(119.000,138.373){\circle*{2.8}}
+\put(125.000,148.765){\circle*{2.8}}
+\put(89.000,65.627){\circle*{2.8}}
+\put(95.000,76.019){\circle*{2.8}}
+\put(101.000,86.412){\circle*{2.8}}
+\put(107.000,96.804){\circle*{2.8}}
+\put(113.000,107.196){\circle*{2.8}}
+\put(119.000,117.588){\circle*{2.8}}
+\put(125.000,127.981){\circle*{2.8}}
+\put(131.000,138.373){\circle*{2.8}}
+\put(137.000,148.765){\circle*{2.8}}
+\put(95.000,55.235){\circle*{2.8}}
+\put(101.000,65.627){\circle*{2.8}}
+\put(107.000,76.019){\circle*{2.8}}
+\put(113.000,86.412){\circle*{2.8}}
+\put(119.000,96.804){\circle*{2.8}}
+\put(125.000,107.196){\circle*{2.8}}
+\put(131.000,117.588){\circle*{2.8}}
+\put(137.000,127.981){\circle*{2.8}}
+\put(143.000,138.373){\circle*{2.8}}
+\put(107.000,55.235){\circle*{2.8}}
+\put(113.000,65.627){\circle*{2.8}}
+\put(119.000,76.019){\circle*{2.8}}
+\put(125.000,86.412){\circle*{2.8}}
+\put(131.000,96.804){\circle*{2.8}}
+\put(137.000,107.196){\circle*{2.8}}
+\put(143.000,117.588){\circle*{2.8}}
+\put(149.000,127.981){\circle*{2.8}}
+\put(155.000,138.373){\circle*{2.8}}
+\put(113.000,44.842){\circle*{2.8}}
+\put(119.000,55.235){\circle*{2.8}}
+\put(125.000,65.627){\circle*{2.8}}
+\put(131.000,76.019){\circle*{2.8}}
+\put(137.000,86.412){\circle*{2.8}}
+\put(143.000,96.804){\circle*{2.8}}
+\put(149.000,107.196){\circle*{2.8}}
+\put(155.000,117.588){\circle*{2.8}}
+\put(161.000,127.981){\circle*{2.8}}
+\put(131.000,55.235){\circle*{2.8}}
+\put(137.000,65.627){\circle*{2.8}}
+\put(143.000,76.019){\circle*{2.8}}
+\put(149.000,86.412){\circle*{2.8}}
+\put(155.000,96.804){\circle*{2.8}}
+\put(161.000,107.196){\circle*{2.8}}
+\put(149.000,65.627){\circle*{2.8}}
+\put(155.000,76.019){\circle*{2.8}}
+\put(161.000,86.412){\circle*{2.8}}
+\put(110,185){\makebox(0,0){\small 81 points, 31 distances}}
+\put(110,17){\makebox(0,0){\small Published comparison: 80}}
+{\color{blue}
+\qbezier(270.000,127.981)(330.000,96.804)(390.000,65.627)
+\qbezier(276.000,138.373)(333.000,102.000)(390.000,65.627)
+\qbezier(270.000,65.627)(327.000,102.000)(384.000,138.373)
+\qbezier(270.000,65.627)(330.000,96.804)(390.000,127.981)
+\qbezier(330.000,169.550)(327.000,102.000)(324.000,34.450)
+\qbezier(330.000,169.550)(333.000,102.000)(336.000,34.450)
+}
+\put(270.000,127.981){\circle*{2.8}}
+\put(276.000,138.373){\circle*{2.8}}
+\put(270.000,107.196){\circle*{2.8}}
+\put(276.000,117.588){\circle*{2.8}}
+\put(282.000,127.981){\circle*{2.8}}
+\put(288.000,138.373){\circle*{2.8}}
+\put(294.000,148.765){\circle*{2.8}}
+\put(270.000,86.412){\circle*{2.8}}
+\put(276.000,96.804){\circle*{2.8}}
+\put(282.000,107.196){\circle*{2.8}}
+\put(288.000,117.588){\circle*{2.8}}
+\put(294.000,127.981){\circle*{2.8}}
+\put(300.000,138.373){\circle*{2.8}}
+\put(306.000,148.765){\circle*{2.8}}
+\put(312.000,159.158){\circle*{2.8}}
+\put(270.000,65.627){\circle*{2.8}}
+\put(276.000,76.019){\circle*{2.8}}
+\put(282.000,86.412){\circle*{2.8}}
+\put(288.000,96.804){\circle*{2.8}}
+\put(294.000,107.196){\circle*{2.8}}
+\put(300.000,117.588){\circle*{2.8}}
+\put(306.000,127.981){\circle*{2.8}}
+\put(312.000,138.373){\circle*{2.8}}
+\put(318.000,148.765){\circle*{2.8}}
+\put(324.000,159.158){\circle*{2.8}}
+\put(330.000,169.550){\circle*{2.8}}
+\put(282.000,65.627){\circle*{2.8}}
+\put(288.000,76.019){\circle*{2.8}}
+\put(294.000,86.412){\circle*{2.8}}
+\put(300.000,96.804){\circle*{2.8}}
+\put(306.000,107.196){\circle*{2.8}}
+\put(312.000,117.588){\circle*{2.8}}
+\put(318.000,127.981){\circle*{2.8}}
+\put(324.000,138.373){\circle*{2.8}}
+\put(330.000,148.765){\circle*{2.8}}
+\put(336.000,159.158){\circle*{2.8}}
+\put(288.000,55.235){\circle*{2.8}}
+\put(294.000,65.627){\circle*{2.8}}
+\put(300.000,76.019){\circle*{2.8}}
+\put(306.000,86.412){\circle*{2.8}}
+\put(312.000,96.804){\circle*{2.8}}
+\put(318.000,107.196){\circle*{2.8}}
+\put(324.000,117.588){\circle*{2.8}}
+\put(330.000,127.981){\circle*{2.8}}
+\put(336.000,138.373){\circle*{2.8}}
+\put(342.000,148.765){\circle*{2.8}}
+\put(348.000,159.158){\circle*{2.8}}
+\put(300.000,55.235){\circle*{2.8}}
+\put(306.000,65.627){\circle*{2.8}}
+\put(312.000,76.019){\circle*{2.8}}
+\put(318.000,86.412){\circle*{2.8}}
+\put(324.000,96.804){\circle*{2.8}}
+\put(330.000,107.196){\circle*{2.8}}
+\put(336.000,117.588){\circle*{2.8}}
+\put(342.000,127.981){\circle*{2.8}}
+\put(348.000,138.373){\circle*{2.8}}
+\put(354.000,148.765){\circle*{2.8}}
+\put(306.000,44.842){\circle*{2.8}}
+\put(312.000,55.235){\circle*{2.8}}
+\put(318.000,65.627){\circle*{2.8}}
+\put(324.000,76.019){\circle*{2.8}}
+\put(330.000,86.412){\circle*{2.8}}
+\put(336.000,96.804){\circle*{2.8}}
+\put(342.000,107.196){\circle*{2.8}}
+\put(348.000,117.588){\circle*{2.8}}
+\put(354.000,127.981){\circle*{2.8}}
+\put(360.000,138.373){\circle*{2.8}}
+\put(366.000,148.765){\circle*{2.8}}
+\put(318.000,44.842){\circle*{2.8}}
+\put(324.000,55.235){\circle*{2.8}}
+\put(330.000,65.627){\circle*{2.8}}
+\put(336.000,76.019){\circle*{2.8}}
+\put(342.000,86.412){\circle*{2.8}}
+\put(348.000,96.804){\circle*{2.8}}
+\put(354.000,107.196){\circle*{2.8}}
+\put(360.000,117.588){\circle*{2.8}}
+\put(366.000,127.981){\circle*{2.8}}
+\put(372.000,138.373){\circle*{2.8}}
+\put(324.000,34.450){\circle*{2.8}}
+\put(330.000,44.842){\circle*{2.8}}
+\put(336.000,55.235){\circle*{2.8}}
+\put(342.000,65.627){\circle*{2.8}}
+\put(348.000,76.019){\circle*{2.8}}
+\put(354.000,86.412){\circle*{2.8}}
+\put(360.000,96.804){\circle*{2.8}}
+\put(366.000,107.196){\circle*{2.8}}
+\put(372.000,117.588){\circle*{2.8}}
+\put(378.000,127.981){\circle*{2.8}}
+\put(384.000,138.373){\circle*{2.8}}
+\put(336.000,34.450){\circle*{2.8}}
+\put(342.000,44.842){\circle*{2.8}}
+\put(348.000,55.235){\circle*{2.8}}
+\put(354.000,65.627){\circle*{2.8}}
+\put(360.000,76.019){\circle*{2.8}}
+\put(366.000,86.412){\circle*{2.8}}
+\put(372.000,96.804){\circle*{2.8}}
+\put(378.000,107.196){\circle*{2.8}}
+\put(384.000,117.588){\circle*{2.8}}
+\put(390.000,127.981){\circle*{2.8}}
+\put(354.000,44.842){\circle*{2.8}}
+\put(360.000,55.235){\circle*{2.8}}
+\put(366.000,65.627){\circle*{2.8}}
+\put(372.000,76.019){\circle*{2.8}}
+\put(378.000,86.412){\circle*{2.8}}
+\put(384.000,96.804){\circle*{2.8}}
+\put(390.000,107.196){\circle*{2.8}}
+\put(372.000,55.235){\circle*{2.8}}
+\put(378.000,65.627){\circle*{2.8}}
+\put(384.000,76.019){\circle*{2.8}}
+\put(390.000,86.412){\circle*{2.8}}
+\put(390.000,65.627){\circle*{2.8}}
+\put(330,185){\makebox(0,0){\small 111 points, 41 distances}}
+\put(330,17){\makebox(0,0){\small Published comparison: 109}}
+\end{picture}
+\caption{Exact lattice constructions on the same drawing scale. Colored segments show all four pairs at squared distance 91 (left) and all six pairs at 127 (right). Comparison counts refer to Ahmed--Snevily (2013).}
+\end{figure}
 
-\subsubsection{1. Confirmed results and their
-limits}\label{confirmed-results-and-their-limits}
+\subsection{1. Problem and statements}\label{problem-and-statements}
 
-\textbf{Main derived result: explicit local exclusion for a known torus
-packing.} Let \[
-p_i=\left(\frac{i}{15},\frac{4i\bmod15}{15}\right),\qquad i=0,\ldots,14,
-\] on the fixed square torus \(\mathbb R^2/\mathbb Z^2\). Its least
-periodic squared separation is \(17/225\). Take compatible labelled
-lifts \(q_i=p_i+u_i\), remove common translation so \(u_0=0\), and put
-\(\varepsilon=\max_i\|u_i\|_\infty\). If \(\varepsilon<1/3920\) and the
-least periodic squared separation of \(q\) is at least \(17/225\), then
-every \(u_i=0\). This excludes improved or distinct equally good
-packings in that explicit neighborhood, without excluding better
-packings elsewhere. The checker verifies graph, lift and constant
-identities; the elementary proof below supplies the implication. No
-formal proof assistant or new-mechanism claim is made.
-{[}GE-LOCAL-CYCLE; GE-BASE-TORUS15{]}
+For a finite X \ensuremath{\subset} R\ensuremath{{}^2}, let D(X) = \{\ensuremath{\Vert}x-y\ensuremath{\Vert} : x,y \ensuremath{\in} X, x \ensuremath{\ne} y\}, and define
 
-\textbf{Proof.} Two directed cycles use label steps one and four, each
-coprime to fifteen. Their constant shortest-contact lifts are \[
-z_1=(1,4)/15,\qquad z_2=(4,1)/15.
-\] For a selected edge \(i\to j\) in cycle \(s\), the original
-integer-period shift remains an allowed lift for \(q_j-q_i\). It need
-not remain the nearest lift: the assumed periodic separation lower bound
-applies to every lift. Consequently \[
-2z_s\cdot(u_j-u_i)+\|u_j-u_i\|_2^2\geq0.
-\] Since \(\|u_j-u_i\|_2^2\leq8\varepsilon^2\), write
-\(a_{ij}=z_s\cdot(u_j-u_i)\geq-4\varepsilon^2\). The sum of these
-fifteen quantities around each directed cycle is zero. Therefore
-\(a_{ij}\leq4(15-1)\varepsilon^2\), and hence
-\(|a_{ij}|\leq4(15-1)\varepsilon^2\). Every label is reached from zero
-within at most fourteen cycle edges, giving \[
-|z_s\cdot u_i|\leq4(15-1)^2\varepsilon^2\quad(s=1,2).
-\] The matrix with rows \(z_1^T,z_2^T\) has inverse \[
-Z^{-1}=\begin{pmatrix}-1&4\\4&-1\end{pmatrix},
-\qquad\|Z^{-1}\|_\infty=5.
-\] Thus
-\(\|u_i\|_\infty\leq4\cdot14^2\cdot5\,\varepsilon^2=3920\varepsilon^2\).
-Taking the maximum yields \(\varepsilon\leq3920\varepsilon^2\). Either
-\(\varepsilon=0\) or \(\varepsilon\geq1/3920\); the strict neighborhood
-assumption rules out the latter. This is local isolation modulo
-translation, not global optimality. {[}GE-LOCAL-CYCLE{]}
+G(k) = max \{ \textbar X\textbar{} : X \ensuremath{\subset} R\ensuremath{{}^2} finite,
+\textbar D(X)\textbar{} \ensuremath{\le} k \}.
 
-\textbf{Inherited area certificates.} The independently recomputed
-values are
+The plane and Euclidean metric are unrestricted. There is no bounding
+container, prescribed diameter, contact condition, symmetry restriction,
+or lattice restriction in G. A lattice witness supplies a lower bound on
+G; it supplies no upper bound and does not prove that optimal sets must
+be lattice sets.
 
-\[
-A_{\triangle,14}\geq
-\frac{11887886553786386257916512167}{500000000000000000000000000000},
-\qquad
-A_{\mathrm{convex},15}\geq
-\frac{49128111226460317685888607941}{1999999999999999257563094398721}.
-\]
+Write \ensuremath{\varphi}(a,b) = (a+b/2, \ensuremath{\surd}3 b/2) for a,b \ensuremath{\in} Z, and Q(u,v)=u\ensuremath{{}^2}+uv+v\ensuremath{{}^2}. Then
 
-These lower bounds certify external constructions. The triangle
-coordinates come from David Cantrell's arrangement, as provided through
-the current Tej Stead author table; the free-convex coordinates come
-from Tej Stead's construction. The rational literals, rather than an
-idealized numerical limit, are the certified objects. The free-convex
-witness has eleven hull vertices. Neither value is presented as a new
-bound. {[}GE-BASE-TRIANGLE14; GE-BASE-CONVEX15; GE-PROVENANCE{]}
+\ensuremath{\Vert}\ensuremath{\varphi}(a,b)-\ensuremath{\varphi}(c,d)\ensuremath{\Vert}\ensuremath{{}^2} = Q(a-c,b-d).
+
+The map \ensuremath{\varphi} is injective. The quadratic form Q is positive for every
+nonzero integer vector because 4Q(u,v)=(2u+v)\ensuremath{{}^2}+3v\ensuremath{{}^2}. Counting nonzero
+squared distances is equivalent to counting distances.
+
+\textbf{Theorem 1.} The set \ensuremath{\varphi}(S31) defined in Section 3 has 81 points
+and exactly 31 distances. Therefore G(31) \ensuremath{\ge} 81.
+
+\textbf{Theorem 2.} The set \ensuremath{\varphi}(S41) defined in Section 3 has 111 points
+and exactly 41 distances. Therefore G(41) \ensuremath{\ge} 111.
+
+These are existence statements with full certificates. Neither theorem
+asserts G(31)=81 or G(41)=111. Monotonicity also gives G(k)\ensuremath{\ge}81 for k\ensuremath{\ge}31
+and G(k)\ensuremath{\ge}111 for k\ensuremath{\ge}41, but these consequences need not improve
+previously known bounds. In particular, Ahmed--Snevily already gives 115
+at k=42: this manuscript claims \textbf{no improvement at 42}.
+
+\subsection{2. Prior work and comparison
+scope}\label{prior-work-and-comparison-scope}
+
+Erdős and Fishburn formulated and studied maximum planar sets
+determining k distances {[}1{]}. Ahmed and Snevily studied symmetric
+lattice polygons and arbitrary orientations of attached triangular
+blades; their main construction figure on printed page 5 explicitly
+states g(31)\ensuremath{\ge}80, g(41)\ensuremath{\ge}109, and g(42)\ensuremath{\ge}115 {[}2{]}. Their g uses exactly
+k distances. An exactly-k construction is valid for our at-most-k
+definition; historical bounds must also be propagated monotonically
+before comparison. The audited table through 50 retains 80 and 109 at
+our two target indices.
+
+Ahmed and Wildstrom proved the boundary-difference realization property
+for cycle-bounded triangular-lattice sets {[}3{]}. We therefore make no
+claim to have discovered boundary reduction. Balaji et al.~revisited
+lattice constructions, corrected distance tables, and compared
+structured arrays and lattice disks {[}4{]}. The initial preprint
+appeared in 2019. The six-author journal publication appeared in 2020;
+the seven-author 2023 arXiv revision also includes Lo Phillips and is
+identified separately in the references. Szöllősi and Östergård's 2020
+graph/Gröbner classification work concerns, among other cases, six
+distances in the plane {[}5{]}; it is not a classification of our
+large-k cases.
+
+Bao and Yu use first-distance palettes and equiangular hexagons {[}6{]}.
+Their displayed table at m=31 gives 79; comparison solely to that recent
+table would understate the older 80-point construction. Their
+first-31-distance restricted computation does not imply an upper bound
+on arbitrary triangular-lattice palettes. Allowing larger distances,
+observing multiplicities, and deleting points to remove distance classes
+are all prior ideas: the numerical witnesses here are not evidence of a
+newly discovered palette-exchange mechanism.
 
 \begin{longtable}[]{@{}
-  >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.2500}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.2500}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.2500}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.2500}}@{}}
+  >{\raggedleft\arraybackslash}p{(\linewidth - 8\tabcolsep) * \real{0.2000}}
+  >{\raggedleft\arraybackslash}p{(\linewidth - 8\tabcolsep) * \real{0.2000}}
+  >{\raggedleft\arraybackslash}p{(\linewidth - 8\tabcolsep) * \real{0.2000}}
+  >{\raggedleft\arraybackslash}p{(\linewidth - 8\tabcolsep) * \real{0.2000}}
+  >{\raggedleft\arraybackslash}p{(\linewidth - 8\tabcolsep) * \real{0.2000}}@{}}
 \toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\raggedright
-Certified object
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Exact witness property
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Interpretation
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Claim
+\begin{minipage}[b]{\linewidth}\raggedleft
+k
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
+Ahmed--Snevily 2013, exactly-k witness
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
+Bao--Yu 2025 displayed lower bound
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
+this manuscript, exactly-k witness
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
+improvement over audited comparison
 \end{minipage} \\
 \midrule\noalign{}
 \endhead
 \bottomrule\noalign{}
 \endlastfoot
-Triangle, 14 points & Normalized least area
-(\approx)0.023775773107572774 & External baseline reproduced &
-GE-BASE-TRIANGLE14 \\
-Free convex hull, 15 points & Normalized least area
-(\approx)0.02456405561323017 & External baseline reproduced &
-GE-BASE-CONVEX15 \\
-Square torus, 15 points & Squared periodic separation 17/225 & Known
-lattice seed reproduced & GE-BASE-TORUS15 \\
-Square torus, 209 points & Squared periodic separation 241/43681 & Known
-lattice seed reproduced & GE-BASE-TORUS209 \\
-Right-triangle packing, 22 circles & Radius (\approx)0.07289508087527324
-& Existing packing made into a rational witness & GE-BASE-PACK22 \\
-Triangular lattice, 27 points & Exactly 11 squared-distance values &
-Inherited few-distance witness & GE-BASE-FD12-27 \\
-Triangular lattice, 61 points & Exactly 23 squared-distance values &
-Inherited few-distance witness & GE-BASE-FD23-61 \\
+31 & 80 & 79 & 81 & +1 \\
+41 & 109 & not tabulated & 111 & +2 \\
+42 & 115 & not tabulated & no improved witness claimed & none \\
 \end{longtable}
 
-Approximate displays in this table are not the certificates. The exact
-fractions, coordinates, complete comparison sets and checksums are
-stored in \texttt{tables/claims.json} and are recomputed by
-\texttt{certification/verify.py}. The few-distance properties are
-properties of the stored witnesses, not claims that these rows are the
-strongest published cardinality bounds. {[}GE-PROVENANCE; GE-STATUS{]}
+The literature review includes author-hosted sources and code, rather
+than treating the newest table as complete. No source found in the
+currently audited set supersedes these two comparisons. The completed
+independent review supports the wording: ``Two exact constructions
+improve the lower bounds in Ahmed--Snevily (2013); our literature audit
+through 4 October 2026 found no prior equal or stronger construction.''
+Its archive is \texttt{wave2/packing/few\_distance\_novelty/VERDICT.md}.
+It is not a proof of exhaustive literature coverage. The withdrawn
+September 2026 revision of arXiv:2510.09800 is excluded as a source of
+established asymptotic theorems; its old mirror PDF remains accessible
+{[}7{]}.
 
-\subsubsection{2. Problem definitions and
-normalization}\label{problem-definitions-and-normalization}
+\subsection{3. Explicit constructions}\label{explicit-constructions}
 
-For distinct points \(P=(p_1,\ldots,p_n)\), define
+For each column below, define S = \{(a,b) \ensuremath{\in} Z\ensuremath{{}^2} : Aa+Bb \ensuremath{\le} C for every
+listed row\}. Thus the following ten inequalities alone define each
+witness, including every interior lattice site.
 
-\[
-D_{ijk}=\det(p_j-p_i,p_k-p_i),\qquad
-m(P)=\frac12\min_{i<j<k}|D_{ijk}|.
-\]
+\begin{longtable}[]{@{}rrrr@{}}
+\toprule\noalign{}
+A & B & C for S31 & C for S41 \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+-2 & -1 & 9 & 10 \\
+-1 & -2 & 9 & 11 \\
+1 & -1 & 9 & 11 \\
+1 & 0 & 5 & 7 \\
+2 & 1 & 8 & 10 \\
+1 & 1 & 5 & 6 \\
+1 & 2 & 8 & 9 \\
+0 & 1 & 5 & 6 \\
+-1 & 1 & 8 & 9 \\
+-1 & 0 & 5 & 6 \\
+\end{longtable}
 
-The fixed-triangle objective is \(m(P)/\operatorname{area}(T)\), where
-the rational reference triangle is
-\(T=\{(x,y):x\geq0,\ y\geq0,\ x+y\leq1\}\). Since its area is one half,
-the normalized objective is \textbf{the minimum absolute determinant},
-with no further division by two. The free-convex objective is
-\(m(P)/\operatorname{area}(\operatorname{conv}P)\), requiring a
-nondegenerate hull and permitting interior points. An invertible affine
-map multiplies all areas by the same positive factor and therefore
-preserves both normalized ratios. This is a standard invariance
-argument, not a claimed new geometric theorem. {[}GE-BASE-TRIANGLE14;
-GE-BASE-CONVEX15{]}
+For S31, -5\ensuremath{\le}a\ensuremath{\le}5 and a-b\ensuremath{\le}9 imply b\ensuremath{\ge}-14, while b\ensuremath{\le}5. For S41, -6\ensuremath{\le}a\ensuremath{\le}7 and
+a-b\ensuremath{\le}11 imply b\ensuremath{\ge}-17, while b\ensuremath{\le}6. Hence each polygon's complete integer
+enumeration is contained in {[}-20,20{]}\ensuremath{{}^2}. There are no unexamined
+points beyond the enumeration box.
 
-On the square flat torus, representatives lie in \([0,1)^2\). Set
-\(\delta_x=\min(|x_i-x_j|,1-|x_i-x_j|)\), and similarly for
-\(\delta_y\); the objective is the least \(\delta_x^2+\delta_y^2\),
-capped by the self-translate squared separation one. A corresponding
-packing radius is half the square root of this objective. Conjecture
-tests must separately validate their domain of applicability; a witness
-outside the stated range cannot be a counterexample. {[}GE-BASE-TORUS15;
-GE-BASE-TORUS209{]}
+Equivalently, for each listed a, choose every integer b between the
+row's minimum and maximum, inclusive; choose no other rows. The
+following intervals are obtained directly by substituting a into the ten
+inequalities.
 
-Equal-circle packing in the reference right triangle requires radius
-\(r>0\), center coordinates \(x_i,y_i\geq r\), diagonal distance
-\((1-x_i-y_i)/\sqrt2\geq r\), and squared pair separations at least
-\(4r^2\). The irrational diagonal constraint is checked rationally by
-first testing nonnegative slack, then \((1-x_i-y_i)^2\geq2r^2\).
-{[}GE-BASE-PACK22; GE-BASE-PACK23; GE-BASE-PACK24{]}
+\subsubsection{S31}\label{s31}
 
-For the triangular-lattice few-distance representation, coordinates are
-in the basis \((1,0),(1/2,\sqrt3/2)\). Squared Euclidean separation is
-the exact integer or rational expression
-\(\Delta x^2+\Delta x\Delta y+\Delta y^2\). The verifier counts its
-distinct values over every pair, rather than inferring a count from
-symmetry. {[}GE-BASE-FD12-27; GE-BASE-FD23-61{]}
+\begin{longtable}[]{@{}rrrr@{}}
+\toprule\noalign{}
+a & minimum b & maximum b & sites \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+-5 & 1 & 3 & 3 \\
+-4 & -1 & 4 & 6 \\
+-3 & -3 & 5 & 9 \\
+-2 & -3 & 5 & 9 \\
+-1 & -4 & 4 & 9 \\
+0 & -4 & 4 & 9 \\
+1 & -5 & 3 & 9 \\
+2 & -5 & 3 & 9 \\
+3 & -6 & 2 & 9 \\
+4 & -5 & 0 & 6 \\
+5 & -4 & -2 & 3 \\
+\end{longtable}
 
-\subsubsection{3. Certificate method and elementary soundness
-argument}\label{certificate-method-and-elementary-soundness-argument}
+The row lengths are 3,6,9,9,9,9,9,9,9,6,3, summing to 81. All sites
+inside the ten-facet polygon are selected.
 
-The acceptance checker imports no search optimizer. It parses integer or
-rational-string coordinates, refuses floating-point coordinates and
-agent-supplied tolerances, checks distinctness and region membership,
-and computes every required pair or triple using exact rational
-arithmetic. For a free hull it independently constructs the
-monotone-chain convex hull and computes its shoelace area.
-{[}GE-SELFTEST; GE-BASE-TRIANGLE14; GE-BASE-CONVEX15{]}
+\subsubsection{S41}\label{s41}
 
-The soundness argument is direct. If all region constraints pass and
-every determinant has absolute value at least \(b\), the listed finite
-configuration is an existing feasible witness with normalized least area
-at least the appropriately normalized \(b\). For a rational free-hull
-ratio \(u/v\), comparing it with \(a/b\) reduces to the integer
-inequality \(ub\geq av\), with positive denominators. Pair-distance and
-circle-containment certificates follow by the same finite enumeration
-and algebraic inequalities. This establishes the witness property; it
-excludes no other configuration. No local stationarity assumption enters
-acceptance. {[}GE-BASE-TRIANGLE14; GE-BASE-CONVEX15; GE-BASE-PACK22{]}
+\begin{longtable}[]{@{}rrrr@{}}
+\toprule\noalign{}
+a & minimum b & maximum b & sites \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+-6 & 2 & 3 & 2 \\
+-5 & 0 & 4 & 5 \\
+-4 & -2 & 5 & 8 \\
+-3 & -4 & 6 & 11 \\
+-2 & -4 & 5 & 10 \\
+-1 & -5 & 5 & 11 \\
+0 & -5 & 4 & 10 \\
+1 & -6 & 4 & 11 \\
+2 & -6 & 3 & 10 \\
+3 & -7 & 3 & 11 \\
+4 & -7 & 2 & 10 \\
+5 & -6 & 0 & 7 \\
+6 & -5 & -2 & 4 \\
+7 & -4 & -4 & 1 \\
+\end{longtable}
 
-The checker passes the 22 positive and negative controls recorded in the
-reviewed claim table. Controls include normalization, overlap, periodic
-wraparound, duplicates, degeneracy, malformed problem types and
-forbidden agent tolerances. This finite test suite is evidence of
-implemented behavior, not a formal proof of the Python interpreter or of
-absence of all software defects. {[}GE-SELFTEST{]}
+The row lengths are 2,5,8,11,10,11,10,11,10,11,10,7,4,1, summing to 111.
+All sites inside the corresponding polygon are selected.
 
-\subsubsection{4. Adaptive discovery and negative
-outcomes}\label{adaptive-discovery-and-negative-outcomes}
+\subsection{4. Complete elementary
+certificate}\label{complete-elementary-certificate}
 
-Candidate generation combined analytic oriented-determinant epigraph
-optimization with changes of order type, deletion and insertion across
-neighboring point counts, native simulated annealing and transfer from a
-disk configuration to a free convex hull. Seeds and failed outputs were
-saved. The area register contains 1,840 trials; it found no certified
-improvement of at least 0.05\% over the frozen same-normalization
-triangle, free-convex and adjacent-case incumbents. {[}GE-METHOD;
-GE-AREA-NEGATIVE{]}
+Let a row-interval set S have rows R\_a={[}L\_a,U\_a{]}\ensuremath{\cap}Z. For an
+integer difference vector (u,v), its ordered-pair multiplicity is
 
-The sum of recorded area candidate wall durations is 161.581625 seconds.
-This excludes source retrieval, compilation, reporting and director/team
-work; it is neither CPU time nor total research-session time. It
-supports no speedup claim. {[}GE-AREA-RUNTIME{]}
+N(u,v) = \ensuremath{\sum}\emph{a max(0, min(U\_a,U}\{a-u\}+v) - max(L\_a,L\_\{a-u\}+v)
++ 1),
 
-The strongest retained searches at the principal targets have exact
-values
+where a term is zero if either row does not exist. This formula counts
+the integers b for which both (a,b) and (a-u,b-v) lie in S: their
+intervals intersect exactly as shown. For q\textgreater0 the number of
+\textbf{unordered} pairs at squared distance q is
 
-\[
-\frac{118878865537659017321655259}{5000000000000000000000000000}
-\quad\text{and}\quad
-\frac{1256922519001955210918702140}{51169177386367479355299145589},
-\]
+C(q) = (1/2) \ensuremath{\sum}\_\{u\ensuremath{{}^2}+uv+v\ensuremath{{}^2}=q\} N(u,v).
 
-for triangle fourteen and free-convex fifteen respectively. Both are
-below their inherited comparison witnesses. They are independently
-checked feasible constructions, not improvements.
-{[}GE-SEARCH-TRIANGLE14; GE-SEARCH-CONVEX15{]}
+Only \textbar u\textbar\ensuremath{\le}a\_max-a\_min and
+\textbar v\textbar\ensuremath{\le}b\_max-b\_min can contribute. These are finite
+integer ranges. Negating (u,v) reverses each pair, explaining the factor
+1/2. Zero differences are omitted. This proves the counting formula
+without a solver or a floating-point operation.
 
-Certified neighboring-case candidates and torus searches are retained in
-the same claim registry. Their existence supports replay and
-diagnostics; it does not establish a global upper bound or verify an
-open conjecture. A failed finite search cannot justify ``no better
-construction exists.'' {[}GE-SEARCH-CONVEX14; GE-SEARCH-CONVEX16;
-GE-SEARCH-TRIANGLE13; GE-SEARCH-TRIANGLE15; GE-SEARCH-TORUS14;
-GE-SEARCH-TORUS15; GE-SEARCH-TORUS16; GE-STATUS{]}
+For S31 use u\ensuremath{\in}{[}-10,10{]}, v\ensuremath{\in}{[}-11,11{]}. For S41 use
+u,v\ensuremath{\in}{[}-13,13{]}. Substitution of the row intervals gives exactly the
+positive multiplicities below; all other q have multiplicity zero.
 
-\subsubsection{5. Adversarial corrections and literature
-provenance}\label{adversarial-corrections-and-literature-provenance}
+\begin{longtable}[]{@{}rrr@{}}
+\toprule\noalign{}
+squared distance q & unordered pairs in S31 & unordered pairs in S41 \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+1 & 208 & 291 \\
+3 & 189 & 270 \\
+4 & 175 & 252 \\
+7 & 314 & 462 \\
+9 & 144 & 216 \\
+12 & 135 & 207 \\
+13 & 254 & 390 \\
+16 & 115 & 180 \\
+19 & 212 & 342 \\
+21 & 198 & 324 \\
+25 & 88 & 147 \\
+27 & 81 & 144 \\
+28 & 158 & 276 \\
+31 & 146 & 258 \\
+36 & 63 & 117 \\
+37 & 112 & 222 \\
+39 & 108 & 216 \\
+43 & 98 & 198 \\
+48 & 36 & 81 \\
+49 & 110 & 249 \\
+52 & 64 & 156 \\
+57 & 54 & 144 \\
+61 & 40 & 114 \\
+63 & 36 & 108 \\
+64 & 19 & 60 \\
+67 & 28 & 102 \\
+73 & 16 & 90 \\
+75 & 9 & 36 \\
+76 & 16 & 72 \\
+79 & 10 & 66 \\
+81 & 0 & 36 \\
+84 & 0 & 54 \\
+91 & 4 & 84 \\
+93 & 0 & 36 \\
+97 & 0 & 30 \\
+100 & 0 & 12 \\
+103 & 0 & 18 \\
+108 & 0 & 9 \\
+109 & 0 & 18 \\
+112 & 0 & 12 \\
+127 & 0 & 6 \\
+\end{longtable}
 
-Adversarial review corrected two acceptance defects: a crash on a
-nonstring problem field, and a false Markov-conjecture counterexample
-classification outside the published range \(N\geq6\). The known
-two-point packing is now rejected as a purported counterexample.
-Circle-packing provenance was also corrected from circle-in-circle
-attribution to the right-triangle CRT coordinate source. These
-corrections materially affected acceptance and attribution; they are
-documented defects, not hypothetical risks. {[}GE-AUDIT-SCOPE{]}
+There are 31 positive entries in the S31 column and 41 in the S41
+column. Their sums are respectively 3240=81·80/2 and 6105=111·110/2. The
+finite difference ranges cover every possible pair, so the table is
+complete. Every listed positive value is realized; no other value
+occurs. The injectivity of \ensuremath{\varphi} and the positivity identity for Q now prove
+both theorems.
 
-One material geometric distinction is visible directly in the exact
-certificates. The frozen triangle-fourteen and free-convex-fifteen
-coordinate literals each have \textbf{one exactly minimizing triple}.
-Source descriptions of twenty-three and twenty-five active triangles
-refer to numerical near-ties. Treating those counts as exact would
-change the mathematical statement. The archive preserves the
-distinction. {[}GE-EXACT-TIES{]}
+A second computation enumerates unordered point pairs and uses the
+Cartesian numerator (2(a-c)+b-d)\ensuremath{{}^2}+3(b-d)\ensuremath{{}^2}, dividing by 4. Agreement with
+the row-correlation calculation is archived in
+\texttt{wave2/paper/evidence.json}. This cross-check is manuscript
+reproducibility; the independent certification reported below uses
+separately implemented checkers.
 
-Known torus lattice seeds are credited to Connelly and collaborators.
-Current Heilbronn coordinates are credited to the Tej Stead table and
-its named original contributors. Few-distance comparison research must
-combine Bao--Yu's recent work with Ahmed--Snevily's older results rather
-than using a recent table alone. Public constructions and external
-verifiers are prior art; rechecking them is not a new discovery.
-{[}GE-PROVENANCE; GE-STATUS{]}
+The full squared-distance set for S31 is
 
-Primary coordinate source snapshots have URLs and SHA256 identifiers in
-the claim registry. A source snapshot is a reproducible comparison
-object, not an assurance that every later preprint or unpublished
-construction has been found. Any future record claim needs a fresh
-comparison audit and an independently verified strict margin.
-{[}GE-PROVENANCE; GE-STATUS{]}
+1, 3, 4, 7, 9, 12, 13, 16, 19, 21, 25, 27, 28, 31, 36, 37, 39, 43, 48,
+49, 52, 57, 61, 63, 64, 67, 73, 75, 76, 79, 91.
 
-\subsubsection{6. Autonomy, contribution and
-reproduction}\label{autonomy-contribution-and-reproduction}
+For S41 it is
 
-The human supplied the repository, research direction, ambition and
-authorization for autonomous delegation. Codex selected targets and
-methods and coordinated a director with three concurrent agent roles
-through literature, discovery, independent certification and adversarial
-review waves. Public-source constructions were inherited openly. No
-external researcher endorsement, formal Lean proof, statistical speedup
-or cost benchmark is claimed. One palette-search batch was registered
-retrospectively and is disclosed rather than described as prospective.
-{[}GE-METHOD{]}
+1, 3, 4, 7, 9, 12, 13, 16, 19, 21, 25, 27, 28, 31, 36, 37, 39, 43, 48,
+49, 52, 57, 61, 63, 64, 67, 73, 75, 76, 79, 81, 84, 91, 93, 97, 100,
+103, 108, 109, 112, 127.
 
-The canonical accepted statements live in
-\texttt{projects/geometric\_extremal/state.json} and
-\texttt{tables/claims.json}; the offline demonstration reads only
-\texttt{tables/demo\_data.json}. The geometry viewer labels
-floating-point calculations as illustrations and exposes the fixed exact
-certificate and a bound-threshold test using integer cross
-multiplication. Every result in this manuscript is attached to a claim
-identifier. {[}GE-METHOD{]}
+\subsection{5. Geometry and limitations of the structural
+interpretation}\label{geometry-and-limitations-of-the-structural-interpretation}
 
-Run the standard-library verifier with
-\texttt{python3\ research/geometric-extremal/certification/verify.py\ -\/-selftest}.
-Rebuild the offline visualization with
-\texttt{python3\ research/geometric-extremal/demo/build\_demo.py}. The
-existing lab integration, frozen witnesses and registered search scripts
-are described in the research README and checkpoints. Search replay
-requires the numerical environment; independent witness verification
-requires only Python's standard library. {[}GE-SELFTEST; GE-METHOD{]}
+S31 is a filled convex decagon. Among lattice rotations and reflections
+followed by translation, its only symmetries are identity and
+(a,b)\ensuremath{\mapsto}(-a,a+b), a Euclidean reflection. This follows by transforming the
+complete finite set under the twelve triangular-lattice dihedral maps
+and checking the only possible aligning translations. A single
+asymmetric witness does not contradict a conjecture about the symmetry
+of a globally optimal configuration: no global optimality is proved.
 
-\subsubsection{7. Research boundary and
-continuation}\label{research-boundary-and-continuation}
+S41 has centroid (1/3,-2/3) in lattice coordinates. The map
+(a,b)\ensuremath{\mapsto}(-a-b,a-1) is a 120-degree rotation about this centroid, and
+(a,b)\ensuremath{\mapsto}(b+1,a-1) is a reflection fixing it. The corresponding six D3 maps
+preserve the entire set. Accordingly all nonzero-distance multiplicities
+in S41 are multiples of three. This observation is explanatory, not part
+of the existence proof.
 
-The current artifact is a reviewable checkpoint with exact inherited
-witnesses, retained negative searches and a reusable acceptance layer.
-It does not fulfill the exceptional-discovery ambition. Further work
-should change the search representation or problem portfolio, such as
-contact-graph program search, certified combinatorial relaxations or
-more recently moving higher-point frontiers, rather than repeat
-unsuccessful schedules unchanged. A future paper should begin with a new
-verified geometric result if one is obtained; this manuscript's novelty
-status must remain conditional until then. {[}GE-STATUS;
-GE-AREA-NEGATIVE{]}
+S31 uses squared norm 91 while avoiding 81 and 84; it therefore is not
+restricted to the 31 shortest triangular-lattice norms. S41 similarly
+avoids 111,117,121 while using 112 and 127. These are concrete alphabet
+choices. Their value is the certified cardinality improvement at the two
+specified indices; the principle of trading distance classes predates
+this work.
 
-\subsubsection{Sources}\label{sources}
+The known symmetric saw-blade families B\_s,r,t in {[}2{]} do not
+represent these two witnesses up to similarity: cardinality restricts
+the standard families to parameter cases whose core distances include
+norms absent from our witnesses. The finite arithmetic exclusion is
+archived separately. A necessary search for a polygonal P\_a,r1,r2 core
+with individually attached unit-triangle sites also found no match
+within the tested parameter ranges. That computation is not a proof
+excluding every interpretation of arbitrary blades, and neither
+exclusion by itself establishes novelty against all prior work.
 
-\begin{itemize}
+\subsubsection{An exact parameter construction for
+S41}\label{an-exact-parameter-construction-for-s41}
+
+For integers s\ensuremath{\ge}1 and t\ensuremath{\ge}0, let P(s,t) be the polygon with successive
+vertices
+
+\begin{verbatim}
+(0,0), (s,-2s), (3s,-3s), (3s+t,-3s),
+(4s+t,-2s), (3s+t,0), (3s,t), (s,s+t), (0,t).
+\end{verbatim}
+
+Define F(s,t)=P(s,t)\ensuremath{\cap}Z\ensuremath{{}^2}, selecting every lattice site. For
+t\textgreater0 the edge vectors are
+
+\begin{verbatim}
+(s,-2s), (2s,-s), (t,0), (s,s), (-s,2s),
+(-t,t), (-2s,s), (-s,-s), (0,-t).
+\end{verbatim}
+
+They sum to zero and their Euclidean directions turn by 60°,30°,30°,
+repeated three times. The closed polygon is strictly convex. At t=0 the
+three zero edges collapse to a regular hexagon. The shoelace sum and the
+sum of edge-coordinate gcds are respectively
+
+2A = 18s\ensuremath{{}^2}+12st+t\ensuremath{{}^2}, B = 6s+3t.
+
+Here A is area in lattice-coordinate space, where Z\ensuremath{{}^2} has unit
+fundamental cell; it is not area in the physical \ensuremath{\varphi} embedding. Pick's
+theorem gives the following exact cardinality identity for every allowed
+s,t:
+
+\textbf{Proposition 3.} \textbar F(s,t)\textbar{} =
+9s\ensuremath{{}^2}+6st+t(t+3)/2+3s+1.
+
+\textbf{Proof.} The listed closed vertices give the displayed shoelace
+sum. Six edges have coordinate gcd s, and three have gcd t, giving B.
+Counting interior and boundary sites, Pick's theorem gives
+\textbar F\textbar=A+B/2+1. Substitution yields the identity. At t=0,
+the same computation applies after collapsing zero-length edges.
+\(\square\)
+
+The construction is D3-symmetric for t\textgreater0 about
+c=(2s+t/3,-s+t/3). The centered 120-degree rotation is
+(a,b)\ensuremath{\mapsto}(-a-b,a)+(3s+t,-3s); the centered reflection is
+(a,b)\ensuremath{\mapsto}(b,a)+(3s,-3s). They preserve the listed vertices and Z\ensuremath{{}^2}, so they
+preserve every filled lattice site. The three distinguished t-edges have
+Euclidean length t and the other six length s\ensuremath{\surd}3. These lengths are
+unequal for positive integers s,t, restricting any extra symmetry to
+that of the triangle formed by the distinguished-edge midpoints; the
+full group is D3.
+
+At (s,t)=(3,1), the identity gives 111 sites: doubled coordinate area is
+199 and B=21. Direct translation shows F(3,1)=S41+(6,-2). The pair
+certificate in Section 4 proves its 41 distances. The general
+cardinality identity is an algebraic consequence of the explicit
+polygon, not an extrapolation from a finite batch. It is not a claimed
+formula for the number of distances. The symbolic area and D3
+identities, and the translated 111-point polygon equality, are
+separately checked by
+\texttt{wave2/paper/verify\_family\_proposition.py}; its result is
+archived in \texttt{family\_proposition\_certificate.json}. The executed
+72-case parameter batch s\ensuremath{\in}\{1,\ldots,8\},t\ensuremath{\in}\{0,\ldots,8\} checked the
+counts; only the 111/41 case improved the audited comparison table in
+that batch. No new asymptotic mechanism or generally improving infinite
+family is claimed.
+
+\subsubsection{5.2. Why squared distance 111
+disappears}\label{why-squared-distance-111-disappears}
+
+For F(s,1), the listed vertices give the exact widths 0\ensuremath{\le}a\ensuremath{\le}4s+1 and
+0\ensuremath{\le}2a+b\ensuremath{\le}6s+2. Every point difference therefore satisfies
+\textbar a\textbar\ensuremath{\le}4s+1 and \textbar2a+b\textbar\ensuremath{\le}6s+2. The D3 symmetry
+of the polygon and central symmetry of its difference body generate D6.
+Applying these symmetries gives
+
+\textbar a\textbar, \textbar b\textbar, \textbar a+b\textbar{} \ensuremath{\le} 4s+1,
+
+\textbar2a+b\textbar, \textbar a+2b\textbar, \textbar a-b\textbar{} \ensuremath{\le}
+6s+2.
+
+The vector (3s+1,1) violates the latter bound by one and has squared
+norm 9s\ensuremath{{}^2}+9s+3=N(s,1). Its whole twelve-element dihedral orbit is
+excluded. Other representations of this same norm can survive: this is
+not a universal absence theorem for that norm.
+
+At s=3, norm111 has precisely that excluded orbit. Completing a square
+bounds every representation by
+\textbar a\textbar,\textbar b\textbar\textless13; exact enumeration in
+that finite box proves the orbit is complete. More generally, enumerate
+the nonzero integer vectors satisfying the six displayed caps at s=3.
+There are420vectors and41norms, maximum127. Since every actual point
+difference belongs to this envelope, it independently proves at
+most41distances. The full pair histogram proves all41occur. The palette
+is precisely the first41positive triangular-lattice norms
+with111replaced by127; among the45representable norms up to127, it
+omits111,117,121,124. The support-width argument explains this
+particular improvement; the broader strategy of substituting distance
+classes is prior art. Independent analytic replay is
+\texttt{wave2/final\_review/orbit\_review.py}.
+
+The shared half-plane representation suggests useful construction
+programs. Scaling or changing its supports produces many exact point
+sets, but the present evidence establishes neither a uniformly improving
+infinite family nor an asymptotic theorem. Cases with no audited
+comparator are not described as improvements.
+
+\subsection{6. Discovery, independent checking, and
+reproducibility}\label{discovery-independent-checking-and-reproducibility}
+
+The 81-point witness arose from joint Boolean selection of lattice sites
+and distance classes in a radius-6 hexagonal window. For every pair,
+selecting both sites forces its squared-norm variable; at most 31 norm
+variables may be selected. Valid matching cuts accelerate the search.
+Seed 42102 returned 81 points in 4.143 seconds and nine search nodes.
+That runtime includes the logged finite instance, not the entire earlier
+research portfolio. A radius-7 continuation with a fixed 37-site
+interior reproduced 81, without improving it. Solver optimality in a
+finite or partly fixed model is never used as planar optimality.
+
+The Family agent received the 81-point support normals and independently
+enumerated support offsets. Its delta-2 run evaluated 9,765,625 support
+tuples in 54.379 seconds and produced the 111-point witness. This is
+independent construction development from a shared lead, not an
+independent rediscovery from an untouched problem statement. A
+subsequent canonical search evaluated 5,764,801 tuples in 31.9019
+seconds. These are recorded batch timings, not the exact time to the
+first 111-point observation.
+
+The director's independent integer checker and the separate
+Cartesian/common-denominator verifier agreed on the original 81-point
+witness. For the 111-point witness, the same independent Cartesian
+verifier recomputed all 6105 pairs without importing the Family agent's
+search code. Candidate geometry, historical source values, and novelty
+are reviewed separately. No independent checker accepts discovery
+metadata as a mathematical bound.
+
+Reproduce both frozen witnesses, their half-plane/row agreement, every
+pair multiplicity, and artifact hashes with standard Python:
+
+\begin{verbatim}
+python3 research/geometric-extremal/results/reproduce.py
+python3 research/geometric-extremal/wave2/paper/verify_witnesses.py
+\end{verbatim}
+
+No optimization package, internet access, numerical tolerance, or random
+seed is needed for this command. The verifier regenerates coordinates
+from the manuscript row definitions and compares them with the frozen
+files. The complete source-and-search archive also retains model texts,
+seeds, prospective registrations, interrupted experiments, negative
+results, and explicit baseline controls.
+
+Witness hashes are listed below; file paths are relative to the research
+directory.
+
+GE-LOWER-G31:
+\texttt{candidates/wave2\_joint\_palette/k31\_n81\_r6\_seed42102.json}
+
+\begin{verbatim}
+a85a2a990531ebd5b40165eacb0f23c84bac6676404cb858f7b5c2c63b83d94c
+\end{verbatim}
+
+GE-LOWER-G41:
+\texttt{candidates/wave2\_family/support\_k41\_n111\_code7324998.json}
+
+\begin{verbatim}
+2d1216002f65a2c2cccbaa30299ea4f26c21c6f493fe3ad0e164de11ad0aa3b1
+\end{verbatim}
+
+The mathematical definitions and integer proof do not depend on those
+hashes; the hashes identify the exact files used in the reported checks.
+A corrupted or changed file is rejected by the frozen reproduction
+command.
+
+\subsection{7. Contributions and
+autonomy}\label{contributions-and-autonomy}
+
+Laurenz Thümmler supplied the research objective, repository, and
+authorization to use an agent team and computing resources. The initial
+human instruction supplied no coordinates or mathematical construction.
+The director coordinated problem selection, novelty review, trusted
+comparisons, and independent gates. The Structure agent researched
+sources, designed joint site/palette integer models, generated the
+81-point witness, and wrote this draft. The Area/Family agent
+generalized its support representation and generated the 111-point
+witness. Independent certification of the 81-point discovery was
+performed by the director rather than its own discovery agent; the
+Structure agent separately certified the Family agent's 111-point
+witness. The Packing agent performed additional adversarial literature
+review.
+
+Known constructions, mathematical ideas, and comparison tables belong to
+their cited original authors. Bao's author repository served as
+attributed prior art; its code is not presented as new lab work.
+General-purpose HiGHS/SciPy, OR-Tools CP-SAT, Python, and a C++ support
+enumerator were external computational tools. The mathematical proof is
+the finite exact certificate, not a model's assertion. Agent decisions,
+source mistakes corrected during research, and a compacted-summary
+omission corrected by raw-register audit are documented in the research
+chronology. Human authorship and final scientific review should be
+settled before journal submission.
+
+\subsection{References}\label{references}
+
+{[}1{]} P. Erdős and P. Fishburn. \emph{Maximum planar sets determining
+k distances.} Discrete Mathematics 160 (1996), 115--125. Bibliographic
+details cross-checked in {[}4{]}; original paper remains the
+foundational problem reference.
+
+{[}2{]} T. Ahmed and H. Snevily.
+\href{https://www.combinatorics.org/ojs/index.php/eljc/article/download/v20i4p33/pdf/}{\emph{Sparse
+Distance Sets in the Triangular Lattice}}. Electronic Journal of
+Combinatorics 20(4) (2013), P33. Printed page 5 gives the target lower
+bounds. Author publication index:
+https://tanbir.github.io/publications.html.
+
+{[}3{]} T. Ahmed and D. Wildstrom.
+\href{https://tanbir.github.io/files/preprints/ahmed_wildstrom_distance_sets.pdf}{\emph{On
+Distance Sets in the Triangular Lattice}}. Bulletin of the Institute of
+Combinatorics and its Applications 75 (2015), 118--127. Proposition 2.1
+supplies the boundary-difference result.
+
+{[}4{]} (a) V. Balaji, O. Edwards, A. M. Loftin, S. Mcharo, A. Rice, and
+B. Tsegaye.
+\href{https://math.colgate.edu/~integers/u86/u86.pdf}{\emph{Lattice
+Configurations Determining Few Distances}}. Integers 20 (2020), A86;
+published 19 October 2020. This journal PDF has six authors.
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\setcounter{enumi}{1}
 \tightlist
 \item
-  Cantrell / Tej Stead.
-  \href{https://math.tejstead.com/heilbronn/triangle/14/points.json}{Triangle
-  n=14 coordinate source}. Frozen checksum in GE-BASE-TRIANGLE14.
-\item
-  Tej Stead.
-  \href{https://math.tejstead.com/heilbronn/convex/15/points.json}{Free-convex
-  n=15 coordinate source}. Frozen checksum in GE-BASE-CONVEX15.
-\item
-  Connelly and collaborators.
-  \href{https://connellytensegrity.com/pdf/10.1007_s00454-016-9843-x.pdf}{Original
-  square-torus paper}. Provenance GE-BASE-TORUS15 / GE-BASE-TORUS209.
-\item
-  Packomania. Right-triangle CRT coordinate source (see corrected
-  provenance in GE-AUDIT-SCOPE). Provenance GE-BASE-PACK22 /
-  GE-BASE-PACK23 / GE-BASE-PACK24.
-\item
-  Bao and Yu. \href{https://arxiv.org/abs/2509.00880}{arXiv:2509.00880}.
-  Read together with older Ahmed--Snevily comparison results, as
-  recorded in GE-PROVENANCE.
-\item
-  AI Agent Lab. \texttt{tables/claims.json},
-  \texttt{projects/geometric\_extremal/state.json}, and the archived
-  certificate and experiment artifacts. These are the exclusive sources
-  of this checkpoint's computed result statements.
-\end{itemize}
+  V. Balaji, O. Edwards, A. M. Loftin, S. Mcharo, L. Phillips, A. Rice,
+  and B. Tsegaye. \href{https://arxiv.org/abs/1911.11688}{\emph{Lattice
+  Configurations Determining Few Distances}}. arXiv:1911.11688v3, 7 July
+  2023; initial preprint 26 November 2019. This revised preprint has
+  seven authors.
+  \href{https://alexricemath.com/wp-content/uploads/2023/07/LatticeDraftRevisedNew.pdf}{Author-hosted
+  current PDF}.
+\end{enumerate}
+
+{[}5{]} F. Szöllősi and P. R. J. Östergård.
+\href{https://www.combinatorics.org/ojs/index.php/eljc/article/view/v27i1p23}{\emph{Constructions
+of Maximum Few-Distance Sets in Euclidean Spaces}}. Electronic Journal
+of Combinatorics 27(1) (2020), P1.23. DOI 10.37236/8565; published 24
+January 2020.
+
+{[}6{]} L.-R. Bao and W.-H. Yu.
+\href{https://arxiv.org/html/2509.00880}{\emph{Constructions of Large
+m-Distance Sets on Triangular Lattice}}. arXiv:2509.00880v1, submitted
+31 August 2025.
+\href{https://github.com/BaoCoder613/triangular-m-distance}{Author
+code}.
+
+{[}7{]} L. Wang. \href{https://arxiv.org/abs/2510.09800}{\emph{On
+Few-Distance Sets in the Plane}}. arXiv:2510.09800, v2 withdrawn 9
+September 2026, with the stated reason of an error in the asymptotic
+proof. Cited solely to document source status, not to support a theorem.
+
+Primary web sources were checked on 4 October 2026. The completed
+independent novelty review is archived at
+\texttt{wave2/packing/few\_distance\_novelty/VERDICT.md}; its frozen
+SHA256 is:
+
+\begin{verbatim}
+93c22b77200f6e0209fea172b6e065d7edd0f89404184947a1ac5a17c04f328a
+\end{verbatim}
+
+Its scoped conclusion supports improvements over audited published
+bounds, while rejecting global-optimality and unconditional
+worldwide-record claims.
 
 \end{document}

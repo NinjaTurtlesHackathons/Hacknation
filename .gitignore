@@ -5,3 +5,19 @@ __pycache__/
 
 # Native discovery binary is rebuilt from C source
 research/geometric-extremal/search/area/triangle_anneal
+
+# Rebuild portable construction search executables from preserved C++ sources
+research/geometric-extremal/wave2/construction_family/support_search
+research/geometric-extremal/wave2/construction_family/support_twelve
+research/geometric-extremal/wave2/construction_family/replay_support
+
+# Lossless raw trials restore from trial_archives before full pipeline replay
+research/geometric-extremal/candidates/area/*.json
+research/geometric-extremal/candidates/transfer/*.json
+research/geometric-extremal/candidates/wave2_area/*.json
+research/geometric-extremal/candidates/wave2_director/*.json
+research/geometric-extremal/candidates/wave2_polygon/*.json
+research/geometric-extremal/candidates/wave2_polygon_transfer/*.json
+research/geometric-extremal/candidates/wave2_family/*.json
+!research/geometric-extremal/candidates/wave2_family/support_k41_n111_code7324998.json
+!research/geometric-extremal/candidates/wave2_family/ninegon_s3_t1_k41_n111.json

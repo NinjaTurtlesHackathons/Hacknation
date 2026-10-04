@@ -1,0 +1,1 @@
+The first release mutation used the x<=6 wall instead of x<=5. It was correctly accepted: the remaining walls exclude any added integer lattice site, so it defines the same witness. This control was invalid, not a failed mathematical gate. Corrected to x<=4, which deletes the x=5 row and is rejected by filled-polygon equality. No discovery data changed.

@@ -25,6 +25,6 @@ for c in claims:
   if key in a or key in b:ok &= a.get(key)==b.get(key)
  passed &= ok;checks.append({'claim_id':c['claim_id'],'agreement':ok,'certificate':a})
  print(c['claim_id'],'PASS' if ok else 'FAIL')
-report={'passed':bool(passed),'certificates':checks,'novelty':'not established','trust_basis':'two stdlib exact arithmetic programs; elementary local proof independently reviewed; no formal proof assistant'}
-print(json.dumps({'passed':bool(passed),'reviewed_certificates':len(checks),'discovery_claim':False}))
+report={'passed':bool(passed),'certificates':checks,'novelty':'see separate literature audit; exact checking is not a novelty oracle','trust_basis':'two stdlib exact arithmetic programs; elementary local proof independently reviewed; no formal proof assistant'}
+print(json.dumps({'passed':bool(passed),'reviewed_certificates':len(checks),'new_exact_lower_bounds':sum(c.get('novelty')=='improved_named_published_lower_bound' and bool(c.get('pruefung')) for c in claims)}))
 sys.exit(0 if passed else 1)

@@ -8,6 +8,8 @@ ROOT=Path(__file__).resolve().parents[3]; BASE=ROOT/'research/geometric-extremal
 sys.path.insert(0,str(ROOT));from asd.domains.geometric_extremal_domain import DOMAIN as D
 from asd.lab_loop import Project
 # Project imports scipy through existing framework; optional LLM not called.
+restore_spec=importlib.util.spec_from_file_location('trial_restore',BASE/'trial_archives/bundle_trials.py')
+restore_module=importlib.util.module_from_spec(restore_spec);restore_spec.loader.exec_module(restore_module);restore_module.restore()
 TABLE.mkdir(exist_ok=True); claims=[]; cases=[]; gates=[]
 def write(name,obj): (TABLE/name).write_text(json.dumps(obj,indent=2,ensure_ascii=False)+'\n')
 def claim(cid,text,level='observed',status='bestätigt',**extra):
@@ -72,10 +74,27 @@ audit_path=BASE/'analysis/adversarial_snapshot.json'
 if audit_path.exists():
  audit=json.loads(audit_path.read_text())
  claim('GE-INDEPENDENT-AUDIT','Independent common-denominator checker recomputes Cartesian norms, all nine neighboring periodic cells and a gift-wrapped convex hull; its controls and hashed candidate snapshot are archived. Both checkers agreed on acceptance and exact values in the recorded audit. This agreement is not a novelty proof or formal verification.',evidence_run_ids=['research/geometric-extremal/analysis/adversarial_snapshot.json','research/geometric-extremal/analysis/adversarial_review.md'])
+# Wave-2 exact existence claims; comparison/novelty are separate reviewed evidence.
+record_path=BASE/'results/records.json'
+if record_path.exists():
+ replay_spec=importlib.util.spec_from_file_location('record_replay',BASE/'results/reproduce.py')
+ replay=importlib.util.module_from_spec(replay_spec);replay_spec.loader.exec_module(replay)
+ record_data=json.loads(record_path.read_text())
+ for record in record_data['records']:
+  replay.check(record)
+  witness=json.loads((BASE/record['candidate']).read_text())
+  spec={k:witness[k] for k in ('problem','metric','max_distances','points')}
+  ok,why,cert=D.check(spec);assert ok
+  claim(record['id'],f"Explicit planar set has {record['n']} points and exactly {record['k']} distinct Euclidean distances. Thus G({record['k']})>={record['n']}. Improves Ahmed–Snevily (2013) published lower bound {record['audited_published_lower_bound']}; current primary-source audit found no prior equal or stronger target witness. No global optimality or new palette-exchange mechanism claimed.",'computed_rigorous',pruefung=spec,sha256=record['sha256'],novelty='improved_named_published_lower_bound',evidence_run_ids=['research/geometric-extremal/results/certificates.json','research/geometric-extremal/wave2/packing/few_distance_novelty/VERDICT.md','research/geometric-extremal/wave2/final_review/REVIEW.md'])
+  gates.append({'gate':record['id']+'-exact','passed':ok,'reason':why,'ts':time.strftime('%Y-%m-%dT%H:%M:%SZ',time.gmtime())})
+ for c in claims:
+  if c['claim_id']=='GE-STATUS':
+   c['text']=record_data['novelty_status']+' Global optimality and a new general mechanism are not established. First-wave negative outcomes remain archived.'
+   c['novelty']='improved_named_published_lower_bound'
 write('claims.json',claims);write('gates.json',gates);write('experiments.json',rows)
-write('demo_data.json',{'title':'Geometry under exact scrutiny','status':'Research checkpoint: no new discovery established','summary':[{'claim_id':c['claim_id'],'text':c['text']} for c in claims if c['claim_id'] in ('GE-STATUS','GE-LOCAL-CYCLE','GE-SELFTEST','GE-AREA-NEGATIVE')],'cases':cases})
-P=Project('geometric_extremal'); P.s['claims']=[{'id':c['claim_id'],'frage':c['text'],'text':c['text'],'grund':c['text'],'level':c['level'],'status':c['status'],'pruefung':c.get('pruefung'),'red_team':[]} for c in claims];P.s['runden']=[{'phase':'integration','verified_cases':len(cases),'logged_experiments':len(rows)}];P.s['widerlegt']=['No new result certified; finite search results do not exclude superior constructions.'];P.s['wissen']=[];P.s['kosten_usd']=0.0;P.s['costs_measured']=False;P.save()
+write('demo_data.json',{'title':'Known constructions and first-wave evidence','status':'Baseline gallery; new few-distance improvements are in few_distance.html','summary':[{'claim_id':c['claim_id'],'text':c['text']} for c in claims if c['claim_id'] in ('GE-STATUS','GE-LOCAL-CYCLE','GE-SELFTEST','GE-AREA-NEGATIVE')],'cases':cases})
+P=Project('geometric_extremal'); P.s['claims']=[{'id':c['claim_id'],'frage':c['text'],'text':c['text'],'grund':c['text'],'level':c['level'],'status':c['status'],'pruefung':c.get('pruefung'),'red_team':[]} for c in claims];P.s['runden']=[{'phase':'integration','verified_cases':len(cases),'logged_experiments':len(rows),'new_exact_lower_bound_cases':len(record_data['records']) if record_path.exists() else 0}];P.s['widerlegt']=['Finite search results do not exclude superior constructions. No globally optimal configuration or new general palette-exchange mechanism established.'];P.s['wissen']=[];P.s['kosten_usd']=0.0;P.s['costs_measured']=False;P.save()
 for name,data,cols in [('claims',claims,['claim_id','text','level','evidence_run_ids','status']),('gates',gates,['gate','passed','reason','ts']),('experiments',rows,['run_id','seed','policy','dataset','step','x_index','y','mlflow_run_id','ts'])]:
  with (TABLE/(name+'.csv')).open('w') as f:
   w=csv.DictWriter(f,fieldnames=cols,extrasaction='ignore',lineterminator='\n');w.writeheader();w.writerows(data)
-print(json.dumps({'claims':len(claims),'verified_cases':len(cases),'experiments':len(rows),'status':'no discovery established'}))
+print(json.dumps({'claims':len(claims),'verified_cases':len(cases),'experiments':len(rows),'status':'two independently exact improvements over named published lower bounds' if record_path.exists() else 'no discovery established'}))

@@ -1,0 +1,740 @@
+                                                                  ON FEW-DISTANCE SETS IN THE PLANE
+
+                                                                                            LUCAS WANG
+
+
+                                                    Abstract. Let g(k) be the maximum size of a planar set that determines at most k distances.
+                                                    We prove
+                                                                               π       p
+                                                                                      k log k (1 + o(1)) ≤ g(k) ≤ C k log k,
+                                                                           3 C(Λhex )
+
+
+
+
+arXiv:2510.09800v1 [math.MG] 10 Oct 2025
+                                                                √
+                                                    so g(k) ≍ k log k with an explicit hexagonal constant. For any arithmetic lattice Λ,
+                                                                                            π ∗        p
+                                                                                 gΛ (k) ≥      S (Λ) k log k (1 + o(1)).
+                                                                                             4
+                                                    We also give quantitative stability: unless X is line–heavy or has two popular nonparallel shifts,
+                                                    either almost all ordered pairs lie below a high quantile of the distance multiset (near–center
+                                                    localization), or a constant fraction of X ∩ W lies in one residue class modulo 2Λ.
+
+
+
+
+                                                                                         1. Introduction
+                                             Let m(n) be the minimum number of distinct distances determined by n planar points. Via
+                                           the Elekes–Sharir reduction and incidence geometry, Guth–Katz proved m(n) ≳ n/ log n [2, 3].
+                                           We study the inverse problem
+                                                                          g(k) := max{ |X| : X ⊂ R2 , |D(X)| ≤ k }.
+                                                                                                                                      √
+                                           The Guth–Katz bound gives g(k) ≲ k log k, while lattice windows already yield g(k) ≳ k log k
+                                           through Bernays–Landau asymptotics for represented norms.
+                                              For small k, Erdős–Fishburn determined g(k) up to k ≤ 5 and conjectured that extremizers
+                                           for larger k come from triangular lattice subsets [1].
+                                              We determine the growth of g(k) up to constants and make the constants explicit √        in the
+                                           lattice setting. For each arithmetic lattice Λ we obtain a lower bound with the sharp k log k
+                                           scale and an explicit constant depending on covolume and the Bernays constant of the associated
+                                           form; universally we retain the g(k) ≲ k log k upper bound. We also prove a quantitative
+                                           stability theorem: unless X is line-heavy or has two popular nonparallel shifts, either almost all
+                                           ordered pairs lie below a high quantile of the distance multiset or a constant fraction of X ∩ W
+                                           concentrates in a single residue class modulo 2Λ.
+
+                                                                              2. Preliminaries and Notation
+                                           Definition 2.1. Let D(X) = {|x − y| : x ̸= y}. For each realized radius t ∈ D(X) let
+                                                                         mt := #{(p, q) ∈ X 2 : p ̸= q, |p − q| = t.}
+                                           Define                                                          X
+                                                                                     Qord (X) :=                   mt2 .
+                                                                                                          t∈D(X)
+
+                                           By Cauchy–Schwarz, writing n := |X| and k := |D(X)|,
+                                                                                           P                2
+                                                                                             t∈D(X) mt                n2 (n − 1)2
+                                           (2.1)                         Qord (X) ≥                              =                .
+                                                                                                  k                        k
+                                                                                                      1
+2                                           LUCAS WANG
+
+Definition 2.2. Let Λ = Zv1 ⊕ Zv2 be a rank–2 lattice. A Λ–rectangle is
+               W = { a0 + iv1 + jv2 : 0 ≤ i < L1 , 0 ≤ j < L2 }             (L1 , L2 ∈ N).
+It is proper if L1 , L2 ≥ 2.
+Definition 2.3. Let Λ ⊂ R2 be a rank–2 lattice with a fixed Z–basis (v1 , v2 ). Identify Λ ∼
+                                                                                           = Z2
+by
+                     u = (u1 , u2 ) ∈ Z2 ←→ λ(u) := u1 v1 + u2 v2 ∈ Λ.
+                                                                        2
+Define the quadratic form QΛ : Z2 → R≥0 by QΛ (u) := λ(u) , where | · | is the Euclidean
+norm on R2 .
+  We say that Λ is arithmetic if QΛ is proportional to a rational positive–definite binary
+quadratic form. Equivalently, Λ is commensurable with Z2 . In this case, after scaling by a
+positive real and an SL2 (Z) change of variables on u, we associate to Λ a primitive integral
+positive–definite binary quadratic form FΛ and write C(Λ) := C(FΛ ) for its Bernays constant
+(Appendix A). We also define s(Λ) > 0 by
+                                ∀ u ∈ Z2       QΛ (u) = s(Λ) FΛ (u),
+so s(Λ) records the fixed proportionality between Euclidean squared norms √ on Λ and the
+integral model. For the unimodular hexagonal lattice one has s(Λhex ) = 2/ 3.
+Definition 2.4. For an arithmetic lattice Λ, write QΛ (λ) = s(Λ) FΛ (u) with FΛ primitive
+integral positive definite and s(Λ) > 0. Let A(Λ) be the covolume and C(Λ) the Bernays
+constant of FΛ . Define
+                                                s(Λ)
+                                    S∗ (Λ) :=           .
+                                              A(Λ) C(Λ)
+Definition 2.5. Let L(X) be the finite set of lines determined by unordered pairs of points of
+X. For ℓ ∈ L(X) set sℓ (X) := |X ∩ ℓ|. Then
+                                                        !         !
+                                      X        sℓ (X)           |X|
+                                                            =       .
+                                   ℓ∈L(X)
+                                                  2              2
+
+Definition 2.6. For α ∈ (0, 1], a finite set X ⊂ R2 is α–line–heavy if
+                                      max sℓ (X) ≥ α |X|.
+                                      ℓ∈L(X)
+
+When we say line–heavy without specifying α, we mean α is an absolute fixed constant.
+Definition 2.7. For x ∈ R2 and R > 0, set B(x, R) := {y ∈ R2 : |y − x| ≤ R}. For a lattice
+Λ ⊂ R2 , the covering radius µ(Λ) is the least ρ > 0 with B(0, ρ) + Λ = R2 . We write A(Λ) for
+the covolume.
+Definition 2.8. For a rank–2 lattice Λ ⊂ R2 , define the shortest vector length
+                               λ1 (Λ) := min{ |λ| : λ ∈ Λ \ {0} }.
+Definition 2.9. For finite A, B ⊂ R2 put rA→B (v)P   := #{(a, b) ∈ A × B : b − a = v} and
+rA (v) := rA→A (v). The additive energy is E+ (A) := v rA (v)2 .
+Definition 2.10. Let Λ be a rank–2 lattice and fix an aspect–ratio bound A0 ≥ 1. A set
+W ⊂ z + Λ is inner–regular with parameters (c, R; A0 ) if
+                                  
+                      B z, (1 − c)R ∩ (z + Λ) ⊆ W ⊆ B(z, R) ∩ (z + Λ),
+and every minimal Λ–aligned rectangle containing W has side lengths within a factor A0 .
+Implicit constants may depend on Λ and A0 .
+                              ON FEW-DISTANCE SETS IN THE PLANE                               3
+
+Lemma 2.11. Let Λ ⊂ R2 be a lattice with Euclidean covering radius µ(Λ), and fix τ ∈ R2 .
+For every R > µ(Λ),
+             
+                 λ ∈ Λ : |λ| ≤ 2R − 2µ(Λ)       ⊆ {x − y : x, y ∈ (τ + Λ) ∩ B(0, R)}.
+Proof. Let λ ∈ Λ with |λ| ≤ 2R − 2µ(Λ). Then the two Euclidean disks B(0, R − µ(Λ)) and
+B(−λ, R − µ(Λ)) intersect, since
+                                                                       
+                                dist 0, −λ = |λ| ≤ 2 R − µ(Λ) .
+Pick any t in the intersection, so |t| ≤ R − µ(Λ) and |t + λ| ≤ R − µ(Λ). By the definition of
+the covering radius there exists z ∈ τ + Λ with |z − t| ≤ µ(Λ). Set y := z and x := z + λ. Then
+x, y ∈ τ + Λ, x − y = λ, and
+                                                                        
+                           |y| ≤ |z − t| + |t| ≤ µ(Λ) + R − µ(Λ) = R,
+                                                                                
+                   |x| = |y + λ| ≤ |(z − t) + (t + λ)| ≤ µ(Λ) + R − µ(Λ) = R.
+Thus x, y ∈ (τ + Λ) ∩ B(0, R) and x − y = λ, proving the inclusion.                          □
+
+                                        3. Incidence bounds
+Definition 3.1. Fix a finite set X ⊂ R2 . For g ∈ SE(2) write rg := |{x ∈ X : g(x) ∈ X}|. Let
+                              G = G(X) := { g ∈ SE(2) : rg ≥ 2 }
+be the finite set of direct isometries that map at least two points of X into X. Write
+T := {g ∈ G : g is a translation} and N := G \ T.
+Lemma 3.2. Let X ⊂ R2 with |X| = n and let T ⊂ D(X) with |T | = L. Then
+                             X         q         √
+                                mt ≤     Qord (X) L.
+                                   t∈T
+
+Moreover,
+                                 X
+                   Qord (X) =            mt2 ≤ E+ (X) + C n3 log n + O(n2 ).
+                                t∈D(X)
+                                                                 P
+Proof. For the first inequality, apply Cauchy–Schwarz to             t∈T mt .
+  For the second, by Lemma 4.1,
+                                  X
+                                        rg2 = Qord (X) + O(n2 ),
+                                  g∈G
+
+where G = {g ∈ SE(2) : rg ≥ 2}. Decompose G into translations T and non-translations N. For
+translations,
+                                X
+                                   rg2 = E+ (X) + O(n2 ).
+                                  g∈T
+For nontranslations, by the Elekes–Sharir incidence bound and Guth–Katz,
+                                         X
+                                               rg2 ≪ n3 log n,
+                                         g∈N
+
+see Elekes–Sharir [2] and Guth–Katz [3]. Combine to get
+                          Qord (X) ≤ E+ (X) + C n3 log n + O(n2 ).
+                                                                                             □
+4                                                   LUCAS WANG
+
+Proposition 3.3. Let X ⊂ R2 with |X| = n and |D(X)| = k. List the distinct radii as
+t1 < · · · < tk . For θ ∈ (0, 1) set t⋆ := t⌊(1−θ)k⌋ . If
+                         X
+                                 mt ≥ (1 − η) n(n − 1)           for some η ∈ (0, 1/2),
+                        t∈D(X)
+                          t≤t⋆
+
+then there exists z ∈ X such that
+                                        X ∩ B(z, t⋆ ) ≥ (1 − η) n.
+
+Proof. Form the directed graph G   ⃗ on vertex set X by placing an arc p → q between distinct
+p, q ∈ X if and only if |p − q| ≤ t⋆ . The hypothesis states that the number of ordered edges
+          ⃗ is at least (1 − η)n(n − 1). Hence the average out–degree satisfies
+(arcs) in G
+                           1 
+                     d¯ =
+                                            
+                             · ordered edges ≥ (1 − η)(n − 1).
+                           n
+                     +       ¯ Then the number of points of X at distance ≤ t⋆ from z
+Choose z ∈ X with deg (z) ≥ d.
+                             ⃗
+                             G
+equals 1 + deg+⃗ (z), so
+                   G
+
+                   |X ∩ B(z, t⋆ )| = 1 + deg+⃗ (z) ≥ 1 + (1 − η)(n − 1) ≥ (1 − η) n.
+                                                G
+as required.                                                                                 □
+Theorem 3.4. Let Λ be an arithmetic rank–2 lattice, normalized by similarity so that λ1 (Λ) = 1.
+There exists k0 (Λ) ∈ N such that for all k ≥ k0 (Λ),
+                      π ∗      p
+                        S (Λ) k log k (1 + oΛ (1)) ≤ gΛ (k) ≤ C k log k,
+                      4
+where C > 0 is an absolute constant.
+Proof. For the lower bound, let R > µ(Λ) and consider disk windows WR = (τ + Λ) ∩ B(z, R)
+for some z ∈ R2 . By Proposition 5.1 and Theorem A.1,
+                                               C(Λ)   4R2
+                                 |D(WR )| =         q         (1 + oΛ (1)).
+                                               s(Λ) log 4R2 
+                                                            s(Λ)
+
+         4R    2
+Put T := s(Λ) . Then
+                                     T
+                                 k = C(Λ) √
+                                          (1 + oΛ (1))                (T → ∞).
+                                    log T
+We invert this asymptotically. Rearranging gives
+                                               k p
+                                      T =          log T (1 + oΛ (1)).
+                                              C(Λ)
+Let U := log T . Taking logs yields
+                            U = log T = log k − log C(Λ) + 12 log U + oΛ (1).
+Since U → ∞, this implies U = log k + O(log log k), hence
+                           p         √      p             
+                             log T = U = log k 1 + oΛ (1) .
+Substituting back gives
+                                               k p                 
+                                       T =         log k 1 + oΛ (1) ,
+                                              C(Λ)
+                                    ON FEW-DISTANCE SETS IN THE PLANE                                         5
+
+ and therefore
+                                      s(Λ)      s(Λ) p
+                               R2 =
+                                                                        
+                                           T =        k log k 1 + oΛ (1) .
+                                        4      4 C(Λ)
+ Hence
+                                          π
+                               |WR | =       R2 + OΛ (R)
+                                        A(Λ)
+                                          π    s(Λ) p
+                                      =      ·      k log k (1 + oΛ (1))
+                                        A(Λ) 4 C(Λ)
+                                        π
+                                      = S∗ (Λ) k log k (1 + oΛ (1)),
+                                                p
+                                        4
+ and so gΛ (k) ≥ |WR | gives the claimed lower bound.
+    For the upper bound, since gΛ (k) ≤ g(k) for every fixed Λ and g(k) ≪ k log k by Guth–Katz
+ [3], we obtain gΛ (k) ≪ k log k with an absolute implied constant.                         □
+
+                            4. Additive structure at positive energy
+ Lemma 4.1. Let X ⊂ R2 , |X| = n. Put
+                 Q∗ = #{(p, q, p′ , q ′ ) ∈ X 4 : p ̸= q, p′ ̸= q ′ , |p − q| = |p′ − q ′ | > 0} .
+ Then
+                                      Q∗ =
+                                                  X
+                                                          mt2 = Qord (X).
+                                                 t∈D(X)
+
+ Let G := {g ∈ SE(2) : rg ≥ 2}. Then
+
+                          Q∗ =                                    rg2 = Q∗ + O(n2 ).
+                                    X                       X
+                                          rg (rg − 1),
+                                    g∈G                     g∈G
+
+ In particular, writing T for the translations in G and N := G \ T,
+                                                                rg2 = Q∗ − E+ (X) + O(n2 ).
+              X                                           X
+                    rg2 = E+ (X) + O(n2 ),
+              g∈T                                         g∈N
+
+ Proof deferred to Appendix B.                                                                               □
+
+ 4.1. From large additive energy to inner–regular lattice windows.
+ Lemma 4.2. Let W = {a0 + iv1 + jv2 : 0 ≤ i < L1 , 0 ≤ j < L2 } with L1 , L2 ≥ 2.
+ (i) E+ (W ) = Θ(|W |3 ). Moreover, if A ⊆ W and |A| ≥ (1 − ε)|W |, then
+                                      E+ (A) ≥ E+ (W ) − 4ε |W |3 .
+(ii) If A ⊂ W has density β = |A|/|W |, there exist s ∈ {1, . . . , L1 − 1}, t ∈ {1, . . . , L2 − 1} and
+     ε1 , ε2 ∈ {±1} such that
+                                n      βL1 − 1 o                                          n      βL2 − 1 o
+ |A ∩ (A + ε1 sv1 )| ≥ max 0,                    |A|,       |A ∩ (A + ε2 tv2 )| ≥ max 0,                   |A|.
+                                      2(L1 − 1)                                                 2(L2 − 1)
+(iii) If
+      S
+          P is a proper Λ–rectangle and T ⊂ Zv1 +Zv2 is finite, there is a proper GAP P ⋆ containing
+         t∈T (t + P ) with side lengths enlarged by the spans of the T –coefficients and
+
+                                    |P ⋆ | = |P | + ∆α L2 + ∆γ L1 + ∆α ∆γ .
+6                                                    LUCAS WANG
+
+Proof. (i) Write each difference as u = u1 v1 + u2 v2 with ui ∈ Z. A pair (x, y) ∈ W 2 contributes
+to rW (u) iff the coordinates differ by u1 , u2 , hence rW (u) = max{0, L1 − |u1 |} · max{0, L2 − |u2 |}
+and
+                                         1 −1
+                                         LX                              2 −1
+                                                                          LX                    
+                     E+ (W ) =                       (L1 − |d|)2                  (L2 − |e|)2 .
+                                     d=−(L1 −1)                         e=−(L2 −1)
+                    PL−1                2  2 3   1                           3
+For a single side,    d=−(L−1) (L − |d|) = 3 L + 3 L, giving E+ (W ) = Θ(|W | ). For the deletion
+bound, removing one point from W destroys at most two ordered pairs for any fixed u, hence
+                        rA (u) ≥ rW (u) − 2 |W \ A| = rW (u) − 2ε|W |.
+Therefore                        X                    X                               X
+                    E+ (A) =         rA (u)2 ≥             rW (u)2 − 4 |W \ A|              rW (u).
+                                 u                     u                                u
+Since u rW (u) = |W |2 and |W \ A| = ε|W |, we get E+ (A) ≥ E+ (W ) − 4ε |W |3 . (ii) Index
+      P
+
+W by (i, j) with 0 ≤ i < L1 , 0 ≤ j < L2 . For a fixed column j let bj := |{i : (i, j) ∈ A}|.
+                                         P 1 −1−s                              P 1 −1        bj 
+For s ∈ {1, . . . , L1 − 1} put Nj (s) := L
+                                          i=0     1A (i, j) 1A (i + s, j). Then L
+                                                                                s=1 Nj (s) = 2 .
+Averaging over s and summing over j gives
+                                     L −1                                      L −1
+                                                                                            !
+                                   1                             2
+                             1    X                        1    X                      bj
+                                      |A ∩ (A + sv1 )| =                                  .
+                           L1 − 1 s=1                    L1 − 1 j=0                    2
+                                                 2
+                                                 |A|
+                                         ≥ |A|
+                         PL2 −1 bj 
+By Cauchy–Schwarz,         j=0       2     2L2 − 2 , so for some s
+                                                               βL − 1 
+                                                                  1
+                                 |A ∩ (A + sv1 )| ≥               |A|.
+                                                      2(L1 − 1)
+If the RHS is negative, use the trivial 0 bound. Replacing s by −s if needed gives ε1 . The v2
+case is identical with rows/columns swapped, giving t and ε2 .
+   (iii) Write each t ∈ T as t = αt v1 + γt v2 with αt , γt ∈ Z and set
+            αmin = min αt , γmin = min γt , ∆α = max αt − αmin , ∆γ = max γt − γmin .
+                    t                t            t                      t
+     ⋆                                 ⋆    ⋆
+Let a0S:= a0 + αmin v1 + γmin v2 and P := {a0 + iv1 + jv2 : 0 ≤ i < L1 + ∆α , 0 ≤ j < L2 + ∆γ }.
+Then t∈T (t + P ) ⊂ P ⋆ and |P ⋆ | = (L1 + ∆α )(L2 + ∆γ ) = |P | + ∆α L2 + ∆γ L1 + ∆α ∆γ . □
+Proposition 4.3. Let v1 , v2 be nonparallel, Λ = Zv1 ⊕ Zv2 , and
+                           P = {a0 + iv1 + jv2 : 0 ≤ i < L1 , 0 ≤ j < L2 }
+with L1 ≥ L2 ≥ 2. Let A ⊆ P and write β := |A|/|P | ∈ [0, 1]. Then there exists a Λ–rectangle
+W ⊆ P of side lengths L2 × L2 with exactly 4L2 − 4 lattice boundary points (hence ≍ |W |1/2 )
+such that
+                                     |A ∩ W |     β
+                                               ≥ .
+                                       |W |       2
+Proof. Write the column sums bi := |{ j ∈ {0, . . . , L2 − 1} : (i, j) ∈ A }| for i = 0, . . . , L1 − 1,
+       P 1 −1
+so that L i=0 bi = |A| = βL1 L2 .
+   Consider the L1 cyclic length–L2 column windows
+            Wscyc := { s, s + 1, . . . , s + L2 − 1 }        (mod L1 )            (s = 0, 1, . . . , L1 − 1).
+Each point of A lies in exactly L2 of these cyclic windows, hence
+                                 L −1                              L −1
+                             1 1X           X                L2 1
+                                                                X        L2
+                                                     bi =           bi =    |A|.
+                             L1 s=0                          L1 i=0      L1
+                                         i∈Wscyc
+                                ON FEW-DISTANCE SETS IN THE PLANE                                        7
+
+ Therefore there exists s∗ with
+                                               X               L2
+                                                      bi ≥        |A|.
+                                                               L1
+                                           i∈Wscyc
+                                                ∗
+
+   If the window Wscyc
+                    ∗  is nonwrapping (i.e. s∗ ≤ L1 − L2 ), put
+                W := {a0 + iv1 + jv2 : s∗ ≤ i ≤ s∗ + L2 − 1, 0 ≤ j < L2 } ⊂ P.
+ Then |A ∩ W | =              bi ≥ (L2 /L1 )|A|, hence
+                   P
+                      i∈Wscyc
+                           ∗
+
+                          |A ∩ W |   (L2 /L1 )|A|    |A|       β
+                                   ≥       2      =       = β ≥ .
+                            |W |          L2        L1 L2       2
+   If Wscyc
+         ∗  wraps (so s∗ > L1 − L2 ), it decomposes as a disjoint union of two contiguous
+ nonwrapping parts
+                         J1 = [ s∗ , L1 − 1 ],         J2 = [ 0, s∗ + L2 − 1 − L1 ],
+ with |J1 | + |J2 | = L2 , hence max{|J1 |, |J2 |} ≥ ⌈L2 /2⌉. One of these parts, call it J, satisfies
+                                  X
+                                               1
+                                                     X              1 L2
+                                        bi ≥   2             bi ≥    ·   |A|.
+                                                                    2 L1
+                                  i∈J              i∈Wscyc
+                                                        ∗
+
+    Since J is a prefix (resp. suffix) of [0, L1 − 1] and |J| ≥ ⌈L2 /2⌉, the block [0, L2 − 1] (resp.
+ [L1 − L2 , L1 − 1]) is a contiguous nonwrapping interval of length L2 that contains J. We take
+ that block as our window.
+    Let W be the nonwrapping L2 –column block in P obtained by extending J on one side to
+ length L2 (this is always possible since J is a prefix or suffix of [0, L1 − 1]). Then W ⊂ P and
+                                                     X              1 L2
+                                   |A ∩ W | ≥              bi ≥      ·   |A|.
+                                                     i∈J
+                                                                    2 L1
+
+ Dividing by |W | = L22 gives
+                                  |A ∩ W |   1 L2 |A|  1
+                                           ≥  ·  · 2 =   · β.
+                                    |W |     2 L1 L2   2
+   In both cases W is a Λ–rectangle of side lengths L2 ×L2 , and W has exactly 4L2 −4 boundary
+ points, as claimed.
+                                                                                            □
+Lemma 4.4. Let Λ = Zv1 ⊕ Zv2 and let W ⊂ z + Λ be inner–regular with parameter c ∈ [0, 1)
+and radius R, with (1 − c)R > µ(Λ) and bounded aspect ratio.
+(i) We have
+                   B(z, (1 − c)R) ∩ (z + Λ) ⊆ W ⊆ B(z, R) ∩ (z + Λ),
+    and R ≍Λ |W |1/2 . There exists a subset Win ⊂ W with
+                                          |W \ Win | ≪Λ |W |1/2
+     such that Win + t ⊂ W for every t ∈ Λ whose (v1 , v2 )–coordinates lie in {0, 1}2 .
+(ii) Fix ε ∈ (0, 1) and δ ∈ (0, 1]. Put
+                                  ρε := (1 − c − ε)R − µ(Λ) > 0.
+    If λ ∈ Λ satisfies |λ| ≤ (2 − δ)ρε , then
+                                        rW (λ) ≥ c0 (Λ, c, ε, δ) R2 .
+8                                            LUCAS WANG
+
+    Consequently, if X ⊂ W with |W \ X| = oΛ (R2 ), then for all sufficiently large R (depending
+    on Λ, c, ε, δ) every such λ lies in D(X). Moreover, all differences x − y with x, y ∈ W satisfy
+    |x − y| ≤ 2R, and for every λ ∈ Λ with
+                                       |λ| ≤ 2(1 − c)R − 2µ(Λ)
+    there exist x, y ∈ W with x − y = λ.
+Proof. (i) The containment and the estimate R ≍Λ |W |1/2 follow from bounded aspect ratio
+and norm equivalence on Λ. For the residue-stable core Win take
+                                         
+            Win := B z, (1 − c)R − ∆ ∩ (z + Λ),            ∆ := max{|v1 |, |v2 |, |v1 + v2 |}.
+                                  
+Then Win + t ⊂ B z, (1 − c)R ⊂ W for t ∈ {0, v1 , v2 , v1 + v2 }, and the removal bound
+|W \ Win | ≪Λ R ≍Λ |W |1/2 follows from lattice–point counting in a belt of fixed thickness (via
+Lemma B.1).
+  (ii) Put ρ := (1 − c)R − µ(Λ) and fix ε ∈ (0, 1). Let ρε := (1 − c − ε)R − µ(Λ) > 0. Fix any
+δ ∈ (0, 1]. If |λ| ≤ (2 − δ)ρε , then the two disks B(z, ρε ) and B(z, ρε ) − λ have a lens L whose
+area satisfies area(L) ≫δ ρε2 ≍ R2 . By Corollary B.2 the lens contains ≫Λ,ε,δ R2 points of the
+translate z + Λ, each giving an ordered pair (x, y) ∈ W × W with y − x = λ.
+   If X ⊂ W with |W \ X| = ∆, then for every fixed λ,
+                                       rX (λ) ≥ rW (λ) − 2∆,
+since removing a single point deletes at most two ordered λ-pairs.
+   Hence
+                        rW (λ) ≫Λ,c,ε,δ R2      for all |λ| ≤ (2 − δ)ρε .
+Consequently, if X ⊂ W with |W \X| = oΛ (R2 ), then for every fixed δ ∈ (0, 1] and all sufficiently
+large R, every λ with |λ| ≤ (2 − δ)ρε lies in X − X, hence |λ| ∈ D(X).
+   All differences x − y with x, y ∈ W satisfy |x − y| ≤ 2R. Moreover, for every λ ∈ Λ with
+|λ| ≤ 2(1 − c)R − 2µ(Λ) there exist x, y ∈ W with x − y = λ, by Lemma 2.11 applied in z + Λ
+with radius (1 − c)R.                                                                            □
+
+                  5. Counting realized distances in lattice windows
+Proposition 5.1. Let Λ be a rank–2 arithmetic lattice and let WR be inner–regular:
+                                   
+                     B z, (1 − c)R ∩ (z + Λ) ⊆ WR ⊆ B(z, R) ∩ (z + Λ)
+for some fixed c ∈ [0, 1) with (1 − c)R > µ(Λ). Then, as R → ∞,
+         C(Λ) 4(1 − c)2 R2                              C(Λ)   4R2
+              q            (1 + o Λ,c (1)) ≤ |D(WR )| ≤      q         (1 + oΛ (1)).
+         s(Λ)        4R2                                s(Λ) log 4R2 
+                         
+                log s(Λ)                                         s(Λ)
+
+Here oΛ,c (1) and oΛ (1) are uniform for fixed Λ (and fixed c in the lower bound).
+Proof. By Lemma 2.11 applied in z + Λ with radius (1 − c)R, every λ ∈ Λ with |λ| ≤
+2(1 − c)R − 2µ(Λ) occurs as a difference x − y with x, y ∈ WR , while trivially all differences
+satisfy |x − y| ≤ 2R. Since QΛ (λ) = s(Λ) FΛ (u) for a primitive integral positive–definite binary
+quadratic form FΛ ,
+                                             2                                  2
+                                                                                 
+                      RFΛ (2(1−c)R−2µ(Λ))
+                                 s(Λ)      ≤ |D(WR )| ≤ RFΛ (2R)s(Λ) .
+                                                    √
+Bernays–Landau for fixed FΛ gives RFΛ (U ) = C(Λ) U/ log U (1 + o(1)). Since
+                           (2(1−c)R−2µ(Λ))2         2 R2
+                                            = 4(1−c)       1 + OΛ (R−1 ) ,
+                                                                            
+                                  s(Λ)           s(Λ)
+                              ON FEW-DISTANCE SETS IN THE PLANE                                               9
+
+the lower main term carries (1 − c)2 ; the
+                                       √ µ(Λ) correction is absorbed by o(1). Replacing U by a
+fixed
+   q  multiplicative constant changes    log U by 1 + o(1), so both denominators may be written
+         4R2
+              
+as log s(Λ) (1 + o(1)).                                                                      □
+
+Definition 5.2. For a rank–2 lattice Λ and k ∈ N put
+               gΛ (k) := max{ |X| : ∃ τ ∈ R2 with X ⊂ τ + Λ, |D(X)| ≤ k }.
+
+                          6. Residue classes and concentration
+6.1. Rigidity of near–optimizers.
+Proposition 6.1. Let A0 ⊂ R2 be finite. Suppose there exists U ⊂ A0 − A0 with |U| ≥ β |A0 |
+and
+                        |A0 ∩ (A0 + u)| ≥ ρ |A0 |     (∀ u ∈ U ),
+for some β, ρ ∈ (0, 1]. Then there exist nonparallel vectors u1 , u2 , a full-rank lattice Λ =
+Zv1 ⊕ Zv2 , a Λ–rectangle W , and a set A ⊆ A0 ∩ W such that
+  |W | ≥ c(β, ρ) |A0 |,     |A| ≥ c(β, ρ) |A0 |,           |A ∩ (A + ui )| ≥ c(β, ρ) |A|        (i = 1, 2).
+Proof. By Proposition 6.2, E+ (A0 ) ≥ βρ2 |A0 |3 . Apply Proposition B.3(i) to obtain A′ ⊆ A0
+with |A′ | ≥ c1 (β, ρ)|A0 | and |A′ − A′ | ≤ K|A′ | where K ≤ C1 (β, ρ). By Proposition B.3(ii), A′
+lies in a proper rank–2 GAP P with |P | ≤ C2 (β, ρ)|A′ |. The two GAP steps give nonparallel
+v1 , v2 and the lattice Λ = Zv1 ⊕ Zv2 . Apply Proposition 4.3 to A′ ⊂ P to obtain a Λ–rectangle
+W ⊂ P with |W | ≥ c2 (β, ρ)|A′ | and |A′ ∩ W | ≥ c3 (β, ρ)|W |. Set A := A′ ∩ W . Then
+|A| ≥ c(β, ρ) |W |, so βW := |A|/|W | ≥ c(β, ρ). Apply Lemma 4.2(ii) to A ⊂ W : there exist
+s, t ∈ {1, . . . , L2 − 1} and signs ε1 , ε2 ∈ {±1} such that
+            |A ∩ (A + ε1 sv1 )| ≥ c′ (β, ρ) |A|,         |A ∩ (A + ε2 tv2 )| ≥ c′ (β, ρ) |A|.
+Since s, t ≤ L2 − 1, these overlaps occur entirely inside W , so no boundary loss arises. This gives
+the desired two nonparallel heavy shifts inside a single Λ–rectangle W , with |W | ≥ c(β, ρ)|A0 |
+and |A| ≥ c(β, ρ)|A0 |.
+                                                                                                  □
+Proposition 6.2. Let A0 ⊂ R2 and suppose there exists U ⊂ A0 − A0 with |U| ≥ β |A0 | and
+|A0 ∩ (A0 + u)| ≥ ρ |A0 | for all u ∈ U . Then
+                                             X
+                             E+ (A0 ) ≥            rA0 (u)2 ≥ β ρ2 |A0 |3 .
+                                             u∈U
+
+Consequently, by Proposition B.3, there exists A′ ⊆ A0 with |A′ | ≥ c(β, ρ)|A0 | and |A′ − A′ | ≤
+K(β, ρ) |A′ |, and A′ lies in a proper rank–2 GAP P with |P | ≤ C K(β, ρ)C |A′ |.
+Proof. Immediate from E+ (A0 ) =
+                                         P        2
+                                         v rA0 (v) , the hypothesis, and the standard BSG and
+Freiman statements (Prop. B.3).                                                                               □
+Lemma 6.3. Let A ⊂ R2 with |A − A| ≤ K|A|. Then
+                             n                              |A| o   |A|
+                              u ∈ A − A : rA (u) ≥                ≥     .
+                                                            2K       2
+Proof. Write D := |A − A| and M := |{u : rA (u) ≥ T }|. For any T ∈ (0, |A|),
+                                     X
+                            |A|2 =       rA (u) ≤ M |A| + (D − M )T.
+                                     u
+10                                           LUCAS WANG
+
+With T = |A|/(2K) and D ≤ K|A| this gives
+                                            |A|2             1 
+                                |A|2 ≤           + M |A| 1 −      ,
+                                             2               2K
+hence M ≥ |A|/(2 − 1/K) ≥ |A|/2.                                                                   □
+Lemma 6.4. Let A ⊂ R2 be finite and fix a direction u. For each line L ∥ u, write sL := |A∩L|.
+Then
+                              X              X
+                                  rA (v) =       sL (sL − 1).
+                                  v∥u              L∥u
+                                  v̸=0
+
+Proof. Partition ordered pairs (x, y) ∈ A2 with x ̸= y by the line L parallel to u that contains
+them. Pairs from L contribute exactly sL (sL − 1), and each such pair has difference y − x
+parallel to u. Summing over L gives the identity.                                             □
+
+6.2. Period lattices and residue decomposition.
+                                 rank–2 lattice and let X ′ ⊂ R2 be finite. Write its canonical
+Proposition 6.5. Let L ⊂ R2 be a F
+decomposition modulo 2L as X = m
+                            ′
+                                   j=1 Xj with 1 ≤ m ≤ 4 and Xj ⊂ cj + 2L. Put N := |X |
+                                                                                             ′
+
+and mj := |Xj |. Then
+                              E+ (X ′ ) ≤ 4 N 2 max mj .
+                                                         1≤j≤m
+
+In particular, if δ := 1 − maxj (mj )/N ∈ [0, 3/4], then E+ (X ′ ) ≤ 4(1 − δ)N 3 .
+                                                                                     Pm
+Proof. Write rXi →Xj (v) := |{(x, y) ∈ Xi × Xj : y − x = v}|. Then rX ′ (v) =         j=1 rX ′ →Xj (v)
+and by Cauchy–Schwarz,
+                                                           m X
+                         E+ (X ′ ) =
+                                       X                   X
+                                           rX ′ (v)2 ≤ 4           rX ′ →Xj (v)2 .
+                                       v                   j=1 v
+
+For fixed j, v rX ′ →Xj (v) = N mj and rX ′ →Xj (v) ≤ mj , hence v rX ′ →Xj (v)2 ≤ N m2j .
+               P                                                                P
+
+Summing over j gives E+ (X ′ ) ≤ 4N j m2j ≤ 4N (maxj mj ) j mj = 4N 2 maxj mj . The final
+                                     P                   P
+
+inequality follows by substituting mmax = (1 − δ)N .                                   □
+Corollary 6.6. Let X ′ ⊂ P decompose as X ′ = m
+                                                     F
+                                               j=1 Xj into residue classes modulo 2L, with
+                  ′          ′        3
+m ≤ 4 and N := |X |. If E+ (X ) ≥ α N for some α ∈ (0, 1], then
+                                                 α
+                                    max |Xj | ≥    N.
+                                   1≤j≤m         4
+Proof. By Proposition 6.5, E+ (X ′ ) ≤ 4N 2 maxj |Xj |. Thus 4N 2 maxj |Xj | ≥ αN 3 , so maxj |Xj | ≥
+(α/4)N .                                                                                        □
+
+                         7. Hex construction and global bounds
+7.1. Arithmetic reduction.
+Theorem 7.1. As k → ∞,
+                      π       p
+                             k log k (1 + o(1)) ≤ g(k) ≤ C k log k.
+                  3 C(Λhex )
+     for some absolute constant C > 0.
+                                  ON FEW-DISTANCE SETS IN THE PLANE                             11
+
+Proof. The lower bound follows from Theorem 3.4 applied to Λhex . For the upper bound, by
+Guth–Katz [3], any n-point planar set determines at least c n/ log n distinct distances. Hence if
+|D(X)| ≤ k then
+                                      n ≤ C1 k log n.
+Define f (x) := x − C1 k log x. Then f ′ (x) = 1 − Cx1 k , so f ′ is ≥ 12 on [2C1 k, ∞). Set M :=
+2C1 k log k. For all sufficiently large k we have M ≥ 2C1 k and
+                                          C1 k log M < M.
+   For k sufficiently large we have log log k ≤ 12 log k, hence log M = log 2C1 k log k ≤ log k +
+                                                                                       
+
+log(2C1 ) + log log k ≤ 32 log k + O(1), which yields C1 k log M < M .
+   If n ≥ M , then f (n) ≥ f (M ) > 0, contradicting n ≤ C1 k log n. Hence n < M = 2C1 k log k,
+and taking the supremum yields g(k) ≪ k log k.
+                                                                                               □
+
+7.2. Quantitative stability.
+Lemma 7.2. Let X ⊂ R2 with |X| = n and |D(X)| ≤ k, and assume k ≤ C n/ log n. Fix
+σ ∈ (0, 1/4] and set θk = (log k)−1/2−σ . Let t⋆ be the (1 − θk )–quantile of D(X). Then for all
+sufficiently large k, at least one holds:
+     (i) some line ℓ satisfies |X ∩ ℓ| ≥ c n;
+    (ii) there exist two nonparallel vectors v1 , v2 with rX (vi ) ≥ c n (i = 1, 2);
+   (iii) there exists z ∈ X with X ∩ B(z, t⋆ ) ≥ (1 − o(1)) n.
+Here c, C > 0 are absolute constants.
+Proof. By (2.1) and k ≤ Cn/ log n, Qord (X) ≥ c0 n3 log n. By Lemma 3.2, Qord (X) ≤ E+ (X) +
+C1 n3 log n + O(n2 ). If E+ (X) ≥ c2 n3 , apply Proposition B.3(i) to get A ⊆ X with |A| ≥ cn
+and |A − A| ≤ K|A| where K ≤ C. By Lemma 6.3, either two nonparallel u in A − A satisfy
+rA (u) ≫ n (yielding (ii) for X), or all popular u are parallel. Then Lemma 6.4 gives
+                      X                     X                |A| |A|
+                            sL (sL − 1) =         rA (v) ≥      ·    ≫ |A|2 ,
+                      L∥u                   v∥u
+                                                              2 2K
+
+so maxL∥u sL ≫ |A| ≫ n, yielding (i) with an absolute constant. If E+ (X) < c2 n3 , then
+                         X            q         √              1/2
+                              mt ≤      Qord (X) L ≤ C3 n2 θk
+                             top L
+
+                            1/2
+with L = ⌊θk k⌋. Since θk = o(1), the bottom (1 − θk )k radii support (1 − o(1))n(n − 1)
+ordered pairs. Proposition 3.3 yields (iii).                                          □
+Theorem 7.3. There exist absolute constants c, C > 0 such that the following holds. Let
+X ⊂ R2 with |X| = n and |D(X)| ≤ k, and assume k ≤ C n/ log n. Then either
+   (i) some line ℓ contains at least c n points of X; or
+  (ii) there exist nonparallel vectors v1 , v2 , a rank–2 lattice Λ = Zv1 ⊕ Zv2 , a Λ–rectangle W ,
+       and a set A ⊆ X ∩ W with |W | ≥ c n and |A| ≥ c n such that |A ∩ (A + vi )| ≥ c |A| for
+       i = 1, 2. Moreover, with N := |X ∩ W | and the residue decomposition modulo 2Λ,
+    E+ (X ∩ W ) ≤ 4 N 2 max |Xj |,        so if E+ (X ∩ W ) ≥ αN 3 then max |Xj | ≥ (α/4)N ;
+                              j                                                j
+                                                              
+  (iii) There exists z ∈ X such that X ∩ B z, t⋆ (X, θk )         ≥ (1 − o(1)) n.
+12                                              LUCAS WANG
+
+Proof. As above, Qord (X) ≫ n3 log n and Qord (X) ≤ E+ (X) + Cn3 log n + O(n2 ). If E+ (X) ≫
+n3 , apply Proposition 6.1 to obtain (ii) and then Proposition 6.5 for the residue estimate.
+Otherwise use Lemma 7.2 to obtain (i) or (iii).                                            □
+
+                          Appendix A. Bernays–Landau asymptotic
+Theorem A.1 (Bernays–Landau). Let F be a primitive positive definite integral binary quadratic
+form and RF (T ) := #{n ≤ T : n is represented by F }. Then
+                                                 T
+                           RF (T ) = C(F ) √          (1 + o(1))       (T → ∞),
+                                                log T
+where C(F ) > 0 depends only on F .
+Proof. Bernays [5]; see also Tenenbaum [4, Ch. III.4].                                                      □
+
+                     Appendix B. Combinatorial and geometric facts
+Proof of Lemma 4.1. The first identity Q∗ = t m2t is immediate from the definition of mt ,
+                                                      P
+
+which counts ordered pairs (p, q) with p ̸= q and |p − q| = t.
+   For the isometry identity, each ordered pair of ordered pairs ((p, q), (p′ , q ′ )) with p ̸= q, p′ ̸= q ′ ,
+|p−q| = |p′ −q ′ | > 0 determines a unique direct isometry g ∈ SE(2) with g(p) = p′ and g(q) = q ′ .
+Moreover such a g satisfies rg ≥ 2, so g ∈ G. Conversely, any g ∈ G andP            any ordered distinct
+                                                                           ∗
+pair (x, y) with g(x), g(y) ∈ X produce one such quadruple. Thus Q = g∈G rg (rg − 1).
+   Summing gives g∈G rg2 = Q∗ + g∈G rg . Each ordered pair (x, y) ∈ X 2 with x ̸= y
+                     P                  P
+
+contributes to at most O(1) isometries   in G (those determined   by (x, y) together with a second
+matched ordered pair), hence g∈G rg = O(n2 ) and g∈G rg2 = Q∗ + O(n2 ).
+                                P                       P
+
+   For translations, g∈T rg2 = v rX (v)2 = E+ (X), with the O(n2 ) adjustment if one includes
+                      P          P
+
+rg = 1 maps, which we do not since g ∈ G. Subtracting yields the non-translation identity. □
+Lemma B.1. Let Λ ⊂ R2 be a lattice with covolume A(Λ). There exist constants rΛ , RΛ ≍Λ 1
+and CΛ > 0 such that for every translate τ + Λ and every bounded convex set K ⊂ R2 with
+piecewise C 1 boundary,
+                                               area(K)                  
+                          (τ + Λ) ∩ K      =           + OΛ 1 + perim(K) ,
+                                                A(Λ)
+uniformly in τ .
+Proof. Fix a fundamental domain F for Λ with B(0, rΛ ) ⊂ F ⊂ B(0, RΛ ). Let Fλ := λ + F
+for λ ∈ τ + Λ. Cells with Fλ ⊂ K contribute exactly area(K)/A(Λ) up to an error bounded
+by the number of boundary cells. A cell intersects ∂K only if λ ∈ ∂K + B(0, RΛ ). Hence the
+number of boundary cells is at most
+                                                      
+                              area ∂K + B(0, RΛ )
+                                                          ≪Λ 1 + perim(K),
+                                    area(F)
+                                  2 + R perim(K)) for convex K with piecewise C 1 boundary.
+since area(∂K + B(0, RΛ )) ≤ cΛ (RΛ    Λ
+Each boundary cell changes the count by at most 1, giving the stated error uniformly in τ . □
+Corollary B.2. Let ρ > 0 and u ∈ R2 with |u| ≤ 2ρ. For any z ∈ R2 , the lens L :=
+B(z, ρ) ∩ (B(z, ρ) − u) satisfies
+                                                      area(L)
+                                  (τ + Λ) ∩ L =               + OΛ (ρ),
+                                                       A(Λ)
+                                  ON FEW-DISTANCE SETS IN THE PLANE                                           13
+
+uniformly in τ, z, u. The perimeter obeys perim(L) ≤ 4πρ. In addition,
+                                                        |u|        |u| q 2
+                            area(L) = 2ρ2 arccos                 −        4ρ − |u|2 ,
+                                                         2ρ           2
+so if |u| ≤ (2 − δ)ρ with fixed δ ∈ (0, 1] then area(L) ≫δ ρ2 . Hence (τ + Λ) ∩ L ≫Λ,δ ρ2 .
+ Proof. Apply Lemma B.1 with K = L. The boundary of L consists of two circular arcs of
+ radius ρ, so perim(L) ≤ 4πρ. The explicit area formula is standard and yields the stated lower
+ bound when |u| ≤ (2 − δ)ρ.                                                                  □
+Proposition B.3. There exist absolute constants C, c > 0 such that:
+(i) (BSG) If A ⊂ R2 satisfies E+ (A) ≥ κ |A|3 with 0 < κ ≤ 1, then there exists A′ ⊆ A with
+                         |A′ | ≥ c κC |A|        and          |A′ − A′ | ≤ C κ−C |A′ |.
+(ii) (Freiman in R2 ) If A′ ⊂ R2 has |A′ − A′ | ≤ K |A′ |, then A′ lies in a proper rank–2 GAP P
+     with |P | ≤ C K C |A′ |.
+ Proof. (i) This is the Balog–Szemerédi–Gowers theorem. See, e.g., [6] or TaoVu. Applied to the
+ additive energy E+ (A) ≥ κ|A|3 it yields A′ ⊆ A with |A′ | ≥ c κC |A| and |A′ − A′ | ≤ C κ−C |A′ |,
+ for absolute constants c, C > 0.
+   (ii) This is Freiman’s theorem in R2 . If |A′ − A′ | ≤ K|A′ |, then A′ is contained in a proper
+ rank-2 generalized arithmetic progression P with |P | ≤ C K C |A′ |. See [7].                  □
+
+                                                References
+ [1] P. Erdős and P. C. Fishburn, Maximum planar sets that determine k distances, Discrete Math. 160 (1996),
+     115–125.
+ [2] G. Elekes and M. Sharir, Incidences in three dimensions and distinct distances in the plane, Combin. Probab.
+     Comput. 20 (2011), 571–608.
+ [3] L. Guth and N. H. Katz, On the Erdős distinct distances problem in the plane, Ann. of Math. 181 (2015),
+     155–190.
+ [4] G. Tenenbaum, Introduction to Analytic and Probabilistic Number Theory, Cambridge Univ. Press, 3rd ed.,
+     2015. (Selberg–Delange, Ch. III.4)
+ [5] P. Bernays, Über die Darstellung von positiven, ganzen Zahlen durch die binären quadratischen Formen,
+     Ph.D. thesis, Göttingen, 1912.
+ [6] B. J. Green and I. Z. Ruzsa, Freiman’s theorem in additive combinatorics, Bull. London Math. Soc. 40 (2008),
+     43–54.
+ [7] T. Tao and V. Vu, Additive Combinatorics, Cambridge Studies in Advanced Mathematics, vol. 105, Cambridge
+     Univ. Press, 2006.
+

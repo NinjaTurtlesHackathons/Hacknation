@@ -1,44 +1,34 @@
-# Geometric Extremal Lab — reviewed research checkpoint
+# Geometric Extremal Lab — two exact lower-bound improvements
 
-**No exceptional new geometric discovery has been established.** This branch delivers a reproducible research campaign, independently exact certificates, an explicit local exclusion around a known torus packing, a working manuscript, and an offline demonstration. Feasibility, local isolation, global optimality and novelty are separate claims.
+**G(31) ≥ 81 and G(41) ≥ 111.** Here G(k) is the maximum number of points in the unrestricted Euclidean plane using at most k distinct nonzero pair distances. Both constructions improve the explicit Ahmed–Snevily (2013) lower bounds80 and109. The independent primary-source audit through4October2026 found no prior equal or stronger target witness. Global optimality, certainty about unindexed/unpublished work, a new palette-exchange principle, and a conjecture counterexample are not claimed.
 
-## Strongest derived statement
+## Exact replay
 
-For the known 15-point square-torus packing p_k=(k/15,4k/15) mod Z², fix labels, compatible lifts and translation u_0=0. If max_k ||u_k||∞ <1/3920 and the perturbed packing has minimum squared periodic separation at least17/225, then every u_k=0. Two Hamiltonian contact cycles yield epsilon <=3920epsilon². This is an independently reviewed local pruning lemma based on a known rigidity mechanism; novelty and global optimality are **not** claimed.
-
-## Replay the certificates
-
-From repository root, Python standard library only:
+From repository root; Python standard library only:
 
 ```sh
-python3 research/geometric-extremal/reproduce.py
+python3 research/geometric-extremal/results/reproduce.py
 ```
 
-Two independent programs use rational determinants/monotone hull versus common-denominator integer arithmetic/gift-wrapped hull and explicit periodic images. They recompute the accepted configurations. The known two-point torus example must be rejected as a conjecture counterexample because the source conjecture requires N>=6.
+This regenerates every integer lattice site from the two polygons, checks frozen hashes and all3240/6105pairs with multiple exact implementations, and verifies the complete distance histograms. Run `results/controls.py` for deliberate corrupted-metadata controls; `wave2/paper/verify_witnesses.py` independently checks the manuscript's row-correlation proof. Existing baseline/local-lemma replay remains `reproduce.py`.
 
-To rebuild the offline demo from the sole reviewed data table:
+## Paper, demonstration and evidence
 
-```sh
-python3 research/geometric-extremal/demo/build_demo.py
-```
+- `paper/manuscript.md` and standalone `paper/manuscript.tex`: current paper, full elementary proofs, explicit coordinates, source comparisons, and D3ninegon cardinality formula.
+- `demo/few_distance.html`: portable interactive visualization; browser BigInt all-pair replay, class highlighting, animation, and invalid duplicate attack.
+- `demo/few_distance_script.md`: three-minute presentation.
+- `results/records.json`: frozen geometries and audited comparison data; `results/certificates.json`: exact output.
+- `wave2/packing/few_distance_novelty/VERDICT.md`: independent primary-literature and implicit-family attack.
+- `wave2/final_review/`: adversarial arithmetic, symmetry, mutation and family reviews.
+- `wave2/construction_family/`: finite support-program searches, complete compressed logs, parameter family and analytic orbit-exclusion explanation.
+- `portfolio.md`, `literature/`, `STATUS.md`, `research_chronicle.md`, `prereg.md`, `wave2/prereg.md`:18initialquestions, assumptions, chronology, negative campaigns and restart state.
 
-Open `demo/index.html`. Geometry interactions use approximate display arithmetic; fixed published certificate values are exact. Primary source credit appears in each case.
+Rebuild the new demo with `python3 research/geometric-extremal/demo/build_few_distance.py`. `demo/index.html` remains a gallery of inherited baseline constructions; it is not the presentation of the new results. The first unsuccessful checkpoint paper is retained separately. Original records and previous commits are preserved rather than retroactively described as successful research.
 
-## Review navigation
+## Existing lab infrastructure
 
-- `portfolio.md` and `literature/`:18 concretely defined questions, primary sources and current-source gaps.
-- `context.md`, `prereg.md`, `STATUS.md`:scope, gate decisions and resumable next work.
-- `analysis/`:discovery outcomes, independent attacks and novelty review.
-- `certification/`:two standalone checkers, controls, local-proof dependencies and accepted witness objects.
-- `tables/`:sole experiments/claims/gates/demo source. No numeric speedup is asserted.
-- `paper/manuscript.md`, `paper/manuscript.tex`:working scientific report, not a paper announcing a new world record.
-- `demo/demo_script.md`:short presentation script.
-- `search/`, `candidates/`:all seeds, methods, negative logs, exact candidates and frozen author-source snapshots.
+The `asd.domains.geometric_extremal_domain` acceptance gate certifies witness feasibility, separately from source comparison and novelty. `python -m asd.selftest geometric_extremal` checks the API gate. `pipeline/integrate.py` freezes claims/tables and the existing `projects/geometric_extremal/state.json`; the two new claims passed Domain.check. Optional numerical search needs `requirements.txt`; exact replay needs no installed package. Search reruns can append logs, so copy the research directory before rerunning discovery.
 
-## Discovery replay
+The branch inherits the existing Lab infrastructure from `algo-efficiency` dff8d99. Review against that branch; main c622004 contains only the original chemistry script. Other lab domains are unchanged. The human supplied direction and authorized autonomous research; agents chose targets, implemented searches, exact certification and adversarial review. Public methods and constructions are credited. No researcher contact or external endorsement is implied.
 
-Numerical searches additionally require numpy/scipy/sympy/mpmath/python-flint/networkx; `requirements.txt` freezes observed versions. See the exact commands in the analysis logs. Native annealing is optional and can be rebuilt from its C source. Re-running search may append duplicate experiments; copy the research directory first for a clean replay.
-
-Existing `asd.domains.geometric_extremal_domain` preserves the Lab Domain API; `python -m asd.selftest geometric_extremal` runs its acceptance gate. Accepted canonical claims are also stored in `projects/geometric_extremal/state.json`. The built-in LLM loop was not used to fabricate trials: delegated agents implemented independently logged search methods, then integration passed claims through Domain.check. The original chemistry benchmarks are unchanged.
-
-The branch inherits existing Lab infrastructure from `algo-efficiency` dff8d99 because `main` c622004 has only the original chemistry script. Review this branch against `algo-efficiency`. Literature freshness is audited but no claim is made that searches prove an open problem remains open. No researchers were contacted. Source snapshots retain provenance; third-party code was not copied from unlicensed repositories.
+Raw negative and intermediate candidate trials are losslessly bundled in `trial_archives/` to keep the PR reviewable. Their per-file hashes are verified during restoration by `trial_archives/bundle_trials.py`. Both canonical result witnesses remain ordinary directly reviewable JSON files. The complete local release zip also contains every original unbundled trial. `verify_archive.py` and full pipeline reintegration restore missing trials from these bundles automatically.
