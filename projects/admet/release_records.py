@@ -1,4 +1,4 @@
-"""Canonical records derived from independently rescored artifacts; final paper uses these sentences verbatim."""
+"""Canonical records derived from independently rescored artifacts; manuscript support maps to these checked records."""
 from pathlib import Path
 from functools import lru_cache
 import json,hashlib,re

@@ -1,107 +1,168 @@
-# Physicochemical Descriptors Improve Fixed Fingerprint Baselines Across Three ADMET Endpoints
+**Abstract** We study a fixed representation ablation on three public ADMET regression endpoints. A common gradient-boosted learner is fitted to Morgan fingerprints, ten physicochemical descriptors, and their concatenation under twenty scaffold-training splits. On the fixed test sets, concatenation reduces mean absolute error relative to fingerprints alone by 33.06% for solubility, 12.99% for lipophilicity, and 37.00% for Caco-2 permeability. Descriptor-only models expose endpoint dependence, while shuffled-target controls fail the prespecified improvement criterion. A structural audit covers twenty-two endpoints; two invalid solubility test structures are retained through a frozen median fallback. Source-grounded rescoring and a fresh numerical rerun reproduce the reported results. The observations concern a fixed benchmark and fixed learner. They establish neither a novel representation method nor prospective biological or clinical validity.
 
-NinjaTurtlesHackathons | ADMET research draft | 4 October 2026
+**Keywords:** ADMET; molecular representations; scaffold splitting; numerical reproducibility; verification.
 
-## Abstract
+# Introduction
 
-We evaluate a preregistered representation ablation for ADMET prediction with fixed CPU gradient-boosted models and an independently audited scorer; adding ten physicochemical descriptors to Morgan fingerprints reduces fixed-test mean absolute error by 33.06% for solubility, 12.99% for lipophilicity and 37.00% for Caco-2 permeability across twenty training seeds; descriptor-only ablations expose endpoint dependence and shuffled-label controls provide falsification checks; an audit covers twenty-two benchmark endpoints and preserves two invalid-structure test rows through a frozen median fallback; overlapping splits, public labels, assay heterogeneity and absent prospective validation limit interpretation; this pilot establishes endpoint-specific performance against fixed baselines, not a new algorithm, leaderboard record or clinical result. [C-release-abstract]
+Molecular property prediction assigns a numerical assay target to a molecular structure. Its evaluation depends both on the representation supplied to the learner and on the relationship between training and evaluation molecules. Learned molecular representations and the elements underlying molecular property prediction have been studied in the literature . Here we isolate a narrower empirical question: for a fixed learner and fixed scaffold protocol, does supplementing a binary fingerprint with a small physicochemical descriptor vector reduce prediction error?
 
-## Introduction and contribution
+Let $`F`$, $`D`$, and $`F\oplus D`$ denote the fingerprint, descriptor, and concatenated representations. The primary comparison concerns solubility; the same lipophilicity and Caco-2 comparisons are secondary. The benchmark source is the Therapeutics Data Commons (TDC) ADMET group . We use its fixed test rows and construct repeated scaffold partitions within the distributed training and validation portion.
 
-This reproducible pilot compares fixed molecular representations on three preregistered TDC ADMET regression endpoints; the structural audit covers 22 endpoints and 44 source files; the pilot does not establish clinical utility, a leaderboard record, a novel representation algorithm, or accelerated scientific discovery. [C-release-scope]
+Two remarks delimit the content. First, fingerprint–descriptor combinations are established tools; our contribution is an executed, auditable ablation, rather than a new algorithm or a leaderboard record. Second, the repeated partitions overlap and share the same fixed test molecules. Variation across seeds therefore measures conditional sensitivity on these datasets, rather than independent biological replication.
 
-The primary question is whether adding ten fixed physicochemical descriptors to radius-two 1024-bit Morgan fingerprints lowers solubility scaffold-validation MAE; identical lipophilicity and Caco-2 comparisons are secondary; the objective is mean absolute error in the distributed target units, with no test-based method selection. [C-release-design]
+**Summary of results.**
 
-Fingerprint and descriptor combinations, scaffold evaluation, and applicability-domain analysis have substantial prior art; the contribution here is an executed, auditable endpoint-specific ablation with falsification checks, rather than a new algorithm or a demonstrated publication-level scientific discovery; stronger impact requires replication and a specific mechanism or methodological improvement that survives stronger baselines. [C-release-novelty]
+- Concatenation lowers mean fixed-test error relative to fingerprints on all three endpoints (Observation <a href="#obs:test" data-reference-type="ref" data-reference="obs:test">1</a> and Table <a href="#tab:test" data-reference-type="ref" data-reference="tab:test">[tab:test]</a>).
 
-## Preregistered experiment
+- Descriptor-only performance differs by endpoint, preventing a uniform conclusion that one representation dominates (Observation <a href="#obs:ablation" data-reference-type="ref" data-reference="obs:ablation">2</a>).
 
-All learned models use LightGBM with 200 trees, learning rate 0.05, 15 leaves, minimum 20 samples per leaf, L2 penalty 1, two CPU threads and deterministic execution; descriptors are molecular weight, logP, TPSA, hydrogen-bond donors and acceptors, rotatable bonds, rings, fraction sp3, heavy atoms and aromatic rings; descriptor-only and fingerprint-only models are ablations, the training-target median is the naive baseline, and shuffled training targets define the negative control. [C-release-methods]
+- The prespecified validation gates pass, whereas the shuffled-target controls do not (Section <a href="#sec:validation" data-reference-type="ref" data-reference="sec:validation">4</a>).
 
-Seeds 1000 through 1019 use the TDC scaffold splitter with train/validation/test fractions 0.875/0.125/0 inside train_val; an explicit source-row column survives index resetting; each saved model is evaluated on the official fixed test set without refitting on validation observations; no early stopping or hyperparameter search is performed; seeds 1000 through 1004 are also exported but are not asserted to be an official leaderboard seed protocol. [C-release-splits]
+- Independent rescoring and a fresh rerun reproduce the numerical release; the verification boundary is made explicit (Section <a href="#sec:verification" data-reference-type="ref" data-reference="sec:verification">5</a> and Appendices <a href="#app:protocol" data-reference-type="ref" data-reference="app:protocol">7</a>–<a href="#app:evidence" data-reference-type="ref" data-reference="app:evidence">9</a>).
 
-The preregistered comparison uses paired one-sided sign flips with 20000 Monte Carlo draws and a plus-one correction, 5000 paired bootstrap resamples, and Benjamini-Hochberg at q=0.1; the primary hypothesis family has three endpoint comparisons; overlapping splits and reused test molecules make the intervals and p-values conditional sensitivity summaries rather than independent biological replication or prospective population inference. [C-release-inference]
+# Setting and evaluation
 
-The protocol document existed before computation; a working-directory error prevented the intended first commit and the following training command failed a row-alignment assertion before any model fit or score inspection; the document and correction were committed before successful experiments; therefore strict commit-before-first-computation compliance is not claimed. [C-release-precommit]
+## Data and partitions
 
-## Data coverage and structural audit
+The three fitted endpoints are `solubility_aqsoldb`, `lipophilicity_astrazeneca`, and `caco2_wang`. Their fixed test sets contain 1997, 840, and 182 rows, respectively. Targets remain in the units supplied by the benchmark; errors from different endpoints are not pooled into one score.
 
-The source audit found 0 missing targets, 0 invalid training structures, 2 invalid test structures, and 0 canonical-molecule overlaps and 0 scaffold overlaps across train_val/test; within-split duplicates remain as distributed, so row-weighted scores need not equal unique-molecule-weighted scores. [C-release-audit]
+For seeds $`s\in\{1000,\ldots,1019\}`$, the TDC scaffold splitter partitions the distributed `train_val` rows into training and validation fractions 0.875 and 0.125. An explicit source-row column survives index resetting. Whole-scaffold grouping produces validation sizes of 999–2940 for solubility, 420 for lipophilicity, and 91 for Caco-2. Molecular frameworks provide the structural basis for this kind of partition . We do not refit on validation rows before final-test evaluation.
 
-Before any successful model fit or score inspection, two solubility test SMILES failed strict RDKit parsing; a documented amendment preserves both rows and uses the training-target median for every method on these structures, marks them invalid, and assigns similarity zero; no chemical repair or silent deletion is performed; structural audit read target completeness but no test score guided the amendment. [C-release-invalid]
+## Representations and learner
 
-solubility_aqsoldb has 1997 fixed test rows, validation size ranges from 999 to 2940 rows across seeds, and combined MAE restricted to strictly valid test structures is 0.846374; unequal validation sizes are induced by whole-scaffold groups, not silent row removal. [C-release-coverage-solubility_aqsoldb]
+The fingerprint is a radius-two, 1024-bit Morgan vector. The descriptor vector consists of molecular weight, logP, topological polar surface area, hydrogen-bond donor and acceptor counts, rotatable bonds, ring count, fraction sp3, heavy-atom count, and aromatic-ring count. We compare $`F`$, $`D`$, and $`F\oplus D`$, together with a training-target median baseline and a shuffled-training-target control using concatenated features with permuted training labels.
 
-lipophilicity_astrazeneca has 840 fixed test rows, validation size ranges from 420 to 420 rows across seeds, and combined MAE restricted to strictly valid test structures is 0.635495; unequal validation sizes are induced by whole-scaffold groups, not silent row removal. [C-release-coverage-lipophilicity_astrazeneca]
+Every learned model uses LightGBM with 200 trees, learning rate 0.05, at most 15 leaves, at least 20 samples per leaf, and L2 penalty 1. Execution is deterministic with two CPU threads. There is no hyperparameter search or early stopping. Consequently, a representation effect in this study is conditional on this particular learner configuration.
 
-caco2_wang has 182 fixed test rows, validation size ranges from 91 to 91 rows across seeds, and combined MAE restricted to strictly valid test structures is 0.301909; unequal validation sizes are induced by whole-scaffold groups, not silent row removal. [C-release-coverage-caco2_wang]
+## Scores and comparisons
 
-## Validation results and fixed-test evaluation
+For evaluation rows $`I`$, targets $`y_i`$, and predictions $`\widehat y_{i,m,s}`$ from method $`m`$ and seed $`s`$, define
+``` math
+\begin{equation}
+\label{eq:mae}
+E_{m,s}(I)=\frac{1}{|I|}\sum_{i\in I}|y_i-\widehat y_{i,m,s}|.
+\end{equation}
+```
+The reported seed-average error and relative reduction are
+``` math
+\begin{align}
+\overline E_m&=\frac1{20}\sum_s E_{m,s},\label{eq:mean}\\
+\Delta&=100\left(1-\frac{\overline E_{F\oplus D}}{\overline E_F}\right).\label{eq:reduction}
+\end{align}
+```
+Thus $`\Delta>0`$ means lower error for concatenation. Validation inference uses paired seed scores, 20000 one-sided Monte Carlo sign flips with a plus-one correction, and 5000 paired bootstrap resamples. Benjamini–Hochberg correction uses $`q=0.1`$ for the three endpoint comparisons. The improvement gate requires twenty seeds, nominal $`p<0.05`$, BH rejection, and a ratio interval with lower bound greater than one. These are fixed-dataset summaries; overlapping partitions do not justify population-level confidence claims.
 
-On the fixed solubility_aqsoldb test set, across 20 training seeds, MAE mean +/- seed standard deviation is median: 1.894131 +/- 0.048473; morgan: 1.266789 +/- 0.039799; descriptors: 0.899143 +/- 0.011470; combined: 0.847962 +/- 0.017176; shuffled: 1.891085 +/- 0.037153; adding descriptors to Morgan reduces mean test MAE by 33.06% relative to Morgan alone; this is a conditional descriptive comparison with every official test row retained. [C-release-test-solubility_aqsoldb]
+# Fixed-test observations
 
-On the fixed lipophilicity_astrazeneca test set, across 20 training seeds, MAE mean +/- seed standard deviation is median: 0.963613 +/- 0.002624; morgan: 0.730368 +/- 0.005053; descriptors: 0.769887 +/- 0.005581; combined: 0.635495 +/- 0.007778; shuffled: 1.013711 +/- 0.018586; adding descriptors to Morgan reduces mean test MAE by 12.99% relative to Morgan alone; this is a conditional descriptive comparison with every official test row retained. [C-release-test-lipophilicity_astrazeneca]
+<div class="table*">
 
-On the fixed caco2_wang test set, across 20 training seeds, MAE mean +/- seed standard deviation is median: 0.586401 +/- 0.006519; morgan: 0.479220 +/- 0.037340; descriptors: 0.340505 +/- 0.015110; combined: 0.301909 +/- 0.015109; shuffled: 0.625006 +/- 0.051972; adding descriptors to Morgan reduces mean test MAE by 37.00% relative to Morgan alone; this is a conditional descriptive comparison with every official test row retained. [C-release-test-caco2_wang]
+| Endpoint | Median | Fingerprint $`F`$ | Descriptors $`D`$ | $`F\oplus D`$ | Shuffled | Reduction |
+|:---|---:|---:|---:|---:|---:|---:|
+| Solubility | 1.894 (0.048) | 1.267 (0.040) | 0.899 (0.011) | 0.848 (0.017) | 1.891 (0.037) | 33.06% |
+| Lipophilicity | 0.964 (0.003) | 0.730 (0.005) | 0.770 (0.006) | 0.635 (0.008) | 1.014 (0.019) | 12.99% |
+| Caco-2 | 0.586 (0.007) | 0.479 (0.037) | 0.341 (0.015) | 0.302 (0.015) | 0.625 (0.052) | 37.00% |
 
-For solubility_aqsoldb validation, Morgan MAE is 1.449784, descriptors MAE is 0.942899, and combined MAE is 0.904329; the paired Morgan/combined ratio is 1.603159, with bootstrap 95% interval [1.488537, 1.750759] and nominal one-sided p=0.00005000. [C-release-valid-solubility_aqsoldb]
+</div>
 
-For lipophilicity_astrazeneca validation, Morgan MAE is 0.754238, descriptors MAE is 0.760264, and combined MAE is 0.610390; the paired Morgan/combined ratio is 1.235665, with bootstrap 95% interval [1.217388, 1.253459] and nominal one-sided p=0.00005000. [C-release-valid-lipophilicity_astrazeneca]
+<div id="obs:test" class="observation">
 
-For caco2_wang validation, Morgan MAE is 0.437256, descriptors MAE is 0.407075, and combined MAE is 0.390865; the paired Morgan/combined ratio is 1.118689, with bootstrap 95% interval [1.048756, 1.190120] and nominal one-sided p=0.00214989. [C-release-valid-caco2_wang]
+**Numerical observation 1**. For the fixed test rows and twenty fitted models per representation, concatenation reduces seed-average MAE relative to the fingerprint model by 33.06%, 12.99%, and 37.00% for solubility, lipophilicity, and Caco-2, respectively.
 
-The solubility_aqsoldb validation comparison passes the preregistered improvement criteria on this fixed dataset; after including all six additional negative-control comparisons in an expanded family of nine tests, the BH-adjusted p-value is 0.00022499; the larger family is a post-preregistration sensitivity check and does not strengthen prospective inference. [C-release-gate-solubility_aqsoldb]
+</div>
 
-The lipophilicity_astrazeneca validation comparison passes the preregistered improvement criteria on this fixed dataset; after including all six additional negative-control comparisons in an expanded family of nine tests, the BH-adjusted p-value is 0.00022499; the larger family is a post-preregistration sensitivity check and does not strengthen prospective inference. [C-release-gate-lipophilicity_astrazeneca]
+*Numerical verification.* Apply equations <a href="#eq:mae" data-reference-type="eqref" data-reference="eq:mae">[eq:mae]</a>–<a href="#eq:reduction" data-reference-type="eqref" data-reference="eq:reduction">[eq:reduction]</a> to the saved predictions after matching source rows and targets. Table <a href="#tab:test" data-reference-type="ref" data-reference="tab:test">[tab:test]</a> reports the resulting errors; Figure <a href="#fig:reduction" data-reference-type="ref" data-reference="fig:reduction">1</a> displays their relative reductions. The models and validation predictions were sealed before the first final-test score. This procedure is a reproducible calculation, not a mathematical proof of future predictive performance.
 
-The caco2_wang validation comparison passes the preregistered improvement criteria on this fixed dataset; after including all six additional negative-control comparisons in an expanded family of nine tests, the BH-adjusted p-value is 0.00644968; the larger family is a post-preregistration sensitivity check and does not strengthen prospective inference. [C-release-gate-caco2_wang]
+<div id="obs:ablation" class="observation">
 
-## Falsification, sensitivity and negative results
+**Numerical observation 2**. The descriptor-only model has lower mean test MAE than the fingerprint model for solubility and Caco-2, but higher mean test MAE for lipophilicity. Concatenation has lower mean error than either constituent representation on all three endpoints.
 
-The solubility_aqsoldb validation shuffled-label control has median-baseline/shuffled MAE ratio 0.961914, bootstrap 95% interval [0.943069, 0.982480], and nominal improvement p=0.99825009; it does not meet the improvement gate; failure to detect improvement is not proof of independence. [C-release-null-solubility_aqsoldb-validation]
+</div>
 
-The lipophilicity_astrazeneca validation shuffled-label control has median-baseline/shuffled MAE ratio 0.973205, bootstrap 95% interval [0.958639, 0.988007], and nominal improvement p=0.99850007; it does not meet the improvement gate; failure to detect improvement is not proof of independence. [C-release-null-lipophilicity_astrazeneca-validation]
+*Numerical verification.* Compare the three representation columns of Table <a href="#tab:test" data-reference-type="ref" data-reference="tab:test">[tab:test]</a>. The endpoint dependence supports reporting the ablations separately. It does not identify which descriptors cause the improvement, and it does not establish a chemical mechanism.
 
-The caco2_wang validation shuffled-label control has median-baseline/shuffled MAE ratio 0.940133, bootstrap 95% interval [0.910216, 0.973390], and nominal improvement p=0.99835008; it does not meet the improvement gate; failure to detect improvement is not proof of independence. [C-release-null-caco2_wang-validation]
+<figure id="fig:reduction" data-latex-placement="t">
 
-The solubility_aqsoldb test shuffled-label control has median-baseline/shuffled MAE ratio 1.001611, bootstrap 95% interval [0.991002, 1.011327], and nominal improvement p=0.39113044; it does not meet the improvement gate; failure to detect improvement is not proof of independence. [C-release-null-solubility_aqsoldb-test]
+<figcaption>Reduction from concatenating descriptors with fingerprints, relative to the fixed fingerprint model, using equation <a href="#eq:reduction" data-reference-type="eqref" data-reference="eq:reduction">[eq:reduction]</a>. Each bar is a ratio of seed-average MAEs on one fixed test set. No independent-population uncertainty is implied.</figcaption>
+</figure>
 
-The lipophilicity_astrazeneca test shuffled-label control has median-baseline/shuffled MAE ratio 0.950579, bootstrap 95% interval [0.942861, 0.958420], and nominal improvement p=1.00000000; it does not meet the improvement gate; failure to detect improvement is not proof of independence. [C-release-null-lipophilicity_astrazeneca-test]
+# Validation and falsification
 
-The caco2_wang test shuffled-label control has median-baseline/shuffled MAE ratio 0.938232, bootstrap 95% interval [0.905757, 0.973442], and nominal improvement p=0.99810009; it does not meet the improvement gate; failure to detect improvement is not proof of independence. [C-release-null-caco2_wang-test]
+<div id="tab:valid">
 
-Exploratory nearest-training Morgan Tanimoto strata use thresholds 0.3 and 0.6; the pooled seed-row errors for the combined model are solubility_aqsoldb: low n-seed-row=4186, MAE=1.007285, medium n-seed-row=29434, MAE=0.856216, high n-seed-row=6320, MAE=0.703991; lipophilicity_astrazeneca: low n-seed-row=954, MAE=0.934878, medium n-seed-row=7590, MAE=0.719061, high n-seed-row=8256, MAE=0.524077; caco2_wang: low n-seed-row=1298, MAE=0.303108, medium n-seed-row=1554, MAE=0.319482, high n-seed-row=788, MAE=0.265280; counts reuse test molecules across seeds and are not unique molecule counts; these fixed descriptive strata neither certify an applicability domain nor explain a causal mechanism. [C-release-segments]
+| Endpoint      |    Ratio |           95% interval |
+|:--------------|---------:|-----------------------:|
+| Solubility    | 1.603159 | \[1.488537, 1.750759\] |
+| Lipophilicity | 1.235665 | \[1.217388, 1.253459\] |
+| Caco-2        | 1.118689 | \[1.048756, 1.190120\] |
 
-## Verifier and agent laboratory
+Validation fingerprint/combined MAE ratio and paired bootstrap interval. Intervals describe repeated partitions of fixed data.
 
-The domain verifier passed 10 true/false, nonfinite, malformed, empty-input and self-assigned-tolerance selftests; an independently generated linear target is recovered at MAE 7.21644966006e-16, whereas shuffled synthetic training labels yield MAE 1.481077; the release validates all 600 experiment records and source-grounded predictions, and excludes nonfinite outputs and incomplete seed/method/row groups. [C-release-verification]
+</div>
 
-A separate fresh numerical run downloaded identical source CSV hashes, refitted the entire fixed experiment matrix, froze models before test scoring and reproduced all 15 endpoint-method mean test MAEs within absolute tolerance 1e-8; the maximum mean-MAE difference was 0; numerical reproduction strengthens implementation evidence but is not an independent biological replication. [C-release-reproduction]
+The mean validation MAEs for fingerprints and concatenation are 1.449784 and 0.904329 for solubility, 0.754238 and 0.610390 for lipophilicity, and 0.437256 and 0.390865 for Caco-2. All three comparisons pass the prespecified gate. The nominal one-sided $`p`$-values are 0.00005000, 0.00005000, and 0.00214989. Table <a href="#tab:valid" data-reference-type="ref" data-reference="tab:valid">1</a> reports the corresponding ratio intervals.
 
-The agent-facing laboratory exposes validation summaries only through domain.run_op; no benchmark molecular identities, per-molecule target rows or test scores are provided through these agent-facing operations; neutral identifier invariance follows from feature computation using SMILES alone and named endpoint labels without molecular identities; this narrower exposure check cannot certify absence of LLM training-corpus contamination or protect against a malicious process with filesystem access. [C-release-trust]
+An expanded family includes six shuffled-target comparisons, giving nine tests in total. This post-preregistration sensitivity analysis yields BH-adjusted $`p`$-values of 0.00022499, 0.00022499, and 0.00644968 for the representation comparisons. It does not strengthen prospective inference.
 
-Independent review verified source-row alignment, disjoint molecular/scaffold partitions and rescoring, and reproduced saved seed-1000 predictions; it also found that a mutable prediction table could spoof the original scorer and that the shared manuscript gate checks numerical token membership rather than semantic truth; source grounding and frozen prediction hashes now reject the demonstrated target and hash tampering, while the final manuscript uses canonical verified state records rather than relying on the shared sentence gate alone. [C-release-redteam]
+For every endpoint, shuffled-label controls fail the improvement gate on both validation and test. Their validation median-baseline/shuffled MAE ratios are 0.961914, 0.973205, and 0.940133; the corresponding test ratios are 1.001611, 0.950579, and 0.938232. The solubility test ratio is close to one, while the other test ratios favour the median. Failure to detect improvement is not proof that every possible leakage channel is absent.
 
-All model files, split indices and validation predictions were hashed before the first final-test score; after scoring, only verifier grounding and documentation were hardened; the original seal is retained, its engine/document hash differences are disclosed, and release_hashes records the hardened implementation and unchanged prediction artifacts. [C-release-freeze]
+## Exploratory similarity strata
 
-The repository laboratory executed 3 recorded agent rounds, with 2 confirmed recorded claims before release enrichment and 1 recorded unsuccessful questions; model fitting was a preregistered fixed experiment matrix, while agents inspected validation summaries and proposed checked numerical statements; no agent-discovery speedup was measured. [C-release-agents]
+We also partition test predictions by nearest-training Morgan Tanimoto similarity, using thresholds 0.3 and 0.6. For the combined model, pooled seed-row MAEs in the low, medium, and high strata are 1.007285, 0.856216, and 0.703991 for solubility; 0.934878, 0.719061, and 0.524077 for lipophilicity; and 0.303108, 0.319482, and 0.265280 for Caco-2. Caco-2 does not exhibit a monotone low-to-high sequence. These descriptive strata reuse test molecules across seeds. They neither certify an applicability domain nor explain a causal mechanism; explicit applicability-domain calculations are a separate research question .
 
-A Lean 4 core proof checks that the sum of natural absolute values of integer residuals is zero exactly when every residual is zero; its trusted axioms are propext, Quot.sound; this arithmetic anchor does not certify floating-point model fitting, statistical significance, chemical mechanism or clinical validity. [C-release-lean]
+# Source-grounded verification
 
-## Limitations and next scientific step
+The release verifier matches prediction rows and targets against the pinned source snapshot, rejects nonfinite values and incomplete groups, and recomputes MAE independently of the experiment logger. It checks 600 logged evaluations, including all endpoint, seed, method, and partition groups. Independent review also checks source-row alignment and partition disjointness.
 
-This pilot uses a single public benchmark snapshot and fixed model hyperparameters; it lacks prospective temporal validation, independent new assays, clinical evaluation, external expert review, and a comparison against competitive tuned models; descriptor effects cannot identify causal chemical mechanisms; a held-out benchmark result is evidence about the distributed assay targets, not patient safety. [C-release-limitations]
+A fresh numerical run downloads identical source CSV hashes, refits the complete fixed experiment matrix, and freezes models before scoring its test predictions. All fifteen endpoint–method mean test MAEs match the release; the maximum absolute difference is zero under a tolerance of $`10^{-8}`$. This establishes numerical reproduction in the tested environment. It is not an independent assay replication.
 
-The run is local CPU research; Databricks, Unity Catalog and Spark have not been provisioned or tested; the experiment, claim and gate tables are the authoritative release inputs and can be imported into a platform integration; no live cloud deployment is claimed. [C-release-platform]
+<div id="lem:zero" class="lemma">
 
-## Verified references
+**Lemma 1**. *For a finite list of integer residuals $`r_1,\ldots,r_n`$, the sum of their natural absolute values is zero if and only if every residual is zero.*
 
-Yang et al.: Analyzing Learned Molecular Representations for Property Prediction.; DOI 10.1021/acs.jcim.9b00237; https://doi.org/10.1021/acs.jcim.9b00237; title/DOI verified through Crossref or Europe PMC; existence verification does not reproduce the paper findings. [C-release-ref-0]
+</div>
 
-Bemis and Murcko: The Properties of Known Drugs. 1. Molecular Frameworks; DOI 10.1021/jm9602928; https://doi.org/10.1021/jm9602928; title/DOI verified through Crossref or Europe PMC; existence verification does not reproduce the paper findings. [C-release-ref-1]
+<div class="proof">
 
-Hosni et al.: Explicit Applicability Domain Calculations Can Help Determine When Uncertainty Estimates Are Less Reliable.; DOI 10.1021/acsomega.5c11875; https://doi.org/10.1021/acsomega.5c11875; title/DOI verified through Crossref or Europe PMC; existence verification does not reproduce the paper findings. [C-release-ref-2]
+*Proof.* Each summand is nonnegative. If their sum is zero, each summand is zero, so every residual is zero. Conversely, zero residuals give a zero sum. The repository contains a Lean 4 check by induction on the residual list. ◻
 
-Deng et al.: A systematic study of key elements underlying molecular property prediction; DOI 10.1038/s41467-023-41948-6; https://doi.org/10.1038/s41467-023-41948-6; title/DOI verified through Crossref or Europe PMC; existence verification does not reproduce the paper findings. [C-release-ref-3]
+</div>
 
-Therapeutics Data Commons: ADMET Benchmark Group; official benchmark documentation, accessed 4 October 2026; https://tdcommons.ai/benchmark/admet_group/overview/; https://dataverse.harvard.edu/api/access/datafile/4426004; raw snapshot hashes are recorded in provenance.json. [C-release-ref-tdc]
+The printed trusted axioms for this Lean check are `propext` and `Quot.sound`. Lemma <a href="#lem:zero" data-reference-type="ref" data-reference="lem:zero">1</a> is an exact arithmetic anchor only. It does not certify floating-point fitting, statistical significance, chemical mechanism, or clinical validity.
+
+# Discussion
+
+Under a shared fixed learner, ten physicochemical descriptors improve the fingerprint baseline on the three evaluated endpoints. The descriptor-only comparison changes direction for lipophilicity, so the result cannot be reduced to a uniform ranking of fingerprints and descriptors. Concatenation performs best among these fixed representations, but competitive tuned models remain untested.
+
+The principal limitations are the single public snapshot, fixed hyperparameters, overlapping partitions, assay heterogeneity, and absent prospective temporal validation or new assays. No clinical evaluation or external expert review has been completed. Public benchmark labels also preclude a general claim of freedom from training-corpus contamination. A held-out assay score is not evidence of patient safety.
+
+The next scientific step is independent replication with competitive baselines and a specific methodological or mechanistic hypothesis. Publication-level novelty remains an open gate. No agent-discovery speedup has been measured, and the local CPU experiment has not been deployed to Databricks, Unity Catalog, or Spark.
+
+# Protocol and structural audit
+
+The audit covers twenty-two endpoints and forty-four source files. It finds no missing targets, no invalid training structures, and two invalid test structures. Canonical-molecule and scaffold overlaps between the distributed `train_val` and test portions are zero. Within-partition duplicates remain as distributed, so row-weighted scores need not equal unique-molecule-weighted scores.
+
+The invalid structures are solubility test rows with zero-based source indices 1159 and 1160. Before successful fitting or score inspection, a documented amendment fixed the training-target median fallback for every method on both rows. No chemical repair or deletion was performed. Restricting solubility evaluation to valid structures gives combined mean MAE 0.846374, compared with 0.847962 with all rows retained.
+
+The protocol document existed before computation. A working-directory error prevented its intended first commit; the subsequent training command failed a row-alignment assertion before any fit or score inspection. The document and correction were committed before successful experiments. Accordingly, strict commit-before-first-computation compliance is not claimed. The structural audit checked target completeness, but no test score guided the fallback amendment.
+
+All models, split indices, and validation predictions were hashed before final-test scoring. Later changes hardened verifier grounding and documentation. The original seal remains available, with engine and document hash differences disclosed; the release hashes identify the hardened implementation and unchanged prediction artifacts.
+
+# Verifier and laboratory boundary
+
+The domain verifier passes ten true/false, nonfinite, malformed, empty-input, and self-assigned-tolerance checks. A synthetic linear target is recovered at MAE $`7.21644966006\times10^{-16}`$, while shuffled synthetic training labels yield 1.481077.
+
+Review found that mutable prediction targets could spoof the original scorer. Source grounding and frozen prediction hashes now reject the demonstrated target and hash tampering. Review also found that the shared writer’s numerical-token gate does not establish semantic truth. The present manuscript is an editorial rewrite of checked records with an explicit support map; its wording is reviewed separately rather than declared machine-proved.
+
+The agent-facing domain operations expose validation summaries without molecular identities, per-molecule target rows, or test scores. They do not defend against a malicious process with filesystem access. Three recorded laboratory rounds produced two confirmed claims and one unanswered, out-of-protocol question. The experiments themselves are a fixed matrix, not adaptively selected discoveries.
+
+# Evidence and reproducibility
+
+The project directory `projects/admet/` contains the frozen protocol, raw-source provenance, split indices, model seals, saved predictions, experiment and gate tables, verifier reports, numerical reproduction report, and Lean source. The machine-readable ledger `paper_belege.json` retains forty-three canonical checked records and maps manuscript sections to them. It records support, rather than a proof of semantic equivalence between every editorial sentence and a checker output.
+
+Table <a href="#tab:test" data-reference-type="ref" data-reference="tab:test">[tab:test]</a> is generated directly from the authoritative experiment table after source-grounded validation. The standalone LaTeX source, accompanying Markdown, and PDF are built from one manuscript. The repository retains the original framework-generated draft separately. A fresh numerical rerun uses `reproduce.py`; manuscript rendering uses `render_release.py` without fitting new models or calling a language model.
+
+<div class="thebibliography">
+
+9 Yang et al. *Analyzing Learned Molecular Representations for Property Prediction*. [doi:10.1021/acs.jcim.9b00237](https://doi.org/10.1021/acs.jcim.9b00237). Deng et al. *A systematic study of key elements underlying molecular property prediction*. [doi:10.1038/s41467-023-41948-6](https://doi.org/10.1038/s41467-023-41948-6). Therapeutics Data Commons. *ADMET Benchmark Group*. <https://tdcommons.ai/benchmark/admet_group/overview/>. Accessed 4 October 2026. Raw snapshot hashes are recorded in `provenance.json`. Bemis and Murcko. *The Properties of Known Drugs. 1. Molecular Frameworks*. [doi:10.1021/jm9602928](https://doi.org/10.1021/jm9602928). Hosni et al. *Explicit Applicability Domain Calculations Can Help Determine When Uncertainty Estimates Are Less Reliable*. [doi:10.1021/acsomega.5c11875](https://doi.org/10.1021/acsomega.5c11875).
+
+</div>

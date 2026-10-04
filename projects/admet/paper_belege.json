@@ -732,10 +732,86 @@
       "evidence_run_ids": "experiments.csv;predictions;verification.json"
     }
   ],
+  "section_support": {
+    "Abstract": [
+      "abstract"
+    ],
+    "1 Introduction": [
+      "scope",
+      "design",
+      "novelty",
+      "ref-0",
+      "ref-3",
+      "ref-tdc"
+    ],
+    "2 Setting and evaluation": [
+      "methods",
+      "splits",
+      "inference",
+      "coverage-solubility_aqsoldb",
+      "coverage-lipophilicity_astrazeneca",
+      "coverage-caco2_wang",
+      "ref-1"
+    ],
+    "3 Fixed-test observations": [
+      "test-solubility_aqsoldb",
+      "test-lipophilicity_astrazeneca",
+      "test-caco2_wang",
+      "freeze"
+    ],
+    "4 Validation and falsification": [
+      "valid-solubility_aqsoldb",
+      "valid-lipophilicity_astrazeneca",
+      "valid-caco2_wang",
+      "gate-solubility_aqsoldb",
+      "gate-lipophilicity_astrazeneca",
+      "gate-caco2_wang",
+      "null-solubility_aqsoldb-validation",
+      "null-solubility_aqsoldb-test",
+      "null-lipophilicity_astrazeneca-validation",
+      "null-lipophilicity_astrazeneca-test",
+      "null-caco2_wang-validation",
+      "null-caco2_wang-test",
+      "segments",
+      "ref-2"
+    ],
+    "5 Source-grounded verification": [
+      "verification",
+      "reproduction",
+      "lean"
+    ],
+    "6 Discussion": [
+      "limitations",
+      "novelty",
+      "platform",
+      "agents"
+    ],
+    "A Protocol and structural audit": [
+      "audit",
+      "invalid",
+      "precommit",
+      "freeze",
+      "coverage-solubility_aqsoldb"
+    ],
+    "B Verifier and laboratory boundary": [
+      "verification",
+      "redteam",
+      "trust",
+      "agents"
+    ],
+    "C Evidence and reproducibility": [
+      "reproduction",
+      "freeze",
+      "redteam"
+    ]
+  },
   "verification": {
-    "canonical_paragraph_match": true,
+    "canonical_records_match_regenerated_evidence": true,
     "confirmed_only": true,
     "claim_count": 43,
-    "limitation": "canonical checker verifies derivation and support, not clinical truth"
+    "table_generated_from_checked_experiments": true,
+    "editorial_semantics_machine_proved": false,
+    "manuscript_sha256": "05626c6c186cabf71d17c7e89cb40cea18c4f559e80a33c39aa53cde335e70ae",
+    "limitation": "Editorial prose is reviewed separately; support mapping is not a semantic proof."
   }
 }
