@@ -165,7 +165,7 @@ def main():
     ap.add_argument("--stopp-ohne-fortschritt", type=int, default=3, help="Abbruch nach so vielen Runden in Folge ohne neuen bestätigten Claim")
     ap.add_argument("--projekt", default="", help="Projektverzeichnis-Name (Standard: Domänenname)")
     ap.add_argument("--ohne-gates", action="store_true", help="Phasen-Gates 1-4 übergehen (wird als Abweichung protokolliert)"); a = ap.parse_args()
-    D = get_domain(a.domain); P = Project(a.projekt or a.domain); log = lambda m: (print(m, flush=True), P.append("lab_report.md", f"- {now()} {m}"))
+    D = get_domain(a.domain); P = Project(a.projekt or a.domain); D.projekt = a.projekt or a.domain; log = lambda m: (print(m, flush=True), P.append("lab_report.md", f"- {now()} {m}"))
     if not P.s["runden"]: P.append("decisions.md", "| Zeit | Agent | Entscheidung | Beleg |\n|---|---|---|---|")
     from .phases import require
     if a.ohne_gates: P.append("decisions.md", f"| {now()} | INTEGRATOR | ABWEICHUNG: Lauf ohne Phasen-Gates (--ohne-gates) | bewusst vom Nutzer gesetzt |")
@@ -182,6 +182,7 @@ def main():
         P.append("decisions.md", f"| {now()} | INTEGRATOR | Startfragen aus {a.fragen} geladen, übrige offene Fragen zurückgestellt | Workflow Phase 5 |")
     if not P.s["fragen"]: integrator_fragen(P, D, salt=str(len(P.s["runden"])))
     P.save(); ohne = 0
+    if getattr(D, "experimentell", False) and not ausstehende_auswerten(P, D, log): return
     for _ in range(a.runden):
         runde = len(P.s["runden"]) + 1
         if ohne >= a.stopp_ohne_fortschritt:
@@ -194,6 +195,42 @@ def main():
     log(f"Fertig: {len(P.s['claims'])} geprüfte Aussagen, {len(P.s['widerlegt'])} negative Ergebnisse")
 
 
+def claim_eintragen(P, D, q_frage, p, grund, runde, rt=None):
+    cid = f"{D.name}-R{runde}"; rt = rt or []
+    angefochten = [x for x in rt if x.get("widerspruch")]
+    P.s["claims"].append({"id": cid, "frage": q_frage, "text": D.describe(p), "pruefung": p, "grund": grund, "level": D.level(p),
+                          "status": "angefochten" if angefochten else "bestätigt", "red_team": rt, "runde": runde,
+                          "relevanz": D.relevanz(p) if hasattr(D, "relevanz") else "stuetze"})
+    if not angefochten:
+        from .novelty import check_claim
+        try: P.s["claims"][-1]["neuheit"] = check_claim(D, P.s["claims"][-1], salt=cid)
+        except Exception as e: P.s["claims"][-1]["neuheit"] = {"status": "nicht_geprueft", "grund": str(e)[:120]}
+    return P.s["claims"][-1]
+
+
+def ausstehende_auswerten(P, D, log):
+    """Experimenteller Modus: Aufträge mit eingetragenen Messdaten auswerten. False, wenn noch auf Daten gewartet wird."""
+    rest = []
+    for w in P.s.get("ausstehend", []):
+        ok, why, info = D.check(w["pruefung"])
+        if (info or {}).get("wartet") or "wartet auf Messdaten" in why: rest.append(w); continue
+        q = next((x for x in P.s["fragen"] if x["id"] == w["frage_id"]), {"status": ""})
+        if ok:
+            c = claim_eintragen(P, D, w["frage"], w["pruefung"], why, w["runde"]); q["status"] = "beantwortet"
+            log(f"Auftrag {w['pruefung'].get('auftrag')} ausgewertet: bestätigt ({D.level(w['pruefung'])}): {D.describe(w['pruefung'])[:160]} | Neuheit: {(c.get('neuheit') or {}).get('status')}")
+        else:
+            q["status"] = "ungeprüft"
+            P.s["widerlegt"].append({"frage_id": w["frage_id"], "frage": w["frage"], "runde": w["runde"],
+                                     "gruende": [{"stufe": "Experiment " + str(w["pruefung"].get("auftrag")), "pruefungstyp": w["pruefung"].get("typ"), "grund": why[:240]}]})
+            log(f"Auftrag {w['pruefung'].get('auftrag')} ausgewertet: nicht bestätigt: {why[:200]}")
+    P.s["ausstehend"] = rest; P.save()
+    if rest:
+        log("Warte auf Messdaten: " + "; ".join(f"{w['pruefung'].get('auftrag')} -> projects/{D.projekt}/auftraege/{w['pruefung'].get('auftrag')}_messung.csv "
+                                                  f"(Anleitung: {w['pruefung'].get('auftrag')}_protokoll.md)" for w in rest))
+        return False
+    return True
+
+
 def runde_ausfuehren(P, D, a, runde, log):
     if True:
         try: plan = integrator_plan(P, D, runde)
@@ -204,8 +241,20 @@ def runde_ausfuehren(P, D, a, runde, log):
                               f"- Erfolg: {pr.get('erfolg')}\n- Abbruch: {pr.get('abbruch')}\n- Erwartung: {pr.get('erwartung')}")
         P.append("decisions.md", f"| {now()} | INTEGRATOR | Runde {runde}: [{q['id']}] {q['frage'][:120]} | {str(pr.get('begruendung'))[:160]} |")
         log(f"Runde {runde}: {q['frage']}")
-        res = solve_cascade(D.kontext + "\n\n" + wissen_text(P), q["frage"], salt=f"{D.name}-{runde}", domain=D)
+        exp = getattr(D, "experimentell", False)
+        res = solve_cascade(D.kontext + "\n\n" + wissen_text(P), q["frage"], salt=f"{D.name}-{runde}", domain=D,
+                            **({"stufen": (("sparsam", "sonnet"),), "staerkung": 0} if exp else {}))
         q["status"] = "beantwortet" if res["level"].startswith("computed") else "ungeprüft"
+        if exp and q["status"] != "beantwortet":
+            wart = [tr for tr in res["forscher"] if "wartet auf Messdaten" in (tr.get("pruefung") or {}).get("grund", "")]
+            if wart:
+                a_ = wart[0]["final"]; pt = a_.get("pruefung") or (a_.get("pruefungen") or [None])[0]
+                P.s.setdefault("ausstehend", []).append({"frage_id": q["id"], "frage": q["frage"], "pruefung": pt, "runde": runde})
+                q["status"] = "wartet_auf_daten"
+                P.s["runden"].append({"runde": runde, "frage": q["id"], "status": "wartet_auf_daten", "red_team": [], "sek": res["sek"], "faden_id": q.get("faden_id")})
+                json.dump(res, open(f"{P.dir}/runde{runde}.json", "w"), ensure_ascii=False, indent=1, default=str); P.save()
+                log(f"  Versuchsauftrag {pt.get('auftrag')} angelegt und präregistriert. Bitte messen: projects/{D.projekt}/auftraege/{pt.get('auftrag')}_protokoll.md")
+                return False
         rt = []; cid = f"{D.name}-R{runde}"
         if q["status"] == "beantwortet":
             p = (res["antwort"].get("pruefungen") or [res["antwort"].get("pruefung")])[0]
