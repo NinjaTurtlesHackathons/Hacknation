@@ -7,6 +7,52 @@
  },
  "cells": [
   {
+   "arch": "diag_pos",
+   "group": "Z2",
+   "alphabet": "all",
+   "succ_primary": 0,
+   "succ_secondary": 0,
+   "n": 20,
+   "outcome": false,
+   "mean_primary": 0.49980449999999993,
+   "median_primary": 0.5,
+   "mean_secondary": 0.5,
+   "mean_indist": 0.5429705,
+   "indist_success": 0,
+   "chance": 0.5,
+   "pred": {
+    "ALG": false,
+    "B1_circuit": true,
+    "B2_abelian": true,
+    "B3_size": true,
+    "B4_perm_law": false,
+    "B5_faithful": false
+   }
+  },
+  {
+   "arch": "hh2",
+   "group": "Z2",
+   "alphabet": "all",
+   "succ_primary": 3,
+   "succ_secondary": 9,
+   "n": 20,
+   "outcome": false,
+   "mean_primary": 0.597072,
+   "median_primary": 0.59375,
+   "mean_secondary": 0.735156,
+   "mean_indist": 0.975,
+   "indist_success": 19,
+   "chance": 0.5,
+   "pred": {
+    "ALG": true,
+    "B1_circuit": true,
+    "B2_abelian": true,
+    "B3_size": true,
+    "B4_perm_law": true,
+    "B5_faithful": true
+   }
+  },
+  {
    "arch": "hh3",
    "group": "Z2",
    "alphabet": "all",
@@ -30,6 +76,75 @@
    }
   },
   {
+   "arch": "hh4",
+   "group": "Z2",
+   "alphabet": "all",
+   "succ_primary": 6,
+   "succ_secondary": 7,
+   "n": 20,
+   "outcome": false,
+   "mean_primary": 0.5146495,
+   "median_primary": 0.453125,
+   "mean_secondary": 0.5179690000000001,
+   "mean_indist": 1.0,
+   "indist_success": 20,
+   "chance": 0.5,
+   "pred": {
+    "ALG": true,
+    "B1_circuit": true,
+    "B2_abelian": true,
+    "B3_size": true,
+    "B4_perm_law": true,
+    "B5_faithful": true
+   }
+  },
+  {
+   "arch": "diag_pos",
+   "group": "Z3",
+   "alphabet": "all",
+   "succ_primary": 0,
+   "succ_secondary": 0,
+   "n": 20,
+   "outcome": false,
+   "mean_primary": 0.46630650000000007,
+   "median_primary": 0.473255,
+   "mean_secondary": 0.341893,
+   "mean_indist": 0.8703905000000001,
+   "indist_success": 1,
+   "chance": 0.3333333333333333,
+   "pred": {
+    "ALG": false,
+    "B1_circuit": true,
+    "B2_abelian": true,
+    "B3_size": true,
+    "B4_perm_law": false,
+    "B5_faithful": false
+   }
+  },
+  {
+   "arch": "hh2",
+   "group": "Z3",
+   "alphabet": "all",
+   "succ_primary": 10,
+   "succ_secondary": 7,
+   "n": 20,
+   "outcome": true,
+   "mean_primary": 0.5190375,
+   "median_primary": 0.550445,
+   "mean_secondary": 0.6242015000000001,
+   "mean_indist": 1.0,
+   "indist_success": 20,
+   "chance": 0.3333333333333333,
+   "pred": {
+    "ALG": true,
+    "B1_circuit": true,
+    "B2_abelian": true,
+    "B3_size": true,
+    "B4_perm_law": true,
+    "B5_faithful": true
+   }
+  },
+  {
    "arch": "hh3",
    "group": "Z3",
    "alphabet": "all",
@@ -40,6 +155,29 @@
    "mean_primary": 0.44365750000000004,
    "median_primary": 0.28185000000000004,
    "mean_secondary": 0.48724850000000003,
+   "mean_indist": 1.0,
+   "indist_success": 20,
+   "chance": 0.3333333333333333,
+   "pred": {
+    "ALG": true,
+    "B1_circuit": true,
+    "B2_abelian": true,
+    "B3_size": true,
+    "B4_perm_law": true,
+    "B5_faithful": true
+   }
+  },
+  {
+   "arch": "hh4",
+   "group": "Z3",
+   "alphabet": "all",
+   "succ_primary": 12,
+   "succ_secondary": 10,
+   "n": 20,
+   "outcome": true,
+   "mean_primary": 0.6979615,
+   "median_primary": 0.9217299999999999,
+   "mean_secondary": 0.6771280000000001,
    "mean_indist": 1.0,
    "indist_success": 20,
    "chance": 0.3333333333333333,
@@ -74,31 +212,177 @@
     "B4_perm_law": true,
     "B5_faithful": true
    }
+  },
+  {
+   "arch": "hh4",
+   "group": "Z2^3",
+   "alphabet": "all",
+   "succ_primary": 20,
+   "succ_secondary": 1,
+   "n": 20,
+   "outcome": true,
+   "mean_primary": 0.9811050000000001,
+   "median_primary": 0.98324,
+   "mean_secondary": 0.5517115,
+   "mean_indist": 1.0,
+   "indist_success": 20,
+   "chance": 0.125,
+   "pred": {
+    "ALG": true,
+    "B1_circuit": true,
+    "B2_abelian": true,
+    "B3_size": true,
+    "B4_perm_law": true,
+    "B5_faithful": true
+   }
+  },
+  {
+   "arch": "hh4",
+   "group": "S3",
+   "alphabet": "transpositions",
+   "succ_primary": 18,
+   "succ_secondary": 12,
+   "n": 20,
+   "outcome": true,
+   "mean_primary": 0.9372170000000001,
+   "median_primary": 0.9994000000000001,
+   "mean_secondary": 0.7761350000000001,
+   "mean_indist": 1.0,
+   "indist_success": 20,
+   "chance": 0.16666666666666666,
+   "pred": {
+    "ALG": true,
+    "B1_circuit": true,
+    "B2_abelian": false,
+    "B3_size": true,
+    "B4_perm_law": true,
+    "B5_faithful": true
+   }
+  },
+  {
+   "arch": "hh4",
+   "group": "S3",
+   "alphabet": "all",
+   "succ_primary": 19,
+   "succ_secondary": 6,
+   "n": 20,
+   "outcome": true,
+   "mean_primary": 0.9714944999999998,
+   "median_primary": 0.996335,
+   "mean_secondary": 0.8363585,
+   "mean_indist": 1.0,
+   "indist_success": 20,
+   "chance": 0.16666666666666666,
+   "pred": {
+    "ALG": true,
+    "B1_circuit": true,
+    "B2_abelian": false,
+    "B3_size": true,
+    "B4_perm_law": true,
+    "B5_faithful": true
+   }
+  },
+  {
+   "arch": "hh4",
+   "group": "A5",
+   "alphabet": "involutions",
+   "succ_primary": 20,
+   "succ_secondary": 0,
+   "n": 20,
+   "outcome": true,
+   "mean_primary": 0.990489,
+   "median_primary": 0.99545,
+   "mean_secondary": 0.5953255000000002,
+   "mean_indist": 1.0,
+   "indist_success": 20,
+   "chance": 0.016666666666666666,
+   "pred": {
+    "ALG": true,
+    "B1_circuit": false,
+    "B2_abelian": false,
+    "B3_size": false,
+    "B4_perm_law": true,
+    "B5_faithful": true
+   }
+  },
+  {
+   "arch": "hh4",
+   "group": "A5",
+   "alphabet": "all",
+   "succ_primary": 0,
+   "succ_secondary": 0,
+   "n": 20,
+   "outcome": false,
+   "mean_primary": 0.0165545,
+   "median_primary": 0.016544999999999997,
+   "mean_secondary": 0.016605,
+   "mean_indist": 0.03876500000000001,
+   "indist_success": 0,
+   "chance": 0.016666666666666666,
+   "pred": {
+    "ALG": true,
+    "B1_circuit": false,
+    "B2_abelian": false,
+    "B3_size": false,
+    "B4_perm_law": true,
+    "B5_faithful": true
+   }
+  },
+  {
+   "arch": "hh4",
+   "group": "S5",
+   "alphabet": "transpositions",
+   "succ_primary": 19,
+   "succ_secondary": 11,
+   "n": 20,
+   "outcome": true,
+   "mean_primary": 0.964387,
+   "median_primary": 0.999745,
+   "mean_secondary": 0.8477485,
+   "mean_indist": 1.0,
+   "indist_success": 20,
+   "chance": 0.008333333333333333,
+   "pred": {
+    "ALG": true,
+    "B1_circuit": false,
+    "B2_abelian": false,
+    "B3_size": false,
+    "B4_perm_law": true,
+    "B5_faithful": true
+   }
+  },
+  {
+   "arch": "hh4",
+   "group": "S5",
+   "alphabet": "all",
+   "succ_primary": 0,
+   "succ_secondary": 0,
+   "n": 20,
+   "outcome": false,
+   "mean_primary": 0.0083705,
+   "median_primary": 0.008335,
+   "mean_secondary": 0.00826,
+   "mean_indist": 0.024466,
+   "indist_success": 0,
+   "chance": 0.008333333333333333,
+   "pred": {
+    "ALG": true,
+    "B1_circuit": false,
+    "B2_abelian": false,
+    "B3_size": false,
+    "B4_perm_law": true,
+    "B5_faithful": true
+   }
   }
  ],
  "missing": [
   [
-   "diag_pos",
-   "Z2",
-   "all"
-  ],
-  [
    "diag_pm",
    "Z2",
    "all"
   ],
   [
    "hh1",
-   "Z2",
-   "all"
-  ],
-  [
-   "hh2",
-   "Z2",
-   "all"
-  ],
-  [
-   "hh4",
    "Z2",
    "all"
   ],
@@ -108,27 +392,12 @@
    "all"
   ],
   [
-   "diag_pos",
-   "Z3",
-   "all"
-  ],
-  [
    "diag_pm",
    "Z3",
    "all"
   ],
   [
    "hh1",
-   "Z3",
-   "all"
-  ],
-  [
-   "hh2",
-   "Z3",
-   "all"
-  ],
-  [
-   "hh4",
    "Z3",
    "all"
   ],
@@ -154,11 +423,6 @@
   ],
   [
    "hh2",
-   "Z2^3",
-   "all"
-  ],
-  [
-   "hh4",
    "Z2^3",
    "all"
   ],
@@ -193,11 +457,6 @@
    "transpositions"
   ],
   [
-   "hh4",
-   "S3",
-   "transpositions"
-  ],
-  [
    "lstm",
    "S3",
    "transpositions"
@@ -224,11 +483,6 @@
   ],
   [
    "hh3",
-   "S3",
-   "all"
-  ],
-  [
-   "hh4",
    "S3",
    "all"
   ],
@@ -263,11 +517,6 @@
    "involutions"
   ],
   [
-   "hh4",
-   "A5",
-   "involutions"
-  ],
-  [
    "lstm",
    "A5",
    "involutions"
@@ -298,11 +547,6 @@
    "all"
   ],
   [
-   "hh4",
-   "A5",
-   "all"
-  ],
-  [
    "lstm",
    "A5",
    "all"
@@ -333,11 +577,6 @@
    "transpositions"
   ],
   [
-   "hh4",
-   "S5",
-   "transpositions"
-  ],
-  [
    "lstm",
    "S5",
    "transpositions"
@@ -364,11 +603,6 @@
   ],
   [
    "hh3",
-   "S5",
-   "all"
-  ],
-  [
-   "hh4",
    "S5",
    "all"
   ],
@@ -380,32 +614,184 @@
  ],
  "accuracy": {
   "ALG": {
-   "correct": 2,
-   "cells": 3
+   "correct": 11,
+   "cells": 16
   },
   "B1_circuit": {
-   "correct": 2,
-   "cells": 3
+   "correct": 9,
+   "cells": 16
   },
   "B2_abelian": {
-   "correct": 2,
-   "cells": 3
+   "correct": 7,
+   "cells": 16
   },
   "B3_size": {
-   "correct": 2,
-   "cells": 3
+   "correct": 9,
+   "cells": 16
   },
   "B4_perm_law": {
-   "correct": 2,
-   "cells": 3
+   "correct": 11,
+   "cells": 16
   },
   "B5_faithful": {
-   "correct": 2,
-   "cells": 3
+   "correct": 11,
+   "cells": 16
   }
  },
- "tests": [],
- "negative_control": [],
+ "tests": [
+  {
+   "test": "NC-hh4-S5",
+   "cell": [
+    "hh4",
+    "S5",
+    "all"
+   ],
+   "succ": [
+    0
+   ],
+   "p": 1.0,
+   "negative_control": true,
+   "bh_reject": false,
+   "p_bh": 1.0
+  }
+ ],
+ "negative_control": [
+  {
+   "cell": [
+    "hh4",
+    "S5",
+    "all"
+   ],
+   "succ": 0,
+   "n": 20,
+   "mean_primary": 0.0082895,
+   "chance": 0.008333333333333333,
+   "p": 1.0
+  }
+ ],
+ "H-EX2": {
+  "cells": [
+   {
+    "arch": "hh1",
+    "group": "A5",
+    "alphabet": "c3c5",
+    "succ_primary": 0,
+    "succ_secondary": 0,
+    "n": 20,
+    "outcome": false,
+    "mean_primary": 0.016536,
+    "mean_indist": 0.074008,
+    "chance": 0.016666666666666666,
+    "device": "mps",
+    "pred_ALG": false,
+    "pred_B4": false
+   },
+   {
+    "arch": "hh2",
+    "group": "A5",
+    "alphabet": "c3c5",
+    "succ_primary": 18,
+    "succ_secondary": 18,
+    "n": 20,
+    "outcome": true,
+    "mean_primary": 0.901044,
+    "mean_indist": 0.9231595,
+    "chance": 0.016666666666666666,
+    "device": "mps",
+    "pred_ALG": true,
+    "pred_B4": false
+   },
+   {
+    "arch": "hh3",
+    "group": "A5",
+    "alphabet": "c3c5",
+    "succ_primary": 18,
+    "succ_secondary": 10,
+    "n": 20,
+    "outcome": true,
+    "mean_primary": 0.9227875000000003,
+    "mean_indist": 0.9710754999999999,
+    "chance": 0.016666666666666666,
+    "device": "mps",
+    "pred_ALG": true,
+    "pred_B4": false
+   },
+   {
+    "arch": "hh3",
+    "group": "S4",
+    "alphabet": "tn",
+    "succ_primary": 19,
+    "succ_secondary": 3,
+    "n": 20,
+    "outcome": true,
+    "mean_primary": 0.944768,
+    "mean_indist": 0.99312,
+    "chance": 0.041666666666666664,
+    "device": "mps",
+    "pred_ALG": true,
+    "pred_B4": true
+   }
+  ],
+  "tests": [
+   {
+    "test": "E1",
+    "cell": [
+     "hh2",
+     "A5",
+     "c3c5"
+    ],
+    "control": [
+     "hh1",
+     "A5",
+     "c3c5"
+    ],
+    "succ": [
+     18,
+     0
+    ],
+    "p": 1.675776691494639e-09,
+    "paired_perm_p": 4.999750012499375e-05,
+    "acc_ratio": 54.489840348330915,
+    "acc_ratio_ci95": [
+     45.558674668091356,
+     60.715093238312875
+    ],
+    "bh_reject": true,
+    "p_bh": 1.675776691494639e-09
+   },
+   {
+    "test": "E3",
+    "cell": [
+     "hh3",
+     "A5",
+     "c3c5"
+    ],
+    "control": [
+     "hh1",
+     "A5",
+     "c3c5"
+    ],
+    "succ": [
+     18,
+     0
+    ],
+    "p": 1.675776691494639e-09,
+    "paired_perm_p": 4.999750012499375e-05,
+    "acc_ratio": 55.80475931301405,
+    "acc_ratio_ci95": [
+     48.160683015261554,
+     60.77531700499941
+    ],
+    "bh_reject": true,
+    "p_bh": 1.675776691494639e-09
+   }
+  ],
+  "accuracy": {
+   "ALG": 4,
+   "B4": 2
+  },
+  "success": false
+ },
  "gates": {
   "H-EX1.1_accuracy_beats_all_baselines": false,
   "H-EX1.2_discriminating_tests_BH": false,

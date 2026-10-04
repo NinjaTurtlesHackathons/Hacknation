@@ -1,0 +1,2318 @@
+{
+ "rows": [
+  {
+   "group": "Z2",
+   "alphabet": "all",
+   "order": 2,
+   "letters": 1,
+   "solvable": true,
+   "abelian": true,
+   "lower": 1,
+   "upper": 1,
+   "upper_construction": "perm/none",
+   "upper_H_order": 2,
+   "upper_dim": 2,
+   "h_faithful": 1,
+   "perm_law": 1,
+   "exact": true,
+   "all_passed": true,
+   "checks": [
+    {
+     "claim": {
+      "typ": "hstar_lower",
+      "group": "Z2",
+      "alphabet": "all",
+      "k": 1
+     },
+     "passed": true,
+     "statement": "h*(Z2, all) >= 1 (G is nontrivial); by Lemma L2 every finite-state one-layer realisation of this word problem needs at least 1 Householder factors per token.",
+     "reason": "certified lower bound h* >= 1 (nontrivial group: k = 0 means constant state); claimed >= 1"
+    },
+    {
+     "claim": {
+      "typ": "realisation",
+      "group": "Z2",
+      "alphabet": "all",
+      "k": 1,
+      "construction": "perm",
+      "twist": "none"
+     },
+     "passed": true,
+     "statement": "The perm construction is an exact one-layer realisation of the word problem of Z2 with alphabet 'all' using at most 1 Householder reflections per token (certified); hence h*(Z2, all) <= 1.",
+     "reason": "certified: |H| = 2, pi: H -> G onto (2 elements), consistent readout, dimension 2, field K_1, max rank(R[s] - I) = 1 <= k = 1, every letter factored into <= 1 exact reflections"
+    },
+    {
+     "claim": {
+      "typ": "hstar_value",
+      "group": "Z2",
+      "alphabet": "all",
+      "value": 1
+     },
+     "passed": true,
+     "statement": "h*(Z2, all) = 1: for finite-state one-layer realisations, exactly 1 Householder factors per token are necessary (lower bound: G is nontrivial) and sufficient (exact certificate).",
+     "reason": "lower bound 1 (nontrivial group: k = 0 means constant state); verifier's own certificate: construction perm, twist none, k = 1 (|H| = 2, dim 2); exact"
+    },
+    {
+     "claim": {
+      "typ": "h_faithful",
+      "group": "Z2",
+      "alphabet": "all",
+      "value": 1
+     },
+     "passed": true,
+     "statement": "h(Z2, all) = 1 over faithful real representations of Z2 (own numerical character table and GAP exact agree).",
+     "reason": "h(G, Sigma) = 1 (own character table, GAP exact: 1)"
+    },
+    {
+     "claim": {
+      "typ": "diag_realisable",
+      "family": "diag_pos",
+      "group": "Z2",
+      "alphabet": "all",
+      "value": false
+     },
+     "passed": true,
+     "statement": "A one-layer diag_pos recurrence cannot realise the word problem of Z2 exactly (finite-state).",
+     "reason": "diag_pos realises Z2: False (only the trivial group (Lemma L5: nonnegative real diagonal of finite order is I))"
+    },
+    {
+     "claim": {
+      "typ": "diag_realisable",
+      "family": "diag_pm",
+      "group": "Z2",
+      "alphabet": "all",
+      "value": true
+     },
+     "passed": true,
+     "statement": "A one-layer diag_pm recurrence can realise the word problem of Z2 exactly (finite-state).",
+     "reason": "diag_pm realises Z2: True (iff G is an elementary abelian 2-group (Lemma L5))"
+    },
+    {
+     "claim": {
+      "typ": "diag_realisable",
+      "family": "cdiag",
+      "group": "Z2",
+      "alphabet": "all",
+      "value": true
+     },
+     "passed": true,
+     "statement": "A one-layer cdiag recurrence can realise the word problem of Z2 exactly (finite-state).",
+     "reason": "cdiag realises Z2: True (iff G is abelian (Lemma L5))"
+    }
+   ],
+   "sec": 1.9
+  },
+  {
+   "group": "Z3",
+   "alphabet": "all",
+   "order": 3,
+   "letters": 2,
+   "solvable": true,
+   "abelian": true,
+   "lower": 2,
+   "upper": 2,
+   "upper_construction": "perm/none",
+   "upper_H_order": 3,
+   "upper_dim": 3,
+   "h_faithful": 2,
+   "perm_law": 2,
+   "exact": true,
+   "all_passed": true,
+   "checks": [
+    {
+     "claim": {
+      "typ": "hstar_lower",
+      "group": "Z3",
+      "alphabet": "all",
+      "k": 2
+     },
+     "passed": true,
+     "statement": "h*(Z3, all) >= 2 (a letter of order >= 3; Lemma L4, Lean-checked); by Lemma L2 every finite-state one-layer realisation of this word problem needs at least 2 Householder factors per token.",
+     "reason": "certified lower bound h* >= 2 (Lemma L4: a letter of order >= 3 cannot lift to a reflection (a rank-1 finite-order real deviation from I has order 2)); claimed >= 2"
+    },
+    {
+     "claim": {
+      "typ": "realisation",
+      "group": "Z3",
+      "alphabet": "all",
+      "k": 2,
+      "construction": "perm",
+      "twist": "none"
+     },
+     "passed": true,
+     "statement": "The perm construction is an exact one-layer realisation of the word problem of Z3 with alphabet 'all' using at most 2 Householder reflections per token (certified); hence h*(Z3, all) <= 2.",
+     "reason": "certified: |H| = 3, pi: H -> G onto (3 elements), consistent readout, dimension 3, field K_1, max rank(R[s] - I) = 2 <= k = 2, every letter factored into <= 2 exact reflections"
+    },
+    {
+     "claim": {
+      "typ": "hstar_value",
+      "group": "Z3",
+      "alphabet": "all",
+      "value": 2
+     },
+     "passed": true,
+     "statement": "h*(Z3, all) = 2: for finite-state one-layer realisations, exactly 2 Householder factors per token are necessary (lower bound: Lemma L4 (Lean-checked) and Lemma L2 (hand proof)) and sufficient (exact certificate).",
+     "reason": "lower bound 2 (Lemma L4: a letter of order >= 3 cannot lift to a reflection (a rank-1 finite-order real deviation from I has order 2)); verifier's own certificate: construction perm, twist none, k = 2 (|H| = 3, dim 3); exact"
+    },
+    {
+     "claim": {
+      "typ": "h_faithful",
+      "group": "Z3",
+      "alphabet": "all",
+      "value": 2
+     },
+     "passed": true,
+     "statement": "h(Z3, all) = 2 over faithful real representations of Z3 (own numerical character table and GAP exact agree).",
+     "reason": "h(G, Sigma) = 2 (own character table, GAP exact: 2)"
+    },
+    {
+     "claim": {
+      "typ": "diag_realisable",
+      "family": "diag_pos",
+      "group": "Z3",
+      "alphabet": "all",
+      "value": false
+     },
+     "passed": true,
+     "statement": "A one-layer diag_pos recurrence cannot realise the word problem of Z3 exactly (finite-state).",
+     "reason": "diag_pos realises Z3: False (only the trivial group (Lemma L5: nonnegative real diagonal of finite order is I))"
+    },
+    {
+     "claim": {
+      "typ": "diag_realisable",
+      "family": "diag_pm",
+      "group": "Z3",
+      "alphabet": "all",
+      "value": false
+     },
+     "passed": true,
+     "statement": "A one-layer diag_pm recurrence cannot realise the word problem of Z3 exactly (finite-state).",
+     "reason": "diag_pm realises Z3: False (iff G is an elementary abelian 2-group (Lemma L5))"
+    },
+    {
+     "claim": {
+      "typ": "diag_realisable",
+      "family": "cdiag",
+      "group": "Z3",
+      "alphabet": "all",
+      "value": true
+     },
+     "passed": true,
+     "statement": "A one-layer cdiag recurrence can realise the word problem of Z3 exactly (finite-state).",
+     "reason": "cdiag realises Z3: True (iff G is abelian (Lemma L5))"
+    }
+   ],
+   "sec": 1.0
+  },
+  {
+   "group": "Z5",
+   "alphabet": "all",
+   "order": 5,
+   "letters": 4,
+   "solvable": true,
+   "abelian": true,
+   "lower": 2,
+   "upper": 2,
+   "upper_construction": "planar/none",
+   "upper_H_order": 5,
+   "upper_dim": 2,
+   "h_faithful": 2,
+   "perm_law": 4,
+   "exact": true,
+   "all_passed": true,
+   "checks": [
+    {
+     "claim": {
+      "typ": "hstar_lower",
+      "group": "Z5",
+      "alphabet": "all",
+      "k": 2
+     },
+     "passed": true,
+     "statement": "h*(Z5, all) >= 2 (a letter of order >= 3; Lemma L4, Lean-checked); by Lemma L2 every finite-state one-layer realisation of this word problem needs at least 2 Householder factors per token.",
+     "reason": "certified lower bound h* >= 2 (Lemma L4: a letter of order >= 3 cannot lift to a reflection (a rank-1 finite-order real deviation from I has order 2)); claimed >= 2"
+    },
+    {
+     "claim": {
+      "typ": "realisation",
+      "group": "Z5",
+      "alphabet": "all",
+      "k": 2,
+      "construction": "planar",
+      "twist": "none"
+     },
+     "passed": true,
+     "statement": "The planar construction is an exact one-layer realisation of the word problem of Z5 with alphabet 'all' using at most 2 Householder reflections per token (certified); hence h*(Z5, all) <= 2.",
+     "reason": "certified: |H| = 5, pi: H -> G onto (5 elements), consistent readout, dimension 2, field K_5, max rank(R[s] - I) = 2 <= k = 2, every letter factored into <= 2 exact reflections"
+    },
+    {
+     "claim": {
+      "typ": "hstar_value",
+      "group": "Z5",
+      "alphabet": "all",
+      "value": 2
+     },
+     "passed": true,
+     "statement": "h*(Z5, all) = 2: for finite-state one-layer realisations, exactly 2 Householder factors per token are necessary (lower bound: Lemma L4 (Lean-checked) and Lemma L2 (hand proof)) and sufficient (exact certificate).",
+     "reason": "lower bound 2 (Lemma L4: a letter of order >= 3 cannot lift to a reflection (a rank-1 finite-order real deviation from I has order 2)); verifier's own certificate: construction planar, twist none, k = 2 (|H| = 5, dim 2); exact"
+    },
+    {
+     "claim": {
+      "typ": "h_faithful",
+      "group": "Z5",
+      "alphabet": "all",
+      "value": 2
+     },
+     "passed": true,
+     "statement": "h(Z5, all) = 2 over faithful real representations of Z5 (own numerical character table and GAP exact agree).",
+     "reason": "h(G, Sigma) = 2 (own character table, GAP exact: 2)"
+    },
+    {
+     "claim": {
+      "typ": "diag_realisable",
+      "family": "diag_pos",
+      "group": "Z5",
+      "alphabet": "all",
+      "value": false
+     },
+     "passed": true,
+     "statement": "A one-layer diag_pos recurrence cannot realise the word problem of Z5 exactly (finite-state).",
+     "reason": "diag_pos realises Z5: False (only the trivial group (Lemma L5: nonnegative real diagonal of finite order is I))"
+    },
+    {
+     "claim": {
+      "typ": "diag_realisable",
+      "family": "diag_pm",
+      "group": "Z5",
+      "alphabet": "all",
+      "value": false
+     },
+     "passed": true,
+     "statement": "A one-layer diag_pm recurrence cannot realise the word problem of Z5 exactly (finite-state).",
+     "reason": "diag_pm realises Z5: False (iff G is an elementary abelian 2-group (Lemma L5))"
+    },
+    {
+     "claim": {
+      "typ": "diag_realisable",
+      "family": "cdiag",
+      "group": "Z5",
+      "alphabet": "all",
+      "value": true
+     },
+     "passed": true,
+     "statement": "A one-layer cdiag recurrence can realise the word problem of Z5 exactly (finite-state).",
+     "reason": "cdiag realises Z5: True (iff G is abelian (Lemma L5))"
+    }
+   ],
+   "sec": 1.5
+  },
+  {
+   "group": "Z6",
+   "alphabet": "all",
+   "order": 6,
+   "letters": 5,
+   "solvable": true,
+   "abelian": true,
+   "lower": 2,
+   "upper": 2,
+   "upper_construction": "planar/none",
+   "upper_H_order": 6,
+   "upper_dim": 2,
+   "h_faithful": 2,
+   "perm_law": 5,
+   "exact": true,
+   "all_passed": true,
+   "checks": [
+    {
+     "claim": {
+      "typ": "hstar_lower",
+      "group": "Z6",
+      "alphabet": "all",
+      "k": 2
+     },
+     "passed": true,
+     "statement": "h*(Z6, all) >= 2 (a letter of order >= 3; Lemma L4, Lean-checked); by Lemma L2 every finite-state one-layer realisation of this word problem needs at least 2 Householder factors per token.",
+     "reason": "certified lower bound h* >= 2 (Lemma L4: a letter of order >= 3 cannot lift to a reflection (a rank-1 finite-order real deviation from I has order 2)); claimed >= 2"
+    },
+    {
+     "claim": {
+      "typ": "realisation",
+      "group": "Z6",
+      "alphabet": "all",
+      "k": 2,
+      "construction": "planar",
+      "twist": "none"
+     },
+     "passed": true,
+     "statement": "The planar construction is an exact one-layer realisation of the word problem of Z6 with alphabet 'all' using at most 2 Householder reflections per token (certified); hence h*(Z6, all) <= 2.",
+     "reason": "certified: |H| = 6, pi: H -> G onto (6 elements), consistent readout, dimension 2, field K_6, max rank(R[s] - I) = 2 <= k = 2, every letter factored into <= 2 exact reflections"
+    },
+    {
+     "claim": {
+      "typ": "hstar_value",
+      "group": "Z6",
+      "alphabet": "all",
+      "value": 2
+     },
+     "passed": true,
+     "statement": "h*(Z6, all) = 2: for finite-state one-layer realisations, exactly 2 Householder factors per token are necessary (lower bound: Lemma L4 (Lean-checked) and Lemma L2 (hand proof)) and sufficient (exact certificate).",
+     "reason": "lower bound 2 (Lemma L4: a letter of order >= 3 cannot lift to a reflection (a rank-1 finite-order real deviation from I has order 2)); verifier's own certificate: construction planar, twist none, k = 2 (|H| = 6, dim 2); exact"
+    },
+    {
+     "claim": {
+      "typ": "h_faithful",
+      "group": "Z6",
+      "alphabet": "all",
+      "value": 2
+     },
+     "passed": true,
+     "statement": "h(Z6, all) = 2 over faithful real representations of Z6 (own numerical character table and GAP exact agree).",
+     "reason": "h(G, Sigma) = 2 (own character table, GAP exact: 2)"
+    },
+    {
+     "claim": {
+      "typ": "diag_realisable",
+      "family": "diag_pos",
+      "group": "Z6",
+      "alphabet": "all",
+      "value": false
+     },
+     "passed": true,
+     "statement": "A one-layer diag_pos recurrence cannot realise the word problem of Z6 exactly (finite-state).",
+     "reason": "diag_pos realises Z6: False (only the trivial group (Lemma L5: nonnegative real diagonal of finite order is I))"
+    },
+    {
+     "claim": {
+      "typ": "diag_realisable",
+      "family": "diag_pm",
+      "group": "Z6",
+      "alphabet": "all",
+      "value": false
+     },
+     "passed": true,
+     "statement": "A one-layer diag_pm recurrence cannot realise the word problem of Z6 exactly (finite-state).",
+     "reason": "diag_pm realises Z6: False (iff G is an elementary abelian 2-group (Lemma L5))"
+    },
+    {
+     "claim": {
+      "typ": "diag_realisable",
+      "family": "cdiag",
+      "group": "Z6",
+      "alphabet": "all",
+      "value": true
+     },
+     "passed": true,
+     "statement": "A one-layer cdiag recurrence can realise the word problem of Z6 exactly (finite-state).",
+     "reason": "cdiag realises Z6: True (iff G is abelian (Lemma L5))"
+    }
+   ],
+   "sec": 2.0
+  },
+  {
+   "group": "Z2^2",
+   "alphabet": "all",
+   "order": 4,
+   "letters": 3,
+   "solvable": true,
+   "abelian": true,
+   "lower": 1,
+   "upper": 1,
+   "upper_construction": "count/none",
+   "upper_H_order": 8,
+   "upper_dim": 3,
+   "h_faithful": 2,
+   "perm_law": 2,
+   "exact": true,
+   "all_passed": true,
+   "checks": [
+    {
+     "claim": {
+      "typ": "hstar_lower",
+      "group": "Z2^2",
+      "alphabet": "all",
+      "k": 1
+     },
+     "passed": true,
+     "statement": "h*(Z2^2, all) >= 1 (G is nontrivial); by Lemma L2 every finite-state one-layer realisation of this word problem needs at least 1 Householder factors per token.",
+     "reason": "certified lower bound h* >= 1 (nontrivial group: k = 0 means constant state); claimed >= 1"
+    },
+    {
+     "claim": {
+      "typ": "realisation",
+      "group": "Z2^2",
+      "alphabet": "all",
+      "k": 1,
+      "construction": "count",
+      "twist": "none"
+     },
+     "passed": true,
+     "statement": "The count construction is an exact one-layer realisation of the word problem of Z2^2 with alphabet 'all' using at most 1 Householder reflections per token (certified); hence h*(Z2^2, all) <= 1.",
+     "reason": "certified: |H| = 8, pi: H -> G onto (4 elements), consistent readout, dimension 3, field K_1, max rank(R[s] - I) = 1 <= k = 1, every letter factored into <= 1 exact reflections"
+    },
+    {
+     "claim": {
+      "typ": "hstar_value",
+      "group": "Z2^2",
+      "alphabet": "all",
+      "value": 1
+     },
+     "passed": true,
+     "statement": "h*(Z2^2, all) = 1: for finite-state one-layer realisations, exactly 1 Householder factors per token are necessary (lower bound: G is nontrivial) and sufficient (exact certificate).",
+     "reason": "lower bound 1 (nontrivial group: k = 0 means constant state); verifier's own certificate: construction count, twist none, k = 1 (|H| = 8, dim 3); exact"
+    },
+    {
+     "claim": {
+      "typ": "h_faithful",
+      "group": "Z2^2",
+      "alphabet": "all",
+      "value": 2
+     },
+     "passed": true,
+     "statement": "h(Z2^2, all) = 2 over faithful real representations of Z2^2 (own numerical character table and GAP exact agree).",
+     "reason": "h(G, Sigma) = 2 (own character table, GAP exact: 2)"
+    },
+    {
+     "claim": {
+      "typ": "diag_realisable",
+      "family": "diag_pos",
+      "group": "Z2^2",
+      "alphabet": "all",
+      "value": false
+     },
+     "passed": true,
+     "statement": "A one-layer diag_pos recurrence cannot realise the word problem of Z2^2 exactly (finite-state).",
+     "reason": "diag_pos realises Z2^2: False (only the trivial group (Lemma L5: nonnegative real diagonal of finite order is I))"
+    },
+    {
+     "claim": {
+      "typ": "diag_realisable",
+      "family": "diag_pm",
+      "group": "Z2^2",
+      "alphabet": "all",
+      "value": true
+     },
+     "passed": true,
+     "statement": "A one-layer diag_pm recurrence can realise the word problem of Z2^2 exactly (finite-state).",
+     "reason": "diag_pm realises Z2^2: True (iff G is an elementary abelian 2-group (Lemma L5))"
+    },
+    {
+     "claim": {
+      "typ": "diag_realisable",
+      "family": "cdiag",
+      "group": "Z2^2",
+      "alphabet": "all",
+      "value": true
+     },
+     "passed": true,
+     "statement": "A one-layer cdiag recurrence can realise the word problem of Z2^2 exactly (finite-state).",
+     "reason": "cdiag realises Z2^2: True (iff G is abelian (Lemma L5))"
+    }
+   ],
+   "sec": 1.2
+  },
+  {
+   "group": "Z2^3",
+   "alphabet": "all",
+   "order": 8,
+   "letters": 7,
+   "solvable": true,
+   "abelian": true,
+   "lower": 1,
+   "upper": 1,
+   "upper_construction": "count/none",
+   "upper_H_order": 128,
+   "upper_dim": 7,
+   "h_faithful": 3,
+   "perm_law": 3,
+   "exact": true,
+   "all_passed": true,
+   "checks": [
+    {
+     "claim": {
+      "typ": "hstar_lower",
+      "group": "Z2^3",
+      "alphabet": "all",
+      "k": 1
+     },
+     "passed": true,
+     "statement": "h*(Z2^3, all) >= 1 (G is nontrivial); by Lemma L2 every finite-state one-layer realisation of this word problem needs at least 1 Householder factors per token.",
+     "reason": "certified lower bound h* >= 1 (nontrivial group: k = 0 means constant state); claimed >= 1"
+    },
+    {
+     "claim": {
+      "typ": "realisation",
+      "group": "Z2^3",
+      "alphabet": "all",
+      "k": 1,
+      "construction": "count",
+      "twist": "none"
+     },
+     "passed": true,
+     "statement": "The count construction is an exact one-layer realisation of the word problem of Z2^3 with alphabet 'all' using at most 1 Householder reflections per token (certified); hence h*(Z2^3, all) <= 1.",
+     "reason": "certified: |H| = 128, pi: H -> G onto (8 elements), consistent readout, dimension 7, field K_1, max rank(R[s] - I) = 1 <= k = 1, every letter factored into <= 1 exact reflections"
+    },
+    {
+     "claim": {
+      "typ": "hstar_value",
+      "group": "Z2^3",
+      "alphabet": "all",
+      "value": 1
+     },
+     "passed": true,
+     "statement": "h*(Z2^3, all) = 1: for finite-state one-layer realisations, exactly 1 Householder factors per token are necessary (lower bound: G is nontrivial) and sufficient (exact certificate).",
+     "reason": "lower bound 1 (nontrivial group: k = 0 means constant state); verifier's own certificate: construction count, twist none, k = 1 (|H| = 128, dim 7); exact"
+    },
+    {
+     "claim": {
+      "typ": "h_faithful",
+      "group": "Z2^3",
+      "alphabet": "all",
+      "value": 3
+     },
+     "passed": true,
+     "statement": "h(Z2^3, all) = 3 over faithful real representations of Z2^3 (own numerical character table and GAP exact agree).",
+     "reason": "h(G, Sigma) = 3 (own character table, GAP exact: 3)"
+    },
+    {
+     "claim": {
+      "typ": "diag_realisable",
+      "family": "diag_pos",
+      "group": "Z2^3",
+      "alphabet": "all",
+      "value": false
+     },
+     "passed": true,
+     "statement": "A one-layer diag_pos recurrence cannot realise the word problem of Z2^3 exactly (finite-state).",
+     "reason": "diag_pos realises Z2^3: False (only the trivial group (Lemma L5: nonnegative real diagonal of finite order is I))"
+    },
+    {
+     "claim": {
+      "typ": "diag_realisable",
+      "family": "diag_pm",
+      "group": "Z2^3",
+      "alphabet": "all",
+      "value": true
+     },
+     "passed": true,
+     "statement": "A one-layer diag_pm recurrence can realise the word problem of Z2^3 exactly (finite-state).",
+     "reason": "diag_pm realises Z2^3: True (iff G is an elementary abelian 2-group (Lemma L5))"
+    },
+    {
+     "claim": {
+      "typ": "diag_realisable",
+      "family": "cdiag",
+      "group": "Z2^3",
+      "alphabet": "all",
+      "value": true
+     },
+     "passed": true,
+     "statement": "A one-layer cdiag recurrence can realise the word problem of Z2^3 exactly (finite-state).",
+     "reason": "cdiag realises Z2^3: True (iff G is abelian (Lemma L5))"
+    }
+   ],
+   "sec": 6.4
+  },
+  {
+   "group": "S3",
+   "alphabet": "transpositions",
+   "order": 6,
+   "letters": 3,
+   "solvable": true,
+   "abelian": false,
+   "lower": 1,
+   "upper": 1,
+   "upper_construction": "perm/none",
+   "upper_H_order": 6,
+   "upper_dim": 3,
+   "h_faithful": 1,
+   "perm_law": 1,
+   "exact": true,
+   "all_passed": true,
+   "checks": [
+    {
+     "claim": {
+      "typ": "hstar_lower",
+      "group": "S3",
+      "alphabet": "transpositions",
+      "k": 1
+     },
+     "passed": true,
+     "statement": "h*(S3, transpositions) >= 1 (G is nontrivial); by Lemma L2 every finite-state one-layer realisation of this word problem needs at least 1 Householder factors per token.",
+     "reason": "certified lower bound h* >= 1 (nontrivial group: k = 0 means constant state); claimed >= 1"
+    },
+    {
+     "claim": {
+      "typ": "realisation",
+      "group": "S3",
+      "alphabet": "transpositions",
+      "k": 1,
+      "construction": "perm",
+      "twist": "none"
+     },
+     "passed": true,
+     "statement": "The perm construction is an exact one-layer realisation of the word problem of S3 with alphabet 'transpositions' using at most 1 Householder reflections per token (certified); hence h*(S3, transpositions) <= 1.",
+     "reason": "certified: |H| = 6, pi: H -> G onto (6 elements), consistent readout, dimension 3, field K_1, max rank(R[s] - I) = 1 <= k = 1, every letter factored into <= 1 exact reflections"
+    },
+    {
+     "claim": {
+      "typ": "hstar_value",
+      "group": "S3",
+      "alphabet": "transpositions",
+      "value": 1
+     },
+     "passed": true,
+     "statement": "h*(S3, transpositions) = 1: for finite-state one-layer realisations, exactly 1 Householder factors per token are necessary (lower bound: G is nontrivial) and sufficient (exact certificate).",
+     "reason": "lower bound 1 (nontrivial group: k = 0 means constant state); verifier's own certificate: construction perm, twist none, k = 1 (|H| = 6, dim 3); exact"
+    },
+    {
+     "claim": {
+      "typ": "h_faithful",
+      "group": "S3",
+      "alphabet": "transpositions",
+      "value": 1
+     },
+     "passed": true,
+     "statement": "h(S3, transpositions) = 1 over faithful real representations of S3 (own numerical character table and GAP exact agree).",
+     "reason": "h(G, Sigma) = 1 (own character table, GAP exact: 1)"
+    },
+    {
+     "claim": {
+      "typ": "diag_realisable",
+      "family": "diag_pos",
+      "group": "S3",
+      "alphabet": "transpositions",
+      "value": false
+     },
+     "passed": true,
+     "statement": "A one-layer diag_pos recurrence cannot realise the word problem of S3 exactly (finite-state).",
+     "reason": "diag_pos realises S3: False (only the trivial group (Lemma L5: nonnegative real diagonal of finite order is I))"
+    },
+    {
+     "claim": {
+      "typ": "diag_realisable",
+      "family": "diag_pm",
+      "group": "S3",
+      "alphabet": "transpositions",
+      "value": false
+     },
+     "passed": true,
+     "statement": "A one-layer diag_pm recurrence cannot realise the word problem of S3 exactly (finite-state).",
+     "reason": "diag_pm realises S3: False (iff G is an elementary abelian 2-group (Lemma L5))"
+    },
+    {
+     "claim": {
+      "typ": "diag_realisable",
+      "family": "cdiag",
+      "group": "S3",
+      "alphabet": "transpositions",
+      "value": false
+     },
+     "passed": true,
+     "statement": "A one-layer cdiag recurrence cannot realise the word problem of S3 exactly (finite-state).",
+     "reason": "cdiag realises S3: False (iff G is abelian (Lemma L5))"
+    }
+   ],
+   "sec": 1.1
+  },
+  {
+   "group": "S3",
+   "alphabet": "all",
+   "order": 6,
+   "letters": 5,
+   "solvable": true,
+   "abelian": false,
+   "lower": 2,
+   "upper": 2,
+   "upper_construction": "perm/none",
+   "upper_H_order": 6,
+   "upper_dim": 3,
+   "h_faithful": 2,
+   "perm_law": 2,
+   "exact": true,
+   "all_passed": true,
+   "checks": [
+    {
+     "claim": {
+      "typ": "hstar_lower",
+      "group": "S3",
+      "alphabet": "all",
+      "k": 2
+     },
+     "passed": true,
+     "statement": "h*(S3, all) >= 2 (a letter of order >= 3; Lemma L4, Lean-checked); by Lemma L2 every finite-state one-layer realisation of this word problem needs at least 2 Householder factors per token.",
+     "reason": "certified lower bound h* >= 2 (Lemma L4: a letter of order >= 3 cannot lift to a reflection (a rank-1 finite-order real deviation from I has order 2)); claimed >= 2"
+    },
+    {
+     "claim": {
+      "typ": "realisation",
+      "group": "S3",
+      "alphabet": "all",
+      "k": 2,
+      "construction": "perm",
+      "twist": "none"
+     },
+     "passed": true,
+     "statement": "The perm construction is an exact one-layer realisation of the word problem of S3 with alphabet 'all' using at most 2 Householder reflections per token (certified); hence h*(S3, all) <= 2.",
+     "reason": "certified: |H| = 6, pi: H -> G onto (6 elements), consistent readout, dimension 3, field K_1, max rank(R[s] - I) = 2 <= k = 2, every letter factored into <= 2 exact reflections"
+    },
+    {
+     "claim": {
+      "typ": "hstar_value",
+      "group": "S3",
+      "alphabet": "all",
+      "value": 2
+     },
+     "passed": true,
+     "statement": "h*(S3, all) = 2: for finite-state one-layer realisations, exactly 2 Householder factors per token are necessary (lower bound: Lemma L4 (Lean-checked) and Lemma L2 (hand proof)) and sufficient (exact certificate).",
+     "reason": "lower bound 2 (Lemma L4: a letter of order >= 3 cannot lift to a reflection (a rank-1 finite-order real deviation from I has order 2)); verifier's own certificate: construction perm, twist none, k = 2 (|H| = 6, dim 3); exact"
+    },
+    {
+     "claim": {
+      "typ": "h_faithful",
+      "group": "S3",
+      "alphabet": "all",
+      "value": 2
+     },
+     "passed": true,
+     "statement": "h(S3, all) = 2 over faithful real representations of S3 (own numerical character table and GAP exact agree).",
+     "reason": "h(G, Sigma) = 2 (own character table, GAP exact: 2)"
+    },
+    {
+     "claim": {
+      "typ": "diag_realisable",
+      "family": "diag_pos",
+      "group": "S3",
+      "alphabet": "all",
+      "value": false
+     },
+     "passed": true,
+     "statement": "A one-layer diag_pos recurrence cannot realise the word problem of S3 exactly (finite-state).",
+     "reason": "diag_pos realises S3: False (only the trivial group (Lemma L5: nonnegative real diagonal of finite order is I))"
+    },
+    {
+     "claim": {
+      "typ": "diag_realisable",
+      "family": "diag_pm",
+      "group": "S3",
+      "alphabet": "all",
+      "value": false
+     },
+     "passed": true,
+     "statement": "A one-layer diag_pm recurrence cannot realise the word problem of S3 exactly (finite-state).",
+     "reason": "diag_pm realises S3: False (iff G is an elementary abelian 2-group (Lemma L5))"
+    },
+    {
+     "claim": {
+      "typ": "diag_realisable",
+      "family": "cdiag",
+      "group": "S3",
+      "alphabet": "all",
+      "value": false
+     },
+     "passed": true,
+     "statement": "A one-layer cdiag recurrence cannot realise the word problem of S3 exactly (finite-state).",
+     "reason": "cdiag realises S3: False (iff G is abelian (Lemma L5))"
+    }
+   ],
+   "sec": 1.0
+  },
+  {
+   "group": "D4",
+   "alphabet": "all",
+   "order": 8,
+   "letters": 7,
+   "solvable": true,
+   "abelian": false,
+   "lower": 2,
+   "upper": 2,
+   "upper_construction": "planar/none",
+   "upper_H_order": 8,
+   "upper_dim": 2,
+   "h_faithful": 2,
+   "perm_law": 3,
+   "exact": true,
+   "all_passed": true,
+   "checks": [
+    {
+     "claim": {
+      "typ": "hstar_lower",
+      "group": "D4",
+      "alphabet": "all",
+      "k": 2
+     },
+     "passed": true,
+     "statement": "h*(D4, all) >= 2 (a letter of order >= 3; Lemma L4, Lean-checked); by Lemma L2 every finite-state one-layer realisation of this word problem needs at least 2 Householder factors per token.",
+     "reason": "certified lower bound h* >= 2 (Lemma L4: a letter of order >= 3 cannot lift to a reflection (a rank-1 finite-order real deviation from I has order 2)); claimed >= 2"
+    },
+    {
+     "claim": {
+      "typ": "realisation",
+      "group": "D4",
+      "alphabet": "all",
+      "k": 2,
+      "construction": "planar",
+      "twist": "none"
+     },
+     "passed": true,
+     "statement": "The planar construction is an exact one-layer realisation of the word problem of D4 with alphabet 'all' using at most 2 Householder reflections per token (certified); hence h*(D4, all) <= 2.",
+     "reason": "certified: |H| = 8, pi: H -> G onto (8 elements), consistent readout, dimension 2, field K_4, max rank(R[s] - I) = 2 <= k = 2, every letter factored into <= 2 exact reflections"
+    },
+    {
+     "claim": {
+      "typ": "hstar_value",
+      "group": "D4",
+      "alphabet": "all",
+      "value": 2
+     },
+     "passed": true,
+     "statement": "h*(D4, all) = 2: for finite-state one-layer realisations, exactly 2 Householder factors per token are necessary (lower bound: Lemma L4 (Lean-checked) and Lemma L2 (hand proof)) and sufficient (exact certificate).",
+     "reason": "lower bound 2 (Lemma L4: a letter of order >= 3 cannot lift to a reflection (a rank-1 finite-order real deviation from I has order 2)); verifier's own certificate: construction planar, twist none, k = 2 (|H| = 8, dim 2); exact"
+    },
+    {
+     "claim": {
+      "typ": "h_faithful",
+      "group": "D4",
+      "alphabet": "all",
+      "value": 2
+     },
+     "passed": true,
+     "statement": "h(D4, all) = 2 over faithful real representations of D4 (own numerical character table and GAP exact agree).",
+     "reason": "h(G, Sigma) = 2 (own character table, GAP exact: 2)"
+    },
+    {
+     "claim": {
+      "typ": "diag_realisable",
+      "family": "diag_pos",
+      "group": "D4",
+      "alphabet": "all",
+      "value": false
+     },
+     "passed": true,
+     "statement": "A one-layer diag_pos recurrence cannot realise the word problem of D4 exactly (finite-state).",
+     "reason": "diag_pos realises D4: False (only the trivial group (Lemma L5: nonnegative real diagonal of finite order is I))"
+    },
+    {
+     "claim": {
+      "typ": "diag_realisable",
+      "family": "diag_pm",
+      "group": "D4",
+      "alphabet": "all",
+      "value": false
+     },
+     "passed": true,
+     "statement": "A one-layer diag_pm recurrence cannot realise the word problem of D4 exactly (finite-state).",
+     "reason": "diag_pm realises D4: False (iff G is an elementary abelian 2-group (Lemma L5))"
+    },
+    {
+     "claim": {
+      "typ": "diag_realisable",
+      "family": "cdiag",
+      "group": "D4",
+      "alphabet": "all",
+      "value": false
+     },
+     "passed": true,
+     "statement": "A one-layer cdiag recurrence cannot realise the word problem of D4 exactly (finite-state).",
+     "reason": "cdiag realises D4: False (iff G is abelian (Lemma L5))"
+    }
+   ],
+   "sec": 1.4
+  },
+  {
+   "group": "D5",
+   "alphabet": "all",
+   "order": 10,
+   "letters": 9,
+   "solvable": true,
+   "abelian": false,
+   "lower": 2,
+   "upper": 2,
+   "upper_construction": "planar/none",
+   "upper_H_order": 10,
+   "upper_dim": 2,
+   "h_faithful": 2,
+   "perm_law": 4,
+   "exact": true,
+   "all_passed": true,
+   "checks": [
+    {
+     "claim": {
+      "typ": "hstar_lower",
+      "group": "D5",
+      "alphabet": "all",
+      "k": 2
+     },
+     "passed": true,
+     "statement": "h*(D5, all) >= 2 (a letter of order >= 3; Lemma L4, Lean-checked); by Lemma L2 every finite-state one-layer realisation of this word problem needs at least 2 Householder factors per token.",
+     "reason": "certified lower bound h* >= 2 (Lemma L4: a letter of order >= 3 cannot lift to a reflection (a rank-1 finite-order real deviation from I has order 2)); claimed >= 2"
+    },
+    {
+     "claim": {
+      "typ": "realisation",
+      "group": "D5",
+      "alphabet": "all",
+      "k": 2,
+      "construction": "planar",
+      "twist": "none"
+     },
+     "passed": true,
+     "statement": "The planar construction is an exact one-layer realisation of the word problem of D5 with alphabet 'all' using at most 2 Householder reflections per token (certified); hence h*(D5, all) <= 2.",
+     "reason": "certified: |H| = 10, pi: H -> G onto (10 elements), consistent readout, dimension 2, field K_5, max rank(R[s] - I) = 2 <= k = 2, every letter factored into <= 2 exact reflections"
+    },
+    {
+     "claim": {
+      "typ": "hstar_value",
+      "group": "D5",
+      "alphabet": "all",
+      "value": 2
+     },
+     "passed": true,
+     "statement": "h*(D5, all) = 2: for finite-state one-layer realisations, exactly 2 Householder factors per token are necessary (lower bound: Lemma L4 (Lean-checked) and Lemma L2 (hand proof)) and sufficient (exact certificate).",
+     "reason": "lower bound 2 (Lemma L4: a letter of order >= 3 cannot lift to a reflection (a rank-1 finite-order real deviation from I has order 2)); verifier's own certificate: construction planar, twist none, k = 2 (|H| = 10, dim 2); exact"
+    },
+    {
+     "claim": {
+      "typ": "h_faithful",
+      "group": "D5",
+      "alphabet": "all",
+      "value": 2
+     },
+     "passed": true,
+     "statement": "h(D5, all) = 2 over faithful real representations of D5 (own numerical character table and GAP exact agree).",
+     "reason": "h(G, Sigma) = 2 (own character table, GAP exact: 2)"
+    },
+    {
+     "claim": {
+      "typ": "diag_realisable",
+      "family": "diag_pos",
+      "group": "D5",
+      "alphabet": "all",
+      "value": false
+     },
+     "passed": true,
+     "statement": "A one-layer diag_pos recurrence cannot realise the word problem of D5 exactly (finite-state).",
+     "reason": "diag_pos realises D5: False (only the trivial group (Lemma L5: nonnegative real diagonal of finite order is I))"
+    },
+    {
+     "claim": {
+      "typ": "diag_realisable",
+      "family": "diag_pm",
+      "group": "D5",
+      "alphabet": "all",
+      "value": false
+     },
+     "passed": true,
+     "statement": "A one-layer diag_pm recurrence cannot realise the word problem of D5 exactly (finite-state).",
+     "reason": "diag_pm realises D5: False (iff G is an elementary abelian 2-group (Lemma L5))"
+    },
+    {
+     "claim": {
+      "typ": "diag_realisable",
+      "family": "cdiag",
+      "group": "D5",
+      "alphabet": "all",
+      "value": false
+     },
+     "passed": true,
+     "statement": "A one-layer cdiag recurrence cannot realise the word problem of D5 exactly (finite-state).",
+     "reason": "cdiag realises D5: False (iff G is abelian (Lemma L5))"
+    }
+   ],
+   "sec": 2.0
+  },
+  {
+   "group": "Q8",
+   "alphabet": "all",
+   "order": 8,
+   "letters": 7,
+   "solvable": true,
+   "abelian": false,
+   "lower": 2,
+   "upper": 6,
+   "upper_construction": "perm/none",
+   "upper_H_order": 8,
+   "upper_dim": 8,
+   "h_faithful": 4,
+   "perm_law": 6,
+   "exact": false,
+   "all_passed": true,
+   "checks": [
+    {
+     "claim": {
+      "typ": "hstar_lower",
+      "group": "Q8",
+      "alphabet": "all",
+      "k": 2
+     },
+     "passed": true,
+     "statement": "h*(Q8, all) >= 2 (a letter of order >= 3; Lemma L4, Lean-checked); by Lemma L2 every finite-state one-layer realisation of this word problem needs at least 2 Householder factors per token.",
+     "reason": "certified lower bound h* >= 2 (Lemma L4: a letter of order >= 3 cannot lift to a reflection (a rank-1 finite-order real deviation from I has order 2)); claimed >= 2"
+    },
+    {
+     "claim": {
+      "typ": "realisation",
+      "group": "Q8",
+      "alphabet": "all",
+      "k": 6,
+      "construction": "perm",
+      "twist": "none"
+     },
+     "passed": true,
+     "statement": "The perm construction is an exact one-layer realisation of the word problem of Q8 with alphabet 'all' using at most 6 Householder reflections per token (certified); hence h*(Q8, all) <= 6.",
+     "reason": "certified: |H| = 8, pi: H -> G onto (8 elements), consistent readout, dimension 8, field K_1, max rank(R[s] - I) = 6 <= k = 6, every letter factored into <= 6 exact reflections"
+    },
+    {
+     "claim": {
+      "typ": "h_faithful",
+      "group": "Q8",
+      "alphabet": "all",
+      "value": 4
+     },
+     "passed": true,
+     "statement": "h(Q8, all) = 4 over faithful real representations of Q8 (own numerical character table and GAP exact agree).",
+     "reason": "h(G, Sigma) = 4 (own character table, GAP exact: 4)"
+    },
+    {
+     "claim": {
+      "typ": "diag_realisable",
+      "family": "diag_pos",
+      "group": "Q8",
+      "alphabet": "all",
+      "value": false
+     },
+     "passed": true,
+     "statement": "A one-layer diag_pos recurrence cannot realise the word problem of Q8 exactly (finite-state).",
+     "reason": "diag_pos realises Q8: False (only the trivial group (Lemma L5: nonnegative real diagonal of finite order is I))"
+    },
+    {
+     "claim": {
+      "typ": "diag_realisable",
+      "family": "diag_pm",
+      "group": "Q8",
+      "alphabet": "all",
+      "value": false
+     },
+     "passed": true,
+     "statement": "A one-layer diag_pm recurrence cannot realise the word problem of Q8 exactly (finite-state).",
+     "reason": "diag_pm realises Q8: False (iff G is an elementary abelian 2-group (Lemma L5))"
+    },
+    {
+     "claim": {
+      "typ": "diag_realisable",
+      "family": "cdiag",
+      "group": "Q8",
+      "alphabet": "all",
+      "value": false
+     },
+     "passed": true,
+     "statement": "A one-layer cdiag recurrence cannot realise the word problem of Q8 exactly (finite-state).",
+     "reason": "cdiag realises Q8: False (iff G is abelian (Lemma L5))"
+    }
+   ],
+   "sec": 2.8
+  },
+  {
+   "group": "A4",
+   "alphabet": "all",
+   "order": 12,
+   "letters": 11,
+   "solvable": true,
+   "abelian": false,
+   "lower": 2,
+   "upper": 2,
+   "upper_construction": "perm/none",
+   "upper_H_order": 12,
+   "upper_dim": 4,
+   "h_faithful": 2,
+   "perm_law": 2,
+   "exact": true,
+   "all_passed": true,
+   "checks": [
+    {
+     "claim": {
+      "typ": "hstar_lower",
+      "group": "A4",
+      "alphabet": "all",
+      "k": 2
+     },
+     "passed": true,
+     "statement": "h*(A4, all) >= 2 (a letter of order >= 3; Lemma L4, Lean-checked); by Lemma L2 every finite-state one-layer realisation of this word problem needs at least 2 Householder factors per token.",
+     "reason": "certified lower bound h* >= 2 (Lemma L4: a letter of order >= 3 cannot lift to a reflection (a rank-1 finite-order real deviation from I has order 2)); claimed >= 2"
+    },
+    {
+     "claim": {
+      "typ": "realisation",
+      "group": "A4",
+      "alphabet": "all",
+      "k": 2,
+      "construction": "perm",
+      "twist": "none"
+     },
+     "passed": true,
+     "statement": "The perm construction is an exact one-layer realisation of the word problem of A4 with alphabet 'all' using at most 2 Householder reflections per token (certified); hence h*(A4, all) <= 2.",
+     "reason": "certified: |H| = 12, pi: H -> G onto (12 elements), consistent readout, dimension 4, field K_1, max rank(R[s] - I) = 2 <= k = 2, every letter factored into <= 2 exact reflections"
+    },
+    {
+     "claim": {
+      "typ": "hstar_value",
+      "group": "A4",
+      "alphabet": "all",
+      "value": 2
+     },
+     "passed": true,
+     "statement": "h*(A4, all) = 2: for finite-state one-layer realisations, exactly 2 Householder factors per token are necessary (lower bound: Lemma L4 (Lean-checked) and Lemma L2 (hand proof)) and sufficient (exact certificate).",
+     "reason": "lower bound 2 (Lemma L4: a letter of order >= 3 cannot lift to a reflection (a rank-1 finite-order real deviation from I has order 2)); verifier's own certificate: construction perm, twist none, k = 2 (|H| = 12, dim 4); exact"
+    },
+    {
+     "claim": {
+      "typ": "h_faithful",
+      "group": "A4",
+      "alphabet": "all",
+      "value": 2
+     },
+     "passed": true,
+     "statement": "h(A4, all) = 2 over faithful real representations of A4 (own numerical character table and GAP exact agree).",
+     "reason": "h(G, Sigma) = 2 (own character table, GAP exact: 2)"
+    },
+    {
+     "claim": {
+      "typ": "diag_realisable",
+      "family": "diag_pos",
+      "group": "A4",
+      "alphabet": "all",
+      "value": false
+     },
+     "passed": true,
+     "statement": "A one-layer diag_pos recurrence cannot realise the word problem of A4 exactly (finite-state).",
+     "reason": "diag_pos realises A4: False (only the trivial group (Lemma L5: nonnegative real diagonal of finite order is I))"
+    },
+    {
+     "claim": {
+      "typ": "diag_realisable",
+      "family": "diag_pm",
+      "group": "A4",
+      "alphabet": "all",
+      "value": false
+     },
+     "passed": true,
+     "statement": "A one-layer diag_pm recurrence cannot realise the word problem of A4 exactly (finite-state).",
+     "reason": "diag_pm realises A4: False (iff G is an elementary abelian 2-group (Lemma L5))"
+    },
+    {
+     "claim": {
+      "typ": "diag_realisable",
+      "family": "cdiag",
+      "group": "A4",
+      "alphabet": "all",
+      "value": false
+     },
+     "passed": true,
+     "statement": "A one-layer cdiag recurrence cannot realise the word problem of A4 exactly (finite-state).",
+     "reason": "cdiag realises A4: False (iff G is abelian (Lemma L5))"
+    }
+   ],
+   "sec": 1.3
+  },
+  {
+   "group": "S4",
+   "alphabet": "transpositions",
+   "order": 24,
+   "letters": 6,
+   "solvable": true,
+   "abelian": false,
+   "lower": 1,
+   "upper": 1,
+   "upper_construction": "perm/none",
+   "upper_H_order": 24,
+   "upper_dim": 4,
+   "h_faithful": 1,
+   "perm_law": 1,
+   "exact": true,
+   "all_passed": true,
+   "checks": [
+    {
+     "claim": {
+      "typ": "hstar_lower",
+      "group": "S4",
+      "alphabet": "transpositions",
+      "k": 1
+     },
+     "passed": true,
+     "statement": "h*(S4, transpositions) >= 1 (G is nontrivial); by Lemma L2 every finite-state one-layer realisation of this word problem needs at least 1 Householder factors per token.",
+     "reason": "certified lower bound h* >= 1 (nontrivial group: k = 0 means constant state); claimed >= 1"
+    },
+    {
+     "claim": {
+      "typ": "realisation",
+      "group": "S4",
+      "alphabet": "transpositions",
+      "k": 1,
+      "construction": "perm",
+      "twist": "none"
+     },
+     "passed": true,
+     "statement": "The perm construction is an exact one-layer realisation of the word problem of S4 with alphabet 'transpositions' using at most 1 Householder reflections per token (certified); hence h*(S4, transpositions) <= 1.",
+     "reason": "certified: |H| = 24, pi: H -> G onto (24 elements), consistent readout, dimension 4, field K_1, max rank(R[s] - I) = 1 <= k = 1, every letter factored into <= 1 exact reflections"
+    },
+    {
+     "claim": {
+      "typ": "hstar_value",
+      "group": "S4",
+      "alphabet": "transpositions",
+      "value": 1
+     },
+     "passed": true,
+     "statement": "h*(S4, transpositions) = 1: for finite-state one-layer realisations, exactly 1 Householder factors per token are necessary (lower bound: G is nontrivial) and sufficient (exact certificate).",
+     "reason": "lower bound 1 (nontrivial group: k = 0 means constant state); verifier's own certificate: construction perm, twist none, k = 1 (|H| = 24, dim 4); exact"
+    },
+    {
+     "claim": {
+      "typ": "h_faithful",
+      "group": "S4",
+      "alphabet": "transpositions",
+      "value": 1
+     },
+     "passed": true,
+     "statement": "h(S4, transpositions) = 1 over faithful real representations of S4 (own numerical character table and GAP exact agree).",
+     "reason": "h(G, Sigma) = 1 (own character table, GAP exact: 1)"
+    },
+    {
+     "claim": {
+      "typ": "diag_realisable",
+      "family": "diag_pos",
+      "group": "S4",
+      "alphabet": "transpositions",
+      "value": false
+     },
+     "passed": true,
+     "statement": "A one-layer diag_pos recurrence cannot realise the word problem of S4 exactly (finite-state).",
+     "reason": "diag_pos realises S4: False (only the trivial group (Lemma L5: nonnegative real diagonal of finite order is I))"
+    },
+    {
+     "claim": {
+      "typ": "diag_realisable",
+      "family": "diag_pm",
+      "group": "S4",
+      "alphabet": "transpositions",
+      "value": false
+     },
+     "passed": true,
+     "statement": "A one-layer diag_pm recurrence cannot realise the word problem of S4 exactly (finite-state).",
+     "reason": "diag_pm realises S4: False (iff G is an elementary abelian 2-group (Lemma L5))"
+    },
+    {
+     "claim": {
+      "typ": "diag_realisable",
+      "family": "cdiag",
+      "group": "S4",
+      "alphabet": "transpositions",
+      "value": false
+     },
+     "passed": true,
+     "statement": "A one-layer cdiag recurrence cannot realise the word problem of S4 exactly (finite-state).",
+     "reason": "cdiag realises S4: False (iff G is abelian (Lemma L5))"
+    }
+   ],
+   "sec": 1.2
+  },
+  {
+   "group": "S4",
+   "alphabet": "all",
+   "order": 24,
+   "letters": 23,
+   "solvable": true,
+   "abelian": false,
+   "lower": 2,
+   "upper": 2,
+   "upper_construction": "so3/none",
+   "upper_H_order": 24,
+   "upper_dim": 3,
+   "h_faithful": 2,
+   "perm_law": 3,
+   "exact": true,
+   "all_passed": true,
+   "checks": [
+    {
+     "claim": {
+      "typ": "hstar_lower",
+      "group": "S4",
+      "alphabet": "all",
+      "k": 2
+     },
+     "passed": true,
+     "statement": "h*(S4, all) >= 2 (a letter of order >= 3; Lemma L4, Lean-checked); by Lemma L2 every finite-state one-layer realisation of this word problem needs at least 2 Householder factors per token.",
+     "reason": "certified lower bound h* >= 2 (Lemma L4: a letter of order >= 3 cannot lift to a reflection (a rank-1 finite-order real deviation from I has order 2)); claimed >= 2"
+    },
+    {
+     "claim": {
+      "typ": "realisation",
+      "group": "S4",
+      "alphabet": "all",
+      "k": 2,
+      "construction": "so3",
+      "twist": "none"
+     },
+     "passed": true,
+     "statement": "The so3 construction is an exact one-layer realisation of the word problem of S4 with alphabet 'all' using at most 2 Householder reflections per token (certified); hence h*(S4, all) <= 2.",
+     "reason": "certified: |H| = 24, pi: H -> G onto (24 elements), consistent readout, dimension 3, field K_1, max rank(R[s] - I) = 2 <= k = 2, every letter factored into <= 2 exact reflections"
+    },
+    {
+     "claim": {
+      "typ": "hstar_value",
+      "group": "S4",
+      "alphabet": "all",
+      "value": 2
+     },
+     "passed": true,
+     "statement": "h*(S4, all) = 2: for finite-state one-layer realisations, exactly 2 Householder factors per token are necessary (lower bound: Lemma L4 (Lean-checked) and Lemma L2 (hand proof)) and sufficient (exact certificate).",
+     "reason": "lower bound 2 (Lemma L4: a letter of order >= 3 cannot lift to a reflection (a rank-1 finite-order real deviation from I has order 2)); verifier's own certificate: construction so3, twist none, k = 2 (|H| = 24, dim 3); exact"
+    },
+    {
+     "claim": {
+      "typ": "h_faithful",
+      "group": "S4",
+      "alphabet": "all",
+      "value": 2
+     },
+     "passed": true,
+     "statement": "h(S4, all) = 2 over faithful real representations of S4 (own numerical character table and GAP exact agree).",
+     "reason": "h(G, Sigma) = 2 (own character table, GAP exact: 2)"
+    },
+    {
+     "claim": {
+      "typ": "diag_realisable",
+      "family": "diag_pos",
+      "group": "S4",
+      "alphabet": "all",
+      "value": false
+     },
+     "passed": true,
+     "statement": "A one-layer diag_pos recurrence cannot realise the word problem of S4 exactly (finite-state).",
+     "reason": "diag_pos realises S4: False (only the trivial group (Lemma L5: nonnegative real diagonal of finite order is I))"
+    },
+    {
+     "claim": {
+      "typ": "diag_realisable",
+      "family": "diag_pm",
+      "group": "S4",
+      "alphabet": "all",
+      "value": false
+     },
+     "passed": true,
+     "statement": "A one-layer diag_pm recurrence cannot realise the word problem of S4 exactly (finite-state).",
+     "reason": "diag_pm realises S4: False (iff G is an elementary abelian 2-group (Lemma L5))"
+    },
+    {
+     "claim": {
+      "typ": "diag_realisable",
+      "family": "cdiag",
+      "group": "S4",
+      "alphabet": "all",
+      "value": false
+     },
+     "passed": true,
+     "statement": "A one-layer cdiag recurrence cannot realise the word problem of S4 exactly (finite-state).",
+     "reason": "cdiag realises S4: False (iff G is abelian (Lemma L5))"
+    }
+   ],
+   "sec": 3.7
+  },
+  {
+   "group": "S4",
+   "alphabet": "tn",
+   "order": 24,
+   "letters": 2,
+   "solvable": true,
+   "abelian": false,
+   "lower": 2,
+   "upper": 2,
+   "upper_construction": "so3/none",
+   "upper_H_order": 24,
+   "upper_dim": 3,
+   "h_faithful": 2,
+   "perm_law": 3,
+   "exact": true,
+   "all_passed": true,
+   "checks": [
+    {
+     "claim": {
+      "typ": "hstar_lower",
+      "group": "S4",
+      "alphabet": "tn",
+      "k": 2
+     },
+     "passed": true,
+     "statement": "h*(S4, tn) >= 2 (a letter of order >= 3; Lemma L4, Lean-checked); by Lemma L2 every finite-state one-layer realisation of this word problem needs at least 2 Householder factors per token.",
+     "reason": "certified lower bound h* >= 2 (Lemma L4: a letter of order >= 3 cannot lift to a reflection (a rank-1 finite-order real deviation from I has order 2)); claimed >= 2"
+    },
+    {
+     "claim": {
+      "typ": "realisation",
+      "group": "S4",
+      "alphabet": "tn",
+      "k": 2,
+      "construction": "so3",
+      "twist": "none"
+     },
+     "passed": true,
+     "statement": "The so3 construction is an exact one-layer realisation of the word problem of S4 with alphabet 'tn' using at most 2 Householder reflections per token (certified); hence h*(S4, tn) <= 2.",
+     "reason": "certified: |H| = 24, pi: H -> G onto (24 elements), consistent readout, dimension 3, field K_1, max rank(R[s] - I) = 2 <= k = 2, every letter factored into <= 2 exact reflections"
+    },
+    {
+     "claim": {
+      "typ": "hstar_value",
+      "group": "S4",
+      "alphabet": "tn",
+      "value": 2
+     },
+     "passed": true,
+     "statement": "h*(S4, tn) = 2: for finite-state one-layer realisations, exactly 2 Householder factors per token are necessary (lower bound: Lemma L4 (Lean-checked) and Lemma L2 (hand proof)) and sufficient (exact certificate).",
+     "reason": "lower bound 2 (Lemma L4: a letter of order >= 3 cannot lift to a reflection (a rank-1 finite-order real deviation from I has order 2)); verifier's own certificate: construction so3, twist none, k = 2 (|H| = 24, dim 3); exact"
+    },
+    {
+     "claim": {
+      "typ": "h_faithful",
+      "group": "S4",
+      "alphabet": "tn",
+      "value": 2
+     },
+     "passed": true,
+     "statement": "h(S4, tn) = 2 over faithful real representations of S4 (own numerical character table and GAP exact agree).",
+     "reason": "h(G, Sigma) = 2 (own character table, GAP exact: 2)"
+    },
+    {
+     "claim": {
+      "typ": "diag_realisable",
+      "family": "diag_pos",
+      "group": "S4",
+      "alphabet": "tn",
+      "value": false
+     },
+     "passed": true,
+     "statement": "A one-layer diag_pos recurrence cannot realise the word problem of S4 exactly (finite-state).",
+     "reason": "diag_pos realises S4: False (only the trivial group (Lemma L5: nonnegative real diagonal of finite order is I))"
+    },
+    {
+     "claim": {
+      "typ": "diag_realisable",
+      "family": "diag_pm",
+      "group": "S4",
+      "alphabet": "tn",
+      "value": false
+     },
+     "passed": true,
+     "statement": "A one-layer diag_pm recurrence cannot realise the word problem of S4 exactly (finite-state).",
+     "reason": "diag_pm realises S4: False (iff G is an elementary abelian 2-group (Lemma L5))"
+    },
+    {
+     "claim": {
+      "typ": "diag_realisable",
+      "family": "cdiag",
+      "group": "S4",
+      "alphabet": "tn",
+      "value": false
+     },
+     "passed": true,
+     "statement": "A one-layer cdiag recurrence cannot realise the word problem of S4 exactly (finite-state).",
+     "reason": "cdiag realises S4: False (iff G is abelian (Lemma L5))"
+    }
+   ],
+   "sec": 1.3
+  },
+  {
+   "group": "A5",
+   "alphabet": "c3c5",
+   "order": 60,
+   "letters": 2,
+   "solvable": false,
+   "abelian": false,
+   "lower": 2,
+   "upper": 2,
+   "upper_construction": "so3/none",
+   "upper_H_order": 60,
+   "upper_dim": 3,
+   "h_faithful": 2,
+   "perm_law": 4,
+   "exact": true,
+   "all_passed": true,
+   "checks": [
+    {
+     "claim": {
+      "typ": "hstar_lower",
+      "group": "A5",
+      "alphabet": "c3c5",
+      "k": 2
+     },
+     "passed": true,
+     "statement": "h*(A5, c3c5) >= 2 (a letter of order >= 3; Lemma L4, Lean-checked); by Lemma L2 every finite-state one-layer realisation of this word problem needs at least 2 Householder factors per token.",
+     "reason": "certified lower bound h* >= 2 (Lemma L4: a letter of order >= 3 cannot lift to a reflection (a rank-1 finite-order real deviation from I has order 2)); claimed >= 2"
+    },
+    {
+     "claim": {
+      "typ": "realisation",
+      "group": "A5",
+      "alphabet": "c3c5",
+      "k": 2,
+      "construction": "so3",
+      "twist": "none"
+     },
+     "passed": true,
+     "statement": "The so3 construction is an exact one-layer realisation of the word problem of A5 with alphabet 'c3c5' using at most 2 Householder reflections per token (certified); hence h*(A5, c3c5) <= 2.",
+     "reason": "certified: |H| = 60, pi: H -> G onto (60 elements), consistent readout, dimension 3, field K_5, max rank(R[s] - I) = 2 <= k = 2, every letter factored into <= 2 exact reflections"
+    },
+    {
+     "claim": {
+      "typ": "hstar_value",
+      "group": "A5",
+      "alphabet": "c3c5",
+      "value": 2
+     },
+     "passed": true,
+     "statement": "h*(A5, c3c5) = 2: for finite-state one-layer realisations, exactly 2 Householder factors per token are necessary (lower bound: Lemma L4 (Lean-checked) and Lemma L2 (hand proof)) and sufficient (exact certificate).",
+     "reason": "lower bound 2 (Lemma L4: a letter of order >= 3 cannot lift to a reflection (a rank-1 finite-order real deviation from I has order 2)); verifier's own certificate: construction so3, twist none, k = 2 (|H| = 60, dim 3); exact"
+    },
+    {
+     "claim": {
+      "typ": "h_faithful",
+      "group": "A5",
+      "alphabet": "c3c5",
+      "value": 2
+     },
+     "passed": true,
+     "statement": "h(A5, c3c5) = 2 over faithful real representations of A5 (own numerical character table and GAP exact agree).",
+     "reason": "h(G, Sigma) = 2 (own character table, GAP exact: 2)"
+    },
+    {
+     "claim": {
+      "typ": "diag_realisable",
+      "family": "diag_pos",
+      "group": "A5",
+      "alphabet": "c3c5",
+      "value": false
+     },
+     "passed": true,
+     "statement": "A one-layer diag_pos recurrence cannot realise the word problem of A5 exactly (finite-state).",
+     "reason": "diag_pos realises A5: False (only the trivial group (Lemma L5: nonnegative real diagonal of finite order is I))"
+    },
+    {
+     "claim": {
+      "typ": "diag_realisable",
+      "family": "diag_pm",
+      "group": "A5",
+      "alphabet": "c3c5",
+      "value": false
+     },
+     "passed": true,
+     "statement": "A one-layer diag_pm recurrence cannot realise the word problem of A5 exactly (finite-state).",
+     "reason": "diag_pm realises A5: False (iff G is an elementary abelian 2-group (Lemma L5))"
+    },
+    {
+     "claim": {
+      "typ": "diag_realisable",
+      "family": "cdiag",
+      "group": "A5",
+      "alphabet": "c3c5",
+      "value": false
+     },
+     "passed": true,
+     "statement": "A one-layer cdiag recurrence cannot realise the word problem of A5 exactly (finite-state).",
+     "reason": "cdiag realises A5: False (iff G is abelian (Lemma L5))"
+    }
+   ],
+   "sec": 2.1
+  },
+  {
+   "group": "S5",
+   "alphabet": "tn",
+   "order": 120,
+   "letters": 2,
+   "solvable": false,
+   "abelian": false,
+   "lower": 2,
+   "upper": 4,
+   "upper_construction": "perm/none",
+   "upper_H_order": 120,
+   "upper_dim": 5,
+   "h_faithful": 4,
+   "perm_law": 4,
+   "exact": false,
+   "all_passed": true,
+   "checks": [
+    {
+     "claim": {
+      "typ": "hstar_lower",
+      "group": "S5",
+      "alphabet": "tn",
+      "k": 2
+     },
+     "passed": true,
+     "statement": "h*(S5, tn) >= 2 (a letter of order >= 3; Lemma L4, Lean-checked); by Lemma L2 every finite-state one-layer realisation of this word problem needs at least 2 Householder factors per token.",
+     "reason": "certified lower bound h* >= 2 (Lemma L4: a letter of order >= 3 cannot lift to a reflection (a rank-1 finite-order real deviation from I has order 2)); claimed >= 2"
+    },
+    {
+     "claim": {
+      "typ": "realisation",
+      "group": "S5",
+      "alphabet": "tn",
+      "k": 4,
+      "construction": "perm",
+      "twist": "none"
+     },
+     "passed": true,
+     "statement": "The perm construction is an exact one-layer realisation of the word problem of S5 with alphabet 'tn' using at most 4 Householder reflections per token (certified); hence h*(S5, tn) <= 4.",
+     "reason": "certified: |H| = 120, pi: H -> G onto (120 elements), consistent readout, dimension 5, field K_1, max rank(R[s] - I) = 4 <= k = 4, every letter factored into <= 4 exact reflections"
+    },
+    {
+     "claim": {
+      "typ": "h_faithful",
+      "group": "S5",
+      "alphabet": "tn",
+      "value": 4
+     },
+     "passed": true,
+     "statement": "h(S5, tn) = 4 over faithful real representations of S5 (own numerical character table and GAP exact agree).",
+     "reason": "h(G, Sigma) = 4 (own character table, GAP exact: 4)"
+    },
+    {
+     "claim": {
+      "typ": "diag_realisable",
+      "family": "diag_pos",
+      "group": "S5",
+      "alphabet": "tn",
+      "value": false
+     },
+     "passed": true,
+     "statement": "A one-layer diag_pos recurrence cannot realise the word problem of S5 exactly (finite-state).",
+     "reason": "diag_pos realises S5: False (only the trivial group (Lemma L5: nonnegative real diagonal of finite order is I))"
+    },
+    {
+     "claim": {
+      "typ": "diag_realisable",
+      "family": "diag_pm",
+      "group": "S5",
+      "alphabet": "tn",
+      "value": false
+     },
+     "passed": true,
+     "statement": "A one-layer diag_pm recurrence cannot realise the word problem of S5 exactly (finite-state).",
+     "reason": "diag_pm realises S5: False (iff G is an elementary abelian 2-group (Lemma L5))"
+    },
+    {
+     "claim": {
+      "typ": "diag_realisable",
+      "family": "cdiag",
+      "group": "S5",
+      "alphabet": "tn",
+      "value": false
+     },
+     "passed": true,
+     "statement": "A one-layer cdiag recurrence cannot realise the word problem of S5 exactly (finite-state).",
+     "reason": "cdiag realises S5: False (iff G is abelian (Lemma L5))"
+    }
+   ],
+   "sec": 1.9
+  },
+  {
+   "group": "A5",
+   "alphabet": "involutions",
+   "order": 60,
+   "letters": 15,
+   "solvable": false,
+   "abelian": false,
+   "lower": 1,
+   "upper": 1,
+   "upper_construction": "so3/involutions",
+   "upper_H_order": 120,
+   "upper_dim": 3,
+   "h_faithful": 2,
+   "perm_law": 2,
+   "exact": true,
+   "all_passed": true,
+   "checks": [
+    {
+     "claim": {
+      "typ": "hstar_lower",
+      "group": "A5",
+      "alphabet": "involutions",
+      "k": 1
+     },
+     "passed": true,
+     "statement": "h*(A5, involutions) >= 1 (G is nontrivial); by Lemma L2 every finite-state one-layer realisation of this word problem needs at least 1 Householder factors per token.",
+     "reason": "certified lower bound h* >= 1 (nontrivial group: k = 0 means constant state); claimed >= 1"
+    },
+    {
+     "claim": {
+      "typ": "realisation",
+      "group": "A5",
+      "alphabet": "involutions",
+      "k": 1,
+      "construction": "so3",
+      "twist": "involutions"
+     },
+     "passed": true,
+     "statement": "The so3 construction with every involution letter lifted to its negative is an exact one-layer realisation of the word problem of A5 with alphabet 'involutions' using at most 1 Householder reflections per token (certified); hence h*(A5, involutions) <= 1.",
+     "reason": "certified: |H| = 120, pi: H -> G onto (60 elements), consistent readout, dimension 3, field K_5, max rank(R[s] - I) = 1 <= k = 1, every letter factored into <= 1 exact reflections"
+    },
+    {
+     "claim": {
+      "typ": "hstar_value",
+      "group": "A5",
+      "alphabet": "involutions",
+      "value": 1
+     },
+     "passed": true,
+     "statement": "h*(A5, involutions) = 1: for finite-state one-layer realisations, exactly 1 Householder factors per token are necessary (lower bound: G is nontrivial) and sufficient (exact certificate).",
+     "reason": "lower bound 1 (nontrivial group: k = 0 means constant state); verifier's own certificate: construction so3, twist involutions, k = 1 (|H| = 120, dim 3); exact"
+    },
+    {
+     "claim": {
+      "typ": "h_faithful",
+      "group": "A5",
+      "alphabet": "involutions",
+      "value": 2
+     },
+     "passed": true,
+     "statement": "h(A5, involutions) = 2 over faithful real representations of A5 (own numerical character table and GAP exact agree).",
+     "reason": "h(G, Sigma) = 2 (own character table, GAP exact: 2)"
+    },
+    {
+     "claim": {
+      "typ": "diag_realisable",
+      "family": "diag_pos",
+      "group": "A5",
+      "alphabet": "involutions",
+      "value": false
+     },
+     "passed": true,
+     "statement": "A one-layer diag_pos recurrence cannot realise the word problem of A5 exactly (finite-state).",
+     "reason": "diag_pos realises A5: False (only the trivial group (Lemma L5: nonnegative real diagonal of finite order is I))"
+    },
+    {
+     "claim": {
+      "typ": "diag_realisable",
+      "family": "diag_pm",
+      "group": "A5",
+      "alphabet": "involutions",
+      "value": false
+     },
+     "passed": true,
+     "statement": "A one-layer diag_pm recurrence cannot realise the word problem of A5 exactly (finite-state).",
+     "reason": "diag_pm realises A5: False (iff G is an elementary abelian 2-group (Lemma L5))"
+    },
+    {
+     "claim": {
+      "typ": "diag_realisable",
+      "family": "cdiag",
+      "group": "A5",
+      "alphabet": "involutions",
+      "value": false
+     },
+     "passed": true,
+     "statement": "A one-layer cdiag recurrence cannot realise the word problem of A5 exactly (finite-state).",
+     "reason": "cdiag realises A5: False (iff G is abelian (Lemma L5))"
+    }
+   ],
+   "sec": 9.9
+  },
+  {
+   "group": "A5",
+   "alphabet": "cycles3",
+   "order": 60,
+   "letters": 20,
+   "solvable": false,
+   "abelian": false,
+   "lower": 2,
+   "upper": 2,
+   "upper_construction": "perm/none",
+   "upper_H_order": 60,
+   "upper_dim": 5,
+   "h_faithful": 2,
+   "perm_law": 2,
+   "exact": true,
+   "all_passed": true,
+   "checks": [
+    {
+     "claim": {
+      "typ": "hstar_lower",
+      "group": "A5",
+      "alphabet": "cycles3",
+      "k": 2
+     },
+     "passed": true,
+     "statement": "h*(A5, cycles3) >= 2 (a letter of order >= 3; Lemma L4, Lean-checked); by Lemma L2 every finite-state one-layer realisation of this word problem needs at least 2 Householder factors per token.",
+     "reason": "certified lower bound h* >= 2 (Lemma L4: a letter of order >= 3 cannot lift to a reflection (a rank-1 finite-order real deviation from I has order 2)); claimed >= 2"
+    },
+    {
+     "claim": {
+      "typ": "realisation",
+      "group": "A5",
+      "alphabet": "cycles3",
+      "k": 2,
+      "construction": "perm",
+      "twist": "none"
+     },
+     "passed": true,
+     "statement": "The perm construction is an exact one-layer realisation of the word problem of A5 with alphabet 'cycles3' using at most 2 Householder reflections per token (certified); hence h*(A5, cycles3) <= 2.",
+     "reason": "certified: |H| = 60, pi: H -> G onto (60 elements), consistent readout, dimension 5, field K_1, max rank(R[s] - I) = 2 <= k = 2, every letter factored into <= 2 exact reflections"
+    },
+    {
+     "claim": {
+      "typ": "hstar_value",
+      "group": "A5",
+      "alphabet": "cycles3",
+      "value": 2
+     },
+     "passed": true,
+     "statement": "h*(A5, cycles3) = 2: for finite-state one-layer realisations, exactly 2 Householder factors per token are necessary (lower bound: Lemma L4 (Lean-checked) and Lemma L2 (hand proof)) and sufficient (exact certificate).",
+     "reason": "lower bound 2 (Lemma L4: a letter of order >= 3 cannot lift to a reflection (a rank-1 finite-order real deviation from I has order 2)); verifier's own certificate: construction perm, twist none, k = 2 (|H| = 60, dim 5); exact"
+    },
+    {
+     "claim": {
+      "typ": "h_faithful",
+      "group": "A5",
+      "alphabet": "cycles3",
+      "value": 2
+     },
+     "passed": true,
+     "statement": "h(A5, cycles3) = 2 over faithful real representations of A5 (own numerical character table and GAP exact agree).",
+     "reason": "h(G, Sigma) = 2 (own character table, GAP exact: 2)"
+    },
+    {
+     "claim": {
+      "typ": "diag_realisable",
+      "family": "diag_pos",
+      "group": "A5",
+      "alphabet": "cycles3",
+      "value": false
+     },
+     "passed": true,
+     "statement": "A one-layer diag_pos recurrence cannot realise the word problem of A5 exactly (finite-state).",
+     "reason": "diag_pos realises A5: False (only the trivial group (Lemma L5: nonnegative real diagonal of finite order is I))"
+    },
+    {
+     "claim": {
+      "typ": "diag_realisable",
+      "family": "diag_pm",
+      "group": "A5",
+      "alphabet": "cycles3",
+      "value": false
+     },
+     "passed": true,
+     "statement": "A one-layer diag_pm recurrence cannot realise the word problem of A5 exactly (finite-state).",
+     "reason": "diag_pm realises A5: False (iff G is an elementary abelian 2-group (Lemma L5))"
+    },
+    {
+     "claim": {
+      "typ": "diag_realisable",
+      "family": "cdiag",
+      "group": "A5",
+      "alphabet": "cycles3",
+      "value": false
+     },
+     "passed": true,
+     "statement": "A one-layer cdiag recurrence cannot realise the word problem of A5 exactly (finite-state).",
+     "reason": "cdiag realises A5: False (iff G is abelian (Lemma L5))"
+    }
+   ],
+   "sec": 4.0
+  },
+  {
+   "group": "A5",
+   "alphabet": "cycles5",
+   "order": 60,
+   "letters": 24,
+   "solvable": false,
+   "abelian": false,
+   "lower": 2,
+   "upper": 2,
+   "upper_construction": "so3/none",
+   "upper_H_order": 60,
+   "upper_dim": 3,
+   "h_faithful": 2,
+   "perm_law": 4,
+   "exact": true,
+   "all_passed": true,
+   "checks": [
+    {
+     "claim": {
+      "typ": "hstar_lower",
+      "group": "A5",
+      "alphabet": "cycles5",
+      "k": 2
+     },
+     "passed": true,
+     "statement": "h*(A5, cycles5) >= 2 (a letter of order >= 3; Lemma L4, Lean-checked); by Lemma L2 every finite-state one-layer realisation of this word problem needs at least 2 Householder factors per token.",
+     "reason": "certified lower bound h* >= 2 (Lemma L4: a letter of order >= 3 cannot lift to a reflection (a rank-1 finite-order real deviation from I has order 2)); claimed >= 2"
+    },
+    {
+     "claim": {
+      "typ": "realisation",
+      "group": "A5",
+      "alphabet": "cycles5",
+      "k": 2,
+      "construction": "so3",
+      "twist": "none"
+     },
+     "passed": true,
+     "statement": "The so3 construction is an exact one-layer realisation of the word problem of A5 with alphabet 'cycles5' using at most 2 Householder reflections per token (certified); hence h*(A5, cycles5) <= 2.",
+     "reason": "certified: |H| = 60, pi: H -> G onto (60 elements), consistent readout, dimension 3, field K_5, max rank(R[s] - I) = 2 <= k = 2, every letter factored into <= 2 exact reflections"
+    },
+    {
+     "claim": {
+      "typ": "hstar_value",
+      "group": "A5",
+      "alphabet": "cycles5",
+      "value": 2
+     },
+     "passed": true,
+     "statement": "h*(A5, cycles5) = 2: for finite-state one-layer realisations, exactly 2 Householder factors per token are necessary (lower bound: Lemma L4 (Lean-checked) and Lemma L2 (hand proof)) and sufficient (exact certificate).",
+     "reason": "lower bound 2 (Lemma L4: a letter of order >= 3 cannot lift to a reflection (a rank-1 finite-order real deviation from I has order 2)); verifier's own certificate: construction so3, twist none, k = 2 (|H| = 60, dim 3); exact"
+    },
+    {
+     "claim": {
+      "typ": "h_faithful",
+      "group": "A5",
+      "alphabet": "cycles5",
+      "value": 2
+     },
+     "passed": true,
+     "statement": "h(A5, cycles5) = 2 over faithful real representations of A5 (own numerical character table and GAP exact agree).",
+     "reason": "h(G, Sigma) = 2 (own character table, GAP exact: 2)"
+    },
+    {
+     "claim": {
+      "typ": "diag_realisable",
+      "family": "diag_pos",
+      "group": "A5",
+      "alphabet": "cycles5",
+      "value": false
+     },
+     "passed": true,
+     "statement": "A one-layer diag_pos recurrence cannot realise the word problem of A5 exactly (finite-state).",
+     "reason": "diag_pos realises A5: False (only the trivial group (Lemma L5: nonnegative real diagonal of finite order is I))"
+    },
+    {
+     "claim": {
+      "typ": "diag_realisable",
+      "family": "diag_pm",
+      "group": "A5",
+      "alphabet": "cycles5",
+      "value": false
+     },
+     "passed": true,
+     "statement": "A one-layer diag_pm recurrence cannot realise the word problem of A5 exactly (finite-state).",
+     "reason": "diag_pm realises A5: False (iff G is an elementary abelian 2-group (Lemma L5))"
+    },
+    {
+     "claim": {
+      "typ": "diag_realisable",
+      "family": "cdiag",
+      "group": "A5",
+      "alphabet": "cycles5",
+      "value": false
+     },
+     "passed": true,
+     "statement": "A one-layer cdiag recurrence cannot realise the word problem of A5 exactly (finite-state).",
+     "reason": "cdiag realises A5: False (iff G is abelian (Lemma L5))"
+    }
+   ],
+   "sec": 12.9
+  },
+  {
+   "group": "A5",
+   "alphabet": "all",
+   "order": 60,
+   "letters": 59,
+   "solvable": false,
+   "abelian": false,
+   "lower": 2,
+   "upper": 2,
+   "upper_construction": "so3/none",
+   "upper_H_order": 60,
+   "upper_dim": 3,
+   "h_faithful": 2,
+   "perm_law": 4,
+   "exact": true,
+   "all_passed": true,
+   "checks": [
+    {
+     "claim": {
+      "typ": "hstar_lower",
+      "group": "A5",
+      "alphabet": "all",
+      "k": 2
+     },
+     "passed": true,
+     "statement": "h*(A5, all) >= 2 (a letter of order >= 3; Lemma L4, Lean-checked); by Lemma L2 every finite-state one-layer realisation of this word problem needs at least 2 Householder factors per token.",
+     "reason": "certified lower bound h* >= 2 (Lemma L4: a letter of order >= 3 cannot lift to a reflection (a rank-1 finite-order real deviation from I has order 2)); claimed >= 2"
+    },
+    {
+     "claim": {
+      "typ": "realisation",
+      "group": "A5",
+      "alphabet": "all",
+      "k": 2,
+      "construction": "so3",
+      "twist": "none"
+     },
+     "passed": true,
+     "statement": "The so3 construction is an exact one-layer realisation of the word problem of A5 with alphabet 'all' using at most 2 Householder reflections per token (certified); hence h*(A5, all) <= 2.",
+     "reason": "certified: |H| = 60, pi: H -> G onto (60 elements), consistent readout, dimension 3, field K_5, max rank(R[s] - I) = 2 <= k = 2, every letter factored into <= 2 exact reflections"
+    },
+    {
+     "claim": {
+      "typ": "hstar_value",
+      "group": "A5",
+      "alphabet": "all",
+      "value": 2
+     },
+     "passed": true,
+     "statement": "h*(A5, all) = 2: for finite-state one-layer realisations, exactly 2 Householder factors per token are necessary (lower bound: Lemma L4 (Lean-checked) and Lemma L2 (hand proof)) and sufficient (exact certificate).",
+     "reason": "lower bound 2 (Lemma L4: a letter of order >= 3 cannot lift to a reflection (a rank-1 finite-order real deviation from I has order 2)); verifier's own certificate: construction so3, twist none, k = 2 (|H| = 60, dim 3); exact"
+    },
+    {
+     "claim": {
+      "typ": "h_faithful",
+      "group": "A5",
+      "alphabet": "all",
+      "value": 2
+     },
+     "passed": true,
+     "statement": "h(A5, all) = 2 over faithful real representations of A5 (own numerical character table and GAP exact agree).",
+     "reason": "h(G, Sigma) = 2 (own character table, GAP exact: 2)"
+    },
+    {
+     "claim": {
+      "typ": "diag_realisable",
+      "family": "diag_pos",
+      "group": "A5",
+      "alphabet": "all",
+      "value": false
+     },
+     "passed": true,
+     "statement": "A one-layer diag_pos recurrence cannot realise the word problem of A5 exactly (finite-state).",
+     "reason": "diag_pos realises A5: False (only the trivial group (Lemma L5: nonnegative real diagonal of finite order is I))"
+    },
+    {
+     "claim": {
+      "typ": "diag_realisable",
+      "family": "diag_pm",
+      "group": "A5",
+      "alphabet": "all",
+      "value": false
+     },
+     "passed": true,
+     "statement": "A one-layer diag_pm recurrence cannot realise the word problem of A5 exactly (finite-state).",
+     "reason": "diag_pm realises A5: False (iff G is an elementary abelian 2-group (Lemma L5))"
+    },
+    {
+     "claim": {
+      "typ": "diag_realisable",
+      "family": "cdiag",
+      "group": "A5",
+      "alphabet": "all",
+      "value": false
+     },
+     "passed": true,
+     "statement": "A one-layer cdiag recurrence cannot realise the word problem of A5 exactly (finite-state).",
+     "reason": "cdiag realises A5: False (iff G is abelian (Lemma L5))"
+    }
+   ],
+   "sec": 29.9
+  },
+  {
+   "group": "S5",
+   "alphabet": "transpositions",
+   "order": 120,
+   "letters": 10,
+   "solvable": false,
+   "abelian": false,
+   "lower": 1,
+   "upper": 1,
+   "upper_construction": "perm/none",
+   "upper_H_order": 120,
+   "upper_dim": 5,
+   "h_faithful": 1,
+   "perm_law": 1,
+   "exact": true,
+   "all_passed": true,
+   "checks": [
+    {
+     "claim": {
+      "typ": "hstar_lower",
+      "group": "S5",
+      "alphabet": "transpositions",
+      "k": 1
+     },
+     "passed": true,
+     "statement": "h*(S5, transpositions) >= 1 (G is nontrivial); by Lemma L2 every finite-state one-layer realisation of this word problem needs at least 1 Householder factors per token.",
+     "reason": "certified lower bound h* >= 1 (nontrivial group: k = 0 means constant state); claimed >= 1"
+    },
+    {
+     "claim": {
+      "typ": "realisation",
+      "group": "S5",
+      "alphabet": "transpositions",
+      "k": 1,
+      "construction": "perm",
+      "twist": "none"
+     },
+     "passed": true,
+     "statement": "The perm construction is an exact one-layer realisation of the word problem of S5 with alphabet 'transpositions' using at most 1 Householder reflections per token (certified); hence h*(S5, transpositions) <= 1.",
+     "reason": "certified: |H| = 120, pi: H -> G onto (120 elements), consistent readout, dimension 5, field K_1, max rank(R[s] - I) = 1 <= k = 1, every letter factored into <= 1 exact reflections"
+    },
+    {
+     "claim": {
+      "typ": "hstar_value",
+      "group": "S5",
+      "alphabet": "transpositions",
+      "value": 1
+     },
+     "passed": true,
+     "statement": "h*(S5, transpositions) = 1: for finite-state one-layer realisations, exactly 1 Householder factors per token are necessary (lower bound: G is nontrivial) and sufficient (exact certificate).",
+     "reason": "lower bound 1 (nontrivial group: k = 0 means constant state); verifier's own certificate: construction perm, twist none, k = 1 (|H| = 120, dim 5); exact"
+    },
+    {
+     "claim": {
+      "typ": "h_faithful",
+      "group": "S5",
+      "alphabet": "transpositions",
+      "value": 1
+     },
+     "passed": true,
+     "statement": "h(S5, transpositions) = 1 over faithful real representations of S5 (own numerical character table and GAP exact agree).",
+     "reason": "h(G, Sigma) = 1 (own character table, GAP exact: 1)"
+    },
+    {
+     "claim": {
+      "typ": "diag_realisable",
+      "family": "diag_pos",
+      "group": "S5",
+      "alphabet": "transpositions",
+      "value": false
+     },
+     "passed": true,
+     "statement": "A one-layer diag_pos recurrence cannot realise the word problem of S5 exactly (finite-state).",
+     "reason": "diag_pos realises S5: False (only the trivial group (Lemma L5: nonnegative real diagonal of finite order is I))"
+    },
+    {
+     "claim": {
+      "typ": "diag_realisable",
+      "family": "diag_pm",
+      "group": "S5",
+      "alphabet": "transpositions",
+      "value": false
+     },
+     "passed": true,
+     "statement": "A one-layer diag_pm recurrence cannot realise the word problem of S5 exactly (finite-state).",
+     "reason": "diag_pm realises S5: False (iff G is an elementary abelian 2-group (Lemma L5))"
+    },
+    {
+     "claim": {
+      "typ": "diag_realisable",
+      "family": "cdiag",
+      "group": "S5",
+      "alphabet": "transpositions",
+      "value": false
+     },
+     "passed": true,
+     "statement": "A one-layer cdiag recurrence cannot realise the word problem of S5 exactly (finite-state).",
+     "reason": "cdiag realises S5: False (iff G is abelian (Lemma L5))"
+    }
+   ],
+   "sec": 3.2
+  },
+  {
+   "group": "S5",
+   "alphabet": "all",
+   "order": 120,
+   "letters": 119,
+   "solvable": false,
+   "abelian": false,
+   "lower": 2,
+   "upper": 4,
+   "upper_construction": "perm/none",
+   "upper_H_order": 120,
+   "upper_dim": 5,
+   "h_faithful": 4,
+   "perm_law": 4,
+   "exact": false,
+   "all_passed": true,
+   "checks": [
+    {
+     "claim": {
+      "typ": "hstar_lower",
+      "group": "S5",
+      "alphabet": "all",
+      "k": 2
+     },
+     "passed": true,
+     "statement": "h*(S5, all) >= 2 (a letter of order >= 3; Lemma L4, Lean-checked); by Lemma L2 every finite-state one-layer realisation of this word problem needs at least 2 Householder factors per token.",
+     "reason": "certified lower bound h* >= 2 (Lemma L4: a letter of order >= 3 cannot lift to a reflection (a rank-1 finite-order real deviation from I has order 2)); claimed >= 2"
+    },
+    {
+     "claim": {
+      "typ": "realisation",
+      "group": "S5",
+      "alphabet": "all",
+      "k": 4,
+      "construction": "perm",
+      "twist": "none"
+     },
+     "passed": true,
+     "statement": "The perm construction is an exact one-layer realisation of the word problem of S5 with alphabet 'all' using at most 4 Householder reflections per token (certified); hence h*(S5, all) <= 4.",
+     "reason": "certified: |H| = 120, pi: H -> G onto (120 elements), consistent readout, dimension 5, field K_1, max rank(R[s] - I) = 4 <= k = 4, every letter factored into <= 4 exact reflections"
+    },
+    {
+     "claim": {
+      "typ": "h_faithful",
+      "group": "S5",
+      "alphabet": "all",
+      "value": 4
+     },
+     "passed": true,
+     "statement": "h(S5, all) = 4 over faithful real representations of S5 (own numerical character table and GAP exact agree).",
+     "reason": "h(G, Sigma) = 4 (own character table, GAP exact: 4)"
+    },
+    {
+     "claim": {
+      "typ": "diag_realisable",
+      "family": "diag_pos",
+      "group": "S5",
+      "alphabet": "all",
+      "value": false
+     },
+     "passed": true,
+     "statement": "A one-layer diag_pos recurrence cannot realise the word problem of S5 exactly (finite-state).",
+     "reason": "diag_pos realises S5: False (only the trivial group (Lemma L5: nonnegative real diagonal of finite order is I))"
+    },
+    {
+     "claim": {
+      "typ": "diag_realisable",
+      "family": "diag_pm",
+      "group": "S5",
+      "alphabet": "all",
+      "value": false
+     },
+     "passed": true,
+     "statement": "A one-layer diag_pm recurrence cannot realise the word problem of S5 exactly (finite-state).",
+     "reason": "diag_pm realises S5: False (iff G is an elementary abelian 2-group (Lemma L5))"
+    },
+    {
+     "claim": {
+      "typ": "diag_realisable",
+      "family": "cdiag",
+      "group": "S5",
+      "alphabet": "all",
+      "value": false
+     },
+     "passed": true,
+     "statement": "A one-layer cdiag recurrence cannot realise the word problem of S5 exactly (finite-state).",
+     "reason": "cdiag realises S5: False (iff G is abelian (Lemma L5))"
+    }
+   ],
+   "sec": 48.2
+  }
+ ],
+ "selftest_cases": 46
+}

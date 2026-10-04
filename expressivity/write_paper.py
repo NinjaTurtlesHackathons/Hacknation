@@ -33,7 +33,7 @@ Abstract (<= 180 words): the question (why do architectures fail at state tracki
 3 Results I (theory): Lemma L1 (machine-checked), Lemma L4 (machine-checked), Lemma L2 (hand proof), L3, Theorem 1, diagonal families (L5), abelian cover (L7); explain what is proved how.
 4 Results II (certified instances): Table 1 (appended by code); A5 with involutions (H3 cover), A5/all, S4 and A5 in the generator format of prior work, S5, Z2^3; contrast with circuit complexity.
 5 Results III (atlas): coverage, own-vs-GAP agreement, non-monotonicity of h with respect to solvability; Figure 2 and Table 3 are appended by code.
-6 Results IV (preregistered experiments): protocol, predictors, cell outcomes, accuracy of each predictor, discriminating tests with BH, negative and positive controls; Figure 1 and Table 2 are appended by code. Report learnability failures honestly.
+6 Results IV (preregistered experiments): (a) H-EX1 grid: protocol, predictors, cell outcomes, accuracy of each predictor, discriminating tests with BH, negative and positive controls; Figure 1 and Table 2. Report learnability failures honestly. (b) H-EX2 addendum: the prior work's own generator formats, Table 4; state precisely what it supports and what not (it tests a sufficiency prediction against a necessity claim of prior work under our protocol and readout).
 7 The agentic lab and the verification pipeline: scout, integrator, cascade, verifier, red team; negative rounds; loopholes found and closed; red-team bugs fixed.
 8 Limitations and open questions (finite-state assumption, token-local transitions without short convolution, one layer, exact arithmetic vs float, open intervals such as S5/all, multi-layer, chain of thought / padding as a Householder budget as a hypothesis).
 Refer to Tables 1-3 and Figures 1-2 by name only; do not write tables yourself."""
@@ -148,6 +148,23 @@ def claims():
                 f"Benjamini-Hochberg adjusted p = {fp(t['p_bh'])} (m = {len(CF['tests'])}, q = 0.1), {'significant' if t['bh_reject'] else 'not significant'}"
                 + (f"; supplementary paired permutation test on per-seed accuracies p = {fp(t['paired_perm_p'])}, ratio of mean accuracies "
                    f"{t['acc_ratio']:.2f} (paired bootstrap 95% CI {t['acc_ratio_ci95'][0]:.2f}-{t['acc_ratio_ci95'][1]:.2f})" if 'paired_perm_p' in t else "") + ".", "statistical")
+        E = CF.get("H-EX2", {})
+        if E.get("cells"):
+            add("C-X-protocol", "Preregistered addendum H-EX2 (committed before its runs, prereg.md 2026-10-04 05:00): the closest prior work's generator "
+                "formats S4/tn (a transposition and a 4-cycle) and A5/c3c5 (a 3-cycle and a 5-cycle), architectures hh1, hh2, hh3, 20 seeds each, protocol "
+                "identical to H-EX1, run on the MPS GPU; predictions: ours hh1 fails and hh2, hh3 succeed; the representation law in the permutation "
+                "representation predicts that S4/tn needs 3 and A5/c3c5 needs 4 factors.", "observed")
+            for c in E["cells"]:
+                add(f"C-X-{c['arch']}-{c['group']}-{c['alphabet']}", f"H-EX2 cell {c['arch']} on {c['group']}/{c['alphabet']}: {c['succ_primary']} of {c['n']} seeds "
+                    f"succeed at 2x-4x the longest training length ({c['succ_secondary']} of {c['n']} at 7x-8x); mean accuracy {c['mean_primary']:.3f} (chance "
+                    f"{c['chance']:.3f}); in-distribution {c['mean_indist']:.3f}; outcome {'success' if c['outcome'] else 'failure'}; predicted by us: "
+                    f"{'success' if c['pred_ALG'] else 'failure'}; predicted by the permutation-representation law: {'success' if c['pred_B4'] else 'failure'}.", "statistical")
+            for t in E["tests"]:
+                add(f"C-X-{t['test']}", f"H-EX2 test {t['test']} (one-sided Fisher exact): {t['cell']} vs {t['control']}, successful seeds {t['succ']}, p = {fp(t['p'])}, "
+                    f"BH-adjusted p = {fp(t['p_bh'])} (m = 3, q = 0.1), {'significant' if t['bh_reject'] else 'not significant'}; supplementary paired permutation "
+                    f"p = {fp(t['paired_perm_p'])}, accuracy ratio {t['acc_ratio']:.2f} (95% CI {t['acc_ratio_ci95'][0]:.2f}-{t['acc_ratio_ci95'][1]:.2f}).", "statistical")
+            add("C-X-result", f"H-EX2 outcome: our predictor matches {E['accuracy']['ALG']} of {len(E['cells'])} cells, the permutation-representation law "
+                f"matches {E['accuracy']['B4']} of {len(E['cells'])}; preregistered success criterion of H-EX2: {E['success']}.", "statistical")
         g = CF["gates"]
         add("C-H-gates", f"Preregistered success criteria: accuracy beats every baseline: {g['H-EX1.1_accuracy_beats_all_baselines']}; all six "
             f"discriminating tests significant after BH: {g['H-EX1.2_discriminating_tests_BH']}; negative control clean: {g['negative_control_clean']}; "
@@ -158,7 +175,9 @@ def claims():
         for c in s["claims"]:
             p = c.get("pruefung") or {}
             ok, why, _ = D.check(p)
-            ans = {"antwort": c.get("interpretation_ungeprueft"), "pruefungen": [p]}
+            interp = str(c.get("interpretation_ungeprueft"))
+            # the question decides what a number refers to: if it asks about h*, a value backed only by h (faithful) does not answer it
+            ans = {"antwort": interp + (" [answer to a question about h*]" if "h*" in c["frage"] else ""), "pruefungen": [p]}
             cons = D.consistent(ans, p)
             if not ok:
                 withdrawn += 1
@@ -264,6 +283,14 @@ def tables():
         sym = {True: "+", False: "-", None: "?"}
         for g, a in tasks:
             out.append(f"| {g}/{a} | " + " | ".join((f"{idx[(ar, g, a)]['succ_primary']} {sym[idx[(ar, g, a)]['pred']['ALG']]}" if (ar, g, a) in idx else "n/a") for ar in archs) + " |")
+    if os.path.exists(f"{R}/confirmatory.json") and json.load(open(f"{R}/confirmatory.json")).get("H-EX2", {}).get("cells"):
+        E = json.load(open(f"{R}/confirmatory.json"))["H-EX2"]
+        out.append("\n**Table 4.** Preregistered addendum H-EX2: the generator formats of the closest prior work. Successful seeds of 20 at 2x-4x "
+                   "(7x-8x); predicted outcome by our law (h* = 2 for both tasks) and by the permutation-representation law. Claims [C-X-*].\n")
+        out.append("| task | model | seeds 2x-4x | seeds 7x-8x | ours | permutation law |\n|---|---|---|---|---|---|")
+        for c in E["cells"]:
+            out.append(f"| {c['group']}/{c['alphabet']} | {c['arch']} | {c['succ_primary']} | {c['succ_secondary']} | {'success' if c['pred_ALG'] else 'failure'} | "
+                       f"{'success' if c['pred_B4'] else 'failure'} |")
     if os.path.exists(f"{R}/atlas.json"):
         A = json.load(open(f"{R}/atlas.json")); rows = A["rows"]
         out.append(f"\n**Table 3.** Atlas, all {A['summary']['groups']} groups of order <= {A['summary']['N']}, full alphabet. Claims [C-atlas*].\n")
@@ -309,24 +336,28 @@ def figures(outdir):
     if os.path.exists(f"{R}/atlas.json"):
         rows = [r for r in json.load(open(f"{R}/atlas.json"))["rows"] if not r.get("abelian", True)]
         fig, ax = plt.subplots(figsize=(5.4, 3.2), dpi=200); fig.patch.set_facecolor(surf); ax.set_facecolor(surf)
-        rng = np.random.default_rng(0)
+        from collections import Counter
         for solv, col, lab in [(True, "#2a78d6", "solvable non-abelian"), (False, "#eb6834", "non-solvable (A5)")]:
-            rr = [r for r in rows if r.get("solvable") == solv]
-            ax.scatter([r["order"] for r in rr], [r["h"] + rng.uniform(-0.12, 0.12) for r in rr], s=18 if solv else 60, color=col, edgecolor=surf,
-                       linewidth=1.2, label=lab, zorder=3 if not solv else 2, marker="o" if solv else "D")
+            cnt = Counter((r["order"], r["h"]) for r in rows if r.get("solvable") == solv)
+            xs = [k[0] for k in cnt]; ys = [k[1] for k in cnt]; ss = [14 + 14 * (v - 1) for v in cnt.values()]
+            ax.scatter(xs, ys, s=ss if solv else [70] * len(xs), color=col, edgecolor=surf, linewidth=1.2, label=lab,
+                       zorder=3 if not solv else 2, marker="o" if solv else "D")
         a5 = next((r for r in rows if not r.get("solvable", True)), None)
-        if a5: ax.annotate("A5: h = h* = 2", (a5["order"], a5["h"]), xytext=(-70, 22), textcoords="offset points", fontsize=7.5, color=ink,
+        if a5: ax.annotate("A5 (non-solvable): h = h* = 2", (a5["order"], a5["h"]), xytext=(-150, -20), textcoords="offset points", fontsize=7.5, color=ink,
                            arrowprops=dict(arrowstyle="-", color=muted, lw=0.8))
         ax.axhline(2, color=muted, lw=0.8, ls=(0, (3, 3)), zorder=1)
-        ax.text(1, 2.1, "lower bound for every group with an element of order >= 3 (Lemma L4)", fontsize=6.5, color=muted)
+        ax.set_ylim(0.7, 10.6); ax.set_yticks(range(2, 11))
+        ax.text(3, 1.6, "dashed: lower bound 2 (Lemma L4, Lean)", fontsize=6.5, color=muted)
         ax.set_xlabel("group order", fontsize=8, color=muted); ax.set_ylabel("faithful h (Householders per token)", fontsize=8, color=muted)
         for sp in ("top", "right"): ax.spines[sp].set_visible(False)
         for sp in ("left", "bottom"): ax.spines[sp].set_color("#c9c8c3")
         ax.tick_params(colors=muted, labelsize=7); ax.grid(axis="y", color="#ecebe7", lw=0.6, zorder=0)
-        ax.legend(fontsize=7, frameon=False, loc="upper left")
+        from matplotlib.lines import Line2D
+        ax.legend(handles=[Line2D([], [], marker="o", ls="", color="#2a78d6", markersize=6, label="solvable non-abelian (area = number of groups)"),
+                           Line2D([], [], marker="D", ls="", color="#eb6834", markersize=6, label="non-solvable (A5)")], fontsize=7, frameon=False, loc="upper left")
         ax.set_title("Householder cost is not ordered by circuit complexity", fontsize=8.5, color=ink, loc="left")
         fig.tight_layout(); p = f"{outdir}/fig_atlas"; fig.savefig(p + ".pdf"); fig.savefig(p + ".png"); plt.close(fig)
-        figs.append(("fig_atlas", "Figure 2. Atlas of all non-abelian groups of order at most 63: faithful h (jittered vertically) against group order. "
+        figs.append(("fig_atlas", "Figure 2. Atlas of all non-abelian groups of order at most 63: faithful h against group order (dot area = number of groups with that order and h). "
                      "The only non-solvable group, A5, sits at the minimum value 2 while most solvable groups need more. Claims [C-atlas-monotone], [C-atlas-nonsolvable]."))
     return figs
 
@@ -360,6 +391,25 @@ def tables_tex(tab):
     flush(); return "\n".join(out)
 
 
+def protect_hstar(md):
+    """Outside inline math, write h* as $h^*$ so that Markdown does not read the asterisk as emphasis."""
+    parts = re.split(r"(\$[^$]+\$)", md)
+    return "".join(p if p.startswith("$") else re.sub(r"\bh\*", r"$h^*$", p) for p in parts)
+
+
+def pdf_via_pandoc(md_path, authors, affiliation):
+    """PDF export with Pandoc + XeLaTeX (skill rigorous-innovation section 5: "PDF per Pandoc"); also writes paper.tex."""
+    d = os.path.dirname(md_path); md = open(md_path).read()
+    body = md.split("\n", 3)[3] if md.startswith("# ") else md          # title and author line come from the YAML header
+    yaml = ("---\n" f"title: \"{TITLE}\"\n" f"author: \"{authors} ({affiliation})\"\n" "date: \"Preprint, 4 October 2026\"\n"
+            "mainfont: \"STIX Two Text\"\nmathfont: \"STIX Two Math\"\nfontsize: 10pt\ngeometry: margin=2cm\nlinkcolor: blue\n"
+            "header-includes:\n  - \\usepackage{etoolbox}\n  - \\AtBeginEnvironment{longtable}{\\scriptsize}\n---\n\n")
+    open(f"{d}/paper_pandoc.md", "w").write(yaml + protect_hstar(body))
+    for out in ("paper.tex", "paper.pdf"):
+        r = subprocess.run(["pandoc", "paper_pandoc.md", "-s", "-o", out, "--pdf-engine=xelatex", "--resource-path=."], cwd=d, capture_output=True, text=True)
+        if r.returncode: print("pandoc", out, r.stderr[-1500:])
+
+
 def renumber(md):
     for kind in ("Proposition", "Observation", "Conjecture", "Statistical finding"):
         n = max([int(x) for x in re.findall(rf"\*\*{kind} (\d+)", md)], default=0)
@@ -386,14 +436,8 @@ def main():
              f"from expressivity/results/.")
     figmd = "".join(f"\n\n![{cap}]({name}.png)\n\n*{cap}*\n" for name, cap in figs)
     open(f"{PROJ}/paper.md", "w").write(f"# {TITLE}\n\n{a.authors}, {a.affiliation}\n\n{md}{figmd}\n\n## Tables\n\n{tab}{proto}\n")
-    tex = to_tex(tex_safe(md + "\n\n" + proto), TITLE, a.authors, a.affiliation).replace("[ngerman]{babel}", "[english]{babel}")
-    tex = tex.replace("\\item [", "\\item {}[").replace(r"\usepackage{hyperref}", r"\usepackage{graphicx}\usepackage{hyperref}")
-    figtex = "".join("\\begin{figure*}[t]\\centering\\includegraphics[width=0.8\\textwidth]{" + name + ".pdf}\\caption{" + tex_safe(cap.split('. ', 1)[1]).replace("*]", "\\textasteriskcentered]") + "}\\end{figure*}\n" for name, cap in figs)
-    tex = tex.replace("\\end{document}", figtex + tables_tex(tab) + "\n\\end{document}")
-    open(f"{PROJ}/paper.tex", "w").write(tex)
+    pdf_via_pandoc(f"{PROJ}/paper.md", a.authors, a.affiliation)
     json.dump({"claims": C, "log": log, "errata": errata, "remaining": [list(x) for x in rest]}, open(f"{PROJ}/paper_evidence.json", "w"), indent=1)
-    if shutil.which("pdflatex"):
-        for _ in range(2): subprocess.run(["pdflatex", "-interaction=nonstopmode", "paper.tex"], cwd=PROJ, capture_output=True)
     print(f"{PROJ}/paper.md" + proto)
 
 
