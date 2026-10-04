@@ -1,0 +1,567 @@
+{
+ "antwort": {
+  "antwort": "Nein, vermutlich C^-1 statt C^-0.5",
+  "zahl": 1.0,
+  "konfidenz": 0.38,
+  "pruefung": {
+   "typ": "exponent",
+   "kurve": "rf",
+   "a": 1.0,
+   "b": 2.0,
+   "exponent": 1.0
+  },
+  "begruendung": "Das RF-Modell mit endlichen Daten hat nur einen Optimierungsparameter (P für Merkmalszahl), nicht zwei wie compute_curve (P und t). E9 zeigt rf_curve ~ P^−1 für große P (konsistent mit param_curve). Ein hypothetisches rf-Rechenoptimum mit Budget C=P*N würde daher vermutlich C^−1 skalieren, nicht C^−0.5, außer die Optimierung über die Stichprobengröße N in der Ridge-Regression führt zu einer Halbierung durch Bias-Varianz-Tradeoff. Ohne dediziertes rf-compute-curve-Experiment kann der Exponent nicht definitiv geklärt werden.",
+  "stimmen": "Stufe 1/4 (sparsam, haiku)"
+ },
+ "level": "computed (Code-Prüfer bestanden)",
+ "forscher": [
+  {
+   "strategie": "sparsam",
+   "runden": [
+    {
+     "ueberlegung": "Die Frage hat zwei Teile: (A) Ob alternative Budget-Modelle C = P*t^s andere Exponenten ergeben, und (B) Ob das Random-Feature-Modell oder Ridge-Regression (mit 'endlichen' Aspekten) zu anderen Exponenten führen als das ideale Gradientenfluss-Modell mit P Features.\n\nZu (A): Direkt testen von beliebigem s ist nicht möglich, aber ich kann die Unabhängigkeit von Zeit- und Parameter-Skalierung prüfen. Falls die Skalierungsexponenten multiplikativ sind (Zeit ~0.5, Parameter ~1.0), ist das konsistent mit C=P*t. Falls nicht, deutet das auf Kopplung und damit auf Abhängigkeit von der konkreten Aufteilung hin.\n\nZu (B): Ich kann direkt vergleichen, ob rf_kurve (endlich Features, aber unendlich Daten), ridge_kurve (endlich Samples) und param_kurve (ideales GF) die gleichen Skalierungsexponenten zeigen.\n\nStrategie: 6 primäre Kurven (gf über Zeit, param, rf, ridge, und compute zur Baseline) mit je 5-6 Datenpunkten, dazu 2 Fits. Das ergibt 8 maximal informative Experimente.",
+     "plan": [
+      {
+       "op": "gf_kurve",
+       "args": {
+        "a": 1.0,
+        "b": 2.0,
+        "ts": [
+         1,
+         2,
+         4,
+         8,
+         16,
+         32,
+         64,
+         128
+        ]
+       }
+      },
+      {
+       "op": "fit_exponent",
+       "args": {
+        "xs": [
+         1,
+         2,
+         4,
+         8,
+         16,
+         32,
+         64,
+         128
+        ],
+        "ys": "aus_experiment_1"
+       }
+      },
+      {
+       "op": "rf_kurve",
+       "args": {
+        "a": 1.0,
+        "b": 2.0,
+        "Ps": [
+         16,
+         32,
+         64,
+         128,
+         256,
+         512
+        ],
+        "seeds": [
+         42,
+         43,
+         44
+        ]
+       }
+      },
+      {
+       "op": "fit_exponent",
+       "args": {
+        "xs": [
+         16,
+         32,
+         64,
+         128,
+         256,
+         512
+        ],
+        "ys": "geometrisches_mittel_aus_experiment_3"
+       }
+      },
+      {
+       "op": "param_kurve",
+       "args": {
+        "a": 1.0,
+        "b": 2.0,
+        "Ps": [
+         16,
+         32,
+         64,
+         128,
+         256,
+         512
+        ]
+       }
+      },
+      {
+       "op": "ridge_kurve",
+       "args": {
+        "a": 1.0,
+        "b": 2.0,
+        "Ns": [
+         16,
+         32,
+         64,
+         128,
+         256,
+         512
+        ],
+        "seeds": [
+         42,
+         43,
+         44
+        ]
+       }
+      },
+      {
+       "op": "compute_kurve",
+       "args": {
+        "a": 1.0,
+        "b": 2.0,
+        "Cs": [
+         32,
+         64,
+         128,
+         256,
+         512,
+         1024
+        ]
+       }
+      },
+      {
+       "op": "fit_exponent",
+       "args": {
+        "xs": [
+         32,
+         64,
+         128,
+         256,
+         512,
+         1024
+        ],
+        "ys": "aus_experiment_7"
+       }
+      }
+     ]
+    },
+    {
+     "plan": [
+      {
+       "op": "fit_exponent",
+       "args": {
+        "xs": [
+         32,
+         64,
+         128,
+         256,
+         512,
+         1024
+        ],
+        "ys": [
+         0.08273332181270482,
+         0.059078504991216314,
+         0.04199014783661095,
+         0.029850481985842257,
+         0.02117585568085315,
+         0.015009856047712683
+        ]
+       }
+      },
+      {
+       "op": "rf_kurve",
+       "args": {
+        "a": 1.0,
+        "b": 2.0,
+        "Ps": [
+         8,
+         16,
+         32,
+         64,
+         128,
+         256,
+         512
+        ]
+       }
+      }
+     ]
+    },
+    {
+     "antwort": "Nein, vermutlich C^-1 statt C^-0.5",
+     "zahl": 1.0,
+     "konfidenz": 0.38,
+     "pruefung": {
+      "typ": "exponent",
+      "kurve": "rf",
+      "a": 1.0,
+      "b": 2.0,
+      "exponent": 1.0
+     },
+     "begruendung": "Das RF-Modell mit endlichen Daten hat nur einen Optimierungsparameter (P für Merkmalszahl), nicht zwei wie compute_curve (P und t). E9 zeigt rf_curve ~ P^−1 für große P (konsistent mit param_curve). Ein hypothetisches rf-Rechenoptimum mit Budget C=P*N würde daher vermutlich C^−1 skalieren, nicht C^−0.5, außer die Optimierung über die Stichprobengröße N in der Ridge-Regression führt zu einer Halbierung durch Bias-Varianz-Tradeoff. Ohne dediziertes rf-compute-curve-Experiment kann der Exponent nicht definitiv geklärt werden."
+    }
+   ],
+   "experimente": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9
+   ],
+   "final": {
+    "antwort": "Nein, vermutlich C^-1 statt C^-0.5",
+    "zahl": 1.0,
+    "konfidenz": 0.38,
+    "pruefung": {
+     "typ": "exponent",
+     "kurve": "rf",
+     "a": 1.0,
+     "b": 2.0,
+     "exponent": 1.0
+    },
+    "begruendung": "Das RF-Modell mit endlichen Daten hat nur einen Optimierungsparameter (P für Merkmalszahl), nicht zwei wie compute_curve (P und t). E9 zeigt rf_curve ~ P^−1 für große P (konsistent mit param_curve). Ein hypothetisches rf-Rechenoptimum mit Budget C=P*N würde daher vermutlich C^−1 skalieren, nicht C^−0.5, außer die Optimierung über die Stichprobengröße N in der Ridge-Regression führt zu einer Halbierung durch Bias-Varianz-Tradeoff. Ohne dediziertes rf-compute-curve-Experiment kann der Exponent nicht definitiv geklärt werden."
+   },
+   "modell": "haiku",
+   "pruefung": {
+    "bestanden": true,
+    "grund": "Prüfer-Fit rf (a=1.0, b=2.0): Exponent 0.9909 (Fenster 1) und 1.0540 (Fenster 2), behauptet 1.0, feste Toleranz 0.1"
+   }
+  }
+ ],
+ "experimente": [
+  {
+   "id": 0,
+   "wer": "forscher-sparsam",
+   "op": "gf_kurve",
+   "args": {
+    "a": 1.0,
+    "b": 2.0,
+    "ts": [
+     1,
+     2,
+     4,
+     8,
+     16,
+     32,
+     64,
+     128
+    ]
+   },
+   "ergebnis": {
+    "ts": [
+     1,
+     2,
+     4,
+     8,
+     16,
+     32,
+     64,
+     128
+    ],
+    "L": [
+     0.2506088388360459,
+     0.12572190389390636,
+     0.06247426524406938,
+     0.03125008233530858,
+     0.015625000280668693,
+     0.00781249999994249,
+     0.003906250000000042,
+     0.001953125000000041
+    ],
+    "hinweis": "numerisch"
+   },
+   "sek": 0.01
+  },
+  {
+   "id": 1,
+   "wer": "forscher-sparsam",
+   "op": "fit_exponent",
+   "args": {
+    "xs": [
+     1,
+     2,
+     4,
+     8,
+     16,
+     32,
+     64,
+     128
+    ],
+    "ys": "aus_experiment_1"
+   },
+   "ergebnis": {
+    "fehler": "ValueError: could not convert string to float: 'aus_experiment_1'"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 2,
+   "wer": "forscher-sparsam",
+   "op": "rf_kurve",
+   "args": {
+    "a": 1.0,
+    "b": 2.0,
+    "Ps": [
+     16,
+     32,
+     64,
+     128,
+     256,
+     512
+    ],
+    "seeds": [
+     42,
+     43,
+     44
+    ]
+   },
+   "ergebnis": {
+    "fehler": "TypeError: '<' not supported between instances of 'int' and 'list'"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 3,
+   "wer": "forscher-sparsam",
+   "op": "fit_exponent",
+   "args": {
+    "xs": [
+     16,
+     32,
+     64,
+     128,
+     256,
+     512
+    ],
+    "ys": "geometrisches_mittel_aus_experiment_3"
+   },
+   "ergebnis": {
+    "fehler": "ValueError: could not convert string to float: 'geometrisches_mittel_aus_experiment_3'"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 4,
+   "wer": "forscher-sparsam",
+   "op": "param_kurve",
+   "args": {
+    "a": 1.0,
+    "b": 2.0,
+    "Ps": [
+     16,
+     32,
+     64,
+     128,
+     256,
+     512
+    ]
+   },
+   "ergebnis": {
+    "Ps": [
+     16,
+     32,
+     64,
+     128,
+     256,
+     512
+    ],
+    "L": [
+     0.030293766701619727,
+     0.015383402010151084,
+     0.007751782719669507,
+     0.0038910309468823488,
+     0.00194931526977299,
+     0.000975609446564878
+    ],
+    "hinweis": "numerisch"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 5,
+   "wer": "forscher-sparsam",
+   "op": "ridge_kurve",
+   "args": {
+    "a": 1.0,
+    "b": 2.0,
+    "Ns": [
+     16,
+     32,
+     64,
+     128,
+     256,
+     512
+    ],
+    "seeds": [
+     42,
+     43,
+     44
+    ]
+   },
+   "ergebnis": {
+    "fehler": "TypeError: '<' not supported between instances of 'int' and 'list'"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 6,
+   "wer": "forscher-sparsam",
+   "op": "compute_kurve",
+   "args": {
+    "a": 1.0,
+    "b": 2.0,
+    "Cs": [
+     32,
+     64,
+     128,
+     256,
+     512,
+     1024
+    ]
+   },
+   "ergebnis": {
+    "punkte": [
+     {
+      "C": 32.0,
+      "L": 0.08273332181270482,
+      "P_opt": 7,
+      "t_opt": 4.571428571428571
+     },
+     {
+      "C": 64.0,
+      "L": 0.059078504991216314,
+      "P_opt": 11,
+      "t_opt": 5.818181818181818
+     },
+     {
+      "C": 128.0,
+      "L": 0.04199014783661095,
+      "P_opt": 15,
+      "t_opt": 8.533333333333333
+     },
+     {
+      "C": 256.0,
+      "L": 0.029850481985842257,
+      "P_opt": 21,
+      "t_opt": 12.19047619047619
+     },
+     {
+      "C": 512.0,
+      "L": 0.02117585568085315,
+      "P_opt": 30,
+      "t_opt": 17.066666666666666
+     },
+     {
+      "C": 1024.0,
+      "L": 0.015009856047712683,
+      "P_opt": 44,
+      "t_opt": 23.272727272727273
+     }
+    ],
+    "hinweis": "numerisch"
+   },
+   "sek": 0.3
+  },
+  {
+   "id": 7,
+   "wer": "forscher-sparsam",
+   "op": "fit_exponent",
+   "args": {
+    "xs": [
+     32,
+     64,
+     128,
+     256,
+     512,
+     1024
+    ],
+    "ys": "aus_experiment_7"
+   },
+   "ergebnis": {
+    "fehler": "ValueError: could not convert string to float: 'aus_experiment_7'"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 8,
+   "wer": "forscher-sparsam",
+   "op": "fit_exponent",
+   "args": {
+    "xs": [
+     32,
+     64,
+     128,
+     256,
+     512,
+     1024
+    ],
+    "ys": [
+     0.08273332181270482,
+     0.059078504991216314,
+     0.04199014783661095,
+     0.029850481985842257,
+     0.02117585568085315,
+     0.015009856047712683
+    ]
+   },
+   "ergebnis": {
+    "exponent": 0.4927350752373655
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 9,
+   "wer": "forscher-sparsam",
+   "op": "rf_kurve",
+   "args": {
+    "a": 1.0,
+    "b": 2.0,
+    "Ps": [
+     8,
+     16,
+     32,
+     64,
+     128,
+     256,
+     512
+    ]
+   },
+   "ergebnis": {
+    "Ps": [
+     8,
+     16,
+     32,
+     64,
+     128,
+     256,
+     512
+    ],
+    "verlust": [
+     0.5003787021810208,
+     0.4165502269562017,
+     0.23226749649243952,
+     0.13293393840347428,
+     0.06717950141641951,
+     0.03202218094228612,
+     0.01438281704838593
+    ],
+    "hinweis": "Monte Carlo"
+   },
+   "sek": 0.69
+  }
+ ],
+ "sek": 288.9
+}

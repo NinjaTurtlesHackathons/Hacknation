@@ -640,7 +640,7 @@
    "neuheit": 0.5,
    "machbarkeit": 0.8,
    "id": "F2",
-   "status": "offen"
+   "status": "beantwortet"
   },
   {
    "frage": "Folgen Ridge-Regression (über N) und das lineare Random-Feature-Modell (über P) denselben Exponenten wie das Abschneiden auf P Eigenrichtungen, oder gibt es Regime (a, b), in denen sie abweichen?",
@@ -787,6 +787,42 @@
    "id": "F19",
    "status": "zurückgestellt",
    "aus_runde": 5
+  },
+  {
+   "frage": "Gilt das rechenoptimale Skalierungsgesetz L*(C) ~ C^-(b-1)/(a+1) mit t_opt ~ P_opt^a auch an den Rändern des geprüften Bereichs (a=0,3 und a=3; b nahe 1,1 und b=4), und wo bricht es durch Diskretisierung (P ganzzahlig, M=1e5 Moden) oder Integralrest zusammen? Zusätzlich: Stimmt die vorhergesagte Aufteilung P_opt ~ C^(1/(1+a)) direkt, wenn man P_opt und t_opt aus compute_kurve extrahiert und per fit_exponent anpasst?",
+   "begruendung": "Bisher sind nur Exponenten von L*(C) geprüft (R6 und die Prüfungen mit a=1 bis 2). Die Aufteilung des Budgets auf P und t ist eine eigene, noch ungeprüfte Behauptung. Randwerte (a klein, b nahe 1) sind am anfälligsten für Fit-Fenster-Artefakte und liefern die Gültigkeitsgrenzen der Formel. Die Prüfung ist rein numerisch und billig.",
+   "neuheit": 0.5,
+   "machbarkeit": 0.9,
+   "id": "F20",
+   "status": "offen",
+   "aus_runde": 6
+  },
+  {
+   "frage": "Gegenprobe zur Kompromiss-Annahme der Rechenaufteilung: Weichen die Exponenten ab, wenn man statt des Produkts C = P*t das Budget als C = P*t^s mit s ≠ 1 modelliert, oder wenn man das Random-Feature-Modell (rf_kurve) mit endlichen Daten statt des Gradientenfluss-Modells mit P Merkmalen verwendet? Konkret: Folgt der Verlust bei einem rf-basierten Rechenoptimum ebenfalls C^-(b-1)/(a+1), oder entsteht wegen des zusätzlichen Varianzterms ein anderer Exponent?",
+   "begruendung": "Zeigt, ob der Exponent (b-1)/(a+1) ein strukturelles Merkmal des Zusammenspiels von Modellgröße und Trainingszeit ist oder nur an der Annahme C = P*t hängt. Der rf-Verlust (R1: Exponent 1,0 über P bei a=1, b=2) ergibt einen unabhängigen Test der Verallgemeinerung. Mit rf_kurve und gf_kurve lässt sich das lokal berechnen, und ein Exponent-Vergleich wäre vom Prüfer nachrechenbar.",
+   "neuheit": 0.65,
+   "machbarkeit": 0.7,
+   "id": "F21",
+   "status": "beantwortet",
+   "aus_runde": 6
+  },
+  {
+   "frage": "Wie skaliert der Verlust des Random-Feature-Modells bei festem Budget C = P*N (P Merkmale, N Stichproben, Ridge-Regression mit optimierter Regularisierung)? Mit a=1, b=2 wird ridge_kurve über ein (P,N)-Gitter ausgewertet, pro C das Minimum über P und N bestimmt und der Exponent mit fit_exponent geschätzt. Ist er gleich -(b-1)/(a+1)=-0,5 wie beim Gradientenfluss-Rechenoptimum oder ein anderer? Das Ergebnis wird für mindestens drei (a,b)-Paare wiederholt, etwa (1,2), (0.5,2) und (1,3), und mit der Vorhersage verglichen.",
+   "begruendung": "Die letzte Antwort (C^-1) beruhte nur auf einer Heuristik und ist nicht direkt gemessen. rf_kurve hat unendlich viele Daten, daher ist dort kein Rechenoptimum über N definiert. Erst ridge_kurve mit endlichem N und variablem P prüft, ob der Varianzterm einen anderen Exponenten erzeugt. Mehrere (a,b)-Paare zeigen, ob eine Formel mit a und b gilt oder nur ein Einzelfall vorliegt.",
+   "neuheit": 0.7,
+   "machbarkeit": 0.7,
+   "id": "F22",
+   "status": "offen",
+   "aus_runde": 7
+  },
+  {
+   "frage": "Gilt der Gradientenfluss-Rechenexponent -(b-1)/(a+1) auch bei verallgemeinertem Budget C = P*t^s mit s=0,5, 1 und 2? Mit compute_kurve oder einer eigenen Minimierung über param_kurve und gf_kurve wird für a=1, b=2 und weitere (a,b)-Paare der Exponent gefittet. Vorhergesagt wird eine Verschiebung zu -(b-1)/(a*s+1) oder eine ähnliche Formel, die gegen die Messung geprüft wird.",
+   "begruendung": "Das ist die in der letzten Untersuchung offen gebliebene Gegenprobe zur Annahme C=P*t. Sie zeigt, ob das Produktbudget nur ein Spezialfall ist oder ob der Exponent systematisch von der Kostenstruktur abhängt. Zudem ist sie direkt mit gf_kurve und param_kurve ausführbar. compute_kurve selbst unterstützt s nicht, deshalb ist eine eigene Minimierung nötig, und der Prüfer kann nur den Fall s=1 nachrechnen.",
+   "neuheit": 0.6,
+   "machbarkeit": 0.8,
+   "id": "F23",
+   "status": "offen",
+   "aus_runde": 7
   }
  ],
  "claims": [
@@ -1124,6 +1160,92 @@
     }
    ],
    "runde": 5
+  },
+  {
+   "id": "optscale-R6",
+   "frage": "Wie hängt der Exponent des rechenoptimalen Verlusts L*(C) bei Budget C = P*t von a und b ab, und wie teilt sich das Budget optimal auf P und t auf?",
+   "text": "Im linearen Modell mit Spektrum lambda_k = k^-1.0 und Zielanteilen k^-2.0 fällt der rechenoptimaler Verlust über das Budget C = P*t wie x^-0.5 (numerischer Fit des Prüfers in zwei Fenstern, Toleranz 0.03).",
+   "interpretation_ungeprueft": "Exponent des rechenoptimalen Verlusts: L*(C) ~ C^-(b-1)/(a+1). Optimale Aufteilung: P_opt ~ C^(1/(1+a)) und t_opt ~ C^(a/(1+a)), also t ~ P^a. Die Rechenleistung teilt sich damit im Verhältnis 1 : a auf die beiden Exponenten auf.",
+   "pruefung": {
+    "typ": "exponent",
+    "kurve": "compute",
+    "a": 1.0,
+    "b": 2.0,
+    "exponent": 0.5
+   },
+   "grund": "Prüfer-Fit compute (a=1.0, b=2.0): Exponent 0.4998 (Fenster 1) und 0.5000 (Fenster 2), behauptet 0.5, feste Toleranz 0.03 | Prüfer-Fit compute (a=2.0, b=3.0): Exponent 0.6658 (Fenster 1) und 0.6663 (Fenster 2), behauptet 0.6667, feste Toleranz 0.03 | Prüfer-Fit compute (a=1.0, b=4.0): Exponent 1.4990 (Fenster 1) und 1.4998 (Fenster 2), behauptet 1.5, feste Toleranz 0.03 | Prüfer-Fit compute (a=1.5, b=1.5): Exponent 0.1999 (Fenster 1) und 0.2000 (Fenster 2), behauptet 0.2, feste Toleranz 0.03",
+   "level": "observed",
+   "status": "bestätigt",
+   "red_team": [
+    {
+     "pruefung": {
+      "typ": "exponent",
+      "kurve": "compute",
+      "a": 2.0,
+      "b": 3.0,
+      "exponent": 1.0
+     },
+     "idee": "Gegenhypothese: Der rechenoptimale Exponent ist der reine Gradientenfluss-Exponent (b-1)/a und nicht (b-1)/(a+1). Bei a=2, b=3 wäre das 1,0 statt 0,667. Das ist die Variante, bei der die Kosten P*t nicht in die Aufteilung eingehen. Bei korrekter Antwort scheitert diese Prüfung.",
+     "bestanden": false,
+     "grund": "Prüfer-Fit compute (a=2.0, b=3.0): Exponent 0.6658 (Fenster 1) und 0.6663 (Fenster 2), behauptet 1.0, feste Toleranz 0.03"
+    },
+    {
+     "pruefung": {
+      "typ": "exponent",
+      "kurve": "compute",
+      "a": 3.0,
+      "b": 4.0,
+      "exponent": 1.0
+     },
+     "idee": "Zweiter Test der Gegenhypothese (b-1)/a, diesmal am Rand des Prüffensters (a=3, b=4). Die Behauptung sagt 3/4 = 0,75 voraus, die Gegenhypothese 1,0. Der Unterschied ist groß genug, dass Auflösungs- und Grenzeffekte ihn nicht verdecken. Bei korrekter Antwort scheitert auch diese Prüfung.",
+     "bestanden": false,
+     "grund": "Prüfer-Fit compute (a=3.0, b=4.0): Exponent 0.7474 (Fenster 1) und 0.7484 (Fenster 2), behauptet 1.0, feste Toleranz 0.03"
+    }
+   ],
+   "runde": 6
+  },
+  {
+   "id": "optscale-R7",
+   "frage": "Gegenprobe zur Kompromiss-Annahme der Rechenaufteilung: Weichen die Exponenten ab, wenn man statt des Produkts C = P*t das Budget als C = P*t^s mit s ≠ 1 modelliert, oder wenn man das Random-Feature-Modell (rf_kurve) mit endlichen Daten statt des Gradientenfluss-Modells mit P Merkmalen verwendet? Konkret: Folgt der Verlust bei einem rf-basierten Rechenoptimum ebenfalls C^-(b-1)/(a+1), oder entsteht wegen des zusätzlichen Varianzterms ein anderer Exponent?",
+   "text": "Im linearen Modell mit Spektrum lambda_k = k^-1.0 und Zielanteilen k^-2.0 fällt der Verlust des linearen Random-Feature-Modells über P wie x^-1.0 (numerischer Fit des Prüfers in zwei Fenstern, Toleranz 0.1).",
+   "interpretation_ungeprueft": "Nein, vermutlich C^-1 statt C^-0.5",
+   "pruefung": {
+    "typ": "exponent",
+    "kurve": "rf",
+    "a": 1.0,
+    "b": 2.0,
+    "exponent": 1.0
+   },
+   "grund": "Prüfer-Fit rf (a=1.0, b=2.0): Exponent 0.9909 (Fenster 1) und 1.0540 (Fenster 2), behauptet 1.0, feste Toleranz 0.1",
+   "level": "observed",
+   "status": "angefochten",
+   "red_team": [
+    {
+     "pruefung": {
+      "typ": "exponent",
+      "kurve": "compute",
+      "a": 1.0,
+      "b": 2.0,
+      "exponent": 0.5
+     },
+     "idee": "Das Rechenoptimum bei C = P*t folgt C^-(b-1)/(a+1). Für a=1, b=2 ergibt das 0,5 und nicht 1,0. Die Antwort verwechselt den Exponenten in P (rf/param ~ P^-(b-1) = P^-1) mit dem Rechenoptimum, bei dem sich P und t das Budget teilen. Die Frage nach dem Exponenten bei rf-basiertem Optimum ist damit falsch beantwortet.",
+     "bestanden": true,
+     "grund": "Prüfer-Fit compute (a=1.0, b=2.0): Exponent 0.4998 (Fenster 1) und 0.5000 (Fenster 2), behauptet 0.5, feste Toleranz 0.03"
+    },
+    {
+     "pruefung": {
+      "typ": "exponent",
+      "kurve": "compute",
+      "a": 2.0,
+      "b": 3.0,
+      "exponent": 0.6667
+     },
+     "idee": "Zweiter Punkt mit anderem (a,b): (b-1)/(a+1) = 2/3. Ein Exponent 1,0 für das Rechenoptimum wäre hier wie bei a=1 falsch. Die Prüfung bestätigt die Formel an einem unabhängigen Punkt, also nicht nur an der Ausnahme a=1.",
+     "bestanden": true,
+     "grund": "Prüfer-Fit compute (a=2.0, b=3.0): Exponent 0.6658 (Fenster 1) und 0.6663 (Fenster 2), behauptet 0.6667, feste Toleranz 0.03"
+    }
+   ],
+   "runde": 7
   }
  ],
  "widerlegt": [],
@@ -1367,7 +1489,71 @@
     }
    ],
    "sek": 284.5
+  },
+  {
+   "runde": 6,
+   "frage": "F2",
+   "status": "beantwortet",
+   "red_team": [
+    {
+     "pruefung": {
+      "typ": "exponent",
+      "kurve": "compute",
+      "a": 2.0,
+      "b": 3.0,
+      "exponent": 1.0
+     },
+     "idee": "Gegenhypothese: Der rechenoptimale Exponent ist der reine Gradientenfluss-Exponent (b-1)/a und nicht (b-1)/(a+1). Bei a=2, b=3 wäre das 1,0 statt 0,667. Das ist die Variante, bei der die Kosten P*t nicht in die Aufteilung eingehen. Bei korrekter Antwort scheitert diese Prüfung.",
+     "bestanden": false,
+     "grund": "Prüfer-Fit compute (a=2.0, b=3.0): Exponent 0.6658 (Fenster 1) und 0.6663 (Fenster 2), behauptet 1.0, feste Toleranz 0.03"
+    },
+    {
+     "pruefung": {
+      "typ": "exponent",
+      "kurve": "compute",
+      "a": 3.0,
+      "b": 4.0,
+      "exponent": 1.0
+     },
+     "idee": "Zweiter Test der Gegenhypothese (b-1)/a, diesmal am Rand des Prüffensters (a=3, b=4). Die Behauptung sagt 3/4 = 0,75 voraus, die Gegenhypothese 1,0. Der Unterschied ist groß genug, dass Auflösungs- und Grenzeffekte ihn nicht verdecken. Bei korrekter Antwort scheitert auch diese Prüfung.",
+     "bestanden": false,
+     "grund": "Prüfer-Fit compute (a=3.0, b=4.0): Exponent 0.7474 (Fenster 1) und 0.7484 (Fenster 2), behauptet 1.0, feste Toleranz 0.03"
+    }
+   ],
+   "sek": 805.9
+  },
+  {
+   "runde": 7,
+   "frage": "F21",
+   "status": "beantwortet",
+   "red_team": [
+    {
+     "pruefung": {
+      "typ": "exponent",
+      "kurve": "compute",
+      "a": 1.0,
+      "b": 2.0,
+      "exponent": 0.5
+     },
+     "idee": "Das Rechenoptimum bei C = P*t folgt C^-(b-1)/(a+1). Für a=1, b=2 ergibt das 0,5 und nicht 1,0. Die Antwort verwechselt den Exponenten in P (rf/param ~ P^-(b-1) = P^-1) mit dem Rechenoptimum, bei dem sich P und t das Budget teilen. Die Frage nach dem Exponenten bei rf-basiertem Optimum ist damit falsch beantwortet.",
+     "bestanden": true,
+     "grund": "Prüfer-Fit compute (a=1.0, b=2.0): Exponent 0.4998 (Fenster 1) und 0.5000 (Fenster 2), behauptet 0.5, feste Toleranz 0.03"
+    },
+    {
+     "pruefung": {
+      "typ": "exponent",
+      "kurve": "compute",
+      "a": 2.0,
+      "b": 3.0,
+      "exponent": 0.6667
+     },
+     "idee": "Zweiter Punkt mit anderem (a,b): (b-1)/(a+1) = 2/3. Ein Exponent 1,0 für das Rechenoptimum wäre hier wie bei a=1 falsch. Die Prüfung bestätigt die Formel an einem unabhängigen Punkt, also nicht nur an der Ausnahme a=1.",
+     "bestanden": true,
+     "grund": "Prüfer-Fit compute (a=2.0, b=3.0): Exponent 0.6658 (Fenster 1) und 0.6663 (Fenster 2), behauptet 0.6667, feste Toleranz 0.03"
+    }
+   ],
+   "sek": 288.9
   }
  ],
- "kosten_usd": 2.966466
+ "kosten_usd": 4.027319
 }

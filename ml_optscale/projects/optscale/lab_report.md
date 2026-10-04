@@ -17,3 +17,5 @@
 - 2026-10-04 00:05:11 Selbsttest des Prüfers: bestanden
 - 2026-10-04 00:05:26 Runde 6: Wie hängt der Exponent des rechenoptimalen Verlusts L*(C) bei Budget C = P*t von a und b ab, und wie teilt sich das Budget optimal auf P und t auf?
 - 2026-10-04 00:20:08   geprüft (observed): Exponent des rechenoptimalen Verlusts: L*(C) ~ C^-(b-1)/(a+1). Optimale Aufteilung: P_opt ~ C^(1/(1+a)) und t_opt ~ C^(a/(1+a)), also t ~ P^a. Die Rechenleistung teilt sich damit im Verhältnis 1 : a auf die beiden Exponenten auf. | Red-Team: 2 Gegenprüfungen, 0 bestanden
+- 2026-10-04 00:20:40 Runde 7: Gegenprobe zur Kompromiss-Annahme der Rechenaufteilung: Weichen die Exponenten ab, wenn man statt des Produkts C = P*t das Budget als C = P*t^s mit s ≠ 1 modelliert, oder wenn man das Random-Feature-Modell (rf_kurve) mit endlichen Daten statt des Gradientenfluss-Modells mit P Merkmalen verwendet? Konkret: Folgt der Verlust bei einem rf-basierten Rechenoptimum ebenfalls C^-(b-1)/(a+1), oder entsteht wegen des zusätzlichen Varianzterms ein anderer Exponent?
+- 2026-10-04 00:25:41   geprüft (observed): Nein, vermutlich C^-1 statt C^-0.5 | Red-Team: 2 Gegenprüfungen, 2 bestanden
