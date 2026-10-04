@@ -78,11 +78,13 @@ def offen_lit(P):
     return [{"text": w["text"], "zitat": w["zitat"], "quelle": w["quelle"]} for w in P.s.get("wissen", []) if w.get("typ") == "offene_frage"]
 
 
-def integrator_fragen(P, D, k=5, salt=""):
+def integrator_fragen(P, D, k=5, salt="", vermeide=None):
     ol = offen_lit(P)
+    verm = ("\n\nTHEMENWECHSEL: Der bisherige Faden brachte keinen Fortschritt. Die neuen Fragen müssen ein ANDERES Thema behandeln als:\n" +
+            "\n".join(f"- {x[:200]}" for x in vermeide[:8])) if vermeide else ""
     oltxt = "\n".join(f"- [{x['quelle']}] {x['text']} (Zitat: \"{x['zitat'][:200]}\")" for x in ol[:25]) or "-"
     r = ask_json(f"{D.kontext}\n\n{wissen_text(P)}\n\nOFFENE FRAGEN AUS DER LITERATUR (mit Wortzitat):\n{oltxt}\n\n{D.primitive_doc}\n\n{D.claim_doc}\n\n"
-                 f"Schlage {k} neue Forschungsfragen vor, die (1) mit den Experimenten beantwortbar und (2) mit den Prüfungstypen nachprüfbar sind und "
+                 f"{verm}\n\nSchlage {k} neue Forschungsfragen vor, die (1) mit den Experimenten beantwortbar und (2) mit den Prüfungstypen nachprüfbar sind und "
                  "(3) über das Bekannte hinausgehen. Mindestens die Hälfte muss eine der offenen Literaturfragen angehen oder verallgemeinern; trage dann "
                  "deren Quelle in \"lit_offen\" ein. Höchstens EINE Frage darf ein Anker sein (Bekanntes reproduzieren, nur zur Validierung, \"anker\": true). "
                  'JSON: {"fragen": [{"frage": "...", "begruendung": "...", "lit_offen": "<quelle oder leer>", "anker": false, "neuheit": 0-1, "machbarkeit": 0-1}]}',
@@ -163,6 +165,7 @@ def main():
     ap.add_argument("--fragen", default="", help="JSON-Datei mit Startfragen [{frage: ...}]")
     ap.add_argument("--gezielt", action="store_true", help="keine frei erzeugten Folgefragen (Workflow Phase 5)")
     ap.add_argument("--stopp-ohne-fortschritt", type=int, default=3, help="Abbruch nach so vielen Runden in Folge ohne neuen bestätigten Claim")
+    ap.add_argument("--themenwechsel", action="store_true", help="statt Abbruch ohne Fortschritt: Integrator zum Themenwechsel zwingen (Dauerbetrieb)")
     ap.add_argument("--projekt", default="", help="Projektverzeichnis-Name (Standard: Domänenname)")
     ap.add_argument("--ohne-gates", action="store_true", help="Phasen-Gates 1-4 übergehen (wird als Abweichung protokolliert)"); a = ap.parse_args()
     D = get_domain(a.domain); P = Project(a.projekt or a.domain); D.projekt = a.projekt or a.domain; log = lambda m: (print(m, flush=True), P.append("lab_report.md", f"- {now()} {m}"))
@@ -182,10 +185,15 @@ def main():
         P.append("decisions.md", f"| {now()} | INTEGRATOR | Startfragen aus {a.fragen} geladen, übrige offene Fragen zurückgestellt | Workflow Phase 5 |")
     if not any(q["status"] == "offen" for q in P.s["fragen"]) and not P.s.get("ausstehend"):   # nichts offen: neue Fragen erzeugen
         integrator_fragen(P, D, salt=str(len(P.s["runden"])))
-    P.save(); ohne = 0
+    if os.environ.get("ASD_FAULT_CRASH") == "ratelimit":       # nur Tests des Dauerbetriebs
+        from .llm import RateLimitError; raise RateLimitError("SIMULIERT: usage limit reached (429), Test des Dauerbetriebs")
+    if os.environ.get("ASD_FAULT_CRASH"): raise RuntimeError("SIMULIERT: künstlicher Absturz (Test des Dauerbetriebs)")
+    P.save(); ohne = ohne_fortschritt(P)                      # aus state.json: überlebt Neustarts
     if getattr(D, "experimentell", False) and not ausstehende_auswerten(P, D, log): return
     for _ in range(a.runden):
         runde = len(P.s["runden"]) + 1
+        if ohne >= a.stopp_ohne_fortschritt and a.themenwechsel:
+            themenwechsel(P, D, runde, ohne, log); ohne = 0
         if ohne >= a.stopp_ohne_fortschritt:
             msg = f"Abbruch: {ohne} Runden in Folge ohne neuen bestätigten Claim (--stopp-ohne-fortschritt {a.stopp_ohne_fortschritt})"
             log(msg); P.append("decisions.md", f"| {now()} | INTEGRATOR | {msg} | inhaltliches Abbruchkriterium |"); break
@@ -194,6 +202,29 @@ def main():
         ohne = 0 if sum(c["status"] == "bestätigt" for c in P.s["claims"]) > n_vorher else ohne + 1
         if not weiter: break
     log(f"Fertig: {len(P.s['claims'])} geprüfte Aussagen, {len(P.s['widerlegt'])} negative Ergebnisse")
+
+
+def ohne_fortschritt(P):
+    """Zahl der letzten Runden in Folge ohne neuen bestätigten Claim (Runden, die auf Messdaten warten, zählen nicht)."""
+    n = 0
+    for r in reversed(P.s["runden"]):
+        if r.get("status") == "wartet_auf_daten": continue
+        if r.get("status") == "beantwortet" or r.get("themenwechsel"): break
+        n += 1
+    return n
+
+
+def themenwechsel(P, D, runde, ohne, log):
+    """Faden ohne Fortschritt: offene Fragen des Fadens zurückstellen, neue Fragen zu einem ANDEREN Thema erzwingen."""
+    last_q = next((x for x in P.s["fragen"] if P.s["runden"] and x["id"] == P.s["runden"][-1]["frage"]), None)
+    faden = faden_of(P, last_q) if last_q else None; alt = [q["frage"] for q in P.s["fragen"] if faden and faden_of(P, q) == faden]
+    for q in P.s["fragen"]:
+        if q["status"] == "offen": q["status"] = "zurückgestellt"
+    vorher = len(P.s["fragen"])
+    integrator_fragen(P, D, salt=f"themenwechsel-{runde}", vermeide=alt)
+    msg = f"Themenwechsel erzwungen: {ohne} Runden ohne neuen bestätigten Claim im Faden {faden}; {len(P.s['fragen']) - vorher} neue Fragen zu anderem Thema"
+    log(msg); P.append("decisions.md", f"| {now()} | INTEGRATOR | {msg} | Dauerbetrieb (--themenwechsel) |")
+    P.s["runden"].append({"runde": None, "frage": None, "status": "themenwechsel", "themenwechsel": True, "red_team": [], "sek": 0}); P.save()
 
 
 def claim_eintragen(P, D, q_frage, p, grund, runde, rt=None):

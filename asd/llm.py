@@ -9,19 +9,27 @@ import hashlib, json, os, re, shutil, subprocess, tempfile, time
 CACHE = os.environ.get("ASD_LLM_CACHE", "cache/llm")
 MODEL = os.environ.get("ASD_MODEL", "sonnet")
 COST_LOG = []
-SPENT = [0.0]            # laufende Summe dieses Prozesses (USD)
-BUDGET = [None]          # Limit in USD oder None
+RL_BASIS = float(os.environ.get("ASD_RL_BASIS_SEK", "60"))     # erste Wartezeit bei Rate-Limit (Test: klein setzen)
+RL_MAX = float(os.environ.get("ASD_RL_MAX_SEK", "1800"))       # höchstens 30 min pro Wartephase
+RL_MUSTER = re.compile(r"rate.?limit|429|529|overloaded|quota|usage limit|limit reached|too many requests|resets? at|credit balance", re.I)
 
 
 class LLMError(RuntimeError): pass
 
 
-class BudgetErreicht(Exception):
-    """Budget überschritten. Bewusst KEINE Unterklasse von LLMError, damit generische Fehlerbehandlung sie nicht schluckt."""
+class RateLimitError(LLMError):
+    """Rate-Limit oder Quota des LLM. ask() wartet selbst exponentiell und bricht nie ab."""
 
 
-def set_budget(usd):
-    BUDGET[0] = usd; SPENT[0] = 0.0
+def ist_rate_limit(text):
+    return bool(RL_MUSTER.search(str(text)))
+
+
+def _fault():
+    """Nur für Tests des Dauerbetriebs: ASD_FAULT_RATELIMIT=n simuliert n Rate-Limit-Fehler in diesem Prozess."""
+    n = int(os.environ.get("ASD_FAULT_RATELIMIT", "0") or 0)
+    if n > _fault.count: _fault.count += 1; raise RateLimitError("SIMULIERT: rate_limit_error 429 (Test)")
+_fault.count = 0
 
 
 def _key(system, prompt, model, salt):
@@ -55,19 +63,22 @@ def ask(prompt, system="Du bist ein sorgfältiger Wissenschaftler.", model=None,
     k = _key(system, prompt, model, salt); path = f"{CACHE}/{k}.json"
     if os.path.exists(path): return json.load(open(path))["response"]
     if os.environ.get("ASD_LLM") == "replay": raise LLMError(f"nicht im Cache: {k}")
-    if BUDGET[0] is not None and SPENT[0] >= BUDGET[0]: raise BudgetErreicht(f"Budget {BUDGET[0]:.2f} USD erreicht ({SPENT[0]:.2f} USD)")
     backend = _api if os.environ.get("ASD_LLM") == "api" else _cli
-    for attempt in range(retries + 1):
+    attempt, warte = 0, RL_BASIS
+    while True:
         try:
-            t0 = time.time(); text, cost, used = backend(system, prompt, model, timeout); break
-        except (LLMError, subprocess.TimeoutExpired, json.JSONDecodeError) as e:
-            if attempt == retries: raise LLMError(str(e))
-            time.sleep(2 * (attempt + 1))
-    COST_LOG.append(cost); SPENT[0] += cost
+            _fault(); t0 = time.time(); text, cost, used = backend(system, prompt, model, timeout); break
+        except Exception as e:                                   # Rate-Limit/Quota: exponentiell warten, nie abbrechen
+            if isinstance(e, RateLimitError) or (isinstance(e, LLMError) or type(e).__name__ in ("RateLimitError", "APIStatusError", "OverloadedError")) and ist_rate_limit(e):
+                print(f"[llm] Rate-Limit ({str(e)[:80]}), warte {warte:.0f} s", flush=True)
+                time.sleep(warte); warte = min(warte * 2, RL_MAX); continue
+            if not isinstance(e, (LLMError, subprocess.TimeoutExpired, json.JSONDecodeError)): raise
+            if attempt >= retries: raise LLMError(str(e))
+            attempt += 1; time.sleep(2 * attempt)
+    COST_LOG.append(cost)
     json.dump({"key": k, "model": used, "salt": salt, "system": system, "prompt": prompt, "response": text,
                "cost_usd": cost, "sek": round(time.time() - t0, 1), "ts": time.strftime("%Y-%m-%dT%H:%M:%S")},
               open(path, "w"), ensure_ascii=False, indent=1)
-    if BUDGET[0] is not None and SPENT[0] > BUDGET[0]: raise BudgetErreicht(f"Budget {BUDGET[0]:.2f} USD überschritten ({SPENT[0]:.2f} USD)")
     return text
 
 

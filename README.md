@@ -27,6 +27,27 @@ Präregistrierte Ergebnisse (`prereg.md`, Rohdaten in `results/`):
 Weitere Befunde: KI- und Literatur-Vorwissen als GP-Prior helfen der Bayes'schen Optimierung nicht (H1, H5, beide präregistriert);
 fünf geprüfte numerische Befunde zu offenen Fragen aus Suleman 2026 (`results/explore/`).
 
+
+## Dauerbetrieb
+
+`run_forever.py` lässt das Labor unbeaufsichtigt laufen: Zyklus = `asd.lab_loop --runden 5` → `asd.paper` (inkl. Referee-Durchgang)
+→ Qualitätskriterium `asd/quality.py:publikationsreif`. Es stoppt erst, wenn ein bestätigtes, rigoros geprüftes Hauptresultat
+existiert, das laut Literatur neu ist (offen_laut_literatur / nicht_gefunden), das Paper 0 Verstöße hat und der Referee keine schwere,
+mit vorhandenen Claims behebbare Schwäche meldet; dann baut es `paper_final.pdf` und beendet sich. Sonst nach `--max-runden` (Default 200) Zyklen.
+Abstürze werden mit Traceback nach `logs/<domain>/supervisor.log` geschrieben und neu gestartet (Zustand in `projects/<domain>/state.json`);
+Rate-Limits/Quota werden exponentiell abgewartet (1, 2, 4 … 30 min), nie abgebrochen. Bleibt ein Faden 3 Runden ohne neuen Claim,
+erzwingt das Labor einen Themenwechsel (`--themenwechsel`).
+
+```bash
+tmux new -s lab 'caffeinate -dims python run_forever.py --domain <name> --autoren "A, B" --affiliation "ETH Zürich"'
+# Linux statt caffeinate:  systemd-inhibit python run_forever.py --domain <name>
+tail -f logs/<name>/status.md      # eine Zeile pro Zyklus: Zeit, Zyklus, Laborrunden, bestätigte Claims, Hauptresultate, Neuheit, Referee, Kriterium
+less logs/<name>/supervisor.log    # Abstürze, Neustarts, Wartezeiten
+tmux attach -t lab                 # live zusehen (Ctrl-b d: wieder lösen)
+```
+Test der Robustheit: `python run_forever.py --domain lattice --max-runden 2 --runden-pro-zyklus 1 --ohne-gates --test-fehler`
+(künstlicher Absturz, Rate-Limit im Kindprozess und 2 Rate-Limits im LLM-Aufruf; alle drei werden abgefangen).
+
 ---
 
 ## Teil 1: Buchwald-Hartwig-Validierung (ursprüngliche Pipeline)
