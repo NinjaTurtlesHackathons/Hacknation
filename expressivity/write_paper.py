@@ -26,17 +26,17 @@ SYS = ("You write precise, sober scientific English for a machine-learning theor
        "'proved by hand, not machine-checked'), conjectures or the agents' uninspected interpretations, never as machine-verified results. "
        "Claims with level 'proved_lean' may be called machine-checked. Use 'Theorem' only for the combination stated in C-thm1.")
 
-OUTLINE = """Style: concise ML-theory preprint (6-8 pages), sober, no marketing. Sections:
+OUTLINE = r"""Style: concise ML-theory preprint (6-8 pages), sober, no marketing. Sections:
 Abstract (<= 180 words): the question (why do architectures fail at state tracking; circuit complexity says TC0 vs NC1), our answer for one-layer linear RNNs with Householder-product transitions (DeltaNet, DeltaProduct): an exact law h*, the first lower bound on Householder factors per token, the headline instances (A5 with involution inputs needs one reflection; A5 needs two; the S4/A5 formats of the closest prior work need two), the atlas, the preregistered training grid and its outcome, and that every statement is machine-verified or certified.
 1 Introduction: architecture debate (Transformers and diagonal SSMs in TC0, non-solvable word problems NC1-complete) from literature claims; the gap (prior work gives only constructions; DeltaProduct's unexplained S4/A5 observation; Howe's representation law); contributions as a bullet list.
 2 Setting and definitions: word problem, one-layer realisation, finite-state, transition families, h and h*.
 3 Results I (theory): Lemma L1 (machine-checked), Lemma L4 (machine-checked), Lemma L2 (hand proof), L3, Theorem 1 (state 'proof in the companion ledger' and cite C-ledger), diagonal families (L5), abelian cover (L7); explain what is proved how.
 4 Results II (certified instances): Table 1 (appended by code); A5 with involutions (H3 cover), A5/all, S4 and A5 in the generator format of prior work, S5, Z2^3; contrast with circuit complexity.
 5 Results III (atlas): coverage, own-vs-GAP agreement, non-monotonicity of h with respect to solvability; Figure 2 and Table 3 are appended by code.
-6 Results IV (preregistered experiments): (a) H-EX1 grid: protocol, predictors, cell outcomes, accuracy of each predictor, discriminating tests with BH, negative and positive controls; Figure 1 and Table 2. Report learnability failures honestly. (b) H-EX2 addendum: the prior work's own generator formats, Table 4; state precisely what it supports and what not (it tests a sufficiency prediction against a necessity claim of prior work under our protocol and readout).
+6 Results IV (preregistered experiments): (a) H-EX1 grid: protocol, predictors, cell outcomes, accuracy of each predictor, discriminating tests with BH, negative and positive controls; Figure 1 and Table 2. Report learnability failures honestly. (b) H-EX2 addendum: the prior work's own generator formats, Table 4 and Figure 3; state precisely what it supports and what not (it tests a sufficiency prediction against a necessity claim of prior work under our protocol and readout).
 7 The agentic lab and the verification pipeline: scout, integrator, cascade, verifier, red team; negative rounds; loopholes found and closed; red-team bugs fixed.
 8 Limitations and open questions (finite-state assumption, token-local transitions without short convolution, one layer, exact arithmetic vs float, open intervals such as S5/all, multi-layer, chain of thought / padding as a Householder budget as a hypothesis).
-Refer to Tables 1-4 and Figures 1-2 by name only; do not write tables yourself.
+Refer to Tables 1-4 and Figures 1-3 by name only; do not write tables yourself.
 Mathematics: write every formula in LaTeX math, inline $...$ (for example $h^*(G,\Sigma)$, $\operatorname{rank}(\rho(t_s)-I)\le k$, $A_5$, $S_4$,
 $\mathbb{Z}_2^3$), never as plain ASCII like rank(rho(t_s) - I) <= k. Keep alphabet names (all, involutions, transpositions, tn, c3c5) and
 architecture names (hh1, hh2, diag_pm) as plain text. Bold statement labels such as **Lemma L1 (machine-checked).** are fine."""
@@ -338,6 +338,29 @@ def figures(outdir):
         fig.tight_layout(); p = f"{outdir}/fig_grid"; fig.savefig(p + ".pdf"); fig.savefig(p + ".png"); plt.close(fig)
         figs.append(("fig_grid", "Figure 1. Preregistered grid: number of seeds (out of 20) whose accuracy on positions 257-512 is at least 0.9, with the "
                      "outcome predicted by the algebraic law (+ success, − failure, ? undetermined). Table 2 is the table view. Claims [C-G-*]."))
+    CF = json.load(open(f"{R}/confirmatory.json")) if os.path.exists(f"{R}/confirmatory.json") else {}
+    E = CF.get("H-EX2", {}).get("cells", [])
+    if E:
+        tasks = [("A5", "c3c5", "#2a78d6", "A5: 3-cycle + 5-cycle", 4), ("S4", "tn", "#eb6834", "S4: transposition + 4-cycle", 3)]
+        fig, axs = plt.subplots(1, 2, figsize=(6.6, 2.7), dpi=200, sharey=True); fig.patch.set_facecolor(surf)
+        for ax, (g, al, col, lab, law) in zip(axs, tasks):
+            ax.set_facecolor(surf); cells = {c["arch"]: c for c in E if c["group"] == g and c["alphabet"] == al}
+            ks = [1, 2, 3]; vals = [cells[f"hh{k}"]["succ_primary"] if f"hh{k}" in cells else 0 for k in ks]
+            ax.bar(ks, vals, width=0.55, color=col, zorder=3)
+            for k, v in zip(ks, vals): ax.text(k, v + 0.6, f"{v}/20", ha="center", fontsize=7.5, color=ink)
+            ax.axhline(10, color=muted, lw=0.7, ls=(0, (3, 3)), zorder=1)
+            ax.axvline(1.5, color=ink, lw=1.0, zorder=2)
+            if law <= 3: ax.axvline(law - 0.5, color=muted, lw=1.0, ls=(0, (1, 2)), zorder=2)
+            ax.set_xticks(ks); ax.set_xticklabels(["hh1", "hh2", "hh3"], fontsize=7.5, color=muted); ax.set_xlim(0.5, 3.6); ax.set_ylim(0, 23)
+            ax.set_title(f"{lab}\nmin. k: ours 2 (solid), perm. law {law}" + (" (dotted)" if law <= 3 else " (> hh3)"), fontsize=7.5, color=ink, loc="left")
+            for sp in ("top", "right"): ax.spines[sp].set_visible(False)
+            for sp in ("left", "bottom"): ax.spines[sp].set_color("#c9c8c3")
+            ax.tick_params(colors=muted, labelsize=7)
+        axs[0].set_ylabel("seeds that length-generalise (of 20)", fontsize=7.5, color=muted)
+        fig.tight_layout(); p = f"{outdir}/fig_hex2"; fig.savefig(p + ".pdf"); fig.savefig(p + ".png"); plt.close(fig)
+        figs.append(("fig_hex2", "Figure 3. Preregistered addendum H-EX2 on the generator formats of the closest prior work: successful seeds (of 20) for one, two "
+                     "and three Householder factors per token; solid line: minimum predicted by our law (h* = 2, certified); dotted line: the "
+                     "permutation-representation law (3 for S4, 4 for A5); dashed line: the cell-success threshold of 10 seeds. Claims [C-X-*]."))
     if os.path.exists(f"{R}/atlas.json"):
         rows = [r for r in json.load(open(f"{R}/atlas.json"))["rows"] if not r.get("abelian", True)]
         fig, ax = plt.subplots(figsize=(5.4, 3.2), dpi=200); fig.patch.set_facecolor(surf); ax.set_facecolor(surf)
