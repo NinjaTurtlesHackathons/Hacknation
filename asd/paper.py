@@ -121,17 +121,18 @@ def modell_claim(D):
     return [{"claim_id": "C-modell", "text": f"Fixed model parameters and assumptions: {txt}.", "level": "computed_rigorous", "status": "bestätigt"}]
 
 
-def claims_of(domain):
+def claims_of(domain, lang="en"):
     RT_STAT.clear()
     s = json.load(open(f"projects/{domain}/state.json")); D = get_domain(domain); C = modell_claim(D)
     for c in s["claims"]:
-        text = D.describe(c["pruefung"]) if c.get("pruefung") else c["text"]          # nur was die Prüfung beweist
+        try: text = D.describe(c["pruefung"], lang=lang) if c.get("pruefung") else c["text"]   # nur was die Prüfung beweist
+        except TypeError: text = D.describe(c["pruefung"])
         rel = c.get("relevanz") or (D.relevanz(c["pruefung"]) if c.get("pruefung") and hasattr(D, "relevanz") else "stuetze")
         C.append({"claim_id": f"C-{c['id']}", "text": f"Question studied: {c['frage']} Verified result: {text} Verifier: {sanitize(c['grund'])}",
                   "level": c["level"], "status": c["status"], "relevanz": rel, "scope": scope_of(text, c.get("pruefung"))})
         interp = c.get("interpretation_ungeprueft") or c["text"].split("->")[-1]
-        C.append({"claim_id": f"C-{c['id']}-I", "text": f"Ungeprüfte Interpretation des Agenten zu {c['id']} (nicht als Resultat verwenden): {interp}",
-                  "level": "hypothesis", "status": "offen"})
+        C.append({"claim_id": f"C-{c['id']}-I", "text": f"Unverified interpretation of {c['id']} (never use as a result): {interp}",
+                  "level": "hypothesis", "status": "offen", "anhang": True})
         for j, r in enumerate(c.get("red_team", [])):
             erg = r.get("ergebnis") or ("nicht_ausfuehrbar" if nicht_ausfuehrbar(r.get("grund", "")) and not r["bestanden"] else ("bestanden" if r["bestanden"] else "nicht_bestanden"))
             RT_STAT[erg] = RT_STAT.get(erg, 0) + 1
@@ -142,7 +143,8 @@ def claims_of(domain):
                       "level": D.level(r["pruefung"]) if erg == "bestanden" else "observed", "status": "bestätigt", "anhang": True})
     for j, w in enumerate(s["widerlegt"]): C.append({"claim_id": f"C-neg{j + 1}", "text": f"Negatives Ergebnis: {w}", "level": "observed", "status": "bestätigt"})
     for j, w in enumerate(s["wissen"][:30]):
-        C.append({"claim_id": f"C-lit{j + 1}", "text": f"Literatur: {w['text']} (Zitat: „{w['zitat']}“, {w['quelle']})", "level": "observed", "status": "bestätigt"})
+        C.append({"claim_id": f"C-lit{j + 1}", "text": f"Literature: {w['text']} (verbatim quote: \"{w['zitat']}\", source {w['quelle']})", "level": "observed",
+                  "status": "bestätigt", "quelle": w["quelle"]})
     fp = f"projects/{domain}/fakten.json"                               # per Code ermittelte Zusatzfakten (Zertifikats-Logs, Zählungen)
     if os.path.exists(fp):
         for f in json.load(open(fp)): C.append({"claim_id": f"C-{f['id']}", "text": f["text"], "level": f.get("level", "observed"), "status": "bestätigt"})
@@ -180,87 +182,197 @@ def apply_story(C, plan):
     return out
 
 
-def to_tex(md, titel, autoren, aff, figs=(), lang="de"):
-    body = md
-    body = re.sub(r"^### (.*)$", r"\\subsubsection*{\1}", body, flags=re.M)
-    body = re.sub(r"^## (.*)$", r"\\section{\1}", body, flags=re.M)
-    body = re.sub(r"^# (.*)$", r"", body, flags=re.M)
-    body = re.sub(r"\*\*(.+?)\*\*", r"\\textbf{\1}", body); body = re.sub(r"(?<!\*)\*(?!\*)(.+?)\*", r"\\emph{\1}", body)
-    body = re.sub(r"\[(C-[^\]]+)\]", lambda m: r"{\scriptsize[" + m.group(1).replace("_", r"\_") + "]}", body)
-    lines, out, inlist = body.split("\n"), [], False
-    for l in lines:
-        if re.match(r"^\s*[-*] ", l):
-            if not inlist: out.append(r"\begin{itemize}"); inlist = True
-            out.append(r"\item " + re.sub(r"^\s*[-*] ", "", l))
-        else:
-            if inlist: out.append(r"\end{itemize}"); inlist = False
-            out.append(l)
-    if inlist: out.append(r"\end{itemize}")
-    body = "\n".join(out).replace("%", r"\%").replace("&", r"\&").replace("#", r"\#")
-    for fn, cap in figs:
-        cap_t = re.sub(r"\[(C-[^\]]+)\]", lambda m: r"[" + m.group(1).replace("_", r"\_") + "]", cap).replace("%", r"\%")
-        body += "\n\\begin{figure}[t]\\centering\\includegraphics[width=\\columnwidth]{" + fn + "}\\caption{" + cap_t + "}\\end{figure}\n"
-    return (r"""\documentclass[10pt,twocolumn]{article}
-\usepackage[utf8]{inputenc}\usepackage[T1]{fontenc}\usepackage[""" + ("english" if lang == "en" else "ngerman") + r"""]{babel}\usepackage{amsmath,amssymb}\usepackage[margin=1.8cm]{geometry}
-\usepackage{times}\usepackage{graphicx}\usepackage{hyperref}
-\title{\textbf{""" + titel + r"""}}
-\author{""" + r" \and ".join(a.strip() for a in autoren.split(",")) + r"""\\ \small """ + aff + r"""}
-\date{Preprint, \today}
-\begin{document}\maketitle
-""" + body + "\n\\end{document}\n")
-
-
 UNI = {"η": r"\eta", "Δ": r"\Delta", "σ": r"\sigma", "μ": r"\mu", "≥": r"\geq", "≤": r"\leq", "×": r"\times", "→": r"\to",
        "≈": r"\approx", "−": "-", "·": r"\cdot", "∈": r"\in", "…": r"\ldots", "²": r"^{2}", "³": r"^{3}", "√": r"\surd", "±": r"\pm",
-       "⁻": r"^{-}", "¹": r"^{1}", "₀": r"_{0}", "₁": r"_{1}", "₂": r"_{2}", "α": r"\alpha", "β": r"\beta", "γ": r"\gamma", "ε": r"\varepsilon", "τ": r"\tau", "ν": r"\nu", "∞": r"\infty", "≠": r"\neq", "π": r"\pi", "λ": r"\lambda"}
-HEADER = "\\usepackage{newunicodechar}\n" + "".join(f"\\newunicodechar{{{k}}}{{\\ensuremath{{{v}}}}}\n" for k, v in UNI.items())
+       "⁻": r"^{-}", "¹": r"^{1}", "₀": r"_{0}", "₁": r"_{1}", "₂": r"_{2}", "α": r"\alpha", "β": r"\beta", "γ": r"\gamma",
+       "ε": r"\varepsilon", "τ": r"\tau", "ν": r"\nu", "∞": r"\infty", "≠": r"\neq", "π": r"\pi", "λ": r"\lambda", "ρ": r"\rho", "θ": r"\theta"}
+ENVS = ["theorem", "proposition", "lemma", "example", "observation", "remark", "corollary", "definition"]
 
 
-def md_to_pdf(md, titel, autoren, aff, d, lang):
-    """Preprint-PDF über pandoc (Markdown-Mathematik, Unicode-Zeichen, Bilder), zweispaltig."""
+def bib_entries(C, d):
+    """BibTeX aus den zitierten Literatur-Claims: Metadaten über Crossref (DOI) bzw. arXiv-API; nie erfinden, sonst [unverified]."""
+    from .research import crossref_doi, arxiv_meta
+    cache_p = f"{d}/bibcache.json"; cache = json.load(open(cache_p)) if os.path.exists(cache_p) else {}
+    keys, bib = {}, []
+    for c in C:
+        q = c.get("quelle")
+        if not q or q in keys: continue
+        if q not in cache:
+            try:
+                m = crossref_doi(q[4:]) if q.startswith("doi:") else arxiv_meta(q) if q.lower().startswith("arxiv:") else None
+                cache[q] = {k: m.get(k, "") for k in ("titel", "autoren", "jahr", "journal", "volume", "seiten")} if m else None
+            except Exception:
+                cache[q] = None
+        m = cache[q]; key = re.sub(r"[^A-Za-z0-9]", "", q.split(":", 1)[-1])[-24:] or f"ref{len(keys)}"
+        if m and m.get("autoren"):
+            first = m["autoren"].split(",")[0].split()[-1] if m["autoren"] else "anon"; key = re.sub(r"[^A-Za-z]", "", first)[:12] + str(m.get("jahr", "")) + key[-4:]
+        keys[q] = key
+        esc = lambda t: str(t).replace("&", r"\&").replace("%", r"\%").replace("_", r"\_").replace("#", r"\#")
+        if m and m.get("titel"):
+            auth = " and ".join(a.strip() for a in m["autoren"].split(",") if a.strip()) or "Anonymous"
+            fields = [f"author = {{{esc(auth)}}}", f"title = {{{{{esc(m['titel'])}}}}}", f"year = {{{m.get('jahr', '')}}}"]
+            if m.get("journal"): fields.append(f"journal = {{{esc(m['journal'])}}}")
+            if m.get("volume"): fields.append(f"volume = {{{m['volume']}}}")
+            if m.get("seiten"): fields.append(f"pages = {{{esc(m['seiten'])}}}")
+            if q.startswith("doi:"): fields.append(f"doi = {{{q[4:]}}}")
+            bib.append(f"@article{{{key},\n  " + ",\n  ".join(fields) + "\n}")
+        else:
+            bib.append(f"@misc{{{key},\n  title = {{[unverified] {esc(q)}}},\n  note = {{metadata could not be resolved}}\n}}")
+    json.dump(cache, open(cache_p, "w"), ensure_ascii=False, indent=1)
+    open(f"{d}/references.bib", "w").write("\n\n".join(bib) + "\n")
+    return keys
+
+
+def provenance(md, C):
+    """Zuordnung Aussage -> claim_ids (aus der Version MIT IDs), gruppiert pro Theorem/Proposition/... und Abschnitt."""
+    by = {c["claim_id"]: c for c in C}; rows = []; sec = ""; counters = {}
+    blocks = re.split(r"(^:::[^\n]*\n.*?^:::\s*$)", md, flags=re.M | re.S)
+    for b in blocks:
+        m = re.match(r"^:::\s*\{?\.?(\w+)\]?\s*(?:\[([^\]]*)\])?", b)
+        if m and m.group(1).lower() in ENVS:
+            env = m.group(1).lower(); counters[env] = counters.get(env, 0) + 1
+            ids = sorted({i for i in re.findall(r"C-[\w\-*.]+", b) if i in by})
+            rows.append((f"{env.capitalize()} {counters[env]}" + (f" ({m.group(2)})" if m.group(2) else ""), ids))
+            continue
+        for line in b.split("\n"):
+            h = re.match(r"^#+\s*(.*)", line)
+            if h: sec = h.group(1).strip(); continue
+            ids = sorted({i for i in re.findall(r"C-[\w\-*.]+", line) if i in by and not i.startswith("C-lit")})
+            if ids and sec and not sec.lower().startswith(("appendix b", "abstract")): rows.append((f"Section „{sec}“", ids))
+    merged = {}
+    for k, ids in rows: merged.setdefault(k, set()).update(ids)
+    return [(k, sorted(v), sorted({by[i]["level"] for i in v})) for k, v in merged.items()]
+
+
+def md_to_latex_body(md, keys, C, lang):
+    """Markdown (mit IDs) -> LaTeX-Rumpf: Umgebungen, Zitate (\cite), IDs entfernt, Mathematik und Tabellen über pandoc."""
     import pypandoc
-    import unicodedata
-    body = "\n".join(l for l in md.split("\n") if not l.startswith("# "))           # Titel kommt aus den Metadaten
-    body = body.replace("–", "--").replace("—", "---").replace("’", "'").replace("“", "``").replace("”", "''").replace("„", ",,")
-    body = re.sub(r"(?<![$\w])e\^\((-?[0-9]*)\s*\*?\s*Delta\)", lambda m: "$e^{" + m.group(1) + "\\Delta}$", body)
-    body = re.sub(r"(?<![$\w{])e\^(-?[0-9]*)(Δ|Delta)", lambda m: "$e^{" + m.group(1) + "\\Delta}$", body)
-    body = "".join(c if (ord(c) < 256 or c in UNI) else (unicodedata.normalize("NFKD", c).encode("latin-1", "ignore").decode("latin-1") or "?") for c in body)
-    body = re.sub(r"(?<![$\w])e\^\{([^}]*)\}", lambda m: "$e^{" + "".join(UNI.get(c, c) for c in m.group(1)) + "}$", body)
-    body = re.sub(r"\[(C-[^\]]+)\]", lambda m: "\\textsubscript{[" + m.group(1).replace("_", "\\_") + "]}", body)
-    yaml = ("---\ntitle: \"" + titel.replace('"', "'") + "\"\nauthor:\n" + "".join(f"  - {a.strip()}\n" for a in autoren.split(",")) +
-            f"date: \"{aff} · Preprint\"\ndocumentclass: article\nclassoption: [twocolumn, 10pt]\ngeometry: margin=1.7cm\n"
-            f"lang: {'en' if lang == 'en' else 'de'}\nheader-includes: |\n" + "".join("  " + l + "\n" for l in HEADER.strip().split("\n")) + "---\n\n")
-    open(f"{d}/paper_pdf.md", "w").write(yaml + body)
-    pypandoc.convert_file(f"{d}/paper_pdf.md", "latex", outputfile=f"{d}/paper.tex", extra_args=["--standalone"])
-    pypandoc.convert_file(f"{d}/paper_pdf.md", "pdf", outputfile=f"{d}/paper.pdf", extra_args=["--pdf-engine=pdflatex", f"--resource-path={d}"])
+    by = {c["claim_id"]: c for c in C}
+    body = md.replace("–", "--").replace("—", "---").replace("’", "'").replace("“", "``").replace("”", "''").replace("„", ",,")
+    def outside_math(t, fn):
+        parts = re.split(r"(\$\$.*?\$\$|\$[^$\n]+\$)", t, flags=re.S)
+        return "".join(p if i % 2 else fn(p) for i, p in enumerate(parts))
+    body = outside_math(body, lambda t: re.sub(r"(?<![\w])e\^\{([^}]*)\}", lambda m: "$e^{" + "".join(UNI.get(c, c) for c in m.group(1)) + "}$", t))
+    body = outside_math(body, lambda t: re.sub(r"(?<![\w{])e\^(-?\d*)\s*(Δ|\\Delta|Delta)", lambda m: "$e^{" + m.group(1) + "\\Delta}$", t))
+    def cite(m):
+        ids = re.findall(r"C-[\w\-*.]+", m.group(0)); ks = sorted({keys[by[i]["quelle"]] for i in ids if i in by and by[i].get("quelle") in keys})
+        return (" \\cite{" + ",".join(ks) + "}") if ks else ""
+    body = re.sub(r"\s*\[(?:C-[\w\-*.]+(?:\s*[,;]\s*)?)+\]", cite, body)               # Claim-IDs raus, Literatur als \cite
+    conv0 = lambda t: pypandoc.convert_text(t, "latex", format="markdown+raw_tex+tex_math_dollars", extra_args=["--wrap=preserve"]).strip()
+    out, buf, env, title = [], None, None, None
+    for line in body.split("\n"):
+        m = re.match(r"^:::\s*\{?\.?(\w+)\}?\s*(?:\[([^\]]*)\])?\s*(.*)$", line)
+        if buf is None and m and m.group(1).lower() in ENVS:
+            env, title, buf = m.group(1).lower(), (m.group(2) or (m.group(3).strip() or None)), []; continue
+        if buf is not None and line.strip() == ":::":
+            inner = conv0("\n".join(buf)) if any(x.strip() for x in buf) else ""
+            out += ["", f"\\begin{{{env}}}" + (f"[{title}]" if title else "") + "\n" + inner + f"\n\\end{{{env}}}", ""]; buf = None; continue
+        if buf is not None: buf.append(line); continue
+        if line.strip() == ":::": continue
+        out.append(line)
+    if buf is not None:
+        out += ["", f"\\begin{{{env}}}\n" + conv0("\n".join(buf)) + f"\n\\end{{{env}}}", ""]
+    body = "\n".join(out)
+    body = re.sub(r"^(#+)\s*(?:\d+(?:\.\d+)*\.?\s+)", r"\1 ", body, flags=re.M)        # manuelle Nummern raus (LaTeX nummeriert)
+    abstract = ""
+    m = re.search(r"^##\s*(Abstract|Zusammenfassung)\s*\n(.*?)(?=^##\s)", body, re.M | re.S)
+    if m: abstract = m.group(2).strip(); body = body[:m.start()] + body[m.end():]
+    body = re.sub(r"^##\s*(Appendix|Anhang)\s*A\s*[:.]?\s*", "\\\\appendix\n\n## ", body, count=1, flags=re.M)
+    body = re.sub(r"^##\s*(Appendix|Anhang)\s*[B-Z]\s*[:.]?\s*", "## ", body, flags=re.M)
+    conv = lambda t: pypandoc.convert_text(t, "latex", format="markdown+raw_tex+tex_math_dollars+pipe_tables", extra_args=["--wrap=preserve", "--shift-heading-level-by=-1"])
+    tex = conv(body); abs_tex = conv(abstract) if abstract else ""
+    return tex, abs_tex
+
+
+TEMPLATE = r"""\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}\usepackage[T1]{fontenc}\usepackage{lmodern}\usepackage{microtype}
+\usepackage[%(babel)s]{babel}\usepackage[a4paper,margin=2.5cm]{geometry}
+\usepackage{amsmath,amssymb,amsthm}\usepackage{graphicx}\usepackage{booktabs,longtable,array,calc}
+\usepackage[hidelinks]{hyperref}\usepackage[capitalise,noabbrev]{cleveref}\usepackage{newunicodechar}
+%(unicode)s
+\providecommand{\tightlist}{\setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\newtheorem{theorem}{Theorem}\newtheorem{proposition}[theorem]{Proposition}\newtheorem{lemma}[theorem]{Lemma}\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}\newtheorem{definition}[theorem]{Definition}\newtheorem{example}[theorem]{Example}
+\newtheorem{observation}[theorem]{%(obs)s}\theoremstyle{remark}\newtheorem{remark}[theorem]{Remark}
+\title{%(title)s}
+\author{%(authors)s\\[2pt] \small %(aff)s}
+\date{%(date)s}
+\begin{document}
+\maketitle
+\begin{abstract}
+%(abstract)s
+\par\medskip\noindent\textbf{%(kwlabel)s:} %(keywords)s
+\end{abstract}
+%(body)s
+%(figures)s
+\bibliographystyle{unsrt}
+\bibliography{references}
+\end{document}
+"""
+
+
+def build_latex(md, title, authors, aff, C, d, lang, figs, keywords):
+    import shutil
+    keys = bib_entries(C, d); prov = provenance(md, C)
+    tbl = ["", "| Statement | Evidence (claim ids) | Level |", "|---|---|---|"]
+    tbl += [f"| {k} | {', '.join(i.replace('_', '-') for i in ids)} | {', '.join(lv)} |" for k, ids, lv in prov]
+    md2 = md
+    mb = re.search(r"^##\s*(Appendix|Anhang)\s*B[^\n]*\n", md2, re.M)
+    if mb:
+        nxt = re.search(r"^##\s", md2[mb.end():], re.M); ins = mb.end() + (nxt.start() if nxt else len(md2) - mb.end())
+        md2 = md2[:ins] + "\n" + "\n".join(tbl) + ("\n\nThe complete automatic checking protocol of the writing process is stored as pruefprotokoll.json in the "
+                                                  "project directory of the repository.\n" if lang == "en" else
+                                                  "\n\nDas vollständige automatische Prüfprotokoll des Schreibprozesses liegt als pruefprotokoll.json im Projektverzeichnis.\n") + "\n" + md2[ins:]
+    body, abstract = md_to_latex_body(md2, keys, C, lang)
+    fig_tex = "".join(f"\\begin{{figure}}[t]\\centering\\includegraphics[width=0.75\\textwidth]{{{fn}}}\\caption{{{cap}}}\\end{{figure}}\n" for fn, cap, *_ in figs)
+    uni = "".join(f"\\newunicodechar{{{k}}}{{\\ensuremath{{{v}}}}}\n" for k, v in UNI.items())
+    esc = lambda t: t.replace("&", r"\&").replace("%", r"\%")
+    tex = TEMPLATE % {"babel": "english" if lang == "en" else "ngerman", "unicode": uni, "title": esc(title),
+                      "authors": r" \and ".join(a.strip() for a in authors.split(",")), "aff": esc(aff), "date": r"Preprint, \today",
+                      "abstract": abstract, "kwlabel": "Keywords" if lang == "en" else "Schlüsselwörter", "keywords": esc(keywords),
+                      "body": body, "figures": fig_tex, "obs": "Numerical observation" if lang == "en" else "Numerische Beobachtung"}
+    open(f"{d}/paper.tex", "w").write(tex)
+    for cmd in (["pdflatex", "-interaction=nonstopmode", "paper.tex"], ["bibtex", "paper"], ["pdflatex", "-interaction=nonstopmode", "paper.tex"],
+                ["pdflatex", "-interaction=nonstopmode", "paper.tex"]):
+        if shutil.which(cmd[0]): subprocess.run(cmd, cwd=d, capture_output=True, timeout=300)
+    return prov
 
 
 def main():
-    ap = argparse.ArgumentParser(); ap.add_argument("--domain", required=True); ap.add_argument("--titel", required=True)
-    ap.add_argument("--autoren", required=True); ap.add_argument("--affiliation", default=""); ap.add_argument("--sprache", default="de", choices=["de", "en"])
-    ap.add_argument("--hinweise", default="", help="zusätzliche Gliederungshinweise (Datei oder Text)"); a = ap.parse_args()
-    D = get_domain(a.domain); C = claims_of(a.domain)
+    ap = argparse.ArgumentParser(); ap.add_argument("--domain", required=True); ap.add_argument("--titel", default="", help="leer = informativer Titel aus der Kernaussage")
+    ap.add_argument("--autoren", required=True); ap.add_argument("--affiliation", default=""); ap.add_argument("--sprache", default="en", choices=["de", "en"])
+    ap.add_argument("--keywords", default=""); ap.add_argument("--hinweise", default="", help="zusätzliche Gliederungshinweise (Datei oder Text)")
+    ap.add_argument("--repo", default="https://github.com/alizema700/Daddys-Project"); a = ap.parse_args()
+    D = get_domain(a.domain); d = f"projects/{a.domain}"; C = claims_of(a.domain, a.sprache)
+    import subprocess as sp
+    branch = sp.run(["git", "branch", "--show-current"], capture_output=True, text=True).stdout.strip()
+    C.append({"claim_id": "C-verfuegbarkeit", "text": f"Code and data: repository {a.repo}, branch {branch}, directory {d}; reproduce all certificates with "
+              f"'python -m asd.recheck {a.domain}' and rebuild the paper with 'python -m asd.paper --domain {a.domain}'.", "level": "observed", "status": "bestätigt"})
+    for c in C: c.setdefault("relevanz", None)
     plan = story_plan(C, D, a.sprache, salt=a.domain); C = apply_story(C, plan); a.titel = a.titel or plan.get("titel", a.domain)
     rollen = "\n".join(f"- {cid}: {rolle}" for cid, rolle in plan["zuordnung"].items() if rolle != "weglassen")
     story = (f"STORY PLAN (binding): core question: {plan.get('kernfrage')}\ncore statement: {plan.get('kernaussage')}\nclaim roles:\n{rollen}\n"
-             "Main results (hauptresultat) come first in Results; stuetze become propositions/lemmas, beispiel become examples; anhang claims appear only in "
-             "the appendices; claims not listed must not be used.")
+             "Main results (hauptresultat) come first in Results; stuetze become propositions/lemmas, beispiel become examples; claims marked APPENDIX ONLY "
+             "appear only in the appendices; claims not listed must not be used. Use for each formal statement exactly the allowed environment of its claim.")
     extra = open(a.hinweise).read() if a.hinweise and os.path.exists(a.hinweise) else a.hinweise
     outline = (OUTLINE_EN if a.sprache == "en" else OUTLINE_DE) + "\n\n" + story + ("\n\n" + extra if extra else "")
-    for c in C: c["env"] = env_name(c) if c["claim_id"].startswith("C-" + a.domain) else None
-    md, log = write(a.titel, f"Research field: {D.kontext}\n\n{outline}", C, salt=f"paper-{a.domain}-{a.sprache}", lang=a.sprache,
-                    extra_check=lambda m: rule_issues(m) + env_issues(m, C) + scope_issues(m, C))
-    d = f"projects/{a.domain}"; rest = check(md, C); n_cited = len(set(re.findall(r"C-[\w\-*.]+", md))); runden = json.dumps(log["runden"], ensure_ascii=False)
-    proto = (f"\n\n---\nPrüfprotokoll: {n_cited} Claims zitiert, Korrekturrunden {runden}, "
-             f"{len(log['entfernt'])} unbelegte Sätze entfernt, verbleibende Verstöße: {len(rest)}.")
-    figs = D.figures(json.load(open(f"{d}/state.json")), d); md_fig = md
-    for fn, cap in figs: md_fig += f"\n\n![{cap}]({fn.replace('.pdf', '.png')})\n"
-    open(f"{d}/paper.md", "w").write(f"# {a.titel}\n\n{a.autoren}, {a.affiliation}\n\n{md_fig}{proto}\n")
-    json.dump({"claims": C, "log": log}, open(f"{d}/paper_belege.json", "w"), ensure_ascii=False, indent=1)
-    try: md_to_pdf(md_fig + proto, a.titel, a.autoren, a.affiliation, d, a.sprache)
-    except Exception as e:                                               # Rückfall: einfacher Konverter
-        print("pandoc fehlgeschlagen:", str(e)[:300]); open(f"{d}/paper.tex", "w").write(to_tex(md + proto, a.titel, a.autoren, a.affiliation, figs, a.sprache))
-    print(f"{d}/paper.md, paper.tex" + (", paper.pdf" if os.path.exists(f"{d}/paper.pdf") else "") + proto)
+    for c in C: c["env"] = env_name(c) if c["claim_id"].startswith("C-" + a.domain) and not c["claim_id"].endswith("-I") and "-RT" not in c["claim_id"] else None
+    gate = lambda m: rule_issues(m) + env_issues(m, C) + scope_issues(m, C)
+    md, log = write(a.titel, f"Research field: {D.kontext}\n\n{outline}", C, salt=f"paper2-{a.domain}-{a.sprache}", lang=a.sprache, extra_check=gate)
+    rest = check(md, C) + gate(md)
+    figs = []
+    try: figs = D.figures(json.load(open(f"{d}/state.json")), d, lang=a.sprache)
+    except TypeError: figs = [(f[0], f[1], []) for f in D.figures(json.load(open(f"{d}/state.json")), d)]
+    for fn, cap, ids in figs:
+        md += f"\n<!-- Abbildung {fn}: Belege {', '.join(ids)} -->\n"
+    open(f"{d}/paper.md", "w").write(f"# {a.titel}\n\n{a.autoren}, {a.affiliation}\n\n{md}\n")
+    json.dump({"claims": C, "story": plan}, open(f"{d}/paper_belege.json", "w"), ensure_ascii=False, indent=1)
+    prov = build_latex(md, a.titel, a.autoren, a.affiliation, C, d, a.sprache, figs, a.keywords or plan.get("kernfrage", "")[:120])
+    proto = {"claims_zitiert": len(set(re.findall(r"C-[\w\-*.]+", md))), "korrekturrunden": log["runden"], "entfernt": log["entfernt"],
+             "verbleibende_verstoesse": [list(x) for x in rest], "story": plan, "provenance_zeilen": len(prov)}
+    json.dump(proto, open(f"{d}/pruefprotokoll.json", "w"), ensure_ascii=False, indent=1)
+    print(f"{d}/paper.pdf" if os.path.exists(f"{d}/paper.pdf") else "PDF fehlt", "| verbleibende Verstöße:", len(rest), "| Titel:", a.titel)
+    return md, C, a, D, d, figs
 
 
 if __name__ == "__main__":

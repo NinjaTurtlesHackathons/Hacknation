@@ -83,6 +83,7 @@ def _crossref_doc(m):
     year = str(((m.get("issued") or {}).get("date-parts") or [[""]])[0][0])
     aut = ", ".join(f"{a.get('given', '')} {a.get('family', '')}".strip() for a in (m.get("author") or [])[:8])
     return {"id": f"doi:{m['DOI']}", "titel": title, "abstract": ab, "jahr": year, "autoren": aut, "url": f"https://doi.org/{m['DOI']}",
+            "journal": " ".join((m.get("container-title") or [""])[0].split()), "volume": m.get("volume", ""), "seiten": m.get("page", ""),
             "quelle_api": "crossref", "refs": [r["DOI"] for r in (m.get("reference") or []) if r.get("DOI")]}
 
 
@@ -90,6 +91,15 @@ def search_crossref(q, n=25):
     """Crossref: Zeitschriftenartikel mit DOI (Abstract oft vorhanden, sonst nur Metadaten). Der DOI ist der Tool-Beleg."""
     url = "https://api.crossref.org/works?" + urllib.parse.urlencode({"query.bibliographic": q, "rows": n})
     return [_crossref_doc(m) for m in json.loads(_get(url))["message"]["items"] if m.get("title")]
+
+
+def arxiv_meta(aid):
+    """Metadaten eines arXiv-Eintrags per ID (Autoren, Titel, Jahr)."""
+    url = "https://export.arxiv.org/api/query?" + urllib.parse.urlencode({"id_list": aid.replace("arXiv:", "")})
+    ns = {"a": "http://www.w3.org/2005/Atom"}; e = ET.fromstring(_get(url)).find("a:entry", ns)
+    if e is None or e.find("a:title", ns) is None: raise ValueError("arXiv-ID nicht gefunden")
+    return {"id": aid, "titel": " ".join(e.find("a:title", ns).text.split()), "jahr": e.find("a:published", ns).text[:4],
+            "autoren": ", ".join(a.find("a:name", ns).text for a in e.findall("a:author", ns)), "journal": f"arXiv:{aid.replace('arXiv:', '')}"}
 
 
 def crossref_doi(doi):

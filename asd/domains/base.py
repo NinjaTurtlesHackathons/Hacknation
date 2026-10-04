@@ -60,11 +60,11 @@ class Domain:
         Standard: kein bekannter Widerspruch. Domänen sollten das für ihre Prüfungstypen definieren."""
         return False
 
-    def figures(self, state, outdir):
+    def figures(self, state, outdir, lang="en"):
         """Optional: Abbildungen aus geprüften Aussagen. Gibt [(dateiname, bildunterschrift_mit_claim_ids)] zurück."""
         return []
 
-    def describe(self, p):
+    def describe(self, p, lang="de"):
         """Kanonische Aussage, die eine BESTANDENE Prüfung p beweist, erzeugt aus p selbst (nicht aus dem Text des Agenten).
         Nur diese Aussage darf als Resultat ins Paper. Der Antworttext des Agenten ist bloß Interpretation."""
         import json
