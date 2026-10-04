@@ -1,0 +1,626 @@
+{
+ "claims": [
+  {
+   "claim_id": "C-modell",
+   "text": "Fixed model parameters and assumptions: q = e^{2 pi i tau} (expansion variable of holomorphic forms); normalisation_E = a_0 = 1 (holomorphic Eisenstein series E_k = 1 - (2k/B_k) sum sigma_{k-1}(n) q^n); normalisation_MGF = (tau2/(pi |m tau + n|^2))^a (lattice-sum normalisation of E_s and C_{a,b,c} (D'Hoker-Green-Vanhove)); verifier_points = 4 points, seed 4711, |tau1| <= 1/2, 1 <= tau2 <= 2.5 (random evaluation points chosen by the verifier); precision = 32 digits (working precision of the verifier for modular graph functions); tolerance = 1e-24 (1e-14 with Laplacian) (maximal relative residual accepted for a numerical relation); laplacian_step = h = 1e-6 (step of the fourth-order finite-difference Laplacian).",
+   "level": "computed_rigorous",
+   "status": "bestätigt",
+   "relevanz": null,
+   "rolle": "stuetze",
+   "env": null
+  },
+  {
+   "claim_id": "C-modular-R1",
+   "text": "Question studied: Wie viele unabhängige rationale lineare Relationen bestehen zwischen allen C(a,b,c) vom Gewicht w, E(w) und zeta(w) für w = 3, 5, 7, 9? Bestimme den Relationsraum je Gewicht vollständig (mgf_relationsraum). Verified result: Numerically, the rational linear relations among the modular graph functions C(1,1,1), E(3), zeta(3) (weight 3) form a space of dimension exactly 1, spanned by the identity C(1,1,1) - E(3) - zeta(3) = 0 (each relation checked to 1e-24 at verifier points with exact leading Laurent coefficient; completeness by a singular-value gap). Verifier: 1 Relationen einzeln bestätigt; Singulärwerte der normierten 6x3-Wertematrix (Seed 4712): 1 < 1e-24, 2 > 1e-8, kleinster großer 0.731 | 1 Relationen einzeln bestätigt; Singulärwerte der normierten 7x4-Wertematrix (Seed 4712): 1 < 1e-24, 3 > 1e-8, kleinster großer 0.0372 | 1 Relationen einzeln bestätigt; Singulärwerte der normierten 9x6-Wertematrix (Seed 4712): 1 < 1e-24, 5 > 1e-8, kleinster großer 0.000127 | 1 Relationen einzeln bestätigt; Singulärwerte der normierten 12x9-Wertematrix (Seed 4712): 1 < 1e-24, 8 > 1e-8, kleinster großer 8.6e-7. Novelty status: inconclusive; equivalent searches disagree (2 gleichwertige Prüfungen; 1 mit Literaturtreffer, 1 ohne); the closest literature statement is arXiv:1603.00839: \"This map is used to provide proofs of the identities between modular graph functions for weight less than six conjectured in earlier work\". The result may be known or implied there; it must not be called new.",
+   "level": "observed",
+   "status": "bestätigt",
+   "relevanz": "hauptresultat",
+   "scope": "punkte",
+   "rolle": "hauptresultat",
+   "env": "observation"
+  },
+  {
+   "claim_id": "C-modular-R1-I",
+   "text": "Unverified interpretation of modular-R1 (never use as a result): Für jedes der Gewichte w = 3, 5, 7, 9 gibt es genau eine unabhängige rationale Relation (je Gewicht Relationsraum der Dimension 1, insgesamt 4).",
+   "level": "hypothesis",
+   "status": "offen",
+   "anhang": true,
+   "relevanz": null,
+   "env": null
+  },
+  {
+   "claim_id": "C-modular-R1-RT1",
+   "text": "Counter-check (adversarial test) of modular-R1: Randfall w=7: Die behauptete Relation 252 C(3,3,1) + 252 C(3,2,2) - 108 E(7) - zeta(7) = 0 wurde nur numerisch per PSLQ gefunden und nicht über den exakten Leitkoeffizienten bestätigt. Wäre sie ein numerisches Artefakt, wäre der Relationsraum 0-dimensional. Ich habe das nicht nachgerechnet. Result: did not pass. Verifier: 0 Relationen einzeln bestätigt; Singulärwerte der normierten 9x6-Wertematrix (Seed 4712): 1 < 1e-24, 5 > 1e-8, kleinster großer 0.000127",
+   "level": "observed",
+   "status": "bestätigt",
+   "anhang": true,
+   "relevanz": null,
+   "env": null
+  },
+  {
+   "claim_id": "C-modular-R1-RT2",
+   "text": "Counter-check (adversarial test) of modular-R1: Randfall w=9: Mit sieben C-Funktionen gibt es womöglich mehr als eine Relation, also Dimension 2 statt 1. Ich kenne die zweite Relation nicht und habe nur den bekannten Vektor eingetragen. Diese Prüfung ist daher spekulativ und besteht nur, wenn der Raum tatsächlich größer ist und die Vollständigkeitsprüfung dies zulässt. Result: did not pass. Verifier: 1 Relationen angegeben, behauptete Dimension 2",
+   "level": "observed",
+   "status": "bestätigt",
+   "anhang": true,
+   "relevanz": null,
+   "env": null
+  },
+  {
+   "claim_id": "C-modular-R1b",
+   "text": "Question studied: Wie viele unabhängige rationale lineare Relationen bestehen zwischen allen C(a,b,c) vom Gewicht w, E(w) und zeta(w) für w = 3, 5, 7, 9? Bestimme den Relationsraum je Gewicht vollständig (mgf_relationsraum). Verified result: Numerically, the rational linear relations among the modular graph functions C(3,1,1), C(2,2,1), E(5), zeta(5) (weight 5) form a space of dimension exactly 1, spanned by the identity 30·C(2,2,1) - 12·E(5) - zeta(5) = 0 (each relation checked to 1e-24 at verifier points with exact leading Laurent coefficient; completeness by a singular-value gap). Verifier: 1 Relationen einzeln bestätigt; Singulärwerte der normierten 7x4-Wertematrix (Seed 4712): 1 < 1e-24, 3 > 1e-8, kleinster großer 0.0372. Novelty status: inconclusive; equivalent searches disagree (2 gleichwertige Prüfungen; 1 mit Literaturtreffer, 1 ohne); the closest literature statement is arXiv:1603.00839v4: \"This map is used to provide proofs of the identities between modular graph functions for weight less than six conjectured in earlier work\". The result may be known or implied there; it must not be called new.",
+   "level": "observed",
+   "status": "bestätigt",
+   "relevanz": "hauptresultat",
+   "scope": "punkte",
+   "rolle": "hauptresultat",
+   "env": "observation"
+  },
+  {
+   "claim_id": "C-modular-R1b-I",
+   "text": "Unverified interpretation of modular-R1b (never use as a result): Für jedes der Gewichte w = 3, 5, 7, 9 gibt es genau eine unabhängige rationale Relation (je Gewicht Relationsraum der Dimension 1, insgesamt 4).",
+   "level": "hypothesis",
+   "status": "offen",
+   "anhang": true,
+   "relevanz": null,
+   "env": null
+  },
+  {
+   "claim_id": "C-modular-R1b-RT1",
+   "text": "Counter-check (adversarial test) of modular-R1b: Randfall Gewicht 7: Die Antwort behauptet dort genau eine Relation, die nur numerisch gefunden und nicht über den Leitkoeffizienten bestätigt wurde. Die Eigenwert-Multiplizitäten (s=5: 2, s=3: 1, s=1: 1) entsprechen genau den 4 C-Funktionen. Dann gäbe es keine zusätzliche Relation mit E(7) und zeta(7). Die PSLQ-Relation wäre dann ein Artefakt, und der Relationsraum hätte Dimension 0. Result: did not pass. Verifier: 0 Relationen einzeln bestätigt; Singulärwerte der normierten 9x6-Wertematrix (Seed 4712): 1 < 1e-24, 5 > 1e-8, kleinster großer 0.000127",
+   "level": "observed",
+   "status": "bestätigt",
+   "anhang": true,
+   "relevanz": null,
+   "env": null
+  },
+  {
+   "claim_id": "C-modular-R1b-RT2",
+   "text": "Counter-check (adversarial test) of modular-R1b: Randfall Gewicht 9: Auch hier ist die behauptete einzelne Relation nur numerisch gefunden und nicht exakt bestätigt. Sie könnte ein PSLQ-Artefakt bei zu wenigen Stellen oder zu großen Koeffizienten sein. Dann wäre der Relationsraum trivial, mit Dimension 0. Result: did not pass. Verifier: 0 Relationen einzeln bestätigt; Singulärwerte der normierten 12x9-Wertematrix (Seed 4712): 1 < 1e-24, 8 > 1e-8, kleinster großer 8.6e-7",
+   "level": "observed",
+   "status": "bestätigt",
+   "anhang": true,
+   "relevanz": null,
+   "env": null
+  },
+  {
+   "claim_id": "C-modular-R1c",
+   "text": "Question studied: Wie viele unabhängige rationale lineare Relationen bestehen zwischen allen C(a,b,c) vom Gewicht w, E(w) und zeta(w) für w = 3, 5, 7, 9? Bestimme den Relationsraum je Gewicht vollständig (mgf_relationsraum). Verified result: Numerically, the rational linear relations among the modular graph functions C(5,1,1), C(4,2,1), C(3,3,1), C(3,2,2), E(7), zeta(7) (weight 7) form a space of dimension exactly 1, spanned by the identity 252·C(3,3,1) + 252·C(3,2,2) - 108·E(7) - zeta(7) = 0 (each relation checked to 1e-24 at verifier points with exact leading Laurent coefficient; completeness by a singular-value gap). Verifier: 1 Relationen einzeln bestätigt; Singulärwerte der normierten 9x6-Wertematrix (Seed 4712): 1 < 1e-24, 5 > 1e-8, kleinster großer 0.000127. Novelty status: already stated in the literature (arXiv:1608.04393v3: \"First, all identities at weight six and all dihedral identities at weight seven are obtained and proven.\").",
+   "level": "observed",
+   "status": "bestätigt",
+   "relevanz": "hauptresultat",
+   "scope": "punkte",
+   "rolle": "hauptresultat",
+   "env": "observation"
+  },
+  {
+   "claim_id": "C-modular-R1c-I",
+   "text": "Unverified interpretation of modular-R1c (never use as a result): Für jedes der Gewichte w = 3, 5, 7, 9 gibt es genau eine unabhängige rationale Relation (je Gewicht Relationsraum der Dimension 1, insgesamt 4).",
+   "level": "hypothesis",
+   "status": "offen",
+   "anhang": true,
+   "relevanz": null,
+   "env": null
+  },
+  {
+   "claim_id": "C-modular-R1c-RT1",
+   "text": "Counter-check (adversarial test) of modular-R1c: Randfall w=5: C(3,1,1) liegt nicht in der bekannten Relation (Leitkoeffizient 2/155925). Zwischen C(3,1,1), E(5) und zeta(5) allein gibt es daher keine Relation. Das ist nur eine Konsistenzprüfung und kein echtes Gegenbeispiel. Die Relation 30 C(2,2,1) = 12 E(5) + zeta(5) bleibt davon unberührt. Result: passed, but does not contradict the statement. Verifier: 0 Relationen einzeln bestätigt; Singulärwerte der normierten 6x3-Wertematrix (Seed 4712): 0 < 1e-24, 3 > 1e-8, kleinster großer 0.0281",
+   "level": "observed",
+   "status": "bestätigt",
+   "anhang": true,
+   "relevanz": null,
+   "env": null
+  },
+  {
+   "claim_id": "C-modular-R1c-RT2",
+   "text": "Counter-check (adversarial test) of modular-R1c: Falsche Zuordnung der w=5-Relation auf C(3,1,1) statt C(2,2,1). Sie scheitert schon am Leitkoeffizienten (2/155925 gegen 2/93555) und ist hier nur als Negativkontrolle gedacht. Ich habe kein belastbares Gegenbeispiel zur Dimension 1 pro Gewicht. Besonders wäre w=9 (7 C-Funktionen) auf eine zweite Relation zu prüfen. Ich kenne dafür aber keine exakten Koeffizienten und rate keine. Result: did not pass. Verifier: exakt widerlegt: exakter Leitkoeffizient von y^5: 2/467775 != 0",
+   "level": "observed",
+   "status": "bestätigt",
+   "anhang": true,
+   "relevanz": null,
+   "env": null
+  },
+  {
+   "claim_id": "C-modular-R1d",
+   "text": "Question studied: Wie viele unabhängige rationale lineare Relationen bestehen zwischen allen C(a,b,c) vom Gewicht w, E(w) und zeta(w) für w = 3, 5, 7, 9? Bestimme den Relationsraum je Gewicht vollständig (mgf_relationsraum). Verified result: Numerically, the rational linear relations among the modular graph functions C(7,1,1), C(6,2,1), C(5,3,1), C(5,2,2), C(4,4,1), C(4,3,2), C(3,3,3), E(9), zeta(9) (weight 9) form a space of dimension exactly 1, spanned by the identity -2160·C(4,4,1) - 4320·C(4,3,2) - 960·C(3,3,3) + 960·E(9) + zeta(9) = 0 (each relation checked to 1e-24 at verifier points with exact leading Laurent coefficient; completeness by a singular-value gap). Verifier: 1 Relationen einzeln bestätigt; Singulärwerte der normierten 12x9-Wertematrix (Seed 4712): 1 < 1e-24, 8 > 1e-8, kleinster großer 8.6e-7. Novelty status: inconclusive; equivalent searches disagree (3 gleichwertige Prüfungen; 1 mit Literaturtreffer, 2 ohne); the closest literature statement is arXiv:2004.05156v2: \"our solution allows for a counting of linearly independent modular graph forms at a given weight, confirming previous partial results and giving predictions for\". The result may be known or implied there; it must not be called new.",
+   "level": "observed",
+   "status": "bestätigt",
+   "relevanz": "hauptresultat",
+   "scope": "punkte",
+   "rolle": "hauptresultat",
+   "env": "observation"
+  },
+  {
+   "claim_id": "C-modular-R1d-I",
+   "text": "Unverified interpretation of modular-R1d (never use as a result): Für jedes der Gewichte w = 3, 5, 7, 9 gibt es genau eine unabhängige rationale Relation (je Gewicht Relationsraum der Dimension 1, insgesamt 4).",
+   "level": "hypothesis",
+   "status": "offen",
+   "anhang": true,
+   "relevanz": null,
+   "env": null
+  },
+  {
+   "claim_id": "C-modular-R4a",
+   "text": "Question studied: Welche Laplace-Gleichung (L[C] - s(s-1) C = Quellen aus Eisenstein-Produkten und Zetawerten) erfüllt C(3,1,1)? Finde Eigenwert und Quellterme und lasse sie prüfen. Verified result: Numerically (32 digits, 4 verifier-chosen points, relative residual <= 1e-14): L[C(3,1,1)] - 6·C(3,1,1) - 86/5·E(5) + 4·E(2)*E(3) - 1/10·zeta(5) = 0 as functions of tau. Verifier: exakter Leitkoeffizient von y^5: 0; numerisch an 4 Prüfer-Punkten (Seed 4711, 32 Stellen): max. relatives Residuum 1.63e-25 (Schranke 1e-14, Laplace per finiten Differenzen). Novelty status: already stated in the literature (arXiv:1608.04393v3: \"In earlier work, surprising identities between two-loop graphs at all weights, and between higher-loop graphs of weights four and five were constructed.\").",
+   "level": "observed",
+   "status": "bestätigt",
+   "relevanz": "hauptresultat",
+   "scope": "punkte",
+   "rolle": "hauptresultat",
+   "env": "observation"
+  },
+  {
+   "claim_id": "C-modular-R4a-I",
+   "text": "Unverified interpretation of modular-R4a (never use as a result): Für C(3,1,1) gilt: L[C(3,1,1)] = 6·C(3,1,1) + 86/5·E(5) - 4·E(2)*E(3) + 1/10·zeta(5). Das ist der Eigenwert s(s-1) = 6 mit s = 3. Dieselbe Familie liefert zwei weitere Gleichungen mit gleichem Gewicht oder Gewicht 4: L[C(2,1,1)] = 2·C(2,1,1) + 9·E(4) - E(2)^2 sowie L[C(2,2,1)] = 8·E(5) = 20·C(2,2,1) - 2/3·zeta(5).",
+   "level": "hypothesis",
+   "status": "offen",
+   "anhang": true,
+   "relevanz": null,
+   "env": null
+  },
+  {
+   "claim_id": "C-modular-R4b",
+   "text": "Question studied: Welche Laplace-Gleichung (L[C] - s(s-1) C = Quellen aus Eisenstein-Produkten und Zetawerten) erfüllt C(3,1,1)? Finde Eigenwert und Quellterme und lasse sie prüfen. Verified result: Numerically (32 digits, 4 verifier-chosen points, relative residual <= 1e-14): L[C(2,1,1)] - 2·C(2,1,1) - 9·E(4) + E(2)*E(2) = 0 as functions of tau. Verifier: exakter Leitkoeffizient von y^4: 0; numerisch an 4 Prüfer-Punkten (Seed 4711, 32 Stellen): max. relatives Residuum 2.39e-25 (Schranke 1e-14, Laplace per finiten Differenzen). Novelty status: already stated in the literature (arXiv:1502.06698: \"they satisfy Laplace eigenvalue equations with inhomogeneous terms that are polynomial in non-holomorphic Eisenstein series\").",
+   "level": "observed",
+   "status": "bestätigt",
+   "relevanz": "hauptresultat",
+   "scope": "punkte",
+   "rolle": "hauptresultat",
+   "env": "observation"
+  },
+  {
+   "claim_id": "C-modular-R4b-I",
+   "text": "Unverified interpretation of modular-R4b (never use as a result): Für C(3,1,1) gilt: L[C(3,1,1)] = 6·C(3,1,1) + 86/5·E(5) - 4·E(2)*E(3) + 1/10·zeta(5). Das ist der Eigenwert s(s-1) = 6 mit s = 3. Dieselbe Familie liefert zwei weitere Gleichungen mit gleichem Gewicht oder Gewicht 4: L[C(2,1,1)] = 2·C(2,1,1) + 9·E(4) - E(2)^2 sowie L[C(2,2,1)] = 8·E(5) = 20·C(2,2,1) - 2/3·zeta(5).",
+   "level": "hypothesis",
+   "status": "offen",
+   "anhang": true,
+   "relevanz": null,
+   "env": null
+  },
+  {
+   "claim_id": "C-modular-R4b-RT1",
+   "text": "Counter-check (adversarial test) of modular-R4b: Randfall: Das Gleichungssystem mit dem Zetaterm 1/5 statt 1/10. Falls die behauptete Gleichung richtig ist, bleibt ein konstanter Rest zeta(5)/10 ungleich 0 und die Prüfung scheitert. Sie besteht nur, wenn der Zetakoeffizient in der Antwort falsch ist. Result: did not pass. Verifier: exakter Leitkoeffizient von y^5: 0; numerisch an 4 Prüfer-Punkten (Seed 4711, 32 Stellen): max. relatives Residuum 1.04e-01 (Schranke 1e-14, Laplace per finiten Differenzen)",
+   "level": "observed",
+   "status": "bestätigt",
+   "anhang": true,
+   "relevanz": null,
+   "env": null
+  },
+  {
+   "claim_id": "C-modular-R4b-RT2",
+   "text": "Counter-check (adversarial test) of modular-R4b: Vorzeichenvariante der C(2,2,1)-Gleichung. Die behauptete Gleichung lautet L[C(2,2,1)] = 20 C(2,2,1) - 2/3 zeta(5) = 8 E(5). Hier steht -8 E(5) und +2/3 zeta(5), das ergibt zusammen mit ihr einen Widerspruch. Die Prüfung besteht nur, wenn die Gleichung der Antwort falsch ist. Result: did not pass. Verifier: exakt widerlegt: exakter Leitkoeffizient von y^5: -16/93555 != 0",
+   "level": "observed",
+   "status": "bestätigt",
+   "anhang": true,
+   "relevanz": null,
+   "env": null
+  },
+  {
+   "claim_id": "C-modular-R4c",
+   "text": "Question studied: Welche Laplace-Gleichung (L[C] - s(s-1) C = Quellen aus Eisenstein-Produkten und Zetawerten) erfüllt C(3,1,1)? Finde Eigenwert und Quellterme und lasse sie prüfen. Verified result: Numerically (32 digits, 4 verifier-chosen points, relative residual <= 1e-14): L[C(2,2,1)] - 8·E(5) = 0 as functions of tau. Verifier: exakter Leitkoeffizient von y^5: 0; numerisch an 4 Prüfer-Punkten (Seed 4711, 32 Stellen): max. relatives Residuum 6.99e-26 (Schranke 1e-14, Laplace per finiten Differenzen). Novelty status: already stated in the literature (doi:10.1088/0264-9381/33/23/235011: \"Graphs with four and five links satisfy several non-trivial relations, which have been proved recently.\").",
+   "level": "observed",
+   "status": "bestätigt",
+   "relevanz": "hauptresultat",
+   "scope": "punkte",
+   "rolle": "hauptresultat",
+   "env": "observation"
+  },
+  {
+   "claim_id": "C-modular-R4c-I",
+   "text": "Unverified interpretation of modular-R4c (never use as a result): Für C(3,1,1) gilt: L[C(3,1,1)] = 6·C(3,1,1) + 86/5·E(5) - 4·E(2)*E(3) + 1/10·zeta(5). Das ist der Eigenwert s(s-1) = 6 mit s = 3. Dieselbe Familie liefert zwei weitere Gleichungen mit gleichem Gewicht oder Gewicht 4: L[C(2,1,1)] = 2·C(2,1,1) + 9·E(4) - E(2)^2 sowie L[C(2,2,1)] = 8·E(5) = 20·C(2,2,1) - 2/3·zeta(5).",
+   "level": "hypothesis",
+   "status": "offen",
+   "anhang": true,
+   "relevanz": null,
+   "env": null
+  },
+  {
+   "claim_id": "C-modular-R4c-RT2",
+   "text": "Counter-check (adversarial test) of modular-R4c: Gegenprobe zur Konsistenzbehauptung: Der Zetakoeffizient ist hier verdoppelt. Diese Relation gilt nur, wenn die Beziehung C(2,2,1) = 2/5 E(5) + zeta(5)/30 falsch ist, und die Antwort würde dann auch bei L[C(2,2,1)] = 8 E(5) kippen. Result: did not pass. Verifier: exakter Leitkoeffizient von y^5: 0; numerisch an 4 Prüfer-Punkten (Seed 4711, 32 Stellen): max. relatives Residuum 5.00e-01 (Schranke 1e-24)",
+   "level": "observed",
+   "status": "bestätigt",
+   "anhang": true,
+   "relevanz": null,
+   "env": null
+  },
+  {
+   "claim_id": "C-modular-R4d",
+   "text": "Question studied: Welche Laplace-Gleichung (L[C] - s(s-1) C = Quellen aus Eisenstein-Produkten und Zetawerten) erfüllt C(3,1,1)? Finde Eigenwert und Quellterme und lasse sie prüfen. Verified result: Numerically (32 digits, 4 verifier-chosen points, relative residual <= 1e-14): L[C(2,2,1)] - 20·C(2,2,1) + 2/3·zeta(5) = 0 as functions of tau. Verifier: exakter Leitkoeffizient von y^5: 0; numerisch an 4 Prüfer-Punkten (Seed 4711, 32 Stellen): max. relatives Residuum 6.74e-26 (Schranke 1e-14, Laplace per finiten Differenzen). Novelty status: already stated in the literature (arXiv:1502.06698: \"we exhibit exact differential and algebraic relations for a certain infinite class of such modular functions by showing that they satisfy Laplace eigenvalue equ\").",
+   "level": "observed",
+   "status": "bestätigt",
+   "relevanz": "hauptresultat",
+   "scope": "punkte",
+   "rolle": "hauptresultat",
+   "env": "observation"
+  },
+  {
+   "claim_id": "C-modular-R4d-I",
+   "text": "Unverified interpretation of modular-R4d (never use as a result): Für C(3,1,1) gilt: L[C(3,1,1)] = 6·C(3,1,1) + 86/5·E(5) - 4·E(2)*E(3) + 1/10·zeta(5). Das ist der Eigenwert s(s-1) = 6 mit s = 3. Dieselbe Familie liefert zwei weitere Gleichungen mit gleichem Gewicht oder Gewicht 4: L[C(2,1,1)] = 2·C(2,1,1) + 9·E(4) - E(2)^2 sowie L[C(2,2,1)] = 8·E(5) = 20·C(2,2,1) - 2/3·zeta(5).",
+   "level": "hypothesis",
+   "status": "offen",
+   "anhang": true,
+   "relevanz": null,
+   "env": null
+  },
+  {
+   "claim_id": "C-modular-R4d-RT1",
+   "text": "Counter-check (adversarial test) of modular-R4d: Gleiche Gleichung, aber mit Quellterm zeta(5)/5 statt zeta(5)/10. Das besteht nur, wenn die Konstante in der Antwort falsch ist. Ich erwarte, dass die Antwort stimmt und diese Prüfung scheitert. Result: did not pass. Verifier: exakter Leitkoeffizient von y^5: 0; numerisch an 4 Prüfer-Punkten (Seed 4711, 32 Stellen): max. relatives Residuum 1.04e-01 (Schranke 1e-14, Laplace per finiten Differenzen)",
+   "level": "observed",
+   "status": "bestätigt",
+   "anhang": true,
+   "relevanz": null,
+   "env": null
+  },
+  {
+   "claim_id": "C-modular-R4d-RT2",
+   "text": "Counter-check (adversarial test) of modular-R4d: Vorzeichen der zeta(5)-Konstante in der C(2,2,1)-Gleichung umgedreht. Das besteht nur, wenn die Antwort dort das falsche Vorzeichen hat. Mit C(2,2,1) = 2/5 E(5) + zeta(5)/30 und L[E(5)] = 20 E(5) ist die Antwort korrekt, also sollte diese Prüfung scheitern. Result: did not pass. Verifier: exakter Leitkoeffizient von y^5: 0; numerisch an 4 Prüfer-Punkten (Seed 4711, 32 Stellen): max. relatives Residuum 1.33e+00 (Schranke 1e-14, Laplace per finiten Differenzen)",
+   "level": "observed",
+   "status": "bestätigt",
+   "anhang": true,
+   "relevanz": null,
+   "env": null
+  },
+  {
+   "claim_id": "C-modular-R5a-I",
+   "text": "Unverified interpretation of modular-R5a (never use as a result): Mehrere Identitäten mit Sturm-Zertifikat: (1) theta(1)^4 = eta(2)^20*eta(1)^-8*eta(4)^-8 auf Gamma_0(4), Gewicht 2, also die quadrierte Jacobi-Identität; (2) thetaE8 = E4 auf Gamma_0(1), Gewicht 4; (3) thetaE8^2 = thetaD16 = E4^2 = E8 auf Gamma_0(1), Gewicht 8; (4) 1728*Delta = E4^3 - E6^2 auf Gamma_0(1), Gewicht 12; (5) j*Delta = E4^3.",
+   "level": "hypothesis",
+   "status": "offen",
+   "anhang": true,
+   "relevanz": null,
+   "env": null
+  },
+  {
+   "claim_id": "C-modular-R5a-RT1",
+   "text": "Counter-check (adversarial test) of modular-R5a: Gegenbeispiel-Versuch an der Delta-Formel: Ich ändere den Faktor 1728 zu 1727 (1727*Delta = E4^3 - E6^2). Das würde nur bestehen, wenn 1728*Delta = E4^3 - E6^2 falsch wäre. Der q^1-Koeffizient von E4^3 - E6^2 ist 1728, der von Delta ist 1. Die Prüfung sollte daher scheitern, und die Antwort wäre in diesem Punkt bestätigt. Result: did not pass. Verifier: Koeffizient von q^1 ist 1 != 0 (Identitaet falsch)",
+   "level": "observed",
+   "status": "bestätigt",
+   "anhang": true,
+   "relevanz": null,
+   "env": null
+  },
+  {
+   "claim_id": "C-modular-R5a-RT2",
+   "text": "Counter-check (adversarial test) of modular-R5a: Randfall-Versuch am Eta-Quotienten für theta(1)^4. Der echte q^1-Koeffizient von theta^4 ist r_4(1) = 8. Ein Eta-Quotient mit q^1-Koeffizient 9 würde nur dann bestehen, wenn die behauptete Gleichheit mit theta(1)^4 falsch wäre. Erwartet wird, dass die Prüfung scheitert. Result: did not pass. Verifier: exakter Koeffizient von q^1 in eta(2)^20*eta(1)^-8*eta(4)^-8: 8",
+   "level": "observed",
+   "status": "bestätigt",
+   "anhang": true,
+   "relevanz": null,
+   "env": null
+  },
+  {
+   "claim_id": "C-modular-R5b-I",
+   "text": "Unverified interpretation of modular-R5b (never use as a result): Mehrere Identitäten mit Sturm-Zertifikat: (1) theta(1)^4 = eta(2)^20*eta(1)^-8*eta(4)^-8 auf Gamma_0(4), Gewicht 2, also die quadrierte Jacobi-Identität; (2) thetaE8 = E4 auf Gamma_0(1), Gewicht 4; (3) thetaE8^2 = thetaD16 = E4^2 = E8 auf Gamma_0(1), Gewicht 8; (4) 1728*Delta = E4^3 - E6^2 auf Gamma_0(1), Gewicht 12; (5) j*Delta = E4^3.",
+   "level": "hypothesis",
+   "status": "offen",
+   "anhang": true,
+   "relevanz": null,
+   "env": null
+  },
+  {
+   "claim_id": "C-modular-R5b-RT1",
+   "text": "Counter-check (adversarial test) of modular-R5b: Wäre thetaE8^2 = thetaD16 = E8 falsch, könnte der q^1-Koeffizient von thetaD16 vom korrekten Wert 480 abweichen. Der Wert 481 ist ein Gegenbeispiel-Test, der nur bestehen würde, wenn die Gitteridentität bricht. Result: did not pass. Verifier: exakter Koeffizient von q^1 in thetaD16: 480",
+   "level": "observed",
+   "status": "bestätigt",
+   "anhang": true,
+   "relevanz": null,
+   "env": null
+  },
+  {
+   "claim_id": "C-modular-R5b-RT2",
+   "text": "Counter-check (adversarial test) of modular-R5b: Test mit einem falschen Faktor (1729 statt 1728). Die Identität würde nur bestehen, wenn 1728*Delta = E4^3 - E6^2 falsch wäre, denn dann verschwindet die Summe nicht mehr identisch. Dies prüft die Randfall-Konstante. Result: did not pass. Verifier: Koeffizient von q^1 ist 1 != 0 (Identitaet falsch)",
+   "level": "observed",
+   "status": "bestätigt",
+   "anhang": true,
+   "relevanz": null,
+   "env": null
+  },
+  {
+   "claim_id": "C-modular-R5c-I",
+   "text": "Unverified interpretation of modular-R5c (never use as a result): Mehrere Identitäten mit Sturm-Zertifikat: (1) theta(1)^4 = eta(2)^20*eta(1)^-8*eta(4)^-8 auf Gamma_0(4), Gewicht 2, also die quadrierte Jacobi-Identität; (2) thetaE8 = E4 auf Gamma_0(1), Gewicht 4; (3) thetaE8^2 = thetaD16 = E4^2 = E8 auf Gamma_0(1), Gewicht 8; (4) 1728*Delta = E4^3 - E6^2 auf Gamma_0(1), Gewicht 12; (5) j*Delta = E4^3.",
+   "level": "hypothesis",
+   "status": "offen",
+   "anhang": true,
+   "relevanz": null,
+   "env": null
+  },
+  {
+   "claim_id": "C-modular-R5d-I",
+   "text": "Unverified interpretation of modular-R5d (never use as a result): Mehrere Identitäten mit Sturm-Zertifikat: (1) theta(1)^4 = eta(2)^20*eta(1)^-8*eta(4)^-8 auf Gamma_0(4), Gewicht 2, also die quadrierte Jacobi-Identität; (2) thetaE8 = E4 auf Gamma_0(1), Gewicht 4; (3) thetaE8^2 = thetaD16 = E4^2 = E8 auf Gamma_0(1), Gewicht 8; (4) 1728*Delta = E4^3 - E6^2 auf Gamma_0(1), Gewicht 12; (5) j*Delta = E4^3.",
+   "level": "hypothesis",
+   "status": "offen",
+   "anhang": true,
+   "relevanz": null,
+   "env": null
+  },
+  {
+   "claim_id": "C-modular-R5d-RT1",
+   "text": "Counter-check (adversarial test) of modular-R5d: Die Antwort behauptet thetaE8^2 = thetaD16 = E4^2. Der q^1-Koeffizient ist dann 480 (2*240, Zahl der Wurzeln). Läge die Identität falsch, etwa weil D16+ andere Kurzvektoren hätte, könnte hier 496 stehen (Dimension von SO(32)). Bei richtiger Antwort fällt die Prüfung durch. Result: did not pass. Verifier: exakter Koeffizient von q^1 in thetaD16: 480",
+   "level": "observed",
+   "status": "bestätigt",
+   "anhang": true,
+   "relevanz": null,
+   "env": null
+  },
+  {
+   "claim_id": "C-modular-R5d-RT2",
+   "text": "Counter-check (adversarial test) of modular-R5d: Wenn theta(1)^4 = eta(2)^20*eta(1)^-8*eta(4)^-8 falsch wäre, etwa durch eine falsche Normierung von theta(d), könnte der q^1-Koeffizient von 8 = r_4(1) abweichen. Der Wert 6 würde dann bestehen. Bei richtiger Antwort fällt die Prüfung durch. Result: did not pass. Verifier: exakter Koeffizient von q^1 in eta(2)^20*eta(1)^-8*eta(4)^-8: 8",
+   "level": "observed",
+   "status": "bestätigt",
+   "anhang": true,
+   "relevanz": null,
+   "env": null
+  },
+  {
+   "claim_id": "C-modular-R5e-I",
+   "text": "Unverified interpretation of modular-R5e (never use as a result): Mehrere Identitäten mit Sturm-Zertifikat: (1) theta(1)^4 = eta(2)^20*eta(1)^-8*eta(4)^-8 auf Gamma_0(4), Gewicht 2, also die quadrierte Jacobi-Identität; (2) thetaE8 = E4 auf Gamma_0(1), Gewicht 4; (3) thetaE8^2 = thetaD16 = E4^2 = E8 auf Gamma_0(1), Gewicht 8; (4) 1728*Delta = E4^3 - E6^2 auf Gamma_0(1), Gewicht 12; (5) j*Delta = E4^3.",
+   "level": "hypothesis",
+   "status": "offen",
+   "anhang": true,
+   "relevanz": null,
+   "env": null
+  },
+  {
+   "claim_id": "C-modular-R5f-I",
+   "text": "Unverified interpretation of modular-R5f (never use as a result): Mehrere Identitäten mit Sturm-Zertifikat: (1) theta(1)^4 = eta(2)^20*eta(1)^-8*eta(4)^-8 auf Gamma_0(4), Gewicht 2, also die quadrierte Jacobi-Identität; (2) thetaE8 = E4 auf Gamma_0(1), Gewicht 4; (3) thetaE8^2 = thetaD16 = E4^2 = E8 auf Gamma_0(1), Gewicht 8; (4) 1728*Delta = E4^3 - E6^2 auf Gamma_0(1), Gewicht 12; (5) j*Delta = E4^3.",
+   "level": "hypothesis",
+   "status": "offen",
+   "anhang": true,
+   "relevanz": null,
+   "env": null
+  },
+  {
+   "claim_id": "C-modular-R5g-I",
+   "text": "Unverified interpretation of modular-R5g (never use as a result): Mehrere Identitäten mit Sturm-Zertifikat: (1) theta(1)^4 = eta(2)^20*eta(1)^-8*eta(4)^-8 auf Gamma_0(4), Gewicht 2, also die quadrierte Jacobi-Identität; (2) thetaE8 = E4 auf Gamma_0(1), Gewicht 4; (3) thetaE8^2 = thetaD16 = E4^2 = E8 auf Gamma_0(1), Gewicht 8; (4) 1728*Delta = E4^3 - E6^2 auf Gamma_0(1), Gewicht 12; (5) j*Delta = E4^3.",
+   "level": "hypothesis",
+   "status": "offen",
+   "anhang": true,
+   "relevanz": null,
+   "env": null
+  },
+  {
+   "claim_id": "C-modular-R5g-RT1",
+   "text": "Counter-check (adversarial test) of modular-R5g: Ich habe keinen echten Widerspruch gefunden: Die Identitäten der Antwort (theta^4 als Eta-Quotient, thetaE8 = E4, thetaE8^2 = thetaD16 = E8 = E4^2, 1728*Delta = E4^3 - E6^2, j*Delta = E4^3) stimmen alle. Es gibt nur eine Lücke: Gefragt war die Jacobi-Identität für theta selbst, die Antwort liefert nur die vierte Potenz. Diese Prüfung testet die Gewicht-1-Version theta^2 = eta(2)^10/(eta(1)^4 eta(4)^4) auf Gamma_0(4). Sie ist nach meiner Rechnung wahr und würde daher nur bestehen, wenn die Antwort wegen der fehlenden Abdeckung als unvollständig gilt. Sie ist kein Gegenbeispiel. Result: passed, but does not contradict the statement. Verifier: Sturm-Zertifikat: alle Terme in M^!_1(Gamma_0(4)); nach Multiplikation mit Delta^0 holomorph vom Gewicht 1; Koeffizienten q^0..q^10 verschwinden exakt, Sturm-Schranke 1/2 (Index 6)",
+   "level": "computed_rigorous",
+   "status": "bestätigt",
+   "anhang": true,
+   "relevanz": null,
+   "env": null
+  },
+  {
+   "claim_id": "C-modular-R5h-I",
+   "text": "Unverified interpretation of modular-R5h (never use as a result): Mehrere Identitäten mit Sturm-Zertifikat: (1) theta(1)^4 = eta(2)^20*eta(1)^-8*eta(4)^-8 auf Gamma_0(4), Gewicht 2, also die quadrierte Jacobi-Identität; (2) thetaE8 = E4 auf Gamma_0(1), Gewicht 4; (3) thetaE8^2 = thetaD16 = E4^2 = E8 auf Gamma_0(1), Gewicht 8; (4) 1728*Delta = E4^3 - E6^2 auf Gamma_0(1), Gewicht 12; (5) j*Delta = E4^3.",
+   "level": "hypothesis",
+   "status": "offen",
+   "anhang": true,
+   "relevanz": null,
+   "env": null
+  },
+  {
+   "claim_id": "C-modular-R6a",
+   "text": "Question studied: Gibt es eine rationale lineare Relation zwischen den sieben dihedralen Modulgraphfunktionen vom Gewicht 9 (C(7,1,1), C(6,2,1), C(5,3,1), C(5,2,2), C(4,4,1), C(4,3,2), C(3,3,3)), E(9) und zeta(9)? Finde sie explizit und lasse sie als mgf_relation prüfen. Verified result: Numerically (32 digits, 4 verifier-chosen points, relative residual <= 1e-24): 960·E(9) + zeta(9) - 2160·C(4,4,1) - 4320·C(4,3,2) - 960·C(3,3,3) = 0 as functions of tau. Verifier: exakter Leitkoeffizient von y^9: 0; numerisch an 4 Prüfer-Punkten (Seed 4711, 32 Stellen): max. relatives Residuum 8.33e-44 (Schranke 1e-24). Novelty status: inconclusive; equivalent searches disagree (3 gleichwertige Prüfungen; 1 mit Literaturtreffer, 2 ohne); the closest literature statement is arXiv:2004.05156v2: \"our solution allows for a counting of linearly independent modular graph forms at a given weight, confirming previous partial results and giving predictions for\". The result may be known or implied there; it must not be called new.",
+   "level": "observed",
+   "status": "bestätigt",
+   "relevanz": "hauptresultat",
+   "scope": "punkte",
+   "rolle": "hauptresultat",
+   "env": "observation"
+  },
+  {
+   "claim_id": "C-modular-R6a-I",
+   "text": "Unverified interpretation of modular-R6a (never use as a result): Ja: Es gibt genau eine solche Relation (Relationsraum der Dimension 1). Sie lautet 960·E(9) + zeta(9) - 2160·C(4,4,1) - 4320·C(4,3,2) - 960·C(3,3,3) = 0. C(7,1,1), C(6,2,1), C(5,3,1) und C(5,2,2) haben darin den Koeffizienten 0. Sie ist das Gewicht-9-Glied einer Familie für die Gewichte 3, 5, 7, 9.",
+   "level": "hypothesis",
+   "status": "offen",
+   "anhang": true,
+   "relevanz": null,
+   "env": null
+  },
+  {
+   "claim_id": "C-modular-R6a-RT1",
+   "text": "Counter-check (adversarial test) of modular-R6a: Gegenteil der Behauptung: Es gibt keine rationale lineare Relation zwischen diesen neun Funktionen, der Relationsraum hat Dimension 0. Das besteht nur, wenn die behauptete Relation 960·E(9)+zeta(9)-2160·C(4,4,1)-4320·C(4,3,2)-960·C(3,3,3)=0 numerisch nicht gilt. Gilt sie, scheitert die Prüfung. Result: did not pass. Verifier: 0 Relationen einzeln bestätigt; Singulärwerte der normierten 12x9-Wertematrix (Seed 4712): 1 < 1e-24, 8 > 1e-8, kleinster großer 8.6e-7",
+   "level": "observed",
+   "status": "bestätigt",
+   "anhang": true,
+   "relevanz": null,
+   "env": null
+  },
+  {
+   "claim_id": "C-modular-R6b",
+   "text": "Question studied: Gibt es eine rationale lineare Relation zwischen den sieben dihedralen Modulgraphfunktionen vom Gewicht 9 (C(7,1,1), C(6,2,1), C(5,3,1), C(5,2,2), C(4,4,1), C(4,3,2), C(3,3,3)), E(9) und zeta(9)? Finde sie explizit und lasse sie als mgf_relation prüfen. Verified result: Numerically (32 digits, 4 verifier-chosen points, relative residual <= 1e-24): C(1,1,1) - E(3) - zeta(3) = 0 as functions of tau. Verifier: exakter Leitkoeffizient von y^3: 0; numerisch an 4 Prüfer-Punkten (Seed 4711, 32 Stellen): max. relatives Residuum 5.13e-44 (Schranke 1e-24). Novelty status: inconclusive; equivalent searches disagree (2 gleichwertige Prüfungen; 1 mit Literaturtreffer, 1 ohne); the closest literature statement is arXiv:1603.00839: \"This map is used to provide proofs of the identities between modular graph functions for weight less than six conjectured in earlier work\". The result may be known or implied there; it must not be called new.",
+   "level": "observed",
+   "status": "bestätigt",
+   "relevanz": "stuetze",
+   "scope": "punkte",
+   "rolle": "beispiel",
+   "env": "observation"
+  },
+  {
+   "claim_id": "C-modular-R6b-I",
+   "text": "Unverified interpretation of modular-R6b (never use as a result): Ja: Es gibt genau eine solche Relation (Relationsraum der Dimension 1). Sie lautet 960·E(9) + zeta(9) - 2160·C(4,4,1) - 4320·C(4,3,2) - 960·C(3,3,3) = 0. C(7,1,1), C(6,2,1), C(5,3,1) und C(5,2,2) haben darin den Koeffizienten 0. Sie ist das Gewicht-9-Glied einer Familie für die Gewichte 3, 5, 7, 9.",
+   "level": "hypothesis",
+   "status": "offen",
+   "anhang": true,
+   "relevanz": null,
+   "env": null
+  },
+  {
+   "claim_id": "C-modular-R6b-RT1",
+   "text": "Counter-check (adversarial test) of modular-R6b: Gegenteil der Behauptung: Wäre die behauptete Gewicht-9-Relation falsch, etwa weil PSLQ eine Scheinrelation durch Rundung oder zu wenige Prüfpunkte gefunden hat, gäbe es keine rationale lineare Relation zwischen diesen neun Funktionen. Der Relationsraum hätte dann Dimension 0. Das prüft die Vollständigkeit über Singulärwerte an unabhängigen Prüfer-Punkten. Result: did not pass. Verifier: 0 Relationen einzeln bestätigt; Singulärwerte der normierten 12x9-Wertematrix (Seed 4712): 1 < 1e-24, 8 > 1e-8, kleinster großer 8.6e-7",
+   "level": "observed",
+   "status": "bestätigt",
+   "anhang": true,
+   "relevanz": null,
+   "env": null
+  },
+  {
+   "claim_id": "C-modular-R6c",
+   "text": "Question studied: Gibt es eine rationale lineare Relation zwischen den sieben dihedralen Modulgraphfunktionen vom Gewicht 9 (C(7,1,1), C(6,2,1), C(5,3,1), C(5,2,2), C(4,4,1), C(4,3,2), C(3,3,3)), E(9) und zeta(9)? Finde sie explizit und lasse sie als mgf_relation prüfen. Verified result: Numerically (32 digits, 4 verifier-chosen points, relative residual <= 1e-24): 30·C(2,2,1) - 12·E(5) - zeta(5) = 0 as functions of tau. Verifier: exakter Leitkoeffizient von y^5: 0; numerisch an 4 Prüfer-Punkten (Seed 4711, 32 Stellen): max. relatives Residuum 1.57e-43 (Schranke 1e-24). Novelty status: inconclusive; equivalent searches disagree (2 gleichwertige Prüfungen; 1 mit Literaturtreffer, 1 ohne); the closest literature statement is arXiv:1603.00839v4: \"This map is used to provide proofs of the identities between modular graph functions for weight less than six conjectured in earlier work\". The result may be known or implied there; it must not be called new.",
+   "level": "observed",
+   "status": "bestätigt",
+   "relevanz": "stuetze",
+   "scope": "punkte",
+   "rolle": "beispiel",
+   "env": "observation"
+  },
+  {
+   "claim_id": "C-modular-R6c-I",
+   "text": "Unverified interpretation of modular-R6c (never use as a result): Ja: Es gibt genau eine solche Relation (Relationsraum der Dimension 1). Sie lautet 960·E(9) + zeta(9) - 2160·C(4,4,1) - 4320·C(4,3,2) - 960·C(3,3,3) = 0. C(7,1,1), C(6,2,1), C(5,3,1) und C(5,2,2) haben darin den Koeffizienten 0. Sie ist das Gewicht-9-Glied einer Familie für die Gewichte 3, 5, 7, 9.",
+   "level": "hypothesis",
+   "status": "offen",
+   "anhang": true,
+   "relevanz": null,
+   "env": null
+  },
+  {
+   "claim_id": "C-modular-R6c-RT1",
+   "text": "Counter-check (adversarial test) of modular-R6c: Gegenteil der Behauptung: Gibt es zwischen den sieben Gewicht-9-Funktionen, E(9) und zeta(9) keine rationale lineare Relation (Relationsraum der Dimension 0), besteht diese Prüfung. Die behauptete Relation aus 960·E(9) + zeta(9) - 2160·C(4,4,1) - 4320·C(4,3,2) - 960·C(3,3,3) wäre dann nur ein PSLQ-Artefakt. Gilt sie dagegen exakt, ist die Dimension mindestens 1 und die Prüfung scheitert. Result: did not pass. Verifier: 0 Relationen einzeln bestätigt; Singulärwerte der normierten 12x9-Wertematrix (Seed 4712): 1 < 1e-24, 8 > 1e-8, kleinster großer 8.6e-7",
+   "level": "observed",
+   "status": "bestätigt",
+   "anhang": true,
+   "relevanz": null,
+   "env": null
+  },
+  {
+   "claim_id": "C-modular-R6d",
+   "text": "Question studied: Gibt es eine rationale lineare Relation zwischen den sieben dihedralen Modulgraphfunktionen vom Gewicht 9 (C(7,1,1), C(6,2,1), C(5,3,1), C(5,2,2), C(4,4,1), C(4,3,2), C(3,3,3)), E(9) und zeta(9)? Finde sie explizit und lasse sie als mgf_relation prüfen. Verified result: Numerically (32 digits, 4 verifier-chosen points, relative residual <= 1e-24): 252·C(3,3,1) + 252·C(3,2,2) - 108·E(7) - zeta(7) = 0 as functions of tau. Verifier: exakter Leitkoeffizient von y^7: 0; numerisch an 4 Prüfer-Punkten (Seed 4711, 32 Stellen): max. relatives Residuum 1.59e-43 (Schranke 1e-24). Novelty status: already stated in the literature (arXiv:2007.05476v2: \"we systematically combine these relations to obtain basis decompositions of all two- and three-point MGFs of total modular weight\").",
+   "level": "observed",
+   "status": "bestätigt",
+   "relevanz": "hauptresultat",
+   "scope": "punkte",
+   "rolle": "hauptresultat",
+   "env": "observation"
+  },
+  {
+   "claim_id": "C-modular-R6d-I",
+   "text": "Unverified interpretation of modular-R6d (never use as a result): Ja: Es gibt genau eine solche Relation (Relationsraum der Dimension 1). Sie lautet 960·E(9) + zeta(9) - 2160·C(4,4,1) - 4320·C(4,3,2) - 960·C(3,3,3) = 0. C(7,1,1), C(6,2,1), C(5,3,1) und C(5,2,2) haben darin den Koeffizienten 0. Sie ist das Gewicht-9-Glied einer Familie für die Gewichte 3, 5, 7, 9.",
+   "level": "hypothesis",
+   "status": "offen",
+   "anhang": true,
+   "relevanz": null,
+   "env": null
+  },
+  {
+   "claim_id": "C-modular-R6d-RT1",
+   "text": "Counter-check (adversarial test) of modular-R6d: Gegenteil der Behauptung: Es gibt keine rationale lineare Relation zwischen diesen neun Funktionen (Relationsraum der Dimension 0). Die Prüfung besteht nur, wenn die behauptete Relation falsch ist, d. h. wenn die Singulärwerte an den Prüfer-Punkten keinen Kern zeigen. Result: did not pass. Verifier: 0 Relationen einzeln bestätigt; Singulärwerte der normierten 12x9-Wertematrix (Seed 4712): 1 < 1e-24, 8 > 1e-8, kleinster großer 8.6e-7",
+   "level": "observed",
+   "status": "bestätigt",
+   "anhang": true,
+   "relevanz": null,
+   "env": null
+  },
+  {
+   "claim_id": "C-modular-R6d-RT2",
+   "text": "Counter-check (adversarial test) of modular-R6d: Randfall: Die Relation hat den Koeffizienten 2 bei zeta(9) statt 1 (bei sonst gleichen Koeffizienten). Das ist keine skalare Vielfachheit der behaupteten Relation und besteht nur, wenn die behauptete Normierung bzw. die Konstante falsch ist. Dann hätte die wahre Relation eine andere zeta(9)-Konstante. Result: did not pass. Verifier: Relation [Fraction(0, 1), Fraction(0, 1), Fraction(0, 1), Fraction(0, 1), Fraction(-2160, 1), Fraction(-4320, 1), Fraction(-960, 1), Fraction(960, 1), Fraction(2, 1)] nicht bestätigt: exakter Leitkoef",
+   "level": "observed",
+   "status": "bestätigt",
+   "anhang": true,
+   "relevanz": null,
+   "env": null
+  },
+  {
+   "claim_id": "C-modular-R6e",
+   "text": "Question studied: Gibt es eine rationale lineare Relation zwischen den sieben dihedralen Modulgraphfunktionen vom Gewicht 9 (C(7,1,1), C(6,2,1), C(5,3,1), C(5,2,2), C(4,4,1), C(4,3,2), C(3,3,3)), E(9) und zeta(9)? Finde sie explizit und lasse sie als mgf_relation prüfen. Verified result: Numerically, the rational linear relations among the modular graph functions C(7,1,1), C(6,2,1), C(5,3,1), C(5,2,2), C(4,4,1), C(4,3,2), C(3,3,3), E(9), zeta(9) (weight 9) form a space of dimension exactly 1, spanned by the identity -2160·C(4,4,1) - 4320·C(4,3,2) - 960·C(3,3,3) + 960·E(9) + zeta(9) = 0 (each relation checked to 1e-24 at verifier points with exact leading Laurent coefficient; completeness by a singular-value gap). Verifier: 1 Relationen einzeln bestätigt; Singulärwerte der normierten 12x9-Wertematrix (Seed 4712): 1 < 1e-24, 8 > 1e-8, kleinster großer 8.6e-7. Novelty status: inconclusive; equivalent searches disagree (3 gleichwertige Prüfungen; 1 mit Literaturtreffer, 2 ohne); the closest literature statement is arXiv:2004.05156v2: \"our solution allows for a counting of linearly independent modular graph forms at a given weight, confirming previous partial results and giving predictions for\". The result may be known or implied there; it must not be called new.",
+   "level": "observed",
+   "status": "bestätigt",
+   "relevanz": "hauptresultat",
+   "scope": "punkte",
+   "rolle": "hauptresultat",
+   "env": "observation"
+  },
+  {
+   "claim_id": "C-modular-R6e-I",
+   "text": "Unverified interpretation of modular-R6e (never use as a result): Ja: Es gibt genau eine solche Relation (Relationsraum der Dimension 1). Sie lautet 960·E(9) + zeta(9) - 2160·C(4,4,1) - 4320·C(4,3,2) - 960·C(3,3,3) = 0. C(7,1,1), C(6,2,1), C(5,3,1) und C(5,2,2) haben darin den Koeffizienten 0. Sie ist das Gewicht-9-Glied einer Familie für die Gewichte 3, 5, 7, 9.",
+   "level": "hypothesis",
+   "status": "offen",
+   "anhang": true,
+   "relevanz": null,
+   "env": null
+  },
+  {
+   "claim_id": "C-modular-R6e-RT1",
+   "text": "Counter-check (adversarial test) of modular-R6e: Gegenteil der Behauptung: Es gibt gar keine rationale lineare Relation ohne Produktterme. Bei Gewicht 9 gehorchen die C(a,b,c) inhomogenen Laplace-Gleichungen mit Quelltermen aus Produkten wie E(3)^3 oder E(2)E(7). Eine Relation allein mit E(9) und zeta(9) wäre daher überraschend. Diese Prüfung besteht nur, wenn der Relationsraum leer ist, und scheitert, wenn die behauptete Relation existiert. Result: did not pass. Verifier: 0 Relationen einzeln bestätigt; Singulärwerte der normierten 12x9-Wertematrix (Seed 4712): 1 < 1e-24, 8 > 1e-8, kleinster großer 8.6e-7",
+   "level": "observed",
+   "status": "bestätigt",
+   "anhang": true,
+   "relevanz": null,
+   "env": null
+  },
+  {
+   "claim_id": "C-neg1",
+   "text": "Negative result for the question 'Gibt es bei Gewicht 6 rationale lineare Relationen zwischen C(4,1,1), C(3,2,1), C(2,2,2), E(6), E(2)*E(4), E(3)^2, E(2)^3, zeta(3)*E(3), zeta(3)^2? Bestimme die Dimension des Relationsraums (auch 0 ist ein Ergebnis).': no claim passed the verifier. Reasons per attempt: sparsam/haiku (mgf_relationen): ; numeriker/haiku (mgf_relationsraum): 0 Relationen einzeln bestätigt; Singulärwerte der normierten 12x9-Wertematrix (Seed 4712): 0 < 1e-24, 8 > 1e-8, kleinster großer 2.44e-8; skeptiker/sonnet (mgf_relationsraum): 0 Relationen einzeln bestätigt; Singulärwerte der normierten 12x9-Wertematrix (Seed 4712): 0 < 1e-24, 8 > 1e-8, kleinster großer 2.44e-8; theoretiker/sonnet (mgf_relationsraum): 0 Relationen einzeln bestätigt; Singulärwerte der normierten 12x9-Wertematrix (Seed 4712): 0 < 1e-24, 8 > 1e-8, kleinster großer 2.44e-8",
+   "level": "observed",
+   "status": "bestätigt",
+   "relevanz": null,
+   "anhang": true,
+   "env": null
+  },
+  {
+   "claim_id": "C-neuheit-suche",
+   "text": "Novelty search queries per result: modular-R1: modular graph functions weight 3; non-holomorphic modular form relations; string amplitude modular identities; Eisenstein series modular graph; heterotic string modular forms (123 abstracts) | modular-R1b: modular graph functions weight 5; non-holomorphic Eisenstein identity; linear relations modular graph functions; two-loop string modular amplitude; zeta Eisenstein series relations (114 abstracts) | modular-R1c: modular graph functions weight 7; C(3,3,1) C(3,2,2) E(7) zeta(7); modular graph functions linear relations; string theory modular graph functions; string theory modular forms weight 7 (101 abstracts) | modular-R1d: Modular graph functions string theory; Linear relations modular graph functions; Modular graph functions weight 9; String amplitudes modular graph functions; Modular graph functions Eisenstein series (108 abstracts) | modular-R4a: modular graph functions; Laplace eigenvalue modular forms; Eisenstein series modular graph; non-holomorphic modular forms amplitude; string amplitudes modular identities (112 abstracts) | modular-R4b: modular graph Laplacian equation; Eisenstein series modular graph functions; modular graph string amplitude; heterotic string one-loop amplitude; non-holomorphic modular forms Laplacian (105 abstracts) | modular-R4c: modular graph functions Laplacian; string amplitude modular form identity; Eisenstein series string theory; dihedral modular graph functions; hyperbolic Laplacian modular forms (112 abstracts) | modular-R4d: modular graph function Laplacian; modular graph functions differential equations; non-holomorphic modular form Laplacian; string theory modular forms; Pioline modular graph function (98 abstracts) | modular-R5a: theta function Dedekind eta identity; modular identities Gamma_0(4) string theory; eta function theta modular relation; Dedekind eta theta function modular; modular form identity Eisenstein theta (71 abstracts) | modular-R5b: theta eta modular forms identities; Gamma_0(4) modular forms identities; eta quotient modular forms; Dedekind eta function identities; string theory modular forms theta (93 abstracts) | modular-R5c: theta E8 Eisenstein E4 identity; E8 lattice theta modular forms; E4 theta function E8 modular; thetaE8 equals E4 identity (49 abstracts) | modular-R5d: E8 D16 theta function identity; theta series E8 D16 lattices modular; modular forms E8 theta D16; E8 lattice theta squared identity; lattice theta functions E8 D16 relation (24 abstracts) | modular-R5e: E8 theta E4 identity; modular forms theta function identity; E8 partition function string theory; Eisenstein E4 theta squared; lattice theta character formula (103 abstracts) | modular-R5f: E8 theta function Eisenstein series; theta E8 modular form identity; E8 lattice theta function squared; Eisenstein series E8 theta relation; Eisenstein theta E8 string theory (68 abstracts) | modular-R5g: Eisenstein series E4 E6 discriminant identity; Ramanujan Delta Eisenstein modular relation; E4 cubed E6 squared modular forms; classical modular discriminant Eisenstein identity; modular form E4 E6 Delta classical (45 abstracts) | modular-R5h: j-invariant Eisenstein discriminant modular identity; modular form identity Sturm bound verification; string theory modular forms identities; Delta E4 j-invariant relation; Gamma_0(N) modular identity linear relations (69 abstracts) | modular-R6a: modular graph functions Eisenstein series; modular graph functions string amplitudes; closed string one-loop amplitudes modular; low energy expansion modular functions; non-holomorphic Eisenstein series identities (102 abstracts) | modular-R6b: modular graph functions; Eisenstein series string amplitudes; closed string amplitude identities; heterotic string low energy; modular forms zeta function (131 abstracts) | modular-R6c: modular graph functions; modular graph function identities zeta; string amplitude modular graph functions; Eisenstein modular graph functions; two-loop string modular form (108 abstracts) | modular-R6d: modular graph functions string amplitudes; non-holomorphic Eisenstein series identities; C(a,b,c) modular graph functions; two-loop string amplitude modular functions; modular graph functions zeta relations (109 abstracts) | modular-R6e: modular graph functions weight 9; linear relations modular graph functions; modular graph functions string theory; one-loop amplitude modular graph functions; Eisenstein series modular graph functions (110 abstracts)",
+   "level": "observed",
+   "status": "bestätigt",
+   "anhang": true,
+   "relevanz": null,
+   "env": null
+  },
+  {
+   "claim_id": "C-redteam",
+   "text": "Counter-checks (adversarial tests) in total: 25; passed: 2, did not pass: 22, not executable: 1.",
+   "level": "observed",
+   "status": "bestätigt",
+   "anhang": true,
+   "relevanz": null,
+   "env": null
+  },
+  {
+   "claim_id": "C-methode",
+   "text": "The laboratory ran 6 rounds with 21 verified statements and 2 negative results; every round preregistered before the experiment (prereg.md).",
+   "level": "observed",
+   "status": "bestätigt",
+   "anhang": true,
+   "relevanz": null,
+   "env": null
+  },
+  {
+   "claim_id": "C-verfuegbarkeit",
+   "text": "Code and data: repository https://github.com/NinjaTurtlesHackathons/Hacknation (branch claude/modulformen-paper), branch claude/modulformen-paper, directory projects/modular; reproduce all certificates with 'python -m asd.recheck modular' and rebuild the paper with 'python -m asd.paper --domain modular'.",
+   "level": "observed",
+   "status": "bestätigt",
+   "relevanz": null,
+   "anhang": true,
+   "env": null
+  }
+ ],
+ "story": {
+  "kernfrage": "What rational linear relations and Laplace equations hold among two-loop dihedral modular graph functions C(a,b,c) of weight w = 3, 5, 7, 9, Eisenstein series E(w) and zeta values, and how large is the relation space at each weight?",
+  "kernaussage": "Numerically, at each weight w = 3, 5, 7, 9 the dihedral modular graph functions C(a,b,c) together with E(w) and zeta(w) obey exactly one rational linear relation (including an explicit weight-9 relation), and C(2,1,1), C(3,1,1), C(2,2,1) satisfy inhomogeneous Laplace equations with sources built from Eisenstein series and zeta values.",
+  "titel": "Rational Linear Relations and Laplace Equations for Two-Loop Dihedral Modular Graph Functions at Weights 3 to 9",
+  "keywords": "modular graph functions, string theory, Laplace equations, non-holomorphic Eisenstein series, zeta values, lattice sums",
+  "zuordnung": {
+   "C-modell": "stuetze",
+   "C-modular-R1": "hauptresultat",
+   "C-modular-R1b": "hauptresultat",
+   "C-modular-R1c": "hauptresultat",
+   "C-modular-R1d": "hauptresultat",
+   "C-modular-R4a": "hauptresultat",
+   "C-modular-R4b": "hauptresultat",
+   "C-modular-R4c": "hauptresultat",
+   "C-modular-R4d": "hauptresultat",
+   "C-modular-R5a": "weglassen",
+   "C-modular-R5b": "weglassen",
+   "C-modular-R5c": "weglassen",
+   "C-modular-R5d": "weglassen",
+   "C-modular-R5e": "weglassen",
+   "C-modular-R5f": "weglassen",
+   "C-modular-R5g": "weglassen",
+   "C-modular-R5h": "weglassen",
+   "C-modular-R6a": "hauptresultat",
+   "C-modular-R6b": "beispiel",
+   "C-modular-R6c": "beispiel",
+   "C-modular-R6d": "hauptresultat",
+   "C-modular-R6e": "hauptresultat",
+   "C-neg1": "anhang",
+   "C-neg2": "weglassen",
+   "C-verfuegbarkeit": "anhang"
+  }
+ }
+}

@@ -1,0 +1,295 @@
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}\usepackage[T1]{fontenc}\usepackage{lmodern}\usepackage{microtype}
+\usepackage[english]{babel}\usepackage[a4paper,margin=2.5cm]{geometry}
+\usepackage{amsmath,amssymb,amsthm}\usepackage{graphicx}\usepackage{booktabs,longtable,array,calc}
+\usepackage[hidelinks]{hyperref}\usepackage[capitalise,noabbrev]{cleveref}\usepackage{newunicodechar}
+\newunicodechar{η}{\ensuremath{\eta}}
+\newunicodechar{Δ}{\ensuremath{\Delta}}
+\newunicodechar{σ}{\ensuremath{\sigma}}
+\newunicodechar{μ}{\ensuremath{\mu}}
+\newunicodechar{≥}{\ensuremath{\geq}}
+\newunicodechar{≤}{\ensuremath{\leq}}
+\newunicodechar{×}{\ensuremath{\times}}
+\newunicodechar{→}{\ensuremath{\to}}
+\newunicodechar{≈}{\ensuremath{\approx}}
+\newunicodechar{−}{\ensuremath{-}}
+\newunicodechar{·}{\ensuremath{\cdot}}
+\newunicodechar{∈}{\ensuremath{\in}}
+\newunicodechar{…}{\ensuremath{\ldots}}
+\newunicodechar{²}{\ensuremath{^{2}}}
+\newunicodechar{³}{\ensuremath{^{3}}}
+\newunicodechar{√}{\ensuremath{\surd}}
+\newunicodechar{±}{\ensuremath{\pm}}
+\newunicodechar{⁻}{\ensuremath{^{-}}}
+\newunicodechar{¹}{\ensuremath{^{1}}}
+\newunicodechar{₀}{\ensuremath{_{0}}}
+\newunicodechar{₁}{\ensuremath{_{1}}}
+\newunicodechar{₂}{\ensuremath{_{2}}}
+\newunicodechar{α}{\ensuremath{\alpha}}
+\newunicodechar{β}{\ensuremath{\beta}}
+\newunicodechar{γ}{\ensuremath{\gamma}}
+\newunicodechar{ε}{\ensuremath{\varepsilon}}
+\newunicodechar{τ}{\ensuremath{\tau}}
+\newunicodechar{ν}{\ensuremath{\nu}}
+\newunicodechar{∞}{\ensuremath{\infty}}
+\newunicodechar{≠}{\ensuremath{\neq}}
+\newunicodechar{π}{\ensuremath{\pi}}
+\newunicodechar{λ}{\ensuremath{\lambda}}
+\newunicodechar{ρ}{\ensuremath{\rho}}
+\newunicodechar{θ}{\ensuremath{\theta}}
+
+\providecommand{\tightlist}{\setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\newtheorem{theorem}{Theorem}\newtheorem{proposition}[theorem]{Proposition}\newtheorem{lemma}[theorem]{Lemma}\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}\newtheorem{definition}[theorem]{Definition}\newtheorem{example}[theorem]{Example}
+\newtheorem{observation}[theorem]{Numerical observation}\theoremstyle{remark}\newtheorem{remark}[theorem]{Remark}
+\title{Rational Linear Relations and Laplace Equations for Two-Loop Dihedral Modular Graph Functions at Weights 3 to 9}
+\author{Noah Schittenhelm\\[2pt] \small Hack-Nation 2026, Team Ninja Turtles}
+\date{Preprint, \today}
+\begin{document}
+\maketitle
+\begin{abstract}
+We study rational linear relations among two-loop dihedral modular graph functions \(C(a,b,c)\) of weight \(w = 3, 5, 7, 9\), the Eisenstein series \(E(w)\) and \(\zeta(w)\). We also study Laplace equations for \(C(2,1,1)\), \(C(3,1,1)\) and \(C(2,2,1)\). Counting predictions for such relation spaces come from generating-series methods (arXiv:2004.05156, quoted in); the explicit weight-9 relation was not found there in our search. At each weight we find a relation space of dimension exactly 1, including the weight-9 relation \(-2160\,C(4,4,1)-4320\,C(4,3,2)-960\,C(3,3,3)+960\,E(9)+\zeta(9)=0\). The Laplace equations hold with sources built from Eisenstein series and \(\zeta(5)\). The method is exact leading Laurent coefficients, high-precision evaluation at verifier-chosen points and a singular-value gap for completeness. All statements are numerical observations, not theorems. This is a pre-release: the computation at weight eleven is still running and the results are preliminary.
+
+\par\medskip\noindent\textbf{Keywords:} modular graph functions, string theory, Laplace equations, non-holomorphic Eisenstein series, zeta values, lattice sums
+\end{abstract}
+\section{Introduction}\label{introduction}
+
+Modular graph functions arise as coefficients of the low-energy expansion of the one-loop closed-string amplitude. The two-loop dihedral functions \(C(a,b,c)\) satisfy Laplace eigenvalue equations with inhomogeneous terms polynomial in non-holomorphic Eisenstein series (arXiv:1502.06698, quoted in). Identities among them were proved for weight less than six (arXiv:1603.00839, quoted in). All identities at weight six and all dihedral identities at weight seven were later obtained and proven (arXiv:1608.04393v3, quoted in). A counting of linearly independent modular graph forms at fixed weight, with predictions, is given in arXiv:2004.05156v2 (quoted in).
+
+Open question: what is the complete space of rational linear relations among all \(C(a,b,c)\) of weight \(w\), \(E(w)\) and \(\zeta(w)\) for \(w = 3, 5, 7, 9\)?
+
+Contribution: we determine the relation space numerically at each of these weights, give explicit relations, and test inhomogeneous Laplace equations. The weight-9 relation was not found explicitly in our search, but it may be implied by the generating-series counting of arXiv:2004.05156. This is a pre-release. The computation at weight eleven is still running and all results are preliminary. Every modular-graph-function statement below is a numerical observation.
+
+\textbf{Summary of results.}
+
+\begin{itemize}
+\tightlist
+\item
+  Weight-3 observation: the relation space has dimension 1.
+\item
+  Weight-5 observation: the relation space has dimension 1.
+\item
+  Weight-7 observation: the relation space has dimension 1.
+\item
+  Weight-9 observation: the relation space has dimension 1, with an explicit relation.
+\item
+  Laplace-equation observations for \(C(3,1,1)\), \(C(2,1,1)\) and \(C(2,2,1)\).
+\item
+  Negative result: the weight-6 question, for which no claim passed the verifier.
+\end{itemize}
+
+\section{Model and assumptions}\label{model-and-assumptions}
+
+Notation. \(\tau=\tau_1+i\tau_2\), \(p=m\tau+n\) and \(q=e^{2\pi i\tau}\). The lattice-sum normalisation is \((\tau_2/(\pi|m\tau+n|^2))^a\). With \(\sum'\) denoting the sum over nonzero lattice momenta, and for \(C\) over three momenta summing to zero,
+\[E(s)=\sum_{p}{}'\Big(\frac{\tau_2}{\pi|p|^2}\Big)^s,\qquad C(a,b,c)=\sum_{p_1,p_2,p_3}{}'\ \prod_{i}\Big(\frac{\tau_2}{\pi|p_i|^2}\Big)^{a_i}\quad\text{},\]
+with weight \(w=a+b+c\). \(L[F]=\tau_2^2(\partial_{\tau_1}^2+\partial_{\tau_2}^2)F\) is the hyperbolic Laplacian. The Eisenstein normalisation is \(a_0=1\).
+
+Fixed parameters:
+
+{\def\LTcaptype{none} % do not increment counter
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.5000}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.5000}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+parameter
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+value
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+verifier points & 4 random points, seed 4711, \(\lvert\tau_1\rvert\le 1/2\), \(1\le\tau_2\le 2.5\) \\
+working precision & 32 digits \\
+tolerance & 1e-24 (1e-14 with Laplacian) \\
+Laplacian step & \(h=\) 1e-6, fourth-order finite differences \\
+\end{longtable}
+}
+
+\section{Method}\label{method}
+
+Trusted base: the verifier's own evaluation of \(E(s)\) and \(C(a,b,c)\) at 32 digits at points it chooses itself. Relations proposed by a search are not trusted; each is re-checked as follows.
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  \emph{Exact leading Laurent coefficient.} For each relation reported here, the exact leading Laurent coefficient vanishes.
+\item
+  \emph{Numerical residual.} The relation is evaluated at the verifier points. The maximal relative residual must be below 1e-24 for linear relations and below 1e-14 for Laplace equations, where \(L\) is a finite-difference Laplacian.
+\item
+  \emph{Completeness.} The normalised value matrix (rows are evaluation points, columns are the functions) is decomposed by singular values, with evaluation seed 4712. The dimension is the number of singular values below 1e-24, and a gap to the remaining values above 1e-8 is required.
+\end{enumerate}
+
+Status of the claims. Everything about \(C(a,b,c)\) is a numerical observation. Exact leading coefficients are necessary conditions, not proofs. Completeness rests on a numerical singular-value gap, and the claims have \texttt{scope=punkte}. The holomorphic Sturm-bound identities (the only statements that would count as theorems) are not part of the verified claim set used here, so this article states no theorems.
+
+A third party re-runs the certificates as described in the Declarations.
+
+The results were produced by an automated, verifier-gated laboratory in which every statement was accepted only after code-based verification. Counter-hypotheses were tested adversarially and the proposing process had no influence on the verdicts.
+
+\section{Results}\label{results}
+
+\subsection{Relation spaces}\label{relation-spaces}
+
+The four observations share one design: the \(C(a,b,c)\) of weight \(w\) plus \(E(w)\) and \(\zeta(w)\).
+
+\begin{observation}[Weight 3]
+Numerically, the rational linear relations among \(C(1,1,1)\), \(E(3)\), \(\zeta(3)\) form a space of dimension exactly 1, spanned by \(C(1,1,1)-E(3)-\zeta(3)=0\).
+\end{observation}
+
+\emph{Certificate.} The relation holds at the verifier points with maximal relative residual 5.13e-44 against the bound 1e-24 and exact leading coefficient 0. The \(6\times3\) value matrix has singular values: 1 below 1e-24, 2 above 1e-8, smallest large value 0.731. Novelty status: inconclusive; equivalent searches disagree, and the closest literature statement is arXiv:1603.00839, so the result may be known.
+
+\begin{observation}[Weight 5]
+Numerically, the rational linear relations among \(C(3,1,1)\), \(C(2,2,1)\), \(E(5)\), \(\zeta(5)\) form a space of dimension exactly 1, spanned by \(30\,C(2,2,1)-12\,E(5)-\zeta(5)=0\).
+\end{observation}
+
+\emph{Certificate.} Maximal relative residual 1.57e-43 (bound 1e-24), exact leading coefficient 0. The \(7\times4\) matrix has 1 singular value below 1e-24, 3 above 1e-8, smallest large value 0.0372. Novelty status: inconclusive; equivalent searches disagree, and the closest literature statement is arXiv:1603.00839v4, so the result may be known.
+
+\begin{observation}[Weight 7]
+Numerically, the rational linear relations among \(C(5,1,1)\), \(C(4,2,1)\), \(C(3,3,1)\), \(C(3,2,2)\), \(E(7)\), \(\zeta(7)\) form a space of dimension exactly 1, spanned by \(252\,C(3,3,1)+252\,C(3,2,2)-108\,E(7)-\zeta(7)=0\).
+\end{observation}
+
+\emph{Certificate.} Maximal relative residual 1.59e-43 (bound 1e-24). The \(9\times6\) matrix has 1 singular value below 1e-24, 5 above 1e-8, smallest large value 0.000127. Novelty status: already stated in the literature (arXiv:1608.04393v3); see also arXiv:2007.05476v2.
+
+\begin{observation}[Weight 9]
+Numerically, the rational linear relations among \(C(7,1,1)\), \(C(6,2,1)\), \(C(5,3,1)\), \(C(5,2,2)\), \(C(4,4,1)\), \(C(4,3,2)\), \(C(3,3,3)\), \(E(9)\), \(\zeta(9)\) form a space of dimension exactly 1, spanned by \(-2160\,C(4,4,1)-4320\,C(4,3,2)-960\,C(3,3,3)+960\,E(9)+\zeta(9)=0\). The four functions \(C(7,1,1)\), \(C(6,2,1)\), \(C(5,3,1)\), \(C(5,2,2)\) do not occur in it.
+\end{observation}
+
+\emph{Certificate.} Maximal relative residual 8.33e-44 (bound 1e-24), exact leading coefficient 0. The \(12\times9\) matrix has 1 singular value below 1e-24, 8 above 1e-8, smallest large value 8.6e-7. Novelty status: inconclusive. The identity was not found explicitly in our search, but may be implied by the generating-series counting of arXiv:2004.05156.
+
+Table of certified data (numerical observations). Thresholds: ``small'' means below 1e-24, ``large'' means above 1e-8.
+
+{\def\LTcaptype{none} % do not increment counter
+\begin{longtable}[]{@{}llllll@{}}
+\toprule\noalign{}
+\(w\) & matrix & number small & number large & smallest large & claim \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+3 & \(6\times3\) & 1 & 2 & 0.731 & \\
+5 & \(7\times4\) & 1 & 3 & 0.0372 & \\
+7 & \(9\times6\) & 1 & 5 & 0.000127 & \\
+9 & \(12\times9\) & 1 & 8 & 8.6e-7 & \\
+\end{longtable}
+}
+
+\subsection{Laplace equations}\label{laplace-equations}
+
+\begin{observation}[Laplace equation for $C(3,1,1)$]
+Numerically, as functions of \(\tau\), \(L[C(3,1,1)]-6\,C(3,1,1)-\tfrac{86}{5}E(5)+4\,E(2)E(3)-\tfrac1{10}\zeta(5)=0\).
+\end{observation}
+
+\emph{Certificate.} Maximal relative residual 1.63e-25 against the bound 1e-14, exact leading coefficient 0. Novelty status: already stated in the literature (arXiv:1608.04393v3).
+
+\begin{observation}[Laplace equation for $C(2,1,1)$]
+Numerically, \(L[C(2,1,1)]-2\,C(2,1,1)-9\,E(4)+E(2)E(2)=0\).
+\end{observation}
+
+\emph{Certificate.} Maximal relative residual 2.39e-25 (bound 1e-14). Novelty status: already stated in the literature (arXiv:1502.06698).
+
+\begin{observation}[Laplace equations for $C(2,2,1)$]
+Numerically, \(L[C(2,2,1)]-8\,E(5)=0\) and \(L[C(2,2,1)]-20\,C(2,2,1)+\tfrac23\zeta(5)=0\).
+\end{observation}
+
+\emph{Certificate.} Maximal relative residuals 6.99e-26 and 6.74e-26 (bound 1e-14), exact leading coefficient 0. Novelty status: already stated in the literature (doi:10.1088/0264-9381/33/23/235011 and arXiv:1502.06698).
+
+\section{Negative results}\label{negative-results}
+
+\begin{itemize}
+\tightlist
+\item
+  \emph{Weight 6.} We asked for rational linear relations among \(C(4,1,1)\), \(C(3,2,1)\), \(C(2,2,2)\), \(E(6)\), \(E(2)E(4)\), \(E(3)^2\), \(E(2)^3\), \(\zeta(3)E(3)\), \(\zeta(3)^2\), and for the dimension of the relation space (0 would also be a result). No claim passed the verifier. For three attempts the reason is that no relation was confirmed individually and the \(12\times9\) matrix has 0 singular values below 1e-24, 8 above 1e-8, smallest large value 2.44e-8. The fourth attempt returned no verifiable relation. We therefore state no weight-6 result.
+\item
+  \emph{Eta-quotient identities.} No verified claim about eta quotients is available to this article as a main statement, so no reason for a failure is asserted here. Only adversarial counter-checks are recorded, in Appendix A.
+\end{itemize}
+
+\section{Discussion, limitations and open questions}\label{discussion-limitations-and-open-questions}
+
+All \(C(a,b,c)\) statements rest on 32-digit evaluations at 4 verifier points and on singular-value gaps, which is numerical evidence, not proof. The dimension 1 at each weight is a statement about the tested function sets. The computation at weight eleven is still running, so no statement beyond weight 9 is made. The weight-9 relation has inconclusive novelty status.
+
+Open questions:
+
+\begin{enumerate}
+\def\labelenumi{(\roman{enumi})}
+\item
+  Is the relation at each weight provable, for example by exact reduction of the lattice sums?
+\item
+  Does the generating-series counting of arXiv:2004.05156 reproduce the weight-9 relation-space dimension?
+\item
+  How does the pattern continue at weight eleven?
+\item
+  Can the weight-6 relation space be determined?
+\end{enumerate}
+
+\section{Declarations}\label{declarations}
+
+\emph{AI usage.} The results were produced and checked by an automated laboratory; every statement was verified by code.
+
+\emph{Code and data availability.} Repository https://github.com/NinjaTurtlesHackathons/Hacknation, branch claude/modulformen-paper, directory projects/modular. Reproduce all certificates with \texttt{python\ -m\ asd.recheck\ modular} and rebuild the paper with \texttt{python\ -m\ asd.paper\ -\/-domain\ modular}.
+
+\emph{Affiliation.} None given.
+
+\emph{Competing interests.} None.
+
+\appendix
+
+\section{Agentic laboratory}\label{agentic-laboratory}
+
+The laboratory ran 6 rounds with 21 verified statements and 2 negative results; every round was preregistered before the experiment (prereg.md). Agents appearing in the weight-6 record are named \texttt{sparsam}, \texttt{numeriker}, \texttt{skeptiker} and \texttt{theoretiker}. Novelty searches were run per result, with abstract counts recorded.
+
+Red-team statistics: 25 adversarial counter-checks in total; 2 passed, 22 did not pass, 1 was not executable. Examples: replacing the \(\zeta(5)\) source term \(\zeta(5)/10\) in the Laplace equation of \(C(3,1,1)\) by \(\zeta(5)/5\) gives a maximal relative residual 1.04e-01. Changing the coefficient of \(\zeta(9)\) to 2 is refuted exactly. The claim that the weight-9 relation space has dimension 0 fails the singular-value test. A counter-check with an eta quotient whose \(q^1\) coefficient is 9 fails because the exact coefficient is 8.
+
+\section{Provenance}\label{provenance}
+
+The provenance table mapping every statement to its evidence follows; it is generated automatically.
+
+{\def\LTcaptype{none} % do not increment counter
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3333}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3333}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3333}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Statement
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Evidence (claim ids)
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Level
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Section: Introduction & C-modular-R1, C-modular-R1b, C-modular-R1c, C-modular-R1d, C-modular-R4a, C-modular-R4b, C-modular-R4c, C-modular-R4d, C-modular-R6a, C-modular-R6b, C-modular-R6c, C-modular-R6d, C-modular-R6e, C-neg1 & observed \\
+Section: Model and assumptions & C-modell & computed\_rigorous \\
+Section: Method & C-modell, C-modular-R1, C-modular-R1d, C-modular-R4a & computed\_rigorous, observed \\
+Observation 1 (Weight 3) & C-modular-R1, C-modular-R6b & observed \\
+Section: Relation spaces & C-modular-R1, C-modular-R1b, C-modular-R1c, C-modular-R1d, C-modular-R6a, C-modular-R6b, C-modular-R6c, C-modular-R6d, C-modular-R6e & observed \\
+Observation 2 (Weight 5) & C-modular-R1b, C-modular-R6c & observed \\
+Observation 3 (Weight 7) & C-modular-R1c, C-modular-R6d & observed \\
+Observation 4 (Weight 9) & C-modular-R1d, C-modular-R6a, C-modular-R6e & observed \\
+Observation 5 (Laplace equation for \(C(3,1,1)\)) & C-modular-R4a & observed \\
+Section: Laplace equations & C-modular-R4a, C-modular-R4b, C-modular-R4c, C-modular-R4d & observed \\
+Observation 6 (Laplace equation for \(C(2,1,1)\)) & C-modular-R4b & observed \\
+Observation 7 (Laplace equations for \(C(2,2,1)\)) & C-modular-R4c, C-modular-R4d & observed \\
+Section: Negative results & C-neg1 & observed \\
+Section: Discussion, limitations and open questions & C-modell, C-modular-R1, C-modular-R1b, C-modular-R1c, C-modular-R1d, C-neg1 & computed\_rigorous, observed \\
+Section: Declarations & C-verfuegbarkeit & observed \\
+Section: Appendix A: Agentic laboratory & C-methode, C-modular-R4a, C-modular-R4d-RT1, C-modular-R5a-RT2, C-modular-R6a-RT1, C-modular-R6d-RT2, C-neg1, C-neuheit-suche, C-redteam & observed \\
+Section: Appendix C: Verifier self-test & C-modular-R4a, C-modular-R4b, C-modular-R4c, C-modular-R4d, C-modular-R6a, C-modular-R6b, C-modular-R6c, C-modular-R6d, C-redteam & observed \\
+\end{longtable}
+}
+
+The complete automatic checking protocol of the writing process is stored as pruefprotokoll.json in the project directory of the repository.
+
+\section{Verifier self-test}\label{verifier-self-test}
+
+The claim set supplied for this article contains no description or result of a verifier self-test, so none is reported. The only available evidence on verifier discrimination is the adversarial counter-check record in Appendix A.
+
+\begin{figure}[t]\centering\includegraphics[width=0.75\textwidth]{margins.pdf}\caption{Numerical verification margins: largest relative residual of each confirmed relation among modular graph functions at the verifier's own random points (32 digits). Dashed: acceptance threshold $10^{-24}$; dotted: threshold $10^{-14}$ for relations containing a Laplacian (orange).}\end{figure}
+
+\bibliographystyle{unsrt}
+\bibliography{references}
+\end{document}

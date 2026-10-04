@@ -1,0 +1,48 @@
+# Referee report (en)
+
+Fixable points addressed in a revision: no (revision failed the checks or nothing fixable)
+
+## 1. Weight-9 completeness claim rests on a marginal singular-value gap
+
+The weight-9 matrix is 12x9 with 8 singular values above 1e-8, and the smallest 'large' value is 8.6e-7. That is only about 2 orders of magnitude above the 1e-8 gap threshold. The 'small' threshold is 1e-24, so the gap is wide in principle. But the values at weights 5, 7 and 9 shrink steadily (0.0372, 1.27e-4, 8.6e-7), so conditioning is degrading. At weight 6 the smallest large value (2.44e-8) sits near the threshold, and the paper itself could not decide that case. Nothing shows that a second relation with tiny coefficients or a large denominator cannot hide in the 'large' set. The claim of dimension 'exactly 1' is therefore weaker than stated.
+
+- Severity: major
+- Fixable by rewriting: True
+- Suggestion: Report the whole singular-value spectrum per weight. Discuss conditioning and the effect of the 1e-8 threshold. Soften 'exactly 1' to 'at least 1, with numerical evidence for exactly 1 at the stated tolerance'.
+- Status: open
+
+## 2. Too few evaluation points and a square-ish system that weakens the numerical evidence
+
+The verifier uses only 4 random points (seed 4711), and the completeness matrix has 12 rows for 9 columns at weight 9. The rows come from a second seed (4712) and apparently include several points or derivatives, but this is not explained: 6x3, 7x4, 9x6 and 12x9 do not follow clearly from '4 points'. A 12x9 matrix is barely overdetermined, so a rank statement over so few rows is weak. The relation is also checked on a restricted region (|tau1|<=1/2, 1<=tau2<=2.5). A function-space conclusion on the whole upper half-plane is not justified by this sampling.
+
+- Severity: major
+- Fixable by rewriting: True
+- Suggestion: Explain exactly how the rows of the value matrix are built (points, real and imaginary parts, derivatives). Justify why the row counts are enough. Restrict the claims to the sampled region, or add more points and larger sample sets.
+- Status: open
+
+## 3. No proof, and weak connection to the exact structure of the problem
+
+All results are numerical observations. The 'exact leading Laurent coefficient' is only a necessary condition. The paper states that it has no theorems. The weight-3 to 7 relations and the Laplace equations are known from the literature. The only new item is the weight-9 relation, and its novelty is 'inconclusive'. The abstract and introduction say the relation 'may be implied' by the counting in arXiv:2004.05156 but give no check. The contribution is therefore close to a numerical re-verification of known results. No reduction to the exact sums, and no check against an exact basis (for example the Sturm-bound approach or the sieve-algorithm results of the literature), is offered. The weight-9 coefficients (2160, 4320, 960) are also not cross-checked against the known structure of the weight-7 relation.
+
+- Severity: major
+- Fixable by rewriting: False
+- Suggestion: Add an exact proof of the weight-9 relation, for example by reduction of the lattice sums or by a holomorphic-subgraph or Sturm-bound argument. Or compare directly with the counting predictions of arXiv:2004.05156 and the known weight-9 literature and state the result as a numerical confirmation.
+- Status: open
+
+## 4. Internal inconsistencies and unclear statements in the Laplace-equation results
+
+Observation 7 gives two Laplace equations for C(2,2,1): L[C(2,2,1)] = 8 E(5) and L[C(2,2,1)] = 20 C(2,2,1) - 23 zeta(5). They combine into the weight-5 relation 20 C(2,2,1) = 8 E(5) + 23 zeta(5), which is not the stated relation 30 C(2,2,1) - 12 E(5) - zeta(5) = 0, so one of the two is inconsistent with the other and with Observation 2. In Observation 5 the source is written '86/5 E(5) + 4 E(2)E(3) - 10 zeta(5)', but the appendix refers to a source term 'zeta(5)/10' and a changed value 'zeta(5)/5'. The coefficient is therefore unclear, and the formula is garbled in the text. Observation 6 has a different normalisation (E(2)E(2), 9 E(4)), and the E(2)E(3) term in a weight-5 equation needs an explicit definition of the products. Observation 5 also shows the Laplace operator is written with the eigenvalue 6 but Observation 2 contains no matching check. The weight-5 equations cannot all hold as printed, which undermines trust in the verification.
+
+- Severity: major
+- Fixable by rewriting: True
+- Suggestion: Recheck all coefficients against the verifier output and correct the formulas. Show explicitly that Observations 2, 5 and 7 are mutually consistent. Use the same normalisation for sources and for the appendix counter-examples.
+- Status: open
+
+## 5. Weak validation of the verifier, thin statistics, and an unusual presentation of the method
+
+The paper reports no verifier self-test. It states so itself, so the only evidence of discrimination is the red-team record, where 2 of 25 counter-checks passed and 1 was not executable. The paper does not say which 2 passed or why. The Laplace tolerance of 1e-14 is far looser than the 1e-24 used for the linear relations, and the quoted residuals (about 1e-25) come from fourth-order finite differences with h=1e-6, whose truncation error is of order 1e-24 or larger. The reported residuals of 1e-25 therefore need an explanation. The text also mixes in workflow items (claim ids, 'scope=punkte', agent names, a German-language provenance table, the 'weight-eleven computation still running') that do not belong in a journal article. A pre-release with an unfinished weight-11 computation also has no stated conclusion. The reference list is empty, and the citations are given as 'quoted in'.
+
+- Severity: minor
+- Fixable by rewriting: True
+- Suggestion: Add a verifier self-test on known true and false relations. Explain the 2 counter-checks that passed and the finite-difference error budget. Remove internal pipeline jargon and the incomplete weight-11 material, and add a full reference list.
+- Status: open

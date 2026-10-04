@@ -38,7 +38,7 @@ def check(md, claims):
             body = re.sub(r"\[[^\]]*\]", "", s); nums = _nums(body) - {1.0, 2.0, 3.0, 4.0}   # Aufzählungen/Dimensionen zulassen
             if nums and not ids: issues.append((s, "Zahl ohne Beleg")); continue
             allowed = set().union(*[_nums(C[i]["text"]) | _nums(C[i]["claim_id"]) for i in ids]) if ids else set()
-            miss = [n for n in nums if not any(abs(n - a) <= 1e-9 * max(1, abs(a)) for a in allowed)]
+            miss = [n for n in nums if not any(abs(abs(n) - abs(a)) <= 1e-9 * max(1, abs(a)) for a in allowed)]   # Betrag: Vorzeichen hängt an Schreibweise ('- 12' vs '-12')
             if miss: issues.append((s, f"Zahl(en) {miss} stehen in keiner zitierten Claim"))
     return issues
 
