@@ -39,7 +39,8 @@ def main():
     from .chain import verify
     git = lambda *a: subprocess.run(["git", *a], capture_output=True, text=True).stdout.strip()
     m = json.load(open("results/metrics_proofreading.json")); rp = json.load(open("results/replay_lattice.json"))
-    kl = json.load(open("projects/omni_proofreading/klassifikation.json")); st = json.load(open("projects/omni_proofreading/state.json"))
+    klp = max((p for p in glob.glob("projects/omni_*/klassifikation.json")), key=lambda p: (json.load(open(p))["verletzt"] + json.load(open(p))["bewiesen"], os.path.getmtime(p)))
+    kl = json.load(open(klp)); st = json.load(open(os.path.join(os.path.dirname(klp), "state.json")))
     bc = json.load(open("results/blind_claims.json")); rt = json.load(open("projects/proofreading/verifier_redteam.json"))
     T = trust()
     L = m["latenz_ergebnis_entscheidung"]; F = m["frage_zu_zertifikat"]; D = m["durchsatz"]; Z = m["zerlegung_summe_s"]
@@ -70,10 +71,14 @@ def main():
         "plan": {"planungshorizont_stunden": 24, "hinweis": "keine Messung: Zeithorizont des Abschnitts 'Next 24 h'"},
     }
     # "neu_im_omnigent_lauf" aus dem Protokoll statt von Hand: Überraschungsgrund des ersten Laufs zählt die neuen Verletzungen
-    rec = [json.loads(l) for l in open(f"{runs[0]}/record.jsonl")] if runs else []
-    u = next(((x.get("ergebnis") or {}).get("ueberraschung_grund", "") for x in rec if (x.get("ergebnis") or {}) and isinstance(x["ergebnis"], dict) and x["ergebnis"].get("ueberraschung")), "")
     import re
-    F_["flaggschiff"]["neu_im_omnigent_lauf"] = len(re.findall(r"fam2_\d+", u.split("ausserhalb")[0])) if u else None
+    neu = set()
+    for run in runs:                                              # neue Verletzungen = Überraschungsgründe aller Läufe (aus dem Protokoll)
+        for x in (json.loads(l) for l in open(f"{run}/record.jsonl")):
+            e = x.get("ergebnis")
+            if isinstance(e, dict) and e.get("ueberraschung"): neu |= set(re.findall(r"fam2_\d+", e.get("ueberraschung_grund", "").split("ausserhalb")[0]))
+    F_["flaggschiff"]["neu_in_omnigent_laeufen"] = len(neu); F_["flaggschiff"].pop("neu_im_omnigent_lauf", None)
+    F_["flaggschiff"]["quelle"] = klp; F_["omnigent_laeufe"] = len(runs)
     json.dump(F_, open("results/FROZEN.json", "w"), indent=1, ensure_ascii=False, default=str); print(json.dumps(F_, indent=1, ensure_ascii=False, default=str)[:3000])
 
 

@@ -1,0 +1,47 @@
+[
+ {
+  "id": "fakt-familie",
+  "text": "Der Generator des Prüfers erzeugt für zwei gebundene Zustände 92 regelkonforme Topologien; 4 davon sind entartet (keine Nettoproduktion möglich, eta = 0/0) und werden ausgeschlossen, es bleiben 88.",
+  "level": "computed_rigorous"
+ },
+ {
+  "id": "fakt-fam66",
+  "text": "Exaktes Zertifikat für fam2_66 (Kanten: Bindung an C0, treibstoffgetriebene Umwandlung C0->C1, treibstoffgetriebenes Verwerfen aus C1, Produkt aus C1): eta = 5.082802e-07, sigma = 8.341626 kT pro Produkt, v = 1.4746e-03.",
+  "level": "computed_rigorous"
+ },
+ {
+  "id": "fakt-r12",
+  "text": "Prüferausgabe Runde 12: Zertifikat (a) für 2/2 Fälle bestanden",
+  "level": "computed_rigorous"
+ },
+ {
+  "id": "fakt-recherche",
+  "text": "Recherche: 2752 abgerufene Quellen (arXiv, Europe PMC, Crossref, Zitationskette), 2502 gesichtet, 158 Befunde mit per Code im Abstract bestätigtem Wortzitat; alle 11 Klassiker-Suchen mit Treffer.",
+  "level": "observed"
+ },
+ {
+  "id": "fakt-selbsttest",
+  "text": "Der Prüfer der Domäne besteht seinen Selbsttest mit 18 von 18 Fällen (wahre, falsche, Grenzfälle, Regelverletzungen).",
+  "level": "computed_rigorous"
+ },
+ {
+  "id": "fakt-praereg",
+  "text": "Präregistrierung H6 (Commit 6184672) vor dem ersten Lauf; Nachträge datiert. L2c-Erfolgskriterium (mindestens 5 Gegenbeispiele in einer Runde) verfehlt: 2 in Runde 12, insgesamt 3.",
+  "level": "observed"
+ },
+ {
+  "id": "fakt-neuheit",
+  "text": "Neuheitsprüfung (Phase 6) gegen 158 geprüfte Befunde: Hopfield-Schranke der Kette (R9) = Reproduktion, hier rigoros für alle Raten; erreichbare Punkte der Kette (R1-R3, R8, R10) = qualitativ bekannt, hier exakt; Klassifikation der Familie mit zwei gebundenen Zuständen und die Gegenbeispiele (R4, R11, R12) = in der Recherche nicht gefunden, Editing-Mechanismen sind qualitativ bekannt.",
+  "level": "observed"
+ },
+ {
+  "id": "fakt-klassifikation",
+  "level": "computed_rigorous",
+  "text": "Klassifikation der 88 Topologien mit zwei gebundenen Zuständen (aus den bestätigten Claims neu berechnet, asd/klassifikation.py): 50 mit bewiesener Schranke eta >= e^-2Delta (Zertifikat b), 14 mit exakt zertifizierter Verletzung eta < e^-2Delta (fam2_9, fam2_11, fam2_35, fam2_39, fam2_41, fam2_43, fam2_45, fam2_58, fam2_66, fam2_67, fam2_75, fam2_82, fam2_83, fam2_91), 24 offen."
+ },
+ {
+  "id": "fakt-verletzungen-eta",
+  "level": "computed_rigorous",
+  "text": "Exakte Fehlerraten der zertifizierten Verletzungen (rationale Raten, exakte Arithmetik; alle strikt unter e^-2Delta = 1e-4): fam2_9: eta = 2.000856e-05 (proofreading-R12); fam2_11: eta = 4.417288e-05 (proofreading-R12); fam2_35: eta = 1.074798e-06 (proofreading-O14); fam2_39: eta = 1.010274e-06 (proofreading-O14); fam2_41: eta = 1.287193e-06 (proofreading-O14); fam2_43: eta = 1.386398e-12 (proofreading-O14); fam2_45: eta = 1.591024e-06 (proofreading-O14); fam2_58: eta = 7.272608e-08 (proofreading-O14); fam2_66: eta = 5.082802e-07 (proofreading-R4); fam2_67: eta = 4.098578e-07 (proofreading-O14); fam2_75: eta = 1.142234e-06 (proofreading-O14); fam2_82: eta = 3.578126e-08 (proofreading-O20); fam2_83: eta = 2.931911e-08 (proofreading-O20); fam2_91: eta = 3.771298e-07 (proofreading-O20)"
+ }
+]

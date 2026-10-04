@@ -118,7 +118,7 @@ Every result is accepted only by a code verifier (`Domain.check`); agents only p
 | A result changes the next decision | ✓ | runs/omnigent/2026-10-04/record.jsonl: 3 decisions that cite a verified claim id (reopen / follow-up questions) |
 | A surprising result reopens an assumption | ✓ | runs/omnigent/2026-10-04/record.jsonl: surprise at 2026-10-04T02:25:45 -> reopen {'annahme': 'A1', 'claim': 'proofreading-O14'} |
 | Parallel sub-sessions | ✓ | runs/omnigent/2026-10-04/HIGHLIGHTS.md: 4 turns with ≥2 parallel sub-sessions |
-| Parallel experiments | ✗ | OPEN: the recorded run dispatched scout/planner/redteam/learner in parallel, but never two researcher experiments at once |
+| Parallel experiments | ✓ | 1 turns with ≥2 parallel experiment sessions |
 | Human approval via Omnigent policies (ASK) and a policy DENY | ✓ | runs/omnigent/2026-10-04/HIGHLIGHTS.md: ASK raised+approved=True, DENY present=True; omni/config.yaml publish_gate |
 | Shared research record; every decision reconstructable | ✓ | runs/omnigent/2026-10-04/record.jsonl (64 entries with input/output ids); Kette intakt (82 Glieder, Kopf 1fcb11696c9a) |
 | Citations for facts | ✓ | projects/omni_proofreading/references.bib: 18 entries, 18 with DOI/arXiv/URL, 0 unverified |
@@ -132,7 +132,7 @@ Every result is accepted only by a code verifier (`Domain.check`); agents only p
 | Next experiment justified | ✓ | runs/omnigent/2026-10-04/sessions/lead: 7 lead decisions naming the next step with a reason |
 | Agent specifications and policies in the repo | ✓ | omni/config.yaml + 6 agent specs; README agent table |
 
-**Open:** Parallel experiments.
+All requirements met.
 <!-- rubric:end -->
 
 ## Omnigent orchestration

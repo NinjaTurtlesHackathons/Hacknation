@@ -23,9 +23,9 @@ symbolic proofs, fixed tolerances) is the only authority that confirms a claim. 
 claim; surprises reopen assumptions; humans approve publication through Omnigent policies. Every action is logged with input and output
 ids and sealed in a hash chain.
 
-**Result.** In one recorded Omnigent run ({M['laufzeit_min']} min, {M['kosten_gesamt_usd']} USD) the lab produced {M['zertifizierte_claims']} certified
-claims and rejected {M['abgelehnte_behauptungen']}, and found {K['neu_im_omnigent_lauf']} new exactly certified violations of the kinetic-proofreading
-bound. The {K['topologien']}-topology family now reads {K['bewiesen']} proved / {K['verletzt']} violated / {K['offen']} open.
+**Result.** In the first recorded Omnigent run ({M['laufzeit_min']} min, {M['kosten_gesamt_usd']} USD) the lab produced {M['zertifizierte_claims']} certified
+claims and rejected {M['abgelehnte_behauptungen']}. Across {F['omnigent_laeufe']} recorded runs the lab found {K['neu_in_omnigent_laeufen']} new exactly
+certified violations of the kinetic-proofreading bound. The {K['topologien']}-topology family now reads {K['bewiesen']} proved / {K['verletzt']} violated / {K['offen']} open.
 
 **Measured acceleration.** Verifier result to next decision: median {M['latenz_median_s']} s (n = {M['latenz_n']}); question to certified claim:
 median {M['frage_zu_zertifikat_median_s']} s. Replay benchmark ({R['seeds']} seeds): {R['speedup_vs_random']}x fewer verifier calls than random search
@@ -44,7 +44,7 @@ The same lab runs as an MCP server inside anyone's own Claude.
         ("What was hard", "Making the agents' claims exactly as strong as the evidence; keeping tolerances inside the verifier; parallel agents writing one state file (fixed with a file lock)."),
         ("Time use", f"Recorded run {M['laufzeit_min']} min, of which {M['mensch_warten_min']} min waiting for human approval; agents/LLM at least {M['zeit_agenten_llm_s']} s, "
                      f"verifier at most {M['zeit_verifier_s']} s, experiments at most {M['zeit_experimente_s']} s."),
-        ("Results", f"{K['verletzt']} exactly certified violations of the proofreading bound among {K['topologien']} topologies, {K['neu_im_omnigent_lauf']} of them new in the recorded run; "
+        ("Results", f"{K['verletzt']} exactly certified violations of the proofreading bound among {K['topologien']} topologies, {K['neu_in_omnigent_laeufen']} of them new in the recorded Omnigent runs; "
                     f"trust benchmark: lab {T['B']['anteil_falsch_pct']}% false vs. Claude alone {T['A1']['anteil_falsch_pct']}%."),
         ("Measured speedup", f"Replay: {R['speedup_vs_random']}x vs. random search (95% CI {R['speedup_vs_random_ci'][0]} to {R['speedup_vs_random_ci'][1]}, p = {R['p_vs_random']}); "
                              f"vs. no feedback {R['speedup_vs_no_feedback']}x (not significant). Result-to-decision latency median {M['latenz_median_s']} s (n = {M['latenz_n']}). "

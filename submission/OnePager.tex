@@ -2,21 +2,21 @@
 \usepackage[a4paper,margin=1.8cm]{geometry}\usepackage[T1]{fontenc}\usepackage{lmodern}\usepackage{microtype}\usepackage{titlesec}
 \titleformat{\section}{\normalfont\bfseries}{}{0pt}{}\titlespacing*{\section}{0pt}{5pt}{1pt}\setlength{\parindent}{0pt}\pagestyle{empty}
 \begin{document}
-{\Large\bfseries Verifier-Gated Discovery Lab}\\[2pt]{\small Agents propose, Omnigent orchestrates, only a code verifier accepts. \quad Commit 8c47757}\par\medskip
+{\Large\bfseries Verifier-Gated Discovery Lab}\\[2pt]{\small Agents propose, Omnigent orchestrates, only a code verifier accepts. \quad Commit 26f21a9}\par\medskip
 \section{Challenge and users}
 Agentic scientific discovery (Databricks challenge). Users: researchers who need results they can trust without re-checking every line.\par
 \section{Tools}
 Omnigent (orchestration, policies), Claude via the Claude Code CLI, Python verifiers (sympy, python-flint, scipy), MCP server, LaTeX.\par
 \section{What worked}
-The verifier-gated loop: 3 certified and 1 rejected claims in one run; a surprise reopened an assumption and changed the plan; the family classification moved to 50 / 11 / 27.\par
+The verifier-gated loop: 3 certified and 1 rejected claims in one run; a surprise reopened an assumption and changed the plan; the family classification moved to 50 / 14 / 24.\par
 \section{What was hard}
 Making the agents' claims exactly as strong as the evidence; keeping tolerances inside the verifier; parallel agents writing one state file (fixed with a file lock).\par
 \section{Time use}
 Recorded run 19 min, of which 9 min waiting for human approval; agents/LLM at least 195 s, verifier at most 57 s, experiments at most 196 s.\par
 \section{Results}
-11 exactly certified violations of the proofreading bound among 88 topologies, 8 of them new in the recorded run; trust benchmark: lab 0.0\% false vs. Claude alone 36.1\%.\par
+14 exactly certified violations of the proofreading bound among 88 topologies, 11 of them new in the recorded Omnigent runs; trust benchmark: lab 0.0\% false vs. Claude alone 36.1\%.\par
 \section{Measured speedup}
 Replay: 4.6x vs. random search (95\% CI 2.6 to 7.5, p = 0.003); vs. no feedback 1.2x (not significant). Result-to-decision latency median 10 s (n = 4). A stopwatch baseline by the team is pending; no comparison with a real laboratory.\par
 \section{Next 24 h}
-Decide the 27 open topologies (cycle decomposition for proofs, wider counterexample search); stopwatch baselines; second domain.\par
+Decide the 24 open topologies (cycle decomposition for proofs, wider counterexample search); stopwatch baselines; second domain.\par
 \end{document}

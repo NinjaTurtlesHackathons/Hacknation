@@ -6,9 +6,9 @@ symbolic proofs, fixed tolerances) is the only authority that confirms a claim. 
 claim; surprises reopen assumptions; humans approve publication through Omnigent policies. Every action is logged with input and output
 ids and sealed in a hash chain.
 
-**Result.** In one recorded Omnigent run (19 min, 1.29 USD) the lab produced 3 certified
-claims and rejected 1, and found 8 new exactly certified violations of the kinetic-proofreading
-bound. The 88-topology family now reads 50 proved / 11 violated / 27 open.
+**Result.** In the first recorded Omnigent run (19 min, 1.29 USD) the lab produced 3 certified
+claims and rejected 1. Across 2 recorded runs the lab found 11 new exactly
+certified violations of the kinetic-proofreading bound. The 88-topology family now reads 50 proved / 14 violated / 24 open.
 
 **Measured acceleration.** Verifier result to next decision: median 10 s (n = 4); question to certified claim:
 median 63 s. Replay benchmark (10 seeds): 4.6x fewer verifier calls than random search

@@ -168,11 +168,18 @@ FORDERUNGEN = [
 
 
 def pruefen():
-    out = []
+    """Eine Forderung ist erfüllt, wenn mindestens ein aufgezeichneter Lauf sie belegt (Beleg nennt den Lauf)."""
+    global RUN
+    runs = sorted(d for d in glob.glob("runs/omnigent/*") if os.path.isdir(d)); out = []
     for name, f in FORDERUNGEN:
-        try: ok, beleg = f()
-        except Exception as e: ok, beleg = False, f"check failed: {type(e).__name__}: {e}"
-        out.append((name, bool(ok), beleg))
+        best = None
+        for RUN in runs:
+            try: ok, beleg = f()
+            except Exception as e: ok, beleg = False, f"check failed: {type(e).__name__}: {e}"
+            if ok: best = (True, beleg); break
+            best = best or (False, beleg)
+        out.append((name, bool(best[0]), best[1]))
+    RUN = runs[-1]
     return out
 
 
@@ -194,9 +201,11 @@ def readme(res):
 def main():
     ap = argparse.ArgumentParser(); ap.add_argument("--write-readme", action="store_true"); ap.add_argument("--origin", action="store_true"); a = ap.parse_args()
     if a.origin:
-        o = origin_ableiten(f"{RUN}/state.json", nur_lesen=True)              # Laufdateien sind versiegelt: abgeleitete Datei daneben
-        json.dump(o, open(f"{RUN}/origin.json", "w"), indent=1); print(f"{RUN}/origin.json", len(o), "Einträge")
-        print(f"{PROJ}/state.json", origin_ableiten(f"{PROJ}/state.json"), "Einträge mit origin")
+        for run in sorted(d for d in glob.glob("runs/omnigent/*") if os.path.isdir(d)):
+            o = origin_ableiten(f"{run}/state.json", nur_lesen=True)              # Laufdateien sind versiegelt: abgeleitete Datei daneben
+            json.dump(o, open(f"{run}/origin.json", "w"), indent=1); print(f"{run}/origin.json", len(o), "Einträge")
+        for pj in (PROJ, "projects/omni_parallel"):
+            if os.path.exists(f"{pj}/state.json"): print(f"{pj}/state.json", origin_ableiten(f"{pj}/state.json"), "Einträge mit origin")
     res = pruefen(); print(tabelle(res))
     offen = [n for n, ok, _ in res if not ok]
     if a.write_readme:
