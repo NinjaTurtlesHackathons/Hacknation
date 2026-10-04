@@ -85,7 +85,8 @@ def integrator_fragen(P, D, k=5, salt="", vermeide=None):
     oltxt = "\n".join(f"- [{x['quelle']}] {x['text']} (Zitat: \"{x['zitat'][:200]}\")" for x in ol[:25]) or "-"
     r = ask_json(f"{D.kontext}\n\n{wissen_text(P)}\n\nOFFENE FRAGEN AUS DER LITERATUR (mit Wortzitat):\n{oltxt}\n\n{D.primitive_doc}\n\n{D.claim_doc}\n\n"
                  f"{verm}\n\nSchlage {k} neue Forschungsfragen vor, die (1) mit den Experimenten beantwortbar und (2) mit den Prüfungstypen nachprüfbar sind und "
-                 "(3) über das Bekannte hinausgehen. Mindestens die Hälfte muss eine der offenen Literaturfragen angehen oder verallgemeinern; trage dann "
+                 "(3) über das Bekannte hinausgehen. Erlaubt sind auch Fragen, die bestätigte Claims KOMBINIEREN (\"Folgt aus [C3] und [C5] ...?\"); "
+                 "die Antwort muss dann eine eigene Prüfung haben (der Prüfer prüft die Kombination, nicht die Logik) und \"benutzt\": [ids] angeben. Mindestens die Hälfte muss eine der offenen Literaturfragen angehen oder verallgemeinern; trage dann "
                  "deren Quelle in \"lit_offen\" ein. Höchstens EINE Frage darf ein Anker sein (Bekanntes reproduzieren, nur zur Validierung, \"anker\": true). "
                  'JSON: {"fragen": [{"frage": "...", "begruendung": "...", "lit_offen": "<quelle oder leer>", "anker": false, "neuheit": 0-1, "machbarkeit": 0-1}]}',
                  SYS.format(rolle="der Integrator (Forschungsleiter)"), salt=f"integrator-fragen-{salt}")
@@ -309,7 +310,8 @@ def runde_ausfuehren(P, D, a, runde, log):
             P.s["claims"].append({"id": cid, "frage": q["frage"], "text": D.describe(p), "interpretation_ungeprueft": str(res["antwort"].get("antwort")),
                                   "pruefung": p, "grund": grund,
                                   "level": D.level(p), "status": "angefochten" if angefochten else "bestätigt", "red_team": rt, "runde": runde,
-                                  "relevanz": D.relevanz(p) if hasattr(D, "relevanz") else "stuetze"})
+                                  "relevanz": D.relevanz(p) if hasattr(D, "relevanz") else "stuetze",
+                                  "benutzt": [b for b in (res["antwort"].get("benutzt") or []) if any(x["id"] == b and x.get("status") == "bestätigt" for x in P.s["claims"])]})
             if not angefochten:
                 from .novelty import check_claim
                 try: P.s["claims"][-1]["neuheit"] = check_claim(D, P.s["claims"][-1], salt=cid)

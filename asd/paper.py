@@ -162,7 +162,8 @@ def claims_of(domain, lang="en", projekt=None):
                 "offen_laut_literatur": f" Novelty status: stated as open in the literature ({nv.get('quelle')}).",
                 "nicht_gefunden": f" Novelty status: not found in a targeted search of {nv.get('quellen_geprueft', 0)} abstracts on {nv.get('datum', '')}."}.get(nv.get("status"), " Novelty status: not checked.")
         C.append({"claim_id": f"C-{c['id']}", "text": f"Question studied: {c['frage']} Verified result: {text} Verifier: {sanitize(c['grund'])}.{ntxt}",
-                  "level": c["level"], "status": c["status"], "relevanz": rel, "scope": scope_of(text, c.get("pruefung"))})
+                  "level": c["level"], "status": c["status"], "relevanz": rel, "scope": scope_of(text, c.get("pruefung")),
+                  "benutzt": [f"C-{b}" for b in c.get("benutzt") or []]})
         interp = c.get("interpretation_ungeprueft") or c["text"].split("->")[-1]
         C.append({"claim_id": f"C-{c['id']}-I", "text": f"Unverified interpretation of {c['id']} (never use as a result): {interp}",
                   "level": "hypothesis", "status": "offen", "anhang": True})
@@ -512,6 +513,8 @@ def main():
     C.append({"claim_id": "C-verfuegbarkeit", "text": f"Code and data: repository {a.repo}, branch {branch}, directory {d}; reproduce all certificates with "
               f"'python -m asd.recheck {a.domain}' and rebuild the paper with 'python -m asd.paper --domain {a.domain}'.", "level": "observed", "status": "bestätigt"})
     for c in C: c.setdefault("relevanz", None)
+    from .tms import reihenfolge
+    C = reihenfolge(C, key="claim_id")                                 # Abhängigkeiten zuerst (Lemma vor Theorem)
     plan = story_plan(C, D, a.sprache, salt=a.domain); C = apply_story(C, plan); a.titel = a.titel or plan.get("titel", a.domain)
     rollen = "\n".join(f"- {cid}: {rolle}" for cid, rolle in plan["zuordnung"].items() if rolle != "weglassen")
     story = (f"STORY PLAN (binding): core question: {plan.get('kernfrage')}\ncore statement: {plan.get('kernaussage')}\nclaim roles:\n{rollen}\n"

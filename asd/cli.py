@@ -225,7 +225,8 @@ class CLI:
             self.P.s["claims"].append({"id": cid, "frage": q["frage"] if q else c.get("frage", ""), "text": D.describe(ps[0]), "pruefung": ps[0],
                                        "alle_pruefungen": ps, "grund": why, "level": lvl, "status": "bestätigt", "red_team": [], "runde": runde,
                                        "relevanz": D.relevanz(ps[0]), "quelle": f"omnigent:{self.agent}",
-                                       "option": self.a.option or (self.P.s.get("aktive_option") or {}).get("id")})
+                                       "option": self.a.option or (self.P.s.get("aktive_option") or {}).get("id"),
+                                       "benutzt": [b for b in (c.get("benutzt") or []) if any(x["id"] == b and x.get("status") == "bestätigt" for x in self.P.s["claims"])]})
             if q: q["status"] = "beantwortet"
         else:
             cid = None
@@ -265,7 +266,10 @@ class CLI:
         self.P.s["verifier_aufrufe"] = self.P.s.get("verifier_aufrufe", 0) + len(erg); out = []
         for e in erg:
             c["red_team"].append(e); out.append({k: e[k] for k in ("bestanden", "widerspruch", "grund")})
-            if e["widerspruch"]: c["status"] = "angefochten"
+            if e["widerspruch"] and c["status"] != "angefochten":
+                from . import tms
+                betroffen = tms.widerrufen(self.P.s, c["id"], f"Red-Team-Widerspruch: {e['grund'][:120]}", status="angefochten")
+                if betroffen: self.P.append("decisions.md", f"| {now()} | TMS | {c['id']} angefochten -> abhängig ungültig: {betroffen} | Wahrheitspflege (asd/tms.py) |")
         self.P.save()
         print("REDTEAM " + json.dumps({"claim": c["id"], "status": c["status"], "gegenpruefungen": out}, ensure_ascii=False))
         self.record("redteam", ein={"claim": c["id"]}, aus={"gegenpruefungen": [f"{c['id']}-RT{i + 1}" for i in range(len(c["red_team"]) - len(out), len(c["red_team"]))]},

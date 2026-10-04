@@ -48,3 +48,15 @@ def test_identify_bestaetigt_nichts_bei_zufall():
 def test_identify_lehnt_zu_wenige_punkte_ab():
     from asd.tools.identify import identify
     assert identify(_punkte_quadratisch()[:3])["bestanden"] is False
+
+
+# ---------------------------------------------------------------- 3 Wahrheitspflege ------------------------------------------------
+def test_tms_widerruf_stuft_abhaengige_herab_und_stellt_wieder_her():
+    from asd import tms
+    st = {"claims": [{"id": "L1", "status": "bestätigt"}, {"id": "T1", "status": "bestätigt", "benutzt": ["L1"]},
+                     {"id": "K1", "status": "bestätigt", "benutzt": ["T1"]}, {"id": "X", "status": "bestätigt"}]}
+    assert tms.widerrufen(st, "L1", "Gegenbeispiel") == ["K1", "T1"]
+    s = {c["id"]: c["status"] for c in st["claims"]}
+    assert s == {"L1": "widerrufen", "T1": "abhängig_ungültig", "K1": "abhängig_ungültig", "X": "bestätigt"} and st["tms_log"]
+    assert sorted(tms.bestaetigen(st, "L1")) == ["K1", "T1"] and all(c["status"] == "bestätigt" for c in st["claims"])
+    assert [c["id"] for c in tms.reihenfolge([st["claims"][2], st["claims"][1], st["claims"][0]])] == ["L1", "T1", "K1"]
