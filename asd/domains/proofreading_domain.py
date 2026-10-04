@@ -132,6 +132,34 @@ def check_untere_schranke(p, timeout=600):
                              f"Termen, alle Koeffizienten nichtnegativ: {out['bewiesen']} ({out['sek']} s)"), out
 
 
+def klassifikation_figure(state, outdir, lang="en"):
+    """Übersicht der Familie gebunden<=2: bewiesen (Zertifikat b), Gegenbeispiel (Zertifikat a), offen. Nur aus bestätigten Claims."""
+    from .proofreading_family import family
+    bew, cx, ids = set(), set(), []
+    for c in state["claims"]:
+        if c.get("status") != "bestätigt": continue
+        p = c["pruefung"]
+        if p.get("typ") == "schranke_familie" and str(p.get("familie")) == "gebunden<=2" and str(p.get("ausdruck")).replace(" ", "") in ("1/D**2", "D**-2"):
+            bew |= set(p.get("mitglieder") or [x["name"] for x in family(2)]); ids.append(c["id"])
+        if p.get("typ") == "erreichbar_liste":
+            cx |= {f["topologie"] for f in p.get("faelle", []) if float(f.get("eta_max", 1)) <= 1e-4 and str(f["topologie"]).startswith("fam2_")}; ids.append(c["id"])
+        if p.get("typ") == "erreichbar" and str(p.get("topologie", "")).startswith("fam2_") and float(p.get("eta_max") or 1) <= 1e-4:
+            cx.add(p["topologie"]); ids.append(c["id"])
+    if not bew and not cx: return []
+    n = len(family(2)); offen = n - len(bew | cx)
+    import matplotlib; matplotlib.use("Agg"); import matplotlib.pyplot as plt
+    from ..figstyle import apply_style; apply_style()
+    lab = (["bound proven\n(certificate b)", "counterexample\n(certificate a)", "open"] if lang == "en" else ["Schranke bewiesen\n(Zertifikat b)", "Gegenbeispiel\n(Zertifikat a)", "offen"])
+    vals = [len(bew), len(cx), offen]; cols = ["#2f6fdf", "#d9480f", "#b8bcc4"]
+    fig, ax = plt.subplots(figsize=(4.6, 2.4)); bars = ax.barh(lab[::-1], vals[::-1], color=cols[::-1])
+    for b, v in zip(bars, vals[::-1]): ax.text(b.get_width() + 0.8, b.get_y() + b.get_height() / 2, str(v), va="center", fontsize=8)
+    ax.set_xlabel(f"number of topologies (of {n} with two bound states)" if lang == "en" else f"Anzahl Topologien (von {n} mit zwei gebundenen Zuständen)")
+    ax.grid(axis="y", visible=False); fig.tight_layout(); fig.savefig(f"{outdir}/klassifikation.pdf"); fig.savefig(f"{outdir}/klassifikation.png", dpi=200); plt.close(fig)
+    cap = (f"Classification of the {n} non-degenerate networks with two bound states with respect to the bound $\\eta \\geq e^{{-2\\Delta}}$."
+           if lang == "en" else f"Klassifikation der {n} nicht entarteten Netzwerke mit zwei gebundenen Zuständen bezüglich $\\eta \\geq e^{{-2\\Delta}}$.")
+    return [("klassifikation.pdf", cap, [f"C-{i}" for i in ids])]
+
+
 def pareto_figure(state, outdir, lang="en"):
     """Zweiseitige Front: obere Kurve = zertifiziert erreichbare Punkte (Zertifikat a), untere = bewiesene Schranken (Zertifikat b)."""
     import matplotlib; matplotlib.use("Agg"); import matplotlib.pyplot as plt
@@ -289,7 +317,7 @@ class ProofreadingDomain(Domain):
                 "rationalisation": ("denominator <= 10^6", "rates are rounded to rationals with denominator at most 10^6 for exact certificates"),
                 "family_k": ("2", "number of bound states in the enumerated topology family (88 non-degenerate members)")}
 
-    def figures(self, state, outdir, lang="en"): return pareto_figure(state, outdir, lang)
+    def figures(self, state, outdir, lang="en"): return pareto_figure(state, outdir, lang) + klassifikation_figure(state, outdir, lang)
 
     def widerspricht(self, p, q):
         """Erreichbar(eta <= a) und Schranke(eta >= b) auf derselben Topologie (oder Familie mit dieser Topologie) widersprechen sich, wenn a < b."""
