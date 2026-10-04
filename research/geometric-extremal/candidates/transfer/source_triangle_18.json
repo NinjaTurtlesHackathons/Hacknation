@@ -1,0 +1,142 @@
+{
+ "schema_version": 1,
+ "variant": "triangle",
+ "n": 18,
+ "frame": "right",
+ "points": [
+  [
+   "0.051003158849664072898878748087",
+   "0.803294479264094173214466398134"
+  ],
+  [
+   "0.353986073373787100473010696633",
+   "0"
+  ],
+  [
+   "0.646013926626212899526989303367",
+   "0.353986073373787100473010696633"
+  ],
+  [
+   "0.243574276219154777771097403025",
+   "0.243574276219154777771097403025"
+  ],
+  [
+   "0.051003158849664072898878748087",
+   "0.14570236188624175388665485378"
+  ],
+  [
+   "0.353986073373787100473010696633",
+   "0.646013926626212899526989303367"
+  ],
+  [
+   "0",
+   "0.646013926626212899526989303367"
+  ],
+  [
+   "0",
+   "0.353986073373787100473010696633"
+  ],
+  [
+   "0.803294479264094173214466398134",
+   "0.14570236188624175388665485378"
+  ],
+  [
+   "0.14570236188624175388665485378",
+   "0.803294479264094173214466398134"
+  ],
+  [
+   "0.243574276219154777771097403025",
+   "0.512851447561690444457805193951"
+  ],
+  [
+   "0.073652978691408880314591968633",
+   "0.463173510654295559842704015684"
+  ],
+  [
+   "0.463173510654295559842704015684",
+   "0.463173510654295559842704015684"
+  ],
+  [
+   "0.512851447561690444457805193951",
+   "0.243574276219154777771097403025"
+  ],
+  [
+   "0.463173510654295559842704015684",
+   "0.073652978691408880314591968633"
+  ],
+  [
+   "0.14570236188624175388665485378",
+   "0.051003158849664072898878748087"
+  ],
+  [
+   "0.803294479264094173214466398134",
+   "0.051003158849664072898878748087"
+  ],
+  [
+   "0.646013926626212899526989303367",
+   "0"
+  ]
+ ],
+ "value": {
+  "decimal": "0.0148943429879598621067985008476",
+  "fraction": "7447171493979931053399250423797281920985287414854484116661/500000000000000000000000000000000000000000000000000000000000",
+  "exact_text": null,
+  "exact_sympy": null,
+  "minimal_polynomial": "43200*x**12 - 310177539*x**11 + 381486159*x**10 + 10547986913*x**9 - 5356562854*x**8 + 3623073265*x**7 + 565010257*x**6 - 356137529*x**5 - 40275162*x**4 + 2253891*x**3 + 6619*x**2 - 717*x + 4",
+  "exact_poly": {
+   "poly": "43200*x**12 - 310177539*x**11 + 381486159*x**10 + 10547986913*x**9 - 5356562854*x**8 + 3623073265*x**7 + 565010257*x**6 - 356137529*x**5 - 40275162*x**4 + 2253891*x**3 + 6619*x**2 - 717*x + 4",
+   "near": 0.014894343,
+   "which": "second-smallest positive",
+   "note": "solved here as the exact critical point of the 5-parameter symmetry-reduced tie system (33 tied minimal triangles); minimal polynomial found by lattice reduction on 1650 digits and verified against a 3000-digit solution"
+  },
+  "exact_decimal": "0.0148943429879598621067985008479439749710999240",
+  "poly_mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><mrow><mn>43200</mn><msup><mi>x</mi><mn>12</mn></msup><mo>−</mo><mn>310177539</mn><msup><mi>x</mi><mn>11</mn></msup><mo>+</mo><mn>381486159</mn><msup><mi>x</mi><mn>10</mn></msup><mo>+</mo><mn>10547986913</mn><msup><mi>x</mi><mn>9</mn></msup><mo>−</mo><mn>5356562854</mn><msup><mi>x</mi><mn>8</mn></msup><mo>+</mo><mn>3623073265</mn><msup><mi>x</mi><mn>7</mn></msup><mo>+</mo><mn>565010257</mn><msup><mi>x</mi><mn>6</mn></msup><mo>−</mo><mn>356137529</mn><msup><mi>x</mi><mn>5</mn></msup><mo>−</mo><mn>40275162</mn><msup><mi>x</mi><mn>4</mn></msup><mo>+</mo><mn>2253891</mn><msup><mi>x</mi><mn>3</mn></msup><mo>+</mo><mn>6619</mn><msup><mi>x</mi><mn>2</mn></msup><mo>−</mo><mn>717</mn><mi>x</mi><mo>+</mo><mn>4</mn></mrow></math>"
+ },
+ "status": "record",
+ "credit": {
+  "found": {
+   "name": "Nathan Sudermann-Merx",
+   "date": "August 2026"
+  },
+  "proved": null,
+  "trivial": false
+ },
+ "proof": null,
+ "coordinates_source": {
+  "kind": "reconstructed",
+  "ref": "heilbronn-site exact tie-system solve",
+  "note": "exact solution of the symmetry-reduced tie system (5 parameters, 33 tied minimal triangles); literals are the exact values rounded to 30 decimals",
+  "basis": "coordinates"
+ },
+ "coordinates_reconstructed": true,
+ "symmetry": {
+  "group": "D3",
+  "order": 6,
+  "approx": false,
+  "label": "3-fold dihedral symmetry",
+  "reported": "Fully symmetric"
+ },
+ "notes": [],
+ "changelog": [
+  {
+   "date": "2026-09-15",
+   "text": "coordinates replaced by the exact tie-system solution (30 decimals); value identified as the second-smallest positive root of 43200A¹² − 310177539A¹¹ + 381486159A¹⁰ + 10547986913A⁹ − 5356562854A⁸ + 3623073265A⁷ + 565010257A⁶ − 356137529A⁵ − 40275162A⁴ + 2253891A³ + 6619A² − 717A + 4 = 0.014894342987959… (this site, from the symmetry-reduced tie system)"
+  }
+ ],
+ "references": [],
+ "verify": {
+  "n": 18,
+  "triples_checked": 816,
+  "value": "0.0148943429879598621067985008476",
+  "value_fraction": "7447171493979931053399250423797281920985287414854484116661/500000000000000000000000000000000000000000000000000000000000",
+  "min_triple": [
+   2,
+   6,
+   10
+  ],
+  "num_min_ties": 33,
+  "feasible": true,
+  "violations": [],
+  "hull_vertex_count": null
+ }
+}

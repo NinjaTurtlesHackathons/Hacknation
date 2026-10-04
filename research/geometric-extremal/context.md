@@ -25,3 +25,7 @@ Use existing Domain interface and asd.selftest. Source claims reside in projects
 ## Initial candidate gates
 
 18 questions (three scouts, six each); choose 4–8 based on current baseline, witness margin, evaluation speed, significance and family prospects. Reject known solutions and unverified supposed conjectures. Search success requires a certified improvement larger than source precision and numerical noise; novelty remains separately audited. Stop unchanged stagnant methods and adopt a different structure, representation or problem.
+
+## Checkpoint validation additions
+
+The independent reviewer found a missing N>=6 condition in the torus conjecture gate, corrected before publication. The two exact checkers agree on1690tagged candidate outcomes in the frozen snapshot and20canonicalcases; new supplements have separate hashes. A reviewed elementary two-cycle proof now supplies an explicit local pruning lemma; code verifies its exact dependencies, with no Lean/formal-proof claim. No cost or statistical speedup measured. Discovery methods use one compute worker each and all launched jobs are complete.

@@ -1,0 +1,196 @@
+{
+  "problem": "torus_distance",
+  "points": [
+    [
+      0,
+      0
+    ],
+    [
+      66666666667,
+      266666666667
+    ],
+    [
+      133333333333,
+      533333333333
+    ],
+    [
+      200000000000,
+      800000000000
+    ],
+    [
+      266666666667,
+      66666666667
+    ],
+    [
+      333333333333,
+      333333333333
+    ],
+    [
+      400000000000,
+      600000000000
+    ],
+    [
+      466666666667,
+      866666666667
+    ],
+    [
+      533333333333,
+      133333333333
+    ],
+    [
+      600000000000,
+      400000000000
+    ],
+    [
+      666666666667,
+      666666666667
+    ],
+    [
+      733333333333,
+      933333333333
+    ],
+    [
+      800000000000,
+      200000000000
+    ],
+    [
+      866666666667,
+      466666666667
+    ],
+    [
+      933333333333,
+      733333333333
+    ]
+  ],
+  "scale": 1000000000000,
+  "provenance": {
+    "kind": "contact_replacement_result",
+    "hypothesis": {
+      "seed": 3017,
+      "required_new_contacts": [
+        {
+          "i": 0,
+          "j": 3,
+          "shift": [
+            0,
+            -1
+          ],
+          "baseline_numerator": [
+            3,
+            -3
+          ]
+        },
+        {
+          "i": 6,
+          "j": 9,
+          "shift": [
+            0,
+            0
+          ],
+          "baseline_numerator": [
+            3,
+            -3
+          ]
+        }
+      ],
+      "released_old_contacts": [
+        {
+          "i": 3,
+          "j": 4,
+          "shift": [
+            0,
+            1
+          ],
+          "baseline_numerator": [
+            1,
+            4
+          ]
+        },
+        {
+          "i": 0,
+          "j": 4,
+          "shift": [
+            0,
+            0
+          ],
+          "baseline_numerator": [
+            4,
+            1
+          ]
+        },
+        {
+          "i": 9,
+          "j": 10,
+          "shift": [
+            0,
+            0
+          ],
+          "baseline_numerator": [
+            1,
+            4
+          ]
+        },
+        {
+          "i": 6,
+          "j": 10,
+          "shift": [
+            0,
+            0
+          ],
+          "baseline_numerator": [
+            4,
+            1
+          ]
+        }
+      ],
+      "opening_gap_d2": 5e-05,
+      "closed_triangle_winding_checks": [
+        {
+          "vertices": [
+            0,
+            4,
+            3,
+            0
+          ],
+          "integer_winding": [
+            0,
+            0
+          ]
+        },
+        {
+          "vertices": [
+            6,
+            10,
+            9,
+            6
+          ],
+          "integer_winding": [
+            0,
+            0
+          ]
+        }
+      ],
+      "target_n": 15,
+      "constraint": "every periodic pair distance>=q; selected new lift squared distance=q; selected old lift squared distance>=q+gap"
+    },
+    "forced": {
+      "success": true,
+      "iterations": 28,
+      "elapsed_seconds": 0.04604891700000735,
+      "objective_d2": 0.07500031722188415,
+      "actual_d2": 0.07500031722188416,
+      "min_inequality": -6.10202535201998e-17,
+      "max_new_contact_residual": 1.3877787807814457e-17
+    },
+    "free_polish": {
+      "optimizer_success": true,
+      "iterations": 6,
+      "message": "Optimization terminated successfully",
+      "objective": 0.07555555555555546,
+      "actual": 0.07555555555555532
+    },
+    "whole_job_seconds": 0.05189658400195185,
+    "forced_numerically_feasible": true
+  },
+  "bound": "9444444444388888888889/125000000000000000000000"
+}

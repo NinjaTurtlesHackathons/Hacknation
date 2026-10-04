@@ -1,0 +1,138 @@
+{
+ "schema_version": 1,
+ "variant": "triangle",
+ "n": 15,
+ "frame": "right",
+ "points": [
+  [
+   "0.041156363310095543088824043693",
+   "0.917687273379808913822351912614"
+  ],
+  [
+   "0.041156363310095543088824043693",
+   "0.041156363310095543088824043693"
+  ],
+  [
+   "0.917687273379808913822351912614",
+   "0.041156363310095543088824043693"
+  ],
+  [
+   "0",
+   "0.756227321415121000639526430823"
+  ],
+  [
+   "0.243772678584878999360473569177",
+   "0"
+  ],
+  [
+   "0.756227321415121000639526430823",
+   "0.243772678584878999360473569177"
+  ],
+  [
+   "0.243772678584878999360473569177",
+   "0.756227321415121000639526430823"
+  ],
+  [
+   "0",
+   "0.243772678584878999360473569177"
+  ],
+  [
+   "0.756227321415121000639526430823",
+   "0"
+  ],
+  [
+   "0.207074457992229693393515383279",
+   "0.520766809439727593036003792938"
+  ],
+  [
+   "0.272158732568042713570480823783",
+   "0.207074457992229693393515383279"
+  ],
+  [
+   "0.520766809439727593036003792938",
+   "0.272158732568042713570480823783"
+  ],
+  [
+   "0.065218001317349925103104336668",
+   "0.467390999341325037448447831666"
+  ],
+  [
+   "0.467390999341325037448447831666",
+   "0.065218001317349925103104336668"
+  ],
+  [
+   "0.467390999341325037448447831666",
+   "0.467390999341325037448447831666"
+  ]
+ ],
+ "value": {
+  "decimal": "0.0210907694602666879593204076636",
+  "fraction": "10545384730133343979660203831780134929597298523250493949339/500000000000000000000000000000000000000000000000000000000000",
+  "exact_text": null,
+  "exact_sympy": null,
+  "minimal_polynomial": "5250987*x**5 + 1609650*x**4 + 161469*x**3 + 5438*x**2 - 13*x - 4",
+  "exact_poly": {
+   "poly": "5250987*x**5 + 1609650*x**4 + 161469*x**3 + 5438*x**2 - 13*x - 4",
+   "near": 0.0211,
+   "which": "unique real",
+   "note": "leading coefficient 3⁷·7⁴; Galois group S₅, so no radical (nested-root) form exists"
+  },
+  "exact_decimal": "0.0210907694602666879593204076637693494055410966",
+  "poly_mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><mrow><mn>5250987</mn><msup><mi>x</mi><mn>5</mn></msup><mo>+</mo><mn>1609650</mn><msup><mi>x</mi><mn>4</mn></msup><mo>+</mo><mn>161469</mn><msup><mi>x</mi><mn>3</mn></msup><mo>+</mo><mn>5438</mn><msup><mi>x</mi><mn>2</mn></msup><mo>−</mo><mn>13</mn><mi>x</mi><mo>−</mo><mn>4</mn></mrow></math>"
+ },
+ "status": "record",
+ "credit": {
+  "found": {
+   "name": "David Cantrell",
+   "date": "June 2007"
+  },
+  "proved": null,
+  "trivial": false
+ },
+ "proof": null,
+ "coordinates_source": {
+  "kind": "reconstructed",
+  "ref": "heilbronn-site reconstruct/reconstruct.py",
+  "note": "exact reconstruction: the twelve points carrying all 15 minimal triples form a mirror-symmetric frame solved as the exact critical point of its tie system (degree-5 algebraic); the three remaining points are floaters (all their triples ≥ 1.0178× the minimum), each confined to a triangular cell of diameter ≈ 0.003 and placed at its cell's maximal-clearance point. Literals: exact values rounded to 30 decimals, rotation images taken of the rounded generators",
+  "basis": "figure"
+ },
+ "coordinates_reconstructed": true,
+ "symmetry": {
+  "group": "C3",
+  "order": 3,
+  "approx": false,
+  "label": "120° Rotationally symmetric",
+  "reported": "120° Rotationally symmetric"
+ },
+ "notes": [
+  "The tight structure splits 12 + 3: twelve points form a mirror-symmetric frame carrying all 15 minimal triples — the exact critical point of its tie system, with coordinates algebraic of degree 5 — while the other three are floaters whose every triple stays ≥ 1.0178× the minimum.",
+  "Each floater is confined to a triangular cell of diameter ≈ 0.003; the six such cells form two mirror-image orbits and the floaters must occupy alternating cells, so the configuration is chiral — the frame's mirror symmetry cannot extend to all 15 points. Floaters are placed at their cell's maximal-clearance point, which pins the whole configuration algebraically.",
+  "David Cantrell's own coordinates for this entry (received September 2026) are on file in the repository: a mirror-symmetric arrangement with 24 tied minimal triples and value 0.02109025…, about 5.2 × 10⁻⁷ below the chiral configuration shown. Local polishing of his coordinates moves directly into the chiral configuration, so the two are the same basin."
+ ],
+ "changelog": [
+  {
+   "date": "2007-06",
+   "text": "0.0210+ — David Cantrell"
+  },
+  {
+   "date": "2026-08-21",
+   "text": "coordinates replaced by the exact tie-system solution; value identified as the unique real root of 5250987A⁵ + 1609650A⁴ + 161469A³ + 5438A² − 13A − 4 = 0.021090769460266… (this site)"
+  }
+ ],
+ "references": [],
+ "verify": {
+  "n": 15,
+  "triples_checked": 455,
+  "value": "0.0210907694602666879593204076636",
+  "value_fraction": "10545384730133343979660203831780134929597298523250493949339/500000000000000000000000000000000000000000000000000000000000",
+  "min_triple": [
+   0,
+   3,
+   7
+  ],
+  "num_min_ties": 15,
+  "feasible": true,
+  "violations": [],
+  "hull_vertex_count": null
+ }
+}

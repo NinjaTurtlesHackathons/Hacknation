@@ -1,0 +1,138 @@
+{
+ "schema_version": 1,
+ "variant": "convex",
+ "n": 18,
+ "frame": "free",
+ "points": [
+  [
+   "0.579401501191424",
+   "0.084102051429217"
+  ],
+  [
+   "0.579401501191424",
+   "-0.084102051429216"
+  ],
+  [
+   "0.259455946521507",
+   "0"
+  ],
+  [
+   "0.216866237547625",
+   "0.543827444737221"
+  ],
+  [
+   "0.362535263643799",
+   "0.459725393308005"
+  ],
+  [
+   "0.129727973260754",
+   "0.224695440850562"
+  ],
+  [
+   "-0.362535263643799",
+   "0.459725393308005"
+  ],
+  [
+   "-0.216866237547625",
+   "0.543827444737221"
+  ],
+  [
+   "-0.129727973260754",
+   "0.224695440850562"
+  ],
+  [
+   "-0.579401501191424",
+   "-0.084102051429216"
+  ],
+  [
+   "-0.579401501191424",
+   "0.084102051429217"
+  ],
+  [
+   "-0.259455946521507",
+   "0"
+  ],
+  [
+   "-0.216866237547625",
+   "-0.543827444737221"
+  ],
+  [
+   "-0.362535263643799",
+   "-0.459725393308005"
+  ],
+  [
+   "-0.129727973260754",
+   "-0.224695440850562"
+  ],
+  [
+   "0.362535263643799",
+   "-0.459725393308005"
+  ],
+  [
+   "0.216866237547625",
+   "-0.543827444737221"
+  ],
+  [
+   "0.129727973260754",
+   "-0.224695440850562"
+  ]
+ ],
+ "value": {
+  "decimal": "0.0182388954634908723600644432595",
+  "fraction": "5211112989568819048894923327/285714285714285625167971022578",
+  "exact_text": "[2 - (3/2 - √(239/3)/6)^(1/3) - (3/2 + √(239/3)/6)^(1/3)] / 18",
+  "exact_sympy": "(2 - cbrt(Rational(3,2) - sqrt(Rational(239,3))/6) - cbrt(Rational(3,2) + sqrt(Rational(239,3))/6))/18",
+  "minimal_polynomial": "1944*v**3 - 648*v**2 + 66*v - 1",
+  "exact_display": "[2 − ∛(3/2 − √(239/3)/6) − ∛(3/2 + √(239/3)/6)] / 18",
+  "exact_poly": {
+   "poly": "1944*v**3 - 648*v**2 + 66*v - 1",
+   "near": 0.0182,
+   "which": "unique real"
+  },
+  "exact_decimal": "0.0182388954634910572362139010433579317373186207",
+  "exact_mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><mfrac><mrow><mrow><mn>2</mn><mo>−</mo><mroot><mrow><mrow><mfrac><mrow><mn>3</mn></mrow><mrow><mn>2</mn></mrow></mfrac><mo>−</mo><mfrac><mrow><msqrt><mfrac><mrow><mn>239</mn></mrow><mrow><mn>3</mn></mrow></mfrac></msqrt></mrow><mrow><mn>6</mn></mrow></mfrac></mrow></mrow><mn>3</mn></mroot><mo>−</mo><mroot><mrow><mrow><mfrac><mrow><mn>3</mn></mrow><mrow><mn>2</mn></mrow></mfrac><mo>+</mo><mfrac><mrow><msqrt><mfrac><mrow><mn>239</mn></mrow><mrow><mn>3</mn></mrow></mfrac></msqrt></mrow><mrow><mn>6</mn></mrow></mfrac></mrow></mrow><mn>3</mn></mroot></mrow></mrow><mrow><mn>18</mn></mrow></mfrac></math>",
+  "poly_mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><mrow><mn>1944</mn><msup><mi>v</mi><mn>3</mn></msup><mo>−</mo><mn>648</mn><msup><mi>v</mi><mn>2</mn></msup><mo>+</mo><mn>66</mn><mi>v</mi><mo>−</mo><mn>1</mn></mrow></math>"
+ },
+ "status": "record",
+ "credit": {
+  "found": {
+   "name": "Tej Stead",
+   "date": "July 2026"
+  },
+  "proved": null,
+  "trivial": false
+ },
+ "proof": null,
+ "coordinates_source": {
+  "kind": "external",
+  "ref": "this site's search campaign claims/03-exact-convex-n18",
+  "note": "this site's own search campaign (companion repository); dual-verified upstream, see verify_output.json",
+  "basis": null
+ },
+ "coordinates_reconstructed": false,
+ "symmetry": {
+  "group": "D6",
+  "order": 12,
+  "approx": false,
+  "label": "6-fold dihedral symmetry",
+  "reported": "6-fold dihedral symmetry"
+ },
+ "notes": [],
+ "changelog": [],
+ "references": [],
+ "verify": {
+  "n": 18,
+  "triples_checked": 816,
+  "value": "0.0182388954634908723600644432595",
+  "value_fraction": "5211112989568819048894923327/285714285714285625167971022578",
+  "min_triple": [
+   0,
+   12,
+   17
+  ],
+  "num_min_ties": 36,
+  "feasible": true,
+  "violations": [],
+  "hull_vertex_count": 12
+ }
+}

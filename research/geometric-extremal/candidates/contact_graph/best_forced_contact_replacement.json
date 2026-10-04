@@ -1,0 +1,148 @@
+{
+  "problem": "torus_distance",
+  "points": [
+    [
+      0,
+      0
+    ],
+    [
+      63784934098,
+      272540308043
+    ],
+    [
+      128956822816,
+      539216528434
+    ],
+    [
+      194128711535,
+      805892748824
+    ],
+    [
+      265265168952,
+      71134498983
+    ],
+    [
+      330437057671,
+      337810719374
+    ],
+    [
+      395608946389,
+      604486939764
+    ],
+    [
+      460780835107,
+      871163160155
+    ],
+    [
+      531941968353,
+      136304018410
+    ],
+    [
+      597113857071,
+      402980238801
+    ],
+    [
+      662285745790,
+      669656459192
+    ],
+    [
+      727457634508,
+      936332679583
+    ],
+    [
+      798618767754,
+      201473537838
+    ],
+    [
+      863790656472,
+      468149758228
+    ],
+    [
+      928962545190,
+      734825978619
+    ]
+  ],
+  "scale": 1000000000000,
+  "provenance": {
+    "kind": "contact_replacement_result",
+    "hypothesis": {
+      "seed": 3010,
+      "required_new_contacts": [
+        {
+          "i": 0,
+          "j": 3,
+          "shift": [
+            0,
+            -1
+          ],
+          "baseline_numerator": [
+            3,
+            -3
+          ]
+        }
+      ],
+      "released_old_contacts": [
+        {
+          "i": 3,
+          "j": 4,
+          "shift": [
+            0,
+            1
+          ],
+          "baseline_numerator": [
+            1,
+            4
+          ]
+        },
+        {
+          "i": 0,
+          "j": 4,
+          "shift": [
+            0,
+            0
+          ],
+          "baseline_numerator": [
+            4,
+            1
+          ]
+        }
+      ],
+      "opening_gap_d2": 5e-05,
+      "closed_triangle_winding_checks": [
+        {
+          "vertices": [
+            0,
+            4,
+            3,
+            0
+          ],
+          "integer_winding": [
+            0,
+            0
+          ]
+        }
+      ],
+      "target_n": 15,
+      "constraint": "every periodic pair distance>=q; selected new lift squared distance=q; selected old lift squared distance>=q+gap"
+    },
+    "forced": {
+      "success": true,
+      "iterations": 14,
+      "elapsed_seconds": 0.019434334004472475,
+      "objective_d2": 0.07536358160103931,
+      "actual_d2": 0.07536358160080651,
+      "min_inequality": -2.327998904760875e-13,
+      "max_new_contact_residual": 2.7755575615628914e-17
+    },
+    "free_polish": {
+      "optimizer_success": true,
+      "iterations": 5,
+      "message": "Optimization terminated successfully",
+      "objective": 0.07555555555555515,
+      "actual": 0.07555555555555504
+    },
+    "whole_job_seconds": 0.025399917001777794,
+    "forced_numerically_feasible": true
+  },
+  "bound": "9420447700070903429453/125000000000000000000000"
+}

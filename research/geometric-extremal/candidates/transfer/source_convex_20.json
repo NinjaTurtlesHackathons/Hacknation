@@ -1,0 +1,150 @@
+{
+ "schema_version": 1,
+ "variant": "convex",
+ "n": 20,
+ "frame": "free",
+ "points": [
+  [
+   "0.010824708109507253688987768055",
+   "0.38749275389437391829185691794"
+  ],
+  [
+   "0.455837271116690563572475437961",
+   "0"
+  ],
+  [
+   "0.961881224404660825805427101434",
+   "0.303490251730678657605849664877"
+  ],
+  [
+   "0.829621024330807243050907823594",
+   "0.878550296448873584857485502074"
+  ],
+  [
+   "0.241835772038334113882201868955",
+   "0.930466697926073839244807915109"
+  ],
+  [
+   "0.455837271116690563572475437961",
+   "1"
+  ],
+  [
+   "0.961881224404660825805427101434",
+   "0.696509748269321342394150335123"
+  ],
+  [
+   "0.829621024330807243050907823594",
+   "0.121449703551126415142514497926"
+  ],
+  [
+   "0.241835772038334113882201868955",
+   "0.069533302073926160755192084891"
+  ],
+  [
+   "0.010824708109507253688987768055",
+   "0.61250724610562608170814308206"
+  ],
+  [
+   "0.880012870675840500199240455391",
+   "0.5"
+  ],
+  [
+   "0.617430435120043826780650036307",
+   "0.861413716932285587721383756423"
+  ],
+  [
+   "0.192563129542035923119729735997",
+   "0.723365961064585872132362451201"
+  ],
+  [
+   "0.192563129542035923119729735997",
+   "0.276634038935414127867637548799"
+  ],
+  [
+   "0.617430435120043826780650036307",
+   "0.138586283067714412278616243577"
+  ],
+  [
+   "0.692568939162856836277838834215",
+   "0.5"
+  ],
+  [
+   "0.559507074790078123700152327439",
+   "0.683143944426879989589774293536"
+  ],
+  [
+   "0.344208455628493458160928255453",
+   "0.613189182489533714769151147385"
+  ],
+  [
+   "0.344208455628493458160928255453",
+   "0.386810817510466285230848852615"
+  ],
+  [
+   "0.559507074790078123700152327439",
+   "0.316856055573120010410225706464"
+  ]
+ ],
+ "value": {
+  "decimal": "0.0144642050306691662611456823955",
+  "fraction": "21088800533737373296472445270063302450862488977271864687151/1457999280916009621090719952891255958728145311066985841962152",
+  "exact_text": null,
+  "exact_sympy": null,
+  "minimal_polynomial": "38125*x**6 + 304000*x**5 + 238650*x**4 - 101700*x**3 - 31260*x**2 + 4690*x - 61",
+  "exact_poly": {
+   "poly": "38125*x**6 + 304000*x**5 + 238650*x**4 - 101700*x**3 - 31260*x**2 + 4690*x - 61",
+   "near": 0.014464205,
+   "which": "smallest positive",
+   "note": "solved here as the exact critical point of the 4-parameter symmetry-reduced tie system (40 tied minimal triangles); minimal polynomial found by lattice reduction on 1650 digits and verified against a 3000-digit solution"
+  },
+  "exact_decimal": "0.0144642050306691662611456823958236465772564393",
+  "poly_mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><mrow><mn>38125</mn><msup><mi>x</mi><mn>6</mn></msup><mo>+</mo><mn>304000</mn><msup><mi>x</mi><mn>5</mn></msup><mo>+</mo><mn>238650</mn><msup><mi>x</mi><mn>4</mn></msup><mo>−</mo><mn>101700</mn><msup><mi>x</mi><mn>3</mn></msup><mo>−</mo><mn>31260</mn><msup><mi>x</mi><mn>2</mn></msup><mo>+</mo><mn>4690</mn><mi>x</mi><mo>−</mo><mn>61</mn></mrow></math>"
+ },
+ "status": "record",
+ "credit": {
+  "found": {
+   "name": "Nathan Sudermann-Merx",
+   "date": "August 2026"
+  },
+  "proved": null,
+  "trivial": false
+ },
+ "proof": null,
+ "coordinates_source": {
+  "kind": "reconstructed",
+  "ref": "heilbronn-site exact tie-system solve",
+  "note": "exact solution of the symmetry-reduced tie system (4 parameters, 40 tied minimal triangles); literals are the exact values rounded to 30 decimals",
+  "basis": "coordinates"
+ },
+ "coordinates_reconstructed": true,
+ "symmetry": {
+  "group": "D5",
+  "order": 10,
+  "approx": false,
+  "label": "5-fold dihedral symmetry",
+  "reported": "5-fold dihedral symmetry"
+ },
+ "notes": [],
+ "changelog": [
+  {
+   "date": "2026-09-15",
+   "text": "coordinates replaced by the exact tie-system solution (30 decimals); value identified as the smallest positive root of 38125A⁶ + 304000A⁵ + 238650A⁴ − 101700A³ − 31260A² + 4690A − 61 = 0.014464205030669… (this site, from the symmetry-reduced tie system)"
+  }
+ ],
+ "references": [],
+ "verify": {
+  "n": 20,
+  "triples_checked": 1140,
+  "value": "0.0144642050306691662611456823955",
+  "value_fraction": "21088800533737373296472445270063302450862488977271864687151/1457999280916009621090719952891255958728145311066985841962152",
+  "min_triple": [
+   2,
+   3,
+   10
+  ],
+  "num_min_ties": 40,
+  "feasible": true,
+  "violations": [],
+  "hull_vertex_count": 10
+ }
+}

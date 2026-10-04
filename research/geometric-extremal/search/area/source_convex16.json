@@ -1,0 +1,134 @@
+{
+ "schema_version": 1,
+ "variant": "convex",
+ "n": 16,
+ "frame": "free",
+ "points": [
+  [
+   "0",
+   "0.197782863830585157265446945582"
+  ],
+  [
+   "0.124637868375968352897595189593",
+   "0.5"
+  ],
+  [
+   "0.5",
+   "0.124637868375968352897595189593"
+  ],
+  [
+   "0.359103270142663140874987213697",
+   "0.359103270142663140874987213697"
+  ],
+  [
+   "-0.197782863830585157265446945582",
+   "0"
+  ],
+  [
+   "-0.5",
+   "0.124637868375968352897595189593"
+  ],
+  [
+   "-0.124637868375968352897595189593",
+   "0.5"
+  ],
+  [
+   "-0.359103270142663140874987213697",
+   "0.359103270142663140874987213697"
+  ],
+  [
+   "0",
+   "-0.197782863830585157265446945582"
+  ],
+  [
+   "-0.124637868375968352897595189593",
+   "-0.5"
+  ],
+  [
+   "-0.5",
+   "-0.124637868375968352897595189593"
+  ],
+  [
+   "-0.359103270142663140874987213697",
+   "-0.359103270142663140874987213697"
+  ],
+  [
+   "0.197782863830585157265446945582",
+   "0"
+  ],
+  [
+   "0.5",
+   "-0.124637868375968352897595189593"
+  ],
+  [
+   "0.124637868375968352897595189593",
+   "-0.5"
+  ],
+  [
+   "0.359103270142663140874987213697",
+   "-0.359103270142663140874987213697"
+  ]
+ ],
+ "value": {
+  "decimal": "0.0222728771289812680876159711622",
+  "fraction": "35122136141126243464556600281064871747265159541982885491975/1576901625135157537358175255915701785261200533329523828357432",
+  "exact_text": null,
+  "exact_sympy": null,
+  "minimal_polynomial": "4608*x**5 - 10752*x**4 + 9824*x**3 - 3712*x**2 + 482*x - 9",
+  "exact_poly": {
+   "poly": "4608*x**5 - 10752*x**4 + 9824*x**3 - 3712*x**2 + 482*x - 9",
+   "near": 0.022272877,
+   "which": "smallest positive",
+   "note": "solved here as the exact critical point of the 4-parameter symmetry-reduced tie system (28 tied minimal triangles); minimal polynomial found by lattice reduction on 1650 digits and verified against a 3000-digit solution"
+  },
+  "exact_decimal": "0.0222728771289812680876159711627856993758033607",
+  "poly_mathml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><mrow><mn>4608</mn><msup><mi>x</mi><mn>5</mn></msup><mo>−</mo><mn>10752</mn><msup><mi>x</mi><mn>4</mn></msup><mo>+</mo><mn>9824</mn><msup><mi>x</mi><mn>3</mn></msup><mo>−</mo><mn>3712</mn><msup><mi>x</mi><mn>2</mn></msup><mo>+</mo><mn>482</mn><mi>x</mi><mo>−</mo><mn>9</mn></mrow></math>"
+ },
+ "status": "record",
+ "credit": {
+  "found": {
+   "name": "David Cantrell",
+   "date": "June 2007"
+  },
+  "proved": null,
+  "trivial": false
+ },
+ "proof": null,
+ "coordinates_source": {
+  "kind": "external",
+  "ref": "David Cantrell's Mathematica notebook UltimateHeilbronn.nb (2007), received September 2026",
+  "note": "Original author's arrangement, previously shown only as a reconstruction; given exactly in the notebook.",
+  "basis": null
+ },
+ "coordinates_reconstructed": false,
+ "symmetry": {
+  "group": "D4",
+  "order": 8,
+  "approx": false,
+  "label": "4-fold dihedral symmetry",
+  "reported": "4-fold dihedral symmetry"
+ },
+ "notes": [],
+ "changelog": [
+  {
+   "date": "2026-09-15",
+   "text": "value identified as the smallest positive root of 4608A⁵ − 10752A⁴ + 9824A³ − 3712A² + 482A − 9 = 0.022272877128981… (this site, from the symmetry-reduced tie system)"
+  }
+ ],
+ "references": [],
+ "verify": {
+  "n": 16,
+  "triples_checked": 560,
+  "value": "0.0222728771289812680876159711622",
+  "value_fraction": "35122136141126243464556600281064871747265159541982885491975/1576901625135157537358175255915701785261200533329523828357432",
+  "min_triple": [
+   0,
+   3,
+   10
+  ],
+  "num_min_ties": 28,
+  "feasible": true,
+  "violations": [],
+  "hull_vertex_count": 12
+ }
+}

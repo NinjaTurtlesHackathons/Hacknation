@@ -23,3 +23,12 @@
 | D19 | Sa 23:30 | Pflicht-Selbsttest des Prüfers (wahre UND falsche Aussagen); Labor startet nur bei Bestehen; Toleranzen nie aus der Behauptung | Vertrauen in den Prüfer | H4 zeigte ein Schlupfloch (Agent setzte Toleranz selbst); der Selbsttest fing zudem zwei eigene falsche Testfälle | nein | D |
 | D20 | Sa 23:30 | Proofreading-Modell: Kantenliste (Parallelkanten bleiben getrennt), Bilanz über aufspannenden Baum, W-Zweig über Diskriminierungsregel, exakte Zertifikate in rationaler Arithmetik + arb | aggregierte Raten | aggregierte Parallelkanten hätten Produktfluss und Entropieproduktion verfälscht | ja | B |
 | D21 | Sa 23:30 | Labor-Schleife `asd/lab_loop.py` mit Integrator (Value of Information), Präregistrierung je Runde, Red-Team per Gegen-Prüfung, Lern-Agent | feste Fragenliste | Challenge verlangt: Agenten entscheiden das nächste Experiment und lernen aus Ergebnissen | ja | B |
+
+## Geometric research branch — 2026-10-04
+
+| ID | Decision | Evidence | Owner |
+|---|---|---|---|
+| GE1 | Base isolated research/geometric-extremal on origin/algo-efficiency dff8d99, because main lacks existing asd domain lab | docs/FRAMEWORK.md and branch tree inspected; user explicitly requested existing lab | Codex |
+| GE2 | Autonomous full workflow and primary literature before target selection | direct human instruction supersedes optional mode questions / cheapest cascade | Codex |
+| GE3 | Preserve Domain interface; use independently exact rational geometric witnesses rather than chemistry-specific statistical significance | construction proves existence; novelty separately audited | Codex |
+| GE4 | Six prioritized targets/families after18-question scouting | research/geometric-extremal/portfolio.md | Codex |
