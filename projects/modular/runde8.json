@@ -1,0 +1,2856 @@
+{
+ "antwort": {
+  "antwort": "voll: N = 2, 4, 5, 6, 8, 9, 10, 12, 14, 15, 16, 18, 20, 22, 24, 25, 26, 27, 28, 30. Nicht voll: N = 1, 3, 7, 11, 13, 17, 19, 21, 23, 29.",
+  "zahl": 20,
+  "konfidenz": 0.8,
+  "pruefung": {
+   "typ": "eta_span_tabelle",
+   "gewicht": 4,
+   "level_bis": 30,
+   "voll": [
+    2,
+    4,
+    5,
+    6,
+    8,
+    9,
+    10,
+    12,
+    14,
+    15,
+    16,
+    18,
+    20,
+    22,
+    24,
+    25,
+    26,
+    27,
+    28,
+    30
+   ],
+   "nicht_voll": [
+    1,
+    3,
+    7,
+    11,
+    13,
+    17,
+    19,
+    21,
+    23,
+    29
+   ]
+  },
+  "begruendung": "Die Scans E18/E19 und die Einzelabfragen E20 bis E31 liefern Rang = Dimension für N = 2, 4, 5, 6, 8, 9, 10, 12, 14, 15, 22, 24, 25, 26, 27, 28, 30. Dagegen gilt Rang < Dimension für N = 1 (0 von 1), 3, 7, 11, 13 und 21 (zum Teil 0 Quotienten). Für N = 17 ergibt meine Handrechnung nur drei holomorphe Quotienten, und die Primlevel 19, 23, 29 sind wohl nicht voll (nur geschätzt). Die Levels 16, 18 und 20 sind in den abgeschnittenen Ausgaben nicht sichtbar. Ich schließe sie nur aus dem Muster der Nachbarlevel (8, 9, 10, 12, 27) und habe sie nicht berechnet; hier liegt die Restunsicherheit.",
+  "stimmen": "Stufe 4 (theoretiker, sonnet), Stärke 4.00"
+ },
+ "level": "computed (Code-Prüfer bestanden)",
+ "forscher": [
+  {
+   "strategie": "sparsam",
+   "modell": "haiku",
+   "fehler": "ungültiges JSON nach 2 Reparaturen: Expecting ',' delimiter: line 12 column 230 (char 568)"
+  },
+  {
+   "strategie": "numeriker",
+   "runden": [
+    {
+     "ueberlegung": "Die Frage zielt auf die Bestimmung aller Level N ≤ 30 ab, für welche holomorphe Eta-Quotienten mit trivialem Charakter den vollständigen Raum M_4(Gamma_0(N)) aufspannen. Dies ist eine systematische Klassifikationsfrage: für jedes N must ich vergleichen, ob rang(Eta-Quotienten) = dim M_4(Gamma_0(N)). Das Experiment eta_span_scan liefert genau diese Information für alle N ≤ 30 in einem Durchgang und gibt eine Tabelle mit Rang vs. Dimension. Daraus extrahiere ich die Mengen 'voll' (Rang = Dimension) und 'nicht_voll' (Rang < Dimension). Dies ist deutlich effizienter als 30 einzelne eta_quotienten-Calls.",
+     "plan": [
+      {
+       "op": "eta_span_scan",
+       "args": {
+        "gewicht": 4,
+        "level_bis": 30
+       }
+      }
+     ]
+    },
+    {
+     "plan": [
+      {
+       "op": "eta_span_scan",
+       "args": {
+        "gewicht": 4,
+        "level_bis": 30
+       }
+      }
+     ]
+    },
+    {
+     "antwort": "unbekannt",
+     "zahl": null,
+     "konfidenz": 0.25,
+     "pruefung": {
+      "typ": "eta_span_tabelle",
+      "gewicht": 4,
+      "level_bis": 30,
+      "voll": [
+       2,
+       4,
+       5,
+       6,
+       8,
+       9,
+       10,
+       12,
+       14,
+       15
+      ],
+      "nicht_voll": [
+       1,
+       3,
+       7,
+       11,
+       13
+      ]
+     },
+     "begruendung": "Aus Experimenten [E2]/[E3] sind die Ergebnisse nur bis N=15 verfügbar (Tabelle bricht ab). Für N=16..30 keine Daten vorhanden. Als Forscher im automatisierten Labor benötige ich das komplette Experiment eta_span_scan{\"gewicht\": 4, \"level_bis\": 30} durchzuführen, um die exakte Tabelle zu liefern — Prüfung verifiziert die Vervollständigung."
+    }
+   ],
+   "experimente": [
+    2,
+    3
+   ],
+   "final": {
+    "antwort": "unbekannt",
+    "zahl": null,
+    "konfidenz": 0.25,
+    "pruefung": {
+     "typ": "eta_span_tabelle",
+     "gewicht": 4,
+     "level_bis": 30,
+     "voll": [
+      2,
+      4,
+      5,
+      6,
+      8,
+      9,
+      10,
+      12,
+      14,
+      15
+     ],
+     "nicht_voll": [
+      1,
+      3,
+      7,
+      11,
+      13
+     ]
+    },
+    "begruendung": "Aus Experimenten [E2]/[E3] sind die Ergebnisse nur bis N=15 verfügbar (Tabelle bricht ab). Für N=16..30 keine Daten vorhanden. Als Forscher im automatisierten Labor benötige ich das komplette Experiment eta_span_scan{\"gewicht\": 4, \"level_bis\": 30} durchzuführen, um die exakte Tabelle zu liefern — Prüfung verifiziert die Vervollständigung."
+   },
+   "modell": "haiku",
+   "pruefung": {
+    "bestanden": false,
+    "grund": "Prüfer: Eta-Quotienten spannen M_4(Gamma_0(N)) für N in [2, 4, 5, 6, 8, 9, 10, 12, 14, 15, 16, 18, 20, 22, 24, 25, 26, 27, 28, 30]; nicht für N in [1, 3, 7, 11, 13, 17, 19, 21, 23, 29] (N <= 30, exakt)"
+   }
+  },
+  {
+   "strategie": "skeptiker",
+   "runden": [
+    {
+     "ueberlegung": "Ziel: Tabelle der Level N <= 30, für die holomorphe Eta-Quotienten (trivialer Charakter) ganz M_4(Gamma_0(N)) spannen. Ich vermute nichts vorab, sondern lasse den Scan rechnen. Zuerst eta_span_scan mit gewicht 4 und level_bis 30 (bzw. 40 zum Vergleich). Danach Stichprobenkontrolle einzelner Level (Randfälle, bei denen Rang knapp unter dim liegt, oder Level mit vielen Eta-Quotienten) mit eta_quotienten und dim, um die Scan-Ergebnisse unabhängig zu bestätigen. Außerdem eta_span-Prüfung an einzelnen Leveln als Gegenprobe zur Tabelle, da der Prüfer selbst zählt.",
+     "plan": [
+      {
+       "op": "eta_span_scan",
+       "args": {
+        "gewicht": 4,
+        "level_bis": 30
+       }
+      },
+      {
+       "op": "eta_span_scan",
+       "args": {
+        "gewicht": 4,
+        "level_bis": 40
+       }
+      },
+      {
+       "op": "eta_quotienten",
+       "args": {
+        "level": 1,
+        "gewicht": 4
+       }
+      },
+      {
+       "op": "eta_quotienten",
+       "args": {
+        "level": 6,
+        "gewicht": 4
+       }
+      },
+      {
+       "op": "eta_quotienten",
+       "args": {
+        "level": 11,
+        "gewicht": 4
+       }
+      },
+      {
+       "op": "eta_quotienten",
+       "args": {
+        "level": 12,
+        "gewicht": 4
+       }
+      },
+      {
+       "op": "eta_quotienten",
+       "args": {
+        "level": 30,
+        "gewicht": 4
+       }
+      },
+      {
+       "op": "dim",
+       "args": {
+        "gewicht": 4,
+        "level": 30
+       }
+      }
+     ]
+    },
+    {
+     "plan": [
+      {
+       "op": "eta_quotienten",
+       "args": {
+        "level": 16,
+        "gewicht": 4
+       }
+      },
+      {
+       "op": "eta_quotienten",
+       "args": {
+        "level": 17,
+        "gewicht": 4
+       }
+      },
+      {
+       "op": "eta_quotienten",
+       "args": {
+        "level": 18,
+        "gewicht": 4
+       }
+      },
+      {
+       "op": "eta_quotienten",
+       "args": {
+        "level": 19,
+        "gewicht": 4
+       }
+      },
+      {
+       "op": "eta_quotienten",
+       "args": {
+        "level": 20,
+        "gewicht": 4
+       }
+      },
+      {
+       "op": "eta_quotienten",
+       "args": {
+        "level": 21,
+        "gewicht": 4
+       }
+      }
+     ]
+    },
+    {
+     "antwort": "Vollständig gespannt für N in {2,4,5,6,8,9,10,12,14,15,16,18,20,24,28,30}. Nicht vollständig für die übrigen N <= 30. Die Werte für N=22..29 sind geschätzt, nicht gemessen.",
+     "zahl": 16,
+     "konfidenz": 0.45,
+     "pruefung": {
+      "typ": "eta_span_tabelle",
+      "gewicht": 4,
+      "level_bis": 30,
+      "voll": [
+       2,
+       4,
+       5,
+       6,
+       8,
+       9,
+       10,
+       12,
+       14,
+       15,
+       16,
+       18,
+       20,
+       24,
+       28,
+       30
+      ],
+      "nicht_voll": [
+       1,
+       3,
+       7,
+       11,
+       13,
+       17,
+       19,
+       21,
+       22,
+       23,
+       25,
+       26,
+       27,
+       29
+      ]
+     },
+     "begruendung": "Gemessen sind N=1..21 und N=30. Voll sind 2, 4, 5, 6, 8, 9, 10, 12, 14, 15, 16, 18, 20 und 30 (Rang = Dimension). Nicht voll sind 1, 3, 7, 11, 13, 17, 19 und 21, dort ist der Rang 0 oder 1 bei Dimension >= 1. Die Daten für N=22..29 fehlen. Die Zuordnung dort ist eine Heuristik: Wegen der mod-24-Bedingungen bleiben bei den Primfaktoren 11, 13, 23 und 29 sowie bei den Primpotenzen 25 und 27 zu wenige Quotienten, also nicht voll. N=24 und N=28 habe ich als voll angesetzt, weil sie viele Teiler haben und 12 und 20 voll sind. Diese Werte sind ungeprüft."
+    }
+   ],
+   "experimente": [
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17
+   ],
+   "final": {
+    "antwort": "Vollständig gespannt für N in {2,4,5,6,8,9,10,12,14,15,16,18,20,24,28,30}. Nicht vollständig für die übrigen N <= 30. Die Werte für N=22..29 sind geschätzt, nicht gemessen.",
+    "zahl": 16,
+    "konfidenz": 0.45,
+    "pruefung": {
+     "typ": "eta_span_tabelle",
+     "gewicht": 4,
+     "level_bis": 30,
+     "voll": [
+      2,
+      4,
+      5,
+      6,
+      8,
+      9,
+      10,
+      12,
+      14,
+      15,
+      16,
+      18,
+      20,
+      24,
+      28,
+      30
+     ],
+     "nicht_voll": [
+      1,
+      3,
+      7,
+      11,
+      13,
+      17,
+      19,
+      21,
+      22,
+      23,
+      25,
+      26,
+      27,
+      29
+     ]
+    },
+    "begruendung": "Gemessen sind N=1..21 und N=30. Voll sind 2, 4, 5, 6, 8, 9, 10, 12, 14, 15, 16, 18, 20 und 30 (Rang = Dimension). Nicht voll sind 1, 3, 7, 11, 13, 17, 19 und 21, dort ist der Rang 0 oder 1 bei Dimension >= 1. Die Daten für N=22..29 fehlen. Die Zuordnung dort ist eine Heuristik: Wegen der mod-24-Bedingungen bleiben bei den Primfaktoren 11, 13, 23 und 29 sowie bei den Primpotenzen 25 und 27 zu wenige Quotienten, also nicht voll. N=24 und N=28 habe ich als voll angesetzt, weil sie viele Teiler haben und 12 und 20 voll sind. Diese Werte sind ungeprüft."
+   },
+   "modell": "sonnet",
+   "pruefung": {
+    "bestanden": false,
+    "grund": "Prüfer: Eta-Quotienten spannen M_4(Gamma_0(N)) für N in [2, 4, 5, 6, 8, 9, 10, 12, 14, 15, 16, 18, 20, 22, 24, 25, 26, 27, 28, 30]; nicht für N in [1, 3, 7, 11, 13, 17, 19, 21, 23, 29] (N <= 30, exakt)"
+   }
+  },
+  {
+   "strategie": "theoretiker",
+   "runden": [
+    {
+     "ueberlegung": "Frage: für welche N <= 30 spannen holomorphe Eta-Quotienten (trivialer Charakter) ganz M_4(Gamma_0(N)). Symmetrie/Grenzfälle: N=1 hat dim M_4 = 1 und E4 ist kein Eta-Quotient (eta^24/eta^24-Typ nur Gewicht 0, Delta hat Gewicht 12; ein holomorpher Eta-Quotient vom Gewicht 4 auf Level 1 existiert nicht) -> Rang 0 < 1, also nicht voll. Primlevel p: Eta-Quotienten eta(1)^a eta(p)^b mit a+b=8, Bedingungen a+pb ≡ 0 mod 24 und pa+b ≡ 0 mod 24; wenige Lösungen, die Dimension wächst mit p, also erwartet man für größere Primlevel nicht voll. Hohe zusammengesetzte Level mit vielen Teilern (z. B. 6, 12, 24) haben viele Quotienten und könnten voll spannen. Statt zu raten, führe ich den Scan über alle N <= 30 für Gewicht 4 aus und sehe Rang vs. Dimension; zusätzlich Stichproben mit eta_quotienten und dim an Grenzfällen (N=1, 6, 12, 24, 30), um die Zählung des Scans unabhängig zu prüfen. Die entscheidende Vorhersage: Rang = Dimension nur für wenige hochzusammengesetzte Level.",
+     "plan": [
+      {
+       "op": "eta_span_scan",
+       "args": {
+        "gewicht": 4,
+        "level_bis": 30
+       }
+      },
+      {
+       "op": "eta_span_scan",
+       "args": {
+        "gewicht": 4,
+        "level_bis": 40
+       }
+      },
+      {
+       "op": "eta_quotienten",
+       "args": {
+        "level": 1,
+        "gewicht": 4
+       }
+      },
+      {
+       "op": "eta_quotienten",
+       "args": {
+        "level": 6,
+        "gewicht": 4
+       }
+      },
+      {
+       "op": "eta_quotienten",
+       "args": {
+        "level": 12,
+        "gewicht": 4
+       }
+      },
+      {
+       "op": "eta_quotienten",
+       "args": {
+        "level": 24,
+        "gewicht": 4
+       }
+      },
+      {
+       "op": "eta_quotienten",
+       "args": {
+        "level": 30,
+        "gewicht": 4
+       }
+      },
+      {
+       "op": "dim",
+       "args": {
+        "gewicht": 4,
+        "level": 30
+       }
+      }
+     ]
+    },
+    {
+     "plan": [
+      {
+       "op": "eta_quotienten",
+       "args": {
+        "level": 21,
+        "gewicht": 4
+       }
+      },
+      {
+       "op": "eta_quotienten",
+       "args": {
+        "level": 22,
+        "gewicht": 4
+       }
+      },
+      {
+       "op": "eta_quotienten",
+       "args": {
+        "level": 25,
+        "gewicht": 4
+       }
+      },
+      {
+       "op": "eta_quotienten",
+       "args": {
+        "level": 26,
+        "gewicht": 4
+       }
+      },
+      {
+       "op": "eta_quotienten",
+       "args": {
+        "level": 27,
+        "gewicht": 4
+       }
+      },
+      {
+       "op": "eta_quotienten",
+       "args": {
+        "level": 28,
+        "gewicht": 4
+       }
+      }
+     ]
+    },
+    {
+     "antwort": "voll: N = 2, 4, 5, 6, 8, 9, 10, 12, 14, 15, 16, 18, 20, 22, 24, 25, 26, 27, 28, 30. Nicht voll: N = 1, 3, 7, 11, 13, 17, 19, 21, 23, 29.",
+     "zahl": 20,
+     "konfidenz": 0.8,
+     "pruefung": {
+      "typ": "eta_span_tabelle",
+      "gewicht": 4,
+      "level_bis": 30,
+      "voll": [
+       2,
+       4,
+       5,
+       6,
+       8,
+       9,
+       10,
+       12,
+       14,
+       15,
+       16,
+       18,
+       20,
+       22,
+       24,
+       25,
+       26,
+       27,
+       28,
+       30
+      ],
+      "nicht_voll": [
+       1,
+       3,
+       7,
+       11,
+       13,
+       17,
+       19,
+       21,
+       23,
+       29
+      ]
+     },
+     "begruendung": "Die Scans E18/E19 und die Einzelabfragen E20 bis E31 liefern Rang = Dimension für N = 2, 4, 5, 6, 8, 9, 10, 12, 14, 15, 22, 24, 25, 26, 27, 28, 30. Dagegen gilt Rang < Dimension für N = 1 (0 von 1), 3, 7, 11, 13 und 21 (zum Teil 0 Quotienten). Für N = 17 ergibt meine Handrechnung nur drei holomorphe Quotienten, und die Primlevel 19, 23, 29 sind wohl nicht voll (nur geschätzt). Die Levels 16, 18 und 20 sind in den abgeschnittenen Ausgaben nicht sichtbar. Ich schließe sie nur aus dem Muster der Nachbarlevel (8, 9, 10, 12, 27) und habe sie nicht berechnet; hier liegt die Restunsicherheit."
+    }
+   ],
+   "experimente": [
+    18,
+    19,
+    20,
+    21,
+    22,
+    23,
+    24,
+    25,
+    26,
+    27,
+    28,
+    29,
+    30,
+    31
+   ],
+   "final": {
+    "antwort": "voll: N = 2, 4, 5, 6, 8, 9, 10, 12, 14, 15, 16, 18, 20, 22, 24, 25, 26, 27, 28, 30. Nicht voll: N = 1, 3, 7, 11, 13, 17, 19, 21, 23, 29.",
+    "zahl": 20,
+    "konfidenz": 0.8,
+    "pruefung": {
+     "typ": "eta_span_tabelle",
+     "gewicht": 4,
+     "level_bis": 30,
+     "voll": [
+      2,
+      4,
+      5,
+      6,
+      8,
+      9,
+      10,
+      12,
+      14,
+      15,
+      16,
+      18,
+      20,
+      22,
+      24,
+      25,
+      26,
+      27,
+      28,
+      30
+     ],
+     "nicht_voll": [
+      1,
+      3,
+      7,
+      11,
+      13,
+      17,
+      19,
+      21,
+      23,
+      29
+     ]
+    },
+    "begruendung": "Die Scans E18/E19 und die Einzelabfragen E20 bis E31 liefern Rang = Dimension für N = 2, 4, 5, 6, 8, 9, 10, 12, 14, 15, 22, 24, 25, 26, 27, 28, 30. Dagegen gilt Rang < Dimension für N = 1 (0 von 1), 3, 7, 11, 13 und 21 (zum Teil 0 Quotienten). Für N = 17 ergibt meine Handrechnung nur drei holomorphe Quotienten, und die Primlevel 19, 23, 29 sind wohl nicht voll (nur geschätzt). Die Levels 16, 18 und 20 sind in den abgeschnittenen Ausgaben nicht sichtbar. Ich schließe sie nur aus dem Muster der Nachbarlevel (8, 9, 10, 12, 27) und habe sie nicht berechnet; hier liegt die Restunsicherheit."
+   },
+   "modell": "sonnet",
+   "pruefung": {
+    "bestanden": true,
+    "grund": "Prüfer: Eta-Quotienten spannen M_4(Gamma_0(N)) für N in [2, 4, 5, 6, 8, 9, 10, 12, 14, 15, 16, 18, 20, 22, 24, 25, 26, 27, 28, 30]; nicht für N in [1, 3, 7, 11, 13, 17, 19, 21, 23, 29] (N <= 30, exakt)"
+   },
+   "staerke": 4
+  }
+ ],
+ "experimente": [
+  {
+   "id": 0,
+   "wer": "forscher-sparsam",
+   "op": "eta_span_scan",
+   "args": {
+    "gewicht": 4,
+    "level_bis": 30
+   },
+   "ergebnis": {
+    "tabelle": [
+     {
+      "N": 1,
+      "anzahl": 0,
+      "rang": 0,
+      "dim": 1
+     },
+     {
+      "N": 2,
+      "anzahl": 2,
+      "rang": 2,
+      "dim": 2
+     },
+     {
+      "N": 3,
+      "anzahl": 0,
+      "rang": 0,
+      "dim": 2
+     },
+     {
+      "N": 4,
+      "anzahl": 6,
+      "rang": 3,
+      "dim": 3
+     },
+     {
+      "N": 5,
+      "anzahl": 3,
+      "rang": 3,
+      "dim": 3
+     },
+     {
+      "N": 6,
+      "anzahl": 35,
+      "rang": 5,
+      "dim": 5
+     },
+     {
+      "N": 7,
+      "anzahl": 0,
+      "rang": 0,
+      "dim": 3
+     },
+     {
+      "N": 8,
+      "anzahl": 35,
+      "rang": 5,
+      "dim": 5
+     },
+     {
+      "N": 9,
+      "anzahl": 9,
+      "rang": 5,
+      "dim": 5
+     },
+     {
+      "N": 10,
+      "anzahl": 84,
+      "rang": 7,
+      "dim": 7
+     },
+     {
+      "N": 11,
+      "anzahl": 1,
+      "rang": 1,
+      "dim": 4
+     },
+     {
+      "N": 12,
+      "anzahl": 1287,
+      "rang": 9,
+      "dim": 9
+     },
+     {
+      "N": 13,
+      "anzahl": 0,
+      "rang": 0,
+      "dim": 5
+     },
+     {
+      "N": 14,
+      "anzahl": 29,
+      "rang": 8,
+      "dim": 8
+     },
+     {
+      "N": 15,
+      "anzahl": 23,
+      "rang": 8,
+      "dim": 8
+     },
+     {
+      "N": 16,
+      "anzahl": 295,
+      "rang": 9,
+      "dim": 9
+     },
+     {
+      "N": 17,
+      "anzahl": 1,
+      "rang": 1,
+      "dim": 6
+     },
+     {
+      "N": 18,
+      "anzahl": 2100,
+      "rang": 13,
+      "dim": 13
+     },
+     {
+      "N": 19,
+      "anzahl": 0,
+      "rang": 0,
+      "dim": 6
+     },
+     {
+      "N": 20,
+      "anzahl": 1038,
+      "rang": 12,
+      "dim": 12
+     },
+     {
+      "N": 21,
+      "anzahl": 0,
+      "rang": 0,
+      "dim": 10
+     },
+     {
+      "N": 22,
+      "anzahl": 23,
+      "rang": 11,
+      "dim": 11
+     },
+     {
+      "N": 23,
+      "anzahl": 1,
+      "rang": 1,
+      "dim": 7
+     },
+     {
+      "N": 24,
+      "anzahl": 30709,
+      "rang": 16,
+      "dim": 16
+     },
+     {
+      "N": 25,
+      "anzahl": 21,
+      "rang": 11,
+      "dim": 11
+     },
+     {
+      "N": 26,
+      "anzahl": 32,
+      "rang": 13,
+      "dim": 13
+     },
+     {
+      "N": 27,
+      "anzahl": 50,
+      "rang": 12,
+      "dim": 12
+     },
+     {
+      "N": 28,
+      "anzahl": 591,
+      "rang": 15,
+      "dim": 15
+     },
+     {
+      "N": 29,
+      "anzahl": 1,
+      "rang": 1,
+      "dim": 9
+     },
+     {
+      "N": 30,
+      "anzahl": 13703,
+      "rang": 22,
+      "dim": 22
+     }
+    ]
+   },
+   "sek": 105.75
+  },
+  {
+   "id": 1,
+   "wer": "forscher-sparsam",
+   "op": "eta_span_scan",
+   "args": {
+    "gewicht": 4,
+    "level_bis": 30
+   },
+   "ergebnis": {
+    "tabelle": [
+     {
+      "N": 1,
+      "anzahl": 0,
+      "rang": 0,
+      "dim": 1
+     },
+     {
+      "N": 2,
+      "anzahl": 2,
+      "rang": 2,
+      "dim": 2
+     },
+     {
+      "N": 3,
+      "anzahl": 0,
+      "rang": 0,
+      "dim": 2
+     },
+     {
+      "N": 4,
+      "anzahl": 6,
+      "rang": 3,
+      "dim": 3
+     },
+     {
+      "N": 5,
+      "anzahl": 3,
+      "rang": 3,
+      "dim": 3
+     },
+     {
+      "N": 6,
+      "anzahl": 35,
+      "rang": 5,
+      "dim": 5
+     },
+     {
+      "N": 7,
+      "anzahl": 0,
+      "rang": 0,
+      "dim": 3
+     },
+     {
+      "N": 8,
+      "anzahl": 35,
+      "rang": 5,
+      "dim": 5
+     },
+     {
+      "N": 9,
+      "anzahl": 9,
+      "rang": 5,
+      "dim": 5
+     },
+     {
+      "N": 10,
+      "anzahl": 84,
+      "rang": 7,
+      "dim": 7
+     },
+     {
+      "N": 11,
+      "anzahl": 1,
+      "rang": 1,
+      "dim": 4
+     },
+     {
+      "N": 12,
+      "anzahl": 1287,
+      "rang": 9,
+      "dim": 9
+     },
+     {
+      "N": 13,
+      "anzahl": 0,
+      "rang": 0,
+      "dim": 5
+     },
+     {
+      "N": 14,
+      "anzahl": 29,
+      "rang": 8,
+      "dim": 8
+     },
+     {
+      "N": 15,
+      "anzahl": 23,
+      "rang": 8,
+      "dim": 8
+     },
+     {
+      "N": 16,
+      "anzahl": 295,
+      "rang": 9,
+      "dim": 9
+     },
+     {
+      "N": 17,
+      "anzahl": 1,
+      "rang": 1,
+      "dim": 6
+     },
+     {
+      "N": 18,
+      "anzahl": 2100,
+      "rang": 13,
+      "dim": 13
+     },
+     {
+      "N": 19,
+      "anzahl": 0,
+      "rang": 0,
+      "dim": 6
+     },
+     {
+      "N": 20,
+      "anzahl": 1038,
+      "rang": 12,
+      "dim": 12
+     },
+     {
+      "N": 21,
+      "anzahl": 0,
+      "rang": 0,
+      "dim": 10
+     },
+     {
+      "N": 22,
+      "anzahl": 23,
+      "rang": 11,
+      "dim": 11
+     },
+     {
+      "N": 23,
+      "anzahl": 1,
+      "rang": 1,
+      "dim": 7
+     },
+     {
+      "N": 24,
+      "anzahl": 30709,
+      "rang": 16,
+      "dim": 16
+     },
+     {
+      "N": 25,
+      "anzahl": 21,
+      "rang": 11,
+      "dim": 11
+     },
+     {
+      "N": 26,
+      "anzahl": 32,
+      "rang": 13,
+      "dim": 13
+     },
+     {
+      "N": 27,
+      "anzahl": 50,
+      "rang": 12,
+      "dim": 12
+     },
+     {
+      "N": 28,
+      "anzahl": 591,
+      "rang": 15,
+      "dim": 15
+     },
+     {
+      "N": 29,
+      "anzahl": 1,
+      "rang": 1,
+      "dim": 9
+     },
+     {
+      "N": 30,
+      "anzahl": 13703,
+      "rang": 22,
+      "dim": 22
+     }
+    ]
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 2,
+   "wer": "forscher-numeriker",
+   "op": "eta_span_scan",
+   "args": {
+    "gewicht": 4,
+    "level_bis": 30
+   },
+   "ergebnis": {
+    "tabelle": [
+     {
+      "N": 1,
+      "anzahl": 0,
+      "rang": 0,
+      "dim": 1
+     },
+     {
+      "N": 2,
+      "anzahl": 2,
+      "rang": 2,
+      "dim": 2
+     },
+     {
+      "N": 3,
+      "anzahl": 0,
+      "rang": 0,
+      "dim": 2
+     },
+     {
+      "N": 4,
+      "anzahl": 6,
+      "rang": 3,
+      "dim": 3
+     },
+     {
+      "N": 5,
+      "anzahl": 3,
+      "rang": 3,
+      "dim": 3
+     },
+     {
+      "N": 6,
+      "anzahl": 35,
+      "rang": 5,
+      "dim": 5
+     },
+     {
+      "N": 7,
+      "anzahl": 0,
+      "rang": 0,
+      "dim": 3
+     },
+     {
+      "N": 8,
+      "anzahl": 35,
+      "rang": 5,
+      "dim": 5
+     },
+     {
+      "N": 9,
+      "anzahl": 9,
+      "rang": 5,
+      "dim": 5
+     },
+     {
+      "N": 10,
+      "anzahl": 84,
+      "rang": 7,
+      "dim": 7
+     },
+     {
+      "N": 11,
+      "anzahl": 1,
+      "rang": 1,
+      "dim": 4
+     },
+     {
+      "N": 12,
+      "anzahl": 1287,
+      "rang": 9,
+      "dim": 9
+     },
+     {
+      "N": 13,
+      "anzahl": 0,
+      "rang": 0,
+      "dim": 5
+     },
+     {
+      "N": 14,
+      "anzahl": 29,
+      "rang": 8,
+      "dim": 8
+     },
+     {
+      "N": 15,
+      "anzahl": 23,
+      "rang": 8,
+      "dim": 8
+     },
+     {
+      "N": 16,
+      "anzahl": 295,
+      "rang": 9,
+      "dim": 9
+     },
+     {
+      "N": 17,
+      "anzahl": 1,
+      "rang": 1,
+      "dim": 6
+     },
+     {
+      "N": 18,
+      "anzahl": 2100,
+      "rang": 13,
+      "dim": 13
+     },
+     {
+      "N": 19,
+      "anzahl": 0,
+      "rang": 0,
+      "dim": 6
+     },
+     {
+      "N": 20,
+      "anzahl": 1038,
+      "rang": 12,
+      "dim": 12
+     },
+     {
+      "N": 21,
+      "anzahl": 0,
+      "rang": 0,
+      "dim": 10
+     },
+     {
+      "N": 22,
+      "anzahl": 23,
+      "rang": 11,
+      "dim": 11
+     },
+     {
+      "N": 23,
+      "anzahl": 1,
+      "rang": 1,
+      "dim": 7
+     },
+     {
+      "N": 24,
+      "anzahl": 30709,
+      "rang": 16,
+      "dim": 16
+     },
+     {
+      "N": 25,
+      "anzahl": 21,
+      "rang": 11,
+      "dim": 11
+     },
+     {
+      "N": 26,
+      "anzahl": 32,
+      "rang": 13,
+      "dim": 13
+     },
+     {
+      "N": 27,
+      "anzahl": 50,
+      "rang": 12,
+      "dim": 12
+     },
+     {
+      "N": 28,
+      "anzahl": 591,
+      "rang": 15,
+      "dim": 15
+     },
+     {
+      "N": 29,
+      "anzahl": 1,
+      "rang": 1,
+      "dim": 9
+     },
+     {
+      "N": 30,
+      "anzahl": 13703,
+      "rang": 22,
+      "dim": 22
+     }
+    ]
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 3,
+   "wer": "forscher-numeriker",
+   "op": "eta_span_scan",
+   "args": {
+    "gewicht": 4,
+    "level_bis": 30
+   },
+   "ergebnis": {
+    "tabelle": [
+     {
+      "N": 1,
+      "anzahl": 0,
+      "rang": 0,
+      "dim": 1
+     },
+     {
+      "N": 2,
+      "anzahl": 2,
+      "rang": 2,
+      "dim": 2
+     },
+     {
+      "N": 3,
+      "anzahl": 0,
+      "rang": 0,
+      "dim": 2
+     },
+     {
+      "N": 4,
+      "anzahl": 6,
+      "rang": 3,
+      "dim": 3
+     },
+     {
+      "N": 5,
+      "anzahl": 3,
+      "rang": 3,
+      "dim": 3
+     },
+     {
+      "N": 6,
+      "anzahl": 35,
+      "rang": 5,
+      "dim": 5
+     },
+     {
+      "N": 7,
+      "anzahl": 0,
+      "rang": 0,
+      "dim": 3
+     },
+     {
+      "N": 8,
+      "anzahl": 35,
+      "rang": 5,
+      "dim": 5
+     },
+     {
+      "N": 9,
+      "anzahl": 9,
+      "rang": 5,
+      "dim": 5
+     },
+     {
+      "N": 10,
+      "anzahl": 84,
+      "rang": 7,
+      "dim": 7
+     },
+     {
+      "N": 11,
+      "anzahl": 1,
+      "rang": 1,
+      "dim": 4
+     },
+     {
+      "N": 12,
+      "anzahl": 1287,
+      "rang": 9,
+      "dim": 9
+     },
+     {
+      "N": 13,
+      "anzahl": 0,
+      "rang": 0,
+      "dim": 5
+     },
+     {
+      "N": 14,
+      "anzahl": 29,
+      "rang": 8,
+      "dim": 8
+     },
+     {
+      "N": 15,
+      "anzahl": 23,
+      "rang": 8,
+      "dim": 8
+     },
+     {
+      "N": 16,
+      "anzahl": 295,
+      "rang": 9,
+      "dim": 9
+     },
+     {
+      "N": 17,
+      "anzahl": 1,
+      "rang": 1,
+      "dim": 6
+     },
+     {
+      "N": 18,
+      "anzahl": 2100,
+      "rang": 13,
+      "dim": 13
+     },
+     {
+      "N": 19,
+      "anzahl": 0,
+      "rang": 0,
+      "dim": 6
+     },
+     {
+      "N": 20,
+      "anzahl": 1038,
+      "rang": 12,
+      "dim": 12
+     },
+     {
+      "N": 21,
+      "anzahl": 0,
+      "rang": 0,
+      "dim": 10
+     },
+     {
+      "N": 22,
+      "anzahl": 23,
+      "rang": 11,
+      "dim": 11
+     },
+     {
+      "N": 23,
+      "anzahl": 1,
+      "rang": 1,
+      "dim": 7
+     },
+     {
+      "N": 24,
+      "anzahl": 30709,
+      "rang": 16,
+      "dim": 16
+     },
+     {
+      "N": 25,
+      "anzahl": 21,
+      "rang": 11,
+      "dim": 11
+     },
+     {
+      "N": 26,
+      "anzahl": 32,
+      "rang": 13,
+      "dim": 13
+     },
+     {
+      "N": 27,
+      "anzahl": 50,
+      "rang": 12,
+      "dim": 12
+     },
+     {
+      "N": 28,
+      "anzahl": 591,
+      "rang": 15,
+      "dim": 15
+     },
+     {
+      "N": 29,
+      "anzahl": 1,
+      "rang": 1,
+      "dim": 9
+     },
+     {
+      "N": 30,
+      "anzahl": 13703,
+      "rang": 22,
+      "dim": 22
+     }
+    ]
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 4,
+   "wer": "forscher-skeptiker",
+   "op": "eta_span_scan",
+   "args": {
+    "gewicht": 4,
+    "level_bis": 30
+   },
+   "ergebnis": {
+    "tabelle": [
+     {
+      "N": 1,
+      "anzahl": 0,
+      "rang": 0,
+      "dim": 1
+     },
+     {
+      "N": 2,
+      "anzahl": 2,
+      "rang": 2,
+      "dim": 2
+     },
+     {
+      "N": 3,
+      "anzahl": 0,
+      "rang": 0,
+      "dim": 2
+     },
+     {
+      "N": 4,
+      "anzahl": 6,
+      "rang": 3,
+      "dim": 3
+     },
+     {
+      "N": 5,
+      "anzahl": 3,
+      "rang": 3,
+      "dim": 3
+     },
+     {
+      "N": 6,
+      "anzahl": 35,
+      "rang": 5,
+      "dim": 5
+     },
+     {
+      "N": 7,
+      "anzahl": 0,
+      "rang": 0,
+      "dim": 3
+     },
+     {
+      "N": 8,
+      "anzahl": 35,
+      "rang": 5,
+      "dim": 5
+     },
+     {
+      "N": 9,
+      "anzahl": 9,
+      "rang": 5,
+      "dim": 5
+     },
+     {
+      "N": 10,
+      "anzahl": 84,
+      "rang": 7,
+      "dim": 7
+     },
+     {
+      "N": 11,
+      "anzahl": 1,
+      "rang": 1,
+      "dim": 4
+     },
+     {
+      "N": 12,
+      "anzahl": 1287,
+      "rang": 9,
+      "dim": 9
+     },
+     {
+      "N": 13,
+      "anzahl": 0,
+      "rang": 0,
+      "dim": 5
+     },
+     {
+      "N": 14,
+      "anzahl": 29,
+      "rang": 8,
+      "dim": 8
+     },
+     {
+      "N": 15,
+      "anzahl": 23,
+      "rang": 8,
+      "dim": 8
+     },
+     {
+      "N": 16,
+      "anzahl": 295,
+      "rang": 9,
+      "dim": 9
+     },
+     {
+      "N": 17,
+      "anzahl": 1,
+      "rang": 1,
+      "dim": 6
+     },
+     {
+      "N": 18,
+      "anzahl": 2100,
+      "rang": 13,
+      "dim": 13
+     },
+     {
+      "N": 19,
+      "anzahl": 0,
+      "rang": 0,
+      "dim": 6
+     },
+     {
+      "N": 20,
+      "anzahl": 1038,
+      "rang": 12,
+      "dim": 12
+     },
+     {
+      "N": 21,
+      "anzahl": 0,
+      "rang": 0,
+      "dim": 10
+     },
+     {
+      "N": 22,
+      "anzahl": 23,
+      "rang": 11,
+      "dim": 11
+     },
+     {
+      "N": 23,
+      "anzahl": 1,
+      "rang": 1,
+      "dim": 7
+     },
+     {
+      "N": 24,
+      "anzahl": 30709,
+      "rang": 16,
+      "dim": 16
+     },
+     {
+      "N": 25,
+      "anzahl": 21,
+      "rang": 11,
+      "dim": 11
+     },
+     {
+      "N": 26,
+      "anzahl": 32,
+      "rang": 13,
+      "dim": 13
+     },
+     {
+      "N": 27,
+      "anzahl": 50,
+      "rang": 12,
+      "dim": 12
+     },
+     {
+      "N": 28,
+      "anzahl": 591,
+      "rang": 15,
+      "dim": 15
+     },
+     {
+      "N": 29,
+      "anzahl": 1,
+      "rang": 1,
+      "dim": 9
+     },
+     {
+      "N": 30,
+      "anzahl": 13703,
+      "rang": 22,
+      "dim": 22
+     }
+    ]
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 5,
+   "wer": "forscher-skeptiker",
+   "op": "eta_span_scan",
+   "args": {
+    "gewicht": 4,
+    "level_bis": 40
+   },
+   "ergebnis": {
+    "tabelle": [
+     {
+      "N": 1,
+      "anzahl": 0,
+      "rang": 0,
+      "dim": 1
+     },
+     {
+      "N": 2,
+      "anzahl": 2,
+      "rang": 2,
+      "dim": 2
+     },
+     {
+      "N": 3,
+      "anzahl": 0,
+      "rang": 0,
+      "dim": 2
+     },
+     {
+      "N": 4,
+      "anzahl": 6,
+      "rang": 3,
+      "dim": 3
+     },
+     {
+      "N": 5,
+      "anzahl": 3,
+      "rang": 3,
+      "dim": 3
+     },
+     {
+      "N": 6,
+      "anzahl": 35,
+      "rang": 5,
+      "dim": 5
+     },
+     {
+      "N": 7,
+      "anzahl": 0,
+      "rang": 0,
+      "dim": 3
+     },
+     {
+      "N": 8,
+      "anzahl": 35,
+      "rang": 5,
+      "dim": 5
+     },
+     {
+      "N": 9,
+      "anzahl": 9,
+      "rang": 5,
+      "dim": 5
+     },
+     {
+      "N": 10,
+      "anzahl": 84,
+      "rang": 7,
+      "dim": 7
+     },
+     {
+      "N": 11,
+      "anzahl": 1,
+      "rang": 1,
+      "dim": 4
+     },
+     {
+      "N": 12,
+      "anzahl": 1287,
+      "rang": 9,
+      "dim": 9
+     },
+     {
+      "N": 13,
+      "anzahl": 0,
+      "rang": 0,
+      "dim": 5
+     },
+     {
+      "N": 14,
+      "anzahl": 29,
+      "rang": 8,
+      "dim": 8
+     },
+     {
+      "N": 15,
+      "anzahl": 23,
+      "rang": 8,
+      "dim": 8
+     },
+     {
+      "N": 16,
+      "anzahl": 295,
+      "rang": 9,
+      "dim": 9
+     },
+     {
+      "N": 17,
+      "anzahl": 1,
+      "rang": 1,
+      "dim": 6
+     },
+     {
+      "N": 18,
+      "anzahl": 2100,
+      "rang": 13,
+      "dim": 13
+     },
+     {
+      "N": 19,
+      "anzahl": 0,
+      "rang": 0,
+      "dim": 6
+     },
+     {
+      "N": 20,
+      "anzahl": 1038,
+      "rang": 12,
+      "dim": 12
+     },
+     {
+      "N": 21,
+      "anzahl": 0,
+      "rang": 0,
+      "dim": 10
+     },
+     {
+      "N": 22,
+      "anzahl": 23,
+      "rang": 11,
+      "dim": 11
+     },
+     {
+      "N": 23,
+      "anzahl": 1,
+      "rang": 1,
+      "dim": 7
+     },
+     {
+      "N": 24,
+      "anzahl": 30709,
+      "rang": 16,
+      "dim": 16
+     },
+     {
+      "N": 25,
+      "anzahl": 21,
+      "rang": 11,
+      "dim": 11
+     },
+     {
+      "N": 26,
+      "anzahl": 32,
+      "rang": 13,
+      "dim": 13
+     },
+     {
+      "N": 27,
+      "anzahl": 50,
+      "rang": 12,
+      "dim": 12
+     },
+     {
+      "N": 28,
+      "anzahl": 591,
+      "rang": 15,
+      "dim": 15
+     },
+     {
+      "N": 29,
+      "anzahl": 1,
+      "rang": 1,
+      "dim": 9
+     },
+     {
+      "N": 30,
+      "anzahl": 13703,
+      "rang": 22,
+      "dim": 22
+     },
+     {
+      "N": 31,
+      "anzahl": 0,
+      "rang": 0,
+      "dim": 9
+     },
+     {
+      "N": 32,
+      "anzahl": 1669,
+      "rang": 16,
+      "dim": 16
+     },
+     {
+      "N": 33,
+      "anzahl": 9,
+      "rang": 9,
+      "dim": 14
+     },
+     {
+      "N": 34,
+      "anzahl": 32,
+      "rang": 16,
+      "dim": 16
+     },
+     {
+      "N": 35,
+      "anzahl": 21,
+      "rang": 14,
+      "dim": 14
+     },
+     {
+      "N": 36,
+      "anzahl": 323410,
+      "rang": 24,
+      "dim": 24
+     },
+     {
+      "N": 37,
+      "anzahl": 0,
+      "rang": 0,
+      "dim": 11
+     },
+     {
+      "N": 38,
+      "anzahl": 17,
+      "rang": 17,
+      "dim": 17
+     },
+     {
+      "N": 39,
+      "anzahl": 0,
+      "rang": 0,
+      "dim": 16
+     },
+     {
+      "N": 40,
+      "anzahl": 18351,
+      "rang": 22,
+      "dim": 22
+     }
+    ]
+   },
+   "sek": 1187.46
+  },
+  {
+   "id": 6,
+   "wer": "forscher-skeptiker",
+   "op": "eta_quotienten",
+   "args": {
+    "level": 1,
+    "gewicht": 4
+   },
+   "ergebnis": {
+    "anzahl": 0,
+    "rang_span": 0,
+    "dim_M": 1,
+    "beispiele": []
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 7,
+   "wer": "forscher-skeptiker",
+   "op": "eta_quotienten",
+   "args": {
+    "level": 6,
+    "gewicht": 4
+   },
+   "ergebnis": {
+    "anzahl": 35,
+    "rang_span": 5,
+    "dim_M": 5,
+    "beispiele": [
+     "eta(1)^24*eta(2)^-12*eta(3)^-8*eta(6)^4",
+     "eta(1)^15*eta(2)^-3*eta(3)^-5*eta(6)^1",
+     "eta(1)^6*eta(2)^6*eta(3)^-2*eta(6)^-2",
+     "eta(1)^-3*eta(2)^15*eta(3)^1*eta(6)^-5",
+     "eta(1)^-12*eta(2)^24*eta(3)^4*eta(6)^-8",
+     "eta(1)^16*eta(2)^-8",
+     "eta(1)^7*eta(2)^1*eta(3)^3*eta(6)^-3",
+     "eta(1)^-2*eta(2)^10*eta(3)^6*eta(6)^-6",
+     "eta(1)^-11*eta(2)^19*eta(3)^9*eta(6)^-9",
+     "eta(1)^8*eta(2)^-4*eta(3)^8*eta(6)^-4",
+     "eta(1)^-1*eta(2)^5*eta(3)^11*eta(6)^-7",
+     "eta(1)^-10*eta(2)^14*eta(3)^14*eta(6)^-10"
+    ]
+   },
+   "sek": 0.01
+  },
+  {
+   "id": 8,
+   "wer": "forscher-skeptiker",
+   "op": "eta_quotienten",
+   "args": {
+    "level": 11,
+    "gewicht": 4
+   },
+   "ergebnis": {
+    "anzahl": 1,
+    "rang_span": 1,
+    "dim_M": 4,
+    "beispiele": [
+     "eta(1)^4*eta(11)^4"
+    ]
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 9,
+   "wer": "forscher-skeptiker",
+   "op": "eta_quotienten",
+   "args": {
+    "level": 12,
+    "gewicht": 4
+   },
+   "ergebnis": {
+    "anzahl": 1287,
+    "rang_span": 9,
+    "dim_M": 9,
+    "beispiele": [
+     "eta(1)^24*eta(2)^-12*eta(3)^-8*eta(6)^4",
+     "eta(1)^18*eta(2)^-3*eta(3)^-6*eta(4)^-3*eta(6)^1*eta(12)^1",
+     "eta(1)^12*eta(2)^6*eta(3)^-4*eta(4)^-6*eta(6)^-2*eta(12)^2",
+     "eta(1)^6*eta(2)^15*eta(3)^-2*eta(4)^-9*eta(6)^-5*eta(12)^3",
+     "eta(2)^24*eta(4)^-12*eta(6)^-8*eta(12)^4",
+     "eta(1)^-6*eta(2)^33*eta(3)^2*eta(4)^-15*eta(6)^-11*eta(12)^5",
+     "eta(1)^-12*eta(2)^42*eta(3)^4*eta(4)^-18*eta(6)^-14*eta(12)^6",
+     "eta(1)^-18*eta(2)^51*eta(3)^6*eta(4)^-21*eta(6)^-17*eta(12)^7",
+     "eta(1)^-24*eta(2)^60*eta(3)^8*eta(4)^-24*eta(6)^-20*eta(12)^8",
+     "eta(1)^20*eta(2)^-10*eta(3)^-4*eta(6)^2",
+     "eta(1)^14*eta(2)^-1*eta(3)^-2*eta(4)^-3*eta(6)^-1*eta(12)^1",
+     "eta(1)^8*eta(2)^8*eta(4)^-6*eta(6)^-4*eta(12)^2"
+    ]
+   },
+   "sek": 1.07
+  },
+  {
+   "id": 10,
+   "wer": "forscher-skeptiker",
+   "op": "eta_quotienten",
+   "args": {
+    "level": 30,
+    "gewicht": 4
+   },
+   "ergebnis": {
+    "anzahl": 13703,
+    "rang_span": 22,
+    "dim_M": 22,
+    "beispiele": [
+     "eta(1)^30*eta(2)^-15*eta(3)^-10*eta(5)^-6*eta(6)^5*eta(10)^3*eta(15)^2*eta(30)^-1",
+     "eta(1)^15*eta(3)^-5*eta(5)^-3*eta(15)^1",
+     "eta(2)^15*eta(6)^-5*eta(10)^-3*eta(30)^1",
+     "eta(1)^-15*eta(2)^30*eta(3)^5*eta(5)^3*eta(6)^-10*eta(10)^-6*eta(15)^-1*eta(30)^2",
+     "eta(1)^20*eta(2)^-10*eta(5)^-4*eta(10)^2",
+     "eta(1)^5*eta(2)^5*eta(3)^5*eta(5)^-1*eta(6)^-5*eta(10)^-1*eta(15)^-1*eta(30)^1",
+     "eta(1)^-10*eta(2)^20*eta(3)^10*eta(5)^2*eta(6)^-10*eta(10)^-4*eta(15)^-2*eta(30)^2",
+     "eta(1)^10*eta(2)^-5*eta(3)^10*eta(5)^-2*eta(6)^-5*eta(10)^1*eta(15)^-2*eta(30)^1",
+     "eta(1)^-5*eta(2)^10*eta(3)^15*eta(5)^1*eta(6)^-10*eta(10)^-2*eta(15)^-3*eta(30)^2",
+     "eta(3)^20*eta(6)^-10*eta(15)^-4*eta(30)^2",
+     "eta(1)^-10*eta(2)^5*eta(3)^30*eta(5)^2*eta(6)^-15*eta(10)^-1*eta(15)^-6*eta(30)^3",
+     "eta(1)^24*eta(2)^-12*eta(3)^-8*eta(6)^4"
+    ]
+   },
+   "sek": 42.19
+  },
+  {
+   "id": 11,
+   "wer": "forscher-skeptiker",
+   "op": "dim",
+   "args": {
+    "gewicht": 4,
+    "level": 30
+   },
+   "ergebnis": {
+    "dim_M": 22,
+    "sturm_schranke": "24",
+    "index": 72
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 12,
+   "wer": "forscher-skeptiker",
+   "op": "eta_quotienten",
+   "args": {
+    "level": 16,
+    "gewicht": 4
+   },
+   "ergebnis": {
+    "anzahl": 295,
+    "rang_span": 9,
+    "dim_M": 9,
+    "beispiele": [
+     "eta(1)^16*eta(2)^-8",
+     "eta(1)^12*eta(2)^-2*eta(4)^-2",
+     "eta(1)^8*eta(2)^4*eta(4)^-4",
+     "eta(1)^4*eta(2)^10*eta(4)^-6",
+     "eta(2)^16*eta(4)^-8",
+     "eta(1)^-4*eta(2)^22*eta(4)^-10",
+     "eta(1)^-8*eta(2)^28*eta(4)^-12",
+     "eta(1)^-12*eta(2)^34*eta(4)^-14",
+     "eta(1)^-16*eta(2)^40*eta(4)^-16",
+     "eta(1)^12*eta(2)^-10*eta(4)^10*eta(8)^-4",
+     "eta(1)^8*eta(2)^-4*eta(4)^8*eta(8)^-4",
+     "eta(1)^4*eta(2)^2*eta(4)^6*eta(8)^-4"
+    ]
+   },
+   "sek": 0.19
+  },
+  {
+   "id": 13,
+   "wer": "forscher-skeptiker",
+   "op": "eta_quotienten",
+   "args": {
+    "level": 17,
+    "gewicht": 4
+   },
+   "ergebnis": {
+    "anzahl": 1,
+    "rang_span": 1,
+    "dim_M": 6,
+    "beispiele": [
+     "eta(1)^4*eta(17)^4"
+    ]
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 14,
+   "wer": "forscher-skeptiker",
+   "op": "eta_quotienten",
+   "args": {
+    "level": 18,
+    "gewicht": 4
+   },
+   "ergebnis": {
+    "anzahl": 2100,
+    "rang_span": 13,
+    "dim_M": 13,
+    "beispiele": [
+     "eta(1)^24*eta(2)^-12*eta(3)^-8*eta(6)^4",
+     "eta(1)^21*eta(2)^-9*eta(3)^-7*eta(6)^3",
+     "eta(1)^18*eta(2)^-6*eta(3)^-6*eta(6)^2",
+     "eta(1)^15*eta(2)^-3*eta(3)^-5*eta(6)^1",
+     "eta(1)^12*eta(3)^-4",
+     "eta(1)^9*eta(2)^3*eta(3)^-3*eta(6)^-1",
+     "eta(1)^6*eta(2)^6*eta(3)^-2*eta(6)^-2",
+     "eta(1)^3*eta(2)^9*eta(3)^-1*eta(6)^-3",
+     "eta(2)^12*eta(6)^-4",
+     "eta(1)^-3*eta(2)^15*eta(3)^1*eta(6)^-5",
+     "eta(1)^-6*eta(2)^18*eta(3)^2*eta(6)^-6",
+     "eta(1)^-9*eta(2)^21*eta(3)^3*eta(6)^-7"
+    ]
+   },
+   "sek": 2.28
+  },
+  {
+   "id": 15,
+   "wer": "forscher-skeptiker",
+   "op": "eta_quotienten",
+   "args": {
+    "level": 19,
+    "gewicht": 4
+   },
+   "ergebnis": {
+    "anzahl": 0,
+    "rang_span": 0,
+    "dim_M": 6,
+    "beispiele": []
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 16,
+   "wer": "forscher-skeptiker",
+   "op": "eta_quotienten",
+   "args": {
+    "level": 20,
+    "gewicht": 4
+   },
+   "ergebnis": {
+    "anzahl": 1038,
+    "rang_span": 12,
+    "dim_M": 12,
+    "beispiele": [
+     "eta(1)^20*eta(2)^-10*eta(5)^-4*eta(10)^2",
+     "eta(1)^10*eta(2)^5*eta(4)^-5*eta(5)^-2*eta(10)^-1*eta(20)^1",
+     "eta(2)^20*eta(4)^-10*eta(10)^-4*eta(20)^2",
+     "eta(1)^-10*eta(2)^35*eta(4)^-15*eta(5)^2*eta(10)^-7*eta(20)^3",
+     "eta(1)^-20*eta(2)^50*eta(4)^-20*eta(5)^4*eta(10)^-10*eta(20)^4",
+     "eta(1)^15*eta(2)^-5*eta(5)^-3*eta(10)^1",
+     "eta(1)^5*eta(2)^10*eta(4)^-5*eta(5)^-1*eta(10)^-2*eta(20)^1",
+     "eta(1)^-5*eta(2)^25*eta(4)^-10*eta(5)^1*eta(10)^-5*eta(20)^2",
+     "eta(1)^-15*eta(2)^40*eta(4)^-15*eta(5)^3*eta(10)^-8*eta(20)^3",
+     "eta(1)^10*eta(5)^-2",
+     "eta(2)^15*eta(4)^-5*eta(10)^-3*eta(20)^1",
+     "eta(1)^-10*eta(2)^30*eta(4)^-10*eta(5)^2*eta(10)^-6*eta(20)^2"
+    ]
+   },
+   "sek": 1.11
+  },
+  {
+   "id": 17,
+   "wer": "forscher-skeptiker",
+   "op": "eta_quotienten",
+   "args": {
+    "level": 21,
+    "gewicht": 4
+   },
+   "ergebnis": {
+    "anzahl": 0,
+    "rang_span": 0,
+    "dim_M": 10,
+    "beispiele": []
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 18,
+   "wer": "forscher-theoretiker",
+   "op": "eta_span_scan",
+   "args": {
+    "gewicht": 4,
+    "level_bis": 30
+   },
+   "ergebnis": {
+    "tabelle": [
+     {
+      "N": 1,
+      "anzahl": 0,
+      "rang": 0,
+      "dim": 1
+     },
+     {
+      "N": 2,
+      "anzahl": 2,
+      "rang": 2,
+      "dim": 2
+     },
+     {
+      "N": 3,
+      "anzahl": 0,
+      "rang": 0,
+      "dim": 2
+     },
+     {
+      "N": 4,
+      "anzahl": 6,
+      "rang": 3,
+      "dim": 3
+     },
+     {
+      "N": 5,
+      "anzahl": 3,
+      "rang": 3,
+      "dim": 3
+     },
+     {
+      "N": 6,
+      "anzahl": 35,
+      "rang": 5,
+      "dim": 5
+     },
+     {
+      "N": 7,
+      "anzahl": 0,
+      "rang": 0,
+      "dim": 3
+     },
+     {
+      "N": 8,
+      "anzahl": 35,
+      "rang": 5,
+      "dim": 5
+     },
+     {
+      "N": 9,
+      "anzahl": 9,
+      "rang": 5,
+      "dim": 5
+     },
+     {
+      "N": 10,
+      "anzahl": 84,
+      "rang": 7,
+      "dim": 7
+     },
+     {
+      "N": 11,
+      "anzahl": 1,
+      "rang": 1,
+      "dim": 4
+     },
+     {
+      "N": 12,
+      "anzahl": 1287,
+      "rang": 9,
+      "dim": 9
+     },
+     {
+      "N": 13,
+      "anzahl": 0,
+      "rang": 0,
+      "dim": 5
+     },
+     {
+      "N": 14,
+      "anzahl": 29,
+      "rang": 8,
+      "dim": 8
+     },
+     {
+      "N": 15,
+      "anzahl": 23,
+      "rang": 8,
+      "dim": 8
+     },
+     {
+      "N": 16,
+      "anzahl": 295,
+      "rang": 9,
+      "dim": 9
+     },
+     {
+      "N": 17,
+      "anzahl": 1,
+      "rang": 1,
+      "dim": 6
+     },
+     {
+      "N": 18,
+      "anzahl": 2100,
+      "rang": 13,
+      "dim": 13
+     },
+     {
+      "N": 19,
+      "anzahl": 0,
+      "rang": 0,
+      "dim": 6
+     },
+     {
+      "N": 20,
+      "anzahl": 1038,
+      "rang": 12,
+      "dim": 12
+     },
+     {
+      "N": 21,
+      "anzahl": 0,
+      "rang": 0,
+      "dim": 10
+     },
+     {
+      "N": 22,
+      "anzahl": 23,
+      "rang": 11,
+      "dim": 11
+     },
+     {
+      "N": 23,
+      "anzahl": 1,
+      "rang": 1,
+      "dim": 7
+     },
+     {
+      "N": 24,
+      "anzahl": 30709,
+      "rang": 16,
+      "dim": 16
+     },
+     {
+      "N": 25,
+      "anzahl": 21,
+      "rang": 11,
+      "dim": 11
+     },
+     {
+      "N": 26,
+      "anzahl": 32,
+      "rang": 13,
+      "dim": 13
+     },
+     {
+      "N": 27,
+      "anzahl": 50,
+      "rang": 12,
+      "dim": 12
+     },
+     {
+      "N": 28,
+      "anzahl": 591,
+      "rang": 15,
+      "dim": 15
+     },
+     {
+      "N": 29,
+      "anzahl": 1,
+      "rang": 1,
+      "dim": 9
+     },
+     {
+      "N": 30,
+      "anzahl": 13703,
+      "rang": 22,
+      "dim": 22
+     }
+    ]
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 19,
+   "wer": "forscher-theoretiker",
+   "op": "eta_span_scan",
+   "args": {
+    "gewicht": 4,
+    "level_bis": 40
+   },
+   "ergebnis": {
+    "tabelle": [
+     {
+      "N": 1,
+      "anzahl": 0,
+      "rang": 0,
+      "dim": 1
+     },
+     {
+      "N": 2,
+      "anzahl": 2,
+      "rang": 2,
+      "dim": 2
+     },
+     {
+      "N": 3,
+      "anzahl": 0,
+      "rang": 0,
+      "dim": 2
+     },
+     {
+      "N": 4,
+      "anzahl": 6,
+      "rang": 3,
+      "dim": 3
+     },
+     {
+      "N": 5,
+      "anzahl": 3,
+      "rang": 3,
+      "dim": 3
+     },
+     {
+      "N": 6,
+      "anzahl": 35,
+      "rang": 5,
+      "dim": 5
+     },
+     {
+      "N": 7,
+      "anzahl": 0,
+      "rang": 0,
+      "dim": 3
+     },
+     {
+      "N": 8,
+      "anzahl": 35,
+      "rang": 5,
+      "dim": 5
+     },
+     {
+      "N": 9,
+      "anzahl": 9,
+      "rang": 5,
+      "dim": 5
+     },
+     {
+      "N": 10,
+      "anzahl": 84,
+      "rang": 7,
+      "dim": 7
+     },
+     {
+      "N": 11,
+      "anzahl": 1,
+      "rang": 1,
+      "dim": 4
+     },
+     {
+      "N": 12,
+      "anzahl": 1287,
+      "rang": 9,
+      "dim": 9
+     },
+     {
+      "N": 13,
+      "anzahl": 0,
+      "rang": 0,
+      "dim": 5
+     },
+     {
+      "N": 14,
+      "anzahl": 29,
+      "rang": 8,
+      "dim": 8
+     },
+     {
+      "N": 15,
+      "anzahl": 23,
+      "rang": 8,
+      "dim": 8
+     },
+     {
+      "N": 16,
+      "anzahl": 295,
+      "rang": 9,
+      "dim": 9
+     },
+     {
+      "N": 17,
+      "anzahl": 1,
+      "rang": 1,
+      "dim": 6
+     },
+     {
+      "N": 18,
+      "anzahl": 2100,
+      "rang": 13,
+      "dim": 13
+     },
+     {
+      "N": 19,
+      "anzahl": 0,
+      "rang": 0,
+      "dim": 6
+     },
+     {
+      "N": 20,
+      "anzahl": 1038,
+      "rang": 12,
+      "dim": 12
+     },
+     {
+      "N": 21,
+      "anzahl": 0,
+      "rang": 0,
+      "dim": 10
+     },
+     {
+      "N": 22,
+      "anzahl": 23,
+      "rang": 11,
+      "dim": 11
+     },
+     {
+      "N": 23,
+      "anzahl": 1,
+      "rang": 1,
+      "dim": 7
+     },
+     {
+      "N": 24,
+      "anzahl": 30709,
+      "rang": 16,
+      "dim": 16
+     },
+     {
+      "N": 25,
+      "anzahl": 21,
+      "rang": 11,
+      "dim": 11
+     },
+     {
+      "N": 26,
+      "anzahl": 32,
+      "rang": 13,
+      "dim": 13
+     },
+     {
+      "N": 27,
+      "anzahl": 50,
+      "rang": 12,
+      "dim": 12
+     },
+     {
+      "N": 28,
+      "anzahl": 591,
+      "rang": 15,
+      "dim": 15
+     },
+     {
+      "N": 29,
+      "anzahl": 1,
+      "rang": 1,
+      "dim": 9
+     },
+     {
+      "N": 30,
+      "anzahl": 13703,
+      "rang": 22,
+      "dim": 22
+     },
+     {
+      "N": 31,
+      "anzahl": 0,
+      "rang": 0,
+      "dim": 9
+     },
+     {
+      "N": 32,
+      "anzahl": 1669,
+      "rang": 16,
+      "dim": 16
+     },
+     {
+      "N": 33,
+      "anzahl": 9,
+      "rang": 9,
+      "dim": 14
+     },
+     {
+      "N": 34,
+      "anzahl": 32,
+      "rang": 16,
+      "dim": 16
+     },
+     {
+      "N": 35,
+      "anzahl": 21,
+      "rang": 14,
+      "dim": 14
+     },
+     {
+      "N": 36,
+      "anzahl": 323410,
+      "rang": 24,
+      "dim": 24
+     },
+     {
+      "N": 37,
+      "anzahl": 0,
+      "rang": 0,
+      "dim": 11
+     },
+     {
+      "N": 38,
+      "anzahl": 17,
+      "rang": 17,
+      "dim": 17
+     },
+     {
+      "N": 39,
+      "anzahl": 0,
+      "rang": 0,
+      "dim": 16
+     },
+     {
+      "N": 40,
+      "anzahl": 18351,
+      "rang": 22,
+      "dim": 22
+     }
+    ]
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 20,
+   "wer": "forscher-theoretiker",
+   "op": "eta_quotienten",
+   "args": {
+    "level": 1,
+    "gewicht": 4
+   },
+   "ergebnis": {
+    "anzahl": 0,
+    "rang_span": 0,
+    "dim_M": 1,
+    "beispiele": []
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 21,
+   "wer": "forscher-theoretiker",
+   "op": "eta_quotienten",
+   "args": {
+    "level": 6,
+    "gewicht": 4
+   },
+   "ergebnis": {
+    "anzahl": 35,
+    "rang_span": 5,
+    "dim_M": 5,
+    "beispiele": [
+     "eta(1)^24*eta(2)^-12*eta(3)^-8*eta(6)^4",
+     "eta(1)^15*eta(2)^-3*eta(3)^-5*eta(6)^1",
+     "eta(1)^6*eta(2)^6*eta(3)^-2*eta(6)^-2",
+     "eta(1)^-3*eta(2)^15*eta(3)^1*eta(6)^-5",
+     "eta(1)^-12*eta(2)^24*eta(3)^4*eta(6)^-8",
+     "eta(1)^16*eta(2)^-8",
+     "eta(1)^7*eta(2)^1*eta(3)^3*eta(6)^-3",
+     "eta(1)^-2*eta(2)^10*eta(3)^6*eta(6)^-6",
+     "eta(1)^-11*eta(2)^19*eta(3)^9*eta(6)^-9",
+     "eta(1)^8*eta(2)^-4*eta(3)^8*eta(6)^-4",
+     "eta(1)^-1*eta(2)^5*eta(3)^11*eta(6)^-7",
+     "eta(1)^-10*eta(2)^14*eta(3)^14*eta(6)^-10"
+    ]
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 22,
+   "wer": "forscher-theoretiker",
+   "op": "eta_quotienten",
+   "args": {
+    "level": 12,
+    "gewicht": 4
+   },
+   "ergebnis": {
+    "anzahl": 1287,
+    "rang_span": 9,
+    "dim_M": 9,
+    "beispiele": [
+     "eta(1)^24*eta(2)^-12*eta(3)^-8*eta(6)^4",
+     "eta(1)^18*eta(2)^-3*eta(3)^-6*eta(4)^-3*eta(6)^1*eta(12)^1",
+     "eta(1)^12*eta(2)^6*eta(3)^-4*eta(4)^-6*eta(6)^-2*eta(12)^2",
+     "eta(1)^6*eta(2)^15*eta(3)^-2*eta(4)^-9*eta(6)^-5*eta(12)^3",
+     "eta(2)^24*eta(4)^-12*eta(6)^-8*eta(12)^4",
+     "eta(1)^-6*eta(2)^33*eta(3)^2*eta(4)^-15*eta(6)^-11*eta(12)^5",
+     "eta(1)^-12*eta(2)^42*eta(3)^4*eta(4)^-18*eta(6)^-14*eta(12)^6",
+     "eta(1)^-18*eta(2)^51*eta(3)^6*eta(4)^-21*eta(6)^-17*eta(12)^7",
+     "eta(1)^-24*eta(2)^60*eta(3)^8*eta(4)^-24*eta(6)^-20*eta(12)^8",
+     "eta(1)^20*eta(2)^-10*eta(3)^-4*eta(6)^2",
+     "eta(1)^14*eta(2)^-1*eta(3)^-2*eta(4)^-3*eta(6)^-1*eta(12)^1",
+     "eta(1)^8*eta(2)^8*eta(4)^-6*eta(6)^-4*eta(12)^2"
+    ]
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 23,
+   "wer": "forscher-theoretiker",
+   "op": "eta_quotienten",
+   "args": {
+    "level": 24,
+    "gewicht": 4
+   },
+   "ergebnis": {
+    "anzahl": 30709,
+    "rang_span": 16,
+    "dim_M": 16,
+    "beispiele": [
+     "eta(1)^24*eta(2)^-12*eta(3)^-8*eta(6)^4",
+     "eta(1)^18*eta(2)^-3*eta(3)^-6*eta(4)^-3*eta(6)^1*eta(12)^1",
+     "eta(1)^12*eta(2)^6*eta(3)^-4*eta(4)^-6*eta(6)^-2*eta(12)^2",
+     "eta(1)^6*eta(2)^15*eta(3)^-2*eta(4)^-9*eta(6)^-5*eta(12)^3",
+     "eta(2)^24*eta(4)^-12*eta(6)^-8*eta(12)^4",
+     "eta(1)^-6*eta(2)^33*eta(3)^2*eta(4)^-15*eta(6)^-11*eta(12)^5",
+     "eta(1)^-12*eta(2)^42*eta(3)^4*eta(4)^-18*eta(6)^-14*eta(12)^6",
+     "eta(1)^-18*eta(2)^51*eta(3)^6*eta(4)^-21*eta(6)^-17*eta(12)^7",
+     "eta(1)^-24*eta(2)^60*eta(3)^8*eta(4)^-24*eta(6)^-20*eta(12)^8",
+     "eta(1)^20*eta(2)^-10*eta(3)^-4*eta(6)^2",
+     "eta(1)^14*eta(2)^-1*eta(3)^-2*eta(4)^-3*eta(6)^-1*eta(12)^1",
+     "eta(1)^8*eta(2)^8*eta(4)^-6*eta(6)^-4*eta(12)^2"
+    ]
+   },
+   "sek": 56.06
+  },
+  {
+   "id": 24,
+   "wer": "forscher-theoretiker",
+   "op": "eta_quotienten",
+   "args": {
+    "level": 30,
+    "gewicht": 4
+   },
+   "ergebnis": {
+    "anzahl": 13703,
+    "rang_span": 22,
+    "dim_M": 22,
+    "beispiele": [
+     "eta(1)^30*eta(2)^-15*eta(3)^-10*eta(5)^-6*eta(6)^5*eta(10)^3*eta(15)^2*eta(30)^-1",
+     "eta(1)^15*eta(3)^-5*eta(5)^-3*eta(15)^1",
+     "eta(2)^15*eta(6)^-5*eta(10)^-3*eta(30)^1",
+     "eta(1)^-15*eta(2)^30*eta(3)^5*eta(5)^3*eta(6)^-10*eta(10)^-6*eta(15)^-1*eta(30)^2",
+     "eta(1)^20*eta(2)^-10*eta(5)^-4*eta(10)^2",
+     "eta(1)^5*eta(2)^5*eta(3)^5*eta(5)^-1*eta(6)^-5*eta(10)^-1*eta(15)^-1*eta(30)^1",
+     "eta(1)^-10*eta(2)^20*eta(3)^10*eta(5)^2*eta(6)^-10*eta(10)^-4*eta(15)^-2*eta(30)^2",
+     "eta(1)^10*eta(2)^-5*eta(3)^10*eta(5)^-2*eta(6)^-5*eta(10)^1*eta(15)^-2*eta(30)^1",
+     "eta(1)^-5*eta(2)^10*eta(3)^15*eta(5)^1*eta(6)^-10*eta(10)^-2*eta(15)^-3*eta(30)^2",
+     "eta(3)^20*eta(6)^-10*eta(15)^-4*eta(30)^2",
+     "eta(1)^-10*eta(2)^5*eta(3)^30*eta(5)^2*eta(6)^-15*eta(10)^-1*eta(15)^-6*eta(30)^3",
+     "eta(1)^24*eta(2)^-12*eta(3)^-8*eta(6)^4"
+    ]
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 25,
+   "wer": "forscher-theoretiker",
+   "op": "dim",
+   "args": {
+    "gewicht": 4,
+    "level": 30
+   },
+   "ergebnis": {
+    "dim_M": 22,
+    "sturm_schranke": "24",
+    "index": 72
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 26,
+   "wer": "forscher-theoretiker",
+   "op": "eta_quotienten",
+   "args": {
+    "level": 21,
+    "gewicht": 4
+   },
+   "ergebnis": {
+    "anzahl": 0,
+    "rang_span": 0,
+    "dim_M": 10,
+    "beispiele": []
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 27,
+   "wer": "forscher-theoretiker",
+   "op": "eta_quotienten",
+   "args": {
+    "level": 22,
+    "gewicht": 4
+   },
+   "ergebnis": {
+    "anzahl": 23,
+    "rang_span": 11,
+    "dim_M": 11,
+    "beispiele": [
+     "eta(1)^16*eta(2)^-8",
+     "eta(1)^5*eta(2)^3*eta(11)^1*eta(22)^-1",
+     "eta(1)^-6*eta(2)^14*eta(11)^2*eta(22)^-2",
+     "eta(1)^8*eta(2)^-4*eta(11)^8*eta(22)^-4",
+     "eta(1)^-3*eta(2)^7*eta(11)^9*eta(22)^-5",
+     "eta(11)^16*eta(22)^-8",
+     "eta(1)^14*eta(2)^-6*eta(11)^-2*eta(22)^2",
+     "eta(1)^3*eta(2)^5*eta(11)^-1*eta(22)^1",
+     "eta(1)^-8*eta(2)^16",
+     "eta(1)^6*eta(2)^-2*eta(11)^6*eta(22)^-2",
+     "eta(1)^-5*eta(2)^9*eta(11)^7*eta(22)^-3",
+     "eta(1)^-2*eta(2)^2*eta(11)^14*eta(22)^-6"
+    ]
+   },
+   "sek": 0.02
+  },
+  {
+   "id": 28,
+   "wer": "forscher-theoretiker",
+   "op": "eta_quotienten",
+   "args": {
+    "level": 25,
+    "gewicht": 4
+   },
+   "ergebnis": {
+    "anzahl": 21,
+    "rang_span": 11,
+    "dim_M": 11,
+    "beispiele": [
+     "eta(1)^10*eta(5)^-2",
+     "eta(1)^5*eta(5)^4*eta(25)^-1",
+     "eta(5)^10*eta(25)^-2",
+     "eta(1)^9*eta(5)^-2*eta(25)^1",
+     "eta(1)^4*eta(5)^4",
+     "eta(1)^-1*eta(5)^10*eta(25)^-1",
+     "eta(1)^8*eta(5)^-2*eta(25)^2",
+     "eta(1)^3*eta(5)^4*eta(25)^1",
+     "eta(1)^-2*eta(5)^10",
+     "eta(1)^7*eta(5)^-2*eta(25)^3",
+     "eta(1)^2*eta(5)^4*eta(25)^2",
+     "eta(1)^6*eta(5)^-2*eta(25)^4"
+    ]
+   },
+   "sek": 0.01
+  },
+  {
+   "id": 29,
+   "wer": "forscher-theoretiker",
+   "op": "eta_quotienten",
+   "args": {
+    "level": 26,
+    "gewicht": 4
+   },
+   "ergebnis": {
+    "anzahl": 32,
+    "rang_span": 13,
+    "dim_M": 13,
+    "beispiele": [
+     "eta(1)^16*eta(2)^-8",
+     "eta(1)^3*eta(2)^5*eta(13)^1*eta(26)^-1",
+     "eta(1)^12*eta(2)^-6*eta(13)^4*eta(26)^-2",
+     "eta(1)^-1*eta(2)^7*eta(13)^5*eta(26)^-3",
+     "eta(1)^8*eta(2)^-4*eta(13)^8*eta(26)^-4",
+     "eta(1)^-5*eta(2)^9*eta(13)^9*eta(26)^-5",
+     "eta(1)^4*eta(2)^-2*eta(13)^12*eta(26)^-6",
+     "eta(13)^16*eta(26)^-8",
+     "eta(1)^5*eta(2)^3*eta(13)^-1*eta(26)^1",
+     "eta(1)^-8*eta(2)^16",
+     "eta(1)^1*eta(2)^5*eta(13)^3*eta(26)^-1",
+     "eta(1)^-3*eta(2)^7*eta(13)^7*eta(26)^-3"
+    ]
+   },
+   "sek": 0.03
+  },
+  {
+   "id": 30,
+   "wer": "forscher-theoretiker",
+   "op": "eta_quotienten",
+   "args": {
+    "level": 27,
+    "gewicht": 4
+   },
+   "ergebnis": {
+    "anzahl": 50,
+    "rang_span": 12,
+    "dim_M": 12,
+    "beispiele": [
+     "eta(1)^12*eta(3)^-4",
+     "eta(1)^9*eta(9)^-1",
+     "eta(1)^6*eta(3)^4*eta(9)^-2",
+     "eta(1)^3*eta(3)^8*eta(9)^-3",
+     "eta(3)^12*eta(9)^-4",
+     "eta(1)^-3*eta(3)^16*eta(9)^-5",
+     "eta(1)^-6*eta(3)^20*eta(9)^-6",
+     "eta(1)^6*eta(3)^-5*eta(9)^10*eta(27)^-3",
+     "eta(1)^3*eta(3)^-1*eta(9)^9*eta(27)^-3",
+     "eta(3)^3*eta(9)^8*eta(27)^-3",
+     "eta(1)^-3*eta(3)^7*eta(9)^7*eta(27)^-3",
+     "eta(3)^-6*eta(9)^20*eta(27)^-6"
+    ]
+   },
+   "sek": 0.03
+  },
+  {
+   "id": 31,
+   "wer": "forscher-theoretiker",
+   "op": "eta_quotienten",
+   "args": {
+    "level": 28,
+    "gewicht": 4
+   },
+   "ergebnis": {
+    "anzahl": 591,
+    "rang_span": 15,
+    "dim_M": 15,
+    "beispiele": [
+     "eta(1)^16*eta(2)^-8",
+     "eta(1)^2*eta(2)^13*eta(4)^-7*eta(7)^2*eta(14)^-3*eta(28)^1",
+     "eta(1)^-12*eta(2)^34*eta(4)^-14*eta(7)^4*eta(14)^-6*eta(28)^2",
+     "eta(1)^9*eta(2)^-1*eta(7)^1*eta(14)^-1",
+     "eta(1)^-5*eta(2)^20*eta(4)^-7*eta(7)^3*eta(14)^-4*eta(28)^1",
+     "eta(1)^2*eta(2)^6*eta(7)^2*eta(14)^-2",
+     "eta(1)^-12*eta(2)^27*eta(4)^-7*eta(7)^4*eta(14)^-5*eta(28)^1",
+     "eta(1)^9*eta(2)^-8*eta(4)^7*eta(7)^1*eta(28)^-1",
+     "eta(1)^-5*eta(2)^13*eta(7)^3*eta(14)^-3",
+     "eta(1)^2*eta(2)^-1*eta(4)^7*eta(7)^2*eta(14)^-1*eta(28)^-1",
+     "eta(1)^-5*eta(2)^6*eta(4)^7*eta(7)^3*eta(14)^-2*eta(28)^-1",
+     "eta(1)^2*eta(2)^-8*eta(4)^14*eta(7)^2*eta(28)^-2"
+    ]
+   },
+   "sek": 0.82
+  }
+ ],
+ "sek": 1709.6
+}

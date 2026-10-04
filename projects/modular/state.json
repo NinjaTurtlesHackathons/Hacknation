@@ -48,7 +48,7 @@
    "machbarkeit": 0.9,
    "lueckenkarte": "L6",
    "id": "F5",
-   "status": "offen",
+   "status": "beantwortet",
    "quelle": "lueckenkarte",
    "faden_id": "F5"
   },
@@ -1923,7 +1923,8 @@
     },
     "quellen_geprueft": 85,
     "datum": "2026-10-04",
-    "status": "nicht_gefunden"
+    "status": "nicht_gefunden",
+    "roh_status": "nicht_gefunden"
    }
   },
   {
@@ -1997,7 +1998,172 @@
     },
     "quellen_geprueft": 121,
     "datum": "2026-10-04",
-    "status": "nicht_gefunden"
+    "status": "nicht_gefunden",
+    "roh_status": "nicht_gefunden"
+   }
+  },
+  {
+   "id": "modular-R8",
+   "frage": "Für welche Level N <= 30 spannen die holomorphen Eta-Quotienten mit trivialem Charakter den ganzen Raum M_4(Gamma_0(N))? Exakte Tabelle (eta_span_tabelle).",
+   "text": "Für alle N <= 30: holomorphe Eta-Quotienten mit trivialem Charakter spannen M_4(Gamma_0(N)) genau für N in [2, 4, 5, 6, 8, 9, 10, 12, 14, 15, 16, 18, 20, 22, 24, 25, 26, 27, 28, 30], nicht für N in [1, 3, 7, 11, 13, 17, 19, 21, 23, 29] (exakt, vollständig).",
+   "interpretation_ungeprueft": "voll: N = 2, 4, 5, 6, 8, 9, 10, 12, 14, 15, 16, 18, 20, 22, 24, 25, 26, 27, 28, 30. Nicht voll: N = 1, 3, 7, 11, 13, 17, 19, 21, 23, 29.",
+   "pruefung": {
+    "typ": "eta_span_tabelle",
+    "gewicht": 4,
+    "level_bis": 30,
+    "voll": [
+     2,
+     4,
+     5,
+     6,
+     8,
+     9,
+     10,
+     12,
+     14,
+     15,
+     16,
+     18,
+     20,
+     22,
+     24,
+     25,
+     26,
+     27,
+     28,
+     30
+    ],
+    "nicht_voll": [
+     1,
+     3,
+     7,
+     11,
+     13,
+     17,
+     19,
+     21,
+     23,
+     29
+    ]
+   },
+   "grund": "Prüfer: Eta-Quotienten spannen M_4(Gamma_0(N)) für N in [2, 4, 5, 6, 8, 9, 10, 12, 14, 15, 16, 18, 20, 22, 24, 25, 26, 27, 28, 30]; nicht für N in [1, 3, 7, 11, 13, 17, 19, 21, 23, 29] (N <= 30, exakt)",
+   "level": "computed_rigorous",
+   "status": "bestätigt",
+   "red_team": [
+    {
+     "pruefung": {
+      "typ": "eta_span_tabelle",
+      "gewicht": 4,
+      "level_bis": 30,
+      "voll": [
+       2,
+       4,
+       5,
+       6,
+       8,
+       9,
+       10,
+       12,
+       14,
+       15,
+       16,
+       20,
+       22,
+       24,
+       25,
+       26,
+       27,
+       28,
+       30
+      ],
+      "nicht_voll": [
+       1,
+       3,
+       7,
+       11,
+       13,
+       17,
+       18,
+       19,
+       21,
+       23,
+       29
+      ]
+     },
+     "idee": "Level 18 wurde nie berechnet, sondern nur aus dem Muster der Nachbarlevel erschlossen. dim M_4(Gamma_0(18)) = 13, der Raum ist also groß. Die Eta-Quotienten in eta(1), eta(2), eta(3), eta(6), eta(9), eta(18) mit trivialem Charakter könnten weniger als 13 Dimensionen aufspannen.",
+     "bestanden": false,
+     "ergebnis": "nicht_bestanden",
+     "grund": "Prüfer: Eta-Quotienten spannen M_4(Gamma_0(N)) für N in [2, 4, 5, 6, 8, 9, 10, 12, 14, 15, 16, 18, 20, 22, 24, 25, 26, 27, 28, 30]; nicht für N in [1, 3, 7, 11, 13, 17, 19, 21, 23, 29] (N <= 30, exakt",
+     "widerspruch": false
+    },
+    {
+     "pruefung": {
+      "typ": "eta_span_tabelle",
+      "gewicht": 4,
+      "level_bis": 30,
+      "voll": [
+       2,
+       4,
+       5,
+       6,
+       8,
+       9,
+       10,
+       12,
+       14,
+       15,
+       18,
+       20,
+       22,
+       24,
+       25,
+       26,
+       27,
+       28,
+       30
+      ],
+      "nicht_voll": [
+       1,
+       3,
+       7,
+       11,
+       13,
+       16,
+       17,
+       19,
+       21,
+       23,
+       29
+      ]
+     },
+     "idee": "Level 16 wurde ebenfalls nie berechnet. dim M_4(Gamma_0(16)) = 9 bei nur 5 Eta-Faktoren (d = 1, 2, 4, 8, 16). Die Zahl der holomorphen Quotienten mit trivialem Charakter oder ihr Rang könnte darunter liegen.",
+     "bestanden": false,
+     "ergebnis": "nicht_bestanden",
+     "grund": "Prüfer: Eta-Quotienten spannen M_4(Gamma_0(N)) für N in [2, 4, 5, 6, 8, 9, 10, 12, 14, 15, 16, 18, 20, 22, 24, 25, 26, 27, 28, 30]; nicht für N in [1, 3, 7, 11, 13, 17, 19, 21, 23, 29] (N <= 30, exakt",
+     "widerspruch": false
+    }
+   ],
+   "runde": 8,
+   "relevanz": "hauptresultat",
+   "neuheit": {
+    "suchanfragen": [
+     "eta quotients weight 4 modular forms",
+     "eta quotients Gamma_0(N) basis",
+     "holomorphic eta quotients cusp forms",
+     "modular forms eta quotients generators",
+     "weight 4 modular forms span Gamma_0"
+    ],
+    "treffer": {
+     "eta quotients weight 4 modular forms": 11,
+     "eta quotients Gamma_0(N) basis": 0,
+     "holomorphic eta quotients cusp forms": 6,
+     "modular forms eta quotients generators": 10,
+     "weight 4 modular forms span Gamma_0": 1
+    },
+    "quellen_geprueft": 33,
+    "datum": "2026-10-04",
+    "status": "nicht_gefunden",
+    "roh_status": "nicht_gefunden"
    }
   }
  ],
@@ -2714,6 +2880,107 @@
    ],
    "sek": 6383.2,
    "faden_id": "F8"
+  },
+  {
+   "runde": 8,
+   "frage": "F5",
+   "status": "beantwortet",
+   "red_team": [
+    {
+     "pruefung": {
+      "typ": "eta_span_tabelle",
+      "gewicht": 4,
+      "level_bis": 30,
+      "voll": [
+       2,
+       4,
+       5,
+       6,
+       8,
+       9,
+       10,
+       12,
+       14,
+       15,
+       16,
+       20,
+       22,
+       24,
+       25,
+       26,
+       27,
+       28,
+       30
+      ],
+      "nicht_voll": [
+       1,
+       3,
+       7,
+       11,
+       13,
+       17,
+       18,
+       19,
+       21,
+       23,
+       29
+      ]
+     },
+     "idee": "Level 18 wurde nie berechnet, sondern nur aus dem Muster der Nachbarlevel erschlossen. dim M_4(Gamma_0(18)) = 13, der Raum ist also groß. Die Eta-Quotienten in eta(1), eta(2), eta(3), eta(6), eta(9), eta(18) mit trivialem Charakter könnten weniger als 13 Dimensionen aufspannen.",
+     "bestanden": false,
+     "ergebnis": "nicht_bestanden",
+     "grund": "Prüfer: Eta-Quotienten spannen M_4(Gamma_0(N)) für N in [2, 4, 5, 6, 8, 9, 10, 12, 14, 15, 16, 18, 20, 22, 24, 25, 26, 27, 28, 30]; nicht für N in [1, 3, 7, 11, 13, 17, 19, 21, 23, 29] (N <= 30, exakt",
+     "widerspruch": false
+    },
+    {
+     "pruefung": {
+      "typ": "eta_span_tabelle",
+      "gewicht": 4,
+      "level_bis": 30,
+      "voll": [
+       2,
+       4,
+       5,
+       6,
+       8,
+       9,
+       10,
+       12,
+       14,
+       15,
+       18,
+       20,
+       22,
+       24,
+       25,
+       26,
+       27,
+       28,
+       30
+      ],
+      "nicht_voll": [
+       1,
+       3,
+       7,
+       11,
+       13,
+       16,
+       17,
+       19,
+       21,
+       23,
+       29
+      ]
+     },
+     "idee": "Level 16 wurde ebenfalls nie berechnet. dim M_4(Gamma_0(16)) = 9 bei nur 5 Eta-Faktoren (d = 1, 2, 4, 8, 16). Die Zahl der holomorphen Quotienten mit trivialem Charakter oder ihr Rang könnte darunter liegen.",
+     "bestanden": false,
+     "ergebnis": "nicht_bestanden",
+     "grund": "Prüfer: Eta-Quotienten spannen M_4(Gamma_0(N)) für N in [2, 4, 5, 6, 8, 9, 10, 12, 14, 15, 16, 18, 20, 22, 24, 25, 26, 27, 28, 30]; nicht für N in [1, 3, 7, 11, 13, 17, 19, 21, 23, 29] (N <= 30, exakt",
+     "widerspruch": false
+    }
+   ],
+   "sek": 1709.6,
+   "faden_id": "F5"
   }
  ],
  "kosten_usd": 0.0

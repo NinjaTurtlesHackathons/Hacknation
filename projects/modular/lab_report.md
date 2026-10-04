@@ -58,3 +58,8 @@
 - 2026-10-04 16:03:40   Neuheit modular-R7b: nicht_gefunden
 - 2026-10-04 16:03:40   geprüft modular-R7b (observed): Numerisch bilden die rationalen linearen Relationen zwischen C(5,5,1), C(5,4,2), C(5,3,3), C(4,4,3), E(11), zeta(11) (Gewicht 11) einen Raum der Dimension genau | Red-Team: 1 Gegenprüfungen, 0 bestanden, 0 logische Widersprüche
 - 2026-10-04 16:03:54 Runde 8: Für welche Level N <= 30 spannen die holomorphen Eta-Quotienten mit trivialem Charakter den ganzen Raum M_4(Gamma_0(N))? Exakte Tabelle (eta_span_tabelle).
+- 2026-10-04 17:18:47 Selbsttest des Prüfers: bestanden
+- 2026-10-04 17:18:47 Runde 8: Für welche Level N <= 30 spannen die holomorphen Eta-Quotienten mit trivialem Charakter den ganzen Raum M_4(Gamma_0(N))? Exakte Tabelle (eta_span_tabelle).
+- 2026-10-04 17:52:21   Neuheit modular-R8: nicht_gefunden
+- 2026-10-04 17:52:21   geprüft modular-R8 (computed_rigorous): Für alle N <= 30: holomorphe Eta-Quotienten mit trivialem Charakter spannen M_4(Gamma_0(N)) genau für N in [2, 4, 5, 6, 8, 9, 10, 12, 14, 15, 16, 18, 20, 22, 24 | Red-Team: 2 Gegenprüfungen, 0 bestanden, 0 logische Widersprüche
+- 2026-10-04 17:52:21 Fertig: 24 geprüfte Aussagen, 3 negative Ergebnisse

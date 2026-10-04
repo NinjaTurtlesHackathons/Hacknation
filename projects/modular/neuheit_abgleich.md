@@ -18,3 +18,5 @@
 | modular-R5f | modular-R5f: nicht_gefunden | reproduktion_anker |
 | modular-R5g | modular-R5g: bekannt | bekannt |
 | modular-R5h | modular-R5h: nicht_gefunden | reproduktion_anker |
+| modular-R7a, modular-R7b | modular-R7a: nicht_gefunden, modular-R7b: nicht_gefunden | nicht_gefunden |
+| modular-R8 | modular-R8: nicht_gefunden | nicht_gefunden |

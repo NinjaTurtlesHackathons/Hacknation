@@ -141,10 +141,12 @@ def consistent(ans, p):
 KASKADE = (("sparsam", "haiku"), ("numeriker", "haiku"), ("skeptiker", "sonnet"), ("theoretiker", "sonnet"))
 
 
-def solve_cascade(kontext, frage, salt=0, stufen=KASKADE, domain=None, staerkung=2):
+def solve_cascade(kontext, frage, salt=0, stufen=KASKADE, domain=None, staerkung=None):
     """Kostenoptimiert: Forscher nacheinander, günstiges Modell zuerst; Stopp bei der ersten Behauptung, die den
     Code-Prüfer besteht und zur Antwort passt. Der Prüfer garantiert die Wahrheit, also reicht eine geprüfte Behauptung."""
     lab = Lab(domain); D = lab.domain; t0 = time.time(); traces = []; checks = {}
+    if staerkung is None:                                       # ASD_STAERKUNG=0 schaltet die Stärke-Maximierung ab (Rechenzeit)
+        import os; staerkung = int(os.environ.get("ASD_STAERKUNG", "2"))
     for strategie, model in stufen:
         try: tr = forscher(kontext, frage, strategie, lab, f"K{salt}-{model}", model=model)
         except (LLMError, json.JSONDecodeError, KeyError, TypeError) as e: traces.append({"strategie": strategie, "modell": model, "fehler": str(e)[:300]}); continue
