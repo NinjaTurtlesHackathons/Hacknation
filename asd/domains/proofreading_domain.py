@@ -218,6 +218,7 @@ def describe_en(p):
 
 class ProofreadingDomain(Domain):
     name = "proofreading"
+    fachgebiet = "Biological Physics"
     recherche_ziel = ("Thermodynamische Grenzen von Kinetic Proofreading: Zielkonflikt zwischen Fehlerrate, Energieverbrauch (Dissipation) und "
                       "Geschwindigkeit; Hopfield-Ninio-Grenze; Pareto-Fronten; Thermodynamic Uncertainty Relations in biochemischen Netzwerken.")
     recherche_klassiker = ["Hopfield kinetic proofreading", "Ninio kinetic amplification enzyme discrimination", "Bennett thermodynamics of computation proofreading",

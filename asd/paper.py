@@ -24,33 +24,37 @@ dense mathematical-physics article):
 - Appendix with the numerical methods and the details of the computer-assisted proofs.
 Style: concise, precise, no hype, no marketing words, short paragraphs, formulas instead of prose where possible."""
 
-OUTLINE_EN = """Write a professional research article (arXiv level) in English. Structure, in this order, with these exact headings:
+OUTLINE_EN = """Write a professional research article (arXiv level) in English, in the FORM of A. Suleman, "Optimal lattices for a three-body
+power-law energy" (2026). Structure, in this order, with these headings (section numbers are added automatically, do not number them):
 ## Abstract
-At most 180 words: the problem; why it is open (with a literature reference); the main result with its numbers; the method in half a sentence;
-the most important limitation.
+One dense paragraph of at most 200 words: the object; the main results with their numbers, each tied to its method (proved symbolically,
+certified with exact rational arithmetic, numerical); what remains open. No references in the abstract.
 ## Introduction
-Context with citations of the literature claims; the open question; the contribution in 2-3 sentences; a bullet list of the results.
-## Model and assumptions
-All assumptions that carry the results and ALL fixed model parameters with their values (from the model claim); define notation exactly once.
-## Method
-The scientific method: which certificates are used (exact rational arithmetic, symbolic positivity proofs, interval arithmetic, independent
-numerical re-computation), what the trusted base is, and what counts only as a numerical candidate. Only the LAST paragraph of this section may
-mention that the work was carried out by an automated, verifier-gated laboratory, in one paragraph, without naming any of its agents or roles.
-## Results
-Follow the story plan: main results first, then supporting statements, then examples. Use the environments given in the story plan.
-After every main result add one half-sentence on its novelty status exactly as given in its claim (never call anything "new" or "novel" yourself).
-## Negative results
-What was attempted and failed, with the reason for each failure.
-## Discussion, limitations and open questions
+Context with citations of the literature claims; the open question; why it is hard; the contribution. End the section with a paragraph that
+starts with "**Summary of results.**" followed by a bullet list, one bullet per main theorem ("Theorem 1 shows ...").
+## Setting
+The model, notation and ALL fixed parameters with their values (from the model claim), in formulas; define every object exactly once.
+Then TWO TO FOUR result sections with short informative headings of your choice (for example "Proved bounds", "Certified violations",
+"Classification of the family"), ordered as in the story plan. Each formal statement is a fenced block (theorem / proposition / lemma /
+example / observation) immediately followed by a paragraph that starts with "*Proof.*" or "*Certificate.*" and states exactly what was checked
+and how (exact rational arithmetic, symbolic coefficient positivity, interval enclosure, independent re-computation). Where several cases are
+certified, give a table of the certified data (pipe table with a caption line "Table: ..."). After each main result add one half-sentence on its
+novelty status exactly as given in its claim (never call anything "new" yourself). In one result section include a block
+::: remark [Status of the computer-assisted parts]
+that names the trusted base and how a third party re-runs every certificate.
+## Discussion
+Interpretation; limitations; a paragraph that starts with "**What did not work.**" listing the negative results with the reason for each;
+open questions numbered (i), (ii), (iii).
 ## Declarations
-AI usage (the results were produced and checked by an automated laboratory; every statement was verified by code), code and data availability
-(use the repository/branch/command from the availability claim), competing interests (none).
-## Appendix A: Agentic laboratory
-Only here: the agents and roles, the workflow, preregistration, red-team statistics. Never mention costs or money anywhere in the article.
-## Appendix B: Provenance
+Four short paragraphs, each starting with a bold label: "**Affiliation**" (from the author line), "**Acknowledgements**" (computations,
+literature searches and parts of the manuscript were prepared with an automated verifier-gated laboratory built on the AI system Claude
+(Anthropic); every statement was accepted only after verification by code; the authors are responsible for the content),
+"**Code and data availability**" (repository, branch and commands from the availability claim), "**Competing interests**" (none).
+## Appendix A: Numerical methods and error control
+How each certificate type is computed and checked, the trusted base, the verifier self-test and its result, and the laboratory workflow
+(agents and roles, preregistration, red-team statistics). Agents and roles may be named ONLY in the appendices. Never mention costs or money.
+## Appendix B: Provenance of the statements
 One sentence: the provenance table mapping every statement to its evidence follows (it is generated automatically; do not write it yourself).
-## Appendix C: Verifier self-test
-What the verifier self-test checks and its result.
 
 Formatting rules: mathematics as LaTeX in $...$ or $$...$$ (e.g. $e^{-2\\Delta}$, $\\eta \\geq e^{-3\\Delta}$), never Unicode math symbols and never
 forms like "1 * e^-3Delta". Formal statements as fenced blocks:
@@ -67,8 +71,8 @@ COST_PAT = r"(\d[\d.,]*\s*(USD|US\$|dollars?))|(USD\s*\d)|(costs? of [\d.]+)|(Ko
 
 
 def main_text(md):
-    """Text vor Appendix A (Haupttext)."""
-    m = re.search(r"^#+\s*Appendix A", md, re.M | re.I)
+    """Text vor dem ersten Anhang (Haupttext)."""
+    m = re.search(r"^#+\s*Appendix", md, re.M | re.I)
     return md[:m.start()] if m else md
 
 
@@ -81,7 +85,7 @@ def rule_issues(md):
         low = para.lower()
         for n in AGENT_NAMES:
             if re.search(r"(?<![a-z])" + re.escape(n) + r"(?![a-z])", low):
-                issues.append((para[:200], f"Agentenname „{n}“ steht im Haupttext; nur in Appendix A erlaubt")); break
+                issues.append((para[:200], f"Agentenname „{n}“ steht im Haupttext; nur in den Anhängen erlaubt")); break
     for bad in ("TypeError", "NaN", "IndexError", "Traceback", "Exception"):
         if re.search(r"(?<![A-Za-z])" + bad + r"(?![A-Za-z])", md): issues.append((bad, f"interner Fehlertext „{bad}“ darf nicht im Paper stehen"))
     return issues
@@ -300,7 +304,7 @@ def md_to_latex_body(md, keys, C, lang):
             env, title, buf = m.group(1).lower(), (m.group(2) or (m.group(3).strip() or None)), []; continue
         if buf is not None and line.strip() == ":::":
             inner = conv0("\n".join(buf)) if any(x.strip() for x in buf) else ""
-            out += ["", f"\\begin{{{env}}}" + (f"[{title}]" if title else "") + "\n" + inner + f"\n\\end{{{env}}}", ""]; buf = None; continue
+            out += ["", f"\\begin{{{env}}}" + (f"[{tex_text(title)}]" if title else "") + "\n" + inner + f"\n\\end{{{env}}}", ""]; buf = None; continue
         if buf is not None: buf.append(line); continue
         if line.strip() == ":::": continue
         out.append(line)
@@ -311,6 +315,7 @@ def md_to_latex_body(md, keys, C, lang):
     abstract = ""
     m = re.search(r"^##\s*(Abstract|Zusammenfassung)\s*\n(.*?)(?=^##\s)", body, re.M | re.S)
     if m: abstract = m.group(2).strip(); body = body[:m.start()] + body[m.end():]
+    body = re.sub(r"^##\s*(Declarations|Erklärungen)\s*$", r"## \1 {-}", body, flags=re.M)
     body = re.sub(r"^##\s*(Appendix|Anhang)\s*A\s*[:.]?\s*", "\\\\appendix\n\n## ", body, count=1, flags=re.M)
     body = re.sub(r"^##\s*(Appendix|Anhang)\s*[B-Z]\s*[:.]?\s*", "## ", body, flags=re.M)
     conv = lambda t: pypandoc.convert_text(t, "latex", format="markdown+raw_tex+tex_math_dollars+pipe_tables", extra_args=["--wrap=preserve", "--shift-heading-level-by=-1"])
@@ -318,25 +323,34 @@ def md_to_latex_body(md, keys, C, lang):
     return tex, abs_tex
 
 
-TEMPLATE = r"""\documentclass[11pt]{article}
+TEMPLATE = r"""\documentclass[10pt,twocolumn]{article}
+%% Form nach A. Suleman, "Optimal lattices for a three-body power-law energy" (Preprint 2026): zweispaltig, Journal-Kopf, Inline-Abstract.
 \usepackage[utf8]{inputenc}\usepackage[T1]{fontenc}\usepackage{lmodern}\usepackage{microtype}
-\usepackage[%(babel)s]{babel}\usepackage[a4paper,margin=2.5cm]{geometry}
-\usepackage{amsmath,amssymb,amsthm}\usepackage{graphicx}\usepackage{booktabs,longtable,array,calc}
-\usepackage[hidelinks]{hyperref}\usepackage[capitalise,noabbrev]{cleveref}\usepackage{newunicodechar}
+\usepackage[%(babel)s]{babel}\usepackage[a4paper,top=2.3cm,bottom=2.3cm,left=1.8cm,right=1.8cm,columnsep=0.65cm]{geometry}
+\usepackage{amsmath,amssymb,amsthm}\usepackage{graphicx}\usepackage{booktabs,array,calc}
+\usepackage[font=small,labelfont=bf,labelsep=space,figurename=Fig.]{caption}
+\usepackage{fancyhdr}\usepackage{titlesec}\usepackage[hidelinks]{hyperref}\usepackage[capitalise,noabbrev]{cleveref}\usepackage{newunicodechar}
+\titleformat{\section}{\normalfont\large\bfseries}{\thesection}{0.6em}{}\titleformat{\subsection}{\normalfont\bfseries}{\thesubsection}{0.6em}{}
+\titlespacing*{\section}{0pt}{1.6ex plus .5ex}{0.9ex}\titlespacing*{\subsection}{0pt}{1.2ex plus .4ex}{0.6ex}
 %(unicode)s
 \providecommand{\tightlist}{\setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
-\newtheorem{theorem}{Theorem}\newtheorem{proposition}[theorem]{Proposition}\newtheorem{lemma}[theorem]{Lemma}\newtheorem{corollary}[theorem]{Corollary}
-\theoremstyle{definition}\newtheorem{definition}[theorem]{Definition}\newtheorem{example}[theorem]{Example}
-\newtheorem{observation}[theorem]{%(obs)s}\theoremstyle{remark}\newtheorem{remark}[theorem]{Remark}
-\title{%(title)s}
-\author{%(authors)s\\[2pt] \small %(aff)s}
-\date{%(date)s}
+\newtheorem{theorem}{Theorem}\newtheorem{proposition}{Proposition}\newtheorem{lemma}{Lemma}\newtheorem{corollary}{Corollary}
+\theoremstyle{definition}\newtheorem{definition}{Definition}\newtheorem{example}{Example}
+\newtheorem{observation}{%(obs)s}\theoremstyle{remark}\newtheorem{remark}{Remark}
+\pagestyle{fancy}\fancyhf{}\renewcommand{\headrulewidth}{0pt}
+\fancyhead[L]{\small Preprint (%(year)s)}\fancyhead[R]{\small %(running)s}\fancyfoot[C]{\small\thepage}
 \begin{document}
-\maketitle
-\begin{abstract}
-%(abstract)s
-\par\medskip\noindent\textbf{%(kwlabel)s:} %(keywords)s
-\end{abstract}
+\twocolumn[{%%
+\noindent{\small Preprint}\\[-1pt]
+\noindent{\small\itshape %(fach)s}\\[12pt]
+\noindent{\LARGE\bfseries\raggedright %(title)s\par}\vspace{10pt}
+\noindent{\large %(authors)s}\\[3pt]
+\noindent{\small %(aff)s}\\[2pt]
+\noindent{\small %(date)s}\par\vspace{16pt}
+}]
+\thispagestyle{plain}
+\noindent\textbf{Abstract} %(abstract)s\par\medskip
+\noindent\textbf{%(kwlabel)s} %(keywords)s\par\medskip
 %(body)s
 %(figures)s
 \bibliographystyle{unsrt}
@@ -347,7 +361,7 @@ TEMPLATE = r"""\documentclass[11pt]{article}
 
 def tex_text(t):
     """Freitext (Titel, Keywords, Affiliation) sicher nach LaTeX: Mathe in $...$ bleibt, e^-2Delta wird Mathe, Rest escapt."""
-    parts = re.split(r"(\$[^$]+\$)", str(t)); out = []
+    parts = re.split(r"(\$[^$]+\$)", str(t).replace("`", "")); out = []
     for i, p in enumerate(parts):
         if i % 2: out.append(p); continue
         p = re.sub(r"(?<![\w{])e\^\{?(-?\(?[\w+]*\)?)\}?\s*(Δ|\\Delta|Delta)", lambda m: "\x00e^{" + m.group(1) + "\\Delta}\x01", p)
@@ -358,7 +372,44 @@ def tex_text(t):
     return "".join(out)
 
 
-def build_latex(md, title, authors, aff, C, d, lang, figs, keywords):
+def _klammer(t, i):
+    """Index hinter der zu t[i] == '{' passenden schließenden Klammer."""
+    tiefe = 0
+    for k in range(i, len(t)):
+        if t[k] == "{": tiefe += 1
+        elif t[k] == "}":
+            tiefe -= 1
+            if tiefe == 0: return k + 1
+    return len(t)
+
+
+def longtables_zu_floats(tex):
+    """pandoc-longtable funktioniert nicht zweispaltig: in table/table* mit tabular umbauen, Überschrift oben (wie Suleman 'Table 1 ...')."""
+    out, pos = [], 0
+    while True:
+        a = tex.find("\\begin{longtable}", pos)
+        if a < 0: out.append(tex[pos:]); break
+        out.append(tex[pos:a]); b = tex.find("\\end{longtable}", a); blk = tex[a:b]
+        k = blk.find("{", len("\\begin{longtable}[]")); e = _klammer(blk, k); spec = blk[k + 1:e - 1]; rumpf = blk[e:]
+        cap = ""
+        c = rumpf.find("\\caption{")
+        if c >= 0:
+            ce = _klammer(rumpf, c + len("\\caption")); cap = rumpf[c + len("\\caption{"):ce - 1]
+            rumpf = rumpf[:c] + rumpf[ce:].replace("\\tabularnewline", "", 1)
+        if "\\endfirsthead" in rumpf:
+            f1 = rumpf.find("\\endfirsthead"); f2 = rumpf.find("\\endhead"); rumpf = rumpf[:f1] + rumpf[f2:]
+        for x in ("\\noalign{}", "\\endhead", "\\endfirsthead", "\\endlastfoot", "\\endfoot", "\\bottomrule"): rumpf = rumpf.replace(x, "")
+        rumpf = re.sub(r"\n\s*\n", "\n", rumpf).strip()
+        ncol = spec.count("p{") or len(re.findall(r"[lcr](?![a-z])", re.sub(r"@\{\}", "", spec)))
+        breit = ncol >= 3 or "p{" in spec
+        env = "table*" if breit else "table"
+        out.append(f"\\begin{{{env}}}[t]\\centering\\footnotesize\n" + (f"\\caption{{{cap}}}\n" if cap else "") +
+                   f"\\begin{{tabular}}{{{spec}}}\n{rumpf}\n\\bottomrule\n\\end{{tabular}}\n\\end{{{env}}}\n")
+        pos = b + len("\\end{longtable}")
+    return "".join(out)
+
+
+def build_latex(md, title, authors, aff, C, d, lang, figs, keywords, fach="Preprint"):
     import shutil
     keys = bib_entries(C, d); prov = provenance(md, C)
     tbl = ["", "| Statement | Evidence (claim ids) | Level |", "|---|---|---|"]
@@ -371,11 +422,20 @@ def build_latex(md, title, authors, aff, C, d, lang, figs, keywords):
                                                   "project directory of the repository.\n" if lang == "en" else
                                                   "\n\nDas vollständige automatische Prüfprotokoll des Schreibprozesses liegt als pruefprotokoll.json im Projektverzeichnis.\n") + "\n" + md2[ins:]
     body, abstract = md_to_latex_body(md2, keys, C, lang)
-    fig_tex = "".join(f"\\begin{{figure}}[t]\\centering\\includegraphics[width=0.75\\textwidth]{{{fn}}}\\caption{{{cap}}}\\end{{figure}}\n" for fn, cap, *_ in figs)
+    body = longtables_zu_floats(body)
+    fig_tex = "".join(f"\\begin{{figure}}[t]\\centering\\includegraphics[width=\\columnwidth]{{{fn}}}\\caption{{{cap}}}\\end{{figure}}\n" for fn, cap, *_ in figs)
+    import datetime
+    namen = [x.strip() for x in authors.split(",") if x.strip()]
+    autor_tex = ", ".join(namen[:-1]) + (" and " if len(namen) > 1 else "") + namen[-1] if namen else ""
+    erst = namen[0].split() if namen else ["Anonymous"]
+    kurz = (f"{erst[0][0]}. {erst[-1]}" if len(erst) > 1 else erst[0]) + (" et al." if len(namen) > 2 else (f" and {namen[1].split()[-1]}" if len(namen) == 2 else ""))
+    titel_kurz = re.sub(r"\s+", " ", title.split(":")[0]); titel_kurz = titel_kurz if len(titel_kurz) <= 70 else titel_kurz[:67].rsplit(" ", 1)[0] + " ..."
+    heute = datetime.date.today()
     uni = "".join(f"\\newunicodechar{{{k}}}{{\\ensuremath{{{v}}}}}\n" for k, v in UNI.items())
     tex = TEMPLATE % {"babel": "english" if lang == "en" else "ngerman", "unicode": uni, "title": tex_text(title),
-                      "authors": r" \and ".join(a.strip() for a in authors.split(",")), "aff": tex_text(aff), "date": r"Preprint, \today",
-                      "abstract": abstract, "kwlabel": "Keywords" if lang == "en" else "Schlüsselwörter", "keywords": tex_text(keywords),
+                      "authors": tex_text(autor_tex), "aff": tex_text(aff), "date": f"Preprint, {heute.strftime('%B %Y')}",
+                      "year": str(heute.year), "running": tex_text(f"{kurz}: {titel_kurz}"), "fach": tex_text(fach),
+                      "abstract": abstract, "kwlabel": "Keywords" if lang == "en" else "Schlüsselwörter", "keywords": r" $\cdot$ ".join(tex_text(k.strip()) for k in re.split(r"[;,]", keywords) if k.strip()),
                       "body": body, "figures": fig_tex, "obs": "Numerical observation" if lang == "en" else "Numerische Beobachtung"}
     open(f"{d}/paper.tex", "w").write(tex)
     for cmd in (["pdflatex", "-interaction=nonstopmode", "paper.tex"], ["bibtex", "paper"], ["pdflatex", "-interaction=nonstopmode", "paper.tex"],
@@ -434,7 +494,7 @@ def referee_pass(pdf_text, md, C, gate, title, outline, lang, salt, d):
 def main():
     ap = argparse.ArgumentParser(); ap.add_argument("--domain", required=True); ap.add_argument("--titel", default="", help="leer = informativer Titel aus der Kernaussage")
     ap.add_argument("--autoren", required=True); ap.add_argument("--affiliation", default=""); ap.add_argument("--sprache", default="en", choices=["de", "en"])
-    ap.add_argument("--keywords", default=""); ap.add_argument("--hinweise", default="", help="zusätzliche Gliederungshinweise (Datei oder Text)")
+    ap.add_argument("--keywords", default=""); ap.add_argument("--fachgebiet", default="", help="Zeile im Kopf, z. B. 'Mathematical Physics'"); ap.add_argument("--hinweise", default="", help="zusätzliche Gliederungshinweise (Datei oder Text)")
     ap.add_argument("--repo", default="https://github.com/alizema700/Daddys-Project"); ap.add_argument("--projekt", default="")
     ap.add_argument("--ohne-gates", action="store_true", help="Phasen-Gates 1-6 übergehen (nur Entwicklung)"); a = ap.parse_args()
     if not a.ohne_gates:
@@ -465,12 +525,12 @@ def main():
     open(f"{d}/paper.md", "w").write(f"# {a.titel}\n\n{a.autoren}, {a.affiliation}\n\n{md}\n")
     json.dump({"claims": C, "story": plan}, open(f"{d}/paper_belege.json", "w"), ensure_ascii=False, indent=1)
     kw = a.keywords or plan.get("keywords", "")
-    prov = build_latex(md, a.titel, a.autoren, a.affiliation, C, d, a.sprache, figs, kw)
+    prov = build_latex(md, a.titel, a.autoren, a.affiliation, C, d, a.sprache, figs, kw, a.fachgebiet or getattr(D, 'fachgebiet', 'Preprint'))
     pdf_text = sp.run(["pdftotext", f"{d}/paper.pdf", "-"], capture_output=True, text=True).stdout if os.path.exists(f"{d}/paper.pdf") else md
     md, ref_log = referee_pass(pdf_text, md, C, gate, a.titel, outline, a.sprache, a.domain, d); log["referee"] = ref_log
     if ref_log["revision_uebernommen"]:
         open(f"{d}/paper.md", "w").write(f"# {a.titel}\n\n{a.autoren}, {a.affiliation}\n\n{md}\n")
-        prov = build_latex(md, a.titel, a.autoren, a.affiliation, C, d, a.sprache, figs, kw)
+        prov = build_latex(md, a.titel, a.autoren, a.affiliation, C, d, a.sprache, figs, kw, a.fachgebiet or getattr(D, 'fachgebiet', 'Preprint'))
     rest = check(md, C) + gate(md)
     proto = {"claims_zitiert": len(set(re.findall(r"C-[\w\-*.]+", md))), "korrekturrunden": log["runden"], "entfernt": log["entfernt"],
              "lektorat": log.get("lektorat"), "referee": log.get("referee"),

@@ -128,12 +128,13 @@ Jedes Paper folgt der Form von Suleman, „Optimal lattices for a three-body pow
 - nummerierte offene Fragen, Declarations, Anhang mit Methoden und Beweisdetails
 Jede Domäne sollte in `figures()` mindestens eine aussagekräftige Abbildung aus geprüften Aussagen liefern.
 
-Gliederung (fest): Abstract, Introduction, Model and assumptions (alle Parameter aus `Domain.parameter()`), Method, Results,
-Negative results (mit Grund), Discussion, Declarations, **Appendix A: Agentic laboratory** (nur hier dürfen Agenten genannt werden),
-**Appendix B: Provenance** (Tabelle Aussage → Prüfung → Stufe → Neuheit), **Appendix C: Verifier self-test**.
-Weitere Pässe: Story-Plan (Kernfrage, Kernaussage, Titel), Editor-Pass mit Diff-Wächter (darf keine Zahl/Umgebung ändern),
-Referee-Pass → `referee_report.md`. Sprache Standard Englisch (`--sprache de` möglich). Literatur als BibTeX, Metadaten
-über Crossref/arXiv; nicht auflösbare Einträge werden als `[unverified]` markiert.
+Gliederung und Layout (fest, wie Suleman 2026): zweispaltig; Kopf „Preprint / <Fachgebiet>“ (`Domain.fachgebiet` oder `--fachgebiet`),
+linksbündiger Titel, Autoren, Affiliation, „Preprint, <Monat Jahr>“; Inline-„Abstract“ und „Keywords a · b · c“; nummerierte Abschnitte
+Introduction (endet mit „Summary of results.“), Setting, 2–4 Ergebnisabschnitte mit Theorem/Proposition/Lemma + „Proof.“/„Certificate.“,
+Tabellen zertifizierter Daten („Table n“, Überschrift oben), Abbildungen („Fig. n“), Remark „Status of the computer-assisted parts“,
+Discussion (mit „What did not work.“ und nummerierten offenen Fragen), unnummerierte Declarations (Affiliation, Acknowledgements,
+Code and data availability, Competing interests), Appendix A „Numerical methods and error control“ (inkl. Labor-Workflow; Agenten
+nur in den Anhängen), Appendix B „Provenance of the statements“ (automatische Tabelle), References.
 
 ## 3. Was eine gute Domäne ausmacht (sonst wird das Framework schlecht)
 

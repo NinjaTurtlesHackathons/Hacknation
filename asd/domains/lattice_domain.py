@@ -7,6 +7,7 @@ from .. import verify
 
 class LatticeDomain(Domain):
     name = "lattice"
+    fachgebiet = "Mathematical Physics"
     kontext = ("Betrachtet wird die Dreikörper-Energie T_nu(L) = Summe über alle Paare verschiedener Gittervektoren x != y, beide ungleich 0, "
                "von (|x| |y| |x-y|)^(-nu), für Bravais-Gitter L mit Kovolumen 1. In 2D: tau = x + i y im Fundamentalbereich.")
 
