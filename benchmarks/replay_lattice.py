@@ -10,8 +10,8 @@ import argparse, json, os, random, re, shutil, subprocess, sys, time
 from concurrent.futures import ThreadPoolExecutor
 from types import SimpleNamespace
 
-BED = ("LAB", "OHNE_FEEDBACK", "ZUFALL")
-SEEDS = list(range(1000, 1010))
+BED = ("LAB", "OHNE_FEEDBACK", "ZUFALL", "HEURISTIK")
+SEEDS = list(range(1000, 1025))
 BUDGET = 30
 ZIEL = 1.249621
 OUT = "results/replay_lattice"
@@ -29,14 +29,14 @@ def ist_treffer(p, ok):
 class Zaehler:
     """Umhüllt Domain.check: zählt jeden Aufruf, erkennt Treffer per Code, stoppt beim Budget. Der Verifier selbst bleibt unverändert."""
     def __init__(self, D, budget):
-        self.D, self.budget, self.n, self.abgelehnt, self.modus, self.n_treffer = D, budget, 0, 0, "claim", None
+        self.D, self.budget, self.n, self.abgelehnt, self.modus, self.n_treffer, self.treffer_claim = D, budget, 0, 0, "claim", None, None
         self.orig = D.check; D.check = self.check
     def check(self, p):
         if self.n >= self.budget: raise BudgetErschoepft()
         self.n += 1; r = self.orig(p); ok = bool(r[0])
         if self.modus == "claim":
             if not ok: self.abgelehnt += 1
-            if ist_treffer(p, ok): self.n_treffer = self.n; raise Treffer()
+            if ist_treffer(p, ok): self.n_treffer = self.n; self.treffer_claim = p; raise Treffer()
         return r
 
 
@@ -84,6 +84,8 @@ def lauf_einzelversuche(D, z, seed, bed, log):
     rng = random.Random(seed)
     for k in range(3 * BUDGET):                          # Obergrenze gegen Endlosschleifen bei lauter Formatfehlern
         if bed == "OHNE_FEEDBACK": frage, (strat, model) = POOL["auftrag"], KASKADE[k % len(KASKADE)]
+        elif bed == "HEURISTIK":                                   # starke naive Baseline: einfachste (kürzeste) Frage zuerst, feste Reihenfolge
+            pool = sorted(POOL["pool"], key=len); frage, (strat, model) = pool[k % len(pool)], KASKADE[k % len(KASKADE)]
         else: frage, (strat, model) = rng.choice(POOL["pool"]), rng.choice(KASKADE)
         try: tr = forscher(D.kontext, frage, strat, Lab(D), f"{bed}-{k}", model=model)
         except (LLMError, json.JSONDecodeError, KeyError, TypeError) as e: log(f"Versuch {k}: Fehler {str(e)[:80]}"); continue
@@ -109,8 +111,10 @@ def einzel(bed, seed, budget):
     except Treffer: ereignis = "treffer"
     except BudgetErschoepft: ereignis = "budget"
     N = z.n_treffer if z.n_treffer else budget + 1
+    from asd.llm import COST_LOG
     r = {"bedingung": bed, "seed": seed, "N": N, "treffer": bool(z.n_treffer), "verifier_aufrufe": z.n, "abgelehnt": z.abgelehnt,
-         "sek": round(time.time() - t0, 1), "ereignis": ereignis, "budget": budget}
+         "sek": round(time.time() - t0, 1), "ereignis": ereignis, "budget": budget, "treffer_claim": z.treffer_claim,
+         "kosten_usd_neu": round(sum(COST_LOG), 4), "llm_aufrufe_neu": len(COST_LOG)}
     json.dump(r, open(f"{OUT}/{bed}_{seed}.json", "w"), indent=1); log(json.dumps(r)); print(json.dumps(r))
 
 
@@ -129,22 +133,39 @@ def auswertung(seeds, budget):
         for s in seeds:
             fn = f"{OUT}/{b}_{s}.json"
             if os.path.exists(fn): R[b][s] = json.load(open(fn))
-    gem = [s for s in seeds if all(s in R[b] for b in BED)]
+    gem = [s for s in seeds if all(s in R[b] for b in ("LAB", "OHNE_FEEDBACK", "ZUFALL"))]
     res = {"praeregistrierung": "prereg.md, Abschnitt H7", "budget": budget, "seeds": gem, "bedingungen": {}, "tests": {}}
     for b in BED:
-        rows = [R[b][s] for s in gem]; N = [r["N"] for r in rows]; k = sum(r["treffer"] for r in rows)
+        rows = [R[b][s] for s in gem if s in R[b]]; N = [r["N"] for r in rows]; k = sum(r["treffer"] for r in rows)
         res["bedingungen"][b] = {"N": N, "mittel_N": float(np.mean(N)) if N else None, "median_N": float(np.median(N)) if N else None,
                                  "treffer": k, "trefferquote": k / len(rows) if rows else None, "treffer_ki95": clopper_pearson(k, len(rows)) if rows else None,
                                  "mittel_sek": float(np.mean([r["sek"] for r in rows])) if rows else None,
                                  "mittel_abgelehnt": float(np.mean([r["abgelehnt"] for r in rows])) if rows else None}
+    for b in BED:
+        if not res["bedingungen"][b]["N"]: continue
+        N = res["bedingungen"][b]["N"]; res["bedingungen"][b]["recall_bei_budget"] = {str(B): sum(1 for n in N if n <= B) / len(N) for B in (5, 10, 20, 30)}
+        rows = [R[b][s] for s in gem if s in R[b]]; k = sum(r_["treffer"] for r_ in rows)
+        kost = [r_.get("kosten_usd_neu") for r_ in rows if r_.get("kosten_usd_neu") is not None]
+        res["bedingungen"][b]["kosten_usd_neu_gesamt"] = round(sum(kost), 3) if kost else None
+        res["bedingungen"][b]["kosten_usd_pro_treffer"] = round(sum(kost) / k, 3) if kost and k else None
+    res["bedingungen"]["ORAKEL"] = {"N": [1] * len(gem), "mittel_N": 1.0, "median_N": 1.0, "analytisch": True,
+                                    "erklaerung": "kennt die Antwort und reicht die Treffer-Behauptung direkt ein (Obergrenze, nicht gerechnet)"}
     if len(gem) >= 2:
         lab = [R["LAB"][s]["N"] for s in gem]; ps = []
-        for h, b in (("H7a", "ZUFALL"), ("H7b", "OHNE_FEEDBACK")):
-            cmp = [R[b][s]["N"] for s in gem]; sp, ki = ratio_ci(cmp, lab); p = perm_test(lab, cmp)
-            res["tests"][h] = {"vergleich": b, "speedup": sp, "ki95": ki, "p": p}; ps.append(p)
-        rej, adj = bh(ps, q=0.1)
-        for (h, t), pa, rj in zip(res["tests"].items(), adj, rej):
-            t["p_bh"] = float(pa); t["erfolg"] = bool(t["p"] < 0.05 and t["ki95"][0] > 1 and rj)
+        for h, b in (("H8a", "ZUFALL"), ("H8b", "HEURISTIK"), ("H8c", "OHNE_FEEDBACK")):
+            ss = [s for s in gem if s in R[b]]
+            if len(ss) < 2: continue
+            cmp = [R[b][s]["N"] for s in ss]; lb = [R["LAB"][s]["N"] for s in ss]; sp, ki = ratio_ci(cmp, lb); p = perm_test(lb, cmp)
+            res["tests"][h] = {"vergleich": b, "speedup": sp, "ki95": ki, "p": p, "n_seeds": len(ss)}; ps.append(p)
+        if ps:
+            rej, adj = bh(ps, q=0.1)
+            for (h, t), pa, rj in zip(res["tests"].items(), adj, rej):
+                t["p_bh"] = float(pa); t["erfolg"] = bool(pa < 0.1 and t["ki95"][0] > 1)
+        s10 = [s for s in gem if s < 1010]                         # H7 (präregistriert, 10 Seeds) unverändert mitführen
+        if len(s10) >= 2:
+            lab10 = [R["LAB"][s]["N"] for s in s10]; res["H7_10_seeds"] = {}
+            for h, b in (("H7a", "ZUFALL"), ("H7b", "OHNE_FEEDBACK")):
+                cmp = [R[b][s]["N"] for s in s10]; sp, ki = ratio_ci(cmp, lab10); res["H7_10_seeds"][h] = {"vergleich": b, "speedup": sp, "ki95": ki, "p": perm_test(lab10, cmp)}
     json.dump(res, open("results/replay_lattice.json", "w"), indent=1, ensure_ascii=False)
     abbildung(res); return res
 
@@ -154,14 +175,15 @@ def abbildung(res):
     try:
         from asd.figstyle import apply_style; apply_style()
     except Exception: pass
-    fig, ax = plt.subplots(figsize=(5.2, 3.4)); rng = np.random.default_rng(0)
+    fig, ax = plt.subplots(figsize=(6.2, 3.6)); rng = np.random.default_rng(0)
     for i, b in enumerate(BED):
         N = res["bedingungen"][b]["N"]
-        if not N: continue
+        if not N or res["bedingungen"][b].get("analytisch"): continue
         ax.scatter(i + rng.uniform(-0.12, 0.12, len(N)), N, s=22, alpha=0.75, color=f"C{i}")
         ax.hlines(np.median(N), i - 0.25, i + 0.25, color="k", lw=2)
-    ax.axhline(res["budget"] + 1, ls=":", color="grey", lw=1); ax.text(2.45, res["budget"] + 1, "failed (budget+1)", fontsize=7, va="bottom", ha="right", color="grey")
-    ax.set_xticks(range(len(BED))); ax.set_xticklabels(["LAB", "NO FEEDBACK", "RANDOM"])
+    ax.axhline(res["budget"] + 1, ls=":", color="grey", lw=1); ax.text(len(BED) - 0.55, res["budget"] + 1, "failed (budget+1)", fontsize=7, va="bottom", ha="right", color="grey")
+    ax.set_xticks(range(len(BED))); ax.set_xticklabels(["LAB", "NO FEEDBACK", "RANDOM", "SIMPLEST\nFIRST"])
+    ax.axhline(1, ls="--", color="C4", lw=1); ax.text(len(BED) - 0.6, 1.3, "oracle (N = 1)", fontsize=7, color="C4", ha="right")
     ax.set_ylabel("verifier calls to first hit (N)"); ax.set_title(f"Replay y_inf (lattice), {len(res['seeds'])} seeds; bar = median", fontsize=9)
     fig.tight_layout(); fig.savefig("results/replay_lattice.png", dpi=160); fig.savefig("results/replay_lattice.pdf")
 

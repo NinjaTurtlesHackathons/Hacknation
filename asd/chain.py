@@ -41,12 +41,12 @@ def seal(run):
 def verify(run):
     """-> (ok, grund). Ohne CHAIN.json: (None, 'keine Kette')."""
     p = os.path.join(run, "CHAIN.json")
-    if not os.path.exists(p): return None, "keine Hash-Kette vorhanden"
+    if not os.path.exists(p): return None, "no hash chain present"
     alt = json.load(open(p)); neu = kette(run)
     if len(neu) != alt["glieder"]: return False, f"Anzahl der Glieder geändert ({alt['glieder']} -> {len(neu)})"
     for (n1, h1), (n2, h2) in zip(alt["kette"], neu):
         if h1 != h2: return False, f"Kette bricht bei {n2}"
-    return True, f"Kette intakt ({len(neu)} Glieder, Kopf {neu[-1][1][:12]})"
+    return True, f"hash chain intact ({len(neu)} links, head {neu[-1][1][:12]})"
 
 
 if __name__ == "__main__":

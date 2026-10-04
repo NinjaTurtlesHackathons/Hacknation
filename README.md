@@ -120,19 +120,19 @@ Every result is accepted only by a code verifier (`Domain.check`); agents only p
 | Parallel sub-sessions | ✓ | runs/omnigent/2026-10-04/HIGHLIGHTS.md: 4 turns with ≥2 parallel sub-sessions |
 | Parallel experiments | ✓ | 1 turns with ≥2 parallel experiment sessions |
 | Human approval via Omnigent policies (ASK) and a policy DENY | ✓ | runs/omnigent/2026-10-04/HIGHLIGHTS.md: ASK raised+approved=True, DENY present=True; omni/config.yaml publish_gate |
-| Shared research record; every decision reconstructable | ✓ | runs/omnigent/2026-10-04/record.jsonl (64 entries with input/output ids); Kette intakt (82 Glieder, Kopf 1fcb11696c9a) |
+| Shared research record; every decision reconstructable | ✓ | runs/omnigent/2026-10-04/record.jsonl (64 entries with input/output ids); hash chain intact (82 links, head 1fcb11696c9a) |
 | Citations for facts | ✓ | projects/omni_proofreading/references.bib: 18 entries, 18 with DOI/arXiv/URL, 0 unverified |
 | Run logs attached | ✓ | runs/omnigent/2026-10-04/sessions/: 15 session exports |
 | Agent-generated hypotheses/claims marked (origin) | ✓ | runs/omnigent/2026-10-04/origin.json: origin derived from the record for 39/39 claims+questions |
-| Uncertainty preserved (levels, confidence intervals) | ✓ | every claim has an evidence level; results/replay_lattice.json: speedups with bootstrap CI, hit rates with Clopper-Pearson CI |
+| Uncertainty preserved (levels, confidence intervals) | ✗ | every claim has an evidence level; results/replay_lattice.json: speedups with bootstrap CI, hit rates with Clopper-Pearson CI |
 | Controls documented (self-test, blind claims, red team, canary) | ✓ | verifier self-test 7 true / 11 false cases; benchmarks/blind_claims.py (random claims, 0/20 accepted); projects/proofreading/verifier_redteam.json; replay canary test |
 | Approval gates documented | ✓ | README.md, section Omnigent orchestration: policy table |
 | Needed validation named | ✓ | projects/omni_proofreading/paper.md: numbered open questions / needed validation; projects/omni_proofreading/referee_report.md |
-| Measured improvement | ✓ | results/replay_lattice.json H7a speedup 4.58x (CI [2.5997727272727276, 7.5005434782608615], p=0.0029); results/metrics_proofreading.json |
+| Measured improvement | ✗ | results/replay_lattice.json H7a speedup 0.00x (CI None, p=None); results/metrics_proofreading.json |
 | Next experiment justified | ✓ | runs/omnigent/2026-10-04/sessions/lead: 7 lead decisions naming the next step with a reason |
 | Agent specifications and policies in the repo | ✓ | omni/config.yaml + 6 agent specs; README agent table |
 
-All requirements met.
+**Open:** Uncertainty preserved (levels, confidence intervals); Measured improvement.
 <!-- rubric:end -->
 
 ## Omnigent orchestration

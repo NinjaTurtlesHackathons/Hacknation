@@ -85,14 +85,18 @@ h1{font-size:20px;margin:0 0 4px}.sub{color:var(--mut);font-size:14px;margin-bot
 .t{font-size:22px;font-weight:650;margin:4px 0 12px}.x{white-space:pre-wrap;word-break:break-word}
 .meta{color:var(--mut);font-size:14px;margin-top:12px}.meta a{color:var(--acc)}
 nav{display:flex;gap:8px;margin-top:16px;align-items:center}button{font:inherit;padding:8px 16px;border-radius:8px;border:1px solid var(--line);background:var(--card);color:var(--fg);cursor:pointer}
-button.p{background:var(--acc);color:#fff;border-color:var(--acc)}.hint{color:var(--mut);font-size:13px;margin-left:auto}
+button.p{background:var(--acc);color:#fff;border-color:var(--acc)}
+.seal{border:1px solid var(--line);border-radius:8px;padding:8px 12px;font-size:14px;background:var(--card)}.seal b{color:var(--acc)}.seal.bad b{color:#b3261e}.hint{color:var(--mut);font-size:13px;margin-left:auto}
 </style></head><body><main>
 <h1>Guided tour: one recorded Omnigent run</h1><div class="sub">__SUB__</div>
+<div class="seal" id="seal"></div>
 <div class="bar"><div id="bar"></div></div>
 <div class="card"><div class="k" id="k"></div><div class="t" id="t"></div><div class="x" id="x"></div><div class="meta" id="m"></div></div>
 <nav><button id="prev">Back</button><button class="p" id="next">Next</button><span class="hint">keys: ← → · r = auto play</span></nav>
 </main><script>
-const B=__DATA__, RUN="__RUN__";let i=0,auto=null;
+const B=__DATA__, RUN="__RUN__", T=__TRACE__;let i=0,auto=null;
+(function(){const e=document.getElementById('seal');if(!T){e.style.display='none';return}const v=T.verification;
+e.className='seal'+(v.passed?'':' bad');e.innerHTML=`<b>${v.passed?'✓ Verified trace':'✗ Trace check failed'}</b> · Omnigent session ${T.omnigent_session_id.slice(0,8)} · ${v.handoffs} handoffs (sha256 of message and inbox entry) · ${v.quittungen} verifier receipts · ${v.deny} policy DENY · ${v.ask_freigegeben}/${v.ask} ASK approved by a human · ${T.hash_kette} · <a href="../${RUN}/trace.json">trace.json</a>`+(v.passed?'':' · failures: '+v.fehlschlaege.join('; '))})();
 function show(){const b=B[i];document.getElementById('k').textContent=`Beat ${i+1} of ${B.length} · ${b.zeit} (Zurich)`;
 document.getElementById('t').textContent=b.beat;document.getElementById('x').textContent=b.text;
 document.getElementById('m').innerHTML='Evidence: '+b.beleg.map(f=>`<a href="../${RUN}/${f.split(' ')[0]}">${f}</a>`).join(' · ')+(b.ids.length?' · ids: '+b.ids.join(', '):'');
@@ -108,7 +112,9 @@ def main():
     run = sys.argv[1].rstrip("/"); B = beats(run)
     json.dump(B, open(f"{run}/beats.json", "w"), indent=1, ensure_ascii=False)
     os.makedirs("web", exist_ok=True)
-    open("web/tour.html", "w").write(TOUR.replace("__DATA__", json.dumps(B, ensure_ascii=False)).replace("__RUN__", run)
+    tr = json.load(open(f"{run}/trace.json")) if os.path.exists(f"{run}/trace.json") else None
+    tr_klein = {k: tr[k] for k in ("omnigent_session_id", "verification", "hash_kette")} if tr else None
+    open("web/tour.html", "w").write(TOUR.replace("__DATA__", json.dumps(B, ensure_ascii=False)).replace("__TRACE__", json.dumps(tr_klein, ensure_ascii=False)).replace("__RUN__", run)
                                      .replace("__SUB__", html.escape(f"{run} · six beats extracted automatically from record.jsonl and the session logs (python -m asd.beats)")))
     L = ["# Video script (generated from beats.json by `python -m asd.beats`)", "", f"Source run: `{run}`. Texts in column 4 are drafts; every fact in them comes from the run's logs.", "",
          "| Time (video) | Beat | Screen | Narration draft |", "|---|---|---|---|", "| 0:00–0:15 | Trailer (before) | *placeholder: title card, team* | *placeholder* |"]
