@@ -3,6 +3,7 @@
 """
 import json, os, subprocess, time
 from fractions import Fraction
+from datetime import datetime, timezone
 
 from asd import tables
 from asd.selftest import run as selftest_run
@@ -11,7 +12,7 @@ from .write_paper import claims, CERT, CONF, PROJ
 OUT = f"{PROJ}/tables"
 
 
-def ts(path): return time.strftime("%Y-%m-%dT%H:%M:%S", time.localtime(os.path.getmtime(path))) if os.path.exists(path) else ""
+def ts(path): return datetime.fromtimestamp(os.path.getmtime(path), timezone.utc).isoformat() if os.path.exists(path) else ""
 
 
 def experiments():
@@ -41,7 +42,7 @@ def git_time(rev):
 
 
 def gates():
-    CF = json.load(open(CONF)) if os.path.exists(CONF) else {}; now = time.strftime("%Y-%m-%dT%H:%M:%S"); G = []
+    CF = json.load(open(CONF)) if os.path.exists(CONF) else {}; now = datetime.now(timezone.utc).isoformat(); G = []
     ok, rows = selftest_run("algo_efficiency", log=lambda m: None)
     G.append(["AE_G0_selftest", ok, f"{sum(r['korrekt'] for r in rows)}/{len(rows)} self-test claims classified correctly", now])
     pre = git_time("a3b3eb6"); conf = str(int(os.path.getmtime(CONF))) if os.path.exists(CONF) else ""

@@ -2,6 +2,7 @@
 Lokal als CSV unter tables/. Auf Databricks schreibt C dieselben Spalten als Delta-Tabellen."""
 import os
 import pandas as pd
+from .sql_tables import normalize_row
 
 SCHEMA = {
     "experiments": ["run_id", "seed", "policy", "dataset", "step", "x_index", "y", "mlflow_run_id", "ts"],
@@ -12,6 +13,7 @@ SCHEMA = {
 
 def write(name, rows, out="tables"):
     os.makedirs(out, exist_ok=True)
+    rows = [normalize_row(name, row) for row in rows]
     df = pd.DataFrame(rows, columns=SCHEMA[name]); df.to_csv(f"{out}/{name}.csv", index=False); return df
 
 

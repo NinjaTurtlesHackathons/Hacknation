@@ -5,11 +5,12 @@ Design aus research/evidence.md: externer Prüfer statt Selbstkritik (Stechly et
 Auswahl gegen den Prüfer (Brown et al. 2024), erzwungene Vielfalt (Si et al. 2024; FunSearch-Inseln),
 lückenlose Herkunft jeder Aussage (Kosmos 2025). Kein LLM entscheidet über Wahrheit.
 """
-import json, time
+import json, time, threading
+from uuid import uuid4
+from .delta_contract import canonical_json, decode_json, normalize_payload, make_event_row, NormalizationError as DeltaCompatibilityError
+from .delta_runtime import configured_event_sink
 from concurrent.futures import ThreadPoolExecutor
 from .llm import ask_json, LLMError
-from .domains import lattice as L
-from . import verify
 
 STRATEGIEN = {
     "numeriker": "Du gehst systematisch numerisch vor: erst grob scannen, dann gezielt verfeinern.",
@@ -45,15 +46,71 @@ def _default_domain():
 
 
 class Lab:
-    """Führt Experimente der Domäne aus, cached identische Anfragen und protokolliert alles (Herkunft)."""
-    def __init__(self, domain=None): self.domain = domain or _default_domain(); self.memo = {}; self.log = []
+    """Normalize both API boundaries; record explicitly typed Delta-compatible events."""
+    def __init__(self, domain=None, *, event_sink=None, run_id=None):
+        self.domain = domain or _default_domain()
+        self.run_id = str(uuid4()) if run_id is None else run_id
+        if not isinstance(self.run_id, str) or not isinstance(self.domain.name, str):
+            raise DeltaCompatibilityError("run_id and domain name must be strings")
+        self.memo = {}; self.log = []; self.events = []
+        self.event_sink = event_sink if event_sink is not None else configured_event_sink()
+        self._lock = threading.RLock(); self._key_locks = {}
+
     def run(self, op, args, who):
-        key = json.dumps([op, args], sort_keys=True)
-        if key not in self.memo:
-            t0 = time.time(); self.memo[key] = self.domain.run_op(op, args); dt = time.time() - t0
-        else: dt = 0.0
-        self.log.append({"id": len(self.log), "wer": who, "op": op, "args": args, "ergebnis": self.memo[key], "sek": round(dt, 2)})
-        return self.log[-1]
+        if not isinstance(op, str) or not op or not isinstance(args, dict):
+            raise DeltaCompatibilityError("Lab expects a nonempty operation and an argument mapping")
+        if not isinstance(who, str):
+            raise DeltaCompatibilityError("Lab actor must be a string")
+        # Snapshot before execution: caller/domain mutation cannot change the cache key.
+        canonical_json(who)
+        args_json = canonical_json(args)
+        key = canonical_json([op, decode_json(args_json)])
+        with self._lock:
+            key_lock = self._key_locks.setdefault(key, threading.Lock())
+        with key_lock:
+            cached = key in self.memo
+            dt = 0.0
+            if cached:
+                result_json = self.memo[key]
+            else:
+                native_args = decode_json(args_json)
+                t0 = time.perf_counter()
+                try:
+                    result = self.domain.run_op(op, native_args)
+                except Exception as exc:
+                    result = {"fehler": f"{type(exc).__name__}: {exc}"}
+                dt = time.perf_counter() - t0
+                try:
+                    if not isinstance(result, dict):
+                        raise DeltaCompatibilityError("Lab result must be a mapping")
+                    result_json = canonical_json(result)
+                except DeltaCompatibilityError as exc:
+                    row = make_event_row(run_id=self.run_id, domain=self.domain.name,
+                        operation=op, args=decode_json(args_json), result=None,
+                        error={"fehler": str(exc)}, status="error", elapsed_seconds=dt, cached=False)
+                    self._emit(row)
+                    raise
+            result = decode_json(result_json)
+            failed = "fehler" in result
+            row = make_event_row(run_id=self.run_id, domain=self.domain.name,
+                operation=op, args=decode_json(args_json), result=result,
+                error={"fehler": result["fehler"]} if failed else None,
+                status="error" if failed else "success", elapsed_seconds=dt, cached=cached)
+            # Commit external storage before exposing an accepted event or cache entry.
+            with self._lock:
+                self._emit(row)
+                if not failed: self.memo[key] = result_json
+                entry = {"id": len(self.log), "wer": who, "op": op,
+                         "args": normalize_payload(decode_json(args_json)),
+                         "ergebnis": normalize_payload(result), "sek": round(dt, 2)}
+                # Keep caller-visible entries independent from internal history.
+                self.log.append(json.loads(json.dumps(entry, allow_nan=False)))
+                return entry
+
+    def _emit(self, row):
+        with self._lock:
+            if self.event_sink is not None: self.event_sink(dict(row))
+            self.events.append(dict(row))
 
 
 def _fmt(entries):
@@ -93,7 +150,7 @@ def solve(kontext, frage, salt=0, strategien=tuple(STRATEGIEN), domain=None):
         traces = []
         for s, f in futs.items():
             try: traces.append(f.result())
-            except (LLMError, json.JSONDecodeError, KeyError, TypeError) as e: traces.append({"strategie": s, "fehler": str(e)[:300]})
+            except (LLMError, json.JSONDecodeError, KeyError, TypeError, DeltaCompatibilityError) as e: traces.append({"strategie": s, "fehler": str(e)[:300]})
     checks = {}
     for tr in traces:
         a = tr.get("final") or {}; ps = a.get("pruefungen") or ([a["pruefung"]] if isinstance(a.get("pruefung"), dict) else [])
@@ -138,7 +195,7 @@ def solve_cascade(kontext, frage, salt=0, stufen=KASKADE, domain=None):
     lab = Lab(domain); D = lab.domain; t0 = time.time(); traces = []; checks = {}
     for strategie, model in stufen:
         try: tr = forscher(kontext, frage, strategie, lab, f"K{salt}-{model}", model=model)
-        except (LLMError, json.JSONDecodeError, KeyError, TypeError) as e: traces.append({"strategie": strategie, "modell": model, "fehler": str(e)[:300]}); continue
+        except (LLMError, json.JSONDecodeError, KeyError, TypeError, DeltaCompatibilityError) as e: traces.append({"strategie": strategie, "modell": model, "fehler": str(e)[:300]}); continue
         tr["modell"] = model; a = tr.get("final") or {}
         ps = [p for p in (a.get("pruefungen") or ([a["pruefung"]] if isinstance(a.get("pruefung"), dict) else [])) if isinstance(p, dict)]
         res = []

@@ -32,3 +32,12 @@
 | GE2 | Autonomous full workflow and primary literature before target selection | direct human instruction supersedes optional mode questions / cheapest cascade | Codex |
 | GE3 | Preserve Domain interface; use independently exact rational geometric witnesses rather than chemistry-specific statistical significance | construction proves existence; novelty separately audited | Codex |
 | GE4 | Six prioritized targets/families after18-question scouting | research/geometric-extremal/portfolio.md | Codex |
+
+## Delta Lab boundary — 2026-10-04
+
+| ID | Decision | Evidence | Owner |
+|---|---|---|---|
+| DL1 | Preserve Lab.run return shapes; add optional event_sink and lossless input/output normalization. SQL event columns are fixed, heterogeneous scientific data remain canonical tagged JSON. | User explicitly authorized Delta implementation and compatibility fixes; docs/DELTA.md | Codex |
+| DL2 | Actual local delta-rs transactions; no assumed Databricks workspace execution. Errors fail closed, no schema evolution or silent fallback. | Real Delta replay, historical version and SQL checks | Codex |
+| DL3 | Normalize authoritative CSV tables too; seed/x_index are textual identifiers across domains, step/y/passed retain numeric/boolean types. Export UTC timestamps from actual file times. | Existing algo_efficiency exporter contains seed ranges, fractional x values and question IDs; strict compatibility regression | Codex |
+| DL4 | Preserve prior search metrics; log fresh verifier calls separately and report domain time separately from normalization/storage. | New geometry verification demonstration, not historical discovery replay | Codex |
