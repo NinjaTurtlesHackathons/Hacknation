@@ -46,7 +46,8 @@ def wissen_text(P, n=40):
     w = sorted(P.s["wissen"], key=lambda x: rank.get(x.get("status"), 4))[:n]
     lit = "\n".join(f"- ({x.get('status', '?')}) {x['text']} [{x['quelle']}]" for x in w)
     eig = "\n".join(f"- [{c['id']}] {c['text']} (geprüft: {c['grund'][:150]})" for c in P.s["claims"] if c["status"] == "bestätigt")
-    wid = "\n".join(f"- {x}" for x in P.s["widerlegt"][-10:])
+    wid = "\n".join(f"- {x}" if isinstance(x, str) else f"- [{x['frage_id']}] {x['frage']}: " + "; ".join(f"{g['stufe']}: {g['grund'][:100]}" for g in x["gruende"])
+                     for x in P.s["widerlegt"][-10:])
     return f"Literatur (Zitate per Code geprüft):\n{lit or '-'}\n\nEigene geprüfte Ergebnisse:\n{eig or '-'}\n\nNicht bestätigt / widerlegt:\n{wid or '-'}"
 
 
@@ -187,8 +188,15 @@ def main():
                                   "relevanz": D.relevanz(p) if hasattr(D, "relevanz") else "stuetze"})
             log(f"  geprüft ({D.level(p)}): {D.describe(p)[:160]} | Red-Team: {len(rt)} Gegenprüfungen, {sum(x['bestanden'] for x in rt)} bestanden, {len(angefochten)} logische Widersprüche")
         else:
-            P.s["widerlegt"].append(f"[{q['id']}] {q['frage']}: keine Behauptung bestand die Prüfung")
-            log("  keine geprüfte Behauptung (als negatives Ergebnis protokolliert)")
+            gruende = []
+            for tr in res.get("forscher", []):
+                pr_ = tr.get("pruefung") or {}; a_ = tr.get("final") or {}
+                pt = a_.get("pruefung") or (a_.get("pruefungen") or [None])[0]
+                g = pr_.get("grund") or tr.get("fehler") or "keine Prüfung angegeben"
+                gruende.append({"stufe": f"{tr.get('strategie')}/{tr.get('modell', '')}".strip("/"), "pruefungstyp": (pt or {}).get("typ") if isinstance(pt, dict) else None,
+                                "grund": ("Prüfung nicht ausführbar" if nicht_ausfuehrbar(g) else g)[:240]})
+            P.s["widerlegt"].append({"frage_id": q["id"], "frage": q["frage"], "runde": runde, "gruende": gruende})
+            log("  keine geprüfte Behauptung: " + "; ".join(f"{x['stufe']}: {x['grund'][:80]}" for x in gruende)[:400])
         json.dump(res, open(f"{P.dir}/runde{runde}.json", "w"), ensure_ascii=False, indent=1, default=str)
         if not (a.fragen or a.gezielt): lernen(P, D, q["frage"], res, runde, parent=q)   # gezielter Lauf: keine frei erzeugten Folgefragen
         P.s["runden"].append({"runde": runde, "frage": q["id"], "status": q["status"], "red_team": rt, "sek": res["sek"]})

@@ -141,7 +141,11 @@ def claims_of(domain, lang="en"):
                    "passed, but does not contradict the statement") if erg == "bestanden" else "did not pass"
             C.append({"claim_id": f"C-{c['id']}-RT{j + 1}", "text": f"Counter-check (adversarial test) of {c['id']}: {r['idee']} Result: {res}. Verifier: {sanitize(r.get('grund', ''))}",
                       "level": D.level(r["pruefung"]) if erg == "bestanden" else "observed", "status": "bestätigt", "anhang": True})
-    for j, w in enumerate(s["widerlegt"]): C.append({"claim_id": f"C-neg{j + 1}", "text": f"Negatives Ergebnis: {w}", "level": "observed", "status": "bestätigt"})
+    for j, w in enumerate(s["widerlegt"]):
+        if isinstance(w, str): txt = f"Negative result: {w}"
+        else: txt = (f"Negative result for the question '{w['frage']}': no claim passed the verifier. Reasons per attempt: " +
+                     "; ".join(f"{g['stufe']} ({g.get('pruefungstyp') or 'no check'}): {sanitize(g['grund'])}" for g in w["gruende"]))
+        C.append({"claim_id": f"C-neg{j + 1}", "text": txt, "level": "observed", "status": "bestätigt"})
     for j, w in enumerate(s["wissen"][:30]):
         C.append({"claim_id": f"C-lit{j + 1}", "text": f"Literature: {w['text']} (verbatim quote: \"{w['zitat']}\", source {w['quelle']})", "level": "observed",
                   "status": "bestätigt", "quelle": w["quelle"]})
