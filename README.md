@@ -4,6 +4,9 @@
 Simulation oder Messung prüfen lassen. Vollständige Anleitung: **[docs/FRAMEWORK.md](docs/FRAMEWORK.md)**. In Claude Code lädt der
 Skill `verifier-gated-lab` (`.claude/skills/`) die Anleitung automatisch.
 
+
+**Delta Lake integration:** [Lab input/output normalization, real Delta storage and runnable demo](docs/DELTA.md).
+
 ```bash
 python -m asd.new_domain meinthema                    # neue Domäne anlegen
 python -m asd.selftest meinthema                      # Prüfer muss bestehen

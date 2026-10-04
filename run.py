@@ -5,6 +5,7 @@
   python run.py --policies random,gp_ei   # ohne KI
 """
 import argparse, json, time
+from datetime import datetime, timezone
 import numpy as np
 from asd.data import load, SEEDS
 from asd.hypotheses import load_hypotheses
@@ -28,7 +29,7 @@ if hyps:
 gate_rows = []
 for g in G.default_gates(policies, reproducible=(a.budget == 400)):
     passed, reason = g.check(results)
-    gate_rows.append(dict(gate=g.name, passed=bool(passed), reason=reason, ts=time.strftime("%Y-%m-%dT%H:%M:%S")))
+    gate_rows.append(dict(gate=g.name, passed=bool(passed), reason=reason, ts=datetime.now(timezone.utc).isoformat()))
     print(f"[{'OK ' if passed else 'ROT'}] {g.name}: {reason}", flush=True)
 claims = CL.build(results, gate_rows)
 

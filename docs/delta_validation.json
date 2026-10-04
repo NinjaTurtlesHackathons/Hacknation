@@ -1,0 +1,51 @@
+{
+  "passed": true,
+  "scope": "New exact verification calls for existing frozen witnesses; not new discovery or historical search reruns",
+  "run_id": "bf200da3-99d5-432f-a8bd-d71523a5f307",
+  "events_this_run": 3,
+  "cache_hits_this_run": 1,
+  "domain_seconds": 0.02169091600808315,
+  "total_seconds_including_normalization_and_storage": 0.5338263750018086,
+  "delta": {
+    "version": 2,
+    "row_count": 3,
+    "sql_schema": {
+      "schema_version": "BIGINT",
+      "event_id": "STRING",
+      "run_id": "STRING",
+      "domain": "STRING",
+      "operation": "STRING",
+      "status": "STRING",
+      "args_json": "STRING",
+      "result_json": "STRING",
+      "error_json": "STRING",
+      "args_sha256": "STRING",
+      "result_sha256": "STRING",
+      "ts": "TIMESTAMP",
+      "elapsed_seconds": "DOUBLE",
+      "cached": "BOOLEAN"
+    },
+    "nullable_columns": [
+      "error_json",
+      "result_json",
+      "result_sha256"
+    ]
+  },
+  "local_delta_only": true,
+  "databricks_workspace_run": false,
+  "validation": {
+    "integration_test_methods": 14,
+    "geometry_selftest": 35,
+    "algo_efficiency_selftest": 36,
+    "proofreading_selftest": 7,
+    "lattice_selftest": 7,
+    "existing_algorithm_experiment_rows_exported": 684,
+    "stdlib_boundary_replay": true,
+    "real_delta_sql_query": true
+  },
+  "versions": {
+    "deltalake": "1.6.6",
+    "pyarrow": "23.0.1",
+    "duckdb": "1.5.6"
+  }
+}
