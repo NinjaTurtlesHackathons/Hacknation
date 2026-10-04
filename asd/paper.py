@@ -82,6 +82,8 @@ def rule_issues(md):
         for n in AGENT_NAMES:
             if re.search(r"(?<![a-z])" + re.escape(n) + r"(?![a-z])", low):
                 issues.append((para[:200], f"Agentenname „{n}“ steht im Haupttext; nur in Appendix A erlaubt")); break
+    for para in [p for p in md.split("\n") if p.strip()]:
+        if re.search(r"[\w.+-]+@[\w-]+\.[\w.]+", para): issues.append((para[:200], "E-Mail-Adresse im Paper (persönliche Daten; nur Autorenname und Affiliation aus den Argumenten)"))
     for bad in ("TypeError", "NaN", "IndexError", "Traceback", "Exception"):
         if re.search(r"(?<![A-Za-z])" + bad + r"(?![A-Za-z])", md): issues.append((bad, f"interner Fehlertext „{bad}“ darf nicht im Paper stehen"))
     return issues

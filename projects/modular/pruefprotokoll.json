@@ -1,33 +1,38 @@
 {
- "claims_zitiert": 23,
+ "claims_zitiert": 48,
  "korrekturrunden": [
   {
    "runde": 0,
-   "verstoesse": 46
+   "verstoesse": 49
   },
   {
    "runde": 1,
-   "verstoesse": 15
+   "verstoesse": 12
   },
   {
-   "final_verstoesse_entfernt": 0
+   "final_verstoesse_entfernt": 1
   }
  ],
- "entfernt": [],
+ "entfernt": [
+  {
+   "satz": "$$E(s)=\\sum_{p\\neq0}\\Big(\\frac{\\tau_2}{\\pi|p|^2}\\Big)^{s},\\qquad C(a,b,c)=\\sum_{p+p'+p''=0}\\Big(\\frac{\\tau_2}{\\pi|p|^2}\\Big)^{a}\\Big(\\frac{\\tau_2}{\\pi|p'|^2}\\Big)^{b}\\Big(\\frac{\\tau_2}{\\pi|p''|^2}\\Big)^{c}$$ [C-modell]",
+   "grund": "Zahl(en) [0.0] stehen in keiner zitierten Claim"
+  }
+ ],
  "lektorat": {
   "lektorat_uebernommen": false
  },
  "referee": {
   "referee_schwaechen": 5,
-  "behoben_versucht": 4,
+  "behoben_versucht": 2,
   "revision_uebernommen": false
  },
  "verbleibende_verstoesse": [],
  "story": {
-  "kernfrage": "What rational linear relations and Laplace equations hold among two-loop dihedral modular graph functions C(a,b,c) of weight w = 3, 5, 7, 9, Eisenstein series E(w) and zeta values, and how large is the relation space at each weight?",
-  "kernaussage": "Numerically, at each weight w = 3, 5, 7, 9 the dihedral modular graph functions C(a,b,c) together with E(w) and zeta(w) obey exactly one rational linear relation (including an explicit weight-9 relation), and C(2,1,1), C(3,1,1), C(2,2,1) satisfy inhomogeneous Laplace equations with sources built from Eisenstein series and zeta values.",
-  "titel": "Rational Linear Relations and Laplace Equations for Two-Loop Dihedral Modular Graph Functions at Weights 3 to 9",
-  "keywords": "modular graph functions, string theory, Laplace equations, non-holomorphic Eisenstein series, zeta values, lattice sums",
+  "kernfrage": "How many independent rational linear relations exist among two-loop dihedral modular graph functions C(a,b,c) of weight w, E(w) and zeta(w) for w = 3, 5, 7, 9, 11, and which Laplace equations do they satisfy?",
+  "kernaussage": "For weights 3, 5, 7 and 9 the space of rational linear relations among the dihedral modular graph functions C(a,b,c), E(w) and zeta(w) has dimension exactly one per weight (found numerically to 32 digits, with an explicit weight-9 relation and a verified weight-11 relation on a reduced basis), and these functions obey inhomogeneous Laplace equations with eigenvalues s(s-1) and sources built from Eisenstein series products and zeta values.",
+  "titel": "Rational Linear Relations and Laplace Equations for Dihedral Modular Graph Functions up to Weight 11",
+  "keywords": "modular graph functions, Eisenstein series, string theory one-loop amplitude, Laplace equation, linear relations, low-energy expansion",
   "zuordnung": {
    "C-modell": "stuetze",
    "C-modular-R1": "hauptresultat",
@@ -49,12 +54,16 @@
    "C-modular-R6a": "hauptresultat",
    "C-modular-R6b": "beispiel",
    "C-modular-R6c": "beispiel",
-   "C-modular-R6d": "hauptresultat",
+   "C-modular-R6d": "stuetze",
    "C-modular-R6e": "hauptresultat",
+   "C-modular-R7a": "hauptresultat",
+   "C-modular-R7b": "hauptresultat",
+   "C-modular-R8": "weglassen",
    "C-neg1": "anhang",
    "C-neg2": "weglassen",
+   "C-neg3": "anhang",
    "C-verfuegbarkeit": "anhang"
   }
  },
- "provenance_zeilen": 17
+ "provenance_zeilen": 29
 }
