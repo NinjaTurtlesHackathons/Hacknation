@@ -113,7 +113,7 @@
    "lueckenkarte": "L10",
    "hypothese_herkunft": "Exploration",
    "id": "F11",
-   "status": "offen",
+   "status": "beantwortet",
    "quelle": "lueckenkarte",
    "faden_id": "F11"
   },
@@ -2370,6 +2370,243 @@
     "zitat": "we exhibit exact differential and algebraic relations for a certain infinite class of such modular functions by showing that they satisfy Laplace eigenvalue equations with inhomogeneous terms that are polynomial in non-holomorphic Eisenstein series",
     "titel": "On the modular structure of the genus-one Type II superstring low energy expansion"
    }
+  },
+  {
+   "id": "modular-R11a",
+   "frage": "Prüfe die Konstantenformel bei Gewicht 13 und 15: Relationen 117936000*C(6,6,1) + 235872000*C(6,5,2) + 235872000*C(6,4,3) + 188697600*C(5,5,3) + 212284800*C(5,4,4) + -54432000*E(13) + -691*zeta(13) = 0 ; 1555200*C(7,7,1) + 3110400*C(7,6,2) + 3110400*C(7,5,3) + 1555200*C(7,4,4) + 2592000*C(6,6,3) + 6220800*C(6,5,4) + 1244160*C(5,5,5) + -725760*E(15) + -1*zeta(15) = 0 (je mgf_relation).",
+   "text": "Numerisch (32 Stellen, 4 Prüfer-Punkte, rel. Residuum <= 1e-24): 117936000·C(6,6,1) + 235872000·C(6,5,2) + 235872000·C(6,4,3) + 188697600·C(5,5,3) + 212284800·C(5,4,4) - 54432000·E(13) - 691·zeta(13) = 0 als Funktionen von tau.",
+   "interpretation_ungeprueft": "Gewicht 13: BESTÄTIGT durch E10; Gewicht 15: NICHT BESTÄTIGT (E11 findet keine Relation)",
+   "pruefung": {
+    "typ": "mgf_relation",
+    "terme": [
+     [
+      "117936000",
+      "C(6,6,1)"
+     ],
+     [
+      "235872000",
+      "C(6,5,2)"
+     ],
+     [
+      "235872000",
+      "C(6,4,3)"
+     ],
+     [
+      "188697600",
+      "C(5,5,3)"
+     ],
+     [
+      "212284800",
+      "C(5,4,4)"
+     ],
+     [
+      "-54432000",
+      "E(13)"
+     ],
+     [
+      "-691",
+      "zeta(13)"
+     ]
+    ]
+   },
+   "grund": "exakter Leitkoeffizient von y^13: 0; numerisch an 4 Prüfer-Punkten (Seed 4711, 32 Stellen): max. relatives Residuum 5.67e-44 (Schranke 1e-24)",
+   "level": "observed",
+   "status": "bestätigt",
+   "red_team": [
+    {
+     "pruefung": {
+      "typ": "mgf_relation",
+      "terme": [
+       [
+        "1555200",
+        "C(7,7,1)"
+       ],
+       [
+        "3110400",
+        "C(7,6,2)"
+       ],
+       [
+        "3110400",
+        "C(7,5,3)"
+       ],
+       [
+        "1555200",
+        "C(7,4,4)"
+       ],
+       [
+        "2592000",
+        "C(6,6,3)"
+       ],
+       [
+        "6220800",
+        "C(6,5,4)"
+       ],
+       [
+        "1244160",
+        "C(5,5,5)"
+       ],
+       [
+        "-725760",
+        "E(15)"
+       ],
+       [
+        "-1",
+        "zeta(15)"
+       ]
+      ]
+     },
+     "idee": "Die Antwort erklärt die Gewicht-15-Relation für widerlegt, weil PSLQ in E11 keine Relation fand. PSLQ kann aber an Parametern scheitern (zu wenige Stellen, zu enge Basis, zu geringe Genauigkeit bei den großen Koeffizienten), das ist kein Beweis gegen die Relation. Die Relation folgt demselben Muster wie bei Gewicht 13 (Konstantenformel mit Gewicht 2k+1). Ich prüfe sie direkt mit mgf_relation: erst das exakte Leitkoeffizienten-Kriterium in y, dann numerisch an 4 eigenen Punkten. Besteht sie, ist die Aussage 'NICHT BESTÄTIGT' falsch.",
+     "bestanden": true,
+     "ergebnis": "bestanden",
+     "grund": "exakter Leitkoeffizient von y^15: 0; numerisch an 4 Prüfer-Punkten (Seed 4711, 32 Stellen): max. relatives Residuum 6.46e-44 (Schranke 1e-24)",
+     "widerspruch": false
+    }
+   ],
+   "runde": 11,
+   "relevanz": "hauptresultat",
+   "neuheit": {
+    "suchanfragen": [
+     "modular graph functions",
+     "modular graph functions identities",
+     "modular graph functions zeta",
+     "non-holomorphic modular forms Eisenstein string",
+     "closed string amplitudes modular identities"
+    ],
+    "treffer": {
+     "modular graph functions": 28,
+     "modular graph functions identities": 24,
+     "modular graph functions zeta": 24,
+     "non-holomorphic modular forms Eisenstein string": 21,
+     "closed string amplitudes modular identities": 14
+    },
+    "quellen_geprueft": 104,
+    "datum": "2026-10-04",
+    "status": "bekannt",
+    "quelle": "arXiv:1608.04393v3",
+    "zitat": "In earlier work, surprising identities between two-loop graphs at all weights, and between higher-loop graphs of weights four and five were constructed.",
+    "titel": "Hierarchy of Modular Graph Identities"
+   }
+  },
+  {
+   "id": "modular-R11b",
+   "frage": "Prüfe die Konstantenformel bei Gewicht 13 und 15: Relationen 117936000*C(6,6,1) + 235872000*C(6,5,2) + 235872000*C(6,4,3) + 188697600*C(5,5,3) + 212284800*C(5,4,4) + -54432000*E(13) + -691*zeta(13) = 0 ; 1555200*C(7,7,1) + 3110400*C(7,6,2) + 3110400*C(7,5,3) + 1555200*C(7,4,4) + 2592000*C(6,6,3) + 6220800*C(6,5,4) + 1244160*C(5,5,5) + -725760*E(15) + -1*zeta(15) = 0 (je mgf_relation).",
+   "text": "Numerisch (32 Stellen, 4 Prüfer-Punkte, rel. Residuum <= 1e-24): 1555200·C(7,7,1) + 3110400·C(7,6,2) + 3110400·C(7,5,3) + 1555200·C(7,4,4) + 2592000·C(6,6,3) + 6220800·C(6,5,4) + 1244160·C(5,5,5) - 725760·E(15) - zeta(15) = 0 als Funktionen von tau.",
+   "interpretation_ungeprueft": "Gewicht 13: BESTÄTIGT durch E10; Gewicht 15: NICHT BESTÄTIGT (E11 findet keine Relation)",
+   "pruefung": {
+    "typ": "mgf_relation",
+    "terme": [
+     [
+      "1555200",
+      "C(7,7,1)"
+     ],
+     [
+      "3110400",
+      "C(7,6,2)"
+     ],
+     [
+      "3110400",
+      "C(7,5,3)"
+     ],
+     [
+      "1555200",
+      "C(7,4,4)"
+     ],
+     [
+      "2592000",
+      "C(6,6,3)"
+     ],
+     [
+      "6220800",
+      "C(6,5,4)"
+     ],
+     [
+      "1244160",
+      "C(5,5,5)"
+     ],
+     [
+      "-725760",
+      "E(15)"
+     ],
+     [
+      "-1",
+      "zeta(15)"
+     ]
+    ]
+   },
+   "grund": "exakter Leitkoeffizient von y^15: 0; numerisch an 4 Prüfer-Punkten (Seed 4711, 32 Stellen): max. relatives Residuum 6.46e-44 (Schranke 1e-24)",
+   "level": "observed",
+   "status": "bestätigt",
+   "red_team": [
+    {
+     "pruefung": {
+      "typ": "mgf_relation",
+      "terme": [
+       [
+        "1555200",
+        "C(7,7,1)"
+       ],
+       [
+        "3110400",
+        "C(7,6,2)"
+       ],
+       [
+        "3110400",
+        "C(7,5,3)"
+       ],
+       [
+        "1555200",
+        "C(7,4,4)"
+       ],
+       [
+        "2592000",
+        "C(6,6,3)"
+       ],
+       [
+        "6220800",
+        "C(6,5,4)"
+       ],
+       [
+        "1244160",
+        "C(5,5,5)"
+       ],
+       [
+        "-725760",
+        "E(15)"
+       ],
+       [
+        "-1",
+        "zeta(15)"
+       ]
+      ]
+     },
+     "idee": "Die Antwort behauptet, die Gewicht-15-Relation sei widerlegt, weil PSLQ in E11 keine Relation fand. PSLQ kann aber an der Präzision, an zu wenigen Punkten oder an der Basiswahl scheitern. Die Konstantenformel mit Koeffizienten wie 691 bei Gewicht 13 folgt einem plausiblen Muster. Diese Prüfung testet die Relation direkt, mit exaktem Leitkoeffizienten in y und numerisch an 4 Punkten mit 32 Stellen. Besteht sie, ist 'NICHT BESTÄTIGT' falsch.",
+     "bestanden": true,
+     "ergebnis": "bestanden",
+     "grund": "exakter Leitkoeffizient von y^15: 0; numerisch an 4 Prüfer-Punkten (Seed 4711, 32 Stellen): max. relatives Residuum 6.46e-44 (Schranke 1e-24)",
+     "widerspruch": false
+    }
+   ],
+   "runde": 11,
+   "relevanz": "hauptresultat",
+   "neuheit": {
+    "suchanfragen": [
+     "Modular graph functions string amplitude",
+     "Non-holomorphic Eisenstein modular forms",
+     "Two-loop closed string modular",
+     "Modular form identities Eisenstein series",
+     "Modular graph coefficient relations"
+    ],
+    "treffer": {
+     "Modular graph functions string amplitude": 26,
+     "Non-holomorphic Eisenstein modular forms": 25,
+     "Two-loop closed string modular": 25,
+     "Modular form identities Eisenstein series": 20,
+     "Modular graph coefficient relations": 20
+    },
+    "quellen_geprueft": 115,
+    "datum": "2026-10-04",
+    "status": "nicht_gefunden"
+   }
   }
  ],
  "widerlegt": [
@@ -3296,6 +3533,111 @@
    "status": "ungeprüft",
    "red_team": [],
    "sek": 277.9,
+   "faden_id": "F11"
+  },
+  {
+   "runde": 11,
+   "frage": "F11",
+   "status": "beantwortet",
+   "red_team": [
+    {
+     "pruefung": {
+      "typ": "mgf_relation",
+      "terme": [
+       [
+        "1555200",
+        "C(7,7,1)"
+       ],
+       [
+        "3110400",
+        "C(7,6,2)"
+       ],
+       [
+        "3110400",
+        "C(7,5,3)"
+       ],
+       [
+        "1555200",
+        "C(7,4,4)"
+       ],
+       [
+        "2592000",
+        "C(6,6,3)"
+       ],
+       [
+        "6220800",
+        "C(6,5,4)"
+       ],
+       [
+        "1244160",
+        "C(5,5,5)"
+       ],
+       [
+        "-725760",
+        "E(15)"
+       ],
+       [
+        "-1",
+        "zeta(15)"
+       ]
+      ]
+     },
+     "idee": "Die Antwort erklärt die Gewicht-15-Relation für widerlegt, weil PSLQ in E11 keine Relation fand. PSLQ kann aber an Parametern scheitern (zu wenige Stellen, zu enge Basis, zu geringe Genauigkeit bei den großen Koeffizienten), das ist kein Beweis gegen die Relation. Die Relation folgt demselben Muster wie bei Gewicht 13 (Konstantenformel mit Gewicht 2k+1). Ich prüfe sie direkt mit mgf_relation: erst das exakte Leitkoeffizienten-Kriterium in y, dann numerisch an 4 eigenen Punkten. Besteht sie, ist die Aussage 'NICHT BESTÄTIGT' falsch.",
+     "bestanden": true,
+     "ergebnis": "bestanden",
+     "grund": "exakter Leitkoeffizient von y^15: 0; numerisch an 4 Prüfer-Punkten (Seed 4711, 32 Stellen): max. relatives Residuum 6.46e-44 (Schranke 1e-24)",
+     "widerspruch": false
+    },
+    {
+     "pruefung": {
+      "typ": "mgf_relation",
+      "terme": [
+       [
+        "1555200",
+        "C(7,7,1)"
+       ],
+       [
+        "3110400",
+        "C(7,6,2)"
+       ],
+       [
+        "3110400",
+        "C(7,5,3)"
+       ],
+       [
+        "1555200",
+        "C(7,4,4)"
+       ],
+       [
+        "2592000",
+        "C(6,6,3)"
+       ],
+       [
+        "6220800",
+        "C(6,5,4)"
+       ],
+       [
+        "1244160",
+        "C(5,5,5)"
+       ],
+       [
+        "-725760",
+        "E(15)"
+       ],
+       [
+        "-1",
+        "zeta(15)"
+       ]
+      ]
+     },
+     "idee": "Die Antwort behauptet, die Gewicht-15-Relation sei widerlegt, weil PSLQ in E11 keine Relation fand. PSLQ kann aber an der Präzision, an zu wenigen Punkten oder an der Basiswahl scheitern. Die Konstantenformel mit Koeffizienten wie 691 bei Gewicht 13 folgt einem plausiblen Muster. Diese Prüfung testet die Relation direkt, mit exaktem Leitkoeffizienten in y und numerisch an 4 Punkten mit 32 Stellen. Besteht sie, ist 'NICHT BESTÄTIGT' falsch.",
+     "bestanden": true,
+     "ergebnis": "bestanden",
+     "grund": "exakter Leitkoeffizient von y^15: 0; numerisch an 4 Prüfer-Punkten (Seed 4711, 32 Stellen): max. relatives Residuum 6.46e-44 (Schranke 1e-24)",
+     "widerspruch": false
+    }
+   ],
+   "sek": 7453.2,
    "faden_id": "F11"
   }
  ],
