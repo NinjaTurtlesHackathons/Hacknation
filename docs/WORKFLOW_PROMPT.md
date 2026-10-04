@@ -67,21 +67,27 @@ Zusätzlich je Domäne Pflicht:
 - `widerspricht(p, q)`: wann sich zwei bestandene Prüfungen logisch ausschließen (für das Red-Team).
 - `selftest()`: ≥ 3 wahre und ≥ 3 falsche Aussagen (wird von `asd.selftest` erzwungen), davon mindestens eine knapp an der Grenze
   (z. B. 1 % unter einem bekannten Wert), eine Regelverletzung und ein Versuch, die Toleranz über die Behauptung zu lockern.
-- **Abnahme:** `python -m asd.selftest <name>` meldet BESTANDEN. Zeige die Ausgabe. Jeder später gefundene Fehler wird ein neuer Selbsttest-Fall.
+- **Experimentelle Fächer:** Domäne von `ExperimentalDomain` erben. Der Prüfer ist dann die fest vorab definierte Statistik
+  (Permutationstest, Bootstrap-KI, Kontrollen, BH); der Selbsttest läuft mit simulierten Daten und kalibriert die Falsch-Positiv-Rate.
+- `python -m asd.verifier_redteam <name>`: Fallen für den Prüfer; jede falsch akzeptierte Falle wird ein Selbsttest-Fall.
+- **Abnahme:** `python -m asd.selftest <name>` meldet BESTANDEN, das Prüfer-Red-Team hat 0 blockierende Befunde. Zeige die Ausgabe.
+  Jeder später gefundene Fehler wird ein neuer Selbsttest-Fall. `python -m asd.phases <name>` zeigt Phase 3 OK.
 
 ## Phase 4: Präregistrierung (Pflicht, committen VOR dem Lauf)
 Schreibe in `prereg.md` je Ziel-Lücke: Hypothese, exakter Prüfungstyp mit Parametern, Erfolgskriterium, Abbruchkriterium,
-erwartetes Ergebnis, Budget (USD, Runden). Für Vergleiche mit Baselines zusätzlich: Seeds/Wiederholungen, Test, Schwelle, BH-Korrektur.
+erwartetes Ergebnis, Rundenzahl. Für Vergleiche mit Baselines zusätzlich: Seeds/Wiederholungen, Test, Schwelle, BH-Korrektur.
 (Die Labor-Schleife schreibt zusätzlich je Runde einen Eintrag nach `projects/<name>/prereg.md`.)
 - **Abnahme:** `git log -1 -- prereg.md` zeigt einen Commit, der zeitlich vor jedem Lauf liegt. Hash nennen.
 
 ## Phase 5: Labor laufen lassen (gezielt, nicht frei)
 1. Startfragen = die Lücken aus Phase 2 als JSON-Datei `projects/<name>/fragen.json` (Liste `[{"frage": "...", "neuheit": 0.8, "machbarkeit": 0.7}]`,
    nur diese, in VoI-Reihenfolge).
-2. `python -m asd.lab_loop --domain <name> --fragen projects/<name>/fragen.json --runden <N> --budget-usd <B>`
+2. `python -m asd.lab_loop --domain <name> --fragen projects/<name>/fragen.json --runden <N>`
 3. Nach JEDER Runde liest du `lab_report.md`, `decisions.md` und die neueste `runde*.json` und meldest in 3 Zeilen:
    Frage → geprüfte kanonische Aussage (oder „nicht geprüft“) → Red-Team-Ergebnis (Widerspruch ja/nein).
 4. Ist eine Aussage angefochten oder unbrauchbar: Ursache benennen (Prüfer zu schwach? Frage falsch?), Prüfer härten, Selbsttest ergänzen.
+5. Experimentell: Das Labor legt Versuchsaufträge an (`auftraege/A<n>_protokoll.md`) und hält an. Menschen messen verblindet in der
+   vorgegebenen Reihenfolge, tragen in die CSV ein und starten denselben Befehl erneut; dann wird ausgewertet.
 - **Abnahme:** Mindestens 1 geprüfte Aussage pro Ziel-Lücke ODER ein dokumentiertes negatives Ergebnis mit Grund.
 
 ## Phase 6: Neuheitsprüfung (Pflicht, vor dem Paper)
@@ -94,12 +100,13 @@ Für jede geprüfte Aussage:
 
 ## Phase 7: Paper
 Form wie das Suleman-Paper (Optimal lattices for a three-body power-law energy, 2026). Gemeint sind: dichtes Abstract mit Zahlen, „Summary of results“, nummerierte Theoreme mit „Proof.“/„Certificate.“, eine Remark zur trusted base, Tabellen zertifizierter Daten, Abbildungen, wo sie helfen (`Domain.figures` liefern), nummerierte offene Fragen und ein Methoden-Anhang. Das ist in `asd/paper.py` als `SULEMAN_FORM` hinterlegt.
-`python -m asd.paper --domain <name> --titel "<TITEL>" --autoren "<NAMEN>" --affiliation "<AFFILIATION>"`
+`python -m asd.paper --domain <name> --autoren "<NAMEN>" --affiliation "<AFFILIATION>"` (Standard Englisch; Titel kommt aus dem Story-Plan, `--titel` überschreibt)
 Anforderungen:
 - Jede Aussage trägt ihre Stufe; „Theorem“ nur für Zertifikate.
 - Ein Abschnitt „Negative Ergebnisse und Red-Team“ und einer „Grenzen“: Modellannahmen, die die Resultate tragen, stehen im Text.
 - Literatur nur aus Phase 1, mit DOI/arXiv-ID.
-- **Abnahme:** Das Prüfprotokoll am Ende von `paper.md` zeigt „verbleibende Verstöße: 0“; `paper.pdf` existiert. Zeige das Protokoll.
+- Agenten nur in Appendix A; Herkunftstabelle in Appendix B; keine `[C-…]`-Marken im PDF.
+- **Abnahme:** `pruefprotokoll.json` zeigt 0 Verstöße, `paper.pdf` und `referee_report.md` existieren, `python -m asd.phases <name>` zeigt Phase 7 OK.
 
 ## Phase 8: Übergabe
 - `projects/<name>/` enthält: `state.json`, `prereg.md`, `decisions.md`, `lab_report.md`, `lueckenkarte.md`, `neuheit.md`, `runde*.json`, `paper.*`.
@@ -109,7 +116,7 @@ Anforderungen:
   2. Reproduktionen,
   3. negative Ergebnisse,
   4. bekannte Schwächen,
-  5. Kosten.
+  5. Stand von `python -m asd.phases <name>` (alle Phasen OK).
 
 ## Verbotene Abkürzungen
 - Recherche überspringen, verkleinern oder durch eigenes Wissen ersetzen.

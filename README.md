@@ -7,17 +7,22 @@ Skill `verifier-gated-lab` (`.claude/skills/`) die Anleitung automatisch.
 ```bash
 python -m asd.new_domain meinthema                    # neue Domäne anlegen
 python -m asd.selftest meinthema                      # Prüfer muss bestehen
-python -m asd.lab_loop --domain meinthema --recherche --runden 4 --budget-usd 2
-python -m asd.paper --domain meinthema --titel "..." --autoren "..." --affiliation "ETH Zürich"
+python -m asd.lab_loop --domain meinthema --recherche --runden 0   # große Recherche
+python -m asd.phases meinthema                        # welche Phase fehlt noch? (Labor startet erst bei 1-4 OK)
+python -m asd.lab_loop --domain meinthema --fragen projects/meinthema/fragen.json --runden 6
+python -m asd.novelty meinthema
+python -m asd.paper --domain meinthema --autoren "..." --affiliation "ETH Zürich"
 ```
+Experimentelle Fächer (Nasslabor): Domäne von `ExperimentalDomain` erben (Vorlage `asd/domains/assay_demo_domain.py`); das Labor
+erzeugt präregistrierte, randomisierte, verblindete Versuchsaufträge, wartet auf die Messdaten und wertet sie mit fester Statistik aus.
 
 Präregistrierte Ergebnisse (`prereg.md`, Rohdaten in `results/`):
-| Bedingung (12 Fragen aus Suleman 2026, je 3 Läufe) | richtig | falsch | Kosten/Frage |
-|---|---|---|---|
-| Claude pur | 50 % | 36 % | 0,02 USD |
-| Claude mit eigenem Python | 72 % | 22 % | 0,03 USD |
-| Framework (4 Forscher + Code-Prüfer) | 100 % | 0 % | 0,21 USD |
-| Framework, Kaskade (Haiku zuerst) | 97 % | 3 % | 0,08 USD |
+| Bedingung (12 Fragen aus Suleman 2026, je 3 Läufe) | richtig | falsch |
+|---|---|---|
+| Claude pur | 50 % | 36 % |
+| Claude mit eigenem Python | 72 % | 22 % |
+| Framework (4 Forscher + Code-Prüfer) | 100 % | 0 % |
+| Framework, Kaskade (Haiku zuerst) | 97 % | 3 % |
 
 Weitere Befunde: KI- und Literatur-Vorwissen als GP-Prior helfen der Bayes'schen Optimierung nicht (H1, H5, beide präregistriert);
 fünf geprüfte numerische Befunde zu offenen Fragen aus Suleman 2026 (`results/explore/`).

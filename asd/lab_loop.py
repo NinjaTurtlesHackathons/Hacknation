@@ -180,7 +180,8 @@ def main():
         for q in json.load(open(a.fragen)):
             qid = f"F{len(P.s['fragen']) + 1}"; q.update(id=qid, status="offen", quelle="lueckenkarte", faden_id=q.get("faden_id") or qid); P.s["fragen"].append(q)
         P.append("decisions.md", f"| {now()} | INTEGRATOR | Startfragen aus {a.fragen} geladen, übrige offene Fragen zurückgestellt | Workflow Phase 5 |")
-    if not P.s["fragen"]: integrator_fragen(P, D, salt=str(len(P.s["runden"])))
+    if not any(q["status"] == "offen" for q in P.s["fragen"]) and not P.s.get("ausstehend"):   # nichts offen: neue Fragen erzeugen
+        integrator_fragen(P, D, salt=str(len(P.s["runden"])))
     P.save(); ohne = 0
     if getattr(D, "experimentell", False) and not ausstehende_auswerten(P, D, log): return
     for _ in range(a.runden):
@@ -233,7 +234,10 @@ def ausstehende_auswerten(P, D, log):
 
 def runde_ausfuehren(P, D, a, runde, log):
     if True:
-        try: plan = integrator_plan(P, D, runde)
+        try:
+            plan = integrator_plan(P, D, runde)
+            if not plan and not a.gezielt:                     # alles beantwortet: einmal neue Fragen erzeugen
+                integrator_fragen(P, D, salt=f"r{runde}"); plan = integrator_plan(P, D, runde)
         except LLMError as e: log(f"Integrator-Fehler: {e}"); return False
         if not plan: log("Keine offenen Fragen mehr."); return False
         q, pr = plan
