@@ -26,6 +26,10 @@ lead = policies("omni/config.yaml")
 lead = {k: v for k, v in lead.items() if k not in ("cost_budget", "spawn_bounds")}   # zustandsbehaftet, separat
 P = "--domain lattice --projekt omni_lattice"
 F = [
+ ("cd-Präfix ins Repo (harmlos)", lead, ev("sys_os_shell", command=f"cd /home/user/repo && python -m asd.cli status {P} --agent planner"), "ALLOW"),
+ ("Befehlskette nach dem Harness", lead, ev("sys_os_shell", command=f"python -m asd.cli status {P}; cat results/answer_key.json"), "DENY"),
+ ("Pipe nach dem Harness", lead, ev("sys_os_shell", command=f"python -m asd.cli doku {P} | head -5"), "DENY"),
+ ("Claim-JSON mit <= im Text", lead, ev("sys_os_shell", command=f"python -m asd.cli prüfe {P} --agent researcher --claim-json '{{\"familie\": \"gebunden<=2\"}}'"), "ALLOW"),
  ("researcher prüfe", lead, ev("sys_os_shell", command=f"python -m asd.cli prüfe {P} --agent researcher --claim-json '{{}}'"), "ALLOW"),
  ("state.json direkt schreiben", lead, ev("sys_os_shell", command="python -m asd.cli status && echo '{}' > projects/omni_lattice/state.json"), "DENY"),
  ("tee auf projects/", lead, ev("sys_os_shell", command="echo x | tee projects/omni_lattice/claims.json"), "DENY"),
@@ -36,7 +40,9 @@ F = [
  ("Paper bauen (alle Claims mit Red-Team-Votum)", lead, ev("sys_os_shell", command="python -m asd.paper --domain proofreading --projekt omni_proofreading --autoren X --ohne-gates"), "ASK"),
  ("Paper bauen ohne Projekt", lead, ev("sys_os_shell", command="python -m asd.paper --domain lattice --autoren X --ohne-gates"), "DENY"),
  ("Paper bauen (Claim ohne Red-Team-Votum)", lead, ev("sys_os_shell", command="python -m asd.paper --domain proofreading --projekt omni_parallel --autoren X"),
-  "DENY" if any(c.get("status") == "bestätigt" and not c.get("red_team") for c in json.load(open("projects/omni_parallel/state.json"))["claims"] if str(c.get("quelle","")).startswith("omnigent:")) else "ASK"),
+  "DENY" if any(c.get("status") == "bestätigt" and not any(v.get("gueltig", True) and v.get("relevant") for v in c.get("red_team") or [])
+                for c in json.load(open("projects/omni_parallel/state.json"))["claims"] if str(c.get("quelle","")).startswith("omnigent:")
+                and (c.get("runde") or 0) > json.load(open("projects/omni_parallel/state.json")).get("runden_vor_omnigent", 0)) else "ASK"),
  ("Scout liest Hold-out", lead, ev("sys_os_read", path="projects/proofreading_test/lab_report.md"), "DENY"),
  ("Hold-out lesen (Leck)", lead, ev("sys_os_shell", command="cat projects/proofreading_test/lab_report.md"), "DENY"),
  ("scout ASCII pruefe", {**lead, **policies("omni/agents/scout/config.yaml")}, ev("sys_os_shell", command=f"python -m asd.cli pruefe {P} --claim-json x"), "DENY"),

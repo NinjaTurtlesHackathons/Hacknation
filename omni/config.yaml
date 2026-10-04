@@ -111,7 +111,7 @@ guardrails:
           reason: "harness_only"
           expression: >-
             event.type == "tool_call" && event.data.name == "sys_os_shell" && has(event.data.arguments.command) &&
-            !event.data.arguments.command.matches("^\\s*(python3?|/usr/local/bin/python3?) -m asd\\.(cli|paper)( |$)")
+            !event.data.arguments.command.matches("^\\s*(cd [^;|&`$\\n]+ && )?(python3?|/usr/local/bin/python3?) -m asd\\.(cli|paper)( [^;|&`$\\n]*)?$")
             ? {"result": "DENY", "reason": "harness_only: agents may only call the frozen harness (python -m asd.cli / asd.paper)"} : {"result": "ALLOW"}
     publish_gate:
       type: function
