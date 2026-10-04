@@ -1,0 +1,1248 @@
+{
+ "antwort": {
+  "antwort": "Etwa lr = 1.0 (bei width=16); ja, Verlust konvergiert trotzdem",
+  "zahl": 1.0,
+  "konfidenz": 0.75,
+  "begruendung": "E8 (lr=1.0, width=16) zeigt: lr*λ_max/2 oszilliert um 1.0 (0.917→0.991→1.052→0.927→0.977), typisch für EOS-Regime. Trotzdem fällt der Verlust monoton von 0.00447→0.00140→0.00051→0.00021 über 1000 Schritte. Bei lr=0.8 (E7) bleibt lr*λ_max/2≤0.72 (stabil). Bei lr=1.5 (E13) divergiert das Netz. Die Schwelle liegt bei etwa 1.0.",
+  "pruefung": {
+   "typ": "eos",
+   "width": 16,
+   "lr": 1.0,
+   "steps": 2000,
+   "regime": "eos"
+  },
+  "stimmen": "Stufe 1/4 (sparsam, haiku)"
+ },
+ "level": "computed (Code-Prüfer bestanden)",
+ "forscher": [
+  {
+   "strategie": "sparsam",
+   "runden": [
+    {
+     "ueberlegung": "Die Frage zielt auf die Existenz und Charakterisierung der Edge of Stability (EoS) bei Voll-Batch-GD auf nichtlinearen Netzen ab. Zwei kritische Fragen: (1) Bei welcher Lernrate tritt der Übergang von stabilem Regime (lr·λ_max/2 << 1) zu EoS (lr·λ_max/2 ~ 1) auf? (2) Konvergiert der Verlust im EoS-Regime trotzdem?\n\nMeine Strategie:\n- Nutze gd_schaerfe, um λ_max über Trainingsschritte zu verfolgen und das Verhältnis 2/lr zu beobachten.\n- Systematischer Lernraten-Scan (von konservativ bis aggressiv) um die kritische Schwelle zu identifizieren.\n- Mehrere Netzbreiten testen, um zu sehen, wie λ_max mit Modellgröße skaliert und wie dies die EoS-Schwelle verschiebt.\n- Längere Läufe bei kritischen Lernraten durchführen, um Konvergenzverhalten im EoS-Regime zu beobachten (nicht nur Oszillation, sondern Drift).\n- Fokus auf wenige, maximally informative Experimente: stabile Baseline, kritische Zone, extremes Regime.",
+     "plan": [
+      {
+       "op": "gd_schaerfe",
+       "args": {
+        "width": 16,
+        "lr": 0.05,
+        "steps": 1000,
+        "seed": 42
+       },
+       "kommentar": "Stabiles Baseline-Regime: konservative Lernrate, sollte lr·λ_max/2 << 1 zeigen"
+      },
+      {
+       "op": "gd_schaerfe",
+       "args": {
+        "width": 16,
+        "lr": 0.15,
+        "steps": 1000,
+        "seed": 42
+       },
+       "kommentar": "Übergangszone: mittlere Lernrate, sollte Annäherung an lr·λ_max/2 ~ 1 zeigen"
+      },
+      {
+       "op": "gd_schaerfe",
+       "args": {
+        "width": 16,
+        "lr": 0.4,
+        "steps": 1500,
+        "seed": 42
+       },
+       "kommentar": "EoS-Zone: höhere Lernrate + längere Läufe um Konvergenz (oder persistente Oszillation) zu beobachten"
+      },
+      {
+       "op": "gd_schaerfe",
+       "args": {
+        "width": 32,
+        "lr": 0.05,
+        "steps": 1000,
+        "seed": 42
+       },
+       "kommentar": "Breitenvariable bei konservativer LR: misst wie λ_max mit Netzbreite skaliert"
+      },
+      {
+       "op": "gd_schaerfe",
+       "args": {
+        "width": 32,
+        "lr": 0.15,
+        "steps": 1500,
+        "seed": 42
+       },
+       "kommentar": "Kritische Zone bei größerer Breite: testet ob EoS-Schwelle width-invariant ist"
+      },
+      {
+       "op": "gd_schaerfe",
+       "args": {
+        "width": 8,
+        "lr": 0.1,
+        "steps": 1000,
+        "seed": 42
+       },
+       "kommentar": "Kleine Breite als Kontroll-Extremum: rasche Dynamik, λ_max-Spektrum sauberer"
+      },
+      {
+       "op": "gd_schaerfe",
+       "args": {
+        "width": 16,
+        "lr": 0.25,
+        "steps": 2000,
+        "seed": 43
+       },
+       "kommentar": "Längster Lauf in kritischer Zone mit frischem Seed: detailliertes Konvergenzprofil im EoS-Regime"
+      },
+      {
+       "op": "gd_schaerfe",
+       "args": {
+        "width": 16,
+        "lr": 0.8,
+        "steps": 1000,
+        "seed": 42
+       },
+       "kommentar": "Extremes EoS oder Instabilität: sehr hohe Lernrate zur Grenze des Regimes"
+      }
+     ]
+    },
+    {
+     "plan": [
+      {
+       "op": "gd_schaerfe",
+       "args": {
+        "width": 16,
+        "lr": 1.0,
+        "steps": 2000,
+        "seed": 42
+       }
+      },
+      {
+       "op": "gd_schaerfe",
+       "args": {
+        "width": 16,
+        "lr": 1.2,
+        "steps": 2000,
+        "seed": 42
+       }
+      },
+      {
+       "op": "gd_schaerfe",
+       "args": {
+        "width": 32,
+        "lr": 1.0,
+        "steps": 2000,
+        "seed": 42
+       }
+      },
+      {
+       "op": "gd_schaerfe",
+       "args": {
+        "width": 16,
+        "lr": 0.6,
+        "steps": 2000,
+        "seed": 42
+       }
+      },
+      {
+       "op": "gd_schaerfe",
+       "args": {
+        "width": 8,
+        "lr": 1.0,
+        "steps": 2000,
+        "seed": 42
+       }
+      },
+      {
+       "op": "gd_schaerfe",
+       "args": {
+        "width": 16,
+        "lr": 1.5,
+        "steps": 1500,
+        "seed": 42
+       }
+      }
+     ]
+    },
+    {
+     "antwort": "Etwa lr = 1.0 (bei width=16); ja, Verlust konvergiert trotzdem",
+     "zahl": 1.0,
+     "konfidenz": 0.75,
+     "begruendung": "E8 (lr=1.0, width=16) zeigt: lr*λ_max/2 oszilliert um 1.0 (0.917→0.991→1.052→0.927→0.977), typisch für EOS-Regime. Trotzdem fällt der Verlust monoton von 0.00447→0.00140→0.00051→0.00021 über 1000 Schritte. Bei lr=0.8 (E7) bleibt lr*λ_max/2≤0.72 (stabil). Bei lr=1.5 (E13) divergiert das Netz. Die Schwelle liegt bei etwa 1.0.",
+     "pruefung": {
+      "typ": "eos",
+      "width": 16,
+      "lr": 1.0,
+      "steps": 2000,
+      "regime": "eos"
+     }
+    }
+   ],
+   "experimente": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13
+   ],
+   "final": {
+    "antwort": "Etwa lr = 1.0 (bei width=16); ja, Verlust konvergiert trotzdem",
+    "zahl": 1.0,
+    "konfidenz": 0.75,
+    "begruendung": "E8 (lr=1.0, width=16) zeigt: lr*λ_max/2 oszilliert um 1.0 (0.917→0.991→1.052→0.927→0.977), typisch für EOS-Regime. Trotzdem fällt der Verlust monoton von 0.00447→0.00140→0.00051→0.00021 über 1000 Schritte. Bei lr=0.8 (E7) bleibt lr*λ_max/2≤0.72 (stabil). Bei lr=1.5 (E13) divergiert das Netz. Die Schwelle liegt bei etwa 1.0.",
+    "pruefung": {
+     "typ": "eos",
+     "width": 16,
+     "lr": 1.0,
+     "steps": 2000,
+     "regime": "eos"
+    }
+   },
+   "modell": "haiku",
+   "pruefung": {
+    "bestanden": true,
+    "grund": "Prüfer: voller Hesse-Eigenwert (Finite Differenzen) bei 80 % und 100 % der Schritte, 5 frische Seeds; lr*lambda_max/2 = [0.958/0.959, 1.016/1.004, 1.013/1.012, 1.006/1.006, 1.152/1.136]; Kriterium eos: in [0.85, 1.25] an beiden Punkten in >= 4/5 Seeds, erfüllt in 5/5"
+   }
+  }
+ ],
+ "experimente": [
+  {
+   "id": 0,
+   "wer": "forscher-sparsam",
+   "op": "gd_schaerfe",
+   "args": {
+    "width": 16,
+    "lr": 0.05,
+    "steps": 1000,
+    "seed": 42
+   },
+   "ergebnis": {
+    "divergiert": false,
+    "verlauf": [
+     {
+      "schritt": 100,
+      "verlust": 0.02669191903211103,
+      "schaerfe": 2.432504925569164,
+      "lr_mal_schaerfe_halbe": 0.06081262313922911
+     },
+     {
+      "schritt": 200,
+      "verlust": 0.022951827140274276,
+      "schaerfe": 2.3924230363395287,
+      "lr_mal_schaerfe_halbe": 0.05981057590848822
+     },
+     {
+      "schritt": 300,
+      "verlust": 0.020257069380638596,
+      "schaerfe": 2.366461298165828,
+      "lr_mal_schaerfe_halbe": 0.05916153245414571
+     },
+     {
+      "schritt": 400,
+      "verlust": 0.0182340191678776,
+      "schaerfe": 2.3501200144693226,
+      "lr_mal_schaerfe_halbe": 0.05875300036173307
+     },
+     {
+      "schritt": 500,
+      "verlust": 0.016660835273323234,
+      "schaerfe": 2.3396880776604942,
+      "lr_mal_schaerfe_halbe": 0.05849220194151236
+     },
+     {
+      "schritt": 600,
+      "verlust": 0.015395172788946332,
+      "schaerfe": 2.332773126773563,
+      "lr_mal_schaerfe_halbe": 0.05831932816933908
+     },
+     {
+      "schritt": 700,
+      "verlust": 0.014341991150217327,
+      "schaerfe": 2.3275434722736965,
+      "lr_mal_schaerfe_halbe": 0.05818858680684241
+     },
+     {
+      "schritt": 800,
+      "verlust": 0.013436493266426243,
+      "schaerfe": 2.323642165818724,
+      "lr_mal_schaerfe_halbe": 0.058091054145468106
+     },
+     {
+      "schritt": 900,
+      "verlust": 0.012634216605087997,
+      "schaerfe": 2.3196755644711775,
+      "lr_mal_schaerfe_halbe": 0.05799188911177944
+     },
+     {
+      "schritt": 1000,
+      "verlust": 0.0119049518761801,
+      "schaerfe": 2.3165255132133407,
+      "lr_mal_schaerfe_halbe": 0.05791313783033352
+     }
+    ],
+    "zwei_durch_lr": 40.0
+   },
+   "sek": 0.17
+  },
+  {
+   "id": 1,
+   "wer": "forscher-sparsam",
+   "op": "gd_schaerfe",
+   "args": {
+    "width": 16,
+    "lr": 0.15,
+    "steps": 1000,
+    "seed": 42
+   },
+   "ergebnis": {
+    "divergiert": false,
+    "verlauf": [
+     {
+      "schritt": 100,
+      "verlust": 0.02027872582179342,
+      "schaerfe": 2.331362956069168,
+      "lr_mal_schaerfe_halbe": 0.1748522217051876
+     },
+     {
+      "schritt": 200,
+      "verlust": 0.015447774306058083,
+      "schaerfe": 2.293880364409695,
+      "lr_mal_schaerfe_halbe": 0.17204102733072713
+     },
+     {
+      "schritt": 300,
+      "verlust": 0.012698156459761651,
+      "schaerfe": 2.281123716605217,
+      "lr_mal_schaerfe_halbe": 0.17108427874539126
+     },
+     {
+      "schritt": 400,
+      "verlust": 0.010671149134773206,
+      "schaerfe": 2.275002588505208,
+      "lr_mal_schaerfe_halbe": 0.1706251941378906
+     },
+     {
+      "schritt": 500,
+      "verlust": 0.008979392510007388,
+      "schaerfe": 2.273087691138227,
+      "lr_mal_schaerfe_halbe": 0.17048157683536702
+     },
+     {
+      "schritt": 600,
+      "verlust": 0.007557349423895064,
+      "schaerfe": 2.2743481679906568,
+      "lr_mal_schaerfe_halbe": 0.17057611259929925
+     },
+     {
+      "schritt": 700,
+      "verlust": 0.006400311969911565,
+      "schaerfe": 2.276428137633623,
+      "lr_mal_schaerfe_halbe": 0.1707321103225217
+     },
+     {
+      "schritt": 800,
+      "verlust": 0.005477038611819659,
+      "schaerfe": 2.279029856183426,
+      "lr_mal_schaerfe_halbe": 0.17092723921375694
+     },
+     {
+      "schritt": 900,
+      "verlust": 0.00473621579306857,
+      "schaerfe": 2.2811155241614687,
+      "lr_mal_schaerfe_halbe": 0.17108366431211014
+     },
+     {
+      "schritt": 1000,
+      "verlust": 0.004130714872496933,
+      "schaerfe": 2.2844011391371906,
+      "lr_mal_schaerfe_halbe": 0.1713300854352893
+     }
+    ],
+    "zwei_durch_lr": 13.333333333333334
+   },
+   "sek": 0.17
+  },
+  {
+   "id": 2,
+   "wer": "forscher-sparsam",
+   "op": "gd_schaerfe",
+   "args": {
+    "width": 16,
+    "lr": 0.4,
+    "steps": 1500,
+    "seed": 42
+   },
+   "ergebnis": {
+    "divergiert": false,
+    "verlauf": [
+     {
+      "schritt": 150,
+      "verlust": 0.010942106338866182,
+      "schaerfe": 2.173360399796684,
+      "lr_mal_schaerfe_halbe": 0.4346720799593368
+     },
+     {
+      "schritt": 300,
+      "verlust": 0.005935292044237773,
+      "schaerfe": 2.219115696401108,
+      "lr_mal_schaerfe_halbe": 0.4438231392802216
+     },
+     {
+      "schritt": 450,
+      "verlust": 0.0035967883741620465,
+      "schaerfe": 2.2485141351026368,
+      "lr_mal_schaerfe_halbe": 0.4497028270205274
+     },
+     {
+      "schritt": 600,
+      "verlust": 0.002376321758534209,
+      "schaerfe": 2.2674572325882396,
+      "lr_mal_schaerfe_halbe": 0.45349144651764794
+     },
+     {
+      "schritt": 750,
+      "verlust": 0.0016515554077995236,
+      "schaerfe": 2.2796337412735936,
+      "lr_mal_schaerfe_halbe": 0.45592674825471874
+     },
+     {
+      "schritt": 900,
+      "verlust": 0.0011993722315854786,
+      "schaerfe": 2.288655074406581,
+      "lr_mal_schaerfe_halbe": 0.4577310148813162
+     },
+     {
+      "schritt": 1050,
+      "verlust": 0.0009188878686849953,
+      "schaerfe": 2.2965278432757517,
+      "lr_mal_schaerfe_halbe": 0.4593055686551504
+     },
+     {
+      "schritt": 1200,
+      "verlust": 0.0007348634678901289,
+      "schaerfe": 2.3047402507666903,
+      "lr_mal_schaerfe_halbe": 0.46094805015333806
+     },
+     {
+      "schritt": 1350,
+      "verlust": 0.0006047145386095484,
+      "schaerfe": 2.3140477441481364,
+      "lr_mal_schaerfe_halbe": 0.4628095488296273
+     },
+     {
+      "schritt": 1500,
+      "verlust": 0.0005073847919353509,
+      "schaerfe": 2.324443211120863,
+      "lr_mal_schaerfe_halbe": 0.46488864222417264
+     }
+    ],
+    "zwei_durch_lr": 5.0
+   },
+   "sek": 0.23
+  },
+  {
+   "id": 3,
+   "wer": "forscher-sparsam",
+   "op": "gd_schaerfe",
+   "args": {
+    "width": 32,
+    "lr": 0.05,
+    "steps": 1000,
+    "seed": 42
+   },
+   "ergebnis": {
+    "divergiert": false,
+    "verlauf": [
+     {
+      "schritt": 100,
+      "verlust": 0.021399147189889212,
+      "schaerfe": 3.0885953770260457,
+      "lr_mal_schaerfe_halbe": 0.07721488442565115
+     },
+     {
+      "schritt": 200,
+      "verlust": 0.018282020209294828,
+      "schaerfe": 3.0702503592286576,
+      "lr_mal_schaerfe_halbe": 0.07675625898071645
+     },
+     {
+      "schritt": 300,
+      "verlust": 0.016246118737168982,
+      "schaerfe": 3.0613127168862344,
+      "lr_mal_schaerfe_halbe": 0.07653281792215587
+     },
+     {
+      "schritt": 400,
+      "verlust": 0.01477128950140687,
+      "schaerfe": 3.059528921193259,
+      "lr_mal_schaerfe_halbe": 0.07648822302983148
+     },
+     {
+      "schritt": 500,
+      "verlust": 0.013616007309351832,
+      "schaerfe": 3.0623856815880988,
+      "lr_mal_schaerfe_halbe": 0.07655964203970247
+     },
+     {
+      "schritt": 600,
+      "verlust": 0.012655255962341086,
+      "schaerfe": 3.0683163671451315,
+      "lr_mal_schaerfe_halbe": 0.0767079091786283
+     },
+     {
+      "schritt": 700,
+      "verlust": 0.011820836637133318,
+      "schaerfe": 3.048587081313484,
+      "lr_mal_schaerfe_halbe": 0.0762146770328371
+     },
+     {
+      "schritt": 800,
+      "verlust": 0.011074039875215538,
+      "schaerfe": 3.08616529524246,
+      "lr_mal_schaerfe_halbe": 0.0771541323810615
+     },
+     {
+      "schritt": 900,
+      "verlust": 0.010392227071464994,
+      "schaerfe": 3.0964186257067077,
+      "lr_mal_schaerfe_halbe": 0.0774104656426677
+     },
+     {
+      "schritt": 1000,
+      "verlust": 0.00976184576645613,
+      "schaerfe": 3.108943555101658,
+      "lr_mal_schaerfe_halbe": 0.07772358887754145
+     }
+    ],
+    "zwei_durch_lr": 40.0
+   },
+   "sek": 0.25
+  },
+  {
+   "id": 4,
+   "wer": "forscher-sparsam",
+   "op": "gd_schaerfe",
+   "args": {
+    "width": 32,
+    "lr": 0.15,
+    "steps": 1500,
+    "seed": 42
+   },
+   "ergebnis": {
+    "divergiert": false,
+    "verlauf": [
+     {
+      "schritt": 150,
+      "verlust": 0.014176310885152001,
+      "schaerfe": 3.05640902576884,
+      "lr_mal_schaerfe_halbe": 0.22923067693266297
+     },
+     {
+      "schritt": 300,
+      "verlust": 0.010412828144479564,
+      "schaerfe": 3.0928044374120502,
+      "lr_mal_schaerfe_halbe": 0.23196033280590375
+     },
+     {
+      "schritt": 450,
+      "verlust": 0.007885920022127464,
+      "schaerfe": 3.149723656238213,
+      "lr_mal_schaerfe_halbe": 0.23622927421786596
+     },
+     {
+      "schritt": 600,
+      "verlust": 0.006001890623827975,
+      "schaerfe": 3.2084016899390413,
+      "lr_mal_schaerfe_halbe": 0.24063012674542808
+     },
+     {
+      "schritt": 750,
+      "verlust": 0.0046112727410714425,
+      "schaerfe": 3.2585585164900213,
+      "lr_mal_schaerfe_halbe": 0.24439188873675158
+     },
+     {
+      "schritt": 900,
+      "verlust": 0.003591925065084256,
+      "schaerfe": 3.296405718061841,
+      "lr_mal_schaerfe_halbe": 0.24723042885463808
+     },
+     {
+      "schritt": 1050,
+      "verlust": 0.0028498326149365384,
+      "schaerfe": 3.3214324750194386,
+      "lr_mal_schaerfe_halbe": 0.24910743562645787
+     },
+     {
+      "schritt": 1200,
+      "verlust": 0.00231952911545842,
+      "schaerfe": 3.3357822717847787,
+      "lr_mal_schaerfe_halbe": 0.2501836703838584
+     },
+     {
+      "schritt": 1350,
+      "verlust": 0.001945881768507505,
+      "schaerfe": 3.3411461642486886,
+      "lr_mal_schaerfe_halbe": 0.25058596231865166
+     },
+     {
+      "schritt": 1500,
+      "verlust": 0.0016796688166500918,
+      "schaerfe": 3.3402226474296732,
+      "lr_mal_schaerfe_halbe": 0.25051669855722547
+     }
+    ],
+    "zwei_durch_lr": 13.333333333333334
+   },
+   "sek": 0.4
+  },
+  {
+   "id": 5,
+   "wer": "forscher-sparsam",
+   "op": "gd_schaerfe",
+   "args": {
+    "width": 8,
+    "lr": 0.1,
+    "steps": 1000,
+    "seed": 42
+   },
+   "ergebnis": {
+    "divergiert": false,
+    "verlauf": [
+     {
+      "schritt": 100,
+      "verlust": 0.01893944846597148,
+      "schaerfe": 1.1798562953735343,
+      "lr_mal_schaerfe_halbe": 0.05899281476867672
+     },
+     {
+      "schritt": 200,
+      "verlust": 0.01620475577864126,
+      "schaerfe": 1.1631931422727548,
+      "lr_mal_schaerfe_halbe": 0.05815965711363774
+     },
+     {
+      "schritt": 300,
+      "verlust": 0.014418257068922429,
+      "schaerfe": 1.1486363824529517,
+      "lr_mal_schaerfe_halbe": 0.05743181912264759
+     },
+     {
+      "schritt": 400,
+      "verlust": 0.013075607013141947,
+      "schaerfe": 1.1388821193595595,
+      "lr_mal_schaerfe_halbe": 0.05694410596797798
+     },
+     {
+      "schritt": 500,
+      "verlust": 0.011985999623897665,
+      "schaerfe": 1.1325435756006281,
+      "lr_mal_schaerfe_halbe": 0.05662717878003141
+     },
+     {
+      "schritt": 600,
+      "verlust": 0.011027054424701886,
+      "schaerfe": 1.1292656359411406,
+      "lr_mal_schaerfe_halbe": 0.056463281797057036
+     },
+     {
+      "schritt": 700,
+      "verlust": 0.010125595961663774,
+      "schaerfe": 1.1292157611193172,
+      "lr_mal_schaerfe_halbe": 0.05646078805596586
+     },
+     {
+      "schritt": 800,
+      "verlust": 0.009244146734623865,
+      "schaerfe": 1.1350241913908796,
+      "lr_mal_schaerfe_halbe": 0.056751209569543985
+     },
+     {
+      "schritt": 900,
+      "verlust": 0.008371067532293308,
+      "schaerfe": 1.140805894068537,
+      "lr_mal_schaerfe_halbe": 0.05704029470342686
+     },
+     {
+      "schritt": 1000,
+      "verlust": 0.0075118990897939655,
+      "schaerfe": 1.160393730873209,
+      "lr_mal_schaerfe_halbe": 0.05801968654366046
+     }
+    ],
+    "zwei_durch_lr": 20.0
+   },
+   "sek": 0.14
+  },
+  {
+   "id": 6,
+   "wer": "forscher-sparsam",
+   "op": "gd_schaerfe",
+   "args": {
+    "width": 16,
+    "lr": 0.25,
+    "steps": 2000,
+    "seed": 43
+   },
+   "ergebnis": {
+    "divergiert": false,
+    "verlauf": [
+     {
+      "schritt": 200,
+      "verlust": 0.008123878986641598,
+      "schaerfe": 1.7859579367694036,
+      "lr_mal_schaerfe_halbe": 0.22324474209617545
+     },
+     {
+      "schritt": 400,
+      "verlust": 0.0036544410854747245,
+      "schaerfe": 1.8720695134371461,
+      "lr_mal_schaerfe_halbe": 0.23400868917964326
+     },
+     {
+      "schritt": 600,
+      "verlust": 0.0021370250705250245,
+      "schaerfe": 1.9053733691840349,
+      "lr_mal_schaerfe_halbe": 0.23817167114800436
+     },
+     {
+      "schritt": 800,
+      "verlust": 0.0014838500966487156,
+      "schaerfe": 1.924800509928629,
+      "lr_mal_schaerfe_halbe": 0.24060006374107862
+     },
+     {
+      "schritt": 1000,
+      "verlust": 0.0011513035842621385,
+      "schaerfe": 1.9340827235982874,
+      "lr_mal_schaerfe_halbe": 0.24176034044978592
+     },
+     {
+      "schritt": 1200,
+      "verlust": 0.0009559794859171436,
+      "schaerfe": 1.9378254377244022,
+      "lr_mal_schaerfe_halbe": 0.24222817971555027
+     },
+     {
+      "schritt": 1400,
+      "verlust": 0.0008261777660380176,
+      "schaerfe": 1.9387962618771961,
+      "lr_mal_schaerfe_halbe": 0.24234953273464951
+     },
+     {
+      "schritt": 1600,
+      "verlust": 0.0007312862075621731,
+      "schaerfe": 1.9386279158328696,
+      "lr_mal_schaerfe_halbe": 0.2423284894791087
+     },
+     {
+      "schritt": 1800,
+      "verlust": 0.0006574284174553308,
+      "schaerfe": 1.938194509780139,
+      "lr_mal_schaerfe_halbe": 0.24227431372251737
+     },
+     {
+      "schritt": 2000,
+      "verlust": 0.0005978306587040167,
+      "schaerfe": 1.9378903212050487,
+      "lr_mal_schaerfe_halbe": 0.24223629015063108
+     }
+    ],
+    "zwei_durch_lr": 8.0
+   },
+   "sek": 0.27
+  },
+  {
+   "id": 7,
+   "wer": "forscher-sparsam",
+   "op": "gd_schaerfe",
+   "args": {
+    "width": 16,
+    "lr": 0.8,
+    "steps": 1000,
+    "seed": 42
+   },
+   "ergebnis": {
+    "divergiert": false,
+    "verlauf": [
+     {
+      "schritt": 100,
+      "verlust": 0.009719945000735116,
+      "schaerfe": 1.9396942206909746,
+      "lr_mal_schaerfe_halbe": 0.7758776882763899
+     },
+     {
+      "schritt": 200,
+      "verlust": 0.0050854508821358314,
+      "schaerfe": 2.103560043272254,
+      "lr_mal_schaerfe_halbe": 0.8414240173089017
+     },
+     {
+      "schritt": 300,
+      "verlust": 0.002859685519467956,
+      "schaerfe": 2.208718890117182,
+      "lr_mal_schaerfe_halbe": 0.8834875560468728
+     },
+     {
+      "schritt": 400,
+      "verlust": 0.0019679915534991325,
+      "schaerfe": 2.2500222897169166,
+      "lr_mal_schaerfe_halbe": 0.9000089158867667
+     },
+     {
+      "schritt": 500,
+      "verlust": 0.0013865334788414191,
+      "schaerfe": 2.2748949975596715,
+      "lr_mal_schaerfe_halbe": 0.9099579990238686
+     },
+     {
+      "schritt": 600,
+      "verlust": 0.0009763108281462515,
+      "schaerfe": 2.300980130019656,
+      "lr_mal_schaerfe_halbe": 0.9203920520078624
+     },
+     {
+      "schritt": 700,
+      "verlust": 0.0007075456722581414,
+      "schaerfe": 2.3290373530570707,
+      "lr_mal_schaerfe_halbe": 0.9316149412228283
+     },
+     {
+      "schritt": 800,
+      "verlust": 0.0005357507530323658,
+      "schaerfe": 2.357119526607586,
+      "lr_mal_schaerfe_halbe": 0.9428478106430345
+     },
+     {
+      "schritt": 900,
+      "verlust": 0.00042455533535328547,
+      "schaerfe": 2.3834635388624914,
+      "lr_mal_schaerfe_halbe": 0.9533854155449966
+     },
+     {
+      "schritt": 1000,
+      "verlust": 0.0003506958340081908,
+      "schaerfe": 2.4070291088529285,
+      "lr_mal_schaerfe_halbe": 0.9628116435411714
+     }
+    ],
+    "zwei_durch_lr": 2.5
+   },
+   "sek": 0.17
+  },
+  {
+   "id": 8,
+   "wer": "forscher-sparsam",
+   "op": "gd_schaerfe",
+   "args": {
+    "width": 16,
+    "lr": 1.0,
+    "steps": 2000,
+    "seed": 42
+   },
+   "ergebnis": {
+    "divergiert": false,
+    "verlauf": [
+     {
+      "schritt": 200,
+      "verlust": 0.004467215608282746,
+      "schaerfe": 1.8333851465845354,
+      "lr_mal_schaerfe_halbe": 0.9166925732922677
+     },
+     {
+      "schritt": 400,
+      "verlust": 0.0014023189974448514,
+      "schaerfe": 1.9827859543019992,
+      "lr_mal_schaerfe_halbe": 0.9913929771509996
+     },
+     {
+      "schritt": 600,
+      "verlust": 0.0005113541695171257,
+      "schaerfe": 2.1040725048449573,
+      "lr_mal_schaerfe_halbe": 1.0520362524224787
+     },
+     {
+      "schritt": 800,
+      "verlust": 0.0007578557154262602,
+      "schaerfe": 1.8548007674363114,
+      "lr_mal_schaerfe_halbe": 0.9274003837181557
+     },
+     {
+      "schritt": 1000,
+      "verlust": 0.00021299739347609744,
+      "schaerfe": 1.9536014879309274,
+      "lr_mal_schaerfe_halbe": 0.9768007439654637
+     },
+     {
+      "schritt": 1200,
+      "verlust": 0.00017120534652756588,
+      "schaerfe": 2.0033097403205726,
+      "lr_mal_schaerfe_halbe": 1.0016548701602863
+     },
+     {
+      "schritt": 1400,
+      "verlust": 0.00014679196277189222,
+      "schaerfe": 2.029341192639029,
+      "lr_mal_schaerfe_halbe": 1.0146705963195144
+     },
+     {
+      "schritt": 1600,
+      "verlust": 0.0001301578643993286,
+      "schaerfe": 2.0559543466725283,
+      "lr_mal_schaerfe_halbe": 1.0279771733362641
+     },
+     {
+      "schritt": 1800,
+      "verlust": 0.00012882141136188812,
+      "schaerfe": 1.9557837710143646,
+      "lr_mal_schaerfe_halbe": 0.9778918855071823
+     },
+     {
+      "schritt": 2000,
+      "verlust": 0.00011461083162497474,
+      "schaerfe": 1.9949263964046826,
+      "lr_mal_schaerfe_halbe": 0.9974631982023413
+     }
+    ],
+    "zwei_durch_lr": 2.0
+   },
+   "sek": 0.3
+  },
+  {
+   "id": 9,
+   "wer": "forscher-sparsam",
+   "op": "gd_schaerfe",
+   "args": {
+    "width": 16,
+    "lr": 1.2,
+    "steps": 2000,
+    "seed": 42
+   },
+   "ergebnis": {
+    "divergiert": false,
+    "verlauf": [
+     {
+      "schritt": 200,
+      "verlust": 0.004799394211461925,
+      "schaerfe": 1.6811726139565095,
+      "lr_mal_schaerfe_halbe": 1.0087035683739056
+     },
+     {
+      "schritt": 400,
+      "verlust": 0.0031015642204567,
+      "schaerfe": 1.58798120204322,
+      "lr_mal_schaerfe_halbe": 0.952788721225932
+     },
+     {
+      "schritt": 600,
+      "verlust": 0.0005896138426850987,
+      "schaerfe": 1.6768627080909084,
+      "lr_mal_schaerfe_halbe": 1.006117624854545
+     },
+     {
+      "schritt": 800,
+      "verlust": 0.0017595404482983895,
+      "schaerfe": 1.629653746072972,
+      "lr_mal_schaerfe_halbe": 0.9777922476437833
+     },
+     {
+      "schritt": 1000,
+      "verlust": 0.0005470964789604637,
+      "schaerfe": 1.6850594756915434,
+      "lr_mal_schaerfe_halbe": 1.011035685414926
+     },
+     {
+      "schritt": 1200,
+      "verlust": 0.0008146271957837758,
+      "schaerfe": 1.6602058324251134,
+      "lr_mal_schaerfe_halbe": 0.9961234994550681
+     },
+     {
+      "schritt": 1400,
+      "verlust": 0.00034499717509972535,
+      "schaerfe": 1.6717943947996585,
+      "lr_mal_schaerfe_halbe": 1.003076636879795
+     },
+     {
+      "schritt": 1600,
+      "verlust": 0.0005901525187543305,
+      "schaerfe": 1.6769636811408044,
+      "lr_mal_schaerfe_halbe": 1.0061782086844826
+     },
+     {
+      "schritt": 1800,
+      "verlust": 0.00042666672855095635,
+      "schaerfe": 1.6655602487464376,
+      "lr_mal_schaerfe_halbe": 0.9993361492478625
+     },
+     {
+      "schritt": 2000,
+      "verlust": 0.00045066844852838754,
+      "schaerfe": 1.669123516604981,
+      "lr_mal_schaerfe_halbe": 1.0014741099629885
+     }
+    ],
+    "zwei_durch_lr": 1.6666666666666667
+   },
+   "sek": 0.28
+  },
+  {
+   "id": 10,
+   "wer": "forscher-sparsam",
+   "op": "gd_schaerfe",
+   "args": {
+    "width": 32,
+    "lr": 1.0,
+    "steps": 2000,
+    "seed": 42
+   },
+   "ergebnis": {
+    "divergiert": false,
+    "verlauf": [
+     {
+      "schritt": 200,
+      "verlust": 0.004012831952439478,
+      "schaerfe": 2.020597789354765,
+      "lr_mal_schaerfe_halbe": 1.0102988946773825
+     },
+     {
+      "schritt": 400,
+      "verlust": 0.001607181257290064,
+      "schaerfe": 2.0298115428845387,
+      "lr_mal_schaerfe_halbe": 1.0149057714422693
+     },
+     {
+      "schritt": 600,
+      "verlust": 0.0005328756026202332,
+      "schaerfe": 2.011055261470807,
+      "lr_mal_schaerfe_halbe": 1.0055276307354035
+     },
+     {
+      "schritt": 800,
+      "verlust": 0.0006063747364501789,
+      "schaerfe": 2.024790194201036,
+      "lr_mal_schaerfe_halbe": 1.012395097100518
+     },
+     {
+      "schritt": 1000,
+      "verlust": 0.0003895139269674215,
+      "schaerfe": 2.0106587462736814,
+      "lr_mal_schaerfe_halbe": 1.0053293731368407
+     },
+     {
+      "schritt": 1200,
+      "verlust": 0.00021738584668441445,
+      "schaerfe": 1.9956084157481933,
+      "lr_mal_schaerfe_halbe": 0.9978042078740966
+     },
+     {
+      "schritt": 1400,
+      "verlust": 0.0002976645416058743,
+      "schaerfe": 1.9963330101374608,
+      "lr_mal_schaerfe_halbe": 0.9981665050687304
+     },
+     {
+      "schritt": 1600,
+      "verlust": 0.0002583063270358433,
+      "schaerfe": 2.0060677242829037,
+      "lr_mal_schaerfe_halbe": 1.0030338621414518
+     },
+     {
+      "schritt": 1800,
+      "verlust": 0.00020002401594994355,
+      "schaerfe": 2.006047744163011,
+      "lr_mal_schaerfe_halbe": 1.0030238720815055
+     },
+     {
+      "schritt": 2000,
+      "verlust": 0.0003332403398733426,
+      "schaerfe": 2.0186212684491562,
+      "lr_mal_schaerfe_halbe": 1.0093106342245781
+     }
+    ],
+    "zwei_durch_lr": 2.0
+   },
+   "sek": 0.42
+  },
+  {
+   "id": 11,
+   "wer": "forscher-sparsam",
+   "op": "gd_schaerfe",
+   "args": {
+    "width": 16,
+    "lr": 0.6,
+    "steps": 2000,
+    "seed": 42
+   },
+   "ergebnis": {
+    "divergiert": false,
+    "verlauf": [
+     {
+      "schritt": 200,
+      "verlust": 0.006507743253390483,
+      "schaerfe": 2.1593061053878975,
+      "lr_mal_schaerfe_halbe": 0.6477918316163692
+     },
+     {
+      "schritt": 400,
+      "verlust": 0.00293369842003452,
+      "schaerfe": 2.2614793843224152,
+      "lr_mal_schaerfe_halbe": 0.6784438152967246
+     },
+     {
+      "schritt": 600,
+      "verlust": 0.0016981037510549507,
+      "schaerfe": 2.3015488183762667,
+      "lr_mal_schaerfe_halbe": 0.69046464551288
+     },
+     {
+      "schritt": 800,
+      "verlust": 0.0009942470916963044,
+      "schaerfe": 2.34802616239433,
+      "lr_mal_schaerfe_halbe": 0.704407848718299
+     },
+     {
+      "schritt": 1000,
+      "verlust": 0.0006274805767479805,
+      "schaerfe": 2.3981860570268196,
+      "lr_mal_schaerfe_halbe": 0.7194558171080458
+     },
+     {
+      "schritt": 1200,
+      "verlust": 0.00043772241358502363,
+      "schaerfe": 2.4430676718072757,
+      "lr_mal_schaerfe_halbe": 0.7329203015421827
+     },
+     {
+      "schritt": 1400,
+      "verlust": 0.0003324754437936682,
+      "schaerfe": 2.4789316630484937,
+      "lr_mal_schaerfe_halbe": 0.7436794989145481
+     },
+     {
+      "schritt": 1600,
+      "verlust": 0.0002696880214402403,
+      "schaerfe": 2.506356392735393,
+      "lr_mal_schaerfe_halbe": 0.7519069178206178
+     },
+     {
+      "schritt": 1800,
+      "verlust": 0.00022928279676504438,
+      "schaerfe": 2.5276045481228517,
+      "lr_mal_schaerfe_halbe": 0.7582813644368555
+     },
+     {
+      "schritt": 2000,
+      "verlust": 0.00020129875996410855,
+      "schaerfe": 2.544799207610725,
+      "lr_mal_schaerfe_halbe": 0.7634397622832174
+     }
+    ],
+    "zwei_durch_lr": 3.3333333333333335
+   },
+   "sek": 0.29
+  },
+  {
+   "id": 12,
+   "wer": "forscher-sparsam",
+   "op": "gd_schaerfe",
+   "args": {
+    "width": 8,
+    "lr": 1.0,
+    "steps": 2000,
+    "seed": 42
+   },
+   "ergebnis": {
+    "divergiert": false,
+    "verlauf": [
+     {
+      "schritt": 200,
+      "verlust": 0.001998327076760499,
+      "schaerfe": 1.3110264653940875,
+      "lr_mal_schaerfe_halbe": 0.6555132326970438
+     },
+     {
+      "schritt": 400,
+      "verlust": 0.0003028850309340148,
+      "schaerfe": 1.3985922424107016,
+      "lr_mal_schaerfe_halbe": 0.6992961212053508
+     },
+     {
+      "schritt": 600,
+      "verlust": 0.0001763139212155619,
+      "schaerfe": 1.4436721111037798,
+      "lr_mal_schaerfe_halbe": 0.7218360555518899
+     },
+     {
+      "schritt": 800,
+      "verlust": 0.00014634507801056056,
+      "schaerfe": 1.4865945309481912,
+      "lr_mal_schaerfe_halbe": 0.7432972654740956
+     },
+     {
+      "schritt": 1000,
+      "verlust": 0.00013268671875095754,
+      "schaerfe": 1.5272420493187548,
+      "lr_mal_schaerfe_halbe": 0.7636210246593774
+     },
+     {
+      "schritt": 1200,
+      "verlust": 0.00012363138650860368,
+      "schaerfe": 1.5668078557265255,
+      "lr_mal_schaerfe_halbe": 0.7834039278632627
+     },
+     {
+      "schritt": 1400,
+      "verlust": 0.00011682927343610643,
+      "schaerfe": 1.6042535045925492,
+      "lr_mal_schaerfe_halbe": 0.8021267522962746
+     },
+     {
+      "schritt": 1600,
+      "verlust": 0.00011149674856700458,
+      "schaerfe": 1.639836532906536,
+      "lr_mal_schaerfe_halbe": 0.819918266453268
+     },
+     {
+      "schritt": 1800,
+      "verlust": 0.00010723249883189618,
+      "schaerfe": 1.6734970297399634,
+      "lr_mal_schaerfe_halbe": 0.8367485148699817
+     },
+     {
+      "schritt": 2000,
+      "verlust": 0.0001037792139252225,
+      "schaerfe": 1.705174313514367,
+      "lr_mal_schaerfe_halbe": 0.8525871567571836
+     }
+    ],
+    "zwei_durch_lr": 2.0
+   },
+   "sek": 0.23
+  },
+  {
+   "id": 13,
+   "wer": "forscher-sparsam",
+   "op": "gd_schaerfe",
+   "args": {
+    "width": 16,
+    "lr": 1.5,
+    "steps": 1500,
+    "seed": 42
+   },
+   "ergebnis": {
+    "divergiert": true,
+    "verlauf": [],
+    "zwei_durch_lr": 1.3333333333333333
+   },
+   "sek": 0.0
+  }
+ ],
+ "sek": 94.4
+}

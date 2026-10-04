@@ -680,7 +680,7 @@
    "neuheit": 0.4,
    "machbarkeit": 0.8,
    "id": "F7",
-   "status": "offen"
+   "status": "beantwortet"
   },
   {
    "frage": "Überträgt sich die optimale Lernrate unter μP über die Breite (Adam und SGD), während sie sich unter SP verschiebt? Wie groß ist die Verschiebung unter SP pro Verdopplung der Breite?",
@@ -967,6 +967,24 @@
    "id": "F39",
    "status": "zurückgestellt",
    "aus_runde": 15
+  },
+  {
+   "frage": "Wie hängt die EoS-Schwelle von der Breite ab? Bei Breite 16 liegt lr*lambda_max/2 bei lr=1.0 nahe 1 und bei lr=0.8 deutlich darunter. Ich prüfe mit gd_schaerfe für Breiten 8, 32 und 64 jeweils eine Lernrate im Raster von 0.25 bis 2.0 und bestimme, ab welcher Lernrate lr*lambda_max/2 am Ende in [0.85, 1.25] liegt und der Verlust nicht divergiert. Anschließend lasse ich das Ergebnis mit eos-Prüfungen (regime eos bzw. stabil) bestätigen.",
+   "begruendung": "Das Ergebnis gilt bisher nur für Breite 16. Zudem stützt es sich auf wenige Einzelwerte (lr=0.8, 1.0, 1.5), und die Schwelle 'etwa 1.0' ist nur grob eingegrenzt. Die Breitenabhängigkeit der Schärfe zeigt, ob die Schwelle verallgemeinert, und ein feineres Raster liefert eine prüfbare Schwelle statt einer Schätzung. Auch die Konfidenz von 0,75 würde so besser fundiert.",
+   "neuheit": 0.6,
+   "machbarkeit": 0.9,
+   "id": "F40",
+   "status": "zurückgestellt",
+   "aus_runde": 16
+  },
+  {
+   "frage": "Gegenprobe zur Behauptung 'Verlust konvergiert trotzdem': Ich vergleiche bei lr im Bereich 1.0 bis 1.3 (Breite 16, 4000 Schritte, 5 Seeds) den Verlauf von Verlust und lambda_max. Gefragt ist, ob der Verlust nur im Mittel über 10 Messpunkte fällt oder ob er auf kurzen Zeitskalen nicht-monoton ist, wie es für EoS typisch ist. Außerdem prüfe ich, ob lr*lambda_max/2 ab einer Lernrate knapp unter der Divergenzgrenze (zwischen 1.0 und 1.5, etwa 1.2 und 1.3) dauerhaft über 1 bleibt oder das Netz instabil wird.",
+   "begruendung": "Die Begründung nennt einen 'monotonen' Abfall anhand von nur vier Verlustwerten, obwohl EoS-Dynamik meist nicht-monotonen Verlust zeigt. Die Grenze zwischen EoS und Divergenz (1.0 bis 1.5) ist völlig unbestimmt. Dieses Experiment prüft die Konvergenzaussage unter härteren Bedingungen und lotet den Gültigkeitsbereich der Schwelle aus.",
+   "neuheit": 0.7,
+   "machbarkeit": 0.85,
+   "id": "F41",
+   "status": "zurückgestellt",
+   "aus_runde": 16
   }
  ],
  "claims": [
@@ -1867,6 +1885,49 @@
     }
    ],
    "runde": 15
+  },
+  {
+   "id": "optscale-R16",
+   "frage": "Ab welcher Lernrate operiert Voll-Batch-GD auf dem tanh-Netz an der Edge of Stability (lr*lambda_max/2 nahe 1) statt im stabilen Regime, und konvergiert der Verlust dort trotzdem?",
+   "text": "Voll-Batch-GD (Breite 16, lr = 1.0, 2000 Schritte): lr*lambda_max/2 liegt am Ende in [0.85, 1.25] (Edge of Stability) in mindestens 4 von 5 Seeds (numerisch, voller Hesse-Eigenwert).",
+   "interpretation_ungeprueft": "Etwa lr = 1.0 (bei width=16); ja, Verlust konvergiert trotzdem",
+   "pruefung": {
+    "typ": "eos",
+    "width": 16,
+    "lr": 1.0,
+    "steps": 2000,
+    "regime": "eos"
+   },
+   "grund": "Prüfer: voller Hesse-Eigenwert (Finite Differenzen) bei 80 % und 100 % der Schritte, 5 frische Seeds; lr*lambda_max/2 = [0.958/0.959, 1.016/1.004, 1.013/1.012, 1.006/1.006, 1.152/1.136]; Kriterium eos: in [0.85, 1.25] an beiden Punkten in >= 4/5 Seeds, erfüllt in 5/5",
+   "level": "observed",
+   "status": "bestätigt",
+   "red_team": [
+    {
+     "pruefung": {
+      "typ": "eos",
+      "width": 16,
+      "lr": 1.0,
+      "steps": 2000,
+      "regime": "stabil"
+     },
+     "idee": "Direkter Gegenpol: Die Antwort behauptet lr=1.0 bei width=16 sei EOS. Der Prüfer nutzt aber 5 frische Seeds und den vollen Hesse-Eigenwert. Die Schärfe hängt von Initialisierung und Daten ab. Zudem kann der Verlust nach 2000 Schritten sehr klein sein, die Schärfe dann abfallen (Progressive Sharpening kehrt sich um bzw. lambda_max sinkt), sodass lr*lambda_max/2 am Ende deutlich unter 1 liegt. Die Begründung stützt sich nur auf einen einzelnen Lauf (E8) mit Schwankungen um 1.0 und auf wenige Zwischenwerte. Das garantiert keine Lage nahe 1 am Ende über mehrere Seeds.",
+     "bestanden": false,
+     "grund": "Prüfer: voller Hesse-Eigenwert (Finite Differenzen) bei 80 % und 100 % der Schritte, 5 frische Seeds; lr*lambda_max/2 = [0.958/0.959, 1.016/1.004, 1.013/1.012, 1.006/1.006, 1.152/1.136]; Kriterium sta"
+    },
+    {
+     "pruefung": {
+      "typ": "eos",
+      "width": 16,
+      "lr": 0.5,
+      "steps": 4000,
+      "regime": "eos"
+     },
+     "idee": "Die behauptete Schwelle 'etwa lr=1.0' ist nicht eindeutig. Bei kleinerer Lernrate kann die Schärfe über sehr viele Schritte (4000) durch Progressive Sharpening bis 2/lr = 4 ansteigen. Dann erreicht lr*lambda_max/2 am Ende ebenfalls nahe 1, und das Netz arbeitet an der Edge of Stability. EOS tritt also nicht erst ab lr≈1.0 auf, und die Schwelle hängt von Trainingsdauer und Verlustniveau ab. Besteht diese Prüfung, ist die Aussage 'ab etwa lr=1.0' falsch.",
+     "bestanden": false,
+     "grund": "Prüfer: voller Hesse-Eigenwert (Finite Differenzen) bei 80 % und 100 % der Schritte, 5 frische Seeds; lr*lambda_max/2 = [0.595/0.607, 0.752/0.763, 0.695/0.699, 0.639/0.645, 0.886/0.896]; Kriterium eos"
+    }
+   ],
+   "runde": 16
   }
  ],
  "widerlegt": [],
@@ -2517,7 +2578,39 @@
     }
    ],
    "sek": 491.7
+  },
+  {
+   "runde": 16,
+   "frage": "F7",
+   "status": "beantwortet",
+   "red_team": [
+    {
+     "pruefung": {
+      "typ": "eos",
+      "width": 16,
+      "lr": 1.0,
+      "steps": 2000,
+      "regime": "stabil"
+     },
+     "idee": "Direkter Gegenpol: Die Antwort behauptet lr=1.0 bei width=16 sei EOS. Der Prüfer nutzt aber 5 frische Seeds und den vollen Hesse-Eigenwert. Die Schärfe hängt von Initialisierung und Daten ab. Zudem kann der Verlust nach 2000 Schritten sehr klein sein, die Schärfe dann abfallen (Progressive Sharpening kehrt sich um bzw. lambda_max sinkt), sodass lr*lambda_max/2 am Ende deutlich unter 1 liegt. Die Begründung stützt sich nur auf einen einzelnen Lauf (E8) mit Schwankungen um 1.0 und auf wenige Zwischenwerte. Das garantiert keine Lage nahe 1 am Ende über mehrere Seeds.",
+     "bestanden": false,
+     "grund": "Prüfer: voller Hesse-Eigenwert (Finite Differenzen) bei 80 % und 100 % der Schritte, 5 frische Seeds; lr*lambda_max/2 = [0.958/0.959, 1.016/1.004, 1.013/1.012, 1.006/1.006, 1.152/1.136]; Kriterium sta"
+    },
+    {
+     "pruefung": {
+      "typ": "eos",
+      "width": 16,
+      "lr": 0.5,
+      "steps": 4000,
+      "regime": "eos"
+     },
+     "idee": "Die behauptete Schwelle 'etwa lr=1.0' ist nicht eindeutig. Bei kleinerer Lernrate kann die Schärfe über sehr viele Schritte (4000) durch Progressive Sharpening bis 2/lr = 4 ansteigen. Dann erreicht lr*lambda_max/2 am Ende ebenfalls nahe 1, und das Netz arbeitet an der Edge of Stability. EOS tritt also nicht erst ab lr≈1.0 auf, und die Schwelle hängt von Trainingsdauer und Verlustniveau ab. Besteht diese Prüfung, ist die Aussage 'ab etwa lr=1.0' falsch.",
+     "bestanden": false,
+     "grund": "Prüfer: voller Hesse-Eigenwert (Finite Differenzen) bei 80 % und 100 % der Schritte, 5 frische Seeds; lr*lambda_max/2 = [0.595/0.607, 0.752/0.763, 0.695/0.699, 0.639/0.645, 0.886/0.896]; Kriterium eos"
+    }
+   ],
+   "sek": 94.4
   }
  ],
- "kosten_usd": 7.886671
+ "kosten_usd": 8.124841
 }

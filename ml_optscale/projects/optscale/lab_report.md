@@ -39,3 +39,7 @@
 - 2026-10-04 03:00:47 Runde 15: Senken Lernraten-Schedules (cosine, linear, wsd) den Endverlust gegenüber konstanter Lernrate bei gleichem Tuning-Aufwand, auf verrauschten Quadratiken und im nicht-konvexen MLP?
 - 2026-10-04 03:09:55   geprüft (statistical): Teilweise ja – Cosine hilft bei rauschigen Quadratiken, nicht bei rauschfreien oder im MLP. | Red-Team: 2 Gegenprüfungen, 1 bestanden
 - 2026-10-04 03:10:06 Fertig: 15 geprüfte Aussagen, 0 negative Ergebnisse, Kosten 7.89 USD
+- 2026-10-04 03:12:15 Selbsttest des Prüfers: bestanden
+- 2026-10-04 03:12:33 Runde 16: Ab welcher Lernrate operiert Voll-Batch-GD auf dem tanh-Netz an der Edge of Stability (lr*lambda_max/2 nahe 1) statt im stabilen Regime, und konvergiert der Verlust dort trotzdem?
+- 2026-10-04 03:14:21   geprüft (observed): Etwa lr = 1.0 (bei width=16); ja, Verlust konvergiert trotzdem | Red-Team: 2 Gegenprüfungen, 0 bestanden
+- 2026-10-04 03:14:33 Fertig: 16 geprüfte Aussagen, 0 negative Ergebnisse, Kosten 8.12 USD
