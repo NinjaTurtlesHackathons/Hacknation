@@ -28,7 +28,7 @@
    "machbarkeit": 0.5,
    "lueckenkarte": "L2",
    "id": "F3",
-   "status": "offen",
+   "status": "ungeprüft",
    "quelle": "lueckenkarte",
    "faden_id": "F3"
   },
@@ -73,6 +73,17 @@
    "status": "beantwortet",
    "quelle": "lueckenkarte",
    "faden_id": "F7"
+  },
+  {
+   "id": "F8",
+   "frage": "Prüfe die Hypothese für Gewicht 11: 19008*C(5,5,1) + 38016*C(5,4,2) + 19008*C(5,3,3) + 28512*C(4,4,3) - 8640*E(11) - zeta(11) = 0 (mgf_relation), und bestimme den Relationsraum der Basis C(5,5,1), C(5,4,2), C(5,3,3), C(4,4,3), E(11), zeta(11) (mgf_relationsraum).",
+   "neuheit": 0.7,
+   "machbarkeit": 0.8,
+   "status": "beantwortet",
+   "quelle": "lueckenkarte",
+   "lueckenkarte": "L2",
+   "hypothese_herkunft": "manuelle Exploration (PSLQ, 40 Stellen, Basis nach dem Muster der Gewichte 5-9), nicht geprüft",
+   "faden_id": "F8"
   }
  ],
  "claims": [
@@ -1797,6 +1808,197 @@
     "fehlsuchen": 2,
     "abgleich": "3 gleichwertige Prüfungen; 1 mit Literaturtreffer, 2 ohne"
    }
+  },
+  {
+   "id": "modular-R7a",
+   "frage": "Prüfe die Hypothese für Gewicht 11: 19008*C(5,5,1) + 38016*C(5,4,2) + 19008*C(5,3,3) + 28512*C(4,4,3) - 8640*E(11) - zeta(11) = 0 (mgf_relation), und bestimme den Relationsraum der Basis C(5,5,1), C(5,4,2), C(5,3,3), C(4,4,3), E(11), zeta(11) (mgf_relationsraum).",
+   "text": "Numerisch (32 Stellen, 4 Prüfer-Punkte, rel. Residuum <= 1e-24): 19008·C(5,5,1) + 38016·C(5,4,2) + 19008·C(5,3,3) + 28512·C(4,4,3) - 8640·E(11) - zeta(11) = 0 als Funktionen von tau.",
+   "interpretation_ungeprueft": "Hypothese bestätigt: 19008*C(5,5,1) + 38016*C(5,4,2) + 19008*C(5,3,3) + 28512*C(4,4,3) - 8640*E(11) - zeta(11) = 0. Der Relationsraum der sechs Basisfunktionen hat Dimension 1.",
+   "pruefung": {
+    "typ": "mgf_relation",
+    "terme": [
+     [
+      19008,
+      "C(5,5,1)"
+     ],
+     [
+      38016,
+      "C(5,4,2)"
+     ],
+     [
+      19008,
+      "C(5,3,3)"
+     ],
+     [
+      28512,
+      "C(4,4,3)"
+     ],
+     [
+      -8640,
+      "E(11)"
+     ],
+     [
+      -1,
+      "zeta(11)"
+     ]
+    ]
+   },
+   "grund": "exakter Leitkoeffizient von y^11: 0; numerisch an 4 Prüfer-Punkten (Seed 4711, 32 Stellen): max. relatives Residuum 1.21e-43 (Schranke 1e-24)",
+   "level": "observed",
+   "status": "bestätigt",
+   "red_team": [
+    {
+     "pruefung": {
+      "typ": "mgf_relationsraum",
+      "basis": [
+       "C(5,5,1)",
+       "C(5,4,2)",
+       "C(5,3,3)",
+       "C(4,4,3)",
+       "E(11)",
+       "zeta(11)"
+      ],
+      "dim": 0,
+      "relationen": []
+     },
+     "idee": "Gegenteil der Behauptung: Gibt es zwischen den sechs Funktionen gar keine rationale lineare Relation, ist der Relationsraum 0-dimensional. Die Prüfung besteht nur, wenn die Hypothese falsch ist und die PSLQ-Relation ein numerisches Artefakt war. Ist die Relation echt, scheitert sie an den Singulärwerten.",
+     "bestanden": false,
+     "ergebnis": "nicht_bestanden",
+     "grund": "0 Relationen einzeln bestätigt; Singulärwerte der normierten 9x6-Wertematrix (Seed 4712): 1 < 1e-24, 5 > 1e-8, kleinster großer 4.41e-6",
+     "widerspruch": false
+    },
+    {
+     "pruefung": {
+      "typ": "mgf_relation",
+      "terme": [
+       [
+        19008,
+        "C(5,5,1)"
+       ],
+       [
+        38016,
+        "C(5,4,2)"
+       ],
+       [
+        19008,
+        "C(5,3,3)"
+       ],
+       [
+        28512,
+        "C(4,4,3)"
+       ],
+       [
+        -8640,
+        "E(11)"
+       ],
+       [
+        1,
+        "zeta(11)"
+       ]
+      ]
+     },
+     "idee": "Das Vorzeichen des zeta(11)-Terms ist umgedreht. Das besteht nur, wenn zeta(11) in der Relation effektiv nicht vorkommt oder die behauptete Relation falsch ist. Ist die Hypothese richtig, ist die Summe ein von null verschiedenes Vielfaches von zeta(11), und der Leitkoeffizient-Test scheitert.",
+     "bestanden": false,
+     "ergebnis": "nicht_bestanden",
+     "grund": "exakter Leitkoeffizient von y^11: 0; numerisch an 4 Prüfer-Punkten (Seed 4711, 32 Stellen): max. relatives Residuum 5.71e-01 (Schranke 1e-24)",
+     "widerspruch": false
+    }
+   ],
+   "runde": 7,
+   "relevanz": "hauptresultat",
+   "neuheit": {
+    "suchanfragen": [
+     "Modular graph functions string theory",
+     "Two-loop string amplitudes modular forms",
+     "Dihedral graph Eisenstein series identities",
+     "Non-holomorphic modular functions amplitudes",
+     "String scattering amplitude Eisenstein relations"
+    ],
+    "treffer": {
+     "Modular graph functions string theory": 26,
+     "Two-loop string amplitudes modular forms": 25,
+     "Dihedral graph Eisenstein series identities": 2,
+     "Non-holomorphic modular functions amplitudes": 22,
+     "String scattering amplitude Eisenstein relations": 14
+    },
+    "quellen_geprueft": 85,
+    "datum": "2026-10-04",
+    "status": "nicht_gefunden"
+   }
+  },
+  {
+   "id": "modular-R7b",
+   "frage": "Prüfe die Hypothese für Gewicht 11: 19008*C(5,5,1) + 38016*C(5,4,2) + 19008*C(5,3,3) + 28512*C(4,4,3) - 8640*E(11) - zeta(11) = 0 (mgf_relation), und bestimme den Relationsraum der Basis C(5,5,1), C(5,4,2), C(5,3,3), C(4,4,3), E(11), zeta(11) (mgf_relationsraum).",
+   "text": "Numerisch bilden die rationalen linearen Relationen zwischen C(5,5,1), C(5,4,2), C(5,3,3), C(4,4,3), E(11), zeta(11) (Gewicht 11) einen Raum der Dimension genau 1, aufgespannt von der Identität 19008·C(5,5,1) + 38016·C(5,4,2) + 19008·C(5,3,3) + 28512·C(4,4,3) - 8640·E(11) - zeta(11) = 0 (jede Relation auf 1e-24 an Prüfer-Punkten geprüft, exakter Laurent-Leitkoeffizient; Vollständigkeit über Singulärwertabstand).",
+   "interpretation_ungeprueft": "Hypothese bestätigt: 19008*C(5,5,1) + 38016*C(5,4,2) + 19008*C(5,3,3) + 28512*C(4,4,3) - 8640*E(11) - zeta(11) = 0. Der Relationsraum der sechs Basisfunktionen hat Dimension 1.",
+   "pruefung": {
+    "typ": "mgf_relationsraum",
+    "basis": [
+     "C(5,5,1)",
+     "C(5,4,2)",
+     "C(5,3,3)",
+     "C(4,4,3)",
+     "E(11)",
+     "zeta(11)"
+    ],
+    "dim": 1,
+    "relationen": [
+     [
+      19008,
+      38016,
+      19008,
+      28512,
+      -8640,
+      -1
+     ]
+    ]
+   },
+   "grund": "1 Relationen einzeln bestätigt; Singulärwerte der normierten 9x6-Wertematrix (Seed 4712): 1 < 1e-24, 5 > 1e-8, kleinster großer 4.41e-6",
+   "level": "observed",
+   "status": "bestätigt",
+   "red_team": [
+    {
+     "pruefung": {
+      "typ": "mgf_relationsraum",
+      "basis": [
+       "C(5,5,1)",
+       "C(5,4,2)",
+       "C(5,3,3)",
+       "C(4,4,3)",
+       "E(11)",
+       "zeta(11)"
+      ],
+      "dim": 0,
+      "relationen": []
+     },
+     "idee": "Gegenteil der Behauptung: Falls die vorgeschlagene Relation in Wahrheit nicht gilt, etwa weil der PSLQ-Fund ein Artefakt der begrenzten Genauigkeit ist oder die Leitkoeffizienten-Bedingung in y = pi*tau2 scheitert, dann gibt es zwischen den sechs Funktionen keine rationale Relation, und der Relationsraum hat Dimension 0. Diese Prüfung besteht genau dann, wenn die Antwort falsch ist. Die Antwort räumt selbst ein, dass die exakte Leitkoeffizienten-Bedingung nie nachgerechnet wurde.",
+     "bestanden": false,
+     "ergebnis": "nicht_bestanden",
+     "grund": "0 Relationen einzeln bestätigt; Singulärwerte der normierten 9x6-Wertematrix (Seed 4712): 1 < 1e-24, 5 > 1e-8, kleinster großer 4.41e-6",
+     "widerspruch": false
+    }
+   ],
+   "runde": 7,
+   "relevanz": "hauptresultat",
+   "neuheit": {
+    "suchanfragen": [
+     "Modular graph functions weight 11",
+     "Rational linear relations modular",
+     "Eisenstein series modular graph functions",
+     "Closed string amplitudes modular forms",
+     "Modular identities string theory"
+    ],
+    "treffer": {
+     "Modular graph functions weight 11": 24,
+     "Rational linear relations modular": 24,
+     "Eisenstein series modular graph functions": 25,
+     "Closed string amplitudes modular forms": 24,
+     "Modular identities string theory": 25
+    },
+    "quellen_geprueft": 121,
+    "datum": "2026-10-04",
+    "status": "nicht_gefunden"
+   }
   }
  ],
  "widerlegt": [
@@ -1851,6 +2053,18 @@
      "stufe": "theoretiker/sonnet",
      "pruefungstyp": "eta_span_tabelle",
      "grund": "Prüfung nicht ausführbar"
+    }
+   ]
+  },
+  {
+   "frage_id": "F3",
+   "frage": "Gibt es eine rationale lineare Relation zwischen den zehn dihedralen Modulgraphfunktionen vom Gewicht 11, E(11) und zeta(11)? Finde sie explizit (hohe Präzision nötig).",
+   "runde": 7,
+   "gruende": [
+    {
+     "stufe": "Kaskade (abgebrochen nach ca. 2,5 h)",
+     "pruefungstyp": "mgf_relationen",
+     "grund": "PSLQ über die volle 12-elementige Basis (zehn C(a,b,c), E(11), zeta(11)) mit 6-8 Punkten und bis zu 64 Stellen fand keine Relation; Lauf aus Zeitgründen abgebrochen, kein geprüfter Claim. Vermutete Ursache: Präzision im Verhältnis zur Koeffizientenhöhe zu gering."
     }
    ]
   }
@@ -2415,6 +2629,91 @@
    ],
    "sek": 6256.3,
    "faden_id": "F1"
+  },
+  {
+   "runde": 7,
+   "frage": "F8",
+   "status": "beantwortet",
+   "red_team": [
+    {
+     "pruefung": {
+      "typ": "mgf_relationsraum",
+      "basis": [
+       "C(5,5,1)",
+       "C(5,4,2)",
+       "C(5,3,3)",
+       "C(4,4,3)",
+       "E(11)",
+       "zeta(11)"
+      ],
+      "dim": 0,
+      "relationen": []
+     },
+     "idee": "Gegenteil der Behauptung: Gibt es zwischen den sechs Funktionen gar keine rationale lineare Relation, ist der Relationsraum 0-dimensional. Die Prüfung besteht nur, wenn die Hypothese falsch ist und die PSLQ-Relation ein numerisches Artefakt war. Ist die Relation echt, scheitert sie an den Singulärwerten.",
+     "bestanden": false,
+     "ergebnis": "nicht_bestanden",
+     "grund": "0 Relationen einzeln bestätigt; Singulärwerte der normierten 9x6-Wertematrix (Seed 4712): 1 < 1e-24, 5 > 1e-8, kleinster großer 4.41e-6",
+     "widerspruch": false
+    },
+    {
+     "pruefung": {
+      "typ": "mgf_relation",
+      "terme": [
+       [
+        19008,
+        "C(5,5,1)"
+       ],
+       [
+        38016,
+        "C(5,4,2)"
+       ],
+       [
+        19008,
+        "C(5,3,3)"
+       ],
+       [
+        28512,
+        "C(4,4,3)"
+       ],
+       [
+        -8640,
+        "E(11)"
+       ],
+       [
+        1,
+        "zeta(11)"
+       ]
+      ]
+     },
+     "idee": "Das Vorzeichen des zeta(11)-Terms ist umgedreht. Das besteht nur, wenn zeta(11) in der Relation effektiv nicht vorkommt oder die behauptete Relation falsch ist. Ist die Hypothese richtig, ist die Summe ein von null verschiedenes Vielfaches von zeta(11), und der Leitkoeffizient-Test scheitert.",
+     "bestanden": false,
+     "ergebnis": "nicht_bestanden",
+     "grund": "exakter Leitkoeffizient von y^11: 0; numerisch an 4 Prüfer-Punkten (Seed 4711, 32 Stellen): max. relatives Residuum 5.71e-01 (Schranke 1e-24)",
+     "widerspruch": false
+    },
+    {
+     "pruefung": {
+      "typ": "mgf_relationsraum",
+      "basis": [
+       "C(5,5,1)",
+       "C(5,4,2)",
+       "C(5,3,3)",
+       "C(4,4,3)",
+       "E(11)",
+       "zeta(11)"
+      ],
+      "dim": 0,
+      "relationen": []
+     },
+     "idee": "Gegenteil der Behauptung: Falls die vorgeschlagene Relation in Wahrheit nicht gilt, etwa weil der PSLQ-Fund ein Artefakt der begrenzten Genauigkeit ist oder die Leitkoeffizienten-Bedingung in y = pi*tau2 scheitert, dann gibt es zwischen den sechs Funktionen keine rationale Relation, und der Relationsraum hat Dimension 0. Diese Prüfung besteht genau dann, wenn die Antwort falsch ist. Die Antwort räumt selbst ein, dass die exakte Leitkoeffizienten-Bedingung nie nachgerechnet wurde.",
+     "bestanden": false,
+     "ergebnis": "nicht_bestanden",
+     "grund": "0 Relationen einzeln bestätigt; Singulärwerte der normierten 9x6-Wertematrix (Seed 4712): 1 < 1e-24, 5 > 1e-8, kleinster großer 4.41e-6",
+     "widerspruch": false
+    }
+   ],
+   "sek": 6383.2,
+   "faden_id": "F8"
   }
  ],
  "kosten_usd": 0.0

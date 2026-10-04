@@ -49,3 +49,12 @@
 - 2026-10-04 10:44:54   geprüft modular-R6e (observed): Numerisch bilden die rationalen linearen Relationen zwischen ['C(7,1,1)', 'C(6,2,1)', 'C(5,3,1)', 'C(5,2,2)', 'C(4,4,1)', 'C(4,3,2)', 'C(3,3,3)', 'E(9)', 'zeta( | Red-Team: 1 Gegenprüfungen, 0 bestanden, 0 logische Widersprüche
 - 2026-10-04 10:44:54 Keine offenen Fragen mehr.
 - 2026-10-04 10:44:54 Fertig: 21 geprüfte Aussagen, 2 negative Ergebnisse
+- 2026-10-04 11:27:48 Selbsttest des Prüfers: bestanden
+- 2026-10-04 11:28:01 Runde 7: Gibt es eine rationale lineare Relation zwischen den zehn dihedralen Modulgraphfunktionen vom Gewicht 11, E(11) und zeta(11)? Finde sie explizit (hohe Präzision nötig).
+- 2026-10-04 14:15:19 Selbsttest des Prüfers: bestanden
+- 2026-10-04 14:15:33 Runde 7: Prüfe die Hypothese für Gewicht 11: 19008*C(5,5,1) + 38016*C(5,4,2) + 19008*C(5,3,3) + 28512*C(4,4,3) - 8640*E(11) - zeta(11) = 0 (mgf_relation), und bestimme den Relationsraum der Basis C(5,5,1), C(5,4,2), C(5,3,3), C(4,4,3), E(11), zeta(11) (mgf_relationsraum).
+- 2026-10-04 16:02:46   Neuheit modular-R7a: nicht_gefunden
+- 2026-10-04 16:02:46   geprüft modular-R7a (observed): Numerisch (32 Stellen, 4 Prüfer-Punkte, rel. Residuum <= 1e-24): 19008·C(5,5,1) + 38016·C(5,4,2) + 19008·C(5,3,3) + 28512·C(4,4,3) - 8640·E(11) - zeta(11) = 0 a | Red-Team: 2 Gegenprüfungen, 0 bestanden, 0 logische Widersprüche
+- 2026-10-04 16:03:40   Neuheit modular-R7b: nicht_gefunden
+- 2026-10-04 16:03:40   geprüft modular-R7b (observed): Numerisch bilden die rationalen linearen Relationen zwischen C(5,5,1), C(5,4,2), C(5,3,3), C(4,4,3), E(11), zeta(11) (Gewicht 11) einen Raum der Dimension genau | Red-Team: 1 Gegenprüfungen, 0 bestanden, 0 logische Widersprüche
+- 2026-10-04 16:03:54 Runde 8: Für welche Level N <= 30 spannen die holomorphen Eta-Quotienten mit trivialem Charakter den ganzen Raum M_4(Gamma_0(N))? Exakte Tabelle (eta_span_tabelle).
