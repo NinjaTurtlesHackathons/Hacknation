@@ -30,13 +30,16 @@ OUTLINE = """Style: concise ML-theory preprint (6-8 pages), sober, no marketing.
 Abstract (<= 180 words): the question (why do architectures fail at state tracking; circuit complexity says TC0 vs NC1), our answer for one-layer linear RNNs with Householder-product transitions (DeltaNet, DeltaProduct): an exact law h*, the first lower bound on Householder factors per token, the headline instances (A5 with involution inputs needs one reflection; A5 needs two; the S4/A5 formats of the closest prior work need two), the atlas, the preregistered training grid and its outcome, and that every statement is machine-verified or certified.
 1 Introduction: architecture debate (Transformers and diagonal SSMs in TC0, non-solvable word problems NC1-complete) from literature claims; the gap (prior work gives only constructions; DeltaProduct's unexplained S4/A5 observation; Howe's representation law); contributions as a bullet list.
 2 Setting and definitions: word problem, one-layer realisation, finite-state, transition families, h and h*.
-3 Results I (theory): Lemma L1 (machine-checked), Lemma L4 (machine-checked), Lemma L2 (hand proof), L3, Theorem 1, diagonal families (L5), abelian cover (L7); explain what is proved how.
+3 Results I (theory): Lemma L1 (machine-checked), Lemma L4 (machine-checked), Lemma L2 (hand proof), L3, Theorem 1 (state 'proof in the companion ledger' and cite C-ledger), diagonal families (L5), abelian cover (L7); explain what is proved how.
 4 Results II (certified instances): Table 1 (appended by code); A5 with involutions (H3 cover), A5/all, S4 and A5 in the generator format of prior work, S5, Z2^3; contrast with circuit complexity.
 5 Results III (atlas): coverage, own-vs-GAP agreement, non-monotonicity of h with respect to solvability; Figure 2 and Table 3 are appended by code.
 6 Results IV (preregistered experiments): (a) H-EX1 grid: protocol, predictors, cell outcomes, accuracy of each predictor, discriminating tests with BH, negative and positive controls; Figure 1 and Table 2. Report learnability failures honestly. (b) H-EX2 addendum: the prior work's own generator formats, Table 4; state precisely what it supports and what not (it tests a sufficiency prediction against a necessity claim of prior work under our protocol and readout).
 7 The agentic lab and the verification pipeline: scout, integrator, cascade, verifier, red team; negative rounds; loopholes found and closed; red-team bugs fixed.
 8 Limitations and open questions (finite-state assumption, token-local transitions without short convolution, one layer, exact arithmetic vs float, open intervals such as S5/all, multi-layer, chain of thought / padding as a Householder budget as a hypothesis).
-Refer to Tables 1-3 and Figures 1-2 by name only; do not write tables yourself."""
+Refer to Tables 1-4 and Figures 1-2 by name only; do not write tables yourself.
+Mathematics: write every formula in LaTeX math, inline $...$ (for example $h^*(G,\Sigma)$, $\operatorname{rank}(\rho(t_s)-I)\le k$, $A_5$, $S_4$,
+$\mathbb{Z}_2^3$), never as plain ASCII like rank(rho(t_s) - I) <= k. Keep alphabet names (all, involutions, transpositions, tn, c3c5) and
+architecture names (hh1, hh2, diag_pm) as plain text. Bold statement labels such as **Lemma L1 (machine-checked).** are fine."""
 
 
 def fp(p): return f"{p:.1e}" if p < 1e-3 else f"{p:.3f}"
@@ -75,6 +78,8 @@ def claims():
         "where h*(G, Sigma) is the least k for which a finite group H, a surjection pi: H -> G, generating lifts t_s of the letters and a "
         "faithful real representation rho of H exist with rank(rho(t_s) - I) <= k for every letter; h(G, Sigma) denotes the same minimum "
         "restricted to H = G.", "hypothesis", "open")
+    add("C-ledger", "The definitions and the complete written proofs of Lemmas L2, L3, L4, L5, L7 and Theorem 1 are given in the companion ledger "
+        "(projects/expressivity/theory_ledger.pdf, built from expressivity/theory.md); the Lean sources of L1 and L4 are in expressivity/lean.", "observed")
     add("C-L5", "Lemma L5 (proved by hand via the compression lemma, not machine-checked; consistent with prior theorems on diagonal SSMs): "
         "a finite-state one-layer realisation exists for diagonal transitions with entries in [0, 1] only for the trivial group, for real "
         "diagonal transitions with entries in [-1, 1] exactly for elementary abelian 2-groups, and for complex diagonal transitions exactly for "
@@ -410,6 +415,77 @@ def pdf_via_pandoc(md_path, authors, affiliation):
         if r.returncode: print("pandoc", out, r.stderr[-1500:])
 
 
+SULEMAN = r"""% Team convention (paper-bell, research/admet): preprint form in the style of Suleman 2026. Every numbered statement is traced to its
+% verifier claims in Appendix C (claim ids from projects/expressivity/paper_evidence.json). Built by expressivity/write_paper.py.
+\documentclass[10pt,twocolumn,a4paper]{article}
+\usepackage{fontspec}\setmainfont{STIXGeneral}
+\usepackage{amsmath,amssymb}\usepackage{unicode-math}\setmathfont{STIX Two Math}
+\usepackage[english]{babel}
+\usepackage[a4paper,top=22mm,bottom=24mm,left=17mm,right=17mm,columnsep=7mm]{geometry}
+\usepackage{booktabs,longtable,array,calc,graphicx,microtype,fancyhdr,xcolor}
+\usepackage[hidelinks]{hyperref}
+\providecommand{\tightlist}{\setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\pagestyle{fancy}\fancyhf{}
+\fancyhead[L]{\small Preprint (2026)}\fancyhead[R]{\small Team Ninja Turtles: Householder complexity of state tracking}
+\fancyfoot[C]{\small\thepage}\renewcommand{\headrulewidth}{0pt}
+\fancypagestyle{first}{\fancyhf{}\fancyfoot[C]{\small\thepage}}
+\begin{document}\thispagestyle{first}
+\twocolumn[{%
+\noindent{\small Preprint}\\[-1pt]{\small Machine Learning; Computational Complexity}\\[14pt]
+\begin{center}{\LARGE\bfseries <<TITLE>>}\\[12pt]{\large <<AUTHORS>>}\\[3pt]{\small <<AFFIL>>}\\[8pt]{\small Preprint, October 2026}\end{center}
+\vspace{6pt}\begin{quote}\small\noindent\textbf{Abstract}\enspace <<ABSTRACT>>\end{quote}\vspace{10pt}}]
+<<BODY>>
+<<FLOATS>>
+\onecolumn
+\appendix
+\section{Claim trace (Appendix C)}
+Every statement in the text cites claim identifiers in square brackets. The table lists every claim with its evidence level
+(proved\_lean: Lean 4 + Mathlib; computed\_rigorous: exact verifier; statistical: preregistered tests; observed; hypothesis: hand
+proof or uninspected interpretation) and the start of its canonical text. Full texts: projects/expressivity/paper\_evidence.json;
+proofs of the hand-proved lemmas: expressivity/theory.md (companion ledger).
+<<TRACE>>
+\end{document}
+"""
+
+
+def pandoc_fragment(md):
+    md = md.replace("≥", "$\\geq$").replace("≤", "$\\leq$").replace("⊆", "$\\subseteq$").replace("→", "$\\to$")
+    r = subprocess.run(["pandoc", "-f", "markdown-implicit_figures", "-t", "latex", "--wrap=preserve", "--shift-heading-level-by=-1"],
+                       input=md, capture_output=True, text=True)
+    tex = r.stdout
+    # longtable does not work in two-column mode: turn pandoc's tables into plain tabulars inside the column
+    tex = re.sub(r"\\begin\{longtable\}\[\]\{([^\n]*)\}", lambda m: "\\begin{center}\\scriptsize\\begin{tabular}{" + m.group(1) + "}", tex)
+    tex = tex.replace("\\end{longtable}", "\\end{tabular}\\end{center}")
+    tex = "\n".join(l for l in tex.split("\n") if not re.match(r"\s*\\(endhead|endfirsthead|endfoot|endlastfoot)\b", l))
+    tex = re.sub(r"\\begin\{minipage\}\[[a-z]\]\{[^}]*\}\\(raggedright|centering|raggedleft)\s*", "", tex)
+    tex = tex.replace("\\end{minipage}", "")
+    return tex
+
+
+def build_suleman_pdf(md, figs, tab, C, authors, affiliation):
+    d = PROJ
+    m = re.search(r"^#+\s*Abstract\s*\n+(.*?)(?=\n#+\s)", md, re.S | re.M)
+    abstract = m.group(1).strip() if m else ""
+    body = md.replace(m.group(0), "") if m else md
+    body = "\n".join(l for l in body.split("\n") if not re.match(r"^# ", l))               # the title is set by the template
+    body_tex = pandoc_fragment(protect_hstar(body))
+    abs_tex = pandoc_fragment(protect_hstar(abstract)).strip()
+    floats = "".join("\\begin{figure*}[t]\\centering\\includegraphics[width=0.78\\textwidth]{" + name + ".pdf}\\caption{" +
+                     pandoc_fragment(cap.split(". ", 1)[1]).strip() + "}\\end{figure*}\n" for name, cap in figs)
+    floats += tables_tex(tab)
+    trace_md = "| claim | level | status | canonical text (start) |\n|---|---|---|---|\n" + "\n".join(
+        f"| {c['claim_id']} | {c['level']} | {c['status']} | {c['text'][:150].replace('|', '/')}... |" for c in C)
+    trace = pandoc_fragment(trace_md)
+    trace = trace.replace("\\begin{center}\\scriptsize\\begin{tabular}", "\\begin{scriptsize}\\begin{longtable}").replace("\\end{tabular}\\end{center}", "\\end{longtable}\\end{scriptsize}")
+    tex = (SULEMAN.replace("<<TITLE>>", TITLE).replace("<<AUTHORS>>", authors).replace("<<AFFIL>>", affiliation)
+           .replace("<<ABSTRACT>>", abs_tex).replace("<<BODY>>", body_tex).replace("<<FLOATS>>", floats).replace("<<TRACE>>", trace))
+    open(f"{d}/paper.tex", "w").write(tex)
+    for _ in range(2):
+        r = subprocess.run(["xelatex", "-interaction=nonstopmode", "paper.tex"], cwd=d, capture_output=True, text=True)
+    errs = [l for l in open(f"{d}/paper.log", errors="replace").read().split("\n") if l.startswith("!")]
+    return errs
+
+
 def renumber(md):
     for kind in ("Proposition", "Observation", "Conjecture", "Statistical finding"):
         n = max([int(x) for x in re.findall(rf"\*\*{kind} (\d+)", md)], default=0)
@@ -419,7 +495,7 @@ def renumber(md):
 
 
 def main():
-    ap = argparse.ArgumentParser(); ap.add_argument("--authors", default="Verifier-Gated Discovery Lab"); ap.add_argument("--affiliation", default="Hack-Nation 2026")
+    ap = argparse.ArgumentParser(); ap.add_argument("--authors", default="Team Ninja Turtles"); ap.add_argument("--affiliation", default="Hack-Nation 2026, Challenge 3 (Agentic Scientific Discovery)")
     ap.add_argument("--errata", default=""); ap.add_argument("--review", default=""); ap.add_argument("--claims-only", action="store_true")
     a = ap.parse_args(); C = claims(); os.makedirs(PROJ, exist_ok=True)
     json.dump(C, open(f"{PROJ}/paper_claims.json", "w"), indent=1)
@@ -436,7 +512,8 @@ def main():
              f"from expressivity/results/.")
     figmd = "".join(f"\n\n![{cap}]({name}.png)\n\n*{cap}*\n" for name, cap in figs)
     open(f"{PROJ}/paper.md", "w").write(f"# {TITLE}\n\n{a.authors}, {a.affiliation}\n\n{md}{figmd}\n\n## Tables\n\n{tab}{proto}\n")
-    pdf_via_pandoc(f"{PROJ}/paper.md", a.authors, a.affiliation)
+    errs = build_suleman_pdf(md, figs, tab, C, a.authors, a.affiliation)
+    print("LaTeX errors:", errs[:5])
     json.dump({"claims": C, "log": log, "errata": errata, "remaining": [list(x) for x in rest]}, open(f"{PROJ}/paper_evidence.json", "w"), indent=1)
     print(f"{PROJ}/paper.md" + proto)
 

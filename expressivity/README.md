@@ -17,12 +17,16 @@ python -m expressivity.certify                      # certified table of named t
 python -m expressivity.atlas 63                     # all groups of order <= 63 (GAP SmallGroups) -> results/atlas.json
 python -m expressivity.predict                      # predictions from certified bounds (written before the grid) -> results/predictions.json
 python -m expressivity.confirm --workers 13         # preregistered grid (prereg.md), 66 cells x 20 seeds -> results/confirmatory/
+python -m expressivity.confirm_mps                  # optional second runner on the MPS GPU for the same grid (EX21)
+python -m expressivity.confirm_ex2                  # preregistered addendum H-EX2 (prior-work generator formats)
 python -m expressivity.analyze                      # preregistered analysis -> results/confirmatory.json
 python -m expressivity.run_lab --domain expressivity --recherche --runden 10 --budget-usd 25 --fragen expressivity/questions.json
 python expressivity/scripts/verify_evidence.py      # titles + verbatim quotes of all 65 sources -> results/citations.tsv
 python expressivity/scripts/body_quotes.py          # full-text quotes of the closest prior work -> results/body_quotes.json
-python -m expressivity.write_paper --authors "..." --affiliation "..."   # projects/expressivity/paper.{md,tex,pdf}
+python -m expressivity.write_paper                  # projects/expressivity/paper.{md,tex,pdf}, preprint form of the team (Suleman 2026 style)
 python -m expressivity.export_tables                # projects/expressivity/tables/{experiments,claims,gates}.csv
+python -m expressivity.recheck                      # reproduce every certificate with one command (team convention)
+python expressivity/scripts/build_ledger.py         # companion proof ledger projects/expressivity/theory_ledger.pdf
 ```
 
 ## Files
