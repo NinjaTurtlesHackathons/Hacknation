@@ -71,6 +71,15 @@ def integrator_plan(P, D, runde):
     q = next((q for q in offen if q["id"] == r.get("id")), offen[0]); return q, r
 
 
+FEHLER_MUSTER = ("nicht ausführbar", "NaN", "TypeError", "IndexError", "KeyError", "ValueError", "Traceback", "Exception",
+                 "unbekannter Prüfungstyp", "unbekannte Familienmitglieder", "Zeitüberschreitung", "> 600 s", "> 1800 s")
+
+
+def nicht_ausfuehrbar(grund):
+    """Gegenprüfung lief gar nicht (Fehler, unbekannter Typ, Zeitlimit) -> weder 'bestanden' noch 'nicht bestanden'."""
+    return any(m in str(grund) for m in FEHLER_MUSTER)
+
+
 def red_team(P, D, frage, ans, runde):
     """Erzeugt Gegen-Prüfungen, die FALSCH sein müssten, wenn die Aussage stimmt. Besteht eine davon, ist die Aussage angefochten."""
     try:
@@ -82,7 +91,11 @@ def red_team(P, D, frage, ans, runde):
     for g in r.get("gegenpruefungen", [])[:2]:
         p = g.get("pruefung")
         if not isinstance(p, dict): continue
-        ok, why, _ = D.check(p); out.append({"pruefung": p, "idee": g.get("idee", ""), "bestanden": bool(ok), "grund": why[:200]})
+        try: ok, why, _ = D.check(p)
+        except Exception as e: ok, why = False, f"nicht ausführbar: {type(e).__name__}"
+        na = nicht_ausfuehrbar(why) and not ok
+        out.append({"pruefung": p, "idee": g.get("idee", ""), "bestanden": bool(ok), "ergebnis": "nicht_ausfuehrbar" if na else ("bestanden" if ok else "nicht_bestanden"),
+                    "grund": "" if na else why[:200]})
     return out
 
 

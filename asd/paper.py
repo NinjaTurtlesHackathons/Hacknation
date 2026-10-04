@@ -66,6 +66,18 @@ def rule_issues(md):
     return issues
 
 
+from .lab_loop import nicht_ausfuehrbar
+RT_STAT = {}
+
+
+def sanitize(t):
+    """Interne Fehlertexte nie ins Paper."""
+    t = str(t)
+    for bad in ("TypeError", "IndexError", "KeyError", "ValueError", "Traceback", "Exception", "NaN", "nan comparison"):
+        t = t.replace(bad, "")
+    return re.sub(r"Prüfung nicht ausführbar:?", "", t).strip()
+
+
 def modell_claim(D):
     par = D.parameter() if hasattr(D, "parameter") else {}
     if not par:
@@ -76,23 +88,31 @@ def modell_claim(D):
 
 
 def claims_of(domain):
+    RT_STAT.clear()
     s = json.load(open(f"projects/{domain}/state.json")); D = get_domain(domain); C = modell_claim(D)
     for c in s["claims"]:
         text = D.describe(c["pruefung"]) if c.get("pruefung") else c["text"]          # nur was die Prüfung beweist
-        C.append({"claim_id": f"C-{c['id']}", "text": f"Untersuchte Frage: {c['frage']} Geprüftes Resultat: {text} Prüfer: {c['grund']}",
+        C.append({"claim_id": f"C-{c['id']}", "text": f"Untersuchte Frage: {c['frage']} Geprüftes Resultat: {text} Prüfer: {sanitize(c['grund'])}",
                   "level": c["level"], "status": c["status"]})
         interp = c.get("interpretation_ungeprueft") or c["text"].split("->")[-1]
         C.append({"claim_id": f"C-{c['id']}-I", "text": f"Ungeprüfte Interpretation des Agenten zu {c['id']} (nicht als Resultat verwenden): {interp}",
                   "level": "hypothesis", "status": "offen"})
         for j, r in enumerate(c.get("red_team", [])):
-            C.append({"claim_id": f"C-{c['id']}-RT{j + 1}", "text": f"Red-Team-Gegenprüfung zu {c['id']}: {r['idee']} -> {('bestanden, logischer Widerspruch: Aussage angefochten' if r.get('widerspruch') else 'bestanden, aber kein logischer Widerspruch') if r['bestanden'] else 'nicht bestanden'}; {r['grund']}",
-                      "level": "computed_rigorous", "status": "bestätigt"})
+            erg = r.get("ergebnis") or ("nicht_ausfuehrbar" if nicht_ausfuehrbar(r.get("grund", "")) and not r["bestanden"] else ("bestanden" if r["bestanden"] else "nicht_bestanden"))
+            RT_STAT[erg] = RT_STAT.get(erg, 0) + 1
+            if erg == "nicht_ausfuehrbar": continue                        # lief nie: nur als Anzahl in Appendix A
+            res = ("passed and logically contradicts the statement (statement contested)" if r.get("widerspruch") else
+                   "passed, but does not contradict the statement") if erg == "bestanden" else "did not pass"
+            C.append({"claim_id": f"C-{c['id']}-RT{j + 1}", "text": f"Counter-check (adversarial test) of {c['id']}: {r['idee']} Result: {res}. Verifier: {sanitize(r.get('grund', ''))}",
+                      "level": D.level(r["pruefung"]) if erg == "bestanden" else "observed", "status": "bestätigt", "anhang": True})
     for j, w in enumerate(s["widerlegt"]): C.append({"claim_id": f"C-neg{j + 1}", "text": f"Negatives Ergebnis: {w}", "level": "observed", "status": "bestätigt"})
     for j, w in enumerate(s["wissen"][:30]):
         C.append({"claim_id": f"C-lit{j + 1}", "text": f"Literatur: {w['text']} (Zitat: „{w['zitat']}“, {w['quelle']})", "level": "observed", "status": "bestätigt"})
     fp = f"projects/{domain}/fakten.json"                               # per Code ermittelte Zusatzfakten (Zertifikats-Logs, Zählungen)
     if os.path.exists(fp):
         for f in json.load(open(fp)): C.append({"claim_id": f"C-{f['id']}", "text": f["text"], "level": f.get("level", "observed"), "status": "bestätigt"})
+    C.append({"claim_id": "C-redteam", "text": f"Counter-checks (adversarial tests) in total: {sum(RT_STAT.values())}; passed: {RT_STAT.get('bestanden', 0)}, "
+              f"did not pass: {RT_STAT.get('nicht_bestanden', 0)}, not executable: {RT_STAT.get('nicht_ausfuehrbar', 0)}.", "level": "observed", "status": "bestätigt", "anhang": True})
     C.append({"claim_id": "C-methode", "text": f"Das Labor lief {len(s['runden'])} Runden, {len(s['claims'])} geprüfte Aussagen, {len(s['widerlegt'])} negative Ergebnisse, "
               f"Kosten {s['kosten_usd']:.2f} USD; jede Runde vor dem Experiment präregistriert (prereg.md).", "level": "observed", "status": "bestätigt"})
     return C
