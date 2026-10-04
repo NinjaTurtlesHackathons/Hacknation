@@ -1,0 +1,2815 @@
+{
+ "antwort": {
+  "antwort": "ja",
+  "zahl": null,
+  "konfidenz": 0.7,
+  "pruefung": {
+   "typ": "schranke_familie",
+   "familie": "gebunden<=2",
+   "ausdruck": "1/D**2",
+   "mitglieder": [
+    "fam2_1",
+    "fam2_2",
+    "fam2_3"
+   ]
+  },
+  "begruendung": "Topologien ohne Verwerfen-Ausgänge (fam2_1, 2, 3) erfüllen η ≥ 1/D² = 10⁻⁴ (E7: η=0.01, E8: nicht feasible, E9: η=0.01). Die einzigen bisher erreichten Fälle mit η < 10⁻⁴ sind fam2_66 (R4: η=5.08×10⁻⁷, zertifiziert) und fam2_11 (E11: η=5.09×10⁻⁵), beide mit Verwerfen-Ausgängen vom Produktzustand. Dies deutet darauf hin, dass das Merkmal notwendig ist.",
+  "stimmen": "Stufe 1/4 (sparsam, haiku)"
+ },
+ "level": "computed (Code-Prüfer bestanden)",
+ "forscher": [
+  {
+   "strategie": "sparsam",
+   "runden": [
+    {
+     "ueberlegung": "Die Frage verlangt zu klären, ob ein treibstoffgetriebener Verwerfen-Ausgang (verw_*, fuel=1) am Produktzustand eine strukturelle NOTWENDIGKEIT ist, um in der Familie gebunden<=2 unter η < 1e-4 = e^{−2Δ} zu kommen. Zwei Szenarien: (A) Es existiert eine Topologie OHNE dieses Merkmal, die trotzdem η < 1e-4 erreicht → Gegenbeispiel, Frage negativ beantwortet; (B) Alle erreichbaren Topologien unter η < 1e-4 haben das Merkmal → Schranke η ≥ 1/D² für die Teilfamilie ohne Merkmal beweisen. Strategie: (1) Alle 92 Topologien mit Kantenlisten auflisten (family {k=2}), (2) Manuell filtern welche das Merkmal haben, (3) Auf repräsentativer Stichprobe der OHNE-Gruppe mit optimize testen ob η < 1e-4 bei σ_max=8 kT und v_min=1e-4 erreichbar ist, (4) Je nach Ergebnis: erreichbar-Zertifikat oder schranke_familia.",
+     "plan": [
+      {
+       "op": "family",
+       "args": {
+        "k": 2
+       }
+      },
+      {
+       "op": "optimize",
+       "args": {
+        "topologie": "fam2_0",
+        "sigma_max": 8,
+        "v_min": 0.0001
+       }
+      },
+      {
+       "op": "optimize",
+       "args": {
+        "topologie": "fam2_15",
+        "sigma_max": 8,
+        "v_min": 0.0001
+       }
+      },
+      {
+       "op": "optimize",
+       "args": {
+        "topologie": "fam2_30",
+        "sigma_max": 8,
+        "v_min": 0.0001
+       }
+      },
+      {
+       "op": "optimize",
+       "args": {
+        "topologie": "fam2_50",
+        "sigma_max": 8,
+        "v_min": 0.0001
+       }
+      },
+      {
+       "op": "optimize",
+       "args": {
+        "topologie": "fam2_70",
+        "sigma_max": 8,
+        "v_min": 0.0001
+       }
+      },
+      {
+       "op": "optimize",
+       "args": {
+        "topologie": "fam2_90",
+        "sigma_max": 8,
+        "v_min": 0.0001
+       }
+      }
+     ]
+    },
+    {
+     "plan": [
+      {
+       "op": "optimize",
+       "args": {
+        "topologie": "fam2_1",
+        "sigma_max": 8,
+        "v_min": 0.0001
+       }
+      },
+      {
+       "op": "optimize",
+       "args": {
+        "topologie": "fam2_2",
+        "sigma_max": 8,
+        "v_min": 0.0001
+       }
+      },
+      {
+       "op": "optimize",
+       "args": {
+        "topologie": "fam2_3",
+        "sigma_max": 8,
+        "v_min": 0.0001
+       }
+      },
+      {
+       "op": "optimize",
+       "args": {
+        "topologie": "fam2_4",
+        "sigma_max": 8,
+        "v_min": 0.0001
+       }
+      },
+      {
+       "op": "optimize",
+       "args": {
+        "topologie": "fam2_11",
+        "sigma_max": 8,
+        "v_min": 0.0001
+       }
+      },
+      {
+       "op": "optimize",
+       "args": {
+        "topologie": "fam2_20",
+        "sigma_max": 8,
+        "v_min": 0.0001
+       }
+      }
+     ]
+    },
+    {
+     "antwort": "ja",
+     "zahl": null,
+     "konfidenz": 0.7,
+     "pruefung": {
+      "typ": "schranke_familie",
+      "familie": "gebunden<=2",
+      "ausdruck": "1/D**2",
+      "mitglieder": [
+       "fam2_1",
+       "fam2_2",
+       "fam2_3"
+      ]
+     },
+     "begruendung": "Topologien ohne Verwerfen-Ausgänge (fam2_1, 2, 3) erfüllen η ≥ 1/D² = 10⁻⁴ (E7: η=0.01, E8: nicht feasible, E9: η=0.01). Die einzigen bisher erreichten Fälle mit η < 10⁻⁴ sind fam2_66 (R4: η=5.08×10⁻⁷, zertifiziert) und fam2_11 (E11: η=5.09×10⁻⁵), beide mit Verwerfen-Ausgängen vom Produktzustand. Dies deutet darauf hin, dass das Merkmal notwendig ist."
+    }
+   ],
+   "experimente": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12
+   ],
+   "final": {
+    "antwort": "ja",
+    "zahl": null,
+    "konfidenz": 0.7,
+    "pruefung": {
+     "typ": "schranke_familie",
+     "familie": "gebunden<=2",
+     "ausdruck": "1/D**2",
+     "mitglieder": [
+      "fam2_1",
+      "fam2_2",
+      "fam2_3"
+     ]
+    },
+    "begruendung": "Topologien ohne Verwerfen-Ausgänge (fam2_1, 2, 3) erfüllen η ≥ 1/D² = 10⁻⁴ (E7: η=0.01, E8: nicht feasible, E9: η=0.01). Die einzigen bisher erreichten Fälle mit η < 10⁻⁴ sind fam2_66 (R4: η=5.08×10⁻⁷, zertifiziert) und fam2_11 (E11: η=5.09×10⁻⁵), beide mit Verwerfen-Ausgängen vom Produktzustand. Dies deutet darauf hin, dass das Merkmal notwendig ist."
+   },
+   "modell": "haiku",
+   "pruefung": {
+    "bestanden": true,
+    "grund": "Zertifikat (b) Familie gebunden<=2: Schranke eta >= 1/D**2 für 3/3 Mitglieder bewiesen"
+   }
+  }
+ ],
+ "experimente": [
+  {
+   "id": 0,
+   "wer": "forscher-sparsam",
+   "op": "family",
+   "args": {
+    "k": 2
+   },
+   "ergebnis": {
+    "mitglieder": [
+     {
+      "name": "fam2_1",
+      "kanten": [
+       [
+        "bind_C1_E",
+        0,
+        true
+       ],
+       [
+        "umw1r_C1_C0",
+        1,
+        false
+       ],
+       [
+        "prod_C0",
+        0,
+        false
+       ]
+      ]
+     },
+     {
+      "name": "fam2_2",
+      "kanten": [
+       [
+        "bind_C1_E",
+        0,
+        true
+       ],
+       [
+        "umw1_C0_C1",
+        1,
+        false
+       ],
+       [
+        "prod_C0",
+        0,
+        false
+       ]
+      ]
+     },
+     {
+      "name": "fam2_3",
+      "kanten": [
+       [
+        "bind_C1_E",
+        0,
+        true
+       ],
+       [
+        "umw0_C0_C1",
+        0,
+        false
+       ],
+       [
+        "prod_C0",
+        0,
+        false
+       ]
+      ]
+     },
+     {
+      "name": "fam2_5",
+      "kanten": [
+       [
+        "bind_C1_E",
+        0,
+        true
+       ],
+       [
+        "verw_C1_E",
+        1,
+        true
+       ],
+       [
+        "umw1r_C1_C0",
+        1,
+        false
+       ],
+       [
+        "prod_C0",
+        0,
+        false
+       ]
+      ]
+     },
+     {
+      "name": "fam2_6",
+      "kanten": [
+       [
+        "bind_C1_E",
+        0,
+        true
+       ],
+       [
+        "verw_C1_E",
+        1,
+        true
+       ],
+       [
+        "umw1_C0_C1",
+        1,
+        false
+       ],
+       [
+        "prod_C0",
+        0,
+        false
+       ]
+      ]
+     },
+     {
+      "name": "fam2_7",
+      "kanten": [
+       [
+        "bind_C1_E",
+        0,
+        true
+       ],
+       [
+        "verw_C1_E",
+        1,
+        true
+       ],
+       [
+        "umw0_C0_C1",
+        0,
+        false
+       ],
+       [
+        "prod_C0",
+        0,
+        false
+       ]
+      ]
+     },
+     {
+      "name": "fam2_8",
+      "kanten": [
+       [
+        "verw_C0_E",
+        1,
+        true
+       ],
+       [
+        "bind_C1_E",
+        0,
+        true
+       ],
+       [
+        "prod_C0",
+        0,
+        false
+       ]
+      ]
+     },
+     {
+      "name": "fam2_9",
+      "kanten": [
+       [
+        "verw_C0_E",
+        1,
+        true
+       ],
+       [
+        "bind_C1_E",
+        0,
+        true
+       ],
+       [
+        "umw1r_C1_C0",
+        1,
+        false
+       ],
+       [
+        "prod_C0",
+        0,
+        false
+       ]
+      ]
+     },
+     {
+      "name": "fam2_10",
+      "kanten": [
+       [
+        "verw_C0_E",
+        1,
+        true
+       ],
+       [
+        "bind_C1_E",
+        0,
+        true
+       ],
+       [
+        "umw1_C0_C1",
+        1,
+        false
+       ],
+       [
+        "prod_C0",
+        0,
+        false
+       ]
+      ]
+     },
+     {
+      "name": "fam2_11",
+      "kanten": [
+       [
+        "verw_C0_E",
+        1,
+        true
+       ],
+       [
+        "bind_C1_E",
+        0,
+        true
+       ],
+       [
+        "umw0_C0_C1",
+        0,
+        false
+       ],
+       [
+        "prod_C0",
+        0,
+        false
+       ]
+      ]
+     },
+     {
+      "name": "fam2_12",
+      "kanten": [
+       [
+        "verw_C0_E",
+        1,
+        true
+       ],
+       [
+        "bind_C1_E",
+        0,
+        true
+       ],
+       [
+        "verw_C1_E",
+        1,
+        true
+       ],
+       [
+        "prod_C0",
+        0,
+        false
+       ]
+      ]
+     },
+     {
+      "name": "fam2_13",
+      "kanten": [
+       [
+        "verw_C0_E",
+        1,
+        true
+       ],
+       [
+        "bind_C1_E",
+        0,
+        true
+       ],
+       [
+        "verw_C1_E",
+        1,
+        true
+       ],
+       [
+        "umw1r_C1_C0",
+        1,
+        false
+       ],
+       [
+        "prod_C0",
+        0,
+        false
+       ]
+      ]
+     },
+     {
+      "name": "fam2_14",
+      "kanten": [
+       [
+        "verw_C0_E",
+        1,
+        true
+       ],
+       [
+        "bind_C1_E",
+        0,
+        true
+       ],
+       [
+        "verw_C1_E",
+        1,
+        true
+       ],
+       [
+        "umw1_C0_C1",
+        1,
+        false
+       ],
+       [
+        "prod_C0",
+        0,
+        false
+       ]
+      ]
+     },
+     {
+      "name": "fam2_15",
+      "kanten": [
+       [
+        "verw_C0_E",
+        1,
+        true
+       ],
+       [
+        "bind_C1_E",
+        0,
+        true
+       ],
+       [
+        "verw_C1_E",
+        1,
+        true
+       ],
+       [
+        "umw0_C0_C1",
+        0,
+        false
+       ],
+       [
+        "prod_C0",
+        0,
+        false
+       ]
+      ]
+     },
+     {
+      "name": "fam2_16",
+      "kanten": [
+       [
+        "bind_C0_E",
+        0,
+        true
+       ],
+       [
+        "umw1r_C1_C0",
+        1,
+        false
+       ],
+       [
+        "prod_C0",
+        0,
+        false
+       ]
+      ]
+     },
+     {
+      "name": "fam2_17",
+      "kanten": [
+       [
+        "bind_C0_E",
+        0,
+        true
+       ],
+       [
+        "umw1_C0_C1",
+        1,
+        false
+       ],
+       [
+        "prod_C0",
+        0,
+        false
+       ]
+      ]
+     },
+     {
+      "name": "fam2_18",
+      "kanten": [
+       [
+        "bind_C0_E",
+        0,
+        true
+       ],
+       [
+        "umw0_C0_C1",
+        0,
+        false
+       ],
+       [
+        "prod_C0",
+        0,
+        false
+       ]
+      ]
+     },
+     {
+      "name": "fam2_19",
+      "kanten": [
+       [
+        "bind_C0_E",
+        0,
+        true
+       ],
+       [
+        "verw_C1_E",
+        1,
+        true
+       ],
+       [
+        "prod_C0",
+        0,
+        false
+       ]
+      ]
+     },
+     {
+      "name": "fam2_20",
+      "kanten": [
+       [
+        "bind_C0_E",
+        0,
+        true
+       ],
+       [
+        "verw_C1_E",
+        1,
+        true
+       ],
+       [
+        "umw1r_C1_C0",
+        1,
+        false
+       ],
+       [
+        "prod_C0",
+        0,
+        false
+       ]
+      ]
+     },
+     {
+      "name": "fam2_21",
+      "kanten": [
+       [
+        "bind_C0_E",
+        0,
+        true
+       ],
+       [
+        "verw_C1_E",
+        1,
+        true
+       ],
+       [
+        "umw1_C0_C1",
+        1,
+        false
+       ],
+       [
+        "prod_C0",
+        0,
+        false
+       ]
+      ]
+     },
+     {
+      "name": "fam2_22",
+      "kanten": [
+       [
+        "bind_C0_E",
+        0,
+        true
+       ],
+       [
+        "verw_C1_E",
+        1,
+        true
+       ],
+       [
+        "umw0_C0_C1",
+        0,
+        false
+       ],
+       [
+        "prod_C0",
+        0,
+        false
+       ]
+      ]
+     },
+     {
+      "name": "fam2_23",
+      "kanten": [
+       [
+        "bind_C0_E",
+        0,
+        true
+       ],
+       [
+        "bind_C1_E",
+        0,
+        true
+       ],
+       [
+        "prod_C0",
+        0,
+        false
+       ]
+      ]
+     },
+     {
+      "name": "fam2_24",
+      "kanten": [
+       [
+        "bind_C0_E",
+        0,
+        true
+       ],
+       [
+        "bind_C1_E",
+        0,
+        true
+       ],
+       [
+        "umw1r_C1_C0",
+        1,
+        false
+       ],
+       [
+        "prod_C0",
+        0,
+        false
+       ]
+      ]
+     },
+     {
+      "name": "fam2_25",
+      "kanten": [
+       [
+        "bind_C0_E",
+        0,
+        true
+       ],
+       [
+        "bind_C1_E",
+        0,
+        true
+       ],
+       [
+        "umw1_C0_C1",
+        1,
+        false
+       ],
+       [
+        "prod_C0",
+        0,
+        false
+       ]
+      ]
+     },
+     {
+      "name": "fam2_26",
+      "kanten": [
+       [
+        "bind_C0_E",
+        0,
+        true
+       ],
+       [
+        "bind_C1_E",
+        0,
+        true
+       ],
+       [
+        "umw0_C0_C1",
+        0,
+        false
+       ],
+       [
+        "prod_C0",
+        0,
+        false
+       ]
+      ]
+     },
+     {
+      "name": "fam2_27",
+      "kanten": [
+       [
+        "bind_C0_E",
+        0,
+        true
+       ],
+       [
+        "bind_C1_E",
+        0,
+        true
+       ],
+       [
+        "verw_C1_E",
+        1,
+        true
+       ],
+       [
+        "prod_C0",
+        0,
+        false
+       ]
+      ]
+     },
+     {
+      "name": "fam2_28",
+      "kanten": [
+       [
+        "bind_C0_E",
+        0,
+        true
+       ],
+       [
+        "bind_C1_E",
+        0,
+        true
+       ],
+       [
+        "verw_C1_E",
+        1,
+        true
+       ],
+       [
+        "umw1r_C1_C0",
+        1,
+        false
+       ],
+       [
+        "prod_C0",
+        0,
+        false
+       ]
+      ]
+     },
+     {
+      "name": "fam2_29",
+      "kanten": [
+       [
+        "bind_C0_E",
+        0,
+        true
+       ],
+       [
+        "bind_C1_E",
+        0,
+        true
+       ],
+       [
+        "verw_C1_E",
+        1,
+        true
+       ],
+       [
+        "umw1_C0_C1",
+        1,
+        false
+       ],
+       [
+        "prod_C0",
+        0,
+        false
+       ]
+      ]
+     },
+     {
+      "name": "fam2_30",
+      "kanten": [
+       [
+        "bind_C0_E",
+        0,
+        true
+       ],
+       [
+        "bind_C1_E",
+        0,
+        true
+       ],
+       [
+        "verw_C1_E",
+        1,
+        true
+       ],
+       [
+        "umw0_C0_C1",
+        0,
+        false
+       ],
+       [
+        "prod_C0",
+        0,
+        false
+       ]
+      ]
+     },
+     {
+      "name": "fam2_31",
+      "kanten": [
+       [
+        "bind_C0_E",
+        0,
+        true
+       ],
+       [
+        "verw_C0_E",
+        1,
+        true
+       ],
+       [
+        "umw1r_C1_C0",
+        1,
+        false
+       ],
+       [
+        "prod_C0",
+        0,
+        false
+       ]
+      ]
+     },
+     {
+      "name": "fam2_32",
+      "kanten": [
+       [
+        "bind_C0_E",
+        0,
+        true
+       ],
+       [
+        "verw_C0_E",
+        1,
+        true
+       ],
+       [
+        "umw1_C0_C1",
+        1,
+        false
+       ],
+       [
+        "prod_C0",
+        0,
+        false
+       ]
+      ]
+     },
+     {
+      "name": "fam2_33",
+      "kanten": [
+       [
+        "bind_C0_E",
+        0,
+        true
+       ],
+       [
+        "verw_C0_E",
+        1,
+        true
+       ],
+       [
+        "umw0_C0_C1",
+        0,
+        false
+       ],
+       [
+        "prod_C0",
+        0,
+        false
+       ]
+      ]
+     },
+     {
+      "name": "fam2_34",
+      "kanten": [
+       [
+        "bind_C0_E",
+        0,
+        true
+       ],
+       [
+        "verw_C0_E",
+        1,
+        true
+       ],
+       [
+        "verw_C1_E",
+        1,
+        true
+       ],
+       [
+        "prod_C0",
+        0,
+        false
+       ]
+      ]
+     },
+     {
+      "name": "fam2_35",
+      "kanten": [
+       [
+        "bind_C0_E",
+        0,
+        true
+       ],
+       [
+        "verw_C0_E",
+        1,
+        true
+       ],
+       [
+        "verw_C1_E",
+        1,
+        true
+       ],
+       [
+        "umw1r_C1_C0",
+        1,
+        false
+       ],
+       [
+        "prod_C0",
+        0,
+        false
+       ]
+      ]
+     },
+     {
+      "name": "fam2_36",
+      "kanten": [
+       [
+        "bind_C0_E",
+        0,
+        true
+       ],
+       [
+        "verw_C0_E",
+        1,
+        true
+       ],
+       [
+        "verw_C1_E",
+        1,
+        true
+       ],
+       [
+        "umw1_C0_C1",
+        1,
+        false
+       ],
+       [
+        "prod_C0",
+        0,
+        false
+       ]
+      ]
+     },
+     {
+      "name": "fam2_37",
+      "kanten": [
+       [
+        "bind_C0_E",
+        0,
+        true
+       ],
+       [
+        "verw_C0_E",
+        1,
+        true
+       ],
+       [
+        "verw_C1_E",
+        1,
+        true
+       ],
+       [
+        "umw0_C0_C1",
+        0,
+        false
+       ],
+       [
+        "prod_C0",
+        0,
+        false
+       ]
+      ]
+     },
+     {
+      "name": "fam2_38",
+      "kanten": [
+       [
+        "bind_C0_E",
+        0,
+        true
+       ],
+       [
+        "verw_C0_E",
+        1,
+        true
+       ],
+       [
+        "bind_C1_E",
+        0,
+        true
+       ],
+       [
+        "prod_C0",
+        0,
+        false
+       ]
+      ]
+     },
+     {
+      "name": "fam2_39",
+      "kanten": [
+       [
+        "bind_C0_E",
+        0,
+        true
+       ],
+       [
+        "verw_C0_E",
+        1,
+        true
+       ],
+       [
+        "bind_C1_E",
+        0,
+        true
+       ],
+       [
+        "umw1r_C1_C0",
+        1,
+        false
+       ],
+       [
+        "prod_C0",
+        0,
+        false
+       ]
+      ]
+     },
+     {
+      "name": "fam2_40",
+      "kanten": [
+       [
+        "bind_C0_E",
+        0,
+        true
+       ],
+       [
+        "verw_C0_E",
+        1,
+        true
+       ],
+       [
+        "bind_C1_E",
+        0,
+        true
+       ],
+       [
+        "umw1_C0_C1",
+        1,
+        false
+       ],
+       [
+        "prod_C0",
+        0,
+        false
+       ]
+      ]
+     },
+     {
+      "name": "fam2_41",
+      "kanten": [
+       [
+        "bind_C0_E",
+        0,
+        true
+       ],
+       [
+        "verw_C0_E",
+        1,
+        true
+       ],
+       [
+        "bind_C1_E",
+        0,
+        true
+       ],
+       [
+        "umw0_C0_C1",
+        0,
+        false
+       ],
+       [
+        "prod_C0",
+        0,
+        false
+       ]
+      ]
+     },
+     {
+      "name": "fam2_42",
+      "kanten": [
+       [
+        "bind_C0_E",
+        0,
+        true
+       ],
+       [
+        "verw_C0_E",
+        1,
+        true
+       ],
+       [
+        "bind_C1_E",
+        0,
+        true
+       ],
+       [
+        "verw_C1_E",
+        1,
+        true
+       ],
+       [
+        "prod_C0",
+        0,
+        false
+       ]
+      ]
+     },
+     {
+      "name": "fam2_43",
+      "kanten": [
+       [
+        "bind_C0_E",
+        0,
+        true
+       ],
+       [
+        "verw_C0_E",
+        1,
+        true
+       ],
+       [
+        "bind_C1_E",
+        0,
+        true
+       ],
+       [
+        "verw_C1_E",
+        1,
+        true
+       ],
+       [
+        "umw1r_C1_C0",
+        1,
+        false
+       ],
+       [
+        "prod_C0",
+        0,
+        false
+       ]
+      ]
+     },
+     {
+      "name": "fam2_44",
+      "kanten": [
+       [
+        "bind_C0_E",
+        0,
+        true
+       ],
+       [
+        "verw_C0_E",
+        1,
+        true
+       ],
+       [
+        "bind_C1_E",
+        0,
+        true
+       ],
+       [
+        "verw_C1_E",
+        1,
+        true
+       ],
+       [
+        "umw1_C0_C1",
+        1,
+        false
+       ],
+       [
+        "prod_C0",
+        0,
+        false
+       ]
+      ]
+     },
+     {
+      "name": "fam2_45",
+      "kanten": [
+       [
+        "bind_C0_E",
+        0,
+        true
+       ],
+       [
+        "verw_C0_E",
+        1,
+        true
+       ],
+       [
+        "bind_C1_E",
+        0,
+        true
+       ],
+       [
+        "verw_C1_E",
+        1,
+        true
+       ],
+       [
+        "umw0_C0_C1",
+        0,
+        false
+       ],
+       [
+        "prod_C0",
+        0,
+        false
+       ]
+      ]
+     },
+     {
+      "name": "fam2_46",
+      "kanten": [
+       [
+        "bind_C1_E",
+        0,
+        true
+       ],
+       [
+        "umw1r_C1_C0",
+        1,
+        false
+       ],
+       [
+        "prod_C1",
+        0,
+        false
+       ]
+      ]
+     },
+     {
+      "name": "fam2_47",
+      "kanten": [
+       [
+        "bind_C1_E",
+        0,
+        true
+       ],
+       [
+        "umw1_C0_C1",
+        1,
+        false
+       ],
+       [
+        "prod_C1",
+        0,
+        false
+       ]
+      ]
+     },
+     {
+      "name": "fam2_48",
+      "kanten": [
+       [
+        "bind_C1_E",
+        0,
+        true
+       ],
+       [
+        "umw0_C0_C1",
+        0,
+        false
+       ],
+       [
+        "prod_C1",
+        0,
+        false
+       ]
+      ]
+     },
+     {
+      "name": "fam2_49",
+      "kanten": [
+       [
+        "bind_C1_E",
+        0,
+        true
+       ],
+       [
+        "verw_C1_E",
+        1,
+        true
+       ],
+       [
+        "umw1r_C1_C0",
+        1,
+        false
+       ],
+       [
+        "prod_C1",
+        0,
+        false
+       ]
+      ]
+     },
+     {
+      "name": "fam2_50",
+      "kanten": [
+       [
+        "bind_C1_E",
+        0,
+        true
+       ],
+       [
+        "verw_C1_E",
+        1,
+        true
+       ],
+       [
+        "umw1_C0_C1",
+        1,
+        false
+       ],
+       [
+        "prod_C1",
+        0,
+        false
+       ]
+      ]
+     },
+     {
+      "name": "fam2_51",
+      "kanten": [
+       [
+        "bind_C1_E",
+        0,
+        true
+       ],
+       [
+        "verw_C1_E",
+        1,
+        true
+       ],
+       [
+        "umw0_C0_C1",
+        0,
+        false
+       ],
+       [
+        "prod_C1",
+        0,
+        false
+       ]
+      ]
+     },
+     {
+      "name": "fam2_52",
+      "kanten": [
+       [
+        "verw_C0_E",
+        1,
+        true
+       ],
+       [
+        "bind_C1_E",
+        0,
+        true
+       ],
+       [
+        "prod_C1",
+        0,
+        false
+       ]
+      ]
+     },
+     {
+      "name": "fam2_53",
+      "kanten": [
+       [
+        "verw_C0_E",
+        1,
+        true
+       ],
+       [
+        "bind_C1_E",
+        0,
+        true
+       ],
+       [
+        "umw1r_C1_C0",
+        1,
+        false
+       ],
+       [
+        "prod_C1",
+        0,
+        false
+       ]
+      ]
+     },
+     {
+      "name": "fam2_54",
+      "kanten": [
+       [
+        "verw_C0_E",
+        1,
+        true
+       ],
+       [
+        "bind_C1_E",
+        0,
+        true
+       ],
+       [
+        "umw1_C0_C1",
+        1,
+        false
+       ],
+       [
+        "prod_C1",
+        0,
+        false
+       ]
+      ]
+     },
+     {
+      "name": "fam2_55",
+      "kanten": [
+       [
+        "verw_C0_E",
+        1,
+        true
+       ],
+       [
+        "bind_C1_E",
+        0,
+        true
+       ],
+       [
+        "umw0_C0_C1",
+        0,
+        false
+       ],
+       [
+        "prod_C1",
+        0,
+        false
+       ]
+      ]
+     },
+     {
+      "name": "fam2_56",
+      "kanten": [
+       [
+        "verw_C0_E",
+        1,
+        true
+       ],
+       [
+        "bind_C1_E",
+        0,
+        true
+       ],
+       [
+        "verw_C1_E",
+        1,
+        true
+       ],
+       [
+        "prod_C1",
+        0,
+        false
+       ]
+      ]
+     },
+     {
+      "name": "fam2_57",
+      "kanten": [
+       [
+        "verw_C0_E",
+        1,
+        true
+       ],
+       [
+        "bind_C1_E",
+        0,
+        true
+       ],
+       [
+        "verw_C1_E",
+        1,
+        true
+       ],
+       [
+        "umw1r_C1_C0",
+        1,
+        false
+       ],
+       [
+        "prod_C1",
+        0,
+        false
+       ]
+      ]
+     },
+     {
+      "name": "fam2_58",
+      "kanten": [
+       [
+        "verw_C0_E",
+        1,
+        true
+       ],
+       [
+        "bind_C1_E",
+        0,
+        true
+       ],
+       [
+        "verw_C1_E",
+        1,
+        true
+       ],
+       [
+        "umw1_C0_C1",
+        1,
+        false
+       ],
+       [
+        "prod_C1",
+        0,
+        false
+       ]
+      ]
+     },
+     {
+      "name": "fam2_59",
+      "kanten": [
+       [
+        "verw_C0_E",
+        1,
+        true
+       ],
+       [
+        "bind_C1_E",
+        0,
+        true
+       ],
+       [
+        "verw_C1_E",
+        1,
+        true
+       ],
+       [
+        "umw0_C0_C1",
+        0,
+        false
+       ],
+       [
+        "prod_C1",
+        0,
+        false
+       ]
+      ]
+     },
+     {
+      "name": "fam2_61",
+      "kanten": [
+       [
+        "bind_C0_E",
+        0,
+        true
+       ],
+       [
+        "umw1r_C1_C0",
+        1,
+        false
+       ],
+       [
+        "prod_C1",
+        0,
+        false
+       ]
+      ]
+     },
+     {
+      "name": "fam2_62",
+      "kanten": [
+       [
+        "bind_C0_E",
+        0,
+        true
+       ],
+       [
+        "umw1_C0_C1",
+        1,
+        false
+       ],
+       [
+        "prod_C1",
+        0,
+        false
+       ]
+      ]
+     },
+     {
+      "name": "fam2_63",
+      "kanten": [
+       [
+        "bind_C0_E",
+        0,
+        true
+       ],
+       [
+        "umw0_C0_C1",
+        0,
+        false
+       ],
+       [
+        "prod_C1",
+        0,
+        false
+       ]
+      ]
+     },
+     {
+      "name": "fam2_64",
+      "kanten": [
+       [
+        "bind_C0_E",
+        0,
+        true
+       ],
+       [
+        "verw_C1_E",
+        1,
+        true
+       ],
+       [
+        "prod_C1",
+        0,
+        false
+       ]
+      ]
+     },
+     {
+      "name": "fam2_65",
+      "kanten": [
+       [
+        "bind_C0_E",
+        0,
+        true
+       ],
+       [
+        "verw_C1_E",
+        1,
+        true
+       ],
+       [
+        "umw1r_C1_C0",
+        1,
+        false
+       ],
+       [
+        "prod_C1",
+        0,
+        false
+       ]
+      ]
+     },
+     {
+      "name": "fam2_66",
+      "kanten": [
+       [
+        "bind_C0_E",
+        0,
+        true
+       ],
+       [
+        "verw_C1_E",
+        1,
+        true
+       ],
+       [
+        "umw1_C0_C1",
+        1,
+        false
+       ],
+       [
+        "prod_C1",
+        0,
+        false
+       ]
+      ]
+     },
+     {
+      "name": "fam2_67",
+      "kanten": [
+       [
+        "bind_C0_E",
+        0,
+        true
+       ],
+       [
+        "verw_C1_E",
+        1,
+        true
+       ],
+       [
+        "umw0_C0_C1",
+        0,
+        false
+       ],
+       [
+        "prod_C1",
+        0,
+        false
+       ]
+      ]
+     },
+     {
+      "name": "fam2_68",
+      "kanten": [
+       [
+        "bind_C0_E",
+        0,
+        true
+       ],
+       [
+        "bind_C1_E",
+        0,
+        true
+       ],
+       [
+        "prod_C1",
+        0,
+        false
+       ]
+      ]
+     },
+     {
+      "name": "fam2_69",
+      "kanten": [
+       [
+        "bind_C0_E",
+        0,
+        true
+       ],
+       [
+        "bind_C1_E",
+        0,
+        true
+       ],
+       [
+        "umw1r_C1_C0",
+        1,
+        false
+       ],
+       [
+        "prod_C1",
+        0,
+        false
+       ]
+      ]
+     },
+     {
+      "name": "fam2_70",
+      "kanten": [
+       [
+        "bind_C0_E",
+        0,
+        true
+       ],
+       [
+        "bind_C1_E",
+        0,
+        true
+       ],
+       [
+        "umw1_C0_C1",
+        1,
+        false
+       ],
+       [
+        "prod_C1",
+        0,
+        false
+       ]
+      ]
+     },
+     {
+      "name": "fam2_71",
+      "kanten": [
+       [
+        "bind_C0_E",
+        0,
+        true
+       ],
+       [
+        "bind_C1_E",
+        0,
+        true
+       ],
+       [
+        "umw0_C0_C1",
+        0,
+        false
+       ],
+       [
+        "prod_C1",
+        0,
+        false
+       ]
+      ]
+     },
+     {
+      "name": "fam2_72",
+      "kanten": [
+       [
+        "bind_C0_E",
+        0,
+        true
+       ],
+       [
+        "bind_C1_E",
+        0,
+        true
+       ],
+       [
+        "verw_C1_E",
+        1,
+        true
+       ],
+       [
+        "prod_C1",
+        0,
+        false
+       ]
+      ]
+     },
+     {
+      "name": "fam2_73",
+      "kanten": [
+       [
+        "bind_C0_E",
+        0,
+        true
+       ],
+       [
+        "bind_C1_E",
+        0,
+        true
+       ],
+       [
+        "verw_C1_E",
+        1,
+        true
+       ],
+       [
+        "umw1r_C1_C0",
+        1,
+        false
+       ],
+       [
+        "prod_C1",
+        0,
+        false
+       ]
+      ]
+     },
+     {
+      "name": "fam2_74",
+      "kanten": [
+       [
+        "bind_C0_E",
+        0,
+        true
+       ],
+       [
+        "bind_C1_E",
+        0,
+        true
+       ],
+       [
+        "verw_C1_E",
+        1,
+        true
+       ],
+       [
+        "umw1_C0_C1",
+        1,
+        false
+       ],
+       [
+        "prod_C1",
+        0,
+        false
+       ]
+      ]
+     },
+     {
+      "name": "fam2_75",
+      "kanten": [
+       [
+        "bind_C0_E",
+        0,
+        true
+       ],
+       [
+        "bind_C1_E",
+        0,
+        true
+       ],
+       [
+        "verw_C1_E",
+        1,
+        true
+       ],
+       [
+        "umw0_C0_C1",
+        0,
+        false
+       ],
+       [
+        "prod_C1",
+        0,
+        false
+       ]
+      ]
+     },
+     {
+      "name": "fam2_77",
+      "kanten": [
+       [
+        "bind_C0_E",
+        0,
+        true
+       ],
+       [
+        "verw_C0_E",
+        1,
+        true
+       ],
+       [
+        "umw1r_C1_C0",
+        1,
+        false
+       ],
+       [
+        "prod_C1",
+        0,
+        false
+       ]
+      ]
+     },
+     {
+      "name": "fam2_78",
+      "kanten": [
+       [
+        "bind_C0_E",
+        0,
+        true
+       ],
+       [
+        "verw_C0_E",
+        1,
+        true
+       ],
+       [
+        "umw1_C0_C1",
+        1,
+        false
+       ],
+       [
+        "prod_C1",
+        0,
+        false
+       ]
+      ]
+     },
+     {
+      "name": "fam2_79",
+      "kanten": [
+       [
+        "bind_C0_E",
+        0,
+        true
+       ],
+       [
+        "verw_C0_E",
+        1,
+        true
+       ],
+       [
+        "umw0_C0_C1",
+        0,
+        false
+       ],
+       [
+        "prod_C1",
+        0,
+        false
+       ]
+      ]
+     },
+     {
+      "name": "fam2_80",
+      "kanten": [
+       [
+        "bind_C0_E",
+        0,
+        true
+       ],
+       [
+        "verw_C0_E",
+        1,
+        true
+       ],
+       [
+        "verw_C1_E",
+        1,
+        true
+       ],
+       [
+        "prod_C1",
+        0,
+        false
+       ]
+      ]
+     },
+     {
+      "name": "fam2_81",
+      "kanten": [
+       [
+        "bind_C0_E",
+        0,
+        true
+       ],
+       [
+        "verw_C0_E",
+        1,
+        true
+       ],
+       [
+        "verw_C1_E",
+        1,
+        true
+       ],
+       [
+        "umw1r_C1_C0",
+        1,
+        false
+       ],
+       [
+        "prod_C1",
+        0,
+        false
+       ]
+      ]
+     },
+     {
+      "name": "fam2_82",
+      "kanten": [
+       [
+        "bind_C0_E",
+        0,
+        true
+       ],
+       [
+        "verw_C0_E",
+        1,
+        true
+       ],
+       [
+        "verw_C1_E",
+        1,
+        true
+       ],
+       [
+        "umw1_C0_C1",
+        1,
+        false
+       ],
+       [
+        "prod_C1",
+        0,
+        false
+       ]
+      ]
+     },
+     {
+      "name": "fam2_83",
+      "kanten": [
+       [
+        "bind_C0_E",
+        0,
+        true
+       ],
+       [
+        "verw_C0_E",
+        1,
+        true
+       ],
+       [
+        "verw_C1_E",
+        1,
+        true
+       ],
+       [
+        "umw0_C0_C1",
+        0,
+        false
+       ],
+       [
+        "prod_C1",
+        0,
+        false
+       ]
+      ]
+     },
+     {
+      "name": "fam2_84",
+      "kanten": [
+       [
+        "bind_C0_E",
+        0,
+        true
+       ],
+       [
+        "verw_C0_E",
+        1,
+        true
+       ],
+       [
+        "bind_C1_E",
+        0,
+        true
+       ],
+       [
+        "prod_C1",
+        0,
+        false
+       ]
+      ]
+     },
+     {
+      "name": "fam2_85",
+      "kanten": [
+       [
+        "bind_C0_E",
+        0,
+        true
+       ],
+       [
+        "verw_C0_E",
+        1,
+        true
+       ],
+       [
+        "bind_C1_E",
+        0,
+        true
+       ],
+       [
+        "umw1r_C1_C0",
+        1,
+        false
+       ],
+       [
+        "prod_C1",
+        0,
+        false
+       ]
+      ]
+     },
+     {
+      "name": "fam2_86",
+      "kanten": [
+       [
+        "bind_C0_E",
+        0,
+        true
+       ],
+       [
+        "verw_C0_E",
+        1,
+        true
+       ],
+       [
+        "bind_C1_E",
+        0,
+        true
+       ],
+       [
+        "umw1_C0_C1",
+        1,
+        false
+       ],
+       [
+        "prod_C1",
+        0,
+        false
+       ]
+      ]
+     },
+     {
+      "name": "fam2_87",
+      "kanten": [
+       [
+        "bind_C0_E",
+        0,
+        true
+       ],
+       [
+        "verw_C0_E",
+        1,
+        true
+       ],
+       [
+        "bind_C1_E",
+        0,
+        true
+       ],
+       [
+        "umw0_C0_C1",
+        0,
+        false
+       ],
+       [
+        "prod_C1",
+        0,
+        false
+       ]
+      ]
+     },
+     {
+      "name": "fam2_88",
+      "kanten": [
+       [
+        "bind_C0_E",
+        0,
+        true
+       ],
+       [
+        "verw_C0_E",
+        1,
+        true
+       ],
+       [
+        "bind_C1_E",
+        0,
+        true
+       ],
+       [
+        "verw_C1_E",
+        1,
+        true
+       ],
+       [
+        "prod_C1",
+        0,
+        false
+       ]
+      ]
+     },
+     {
+      "name": "fam2_89",
+      "kanten": [
+       [
+        "bind_C0_E",
+        0,
+        true
+       ],
+       [
+        "verw_C0_E",
+        1,
+        true
+       ],
+       [
+        "bind_C1_E",
+        0,
+        true
+       ],
+       [
+        "verw_C1_E",
+        1,
+        true
+       ],
+       [
+        "umw1r_C1_C0",
+        1,
+        false
+       ],
+       [
+        "prod_C1",
+        0,
+        false
+       ]
+      ]
+     },
+     {
+      "name": "fam2_90",
+      "kanten": [
+       [
+        "bind_C0_E",
+        0,
+        true
+       ],
+       [
+        "verw_C0_E",
+        1,
+        true
+       ],
+       [
+        "bind_C1_E",
+        0,
+        true
+       ],
+       [
+        "verw_C1_E",
+        1,
+        true
+       ],
+       [
+        "umw1_C0_C1",
+        1,
+        false
+       ],
+       [
+        "prod_C1",
+        0,
+        false
+       ]
+      ]
+     },
+     {
+      "name": "fam2_91",
+      "kanten": [
+       [
+        "bind_C0_E",
+        0,
+        true
+       ],
+       [
+        "verw_C0_E",
+        1,
+        true
+       ],
+       [
+        "bind_C1_E",
+        0,
+        true
+       ],
+       [
+        "verw_C1_E",
+        1,
+        true
+       ],
+       [
+        "umw0_C0_C1",
+        0,
+        false
+       ],
+       [
+        "prod_C1",
+        0,
+        false
+       ]
+      ]
+     }
+    ]
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 1,
+   "wer": "forscher-sparsam",
+   "op": "optimize",
+   "args": {
+    "topologie": "fam2_0",
+    "sigma_max": 8,
+    "v_min": 0.0001
+   },
+   "ergebnis": {
+    "fehler": "StopIteration: "
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 2,
+   "wer": "forscher-sparsam",
+   "op": "optimize",
+   "args": {
+    "topologie": "fam2_15",
+    "sigma_max": 8,
+    "v_min": 0.0001
+   },
+   "ergebnis": {
+    "params": {
+     "verw_C0_E+": 5.148476090551687,
+     "verw_C0_E-": 3.795681106686545,
+     "bind_C1_E+": 4.696234764107354,
+     "bind_C1_E-": 1.1499760904201213,
+     "verw_C1_E+": 1.4248444932298936,
+     "umw0_C0_C1+": -5.8825182857197635,
+     "prod_C0+": 0.054132820441626164,
+     "mu": 4.309954968446029,
+     "muP": 7.827627403805964
+    },
+    "eta": 0.010049141053297015,
+    "sigma": 7.998378819359641,
+    "v": 0.20465555936669885,
+    "feasible": true,
+    "hinweis": "numerisch (Kandidat), nicht zertifiziert"
+   },
+   "sek": 0.41
+  },
+  {
+   "id": 3,
+   "wer": "forscher-sparsam",
+   "op": "optimize",
+   "args": {
+    "topologie": "fam2_30",
+    "sigma_max": 8,
+    "v_min": 0.0001
+   },
+   "ergebnis": {
+    "params": {
+     "bind_C0_E+": 5.318838430042028,
+     "bind_C0_E-": 6.216774224896529,
+     "bind_C1_E+": 0.9830837324236988,
+     "bind_C1_E-": 3.409308093791429,
+     "verw_C1_E+": -3.7315739863130886,
+     "umw0_C0_C1+": -8.42171143079173,
+     "prod_C0+": 0.7102520620002856,
+     "mu": 4.582136415654509,
+     "muP": 4.83468932602469
+    },
+    "eta": 0.010098652531499427,
+    "sigma": 5.326537989357838,
+    "v": 0.33179396301516395,
+    "feasible": true,
+    "hinweis": "numerisch (Kandidat), nicht zertifiziert"
+   },
+   "sek": 1.49
+  },
+  {
+   "id": 4,
+   "wer": "forscher-sparsam",
+   "op": "optimize",
+   "args": {
+    "topologie": "fam2_50",
+    "sigma_max": 8,
+    "v_min": 0.0001
+   },
+   "ergebnis": {
+    "params": {
+     "bind_C1_E+": -4.184442709938373,
+     "bind_C1_E-": 1.203588818055244,
+     "verw_C1_E+": 5.321331000135504,
+     "umw1_C0_C1+": -6.747997492261098,
+     "umw1_C0_C1-": 0.24165058459389127,
+     "prod_C1+": 0.3990476653188208,
+     "mu": 0.7596435598696695,
+     "muP": 8.063548099531618
+    },
+    "eta": 0.010072085972299442,
+    "sigma": 7.321582209248239,
+    "v": 0.0013573378593439945,
+    "feasible": true,
+    "hinweis": "numerisch (Kandidat), nicht zertifiziert"
+   },
+   "sek": 0.9
+  },
+  {
+   "id": 5,
+   "wer": "forscher-sparsam",
+   "op": "optimize",
+   "args": {
+    "topologie": "fam2_70",
+    "sigma_max": 8,
+    "v_min": 0.0001
+   },
+   "ergebnis": {
+    "params": {
+     "bind_C0_E+": 1.0487275305774415,
+     "bind_C0_E-": 6.58186085447174,
+     "bind_C1_E+": -1.3917227237241387,
+     "bind_C1_E-": -1.5540460013691748,
+     "umw1_C0_C1+": -3.1763958804594004,
+     "prod_C1+": -0.9005637300564369,
+     "mu": 4.90805691516739,
+     "muP": 0.0
+    },
+    "eta": 0.00029814501045118114,
+    "sigma": 7.999999986317628,
+    "v": 0.021006942626276906,
+    "feasible": true,
+    "hinweis": "numerisch (Kandidat), nicht zertifiziert"
+   },
+   "sek": 1.03
+  },
+  {
+   "id": 6,
+   "wer": "forscher-sparsam",
+   "op": "optimize",
+   "args": {
+    "topologie": "fam2_90",
+    "sigma_max": 8,
+    "v_min": 0.0001
+   },
+   "ergebnis": {
+    "params": {
+     "bind_C0_E+": -0.7150396102336665,
+     "bind_C0_E-": -1.4354828771874621,
+     "verw_C0_E+": 1.8714951228923953,
+     "bind_C1_E+": -3.241699753802824,
+     "bind_C1_E-": -1.414264883646166,
+     "verw_C1_E+": 5.344829805773434,
+     "umw1_C0_C1+": -3.302032661321819,
+     "prod_C1+": 2.8170565285570084,
+     "mu": 4.097282753994086,
+     "muP": 9.614334695669902
+    },
+    "eta": 0.010788861090477603,
+    "sigma": 7.818671066061142,
+    "v": 1.4145288951904997,
+    "feasible": true,
+    "hinweis": "numerisch (Kandidat), nicht zertifiziert"
+   },
+   "sek": 1.92
+  },
+  {
+   "id": 7,
+   "wer": "forscher-sparsam",
+   "op": "optimize",
+   "args": {
+    "topologie": "fam2_1",
+    "sigma_max": 8,
+    "v_min": 0.0001
+   },
+   "ergebnis": {
+    "params": {
+     "bind_C1_E+": 5.344814998016615,
+     "bind_C1_E-": 5.839772680038175,
+     "umw1r_C1_C0+": -5.77347833054009,
+     "prod_C0+": 7.471337994324681,
+     "prod_C0-": -4.497843980824983,
+     "mu": 3.754313458196687,
+     "muP": 1.683057267415052
+    },
+    "eta": 0.010000146607755264,
+    "sigma": 5.437370725646543,
+    "v": 0.0019073961100355792,
+    "feasible": true,
+    "hinweis": "numerisch (Kandidat), nicht zertifiziert"
+   },
+   "sek": 0.62
+  },
+  {
+   "id": 8,
+   "wer": "forscher-sparsam",
+   "op": "optimize",
+   "args": {
+    "topologie": "fam2_2",
+    "sigma_max": 8,
+    "v_min": 0.0001
+   },
+   "ergebnis": {
+    "params": {
+     "bind_C1_E+": 2.739233746429086,
+     "bind_C1_E-": -4.604265724722594,
+     "umw1_C0_C1+": -9.180529521276107,
+     "prod_C0+": -9.669447289429417,
+     "prod_C0-": 6.265404784005447,
+     "mu": 18.255111545554435,
+     "muP": 12.132715515343598
+    },
+    "eta": Infinity,
+    "sigma": Infinity,
+    "v": -5.405548343231573e-07,
+    "feasible": false,
+    "hinweis": "numerisch (Kandidat), nicht zertifiziert"
+   },
+   "sek": 0.01
+  },
+  {
+   "id": 9,
+   "wer": "forscher-sparsam",
+   "op": "optimize",
+   "args": {
+    "topologie": "fam2_3",
+    "sigma_max": 8,
+    "v_min": 0.0001
+   },
+   "ergebnis": {
+    "params": {
+     "bind_C1_E+": 3.2653745047736336,
+     "bind_C1_E-": 3.8870267778131606,
+     "umw0_C0_C1+": -2.346153064223009,
+     "prod_C0+": 4.2642269437629015,
+     "prod_C0-": -5.344829778240621,
+     "mu": 6.722341210913207,
+     "muP": 6.2191437195858885
+    },
+    "eta": 0.010000654326455761,
+    "sigma": 6.219143719613368,
+    "v": 0.001116592632092818,
+    "feasible": true,
+    "hinweis": "numerisch (Kandidat), nicht zertifiziert"
+   },
+   "sek": 0.57
+  },
+  {
+   "id": 10,
+   "wer": "forscher-sparsam",
+   "op": "optimize",
+   "args": {
+    "topologie": "fam2_4",
+    "sigma_max": 8,
+    "v_min": 0.0001
+   },
+   "ergebnis": {
+    "fehler": "StopIteration: "
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 11,
+   "wer": "forscher-sparsam",
+   "op": "optimize",
+   "args": {
+    "topologie": "fam2_11",
+    "sigma_max": 8,
+    "v_min": 0.0001
+   },
+   "ergebnis": {
+    "params": {
+     "verw_C0_E+": -0.4116110738781247,
+     "verw_C0_E-": -4.05020267150784,
+     "bind_C1_E+": 4.997643629625584,
+     "bind_C1_E-": 9.27160450092314,
+     "umw0_C0_C1+": 0.15100710601014286,
+     "prod_C0+": 3.888571051721116,
+     "mu": 10.393871334266136,
+     "muP": 4.069586512911747
+    },
+    "eta": 5.0941826882196265e-05,
+    "sigma": 4.446555405239747,
+    "v": 8.575914490559697,
+    "feasible": true,
+    "hinweis": "numerisch (Kandidat), nicht zertifiziert"
+   },
+   "sek": 0.52
+  },
+  {
+   "id": 12,
+   "wer": "forscher-sparsam",
+   "op": "optimize",
+   "args": {
+    "topologie": "fam2_20",
+    "sigma_max": 8,
+    "v_min": 0.0001
+   },
+   "ergebnis": {
+    "params": {
+     "bind_C0_E+": 4.218123593808973,
+     "bind_C0_E-": 6.187782182547478,
+     "verw_C1_E+": 2.374051611373266,
+     "verw_C1_E-": -6.0018635188140275,
+     "umw1r_C1_C0+": 8.471363467494546,
+     "prod_C0+": -5.107910735355605,
+     "mu": 14.59310892859888,
+     "muP": 2.2065748903744296
+    },
+    "eta": 0.010000881835044799,
+    "sigma": 2.206574890318411,
+    "v": 0.004682559547550138,
+    "feasible": true,
+    "hinweis": "numerisch (Kandidat), nicht zertifiziert"
+   },
+   "sek": 0.97
+  }
+ ],
+ "sek": 275.7
+}

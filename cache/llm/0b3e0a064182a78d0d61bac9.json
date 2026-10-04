@@ -1,0 +1,11 @@
+{
+ "key": "0b3e0a064182a78d0d61bac9",
+ "model": "claude-haiku-4-5-20251001",
+ "salt": "novelty-q-assay_demo-R1",
+ "system": "You are a careful literature searcher. Answer with valid JSON only.",
+ "prompt": "Research field: Ein Enzym wird unter verschiedenen Bedingungen auf seine Aktivität getestet (Umsatz pro Minute, Fluoreszenz-Assay). Faktoren: Temperatur und Zusatz eines Kofaktors. Negativkontrolle: ohne Enzym. Positivkontrolle: Referenzbedingung mit bekanntem Umsatz.\n\nVerified result: In experiment A1, Aktivität is larger in group 37C_mit_kofaktor than in group 37C_ohne_kofaktor (preregistered one-sided permutation test, alpha = 0.05 after Benjamini-Hochberg, bootstrap CI excludes 0, controls valid).\n\nFormulate 3-5 short, specific English search queries (3-7 words) that would find a paper stating exactly this result or stating that it is open. JSON: {\"queries\": [\"...\"]}",
+ "response": "```json\n{\n  \"queries\": [\n    \"enzyme activity cofactor dependent\",\n    \"cofactor effect enzyme turnover\",\n    \"enzyme fluorescence assay cofactor\",\n    \"enzyme activity enhanced by cofactor\",\n    \"enzyme kinetics temperature cofactor\"\n  ]\n}\n```",
+ "cost_usd": 0.007377,
+ "sek": 11.5,
+ "ts": "2026-10-04T01:23:11"
+}

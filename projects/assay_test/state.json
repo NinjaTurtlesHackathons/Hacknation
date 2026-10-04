@@ -1,0 +1,65 @@
+{
+ "domain": "assay_test",
+ "wissen": [],
+ "fragen": [
+  {
+   "frage": "Erhöht der Zusatz des Kofaktors bei 37C die Enzymaktivität gegenüber ohne Kofaktor?",
+   "id": "F1",
+   "status": "beantwortet",
+   "quelle": "lueckenkarte",
+   "faden_id": "F1"
+  }
+ ],
+ "claims": [
+  {
+   "id": "assay_demo-R1",
+   "frage": "Erhöht der Zusatz des Kofaktors bei 37C die Enzymaktivität gegenüber ohne Kofaktor?",
+   "text": "In experiment A1, Aktivität is larger in group 37C_mit_kofaktor than in group 37C_ohne_kofaktor (preregistered one-sided permutation test, alpha = 0.05 after Benjamini-Hochberg, bootstrap CI excludes 0, controls valid).",
+   "pruefung": {
+    "typ": "effekt",
+    "auftrag": "A1",
+    "gruppe_a": "37C_mit_kofaktor",
+    "gruppe_b": "37C_ohne_kofaktor",
+    "richtung": "groesser"
+   },
+   "grund": "37C_mit_kofaktor (n=8, Mittel 14.79) vs 37C_ohne_kofaktor (n=8, Mittel 9.902): Differenz-KI95 [4.099, 5.565], p = 0.0001, p_BH = 0.0001 (m = 1); Kontrollen: positiv vs negativ p = 0.0001",
+   "level": "statistical",
+   "status": "bestätigt",
+   "red_team": [],
+   "runde": 1,
+   "relevanz": "stuetze",
+   "neuheit": {
+    "suchanfragen": [
+     "enzyme activity cofactor dependent",
+     "cofactor effect enzyme turnover",
+     "enzyme fluorescence assay cofactor",
+     "enzyme activity enhanced by cofactor",
+     "enzyme kinetics temperature cofactor"
+    ],
+    "treffer": {
+     "enzyme activity cofactor dependent": 12,
+     "cofactor effect enzyme turnover": 10,
+     "enzyme fluorescence assay cofactor": 8,
+     "enzyme activity enhanced by cofactor": 9,
+     "enzyme kinetics temperature cofactor": 8
+    },
+    "quellen_geprueft": 40,
+    "datum": "2026-10-04",
+    "status": "nicht_gefunden"
+   }
+  }
+ ],
+ "widerlegt": [],
+ "runden": [
+  {
+   "runde": 1,
+   "frage": "F1",
+   "status": "wartet_auf_daten",
+   "red_team": [],
+   "sek": 18.0,
+   "faden_id": "F1"
+  }
+ ],
+ "kosten_usd": 0.0,
+ "ausstehend": []
+}
