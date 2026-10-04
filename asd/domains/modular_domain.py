@@ -336,6 +336,30 @@ class ModularDomain(Domain):
             pass
         return ("Verified: " if en else "Geprüft: ") + json.dumps(p, ensure_ascii=False)
 
+    def inhalt(self, p):
+        """Mathematischer Inhalt einer Prüfung als Schlüssel (für den Neuheits-Abgleich): Relationen als primitive, vorzeichen-
+        normierte Koeffizientenvektoren über den beteiligten Monomen; ein Relationsraum der Dimension 1 ist gleichwertig zu seiner Relation."""
+        t = p.get("typ")
+        def norm(paare):
+            from math import gcd
+            d = {}
+            for c, m in paare:
+                c = Fr(str(c))
+                if c: d[str(m).replace(" ", "")] = d.get(str(m).replace(" ", ""), 0) + c
+            d = {m: c for m, c in d.items() if c}
+            if not d: return "0"
+            den = math.lcm(*[c.denominator for c in d.values()]); v = {m: int(c * den) for m, c in d.items()}
+            g = 0
+            for x in v.values(): g = gcd(g, abs(x))
+            v = {m: x // g for m, x in v.items()}
+            if v[sorted(v)[0]] < 0: v = {m: -x for m, x in v.items()}
+            return json.dumps(sorted(v.items()))
+        try:
+            if t in ("mgf_relation", "identitaet"): return t[:3] + norm(p["terme"])
+            if t == "mgf_relationsraum" and int(p["dim"]) == 1: return "mgf" + norm(zip(p["relationen"][0], p["basis"]))
+        except Exception: pass
+        return json.dumps(p, sort_keys=True)
+
     def widerspricht(self, p, q):
         for x, y in ((p, q), (q, p)):
             if x.get("typ") == y.get("typ") == "koeffizient" and x.get("monom") == y.get("monom") and str(x.get("n")) == str(y.get("n")):

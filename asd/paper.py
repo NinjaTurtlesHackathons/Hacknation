@@ -152,7 +152,9 @@ def claims_of(domain, lang="en"):
         nv = c.get("neuheit") or {}
         ntxt = {"bekannt": f" Novelty status: already stated in the literature ({nv.get('quelle')}: \"{nv.get('zitat', '')[:160]}\").",
                 "offen_laut_literatur": f" Novelty status: stated as open in the literature ({nv.get('quelle')}).",
-                "nicht_gefunden": f" Novelty status: not found in a targeted search of {nv.get('quellen_geprueft', 0)} abstracts on {nv.get('datum', '')}."}.get(nv.get("status"), " Novelty status: not checked.")
+                "nicht_gefunden": f" Novelty status: not found in a targeted search of {nv.get('quellen_geprueft', 0)} abstracts on {nv.get('datum', '')}.",
+                "uneinheitlich": f" Novelty status: inconclusive; equivalent searches disagree ({nv.get('abgleich', '')}); the closest literature statement is {nv.get('quelle')}: \"{nv.get('zitat', '')[:160]}\". The result may be known or implied there; it must not be called new.",
+                "reproduktion_anker": " Novelty status: reproduction of a classical result, preregistered as a validation anchor (no claim of novelty)."}.get(nv.get("status"), " Novelty status: not checked.")
         C.append({"claim_id": f"C-{c['id']}", "text": f"Question studied: {c['frage']} Verified result: {text} Verifier: {sanitize(c['grund'])}.{ntxt}",
                   "level": c["level"], "status": c["status"], "relevanz": rel, "scope": scope_of(text, c.get("pruefung"))})
         interp = c.get("interpretation_ungeprueft") or c["text"].split("->")[-1]

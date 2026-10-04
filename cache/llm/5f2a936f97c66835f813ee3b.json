@@ -1,0 +1,11 @@
+{
+ "key": "5f2a936f97c66835f813ee3b",
+ "model": "claude-haiku-4-5-20251001",
+ "salt": "novelty-q-modular-R5f",
+ "system": "You are a careful literature searcher. Answer with valid JSON only.",
+ "prompt": "Research field: Thema: Modulformen und Identitäten aus der Stringtheorie.\n(A) Holomorph: q = e^{2 pi i tau}. Bausteine: E<k> bzw. E<k>(d) (Eisenstein E_k(d tau), k >= 4 gerade, a_0 = 1), F2(d) = E_2(tau) - d E_2(d tau), eta(d) (Dedekind eta(d tau)), Delta(d) = eta(d tau)^24, theta(d) = sum_n q^{d n^2}, thetaE8/thetaD16 (Thetareihen der Gitter E8 und D16+, durch Gitterabzählung), j = E4^3/Delta. Monome mit '*' und '^' (z. B. 'eta(2)^20*eta(1)^-8*eta(4)^-8'). Eine Identität sum c_t f_t = 0 auf Gamma_0(N) ist bewiesen, wenn alle Terme modular vom selben Gewicht und Charakter sind und die Koeffizienten bis zur Sturm-Schranke k*[SL2(Z):Gamma_0(N)]/12 verschwinden. Stringtheorie-Bezug: Zustandssummen (Bosonen: 1/eta^24; Superstring: Theta-Funktionen mit GSO-Projektion; heterotische Gitter E8+E8 und D16+), j-Funktion.\n(B) Nicht-holomorph: tau = tau1 + i tau2, p = m tau + n. E(s) = sum'_p (tau2/(pi |p|^2))^s, C(a,b,c) = sum'_{p1+p2+p3=0} prod (tau2/(pi |p_i|^2))^{a_i} (Modulgraphfunktionen zweischleifiger 'dihedraler' Graphen, Gewicht w = a+b+c). Sie treten als Koeffizienten der Niederenergie-Entwicklung der Einschleifen-Amplitude geschlossener Strings auf. zeta(k) ist die Riemannsche Zetafunktion (Konstante). L[F] ist der hyperbolische Laplace-Operator tau2^2 (d^2/dtau1^2 + d^2/dtau2^2) angewandt auf F. Gesucht: rationale lineare Relationen und Laplace-Gleichungen zwischen solchen Funktionen. Werte sind numerisch (~30 Stellen); die Prüfung erfolgt an eigenen Zufallspunkten des Prüfers.\n\nVerified result: On Gamma_0(1): thetaE8^2 - E8 = 0 (exact; Sturm-bound certificate).\n\nFormulate 3-5 short, specific English search queries (3-7 words) that would find a paper stating exactly this result or stating that it is open. JSON: {\"queries\": [\"...\"]}",
+ "response": "```json\n{\n  \"queries\": [\n    \"E8 theta function Eisenstein series\",\n    \"theta E8 modular form identity\",\n    \"E8 lattice theta function squared\",\n    \"Eisenstein series E8 theta relation\",\n    \"Eisenstein theta E8 string theory\"\n  ]\n}\n```",
+ "cost_usd": 0.033849000000000004,
+ "sek": 46.8,
+ "ts": "2026-10-04T08:52:08"
+}

@@ -11,3 +11,41 @@
 - 2026-10-04 06:48:50 Runde 3: Für welche Level N <= 30 spannen die holomorphen Eta-Quotienten mit trivialem Charakter den ganzen Raum M_4(Gamma_0(N))? Exakte Tabelle (eta_span_tabelle).
 - 2026-10-04 06:57:10   keine geprüfte Behauptung: sparsam/haiku: Prüfung nicht ausführbar; numeriker/haiku: keine Prüfung angegeben; skeptiker/sonnet: Prüfung nicht ausführbar; theoretiker/sonnet: Prüfung nicht ausführbar
 - 2026-10-04 06:57:26 Runde 4: Welche Laplace-Gleichung (L[C] - s(s-1) C = Quellen aus Eisenstein-Produkten und Zetawerten) erfüllt C(3,1,1)? Finde Eigenwert und Quellterme und lasse sie prüfen.
+- 2026-10-04 08:33:26   Neuheit modular-R4a: bekannt
+- 2026-10-04 08:33:26   geprüft modular-R4a (observed): Numerisch (32 Stellen, 4 Prüfer-Punkte, rel. Residuum <= 1e-14): L[C(3,1,1)] - 6·C(3,1,1) - 86/5·E(5) + 4·E(2)*E(3) - 1/10·zeta(5) = 0 als Funktionen von tau. | Red-Team: 0 Gegenprüfungen, 0 bestanden, 0 logische Widersprüche
+- 2026-10-04 08:34:34   Neuheit modular-R4b: bekannt
+- 2026-10-04 08:34:34   geprüft modular-R4b (observed): Numerisch (32 Stellen, 4 Prüfer-Punkte, rel. Residuum <= 1e-14): L[C(2,1,1)] - 2·C(2,1,1) - 9·E(4) + E(2)*E(2) = 0 als Funktionen von tau. | Red-Team: 2 Gegenprüfungen, 0 bestanden, 0 logische Widersprüche
+- 2026-10-04 08:35:46   Neuheit modular-R4c: bekannt
+- 2026-10-04 08:35:46   geprüft modular-R4c (observed): Numerisch (32 Stellen, 4 Prüfer-Punkte, rel. Residuum <= 1e-14): L[C(2,2,1)] - 8·E(5) = 0 als Funktionen von tau. | Red-Team: 2 Gegenprüfungen, 0 bestanden, 0 logische Widersprüche
+- 2026-10-04 08:37:04   Neuheit modular-R4d: bekannt
+- 2026-10-04 08:37:04   geprüft modular-R4d (observed): Numerisch (32 Stellen, 4 Prüfer-Punkte, rel. Residuum <= 1e-14): L[C(2,2,1)] - 20·C(2,2,1) + 2/3·zeta(5) = 0 als Funktionen von tau. | Red-Team: 2 Gegenprüfungen, 0 bestanden, 0 logische Widersprüche
+- 2026-10-04 08:37:19 Runde 5: Beweise die holomorphen Stringtheorie-Identitäten mit Sturm-Zertifikat: Jacobis Identität (theta-Funktionen als Eta-Quotienten auf Gamma_0(4)), theta_E8^2 = theta_D16 (heterotische Gitter) und Delta = (E4^3 - E6^2)/1728.
+- 2026-10-04 08:46:41   Neuheit modular-R5a: bekannt
+- 2026-10-04 08:46:41   geprüft modular-R5a (computed_rigorous): Auf Gamma_0(4) gilt theta(1)^4 - eta(2)^20*eta(1)^-8*eta(4)^-8 = 0 (exakt; Sturm-Zertifikat). | Red-Team: 2 Gegenprüfungen, 0 bestanden, 0 logische Widersprüche
+- 2026-10-04 08:48:02   Neuheit modular-R5b: bekannt
+- 2026-10-04 08:48:02   geprüft modular-R5b (computed_rigorous): Auf Gamma_0(4) gilt theta(1)^2 - eta(2)^10*eta(1)^-4*eta(4)^-4 = 0 (exakt; Sturm-Zertifikat). | Red-Team: 2 Gegenprüfungen, 0 bestanden, 0 logische Widersprüche
+- 2026-10-04 08:49:08   Neuheit modular-R5c: nicht_gefunden
+- 2026-10-04 08:49:08   geprüft modular-R5c (computed_rigorous): Auf Gamma_0(1) gilt thetaE8 - E4 = 0 (exakt; Sturm-Zertifikat). | Red-Team: 0 Gegenprüfungen, 0 bestanden, 0 logische Widersprüche
+- 2026-10-04 08:49:54   Neuheit modular-R5d: nicht_gefunden
+- 2026-10-04 08:49:54   geprüft modular-R5d (computed_rigorous): Auf Gamma_0(1) gilt thetaE8^2 - thetaD16 = 0 (exakt; Sturm-Zertifikat). | Red-Team: 2 Gegenprüfungen, 0 bestanden, 0 logische Widersprüche
+- 2026-10-04 08:51:11   Neuheit modular-R5e: nicht_gefunden
+- 2026-10-04 08:51:11   geprüft modular-R5e (computed_rigorous): Auf Gamma_0(1) gilt thetaE8^2 - E4^2 = 0 (exakt; Sturm-Zertifikat). | Red-Team: 0 Gegenprüfungen, 0 bestanden, 0 logische Widersprüche
+- 2026-10-04 08:52:26   Neuheit modular-R5f: nicht_gefunden
+- 2026-10-04 08:52:26   geprüft modular-R5f (computed_rigorous): Auf Gamma_0(1) gilt thetaE8^2 - E8 = 0 (exakt; Sturm-Zertifikat). | Red-Team: 0 Gegenprüfungen, 0 bestanden, 0 logische Widersprüche
+- 2026-10-04 08:53:21   Neuheit modular-R5g: bekannt
+- 2026-10-04 08:53:21   geprüft modular-R5g (computed_rigorous): Auf Gamma_0(1) gilt 1728·Delta(1) - E4^3 + E6^2 = 0 (exakt; Sturm-Zertifikat). | Red-Team: 1 Gegenprüfungen, 1 bestanden, 0 logische Widersprüche
+- 2026-10-04 08:54:22   Neuheit modular-R5h: nicht_gefunden
+- 2026-10-04 08:54:22   geprüft modular-R5h (computed_rigorous): Auf Gamma_0(1) gilt j*Delta(1) - E4^3 = 0 (exakt; Sturm-Zertifikat). | Red-Team: 0 Gegenprüfungen, 0 bestanden, 0 logische Widersprüche
+- 2026-10-04 08:54:44 Runde 6: Gibt es eine rationale lineare Relation zwischen den sieben dihedralen Modulgraphfunktionen vom Gewicht 9 (C(7,1,1), C(6,2,1), C(5,3,1), C(5,2,2), C(4,4,1), C(4,3,2), C(3,3,3)), E(9) und zeta(9)? Finde sie explizit und lasse sie als mgf_relation prüfen.
+- 2026-10-04 10:40:02   Neuheit modular-R6a: nicht_gefunden
+- 2026-10-04 10:40:02   geprüft modular-R6a (observed): Numerisch (32 Stellen, 4 Prüfer-Punkte, rel. Residuum <= 1e-24): 960·E(9) + zeta(9) - 2160·C(4,4,1) - 4320·C(4,3,2) - 960·C(3,3,3) = 0 als Funktionen von tau. | Red-Team: 1 Gegenprüfungen, 0 bestanden, 0 logische Widersprüche
+- 2026-10-04 10:41:18   Neuheit modular-R6b: nicht_gefunden
+- 2026-10-04 10:41:18   geprüft modular-R6b (observed): Numerisch (32 Stellen, 4 Prüfer-Punkte, rel. Residuum <= 1e-24): C(1,1,1) - E(3) - zeta(3) = 0 als Funktionen von tau. | Red-Team: 1 Gegenprüfungen, 0 bestanden, 0 logische Widersprüche
+- 2026-10-04 10:42:22   Neuheit modular-R6c: nicht_gefunden
+- 2026-10-04 10:42:22   geprüft modular-R6c (observed): Numerisch (32 Stellen, 4 Prüfer-Punkte, rel. Residuum <= 1e-24): 30·C(2,2,1) - 12·E(5) - zeta(5) = 0 als Funktionen von tau. | Red-Team: 1 Gegenprüfungen, 0 bestanden, 0 logische Widersprüche
+- 2026-10-04 10:43:40   Neuheit modular-R6d: bekannt
+- 2026-10-04 10:43:40   geprüft modular-R6d (observed): Numerisch (32 Stellen, 4 Prüfer-Punkte, rel. Residuum <= 1e-24): 252·C(3,3,1) + 252·C(3,2,2) - 108·E(7) - zeta(7) = 0 als Funktionen von tau. | Red-Team: 2 Gegenprüfungen, 0 bestanden, 0 logische Widersprüche
+- 2026-10-04 10:44:54   Neuheit modular-R6e: nicht_gefunden
+- 2026-10-04 10:44:54   geprüft modular-R6e (observed): Numerisch bilden die rationalen linearen Relationen zwischen ['C(7,1,1)', 'C(6,2,1)', 'C(5,3,1)', 'C(5,2,2)', 'C(4,4,1)', 'C(4,3,2)', 'C(3,3,3)', 'E(9)', 'zeta( | Red-Team: 1 Gegenprüfungen, 0 bestanden, 0 logische Widersprüche
+- 2026-10-04 10:44:54 Keine offenen Fragen mehr.
+- 2026-10-04 10:44:54 Fertig: 21 geprüfte Aussagen, 2 negative Ergebnisse
