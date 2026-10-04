@@ -40,24 +40,24 @@ Same models and budget in every condition
 (`python -m benchmarks.replay_lattice`, raw data `results/replay_lattice/`, summary `results/replay_lattice.json`, figure `results/replay_lattice.png`).
 
 <!-- replay:start -->
-Paired design: every condition ran on the same 16 seeds (1000–1016, seeds not yet finished in every condition are left out).
-Metric N = verifier calls to the first hit (31 = failed within budget 30). Source: `results/FROZEN.json` (frozen 2026-10-04T06:19:53, commit 123e300).
+Paired design: every condition ran on the same 25 seeds (1000–1024).
+Metric N = verifier calls to the first hit (31 = failed within budget 30). Source: `results/FROZEN.json` (frozen 2026-10-04T06:47:04, commit fac7d1d).
 
 | Condition | mean N | median N | hits |
 |---|---|---|---|
-| LAB (integrator, code planner, verifier feedback, learning) | **2.38** | 3.0 | 16/16 |
-| HEURISTIC (hand-written: simplest open question first) | 7.94 | 8.0 | 16/16 |
-| NO FEEDBACK (same researchers, independent attempts) | 2.69 | 3.0 | 16/16 |
-| RANDOM (random sub-questions, no integrator/learning) | 11.31 | 8.0 | 14/16 |
+| LAB (integrator, code planner, verifier feedback, learning) | **2.0** | 2.0 | 25/25 |
+| HEURISTIC (hand-written: simplest open question first) | 7.92 | 8.0 | 25/25 |
+| NO FEEDBACK (same researchers, independent attempts) | 2.48 | 2.0 | 25/25 |
+| RANDOM (random sub-questions, no integrator/learning) | 10.52 | 8.0 | 22/25 |
 | ORACLE (knows the answer; analytic bound, not run) | 1.0 | 1.0 | – |
 
 | Test (preregistered H8, Benjamini-Hochberg over m = 3, q = 0.1) | speedup | paired bootstrap 95 % CI | one-sided paired permutation p | BH-adjusted | verdict |
 |---|---|---|---|---|---|
-| **H8b, LAB vs. HEURISTIC** | 3.34× | 2.81–4.16 | 1.5e-05 | 4.6e-05 | supported |
-| **H8a, LAB vs. RANDOM** | 4.76× | 2.92–7.23 | 0.00017 | 0.00025 | supported |
-| H8c, LAB vs. NO FEEDBACK | 1.13× | 0.84–1.58 | 0.28 | 0.28 | not supported |
+| **H8b, LAB vs. HEURISTIC** | 3.96× | 3.34–4.8 | 5e-06 | 1.5e-05 | supported |
+| **H8a, LAB vs. RANDOM** | 5.26× | 3.5–7.5 | 1e-05 | 1.5e-05 | supported |
+| H8c, LAB vs. NO FEEDBACK | 1.24× | 0.96–1.63 | 0.087 | 0.087 | not supported |
 
-- The strongest comparison is H8b: a hand-written heuristic that reaches the target in every seed still needs about 3.34× as many verifier calls as the lab.
+- The strongest comparison is H8b: a hand-written heuristic that reaches the target in every seed still needs about 3.96× as many verifier calls as the lab.
 - Without verifier feedback the same agents are almost as fast on this easy task (H8c not supported): the gain comes from choosing the right question.
 - No human baseline was measured; nothing here compares the lab with a human or a real laboratory.
 <!-- replay:end -->
@@ -159,7 +159,7 @@ Every result is accepted only by a code verifier (`Domain.check`); agents only p
 | Controls documented (self-test, blind claims, red team, canary) | ✓ | verifier self-test 7 true / 11 false cases; benchmarks/blind_claims.py (random claims, 0/20 accepted); projects/proofreading/verifier_redteam.json; replay canary test |
 | Approval gates documented | ✓ | README.md, section Omnigent orchestration: policy table |
 | Needed validation named | ✓ | projects/omni_proofreading/paper.md: numbered open questions / needed validation; projects/omni_proofreading/referee_report.md |
-| Measured improvement | ✓ | results/replay_lattice.json H8b: lab vs heuristic 3.34x (95% CI 2.81 to 4.16, p = 1.5e-05, 16 paired seeds); results/metrics_proofreading.json |
+| Measured improvement | ✓ | results/replay_lattice.json H8b: lab vs heuristic 3.96x (95% CI 3.34 to 4.80, p = 5e-06, 25 paired seeds); results/metrics_proofreading.json |
 | Next experiment justified | ✓ | runs/omnigent/2026-10-04/sessions/lead: 7 lead decisions naming the next step with a reason |
 | Agent specifications and policies in the repo | ✓ | omni/config.yaml + 6 agent specs; README agent table |
 

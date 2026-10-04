@@ -1,6 +1,6 @@
 {
-"frozen_at": "2026-10-04T06:19:53",
-"commit": "123e300",
+"frozen_at": "2026-10-04T06:47:04",
+"commit": "fac7d1d",
 "replay": {
 "source": "results/FROZEN.json",
 "prereg": "prereg.md, Abschnitte H7 und H8",
@@ -18,10 +18,19 @@
 1009,
 1010,
 1011,
+1012,
 1013,
 1014,
 1015,
-1016
+1016,
+1017,
+1018,
+1019,
+1020,
+1021,
+1022,
+1023,
+1024
 ],
 "conditions": [
 {
@@ -40,14 +49,23 @@
 2,
 1,
 3,
+1,
 2,
 3,
 2,
-3
+3,
+1,
+1,
+1,
+2,
+1,
+2,
+1,
+2
 ],
-"mean": 2.38,
-"median": 3.0,
-"hits": 16,
+"mean": 2.0,
+"median": 2.0,
+"hits": 25,
 "analytic": false
 },
 {
@@ -67,13 +85,22 @@
 4,
 2,
 1,
+1,
 2,
 3,
-2
+2,
+3,
+2,
+3,
+2,
+1,
+2,
+4,
+1
 ],
-"mean": 2.69,
-"median": 3.0,
-"hits": 16,
+"mean": 2.48,
+"median": 2.0,
+"hits": 25,
 "analytic": false
 },
 {
@@ -93,13 +120,22 @@
 8,
 2,
 31,
+31,
 20,
 3,
-7
+7,
+1,
+8,
+1,
+9,
+15,
+11,
+5,
+1
 ],
-"mean": 11.31,
+"mean": 10.52,
 "median": 8.0,
-"hits": 14,
+"hits": 22,
 "analytic": false
 },
 {
@@ -120,18 +156,36 @@
 9,
 8,
 8,
+8,
 9,
-6
+6,
+8,
+6,
+8,
+7,
+8,
+8,
+8,
+10
 ],
-"mean": 7.94,
+"mean": 7.92,
 "median": 8.0,
-"hits": 16,
+"hits": 25,
 "analytic": false
 },
 {
 "key": "ORAKEL",
 "name": "Oracle (analytic upper bound)",
 "N": [
+1,
+1,
+1,
+1,
+1,
+1,
+1,
+1,
+1,
 1,
 1,
 1,
@@ -159,40 +213,40 @@
 {
 "id": "H8a",
 "vs": "Random proposals",
-"speedup": 4.76,
+"speedup": 5.26,
 "ci": [
-2.92,
-7.23
+3.5,
+7.5
 ],
-"p": 0.00017,
-"p_bh": 0.00025,
-"n": 16,
+"p": 1e-05,
+"p_bh": 1.5e-05,
+"n": 25,
 "supported": true
 },
 {
 "id": "H8b",
 "vs": "Hand-written heuristic",
-"speedup": 3.34,
+"speedup": 3.96,
 "ci": [
-2.81,
-4.16
+3.34,
+4.8
 ],
-"p": 1.5e-05,
-"p_bh": 4.6e-05,
-"n": 16,
+"p": 5e-06,
+"p_bh": 1.5e-05,
+"n": 25,
 "supported": true
 },
 {
 "id": "H8c",
 "vs": "Same agents, no feedback",
-"speedup": 1.13,
+"speedup": 1.24,
 "ci": [
-0.84,
-1.58
+0.96,
+1.63
 ],
-"p": 0.28,
-"p_bh": 0.28,
-"n": 16,
+"p": 0.087,
+"p_bh": 0.087,
+"n": 25,
 "supported": false
 }
 ]

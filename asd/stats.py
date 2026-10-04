@@ -2,7 +2,7 @@
 import numpy as np
 
 
-def perm_test(a, b, B=20000, seed=1):
+def perm_test(a, b, B=200000, seed=1):
     """Gepaart (gleiche Seeds), einseitig: H1 'a braucht weniger Experimente als b'. Vorzeichen-Flip-Test."""
     d = np.asarray(b, float) - np.asarray(a, float); obs = d.mean()
     if len(d) <= 16:                                   # exakt: alle 2^n Vorzeichen (enthält die Beobachtung selbst, also p >= 2^-n)

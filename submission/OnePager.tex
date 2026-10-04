@@ -2,7 +2,7 @@
 \usepackage[a4paper,margin=1.8cm]{geometry}\usepackage[T1]{fontenc}\usepackage{lmodern}\usepackage{microtype}\usepackage{titlesec}
 \titleformat{\section}{\normalfont\bfseries}{}{0pt}{}\titlespacing*{\section}{0pt}{5pt}{1pt}\setlength{\parindent}{0pt}\pagestyle{empty}
 \begin{document}
-{\Large\bfseries Verifier-Gated Discovery Lab}\\[2pt]{\small Agents propose, Omnigent orchestrates, only a code verifier accepts. \quad Commit 123e300}\par\medskip
+{\Large\bfseries Verifier-Gated Discovery Lab}\\[2pt]{\small Agents propose, Omnigent orchestrates, only a code verifier accepts. \quad Commit fac7d1d}\par\medskip
 \section{Challenge and users}
 Agentic scientific discovery (Databricks challenge). Users: researchers who need results they can trust without re-checking every line.\par
 \section{Tools}
@@ -16,7 +16,7 @@ Recorded run 6 min, of which 0 min waiting for human approval; agents/LLM at lea
 \section{Results}
 14 exactly certified violations of the proofreading bound among 88 topologies, 11 of them new in the recorded Omnigent runs; trust benchmark: lab 0.0\% false vs. Claude alone 36.1\%.\par
 \section{Measured speedup}
-Replay, 16 paired seeds: 3.34x vs. a hand-written heuristic (95\% CI 2.81 to 4.16, p = 1.5e-05), 4.76x vs. random (95\% CI 2.92 to 7.23, p = 0.00017); vs. no feedback 1.13x (not significant). Result-to-decision latency median 24 s (n = 4, one run). No comparison with a human or a real laboratory was measured.\par
+Replay, 25 paired seeds: 3.96x vs. a hand-written heuristic (95\% CI 3.34 to 4.8, p = 5e-06), 5.26x vs. random (95\% CI 3.5 to 7.5, p = 1e-05); vs. no feedback 1.24x (not significant). Result-to-decision latency median 24 s (n = 4, one run). No comparison with a human or a real laboratory was measured.\par
 \section{Next 24 h}
 Decide the 24 open topologies (cycle decomposition for proofs, wider counterexample search); second domain.\par
 \end{document}

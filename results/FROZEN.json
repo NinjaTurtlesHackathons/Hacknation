@@ -1,6 +1,6 @@
 {
- "zeitpunkt": "2026-10-04T06:19:53",
- "commit": "123e300",
+ "zeitpunkt": "2026-10-04T06:47:04",
+ "commit": "fac7d1d",
  "branch": "claude/frontend-probatum",
  "metrics": {
   "lauf": "runs/omnigent/2026-10-04b",
@@ -39,19 +39,28 @@
    1009,
    1010,
    1011,
+   1012,
    1013,
    1014,
    1015,
-   1016
+   1016,
+   1017,
+   1018,
+   1019,
+   1020,
+   1021,
+   1022,
+   1023,
+   1024
   ],
-  "n_seeds": 16,
+  "n_seeds": 25,
   "budget": 30,
   "paired": true,
   "laeufe_je_bedingung": {
-   "LAB": 18,
-   "OHNE_FEEDBACK": 17,
-   "ZUFALL": 17,
-   "HEURISTIK": 17
+   "LAB": 25,
+   "OHNE_FEEDBACK": 25,
+   "ZUFALL": 25,
+   "HEURISTIK": 25
   },
   "bedingungen": {
    "LAB": {
@@ -68,14 +77,23 @@
      2,
      1,
      3,
+     1,
      2,
      3,
      2,
-     3
+     3,
+     1,
+     1,
+     1,
+     2,
+     1,
+     2,
+     1,
+     2
     ],
-    "mean_N": 2.38,
-    "median_N": 3.0,
-    "treffer": 16,
+    "mean_N": 2.0,
+    "median_N": 2.0,
+    "treffer": 25,
     "analytisch": false
    },
    "OHNE_FEEDBACK": {
@@ -93,13 +111,22 @@
      4,
      2,
      1,
+     1,
      2,
      3,
-     2
+     2,
+     3,
+     2,
+     3,
+     2,
+     1,
+     2,
+     4,
+     1
     ],
-    "mean_N": 2.69,
-    "median_N": 3.0,
-    "treffer": 16,
+    "mean_N": 2.48,
+    "median_N": 2.0,
+    "treffer": 25,
     "analytisch": false
    },
    "ZUFALL": {
@@ -117,13 +144,22 @@
      8,
      2,
      31,
+     31,
      20,
      3,
-     7
+     7,
+     1,
+     8,
+     1,
+     9,
+     15,
+     11,
+     5,
+     1
     ],
-    "mean_N": 11.31,
+    "mean_N": 10.52,
     "median_N": 8.0,
-    "treffer": 14,
+    "treffer": 22,
     "analytisch": false
    },
    "HEURISTIK": {
@@ -142,16 +178,34 @@
      9,
      8,
      8,
+     8,
      9,
-     6
+     6,
+     8,
+     6,
+     8,
+     7,
+     8,
+     8,
+     8,
+     10
     ],
-    "mean_N": 7.94,
+    "mean_N": 7.92,
     "median_N": 8.0,
-    "treffer": 16,
+    "treffer": 25,
     "analytisch": false
    },
    "ORAKEL": {
     "N": [
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
      1,
      1,
      1,
@@ -178,38 +232,38 @@
   "tests": {
    "H8a": {
     "vergleich": "ZUFALL",
-    "speedup": 4.76,
+    "speedup": 5.26,
     "ki95": [
-     2.92,
-     7.23
+     3.5,
+     7.5
     ],
-    "p": 0.00017,
-    "p_bh": 0.00025,
-    "n_seeds": 16,
+    "p": 1e-05,
+    "p_bh": 1.5e-05,
+    "n_seeds": 25,
     "supported": true
    },
    "H8b": {
     "vergleich": "HEURISTIK",
-    "speedup": 3.34,
+    "speedup": 3.96,
     "ki95": [
-     2.81,
-     4.16
+     3.34,
+     4.8
     ],
-    "p": 1.5e-05,
-    "p_bh": 4.6e-05,
-    "n_seeds": 16,
+    "p": 5e-06,
+    "p_bh": 1.5e-05,
+    "n_seeds": 25,
     "supported": true
    },
    "H8c": {
     "vergleich": "OHNE_FEEDBACK",
-    "speedup": 1.13,
+    "speedup": 1.24,
     "ki95": [
-     0.84,
-     1.58
+     0.96,
+     1.63
     ],
-    "p": 0.28,
-    "p_bh": 0.28,
-    "n_seeds": 16,
+    "p": 0.087,
+    "p_bh": 0.087,
+    "n_seeds": 25,
     "supported": false
    }
   },
