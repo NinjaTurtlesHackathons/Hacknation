@@ -1,0 +1,123 @@
+[OK ] erwartet True  bekommen True  {"typ": "tits_typ", "quiver": "star3", "typ_wert": "endlich"}
+[OK ] erwartet True  bekommen True  {"typ": "tits_typ", "quiver": "star4", "typ_wert": "zahm"}
+[OK ] erwartet False bekommen False {"typ": "tits_typ", "quiver": "star4", "typ_wert": "endlich"}
+[OK ] erwartet False bekommen False {"typ": "tits_typ", "quiver": "star5", "typ_wert": "zahm"}
+[OK ] erwartet True  bekommen True  {"typ": "radikal", "quiver": "star4", "delta": [2, 1, 1, 1, 1]}
+[OK ] erwartet False bekommen False {"typ": "radikal", "quiver": "star4", "delta": [4, 2, 2, 2, 2]}
+[OK ] erwartet True  bekommen True  {"typ": "wurzelzahl", "quiver": "star3", "anzahl": 12}
+[OK ] erwartet False bekommen False {"typ": "wurzelzahl", "quiver": "star3", "anzahl": 11}
+[OK ] erwartet False bekommen False {"typ": "wurzelzahl", "quiver": "star4", "anzahl": 12}
+[OK ] erwartet True  bekommen True  {"typ": "wurzel", "quiver": "star4", "alpha": [3, 1, 1, 1, 1], "art": "reell"}
+[OK ] erwartet True  bekommen True  {"typ": "wurzel", "quiver": "star4", "alpha": [1, 2, 0, 0, 0], "art": "keine"}
+[OK ] erwartet False bekommen False {"typ": "wurzel", "quiver": "star4", "alpha": [4, 2, 2, 2, 2], "art": "reell"}
+[OK ] erwartet False bekommen False {"typ": "wurzel", "quiver": "star4", "alpha": ["x", 1, 1, 1, 1], "art": "reell"}
+[OK ] erwartet True  bekommen True  {"typ": "parameter", "quiver": "star5", "alpha": [2, 1, 1, 1, 1, 1], "anzahl": 2}
+[OK ] erwartet False bekommen False {"typ": "parameter", "quiver": "star5", "alpha": [2, 1, 1, 1, 1, 1], "anzahl": 1}
+[OK ] erwartet True  bekommen True  {"typ": "unzerlegbar", "quiver": "star4", "rep": {"dims": [2, 1, 1, 1, 1], "maps": {"0": [
+[OK ] erwartet True  bekommen True  {"typ": "unzerlegbar", "quiver": "star4", "rep": {"dims": [2, 1, 1, 1, 1], "maps": {"0": [
+[OK ] erwartet True  bekommen True  {"typ": "unzerlegbar", "quiver": "star4", "rep": {"dims": [2, 1, 1, 1, 1], "maps": {"0": [
+[OK ] erwartet True  bekommen True  {"typ": "unzerlegbar", "quiver": "cycle3_oriented", "rep": {"dims": [2, 2, 2], "maps": {"0
+[OK ] erwartet False bekommen False {"typ": "unzerlegbar", "quiver": "cycle3_oriented", "rep": {"dims": [2, 2, 2], "maps": {"0
+[OK ] erwartet False bekommen False {"typ": "unzerlegbar", "quiver": "kronecker", "rep": {"dims": [2, 2], "maps": {"0": [[1, 0
+[OK ] erwartet True  bekommen True  {"typ": "familie", "quiver": "star4", "rep": {"dims": [2, 1, 1, 1, 1], "maps": {"0": [[1],
+[OK ] erwartet True  bekommen True  {"typ": "familie", "quiver": "star4", "rep": {"dims": [2, 1, 1, 1, 1], "maps": {"0": [[1],
+[OK ] erwartet False bekommen False {"typ": "familie", "quiver": "star4", "rep": {"dims": [2, 1, 1, 1, 1], "maps": {"0": [[1],
+[OK ] erwartet True  bekommen True  {"typ": "anzahl", "quiver": "star4", "alpha": [2, 1, 1, 1, 1], "p": 3, "anzahl": 7}
+[OK ] erwartet False bekommen False {"typ": "anzahl", "quiver": "star4", "alpha": [2, 1, 1, 1, 1], "p": 3, "anzahl": 6}
+[OK ] erwartet False bekommen False {"typ": "anzahl", "quiver": "star4", "alpha": [2, 1, 1, 1, 1], "p": 4, "anzahl": 8}
+[OK ] erwartet False bekommen False {"typ": "anzahl", "quiver": "star4", "alpha": [2, 1, 1, 1, 1], "p": 3, "anzahl": 6, "toler
+[OK ] erwartet True  bekommen True  {"typ": "kac_polynom", "quiver": "cycle3_oriented", "alpha": [1, 1, 1], "koeffizienten": [
+[OK ] erwartet False bekommen False {"typ": "kac_polynom", "quiver": "cycle3_oriented", "alpha": [1, 1, 1], "koeffizienten": [
+[OK ] erwartet False bekommen False {"typ": "kac_polynom", "quiver": "cycle3_oriented", "alpha": [2, 2, 2], "koeffizienten": [
+[OK ] erwartet True  bekommen True  {"typ": "kac_polynom", "quiver": "star5", "alpha": [2, 1, 1, 1, 1, 1], "formel": "((q+1)**
+[OK ] erwartet False bekommen False {"typ": "kac_polynom", "quiver": "star5", "alpha": [2, 1, 1, 1, 1, 1], "formel": "((q+1)**
+[OK ] erwartet False bekommen False {"typ": "kac_polynom", "quiver": "star5", "alpha": [2, 1, 1, 1, 1, 1], "formel": "q**2 + 5
+[OK ] erwartet True  bekommen True  {"typ": "stern_kriterium", "n": 4, "p": 2}
+[OK ] erwartet False bekommen False {"typ": "stern_kriterium", "n": 4, "p": 4}
+[OK ] erwartet True  bekommen True  {"typ": "kac_box", "quiver": "star3", "schranke": [2, 1, 1, 1], "p": 2}
+[OK ] erwartet True  bekommen True  {"typ": "zykel_box", "quiver": "cycle3_oriented", "schranke": [2, 2, 1], "p": 2}
+[OK ] erwartet False bekommen False {"typ": "zykel_box", "quiver": "cycle3_acyclic", "schranke": [1, 1, 1], "p": 2}
+Selbsttest quivers: BESTANDEN (39/39)
+[OK ] quivers-R1-1 (computed_rigorous, bestätigt): Die Tits-Form von star1 ist positiv definit (endlicher Typ: Dynkin) (exakte Hauptminoren).
+[OK ] quivers-R1-2 (computed_rigorous, bestätigt): Die Tits-Form von star2 ist positiv definit (endlicher Typ: Dynkin) (exakte Hauptminoren).
+[OK ] quivers-R1-3 (computed_rigorous, bestätigt): Die Tits-Form von star3 ist positiv definit (endlicher Typ: Dynkin) (exakte Hauptminoren).
+[OK ] quivers-R1-4 (computed_rigorous, bestätigt): Die Tits-Form von star4 ist positiv semidefinit, nicht definit (euklidisch, zahm) (exakte Hauptminoren).
+[OK ] quivers-R1-5 (computed_rigorous, bestätigt): Die Tits-Form von star5 ist indefinit (wild) (exakte Hauptminoren).
+[OK ] quivers-R1-6 (computed_rigorous, bestätigt): Die Tits-Form von star6 ist indefinit (wild) (exakte Hauptminoren).
+[OK ] quivers-R1-7 (computed_rigorous, bestätigt): Die Tits-Form von star7 ist indefinit (wild) (exakte Hauptminoren).
+[OK ] quivers-R1-8 (computed_rigorous, bestätigt): Die Tits-Form von kronecker ist positiv semidefinit, nicht definit (euklidisch, zahm) (exakte Hauptminoren).
+[OK ] quivers-R1-9 (computed_rigorous, bestätigt): Die Tits-Form von cycle3_oriented ist positiv semidefinit, nicht definit (euklidisch, zahm) (exakte Hauptminoren).
+[OK ] quivers-R1-10 (computed_rigorous, bestätigt): Die Tits-Form von cycle4_oriented ist positiv semidefinit, nicht definit (euklidisch, zahm) (exakte Hauptminoren).
+[OK ] quivers-R1-11 (computed_rigorous, bestätigt): star3 hat genau 12 positive Wurzeln.
+[OK ] quivers-R1-12 (computed_rigorous, bestätigt): Für star3 über F_2 und alle Dimensionsvektoren 0 < beta <= [2, 1, 1, 1]: genau eine Unzerlegbare für reelle Wurzeln, keine für Nicht-Wurzeln
+[OK ] quivers-R1-13 (computed_rigorous, bestätigt): Für star3 über F_3 und alle Dimensionsvektoren 0 < beta <= [2, 1, 1, 1]: genau eine Unzerlegbare für reelle Wurzeln, keine für Nicht-Wurzeln
+[OK ] quivers-R1-14 (computed_rigorous, bestätigt): Für A3 über F_2 und alle Dimensionsvektoren 0 < beta <= [2, 2, 2]: genau eine Unzerlegbare für reelle Wurzeln, keine für Nicht-Wurzeln.
+[OK ] quivers-R2-15 (computed_rigorous, bestätigt): Das Radikal der Tits-Form von star4 ist eindimensional, erzeugt von delta = [2, 1, 1, 1, 1].
+[OK ] quivers-R2-16 (computed_rigorous, bestätigt): Für star4 ist [2, 1, 1, 1, 1] eine imaginäre Wurzel mit 1 - q(alpha) = 1.
+[OK ] quivers-R2-17 (computed_rigorous, bestätigt): Für star4 ist [4, 2, 2, 2, 2] eine imaginäre Wurzel mit 1 - q(alpha) = 1.
+[OK ] quivers-R2-18 (computed_rigorous, bestätigt): Für star4 und alpha = [2, 1, 1, 1, 1] ist die Anzahl absolut unzerlegbarer Darstellungen über F_q für q = 2, 3, 5, 7 gleich 4*q^0 + 1*q^1; d
+[OK ] quivers-R2-19 (computed_rigorous, bestätigt): Für star4: die Familie V_t mit Dimensionsvektor [2, 1, 1, 1, 1] und Abbildungen {'0': [[1], [0]], '1': [[0], [1]], '2': [[1], [1]], '3': [[1
+[OK ] quivers-R2-20 (computed_rigorous, bestätigt): Über F_2 ist die angegebene Liste von 6 Darstellungen von star4 mit Dimensionsvektor [2, 1, 1, 1, 1] eine vollständige Liste der Isoklassen 
+[OK ] quivers-R2-21 (computed_rigorous, bestätigt): Über F_3 ist die angegebene Liste von 7 Darstellungen von star4 mit Dimensionsvektor [2, 1, 1, 1, 1] eine vollständige Liste der Isoklassen 
+[OK ] quivers-R2-22 (computed_rigorous, bestätigt): Über F_5 ist die angegebene Liste von 9 Darstellungen von star4 mit Dimensionsvektor [2, 1, 1, 1, 1] eine vollständige Liste der Isoklassen 
+[OK ] quivers-R2-23 (computed_rigorous, bestätigt): Die Darstellung von star4 mit Dimensionsvektor [1, 1, 1, 1, 1] und Abbildungen {'0': [[1]], '1': [[1]], '2': [[1]], '3': [[1]]} ist absolut 
+[OK ] quivers-R2-24 (computed_rigorous, bestätigt): Die Darstellung von star4 mit Dimensionsvektor [3, 1, 1, 1, 1] und Abbildungen {'0': [[1], [0], [0]], '1': [[0], [1], [0]], '2': [[0], [0], 
+[OK ] quivers-R2-25 (computed_rigorous, bestätigt): Die Darstellung von star4 mit Dimensionsvektor [2, 2, 1, 1, 1] und Abbildungen {'0': [[1, 0], [0, 1]], '1': [[1], [0]], '2': [[0], [1]], '3'
+[OK ] quivers-R2-26 (computed_rigorous, bestätigt): Die Darstellung von star4 mit Dimensionsvektor [2, 1, 1, 1, 1] und Abbildungen {'0': [[1], [0]], '1': [[1], [0]], '2': [[0], [1]], '3': [[0]
+[OK ] quivers-R2-27 (computed_rigorous, bestätigt): Für star4 über F_2 und alle Dimensionsvektoren 0 < beta <= [3, 1, 1, 1, 1]: genau eine Unzerlegbare für reelle Wurzeln, keine für Nicht-Wurz
+[OK ] quivers-R2-28 (computed_rigorous, bestätigt): Für star4 über F_3 und alle Dimensionsvektoren 0 < beta <= [3, 1, 1, 1, 1]: genau eine Unzerlegbare für reelle Wurzeln, keine für Nicht-Wurz
+[OK ] quivers-R3-29 (computed_rigorous, bestätigt): Für star5 ist [2, 1, 1, 1, 1, 1] eine imaginäre Wurzel mit 1 - q(alpha) = 2.
+[OK ] quivers-R3-30 (computed_rigorous, bestätigt): Für star6 ist [2, 1, 1, 1, 1, 1, 1] eine imaginäre Wurzel mit 1 - q(alpha) = 3.
+[OK ] quivers-R3-31 (computed_rigorous, bestätigt): Für star7 ist [2, 1, 1, 1, 1, 1, 1, 1] eine imaginäre Wurzel mit 1 - q(alpha) = 4.
+[OK ] quivers-R3-32 (computed_rigorous, bestätigt): Für star8 ist [2, 1, 1, 1, 1, 1, 1, 1, 1] eine imaginäre Wurzel mit 1 - q(alpha) = 5.
+[OK ] quivers-R3-33 (computed_rigorous, bestätigt): Für star5 ist [4, 2, 2, 2, 2, 2] eine imaginäre Wurzel mit 1 - q(alpha) = 5.
+[OK ] quivers-R3-34 (computed_rigorous, bestätigt): Für star5 ist [6, 3, 3, 3, 3, 3] eine imaginäre Wurzel mit 1 - q(alpha) = 10.
+[OK ] quivers-R3-35 (computed_rigorous, bestätigt): Für star4 und alpha = [2, 1, 1, 1, 1] stimmt die Anzahl absolut unzerlegbarer Darstellungen über F_q an deg + 2 Primzahlen q mit ((q+1)**3 -
+[OK ] quivers-R3-36 (computed_rigorous, bestätigt): Für star5 und alpha = [2, 1, 1, 1, 1, 1] stimmt die Anzahl absolut unzerlegbarer Darstellungen über F_q an deg + 2 Primzahlen q mit ((q+1)**
+[OK ] quivers-R3-37 (computed_rigorous, bestätigt): Für star6 und alpha = [2, 1, 1, 1, 1, 1, 1] stimmt die Anzahl absolut unzerlegbarer Darstellungen über F_q an deg + 2 Primzahlen q mit ((q+1
+[OK ] quivers-R3-38 (computed_rigorous, bestätigt): Für star7 und alpha = [2, 1, 1, 1, 1, 1, 1, 1] stimmt die Anzahl absolut unzerlegbarer Darstellungen über F_q an deg + 2 Primzahlen q mit ((
+[OK ] quivers-R3-39 (computed_rigorous, bestätigt): Für star8 und alpha = [2, 1, 1, 1, 1, 1, 1, 1, 1] stimmt die Anzahl absolut unzerlegbarer Darstellungen über F_q an deg + 2 Primzahlen q mit
+[OK ] quivers-R3-40 (computed_rigorous, bestätigt): Über F_2 ist die angegebene Liste von 25 Darstellungen von star5 mit Dimensionsvektor [2, 1, 1, 1, 1, 1] eine vollständige Liste der Isoklas
+[OK ] quivers-R3-41 (computed_rigorous, bestätigt): Für star5: die Familie V_t mit Dimensionsvektor [2, 1, 1, 1, 1, 1] und Abbildungen {'0': [[1], [0]], '1': [[0], [1]], '2': [[1], [1]], '3': 
+[OK ] quivers-R3-42 (computed_rigorous, bestätigt): Für star5: die Familie V_t mit Dimensionsvektor [2, 1, 1, 1, 1, 1] und Abbildungen {'0': [[1], [0]], '1': [[0], [1]], '2': [[1], [1]], '3': 
+[OK ] quivers-R3-43 (computed_rigorous, bestätigt): Für star5: die Familie V_t mit Dimensionsvektor [2, 1, 1, 1, 1, 1] und Abbildungen {'0': [[1], [0]], '1': [[0], [1]], '2': [[1], [1]], '3': 
+[OK ] quivers-R4-44 (computed_rigorous, bestätigt): Das Radikal der Tits-Form von cycle3_oriented ist eindimensional, erzeugt von delta = [1, 1, 1].
+[OK ] quivers-R4-45 (computed_rigorous, bestätigt): Für cycle3_oriented und alpha = [1, 1, 1] ist die Anzahl absolut unzerlegbarer Darstellungen über F_q für q = 2, 3, 5, 7 gleich 2*q^0 + 1*q^
+[OK ] quivers-R4-46 (computed_rigorous, bestätigt): Über F_3 ist die angegebene Liste von 5 Darstellungen von cycle3_oriented mit Dimensionsvektor [1, 1, 1] eine vollständige Liste der Isoklas
+[OK ] quivers-R4-47 (computed_rigorous, bestätigt): Das Radikal der Tits-Form von cycle3_acyclic ist eindimensional, erzeugt von delta = [1, 1, 1].
+[OK ] quivers-R4-48 (computed_rigorous, bestätigt): Für cycle3_acyclic und alpha = [1, 1, 1] ist die Anzahl absolut unzerlegbarer Darstellungen über F_q für q = 2, 3, 5, 7 gleich 2*q^0 + 1*q^1
+[OK ] quivers-R4-49 (computed_rigorous, bestätigt): Über F_3 ist die angegebene Liste von 5 Darstellungen von cycle3_acyclic mit Dimensionsvektor [1, 1, 1] eine vollständige Liste der Isoklass
+[OK ] quivers-R4-50 (computed_rigorous, bestätigt): Das Radikal der Tits-Form von cycle4_oriented ist eindimensional, erzeugt von delta = [1, 1, 1, 1].
+[OK ] quivers-R4-51 (computed_rigorous, bestätigt): Für cycle4_oriented und alpha = [1, 1, 1, 1] ist die Anzahl absolut unzerlegbarer Darstellungen über F_q für q = 2, 3, 5, 7 gleich 3*q^0 + 1
+[OK ] quivers-R4-52 (computed_rigorous, bestätigt): Über F_3 ist die angegebene Liste von 6 Darstellungen von cycle4_oriented mit Dimensionsvektor [1, 1, 1, 1] eine vollständige Liste der Isok
+[OK ] quivers-R4-53 (computed_rigorous, bestätigt): Das Radikal der Tits-Form von cycle4_acyclic31 ist eindimensional, erzeugt von delta = [1, 1, 1, 1].
+[OK ] quivers-R4-54 (computed_rigorous, bestätigt): Für cycle4_acyclic31 und alpha = [1, 1, 1, 1] ist die Anzahl absolut unzerlegbarer Darstellungen über F_q für q = 2, 3, 5, 7 gleich 3*q^0 + 
+[OK ] quivers-R4-55 (computed_rigorous, bestätigt): Über F_3 ist die angegebene Liste von 6 Darstellungen von cycle4_acyclic31 mit Dimensionsvektor [1, 1, 1, 1] eine vollständige Liste der Iso
+[OK ] quivers-R4-56 (computed_rigorous, bestätigt): Das Radikal der Tits-Form von cycle4_acyclic22 ist eindimensional, erzeugt von delta = [1, 1, 1, 1].
+[OK ] quivers-R4-57 (computed_rigorous, bestätigt): Für cycle4_acyclic22 und alpha = [1, 1, 1, 1] ist die Anzahl absolut unzerlegbarer Darstellungen über F_q für q = 2, 3, 5, 7 gleich 3*q^0 + 
+[OK ] quivers-R4-58 (computed_rigorous, bestätigt): Über F_3 ist die angegebene Liste von 6 Darstellungen von cycle4_acyclic22 mit Dimensionsvektor [1, 1, 1, 1] eine vollständige Liste der Iso
+[OK ] quivers-R4-59 (computed_rigorous, bestätigt): Für cycle3_oriented: die Familie V_t mit Dimensionsvektor [1, 1, 1] und Abbildungen {'0': [[1]], '1': [[1]], '2': [['t']]} erfüllt für alle 
+[OK ] quivers-R4-60 (computed_rigorous, bestätigt): Für cycle4_acyclic22: die Familie V_t mit Dimensionsvektor [1, 1, 1, 1] und Abbildungen {'0': [[1]], '1': [[1]], '2': [[1]], '3': [['t']]} e
+[OK ] quivers-R4-61 (computed_rigorous, bestätigt): Die Darstellung von cycle4_oriented mit Dimensionsvektor [3, 3, 3, 3] und Abbildungen {'0': [[1, 0, 0], [0, 1, 0], [0, 0, 1]], '1': [[1, 0, 
+[OK ] quivers-R4-62 (computed_rigorous, bestätigt): Die Darstellung von cycle3_oriented mit Dimensionsvektor [2, 2, 1] und Abbildungen {'0': [[1, 0], [0, 1]], '1': [[1, 0]], '2': [[0], [1]]} i
+[OK ] quivers-R4-63 (computed_rigorous, bestätigt): Für cycle3_oriented über F_2 und alle 0 < beta <= [2, 2, 2] stimmt die Zahl der Unzerlegbaren mit der Klassifikation (nilpotente Strings S(i
+[OK ] quivers-R4-64 (computed_rigorous, bestätigt): Für cycle3_oriented über F_3 und alle 0 < beta <= [2, 2, 2] stimmt die Zahl der Unzerlegbaren mit der Klassifikation (nilpotente Strings S(i
+[OK ] quivers-R4-65 (computed_rigorous, bestätigt): Für cycle4_oriented über F_2 und alle 0 < beta <= [2, 2, 2, 2] stimmt die Zahl der Unzerlegbaren mit der Klassifikation (nilpotente Strings 
+[OK ] quivers-R4-66 (computed_rigorous, bestätigt): Für cycle3_acyclic über F_2 und alle Dimensionsvektoren 0 < beta <= [2, 2, 2]: genau eine Unzerlegbare für reelle Wurzeln, keine für Nicht-W
+[OK ] quivers-R5-67 (computed_rigorous, bestätigt): Über F_2 hat cycle3_oriented genau 5 Isoklassen unzerlegbarer Darstellungen mit Dimensionsvektor [2, 2, 2] (exakte Zählung, Methode direkt).
+[OK ] quivers-R5-68 (computed_rigorous, bestätigt): Über F_3 hat cycle3_oriented genau 8 Isoklassen unzerlegbarer Darstellungen mit Dimensionsvektor [2, 2, 2] (exakte Zählung, Methode burnside
+[OK ] quivers-R5-69 (computed_rigorous, bestätigt): Über F_5 hat cycle3_oriented genau 17 Isoklassen unzerlegbarer Darstellungen mit Dimensionsvektor [2, 2, 2] (exakte Zählung, Methode burnsid
+[OK ] quivers-R5-70 (computed_rigorous, bestätigt): Über F_2 hat cycle3_acyclic genau 5 Isoklassen unzerlegbarer Darstellungen mit Dimensionsvektor [2, 2, 2] (exakte Zählung, Methode direkt).
+[OK ] quivers-R5-71 (computed_rigorous, bestätigt): Über F_3 hat cycle3_acyclic genau 8 Isoklassen unzerlegbarer Darstellungen mit Dimensionsvektor [2, 2, 2] (exakte Zählung, Methode burnside)
+[OK ] quivers-R5-72 (computed_rigorous, bestätigt): Über F_5 hat cycle3_acyclic genau 17 Isoklassen unzerlegbarer Darstellungen mit Dimensionsvektor [2, 2, 2] (exakte Zählung, Methode burnside
+[OK ] quivers-R5-73 (computed_rigorous, bestätigt): Über F_2 hat cycle4_oriented genau 6 Isoklassen unzerlegbarer Darstellungen mit Dimensionsvektor [2, 2, 2, 2] (exakte Zählung, Methode burns
+[OK ] quivers-R5-74 (computed_rigorous, bestätigt): Über F_3 hat cycle4_oriented genau 9 Isoklassen unzerlegbarer Darstellungen mit Dimensionsvektor [2, 2, 2, 2] (exakte Zählung, Methode burns
+[OK ] quivers-R5-75 (computed_rigorous, bestätigt): Über F_2 hat cycle4_acyclic22 genau 6 Isoklassen unzerlegbarer Darstellungen mit Dimensionsvektor [2, 2, 2, 2] (exakte Zählung, Methode burn
+[OK ] quivers-R5-76 (computed_rigorous, bestätigt): Über F_3 hat cycle4_acyclic22 genau 9 Isoklassen unzerlegbarer Darstellungen mit Dimensionsvektor [2, 2, 2, 2] (exakte Zählung, Methode burn
+[OK ] quivers-R6-77 (computed_rigorous, bestätigt): Über F_2 ist eine Darstellung von star4 mit Dimensionsvektor (2;1^4), gegeben durch Vektoren v_1, ..., v_4 in k^2, genau dann unzerlegbar, w
+[OK ] quivers-R6-78 (computed_rigorous, bestätigt): Über F_3 ist eine Darstellung von star4 mit Dimensionsvektor (2;1^4), gegeben durch Vektoren v_1, ..., v_4 in k^2, genau dann unzerlegbar, w
+[OK ] quivers-R6-79 (computed_rigorous, bestätigt): Über F_2 ist eine Darstellung von star5 mit Dimensionsvektor (2;1^5), gegeben durch Vektoren v_1, ..., v_5 in k^2, genau dann unzerlegbar, w
+[OK ] quivers-R6-80 (computed_rigorous, bestätigt): Über F_3 ist eine Darstellung von star5 mit Dimensionsvektor (2;1^5), gegeben durch Vektoren v_1, ..., v_5 in k^2, genau dann unzerlegbar, w
+[OK ] quivers-R6-81 (computed_rigorous, bestätigt): Über F_2 ist eine Darstellung von star6 mit Dimensionsvektor (2;1^6), gegeben durch Vektoren v_1, ..., v_6 in k^2, genau dann unzerlegbar, w
+[OK ] quivers-R6-82 (computed_rigorous, bestätigt): Über F_2 ist eine Darstellung von star7 mit Dimensionsvektor (2;1^7), gegeben durch Vektoren v_1, ..., v_7 in k^2, genau dann unzerlegbar, w
+Selbsttest: bestanden; Aussagen erneut geprüft: 82/82 bestehen

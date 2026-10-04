@@ -41,3 +41,12 @@ Use standard mathematical notation. Use the canonical claim statements, not the 
 
 Also keep, as its own statement, the four-subspace family V_t (lines (1,0), (0,1), (1,1), (1,t)): pairwise non-isomorphic bricks for every t,
 citing its claim; and the explicit description of the six extra classes (exactly one pair of coinciding lines).
+Formatting rule for the gate: every displayed formula must end with its claim citation on the same line, e.g. the general formula of
+Theorem 1 followed by [C-quivers-R6-77, C-quivers-R3-36]. Write mathematics in $...$ (inline) or $$...$$ (display); write quiver names like
+star4 or cycle3_oriented as plain text outside math.
+Every sentence that contains coordinates or vectors (e.g. the four lines defining V_t) must carry the citation of the claim that contains them
+in the same sentence (for V_t: [C-quivers-R2-19]).
+In particular the sentence introducing the star5 slices with the lines (1,0), (0,1), (1,1), (1,s), (1,t) must cite [C-quivers-R3-41].
+Method section, factual correction: in this project NO autonomous researcher agents ran in the lab. The questions and the typed claims were
+proposed by the human-directed Claude Code session, strictly following the preregistration (projects/quivers/run_lab.py); the exact code verifier
+decided every claim; the only LLM agent in the pipeline is this paper writer with its hallucination gate. Say so plainly.

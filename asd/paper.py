@@ -40,33 +40,64 @@ def claims_of(domain):
     return C
 
 
+UNI_TEX = {"δ": r"\delta", "α": r"\alpha", "β": r"\beta", "λ": r"\lambda", "≤": r"\le", "≥": r"\ge", "≠": r"\neq", "−": "-", "→": r"\to",
+           "×": r"\times", "Σ": r"\Sigma", "²": "^2", "³": "^3", "≅": r"\cong", "∈": r"\in", "∞": r"\infty", "ℓ": r"\ell", "·": r"\cdot",
+           "∪": r"\cup", "⊕": r"\oplus", "Q̄": r"\overline{\mathbb Q}"}
+TEXT_ESC = {"_": r"\_", "%": r"\%", "&": r"\&", "#": r"\#", "^": r"\^{}", "~": r"\textasciitilde{}"}
+
+
+def _inline(t, math=False):
+    """Markdown-Inline -> LaTeX. Mathe-Segmente ($...$, $$...$$) bleiben unverändert; im Text werden Sonderzeichen maskiert,
+    Unicode-Mathezeichen in $...$ gesetzt und Claim-Belege klein gedruckt."""
+    out = []
+    for seg in re.split(r"(\$\$.+?\$\$|\$[^$]+?\$)", t):
+        if seg.startswith("$"):
+            for k, v in UNI_TEX.items(): seg = seg.replace(k, v + (" " if v[-1].isalpha() else ""))
+            seg = re.sub(r"\\text(?:rm|tt)?\{([^{}]*)\}", lambda m: m.group(0).replace("_", r"\_"), seg)   # Unterstriche in \text{...}
+            out.append(seg.replace("%", r"\%")); continue
+        seg = re.sub(r"\[(C-[^\]]+)\]", lambda m: "\x00" + m.group(1) + "\x01", seg)
+        seg = re.sub(r"`([^`]+)`", lambda m: "\x02" + m.group(1) + "\x03", seg)
+        seg = "".join(TEXT_ESC.get(c, c) for c in seg)
+        for k, v in UNI_TEX.items(): seg = seg.replace(k, f"${v}$")
+        seg = re.sub(r"\*\*(.+?)\*\*", r"\\textbf{\1}", seg); seg = re.sub(r"(?<![*\w])\*(?!\*)(.+?)\*(?!\w)", r"\\emph{\1}", seg)
+        seg = re.sub("\x00([^\x01]*)\x01", lambda m: r"{\scriptsize[" + m.group(1) + "]}", seg)
+        seg = re.sub("\x02([^\x03]*)\x03", lambda m: r"\texttt{" + m.group(1) + "}", seg)
+        out.append(seg)
+    return "".join(out)
+
+
 def to_tex(md, titel, autoren, aff, figs=(), lang="de"):
-    body = md
-    body = re.sub(r"^### (.*)$", r"\\subsubsection*{\1}", body, flags=re.M)
-    body = re.sub(r"^## (.*)$", r"\\section{\1}", body, flags=re.M)
-    body = re.sub(r"^# (.*)$", r"", body, flags=re.M)
-    body = re.sub(r"\*\*(.+?)\*\*", r"\\textbf{\1}", body); body = re.sub(r"(?<!\*)\*(?!\*)(.+?)\*", r"\\emph{\1}", body)
-    body = re.sub(r"\[(C-[^\]]+)\]", lambda m: r"{\scriptsize[" + m.group(1).replace("_", r"\_") + "]}", body)
-    lines, out, inlist = body.split("\n"), [], False
+    md = re.sub(r"\$\$(.+?)\$\$", lambda m: "$$" + " ".join(m.group(1).split("\n")) + "$$", md, flags=re.S)   # Display-Mathe auf eine Zeile
+    lines, out, inlist, intab = md.split("\n"), [], False, False
     for l in lines:
+        if re.match(r"^\s*\|", l):                                       # Markdown-Tabelle -> tabular
+            cells = [c.strip() for c in l.strip().strip("|").split("|")]
+            if all(re.fullmatch(r":?-{3,}:?", c) for c in cells): continue
+            if not intab: out.append(r"\begin{center}\small\begin{tabular}{" + "l" * len(cells) + "}\\hline"); intab = True
+            out.append(" & ".join(_inline(c) for c in cells) + r" \\"); continue
+        if intab: out.append(r"\hline\end{tabular}\end{center}"); intab = False
         if re.match(r"^\s*[-*] ", l):
             if not inlist: out.append(r"\begin{itemize}"); inlist = True
-            out.append(r"\item " + re.sub(r"^\s*[-*] ", "", l))
-        else:
-            if inlist: out.append(r"\end{itemize}"); inlist = False
-            out.append(l)
+            out.append(r"\item " + _inline(re.sub(r"^\s*[-*] ", "", l))); continue
+        if inlist: out.append(r"\end{itemize}"); inlist = False
+        m = re.match(r"^(#+) (.*)$", l)
+        if m:
+            lvl, txt = len(m.group(1)), _inline(m.group(2))
+            out.append("" if lvl == 1 else (r"\section*{" if lvl == 2 else r"\subsection*{") + txt + "}" if lvl > 1 else ""); continue
+        if l.strip() == "---": out.append(r"\par\noindent\rule{\columnwidth}{0.4pt}\par"); continue
+        out.append(_inline(l))
     if inlist: out.append(r"\end{itemize}")
-    body = "\n".join(out).replace("%", r"\%").replace("&", r"\&").replace("#", r"\#")
+    if intab: out.append(r"\hline\end{tabular}\end{center}")
+    body = "\n".join(out)
     for fn, cap in figs:
-        cap_t = re.sub(r"\[(C-[^\]]+)\]", lambda m: r"[" + m.group(1).replace("_", r"\_") + "]", cap).replace("%", r"\%")
-        body += "\n\\begin{figure}[t]\\centering\\includegraphics[width=\\columnwidth]{" + fn + "}\\caption{" + cap_t + "}\\end{figure}\n"
+        body += "\n\\begin{figure}[t]\\centering\\includegraphics[width=\\columnwidth]{" + fn + "}\\caption{" + _inline(cap) + "}\\end{figure}\n"
     return (r"""\documentclass[10pt,twocolumn]{article}
 \usepackage[utf8]{inputenc}\usepackage[T1]{fontenc}\usepackage[""" + ("english" if lang == "en" else "ngerman") + r"""]{babel}\usepackage{amsmath,amssymb}\usepackage[margin=1.8cm]{geometry}
 \usepackage{times}\usepackage{graphicx}\usepackage{hyperref}
 \title{\textbf{""" + titel + r"""}}
 \author{""" + r" \and ".join(a.strip() for a in autoren.split(",")) + r"""\\ \small """ + aff + r"""}
 \date{Preprint, \today}
-\begin{document}\maketitle
+\begin{document}\maketitle\sloppy\emergencystretch=3em
 """ + body + "\n\\end{document}\n")
 
 

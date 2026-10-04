@@ -34,7 +34,7 @@ def main():
     rows = []
     for c in s["claims"]:
         rt = "; ".join(f"{esc(r['idee'])} $\\to$ {'bestanden' if r['bestanden'] else 'durchgefallen'}" for r in c.get("red_team", []))
-        rows.append(f"\\noindent\\textbf{{\\texttt{{[C-{esc(c['id'])}]}}}} ({c['level']}, {c['status']})\\\\\n"
+        rows.append(f"\\noindent\\textbf{{\\texttt{{[C-{esc(c['id'])}]}}}} ({esc(c['level'])}, {esc(c['status'])})\\\\\n"
                     f"\\textit{{Aussage:}} {esc(D.describe(c['pruefung']))}\\\\\n\\textit{{Prüfer:}} {esc(c['grund'])}\\\\\n"
                     f"\\textit{{Red-Team:}} {rt or '--'}\\par\\medskip\n")
     lit = "\n".join(f"\\noindent {esc(w['quelle'])}: {esc(w['zitat'])} ({w.get('jahr')}); {esc(', '.join(w.get('autoren', [])))}. Crossref-Titel per Code geprüft.\\par"
