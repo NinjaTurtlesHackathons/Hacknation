@@ -169,8 +169,22 @@ confirmed claim). Surprises: `asd.cli pruefe` reports `ueberraschung: true` when
 | `read_only` | built-in `orchestration.read_only_os` | scout, planner, redteam cannot write files |
 | `no_pruefe` | CEL (per agent) | every agent except the researcher is denied `asd.cli pruefe` |
 | `tool_call_cap` | built-in `safety.max_tool_calls_per_session` | researcher: at most 30 tool calls per session |
+| `loop_guard` | Python (`asd.omni_policies`) | own loop guard that ignores `sys_read_inbox` (the built-in `detect_loop` blocks headless runs on the third empty inbox read); DENY after 5 identical calls |
+| `max_tool_calls` | built-in | 300 tool calls per session, all agents |
+| `allowlist` (per agent) | Python | each role may call only its own `asd.cli` commands (scout: wissen/fragen/status; planner: options/waehle/reopen/plan/status/hypothese; researcher: doku/fragen/experiment/pruefe; red team: status/doku/wissen/redteam; learner: wissen/folgefragen; scribe: paper only). The PI has **no shell at all** (no compute tools by construction) |
+| `publish_requires_votes` | Python, reads `projects/<P>/state.json` | DENY `asd.paper` until every new confirmed claim has a red-team vote |
+| `no_resubmission` | Python, reads the project state | DENY re-submitting a claim whose canonical hash the verifier already rejected (also enforced inside `asd.cli pruefe`) |
+| `claim_phrases_ask` | Python | ASK on wording with a scope claim ("proved for all", "novel", "first") in texts the lab writes; the paper gate removes such phrases unless a claim carries them |
 
-Offline check of all policy verdicts: `/root/omni-venv/bin/python benchmarks/omni_policy_check.py` (15/15).
+Offline check of all policy verdicts: `/root/omni-venv/bin/python benchmarks/omni_policy_check.py` (20/20). The Python policies need the
+package in Omnigent's environment: `uv pip install -e . --no-deps` (inside the Omnigent venv), then restart the server (`omnigent stop`).
+
+**Ledger and traces.** The first entry of every `record.jsonl` is the sha256 of the preregistration. The planner registers a falsifiable
+hypothesis with a machine-checkable criterion before each experiment (`asd.cli hypothese`); the verifier result marks it `bestätigt` or
+`widerlegt` ("the lab refutes itself", logged in `decisions.md`). `python scripts/export_trace.py runs/omnigent/<run>` writes `trace.json`
+(Omnigent session id, every handoff with sha256 of message and inbox entry, every verifier receipt with certificate hash, policy events,
+"later round rests on an earlier decision", hash chain) and `verification.passed`; the guided tour shows this seal.
+Static replay page for GitHub Pages: `scripts/build_pages.sh --push` (branch `gh-pages`).
 
 **Run it** (Python ≥ 3.12 venv outside the repo: `pip install "omnigent>=0.16"`; the claude-sdk harness uses the local Claude login):
 ```bash
