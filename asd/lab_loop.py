@@ -50,6 +50,24 @@ def wissen_text(P, n=40):
     return f"Literatur (Zitate per Code geprüft):\n{lit or '-'}\n\nEigene geprüfte Ergebnisse:\n{eig or '-'}\n\nNicht bestätigt / widerlegt:\n{wid or '-'}"
 
 
+def faden_of(P, q):
+    """Faden = Ausgangsfrage + ihre Folgefragen. Alte Zustände ohne Feld: über aus_runde auf die Frage der Runde zurückführen."""
+    if q.get("faden_id"): return q["faden_id"]
+    if q.get("aus_runde"):
+        r = next((x for x in P.s["runden"] if x["runde"] == q["aus_runde"]), None)
+        parent = next((x for x in P.s["fragen"] if r and x["id"] == r["frage"]), None)
+        if parent and parent is not q: return faden_of(P, parent)
+    return q["id"]
+
+
+def faden_fortschritt(P, faden, fenster=2):
+    """Hat der Faden in seinen letzten `fenster` Runden mindestens einen neuen bestätigten Claim gebracht?"""
+    qid2f = {q["id"]: faden_of(P, q) for q in P.s["fragen"]}
+    rs = [r for r in P.s["runden"] if qid2f.get(r["frage"]) == faden][-fenster:]
+    ok_runden = {c.get("runde") for c in P.s["claims"] if c.get("status") == "bestätigt"}
+    return any(r["runde"] in ok_runden for r in rs)
+
+
 def integrator_fragen(P, D, k=5, salt=""):
     r = ask_json(f"{D.kontext}\n\n{wissen_text(P)}\n\n{D.primitive_doc}\n\n{D.claim_doc}\n\nSchlage {k} neue Forschungsfragen vor, die (1) mit den "
                  "Experimenten beantwortbar und (2) mit den Prüfungstypen nachprüfbar sind, (3) über das Bekannte hinausgehen. Mische sichere "
@@ -57,18 +75,28 @@ def integrator_fragen(P, D, k=5, salt=""):
                  'JSON: {"fragen": [{"frage": "...", "begruendung": "...", "neuheit": 0-1, "machbarkeit": 0-1}]}',
                  SYS.format(rolle="der Integrator (Forschungsleiter)"), salt=f"integrator-fragen-{salt}")
     for q in r.get("fragen", []):
-        q.update(id=f"F{len(P.s['fragen']) + 1}", status="offen"); P.s["fragen"].append(q)
+        qid = f"F{len(P.s['fragen']) + 1}"; q.update(id=qid, status="offen", faden_id=qid); P.s["fragen"].append(q)
 
 
 def integrator_plan(P, D, runde):
     offen = [q for q in P.s["fragen"] if q["status"] == "offen"]
     if not offen: return None
+    if P.s["runden"]:                                          # Tiefe statt Breite: im Faden bleiben, solange er Fortschritt bringt
+        last_q = next((x for x in P.s["fragen"] if x["id"] == P.s["runden"][-1]["frage"]), None)
+        faden = faden_of(P, last_q) if last_q else None
+        im_faden = [q for q in offen if faden and faden_of(P, q) == faden]
+        if im_faden and faden_fortschritt(P, faden):
+            P.append("decisions.md", f"| {now()} | INTEGRATOR | Runde {runde}: bleibe im Faden {faden} | letzte 2 Runden des Fadens brachten einen neuen bestätigten Claim; {len(im_faden)} offene Folgefragen |")
+            offen = im_faden
+        elif faden:
+            P.append("decisions.md", f"| {now()} | INTEGRATOR | Runde {runde}: Fadenwechsel weg von {faden} | " +
+                     ("keine offenen Folgefragen im Faden" if not im_faden else "kein neuer bestätigter Claim in den letzten 2 Runden des Fadens") + " |")
     liste = "\n".join(f"[{q['id']}] {q['frage']} (Neuheit {q.get('neuheit')}, Machbarkeit {q.get('machbarkeit')})" for q in offen)
     r = ask_json(f"{D.kontext}\n\n{wissen_text(P)}\n\nOffene Fragen:\n{liste}\n\nWähle die EINE Frage mit dem höchsten erwarteten Erkenntnisgewinn "
                  "(Value of Information: Neuheit x Machbarkeit x Lücke zum bisher Bewiesenen). Formuliere vorab ein Erfolgskriterium und ein "
                  'Abbruchkriterium. JSON: {"id": "F..", "begruendung": "...", "erfolg": "...", "abbruch": "...", "erwartung": "..."}',
                  SYS.format(rolle="der Integrator (Forschungsleiter)"), salt=f"integrator-plan-{runde}")
-    q = next((q for q in offen if q["id"] == r.get("id")), offen[0]); return q, r
+    q = next((q for q in offen if q["id"] == r.get("id")), offen[0]); q.setdefault("faden_id", faden_of(P, q)); return q, r
 
 
 FEHLER_MUSTER = ("nicht ausführbar", "NaN", "TypeError", "IndexError", "KeyError", "ValueError", "Traceback", "Exception",
@@ -99,15 +127,19 @@ def red_team(P, D, frage, ans, runde):
     return out
 
 
-def lernen(P, D, frage, res, runde):
+def lernen(P, D, frage, res, runde, parent=None):
     try:
         r = ask_json(f"{D.kontext}\n\n{wissen_text(P)}\n\nZuletzt untersucht: {frage}\nErgebnis: {json.dumps(res['antwort'], ensure_ascii=False)[:600]} ({res['level']})\n\n"
-                     f"{D.primitive_doc}\n\n{D.claim_doc}\n\nLeite 1-2 Folgefragen ab, die aus diesem Ergebnis am meisten lernen (Grenzen ausloten, "
-                     'Verallgemeinerung, Gegenprobe). JSON: {"fragen": [{"frage": "...", "begruendung": "...", "neuheit": 0-1, "machbarkeit": 0-1}]}',
+                     f"{D.primitive_doc}\n\n{D.claim_doc}\n\nLeite 1-2 Folgefragen ab, die dieses Ergebnis VERTIEFEN. Bevorzuge in dieser Reihenfolge: "
+                     "(1) Verallgemeinerung (größere Klasse, alle n, alle Parameter, Familie statt Einzelfall), (2) Grenzfall (wo hört es auf zu gelten?), "
+                     "(3) gezielte Gegenbeispielsuche. Keine thematischen Sprünge. "
+                     'JSON: {"fragen": [{"frage": "...", "begruendung": "...", "art": "verallgemeinerung|grenzfall|gegenbeispiel", "neuheit": 0-1, "machbarkeit": 0-1}]}',
                      SYS.format(rolle="der Lern-Agent"), salt=f"lernen-{runde}")
     except (LLMError, json.JSONDecodeError): return
     for q in r.get("fragen", [])[:2]:
-        q.update(id=f"F{len(P.s['fragen']) + 1}", status="offen", aus_runde=runde); P.s["fragen"].append(q)
+        q.update(id=f"F{len(P.s['fragen']) + 1}", status="offen", aus_runde=runde, faden_id=faden_of(P, parent) if parent else None)
+        if not q["faden_id"]: q["faden_id"] = q["id"]
+        P.s["fragen"].append(q)
 
 
 def main():
@@ -124,7 +156,8 @@ def main():
     if a.fragen:                                               # Startfragen aus der Lückenkarte: andere offene Fragen werden zurückgestellt
         for q in P.s["fragen"]:
             if q["status"] == "offen": q["status"] = "zurückgestellt"
-        for q in json.load(open(a.fragen)): q.update(id=f"F{len(P.s['fragen']) + 1}", status="offen", quelle="lueckenkarte"); P.s["fragen"].append(q)
+        for q in json.load(open(a.fragen)):
+            qid = f"F{len(P.s['fragen']) + 1}"; q.update(id=qid, status="offen", quelle="lueckenkarte", faden_id=q.get("faden_id") or qid); P.s["fragen"].append(q)
         P.append("decisions.md", f"| {now()} | INTEGRATOR | Startfragen aus {a.fragen} geladen, übrige offene Fragen zurückgestellt | Workflow Phase 5 |")
     if not P.s["fragen"]: integrator_fragen(P, D, salt=str(len(P.s["runden"])))
     P.save()
@@ -156,7 +189,7 @@ def main():
             P.s["widerlegt"].append(f"[{q['id']}] {q['frage']}: keine Behauptung bestand die Prüfung")
             log("  keine geprüfte Behauptung (als negatives Ergebnis protokolliert)")
         json.dump(res, open(f"{P.dir}/runde{runde}.json", "w"), ensure_ascii=False, indent=1, default=str)
-        if not (a.fragen or a.gezielt): lernen(P, D, q["frage"], res, runde)   # gezielter Lauf: keine frei erzeugten Folgefragen
+        if not (a.fragen or a.gezielt): lernen(P, D, q["frage"], res, runde, parent=q)   # gezielter Lauf: keine frei erzeugten Folgefragen
         P.s["runden"].append({"runde": runde, "frage": q["id"], "status": q["status"], "red_team": rt, "sek": res["sek"]})
         P.s["kosten_usd"] += sum(COST_LOG); COST_LOG.clear(); P.save()
     log(f"Fertig: {len(P.s['claims'])} geprüfte Aussagen, {len(P.s['widerlegt'])} negative Ergebnisse, Kosten {P.s['kosten_usd']:.2f} USD")

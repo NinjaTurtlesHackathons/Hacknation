@@ -118,6 +118,33 @@ def claims_of(domain):
     return C
 
 
+def story_plan(C, D, lang="en", salt=""):
+    """Story vor dem Schreiben: EINE Kernfrage, EINE Kernaussage, informativer Titel, Rolle jedes Claims."""
+    from .llm import ask_json
+    rel = [c for c in C if not c.get("anhang") and c["level"] != "hypothesis" and not c["claim_id"].startswith("C-lit")]
+    liste = "\n".join(f"- [{c['claim_id']}] ({c['level']}, relevance={c.get('relevanz', '?')}) {c['text'][:400]}" for c in rel)
+    r = ask_json(f"Research field: {D.kontext}\n\nVerified claims:\n{liste}\n\nPlan the article BEFORE it is written. Choose ONE core question and ONE core "
+                 "statement (a single sentence) that the main results support. Assign every claim a role: hauptresultat (supports the core statement directly), "
+                 "stuetze (needed for a main result), beispiel (illustration), anhang (only in the appendix), weglassen (unrelated to the core statement). "
+                 "Propose an informative title that states the core result (no marketing words such as 'beyond', 'towards', 'novel', 'revisited'). "
+                 'JSON: {"kernfrage": "...", "kernaussage": "...", "titel": "...", "zuordnung": {"C-...": "hauptresultat|stuetze|beispiel|anhang|weglassen"}}',
+                 "You are a senior scientific editor. Answer with valid JSON only.", salt=f"story-{salt}")
+    r.setdefault("zuordnung", {})
+    for c in rel: r["zuordnung"].setdefault(c["claim_id"], c.get("relevanz") or "anhang")
+    return r
+
+
+def apply_story(C, plan):
+    out = []
+    for c in C:
+        role = plan["zuordnung"].get(c["claim_id"])
+        if role == "weglassen": continue
+        if role == "anhang": c = dict(c, anhang=True)
+        if role in ("hauptresultat", "stuetze", "beispiel"): c = dict(c, rolle=role)
+        out.append(c)
+    return out
+
+
 def to_tex(md, titel, autoren, aff, figs=(), lang="de"):
     body = md
     body = re.sub(r"^### (.*)$", r"\\subsubsection*{\1}", body, flags=re.M)
@@ -178,8 +205,13 @@ def main():
     ap.add_argument("--autoren", required=True); ap.add_argument("--affiliation", default=""); ap.add_argument("--sprache", default="de", choices=["de", "en"])
     ap.add_argument("--hinweise", default="", help="zusätzliche Gliederungshinweise (Datei oder Text)"); a = ap.parse_args()
     D = get_domain(a.domain); C = claims_of(a.domain)
+    plan = story_plan(C, D, a.sprache, salt=a.domain); C = apply_story(C, plan); a.titel = a.titel or plan.get("titel", a.domain)
+    rollen = "\n".join(f"- {cid}: {rolle}" for cid, rolle in plan["zuordnung"].items() if rolle != "weglassen")
+    story = (f"STORY PLAN (binding): core question: {plan.get('kernfrage')}\ncore statement: {plan.get('kernaussage')}\nclaim roles:\n{rollen}\n"
+             "Main results (hauptresultat) come first in Results; stuetze become propositions/lemmas, beispiel become examples; anhang claims appear only in "
+             "the appendices; claims not listed must not be used.")
     extra = open(a.hinweise).read() if a.hinweise and os.path.exists(a.hinweise) else a.hinweise
-    outline = (OUTLINE_EN if a.sprache == "en" else OUTLINE_DE) + ("\n\n" + extra if extra else "")
+    outline = (OUTLINE_EN if a.sprache == "en" else OUTLINE_DE) + "\n\n" + story + ("\n\n" + extra if extra else "")
     md, log = write(a.titel, f"Research field: {D.kontext}\n\n{outline}", C, salt=f"paper-{a.domain}-{a.sprache}", lang=a.sprache, extra_check=rule_issues)
     d = f"projects/{a.domain}"; rest = check(md, C); n_cited = len(set(re.findall(r"C-[\w\-*.]+", md))); runden = json.dumps(log["runden"], ensure_ascii=False)
     proto = (f"\n\n---\nPrüfprotokoll: {n_cited} Claims zitiert, Korrekturrunden {runden}, "
