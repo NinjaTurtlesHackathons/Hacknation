@@ -23,6 +23,7 @@ dependencies = [
 
 [project.optional-dependencies]
 lab = ["matplotlib>=3.8", "pypandoc>=1.13", "requests>=2.31", "scikit-learn>=1.4", "pandas>=2.1"]   # volle Labor-Pipeline (Paper, Recherche)
+databricks = ["deltalake>=1.0", "pyarrow>=15", "mlflow-skinny>=3.0", "sqlalchemy>=2", "alembic>=1.13", "databricks-sql-connector>=3.0", "databricks-sdk>=0.30"]   # Delta-Tabellen, MLflow, Unity Catalog
 test = ["pytest>=8"]
 
 [project.scripts]

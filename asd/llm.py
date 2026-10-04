@@ -1,5 +1,5 @@
 """LLM-Backend für alle Agenten. Reihenfolge: Cache -> claude CLI (headless, ohne Tools, leeres Arbeitsverzeichnis,
-damit kein CLAUDE.md und keine Repo-Dateien sichtbar sind) -> Anthropic-API.
+damit kein CLAUDE.md und keine Repo-Dateien sichtbar sind); ASD_LLM=api -> Anthropic-API; ASD_LLM=databricks -> Databricks Model Serving.
 
 Jeder Aufruf wird mit Prompt, Antwort, Modell und Kosten unter cache/llm/<sha>.json abgelegt. Dadurch sind
 Agenten-Läufe reproduzierbar (ASD_LLM=replay spielt nur aus dem Cache ab) und auditierbar.
@@ -57,6 +57,23 @@ def _api(system, prompt, model, timeout):
     return "".join(b.text for b in m.content if b.type == "text"), 0.0, ids.get(model, model)
 
 
+def _databricks(system, prompt, model, timeout):
+    """Modell über einen Databricks-Model-Serving-Endpoint (OpenAI-kompatibles Chat-Format).
+    DATABRICKS_HOST, DATABRICKS_TOKEN; Endpoint je Rolle über ASD_DBX_ENDPOINT_<MODELL> (z. B. ASD_DBX_ENDPOINT_SONNET) oder ASD_DBX_ENDPOINT."""
+    import urllib.request, urllib.error
+    host = os.environ["DATABRICKS_HOST"].rstrip("/"); host = host if host.startswith("http") else "https://" + host
+    ep = os.environ.get(f"ASD_DBX_ENDPOINT_{str(model).upper()}") or os.environ["ASD_DBX_ENDPOINT"]
+    body = json.dumps({"messages": [{"role": "system", "content": system}, {"role": "user", "content": prompt}], "max_tokens": 8000}).encode()
+    req = urllib.request.Request(f"{host}/serving-endpoints/{ep}/invocations", data=body, method="POST",
+                                 headers={"Authorization": f"Bearer {os.environ['DATABRICKS_TOKEN']}", "Content-Type": "application/json"})
+    try:
+        out = json.loads(urllib.request.urlopen(req, timeout=timeout).read())
+    except urllib.error.HTTPError as e:
+        msg = e.read().decode(errors="replace")[:300]
+        raise (RateLimitError if e.code == 429 or ist_rate_limit(msg) else LLMError)(f"Databricks {e.code}: {msg}")
+    return out["choices"][0]["message"]["content"], 0.0, f"databricks:{ep}"
+
+
 def ask(prompt, system="Du bist ein sorgfältiger Wissenschaftler.", model=None, salt="", timeout=600, retries=2):
     """salt unterscheidet bewusst unabhängige Stichproben desselben Prompts (z. B. Ensemble, Best-of-N)."""
     model = model or MODEL; os.makedirs(CACHE, exist_ok=True)
@@ -64,7 +81,7 @@ def ask(prompt, system="Du bist ein sorgfältiger Wissenschaftler.", model=None,
     k = _key(system, prompt, model, salt); path = f"{CACHE}/{k}.json"
     if os.path.exists(path): return json.load(open(path))["response"]
     if os.environ.get("ASD_LLM") == "replay": raise LLMError(f"nicht im Cache: {k}")
-    backend = _api if os.environ.get("ASD_LLM") == "api" else _cli
+    backend = {"api": _api, "databricks": _databricks}.get(os.environ.get("ASD_LLM"), _cli)
     attempt, warte = 0, RL_BASIS
     while True:
         try:
