@@ -20,3 +20,4 @@
 | 2026-10-04 08:37:19 | INTEGRATOR | Runde 5: [F7] Beweise die holomorphen Stringtheorie-Identitäten mit Sturm-Zertifikat: Jacobis Identität (theta-Funktionen als Eta-Quot | F1 ist bereits durch das geprüfte Ergebnis [modular-R1d] beantwortet. Dort ist die Relation 960*E(9) - 960*C(3,3,3) - 4320*C(4,3,2) - 2160*C(4,4,1) + zeta(9) =  |
 | 2026-10-04 08:54:22 | INTEGRATOR | Runde 6: Fadenwechsel weg von F7 | keine offenen Folgefragen im Faden |
 | 2026-10-04 08:54:44 | INTEGRATOR | Runde 6: [F1] Gibt es eine rationale lineare Relation zwischen den sieben dihedralen Modulgraphfunktionen vom Gewicht 9 (C(7,1,1), C(6 | F1 ist bereits durch den geprüften Anker modular-R1d beantwortet: genau eine Relation [0,0,0,0,-2160,-4320,-960,960,1], die Dimension ist 1. Eine erneute Bearbe |
+| 2026-10-04 11:24:57 | INTEGRATOR | F5 (Eta, nach Prüfer-Kapazitätsfix) und F3 (Gewicht 11) wieder geöffnet nach Vorab-Paper | Nutzerwunsch: nach Preprint weiterarbeiten |
