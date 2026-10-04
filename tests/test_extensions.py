@@ -60,3 +60,18 @@ def test_tms_widerruf_stuft_abhaengige_herab_und_stellt_wieder_her():
     assert s == {"L1": "widerrufen", "T1": "abhängig_ungültig", "K1": "abhängig_ungültig", "X": "bestätigt"} and st["tms_log"]
     assert sorted(tms.bestaetigen(st, "L1")) == ["K1", "T1"] and all(c["status"] == "bestätigt" for c in st["claims"])
     assert [c["id"] for c in tms.reihenfolge([st["claims"][2], st["claims"][1], st["claims"][0]])] == ["L1", "T1", "K1"]
+
+
+# ---------------------------------------------------------------- 4 Eigenständige Zertifikate -------------------------------------
+def test_zertifikat_eigenstaendig_pass_und_verfaelscht_fail(tmp_path):
+    from asd.certificates import _fall, VORLAGE
+    from fractions import Fraction
+    from asd.domains.base import get_domain
+    p = next(pp for pp, w in get_domain("proofreading").selftest() if w and pp.get("typ") == "erreichbar")
+    (tmp_path / "check.py").write_text(open(VORLAGE).read())
+    cert = {"claim_id": "T", "faelle": [_fall(p)]}; (tmp_path / "certificate.json").write_text(json.dumps(cert))
+    run = lambda: subprocess.run([sys.executable, "-I", "check.py"], cwd=tmp_path, capture_output=True, text=True).stdout.strip()
+    assert run() == "PASS"
+    cert["faelle"][0]["eta_max"] = "1e-12"; (tmp_path / "certificate.json").write_text(json.dumps(cert))
+    assert run().startswith("FAIL") and "eta" in run()
+    assert "import asd" not in open(VORLAGE).read() and "from asd" not in open(VORLAGE).read()

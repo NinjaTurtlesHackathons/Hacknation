@@ -1,0 +1,114 @@
+{
+ "claim_id": "proofreading-R4",
+ "aussage": "For fam2_66 there exist rational rates in [e^-10, e^10] satisfying local detailed balance such that simultaneously eta <= 0.0001, v >= 0.0001 (certificate (a): exact reachability).",
+ "typ": "erreichbar",
+ "faelle": [
+  {
+   "topologie": "fam2_66",
+   "zustaende": [
+    "E",
+    "C0_R",
+    "C1_R",
+    "C0_W",
+    "C1_W"
+   ],
+   "gebunden": [
+    "C0",
+    "C1"
+   ],
+   "e_delta": "100",
+   "eta_max": "0.0001",
+   "v_min": "0.0001",
+   "kanten": [
+    {
+     "id": "bind_C0_E",
+     "u": "C0_R",
+     "v": "E",
+     "f": "21852977/965276",
+     "b": "1494790675/77594",
+     "a": "1/1",
+     "zweig": "R",
+     "produkt": false,
+     "disk": true
+    },
+    {
+     "id": "verw_C1_E",
+     "u": "C1_R",
+     "v": "E",
+     "f": "15083/917042",
+     "b": "1616/599075",
+     "a": "1574287/38992",
+     "zweig": "R",
+     "produkt": false,
+     "disk": true
+    },
+    {
+     "id": "umw1_C0_C1",
+     "u": "C0_R",
+     "v": "C1_R",
+     "f": "1989/802931",
+     "b": "16798101846566027767507854090000/2130536426106164173554892173252107",
+     "a": "1574287/38992",
+     "zweig": "R",
+     "produkt": false,
+     "disk": false
+    },
+    {
+     "id": "prod_C1",
+     "u": "C1_R",
+     "v": "E",
+     "f": "38553/912808",
+     "b": "1253616788587830685557/20654051640474244710475",
+     "a": "3312809/718964",
+     "zweig": "R",
+     "produkt": true,
+     "disk": false
+    },
+    {
+     "id": "bind_C0_E",
+     "u": "C0_W",
+     "v": "E",
+     "f": "546324425/241319",
+     "b": "1494790675/77594",
+     "a": "1/1",
+     "zweig": "W",
+     "produkt": false,
+     "disk": true
+    },
+    {
+     "id": "verw_C1_E",
+     "u": "C1_W",
+     "v": "E",
+     "f": "754150/458521",
+     "b": "1616/599075",
+     "a": "1574287/38992",
+     "zweig": "W",
+     "produkt": false,
+     "disk": true
+    },
+    {
+     "id": "umw1_C0_C1",
+     "u": "C0_W",
+     "v": "C1_W",
+     "f": "1989/802931",
+     "b": "16798101846566027767507854090000/2130536426106164173554892173252107",
+     "a": "1574287/38992",
+     "zweig": "W",
+     "produkt": false,
+     "disk": false
+    },
+    {
+     "id": "prod_C1",
+     "u": "C1_W",
+     "v": "E",
+     "f": "38553/912808",
+     "b": "1253616788587830685557/2065405164047424471047500",
+     "a": "3312809/718964",
+     "zweig": "W",
+     "produkt": true,
+     "disk": false
+    }
+   ]
+  }
+ ]
+}
