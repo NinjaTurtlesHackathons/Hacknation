@@ -1,0 +1,368 @@
+\documentclass[11pt]{article}
+\usepackage[margin=2.6cm]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{booktabs,longtable}
+\usepackage[hidelinks]{hyperref}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}
+\newtheorem{example}[theorem]{Example}
+\theoremstyle{remark}
+\newtheorem{remark}{Remark}
+
+% claim tag: every theorem-like environment names the claim_id that backs it (checked by build_paper.py)
+\newcommand{\claim}[1]{\leavevmode\marginpar{\raggedright\scriptsize\texttt{#1}}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Hom}{\operatorname{Hom}}
+\newcommand{\tr}{\operatorname{tr}}
+\newcommand{\ip}[2]{\langle #1, #2\rangle}
+\setlength{\marginparwidth}{2cm}
+
+\title{Characters of finite groups:\\ complete proofs and exactly certified character tables\\ of thirteen small groups}
+\author{Hack-Nation Team\\ \small Verifier-gated discovery lab}
+\date{4 October 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+We give a self-contained account of the complex representation theory of finite groups, from the definition of a
+representation to the column orthogonality relations, with every proof written out and only standard linear algebra
+assumed. The core results are Maschke's theorem, Schur's lemma, the identity $\dim\Hom_G(V,W)=\ip{\chi_W}{\chi_V}$, the
+formula $\sum_i(\dim V_i)^2=|G|$ and the equality of the number of irreducible representations with the number of
+conjugacy classes. Every general statement is in addition tested on concrete groups by a verifier that works in exact
+arithmetic (rational numbers and cyclotomic fields, no floating point): we certify complete character tables for
+$C_1,\dots,C_8$, $S_3$, $D_4$, $Q_8$, $A_4$ and $S_4$, check $\dim\Hom_G(V,W)=\ip{\chi_W}{\chi_V}$ independently by
+Gaussian elimination on 52 pairs of representations, and certify that $D_4$ and $Q_8$ share a character table without being
+isomorphic. The verifier must first pass a self-test with 7 true and 8 false statements. The results are classical; the
+contribution is a short, complete and machine-reproducible exposition. The general proofs are not formally verified.
+\end{abstract}
+
+\section{Introduction}
+Representation theory studies a group through its actions by linear maps. For finite groups over $\C$ the theory is
+complete in a strong sense: every representation splits into irreducible pieces, and a single function, the character,
+determines a representation up to isomorphism. The standard references are Serre~\cite{Serre}, Fulton and
+Harris~\cite{FH} and James and Liebeck~\cite{JL}. This note collects the minimum needed to compute and use character
+tables, proves every step, and couples each general statement to computations that a reader can re-run in about one
+second with the Python standard library.
+
+Each theorem-like environment carries a claim identifier in the margin. Identifiers starting with \texttt{E-} denote
+statements certified by exact computation (level \texttt{computed-rigorous}); the others denote statements whose proof is
+given in the text (level \texttt{proved-text}), each linked to the certificates that test it on examples
+(Appendix~\ref{app:prov}).
+
+\paragraph{Summary of results.}
+\begin{itemize}
+\item Theorem~\ref{thm:maschke} (Maschke) and Theorem~\ref{thm:schur} (Schur) give complete reducibility and the
+structure of $G$-maps between irreducible representations.
+\item Theorem~\ref{thm:orth} shows $\dim\Hom_G(V,W)=\ip{\chi_W}{\chi_V}$; Corollary~\ref{cor:orth} derives orthonormality of
+irreducible characters, multiplicities, and the criterion $\ip{\chi}{\chi}=1$ for irreducibility.
+\item Proposition~\ref{prop:reg} gives $\sum_i(\dim V_i)^2=|G|$; Theorem~\ref{thm:basis} shows that the irreducible characters
+form an orthonormal basis of class functions; Theorem~\ref{thm:col} gives column orthogonality.
+\item Examples~\ref{ex:cn}--\ref{ex:s4} contain certified character tables of 13 groups; Proposition~\ref{prop:dq} shows that
+the character table does not determine the group.
+\end{itemize}
+
+\section{Setting and notation}
+$G$ is a finite group with identity $e$. Vector spaces are finite-dimensional over $\C$. We use without proof:
+(LA1) every linear endomorphism of a nonzero complex vector space has an eigenvalue; (LA2) a matrix whose minimal
+polynomial has no repeated roots is diagonalizable; (LA3) $\tr(AB)=\tr(BA)$; (GT) Lagrange's theorem on cosets.
+
+\begin{definition}
+A \emph{representation} of $G$ is a vector space $V$ with a homomorphism $\rho\colon G\to GL(V)$; we write $gv=\rho(g)v$.
+A subspace $W\subseteq V$ is \emph{$G$-invariant} if $gW\subseteq W$ for all $g$. $V$ is \emph{irreducible} if $V\neq0$ and
+$0,V$ are its only invariant subspaces. A linear map $f\colon V\to W$ is a \emph{$G$-map} if $f(gv)=gf(v)$; these form
+$\Hom_G(V,W)$, and a bijective $G$-map is an isomorphism. $V^G=\{v: gv=v\ \forall g\}$.
+\end{definition}
+
+\begin{definition}
+The \emph{character} of $V$ is $\chi_V(g)=\tr\rho(g)$. A function $f\colon G\to\C$ is a \emph{class function} if
+$f(hgh^{-1})=f(g)$. For $f_1,f_2\colon G\to\C$ put
+\[ \ip{f_1}{f_2}=\frac1{|G|}\sum_{g\in G}f_1(g)\overline{f_2(g)}, \]
+a Hermitian inner product on class functions.
+The \emph{regular representation} $\C[G]$ has basis $(e_x)_{x\in G}$ and
+$ge_x=e_{gx}$. The space $\Hom(V,W)$ of all linear maps
+is a representation via
+\[ g.f=\rho_W(g)\,f\,\rho_V(g)^{-1}; \]
+its fixed points are exactly $\Hom_G(V,W)$. $C_G(g)=\{h: hg=gh\}$ is the centralizer.
+\end{definition}
+
+\section{Results}
+\subsection{Linear algebra and characters}
+
+\begin{lemma}\label{lem:la}\claim{L-1}
+(a) If $P^2=P$ then $\tr P=\dim\operatorname{im}P$.
+(b) For $A\in\operatorname{End}(W)$, $B\in\operatorname{End}(V)$ the map $\Phi(f)=AfB$ on $\Hom(V,W)$ has $\tr\Phi=\tr A\,\tr B$.
+(c) If $A^m=I$ then $A$ is diagonalizable with eigenvalues of modulus one and $\tr(A^{-1})=\overline{\tr A}$.
+\end{lemma}
+\begin{proof}
+(a) $v=Pv+(v-Pv)$ with $P(v-Pv)=0$, and $\operatorname{im}P\cap\ker P=0$ since $v=Pu$ gives $Pv=v$. In an adapted basis
+$P=\operatorname{diag}(1,\dots,1,0,\dots,0)$ with $\dim\operatorname{im}P$ ones.
+(b) With matrix units, $AE_{ij}B=\sum_{k,l}A_{ki}B_{jl}E_{kl}$; the coefficient of $E_{ij}$ is $A_{ii}B_{jj}$; sum over $i,j$.
+(c) The minimal polynomial divides $x^m-1$, which has $m$ distinct roots, so $A$ is diagonalizable by (LA2) with
+eigenvalues $\lambda_k$, $\lambda_k^m=1$, $|\lambda_k|=1$, hence $\tr A^{-1}=\sum\lambda_k^{-1}=\sum\overline{\lambda_k}$.
+\end{proof}
+
+\begin{proposition}\label{prop:char}\claim{P-1}
+For representations $V,W$: (i) $\chi_V(e)=\dim V$; (ii) $\chi_V$ is a class function; (iii) $\chi_V(g^{-1})=\overline{\chi_V(g)}$;
+(iv) $\chi_{V\oplus W}=\chi_V+\chi_W$; (v) isomorphic representations have equal characters; (vi) the character of
+$\Hom(V,W)$ is $g\mapsto\chi_W(g)\overline{\chi_V(g)}$.
+\end{proposition}
+\begin{proof}
+(i) $\rho(e)=I$. (ii) and (v) by $\tr(TAT^{-1})=\tr A$. (iii) $\rho(g)^m=I$ for $m$ the order of $g$; Lemma~\ref{lem:la}(c).
+(iv) $\rho$ is block diagonal in an adapted basis. (vi) Lemma~\ref{lem:la}(b) with $A=\rho_W(g)$, $B=\rho_V(g^{-1})$, then (iii).
+\end{proof}
+
+\subsection{Complete reducibility and Schur's lemma}
+
+\begin{theorem}[Maschke]\label{thm:maschke}\claim{T-1}
+Every $G$-invariant subspace $W\subseteq V$ has a $G$-invariant complement. Hence every representation is a direct sum of
+irreducible representations.
+\end{theorem}
+\begin{proof}
+Let $\pi$ be any linear projection of $V$ onto $W$ and $P=\frac1{|G|}\sum_g\rho(g)\pi\rho(g)^{-1}$. Since $W$ is invariant,
+each summand maps $V$ into $W$ and fixes $W$ pointwise; so $\operatorname{im}P=W$ and $P^2=P$. Reindexing $g\mapsto hg$
+gives $\rho(h)P\rho(h)^{-1}=P$, so $P$ is a $G$-map and $\ker P$ is invariant; $V=W\oplus\ker P$ as in
+Lemma~\ref{lem:la}(a). The second statement follows by induction on $\dim V$.
+\end{proof}
+
+\begin{example}\label{ex:maschke}\claim{E-M}
+Let $S_3$ permute the coordinates of $\C^3$, $W=\C(1,1,1)$, and let $E$ be the projection onto $W$ along
+$\operatorname{span}(e_1,e_2)$; $E$ is not a $G$-map. The averaged projection of Theorem~\ref{thm:maschke} is
+$P=\frac13J$ with $J$ the all-ones matrix: an invariant projection with image $W$ and kernel $\{x_1+x_2+x_3=0\}$.
+\emph{Certificate.} $P$ is recomputed from $E$ in exact rational arithmetic and $P^2=P$, $P\rho(g)=\rho(g)P$ for all six $g$,
+$P(1,1,1)^T=(1,1,1)^T$ and $P(1,-1,0)^T=P(0,1,-1)^T=0$ are checked.
+\end{example}
+
+\begin{theorem}[Schur]\label{thm:schur}\claim{T-2}
+Let $V,W$ be irreducible and $f\in\Hom_G(V,W)$. (a) $f=0$ or $f$ is an isomorphism. (b) If $V=W$ then $f=\lambda\,\mathrm{id}$.
+Hence $\dim\Hom_G(V,W)$ is $1$ if $V\cong W$ and $0$ otherwise.
+\end{theorem}
+\begin{proof}
+(a) $\ker f$ and $\operatorname{im}f$ are invariant; by irreducibility $f\neq0$ forces $\ker f=0$ and $\operatorname{im}f=W$.
+(b) $f$ has an eigenvalue $\lambda$ by (LA1); $f-\lambda\,\mathrm{id}$ is a $G$-map with nonzero kernel, hence $0$ by (a).
+If $T\colon V\to W$ is an isomorphism, every $f\in\Hom_G(V,W)$ satisfies $T^{-1}f=\lambda\,\mathrm{id}$, so
+$\Hom_G(V,W)=\C T$.
+\end{proof}
+
+\begin{corollary}\label{cor:abelian}\claim{C-1}
+Every irreducible representation of an abelian group has dimension $1$.
+\end{corollary}
+\begin{proof}
+Each $\rho(g)$ commutes with all $\rho(h)$, so it is a $G$-map and a scalar by Theorem~\ref{thm:schur}(b). Then every
+subspace is invariant, and irreducibility forces dimension $1$.
+\end{proof}
+
+\subsection{Orthogonality}
+
+\begin{lemma}\label{lem:fix}\claim{L-2}
+$\dim V^G=\frac1{|G|}\sum_{g\in G}\chi_V(g)$.
+\end{lemma}
+\begin{proof}
+$P=\frac1{|G|}\sum_g\rho(g)$ satisfies $\rho(h)P=P$, so $\operatorname{im}P\subseteq V^G$, and $Pv=v$ on $V^G$. Thus $P^2=P$,
+$\operatorname{im}P=V^G$, and $\dim V^G=\tr P$ by Lemma~\ref{lem:la}(a).
+\end{proof}
+
+\begin{example}\claim{E-L2-S3, E-L2-D4, E-L2-A4, E-L2-S4, E-L2-S3x}
+For a permutation representation $\dim V^G$ is the number of orbits. \emph{Certificate.} For $S_3$, $D_4$, $A_4$, $S_4$ on
+their natural point sets the average of $\chi$ is $1$, and for $S_3$ acting on $\{0,\dots,4\}$ (fixing $3$ and $4$) it is
+$3$; in each case it equals the number of orbits counted combinatorially.
+\end{example}
+
+\begin{theorem}\label{thm:orth}\claim{T-3}
+For representations $V,W$ of $G$: $\dim\Hom_G(V,W)=\ip{\chi_W}{\chi_V}$.
+\end{theorem}
+\begin{proof}
+Apply Lemma~\ref{lem:fix} to $\Hom(V,W)$, whose fixed space is $\Hom_G(V,W)$ and whose character is
+$\chi_W\overline{\chi_V}$ by Proposition~\ref{prop:char}(vi).
+\end{proof}
+
+\begin{example}\claim{E-T3-S3, E-T3-S4}
+\emph{Certificate.} For all ordered pairs among the irreducible representations of $S_3$ (resp.\ $S_4$) from
+Examples~\ref{ex:s3}, \ref{ex:s4} together with the permutation representation (16 resp.\ 36 pairs), $\dim\Hom_G(V,W)$ is
+computed by Gaussian elimination over $\Q$ from $\rho_W(s)X=X\rho_V(s)$ for the generators $s$, without characters, and
+equals $\ip{\chi_W}{\chi_V}$. In particular $\dim\Hom_G(\C^n,\C^n)=2$ for the permutation representation of $S_n$, $n=3,4$.
+\end{example}
+
+\begin{corollary}\label{cor:orth}\claim{C-2}
+Let $V_1,\dots,V_r$ be pairwise non-isomorphic irreducible representations with characters $\chi_i$.
+(a) $\ip{\chi_i}{\chi_j}=\delta_{ij}$.
+(b) If $V\cong\bigoplus_iV_i^{m_i}$ then $m_i=\ip{\chi_V}{\chi_i}$; in particular the $m_i$ do not depend on the decomposition.
+(c) Representations with equal characters are isomorphic.
+(d) $\ip{\chi_V}{\chi_V}=\sum_im_i^2$, and $V$ is irreducible iff $\ip{\chi_V}{\chi_V}=1$.
+(e) Characters $\chi\neq\chi'$ with $\ip{\chi}{\chi}=\ip{\chi'}{\chi'}=1$ and $\ip{\chi}{\chi'}=0$ belong to non-isomorphic irreducible
+representations.
+\end{corollary}
+\begin{proof}
+(a) Theorems~\ref{thm:orth} and~\ref{thm:schur}; since $\ip{\chi_W}{\chi_V}$ is a nonnegative integer, the order of the arguments
+is irrelevant. (b) $\chi_V=\sum_jm_j\chi_j$ by Proposition~\ref{prop:char}; pair with $\chi_i$. (c) By Theorem~\ref{thm:maschke} and (b).
+(d) Expand with (a); conversely $\sum m_i^2=1$ with $m_i\in\mathbb Z_{\ge0}$ leaves one summand. (e) Irreducible by (d); if
+isomorphic, the characters would be equal by Proposition~\ref{prop:char}(v), and then $\ip{\chi}{\chi'}=1$.
+\end{proof}
+
+\subsection{Counting irreducible representations}
+
+\begin{proposition}\label{prop:reg}\claim{P-2}
+(a) $\chi_{\mathrm{reg}}(e)=|G|$ and $\chi_{\mathrm{reg}}(g)=0$ for $g\neq e$. (b) Every irreducible $V$ occurs in $\C[G]$ with
+multiplicity $\dim V$. (c) There are finitely many irreducible representations $V_1,\dots,V_h$ up to isomorphism, and
+$\sum_i(\dim V_i)^2=|G|$. (d) Pairwise non-isomorphic irreducible $V_1,\dots,V_r$ with $\sum_i(\dim V_i)^2=|G|$ form a complete list.
+\end{proposition}
+\begin{proof}
+(a) $\rho(g)$ permutes the basis and fixes $e_x$ iff $g=e$. (b) $\ip{\chi_{\mathrm{reg}}}{\chi_V}=\frac1{|G|}|G|\dim V$;
+Corollary~\ref{cor:orth}(b). (c) By (b) each irreducible is a summand of $\C[G]$; compare dimensions. (d) A missing
+irreducible would add at least $1$ to the sum in (c).
+\end{proof}
+
+\begin{theorem}\label{thm:basis}\claim{T-4}
+The irreducible characters form an orthonormal basis of the space of class functions. In particular the number of
+irreducible representations equals the number of conjugacy classes.
+\end{theorem}
+\begin{proof}
+Let $f$ be a class function with $\ip{f}{\chi_i}=0$ for all $i$. For a representation $V$ set $T=\sum_g\overline{f(g)}\rho(g)$.
+Then $\rho(h)T\rho(h)^{-1}=\sum_g\overline{f(h^{-1}gh)}\rho(g)=T$, so $T$ is a $G$-map. On $V=V_i$, Theorem~\ref{thm:schur} gives
+$T=\lambda\,\mathrm{id}$ with $\lambda\dim V_i=\tr T=|G|\,\overline{\ip{f}{\chi_i}}=0$. Hence $T=0$ on every representation
+(Theorem~\ref{thm:maschke}), and on $\C[G]$: $0=Te_e=\sum_g\overline{f(g)}e_g$, so $f=0$. Thus the orthonormal family of
+Corollary~\ref{cor:orth}(a) spans; class functions are functions on the set of classes, which gives the dimension count.
+\end{proof}
+
+\begin{lemma}\label{lem:orbit}\claim{L-3}
+If $K$ is the conjugacy class of $g$ then $|K|\,|C_G(g)|=|G|$.
+\end{lemma}
+\begin{proof}
+$hgh^{-1}=h'gh'^{-1}$ iff $h'\in hC_G(g)$, so $h\mapsto hgh^{-1}$ induces a bijection from the left cosets of $C_G(g)$ to $K$;
+there are $|G|/|C_G(g)|$ cosets.
+\end{proof}
+
+\begin{theorem}[column orthogonality]\label{thm:col}\claim{T-5}
+$\sum_{i=1}^h\chi_i(g)\overline{\chi_i(g')}=|C_G(g)|$ if $g,g'$ are conjugate, and $0$ otherwise.
+\end{theorem}
+\begin{proof}
+Let $g_1,\dots,g_h$ represent the classes $K_1,\dots,K_h$ and $X_{ij}=\chi_i(g_j)\sqrt{|K_j|/|G|}$, a square matrix by
+Theorem~\ref{thm:basis}. Row orthonormality reads $XX^*=I$, hence $X^*X=I$, i.e.
+$\sum_i\overline{\chi_i(g_j)}\chi_i(g_l)=\delta_{jl}|G|/|K_j|=\delta_{jl}|C_G(g_j)|$ by Lemma~\ref{lem:orbit}.
+\end{proof}
+
+\subsection{Certified character tables}
+\begin{remark}[how an example is certified]\label{rem:cert}
+For a group given by generators, the verifier computes the multiplication table, inverses and conjugacy classes, and
+for a claimed list of representations checks in exact arithmetic: (1) each map is a homomorphism on all $|G|^2$ pairs;
+(2) the Gram matrix $\big(\ip{\chi_i}{\chi_j}\big)$ is the identity, so the representations are irreducible and pairwise
+non-isomorphic (Corollary~\ref{cor:orth}(d),(e)); (3) $\sum_i(\dim V_i)^2=|G|$, so the list is complete
+(Proposition~\ref{prop:reg}(d)). Steps (1)--(3) prove the table. As independent consistency checks it also tests
+$h=$ number of classes (Theorem~\ref{thm:basis}), column orthogonality with $|C_G(g)|$ (Theorem~\ref{thm:col}) and
+$\chi_{\mathrm{reg}}=\sum_i\dim V_i\,\chi_i$ (Proposition~\ref{prop:reg}). The tables below are typeset directly from the
+verifier's output.
+\end{remark}
+
+\begin{proposition}\label{prop:cn}\claim{P-3}
+Let $C_n=\langle c\rangle$ and $\zeta=e^{2\pi i/n}$. The irreducible representations of $C_n$ are $\chi_j(c^k)=\zeta^{jk}$,
+$j=0,\dots,n-1$.
+\end{proposition}
+\begin{proof}
+Each $\chi_j$ is a well-defined homomorphism since $\zeta^n=1$; it is irreducible of dimension $1$. The values $\chi_j(c)=\zeta^j$
+are distinct, so the $\chi_j$ are pairwise non-isomorphic (Proposition~\ref{prop:char}(v)), and $n\cdot1^2=|C_n|$ shows
+completeness (Proposition~\ref{prop:reg}(d)).
+\end{proof}
+
+\begin{example}\label{ex:cn}\claim{E-C1, E-C2, E-C3, E-C4, E-C5, E-C6, E-C7, E-C8}
+The tables of Proposition~\ref{prop:cn} are certified in $\Q(\zeta_n)$ for $n=1,\dots,8$. For $n=4$:
+\begin{center}\input{out/table_C4.tex}\end{center}
+\end{example}
+
+\begin{example}\label{ex:s3}\claim{E-S3}
+$S_3$: trivial, sign, and the standard representation on $\{x\in\C^3:\sum x_i=0\}$. By hand:
+$\ip{\chi_{\mathrm{std}}}{\chi_{\mathrm{std}}}=(4+0+2)/6=1$ and $1+1+4=6$.
+\begin{center}\input{out/table_S3.tex}\end{center}
+\end{example}
+
+\begin{example}\label{ex:d4}\claim{E-D4}
+$D_4=\langle r,s\rangle$, the symmetries of a square ($r$ a rotation by $\pi/2$, $s$ a reflection). The four one-dimensional
+representations $\varepsilon_{\pm\pm}$ send $r,s$ to $\pm1$; ``plane'' sends $r\mapsto\begin{psmallmatrix}0&-1\\1&0\end{psmallmatrix}$,
+$s\mapsto\begin{psmallmatrix}1&0\\0&-1\end{psmallmatrix}$. By hand: $\ip{\chi}{\chi}=(4+4)/8=1$ for the plane, $4+4=8$.
+\begin{center}\input{out/table_D4.tex}\end{center}
+\end{example}
+
+\begin{example}\label{ex:q8}\claim{E-Q8}
+$Q_8=\{\pm1,\pm i,\pm j,\pm k\}$ realized by $i\mapsto\operatorname{diag}(i,-i)$, $j\mapsto\begin{psmallmatrix}0&1\\-1&0\end{psmallmatrix}$;
+$\varepsilon_{\pm\pm}$ send $i,j$ to $\pm1$. By hand: $\ip{\chi}{\chi}=(4+4)/8=1$ for the quaternion representation, $4+4=8$.
+\begin{center}\input{out/table_Q8.tex}\end{center}
+\end{example}
+
+\begin{example}\label{ex:a4}\claim{E-A4}
+$A_4$ with $\omega=e^{2\pi i/3}$: $\lambda_j$ factor through $A_4\to C_3$, $(123)\mapsto\omega^j$, $(12)(34)\mapsto1$; the
+standard representation is the restriction of the one of $S_4$. By hand: $(9+3)/12=1$ and $1+1+1+9=12$.
+\begin{center}\input{out/table_A4.tex}\end{center}
+\end{example}
+
+\begin{example}\label{ex:s4}\claim{E-S4}
+$S_4$: $\sigma_2$ is the standard representation of $S_3$ composed with $S_4\to S_3$, the action on the three pairings
+$\{12|34,\,13|24,\,14|23\}$. By hand: $(9+6+6+0+3)/24=1$ for the standard representation and $1+1+4+9+9=24$.
+\begin{center}\input{out/table_S4.tex}\end{center}
+\end{example}
+
+\subsection{The character table does not determine the group}
+\begin{proposition}\label{prop:dq}\claim{E-DQ}
+$D_4$ and $Q_8$ have the same character table, but are not isomorphic.
+\end{proposition}
+\begin{proof}
+The tables in Examples~\ref{ex:d4} and~\ref{ex:q8} agree under $e\leftrightarrow1$, $r\leftrightarrow i$, $s\leftrightarrow j$,
+$r^2\leftrightarrow-1$, $rs\leftrightarrow k$, which respects class sizes. An isomorphism preserves element orders, but $D_4$ has five
+elements of order $2$ ($r^2$ and four reflections) and $Q_8$ only one ($-1$).
+\emph{Certificate.} The verifier searches all size-preserving class bijections for one under which the tables agree as
+sets of rows, and counts elements of order $2$ from the multiplication tables ($5$ and $1$). In its self-test the same
+procedure correctly reports that $C_4$ and $C_2\times C_2$ have different tables.
+\end{proof}
+
+\begin{remark}[trusted base]
+The computer-assisted parts rely on Python's \texttt{fractions.Fraction} (exact rationals) and a small implementation of
+$\Q(\zeta_N)=\Q[x]/(\Phi_N)$ in which equality is decided by the remainder modulo the cyclotomic polynomial $\Phi_N$
+(computed exactly from $x^N-1=\prod_{d\mid N}\Phi_d$). No floating-point number is used. A third party re-runs everything
+with \texttt{python3 reptheory/certify.py}. The general proofs of this paper are checked by reading, not by a proof
+assistant.
+\end{remark}
+
+\section{Scope and omitted topics}
+To keep the text self-contained we omit: (i) that $\dim V_i$ divides $|G|$, which needs algebraic integers;
+(ii) induced representations and Frobenius reciprocity; (iii) the Frobenius--Schur indicator and real representations;
+(iv) positive characteristic, where Theorem~\ref{thm:maschke} fails when the characteristic divides $|G|$. A natural next step
+is to formalize Lemma~\ref{lem:fix} and Theorem~\ref{thm:orth} in a proof assistant, which would lift those claims from
+\texttt{proved-text} to a machine-checked level.
+
+\section*{Declarations}
+\textbf{AI use.} Text, proofs and verifier were drafted with an AI assistant inside a verifier-gated workflow; every
+claim is either recomputed exactly by the verifier or proved in the text, and the build refuses to typeset a
+theorem-like environment without a backed claim. \textbf{Code and data.} \texttt{reptheory/} in the project repository:
+\texttt{certify.py}, \texttt{cyclo.py}, \texttt{build\_paper.py}, the plain-text extraction \texttt{theorems.txt} and the
+tables \texttt{out/claims.csv}, \texttt{out/gates.csv}. \textbf{Competing interests.} None.
+
+\begin{thebibliography}{9}
+\bibitem{FH} W.~Fulton and J.~Harris, \emph{Representation Theory}, Springer New York, 2004. doi:10.1007/978-1-4612-0979-9.
+\bibitem{JL} G.~James and M.~Liebeck, \emph{Representations and Characters of Groups}, Cambridge University Press, 2001.
+doi:10.1017/CBO9780511814532.
+\bibitem{Serre} J.-P.~Serre, \emph{Linear Representations of Finite Groups}, Springer New York, 1977.
+doi:10.1007/978-1-4684-9458-7.
+\end{thebibliography}
+
+\appendix
+\section{Verifier self-test}
+Before any certificate is computed, the verifier judges 15 statements with known truth value; a single wrong verdict
+aborts the run. True: the list \{trivial, sign, standard\} of $S_3$ is complete; $c\mapsto i$ defines a representation of
+$C_4$; $\dim V^G=1$ for $S_4$ on four points; $D_4$ and $Q_8$ share a table and are not isomorphic; $1+\omega+\omega^2=0$;
+$i\bar i=1$; $1+i+i^2+i^3=0$ (a regression case for a canonical-form error found while building the verifier). False:
+the $S_3$ list with the reducible permutation representation; the $S_4$ list without $\sigma_2$ ($\sum d^2=20$);
+$r\mapsto\begin{psmallmatrix}0&1\\1&0\end{psmallmatrix}$, $s\mapsto\operatorname{diag}(1,-1)$ for $D_4$; $c\mapsto\zeta_8$ for $C_4$;
+``$S_4$ on four points has two orbits''; $C_4$ and $C_2\times C_2$ share a table; $1+\omega=0$; $i^2=1$. All 15 verdicts
+are correct (gate \texttt{G0\_selftest}).
+
+\section{Provenance}\label{app:prov}
+Every claim, its level and its evidence, as written by the verifier to \texttt{out/claims.csv}. Level
+\texttt{proved-text}: proof in this paper and in \texttt{theorems.txt}; the evidence column lists the certificates that test
+the statement on examples. Level \texttt{computed-rigorous}: exact recomputation by the named function of \texttt{certify.py}.
+\input{out/provenance.tex}
+
+\end{document}

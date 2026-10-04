@@ -1,0 +1,351 @@
+REPRESENTATION THEORY OF FINITE GROUPS: DEFINITIONS, STATEMENTS, PROOFS, RESULTS
+Plain extraction. Source of truth for the paper (reptheory/paper.tex). Written by hand, not by the paper-writer agent.
+
+Every numbered statement has a claim_id in brackets. Status of each claim:
+  proved_text        full proof below, readable by a human, not machine-checked (no Lean on this machine);
+                     status "proved" in out/claims.csv
+  computed_rigorous  recomputed in exact arithmetic by reptheory/certify.py (rationals and cyclotomic fields,
+                     no floating point); the verifier passes a self-test with 7 true and 8 false statements first;
+                     status "verified" in out/claims.csv
+General theorems are proved_text. Each of them is also checked on concrete groups by a computed_rigorous certificate
+(listed under "Checked by"). Examples are proved by hand from the theorems AND certified by computation.
+
+Reproduce:  python3 reptheory/certify.py      (about 1 s, Python standard library only)
+
+
+0. CONVENTIONS AND PREREQUISITES
+
+G is a finite group with identity e and order |G|. All vector spaces are finite-dimensional over the complex numbers C.
+Used without proof (standard linear algebra and group theory):
+  (LA1) Every linear map of a nonzero complex vector space to itself has an eigenvalue.
+  (LA2) A matrix is diagonalizable if its minimal polynomial has no repeated roots.
+  (LA3) tr(AB) = tr(BA); trace is linear; the trace of a diagonal matrix is the sum of its diagonal entries.
+  (LA4) If V = U + U' is a direct sum, the dimensions add.
+  (GT1) Conjugacy is an equivalence relation; G is the disjoint union of its conjugacy classes.
+  (GT2) For a subgroup H of G, the left cosets of H partition G into |G|/|H| sets of size |H| (Lagrange).
+
+
+1. DEFINITIONS
+
+D1 (representation). A representation of G is a pair (V, rho) where V is a vector space and rho: G -> GL(V) is a group
+   homomorphism: rho(gh) = rho(g) rho(h). dim V is the degree. We write gv for rho(g)v when rho is clear.
+D2 (subrepresentation, irreducible). A subspace W of V is G-invariant if gW is contained in W for all g. Then W is a
+   subrepresentation. V is irreducible if V != 0 and its only G-invariant subspaces are 0 and V.
+D3 (G-homomorphism). A linear map f: V -> W between representations is a G-homomorphism if f(gv) = g f(v) for all g, v.
+   Hom_G(V, W) is the space of these maps. V and W are isomorphic if there is a bijective G-homomorphism.
+D4 (direct sum). V + W with g(v, w) = (gv, gw).
+D5 (fixed points). V^G = { v in V : gv = v for all g in G }.
+D6 (character). chi_V(g) = tr rho(g). The function chi_V: G -> C is the character of V.
+D7 (class function, inner product). f: G -> C is a class function if f(hgh^-1) = f(g) for all g, h. For functions
+   f1, f2: G -> C put  <f1, f2> = (1/|G|) sum_{g in G} f1(g) conj(f2(g)).
+   On the space of class functions this is a Hermitian inner product (positive definite: <f, f> = (1/|G|) sum |f(g)|^2).
+D8 (regular representation). C[G] = vector space with basis {e_x : x in G}, and g e_x = e_{gx}.
+D9 (Hom representation). For representations V, W, the space Hom(V, W) of all linear maps is a representation via
+   (g.f) = rho_W(g) o f o rho_V(g)^-1. Its fixed points are exactly Hom_G(V, W).
+D10 (centralizer). C_G(g) = { h in G : hg = gh }, a subgroup of G.
+
+
+2. LINEAR-ALGEBRA LEMMA
+
+Lemma 1 [L-1, proved_text]
+  (a) If P: V -> V is linear with P^2 = P, then tr P = dim im P.
+  (b) For fixed linear maps A: W -> W and B: V -> V, the map Phi: Hom(V, W) -> Hom(V, W), Phi(f) = A f B, has
+      tr Phi = tr A * tr B.
+  (c) If A^m = I for some m >= 1, then A is diagonalizable, every eigenvalue lambda satisfies lambda^m = 1, and
+      tr(A^-1) = conj(tr A).
+Proof.
+  (a) Every v equals Pv + (v - Pv), with Pv in im P and P(v - Pv) = 0, so V = im P + ker P; the sum is direct because
+      v in im P means v = Pu, so Pv = P^2 u = Pu = v, and if also Pv = 0 then v = 0. In a basis adapted to this
+      splitting, P = diag(1,...,1,0,...,0) with dim im P ones. Hence tr P = dim im P.
+  (b) Choose bases; let E_ij be the matrix unit (1 in row i, column j). Then A E_ij B = sum_{k,l} A_ki B_jl E_kl, so the
+      coefficient of E_ij in Phi(E_ij) is A_ii B_jj. Summing over i, j: tr Phi = (sum_i A_ii)(sum_j B_jj).
+  (c) The minimal polynomial of A divides x^m - 1, which has the m distinct roots exp(2 pi i k/m); by (LA2) A is
+      diagonalizable, A = S diag(lambda_1..lambda_n) S^-1 with lambda_k^m = 1. Then |lambda_k| = 1, so
+      lambda_k^-1 = conj(lambda_k), and tr(A^-1) = sum lambda_k^-1 = sum conj(lambda_k) = conj(tr A).                    QED
+
+
+3. CHARACTERS: BASIC PROPERTIES
+
+Proposition 1 [P-1, proved_text]  For representations V, W of G and g, h in G:
+  (i)   chi_V(e) = dim V;
+  (ii)  chi_V(hgh^-1) = chi_V(g), i.e. chi_V is a class function;
+  (iii) chi_V(g^-1) = conj(chi_V(g));
+  (iv)  chi_{V+W} = chi_V + chi_W;
+  (v)   isomorphic representations have equal characters;
+  (vi)  the character of Hom(V, W) (D9) is g -> chi_W(g) conj(chi_V(g)).
+Proof.
+  (i) rho(e) = I. (ii) tr(rho(h)rho(g)rho(h)^-1) = tr rho(g) by (LA3). (iii) g^m = e for m = order of g, so
+  rho(g)^m = I; apply Lemma 1(c). (iv) In a basis adapted to V + W, rho(g) is block diagonal. (v) If T: V -> W is a
+  bijective G-homomorphism, rho_W(g) = T rho_V(g) T^-1; take traces. (vi) By Lemma 1(b) with A = rho_W(g),
+  B = rho_V(g^-1), the trace of f -> g.f is chi_W(g) chi_V(g^-1) = chi_W(g) conj(chi_V(g)) by (iii).                   QED
+Checked by: E-C1..E-S4 (characters are recomputed and tested to be class functions).
+
+
+4. COMPLETE REDUCIBILITY
+
+Theorem 1 (Maschke) [T-1, proved_text]  Every G-invariant subspace W of a representation V has a G-invariant complement
+  W' (V = W + W' direct). Consequently every representation is a direct sum of irreducible representations.
+Proof.
+  Pick any linear projection pi: V -> V with im pi = W and pi(w) = w for w in W (extend a basis of W to a basis of V,
+  send the new basis vectors to 0). Define
+      P = (1/|G|) sum_{g in G} rho(g) pi rho(g)^-1.
+  For w in W and every g: rho(g)^-1 w is in W, so pi rho(g)^-1 w = rho(g)^-1 w and the summand gives w; hence Pw = w.
+  For v in V, pi rho(g)^-1 v is in W and rho(g) maps W into W; hence im P is in W. Together im P = W and P^2 = P.
+  For h in G: rho(h) P rho(h)^-1 = (1/|G|) sum_g rho(hg) pi rho(hg)^-1 = P (reindex g -> hg). So P is a
+  G-homomorphism and W' = ker P is G-invariant (P(gv) = gPv = 0). By Lemma 1(a)'s splitting, V = im P + ker P = W + W'.
+  Second statement: induction on dim V. If V = 0 it is the empty sum; if V is irreducible we are done; otherwise take a
+  G-invariant W with 0 != W != V and apply the induction hypothesis to W and to its invariant complement W'.          QED
+Checked by: E-M (the averaged projection is computed for S3 acting on Q^3, starting from a non-invariant projection).
+
+Example E-M [computed_rigorous]  Let S3 act on C^3 by permuting coordinates, W = span(1,1,1), and let E be the projection
+  onto W along span(e1, e2) (matrix with all three rows equal to (0,0,1)). E is not a G-homomorphism. Averaging gives
+  P = (1/3) * (all-ones 3x3 matrix), an S3-invariant projection with image W and kernel {x1 + x2 + x3 = 0}.
+  Proof: P^2 = P because (J/3)^2 = J/3 for the all-ones matrix J; P commutes with permutation matrices; the rest is
+  direct substitution. Certificate: certify.cert_maschke_example recomputes P from E exactly and checks all five facts.
+
+
+5. SCHUR'S LEMMA
+
+Theorem 2 (Schur) [T-2, proved_text]  Let V, W be irreducible and f: V -> W a G-homomorphism.
+  (a) f = 0 or f is an isomorphism.
+  (b) If V = W, then f = lambda * id for some lambda in C.
+  Consequently dim Hom_G(V, W) = 1 if V and W are isomorphic and 0 otherwise.
+Proof.
+  (a) ker f is G-invariant in V (f(gv) = g f(v) = 0) and im f is G-invariant in W. By irreducibility ker f is 0 or V
+      and im f is 0 or W. If f != 0 then ker f != V, so ker f = 0, and im f != 0, so im f = W: f is bijective.
+  (b) By (LA1) f has an eigenvalue lambda. f - lambda*id is a G-homomorphism V -> V with nonzero kernel, so by (a) it is
+      0.
+  Last statement: if V, W are not isomorphic, (a) leaves only f = 0. If T: V -> W is an isomorphism, every
+  f in Hom_G(V, W) gives T^-1 f in Hom_G(V, V) = C*id by (b), so f = lambda T, and Hom_G(V, W) = C*T has dimension 1.   QED
+
+Corollary 1 [C-1, proved_text]  Every irreducible representation of an abelian group has degree 1.
+Proof. For fixed g, rho(g) rho(h) = rho(gh) = rho(hg) = rho(h) rho(g), so rho(g) is a G-homomorphism V -> V and equals
+  lambda_g * id by Theorem 2(b). Then every subspace is G-invariant; irreducibility forces dim V = 1.                 QED
+Checked by: E-C1..E-C8 (all irreducibles of C_n have degree 1 and they exhaust the list).
+
+
+6. AVERAGING AND THE FIRST ORTHOGONALITY RELATION
+
+Lemma 2 (fixed points) [L-2, proved_text]  dim V^G = (1/|G|) sum_{g in G} chi_V(g).
+Proof. Let P = (1/|G|) sum_g rho(g). For h in G, rho(h) P = (1/|G|) sum_g rho(hg) = P, so im P is in V^G. For v in
+  V^G, Pv = (1/|G|) sum_g v = v. So P^2 = P and im P = V^G. By Lemma 1(a), dim V^G = tr P = (1/|G|) sum_g chi_V(g).   QED
+Checked by: E-L2-S3, E-L2-D4, E-L2-A4, E-L2-S4 (transitive actions, 1 orbit) and E-L2-S3x (S3 on 5 points, 3 orbits).
+  For a permutation representation dim V^G is the number of orbits (a vector is fixed iff it is constant on orbits);
+  the certificate counts orbits combinatorially and compares with the character average.
+
+Theorem 3 (orthogonality) [T-3, proved_text]  For representations V, W:  dim Hom_G(V, W) = <chi_W, chi_V>.
+Proof. Apply Lemma 2 to the representation Hom(V, W) of D9. Its fixed points are Hom_G(V, W), and by Proposition 1(vi)
+  its character is chi_W(g) conj(chi_V(g)). So dim Hom_G(V, W) = (1/|G|) sum_g chi_W(g) conj(chi_V(g)) = <chi_W, chi_V>.
+  QED
+Checked by: E-T3-S3, E-T3-S4: for all ordered pairs among the irreducibles plus the permutation representation of S3
+  (16 pairs) and S4 (36 pairs), dim Hom_G(V, W) is computed by Gaussian elimination over Q (solving
+  rho_W(s) X = X rho_V(s) for the generators s, without characters) and equals <chi_W, chi_V>.
+
+Corollary 2 [C-2, proved_text]  Let V_1, ..., V_r be pairwise non-isomorphic irreducible representations with
+  characters chi_1, ..., chi_r.
+  (a) <chi_i, chi_j> = 1 if i = j and 0 otherwise (the irreducible characters are orthonormal).
+  (b) If V is isomorphic to a direct sum with m_i copies of V_i (i = 1..r), then m_i = <chi_V, chi_i>. In particular the
+      multiplicities do not depend on the chosen decomposition.
+  (c) Two representations with the same character are isomorphic (given that all irreducible constituents are among
+      the V_i).
+  (d) <chi_V, chi_V> = sum m_i^2. V is irreducible if and only if <chi_V, chi_V> = 1.
+  (e) Pairwise distinct characters with <chi, chi> = 1 and <chi, chi'> = 0 belong to pairwise non-isomorphic
+      irreducible representations.
+Proof.
+  (a) Theorem 3 and Theorem 2. Also <chi_V, chi_W> = conj<chi_W, chi_V> = conj(dim Hom_G(W, V)), a real number, so the
+      order of the arguments does not matter for characters.
+  (b) chi_V = sum m_j chi_j by Proposition 1(iv),(v); take <., chi_i> and use (a).
+  (c) By Theorem 1 both are direct sums of irreducibles; by (b) the multiplicities are read off from the character.
+  (d) Expand with (a). If V is irreducible, V = V_1 for a suitable list, so <chi_V, chi_V> = 1. Conversely, by Theorem 1
+      V is a direct sum of irreducibles; sum m_i^2 = 1 with nonnegative integers forces exactly one summand with m = 1.
+  (e) By (d) each is irreducible. If two were isomorphic, Proposition 1(v) would give equal characters and then
+      <chi, chi'> = <chi, chi> = 1, not 0.                                                                       QED
+
+
+7. THE REGULAR REPRESENTATION AND COUNTING
+
+Proposition 2 [P-2, proved_text]  Let chi_reg be the character of C[G].
+  (a) chi_reg(e) = |G| and chi_reg(g) = 0 for g != e.
+  (b) Every irreducible representation V occurs in C[G] with multiplicity dim V.
+  (c) G has only finitely many irreducible representations up to isomorphism, V_1, ..., V_h, and
+      sum_{i=1..h} (dim V_i)^2 = |G|.
+  (d) Conversely, if V_1, ..., V_r are pairwise non-isomorphic irreducible and sum (dim V_i)^2 = |G|, the list is
+      complete.
+Proof.
+  (a) rho(g) permutes the basis e_x; the diagonal entry at e_x is 1 iff gx = x iff g = e.
+  (b) <chi_reg, chi_V> = (1/|G|) chi_reg(e) conj(chi_V(e)) = dim V by (a) and Proposition 1(i); apply Corollary 2(b)
+      to a decomposition of C[G] (Theorem 1).
+  (c) By (b) every irreducible occurs in the finite-dimensional C[G], so there are finitely many. Then C[G] is a direct
+      sum of dim V_i copies of V_i for each i, and dim C[G] = |G| = sum (dim V_i)(dim V_i).
+  (d) Any further irreducible V' would add (dim V')^2 >= 1 to the sum in (c).                                          QED
+Checked by: every E-<group> certificate checks sum d_i^2 = |G| and chi_reg = sum_i d_i chi_i pointwise.
+
+Theorem 4 [T-4, proved_text]  The irreducible characters chi_1, ..., chi_h form an orthonormal basis of the space of
+  class functions. In particular h = number of conjugacy classes of G.
+Proof. Orthonormality is Corollary 2(a); it remains to show they span. The space of class functions has the inner
+  product of D7, so it suffices to show: a class function f with <f, chi_i> = 0 for all i is zero.
+  For a representation (V, rho) put T = sum_g conj(f(g)) rho(g). For h in G,
+     rho(h) T rho(h)^-1 = sum_g conj(f(g)) rho(hgh^-1) = sum_{g'} conj(f(h^-1 g' h)) rho(g') = T,
+  using f(h^-1 g' h) = f(g'). So T is a G-homomorphism. If V = V_i is irreducible, T = lambda id by Theorem 2(b), and
+     lambda dim V_i = tr T = sum_g conj(f(g)) chi_i(g) = |G| <chi_i, f> = |G| conj(<f, chi_i>) = 0.
+  So T = 0 on every irreducible, hence on every representation (Theorem 1, block diagonal). On C[G]:
+     0 = T e_e = sum_g conj(f(g)) e_g,
+  and since the e_g are linearly independent, f(g) = 0 for all g.
+  A class function is the same as a function on the set of conjugacy classes, so the space has dimension equal to the
+  number of classes; an orthonormal basis has that many elements.                                                    QED
+Checked by: every E-<group> certificate checks #irreducibles = #conjugacy classes (classes computed from the
+  multiplication table).
+
+Lemma 3 [L-3, proved_text]  If K is the conjugacy class of g, then |K| * |C_G(g)| = |G|.
+Proof. hgh^-1 = h'gh'^-1 iff h^-1 h' commutes with g iff h' lies in the coset h C_G(g). So h -> hgh^-1 is constant on
+  left cosets of C_G(g) and takes different values on different cosets; it maps the |G|/|C_G(g)| cosets (GT2)
+  bijectively onto K.                                                                                                 QED
+
+Theorem 5 (column orthogonality) [T-5, proved_text]  For g, g' in G:
+  sum_{i=1..h} chi_i(g) conj(chi_i(g')) = |C_G(g)| if g and g' are conjugate, and 0 otherwise.
+Proof. Let g_1, ..., g_h represent the h classes K_1, ..., K_h (Theorem 4: as many as irreducibles), and let X be the
+  h x h matrix X_ij = chi_i(g_j) sqrt(|K_j|/|G|). Grouping the sum in <chi_i, chi_k> by classes,
+     (X X*)_ik = sum_j (|K_j|/|G|) chi_i(g_j) conj(chi_k(g_j)) = <chi_i, chi_k> = delta_ik.
+  So X X* = I. For a square matrix this implies X* X = I, i.e.
+     sum_i conj(chi_i(g_j)) chi_i(g_l) sqrt(|K_j| |K_l|)/|G| = delta_jl.
+  For j = l this gives sum_i |chi_i(g_j)|^2 = |G|/|K_j| = |C_G(g_j)| by Lemma 3; for j != l the sum is 0. Since
+  characters are class functions, the statement holds for all g, g'.                                                   QED
+Checked by: every E-<group> certificate checks all h^2 column sums exactly against |C_G(g)|.
+
+
+8. CYCLIC GROUPS
+
+Proposition 3 [P-3, proved_text]  Let G = C_n = <c>, zeta = exp(2 pi i/n). The irreducible representations of C_n are
+  the n one-dimensional representations chi_j(c^k) = zeta^{jk}, j = 0, ..., n-1, pairwise non-isomorphic.
+Proof. chi_j is a homomorphism since zeta^{j(k+l)} = zeta^{jk} zeta^{jl} and zeta^{jn} = 1 makes it well defined on
+  exponents mod n. Degree-1 representations are irreducible. chi_j(c) = zeta^j are pairwise different, so the chi_j are
+  pairwise distinct characters, hence pairwise non-isomorphic (Proposition 1(v)). n * 1^2 = n = |G|, so the list is
+  complete (Proposition 2(d)). (Alternatively: by Corollary 1 every irreducible is a homomorphism chi: C_n -> C^*,
+  determined by chi(c), which satisfies chi(c)^n = 1.)                                                               QED
+Example E-C1 .. E-C8 [computed_rigorous]  For n = 1, ..., 8 the certificate checks the full chain of Section 9 below in
+  the cyclotomic field Q(zeta_n).
+
+
+9. CERTIFIED CHARACTER TABLES
+
+How an example is certified (certify.cert_character_table, exact arithmetic):
+  1. each listed map is a homomorphism: rho(g)rho(h) = rho(gh) for all |G|^2 pairs;
+  2. its character is a class function;
+  3. the Gram matrix <chi_i, chi_j> is the identity      -> irreducible, pairwise non-isomorphic (Cor. 2(d),(e));
+  4. sum (dim)^2 = |G|                                   -> the list is complete (Prop. 2(d));
+  5. #irreducibles = #classes                           (consistency with Thm. 4);
+  6. column orthogonality with |C_G(g)|                 (consistency with Thm. 5);
+  7. chi_reg = sum d_i chi_i pointwise                  (consistency with Prop. 2).
+Steps 1-4 prove the table; steps 5-7 are independent consistency checks.
+Notation: classes are listed by a representative; [size] is the class size; columns follow the order of certify.py.
+omega = exp(2 pi i/3), i = sqrt(-1).
+
+Example E-S3 [computed_rigorous]  S3, order 6. Classes: e [1], transpositions [3], 3-cycles [2].
+  Irreducibles: trivial; sign; standard (degree 2, action on {x in C^3 : x1+x2+x3 = 0}).
+             e   (12)  (123)
+  trivial    1    1     1
+  sign       1   -1     1
+  standard   2    0    -1
+  Proof by hand: <chi_std, chi_std> = (4 + 3*0 + 2*1)/6 = 1 (irreducible), 1 + 1 + 4 = 6 (complete).
+
+Example E-D4 [computed_rigorous]  D4 = symmetries of a square, order 8, r = rotation by 90 degrees, s = reflection.
+  Classes: e [1], {r, r^3} [2], {s, r^2 s} [2], {r^2} [1], {rs, r^3 s} [2].
+  Irreducibles: four of degree 1 (r -> +-1, s -> +-1) and the degree-2 action on the plane (r -> [[0,-1],[1,0]],
+  s -> diag(1,-1)).
+               e   r   s   r^2  rs
+  (+1,+1)      1   1   1    1    1
+  (+1,-1)      1   1  -1    1   -1
+  (-1,+1)      1  -1   1    1   -1
+  (-1,-1)      1  -1  -1    1    1
+  plane        2   0   0   -2    0
+  Proof by hand: <chi_plane, chi_plane> = (4 + 4)/8 = 1; 4*1 + 4 = 8.
+
+Example E-Q8 [computed_rigorous]  Q8 = {+-1, +-i, +-j, +-k}, realized as 2x2 matrices i -> diag(i, -i),
+  j -> [[0,1],[-1,0]]. Classes: 1 [1], {+-i} [2], {+-j} [2], {-1} [1], {+-k} [2].
+  Irreducibles: four of degree 1 (i -> +-1, j -> +-1) and the defining degree-2 representation.
+               1   i   j   -1   k
+  (+1,+1)      1   1   1    1    1
+  (+1,-1)      1   1  -1    1   -1
+  (-1,+1)      1  -1   1    1   -1
+  (-1,-1)      1  -1  -1    1    1
+  quaternion   2   0   0   -2    0
+  Proof by hand: chi_quat(+-i) = i + (-i) = 0 etc.; <chi_quat, chi_quat> = (4 + 4)/8 = 1; 4 + 4 = 8.
+
+Example E-A4 [computed_rigorous]  A4, order 12, a = (123), b = (12)(34).
+  Classes: e [1], (123) [4], (12)(34) [3], (132) [4].
+  Irreducibles: three of degree 1 through A4 -> C3 (a -> 1, omega, omega^2; b -> 1) and the standard representation
+  of degree 3 (restriction of the action on {x in C^4 : sum x = 0}).
+               e   (123)    (12)(34)  (132)
+  1            1    1          1        1
+  omega        1    omega      1        omega^2
+  omega^2      1    omega^2    1        omega
+  standard     3    0         -1        0
+  Proof by hand: <chi_std, chi_std> = (9 + 3*1)/12 = 1; 1 + 1 + 1 + 9 = 12.
+
+Example E-S4 [computed_rigorous]  S4, order 24. Classes: e [1], (12) [6], (1234) [6], (123) [8], (12)(34) [3].
+  Irreducibles: trivial; sign; degree 2 through S4 -> S3 (action on the three pairings {12|34, 13|24, 14|23}) composed
+  with the standard representation of S3; standard (degree 3); standard x sign (degree 3).
+               e   (12)  (1234)  (123)  (12)(34)
+  trivial      1    1      1       1       1
+  sign         1   -1     -1       1       1
+  2-dim        2    0      0      -1       2
+  standard     3    1     -1       0      -1
+  std x sign   3   -1      1       0      -1
+  Proof by hand: <chi_std, chi_std> = (9 + 6 + 6 + 0 + 3)/24 = 1; 1 + 1 + 4 + 9 + 9 = 24.
+
+Example E-T3-S3, E-T3-S4 [computed_rigorous]  See Theorem 3. In particular for the permutation representation
+  V_perm = C^n of S_n (n = 3, 4): dim Hom_G(V_perm, V_perm) = <chi_perm, chi_perm> = 2, so V_perm is reducible and is
+  trivial + standard.
+
+Examples E-L2-* [computed_rigorous]  See Lemma 2. Averages of chi_perm: 1 for S3, D4, A4, S4 on their natural points;
+  3 for S3 acting on {0,...,4} (fixing 3 and 4), matching the 3 orbits {0,1,2}, {3}, {4}.
+
+
+10. A RESULT ON THE LIMITS OF CHARACTER TABLES
+
+Proposition 4 [E-DQ, computed_rigorous + proved_text]  D4 and Q8 have the same character table (after matching classes
+  of equal size and reordering irreducibles), but they are not isomorphic. So the character table does not determine
+  the group.
+Proof. The two tables in Examples E-D4 and E-Q8 coincide entry by entry with the column matching
+  e<->1, r<->i, s<->j, r^2<->-1, rs<->k and equal class sizes 1, 2, 2, 1, 2. An isomorphism preserves element orders.
+  D4 has 5 elements of order 2 (r^2 and the four reflections s, rs, r^2 s, r^3 s); Q8 has exactly one (-1), since
+  i^2 = j^2 = k^2 = -1 makes the other six elements of order 4.                                                        QED
+Certificate: certify.cert_same_table_not_isomorphic searches all class bijections respecting class sizes for one under
+  which the two tables agree as sets of rows (found), and counts elements of order 2 from the multiplication tables
+  (5 and 1). Contrast in the self-test: C4 and C2 x C2 do NOT have equal tables (C4 has the non-real value i).
+
+
+11. RESULTS SUMMARY (what the paper states)
+
+R1  Complete reducibility (Theorem 1) and Schur's lemma (Theorem 2), with full proofs.
+R2  dim Hom_G(V, W) = <chi_W, chi_V> (Theorem 3); irreducible characters are orthonormal; characters determine
+    representations; irreducibility criterion <chi, chi> = 1 (Corollary 2).
+R3  sum (dim V_i)^2 = |G|; number of irreducibles = number of conjugacy classes; column orthogonality
+    (Proposition 2, Theorems 4, 5).
+R4  Certified character tables of C_1..C_8, S3, D4, Q8, A4, S4 (13 groups) in exact arithmetic.
+R5  D4 and Q8 share a character table and are not isomorphic (Proposition 4).
+
+NOT claimed (deliberately left out to keep the text self-contained): dim V_i divides |G| (needs algebraic integers);
+  induced representations and Frobenius reciprocity; real/quaternionic type (Frobenius-Schur indicator);
+  representations in positive characteristic, where Theorem 1 fails when char divides |G|.
+
+
+12. VERIFIER SELF-TEST (run before any certificate; all 15 judged correctly)
+
+true:   S3 list {trivial, sign, standard} complete; C4 generator -> i is a representation; S4 on 4 points has
+        dim V^G = 1; D4/Q8 equal tables and not isomorphic; 1 + omega + omega^2 = 0; i conj(i) = 1;
+        1 + i + i^2 + i^3 = 0 (regression test for a canonical-form bug found and fixed while building the verifier).
+false:  S3 list with the permutation representation instead of the standard one; S4 list missing the degree-2
+        irreducible (sum d^2 = 20); D4 with r -> [[0,1],[1,0]], s -> diag(1,-1) (violates s r s = r^-1); C4 generator
+        -> zeta_8 (order 8, not 4); "S4 on 4 points has 2 orbits"; C4 and C2 x C2 have equal tables; 1 + omega = 0;
+        i^2 = 1.
+
+
+13. REFERENCES (metadata checked via Crossref DOI lookup, see out/refs.json)
+
+[Serre]  J.-P. Serre, Linear Representations of Finite Groups, Springer New York, 1977. doi:10.1007/978-1-4684-9458-7
+[FH]     W. Fulton, J. Harris, Representation Theory, Springer New York, 2004. doi:10.1007/978-1-4612-0979-9
+[JL]     G. James, M. Liebeck, Representations and Characters of Groups, Cambridge University Press, 2001.
+         doi:10.1017/CBO9780511814532
+All results above are classical and are found in these books; the proofs here are written out to make the text
+self-contained. Nothing here is claimed to be new except the certification artifacts.
