@@ -1,0 +1,415 @@
+{
+ "criteria": {
+  "threshold": 0.9,
+  "min_seeds": 10,
+  "primary": "acc_T512_pos257-512",
+  "secondary": "acc_T1024_pos897-1024"
+ },
+ "cells": [
+  {
+   "arch": "hh3",
+   "group": "Z2",
+   "alphabet": "all",
+   "succ_primary": 20,
+   "succ_secondary": 18,
+   "n": 20,
+   "outcome": true,
+   "mean_primary": 0.9958985,
+   "median_primary": 1.0,
+   "mean_secondary": 0.966797,
+   "mean_indist": 1.0,
+   "indist_success": 20,
+   "chance": 0.5,
+   "pred": {
+    "ALG": true,
+    "B1_circuit": true,
+    "B2_abelian": true,
+    "B3_size": true,
+    "B4_perm_law": true,
+    "B5_faithful": true
+   }
+  },
+  {
+   "arch": "hh3",
+   "group": "Z3",
+   "alphabet": "all",
+   "succ_primary": 6,
+   "succ_secondary": 5,
+   "n": 20,
+   "outcome": false,
+   "mean_primary": 0.44365750000000004,
+   "median_primary": 0.28185000000000004,
+   "mean_secondary": 0.48724850000000003,
+   "mean_indist": 1.0,
+   "indist_success": 20,
+   "chance": 0.3333333333333333,
+   "pred": {
+    "ALG": true,
+    "B1_circuit": true,
+    "B2_abelian": true,
+    "B3_size": true,
+    "B4_perm_law": true,
+    "B5_faithful": true
+   }
+  },
+  {
+   "arch": "hh3",
+   "group": "Z2^3",
+   "alphabet": "all",
+   "succ_primary": 20,
+   "succ_secondary": 0,
+   "n": 20,
+   "outcome": true,
+   "mean_primary": 0.9889329999999997,
+   "median_primary": 0.99117,
+   "mean_secondary": 0.737735,
+   "mean_indist": 1.0,
+   "indist_success": 20,
+   "chance": 0.125,
+   "pred": {
+    "ALG": true,
+    "B1_circuit": true,
+    "B2_abelian": true,
+    "B3_size": true,
+    "B4_perm_law": true,
+    "B5_faithful": true
+   }
+  }
+ ],
+ "missing": [
+  [
+   "diag_pos",
+   "Z2",
+   "all"
+  ],
+  [
+   "diag_pm",
+   "Z2",
+   "all"
+  ],
+  [
+   "hh1",
+   "Z2",
+   "all"
+  ],
+  [
+   "hh2",
+   "Z2",
+   "all"
+  ],
+  [
+   "hh4",
+   "Z2",
+   "all"
+  ],
+  [
+   "lstm",
+   "Z2",
+   "all"
+  ],
+  [
+   "diag_pos",
+   "Z3",
+   "all"
+  ],
+  [
+   "diag_pm",
+   "Z3",
+   "all"
+  ],
+  [
+   "hh1",
+   "Z3",
+   "all"
+  ],
+  [
+   "hh2",
+   "Z3",
+   "all"
+  ],
+  [
+   "hh4",
+   "Z3",
+   "all"
+  ],
+  [
+   "lstm",
+   "Z3",
+   "all"
+  ],
+  [
+   "diag_pos",
+   "Z2^3",
+   "all"
+  ],
+  [
+   "diag_pm",
+   "Z2^3",
+   "all"
+  ],
+  [
+   "hh1",
+   "Z2^3",
+   "all"
+  ],
+  [
+   "hh2",
+   "Z2^3",
+   "all"
+  ],
+  [
+   "hh4",
+   "Z2^3",
+   "all"
+  ],
+  [
+   "lstm",
+   "Z2^3",
+   "all"
+  ],
+  [
+   "diag_pos",
+   "S3",
+   "transpositions"
+  ],
+  [
+   "diag_pm",
+   "S3",
+   "transpositions"
+  ],
+  [
+   "hh1",
+   "S3",
+   "transpositions"
+  ],
+  [
+   "hh2",
+   "S3",
+   "transpositions"
+  ],
+  [
+   "hh3",
+   "S3",
+   "transpositions"
+  ],
+  [
+   "hh4",
+   "S3",
+   "transpositions"
+  ],
+  [
+   "lstm",
+   "S3",
+   "transpositions"
+  ],
+  [
+   "diag_pos",
+   "S3",
+   "all"
+  ],
+  [
+   "diag_pm",
+   "S3",
+   "all"
+  ],
+  [
+   "hh1",
+   "S3",
+   "all"
+  ],
+  [
+   "hh2",
+   "S3",
+   "all"
+  ],
+  [
+   "hh3",
+   "S3",
+   "all"
+  ],
+  [
+   "hh4",
+   "S3",
+   "all"
+  ],
+  [
+   "lstm",
+   "S3",
+   "all"
+  ],
+  [
+   "diag_pos",
+   "A5",
+   "involutions"
+  ],
+  [
+   "diag_pm",
+   "A5",
+   "involutions"
+  ],
+  [
+   "hh1",
+   "A5",
+   "involutions"
+  ],
+  [
+   "hh2",
+   "A5",
+   "involutions"
+  ],
+  [
+   "hh3",
+   "A5",
+   "involutions"
+  ],
+  [
+   "hh4",
+   "A5",
+   "involutions"
+  ],
+  [
+   "lstm",
+   "A5",
+   "involutions"
+  ],
+  [
+   "diag_pos",
+   "A5",
+   "all"
+  ],
+  [
+   "diag_pm",
+   "A5",
+   "all"
+  ],
+  [
+   "hh1",
+   "A5",
+   "all"
+  ],
+  [
+   "hh2",
+   "A5",
+   "all"
+  ],
+  [
+   "hh3",
+   "A5",
+   "all"
+  ],
+  [
+   "hh4",
+   "A5",
+   "all"
+  ],
+  [
+   "lstm",
+   "A5",
+   "all"
+  ],
+  [
+   "diag_pos",
+   "S5",
+   "transpositions"
+  ],
+  [
+   "diag_pm",
+   "S5",
+   "transpositions"
+  ],
+  [
+   "hh1",
+   "S5",
+   "transpositions"
+  ],
+  [
+   "hh2",
+   "S5",
+   "transpositions"
+  ],
+  [
+   "hh3",
+   "S5",
+   "transpositions"
+  ],
+  [
+   "hh4",
+   "S5",
+   "transpositions"
+  ],
+  [
+   "lstm",
+   "S5",
+   "transpositions"
+  ],
+  [
+   "diag_pos",
+   "S5",
+   "all"
+  ],
+  [
+   "diag_pm",
+   "S5",
+   "all"
+  ],
+  [
+   "hh1",
+   "S5",
+   "all"
+  ],
+  [
+   "hh2",
+   "S5",
+   "all"
+  ],
+  [
+   "hh3",
+   "S5",
+   "all"
+  ],
+  [
+   "hh4",
+   "S5",
+   "all"
+  ],
+  [
+   "lstm",
+   "S5",
+   "all"
+  ]
+ ],
+ "accuracy": {
+  "ALG": {
+   "correct": 2,
+   "cells": 3
+  },
+  "B1_circuit": {
+   "correct": 2,
+   "cells": 3
+  },
+  "B2_abelian": {
+   "correct": 2,
+   "cells": 3
+  },
+  "B3_size": {
+   "correct": 2,
+   "cells": 3
+  },
+  "B4_perm_law": {
+   "correct": 2,
+   "cells": 3
+  },
+  "B5_faithful": {
+   "correct": 2,
+   "cells": 3
+  }
+ },
+ "tests": [],
+ "negative_control": [],
+ "gates": {
+  "H-EX1.1_accuracy_beats_all_baselines": false,
+  "H-EX1.2_discriminating_tests_BH": false,
+  "negative_control_clean": true,
+  "H-EX1_success": false
+ }
+}

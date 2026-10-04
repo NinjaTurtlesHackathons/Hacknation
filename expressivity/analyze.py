@@ -6,7 +6,7 @@ import glob, json, os
 import numpy as np
 from scipy.stats import fisher_exact, binomtest
 
-from asd.stats import bh
+from asd.stats import bh, perm_test, ratio_ci
 from .confirm import OUT, path, NEG
 from .predict import TASKS, ARCHS
 
@@ -53,7 +53,13 @@ def main():
             ca, cb = idx[A], idx[B]
             table = [[ca["succ_primary"], ca["n"] - ca["succ_primary"]], [cb["succ_primary"], cb["n"] - cb["succ_primary"]]]
             p = fisher_exact(table, alternative="greater")[1]
-            tests.append({"test": name, "cell": A, "control": B, "succ": [ca["succ_primary"], cb["succ_primary"]], "p": float(p)})
+            ra, rb = load(*A), load(*B)
+            # project mandatory check 1 (reported, not the preregistered decision test): paired sign-flip permutation test on the
+            # per-seed accuracies (same seeds 1000-1019 in both cells) and a paired bootstrap 95% CI of the ratio of mean accuracies
+            pp = perm_test([-x for x in ra[PRIMARY]], [-x for x in rb[PRIMARY]])     # H1: accuracy in A > accuracy in B
+            ratio, ci = ratio_ci(ra[PRIMARY], rb[PRIMARY])
+            tests.append({"test": name, "cell": A, "control": B, "succ": [ca["succ_primary"], cb["succ_primary"]], "p": float(p),
+                          "paired_perm_p": float(pp), "acc_ratio": float(ratio), "acc_ratio_ci95": ci})
     neg = []
     for arch, g, a in NEG:
         r = load(arch, g, a, True)

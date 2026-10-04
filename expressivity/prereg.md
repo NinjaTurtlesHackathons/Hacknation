@@ -55,3 +55,18 @@ B4 representation law in the permutation representation (Howe 2026), B5 faithful
   explained away.
 
 Changes to this file after the first confirmatory run only as a new dated section with reason.
+
+## Addendum 2026-10-04 05:00 - H-EX2 (new confirmatory test, preregistered before any run of these cells)
+Reason: the closest prior work (Howe 2026, arXiv:2609.18966) states an empirical law for exactly two generator formats: S4 with a
+transposition and a 4-cycle needs 3 Householder factors, A5 with a 3-cycle and a 5-cycle needs 4 (full-text quotes in
+results/body_quotes.json). Our certified values are h*(S4, tn) = h*(A5, c3c5) = 2 (results/certified.json). H-EX1 does not contain these
+formats. Partial H-EX1 results seen before this addendum (13 hh3/hh4 cells and one negative-control cell) are disclosed; none of them
+uses these alphabets.
+- Cells: hh1, hh2, hh3 on S4/tn and A5/c3c5 (6 cells x 20 seeds 1000-1019); protocol identical to H-EX1 (same constants in confirm.py),
+  except that these cells run on the Apple-MPS GPU (float32) because the CPUs are occupied by the H-EX1 grid; device recorded per file.
+- Predictions: ALG (ours): hh1 fails (Lemma L4, Lean), hh2 and hh3 succeed. B4 (representation law in the permutation representation):
+  S4/tn needs 3 (hh2 fails, hh3 succeeds), A5/c3c5 needs 4 (hh2 and hh3 fail).
+- Tests (one-sided Fisher exact on successful seeds, same success definition as H-EX1): E1 hh2 A5/c3c5 > hh1 A5/c3c5; E2 hh2 S4/tn > hh1 S4/tn;
+  E3 hh3 A5/c3c5 > hh1 A5/c3c5. Benjamini-Hochberg with q = 0.1 over E1-E3 (m = 3).
+- Success of H-EX2: E1 and E2 significant after BH AND the hh2 cells of both tasks have cell outcome success (>= 10 of 20 seeds), which B4
+  predicts to be impossible. Reported regardless of outcome.

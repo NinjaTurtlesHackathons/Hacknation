@@ -145,7 +145,9 @@ def claims():
         for t in CF["tests"]:
             add(f"C-H-{t['test']}", f"Preregistered test {t['test']} ({'negative control, random targets' if t.get('negative_control') else 'one-sided Fisher exact test'}): "
                 f"cell {t['cell']}" + (f" vs control {t['control']}" if t.get("control") else "") + f", successful seeds {t['succ']}, p = {fp(t['p'])}, "
-                f"Benjamini-Hochberg adjusted p = {fp(t['p_bh'])} (m = {len(CF['tests'])}, q = 0.1), {'significant' if t['bh_reject'] else 'not significant'}.", "statistical")
+                f"Benjamini-Hochberg adjusted p = {fp(t['p_bh'])} (m = {len(CF['tests'])}, q = 0.1), {'significant' if t['bh_reject'] else 'not significant'}"
+                + (f"; supplementary paired permutation test on per-seed accuracies p = {fp(t['paired_perm_p'])}, ratio of mean accuracies "
+                   f"{t['acc_ratio']:.2f} (paired bootstrap 95% CI {t['acc_ratio_ci95'][0]:.2f}-{t['acc_ratio_ci95'][1]:.2f})" if 'paired_perm_p' in t else "") + ".", "statistical")
         g = CF["gates"]
         add("C-H-gates", f"Preregistered success criteria: accuracy beats every baseline: {g['H-EX1.1_accuracy_beats_all_baselines']}; all six "
             f"discriminating tests significant after BH: {g['H-EX1.2_discriminating_tests_BH']}; negative control clean: {g['negative_control_clean']}; "

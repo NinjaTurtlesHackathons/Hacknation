@@ -115,25 +115,25 @@ def clip_per_member(model, max_norm=1.0):
 
 
 @torch.no_grad()
-def evaluate(model, L, e, seeds, T, n=512, window=None, bs=256):
+def evaluate(model, L, e, seeds, T, n=512, window=None, bs=256, device="cpu"):
     """Mean token accuracy per member on positions window = (lo, hi) (1-based, inclusive) of fresh length-T sequences."""
     lo, hi = window or (1, T); E = len(seeds); correct = np.zeros(E); total = 0
     rngs = [np.random.default_rng(900000 + int(s)) for s in seeds]
     for start in range(0, n, bs):
         b = min(bs, n - start)
         batch = [make_batch(r, L, e, b, T) for r in rngs]
-        tok = torch.as_tensor(np.stack([x[0] for x in batch])); tgt = torch.as_tensor(np.stack([x[1] for x in batch]))
+        tok = torch.as_tensor(np.stack([x[0] for x in batch])).to(device); tgt = torch.as_tensor(np.stack([x[1] for x in batch])).to(device)
         pred = model(tok).argmax(-1)
-        correct += (pred[:, :, lo - 1:hi] == tgt[:, :, lo - 1:hi]).float().mean(dim=(1, 2)).numpy() * b
+        correct += (pred[:, :, lo - 1:hi] == tgt[:, :, lo - 1:hi]).float().mean(dim=(1, 2)).cpu().numpy() * b
         total += b
     return (correct / total).tolist()
 
 
 def train_ensemble(arch, G, S, seeds, steps=4000, T=64, B=64, lr=2e-3, log=None, evals=((64, (1, 64)), (256, (129, 256)), (512, (449, 512))),
-                   beta_bias=0.0, curriculum=False, beta_mode="sigmoid", T_final=None):
+                   beta_bias=0.0, curriculum=False, beta_mode="sigmoid", T_final=None, device="cpu"):
     torch.manual_seed(0)
     L, e = task_tables(G, S); E = len(seeds)
-    model = Ensemble(arch, E, len(S), G.order, seeds, beta_bias=beta_bias, beta_mode=beta_mode)
+    model = Ensemble(arch, E, len(S), G.order, seeds, beta_bias=beta_bias, beta_mode=beta_mode).to(device)
     opt = torch.optim.Adam(model.parameters(), lr=lr)
     warm = 200
     sched = torch.optim.lr_scheduler.LambdaLR(opt, lambda i: min(1.0, (i + 1) / warm) * (0.1 + 0.9 * 0.5 * (1 + math.cos(math.pi * min(i, steps) / steps))))
@@ -142,18 +142,19 @@ def train_ensemble(arch, G, S, seeds, steps=4000, T=64, B=64, lr=2e-3, log=None,
         Tc = min(T, 8 * 2 ** int(4 * it / steps)) if curriculum else T     # curriculum: 8, 16, 32, 64 in quarters
         if T_final and it >= int(0.85 * steps): Tc = T_final                # optional final stage at a longer length
         batch = [make_batch(r, L, e, B, Tc) for r in rngs]
-        tok = torch.as_tensor(np.stack([x[0] for x in batch])); tgt = torch.as_tensor(np.stack([x[1] for x in batch]))
+        tok = torch.as_tensor(np.stack([x[0] for x in batch])).to(device); tgt = torch.as_tensor(np.stack([x[1] for x in batch])).to(device)
         logits = model(tok)
         loss_m = Fnn.cross_entropy(logits.reshape(-1, G.order), tgt.reshape(-1), reduction="none").reshape(E, -1).mean(1)
         opt.zero_grad(); loss_m.sum().backward(); clip_per_member(model); opt.step(); sched.step()
         if it % 500 == 0 or it == steps - 1:
-            losses.append([round(float(x), 4) for x in loss_m.detach()])
+            losses.append([round(float(x), 4) for x in loss_m.detach().cpu()])
             if log: log(f"{arch} {G.name} it {it} loss median {np.median(losses[-1]):.4f} ({time.time() - t0:.0f}s)")
     res = {"arch": arch, "group": G.name, "seeds": [int(s) for s in seeds], "steps": steps, "train_T": T, "batch": B, "lr": lr,
            "beta_bias": beta_bias, "curriculum": curriculum, "beta_mode": beta_mode, "T_final": T_final,
            "loss_trace": losses, "sec": round(time.time() - t0, 1)}
     for Tm, w in evals:
-        res[f"acc_T{Tm}_pos{w[0]}-{w[1]}"] = [round(a, 5) for a in evaluate(model, L, e, seeds, Tm, window=w)]
+        res[f"acc_T{Tm}_pos{w[0]}-{w[1]}"] = [round(a, 5) for a in evaluate(model, L, e, seeds, Tm, window=w, device=device)]
+    res["device"] = device
     return res
 
 

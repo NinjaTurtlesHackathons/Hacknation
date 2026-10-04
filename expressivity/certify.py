@@ -8,7 +8,7 @@ from .groups import get_group, alphabet
 from .algebra import cycle_type
 from .chartab import faithful_h
 
-PAIRS = [("Z2", "all"), ("Z3", "all"), ("Z5", "all"), ("Z6", "all"), ("Z2^2", "all"), ("Z2^3", "all"), ("Z3xZ3", "all"),
+PAIRS = [("Z2", "all"), ("Z3", "all"), ("Z5", "all"), ("Z6", "all"), ("Z2^2", "all"), ("Z2^3", "all"),
          ("S3", "transpositions"), ("S3", "all"), ("D4", "all"), ("D5", "all"), ("Q8", "all"), ("A4", "all"), ("S4", "transpositions"),
          ("S4", "all"), ("S4", "tn"), ("A5", "c3c5"), ("S5", "tn"), ("A5", "involutions"), ("A5", "cycles3"), ("A5", "cycles5"), ("A5", "all"), ("S5", "transpositions"), ("S5", "all")]
 

@@ -1,0 +1,10 @@
+Selbsttest des Prüfers: bestanden
+Runde 6: Wie verhält sich h*(A5, involutions) gegenüber h*(A5, all), wenn man nur die Involutionen als Alphabet zulässt, und ist der Wert 1 (eine Reflektion pro Token) dort möglich?
+  geprüft (computed_rigorous): 2 | Red-Team: 2 Gegenprüfungen, 1 bestanden
+Runde 7: For S4 with alphabet 'all', the permutation representation needs rank(P(s) - I) = 3 for 4-cycles. Is the true h*(S4, all) smaller? Certify.
+  geprüft (computed_rigorous): ja, h*(S4, all) = 2 | Red-Team: 2 Gegenprüfungen, 0 bestanden
+Runde 8: Welche Gruppen mit Involutionen als Alphabet (z. B. S4, D4, Z2^2 oder Q8 mit geeignetem Twist) besitzen h*(G, involutions) = 1, und lässt sich das Muster an den Konjugationsklassen der Involutionen ablesen, etwa über die Codimension des Fixraums per real_irreps?
+  geprüft (computed_rigorous): Z2^2 | Red-Team: 2 Gegenprüfungen, 1 bestanden
+Runde 9: For S5 with alphabet 'all', what are the best certified lower and upper bounds on h*(S5, all), and what is h(S5, all) over faithful representations?
+  geprüft (computed_rigorous): h*(S5,all): untere Schranke ≥ 2, obere Schranke ≤ 4; h(S5,all) = 4 | Red-Team: 2 Gegenprüfungen, 0 bestanden
+Runde 10: Gilt die Schranke h*(S5, all) ≤ 4 auch ohne Permutationsdarstellung, d.h. kann eine HH_k-Realisierung mit k = 2 oder 3 über eine nicht-permutationale faithful Darstellung von S5 gefunden werden?
