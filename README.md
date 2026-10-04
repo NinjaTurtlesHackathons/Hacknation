@@ -101,6 +101,40 @@ hard-killed subprocess), `PROBATUM_SELFTEST_TIMEOUT` (900 s). Tests: `pytest tes
 confirmed, claim shifted by 1e-6 rejected, own tolerance ignored, unknown field rejected, timeout), `python tests/mcp_protocol_check.py --voll`
 (real stdio session: lists tools/resources/prompts, self-test, one confirmed and one rejected claim). Example session: [`docs/probatum_example_session.md`](docs/probatum_example_session.md).
 
+## Evidence standards and deliverables
+
+<!-- rubric:start -->
+### Evidence standards
+
+Every result is accepted only by a code verifier (`Domain.check`); agents only propose. Levels: `proved_lean`, `computed_rigorous` (exact rational / symbolic / interval certificates), `statistical` (preregistered test with CI), `observed` (numerical), `hypothesis`. Every claim and question carries an `origin` derived from the record (`AGENT:<role>` or `HUMAN-PROPOSED`). The run logs are sealed with a hash chain (`asd/chain.py`). The table below is generated and checked by `python -m asd.rubric`; it fails loudly on any ✗.
+
+### Challenge deliverables map
+
+| Requirement (challenge brief) | Met | Evidence (checked by `python -m asd.rubric`) |
+|---|---|---|
+| Omnigent orchestrates the live discovery workflow | ✓ | runs/omnigent/2026-10-04/sessions/ (17 dispatches by Omnigent lead `verifier-gated-lab`) |
+| ≥2 specialist agents exchange structured results (handoffs with ids) | ✓ | runs/omnigent/2026-10-04/record.jsonl: agents ['learner', 'planner', 'redteam', 'researcher', 'scout']; planner option ids reused by researcher in 9 calls |
+| Planner with budget chooses between ≥2 tests | ✓ | runs/omnigent/2026-10-04/state.json: 3 decisions with ≥2 options (cost in verifier calls, budget 40) |
+| A result changes the next decision | ✓ | runs/omnigent/2026-10-04/record.jsonl: 3 decisions that cite a verified claim id (reopen / follow-up questions) |
+| A surprising result reopens an assumption | ✓ | runs/omnigent/2026-10-04/record.jsonl: surprise at 2026-10-04T02:25:45 -> reopen {'annahme': 'A1', 'claim': 'proofreading-O14'} |
+| Parallel sub-sessions | ✓ | runs/omnigent/2026-10-04/HIGHLIGHTS.md: 4 turns with ≥2 parallel sub-sessions |
+| Parallel experiments | ✗ | OPEN: the recorded run dispatched scout/planner/redteam/learner in parallel, but never two researcher experiments at once |
+| Human approval via Omnigent policies (ASK) and a policy DENY | ✓ | runs/omnigent/2026-10-04/HIGHLIGHTS.md: ASK raised+approved=True, DENY present=True; omni/config.yaml publish_gate |
+| Shared research record; every decision reconstructable | ✓ | runs/omnigent/2026-10-04/record.jsonl (64 entries with input/output ids); Kette intakt (82 Glieder, Kopf 1fcb11696c9a) |
+| Citations for facts | ✓ | projects/omni_proofreading/references.bib: 18 entries, 18 with DOI/arXiv/URL, 0 unverified |
+| Run logs attached | ✓ | runs/omnigent/2026-10-04/sessions/: 15 session exports |
+| Agent-generated hypotheses/claims marked (origin) | ✓ | runs/omnigent/2026-10-04/origin.json: origin derived from the record for 39/39 claims+questions |
+| Uncertainty preserved (levels, confidence intervals) | ✓ | every claim has an evidence level; results/replay_lattice.json: speedups with bootstrap CI, hit rates with Clopper-Pearson CI |
+| Controls documented (self-test, blind claims, red team, canary) | ✓ | verifier self-test 7 true / 11 false cases; benchmarks/blind_claims.py (random claims, 0/20 accepted); projects/proofreading/verifier_redteam.json; replay canary test |
+| Approval gates documented | ✓ | README.md, section Omnigent orchestration: policy table |
+| Needed validation named | ✓ | projects/omni_proofreading/paper.md: numbered open questions / needed validation; projects/omni_proofreading/referee_report.md |
+| Measured improvement | ✓ | results/replay_lattice.json H7a speedup 4.58x (CI [2.5997727272727276, 7.5005434782608615], p=0.0029); results/metrics_proofreading.json |
+| Next experiment justified | ✓ | runs/omnigent/2026-10-04/sessions/lead: 7 lead decisions naming the next step with a reason |
+| Agent specifications and policies in the repo | ✓ | omni/config.yaml + 6 agent specs; README agent table |
+
+**Open:** Parallel experiments.
+<!-- rubric:end -->
+
 ## Omnigent orchestration
 
 **Agents propose, Omnigent orchestrates, only the code verifier accepts.** The lab (`asd/`) stays the source of truth (verifier

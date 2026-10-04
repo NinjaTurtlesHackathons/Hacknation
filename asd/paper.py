@@ -253,6 +253,8 @@ def bib_entries(C, d):
             if m.get("volume"): fields.append(f"volume = {{{m['volume']}}}")
             if m.get("seiten"): fields.append(f"pages = {{{esc(m['seiten'])}}}")
             if q.startswith("doi:"): fields.append(f"doi = {{{q[4:]}}}")
+            if q.lower().startswith("arxiv:"):
+                aid = q.split(":", 1)[1]; fields += [f"eprint = {{{aid}}}", "archivePrefix = {arXiv}", f"url = {{https://arxiv.org/abs/{aid}}}"]
             bib.append(f"@article{{{key},\n  " + ",\n  ".join(fields) + "\n}")
         else:
             bib.append(f"@misc{{{key},\n  title = {{[unverified] {esc(q)}}},\n  note = {{metadata could not be resolved}}\n}}")
