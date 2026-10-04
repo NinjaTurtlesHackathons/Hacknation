@@ -1,0 +1,33 @@
+Collecting ortools
+  Downloading ortools-9.15.6755-cp314-cp314-macosx_11_0_arm64.whl.metadata (3.3 kB)
+Collecting absl-py>=2.0.0 (from ortools)
+  Using cached absl_py-2.5.0-py3-none-any.whl.metadata (3.3 kB)
+Requirement already satisfied: numpy>=2.0.2 in ./.venv/lib/python3.14/site-packages (from ortools) (2.5.3)
+Collecting pandas>=2.0.0 (from ortools)
+  Downloading pandas-3.0.6-cp314-cp314-macosx_11_0_arm64.whl.metadata (79 kB)
+Collecting protobuf<6.34,>=6.33.1 (from ortools)
+  Downloading protobuf-6.33.6-cp39-abi3-macosx_10_9_universal2.whl.metadata (593 bytes)
+Collecting typing-extensions>=4.12 (from ortools)
+  Using cached typing_extensions-4.16.0-py3-none-any.whl.metadata (3.3 kB)
+Collecting immutabledict>=3.0.0 (from ortools)
+  Using cached immutabledict-4.3.1-py3-none-any.whl.metadata (3.5 kB)
+Collecting python-dateutil>=2.8.2 (from pandas>=2.0.0->ortools)
+  Using cached python_dateutil-2.9.0.post0-py2.py3-none-any.whl.metadata (8.4 kB)
+Collecting six>=1.5 (from python-dateutil>=2.8.2->pandas>=2.0.0->ortools)
+  Using cached six-1.17.0-py2.py3-none-any.whl.metadata (1.7 kB)
+Downloading ortools-9.15.6755-cp314-cp314-macosx_11_0_arm64.whl (21.9 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 21.9/21.9 MB 43.8 MB/s  0:00:00
+Downloading protobuf-6.33.6-cp39-abi3-macosx_10_9_universal2.whl (427 kB)
+Using cached absl_py-2.5.0-py3-none-any.whl (137 kB)
+Using cached immutabledict-4.3.1-py3-none-any.whl (5.0 kB)
+Downloading pandas-3.0.6-cp314-cp314-macosx_11_0_arm64.whl (10.2 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 10.2/10.2 MB 53.8 MB/s  0:00:00
+Using cached python_dateutil-2.9.0.post0-py2.py3-none-any.whl (229 kB)
+Using cached six-1.17.0-py2.py3-none-any.whl (11 kB)
+Using cached typing_extensions-4.16.0-py3-none-any.whl (45 kB)
+Installing collected packages: typing-extensions, six, protobuf, immutabledict, absl-py, python-dateutil, pandas, ortools
+
+Successfully installed absl-py-2.5.0 immutabledict-4.3.1 ortools-9.15.6755 pandas-3.0.6 protobuf-6.33.6 python-dateutil-2.9.0.post0 six-1.17.0 typing-extensions-4.16.0
+
+[notice] A new release of pip is available: 26.1.2 -> 26.2.1
+[notice] To update, run: /Users/laurenzthummler/Documents/Codex/2026-10-04/du-leitest-das-ai-agent-lab/work/Hacknation/.venv/bin/python -m pip install --upgrade pip

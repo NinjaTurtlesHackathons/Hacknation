@@ -1,0 +1,36 @@
+[OK ] erwartet True  bekommen True  {"problem": "heilbronn_square", "points": [[0, 0], [1, 0], [1, 1], [0, 1]], "bound": "1/2"
+[OK ] erwartet True  bekommen True  {"problem": "heilbronn_triangle", "points": [[0, 0], [1, 0], [0, 1]], "bound": "1"}
+[OK ] erwartet True  bekommen True  {"problem": "heilbronn_disk", "points": [[1, 0], [0, 1], [-1, 0], [0, -1]], "bound": "1"}
+[OK ] erwartet False bekommen False {"problem": "heilbronn_square", "points": [[0, 0], [1, 0], [1, 1], [0, 1]], "bound": "5000
+[OK ] erwartet False bekommen False {"problem": "heilbronn_square", "points": [[0, 0], [1, 0], [0, 0]], "bound": "1/2"}
+[OK ] erwartet False bekommen False {"problem": "heilbronn_square", "points": [[0, 0], [1, 0], [1, 1], [0, 1]], "bound": "1/2"
+[OK ] erwartet False bekommen False {"problem": "heilbronn_disk", "points": [[1, 0], [0, 1], [-1, "1/100000000000000000000"]],
+[OK ] erwartet False bekommen False {"problem": "heilbronn_triangle", "points": [[0, 0], [1, 0], ["1/2", "1/2"]], "bound": "1"
+[OK ] erwartet False bekommen False {"problem": "heilbronn_triangle", "points": [[0, 0], [1, 0], ["1/2", "50000000000000000000
+[OK ] erwartet False bekommen False {"problem": "heilbronn_square", "points": [[0, 0], ["1/2", "1/2"], [1, 1]], "bound": "1/2"
+[OK ] erwartet False bekommen False {"problem": "heilbronn_square", "points": [[0.0, 0], [1, 0], [0, 1]], "bound": "1/2"}
+[OK ] erwartet True  bekommen True  {"problem": "torus_distance", "points": [[0, 0], ["9/10", 0]], "bound": "1/100"}
+[OK ] erwartet False bekommen False {"problem": "torus_distance", "points": [[0, 0], ["9/10", 0]], "bound": "1/99"}
+[OK ] erwartet True  bekommen True  {"problem": "few_distance", "metric": "triangular", "points": [[0, 0], [1, 0], [0, 1]], "m
+[OK ] erwartet False bekommen False {"problem": "few_distance", "points": [[0, 0], [1, 0], [0, 1]], "max_distances": 1}
+[OK ] erwartet True  bekommen True  {"problem": "heilbronn_convex", "points": [[0, 0], [2, 0], [0, 3]], "bound": "1"}
+[OK ] erwartet True  bekommen True  {"problem": "circle_packing_triangle", "points": [["1/5", "1/5"], ["3/5", "1/5"]], "radius
+[OK ] erwartet False bekommen False {"problem": "circle_packing_triangle", "points": [["1/5", "1/5"], ["3/5", "1/5"]], "radius
+[OK ] erwartet False bekommen False {"problem": "circle_packing_triangle", "points": [["1/5", "1/5"], ["21/100", "1/5"]], "rad
+[OK ] erwartet False bekommen False {"problem": "torus_distance", "points": [[0, 0], ["9/10", 0]], "claim_counterexample": tru
+[OK ] erwartet False bekommen False {"problem": 17, "points": [[0, 0], [1, 0], [0, 1]]}
+[OK ] erwartet False bekommen False {"problem": "torus_distance", "points": [[0, 0], ["1/2", "1/2"]], "claim_counterexample": 
+[OK ] erwartet True  bekommen True  {"problem": "sum_radii_square", "n": 2, "circles": [["1/4", "1/2", "1/4"], ["3/4", "1/2", 
+[OK ] erwartet False bekommen False {"problem": "sum_radii_square", "n": 2, "circles": [["1/4", "1/2", "1/4"], ["7/10", "1/2",
+[OK ] erwartet False bekommen False {"problem": "sum_radii_square", "n": 2, "circles": [["1/4", "1/2", "0"], ["3/4", "1/2", "1
+[OK ] erwartet False bekommen False {"problem": "sum_radii_square", "n": true, "circles": [["1/4", "1/2", "1/4"], ["3/4", "1/2
+[OK ] erwartet True  bekommen True  {"problem": "sum_radii_square", "n": 2, "circles": [["1/4", "1/2", "1/4"], ["3/4", "1/2", 
+[OK ] erwartet True  bekommen True  {"problem": "equilateral_triangles_square", "n": 1, "half_side": "1", "triangles": [["0", 
+[OK ] erwartet False bekommen False {"problem": "equilateral_triangles_square", "n": 1, "half_side": "4/5", "triangles": [["0"
+[OK ] erwartet False bekommen False {"problem": "equilateral_triangles_square", "n": 2, "half_side": "1", "triangles": [["0", 
+[OK ] erwartet True  bekommen True  {"problem": "equilateral_triangles_square", "n": 1, "half_side": "1", "triangles": [["0", 
+[OK ] erwartet True  bekommen True  {"problem": "circle_packing_octagon_apothem", "n": 2, "radius": "1/2", "points": [["-1/2",
+[OK ] erwartet False bekommen False {"problem": "circle_packing_octagon_apothem", "n": 2, "radius": "1/2", "points": [["-1/2",
+[OK ] erwartet False bekommen False {"problem": "circle_packing_octagon_apothem", "n": 2, "radius": 0.5, "points": [["-1/2", "
+[OK ] erwartet False bekommen False {"problem": "circle_packing_octagon_apothem", "n": 2, "radius": "1/2", "points": [["-1/2",
+Selbsttest geometric_extremal: BESTANDEN (35/35)

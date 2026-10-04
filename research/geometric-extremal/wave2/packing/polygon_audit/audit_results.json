@@ -1,0 +1,280 @@
+{
+  "selftest": {
+    "passed": true,
+    "controls": [
+      {
+        "name": "unit triangle tangent square right wall",
+        "passed": true,
+        "expected_feasible": true
+      },
+      {
+        "name": "wall crossing",
+        "passed": true,
+        "expected_feasible": false
+      },
+      {
+        "name": "wrong orientation changes wall feasibility",
+        "passed": true,
+        "expected_feasible": false
+      },
+      {
+        "name": "orientation zero fails asymmetric wall",
+        "passed": true,
+        "expected_feasible": false
+      },
+      {
+        "name": "orientation quarter turn fits same asymmetric wall",
+        "passed": true,
+        "expected_feasible": true
+      },
+      {
+        "name": "exact edge vertex contact",
+        "passed": true,
+        "expected_feasible": true
+      },
+      {
+        "name": "small positive area overlap",
+        "passed": true,
+        "expected_feasible": false
+      },
+      {
+        "name": "identical triangle",
+        "passed": true,
+        "expected_feasible": false
+      },
+      {
+        "name": "floating parameters rejected",
+        "passed": true,
+        "expected_feasible": false
+      },
+      {
+        "name": "boolean count rejected",
+        "passed": true,
+        "expected_feasible": false
+      },
+      {
+        "name": "large rotation rational tan-half",
+        "passed": true,
+        "expected_feasible": true
+      }
+    ],
+    "order_controls": 3,
+    "strict_comparison_controls": 3
+  },
+  "candidates": {
+    "job0326.json": {
+      "passed": true,
+      "n": 12,
+      "pairs": 66,
+      "wall_checks": 144,
+      "unit_circumradius_checks": 36,
+      "unit_side_squared_checks": 36,
+      "square_circumradius_squared": "49110490340507880476972068129/5000000000000000000000000000",
+      "arithmetic": "Q(sqrt3) with rational isolating-root order",
+      "method": "exact convex polygon clipping and intersection area",
+      "supplied_benchmark_gap": "1109492119523027931871/5000000000000000000000000000",
+      "improves_supplied_benchmark": true
+    },
+    "job0048.json": {
+      "passed": true,
+      "n": 12,
+      "pairs": 66,
+      "wall_checks": 144,
+      "unit_circumradius_checks": 36,
+      "unit_side_squared_checks": 36,
+      "square_circumradius_squared": "122776225851273025325448961/12500000000000000000000000",
+      "arithmetic": "Q(sqrt3) with rational isolating-root order",
+      "method": "exact convex polygon clipping and intersection area",
+      "supplied_benchmark_gap": "2773726974674551039/12500000000000000000000000",
+      "improves_supplied_benchmark": true
+    },
+    "job0230.json": {
+      "passed": true,
+      "n": 12,
+      "pairs": 66,
+      "wall_checks": 144,
+      "unit_circumradius_checks": 36,
+      "unit_side_squared_checks": 36,
+      "square_circumradius_squared": "12277622585127524141412815481/1250000000000000000000000000",
+      "arithmetic": "Q(sqrt3) with rational isolating-root order",
+      "method": "exact convex polygon clipping and intersection area",
+      "supplied_benchmark_gap": "277372475858587184519/1250000000000000000000000000",
+      "improves_supplied_benchmark": true
+    },
+    "job0157.json": {
+      "passed": true,
+      "n": 12,
+      "pairs": 66,
+      "wall_checks": 144,
+      "unit_circumradius_checks": 36,
+      "unit_side_squared_checks": 36,
+      "square_circumradius_squared": "49110490340513199089802133321/5000000000000000000000000000",
+      "arithmetic": "Q(sqrt3) with rational isolating-root order",
+      "method": "exact convex polygon clipping and intersection area",
+      "supplied_benchmark_gap": "1109486800910197866679/5000000000000000000000000000",
+      "improves_supplied_benchmark": true
+    },
+    "job0254.json": {
+      "passed": true,
+      "n": 12,
+      "pairs": 66,
+      "wall_checks": 144,
+      "unit_circumradius_checks": 36,
+      "unit_side_squared_checks": 36,
+      "square_circumradius_squared": "49110490340518517702632198801/5000000000000000000000000000",
+      "arithmetic": "Q(sqrt3) with rational isolating-root order",
+      "method": "exact convex polygon clipping and intersection area",
+      "supplied_benchmark_gap": "1109481482297367801199/5000000000000000000000000000",
+      "improves_supplied_benchmark": true
+    },
+    "job0172.json": {
+      "passed": true,
+      "n": 12,
+      "pairs": 66,
+      "wall_checks": 144,
+      "unit_circumradius_checks": 36,
+      "unit_side_squared_checks": 36,
+      "square_circumradius_squared": "49110490340519404138103876409/5000000000000000000000000000",
+      "arithmetic": "Q(sqrt3) with rational isolating-root order",
+      "method": "exact convex polygon clipping and intersection area",
+      "supplied_benchmark_gap": "1109480595861896123591/5000000000000000000000000000",
+      "improves_supplied_benchmark": true
+    },
+    "job0296.json": {
+      "passed": true,
+      "n": 12,
+      "pairs": 66,
+      "wall_checks": 144,
+      "unit_circumradius_checks": 36,
+      "unit_side_squared_checks": 36,
+      "square_circumradius_squared": "12277622585130183447827848209/1250000000000000000000000000",
+      "arithmetic": "Q(sqrt3) with rational isolating-root order",
+      "method": "exact convex polygon clipping and intersection area",
+      "supplied_benchmark_gap": "277369816552172151791/1250000000000000000000000000",
+      "improves_supplied_benchmark": true
+    },
+    "job0046.json": {
+      "passed": true,
+      "n": 12,
+      "pairs": 66,
+      "wall_checks": 144,
+      "unit_circumradius_checks": 36,
+      "unit_side_squared_checks": 36,
+      "square_circumradius_squared": "49110490340528268492820652929/5000000000000000000000000000",
+      "arithmetic": "Q(sqrt3) with rational isolating-root order",
+      "method": "exact convex polygon clipping and intersection area",
+      "supplied_benchmark_gap": "1109471731507179347071/5000000000000000000000000000",
+      "improves_supplied_benchmark": true
+    },
+    "job0150.json": {
+      "passed": true,
+      "n": 12,
+      "pairs": 66,
+      "wall_checks": 144,
+      "unit_circumradius_checks": 36,
+      "unit_side_squared_checks": 36,
+      "square_circumradius_squared": "49110490340563725911687767009/5000000000000000000000000000",
+      "arithmetic": "Q(sqrt3) with rational isolating-root order",
+      "method": "exact convex polygon clipping and intersection area",
+      "supplied_benchmark_gap": "1109436274088312232991/5000000000000000000000000000",
+      "improves_supplied_benchmark": true
+    },
+    "baseline12.json": {
+      "passed": true,
+      "n": 12,
+      "pairs": 66,
+      "wall_checks": 144,
+      "unit_circumradius_checks": 36,
+      "unit_side_squared_checks": 36,
+      "square_circumradius_squared": "49110491672062501105740726889/5000000000000000000000000000",
+      "arithmetic": "Q(sqrt3) with rational isolating-root order",
+      "method": "exact convex polygon clipping and intersection area",
+      "supplied_benchmark_gap": "-222062501105740726889/5000000000000000000000000000",
+      "improves_supplied_benchmark": false
+    }
+  },
+  "current_source_sha256": "f62a1c246ba408adeab982ea400f633e330e6491099a337bedf646ad6f0f9949",
+  "frozen_source_sha256": "f62a1c246ba408adeab982ea400f633e330e6491099a337bedf646ad6f0f9949",
+  "audit_seconds": 0.4818557079997845,
+  "source_R_squared_displayed": "9822098297039579660009767696489/1000000000000000000000000000000",
+  "conservative_source_R_squared_lower": "982209829/100000000",
+  "lower_safe_even_rounding_1e_minus15": true,
+  "fresh_commit_metadata": [
+    {
+      "sha": "27f71632d8655ae4b6a049410a401976748b94e3",
+      "node_id": "C_kwDOR1KB6NoAKDI3ZjcxNjMyZDg2NTVhZTRiNmEwNDk0MTBhNDAxOTc2NzQ4Yjk0ZTM",
+      "commit": {
+        "author": {
+          "name": "Dominik Kamp",
+          "email": "kamp@zib.de",
+          "date": "2026-04-16T22:48:50Z"
+        },
+        "committer": {
+          "name": "Dominik Kamp",
+          "email": "kamp@zib.de",
+          "date": "2026-04-16T22:48:50Z"
+        },
+        "message": "Add packing results",
+        "tree": {
+          "sha": "34038a61ef8994127d02a8eaee93c210d933a1d6",
+          "url": "https://api.github.com/repos/DominikKamp/Packing/git/trees/34038a61ef8994127d02a8eaee93c210d933a1d6"
+        },
+        "url": "https://api.github.com/repos/DominikKamp/Packing/git/commits/27f71632d8655ae4b6a049410a401976748b94e3",
+        "comment_count": 0,
+        "verification": {
+          "verified": false,
+          "reason": "unsigned",
+          "signature": null,
+          "payload": null,
+          "verified_at": null
+        }
+      },
+      "url": "https://api.github.com/repos/DominikKamp/Packing/commits/27f71632d8655ae4b6a049410a401976748b94e3",
+      "html_url": "https://github.com/DominikKamp/Packing/commit/27f71632d8655ae4b6a049410a401976748b94e3",
+      "comments_url": "https://api.github.com/repos/DominikKamp/Packing/commits/27f71632d8655ae4b6a049410a401976748b94e3/comments",
+      "author": {
+        "login": "DominikKamp",
+        "id": 130753997,
+        "node_id": "U_kgDOB8slzQ",
+        "avatar_url": "https://avatars.githubusercontent.com/u/130753997?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/DominikKamp",
+        "html_url": "https://github.com/DominikKamp",
+        "followers_url": "https://api.github.com/users/DominikKamp/followers",
+        "following_url": "https://api.github.com/users/DominikKamp/following{/other_user}",
+        "gists_url": "https://api.github.com/users/DominikKamp/gists{/gist_id}",
+        "starred_url": "https://api.github.com/users/DominikKamp/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/DominikKamp/subscriptions",
+        "organizations_url": "https://api.github.com/users/DominikKamp/orgs",
+        "repos_url": "https://api.github.com/users/DominikKamp/repos",
+        "events_url": "https://api.github.com/users/DominikKamp/events{/privacy}",
+        "received_events_url": "https://api.github.com/users/DominikKamp/received_events",
+        "type": "User",
+        "user_view_type": "public",
+        "site_admin": false
+      },
+      "committer": {
+        "login": "DominikKamp",
+        "id": 130753997,
+        "node_id": "U_kgDOB8slzQ",
+        "avatar_url": "https://avatars.githubusercontent.com/u/130753997?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/DominikKamp",
+        "html_url": "https://github.com/DominikKamp",
+        "followers_url": "https://api.github.com/users/DominikKamp/followers",
+        "following_url": "https://api.github.com/users/DominikKamp/following{/other_user}",
+        "gists_url": "https://api.github.com/users/DominikKamp/gists{/gist_id}",
+        "starred_url": "https://api.github.com/users/DominikKamp/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/DominikKamp/subscriptions",
+        "organizations_url": "https://api.github.com/users/DominikKamp/orgs",
+        "repos_url": "https://api.github.com/users/DominikKamp/repos",
+        "events_url": "https://api.github.com/users/DominikKamp/events{/privacy}",
+        "received_events_url": "https://api.github.com/users/DominikKamp/received_events",
+        "type": "User",
+        "user_view_type": "public",
+        "site_admin": false
+      },
+      "parents": []
+    }
+  ]
+}

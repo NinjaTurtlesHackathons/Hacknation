@@ -1,0 +1,3 @@
+First optimizer completed job0 and saved its exact candidate; JSON logging then failed because numpy bool is not serializable. No success claim made. Boolean explicitly cast, deterministic batch restarted with same seed; duplicate first job is disclosed.
+
+Polygon initial source-angle conversion pi/6-theta failed the prospective baseline full feasibility assertion before search. Checking all twelve source triangles and all pairs established the supplement convention alpha=pi/2-theta (vertex sequence sin(theta+j*2pi/3),cos(theta+j*2pi/3)), not the earlier paper formula with halfstep. Corrected before discovery; original failed log retained.

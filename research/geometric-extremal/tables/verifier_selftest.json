@@ -1,0 +1,237 @@
+{
+  "passed": true,
+  "tests": [
+    {
+      "expected": true,
+      "result": {
+        "passed": true,
+        "problem": "heilbronn_square",
+        "n": 4,
+        "arithmetic": "exact rational",
+        "value": "1/2",
+        "approximate": 0.5,
+        "critical_triple": [
+          0,
+          1,
+          2
+        ],
+        "tested_triples": 4,
+        "exact_ties": 4,
+        "normalization": "physical area"
+      }
+    },
+    {
+      "expected": true,
+      "result": {
+        "passed": true,
+        "problem": "heilbronn_triangle",
+        "n": 3,
+        "arithmetic": "exact rational",
+        "value": "1",
+        "approximate": 1.0,
+        "critical_triple": [
+          0,
+          1,
+          2
+        ],
+        "tested_triples": 1,
+        "exact_ties": 1,
+        "normalization": "area/container area"
+      }
+    },
+    {
+      "expected": true,
+      "result": {
+        "passed": true,
+        "problem": "heilbronn_disk",
+        "n": 4,
+        "arithmetic": "exact rational",
+        "value": "1",
+        "approximate": 1.0,
+        "critical_triple": [
+          0,
+          1,
+          2
+        ],
+        "tested_triples": 4,
+        "exact_ties": 4,
+        "normalization": "physical area"
+      }
+    },
+    {
+      "expected": false,
+      "result": {
+        "passed": false,
+        "reason": "claimed bound exceeds exact witness"
+      }
+    },
+    {
+      "expected": false,
+      "result": {
+        "passed": false,
+        "reason": "duplicate points"
+      }
+    },
+    {
+      "expected": false,
+      "result": {
+        "passed": false,
+        "reason": "agent tolerance forbidden"
+      }
+    },
+    {
+      "expected": false,
+      "result": {
+        "passed": false,
+        "reason": "outside radius-one disk"
+      }
+    },
+    {
+      "expected": false,
+      "result": {
+        "passed": false,
+        "reason": "claimed bound exceeds exact witness"
+      }
+    },
+    {
+      "expected": false,
+      "result": {
+        "passed": false,
+        "reason": "outside reference triangle"
+      }
+    },
+    {
+      "expected": false,
+      "result": {
+        "passed": false,
+        "reason": "collinear triple"
+      }
+    },
+    {
+      "expected": false,
+      "result": {
+        "passed": false,
+        "reason": "integer or rational string required, floats/bools forbidden"
+      }
+    },
+    {
+      "expected": true,
+      "result": {
+        "passed": true,
+        "problem": "torus_distance",
+        "n": 2,
+        "arithmetic": "exact rational",
+        "value": "1/100",
+        "approximate": 0.01,
+        "critical_pair": [
+          0,
+          1
+        ],
+        "tested_pairs": 1,
+        "normalization": "squared periodic separation; radius=sqrt(value)/2",
+        "markov_conjecture_applicable": false,
+        "markov_counterexample": false,
+        "markov_threshold_squared_excess": "-9757/2500"
+      }
+    },
+    {
+      "expected": false,
+      "result": {
+        "passed": false,
+        "reason": "claimed bound exceeds exact separation"
+      }
+    },
+    {
+      "expected": true,
+      "result": {
+        "passed": true,
+        "problem": "few_distance",
+        "n": 3,
+        "arithmetic": "exact rational",
+        "distance_count": 1,
+        "squared_distances": [
+          "1"
+        ],
+        "tested_pairs": 3,
+        "normalization": "triangular"
+      }
+    },
+    {
+      "expected": false,
+      "result": {
+        "passed": false,
+        "reason": "too many distances / invalid count"
+      }
+    },
+    {
+      "expected": true,
+      "result": {
+        "passed": true,
+        "problem": "heilbronn_convex",
+        "n": 3,
+        "arithmetic": "exact rational",
+        "hull_area": "3",
+        "hull_vertices": 3,
+        "value": "1",
+        "approximate": 1.0,
+        "critical_triple": [
+          0,
+          1,
+          2
+        ],
+        "tested_triples": 1,
+        "exact_ties": 1,
+        "normalization": "area/container area"
+      }
+    },
+    {
+      "expected": true,
+      "result": {
+        "passed": true,
+        "problem": "circle_packing_triangle",
+        "n": 2,
+        "arithmetic": "exact rational",
+        "radius": "1/10",
+        "approximate": 0.1,
+        "min_pair_slack": "3/25",
+        "tested_pairs": 1,
+        "normalization": "circle radius; right triangle legs1"
+      }
+    },
+    {
+      "expected": false,
+      "result": {
+        "passed": false,
+        "reason": "disk leaves reference right triangle"
+      }
+    },
+    {
+      "expected": false,
+      "result": {
+        "passed": false,
+        "reason": "overlapping disks"
+      }
+    },
+    {
+      "expected": false,
+      "result": {
+        "passed": false,
+        "reason": "not a Markov conjecture counterexample"
+      }
+    },
+    {
+      "expected": false,
+      "result": {
+        "passed": false,
+        "reason": "problem name must be string"
+      }
+    },
+    {
+      "expected": false,
+      "result": {
+        "passed": false,
+        "reason": "not a Markov conjecture counterexample"
+      }
+    }
+  ]
+}

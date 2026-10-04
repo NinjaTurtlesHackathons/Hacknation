@@ -1,0 +1,135 @@
+[
+  {
+    "kind": "convex",
+    "baseline": {
+      "passed": true,
+      "problem": "heilbronn_convex",
+      "n": 18,
+      "arithmetic": "exact rational",
+      "hull_area": "999999999999999688087898579023/1000000000000000000000000000000",
+      "hull_vertices": 12,
+      "value": "5211112989568819048894923327/285714285714285625167971022578",
+      "approximate": 0.018238895463490872,
+      "critical_triple": [
+        0,
+        12,
+        17
+      ],
+      "tested_triples": 816,
+      "exact_ties": 2,
+      "normalization": "area/container area"
+    },
+    "axis_result": {
+      "passed": true,
+      "problem": "heilbronn_convex",
+      "n": 18,
+      "arithmetic": "exact rational",
+      "hull_area": "2009572543072078485225299835097/2000000000000000000000000000000",
+      "hull_vertices": 12,
+      "value": "36652383539377961645968729812/2009572543072078485225299835097",
+      "approximate": 0.018238895463483316,
+      "critical_triple": [
+        10,
+        14,
+        16
+      ],
+      "tested_triples": 816,
+      "exact_ties": 1,
+      "normalization": "area/container area"
+    },
+    "metadata": {
+      "lp_calls": 2,
+      "axis_cycles": 1,
+      "objective_trace": [
+        0.01823889546348337
+      ],
+      "linear_slices": "exact determinant/hull linear programs; numerical solver output requires rational verifier"
+    }
+  },
+  {
+    "kind": "triangle",
+    "baseline": {
+      "passed": true,
+      "problem": "heilbronn_triangle",
+      "n": 20,
+      "arithmetic": "exact rational",
+      "value": "1260939152864132260184640176979242720684369695865098486183/100000000000000000000000000000000000000000000000000000000000",
+      "approximate": 0.012609391528641323,
+      "critical_triple": [
+        0,
+        6,
+        7
+      ],
+      "tested_triples": 1140,
+      "exact_ties": 2,
+      "normalization": "area/container area"
+    },
+    "axis_result": {
+      "passed": true,
+      "problem": "heilbronn_triangle",
+      "n": 20,
+      "arithmetic": "exact rational",
+      "value": "6304695764318796241582631311/500000000000000000000000000000",
+      "approximate": 0.012609391528637593,
+      "critical_triple": [
+        4,
+        14,
+        18
+      ],
+      "tested_triples": 1140,
+      "exact_ties": 1,
+      "normalization": "area/container area"
+    },
+    "metadata": {
+      "lp_calls": 2,
+      "axis_cycles": 1,
+      "objective_trace": [
+        0.01260939152863947
+      ],
+      "linear_slices": "exact determinant/hull linear programs; numerical solver output requires rational verifier"
+    }
+  },
+  {
+    "kind": "square",
+    "baseline": {
+      "passed": true,
+      "problem": "heilbronn_square",
+      "n": 21,
+      "arithmetic": "exact rational",
+      "value": "2294752157140242053669836635516189458587492220044771511017/200000000000000000000000000000000000000000000000000000000000",
+      "approximate": 0.01147376078570121,
+      "critical_triple": [
+        8,
+        14,
+        16
+      ],
+      "tested_triples": 1330,
+      "exact_ties": 1,
+      "normalization": "physical area"
+    },
+    "axis_result": {
+      "passed": true,
+      "problem": "heilbronn_square",
+      "n": 21,
+      "arithmetic": "exact rational",
+      "value": "1434220098212379291268722239/125000000000000000000000000000",
+      "approximate": 0.011473760785699035,
+      "critical_triple": [
+        9,
+        13,
+        17
+      ],
+      "tested_triples": 1330,
+      "exact_ties": 1,
+      "normalization": "physical area"
+    },
+    "metadata": {
+      "lp_calls": 2,
+      "axis_cycles": 1,
+      "objective_trace": [
+        0.01147376078570031
+      ],
+      "linear_slices": "exact determinant/hull linear programs; numerical solver output requires rational verifier"
+    }
+  }
+]

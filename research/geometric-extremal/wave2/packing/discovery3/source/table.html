@@ -1,0 +1,366 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html;charset=ISO-8859-1" />
+<meta http-equiv="content-language" content="en" />
+<meta name="author" lang="en" content="Eckard Specht" />
+<meta name="copyright" lang="en" content="Eckard Specht" />
+<meta name="distribution" content="global" />
+<meta name="description" lang="en" content="packing of equal circles in a regular octagon" />
+<meta name="keywords" lang="en" content="packing, equal circles, regulat octagon, equal disks, contacts, traveling salesman problem, TSP" />
+<meta name="language" content="en" />
+<meta name="resource-type" content="document" />
+<link rel="stylesheet" type="text/css" href="../css/main.css" />
+<style>
+  table.t {
+    tr {
+      th { text-align: center; }
+      th:nth-child(5)  { padding-right: 1em; }
+      th:nth-child(6)  { padding-right: 1em; }
+      th:nth-child(7)  { padding-right: 1em; }
+      th:nth-child(8)  { padding-right: 1em; }
+      td { text-align: right; padding-left: 1em; padding-right: 1em; }
+      td:nth-child(1)  { font-family: "Courier New"; font-weight: normal; }
+      td:nth-child(5)  { padding-right: 2em; }
+      td:nth-child(6)  { padding-right: 1.5em; }
+      td:nth-child(7)  { padding-right: 3em; }
+      td:nth-child(8)  { padding-right: 1.5em; }
+      td:nth-child(9)  { padding-right: 1em; }
+    }
+  }
+</style>
+<title>The best known packings of equal circles in a regular octagon</title>
+</head>
+
+<body>
+<h2>The best known packings of equal circles in a regular octagon (complete up to <i>N</i> = 48)</h2>
+<br />
+<h3>Last update: 23-Sep-2026</h3>
+<hr />
+<a href="#Overview">Overview</a> &nbsp;&nbsp;
+<a href="#Download">Download</a> &nbsp;&nbsp;
+<a href="#Results">Results</a> &nbsp;&nbsp;
+<!--
+<a href="#Formulae">Formulae</a> &nbsp;&nbsp;
+<a href="#Applications">Applications</a> &nbsp;&nbsp;
+<a href="#OEIS">OEIS Entries</a> &nbsp;&nbsp;
+-->
+<a href="#Updates">History of updates</a> &nbsp;&nbsp;
+<a href="#References">References</a>
+<br />
+<hr />
+
+<a name="Overview"></a>
+<h3>Overview</h3>
+<a href="d1.html">1-12</a> &nbsp;
+<a href="d2.html">13-24</a> &nbsp;
+<a href="d3.html">25-36</a> &nbsp;
+<a href="d4.html">37-48</a> &nbsp;
+<!--
+<a href="d5.html">49-60</a> &nbsp;
+<a href="d6.html">61-72</a> &nbsp;
+<a href="d7.html">73-84</a> &nbsp;
+<a href="d8.html">85-96</a> &nbsp;
+<a href="d9.html">97-108</a> &nbsp;
+<a href="d10.html">109-120</a> &nbsp;
+<a href="d11.html">121-132</a> &nbsp;
+<a href="d12.html">133-144</a> &nbsp;
+<a href="d13.html">145-156</a> &nbsp;
+<a href="d14.html">157-168</a> &nbsp;
+<a href="d15.html">169-180</a> &nbsp;
+<a href="d16.html">181-192</a> &nbsp;
+<a href="d17.html">193-204</a> &nbsp;
+<a href="d18.html">205-216</a> &nbsp;
+<a href="d19.html">217-228</a> &nbsp;
+<a href="d20.html">229-240</a> &nbsp;
+<a href="d21.html">241-252</a> &nbsp;
+<a href="d22.html">253-264</a> &nbsp;
+<a href="d23.html">265-276</a> &nbsp;
+<a href="d24.html">277-288</a> &nbsp;
+<a href="d25.html">289-300</a> &nbsp;
+<a href="d26.html">301-312</a> &nbsp;
+<a href="d27.html">313-324</a> &nbsp;
+<a href="d28.html">325-336</a> &nbsp;
+<a href="d29.html">337-348</a> &nbsp;
+<a href="d30.html">349-360</a> &nbsp;
+<a href="d31.html">361-372</a> &nbsp;
+<a href="d32.html">373-384</a> &nbsp;
+<a href="d33.html">385-396</a> &nbsp;
+<a href="d34.html">397-408</a> &nbsp;
+<a href="d35.html">409-420</a> &nbsp;
+<a href="d36.html">421-432</a> &nbsp;
+<a href="d37.html">433-444</a> &nbsp;
+<a href="d38.html">445-456</a> &nbsp;
+<a href="d39.html">457-468</a> &nbsp;
+<a href="d40.html">469-480</a> &nbsp;
+<a href="d41.html">481-492</a> &nbsp;
+<a href="d42.html">493-500</a> &nbsp;
+-->
+<br />
+<br />
+<hr />
+
+<a name="Download"></a>
+<h3>Download</h3>
+You may download ASCII files which contain all the values of radius, ratio etc. by using the links
+given in the table header below.
+<br>
+All coordinates of all packings are packed as ASCII files
+<a href="txt/coc_coords.tar.gz">here</a>.
+<br>
+All packings are stored as nice PDF files
+<a href="pdf/coc_pdf.tar.gz">here</a>.
+<br>
+All contact graphs of all packings are stored as nice PDF files
+<a href="pdf/coc_ctc_pdf.tar.gz">here</a>.
+<br>
+<img WIDTH=20 HEIGHT=9 src="../new1.gif" /> &nbsp;
+For industrial applications, for instance if a machine has to do an important job at every circle center,
+<br>
+it is useful to know a tour visiting each of the circle centers once which is of minimal length.
+<br>
+This problem is known as the "Traveling Salesman Problem" (TSP).
+Thus (very near) optimal tours are provided for every packing.
+<br>
+All optimal TSP tours of all packings are stored as nice PDF files
+<a href="pdf/coc_tsp_pdf.tar.gz">here</a>.
+<br />
+<br />
+<hr />
+
+<a name="Results"></a>
+<h3>Results</h3>
+The table below summarizes the current status of the search.
+<br>
+Please use the links in the following table to view a picture for a certain configuration.
+<br>
+Furthermore, note that for certain values of <i>N</i> several distinct optimal configurations exist;
+however, only one is shown here.
+<br>
+<em>Proven</em> optimal packings are indicated by a radius in <strong>bold face</strong> type.
+<br>
+<br>
+<strong>Legend:</strong>
+<dl>
+<dt><strong> <i>N</i> </strong>  <dd> the number of circles; colors correspond to active researchers in the past, see "References" at the bottom of the page
+<dt><strong> radius </strong>    <dd> of the circles in the regular octagon (supposed the radius of its circumcircle is 1 and remains fixed for all cases of <i>N</i>)
+<dt><strong> ratio </strong>     <dd> = 1/radius
+<dt><strong> density </strong>   <dd> ratio of total area occupied by the circles to container area (packing fraction)
+<dt><strong> contacts </strong>  <dd> number of contacts between circles and container and between the circles themselves, respectively
+<dt><strong> loose </strong>     <dd> number of circles that have still degrees of freedom for a movement inside the container (so called "rattlers")
+<dt><strong> boundary </strong>  <dd> number of circles that have contact to the container (rattlers too if possible)
+<dt><strong> symmetry group </strong> <dd> of the packing (Sch&ouml;nfliess notation); if field is empty then the packing has symmetry element <i>C</i><sub><small>1</small></sub>
+<dt><strong> reference </strong> <dd> for the best known packing so far
+<dt><strong> <a href="txt/records.txt" target="_blank">records </a></strong> <dd> the sequence of <i>N</i> 's that establish density records
+</dl>
+<br />
+<div class="results">
+<table class="t" summary="data of all packings">
+<tr><th><i>N</i></th>
+    <th><a href="txt/radius.txt" target="_blank">radius</a></th>
+    <th><a href="txt/ratio.txt" target="_blank">ratio</a></th>
+    <th><a href="txt/density.txt" target="_blank">density</a></th>
+    <th><a href="txt/contacts.txt" target="_blank">contacts</a></th>
+    <th><a href="txt/loose.txt" target="_blank">loose</a></th>
+    <th><a href="txt/boundary.txt" target="_blank">boundary</a></th>
+    <th><a href="txt/symmetry.txt" target="_blank">symmetry group</a></th>
+    <th><a href="txt/author.txt" target="_blank">reference</a></th>
+</tr>
+</thead>
+<tbody />
+<tr><td                   align="right"><a href="coc1.html"    name="coc1">   <strong>   1</strong></a></td> <td>0.923879532511</td> <td                  >1.0823922003</td> <td>0.948059448969</td> <td align="right">    8</td> <td align="right">    </td> <td align="right">  1</td> <td align="center"><i>D</i><sub><small>8</small></sub></td> <td align="center">    </td></tr>
+<tr><td                   align="right"><a href="coc2.html"    name="coc2">   <strong>   2</strong></a></td> <td>0.480216935052</td> <td                  >2.0823922003</td> <td>0.512282851198</td> <td align="right">    5</td> <td align="right">    </td> <td align="right">  2</td> <td align="center"><i>D</i><sub><small>2</small></sub></td> <td align="center">    </td></tr>
+<tr><td bgcolor="#6495ed" align="right"><a href="coc3.html"    name="coc3">   <strong>   3</strong></a></td> <td>0.435387434219</td> <td                  >2.2968049177</td> <td>0.631652057640</td> <td align="right">    7</td> <td align="right">    </td> <td align="right">  3</td> <td align="center"><i>D</i><sub><small>1</small></sub></td> <td align="center">[1] </td></tr>
+<tr><td bgcolor="#6495ed" align="right"><a href="coc4.html"    name="coc4">   <strong>   4</strong></a></td> <td>0.400543816310</td> <td                  >2.4966057627</td> <td>0.712795473791</td> <td align="right">   12</td> <td align="right">    </td> <td align="right">  4</td> <td align="center"><i>D</i><sub><small>4</small></sub></td> <td align="center">[1] </td></tr>
+<tr><td bgcolor="#6495ed" align="right"><a href="coc5.html"    name="coc5">   <strong>   5</strong></a></td> <td>0.348203325454</td> <td                  >2.8718852662</td> <td>0.673349764307</td> <td align="right">   11</td> <td align="right">    </td> <td align="right">  5</td> <td align="center"><i>D</i><sub><small>1</small></sub></td> <td align="center">[1] </td></tr>
+<tr><td bgcolor="#80e03f" align="right"><a href="coc6.html"    name="coc6">   <strong>   6</strong></a></td> <td>0.317727658062</td> <td                  >3.1473495449</td> <td>0.672769311537</td> <td align="right">   13</td> <td align="right">    </td> <td align="right">  5</td> <td align="center"><i>D</i><sub><small>1</small></sub></td> <td align="center">[2] </td></tr>
+<tr><td bgcolor="#6495ed" align="right"><a href="coc7.html"    name="coc7">   <strong>   7</strong></a></td> <td>0.310945216831</td> <td                  >3.2160005875</td> <td>0.751745228811</td> <td align="right">   16</td> <td align="right">    </td> <td align="right">  6</td> <td align="center"><i>D</i><sub><small>2</small></sub></td> <td align="center">[1] </td></tr>
+<tr><td bgcolor="#6495ed" align="right"><a href="coc8.html"    name="coc8">   <strong>   8</strong></a></td> <td>0.285852433677</td> <td                  >3.4983085053</td> <td>0.726070269949</td> <td align="right">   15</td> <td align="right">   1</td> <td align="right">  7</td> <td align="center"><i>D</i><sub><small>1</small></sub></td> <td align="center">[1] </td></tr>
+<tr><td bgcolor="#6495ed" align="right"><a href="coc9.html"    name="coc9">   <strong>   9</strong></a></td> <td>0.270598050073</td> <td                  >3.6955181300</td> <td>0.731975785070</td> <td align="right">   24</td> <td align="right">   1</td> <td align="right">  8</td> <td align="center"><i>D</i><sub><small>8</small></sub></td> <td align="center">[1] </td></tr>
+<tr><td bgcolor="#6495ed" align="right"><a href="coc10.html"   name="coc10">  <strong>  10</strong></a></td> <td>0.251932403490</td> <td                  >3.9693186988</td> <td>0.704973738556</td> <td align="right">   13</td> <td align="right">   4</td> <td align="right">  4</td> <td align="center"><i>D</i><sub><small>2</small></sub></td> <td align="center">[1] </td></tr>
+<tr><td bgcolor="#6495ed" align="right"><a href="coc11.html"   name="coc11">  <strong>  11</strong></a></td> <td>0.239556874251</td> <td                  >4.1743740526</td> <td>0.701156298830</td> <td align="right">   23</td> <td align="right">    </td> <td align="right">  8</td> <td align="center">                                   </td> <td align="center">[1] </td></tr>
+<tr><td bgcolor="#80e03f" align="right"><a href="coc12.html"   name="coc12">  <strong>  12</strong></a></td> <td>0.234100964947</td> <td                  >4.2716611622</td> <td>0.730453430275</td> <td align="right">   23</td> <td align="right">   1</td> <td align="right">  8</td> <td align="center">                                   </td> <td align="center">[2] </td></tr>
+<tr><td bgcolor="#6495ed" align="right"><a href="coc13.html"   name="coc13">  <strong>  13</strong></a></td> <td>0.223537235211</td> <td                  >4.4735276387</td> <td>0.721519348455</td> <td align="right">   23</td> <td align="right">   2</td> <td align="right">  7</td> <td align="center">                                   </td> <td align="center">[1] </td></tr>
+<tr><td bgcolor="#6495ed" align="right"><a href="coc14.html"   name="coc14">  <strong>  14</strong></a></td> <td>0.219348902644</td> <td                  >4.5589469012</td> <td>0.748176127867</td> <td align="right">   30</td> <td align="right">    </td> <td align="right"> 10</td> <td align="center"><i>D</i><sub><small>2</small></sub></td> <td align="center">[1] </td></tr>
+<tr><td bgcolor="#6495ed" align="right"><a href="coc15.html"   name="coc15">  <strong>  15</strong></a></td> <td>0.210236890635</td> <td                  >4.7565391449</td> <td>0.736400352696</td> <td align="right">   31</td> <td align="right">    </td> <td align="right"> 10</td> <td align="center">                                   </td> <td align="center">[1] </td></tr>
+<tr><td bgcolor="#80e03f" align="right"><a href="coc16.html"   name="coc16">  <strong>  16</strong></a></td> <td>0.204286601358</td> <td                  >4.8950836391</td> <td>0.741659609991</td> <td align="right">   33</td> <td align="right">    </td> <td align="right"> 11</td> <td align="center">                                   </td> <td align="center">[2] </td></tr>
+<tr><td bgcolor="#6495ed" align="right"><a href="coc17.html"   name="coc17">  <strong>  17</strong></a></td> <td>0.198194125496</td> <td                  >5.0455582248</td> <td>0.741712086622</td> <td align="right">   31</td> <td align="right">   2</td> <td align="right">  8</td> <td align="center">                                   </td> <td align="center">[1] </td></tr>
+<tr><td bgcolor="#6495ed" align="right"><a href="coc18.html"   name="coc18">  <strong>  18</strong></a></td> <td>0.193696359493</td> <td                  >5.1627196434</td> <td>0.750101960981</td> <td align="right">   37</td> <td align="right">    </td> <td align="right"> 12</td> <td align="center"><i>D</i><sub><small>1</small></sub></td> <td align="center">[1] </td></tr>
+<tr><td bgcolor="#6495ed" align="right"><a href="coc19.html"   name="coc19">  <strong>  19</strong></a></td> <td>0.191508243904</td> <td                  >5.2217073251</td> <td>0.773986575243</td> <td align="right">   39</td> <td align="right">    </td> <td align="right"> 12</td> <td align="center"><i>D</i><sub><small>1</small></sub></td> <td align="center">[1] </td></tr>
+<tr><td bgcolor="#80e03f" align="right"><a href="coc20.html"   name="coc20">  <strong>  20</strong></a></td> <td>0.185530744908</td> <td                  >5.3899422465</td> <td>0.764656969740</td> <td align="right">   39</td> <td align="right">   1</td> <td align="right"> 12</td> <td align="center">                                   </td> <td align="center">[2] </td></tr>
+<tr><td bgcolor="#6495ed" align="right"><a href="coc21.html"   name="coc21">  <strong>  21</strong></a></td> <td>0.180670260259</td> <td                  >5.5349452564</td> <td>0.761373074646</td> <td align="right">   39</td> <td align="right">   2</td> <td align="right"> 12</td> <td align="center">                                   </td> <td align="center">[1] </td></tr>
+<tr><td bgcolor="#80e03f" align="right"><a href="coc22.html"   name="coc22">  <strong>  22</strong></a></td> <td>0.175500940767</td> <td                  >5.6979751540</td> <td>0.752638547652</td> <td align="right">   45</td> <td align="right">    </td> <td align="right"> 13</td> <td align="center">                                   </td> <td align="center">[2] </td></tr>
+<tr><td bgcolor="#6495ed" align="right"><a href="coc23.html"   name="coc23">  <strong>  23</strong></a></td> <td>0.172561559662</td> <td                  >5.7950333896</td> <td>0.760712985857</td> <td align="right">   46</td> <td align="right">   1</td> <td align="right"> 14</td> <td align="center"><i>D</i><sub><small>2</small></sub></td> <td align="center">[1] </td></tr>
+<tr><td bgcolor="#80e03f" align="right"><a href="coc24.html"   name="coc24">  <strong>  24</strong></a></td> <td>0.168652864098</td> <td                  >5.9293389730</td> <td>0.758234537567</td> <td align="right">   45</td> <td align="right">   2</td> <td align="right"> 11</td> <td align="center">                                   </td> <td align="center">[2] </td></tr>
+<tr><td bgcolor="#80e03f" align="right"><a href="coc25.html"   name="coc25">  <strong>  25</strong></a></td> <td>0.166450891366</td> <td                  >6.0077779806</td> <td>0.769337918776</td> <td align="right">   49</td> <td align="right">   1</td> <td align="right"> 11</td> <td align="center">                                   </td> <td align="center">[2] </td></tr>
+<tr><td bgcolor="#80e03f" align="right"><a href="coc26.html"   name="coc26">  <strong>  26</strong></a></td> <td>0.163606136259</td> <td                  >6.1122401816</td> <td>0.772996280163</td> <td align="right">   50</td> <td align="right">   2</td> <td align="right"> 10</td> <td align="center">                                   </td> <td align="center">[2] </td></tr>
+<tr><td bgcolor="#80e03f" align="right"><a href="coc27.html"   name="coc27">  <strong>  27</strong></a></td> <td>0.161395047685</td> <td                  >6.1959769791</td> <td>0.781176288426</td> <td align="right">   56</td> <td align="right">    </td> <td align="right"> 12</td> <td align="center"><i>D</i><sub><small>1</small></sub></td> <td align="center">[2] </td></tr>
+<tr><td bgcolor="#6495ed" align="right"><a href="coc28.html"   name="coc28">  <strong>  28</strong></a></td> <td>0.160404294689</td> <td                  >6.2342470440</td> <td>0.800193270075</td> <td align="right">   64</td> <td align="right">    </td> <td align="right"> 12</td> <td align="center"><i>D</i><sub><small>2</small></sub></td> <td align="center">[1] </td></tr>
+<tr><td                   align="right"><a href="coc29.html"   name="coc29">  <strong>  29</strong></a></td> <td>0.154929849312</td> <td                  >6.4545341291</td> <td>0.773166581046</td> <td align="right">   55</td> <td align="right">   2</td> <td align="right">  0</td> <td align="center">                                   </td> <td align="center">[3] </td></tr>
+<tr><td bgcolor="#6495ed" align="right"><a href="coc30.html"   name="coc30">  <strong>  30</strong></a></td> <td>0.152319579409</td> <td                  >6.5651441783</td> <td>0.773103425594</td> <td align="right">   58</td> <td align="right">   2</td> <td align="right"> 14</td> <td align="center"><i>C</i><sub><small>2</small></sub></td> <td align="center">[1] </td></tr>
+<tr><td bgcolor="#6495ed" align="right"><a href="coc31.html"   name="coc31">  <strong>  31</strong></a></td> <td>0.149878153406</td> <td                  >6.6720864734</td> <td>0.773469584440</td> <td align="right">   61</td> <td align="right">   1</td> <td align="right"> 15</td> <td align="center">                                   </td> <td align="center">[1] </td></tr>
+<tr><td                   align="right"><a href="coc32.html"   name="coc32">  <strong>  32</strong></a></td> <td>0.147297380425</td> <td                  >6.7889869943</td> <td>0.771160727070</td> <td align="right">   62</td> <td align="right">   2</td> <td align="right">  0</td> <td align="center">                                   </td> <td align="center">[3] </td></tr>
+<tr><td bgcolor="#80e03f" align="right"><a href="coc33.html"   name="coc33">  <strong>  33</strong></a></td> <td>0.145306599845</td> <td                  >6.8819998614</td> <td>0.773908292152</td> <td align="right">   68</td> <td align="right">    </td> <td align="right"> 14</td> <td align="center"><i>D</i><sub><small>1</small></sub></td> <td align="center">[2] </td></tr>
+<tr><td bgcolor="#6495ed" align="right"><a href="coc34.html"   name="coc34">  <strong>  34</strong></a></td> <td>0.143477532364</td> <td                  >6.9697323582</td> <td>0.777412633108</td> <td align="right">   63</td> <td align="right">   3</td> <td align="right"> 15</td> <td align="center">                                   </td> <td align="center">[1] </td></tr>
+<tr><td bgcolor="#6495ed" align="right"><a href="coc35.html"   name="coc35">  <strong>  35</strong></a></td> <td>0.142256369270</td> <td                  >7.0295622272</td> <td>0.786713067631</td> <td align="right">   69</td> <td align="right">   2</td> <td align="right"> 16</td> <td align="center">                                   </td> <td align="center">[1] </td></tr>
+<tr><td bgcolor="#6495ed" align="right"><a href="coc36.html"   name="coc36">  <strong>  36</strong></a></td> <td>0.139934447382</td> <td                  >7.1462032309</td> <td>0.782990790742</td> <td align="right">   69</td> <td align="right">   2</td> <td align="right"> 16</td> <td align="center">                                   </td> <td align="center">[1] </td></tr>
+<tr><td bgcolor="#6495ed" align="right"><a href="coc37.html"   name="coc37">  <strong>  37</strong></a></td> <td>0.138229583693</td> <td                  >7.2343413999</td> <td>0.785251190287</td> <td align="right">   68</td> <td align="right">   4</td> <td align="right"> 16</td> <td align="center"><i>C</i><sub><small>2</small></sub></td> <td align="center">[1] </td></tr>
+<tr><td bgcolor="#80e03f" align="right"><a href="coc38.html"   name="coc38">  <strong>  38</strong></a></td> <td>0.136097981333</td> <td                  >7.3476475566</td> <td>0.781793117866</td> <td align="right">   73</td> <td align="right">   2</td> <td align="right"> 14</td> <td align="center">                                   </td> <td align="center">[2] </td></tr>
+<tr><td                   align="right"><a href="coc39.html"   name="coc39">  <strong>  39</strong></a></td> <td>0.134962830726</td> <td                  >7.4094474354</td> <td>0.789037862224</td> <td align="right">   76</td> <td align="right">   2</td> <td align="right">  0</td> <td align="center">                                   </td> <td align="center">[3] </td></tr>
+<tr><td bgcolor="#80e03f" align="right"><a href="coc40.html"   name="coc40">  <strong>  40</strong></a></td> <td>0.132682454149</td> <td                  >7.5367915556</td> <td>0.782153264267</td> <td align="right">   78</td> <td align="right">   2</td> <td align="right"> 15</td> <td align="center">                                   </td> <td align="center">[2] </td></tr>
+<tr><td bgcolor="#6495ed" align="right"><a href="coc41.html"   name="coc41">  <strong>  41</strong></a></td> <td>0.131274622862</td> <td                  >7.6176185328</td> <td>0.784784278851</td> <td align="right">   82</td> <td align="right">    </td> <td align="right"> 17</td> <td align="center">                                   </td> <td align="center">[1] </td></tr>
+<tr><td bgcolor="#6495ed" align="right"><a href="coc42.html"   name="coc42">  <strong>  42</strong></a></td> <td>0.129318110933</td> <td                  >7.7328689136</td> <td>0.780140587971</td> <td align="right">   85</td> <td align="right">    </td> <td align="right"> 17</td> <td align="center">                                   </td> <td align="center">[1] </td></tr>
+<tr><td bgcolor="#80e03f" align="right"><a href="coc43.html"   name="coc43">  <strong>  43</strong></a></td> <td>0.127890596942</td> <td                  >7.8191831449</td> <td>0.781179006956</td> <td align="right">   83</td> <td align="right">   5</td> <td align="right"> 14</td> <td align="center">                                   </td> <td align="center">[2] </td></tr>
+<tr><td bgcolor="#80e03f" align="right"><a href="coc44.html"   name="coc44">  <strong>  44</strong></a></td> <td>0.126725223499</td> <td                  >7.8910888644</td> <td>0.784844623208</td> <td align="right">   88</td> <td align="right">   2</td> <td align="right"> 17</td> <td align="center">                                   </td> <td align="center">[2] </td></tr>
+<tr><td bgcolor="#6495ed" align="right"><a href="coc45.html"   name="coc45">  <strong>  45</strong></a></td> <td>0.125455094344</td> <td                  >7.9709796181</td> <td>0.786672549018</td> <td align="right">   85</td> <td align="right">   3</td> <td align="right"> 18</td> <td align="center">                                   </td> <td align="center">[1] </td></tr>
+<tr><td bgcolor="#6495ed" align="right"><a href="coc46.html"   name="coc46">  <strong>  46</strong></a></td> <td>0.124405540951</td> <td                  >8.0382271750</td> <td>0.790755386432</td> <td align="right">   84</td> <td align="right">   6</td> <td align="right"> 16</td> <td align="center">                                   </td> <td align="center">[1] </td></tr>
+<tr><td                   align="right"><a href="coc47.html"   name="coc47">  <strong>  47</strong></a></td> <td>0.123222835031</td> <td                  >8.1153789373</td> <td>0.792656691458</td> <td align="right">   90</td> <td align="right">   3</td> <td align="right">  0</td> <td align="center">                                   </td> <td align="center">[3] </td></tr>
+<tr><td bgcolor="#80e03f" align="right"><a href="coc48.html"   name="coc48">  <strong>  48</strong></a></td> <td>0.122028320701</td> <td                  >8.1948189917</td> <td>0.793902895812</td> <td align="right">   94</td> <td align="right">   2</td> <td align="right"> 16</td> <td align="center"><i>C</i><sub><small>2</small></sub></td> <td align="center">[2] </td></tr>
+</tbody>
+</table>
+</div>
+<br />
+<br />
+<hr />
+
+<!--
+<a name="Formulae"></a>
+<h3>Formulae</h3>
+The following table contains parameters from least-square fits of the ratio R/r over N by an exponential law
+R/r = a * N^b. This means that the least-square fit was applied to the function log(R/r) = b * log(N) + log(a)
+which gives also the standard deviation s_(n-1).
+<br>
+Please note that the fits are taken from different intervals of N. Remember this if you like to extrapolate 
+the given formulae to higher values of N.
+<br>
+<br>
+<TABLE BORDER=3 CELLPADDING=5>
+<TH>Interval of fit<TH>a<TH>b<TH>s
+<tr><td align=center> 11...100 <td> 1.232962 <td> 0.476521 <td> 0.005844
+<tr><td align=center>101...200 <td> 1.207426 <td> 0.481650 <td> 0.001398
+<tr><td align=center>201...300 <td> 1.212083 <td> 0.481106 <td> 0.001169
+<tr><td align=center>301...400 <td> 1.176876 <td> 0.486370 <td> 0.000915
+<tr><td align=center>401...500 <td> 1.217405 <td> 0.480678 <td> 0.001356
+
+<tr><td align=center> 21...500 <td> 1.203885 <td> 0.482409 <td> 0.002347
+<tr><td align=center>101...500 <td> 1.195318 <td> 0.483673 <td> 0.001265
+<tr><td align=center>201...500 <td> 1.193373 <td> 0.483954 <td> 0.001196
+<tr><td align=center>301...500 <td> 1.199264 <td> 0.483144 <td> 0.001176
+</TABLE> 
+<br> 
+<hr>
+-->
+
+<!--
+<a name="Applications"></a>
+<h3>Applications</h3>
+Suppose, you have to cut circles with a fixed diameter from a square-shaped plate of any material with fixed side length.
+<br>
+How many circles can you get in order to minimize the waste?
+<br>
+Please use the following form for this calculation:
+<br>
+<br>
+<form method="get" action="http://hydra.nat.uni-magdeburg.de/cgi-bin/csq1.pl">
+<table>
+<tr><td><strong><font color="red">Side length</FONT> of square-shaped plate: &nbsp;&nbsp;&nbsp;&nbsp;</strong> <td><INPUT TYPE=text name="size" size="20">
+&nbsp;(enter <font color="red">only numbers</FONT>, no units and/or text please)
+<tr><td><strong><font color="red">Diameter</FONT> of small circles: &nbsp;&nbsp;&nbsp;&nbsp;</strong> <td><INPUT TYPE="text" name="diameter" size="20">
+&nbsp;(no units please)
+</table>
+-->
+<!--
+<br>
+<hr>
+<br>
+Suppose, you have to cut a fixed number of circles with a fixed diameter from a square-shaped plate of any material.
+<br>
+What is the minimum side length of the square?
+<br>
+Please use the following form for this calculation:
+<br>
+<br>
+<FORM METHOD=GET ACTION="http://hydra.nat.uni-magdeburg.de/cgi-bin/csq2.pl">
+<TABLE>
+<tr><td><strong><FONT COLOR=red>Diameter</FONT> of small circles: &nbsp;&nbsp;&nbsp;&nbsp;</strong> <td><INPUT TYPE=text name=diameter SIZE=20>
+&nbsp;(no units please)
+<tr><td><strong><FONT COLOR=red>Number</FONT> of small circles: &nbsp;&nbsp;&nbsp;&nbsp;</strong> <td><INPUT TYPE=text name=number SIZE=20>
+&nbsp;(enter <FONT COLOR=red>only numbers</FONT>, no units and/or text please)
+</TABLE>
+<br>
+<hr>
+-->
+<!--
+<br>
+Please enter your name and your e-mail address in the following forms. I can assure you that your data won't be misused for any purposes.
+<br><br>
+<strong>Name:</strong> <input type="text" name="name" size="25"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>e-mail-address:</strong> <INPUT TYPE=text name=addr SIZE=30>
+<br><br>
+<input type="submit" value="Let's go!">
+<input type="reset" value="Reset">
+</form>
+-->
+<!--
+<br><br>
+A recently discovered application was inspired by Dennis Gretsinger: <a href=http://hydra.nat.uni-magdeburg.de/misc/dennis2.html>How to measure large holes with small gauge pins</a>.
+<br><br>
+Feel free to send me an <a href="mailto:eckard.specht@physik.uni-magdeburg.de">e-mail</a> for comments and suggestions!
+<br>
+<br>
+<hr>
+
+<a name="OEIS"></a>
+<h3> <FONT COLOR=purple>Related entries in the <a href="http://www.research.att.com/~njas/sequences/">OEIS</a>
+(On-Line Encyclopedia of Integer Sequences)</FONT> </h3>
+<DL>
+<DT><a href="http://www.research.att.com/projects/OEIS?Anum=A084618">A084618</a>
+<DD>Maximum number of circles with area 1 that can be packed in a circle of area <em>n</em>
+<DT><a href="http://www.research.att.com/projects/OEIS?Anum=A084619">A084619</a>
+<DD>Maximum number of circles of radius 1 that can be packed in a circle of radius <em>n</em>
+<DT><a href="http://www.research.att.com/projects/OEIS?Anum=A084644">A084644</a>
+<DD>Best packings of <em>m</em>>1 equal circles into a larger circle setting a new density record
+</DL>
+Many thanks to <em>Hugo Pfoertner</em> for establishing these sequences.
+<br>
+<hr>
+-->
+
+<a name="Updates"></a>
+<h3>Updates</h3>
+Please note that the results are taken from a running search. For updates look at the list below.
+<br />
+<br />
+<table>
+<tr><td valign="top">30-NOV-2020: <td valign="top">First complete presentation from <i>N</i>=1 to <i>N</i>=48 by E. Specht [1].
+The symmetry groups are still wrong and have to be corrected.
+<br />
+<tr><td valign="top">05-Dec-2020: <td valign="top">Only one day after the unexpected publication of packings in hexagonal containers,
+<strong>Paolo Amore</strong> (Universidad de Colima, Mexico) sent me packings from his own repository which improve
+my result for several values of <i>N</i>: 6, 12, 16, 20, 22, 24, 25, 26, 27, 33, 38, 40, 43, 44, 47, and 48. I have failed to
+find the simple configuration for <i>N</i> = 6.
+<br />
+<tr><td valign="top">23-Sep-2026: <td valign="top"><strong>Stefan Zorcic</strong> [3] sent me in July/August 2026 new candidates for
+<i>N</i>=29, 32, 39, 47.
+</table>
+<hr />
+
+<a name="References"></a>
+<h3>References</h3>
+<table />
+<tr><td align="right" valign="top">[1]<td valign="top"> &nbsp; <img src="../specht.png" width="110" height="18" align="middle">, program <em>coc</em>, 2020.
+<br />
+<tr><td align="right" valign="top">[2]<td valign="top"> &nbsp; <img src="../amore.png" width="101" height="18" align="middle">, <em><a href="https://doi.org/10.1063/5.0140644" target="_blank">Circle packing in regular polygons </a></em>, Phys. Fluids <strong>35</strong>, 027130 (2023).
+<br />
+<tr><td align="right" valign="top">[3]<td valign="top"> &nbsp; Stefan Zorcic, private communication, July&ndash;August 2026.
+</table>
+<br />
+<hr />
+<div class="footer">
+<a href="https://www.ovgu.de/datenschutzerklaerung.html" target="_blank"><strong>Datenschutzerkl&auml;rung der Otto-von-Guericke-Universit&auml;t Magdeburg nach DSGVO</strong></a><br /><br />
+&copy;&nbsp;&nbsp;<i><a href="mailto:eckard.specht@physik.uni-magdeburg.de">E. Specht</a></i>&nbsp;&nbsp;&nbsp; 23-Sep-2026
+</div>
+<br>
+<br>
+</body>
+</html>

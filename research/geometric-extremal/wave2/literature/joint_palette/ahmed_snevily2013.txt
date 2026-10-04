@@ -1,0 +1,565 @@
+                         Sparse Distance Sets
+                       in the Triangular Lattice
+                                          Tanbir Ahmed
+                   Department of Computer Science and Software Engineering
+                           Concordia University, Montréal, Canada
+                                     ta ahmed@cs.concordia.ca
+
+                                          Hunter Snevily
+                                    Department of Mathematics
+                             University of Idaho - Moscow, Idaho, USA
+                                         snevily@uidaho.edu
+
+            Submitted: Apr 4, 2013; Accepted: Dec 6, 2013; Published: Dec 17, 2013
+                      Mathematics Subject Classifications: 52B05, 52C10
+
+
+
+                                               Abstract
+         A planar point-set X in Euclidean plane is called a k-distance set if there are
+      exactly k different distances among the points in X. The function g(k) denotes the
+      maximum number of points in the Euclidean plane that is a k-distance set. In 1996,
+      Erdős and Fishburn conjectured that for k ⩾ 7, every g(k)-point subset of the plane
+      that determines k different distances is similar to a subset of the triangular lattice.
+      We believe that if g(k) is an increasing function of k, then the conjecture is false.
+      We present data supporting our claim and a method of construction that unifies
+      known optimal point configurations for k ⩾ 3.
+
+
+1     Introduction
+For a planar point-set X, let D(X) denotes the set of distances between all pairs of points
+in X. A planar point-set X in Euclidean plane is called a k-distance set if |D(X)| = k. Let
+g(k) denote the maximum number of points in the Euclidean plane that is a k-distance
+set. Only six exact values are known where g(1) = 3, g(2) = 5, g(3) = 7, g(4) = 9, and
+g(5) = 12 are determined by Erdős and Fishburn [1], and g(6) = 13 is determined by Wei
+[2].
+     Let Rn denote the vertices of a regular n-gon, and Rn+ denote Rn with its center
+included. Clearly, g(k) ⩾ 2k + 1 since R2k+1 is a k-distance set.
+
+
+the electronic journal of combinatorics 20(4) (2013), #P33                                      1
+    The triangular lattice is defined as
+                               n              √               o
+                         L∆ = a(1, 0) + b(1/2, 3/2) : a, b ∈ Z .
+
+    Given positive integer aand non-negative integers r1 and r2 with 0 ⩽ r2 ⩽ a+r1 −1, let
+                    r1     r2
+                       
+Pa,r1 ,r2 denote a 2 − 2 + a(r1 + r2 ) + r1 − r2 + r1 r2 + a -point vertically symmetric
+contiguous and convex subset of L∆ where rows from top to bottom contain
+       a, a + 1, a + 2, . . . , a + (r1 − 1), a + r1 , a + r1 − 1, a + r1 − 2, . . . , a + r1 − r2
+points, respectively.
+
+
+
+
+                       P1,3,0   P2,3,0       P5,4,2            P4,2,2      P5,4,4
+                                   Table 1: Examples of Pa,r1 ,r2
+
+
+   Let a saw-blade Bs,r,t be an r-regular (r ⩾ 2) s-sided (s ∈ {3, 4, 6}) polygonal array in
+L∆ with t ⩽ r − 1 triangular blades  attached on the firstt + 1 points on each side of the
+polygonal array. There are 2r + r + 3t, r2 + 4t, and 6 2r + 6t + 1 points in B3,r,t , B4,r,t ,
+                              
+
+and B6,r,t , respectively.
+
+
+
+
+                     B3,3,1     B3,6,2    B4,4,1      B6,2,1      B6,3,1     B6,4,2
+                                    Table 2: Examples of Bs,r,t
+
+
+
+    We may generalize the notion of saw-blades and arbitrarily add triangular blades on
+the sides of Pa,r1 ,r2 . Typically the tips of consecutive triangular blades are connected by
+straight lines of unit length. There are 2x possible orientations with x = 2r1 + 2r2 + (a −
+1) + (a + r1 − r2 − 1) = 2a + 3r1 + r2 − 2 for Pa,r1 ,r2 .
+    Let us call a distance-set sparse if n/k ⩾ 2.0, and strictly sparse if n/k > 2.0. In this
+paper, we provide examples of sparse distance sets in L∆ and also present lower bounds
+of g(k) for k ⩽ 50. We also investigate the following conjecture of Erdős and Fishburn.
+Conjecture 1 (Erdős and Fishburn [1]). For k ⩾ 7, every g(k)-point subset of the plane
+that determines k different distances is similar to a subset of L∆ .
+
+the electronic journal of combinatorics 20(4) (2013), #P33                                           2
+2     Computational results
+We can observe the following about computing distance between two points in L∆ .
+Observation 1. Let two points in L∆ be
+                                 √ !                                              √ !
+                            1      3                                        1      3
+            x ≡ (2a1 + b1 ) , b1       and y ≡                   (2a2 + b2 ) , b2     ,
+                            2     2                                         2     2
+
+where a1 , b1 , a2 , b2 ∈ Z. Then the square of distance between x and y,
+
+                     d2 (x, y) = (a1 − a2 )2 + (a1 − a2 )(b1 − b2 ) + (b1 − b2 )2
+
+involves only integer operations.
+   Let for X ⊂ L∆ on the plane, D2 (X) denote {d2 : d ∈ D(X)} and let Di2 (X) denote
+the i-th value in the increasing sequence with the values from D2 (X).
+   Let a1 = b1 = 0. Then following is a list of the first few values of D2 (L∆ ) (in each
+case, d2 is accompanied by a corresponding pair (a2 , b2 )):
+        1:   1 ( 0, 1)    11:   25 ( 0, 5)   21:   52 ( 2, 6)   31:    81 ( 0, 9)   41:   112 ( 4, 8)
+        2:    3 ( 1, 1)   12:   27 ( 3, 3)   22:   57 ( 1, 7)   32:    84 ( 2, 8)   42:   117 ( 3, 9)
+        3:    4 ( 0, 2)   13:   28 ( 2, 4)   23:   61 ( 4, 5)   33:    91 ( 1, 9)   43:   121 ( 0,11)
+        4:    7 ( 1, 2)   14:   31 ( 1, 5)   24:   63 ( 3, 6)   34:    93 ( 4, 7)   44:   124 ( 2,10)
+        5:    9 ( 0, 3)   15:   36 ( 0, 6)   25:   64 ( 0, 8)   35:    97 ( 3, 8)   45:   127 ( 6, 7)
+        6:   12 ( 2, 2)   16:   37 ( 3, 4)   26:   67 ( 2, 7)   36:   100 ( 0,10)   46:   129 ( 5, 8)
+        7:   13 ( 1, 3)   17:   39 ( 2, 5)   27:   73 ( 1, 8)   37:   103 ( 2, 9)   47:   133 ( 1,11)
+        8:   16 ( 0, 4)   18:   43 ( 1, 6)   28:   75 ( 5, 5)   38:   108 ( 6, 6)   48:   139 ( 3,10)
+        9:   19 ( 2, 3)   19:   48 ( 4, 4)   29:   76 ( 4, 6)   39:   109 ( 5, 7)   49:   144 ( 0,12)
+       10:   21 ( 1, 4)   20:   49 ( 0, 7)   30:   79 ( 3, 7)   40:   111 ( 1,10)   50:   147 ( 2,11)
+
+    Let for X ⊂ L∆ , c2k (X) denote the number of distinct pairs (x, y) in X such that
+d2 (x, y) = k. Let c2 (X) denote the sequence c2i (X) for i = 1, 2, 3, . . .
+    For example, c2 (P1,2,0 ) = 9,0,3,3 ; c2 (P2,1,1 ) = 12,0,6,3 .
+
+2.1     Verifying lower bounds of g(k) for 3 ⩽ k ⩽ 13
+      (n)
+Let L∆ denote a (n2 − n/2)-point rectangular subset of n consecutive rows in L∆ , with
+rows having n, n − 1, n, n − 1, . . . points, respectively. In this section, we verify the lower
+                                                              (8)
+bounds of g(k) for 3 ⩽ k ⩽ 13 by exhaustive search in L∆ .
+
+
+
+             g(3) = 7     g(4) = 9    g(5) = 12      g(6) = 13        g(7) ⩾ 16     g(8) ⩾ 19
+
+
+
+
+      g(9) ⩾ 21      g(10) ⩾ 24        g(11) ⩾ 27               g(12) ⩾ 27            g(13) ⩾ 31
+
+the electronic journal of combinatorics 20(4) (2013), #P33                                              3
+    It can be noted that the example of g(10) ⩾ 25 in Figure 4 in Erdős and Fishburn
+[1] is actually an example of g(11) ⩾ 25, which can be explained using the example P3,2,2
+that we have used for g(8) ⩾ 19. For P3,2,2 , we have
+
+                               D2 (P3,2,2 ) = {1, 3, 4, 7, 9, 12, 13, 16} .
+
+Let Y be the set of points when six points corresponding to the blades are added to P3,2,2 ,
+as in Figure 4 in Erdős and Fishburn [1].
+
+
+
+
+    Then we have
+                           D2 (Y ) = {1, 3, 4, 7, 9, 12, 13, 16, 19, 21, 28} .
+
+2.2     Lower bounds of g(k) for 14 ⩽ k ⩽ 50
+In this section, we provide some new lower bounds of g(k) for 14 ⩽ k ⩽ 50. The lower
+bounds for k = 15, 23, 34, and 46 were previously known (Erdős and Fishburn [1]). We
+have considered all possible blade-orientations on the sides of Pa,r1 ,r2 for 1 ⩽ a ⩽ 10,
+1 ⩽ r1 ⩽ 10, and 0 ⩽ r2 ⩽ a + r1 − r2 .
+    We have also conducted exhaustive searches on the (n2 −n/2)-point rectangular subset
+of L∆ for improving lower bounds of smaller values of k, say k = 16. Apparently in L∆ ,
+the bladed Pa,r1 ,r2 offer the best lower bounds. In the figures below, every two points at
+a distance one are joined by a line.
+
+
+
+
+       g(14) ⩾ 34 g(15) ⩾ 37 g(16) ⩾ 36               g(17) ⩾ 42 g(18) ⩾ 45 g(19) ⩾ 48
+
+
+
+
+       g(20) ⩾ 49 g(21) ⩾ 55 g(22) ⩾ 58               g(23) ⩾ 61      g(24) ⩾ 63 g(25) ⩾ 64
+
+
+
+
+          g(26) ⩾ 69       g(27) ⩾ 72       g(28) ⩾ 75        g(29) ⩾ 73         g(30) ⩾ 79
+
+the electronic journal of combinatorics 20(4) (2013), #P33                                    4
+                  g(31) ⩾ 80        g(32) ⩾ 85        g(33) ⩾ 88      g(34) ⩾ 91
+
+
+
+
+                 g(35) ⩾ 96         g(36) ⩾ 96        g(37) ⩾ 102      g(38) ⩾ 105
+
+
+
+
+               g(39) ⩾ 108          g(40) ⩾ 109         g(41) ⩾ 109     g(42) ⩾ 115
+
+
+
+
+             g(43) ⩾ 115          g(44) ⩾ 121          g(45) ⩾ 124       g(46) ⩾ 127
+
+
+
+
+            g(47) ⩾ 129           g(48) ⩾ 135           g(49) ⩾ 135       g(50) ⩾ 141
+
+3     On properties of Pa,r1,r2 and Bladed Pa,r1,r2
+Let for X ⊂ L∆ , b(X) denote the set of points in L∆ , containing the points on the
+boundary of X. Let i(X) denote the set of points in L∆ , interior to X. Clearly, |X| =
+b(X) + i(X).
+Conjecture 2. The number of distinct distances between all pairs of points in Pa,r1 ,r2
+can be determined by the boundary points of Pa,r1 ,r2 alone. (For supporting data, see
+Appendix E)
+
+the electronic journal of combinatorics 20(4) (2013), #P33                              5
+   Consider the sequences X and Y , and let j be the least index such that Xj 6= Yj . We
+say X > Y if Xj > Yj .
+Conjecture 3. Given point sets X and Y in L∆ with |X| = |Y |, if c2 (X) > c2 (Y ), then
+i(X) ⩾ i(Y ). (Data in Appendix D support this conjecture)
+   Consider the triangular array with points from Pr+1,r,0 on the boundary or interior to
+the triangle, say Tr+1,r,0 , with vertices
+                                                           √
+                              (0, 0), (2r, 0), and (3r/2, ( 3/2)r).
+Let p(i, j) denote the j-th point on the i-th row inside Tr+1,r,0 , considering the base of
+Tr+1,r,0 as the 0-th row. Let f (i, j) be the square of distance from (0, 0) to p(i, j). For
+example, in T7,6,0 in the following figure, f (2, 5) = 52.
+
+                                                                                                        108
+
+
+                                                                                         75        91        109
+
+
+                                                                          48        61        76        93         112
+
+
+                                                           27        37        49        63        79         97     117
+
+
+                                            12        19        28        39        52        67        84         103   124
+
+
+                                3       7        13        21        31        43        57        73         91     111   133
+
+
+                      0     1       4       9         16        25        36        49        64        81         100   121   144
+
+
+
+   It can be observed that the number of points in Tr+1,r,0 is r2 + 2r. Then for 0 ⩽ i ⩽ r
+and 1 ⩽ j ⩽ (2r + 1) − 2i,
+                                              2      √ !2
+                                     3                     3
+                        f (i, j) =     i+j−1 +               i .
+                                     2                   2
+
+Let r(i, j) be the number of times f (i, j) is repeated in Tr+1,r,0 above p(i, j). Hence for
+r ⩾ 1,
+                                                         r 2r+1−2i
+                                                         X   X
+                                                 2
+              |D(Pr+1,r,r )| = |D(Tr+1,r,0 )| = r + 2r −           [r(i, j) > 0] .
+                                                                                                   i=0        j=1
+
+    Let `θ (i, j) be the straight line passing through p(i, j) making an angle θ ∈ {0, π/3, 2π/3}
+with the positive x-axis. Let dmin (θ, i, j, k) be the smallest square of distance of any point
+in Tr+1,r,0 , on the line `θ (i + k, j − k) from (0, 0).
+Conjecture 4.                                                   X
+                                                                                      t(i, j, k) ∈ Z+ ,
+                                                                                                    
+                             r(i, j) =
+                                                   k⩾1,j+k⩽2r+1−2i,
+                                                 dmin (2π/3,i,j,k)⩽f (i,j)
+
+
+where t(i, j, k) is a solution to
+                          f (i + k + (t − 1), j − k − 2(t − 1)) − f (i, j) = 0.
+
+the electronic journal of combinatorics 20(4) (2013), #P33                                                                           6
+4      Questions
+Our data along with Erdős-Fishburn’s results and Wei’s raise the following questions:
+
+    1. Is g(k) an increasing function, i.e., are our configurations for k = 16 and k = 29
+       optimal?
+
+    2. Is Conjecture 1 false? This can happen if the answer to Question 1 above is true,
+       but our configuration for k = 16 is optimal in L∆ . In that case, we need g(16) ⩾ 37
+       in R2 .
+
+    3. For k ⩾ 3, is there always a bladed-Pa,r1 ,r2 configuration that is optimal? So far this
+       seems to be the case. Are they always optimal in L∆ ?
+
+    4. Is Dk2 (L∆ ) a good approximation of g(k)? The D2 (L∆ )-table and the lower bounds
+       in Section 2, and the table in Appendix C say this might be the case.
+
+    5. Does the equivalent of Conjecture 2 for optimal g(k) configurations hold true? See
+       Appendix D for supporting data.
+
+
+Acknowledgements
+The authors would like to thank the Editor and the anonymous referee for their helpful
+comments and suggestions.
+
+
+References
+[1] P. Erdős and P. Fishburn, Maximum planar sets that determine k distances, Discrete
+    Math., 160 (1996), 115–125.
+[2] X. Wei, A proof of Erdős-Fishburn’s conjecture for g(6) = 13, Elec. J. of Comb., 19(4)
+    (2012), #P38.
+
+
+
+
+the electronic journal of combinatorics 20(4) (2013), #P33                                   7
+                                                                                  (8)
+A        15-distance sets with 37-points in L∆
+
+                               X                           c2 (X)
+                                          90, 0, 72, 69, 0, 0, 108, 0, 48, 0, 0, 39,
+                                         72, 0, 0, 27, 0, 0, 48, 0, 36, 0, 0, 0, 12,
+                                         0, 12, 18, 0, 0, 12, 0, 0, 0, 0, 3
+
+
+
+
+                                                                                 (8)
+B        16-distance sets with 36-points in L∆
+
+     X                           c2 (X)                         X                           c2 (X)
+               85, 0, 69, 64, 0, 0, 104, 0, 45, 0, 0, 36,                 85, 0, 68, 64, 0, 0, 102, 0, 45, 0, 0, 36,
+              68, 0, 0, 27, 0, 0, 42, 0, 36, 0, 0, 0, 12,                66, 0, 0, 28, 0, 0, 42, 0, 36, 0, 0, 0, 13,
+              0, 9, 16, 0, 0, 10, 0, 0, 0, 0, 3, 4                       0, 9, 16, 0, 0, 10, 0, 0, 0, 0, 0, 6, 0, 4
+               86, 0, 70, 65, 0, 0, 103, 0, 45, 0, 0, 36,                 85, 0, 70, 64, 0, 0, 103, 0, 45, 0, 0, 36,
+              67, 0, 0, 27, 0, 0, 42, 0, 36, 0, 0, 0, 12,                67, 0, 0, 28, 0, 0, 41, 0, 36, 0, 0, 0, 13,
+              0, 9, 17, 0, 0, 11, 0, 0, 0, 0, 2, 2                       0, 9, 16, 0, 0, 10, 0, 0, 0, 0, 0, 5, 0, 2
+               85, 0, 69, 64, 0, 0, 103, 0, 45, 0, 0, 36,                 86, 0, 69, 65, 0, 0, 103, 0, 45, 0, 0, 37,
+              67, 0, 0, 28, 0, 0, 41, 0, 36, 0, 0, 0, 13,                67, 0, 0, 26, 0, 0, 44, 0, 34, 0, 0, 0, 11,
+              0, 9, 16, 0, 0, 10, 0, 0, 0, 0, 0, 5, 0, 3                 0, 10, 17, 0, 0, 11, 0, 0, 0, 0, 3, 2
+               85, 0, 70, 64, 0, 0, 104, 0, 45, 0, 0, 36,                 85, 0, 69, 64, 0, 0, 104, 0, 45, 0, 0, 36,
+              68, 0, 0, 27, 0, 0, 42, 0, 36, 0, 0, 0, 12,                68, 0, 0, 28, 0, 0, 40, 0, 36, 0, 0, 0, 13,
+              0, 9, 16, 0, 0, 10, 0, 0, 0, 0, 2, 4                       0, 9, 16, 0, 0, 10, 0, 0, 0, 0, 0, 4, 0, 3
+               86, 0, 71, 65, 0, 0, 104, 0, 45, 0, 0, 36,                 85, 0, 71, 64, 0, 0, 104, 0, 45, 0, 0, 36,
+              68, 0, 0, 27, 0, 0, 42, 0, 36, 0, 0, 0, 12,                68, 0, 0, 28, 0, 0, 40, 0, 36, 0, 0, 0, 13,
+              0, 9, 16, 0, 0, 10, 0, 0, 0, 0, 1, 2                       0, 9, 16, 0, 0, 10, 0, 0, 0, 0, 0, 4, 0, 1
+               85, 0, 69, 65, 0, 0, 102, 0, 46, 0, 0, 36,                 85, 0, 70, 63, 0, 0, 104, 0, 45, 0, 0, 36,
+              68, 0, 0, 25, 0, 0, 44, 0, 34, 0, 0, 0, 12,                68, 0, 0, 27, 0, 0, 40, 0, 36, 0, 0, 0, 13,
+              0, 11, 16, 0, 0, 12, 0, 0, 0, 0, 3, 0, 0, 2                0, 9, 18, 0, 0, 10, 0, 0, 0, 0, 0, 4, 0, 2
+               85, 0, 71, 64, 0, 0, 103, 0, 45, 0, 0, 36,                 85, 0, 71, 63, 0, 0, 103, 0, 45, 0, 0, 36,
+              67, 0, 0, 27, 0, 0, 42, 0, 36, 0, 0, 0, 12,                67, 0, 0, 27, 0, 0, 41, 0, 36, 0, 0, 0, 13,
+              0, 9, 17, 0, 0, 11, 0, 0, 0, 0, 1, 4                       0, 9, 18, 0, 0, 10, 0, 0, 0, 0, 0, 5, 0, 1
+               84, 0, 67, 62, 0, 0, 101, 0, 43, 0, 0, 36,                 85, 0, 70, 64, 0, 0, 102, 0, 45, 0, 0, 37,
+              65, 0, 0, 26, 0, 0, 43, 0, 36, 0, 0, 0, 12,                66, 0, 0, 26, 0, 0, 44, 0, 34, 0, 0, 0, 11,
+              0, 11, 20, 0, 0, 12, 0, 0, 0, 0, 0, 7, 0, 5                0, 10, 18, 0, 0, 12, 0, 0, 0, 0, 2, 4
+
+               84, 0, 69, 63, 0, 0, 102, 0, 45, 0, 0, 36,                 84, 0, 68, 63, 0, 0, 104, 0, 45, 0, 0, 36,
+              66, 0, 0, 27, 0, 0, 42, 0, 36, 0, 0, 0, 12,                68, 0, 0, 27, 0, 0, 40, 0, 36, 0, 0, 0, 12,
+              0, 9, 18, 0, 0, 12, 0, 0, 0, 0, 0, 6, 0, 3                 0, 9, 18, 0, 0, 12, 0, 0, 0, 0, 0, 4, 0, 4
+               85, 0, 69, 63, 0, 0, 102, 0, 43, 0, 0, 36,                 85, 0, 68, 64, 0, 0, 104, 0, 45, 0, 0, 36,
+              66, 0, 0, 27, 0, 0, 42, 0, 36, 0, 0, 0, 13,                68, 0, 0, 28, 0, 0, 40, 0, 36, 0, 0, 0, 13,
+              0, 11, 18, 0, 0, 10, 0, 0, 0, 0, 0, 6, 0, 3                0, 9, 16, 0, 0, 10, 0, 0, 0, 0, 0, 4, 0, 4
+               85, 0, 70, 64, 0, 0, 104, 0, 43, 0, 0, 36,                 85, 0, 69, 63, 0, 0, 103, 0, 43, 0, 0, 36,
+              68, 0, 0, 28, 0, 0, 40, 0, 36, 0, 0, 0, 13,                67, 0, 0, 27, 0, 0, 41, 0, 36, 0, 0, 0, 13,
+              0, 11, 16, 0, 0, 10, 0, 0, 0, 0, 0, 4, 0, 2                0, 11, 18, 0, 0, 10, 0, 0, 0, 0, 0, 5, 0, 3
+
+the electronic journal of combinatorics 20(4) (2013), #P33                                                    8
+               85, 0, 70, 62, 0, 0, 102, 0, 43, 0, 0, 36,                 84, 0, 66, 60, 0, 0, 96, 0, 39, 0, 0, 36,
+              66, 0, 0, 26, 0, 0, 42, 0, 36, 0, 0, 0, 13,                60, 0, 0, 24, 0, 0, 48, 0, 36, 0, 0, 0, 12,
+              0, 11, 20, 0, 0, 10, 0, 0, 0, 0, 0, 6, 0, 2                0, 15, 24, 0, 0, 12, 0, 0, 0, 0, 0, 12, 0, 6
+
+               84, 0, 68, 61, 0, 0, 99, 0, 41, 0, 0, 36,                  85, 0, 68, 62, 0, 0, 100, 0, 41, 0, 0, 36,
+              63, 0, 0, 25, 0, 0, 45, 0, 36, 0, 0, 0, 12,                64, 0, 0, 26, 0, 0, 44, 0, 36, 0, 0, 0, 13,
+              0, 13, 22, 0, 0, 12, 0, 0, 0, 0, 0, 9, 0, 4                0, 13, 20, 0, 0, 10, 0, 0, 0, 0, 0, 8, 0, 4
+
+               84, 0, 70, 62, 0, 0, 101, 0, 43, 0, 0, 36,                 84, 0, 69, 63, 0, 0, 103, 0, 43, 0, 0, 36,
+              65, 0, 0, 26, 0, 0, 43, 0, 36, 0, 0, 0, 12,                67, 0, 0, 27, 0, 0, 41, 0, 36, 0, 0, 0, 12,
+              0, 11, 20, 0, 0, 12, 0, 0, 0, 0, 0, 7, 0, 2                0, 11, 18, 0, 0, 12, 0, 0, 0, 0, 0, 5, 0, 3
+
+               84, 0, 71, 64, 0, 0, 103, 0, 45, 0, 0, 36,                 84, 0, 70, 64, 0, 0, 104, 0, 45, 0, 0, 36,
+              67, 0, 0, 28, 0, 0, 41, 0, 36, 0, 0, 0, 12,                68, 0, 0, 28, 0, 0, 40, 0, 36, 0, 0, 0, 12,
+              0, 9, 16, 0, 0, 12, 0, 0, 0, 0, 0, 5, 0, 1                 0, 9, 16, 0, 0, 12, 0, 0, 0, 0, 0, 4, 0, 2
+
+               85, 0, 71, 64, 0, 0, 104, 0, 45, 0, 0, 36,                 84, 0, 71, 63, 0, 0, 103, 0, 45, 0, 0, 36,
+              68, 0, 0, 28, 0, 0, 40, 0, 36, 0, 0, 0, 13,                67, 0, 0, 28, 0, 0, 40, 0, 36, 0, 0, 0, 13,
+              0, 9, 16, 0, 0, 10, 0, 0, 0, 0, 1, 4                       0, 9, 17, 0, 0, 11, 0, 0, 0, 0, 1, 6
+
+               84, 0, 70, 63, 0, 0, 104, 0, 45, 0, 0, 36,                 84, 0, 69, 63, 0, 0, 105, 0, 45, 0, 0, 36,
+              68, 0, 0, 28, 0, 0, 40, 0, 36, 0, 0, 0, 13,                69, 0, 0, 27, 0, 0, 39, 0, 36, 0, 0, 0, 12,
+              0, 9, 16, 0, 0, 10, 0, 0, 0, 0, 2, 6                       0, 9, 18, 0, 0, 12, 0, 0, 0, 0, 0, 3, 0, 3
+
+               84, 0, 69, 63, 0, 0, 104, 0, 45, 0, 0, 36,                 84, 0, 71, 63, 0, 0, 104, 0, 45, 0, 0, 36,
+              68, 0, 0, 28, 0, 0, 40, 0, 36, 0, 0, 0, 13,                68, 0, 0, 29, 0, 0, 38, 0, 36, 0, 0, 0, 14,
+              0, 9, 16, 0, 0, 10, 0, 0, 0, 0, 3, 6                       0, 9, 16, 0, 0, 10, 0, 0, 0, 0, 1, 6
+
+               84, 0, 70, 63, 0, 0, 103, 0, 45, 0, 0, 36,                 84, 0, 69, 63, 0, 0, 102, 0, 45, 0, 0, 36,
+              67, 0, 0, 29, 0, 0, 38, 0, 36, 0, 0, 0, 14,                66, 0, 0, 30, 0, 0, 36, 0, 36, 0, 0, 0, 15,
+              0, 9, 17, 0, 0, 11, 0, 0, 0, 0, 2, 6                       0, 9, 18, 0, 0, 12, 0, 0, 0, 0, 3, 6
+
+
+
+
+C      An approximation for g(k)
+Wepresent lower bounds for g(k) with r-regular hexagonal arrays Pr,r−1,r−1 (with n =
+6 2r + 1 points) for 2 ⩽ r ⩽ 57, and also compare with the corresponding values of
+Dk2 (L∆ ).
+       r     n       k     Dk2 (L∆ )   |n − Dk2 (L∆ )|       r     n     k    Dk2 (L∆ )   |n − Dk2 (L∆ )|
+       2     7       3         4             3               3     19    8       16             3
+       4     37      15       36              1              5     61    23      61              0
+       6     91      34       93              2              7    127    46     129              2
+       8    169      59      175              6              9    217    74     228             11
+      10    271      90      289             18             11   331    109     351             20
+      12    397     129      432             35             13   469    150     508             39
+      14    547     172      592             45             15   631    196     684             53
+      16    721     222      784             63             17   817    249     889             72
+      18    919     277      999             80             19   1027   308    1123             96
+      20   1141     339     1252            111             21   1261   372    1393            132
+      22   1387     405     1531            144             23   1519   440    1669            150
+
+the electronic journal of combinatorics 20(4) (2013), #P33                                                     9
+      24    1657    477       1821           164        25    1801      516    1987         186
+      26    1951    557       2164           213        27    2107      598    2331         224
+      28    2269    639       2511           242        29    2437      685    2707         270
+      30    2611    731       2908           297        31    2791      776    3099         308
+      32    2977    822       3303           326        33    3169      871    3508         339
+      34    3367    925       3747           380        35    3571      976    3969         398
+      36    3781   1031       4225           444        37    3997     1088    4476         479
+      38    4219   1139       4699           480        39    4447     1197    4963         516
+      40    4681   1257       5223           542        41    4921     1315    5488         567
+      42    5167   1376       5776           609        43    5419     1440    6064         645
+      44    5677   1504       6352           675        45    5941     1569    6643         702
+      46    6211   1635       6933           722        47    6487     1706    7267         780
+      48    6769   1777       7588           819        49    7057     1844    7903         846
+      50    7351   1914       8221           870        51    7651     1992    8587         936
+
+    We have corrected some errors in computation in Erdős and Fishburn [1] of the number
+of distinct distances in Pr,r−1,r−1 for 14 ⩽ r ⩽ 21.
+
+
+D       Examples of |D(X)| = |D(B(X))|
+In this section, for 14 ⩽ k ⩽ 50 (we have verified for 3 ⩽ k ⩽ 13 as well), we use the point
+set X that we used in Section 2.2 to prove g(k) ⩾ |X|.
+
+
+
+
+       g(14)⩾34=|X|       g(15)⩾37=|X|   g(16)⩾36=|X|   g(17)⩾42=|X|     g(18)⩾45=|X|   g(19)⩾48=|X|
+         |B(X)|=18          |B(X)|=18      |B(X)|=19      |B(X)|=21        |B(X)|=21      |B(X)|=21
+       |D(B(X))|=14       |D(B(X))|=15   |D(B(X))|=16   |D(B(X))|=17     |D(B(X))|=18   |D(B(X))|=19
+
+
+
+
+      g(20)⩾49=|X|    g(21)⩾55=|X|       g(22)⩾58=|X|   g(23)⩾61=|X|     g(24)⩾63=|X|   g(25)⩾64=|X|
+        |B(X)|=24       |B(X)|=24          |B(X)|=24      |B(X)|=24        |B(X)|=27      |B(X)|=28
+      |D(B(X))|=20    |D(B(X))|=21       |D(B(X))|=22   |D(B(X))|=23     |D(B(X))|=24   |D(B(X))|=25
+
+
+
+
+           g(26)⩾69=|X|      g(27)⩾72=|X|      g(28)⩾75=|X|     g(29)⩾73=|X|      g(30)⩾79=|X|
+             |B(X)|=27         |B(X)|=27         |B(X)|=27        |B(X)|=29         |B(X)|=30
+           |D(B(X))|=26      |D(B(X))|=27      |D(B(X))|=28     |D(B(X))|=29      |D(B(X))|=30
+
+
+
+
+the electronic journal of combinatorics 20(4) (2013), #P33                                             10
+                 g(31)⩾80=|X|      g(32)⩾85=|X|       g(33)⩾88=|X|       g(34)⩾91=|X|
+                   |B(X)|=31         |B(X)|=30          |B(X)|=30          |B(X)|=30
+                 |D(B(X))|=31      |D(B(X))|=32       |D(B(X))|=33       |D(B(X))|=34
+
+
+
+
+                g(35)⩾96=|X|       g(36)⩾96=|X|        g(37)⩾102=|X|      g(38)⩾105=|X|
+                  |B(X)|=33          |B(X)|=33           |B(X)|=33          |B(X)|=33
+                |D(B(X))|=35       |D(B(X))|=36        |D(B(X))|=37       |D(B(X))|=38
+
+
+
+
+               g(39)⩾108=|X|        g(40)⩾109=|X|       g(41)⩾109=|X|       g(42)⩾115=|X|
+                 |B(X)|=33            |B(X)|=36           |B(X)|=36           |B(X)|=36
+               |D(B(X))|=39         |D(B(X))|=40        |D(B(X))|=41        |D(B(X))|=42
+
+
+
+
+            g(43)⩾115=|X|         g(44)⩾121=|X|         g(45)⩾124=|X|        g(46)⩾127=|X|
+              |B(X)|=36             |B(X)|=36             |B(X)|=36            |B(X)|=36
+            |D(B(X))|=43          |D(B(X))|=44          |D(B(X))|=45         |D(B(X))|=46
+
+
+
+
+           g(47)⩾129=|X|          g(48)⩾135=|X|          g(49)⩾135=|X|        g(50)⩾141=|X|
+             |B(X)|=39              |B(X)|=39              |B(X)|=39            |B(X)|=39
+           |D(B(X))|=47           |D(B(X))|=48           |D(B(X))|=49         |D(B(X))|=50
+
+
+
+E      Data supporting conjecture 2
+
+
+the electronic journal of combinatorics 20(4) (2013), #P33                                    11
+       X       |X|   |D(X)|    |B(X)|    |D(B(X)|       X      |X|   |D(X)|   |B(X)|   |D(B(X)|
+      P1,1,0    3       1        3           1        P1,1,1     4      2        4         2
+      P1,2,0    6       3        6           3        P1,2,1     8      4        7         4
+      P1,2,2    9       5        8           5        P1,3,0    10      5        9         5
+      P1,3,1    13      7        10          7        P1,3,2    15      8       11         8
+      P1,3,3    16      9        12          9        P1,4,0    15      8       12         8
+      P1,4,1    19     10        13         10        P1,4,2    22     12       14        12
+      P1,4,3    24     13        15         13        P1,4,4    25     14       16        14
+      P2,0,1    3       1        3           1        P2,1,0     5      3        5         3
+      P2,1,1    7       3        6           3        P2,1,2     8      4        7         4
+      P2,2,0    9       5        8           5        P2,2,1    12      5        9         5
+      P2,2,2    14      7        10          7        P2,2,3    15      8       11         8
+      P2,3,0    14      8        11          8        P2,3,1    18      8       12         8
+      P2,3,2    21     10        13         10        P2,3,3    23     12       14        12
+      P2,3,4    24     13        15         13        P2,4,0    20     11       14        11
+      P2,4,1    25     11        15         11        P2,4,2    29     14       16        14
+      P2,4,3    32     16        17         16        P2,4,4    34     18       18        18
+      P2,4,5    35     19        19         19        P3,0,1     5      3        5         3
+      P3,0,2    6       3        6           3        P3,1,0     7      5        7         5
+      P3,1,1    10      5        8           5        P3,1,2    12      5        9         5
+      P3,1,3    13      7        10          7        P3,2,0    12      8       10         8
+      P3,2,1    16      8        11          8        P3,2,2    19      8       12         8
+      P3,2,3    21     10        13         10        P3,2,4    22     12       14        12
+      P3,3,0    18     11        13         11        P3,3,1    23     11       14        11
+      P3,3,2    27     11        15         11        P3,3,3    30     14       16        14
+      P3,3,4    32     16        17         16        P3,3,5    33     18       18        18
+      P3,4,0    25     15        16         15        P3,4,1    31     15       17        15
+      P3,4,2    36     15        18         15        P3,4,3    40     18       19        18
+      P3,4,4    43     21        20         21        P3,4,5    45     23       21        23
+      P3,4,6    46     25        22         25        P4,0,1     7      5        7         5
+      P4,0,2    9       5        8           5        P4,0,3    10      5        9         5
+      P4,1,0    9       7        9           7        P4,1,1    13      8       10         8
+      P4,1,2    16      8        11          8        P4,1,3    18      8       12         8
+      P4,1,4    19     10        13         10        P4,2,0    15     11       12        11
+      P4,2,1    20     11        13         11        P4,2,2    24     11       14        11
+      P4,2,3    27     11        15         11        P4,2,4    29     14       16        14
+      P4,2,5    30     16        17         16        P4,3,0    22     15       15        15
+      P4,3,1    28     15        16         15        P4,3,2    33     15       17        15
+      P4,3,3    37     15        18         15        P4,3,4    40     18       19        18
+      P4,3,5    42     21        20         21        P4,3,6    43     23       21        23
+      P4,4,0    30     19        18         19        P4,4,1    37     19       19        19
+      P4,4,2    43     19        20         19        P4,4,3    48     19       21        19
+      P4,4,4    52     22        22         22        P4,4,5    55     25       23        25
+      P4,4,6    57     28        24         28        P4,4,7    58     30       25        30
+      P5,0,1    9       7        9           7        P5,0,2    12      8       10         8
+      P5,0,3    14      8        11          8        P5,0,4    15      8       12         8
+      P5,1,0    11      9        11          9        P5,1,1    16     11       12        11
+      P5,1,2    20     11        13         11        P5,1,3    23     11       14        11
+      P5,1,4    25     11        15         11        P5,1,5    26     14       16        14
+      P5,2,0    18     14        14         14        P5,2,1    24     15       15        15
+      P5,2,2    29     15        16         15        P5,2,3    33     15       17        15
+      P5,2,4    36     15        18         15        P5,2,5    38     18       19        18
+
+
+the electronic journal of combinatorics 20(4) (2013), #P33                                        12
+      P5,2,6   39      21        20          21       P5,3,0   26   19   17   19
+      P5,3,1   33      19        18          19       P5,3,2   39   19   19   19
+      P5,3,3   44      19        20          19       P5,3,4   48   19   21   19
+      P5,3,5   51      22        22          22       P5,3,6   53   25   23   25
+      P5,3,7   54      28        24          28       P5,4,0   35   23   20   23
+      P5,4,1   43      23        21          23       P5,4,2   50   23   22   23
+      P5,4,3   56      23        23          23       P5,4,4   61   23   24   23
+      P5,4,5   65      27        25          27       P5,4,6   68   31   26   31
+      P5,4,7   70      34        27          34       P5,4,8   71   37   28   37
+
+
+
+
+the electronic journal of combinatorics 20(4) (2013), #P33                         13
+

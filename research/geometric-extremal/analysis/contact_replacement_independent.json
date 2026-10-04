@@ -1,0 +1,76 @@
+{
+  "passed": true,
+  "scope": "supplement to finite1690candidate audit; exactly two new contact-replacement witnesses",
+  "baseline_d2": "17/225",
+  "rows": [
+    {
+      "path": "research/geometric-extremal/candidates/contact_graph/best_contact_replacement.json",
+      "sha256": "2308da1995042224b41600f3fd969a5fe3e028f82a0974b9e9532eaa6cf4d565",
+      "independent": {
+        "passed": true,
+        "problem": "torus_distance",
+        "n": 15,
+        "integer_denominator": "1000000000000",
+        "value": "9444444444388888888889/125000000000000000000000",
+        "markov_counterexample": false,
+        "markov_threshold_squared_excess": "-440000086599999999576800000000999999999999/1875000000000000000000000000000000000000000000",
+        "markov_conjecture_applicable": true
+      },
+      "root": {
+        "passed": true,
+        "problem": "torus_distance",
+        "n": 15,
+        "arithmetic": "exact rational",
+        "value": "9444444444388888888889/125000000000000000000000",
+        "approximate": 0.0755555555551111,
+        "critical_pair": [
+          1,
+          2
+        ],
+        "tested_pairs": 105,
+        "normalization": "squared periodic separation; radius=sqrt(value)/2",
+        "markov_conjecture_applicable": true,
+        "markov_counterexample": false,
+        "markov_threshold_squared_excess": "-440000086599999999576800000000999999999999/1875000000000000000000000000000000000000000000"
+      },
+      "agreed": true,
+      "improvement_over_known_17_225": false,
+      "exact_gap_to_known": "499999999999/1125000000000000000000000"
+    },
+    {
+      "path": "research/geometric-extremal/candidates/contact_graph/best_forced_contact_replacement.json",
+      "sha256": "5414233e3bba2ab0740300ba9660f1940e9457c73d1602ad8121680f6c88906a",
+      "independent": {
+        "passed": true,
+        "problem": "torus_distance",
+        "n": 15,
+        "integer_denominator": "1000000000000",
+        "value": "9420447700070903429453/125000000000000000000000",
+        "markov_counterexample": false,
+        "markov_threshold_squared_excess": "-37799481786492879307500959486836079621784071/1875000000000000000000000000000000000000000000",
+        "markov_conjecture_applicable": true
+      },
+      "root": {
+        "passed": true,
+        "problem": "torus_distance",
+        "n": 15,
+        "arithmetic": "exact rational",
+        "value": "9420447700070903429453/125000000000000000000000",
+        "approximate": 0.07536358160056723,
+        "critical_pair": [
+          5,
+          6
+        ],
+        "tested_pairs": 105,
+        "normalization": "squared periodic separation; radius=sqrt(value)/2",
+        "markov_conjecture_applicable": true,
+        "markov_counterexample": false,
+        "markov_threshold_squared_excess": "-37799481786492879307500959486836079621784071/1875000000000000000000000000000000000000000000"
+      },
+      "agreed": true,
+      "improvement_over_known_17_225": false,
+      "exact_gap_to_known": "215970699361869134923/1125000000000000000000000"
+    }
+  ],
+  "semantic_description_review": "Domain.describe(torus_local_cycle,n15) preserves labelled compatible lifts, translation gauge, strict radius, equal-or-better periodic separation, all-zero conclusion, local-only scope and novelty/global-optimality disclaimer; no material semantic change."
+}

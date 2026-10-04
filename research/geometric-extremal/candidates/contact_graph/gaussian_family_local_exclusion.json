@@ -1,0 +1,163 @@
+{
+  "passed_exact_family_hypotheses": true,
+  "members": [
+    {
+      "a": 4,
+      "b": 1,
+      "n": 15,
+      "formula": "p_k=((b*k mod n)/n,(a*k mod n)/n),k=0..n-1",
+      "squared_separation": "17/225",
+      "nonzero_differences_checked": 14,
+      "critical_differences": [
+        1,
+        4,
+        11,
+        14
+      ],
+      "cycle_steps": [
+        1,
+        4
+      ],
+      "gcd_cycle_steps": [
+        1,
+        1
+      ],
+      "contact_vectors": [
+        [
+          "1/15",
+          "4/15"
+        ],
+        [
+          "4/15",
+          "1/15"
+        ]
+      ],
+      "contact_lifts_integral": true,
+      "Z_inverse": [
+        [
+          -1,
+          4
+        ],
+        [
+          4,
+          -1
+        ]
+      ],
+      "inverse_infinity_norm": 5,
+      "local_radius_strict": "1/3920",
+      "displacement_bound_coefficient": 3920,
+      "rigidity_rank_by_cycle_argument": 28,
+      "certificate_arithmetic": "integer and rational; no numerical geometry",
+      "global_optimality_claim": false,
+      "novelty": "Known Gaussian lattice; conditional analytic pruning lemma awaiting independent proof review",
+      "elapsed_seconds": 0.00017020800441969186,
+      "objective_data_sha256": "d1bf78d28231d4a047abb4c35a7ae02dd6dfb35ea998ac9f4a85641c9f082d4c"
+    },
+    {
+      "a": 15,
+      "b": 4,
+      "n": 209,
+      "formula": "p_k=((b*k mod n)/n,(a*k mod n)/n),k=0..n-1",
+      "squared_separation": "241/43681",
+      "nonzero_differences_checked": 208,
+      "critical_differences": [
+        1,
+        56,
+        153,
+        208
+      ],
+      "cycle_steps": [
+        1,
+        56
+      ],
+      "gcd_cycle_steps": [
+        1,
+        1
+      ],
+      "contact_vectors": [
+        [
+          "4/209",
+          "15/209"
+        ],
+        [
+          "15/209",
+          "4/209"
+        ]
+      ],
+      "contact_lifts_integral": true,
+      "Z_inverse": [
+        [
+          -4,
+          15
+        ],
+        [
+          15,
+          -4
+        ]
+      ],
+      "inverse_infinity_norm": 19,
+      "local_radius_strict": "1/3288064",
+      "displacement_bound_coefficient": 3288064,
+      "rigidity_rank_by_cycle_argument": 416,
+      "certificate_arithmetic": "integer and rational; no numerical geometry",
+      "global_optimality_claim": false,
+      "novelty": "Known Gaussian lattice; conditional analytic pruning lemma awaiting independent proof review",
+      "elapsed_seconds": 0.000143166005727835,
+      "objective_data_sha256": "2663a20988bbc8aee79d59c4c62119b6b3744f36c362666cd9a294c4eb66e358"
+    },
+    {
+      "a": 56,
+      "b": 15,
+      "n": 2911,
+      "formula": "p_k=((b*k mod n)/n,(a*k mod n)/n),k=0..n-1",
+      "squared_separation": "3361/8473921",
+      "nonzero_differences_checked": 2910,
+      "critical_differences": [
+        1,
+        780,
+        2131,
+        2910
+      ],
+      "cycle_steps": [
+        1,
+        780
+      ],
+      "gcd_cycle_steps": [
+        1,
+        1
+      ],
+      "contact_vectors": [
+        [
+          "15/2911",
+          "56/2911"
+        ],
+        [
+          "56/2911",
+          "15/2911"
+        ]
+      ],
+      "contact_lifts_integral": true,
+      "Z_inverse": [
+        [
+          -15,
+          56
+        ],
+        [
+          56,
+          -15
+        ]
+      ],
+      "inverse_infinity_norm": 71,
+      "local_radius_strict": "1/2404940400",
+      "displacement_bound_coefficient": 2404940400,
+      "rigidity_rank_by_cycle_argument": 5820,
+      "certificate_arithmetic": "integer and rational; no numerical geometry",
+      "global_optimality_claim": false,
+      "novelty": "Known Gaussian lattice; conditional analytic pruning lemma awaiting independent proof review",
+      "elapsed_seconds": 0.0018142499975510873,
+      "objective_data_sha256": "0f131e206c495a65f3b2f9309352b79ecd14fbb17f7a7697150435e8b03f1c94"
+    }
+  ],
+  "analytic_lemma_file": "search/contact_graph/general_cycle_lemma.md",
+  "analytic_proof_status": "requires independent review; computed hypotheses pass"
+}
