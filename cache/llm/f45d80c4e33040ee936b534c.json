@@ -1,0 +1,11 @@
+{
+ "key": "f45d80c4e33040ee936b534c",
+ "model": "claude-haiku-4-5-20251001",
+ "salt": "novelty-q-proofreading-R11",
+ "system": "You are a careful literature searcher. Answer with valid JSON only.",
+ "prompt": "Research field: Ein Enzym unterscheidet ein richtiges Substrat R von einem falschen W. Beide durchlaufen dasselbe Markov-Netzwerk; W dissoziiert aus gebundenen Zuständen um den Faktor e^Delta schneller (Delta = ln 100, also e^-Delta = 0,01). Kennzahlen: Fehlerrate eta = J_W/J_R, Dissipation sigma = Entropieproduktion pro Produkt (kT), Geschwindigkeit v = J_R. Modellregeln: jede Kante hat eine Rückkante; lokale detaillierte Bilanz, Zyklus-Affinität nur durch Treibstoff mu je Aktivierung und mu_P je Produkt; log-Raten in [-10, 10]. Topologien: 'hopfield_n0', 'hopfield_n1', 'hopfield_n2' (lineare Kette mit n Proofreading-Stufen) oder eine eigene JSON-Spec {ungebunden: [...], gebunden: [...], kanten: [{id, von, nach, diskriminierend, fuel, produkt}]}. Bekannter Anker (Hopfield 1974): eta >= e^-(n+1)Delta im Limes unendlicher Energie und verschwindender Geschwindigkeit.\n\nVerified result: For 50 topologies of the verifier-generated family gebunden<=2 (one unbound state, edge catalogue of the model), eta >= 1/D**2 holds for all positive rates and fuel potentials (certificate (b), symbolic).\n\nFormulate 3-5 short, specific English search queries (3-7 words) that would find a paper stating exactly this result or stating that it is open. JSON: {\"queries\": [\"...\"]}",
+ "response": "```json\n{\n  \"queries\": [\n    \"kinetic proofreading error rate bound\",\n    \"Hopfield enzyme discrimination accuracy\",\n    \"proofreading dissipation accuracy limit\",\n    \"molecular discrimination lower bound proof\",\n    \"Markov chain kinetic cascade bound\"\n  ]\n}\n```",
+ "cost_usd": 0.027965,
+ "sek": 42.0,
+ "ts": "2026-10-04T01:29:13"
+}

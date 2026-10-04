@@ -132,7 +132,35 @@ def check_untere_schranke(p, timeout=600):
                              f"Termen, alle Koeffizienten nichtnegativ: {out['bewiesen']} ({out['sek']} s)"), out
 
 
-def pareto_figure(state, outdir):
+def klassifikation_figure(state, outdir, lang="en"):
+    """Übersicht der Familie gebunden<=2: bewiesen (Zertifikat b), Gegenbeispiel (Zertifikat a), offen. Nur aus bestätigten Claims."""
+    from .proofreading_family import family
+    bew, cx, ids = set(), set(), []
+    for c in state["claims"]:
+        if c.get("status") != "bestätigt": continue
+        p = c["pruefung"]
+        if p.get("typ") == "schranke_familie" and str(p.get("familie")) == "gebunden<=2" and str(p.get("ausdruck")).replace(" ", "") in ("1/D**2", "D**-2"):
+            bew |= set(p.get("mitglieder") or [x["name"] for x in family(2)]); ids.append(c["id"])
+        if p.get("typ") == "erreichbar_liste":
+            cx |= {f["topologie"] for f in p.get("faelle", []) if float(f.get("eta_max", 1)) <= 1e-4 and str(f["topologie"]).startswith("fam2_")}; ids.append(c["id"])
+        if p.get("typ") == "erreichbar" and str(p.get("topologie", "")).startswith("fam2_") and float(p.get("eta_max") or 1) <= 1e-4:
+            cx.add(p["topologie"]); ids.append(c["id"])
+    if not bew and not cx: return []
+    n = len(family(2)); offen = n - len(bew | cx)
+    import matplotlib; matplotlib.use("Agg"); import matplotlib.pyplot as plt
+    from ..figstyle import apply_style; apply_style()
+    lab = (["bound proven\n(certificate b)", "counterexample\n(certificate a)", "open"] if lang == "en" else ["Schranke bewiesen\n(Zertifikat b)", "Gegenbeispiel\n(Zertifikat a)", "offen"])
+    vals = [len(bew), len(cx), offen]; cols = ["#2f6fdf", "#d9480f", "#b8bcc4"]
+    fig, ax = plt.subplots(figsize=(4.6, 2.4)); bars = ax.barh(lab[::-1], vals[::-1], color=cols[::-1])
+    for b, v in zip(bars, vals[::-1]): ax.text(b.get_width() + 0.8, b.get_y() + b.get_height() / 2, str(v), va="center", fontsize=8)
+    ax.set_xlabel(f"number of topologies (of {n} with two bound states)" if lang == "en" else f"Anzahl Topologien (von {n} mit zwei gebundenen Zuständen)")
+    ax.grid(axis="y", visible=False); fig.tight_layout(); fig.savefig(f"{outdir}/klassifikation.pdf"); fig.savefig(f"{outdir}/klassifikation.png", dpi=200); plt.close(fig)
+    cap = (f"Classification of the {n} non-degenerate networks with two bound states with respect to the bound $\\eta \\geq e^{{-2\\Delta}}$."
+           if lang == "en" else f"Klassifikation der {n} nicht entarteten Netzwerke mit zwei gebundenen Zuständen bezüglich $\\eta \\geq e^{{-2\\Delta}}$.")
+    return [("klassifikation.pdf", cap, [f"C-{i}" for i in ids])]
+
+
+def pareto_figure(state, outdir, lang="en"):
     """Zweiseitige Front: obere Kurve = zertifiziert erreichbare Punkte (Zertifikat a), untere = bewiesene Schranken (Zertifikat b)."""
     import matplotlib; matplotlib.use("Agg"); import matplotlib.pyplot as plt
     pts, bounds, ids = {}, [], []
@@ -144,14 +172,48 @@ def pareto_figure(state, outdir):
         if p.get("typ") == "untere_schranke":
             bounds.append((str(p["topologie"]), float(p.get("c", 1)) * math.exp(-int(p["k"]) * P.DELTA))); ids.append(c["id"])
     if not pts and not bounds: return []
-    fig, ax = plt.subplots(figsize=(3.4, 2.6)); cols = {"hopfield_n0": "#8a8f98", "hopfield_n1": "#2f6fdf", "hopfield_n2": "#d9480f"}
+    from ..figstyle import apply_style; apply_style()
+    fig, ax = plt.subplots(figsize=(4.6, 3.2)); cols = {"hopfield_n0": "#8a8f98", "hopfield_n1": "#2f6fdf", "hopfield_n2": "#d9480f"}
     for t, v in pts.items():
-        v.sort(); ax.plot([a for a, _ in v], [b for _, b in v], "o-", ms=3, lw=1.2, color=cols.get(t, "#333"), label=f"{t}: achievable (a)")
-    for t, b in bounds: ax.axhline(b, ls="--", lw=1, color=cols.get(t, "#333"), label=f"{t}: bound (b)")
-    ax.set_yscale("log"); ax.set_xlabel(r"$\sigma_{\max}$ [kT/product]"); ax.set_ylabel(r"$\eta$"); ax.legend(fontsize=6); fig.tight_layout()
+        v.sort(); ax.plot([a for a, _ in v], [b for _, b in v], "o-", ms=3, lw=1.2, color=cols.get(t, "#333"), label=(f"{t}: achievable (a)" if lang == "en" else f"{t}: erreichbar (a)"))
+    for t, b in bounds: ax.axhline(b, ls="--", lw=1, color=cols.get(t, "#333"), label=(f"{t}: bound (b)" if lang == "en" else f"{t}: Schranke (b)"))
+    ax.set_yscale("log"); ax.set_xlabel(r"dissipation bound $\sigma_{\max}$ [$k_BT$ per product]" if lang == "en" else r"Dissipationsschranke $\sigma_{\max}$ [$k_BT$ pro Produkt]")
+    ax.set_ylabel(r"error rate $\eta$ (dimensionless)" if lang == "en" else r"Fehlerrate $\eta$ (dimensionslos)"); ax.legend(); fig.tight_layout()
     fig.savefig(f"{outdir}/pareto_front.pdf"); fig.savefig(f"{outdir}/pareto_front.png", dpi=200); plt.close(fig)
-    return [("pareto_front.pdf", "Two-sided picture: dots = certified achievable thresholds (each dot is the eta_max of one exact certificate (a), "
-             "not an optimum); dashed = proven lower bounds (certificate (b)). Evidence: " + ", ".join(f"[C-{i}]" for i in ids))]
+    cap = ("Certified achievable error thresholds (dots; each dot is the threshold of one exact certificate, not an optimum) and proven lower "
+           "bounds (dashed lines)." if lang == "en" else "Zertifiziert erreichbare Fehlerschwellen (Punkte; je ein exaktes Zertifikat, kein Optimum) "
+           "und bewiesene untere Schranken (gestrichelt).")
+    return [("pareto_front.pdf", cap, [f"C-{i}" for i in ids])]
+
+
+def _topo(t): return t if isinstance(t, str) else t.get("name", "custom topology")
+
+
+def describe_en(p):
+    """Canonical English statement, exactly as strong as the check."""
+    t = p.get("typ")
+    if t == "untere_schranke":
+        rhs = p.get("ausdruck") or f"{p.get('c', 1)} e^(-{p['k']} Delta)"
+        return (f"For {_topo(p['topologie'])}, eta >= {rhs} (D = e^Delta, G = e^mu) holds for all positive rates and all fuel potentials mu, mu_P >= 0 "
+                f"(certificate (b): symbolic positivity proof, independent of the rate range).")
+    if t == "schranke_familie":
+        n = len(p.get("mitglieder") or []) or "all"
+        return (f"For {n} topologies of the verifier-generated family {p['familie']} (one unbound state, edge catalogue of the model), eta >= {p['ausdruck']} "
+                f"holds for all positive rates and fuel potentials (certificate (b), symbolic).")
+    if t == "erreichbar_liste":
+        f = p.get("faelle") or []; ts = sorted({_topo(x.get('topologie')) for x in f}); mx = max(float(x.get("eta_max", 0)) for x in f) if f else None
+        return (f"For each of {len(ts)} topologies ({', '.join(ts[:12])}) there exist rational rates in [e^-10, e^10] satisfying local detailed balance with "
+                f"eta <= {mx} (certificate (a), exact for each case).")
+    if t == "optimum":
+        cons = ", ".join(x for x in [f"sigma <= {p['sigma_max']}" if p.get("sigma_max") is not None else "", f"v >= {p['v_min']}" if p.get("v_min") is not None else ""] if x)
+        return f"For {_topo(p['topologie'])}, the numerically found minimum of the error rate under [{cons or 'no constraint'}] is eta_min ≈ {p['eta_min']} (numerical, independent search, ±2 %)."
+    if t == "erreichbar":
+        parts = [f"eta <= {p['eta_max']}"] if p.get("eta_max") is not None else []
+        if p.get("sigma_max") is not None: parts.append(f"sigma <= {p['sigma_max']} kT per product")
+        if p.get("v_min") is not None: parts.append(f"v >= {p['v_min']}")
+        return (f"For {_topo(p['topologie'])} there exist rational rates in [e^-10, e^10] satisfying local detailed balance such that simultaneously "
+                f"{', '.join(parts)} (certificate (a): exact reachability).")
+    return "Verified: " + json.dumps(p)
 
 
 class ProofreadingDomain(Domain):
@@ -235,9 +297,39 @@ class ProofreadingDomain(Domain):
         except Exception as e:
             return False, f"Prüfung nicht ausführbar: {type(e).__name__}: {e}"[:300], {}
 
+    def ueberraschung(self, p, state):
+        """Widerspricht ein BESTANDENES Zertifikat einer aktiven Annahme (z. B. 'genau diese Topologien verletzen die Schranke')?
+        Ändert nichts am Prüfer; liefert nur {annahme, grund} für Planänderung/Reopen."""
+        faelle = p.get("faelle") if p.get("typ") == "erreichbar_liste" else ([p] if p.get("typ") == "erreichbar" else [])
+        for an in state.get("annahmen", []):
+            if an.get("status", "aktiv") != "aktiv" or "gegenbeispiele" not in an: continue
+            schwelle = float(an.get("schwelle", 1e-4))
+            neu = sorted({f.get("topologie") for f in faelle if isinstance(f.get("topologie"), str) and f["topologie"] not in an["gegenbeispiele"]
+                          and float(f.get("eta_max", 1)) <= schwelle})
+            if neu: return {"annahme": an["id"], "grund": f"neue zertifizierte Verletzung(en) {neu} ausserhalb der angenommenen Menge {an['gegenbeispiele']}: {an['text'][:120]}"}
+        return None
+
     def level(self, p): return "observed" if p.get("typ") == "optimum" else "computed_rigorous"
 
-    def figures(self, state, outdir): return pareto_figure(state, outdir)
+    def relevanz(self, p):
+        t = p.get("typ")
+        if t in ("schranke_familie", "erreichbar_liste", "untere_schranke"): return "hauptresultat"
+        if t == "erreichbar" and p.get("eta_max") is not None and str(p.get("topologie", "")).startswith("fam") and float(p["eta_max"]) <= 1e-4:
+            return "hauptresultat"                                          # Gegenbeispiel zur Hopfield-Schranke e^-2Delta
+        if t == "optimum": return "stuetze"
+        return "beispiel"
+
+    def parameter(self):
+        return {"Delta": ("ln 100 (e^Delta = 100, e^-Delta = 0.01)", "discrimination free-energy difference in kT: W leaves bound states e^Delta times faster"),
+                "L": ("10", "range of log-rates: every rate, including derived reverse rates, lies in [e^-10, e^10]"),
+                "mu": (">= 0, explored in [0, 20]", "fuel chemical potential (kT) consumed per fuel-driven step"),
+                "mu_P": (">= 0, explored in [0, 20]", "chemical potential (kT) of product formation"),
+                "max_states": ("10", "maximal number of states of a network (unbound states plus R and W copies of bound states)"),
+                "concentrations": ("1", "substrate concentrations are absorbed into the binding rates (normalised)"),
+                "rationalisation": ("denominator <= 10^6", "rates are rounded to rationals with denominator at most 10^6 for exact certificates"),
+                "family_k": ("2", "number of bound states in the enumerated topology family (88 non-degenerate members)")}
+
+    def figures(self, state, outdir, lang="en"): return pareto_figure(state, outdir, lang) + klassifikation_figure(state, outdir, lang)
 
     def widerspricht(self, p, q):
         """Erreichbar(eta <= a) und Schranke(eta >= b) auf derselben Topologie (oder Familie mit dieser Topologie) widersprechen sich, wenn a < b."""
@@ -255,7 +347,8 @@ class ProofreadingDomain(Domain):
                 return float(x["eta_max"]) < float(y.get("c", 1)) * math.exp(-int(y["k"]) * P.DELTA)
         return False
 
-    def describe(self, p):
+    def describe(self, p, lang="de"):
+        if lang == "en": return describe_en(p)
         if p.get("typ") == "untere_schranke":
             rhs = p.get("ausdruck") or f"{p.get('c', 1)} * e^(-{p['k']} Delta)"
             return (f"Für {p['topologie']} gilt eta >= {rhs} (D = e^Delta, G = e^mu) für alle positiven Raten und alle Treibstoff-Potentiale "

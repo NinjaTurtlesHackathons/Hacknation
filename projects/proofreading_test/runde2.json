@@ -1,0 +1,868 @@
+{
+ "antwort": {
+  "antwort": "Optimierungsartefakt, kein Phasenübergang: Das Minimum von eta muss in sigma_max monoton nicht steigen. Die Läufe bei sigma_max=8 und 9 (eta ≈ 2,75e-4) liegen aber über den Läufen bei 6,5 bis 7,5 (eta ≈ 1,8e-4 bis 2,0e-4). Das sind unvollständig konvergierte Multi-Start-Optima.",
+  "zahl": null,
+  "konfidenz": 0.8,
+  "pruefungen": [
+   {
+    "typ": "erreichbar",
+    "topologie": "hopfield_n1",
+    "params": {
+     "bind+": 0.3556050688310807,
+     "bind-": 1.7152859183949063,
+     "akt0+": -3.0238313799663525,
+     "verw1+": 5.345623263970214,
+     "verw1-": -3.2932691882207026,
+     "prod+": 6.051393019610526,
+     "mu": 3.975747016199337,
+     "muP": 0.0
+    },
+    "eta_max": 0.0004,
+    "sigma_max": 8,
+    "v_min": 0.001
+   },
+   {
+    "typ": "erreichbar",
+    "topologie": "hopfield_n1",
+    "params": {
+     "bind+": 3.639727965664077,
+     "bind-": 0.9031032366700477,
+     "akt0+": -2.1450603200365155,
+     "verw1+": 5.344829805158074,
+     "verw1-": -4.653814210416354,
+     "prod+": 5.201045414264009,
+     "mu": 1.4139783259759149,
+     "muP": 0.0
+    },
+    "eta_max": 0.00022,
+    "sigma_max": 8,
+    "v_min": 0.001
+   }
+  ],
+  "begruendung": "Das sigma=6-Optimum (eta 3,16e-4, sigma 6,0, v 0,024) ist bei sigma_max=8 und 12 zulässig, weil sigma ≤ sigma_max gilt. Das Optimum von sigma_max=7 (eta 2,04e-4, sigma 3,08, v 2,3e-3) ist bei sigma_max=8 ebenfalls zulässig und besser als das gemeldete Optimum von 2,75e-4. Der Sprung entsteht also durch lokale Optima des Optimierers. Die Prüfung nutzt nur bei sigma_max=8 die Läufe mit robustem v-Abstand. Der sigma_max=12-Fall folgt aus der Monotonie und wurde nicht separat geprüft. Zusätzliche Experimente (evaluate bei sigma_max=12, mehr Seeds) habe ich nicht durchgeführt.",
+  "stimmen": "Stufe 3/4 (skeptiker, sonnet)"
+ },
+ "level": "computed (Code-Prüfer bestanden)",
+ "forscher": [
+  {
+   "strategie": "sparsam",
+   "modell": "haiku",
+   "fehler": "Object of type bool is not JSON serializable"
+  },
+  {
+   "strategie": "numeriker",
+   "modell": "haiku",
+   "fehler": "Object of type bool is not JSON serializable"
+  },
+  {
+   "strategie": "skeptiker",
+   "runden": [
+    {
+     "ueberlegung": "Plan für Runde 1: Zuerst param_names für hopfield_n1, damit die Parameternamen für spätere evaluate-Aufrufe bekannt sind. Dann optimize für hopfield_n1 mit v_min=1e-3 bei sigma_max in {6, 6.5, 7, 7.5, 8, 9}, je mit 40 Starts. Ein Sprung zwischen 6 und 8 wäre ein Artefakt, wenn weitere Seeds bei kleinem sigma_max bessere Optima finden oder die Kurve glatt wird. Ein echter Phasenübergang sollte seed-unabhängig reproduzierbar sein. Ich verwende zunächst Seed 1 für alle sechs Werte und wiederhole nur die kritischen Punkte (6 und 8) in der nächsten Runde mit weiteren Seeds. Das spart Budget, da maximal 8 Experimente möglich sind. Die Einsetz-Prüfung (Optimum bei sigma=6 bei sigma_max=8 und 12 per evaluate) folgt in Runde 2, sobald die Parameter des sigma=6-Optimums vorliegen. Gegenbeispielsuche: Falls das sigma=6-Optimum bei sigma_max=8 zulässig bleibt, aber dort ein schlechteres eta liefert als das Optimum bei 8, war der Optimierer bei 8 nicht global; das deutet auf ein Artefakt hin.",
+     "plan": [
+      {
+       "op": "param_names",
+       "args": {
+        "topologie": "hopfield_n1"
+       }
+      },
+      {
+       "op": "optimize",
+       "args": {
+        "topologie": "hopfield_n1",
+        "sigma_max": 6,
+        "v_min": 0.001,
+        "starts": 40,
+        "seed": 1
+       }
+      },
+      {
+       "op": "optimize",
+       "args": {
+        "topologie": "hopfield_n1",
+        "sigma_max": 6.5,
+        "v_min": 0.001,
+        "starts": 40,
+        "seed": 1
+       }
+      },
+      {
+       "op": "optimize",
+       "args": {
+        "topologie": "hopfield_n1",
+        "sigma_max": 7,
+        "v_min": 0.001,
+        "starts": 40,
+        "seed": 1
+       }
+      },
+      {
+       "op": "optimize",
+       "args": {
+        "topologie": "hopfield_n1",
+        "sigma_max": 7.5,
+        "v_min": 0.001,
+        "starts": 40,
+        "seed": 1
+       }
+      },
+      {
+       "op": "optimize",
+       "args": {
+        "topologie": "hopfield_n1",
+        "sigma_max": 8,
+        "v_min": 0.001,
+        "starts": 40,
+        "seed": 1
+       }
+      },
+      {
+       "op": "optimize",
+       "args": {
+        "topologie": "hopfield_n1",
+        "sigma_max": 9,
+        "v_min": 0.001,
+        "starts": 40,
+        "seed": 1
+       }
+      }
+     ]
+    },
+    {
+     "antwort": "Optimierungsartefakt, kein Phasenübergang: Das Minimum von eta muss in sigma_max monoton nicht steigen. Die Läufe bei sigma_max=8 und 9 (eta ≈ 2,75e-4) liegen aber über den Läufen bei 6,5 bis 7,5 (eta ≈ 1,8e-4 bis 2,0e-4). Das sind unvollständig konvergierte Multi-Start-Optima.",
+     "zahl": null,
+     "konfidenz": 0.8,
+     "pruefungen": [
+      {
+       "typ": "erreichbar",
+       "topologie": "hopfield_n1",
+       "params": {
+        "bind+": 0.3556050688310807,
+        "bind-": 1.7152859183949063,
+        "akt0+": -3.0238313799663525,
+        "verw1+": 5.345623263970214,
+        "verw1-": -3.2932691882207026,
+        "prod+": 6.051393019610526,
+        "mu": 3.975747016199337,
+        "muP": 0.0
+       },
+       "eta_max": 0.0004,
+       "sigma_max": 8,
+       "v_min": 0.001
+      },
+      {
+       "typ": "erreichbar",
+       "topologie": "hopfield_n1",
+       "params": {
+        "bind+": 3.639727965664077,
+        "bind-": 0.9031032366700477,
+        "akt0+": -2.1450603200365155,
+        "verw1+": 5.344829805158074,
+        "verw1-": -4.653814210416354,
+        "prod+": 5.201045414264009,
+        "mu": 1.4139783259759149,
+        "muP": 0.0
+       },
+       "eta_max": 0.00022,
+       "sigma_max": 8,
+       "v_min": 0.001
+      }
+     ],
+     "begruendung": "Das sigma=6-Optimum (eta 3,16e-4, sigma 6,0, v 0,024) ist bei sigma_max=8 und 12 zulässig, weil sigma ≤ sigma_max gilt. Das Optimum von sigma_max=7 (eta 2,04e-4, sigma 3,08, v 2,3e-3) ist bei sigma_max=8 ebenfalls zulässig und besser als das gemeldete Optimum von 2,75e-4. Der Sprung entsteht also durch lokale Optima des Optimierers. Die Prüfung nutzt nur bei sigma_max=8 die Läufe mit robustem v-Abstand. Der sigma_max=12-Fall folgt aus der Monotonie und wurde nicht separat geprüft. Zusätzliche Experimente (evaluate bei sigma_max=12, mehr Seeds) habe ich nicht durchgeführt."
+    }
+   ],
+   "experimente": [
+    15,
+    16,
+    17,
+    18,
+    19,
+    20,
+    21
+   ],
+   "final": {
+    "antwort": "Optimierungsartefakt, kein Phasenübergang: Das Minimum von eta muss in sigma_max monoton nicht steigen. Die Läufe bei sigma_max=8 und 9 (eta ≈ 2,75e-4) liegen aber über den Läufen bei 6,5 bis 7,5 (eta ≈ 1,8e-4 bis 2,0e-4). Das sind unvollständig konvergierte Multi-Start-Optima.",
+    "zahl": null,
+    "konfidenz": 0.8,
+    "pruefungen": [
+     {
+      "typ": "erreichbar",
+      "topologie": "hopfield_n1",
+      "params": {
+       "bind+": 0.3556050688310807,
+       "bind-": 1.7152859183949063,
+       "akt0+": -3.0238313799663525,
+       "verw1+": 5.345623263970214,
+       "verw1-": -3.2932691882207026,
+       "prod+": 6.051393019610526,
+       "mu": 3.975747016199337,
+       "muP": 0.0
+      },
+      "eta_max": 0.0004,
+      "sigma_max": 8,
+      "v_min": 0.001
+     },
+     {
+      "typ": "erreichbar",
+      "topologie": "hopfield_n1",
+      "params": {
+       "bind+": 3.639727965664077,
+       "bind-": 0.9031032366700477,
+       "akt0+": -2.1450603200365155,
+       "verw1+": 5.344829805158074,
+       "verw1-": -4.653814210416354,
+       "prod+": 5.201045414264009,
+       "mu": 1.4139783259759149,
+       "muP": 0.0
+      },
+      "eta_max": 0.00022,
+      "sigma_max": 8,
+      "v_min": 0.001
+     }
+    ],
+    "begruendung": "Das sigma=6-Optimum (eta 3,16e-4, sigma 6,0, v 0,024) ist bei sigma_max=8 und 12 zulässig, weil sigma ≤ sigma_max gilt. Das Optimum von sigma_max=7 (eta 2,04e-4, sigma 3,08, v 2,3e-3) ist bei sigma_max=8 ebenfalls zulässig und besser als das gemeldete Optimum von 2,75e-4. Der Sprung entsteht also durch lokale Optima des Optimierers. Die Prüfung nutzt nur bei sigma_max=8 die Läufe mit robustem v-Abstand. Der sigma_max=12-Fall folgt aus der Monotonie und wurde nicht separat geprüft. Zusätzliche Experimente (evaluate bei sigma_max=12, mehr Seeds) habe ich nicht durchgeführt."
+   },
+   "modell": "sonnet",
+   "pruefung": {
+    "bestanden": true,
+    "grund": "Zertifikat (a): eta = 3.156120e-04 (exakt rational); sigma in [6.000000, 6.000000] kT; v = 2.4255e-02 | Zertifikat (a): eta = 2.043712e-04 (exakt rational); sigma in [3.079633, 3.079633] kT; v = 2.2592e-03"
+   }
+  }
+ ],
+ "experimente": [
+  {
+   "id": 0,
+   "wer": "forscher-sparsam",
+   "op": "param_names",
+   "args": {
+    "topologie": "hopfield_n1"
+   },
+   "ergebnis": {
+    "namen": [
+     "bind+",
+     "bind-",
+     "akt0+",
+     "verw1+",
+     "verw1-",
+     "prod+",
+     "mu",
+     "muP"
+    ]
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 1,
+   "wer": "forscher-sparsam",
+   "op": "optimize",
+   "args": {
+    "topologie": "hopfield_n1",
+    "sigma_max": 6,
+    "v_min": 0.001,
+    "starts": 30,
+    "seed": 42
+   },
+   "ergebnis": {
+    "params": {
+     "bind+": 5.344954534936249,
+     "bind-": 3.51681272485246,
+     "akt0+": 0.041694367610580964,
+     "verw1+": 1.3621147060192664,
+     "verw1-": -1.441667177569497,
+     "prod+": -0.6855025604653922,
+     "mu": 0.10587249632494226,
+     "muP": 0.0
+    },
+    "eta": 0.00017583107317982238,
+    "sigma": 0.9406016196245938,
+    "v": 0.0009999999981961279,
+    "feasible": true,
+    "hinweis": "numerisch (Kandidat), nicht zertifiziert"
+   },
+   "sek": 4.75
+  },
+  {
+   "id": 2,
+   "wer": "forscher-sparsam",
+   "op": "optimize",
+   "args": {
+    "topologie": "hopfield_n1",
+    "sigma_max": 6.5,
+    "v_min": 0.001,
+    "starts": 30,
+    "seed": 42
+   },
+   "ergebnis": {
+    "params": {
+     "bind+": 2.9759153046363314,
+     "bind-": 6.21014315269451,
+     "akt0+": -5.104470421322945,
+     "verw1+": -1.5129918047722724,
+     "verw1-": -6.965169924259134,
+     "prod+": 0.10801671408862908,
+     "mu": 5.37055179149803,
+     "muP": 0.0
+    },
+    "eta": 0.0006444260239993842,
+    "sigma": 6.500000002368123,
+    "v": 0.0042544030868557955,
+    "feasible": "True",
+    "hinweis": "numerisch (Kandidat), nicht zertifiziert"
+   },
+   "sek": 4.06
+  },
+  {
+   "id": 3,
+   "wer": "forscher-sparsam",
+   "op": "optimize",
+   "args": {
+    "topologie": "hopfield_n1",
+    "sigma_max": 7,
+    "v_min": 0.001,
+    "starts": 30,
+    "seed": 42
+   },
+   "ergebnis": {
+    "params": {
+     "bind+": 2.420783668747075,
+     "bind-": 5.040372731363484,
+     "akt0+": -4.528764641819022,
+     "verw1+": -1.2833596124942006,
+     "verw1-": -6.187955977862481,
+     "prod+": -0.40893707171984384,
+     "mu": 4.885111029868265,
+     "muP": 0.0
+    },
+    "eta": 0.0003833253052156616,
+    "sigma": 6.999999993674182,
+    "v": 0.005958148241551972,
+    "feasible": true,
+    "hinweis": "numerisch (Kandidat), nicht zertifiziert"
+   },
+   "sek": 3.71
+  },
+  {
+   "id": 4,
+   "wer": "forscher-sparsam",
+   "op": "optimize",
+   "args": {
+    "topologie": "hopfield_n1",
+    "sigma_max": 7.5,
+    "v_min": 0.001,
+    "starts": 30,
+    "seed": 42
+   },
+   "ergebnis": {
+    "params": {
+     "bind+": 5.3452081430824085,
+     "bind-": 5.982993845265125,
+     "akt0+": -1.9028433725470786,
+     "verw1+": -2.687146743929634,
+     "verw1-": -0.5157128330507804,
+     "prod+": -2.247525494989238,
+     "mu": 4.51712311171832,
+     "muP": 0.0
+    },
+    "eta": 0.00025198378691485517,
+    "sigma": 7.500000032784562,
+    "v": 0.012661719602026583,
+    "feasible": "True",
+    "hinweis": "numerisch (Kandidat), nicht zertifiziert"
+   },
+   "sek": 3.49
+  },
+  {
+   "id": 5,
+   "wer": "forscher-sparsam",
+   "op": "optimize",
+   "args": {
+    "topologie": "hopfield_n1",
+    "sigma_max": 8,
+    "v_min": 0.001,
+    "starts": 30,
+    "seed": 42
+   },
+   "ergebnis": {
+    "params": {
+     "bind+": 3.7533596045355986,
+     "bind-": 5.207660784909438,
+     "akt0+": -5.955288321024127,
+     "verw1+": -1.5896926959296127,
+     "verw1-": -5.7791107571350375,
+     "prod+": -1.1548856535934964,
+     "mu": 4.808768110374416,
+     "muP": 0.0
+    },
+    "eta": 0.00025342167209968183,
+    "sigma": 7.999999595748712,
+    "v": 0.0012322687701673296,
+    "feasible": true,
+    "hinweis": "numerisch (Kandidat), nicht zertifiziert"
+   },
+   "sek": 3.25
+  },
+  {
+   "id": 6,
+   "wer": "forscher-sparsam",
+   "op": "optimize",
+   "args": {
+    "topologie": "hopfield_n1",
+    "sigma_max": 9,
+    "v_min": 0.001,
+    "starts": 30,
+    "seed": 42
+   },
+   "ergebnis": {
+    "params": {
+     "bind+": 1.5938750100447228,
+     "bind-": 3.8848877717456367,
+     "akt0+": -5.820290301639228,
+     "verw1+": 0.02120235897849381,
+     "verw1-": -5.454639138038367,
+     "prod+": 0.21106653762204947,
+     "mu": 4.8770882815169,
+     "muP": 0.0
+    },
+    "eta": 0.0002234468338296161,
+    "sigma": 8.999999318155142,
+    "v": 0.0014144253018397869,
+    "feasible": true,
+    "hinweis": "numerisch (Kandidat), nicht zertifiziert"
+   },
+   "sek": 3.56
+  },
+  {
+   "id": 7,
+   "wer": "forscher-numeriker",
+   "op": "param_names",
+   "args": {
+    "topologie": "hopfield_n1"
+   },
+   "ergebnis": {
+    "namen": [
+     "bind+",
+     "bind-",
+     "akt0+",
+     "verw1+",
+     "verw1-",
+     "prod+",
+     "mu",
+     "muP"
+    ]
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 8,
+   "wer": "forscher-numeriker",
+   "op": "optimize",
+   "args": {
+    "topologie": "hopfield_n1",
+    "sigma_max": 6,
+    "v_min": 0.001,
+    "starts": 30,
+    "seed": 42
+   },
+   "ergebnis": {
+    "params": {
+     "bind+": 5.344954534936249,
+     "bind-": 3.51681272485246,
+     "akt0+": 0.041694367610580964,
+     "verw1+": 1.3621147060192664,
+     "verw1-": -1.441667177569497,
+     "prod+": -0.6855025604653922,
+     "mu": 0.10587249632494226,
+     "muP": 0.0
+    },
+    "eta": 0.00017583107317982238,
+    "sigma": 0.9406016196245938,
+    "v": 0.0009999999981961279,
+    "feasible": true,
+    "hinweis": "numerisch (Kandidat), nicht zertifiziert"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 9,
+   "wer": "forscher-numeriker",
+   "op": "optimize",
+   "args": {
+    "topologie": "hopfield_n1",
+    "sigma_max": 6,
+    "v_min": 0.001,
+    "starts": 30,
+    "seed": 1234
+   },
+   "ergebnis": {
+    "params": {
+     "bind+": 1.42928214096799,
+     "bind-": 6.377788039739385,
+     "akt0+": -5.59456209090377,
+     "verw1+": 5.345122227715396,
+     "verw1-": -1.555077492152968,
+     "prod+": 6.643869907590347,
+     "mu": 4.668925006455085,
+     "muP": 0.0
+    },
+    "eta": 0.0004525212649701248,
+    "sigma": 5.999999998889702,
+    "v": 0.0028307081628493446,
+    "feasible": true,
+    "hinweis": "numerisch (Kandidat), nicht zertifiziert"
+   },
+   "sek": 4.21
+  },
+  {
+   "id": 10,
+   "wer": "forscher-numeriker",
+   "op": "optimize",
+   "args": {
+    "topologie": "hopfield_n1",
+    "sigma_max": 6.5,
+    "v_min": 0.001,
+    "starts": 30,
+    "seed": 42
+   },
+   "ergebnis": {
+    "params": {
+     "bind+": 2.9759153046363314,
+     "bind-": 6.21014315269451,
+     "akt0+": -5.104470421322945,
+     "verw1+": -1.5129918047722724,
+     "verw1-": -6.965169924259134,
+     "prod+": 0.10801671408862908,
+     "mu": 5.37055179149803,
+     "muP": 0.0
+    },
+    "eta": 0.0006444260239993842,
+    "sigma": 6.500000002368123,
+    "v": 0.0042544030868557955,
+    "feasible": "True",
+    "hinweis": "numerisch (Kandidat), nicht zertifiziert"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 11,
+   "wer": "forscher-numeriker",
+   "op": "optimize",
+   "args": {
+    "topologie": "hopfield_n1",
+    "sigma_max": 7,
+    "v_min": 0.001,
+    "starts": 30,
+    "seed": 42
+   },
+   "ergebnis": {
+    "params": {
+     "bind+": 2.420783668747075,
+     "bind-": 5.040372731363484,
+     "akt0+": -4.528764641819022,
+     "verw1+": -1.2833596124942006,
+     "verw1-": -6.187955977862481,
+     "prod+": -0.40893707171984384,
+     "mu": 4.885111029868265,
+     "muP": 0.0
+    },
+    "eta": 0.0003833253052156616,
+    "sigma": 6.999999993674182,
+    "v": 0.005958148241551972,
+    "feasible": true,
+    "hinweis": "numerisch (Kandidat), nicht zertifiziert"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 12,
+   "wer": "forscher-numeriker",
+   "op": "optimize",
+   "args": {
+    "topologie": "hopfield_n1",
+    "sigma_max": 7.5,
+    "v_min": 0.001,
+    "starts": 30,
+    "seed": 42
+   },
+   "ergebnis": {
+    "params": {
+     "bind+": 5.3452081430824085,
+     "bind-": 5.982993845265125,
+     "akt0+": -1.9028433725470786,
+     "verw1+": -2.687146743929634,
+     "verw1-": -0.5157128330507804,
+     "prod+": -2.247525494989238,
+     "mu": 4.51712311171832,
+     "muP": 0.0
+    },
+    "eta": 0.00025198378691485517,
+    "sigma": 7.500000032784562,
+    "v": 0.012661719602026583,
+    "feasible": "True",
+    "hinweis": "numerisch (Kandidat), nicht zertifiziert"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 13,
+   "wer": "forscher-numeriker",
+   "op": "optimize",
+   "args": {
+    "topologie": "hopfield_n1",
+    "sigma_max": 8,
+    "v_min": 0.001,
+    "starts": 30,
+    "seed": 42
+   },
+   "ergebnis": {
+    "params": {
+     "bind+": 3.7533596045355986,
+     "bind-": 5.207660784909438,
+     "akt0+": -5.955288321024127,
+     "verw1+": -1.5896926959296127,
+     "verw1-": -5.7791107571350375,
+     "prod+": -1.1548856535934964,
+     "mu": 4.808768110374416,
+     "muP": 0.0
+    },
+    "eta": 0.00025342167209968183,
+    "sigma": 7.999999595748712,
+    "v": 0.0012322687701673296,
+    "feasible": true,
+    "hinweis": "numerisch (Kandidat), nicht zertifiziert"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 14,
+   "wer": "forscher-numeriker",
+   "op": "optimize",
+   "args": {
+    "topologie": "hopfield_n1",
+    "sigma_max": 8,
+    "v_min": 0.001,
+    "starts": 30,
+    "seed": 1234
+   },
+   "ergebnis": {
+    "params": {
+     "bind+": 5.170498930249689,
+     "bind-": 9.31223954822819,
+     "akt0+": 0.38736885490138995,
+     "verw1+": 5.3448298083774715,
+     "verw1-": 8.651617612282253,
+     "prod+": 6.170337648839729,
+     "mu": 1.2137906981297601,
+     "muP": 0.0
+    },
+    "eta": 0.00032409071426870405,
+    "sigma": 1.7624988204688334,
+    "v": 0.48847222404589274,
+    "feasible": true,
+    "hinweis": "numerisch (Kandidat), nicht zertifiziert"
+   },
+   "sek": 4.83
+  },
+  {
+   "id": 15,
+   "wer": "forscher-skeptiker",
+   "op": "param_names",
+   "args": {
+    "topologie": "hopfield_n1"
+   },
+   "ergebnis": {
+    "namen": [
+     "bind+",
+     "bind-",
+     "akt0+",
+     "verw1+",
+     "verw1-",
+     "prod+",
+     "mu",
+     "muP"
+    ]
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 16,
+   "wer": "forscher-skeptiker",
+   "op": "optimize",
+   "args": {
+    "topologie": "hopfield_n1",
+    "sigma_max": 6,
+    "v_min": 0.001,
+    "starts": 40,
+    "seed": 1
+   },
+   "ergebnis": {
+    "params": {
+     "bind+": 0.3556050688310807,
+     "bind-": 1.7152859183949063,
+     "akt0+": -3.0238313799663525,
+     "verw1+": 5.345623263970214,
+     "verw1-": -3.2932691882207026,
+     "prod+": 6.051393019610526,
+     "mu": 3.975747016199337,
+     "muP": 0.0
+    },
+    "eta": 0.0003156120499031915,
+    "sigma": 5.999999986286976,
+    "v": 0.024254692247580114,
+    "feasible": true,
+    "hinweis": "numerisch (Kandidat), nicht zertifiziert"
+   },
+   "sek": 5.18
+  },
+  {
+   "id": 17,
+   "wer": "forscher-skeptiker",
+   "op": "optimize",
+   "args": {
+    "topologie": "hopfield_n1",
+    "sigma_max": 6.5,
+    "v_min": 0.001,
+    "starts": 40,
+    "seed": 1
+   },
+   "ergebnis": {
+    "params": {
+     "bind+": 5.088907210805715,
+     "bind-": 3.305944503405628,
+     "akt0+": 3.4969775690842604,
+     "verw1+": 3.461506059803211,
+     "verw1-": 1.6561286898174878,
+     "prod+": 3.019995531918696,
+     "mu": 2.513029793405688,
+     "muP": 0.0
+    },
+    "eta": 0.00020442438931568706,
+    "sigma": 6.499999759838001,
+    "v": 1.1451203553482738,
+    "feasible": true,
+    "hinweis": "numerisch (Kandidat), nicht zertifiziert"
+   },
+   "sek": 4.93
+  },
+  {
+   "id": 18,
+   "wer": "forscher-skeptiker",
+   "op": "optimize",
+   "args": {
+    "topologie": "hopfield_n1",
+    "sigma_max": 7,
+    "v_min": 0.001,
+    "starts": 40,
+    "seed": 1
+   },
+   "ergebnis": {
+    "params": {
+     "bind+": 3.639727965664077,
+     "bind-": 0.9031032366700477,
+     "akt0+": -2.1450603200365155,
+     "verw1+": 5.344829805158074,
+     "verw1-": -4.653814210416354,
+     "prod+": 5.201045414264009,
+     "mu": 1.4139783259759149,
+     "muP": 0.0
+    },
+    "eta": 0.00020437118718095383,
+    "sigma": 3.0796331986757237,
+    "v": 0.0022592030209451454,
+    "feasible": true,
+    "hinweis": "numerisch (Kandidat), nicht zertifiziert"
+   },
+   "sek": 6.42
+  },
+  {
+   "id": 19,
+   "wer": "forscher-skeptiker",
+   "op": "optimize",
+   "args": {
+    "topologie": "hopfield_n1",
+    "sigma_max": 7.5,
+    "v_min": 0.001,
+    "starts": 40,
+    "seed": 1
+   },
+   "ergebnis": {
+    "params": {
+     "bind+": 3.966511627145467,
+     "bind-": -1.5837183128008472,
+     "akt0+": -0.4516342118030818,
+     "verw1+": 3.8596355222096825,
+     "verw1-": -3.5932953927596682,
+     "prod+": 3.600131518423654,
+     "mu": 2.920272223861241,
+     "muP": 0.0
+    },
+    "eta": 0.00017835788886712555,
+    "sigma": 6.77261354424625,
+    "v": 0.001000000000651497,
+    "feasible": true,
+    "hinweis": "numerisch (Kandidat), nicht zertifiziert"
+   },
+   "sek": 6.15
+  },
+  {
+   "id": 20,
+   "wer": "forscher-skeptiker",
+   "op": "optimize",
+   "args": {
+    "topologie": "hopfield_n1",
+    "sigma_max": 8,
+    "v_min": 0.001,
+    "starts": 40,
+    "seed": 1
+   },
+   "ergebnis": {
+    "params": {
+     "bind+": -0.20123942405676998,
+     "bind-": -4.674102798644217,
+     "akt0+": -1.5941359902337384,
+     "verw1+": 3.2524347767372106,
+     "verw1-": -3.3399646691636815,
+     "prod+": 3.4608578201436346,
+     "mu": 4.303902842730883,
+     "muP": 0.0
+    },
+    "eta": 0.00027461269070935547,
+    "sigma": 7.893053550406888,
+    "v": 0.0009999999999480355,
+    "feasible": true,
+    "hinweis": "numerisch (Kandidat), nicht zertifiziert"
+   },
+   "sek": 4.69
+  },
+  {
+   "id": 21,
+   "wer": "forscher-skeptiker",
+   "op": "optimize",
+   "args": {
+    "topologie": "hopfield_n1",
+    "sigma_max": 9,
+    "v_min": 0.001,
+    "starts": 40,
+    "seed": 1
+   },
+   "ergebnis": {
+    "params": {
+     "bind+": 5.328664969021523,
+     "bind-": 6.46919663673883,
+     "akt0+": 1.0356222485766566,
+     "verw1+": 0.15610954938160165,
+     "verw1-": -2.124713098235542,
+     "prod+": 0.31185227261380477,
+     "mu": 4.789338059030655,
+     "muP": 0.0
+    },
+    "eta": 0.0002762113375884386,
+    "sigma": 8.999999997391603,
+    "v": 0.5271350450202884,
+    "feasible": true,
+    "hinweis": "numerisch (Kandidat), nicht zertifiziert"
+   },
+   "sek": 5.09
+  }
+ ],
+ "sek": 182.1
+}

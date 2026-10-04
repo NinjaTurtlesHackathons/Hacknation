@@ -1,0 +1,165 @@
+{
+ "antwort": {
+  "antwort": "unbekannt",
+  "zahl": null,
+  "konfidenz": 0.0,
+  "stimmen": "keine Stufe geprüft"
+ },
+ "level": "keine geprüfte Behauptung",
+ "forscher": [
+  {
+   "strategie": "sparsam",
+   "runden": [
+    {
+     "ueberlegung": "Die Frage betrifft nur 37C mit vs. ohne Kofaktor. Ein einziges, gut gepowertes Experiment genügt: Gruppen 37C ohne Kofaktor und 37C mit Kofaktor, plus die Pflichtkontrollen ohne_enzym und referenz. Mehr Experimente wären redundant und würden die BH-Korrektur über alle Tests des Projekts unnötig verschärfen. Replikate: 8 (über dem Minimum von 4) für ausreichende Power beim einseitigen Permutationstest. Hypothese und Richtung (mit > ohne) werden vorab festgelegt. Es liegen noch keine Daten vor, daher keine Aussage über das Ergebnis; die Prüfung folgt nach Eingang der Messdaten.",
+     "plan": [
+      {
+       "op": "plane_experiment",
+       "args": {
+        "hypothese": "Der Zusatz des Kofaktors bei 37C erhöht die Enzymaktivität [RFU/min] gegenüber 37C ohne Kofaktor.",
+        "gruppen": [
+         {
+          "name": "ohne_enzym",
+          "bedingungen": {
+           "temperatur": "37C",
+           "kofaktor": "ohne"
+          }
+         },
+         {
+          "name": "referenz",
+          "bedingungen": {
+           "temperatur": "37C",
+           "kofaktor": "ohne"
+          }
+         },
+         {
+          "name": "37C_ohne_kofaktor",
+          "bedingungen": {
+           "temperatur": "37C",
+           "kofaktor": "ohne"
+          }
+         },
+         {
+          "name": "37C_mit_kofaktor",
+          "bedingungen": {
+           "temperatur": "37C",
+           "kofaktor": "mit"
+          }
+         }
+        ],
+        "replikate": 8,
+        "begruendung": "Ein gezielter Zweigruppenvergleich bei 37C beantwortet die Frage direkt. Negativkontrolle (ohne Enzym) prüft den Assay-Hintergrund, Positivkontrolle (Referenzbedingung mit bekanntem Umsatz) prüft die Funktionsfähigkeit des Assays. 8 Replikate für ausreichende Power; nur ein Test, damit die BH-Korrektur nicht unnötig streng wird."
+       }
+      },
+      {
+       "op": "auftraege",
+       "args": {}
+      }
+     ]
+    },
+    {
+     "antwort": "unbekannt",
+     "zahl": null,
+     "konfidenz": 0.5,
+     "pruefung": {
+      "typ": "effekt",
+      "auftrag": "A1",
+      "gruppe_a": "37C_mit_kofaktor",
+      "gruppe_b": "37C_ohne_kofaktor",
+      "richtung": "groesser"
+     },
+     "begruendung": "Auftrag A1 (8 Replikate, Zweigruppenvergleich bei 37C plus Negativ- und Positivkontrolle) wartet noch auf Messdaten, daher liegt kein Ergebnis vor und ich behaupte weder einen Effekt noch dessen Fehlen. Die angegebene Prüfung (einseitiger Effekttest, mit Kofaktor größer als ohne) ist die präregistrierte Entscheidungsgrundlage; ihr Ausgang entscheidet über die Frage. Die Konfidenz 0,5 ist ein neutraler Platzhalter ohne Datenbasis."
+    }
+   ],
+   "experimente": [
+    0,
+    1
+   ],
+   "final": {
+    "antwort": "unbekannt",
+    "zahl": null,
+    "konfidenz": 0.5,
+    "pruefung": {
+     "typ": "effekt",
+     "auftrag": "A1",
+     "gruppe_a": "37C_mit_kofaktor",
+     "gruppe_b": "37C_ohne_kofaktor",
+     "richtung": "groesser"
+    },
+    "begruendung": "Auftrag A1 (8 Replikate, Zweigruppenvergleich bei 37C plus Negativ- und Positivkontrolle) wartet noch auf Messdaten, daher liegt kein Ergebnis vor und ich behaupte weder einen Effekt noch dessen Fehlen. Die angegebene Prüfung (einseitiger Effekttest, mit Kofaktor größer als ohne) ist die präregistrierte Entscheidungsgrundlage; ihr Ausgang entscheidet über die Frage. Die Konfidenz 0,5 ist ein neutraler Platzhalter ohne Datenbasis."
+   },
+   "modell": "sonnet",
+   "pruefung": {
+    "bestanden": false,
+    "grund": "wartet auf Messdaten"
+   }
+  }
+ ],
+ "experimente": [
+  {
+   "id": 0,
+   "wer": "forscher-sparsam",
+   "op": "plane_experiment",
+   "args": {
+    "hypothese": "Der Zusatz des Kofaktors bei 37C erhöht die Enzymaktivität [RFU/min] gegenüber 37C ohne Kofaktor.",
+    "gruppen": [
+     {
+      "name": "ohne_enzym",
+      "bedingungen": {
+       "temperatur": "37C",
+       "kofaktor": "ohne"
+      }
+     },
+     {
+      "name": "referenz",
+      "bedingungen": {
+       "temperatur": "37C",
+       "kofaktor": "ohne"
+      }
+     },
+     {
+      "name": "37C_ohne_kofaktor",
+      "bedingungen": {
+       "temperatur": "37C",
+       "kofaktor": "ohne"
+      }
+     },
+     {
+      "name": "37C_mit_kofaktor",
+      "bedingungen": {
+       "temperatur": "37C",
+       "kofaktor": "mit"
+      }
+     }
+    ],
+    "replikate": 8,
+    "begruendung": "Ein gezielter Zweigruppenvergleich bei 37C beantwortet die Frage direkt. Negativkontrolle (ohne Enzym) prüft den Assay-Hintergrund, Positivkontrolle (Referenzbedingung mit bekanntem Umsatz) prüft die Funktionsfähigkeit des Assays. 8 Replikate für ausreichende Power; nur ein Test, damit die BH-Korrektur nicht unnötig streng wird."
+   },
+   "ergebnis": {
+    "auftrag": "A1",
+    "status": "wartet_auf_messdaten",
+    "csv": "projects/assay_test/auftraege/A1_messung.csv",
+    "laeufe": 32
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 1,
+   "wer": "forscher-sparsam",
+   "op": "auftraege",
+   "args": {},
+   "ergebnis": {
+    "auftraege": [
+     {
+      "id": "A1",
+      "hypothese": "Der Zusatz des Kofaktors bei 37C erhöht die Enzymaktivität [RFU/min] gegenüber 37C ohne Kofaktor.",
+      "status": "wartet_auf_messdaten",
+      "mittelwerte": null
+     }
+    ]
+   },
+   "sek": 0.0
+  }
+ ],
+ "sek": 18.0
+}

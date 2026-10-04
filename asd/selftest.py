@@ -5,8 +5,11 @@ from .domains.base import get_domain
 
 
 def run(name, log=print):
-    d = get_domain(name); rows = []
-    for p, want in d.selftest():
+    import os
+    d = get_domain(name); rows = []; cases = list(d.selftest())
+    xp = f"projects/{name}/selftest_extra.json"                       # vom Prüfer-Red-Team bestätigte Fallen (erwartet False)
+    if os.path.exists(xp): cases += [(x["pruefung"], bool(x["erwartet"])) for x in json.load(open(xp))]
+    for p, want in cases:
         t0 = time.time(); ok, why, _ = d.check(p); good = bool(ok) == want
         rows.append({"pruefung": p, "erwartet": want, "ergebnis": bool(ok), "korrekt": good, "grund": why[:200], "sek": round(time.time() - t0, 1)})
         log(f"[{'OK ' if good else 'FEHLER'}] erwartet {want!s:5} bekommen {bool(ok)!s:5} {json.dumps(p, ensure_ascii=False)[:90]}")

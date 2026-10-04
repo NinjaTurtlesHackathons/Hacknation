@@ -83,6 +83,7 @@ def _crossref_doc(m):
     year = str(((m.get("issued") or {}).get("date-parts") or [[""]])[0][0])
     aut = ", ".join(f"{a.get('given', '')} {a.get('family', '')}".strip() for a in (m.get("author") or [])[:8])
     return {"id": f"doi:{m['DOI']}", "titel": title, "abstract": ab, "jahr": year, "autoren": aut, "url": f"https://doi.org/{m['DOI']}",
+            "journal": " ".join((m.get("container-title") or [""])[0].split()), "volume": m.get("volume", ""), "seiten": m.get("page", ""),
             "quelle_api": "crossref", "refs": [r["DOI"] for r in (m.get("reference") or []) if r.get("DOI")]}
 
 
@@ -90,6 +91,15 @@ def search_crossref(q, n=25):
     """Crossref: Zeitschriftenartikel mit DOI (Abstract oft vorhanden, sonst nur Metadaten). Der DOI ist der Tool-Beleg."""
     url = "https://api.crossref.org/works?" + urllib.parse.urlencode({"query.bibliographic": q, "rows": n})
     return [_crossref_doc(m) for m in json.loads(_get(url))["message"]["items"] if m.get("title")]
+
+
+def arxiv_meta(aid):
+    """Metadaten eines arXiv-Eintrags per ID (Autoren, Titel, Jahr)."""
+    url = "https://export.arxiv.org/api/query?" + urllib.parse.urlencode({"id_list": aid.replace("arXiv:", "")})
+    ns = {"a": "http://www.w3.org/2005/Atom"}; e = ET.fromstring(_get(url)).find("a:entry", ns)
+    if e is None or e.find("a:title", ns) is None: raise ValueError("arXiv-ID nicht gefunden")
+    return {"id": aid, "titel": " ".join(e.find("a:title", ns).text.split()), "jahr": e.find("a:published", ns).text[:4],
+            "autoren": ", ".join(a.find("a:name", ns).text for a in e.findall("a:author", ns)), "journal": f"arXiv:{aid.replace('arXiv:', '')}"}
 
 
 def crossref_doi(doi):
@@ -222,7 +232,7 @@ def run(topic, n_queries=10, per_query=25, keep=60, model_cheap="haiku", model_m
     def extract(b):
         batch = top[b:b + 6]
         listing = "\n\n".join(f"<<{i}>>\nTitel: {pool[i]['titel']}\nAbstract: {pool[i]['abstract']}" for i in batch)
-        try: r = ask_json(f"Forschungsziel: {T['ziel']}\n\n{listing}\n\nExtrahiere die für das Ziel wichtigsten Befunde. Jeder Befund braucht ein "
+        try: r = ask_json(f"Forschungsziel: {T['ziel']}\n\n{listing}\n\nExtrahiere die für das Ziel wichtigsten Befunde. Achte besonders auf OFFENE FRAGEN: Formulierungen wie 'remains open', 'it is unknown whether', 'we conjecture', 'open problem', 'has not been proven', 'left for future work', 'it would be interesting', 'numerically but not analytically'; diese als typ 'offene_frage'. Jeder Befund braucht ein "
                      "WÖRTLICHES Zitat (mindestens 6 Wörter, exakt kopiert) aus dem jeweiligen Abstract." + fac +
                      ' JSON: {"befunde": [{"quelle": "<id>", "aussage": "<deutsch, ein Satz>", "zitat": "<wörtlich>", "typ": "ergebnis|methode|offene_frage"}]}',
                      model=model_main, salt=f"research-{topic}-extract-{b}")

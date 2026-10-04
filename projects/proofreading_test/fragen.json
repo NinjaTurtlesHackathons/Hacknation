@@ -1,0 +1,8 @@
+[
+ {"frage": "L2: Ist e^{-2Delta} eine universelle Grenze für alle Netzwerke mit zwei gebundenen Zuständen? Suche in der Familie gebunden<=2 (Experiment family {k: 2}, Topologien fam2_<i>) nach einem Mitglied mit eta < 1e-4 und zertifiziere es exakt mit erreichbar (eta_max < 1e-4).", "neuheit": 0.8, "machbarkeit": 0.8},
+ {"frage": "L2b: Für welche Teilfamilie von gebunden<=2 gilt eta >= 1/D**2 für alle Raten? Gib die größte Mitgliederliste an, die du begründen kannst, und prüfe sie mit schranke_familie (ausdruck 1/D**2).", "neuheit": 0.7, "machbarkeit": 0.7},
+ {"frage": "L3: Erfordert das Unterschreiten von e^{-2Delta} in gebunden<=2 einen treibstoffgetriebenen Verwerfen-Ausgang (verw_*, fuel 1) am Produktzustand? Suche ein Gegenbeispiel ohne dieses Merkmal (erreichbar, eta_max < 1e-4) oder beweise die Schranke für die Teilfamilie ohne dieses Merkmal (schranke_familie).", "neuheit": 0.7, "machbarkeit": 0.6},
+ {"frage": "L1: Gilt eta >= e^{-(n+1)Delta} für die lineare Hopfield-Kette mit n = 2 für alle Raten und Treibstoffe? Prüfe mit untere_schranke (topologie hopfield_n2, c 1, k 3).", "neuheit": 0.4, "machbarkeit": 0.9},
+ {"frage": "L4: Ist für hopfield_n1 mit v >= 1e-3 eine Fehlerrate eta < 2e-4 bei sigma <= 10 kT pro Produkt erreichbar? Finde Parameter (optimize mit sigma_max 10, v_min 1e-3) und zertifiziere mit erreichbar.", "neuheit": 0.4, "machbarkeit": 0.8},
+ {"frage": "L5: Ist für hopfield_n1 eta <= 1.2e-4 bei sigma <= 0.2 kT pro Produkt erreichbar (Geschwindigkeit beliebig)? Finde Parameter (optimize mit sigma_max 0.2) und zertifiziere mit erreichbar (eta_max 1.2e-4, sigma_max 0.2).", "neuheit": 0.3, "machbarkeit": 0.9}
+]

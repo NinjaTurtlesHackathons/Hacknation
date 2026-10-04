@@ -1,0 +1,43 @@
+{
+ "id": "A1",
+ "hypothese": "Der Zusatz des Kofaktors bei 37C erhöht die Enzymaktivität [RFU/min] gegenüber 37C ohne Kofaktor.",
+ "gruppen": [
+  {
+   "name": "ohne_enzym",
+   "bedingungen": {
+    "temperatur": "37C",
+    "kofaktor": "ohne"
+   }
+  },
+  {
+   "name": "referenz",
+   "bedingungen": {
+    "temperatur": "37C",
+    "kofaktor": "ohne"
+   }
+  },
+  {
+   "name": "37C_ohne_kofaktor",
+   "bedingungen": {
+    "temperatur": "37C",
+    "kofaktor": "ohne"
+   }
+  },
+  {
+   "name": "37C_mit_kofaktor",
+   "bedingungen": {
+    "temperatur": "37C",
+    "kofaktor": "mit"
+   }
+  }
+ ],
+ "replikate": 8,
+ "begruendung": "Ein gezielter Zweigruppenvergleich bei 37C beantwortet die Frage direkt. Negativkontrolle (ohne Enzym) prüft den Assay-Hintergrund, Positivkontrolle (Referenzbedingung mit bekanntem Umsatz) prüft die Funktionsfähigkeit des Assays. 8 Replikate für ausreichende Power; nur ein Test, damit die BH-Korrektur nicht unnötig streng wird.",
+ "messgroesse": "Aktivität",
+ "einheit": "RFU/min",
+ "analyse": "einseitiger Permutationstest (20000 Permutationen, Seed 12345), alpha 0.05, Bootstrap-95-%-KI, Benjamini-Hochberg über alle Tests des Projekts, Kontrollen-Check {'negativ': 'ohne_enzym', 'positiv': 'referenz'}",
+ "praeregistriert": "2026-10-04T01:22:24",
+ "status": "daten_vorhanden",
+ "daten_hash": "4c7914c2e89596be66517543391370341284c4aa0b6751a594c5b9f155da291b",
+ "daten_eingelesen": "2026-10-04T01:22:59"
+}

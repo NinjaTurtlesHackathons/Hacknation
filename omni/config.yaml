@@ -1,0 +1,113 @@
+# Verifier-Gated Discovery Lab unter Omnigent. Lead-Agent (Principal Investigator).
+# Grundsatz: Agents propose, Omnigent orchestrates, only the code verifier accepts.
+# Start (aus dem Repo-Root!):
+#   python -m asd.omni_setup --quelle proofreading --projekt omni_proofreading
+#   omnigent run omni -p "Domain proofreading, project omni_proofreading, start question F20, 3 rounds."
+spec_version: 1
+name: verifier-gated-lab
+description: Principal investigator of a verifier-gated lab; runs evidence -> options -> choice -> experiment -> verification -> red team -> follow-ups.
+executor:
+  type: omnigent
+  model: sonnet
+  config: {harness: claude-sdk}
+async: true
+cancellable: true
+timers: true
+os_env: {type: caller_process, cwd: ., sandbox: {type: none}}
+tools:
+  agents: [scout, planner, researcher, redteam, learner, scribe]
+prompt: |
+  You are the PRINCIPAL INVESTIGATOR of a verifier-gated research lab. Truth lives in Python, never in an LLM:
+  every lab action is `python -m asd.cli <command> --domain <D> --projekt <P> --agent <name>`; every action is appended to
+  projects/<P>/record.jsonl. Only the researcher may run `asd.cli pruefe`, and only that command can store a confirmed claim.
+  You NEVER accept a claim yourself and never write files.
+  Your own shell use: `python -m asd.cli status|plan|fragen --domain <D> --projekt <P> --agent pi` (nothing else).
+
+  Policy check at the very start (intentional, so the guardrails are visible in the log): run once
+  `cat projects/proofreading_test/lab_report.md` (hold-out file, must be DENIED by leak_guard) and once
+  `echo '{}' > projects/<P>/state.json` (direct state write, must be DENIED by verifier_only). Report both denials in one line, then continue.
+
+  One round:
+    1. `status` + `plan`. Dispatch scout ("<D> <P>") AND planner ("<D> <P> question=<Fid>") IN THE SAME TURN (two parallel, independent
+       sub-sessions), then end your turn; on wake call sys_read_inbox ONCE (do not poll).
+    2. researcher: "<D> <P> question=<Fid> option=<Oid>" -> returns claim id (+ ueberraschung flag) or REJECTED.
+    3. If a claim id came back: dispatch redteam ("<D> <P> claim=<id>") AND learner ("<D> <P> aus=<claim id>") in the same turn (parallel).
+    4. Decide the next round from the results and say why in one line (which question, which thread, what changed).
+  SURPRISE RULE: if pruefe reported "ueberraschung": true (the result contradicts a preregistered assumption), dispatch planner with
+  "<D> <P> reopen=<annahme> claim=<id>": it reopens the assumption (`asd.cli reopen`) and re-plans; your next round MUST follow the changed plan.
+  THREAD RULE: stay in the current thread until 2 rounds in a row brought no new confirmed claim; a topic switch only via planner `waehle --frage`.
+  POLICY RULE: if a sub-agent was paused or denied by a policy, do not assume its work happened: ask it, and check `status`.
+  After the last round dispatch scribe ("<D> <P>"): building the paper needs HUMAN approval (publish_gate ASK). Wait for the result.
+  Pass ONLY ids and one-line results between agents. Max 3 dispatches per turn (sys_session_send(agent=<name>, title=<short task>, args="<ids>")).
+  Finish with 6 lines: rounds, confirmed claim ids, surprises/reopened assumptions, rejected attempts, policy denials/asks, next experiment + reason.
+guardrails:
+  ask_timeout: 7200
+  policies:
+    cost_budget:
+      type: function
+      function:
+        path: omnigent.policies.builtins.cost.cost_budget
+        arguments: {max_cost_usd: 40.0, ask_thresholds_usd: [10.0, 20.0]}
+    spawn_bounds:
+      type: function
+      function:
+        path: omnigent.policies.builtins.orchestration.spawn_bounds
+        arguments: {max_dispatches_per_turn: 3, dispatch_tools: [sys_session_send]}
+    verifier_only:
+      type: function
+      function:
+        path: omnigent.policies.builtins.cel.cel_policy
+        arguments:
+          reason: "verifier_only: claims/state are written only by `python -m asd.cli prüfe`"
+          expression: >-
+            event.type == "tool_call" && (
+              (event.data.name == "sys_os_shell" && has(event.data.arguments.command) &&
+                (event.data.arguments.command.contains("state.json") ||
+                 event.data.arguments.command.contains("omni_record.jsonl") ||
+                 event.data.arguments.command.matches("(>|tee |cp |mv |rm |sed -i).*projects/"))) ||
+              (event.data.name in ["sys_os_write", "sys_os_edit"] && has(event.data.arguments.path) &&
+                (event.data.arguments.path.contains("projects/") || event.data.arguments.path.contains("state.json")))
+            ) ? {"result": "DENY", "reason": "verifier_only: direct write to lab state; use `python -m asd.cli prüfe`"} : {"result": "ALLOW"}
+    leak_guard:
+      type: function
+      function:
+        path: omnigent.policies.builtins.cel.cel_policy
+        arguments:
+          reason: "leak_guard"
+          # Gesperrte Pfade/Begriffe (Replay-Lauf): gleiche Liste wie omni/leak_guard.json
+          expression: >-
+            event.type == "tool_call" && event.data.name in ["sys_os_shell", "sys_os_read"] && (
+              ["projects/proofreading_test", "projects/proofreading/", "research/kb", "research/", "literature/", "benchmarks/", "results/", "cache/", "projects/lattice/",
+               "docs/", "README", "prereg.md", "asd/domains", "asd/verify", "suleman", "Suleman", "2609."].exists(t,
+                 (has(event.data.arguments.command) && event.data.arguments.command.contains(t)) ||
+                 (has(event.data.arguments.path) && event.data.arguments.path.contains(t)))
+            ) ? {"result": "DENY", "reason": "leak_guard: blocked source (hold-out results / answer key / pre-cutoff literature)"} : {"result": "ALLOW"}
+    harness_only:
+      type: function
+      function:
+        path: omnigent.policies.builtins.cel.cel_policy
+        arguments:
+          reason: "harness_only"
+          expression: >-
+            event.type == "tool_call" && event.data.name == "sys_os_shell" && has(event.data.arguments.command) &&
+            !event.data.arguments.command.matches("^\\s*(python3?|/usr/local/bin/python3?) -m asd\\.(cli|paper)( |$)")
+            ? {"result": "DENY", "reason": "harness_only: agents may only call the frozen harness (python -m asd.cli / asd.paper)"} : {"result": "ALLOW"}
+    publish_gate:
+      type: function
+      function:
+        path: omnigent.policies.builtins.cel.cel_policy
+        arguments:
+          reason: "publish_gate"
+          expression: >-
+            event.type == "tool_call" && event.data.name == "sys_os_shell" && has(event.data.arguments.command) &&
+            (event.data.arguments.command.contains("asd.paper") || event.data.arguments.command.contains("git push"))
+            ? {"result": "ASK", "reason": "publish_gate: building/publishing the paper needs human approval"} : {"result": "ALLOW"}
+    read_only_lead:
+      type: function
+      function:
+        path: omnigent.policies.builtins.cel.cel_policy
+        arguments:
+          reason: "lead is read-only"
+          expression: >-
+            event.type == "tool_call" && event.data.name in ["sys_os_write", "sys_os_edit"]
+            ? {"result": "DENY", "reason": "no agent writes files directly; all lab writes go through asd.cli"} : {"result": "ALLOW"}

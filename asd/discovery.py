@@ -44,13 +44,22 @@ def _default_domain():
     return DOMAIN
 
 
+def _jsonfest(x):
+    """numpy-Typen (bool_, int64, float64, ndarray) in JSON-taugliche Python-Typen; sonst crasht das Protokoll."""
+    def conv(o):
+        if hasattr(o, "tolist"): return o.tolist()
+        if hasattr(o, "item"): return o.item()
+        return str(o)
+    return json.loads(json.dumps(x, default=conv))
+
+
 class Lab:
     """Führt Experimente der Domäne aus, cached identische Anfragen und protokolliert alles (Herkunft)."""
     def __init__(self, domain=None): self.domain = domain or _default_domain(); self.memo = {}; self.log = []
     def run(self, op, args, who):
         key = json.dumps([op, args], sort_keys=True)
         if key not in self.memo:
-            t0 = time.time(); self.memo[key] = self.domain.run_op(op, args); dt = time.time() - t0
+            t0 = time.time(); self.memo[key] = _jsonfest(self.domain.run_op(op, args)); dt = time.time() - t0
         else: dt = 0.0
         self.log.append({"id": len(self.log), "wer": who, "op": op, "args": args, "ergebnis": self.memo[key], "sek": round(dt, 2)})
         return self.log[-1]
@@ -132,7 +141,7 @@ def consistent(ans, p):
 KASKADE = (("sparsam", "haiku"), ("numeriker", "haiku"), ("skeptiker", "sonnet"), ("theoretiker", "sonnet"))
 
 
-def solve_cascade(kontext, frage, salt=0, stufen=KASKADE, domain=None):
+def solve_cascade(kontext, frage, salt=0, stufen=KASKADE, domain=None, staerkung=2):
     """Kostenoptimiert: Forscher nacheinander, günstiges Modell zuerst; Stopp bei der ersten Behauptung, die den
     Code-Prüfer besteht und zur Antwort passt. Der Prüfer garantiert die Wahrheit, also reicht eine geprüfte Behauptung."""
     lab = Lab(domain); D = lab.domain; t0 = time.time(); traces = []; checks = {}
@@ -149,7 +158,32 @@ def solve_cascade(kontext, frage, salt=0, stufen=KASKADE, domain=None):
         ok = bool(ps) and all(o for o, _ in res) and all(D.consistent(a, p) for p in ps)
         tr["pruefung"] = {"bestanden": ok, "grund": " | ".join(w for _, w in res) or "keine Prüfung angegeben"}; traces.append(tr)
         if ok:
-            ans = dict(a); ans["stimmen"] = f"Stufe {len(traces)}/{len(stufen)} ({strategie}, {model})"
+            tr["staerke"] = D.staerke(ps[0]) if hasattr(D, "staerke") else 0
+            best = tr
+            for j in range(staerkung):                          # Stärke-Maximierung: strengere/allgemeinere Behauptung suchen
+                bp = best["final"].get("pruefung") or (best["final"].get("pruefungen") or [None])[0]
+                try: bd = D.describe(bp, lang="en")
+                except TypeError: bd = D.describe(bp)
+                f2 = (frage + f"\n\nDIE BISHER STÄRKSTE GEPRÜFTE BEHAUPTUNG: {bd}\nPrüfung: {json.dumps(bp, ensure_ascii=False)}\nFinde eine STRENGERE oder "
+                      "ALLGEMEINERE Behauptung (größere Klasse, mehr Mitglieder, schärfere Schranke, Allaussage statt Einzelfall), die ebenfalls die Prüfung besteht.")
+                st2, m2 = stufen[min(len(stufen) - 1, 2 + j)]
+                try: t2 = forscher(kontext, f2, st2, lab, f"K{salt}-staerke{j}-{m2}", model=m2)
+                except (LLMError, json.JSONDecodeError, KeyError, TypeError): continue
+                a2 = t2.get("final") or {}
+                p2 = [p for p in (a2.get("pruefungen") or ([a2["pruefung"]] if isinstance(a2.get("pruefung"), dict) else [])) if isinstance(p, dict)]
+                if not p2: continue
+                r2 = []
+                for p in p2:
+                    k = json.dumps(p, sort_keys=True)
+                    if k not in checks: checks[k] = D.check(p)[:2]
+                    r2.append(checks[k])
+                ok2 = all(o for o, _ in r2) and all(D.consistent(a2, p) for p in p2)
+                t2["modell"] = m2; t2["staerkungsversuch"] = j + 1
+                t2["pruefung"] = {"bestanden": ok2, "grund": " | ".join(w for _, w in r2)}; traces.append(t2)
+                if ok2:
+                    t2["staerke"] = D.staerke(p2[0]) if hasattr(D, "staerke") else 0
+                    if t2["staerke"] > best["staerke"]: best = t2
+            ans = dict(best["final"]); ans["stimmen"] = f"Stufe {len(traces)} ({best['strategie']}, {best.get('modell')}), Stärke {best['staerke']:.2f}"
             return {"antwort": ans, "level": "computed (Code-Prüfer bestanden)", "forscher": traces, "experimente": lab.log, "sek": round(time.time() - t0, 1)}
     return {"antwort": {"antwort": "unbekannt", "zahl": None, "konfidenz": 0.0, "stimmen": "keine Stufe geprüft"}, "level": "keine geprüfte Behauptung",
             "forscher": traces, "experimente": lab.log, "sek": round(time.time() - t0, 1)}

@@ -13,6 +13,8 @@ Pflicht für jede Domäne:
 Optional:
   consistent(antwort, p)  Passt der Antworttext zur geprüften Behauptung?
   describe(p)      Kanonische Aussage, die eine bestandene Prüfung beweist (Pflicht für ehrliche Paper-Sätze).
+  parameter()      Feste Modellparameter {name: (wert, bedeutung)}; werden im Paper als Claim C-modell belegt.
+  relevanz(p)      hauptresultat | stuetze | beispiel (Benennung Theorem/Proposition/Example im Paper).
   level(p)         Evidenzstufe einer bestandenen Prüfung: proved_lean | computed_rigorous | statistical | observed
 """
 
@@ -38,16 +40,41 @@ class Domain:
     def level(self, p):
         return "observed"
 
+    def parameter(self):
+        """Feste Modellparameter als {name: (wert, bedeutung)}. Ohne Eintrag warnt der Paper-Bau, weil Konstanten sonst
+        nicht im Paper stehen dürfen (das Halluzinations-Gate streicht jede unbelegte Zahl)."""
+        return {}
+
+    def relevanz(self, p):
+        """hauptresultat | stuetze | beispiel. Standard-Heuristik aus Prüfungstyp und kanonischer Aussage: Allaussagen, Klassifikationen,
+        Familien und Gegenbeispiel-Listen -> hauptresultat; einzelne erreichbare Punkte/Werte -> beispiel; sonst stuetze."""
+        t = str(p.get("typ", "")).lower(); d = self.describe(p).lower()
+        if any(k in t for k in ("schranke", "familie", "liste", "klassifikation", "bound", "family")) or any(
+                k in d for k in ("für alle", "for all", "jedes mitglied", "every member")):
+            return "hauptresultat"
+        if t in ("erreichbar", "wert", "value", "reachable"): return "beispiel"
+        return "stuetze"
+
+    def staerke(self, p):
+        """Wie stark ist eine bestandene Prüfung? Höher = besser. Standard: Relevanz, Allaussage, Umfang (Mitglieder/Fälle)."""
+        import math
+        r = {"hauptresultat": 3, "stuetze": 2, "beispiel": 1}.get(self.relevanz(p), 1)
+        try: d = self.describe(p, lang="en").lower()
+        except TypeError: d = self.describe(p).lower()
+        alle = 1 if any(k in d for k in ("for all", "für alle", "every member")) else 0
+        umfang = len(p.get("mitglieder") or p.get("faelle") or [])
+        return r + alle + (math.log10(1 + umfang) if umfang else 0)
+
     def widerspricht(self, p, q):
         """True, wenn die bestandenen Prüfungen p und q logisch nicht beide wahr sein können (Red-Team-Kriterium).
         Standard: kein bekannter Widerspruch. Domänen sollten das für ihre Prüfungstypen definieren."""
         return False
 
-    def figures(self, state, outdir):
+    def figures(self, state, outdir, lang="en"):
         """Optional: Abbildungen aus geprüften Aussagen. Gibt [(dateiname, bildunterschrift_mit_claim_ids)] zurück."""
         return []
 
-    def describe(self, p):
+    def describe(self, p, lang="de"):
         """Kanonische Aussage, die eine BESTANDENE Prüfung p beweist, erzeugt aus p selbst (nicht aus dem Text des Agenten).
         Nur diese Aussage darf als Resultat ins Paper. Der Antworttext des Agenten ist bloß Interpretation."""
         import json

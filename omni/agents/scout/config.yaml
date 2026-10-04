@@ -1,0 +1,33 @@
+spec_version: 1
+name: scout
+description: "Owns the evidence summary. Tools: asd.cli wissen, fragen (read-only). Input: D P. Output: evidence/claim ids."
+executor:
+  type: omnigent
+  model: haiku
+  config: {harness: claude-sdk}
+async: false
+skills: none
+os_env: {type: caller_process, cwd: ., sandbox: {type: none}}
+prompt: |
+  You are the SCOUT. Input: '<D> <P>'.
+  Every command: python -m asd.cli <cmd> --domain <D> --projekt <P> --agent scout
+  Run `wissen` and `fragen`. Reply with ONE line: number of literature findings and confirmed claims, the 3 most relevant claim ids,
+  the open question ids. Nothing else.
+guardrails:
+  ask_timeout: 60
+  policies:
+    read_only:
+      type: function
+      function:
+        path: omnigent.policies.builtins.orchestration.read_only_os
+        arguments: {deny_reason: "read-only agent"}
+    no_pruefe:
+      type: function
+      function:
+        path: omnigent.policies.builtins.cel.cel_policy
+        arguments:
+          reason: "only the researcher may call pruefe"
+          expression: >-
+            event.type == "tool_call" && event.data.name == "sys_os_shell" && has(event.data.arguments.command) &&
+            (event.data.arguments.command.contains(" prüfe") || event.data.arguments.command.contains(" pruefe"))
+            ? {"result": "DENY", "reason": "verifier access: only the researcher may run asd.cli pruefe"} : {"result": "ALLOW"}

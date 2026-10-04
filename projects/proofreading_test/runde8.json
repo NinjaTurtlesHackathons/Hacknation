@@ -1,0 +1,541 @@
+{
+ "antwort": {
+  "antwort": "Ja, erreichbar",
+  "zahl": 0.00010958,
+  "konfidenz": 0.95,
+  "pruefung": {
+   "typ": "erreichbar",
+   "topologie": "hopfield_n1",
+   "params": {
+    "bind+": 4.050135358347485,
+    "bind-": 0.7135633521923538,
+    "akt0+": -4.7909562035102935,
+    "verw1+": 0.14711949265107002,
+    "verw1-": -0.5321374904697697,
+    "prod+": -2.193965339890256,
+    "mu": 0.0005468428794517064,
+    "muP": 0.0
+   },
+   "eta_max": 0.00012,
+   "sigma_max": 0.2,
+   "v_min": null
+  },
+  "begruendung": "Experiment E9 (optimize mit sigma_max 0.2, seed 666) liefert η = 1.0958e-4 < 1.2e-4 und σ = 6.29e-3 kT < 0.2 kT. Die numerisch gefundenen Parameter erfüllen beide Nebenbedingungen streng; die Zertifizierungsprüfung vom Typ 'erreichbar' prüft Ratenbereich, detaillierte Bilanz und exakte Fehlerrate nach Rationalisierung.",
+  "stimmen": "Stufe 1/4 (sparsam, haiku)"
+ },
+ "level": "computed (Code-Prüfer bestanden)",
+ "forscher": [
+  {
+   "strategie": "sparsam",
+   "runden": [
+    {
+     "ueberlegung": "Die Frage L5 verlangt, für hopfield_n1 eta ≤ 1.2e-4 mit sigma ≤ 0.2 kT/Produkt zu erreichen. Dies ist extremal anspruchsvoll: σ=0.2 kT liegt 20–40× unter bisherigen Ergebnissen (typisch 4–8 kT), und η=1.2e-4 ist deutlich unter e^{−2Δ} ≈ 1e-4 (dem Hopfield-Limit für n=1). Nach Thermodynamic Uncertainty Relation und bekannten Dissipations-Fehler-Grenzen scheint dieser Punkt möglicherweise physikalisch unerreichbar sein. Meine Strategie: (1) Struktur mit param_names verstehen, (2) optimize mit σ_max=0.2 mehrfach durchführen (verschiedene Seeds, 20 Starts je), um lokale Minima auszuweichen und das beste erreichbare η zu finden, (3) Pareto-Front über ein Spektrum von σ-Werten explorieren, um fundamentale Grenzen zu verstehen, (4) fallback-optimize ohne σ-Limit zur Orientierung.",
+     "plan": [
+      {
+       "op": "param_names",
+       "args": {
+        "topologie": "hopfield_n1"
+       }
+      },
+      {
+       "op": "optimize",
+       "args": {
+        "topologie": "hopfield_n1",
+        "sigma_max": 0.2,
+        "starts": 20,
+        "seed": 42
+       }
+      },
+      {
+       "op": "optimize",
+       "args": {
+        "topologie": "hopfield_n1",
+        "sigma_max": 0.2,
+        "starts": 20,
+        "seed": 123
+       }
+      },
+      {
+       "op": "optimize",
+       "args": {
+        "topologie": "hopfield_n1",
+        "sigma_max": 0.2,
+        "starts": 20,
+        "seed": 999
+       }
+      },
+      {
+       "op": "front",
+       "args": {
+        "topologie": "hopfield_n1",
+        "sigmas": [
+         0.1,
+         0.15,
+         0.2,
+         0.3,
+         0.5,
+         1.0,
+         2.0,
+         4.0
+        ]
+       }
+      },
+      {
+       "op": "optimize",
+       "args": {
+        "topologie": "hopfield_n1",
+        "starts": 15,
+        "seed": 456
+       }
+      },
+      {
+       "op": "optimize",
+       "args": {
+        "topologie": "hopfield_n1",
+        "sigma_max": 0.3,
+        "starts": 15,
+        "seed": 789
+       }
+      }
+     ]
+    },
+    {
+     "plan": [
+      {
+       "op": "optimize",
+       "args": {
+        "topologie": "hopfield_n1",
+        "sigma_max": 0.2,
+        "starts": 30,
+        "seed": 444
+       }
+      },
+      {
+       "op": "optimize",
+       "args": {
+        "topologie": "hopfield_n1",
+        "sigma_max": 0.2,
+        "starts": 30,
+        "seed": 555
+       }
+      },
+      {
+       "op": "optimize",
+       "args": {
+        "topologie": "hopfield_n1",
+        "sigma_max": 0.2,
+        "starts": 30,
+        "seed": 666
+       }
+      }
+     ]
+    },
+    {
+     "antwort": "Ja, erreichbar",
+     "zahl": 0.00010958,
+     "konfidenz": 0.95,
+     "pruefung": {
+      "typ": "erreichbar",
+      "topologie": "hopfield_n1",
+      "params": {
+       "bind+": 4.050135358347485,
+       "bind-": 0.7135633521923538,
+       "akt0+": -4.7909562035102935,
+       "verw1+": 0.14711949265107002,
+       "verw1-": -0.5321374904697697,
+       "prod+": -2.193965339890256,
+       "mu": 0.0005468428794517064,
+       "muP": 0.0
+      },
+      "eta_max": 0.00012,
+      "sigma_max": 0.2,
+      "v_min": null
+     },
+     "begruendung": "Experiment E9 (optimize mit sigma_max 0.2, seed 666) liefert η = 1.0958e-4 < 1.2e-4 und σ = 6.29e-3 kT < 0.2 kT. Die numerisch gefundenen Parameter erfüllen beide Nebenbedingungen streng; die Zertifizierungsprüfung vom Typ 'erreichbar' prüft Ratenbereich, detaillierte Bilanz und exakte Fehlerrate nach Rationalisierung."
+    }
+   ],
+   "experimente": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9
+   ],
+   "final": {
+    "antwort": "Ja, erreichbar",
+    "zahl": 0.00010958,
+    "konfidenz": 0.95,
+    "pruefung": {
+     "typ": "erreichbar",
+     "topologie": "hopfield_n1",
+     "params": {
+      "bind+": 4.050135358347485,
+      "bind-": 0.7135633521923538,
+      "akt0+": -4.7909562035102935,
+      "verw1+": 0.14711949265107002,
+      "verw1-": -0.5321374904697697,
+      "prod+": -2.193965339890256,
+      "mu": 0.0005468428794517064,
+      "muP": 0.0
+     },
+     "eta_max": 0.00012,
+     "sigma_max": 0.2,
+     "v_min": null
+    },
+    "begruendung": "Experiment E9 (optimize mit sigma_max 0.2, seed 666) liefert η = 1.0958e-4 < 1.2e-4 und σ = 6.29e-3 kT < 0.2 kT. Die numerisch gefundenen Parameter erfüllen beide Nebenbedingungen streng; die Zertifizierungsprüfung vom Typ 'erreichbar' prüft Ratenbereich, detaillierte Bilanz und exakte Fehlerrate nach Rationalisierung."
+   },
+   "modell": "haiku",
+   "pruefung": {
+    "bestanden": true,
+    "grund": "Zertifikat (a): eta = 1.095823e-04 (exakt rational); sigma in [0.006292, 0.006292] kT; v = 9.1487e-09"
+   }
+  }
+ ],
+ "experimente": [
+  {
+   "id": 0,
+   "wer": "forscher-sparsam",
+   "op": "param_names",
+   "args": {
+    "topologie": "hopfield_n1"
+   },
+   "ergebnis": {
+    "namen": [
+     "bind+",
+     "bind-",
+     "akt0+",
+     "verw1+",
+     "verw1-",
+     "prod+",
+     "mu",
+     "muP"
+    ]
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 1,
+   "wer": "forscher-sparsam",
+   "op": "optimize",
+   "args": {
+    "topologie": "hopfield_n1",
+    "sigma_max": 0.2,
+    "starts": 20,
+    "seed": 42
+   },
+   "ergebnis": {
+    "params": {
+     "bind+": 0.4256741950033777,
+     "bind-": 3.5594089655532084,
+     "akt0+": -8.015755520929329,
+     "verw1+": -3.0281315636512374,
+     "verw1-": 1.4036154934213976,
+     "prod+": -0.5798517550732516,
+     "mu": 0.12883745254539208,
+     "muP": 0.0
+    },
+    "eta": 0.001126892906767661,
+    "sigma": 0.14121551011907724,
+    "v": 7.728825734520939e-06,
+    "feasible": true,
+    "hinweis": "numerisch (Kandidat), nicht zertifiziert"
+   },
+   "sek": 2.24
+  },
+  {
+   "id": 2,
+   "wer": "forscher-sparsam",
+   "op": "optimize",
+   "args": {
+    "topologie": "hopfield_n1",
+    "sigma_max": 0.2,
+    "starts": 20,
+    "seed": 123
+   },
+   "ergebnis": {
+    "params": {
+     "bind+": 5.343172871530111,
+     "bind-": 7.144047887345965,
+     "akt0+": 1.3112309045948234,
+     "verw1+": -2.021824066756356,
+     "verw1-": 5.465295819979871,
+     "prod+": -4.270001119025483,
+     "mu": 0.01889566024306766,
+     "muP": 0.0
+    },
+    "eta": 0.00012158565466813449,
+    "sigma": 0.19999994003477076,
+    "v": 2.0108102000792813e-05,
+    "feasible": true,
+    "hinweis": "numerisch (Kandidat), nicht zertifiziert"
+   },
+   "sek": 2.37
+  },
+  {
+   "id": 3,
+   "wer": "forscher-sparsam",
+   "op": "optimize",
+   "args": {
+    "topologie": "hopfield_n1",
+    "sigma_max": 0.2,
+    "starts": 20,
+    "seed": 999
+   },
+   "ergebnis": {
+    "params": {
+     "bind+": -8.954691037431852,
+     "bind-": -9.692031939522783,
+     "akt0+": -9.04073728688423,
+     "verw1+": -6.8257150399718824,
+     "verw1-": -7.480996824744162,
+     "prod+": -4.68954802905594,
+     "mu": 0.15014198269862253,
+     "muP": 0.0
+    },
+    "eta": 0.0016649989491777353,
+    "sigma": 0.1707928742892899,
+    "v": 1.856075362354978e-06,
+    "feasible": true,
+    "hinweis": "numerisch (Kandidat), nicht zertifiziert"
+   },
+   "sek": 1.84
+  },
+  {
+   "id": 4,
+   "wer": "forscher-sparsam",
+   "op": "front",
+   "args": {
+    "topologie": "hopfield_n1",
+    "sigmas": [
+     0.1,
+     0.15,
+     0.2,
+     0.3,
+     0.5,
+     1.0,
+     2.0,
+     4.0
+    ]
+   },
+   "ergebnis": {
+    "punkte": [
+     {
+      "sigma_max": 0.1,
+      "eta": 0.009890107500284467,
+      "sigma": 0.018445616503955948,
+      "v": 6.009701678522106e-05,
+      "feasible": true,
+      "hinweis": "numerisch (Kandidat), nicht zertifiziert"
+     },
+     {
+      "sigma_max": 0.15,
+      "eta": 0.010019368188213404,
+      "sigma": 0.07772290115011063,
+      "v": 0.02882848305957919,
+      "feasible": true,
+      "hinweis": "numerisch (Kandidat), nicht zertifiziert"
+     },
+     {
+      "sigma_max": 0.2,
+      "eta": 0.01001947090012094,
+      "sigma": 0.18131412440485892,
+      "v": 0.06447556482360928,
+      "feasible": true,
+      "hinweis": "numerisch (Kandidat), nicht zertifiziert"
+     },
+     {
+      "sigma_max": 0.3,
+      "eta": 0.0004582593963154215,
+      "sigma": 0.003097677246209444,
+      "v": 1.5816321377259968e-05,
+      "feasible": true,
+      "hinweis": "numerisch (Kandidat), nicht zertifiziert"
+     },
+     {
+      "sigma_max": 0.5,
+      "eta": 0.009955690116578575,
+      "sigma": 0.48827071609879097,
+      "v": 7.580516469499362e-07,
+      "feasible": true,
+      "hinweis": "numerisch (Kandidat), nicht zertifiziert"
+     },
+     {
+      "sigma_max": 1.0,
+      "eta": 0.009723152278582385,
+      "sigma": 0.3570306088667941,
+      "v": 1.8337555275138584e-05,
+      "feasible": true,
+      "hinweis": "numerisch (Kandidat), nicht zertifiziert"
+     },
+     {
+      "sigma_max": 2.0,
+      "eta": 0.0099521531030636,
+      "sigma": 1.0660060937451075,
+      "v": 0.00013028415116878023,
+      "feasible": true,
+      "hinweis": "numerisch (Kandidat), nicht zertifiziert"
+     },
+     {
+      "sigma_max": 4.0,
+      "eta": 0.00875667870466088,
+      "sigma": 2.12426260455957,
+      "v": 0.00042898869973839737,
+      "feasible": true,
+      "hinweis": "numerisch (Kandidat), nicht zertifiziert"
+     }
+    ]
+   },
+   "sek": 3.92
+  },
+  {
+   "id": 5,
+   "wer": "forscher-sparsam",
+   "op": "optimize",
+   "args": {
+    "topologie": "hopfield_n1",
+    "starts": 15,
+    "seed": 456
+   },
+   "ergebnis": {
+    "params": {
+     "bind+": 5.3448298108032315,
+     "bind-": 2.3995489826090988,
+     "akt0+": 3.2849042751799096,
+     "verw1+": 2.495928519405628,
+     "verw1-": 1.1134725226613758,
+     "prod+": -3.9623386999365464,
+     "mu": 2.849564702992957,
+     "muP": 0.0
+    },
+    "eta": 0.00011541249192021512,
+    "sigma": 1841.5112064874559,
+    "v": 0.0012857898247366716,
+    "feasible": true,
+    "hinweis": "numerisch (Kandidat), nicht zertifiziert"
+   },
+   "sek": 2.06
+  },
+  {
+   "id": 6,
+   "wer": "forscher-sparsam",
+   "op": "optimize",
+   "args": {
+    "topologie": "hopfield_n1",
+    "sigma_max": 0.3,
+    "starts": 15,
+    "seed": 789
+   },
+   "ergebnis": {
+    "params": {
+     "bind+": 1.8109532837167643,
+     "bind-": 4.184334267946097,
+     "akt0+": -4.016796613433137,
+     "verw1+": -0.18472489295117056,
+     "verw1-": 0.2658087898298118,
+     "prod+": 8.895151628621894,
+     "mu": 0.08092775099121773,
+     "muP": 0.0
+    },
+    "eta": 0.009917301976855865,
+    "sigma": 0.08094593479645444,
+    "v": 0.0011161492519704552,
+    "feasible": true,
+    "hinweis": "numerisch (Kandidat), nicht zertifiziert"
+   },
+   "sek": 1.12
+  },
+  {
+   "id": 7,
+   "wer": "forscher-sparsam",
+   "op": "optimize",
+   "args": {
+    "topologie": "hopfield_n1",
+    "sigma_max": 0.2,
+    "starts": 30,
+    "seed": 444
+   },
+   "ergebnis": {
+    "params": {
+     "bind+": 3.610085800357429,
+     "bind-": 6.496331925154843,
+     "akt0+": -6.462615531437162,
+     "verw1+": 4.597787590862825,
+     "verw1-": -1.4943709684336988,
+     "prod+": 2.8642335012119924,
+     "mu": 0.020769095123332137,
+     "muP": 0.0
+    },
+    "eta": 0.00012949535307663605,
+    "sigma": 0.1398444856973602,
+    "v": 4.093481260892401e-06,
+    "feasible": true,
+    "hinweis": "numerisch (Kandidat), nicht zertifiziert"
+   },
+   "sek": 2.93
+  },
+  {
+   "id": 8,
+   "wer": "forscher-sparsam",
+   "op": "optimize",
+   "args": {
+    "topologie": "hopfield_n1",
+    "sigma_max": 0.2,
+    "starts": 30,
+    "seed": 555
+   },
+   "ergebnis": {
+    "params": {
+     "bind+": 1.25692110302422,
+     "bind-": 1.6395612722825048,
+     "akt0+": -0.37991700366064923,
+     "verw1+": 0.7711671090216515,
+     "verw1-": 6.069179046331205,
+     "prod+": -1.7495892973470455,
+     "mu": 0.014406439888479174,
+     "muP": 0.0
+    },
+    "eta": 0.00012893473670907635,
+    "sigma": 0.19588070632524335,
+    "v": 4.362805277990933e-06,
+    "feasible": true,
+    "hinweis": "numerisch (Kandidat), nicht zertifiziert"
+   },
+   "sek": 2.89
+  },
+  {
+   "id": 9,
+   "wer": "forscher-sparsam",
+   "op": "optimize",
+   "args": {
+    "topologie": "hopfield_n1",
+    "sigma_max": 0.2,
+    "starts": 30,
+    "seed": 666
+   },
+   "ergebnis": {
+    "params": {
+     "bind+": 4.050135358347485,
+     "bind-": 0.7135633521923538,
+     "akt0+": -4.7909562035102935,
+     "verw1+": 0.14711949265107002,
+     "verw1-": -0.5321374904697697,
+     "prod+": -2.193965339890256,
+     "mu": 0.0005468428794517064,
+     "muP": 0.0
+    },
+    "eta": 0.00010958222519502927,
+    "sigma": 0.006291601777710867,
+    "v": 9.148658053348413e-09,
+    "feasible": true,
+    "hinweis": "numerisch (Kandidat), nicht zertifiziert"
+   },
+   "sek": 3.31
+  }
+ ],
+ "sek": 127.5
+}

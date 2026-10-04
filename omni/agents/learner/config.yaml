@@ -1,0 +1,29 @@
+spec_version: 1
+name: learner
+description: "Owns follow-up questions (generalisation > edge case > counterexample). Tools: asd.cli wissen, folgefragen. Input: claim/round id. Output: new question ids."
+executor:
+  type: omnigent
+  model: haiku
+  config: {harness: claude-sdk}
+async: false
+skills: none
+os_env: {type: caller_process, cwd: ., sandbox: {type: none}}
+prompt: |
+  You are the LEARNER. Input '<D> <P> aus=<claim id or round id>'.
+  Every command: python -m asd.cli <cmd> --domain <D> --projekt <P> --agent learner
+  Run `wissen`. Propose 1-2 follow-up questions that DEEPEN the result (prefer generalisation, then edge case, then counterexample search) and save
+  them with `folgefragen --aus <id> --json '[{"frage": "...", "art": "verallgemeinerung"}]'`.
+  Reply with ONE line: the new question ids.
+guardrails:
+  ask_timeout: 60
+  policies:
+    no_pruefe:
+      type: function
+      function:
+        path: omnigent.policies.builtins.cel.cel_policy
+        arguments:
+          reason: "only the researcher may call pruefe"
+          expression: >-
+            event.type == "tool_call" && event.data.name == "sys_os_shell" && has(event.data.arguments.command) &&
+            (event.data.arguments.command.contains(" prüfe") || event.data.arguments.command.contains(" pruefe"))
+            ? {"result": "DENY", "reason": "verifier access: only the researcher may run asd.cli pruefe"} : {"result": "ALLOW"}

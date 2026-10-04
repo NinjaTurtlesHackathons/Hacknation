@@ -1,0 +1,8 @@
+- 2026-10-04 01:22:02 Selbsttest des Prüfers: bestanden
+- 2026-10-04 01:22:15 Runde 1: Erhöht der Zusatz des Kofaktors bei 37C die Enzymaktivität gegenüber ohne Kofaktor?
+- 2026-10-04 01:22:33   Versuchsauftrag A1 angelegt und präregistriert. Bitte messen: projects/assay_test/auftraege/A1_protokoll.md
+- 2026-10-04 01:22:33 Fertig: 0 geprüfte Aussagen, 0 negative Ergebnisse
+- 2026-10-04 01:22:59 Selbsttest des Prüfers: bestanden
+- 2026-10-04 01:23:23 Auftrag A1 ausgewertet: bestätigt (statistical): In experiment A1, Aktivität is larger in group 37C_mit_kofaktor than in group 37C_ohne_kofaktor (preregistered one-sided permutation test, alpha = 0.05 after Be | Neuheit: nicht_gefunden
+- 2026-10-04 01:23:23 Keine offenen Fragen mehr.
+- 2026-10-04 01:23:23 Fertig: 1 geprüfte Aussagen, 0 negative Ergebnisse

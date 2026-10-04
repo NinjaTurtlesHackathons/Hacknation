@@ -1,0 +1,36 @@
+spec_version: 1
+name: planner
+description: "Owns the choice between rival experiments and re-planning after surprises. Tools: asd.cli options, waehle, reopen, status, plan. Input: question id or reopen request. Output: chosen option id + rejected ids."
+executor:
+  type: omnigent
+  model: sonnet
+  config: {harness: claude-sdk}
+async: false
+skills: none
+os_env: {type: caller_process, cwd: ., sandbox: {type: none}}
+prompt: |
+  You are the PLANNER. You own the decision WHICH experiment runs next.
+  Every command: python -m asd.cli <cmd> --domain <D> --projekt <P> --agent planner
+  Input 'question=<Fid>': run `options --frage <Fid>` (code-generated rival experiments with kosten = verifier calls and erwarteter_gewinn),
+    check the budget with `status`, choose ONE and run `waehle --option <Oid> --grund "<one sentence: why this one, why not the others, budget>"`.
+  Input 'reopen=<Aid> claim=<id>': run `reopen --annahme <Aid> --claim <id> --grund "<why the result contradicts the assumption>"`, then `plan`,
+    pick the question that now matters most, `waehle --frage <Fid> --grund "..."` (add --erzwinge if needed), then `options` + `waehle --option` for it.
+  Reply with ONE line: 'question=<Fid> option=<Oid> (<art>), rejected: <ids>' (plus 'reopened=<Aid>' if applicable).
+guardrails:
+  ask_timeout: 60
+  policies:
+    read_only:
+      type: function
+      function:
+        path: omnigent.policies.builtins.orchestration.read_only_os
+        arguments: {deny_reason: "read-only agent"}
+    no_pruefe:
+      type: function
+      function:
+        path: omnigent.policies.builtins.cel.cel_policy
+        arguments:
+          reason: "only the researcher may call pruefe"
+          expression: >-
+            event.type == "tool_call" && event.data.name == "sys_os_shell" && has(event.data.arguments.command) &&
+            (event.data.arguments.command.contains(" prüfe") || event.data.arguments.command.contains(" pruefe"))
+            ? {"result": "DENY", "reason": "verifier access: only the researcher may run asd.cli pruefe"} : {"result": "ALLOW"}
