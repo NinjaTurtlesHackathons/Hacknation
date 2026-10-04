@@ -361,8 +361,8 @@
    "status": "bestätigt",
    "relevanz": "hauptresultat",
    "scope": "alle",
-   "rolle": "hauptresultat",
-   "env": "theorem"
+   "rolle": "stuetze",
+   "env": "proposition"
   },
   {
    "claim_id": "C-proofreading-O15-I",
@@ -816,7 +816,7 @@
   },
   {
    "claim_id": "C-verfuegbarkeit",
-   "text": "Code and data: repository https://github.com/alizema700/Daddys-Project, branch claude/omnigent-lab, directory projects/omni_proofreading; reproduce all certificates with 'python -m asd.recheck proofreading' and rebuild the paper with 'python -m asd.paper --domain proofreading'.",
+   "text": "Code and data: repository https://github.com/alizema700/Daddys-Project, branch claude/probatum-mcp, directory projects/omni_proofreading; reproduce all certificates with 'python -m asd.recheck proofreading' and rebuild the paper with 'python -m asd.paper --domain proofreading'.",
    "level": "observed",
    "status": "bestätigt",
    "relevanz": null,
@@ -825,10 +825,10 @@
   }
  ],
  "story": {
-  "kernfrage": "Does the Hopfield bound eta >= e^{-(n+1)Delta} on the error rate of kinetic proofreading hold as a universal limit for networks with two bound states, or can topologies other than the linear chain with one proofreading step go below e^{-2Delta}?",
-  "kernaussage": "Among the 88 non-degenerate rule-compliant two-bound-state topologies, the bound eta >= e^{-2Delta} is proven for 50, exactly certified as violated (eta < 1e-4, down to about 1e-12) for 11 via fuel-driven discard edges, and left open for 27, while the linear Hopfield chain obeys eta >= e^{-(n+1)Delta} for all rates.",
-  "titel": "The Hopfield Bound $e^{-2\\Delta}$ Holds for 50 of 88 Two-Bound-State Proofreading Networks and Fails for 11",
-  "keywords": "kinetic proofreading, Hopfield bound, error rate, entropy production, Markov networks, exact certificates",
+  "kernfrage": "Does the Hopfield bound eta >= e^{-(n+1)Delta} on the error rate of kinetic proofreading hold as a universal limit for all Markov networks with two bound states, or can network topologies with fuel-driven discard pathways break it?",
+  "kernaussage": "For the linear Hopfield chain with n=2 the bound eta >= e^{-3Delta} is proven for all rates and fuel potentials, but e^{-2Delta} is not a universal limit for networks with at most two bound states: of the 88 admissible topologies, 50 provably obey eta >= e^{-2Delta}, 11 have exactly certified violations (eta < 10^-4, down to about 10^-12), and 27 remain open.",
+  "titel": "Exact classification of the bound $e^{-2\\Delta}$ on proofreading error rates in Markov networks with two bound states",
+  "keywords": "kinetic proofreading, error rate bound, Hopfield limit, Markov networks, entropy production, exact certificates",
   "zuordnung": {
    "C-modell": "stuetze",
    "C-proofreading-R1": "beispiel",
@@ -843,7 +843,7 @@
    "C-proofreading-R11": "hauptresultat",
    "C-proofreading-R12": "hauptresultat",
    "C-proofreading-O14": "hauptresultat",
-   "C-proofreading-O15": "hauptresultat",
+   "C-proofreading-O15": "stuetze",
    "C-proofreading-O16": "weglassen",
    "C-neg1": "anhang",
    "C-neg2": "anhang",
