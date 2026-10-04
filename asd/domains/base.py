@@ -13,6 +13,8 @@ Pflicht für jede Domäne:
 Optional:
   consistent(antwort, p)  Passt der Antworttext zur geprüften Behauptung?
   describe(p)      Kanonische Aussage, die eine bestandene Prüfung beweist (Pflicht für ehrliche Paper-Sätze).
+  parameter()      Feste Modellparameter {name: (wert, bedeutung)}; werden im Paper als Claim C-modell belegt.
+  relevanz(p)      hauptresultat | stuetze | beispiel (Benennung Theorem/Proposition/Example im Paper).
   level(p)         Evidenzstufe einer bestandenen Prüfung: proved_lean | computed_rigorous | statistical | observed
 """
 
@@ -37,6 +39,11 @@ class Domain:
 
     def level(self, p):
         return "observed"
+
+    def parameter(self):
+        """Feste Modellparameter als {name: (wert, bedeutung)}. Ohne Eintrag warnt der Paper-Bau, weil Konstanten sonst
+        nicht im Paper stehen dürfen (das Halluzinations-Gate streicht jede unbelegte Zahl)."""
+        return {}
 
     def widerspricht(self, p, q):
         """True, wenn die bestandenen Prüfungen p und q logisch nicht beide wahr sein können (Red-Team-Kriterium).

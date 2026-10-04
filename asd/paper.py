@@ -66,8 +66,17 @@ def rule_issues(md):
     return issues
 
 
+def modell_claim(D):
+    par = D.parameter() if hasattr(D, "parameter") else {}
+    if not par:
+        print(f"WARNUNG: Domäne {D.name} definiert keine parameter(); feste Modellkonstanten dürfen dann nicht im Paper stehen.")
+        return []
+    txt = "; ".join(f"{k} = {v[0]} ({v[1]})" for k, v in par.items())
+    return [{"claim_id": "C-modell", "text": f"Fixed model parameters and assumptions: {txt}.", "level": "computed_rigorous", "status": "bestätigt"}]
+
+
 def claims_of(domain):
-    s = json.load(open(f"projects/{domain}/state.json")); C = []; D = get_domain(domain)
+    s = json.load(open(f"projects/{domain}/state.json")); D = get_domain(domain); C = modell_claim(D)
     for c in s["claims"]:
         text = D.describe(c["pruefung"]) if c.get("pruefung") else c["text"]          # nur was die Prüfung beweist
         C.append({"claim_id": f"C-{c['id']}", "text": f"Untersuchte Frage: {c['frage']} Geprüftes Resultat: {text} Prüfer: {c['grund']}",

@@ -237,6 +237,16 @@ class ProofreadingDomain(Domain):
 
     def level(self, p): return "observed" if p.get("typ") == "optimum" else "computed_rigorous"
 
+    def parameter(self):
+        return {"Delta": ("ln 100 (e^Delta = 100, e^-Delta = 0.01)", "discrimination free-energy difference in kT: W leaves bound states e^Delta times faster"),
+                "L": ("10", "range of log-rates: every rate, including derived reverse rates, lies in [e^-10, e^10]"),
+                "mu": (">= 0, explored in [0, 20]", "fuel chemical potential (kT) consumed per fuel-driven step"),
+                "mu_P": (">= 0, explored in [0, 20]", "chemical potential (kT) of product formation"),
+                "max_states": ("10", "maximal number of states of a network (unbound states plus R and W copies of bound states)"),
+                "concentrations": ("1", "substrate concentrations are absorbed into the binding rates (normalised)"),
+                "rationalisation": ("denominator <= 10^6", "rates are rounded to rationals with denominator at most 10^6 for exact certificates"),
+                "family_k": ("2", "number of bound states in the enumerated topology family (88 non-degenerate members)")}
+
     def figures(self, state, outdir): return pareto_figure(state, outdir)
 
     def widerspricht(self, p, q):

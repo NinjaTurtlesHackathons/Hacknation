@@ -36,6 +36,11 @@ class LatticeDomain(Domain):
                 ({"typ": "argmin3d", "nu": 5, "erwartet": "fcc"}, False)]
 
 
+    def parameter(self):
+        return {"covolume": ("1", "all Bravais lattices have unit covolume"),
+                "cutoff": ("R in {32, 48, 64, 96}", "summation cube [-R, R]^d in lattice coordinates, Richardson extrapolation in R"),
+                "nu_direct": ("12", "for nu >= 12 direct summation replaces FFT convolution")}
+
     def describe(self, p):
         t = p.get("typ")
         if t == "argmin2d": return f"Bei nu = {p['nu']} findet die unabhängige globale Suche des Prüfers als 2D-Minimierer: {p['erwartet']}" + (f" mit y = {p['y']}" if p.get("y") else "") + " (numerisch)."
