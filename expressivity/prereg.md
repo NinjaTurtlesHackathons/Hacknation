@@ -70,3 +70,19 @@ uses these alphabets.
   E3 hh3 A5/c3c5 > hh1 A5/c3c5. Benjamini-Hochberg with q = 0.1 over E1-E3 (m = 3).
 - Success of H-EX2: E1 and E2 significant after BH AND the hh2 cells of both tasks have cell outcome success (>= 10 of 20 seeds), which B4
   predicts to be impossible. Reported regardless of outcome.
+
+## Addendum 2026-10-04 07:00 (erratum and reporting rules after a runner bug; decision criteria above unchanged)
+- **Erratum to the H-EX2 addendum:** at 05:00, 12 H-EX1 cells (hh3/hh4) and one negative-control cell had finished, not 13 plus one.
+- **Runner bug (found by the compliance audit):** the CPU pool (confirm.py) checks for finished cells only at start-up and overwrote
+  cells that the MPS runner (confirm_mps.py, decision EX21) had already written: hh1/Z2/all (MPS 18 of 20 successful seeds, CPU 0 of 20)
+  and diag_pos/Z2/all (MPS 0 of 20, CPU 0 of 20). The per-seed MPS values of these two cells were overwritten; their success counts
+  survive in the MPS runner log (results/confirmatory_mps_replication/runner_logs.txt). From 06:58 a watcher restores every MPS file
+  and keeps the CPU duplicate in results/confirmatory_cpu_duplicates/; the pool is stopped once all cells exist.
+- **Which run counts (rule fixed by EX21 before any of these results):** a cell already written is not recomputed, so the first
+  completed run is primary (MPS for the cells the MPS runner finished first, CPU otherwise); every duplicate is reported as a replication,
+  together with the device sensitivity. For hh1/Z2 and diag_pos/Z2 the primary outcome is taken from the MPS runner log (success counts
+  only; no per-seed accuracies, so no paired permutation test for D5).
+- **Multiple testing, additional report:** besides the preregistered families (H-EX1: m = 9; H-EX2: m = 3), Benjamini-Hochberg over all 12
+  tests together is reported as well.
+- **Project criterion (CLAUDE.md, mandatory check 1), additional report:** for every discriminating comparison, p < 0.05 of the paired
+  permutation test AND a paired bootstrap 95% CI of the accuracy ratio that excludes 1 is reported next to the preregistered Fisher test.

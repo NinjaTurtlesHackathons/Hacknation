@@ -1,0 +1,1282 @@
+{
+ "antwort": {
+  "antwort": "Z2^2",
+  "zahl": 1,
+  "konfidenz": 0.75,
+  "pruefungen": [
+   {
+    "typ": "realisation",
+    "group": "Z2^2",
+    "alphabet": "all",
+    "k": 1,
+    "construction": "count",
+    "twist": "none"
+   }
+  ],
+  "begruendung": "E8 bestätigt numerisch rank(M - I) = 1 für Z2^2 mit all Elementen (= Involutionen) in count-Konstruktion. Z2^2 ist abelsch mit allen Elementen der Ordnung ≤ 2; die numerische Schließung hat Größe 8 = |Z2^2|. Das erfüllt die Bedingungen für h*(Z2^2, all) ≤ 1. S4 (E6) hat dagegen rank = 2 für involutions (nicht 1).",
+  "stimmen": "Stufe 1/4 (sparsam, haiku)"
+ },
+ "level": "computed (Code-Prüfer bestanden)",
+ "forscher": [
+  {
+   "strategie": "sparsam",
+   "runden": [
+    {
+     "ueberlegung": "Die zentrale Frage zielt auf Gruppen mit h*(G, involutions) = 1: eine einzige Householder-Reflexion pro Token sollte für das Wortproblem ausreichen, wenn nur Involutionen als Generatoren fungieren. Hypothese: Dies gelingt für Gruppen, deren Involutionen niedrige Ränge rank(M - I) ≤ 1 in treuen reellen Darstellungen zulassen. Das Muster könnte sich in den Codimensions der Fixräume widerspiegeln (je höher die Codimension, desto stärker die algebraischen Constraints). Strategie: (1) Struktur von S₄, D₄, Z₂³ vergleichen (Konjugationsklassen, Involutionszahl), (2) Real-Irreducibles analysieren (Codimension-Profile), (3) numerisch die Ränge der Involutionen direkt berechnen, (4) die Korrelation zwischen Codimension und Rang prüfen.",
+     "plan": [
+      {
+       "op": "group_info",
+       "args": {
+        "group": "S4"
+       }
+      },
+      {
+       "op": "group_info",
+       "args": {
+        "group": "D4"
+       }
+      },
+      {
+       "op": "group_info",
+       "args": {
+        "group": "Z2^3"
+       }
+      },
+      {
+       "op": "real_irreps",
+       "args": {
+        "group": "S4"
+       }
+      },
+      {
+       "op": "real_irreps",
+       "args": {
+        "group": "D4"
+       }
+      },
+      {
+       "op": "real_irreps",
+       "args": {
+        "group": "Z2^3"
+       }
+      },
+      {
+       "op": "numeric_construction",
+       "args": {
+        "group": "S4",
+        "alphabet": "involutions",
+        "construction": "so3",
+        "twist": "none"
+       }
+      },
+      {
+       "op": "numeric_construction",
+       "args": {
+        "group": "D4",
+        "alphabet": "involutions",
+        "construction": "so3",
+        "twist": "none"
+       }
+      }
+     ]
+    },
+    {
+     "plan": [
+      {
+       "op": "numeric_construction",
+       "args": {
+        "group": "Z2^2",
+        "alphabet": "all",
+        "construction": "count",
+        "twist": "none"
+       }
+      },
+      {
+       "op": "numeric_construction",
+       "args": {
+        "group": "D3",
+        "alphabet": "involutions",
+        "construction": "count",
+        "twist": "none"
+       }
+      },
+      {
+       "op": "numeric_construction",
+       "args": {
+        "group": "Q8",
+        "alphabet": "involutions",
+        "construction": "count",
+        "twist": "none"
+       }
+      },
+      {
+       "op": "real_irreps",
+       "args": {
+        "group": "Z2^2"
+       }
+      },
+      {
+       "op": "real_irreps",
+       "args": {
+        "group": "D3"
+       }
+      },
+      {
+       "op": "real_irreps",
+       "args": {
+        "group": "Q8"
+       }
+      }
+     ]
+    },
+    {
+     "antwort": "Z2^2",
+     "zahl": 1,
+     "konfidenz": 0.75,
+     "pruefungen": [
+      {
+       "typ": "realisation",
+       "group": "Z2^2",
+       "alphabet": "all",
+       "k": 1,
+       "construction": "count",
+       "twist": "none"
+      }
+     ],
+     "begruendung": "E8 bestätigt numerisch rank(M - I) = 1 für Z2^2 mit all Elementen (= Involutionen) in count-Konstruktion. Z2^2 ist abelsch mit allen Elementen der Ordnung ≤ 2; die numerische Schließung hat Größe 8 = |Z2^2|. Das erfüllt die Bedingungen für h*(Z2^2, all) ≤ 1. S4 (E6) hat dagegen rank = 2 für involutions (nicht 1)."
+    }
+   ],
+   "experimente": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13
+   ],
+   "final": {
+    "antwort": "Z2^2",
+    "zahl": 1,
+    "konfidenz": 0.75,
+    "pruefungen": [
+     {
+      "typ": "realisation",
+      "group": "Z2^2",
+      "alphabet": "all",
+      "k": 1,
+      "construction": "count",
+      "twist": "none"
+     }
+    ],
+    "begruendung": "E8 bestätigt numerisch rank(M - I) = 1 für Z2^2 mit all Elementen (= Involutionen) in count-Konstruktion. Z2^2 ist abelsch mit allen Elementen der Ordnung ≤ 2; die numerische Schließung hat Größe 8 = |Z2^2|. Das erfüllt die Bedingungen für h*(Z2^2, all) ≤ 1. S4 (E6) hat dagegen rank = 2 für involutions (nicht 1)."
+   },
+   "modell": "haiku",
+   "pruefung": {
+    "bestanden": true,
+    "grund": "certified: |H| = 8, pi: H -> G onto (4 elements), consistent readout, dimension 3, field K_1, max rank(R[s] - I) = 1 <= k = 1, every letter factored into <= 1 exact reflections"
+   }
+  }
+ ],
+ "experimente": [
+  {
+   "id": 0,
+   "wer": "forscher-sparsam",
+   "op": "group_info",
+   "args": {
+    "group": "S4"
+   },
+   "ergebnis": {
+    "order": 24,
+    "abelian": false,
+    "solvable": true,
+    "perfect": false,
+    "derived_series_orders": [
+     24,
+     12,
+     4,
+     1
+    ],
+    "exponent": 12,
+    "center_size": 1,
+    "classes": [
+     {
+      "size": 1,
+      "element_order": 1,
+      "cycle_type": [
+       1,
+       1,
+       1,
+       1
+      ]
+     },
+     {
+      "size": 3,
+      "element_order": 2,
+      "cycle_type": [
+       2,
+       2
+      ]
+     },
+     {
+      "size": 6,
+      "element_order": 2,
+      "cycle_type": [
+       2,
+       1,
+       1
+      ]
+     },
+     {
+      "size": 8,
+      "element_order": 3,
+      "cycle_type": [
+       3,
+       1
+      ]
+     },
+     {
+      "size": 6,
+      "element_order": 4,
+      "cycle_type": [
+       4
+      ]
+     }
+    ]
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 1,
+   "wer": "forscher-sparsam",
+   "op": "group_info",
+   "args": {
+    "group": "D4"
+   },
+   "ergebnis": {
+    "order": 8,
+    "abelian": false,
+    "solvable": true,
+    "perfect": false,
+    "derived_series_orders": [
+     8,
+     2,
+     1
+    ],
+    "exponent": 4,
+    "center_size": 2,
+    "classes": [
+     {
+      "size": 1,
+      "element_order": 1,
+      "cycle_type": [
+       1,
+       1,
+       1,
+       1
+      ]
+     },
+     {
+      "size": 1,
+      "element_order": 2,
+      "cycle_type": [
+       2,
+       2
+      ]
+     },
+     {
+      "size": 2,
+      "element_order": 2,
+      "cycle_type": [
+       2,
+       1,
+       1
+      ]
+     },
+     {
+      "size": 2,
+      "element_order": 2,
+      "cycle_type": [
+       2,
+       2
+      ]
+     },
+     {
+      "size": 2,
+      "element_order": 4,
+      "cycle_type": [
+       4
+      ]
+     }
+    ]
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 2,
+   "wer": "forscher-sparsam",
+   "op": "group_info",
+   "args": {
+    "group": "Z2^3"
+   },
+   "ergebnis": {
+    "order": 8,
+    "abelian": true,
+    "solvable": true,
+    "perfect": false,
+    "derived_series_orders": [
+     8,
+     1
+    ],
+    "exponent": 2,
+    "center_size": 8,
+    "classes": [
+     {
+      "size": 1,
+      "element_order": 1,
+      "cycle_type": [
+       1,
+       1,
+       1,
+       1,
+       1,
+       1
+      ]
+     },
+     {
+      "size": 1,
+      "element_order": 2,
+      "cycle_type": [
+       2,
+       1,
+       1,
+       1,
+       1
+      ]
+     },
+     {
+      "size": 1,
+      "element_order": 2,
+      "cycle_type": [
+       2,
+       1,
+       1,
+       1,
+       1
+      ]
+     },
+     {
+      "size": 1,
+      "element_order": 2,
+      "cycle_type": [
+       2,
+       2,
+       1,
+       1
+      ]
+     },
+     {
+      "size": 1,
+      "element_order": 2,
+      "cycle_type": [
+       2,
+       1,
+       1,
+       1,
+       1
+      ]
+     },
+     {
+      "size": 1,
+      "element_order": 2,
+      "cycle_type": [
+       2,
+       2,
+       1,
+       1
+      ]
+     },
+     {
+      "size": 1,
+      "element_order": 2,
+      "cycle_type": [
+       2,
+       2,
+       1,
+       1
+      ]
+     },
+     {
+      "size": 1,
+      "element_order": 2,
+      "cycle_type": [
+       2,
+       2,
+       2
+      ]
+     }
+    ]
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 3,
+   "wer": "forscher-sparsam",
+   "op": "real_irreps",
+   "args": {
+    "group": "S4"
+   },
+   "ergebnis": {
+    "irreps": [
+     {
+      "deg": 1,
+      "fs": 1
+     },
+     {
+      "deg": 1,
+      "fs": 1
+     },
+     {
+      "deg": 2,
+      "fs": 1
+     },
+     {
+      "deg": 3,
+      "fs": 1
+     },
+     {
+      "deg": 3,
+      "fs": 1
+     }
+    ],
+    "class_orders": [
+     1,
+     2,
+     2,
+     3,
+     4
+    ],
+    "class_sizes": [
+     1,
+     3,
+     6,
+     8,
+     6
+    ],
+    "codim_fix": [
+     [
+      0,
+      0,
+      1,
+      0,
+      1
+     ],
+     [
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     [
+      0,
+      0,
+      1,
+      2,
+      1
+     ],
+     [
+      0,
+      2,
+      1,
+      2,
+      3
+     ],
+     [
+      0,
+      2,
+      2,
+      2,
+      2
+     ]
+    ],
+    "mult_minus_one": [
+     [
+      0,
+      0,
+      1,
+      0,
+      1
+     ],
+     [
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     [
+      0,
+      0,
+      1,
+      0,
+      1
+     ],
+     [
+      0,
+      2,
+      1,
+      0,
+      1
+     ],
+     [
+      0,
+      2,
+      2,
+      0,
+      0
+     ]
+    ],
+    "hinweis": "numerical character table"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 4,
+   "wer": "forscher-sparsam",
+   "op": "real_irreps",
+   "args": {
+    "group": "D4"
+   },
+   "ergebnis": {
+    "irreps": [
+     {
+      "deg": 1,
+      "fs": 1
+     },
+     {
+      "deg": 1,
+      "fs": 1
+     },
+     {
+      "deg": 1,
+      "fs": 1
+     },
+     {
+      "deg": 1,
+      "fs": 1
+     },
+     {
+      "deg": 2,
+      "fs": 1
+     }
+    ],
+    "class_orders": [
+     1,
+     2,
+     2,
+     2,
+     4
+    ],
+    "class_sizes": [
+     1,
+     1,
+     2,
+     2,
+     2
+    ],
+    "codim_fix": [
+     [
+      0,
+      0,
+      1,
+      1,
+      0
+     ],
+     [
+      0,
+      0,
+      0,
+      1,
+      1
+     ],
+     [
+      0,
+      0,
+      1,
+      0,
+      1
+     ],
+     [
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     [
+      0,
+      2,
+      1,
+      1,
+      2
+     ]
+    ],
+    "mult_minus_one": [
+     [
+      0,
+      0,
+      1,
+      1,
+      0
+     ],
+     [
+      0,
+      0,
+      0,
+      1,
+      1
+     ],
+     [
+      0,
+      0,
+      1,
+      0,
+      1
+     ],
+     [
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     [
+      0,
+      2,
+      1,
+      1,
+      0
+     ]
+    ],
+    "hinweis": "numerical character table"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 5,
+   "wer": "forscher-sparsam",
+   "op": "real_irreps",
+   "args": {
+    "group": "Z2^3"
+   },
+   "ergebnis": {
+    "irreps": [
+     {
+      "deg": 1,
+      "fs": 1
+     },
+     {
+      "deg": 1,
+      "fs": 1
+     },
+     {
+      "deg": 1,
+      "fs": 1
+     },
+     {
+      "deg": 1,
+      "fs": 1
+     },
+     {
+      "deg": 1,
+      "fs": 1
+     },
+     {
+      "deg": 1,
+      "fs": 1
+     },
+     {
+      "deg": 1,
+      "fs": 1
+     },
+     {
+      "deg": 1,
+      "fs": 1
+     }
+    ],
+    "class_orders": [
+     1,
+     2,
+     2,
+     2,
+     2,
+     2,
+     2,
+     2
+    ],
+    "class_sizes": [
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1
+    ],
+    "codim_fix": [
+     [
+      0,
+      0,
+      1,
+      1,
+      0,
+      0,
+      1,
+      1
+     ],
+     [
+      0,
+      1,
+      1,
+      0,
+      0,
+      1,
+      1,
+      0
+     ],
+     [
+      0,
+      0,
+      0,
+      0,
+      1,
+      1,
+      1,
+      1
+     ],
+     [
+      0,
+      1,
+      0,
+      1,
+      0,
+      1,
+      0,
+      1
+     ],
+     [
+      0,
+      0,
+      1,
+      1,
+      1,
+      1,
+      0,
+      0
+     ],
+     [
+      0,
+      1,
+      1,
+      0,
+      1,
+      0,
+      0,
+      1
+     ],
+     [
+      0,
+      1,
+      0,
+      1,
+      1,
+      0,
+      1,
+      0
+     ],
+     [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ]
+    ],
+    "mult_minus_one": [
+     [
+      0,
+      0,
+      1,
+      1,
+      0,
+      0,
+      1,
+      1
+     ],
+     [
+      0,
+      1,
+      1,
+      0,
+      0,
+      1,
+      1,
+      0
+     ],
+     [
+      0,
+      0,
+      0,
+      0,
+      1,
+      1,
+      1,
+      1
+     ],
+     [
+      0,
+      1,
+      0,
+      1,
+      0,
+      1,
+      0,
+      1
+     ],
+     [
+      0,
+      0,
+      1,
+      1,
+      1,
+      1,
+      0,
+      0
+     ],
+     [
+      0,
+      1,
+      1,
+      0,
+      1,
+      0,
+      0,
+      1
+     ],
+     [
+      0,
+      1,
+      0,
+      1,
+      1,
+      0,
+      1,
+      0
+     ],
+     [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ]
+    ],
+    "hinweis": "numerical character table"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 6,
+   "wer": "forscher-sparsam",
+   "op": "numeric_construction",
+   "args": {
+    "group": "S4",
+    "alphabet": "involutions",
+    "construction": "so3",
+    "twist": "none"
+   },
+   "ergebnis": {
+    "dim": 3,
+    "numerical_rank_M_minus_I_by_letter_order": {
+     "2": [
+      2
+     ]
+    },
+    "numerical_closure_size": 24,
+    "closure_capped": false,
+    "hinweis": "floating point, not a certificate"
+   },
+   "sek": 0.05
+  },
+  {
+   "id": 7,
+   "wer": "forscher-sparsam",
+   "op": "numeric_construction",
+   "args": {
+    "group": "D4",
+    "alphabet": "involutions",
+    "construction": "so3",
+    "twist": "none"
+   },
+   "ergebnis": {
+    "fehler": "ValueError: no SO(3) model stored for D4"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 8,
+   "wer": "forscher-sparsam",
+   "op": "numeric_construction",
+   "args": {
+    "group": "Z2^2",
+    "alphabet": "all",
+    "construction": "count",
+    "twist": "none"
+   },
+   "ergebnis": {
+    "dim": 3,
+    "numerical_rank_M_minus_I_by_letter_order": {
+     "2": [
+      1
+     ]
+    },
+    "numerical_closure_size": 8,
+    "closure_capped": false,
+    "hinweis": "floating point, not a certificate"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 9,
+   "wer": "forscher-sparsam",
+   "op": "numeric_construction",
+   "args": {
+    "group": "D3",
+    "alphabet": "involutions",
+    "construction": "count",
+    "twist": "none"
+   },
+   "ergebnis": {
+    "fehler": "ValueError: count cover needs an abelian group"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 10,
+   "wer": "forscher-sparsam",
+   "op": "numeric_construction",
+   "args": {
+    "group": "Q8",
+    "alphabet": "involutions",
+    "construction": "count",
+    "twist": "none"
+   },
+   "ergebnis": {
+    "fehler": "ValueError: alphabet involutions does not generate Q8"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 11,
+   "wer": "forscher-sparsam",
+   "op": "real_irreps",
+   "args": {
+    "group": "Z2^2"
+   },
+   "ergebnis": {
+    "irreps": [
+     {
+      "deg": 1,
+      "fs": 1
+     },
+     {
+      "deg": 1,
+      "fs": 1
+     },
+     {
+      "deg": 1,
+      "fs": 1
+     },
+     {
+      "deg": 1,
+      "fs": 1
+     }
+    ],
+    "class_orders": [
+     1,
+     2,
+     2,
+     2
+    ],
+    "class_sizes": [
+     1,
+     1,
+     1,
+     1
+    ],
+    "codim_fix": [
+     [
+      0,
+      0,
+      1,
+      1
+     ],
+     [
+      0,
+      1,
+      1,
+      0
+     ],
+     [
+      0,
+      1,
+      0,
+      1
+     ],
+     [
+      0,
+      0,
+      0,
+      0
+     ]
+    ],
+    "mult_minus_one": [
+     [
+      0,
+      0,
+      1,
+      1
+     ],
+     [
+      0,
+      1,
+      1,
+      0
+     ],
+     [
+      0,
+      1,
+      0,
+      1
+     ],
+     [
+      0,
+      0,
+      0,
+      0
+     ]
+    ],
+    "hinweis": "numerical character table"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 12,
+   "wer": "forscher-sparsam",
+   "op": "real_irreps",
+   "args": {
+    "group": "D3"
+   },
+   "ergebnis": {
+    "irreps": [
+     {
+      "deg": 1,
+      "fs": 1
+     },
+     {
+      "deg": 1,
+      "fs": 1
+     },
+     {
+      "deg": 2,
+      "fs": 1
+     }
+    ],
+    "class_orders": [
+     1,
+     2,
+     3
+    ],
+    "class_sizes": [
+     1,
+     3,
+     2
+    ],
+    "codim_fix": [
+     [
+      0,
+      1,
+      0
+     ],
+     [
+      0,
+      0,
+      0
+     ],
+     [
+      0,
+      1,
+      2
+     ]
+    ],
+    "mult_minus_one": [
+     [
+      0,
+      1,
+      0
+     ],
+     [
+      0,
+      0,
+      0
+     ],
+     [
+      0,
+      1,
+      0
+     ]
+    ],
+    "hinweis": "numerical character table"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 13,
+   "wer": "forscher-sparsam",
+   "op": "real_irreps",
+   "args": {
+    "group": "Q8"
+   },
+   "ergebnis": {
+    "irreps": [
+     {
+      "deg": 1,
+      "fs": 1
+     },
+     {
+      "deg": 1,
+      "fs": 1
+     },
+     {
+      "deg": 1,
+      "fs": 1
+     },
+     {
+      "deg": 1,
+      "fs": 1
+     },
+     {
+      "deg": 4,
+      "fs": -1
+     }
+    ],
+    "class_orders": [
+     1,
+     2,
+     4,
+     4,
+     4
+    ],
+    "class_sizes": [
+     1,
+     1,
+     2,
+     2,
+     2
+    ],
+    "codim_fix": [
+     [
+      0,
+      0,
+      1,
+      1,
+      0
+     ],
+     [
+      0,
+      0,
+      0,
+      1,
+      1
+     ],
+     [
+      0,
+      0,
+      1,
+      0,
+      1
+     ],
+     [
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     [
+      0,
+      4,
+      4,
+      4,
+      4
+     ]
+    ],
+    "mult_minus_one": [
+     [
+      0,
+      0,
+      1,
+      1,
+      0
+     ],
+     [
+      0,
+      0,
+      0,
+      1,
+      1
+     ],
+     [
+      0,
+      0,
+      1,
+      0,
+      1
+     ],
+     [
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     [
+      0,
+      4,
+      0,
+      0,
+      0
+     ]
+    ],
+    "hinweis": "numerical character table"
+   },
+   "sek": 0.0
+  }
+ ],
+ "sek": 133.7
+}

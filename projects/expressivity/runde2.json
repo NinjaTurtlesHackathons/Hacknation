@@ -1,0 +1,2637 @@
+{
+ "antwort": {
+  "antwort": "h(Z2^3, all) = 3 (faithful, reell); h*(Z2^3, all) <= 3, nur diag_pm und cdiag realisieren es exakt, diag_pos nicht",
+  "zahl": 3,
+  "konfidenz": 0.7,
+  "pruefung": {
+   "typ": "h_faithful",
+   "group": "Z2^3",
+   "alphabet": "all",
+   "value": 3
+  },
+  "pruefungen": [
+   {
+    "typ": "h_faithful",
+    "group": "Z2^3",
+    "alphabet": "all",
+    "value": 3
+   },
+   {
+    "typ": "diag_realisable",
+    "family": "diag_pos",
+    "group": "Z2^3",
+    "alphabet": "all",
+    "value": false
+   },
+   {
+    "typ": "diag_realisable",
+    "family": "diag_pm",
+    "group": "Z2^3",
+    "alphabet": "all",
+    "value": true
+   }
+  ],
+  "begruendung": "Treue reelle Darstellungen von Z2^3 sind direkte Summen von Charakteren; eine treue Darstellung braucht mindestens drei davon, und mit genau drei (einer Basis des dualen Gruppe) gibt es ein Letter, bei dem alle drei Eigenwerte -1 sind, also h = 3; für m = 4 Charaktere zeigt eine Kodierungsargumentation, dass kein Schema max-Gewicht <= 2 erlaubt. Diagonale Familien mit Einträgen in [0,1] können keinen nichttrivialen Involutions-Letter exakt darstellen, ±1-Diagonalen dagegen schon. Die h*-Gleichheit mit h ist nicht vollständig bewiesen.",
+  "stimmen": "Stufe 4/4 (theoretiker, sonnet)"
+ },
+ "level": "computed (Code-Prüfer bestanden)",
+ "forscher": [
+  {
+   "strategie": "sparsam",
+   "runden": [
+    {
+     "ueberlegung": "Z2^3 ist die elementare abelsche 2-Gruppe der Ordnung 8. Die Frage verlangt einen direkten Vergleich: h(Z2^3, all) nutzt nur treue Darstellungen von Z2^3 selbst, während h*(Z2^3, all) auch Lifts über beliebige Gruppen H mit Surjektion H → Z2^3 erlaubt. Da Z2^3 abelsch ist, sind ihre irreduziblen Darstellungen 1-dimensional. Ich plane, zuerst die Struktur zu untersuchen (group_info, alphabet_info, real_irreps), dann h(Z2^3, all) exakt zu berechnen (faithful_h), und anschließend numerische Konstruktionen in verschiedenen Darstellungen zu testen (count, planar, so3), um h*(Z2^3, all) empirisch zu schätzen. Ein train_quick-Lauf mit diag_pos testet, welche diagonalen Familien praktisch funktionieren.",
+     "plan": [
+      {
+       "op": "group_info",
+       "args": {
+        "group": "Z2^3"
+       }
+      },
+      {
+       "op": "alphabet_info",
+       "args": {
+        "group": "Z2^3",
+        "alphabet": "all"
+       }
+      },
+      {
+       "op": "real_irreps",
+       "args": {
+        "group": "Z2^3"
+       }
+      },
+      {
+       "op": "faithful_h",
+       "args": {
+        "group": "Z2^3",
+        "alphabet": "all"
+       }
+      },
+      {
+       "op": "numeric_construction",
+       "args": {
+        "group": "Z2^3",
+        "alphabet": "all",
+        "construction": "count",
+        "twist": "none"
+       }
+      },
+      {
+       "op": "numeric_construction",
+       "args": {
+        "group": "Z2^3",
+        "alphabet": "all",
+        "construction": "planar",
+        "twist": "none"
+       }
+      },
+      {
+       "op": "numeric_construction",
+       "args": {
+        "group": "Z2^3",
+        "alphabet": "all",
+        "construction": "so3",
+        "twist": "none"
+       }
+      },
+      {
+       "op": "train_quick",
+       "args": {
+        "arch": "diag_pos",
+        "group": "Z2^3",
+        "alphabet": "all",
+        "steps": 1000
+       }
+      }
+     ]
+    },
+    {
+     "antwort": "h(Z2^3, all) = 1, h*(Z2^3, all) = 1. Realisierbar: diag_pm. Nicht realisierbar: diag_pos.",
+     "zahl": 1,
+     "konfidenz": 0.9,
+     "pruefungen": [
+      {
+       "typ": "h_faithful",
+       "group": "Z2^3",
+       "alphabet": "all",
+       "value": 1
+      },
+      {
+       "typ": "diag_realisable",
+       "family": "diag_pm",
+       "group": "Z2^3",
+       "alphabet": "all",
+       "value": true
+      },
+      {
+       "typ": "diag_realisable",
+       "family": "diag_pos",
+       "group": "Z2^3",
+       "alphabet": "all",
+       "value": false
+      }
+     ],
+     "begruendung": "Z2^3 ist abelsch mit Exponenten 2. Die 3 Basis-Charaktere bilden eine treue 3-dimensionale Darstellung, in der jeder Generator als Diagonalmatrix mit genau einem −1-Eintrag wirkt (z.B. diag(−1,1,1), diag(1,−1,1), diag(1,1,−1)), also Rang(M − I) = 1. Damit h(Z2^3, all) = 1. Das diag_pm-System mit Einträgen aus [−1,1] realisiert diese direkt; diag_pos mit [0,1] kann nicht die notwendigen −1-Werte erzeugen."
+    }
+   ],
+   "experimente": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+   ],
+   "final": {
+    "antwort": "h(Z2^3, all) = 1, h*(Z2^3, all) = 1. Realisierbar: diag_pm. Nicht realisierbar: diag_pos.",
+    "zahl": 1,
+    "konfidenz": 0.9,
+    "pruefungen": [
+     {
+      "typ": "h_faithful",
+      "group": "Z2^3",
+      "alphabet": "all",
+      "value": 1
+     },
+     {
+      "typ": "diag_realisable",
+      "family": "diag_pm",
+      "group": "Z2^3",
+      "alphabet": "all",
+      "value": true
+     },
+     {
+      "typ": "diag_realisable",
+      "family": "diag_pos",
+      "group": "Z2^3",
+      "alphabet": "all",
+      "value": false
+     }
+    ],
+    "begruendung": "Z2^3 ist abelsch mit Exponenten 2. Die 3 Basis-Charaktere bilden eine treue 3-dimensionale Darstellung, in der jeder Generator als Diagonalmatrix mit genau einem −1-Eintrag wirkt (z.B. diag(−1,1,1), diag(1,−1,1), diag(1,1,−1)), also Rang(M − I) = 1. Damit h(Z2^3, all) = 1. Das diag_pm-System mit Einträgen aus [−1,1] realisiert diese direkt; diag_pos mit [0,1] kann nicht die notwendigen −1-Werte erzeugen."
+   },
+   "modell": "haiku",
+   "pruefung": {
+    "bestanden": false,
+    "grund": "h(G, Sigma) = 3 (own character table, GAP exact: 3) | diag_pm realises Z2^3: True (iff G is an elementary abelian 2-group (Lemma L5)) | diag_pos realises Z2^3: False (only the trivial group (Lemma L5: nonnegative real diagonal of finite order is I))"
+   }
+  },
+  {
+   "strategie": "numeriker",
+   "runden": [
+    {
+     "ueberlegung": "Z2^3 ist eine abelsche Gruppe der Ordnung 8 (elementare abelsche 2-Gruppe). Die Frage verlangt, h(Z2^3, all) mit h*(Z2^3, all) zu vergleichen und zu prüfen, welche diagonalen Familien realisierbar sind. Plan: (1) Gruppenstruktur und Alphabet erfassen, (2) alle reellen irreduziblen Darstellungen (es gibt 8 für Z2^3) auflisten, (3) minimales h über treue Darstellungen von Z2^3 selbst bestimmen, (4) mehrere explizite Konstruktionen (permutation, SO(3), planar, counting) numerisch durchlaufen und deren Rangstrukturen vergleichen, (5) schnelle Trainingsläufe mit verschiedenen Architekturen durchführen um empirische Grenzen zu sondieren, (6) Basis für Verifikationen sammeln.",
+     "plan": [
+      {
+       "op": "group_info",
+       "args": {
+        "group": "Z2^3"
+       }
+      },
+      {
+       "op": "alphabet_info",
+       "args": {
+        "group": "Z2^3",
+        "alphabet": "all"
+       }
+      },
+      {
+       "op": "real_irreps",
+       "args": {
+        "group": "Z2^3"
+       }
+      },
+      {
+       "op": "faithful_h",
+       "args": {
+        "group": "Z2^3",
+        "alphabet": "all"
+       }
+      },
+      {
+       "op": "numeric_construction",
+       "args": {
+        "group": "Z2^3",
+        "alphabet": "all",
+        "construction": "perm",
+        "twist": "none"
+       }
+      },
+      {
+       "op": "numeric_construction",
+       "args": {
+        "group": "Z2^3",
+        "alphabet": "all",
+        "construction": "so3",
+        "twist": "none"
+       }
+      },
+      {
+       "op": "train_quick",
+       "args": {
+        "arch": "diag_pos",
+        "group": "Z2^3",
+        "alphabet": "all",
+        "steps": 1000
+       }
+      },
+      {
+       "op": "train_quick",
+       "args": {
+        "arch": "hh1",
+        "group": "Z2^3",
+        "alphabet": "all",
+        "steps": 1000
+       }
+      }
+     ]
+    },
+    {
+     "plan": [
+      {
+       "op": "numeric_construction",
+       "args": {
+        "group": "Z2^3",
+        "alphabet": "all",
+        "construction": "count",
+        "twist": "none"
+       }
+      },
+      {
+       "op": "numeric_construction",
+       "args": {
+        "group": "Z2^3",
+        "alphabet": "all",
+        "construction": "planar",
+        "twist": "none"
+       }
+      },
+      {
+       "op": "train_quick",
+       "args": {
+        "arch": "diag_pm",
+        "group": "Z2^3",
+        "alphabet": "all",
+        "steps": 1000
+       }
+      },
+      {
+       "op": "train_quick",
+       "args": {
+        "arch": "hh2",
+        "group": "Z2^3",
+        "alphabet": "all",
+        "steps": 1000
+       }
+      },
+      {
+       "op": "train_quick",
+       "args": {
+        "arch": "hh3",
+        "group": "Z2^3",
+        "alphabet": "all",
+        "steps": 1000
+       }
+      },
+      {
+       "op": "train_quick",
+       "args": {
+        "arch": "cdiag",
+        "group": "Z2^3",
+        "alphabet": "all",
+        "steps": 1000
+       }
+      }
+     ]
+    },
+    {
+     "antwort": "h(Z2^3, all) = 3 (treue Darstellungen); h*(Z2^3, all) = 3 (allgemeine Hebungen). Diagonal-Familien: diag_pm kann exakt realisiert werden, diag_pos nicht.",
+     "zahl": 3,
+     "konfidenz": 0.9,
+     "pruefungen": [
+      {
+       "typ": "h_faithful",
+       "group": "Z2^3",
+       "alphabet": "all",
+       "value": 3
+      },
+      {
+       "typ": "hstar_value",
+       "group": "Z2^3",
+       "alphabet": "all",
+       "value": 3
+      },
+      {
+       "typ": "diag_realisable",
+       "family": "diag_pm",
+       "group": "Z2^3",
+       "alphabet": "all",
+       "value": true
+      },
+      {
+       "typ": "diag_realisable",
+       "family": "diag_pos",
+       "group": "Z2^3",
+       "alphabet": "all",
+       "value": false
+      }
+     ],
+     "begruendung": "Z2^3 ist elementar abelsch mit 8 eindimensionalen irreduziblen Darstellungen. Die numerische permutative Konstruktion [E12] liefert rank(M−I)∈{1,2,3}, also h*≤3; der maximale Rang 3 bestätigt h*≥3. Das Training zeigt: diag_pm erreicht Genauigkeit 1.0 bei Längen 32 und 128 [E18], während diag_pos bei 0.19 scheitert [E14]. Für treue Darstellungen ergibt die numerische Berechnung h(Z2^3, all)=3 [E11]. Die Gleichheit h=h* ist typisch für abelsche Gruppen kleiner Ordnung."
+    }
+   ],
+   "experimente": [
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19,
+    20,
+    21
+   ],
+   "final": {
+    "antwort": "h(Z2^3, all) = 3 (treue Darstellungen); h*(Z2^3, all) = 3 (allgemeine Hebungen). Diagonal-Familien: diag_pm kann exakt realisiert werden, diag_pos nicht.",
+    "zahl": 3,
+    "konfidenz": 0.9,
+    "pruefungen": [
+     {
+      "typ": "h_faithful",
+      "group": "Z2^3",
+      "alphabet": "all",
+      "value": 3
+     },
+     {
+      "typ": "hstar_value",
+      "group": "Z2^3",
+      "alphabet": "all",
+      "value": 3
+     },
+     {
+      "typ": "diag_realisable",
+      "family": "diag_pm",
+      "group": "Z2^3",
+      "alphabet": "all",
+      "value": true
+     },
+     {
+      "typ": "diag_realisable",
+      "family": "diag_pos",
+      "group": "Z2^3",
+      "alphabet": "all",
+      "value": false
+     }
+    ],
+    "begruendung": "Z2^3 ist elementar abelsch mit 8 eindimensionalen irreduziblen Darstellungen. Die numerische permutative Konstruktion [E12] liefert rank(M−I)∈{1,2,3}, also h*≤3; der maximale Rang 3 bestätigt h*≥3. Das Training zeigt: diag_pm erreicht Genauigkeit 1.0 bei Längen 32 und 128 [E18], während diag_pos bei 0.19 scheitert [E14]. Für treue Darstellungen ergibt die numerische Berechnung h(Z2^3, all)=3 [E11]. Die Gleichheit h=h* ist typisch für abelsche Gruppen kleiner Ordnung."
+   },
+   "modell": "haiku",
+   "pruefung": {
+    "bestanden": false,
+    "grund": "h(G, Sigma) = 3 (own character table, GAP exact: 3) | lower bound 1 (nontrivial group: k = 0 means constant state); verifier's own certificate: construction count, twist none, k = 1 (|H| = 128, dim 7); exact | diag_pm realises Z2^3: True (iff G is an elementary abelian 2-group (Lemma L5)) | diag_pos realises Z2^3: False (only the trivial group (Lemma L5: nonnegative real diagonal of finite order is I))"
+   }
+  },
+  {
+   "strategie": "skeptiker",
+   "runden": [
+    {
+     "ueberlegung": "Für Z2^3 mit Alphabet 'all' ist jede reelle Darstellung abelsch und zerfällt in Charaktere mit Werten ±1. Treue Darstellungen brauchen mindestens drei unabhängige Charaktere, und für eine Basis des dualen Gitters gibt es ein Gruppenelement mit rank(M-I)=3. Die naheliegende Vermutung ist daher h(Z2^3, all)=3 und h*(Z2^3, all)=3. Ich will sie aber aktiv widerlegen: Könnte eine größere treue Darstellung mit weniger Reflexionsrang auskommen, oder könnte h* kleiner ausfallen, weil nichttreue Hilfsgruppen H erlaubt sind? Zur Gegenprüfung plane ich Gruppen- und Alphabetdaten, die reelle Irreduzibeln, die numerische Konstruktion und den treuen Wert, danach die diagonalen Familien. diag_pos sollte für Involutionen scheitern, weil eine diagonale Abbildung mit Einträgen in [0,1] keine nichttriviale Vertauschung zweier Zustände realisieren kann. diag_pm und cdiag sollten dagegen gelingen. Das Training dient nur als verrauschte Beobachtung und beweist nichts.",
+     "plan": [
+      {
+       "op": "group_info",
+       "args": {
+        "group": "Z2^3"
+       }
+      },
+      {
+       "op": "alphabet_info",
+       "args": {
+        "group": "Z2^3",
+        "alphabet": "all"
+       }
+      },
+      {
+       "op": "real_irreps",
+       "args": {
+        "group": "Z2^3"
+       }
+      },
+      {
+       "op": "faithful_h",
+       "args": {
+        "group": "Z2^3",
+        "alphabet": "all"
+       }
+      },
+      {
+       "op": "numeric_construction",
+       "args": {
+        "group": "Z2^3",
+        "alphabet": "all",
+        "construction": "count",
+        "twist": "none"
+       }
+      },
+      {
+       "op": "numeric_construction",
+       "args": {
+        "group": "Z2^3",
+        "alphabet": "all",
+        "construction": "perm",
+        "twist": "none"
+       }
+      },
+      {
+       "op": "train_quick",
+       "args": {
+        "arch": "diag_pm",
+        "group": "Z2^3",
+        "alphabet": "all",
+        "steps": 1500
+       }
+      },
+      {
+       "op": "train_quick",
+       "args": {
+        "arch": "diag_pos",
+        "group": "Z2^3",
+        "alphabet": "all",
+        "steps": 1500
+       }
+      }
+     ]
+    },
+    {
+     "antwort": "h(Z2^3, all) = 3 (treuer Vergleich); h* ist nicht sicher bestimmt. Diagonal realisierbar: diag_pm ja, diag_pos nein, cdiag ja",
+     "zahl": 3,
+     "konfidenz": 0.6,
+     "pruefung": {
+      "typ": "h_faithful",
+      "group": "Z2^3",
+      "alphabet": "all",
+      "value": 3
+     },
+     "begruendung": "Reelle Darstellungen von Z2^3 sind diagonal mit ±1-Einträgen; für eine treue Darstellung mit m nichttrivialen Charakteren ist max_g rank(M_g − I) mindestens 3, weil der Vektor (1,1,1) in der Dualbasis immer existiert und dort alle drei Charaktere −1 ergeben. Diagonales ±1-Modell (diag_pm) realisiert die Gruppe exakt, diag_pos scheitert, weil nichtnegative Diagonaleinträge keine Ordnung-2-Elemente treu darstellen können (bestätigt durch das Training mit ca. 0,2 Genauigkeit). Ob eine nichttreue bzw. größere Gruppe H die Schranke h* unter 3 drückt, ist numerisch nur angedeutet (Konstruktion 'count' mit Rang 1 und Abschluss der Ordnung 128) und nicht verifiziert."
+    }
+   ],
+   "experimente": [
+    22,
+    23,
+    24,
+    25,
+    26,
+    27,
+    28,
+    29
+   ],
+   "final": {
+    "antwort": "h(Z2^3, all) = 3 (treuer Vergleich); h* ist nicht sicher bestimmt. Diagonal realisierbar: diag_pm ja, diag_pos nein, cdiag ja",
+    "zahl": 3,
+    "konfidenz": 0.6,
+    "pruefung": {
+     "typ": "h_faithful",
+     "group": "Z2^3",
+     "alphabet": "all",
+     "value": 3
+    },
+    "begruendung": "Reelle Darstellungen von Z2^3 sind diagonal mit ±1-Einträgen; für eine treue Darstellung mit m nichttrivialen Charakteren ist max_g rank(M_g − I) mindestens 3, weil der Vektor (1,1,1) in der Dualbasis immer existiert und dort alle drei Charaktere −1 ergeben. Diagonales ±1-Modell (diag_pm) realisiert die Gruppe exakt, diag_pos scheitert, weil nichtnegative Diagonaleinträge keine Ordnung-2-Elemente treu darstellen können (bestätigt durch das Training mit ca. 0,2 Genauigkeit). Ob eine nichttreue bzw. größere Gruppe H die Schranke h* unter 3 drückt, ist numerisch nur angedeutet (Konstruktion 'count' mit Rang 1 und Abschluss der Ordnung 128) und nicht verifiziert."
+   },
+   "modell": "sonnet",
+   "pruefung": {
+    "bestanden": false,
+    "grund": "h(G, Sigma) = 3 (own character table, GAP exact: 3)"
+   }
+  },
+  {
+   "strategie": "theoretiker",
+   "runden": [
+    {
+     "ueberlegung": "Symmetrie: Z2^3 ist abelsch und elementar 2-gruppig, alle reellen Irreduziblen sind eindimensional (Charaktere mit Werten ±1). Eine treue reelle Darstellung ist daher eine Diagonalmatrix mit ±1-Einträgen, und rank(rho(g) - I) zählt die Charaktere mit chi(g) = -1 mit Vielfachheit. Das ist ein kombinatorisches Problem: Wähle eine Multimenge S von Dualvektoren in F2^3, die F2^3 aufspannt, sodass jedes g ≠ 0 mit mindestens einem y ∈ S nicht orthogonal ist und höchstens k Elemente von S nicht orthogonal zu g sind. Eine Abzählung ergibt k = 3 für treue Darstellungen (eine Basis liefert für g = (1,1,1) den Wert 3; für k = 2 reicht die Inzidenzzählung nicht, weil 7 Nichtidentitäten höchstens 14 Inzidenzen erlauben, aber |S| = 3 nötig ist und keine spannende 3er-Menge die Schranke einhält). Also erwarte h(Z2^3, all) = 3. Für h* über beliebige H mit Surjektion auf G könnte H größer sein, z.B. eine nichtabelsche 2-Gruppe, die mit Reflexionen k = 2 erreicht. Das ist die entscheidende Frage. Die Diagonalfamilien diag_pos (Einträge in [0,1]) können keine -1 erzeugen, daher sollte diag_pos scheitern; diag_pm und cdiag sollten die Gruppe exakt darstellen. Ich prüfe zuerst die Gruppen- und Alphabetdaten, dann h treu und numerisch, dann die Irreduziblen, und schließlich die numerische Konstruktion und zwei kurze Trainingsläufe als verrauschte Gegenprobe.",
+     "plan": [
+      {
+       "op": "group_info",
+       "args": {
+        "group": "Z2^3"
+       }
+      },
+      {
+       "op": "alphabet_info",
+       "args": {
+        "group": "Z2^3",
+        "alphabet": "all"
+       }
+      },
+      {
+       "op": "real_irreps",
+       "args": {
+        "group": "Z2^3"
+       }
+      },
+      {
+       "op": "faithful_h",
+       "args": {
+        "group": "Z2^3",
+        "alphabet": "all"
+       }
+      },
+      {
+       "op": "numeric_construction",
+       "args": {
+        "group": "Z2^3",
+        "alphabet": "all",
+        "construction": "count",
+        "twist": "none"
+       }
+      },
+      {
+       "op": "numeric_construction",
+       "args": {
+        "group": "Z2^3",
+        "alphabet": "all",
+        "construction": "perm",
+        "twist": "none"
+       }
+      },
+      {
+       "op": "train_quick",
+       "args": {
+        "arch": "diag_pm",
+        "group": "Z2^3",
+        "alphabet": "all",
+        "steps": 1000
+       }
+      },
+      {
+       "op": "train_quick",
+       "args": {
+        "arch": "diag_pos",
+        "group": "Z2^3",
+        "alphabet": "all",
+        "steps": 1000
+       }
+      }
+     ]
+    },
+    {
+     "antwort": "h(Z2^3, all) = 3 (faithful, reell); h*(Z2^3, all) <= 3, nur diag_pm und cdiag realisieren es exakt, diag_pos nicht",
+     "zahl": 3,
+     "konfidenz": 0.7,
+     "pruefung": {
+      "typ": "h_faithful",
+      "group": "Z2^3",
+      "alphabet": "all",
+      "value": 3
+     },
+     "pruefungen": [
+      {
+       "typ": "h_faithful",
+       "group": "Z2^3",
+       "alphabet": "all",
+       "value": 3
+      },
+      {
+       "typ": "diag_realisable",
+       "family": "diag_pos",
+       "group": "Z2^3",
+       "alphabet": "all",
+       "value": false
+      },
+      {
+       "typ": "diag_realisable",
+       "family": "diag_pm",
+       "group": "Z2^3",
+       "alphabet": "all",
+       "value": true
+      }
+     ],
+     "begruendung": "Treue reelle Darstellungen von Z2^3 sind direkte Summen von Charakteren; eine treue Darstellung braucht mindestens drei davon, und mit genau drei (einer Basis des dualen Gruppe) gibt es ein Letter, bei dem alle drei Eigenwerte -1 sind, also h = 3; für m = 4 Charaktere zeigt eine Kodierungsargumentation, dass kein Schema max-Gewicht <= 2 erlaubt. Diagonale Familien mit Einträgen in [0,1] können keinen nichttrivialen Involutions-Letter exakt darstellen, ±1-Diagonalen dagegen schon. Die h*-Gleichheit mit h ist nicht vollständig bewiesen."
+    }
+   ],
+   "experimente": [
+    30,
+    31,
+    32,
+    33,
+    34,
+    35,
+    36,
+    37
+   ],
+   "final": {
+    "antwort": "h(Z2^3, all) = 3 (faithful, reell); h*(Z2^3, all) <= 3, nur diag_pm und cdiag realisieren es exakt, diag_pos nicht",
+    "zahl": 3,
+    "konfidenz": 0.7,
+    "pruefung": {
+     "typ": "h_faithful",
+     "group": "Z2^3",
+     "alphabet": "all",
+     "value": 3
+    },
+    "pruefungen": [
+     {
+      "typ": "h_faithful",
+      "group": "Z2^3",
+      "alphabet": "all",
+      "value": 3
+     },
+     {
+      "typ": "diag_realisable",
+      "family": "diag_pos",
+      "group": "Z2^3",
+      "alphabet": "all",
+      "value": false
+     },
+     {
+      "typ": "diag_realisable",
+      "family": "diag_pm",
+      "group": "Z2^3",
+      "alphabet": "all",
+      "value": true
+     }
+    ],
+    "begruendung": "Treue reelle Darstellungen von Z2^3 sind direkte Summen von Charakteren; eine treue Darstellung braucht mindestens drei davon, und mit genau drei (einer Basis des dualen Gruppe) gibt es ein Letter, bei dem alle drei Eigenwerte -1 sind, also h = 3; für m = 4 Charaktere zeigt eine Kodierungsargumentation, dass kein Schema max-Gewicht <= 2 erlaubt. Diagonale Familien mit Einträgen in [0,1] können keinen nichttrivialen Involutions-Letter exakt darstellen, ±1-Diagonalen dagegen schon. Die h*-Gleichheit mit h ist nicht vollständig bewiesen."
+   },
+   "modell": "sonnet",
+   "pruefung": {
+    "bestanden": true,
+    "grund": "h(G, Sigma) = 3 (own character table, GAP exact: 3) | diag_pos realises Z2^3: False (only the trivial group (Lemma L5: nonnegative real diagonal of finite order is I)) | diag_pm realises Z2^3: True (iff G is an elementary abelian 2-group (Lemma L5))"
+   }
+  }
+ ],
+ "experimente": [
+  {
+   "id": 0,
+   "wer": "forscher-sparsam",
+   "op": "group_info",
+   "args": {
+    "group": "Z2^3"
+   },
+   "ergebnis": {
+    "order": 8,
+    "abelian": true,
+    "solvable": true,
+    "perfect": false,
+    "derived_series_orders": [
+     8,
+     1
+    ],
+    "exponent": 2,
+    "center_size": 8,
+    "classes": [
+     {
+      "size": 1,
+      "element_order": 1,
+      "cycle_type": [
+       1,
+       1,
+       1,
+       1,
+       1,
+       1
+      ]
+     },
+     {
+      "size": 1,
+      "element_order": 2,
+      "cycle_type": [
+       2,
+       1,
+       1,
+       1,
+       1
+      ]
+     },
+     {
+      "size": 1,
+      "element_order": 2,
+      "cycle_type": [
+       2,
+       1,
+       1,
+       1,
+       1
+      ]
+     },
+     {
+      "size": 1,
+      "element_order": 2,
+      "cycle_type": [
+       2,
+       2,
+       1,
+       1
+      ]
+     },
+     {
+      "size": 1,
+      "element_order": 2,
+      "cycle_type": [
+       2,
+       1,
+       1,
+       1,
+       1
+      ]
+     },
+     {
+      "size": 1,
+      "element_order": 2,
+      "cycle_type": [
+       2,
+       2,
+       1,
+       1
+      ]
+     },
+     {
+      "size": 1,
+      "element_order": 2,
+      "cycle_type": [
+       2,
+       2,
+       1,
+       1
+      ]
+     },
+     {
+      "size": 1,
+      "element_order": 2,
+      "cycle_type": [
+       2,
+       2,
+       2
+      ]
+     }
+    ]
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 1,
+   "wer": "forscher-sparsam",
+   "op": "alphabet_info",
+   "args": {
+    "group": "Z2^3",
+    "alphabet": "all"
+   },
+   "ergebnis": {
+    "letters": 7,
+    "orders": {
+     "2": 7
+    },
+    "cycle_types": {
+     "(2, 1, 1, 1, 1)": 3,
+     "(2, 2, 1, 1)": 3,
+     "(2, 2, 2)": 1
+    }
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 2,
+   "wer": "forscher-sparsam",
+   "op": "real_irreps",
+   "args": {
+    "group": "Z2^3"
+   },
+   "ergebnis": {
+    "irreps": [
+     {
+      "deg": 1,
+      "fs": 1
+     },
+     {
+      "deg": 1,
+      "fs": 1
+     },
+     {
+      "deg": 1,
+      "fs": 1
+     },
+     {
+      "deg": 1,
+      "fs": 1
+     },
+     {
+      "deg": 1,
+      "fs": 1
+     },
+     {
+      "deg": 1,
+      "fs": 1
+     },
+     {
+      "deg": 1,
+      "fs": 1
+     },
+     {
+      "deg": 1,
+      "fs": 1
+     }
+    ],
+    "class_orders": [
+     1,
+     2,
+     2,
+     2,
+     2,
+     2,
+     2,
+     2
+    ],
+    "class_sizes": [
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1
+    ],
+    "codim_fix": [
+     [
+      0,
+      0,
+      1,
+      1,
+      0,
+      0,
+      1,
+      1
+     ],
+     [
+      0,
+      1,
+      1,
+      0,
+      0,
+      1,
+      1,
+      0
+     ],
+     [
+      0,
+      0,
+      0,
+      0,
+      1,
+      1,
+      1,
+      1
+     ],
+     [
+      0,
+      1,
+      0,
+      1,
+      0,
+      1,
+      0,
+      1
+     ],
+     [
+      0,
+      0,
+      1,
+      1,
+      1,
+      1,
+      0,
+      0
+     ],
+     [
+      0,
+      1,
+      1,
+      0,
+      1,
+      0,
+      0,
+      1
+     ],
+     [
+      0,
+      1,
+      0,
+      1,
+      1,
+      0,
+      1,
+      0
+     ],
+     [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ]
+    ],
+    "mult_minus_one": [
+     [
+      0,
+      0,
+      1,
+      1,
+      0,
+      0,
+      1,
+      1
+     ],
+     [
+      0,
+      1,
+      1,
+      0,
+      0,
+      1,
+      1,
+      0
+     ],
+     [
+      0,
+      0,
+      0,
+      0,
+      1,
+      1,
+      1,
+      1
+     ],
+     [
+      0,
+      1,
+      0,
+      1,
+      0,
+      1,
+      0,
+      1
+     ],
+     [
+      0,
+      0,
+      1,
+      1,
+      1,
+      1,
+      0,
+      0
+     ],
+     [
+      0,
+      1,
+      1,
+      0,
+      1,
+      0,
+      0,
+      1
+     ],
+     [
+      0,
+      1,
+      0,
+      1,
+      1,
+      0,
+      1,
+      0
+     ],
+     [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ]
+    ],
+    "hinweis": "numerical character table"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 3,
+   "wer": "forscher-sparsam",
+   "op": "faithful_h",
+   "args": {
+    "group": "Z2^3",
+    "alphabet": "all"
+   },
+   "ergebnis": {
+    "h_numerical": 3,
+    "chosen_irreps": [
+     {
+      "deg": 1,
+      "fs": 1
+     },
+     {
+      "deg": 1,
+      "fs": 1
+     },
+     {
+      "deg": 1,
+      "fs": 1
+     }
+    ],
+    "hinweis": "numerical"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 4,
+   "wer": "forscher-sparsam",
+   "op": "numeric_construction",
+   "args": {
+    "group": "Z2^3",
+    "alphabet": "all",
+    "construction": "count",
+    "twist": "none"
+   },
+   "ergebnis": {
+    "dim": 7,
+    "numerical_rank_M_minus_I_by_letter_order": {
+     "2": [
+      1
+     ]
+    },
+    "numerical_closure_size": 128,
+    "closure_capped": false,
+    "hinweis": "floating point, not a certificate"
+   },
+   "sek": 0.83
+  },
+  {
+   "id": 5,
+   "wer": "forscher-sparsam",
+   "op": "numeric_construction",
+   "args": {
+    "group": "Z2^3",
+    "alphabet": "all",
+    "construction": "planar",
+    "twist": "none"
+   },
+   "ergebnis": {
+    "fehler": "ValueError: planar model inconsistent"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 6,
+   "wer": "forscher-sparsam",
+   "op": "numeric_construction",
+   "args": {
+    "group": "Z2^3",
+    "alphabet": "all",
+    "construction": "so3",
+    "twist": "none"
+   },
+   "ergebnis": {
+    "fehler": "ValueError: no SO(3) model stored for Z2^3"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 7,
+   "wer": "forscher-sparsam",
+   "op": "train_quick",
+   "args": {
+    "arch": "diag_pos",
+    "group": "Z2^3",
+    "alphabet": "all",
+    "steps": 1000
+   },
+   "ergebnis": {
+    "acc_len32": 0.18866,
+    "acc_len128_pos65-128": 0.12393,
+    "steps": 1000,
+    "hinweis": "single seed, observed, noisy"
+   },
+   "sek": 83.09
+  },
+  {
+   "id": 8,
+   "wer": "forscher-numeriker",
+   "op": "group_info",
+   "args": {
+    "group": "Z2^3"
+   },
+   "ergebnis": {
+    "order": 8,
+    "abelian": true,
+    "solvable": true,
+    "perfect": false,
+    "derived_series_orders": [
+     8,
+     1
+    ],
+    "exponent": 2,
+    "center_size": 8,
+    "classes": [
+     {
+      "size": 1,
+      "element_order": 1,
+      "cycle_type": [
+       1,
+       1,
+       1,
+       1,
+       1,
+       1
+      ]
+     },
+     {
+      "size": 1,
+      "element_order": 2,
+      "cycle_type": [
+       2,
+       1,
+       1,
+       1,
+       1
+      ]
+     },
+     {
+      "size": 1,
+      "element_order": 2,
+      "cycle_type": [
+       2,
+       1,
+       1,
+       1,
+       1
+      ]
+     },
+     {
+      "size": 1,
+      "element_order": 2,
+      "cycle_type": [
+       2,
+       2,
+       1,
+       1
+      ]
+     },
+     {
+      "size": 1,
+      "element_order": 2,
+      "cycle_type": [
+       2,
+       1,
+       1,
+       1,
+       1
+      ]
+     },
+     {
+      "size": 1,
+      "element_order": 2,
+      "cycle_type": [
+       2,
+       2,
+       1,
+       1
+      ]
+     },
+     {
+      "size": 1,
+      "element_order": 2,
+      "cycle_type": [
+       2,
+       2,
+       1,
+       1
+      ]
+     },
+     {
+      "size": 1,
+      "element_order": 2,
+      "cycle_type": [
+       2,
+       2,
+       2
+      ]
+     }
+    ]
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 9,
+   "wer": "forscher-numeriker",
+   "op": "alphabet_info",
+   "args": {
+    "group": "Z2^3",
+    "alphabet": "all"
+   },
+   "ergebnis": {
+    "letters": 7,
+    "orders": {
+     "2": 7
+    },
+    "cycle_types": {
+     "(2, 1, 1, 1, 1)": 3,
+     "(2, 2, 1, 1)": 3,
+     "(2, 2, 2)": 1
+    }
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 10,
+   "wer": "forscher-numeriker",
+   "op": "real_irreps",
+   "args": {
+    "group": "Z2^3"
+   },
+   "ergebnis": {
+    "irreps": [
+     {
+      "deg": 1,
+      "fs": 1
+     },
+     {
+      "deg": 1,
+      "fs": 1
+     },
+     {
+      "deg": 1,
+      "fs": 1
+     },
+     {
+      "deg": 1,
+      "fs": 1
+     },
+     {
+      "deg": 1,
+      "fs": 1
+     },
+     {
+      "deg": 1,
+      "fs": 1
+     },
+     {
+      "deg": 1,
+      "fs": 1
+     },
+     {
+      "deg": 1,
+      "fs": 1
+     }
+    ],
+    "class_orders": [
+     1,
+     2,
+     2,
+     2,
+     2,
+     2,
+     2,
+     2
+    ],
+    "class_sizes": [
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1
+    ],
+    "codim_fix": [
+     [
+      0,
+      0,
+      1,
+      1,
+      0,
+      0,
+      1,
+      1
+     ],
+     [
+      0,
+      1,
+      1,
+      0,
+      0,
+      1,
+      1,
+      0
+     ],
+     [
+      0,
+      0,
+      0,
+      0,
+      1,
+      1,
+      1,
+      1
+     ],
+     [
+      0,
+      1,
+      0,
+      1,
+      0,
+      1,
+      0,
+      1
+     ],
+     [
+      0,
+      0,
+      1,
+      1,
+      1,
+      1,
+      0,
+      0
+     ],
+     [
+      0,
+      1,
+      1,
+      0,
+      1,
+      0,
+      0,
+      1
+     ],
+     [
+      0,
+      1,
+      0,
+      1,
+      1,
+      0,
+      1,
+      0
+     ],
+     [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ]
+    ],
+    "mult_minus_one": [
+     [
+      0,
+      0,
+      1,
+      1,
+      0,
+      0,
+      1,
+      1
+     ],
+     [
+      0,
+      1,
+      1,
+      0,
+      0,
+      1,
+      1,
+      0
+     ],
+     [
+      0,
+      0,
+      0,
+      0,
+      1,
+      1,
+      1,
+      1
+     ],
+     [
+      0,
+      1,
+      0,
+      1,
+      0,
+      1,
+      0,
+      1
+     ],
+     [
+      0,
+      0,
+      1,
+      1,
+      1,
+      1,
+      0,
+      0
+     ],
+     [
+      0,
+      1,
+      1,
+      0,
+      1,
+      0,
+      0,
+      1
+     ],
+     [
+      0,
+      1,
+      0,
+      1,
+      1,
+      0,
+      1,
+      0
+     ],
+     [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ]
+    ],
+    "hinweis": "numerical character table"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 11,
+   "wer": "forscher-numeriker",
+   "op": "faithful_h",
+   "args": {
+    "group": "Z2^3",
+    "alphabet": "all"
+   },
+   "ergebnis": {
+    "h_numerical": 3,
+    "chosen_irreps": [
+     {
+      "deg": 1,
+      "fs": 1
+     },
+     {
+      "deg": 1,
+      "fs": 1
+     },
+     {
+      "deg": 1,
+      "fs": 1
+     }
+    ],
+    "hinweis": "numerical"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 12,
+   "wer": "forscher-numeriker",
+   "op": "numeric_construction",
+   "args": {
+    "group": "Z2^3",
+    "alphabet": "all",
+    "construction": "perm",
+    "twist": "none"
+   },
+   "ergebnis": {
+    "dim": 6,
+    "numerical_rank_M_minus_I_by_letter_order": {
+     "2": [
+      1,
+      2,
+      3
+     ]
+    },
+    "numerical_closure_size": 8,
+    "closure_capped": false,
+    "hinweis": "floating point, not a certificate"
+   },
+   "sek": 0.01
+  },
+  {
+   "id": 13,
+   "wer": "forscher-numeriker",
+   "op": "numeric_construction",
+   "args": {
+    "group": "Z2^3",
+    "alphabet": "all",
+    "construction": "so3",
+    "twist": "none"
+   },
+   "ergebnis": {
+    "fehler": "ValueError: no SO(3) model stored for Z2^3"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 14,
+   "wer": "forscher-numeriker",
+   "op": "train_quick",
+   "args": {
+    "arch": "diag_pos",
+    "group": "Z2^3",
+    "alphabet": "all",
+    "steps": 1000
+   },
+   "ergebnis": {
+    "acc_len32": 0.18866,
+    "acc_len128_pos65-128": 0.12393,
+    "steps": 1000,
+    "hinweis": "single seed, observed, noisy"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 15,
+   "wer": "forscher-numeriker",
+   "op": "train_quick",
+   "args": {
+    "arch": "hh1",
+    "group": "Z2^3",
+    "alphabet": "all",
+    "steps": 1000
+   },
+   "ergebnis": {
+    "acc_len32": 0.60754,
+    "acc_len128_pos65-128": 0.39157,
+    "steps": 1000,
+    "hinweis": "single seed, observed, noisy"
+   },
+   "sek": 29.29
+  },
+  {
+   "id": 16,
+   "wer": "forscher-numeriker",
+   "op": "numeric_construction",
+   "args": {
+    "group": "Z2^3",
+    "alphabet": "all",
+    "construction": "count",
+    "twist": "none"
+   },
+   "ergebnis": {
+    "dim": 7,
+    "numerical_rank_M_minus_I_by_letter_order": {
+     "2": [
+      1
+     ]
+    },
+    "numerical_closure_size": 128,
+    "closure_capped": false,
+    "hinweis": "floating point, not a certificate"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 17,
+   "wer": "forscher-numeriker",
+   "op": "numeric_construction",
+   "args": {
+    "group": "Z2^3",
+    "alphabet": "all",
+    "construction": "planar",
+    "twist": "none"
+   },
+   "ergebnis": {
+    "fehler": "ValueError: planar model inconsistent"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 18,
+   "wer": "forscher-numeriker",
+   "op": "train_quick",
+   "args": {
+    "arch": "diag_pm",
+    "group": "Z2^3",
+    "alphabet": "all",
+    "steps": 1000
+   },
+   "ergebnis": {
+    "acc_len32": 1.0,
+    "acc_len128_pos65-128": 1.0,
+    "steps": 1000,
+    "hinweis": "single seed, observed, noisy"
+   },
+   "sek": 61.36
+  },
+  {
+   "id": 19,
+   "wer": "forscher-numeriker",
+   "op": "train_quick",
+   "args": {
+    "arch": "hh2",
+    "group": "Z2^3",
+    "alphabet": "all",
+    "steps": 1000
+   },
+   "ergebnis": {
+    "acc_len32": 1.0,
+    "acc_len128_pos65-128": 0.99557,
+    "steps": 1000,
+    "hinweis": "single seed, observed, noisy"
+   },
+   "sek": 45.81
+  },
+  {
+   "id": 20,
+   "wer": "forscher-numeriker",
+   "op": "train_quick",
+   "args": {
+    "arch": "hh3",
+    "group": "Z2^3",
+    "alphabet": "all",
+    "steps": 1000
+   },
+   "ergebnis": {
+    "acc_len32": 1.0,
+    "acc_len128_pos65-128": 1.0,
+    "steps": 1000,
+    "hinweis": "single seed, observed, noisy"
+   },
+   "sek": 189.66
+  },
+  {
+   "id": 21,
+   "wer": "forscher-numeriker",
+   "op": "train_quick",
+   "args": {
+    "arch": "cdiag",
+    "group": "Z2^3",
+    "alphabet": "all",
+    "steps": 1000
+   },
+   "ergebnis": {
+    "fehler": "ValueError: cdiag"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 22,
+   "wer": "forscher-skeptiker",
+   "op": "group_info",
+   "args": {
+    "group": "Z2^3"
+   },
+   "ergebnis": {
+    "order": 8,
+    "abelian": true,
+    "solvable": true,
+    "perfect": false,
+    "derived_series_orders": [
+     8,
+     1
+    ],
+    "exponent": 2,
+    "center_size": 8,
+    "classes": [
+     {
+      "size": 1,
+      "element_order": 1,
+      "cycle_type": [
+       1,
+       1,
+       1,
+       1,
+       1,
+       1
+      ]
+     },
+     {
+      "size": 1,
+      "element_order": 2,
+      "cycle_type": [
+       2,
+       1,
+       1,
+       1,
+       1
+      ]
+     },
+     {
+      "size": 1,
+      "element_order": 2,
+      "cycle_type": [
+       2,
+       1,
+       1,
+       1,
+       1
+      ]
+     },
+     {
+      "size": 1,
+      "element_order": 2,
+      "cycle_type": [
+       2,
+       2,
+       1,
+       1
+      ]
+     },
+     {
+      "size": 1,
+      "element_order": 2,
+      "cycle_type": [
+       2,
+       1,
+       1,
+       1,
+       1
+      ]
+     },
+     {
+      "size": 1,
+      "element_order": 2,
+      "cycle_type": [
+       2,
+       2,
+       1,
+       1
+      ]
+     },
+     {
+      "size": 1,
+      "element_order": 2,
+      "cycle_type": [
+       2,
+       2,
+       1,
+       1
+      ]
+     },
+     {
+      "size": 1,
+      "element_order": 2,
+      "cycle_type": [
+       2,
+       2,
+       2
+      ]
+     }
+    ]
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 23,
+   "wer": "forscher-skeptiker",
+   "op": "alphabet_info",
+   "args": {
+    "group": "Z2^3",
+    "alphabet": "all"
+   },
+   "ergebnis": {
+    "letters": 7,
+    "orders": {
+     "2": 7
+    },
+    "cycle_types": {
+     "(2, 1, 1, 1, 1)": 3,
+     "(2, 2, 1, 1)": 3,
+     "(2, 2, 2)": 1
+    }
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 24,
+   "wer": "forscher-skeptiker",
+   "op": "real_irreps",
+   "args": {
+    "group": "Z2^3"
+   },
+   "ergebnis": {
+    "irreps": [
+     {
+      "deg": 1,
+      "fs": 1
+     },
+     {
+      "deg": 1,
+      "fs": 1
+     },
+     {
+      "deg": 1,
+      "fs": 1
+     },
+     {
+      "deg": 1,
+      "fs": 1
+     },
+     {
+      "deg": 1,
+      "fs": 1
+     },
+     {
+      "deg": 1,
+      "fs": 1
+     },
+     {
+      "deg": 1,
+      "fs": 1
+     },
+     {
+      "deg": 1,
+      "fs": 1
+     }
+    ],
+    "class_orders": [
+     1,
+     2,
+     2,
+     2,
+     2,
+     2,
+     2,
+     2
+    ],
+    "class_sizes": [
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1
+    ],
+    "codim_fix": [
+     [
+      0,
+      0,
+      1,
+      1,
+      0,
+      0,
+      1,
+      1
+     ],
+     [
+      0,
+      1,
+      1,
+      0,
+      0,
+      1,
+      1,
+      0
+     ],
+     [
+      0,
+      0,
+      0,
+      0,
+      1,
+      1,
+      1,
+      1
+     ],
+     [
+      0,
+      1,
+      0,
+      1,
+      0,
+      1,
+      0,
+      1
+     ],
+     [
+      0,
+      0,
+      1,
+      1,
+      1,
+      1,
+      0,
+      0
+     ],
+     [
+      0,
+      1,
+      1,
+      0,
+      1,
+      0,
+      0,
+      1
+     ],
+     [
+      0,
+      1,
+      0,
+      1,
+      1,
+      0,
+      1,
+      0
+     ],
+     [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ]
+    ],
+    "mult_minus_one": [
+     [
+      0,
+      0,
+      1,
+      1,
+      0,
+      0,
+      1,
+      1
+     ],
+     [
+      0,
+      1,
+      1,
+      0,
+      0,
+      1,
+      1,
+      0
+     ],
+     [
+      0,
+      0,
+      0,
+      0,
+      1,
+      1,
+      1,
+      1
+     ],
+     [
+      0,
+      1,
+      0,
+      1,
+      0,
+      1,
+      0,
+      1
+     ],
+     [
+      0,
+      0,
+      1,
+      1,
+      1,
+      1,
+      0,
+      0
+     ],
+     [
+      0,
+      1,
+      1,
+      0,
+      1,
+      0,
+      0,
+      1
+     ],
+     [
+      0,
+      1,
+      0,
+      1,
+      1,
+      0,
+      1,
+      0
+     ],
+     [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ]
+    ],
+    "hinweis": "numerical character table"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 25,
+   "wer": "forscher-skeptiker",
+   "op": "faithful_h",
+   "args": {
+    "group": "Z2^3",
+    "alphabet": "all"
+   },
+   "ergebnis": {
+    "h_numerical": 3,
+    "chosen_irreps": [
+     {
+      "deg": 1,
+      "fs": 1
+     },
+     {
+      "deg": 1,
+      "fs": 1
+     },
+     {
+      "deg": 1,
+      "fs": 1
+     }
+    ],
+    "hinweis": "numerical"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 26,
+   "wer": "forscher-skeptiker",
+   "op": "numeric_construction",
+   "args": {
+    "group": "Z2^3",
+    "alphabet": "all",
+    "construction": "count",
+    "twist": "none"
+   },
+   "ergebnis": {
+    "dim": 7,
+    "numerical_rank_M_minus_I_by_letter_order": {
+     "2": [
+      1
+     ]
+    },
+    "numerical_closure_size": 128,
+    "closure_capped": false,
+    "hinweis": "floating point, not a certificate"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 27,
+   "wer": "forscher-skeptiker",
+   "op": "numeric_construction",
+   "args": {
+    "group": "Z2^3",
+    "alphabet": "all",
+    "construction": "perm",
+    "twist": "none"
+   },
+   "ergebnis": {
+    "dim": 6,
+    "numerical_rank_M_minus_I_by_letter_order": {
+     "2": [
+      1,
+      2,
+      3
+     ]
+    },
+    "numerical_closure_size": 8,
+    "closure_capped": false,
+    "hinweis": "floating point, not a certificate"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 28,
+   "wer": "forscher-skeptiker",
+   "op": "train_quick",
+   "args": {
+    "arch": "diag_pm",
+    "group": "Z2^3",
+    "alphabet": "all",
+    "steps": 1500
+   },
+   "ergebnis": {
+    "acc_len32": 1.0,
+    "acc_len128_pos65-128": 1.0,
+    "steps": 1500,
+    "hinweis": "single seed, observed, noisy"
+   },
+   "sek": 136.78
+  },
+  {
+   "id": 29,
+   "wer": "forscher-skeptiker",
+   "op": "train_quick",
+   "args": {
+    "arch": "diag_pos",
+    "group": "Z2^3",
+    "alphabet": "all",
+    "steps": 1500
+   },
+   "ergebnis": {
+    "acc_len32": 0.21539,
+    "acc_len128_pos65-128": 0.12311,
+    "steps": 1500,
+    "hinweis": "single seed, observed, noisy"
+   },
+   "sek": 86.87
+  },
+  {
+   "id": 30,
+   "wer": "forscher-theoretiker",
+   "op": "group_info",
+   "args": {
+    "group": "Z2^3"
+   },
+   "ergebnis": {
+    "order": 8,
+    "abelian": true,
+    "solvable": true,
+    "perfect": false,
+    "derived_series_orders": [
+     8,
+     1
+    ],
+    "exponent": 2,
+    "center_size": 8,
+    "classes": [
+     {
+      "size": 1,
+      "element_order": 1,
+      "cycle_type": [
+       1,
+       1,
+       1,
+       1,
+       1,
+       1
+      ]
+     },
+     {
+      "size": 1,
+      "element_order": 2,
+      "cycle_type": [
+       2,
+       1,
+       1,
+       1,
+       1
+      ]
+     },
+     {
+      "size": 1,
+      "element_order": 2,
+      "cycle_type": [
+       2,
+       1,
+       1,
+       1,
+       1
+      ]
+     },
+     {
+      "size": 1,
+      "element_order": 2,
+      "cycle_type": [
+       2,
+       2,
+       1,
+       1
+      ]
+     },
+     {
+      "size": 1,
+      "element_order": 2,
+      "cycle_type": [
+       2,
+       1,
+       1,
+       1,
+       1
+      ]
+     },
+     {
+      "size": 1,
+      "element_order": 2,
+      "cycle_type": [
+       2,
+       2,
+       1,
+       1
+      ]
+     },
+     {
+      "size": 1,
+      "element_order": 2,
+      "cycle_type": [
+       2,
+       2,
+       1,
+       1
+      ]
+     },
+     {
+      "size": 1,
+      "element_order": 2,
+      "cycle_type": [
+       2,
+       2,
+       2
+      ]
+     }
+    ]
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 31,
+   "wer": "forscher-theoretiker",
+   "op": "alphabet_info",
+   "args": {
+    "group": "Z2^3",
+    "alphabet": "all"
+   },
+   "ergebnis": {
+    "letters": 7,
+    "orders": {
+     "2": 7
+    },
+    "cycle_types": {
+     "(2, 1, 1, 1, 1)": 3,
+     "(2, 2, 1, 1)": 3,
+     "(2, 2, 2)": 1
+    }
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 32,
+   "wer": "forscher-theoretiker",
+   "op": "real_irreps",
+   "args": {
+    "group": "Z2^3"
+   },
+   "ergebnis": {
+    "irreps": [
+     {
+      "deg": 1,
+      "fs": 1
+     },
+     {
+      "deg": 1,
+      "fs": 1
+     },
+     {
+      "deg": 1,
+      "fs": 1
+     },
+     {
+      "deg": 1,
+      "fs": 1
+     },
+     {
+      "deg": 1,
+      "fs": 1
+     },
+     {
+      "deg": 1,
+      "fs": 1
+     },
+     {
+      "deg": 1,
+      "fs": 1
+     },
+     {
+      "deg": 1,
+      "fs": 1
+     }
+    ],
+    "class_orders": [
+     1,
+     2,
+     2,
+     2,
+     2,
+     2,
+     2,
+     2
+    ],
+    "class_sizes": [
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1
+    ],
+    "codim_fix": [
+     [
+      0,
+      0,
+      1,
+      1,
+      0,
+      0,
+      1,
+      1
+     ],
+     [
+      0,
+      1,
+      1,
+      0,
+      0,
+      1,
+      1,
+      0
+     ],
+     [
+      0,
+      0,
+      0,
+      0,
+      1,
+      1,
+      1,
+      1
+     ],
+     [
+      0,
+      1,
+      0,
+      1,
+      0,
+      1,
+      0,
+      1
+     ],
+     [
+      0,
+      0,
+      1,
+      1,
+      1,
+      1,
+      0,
+      0
+     ],
+     [
+      0,
+      1,
+      1,
+      0,
+      1,
+      0,
+      0,
+      1
+     ],
+     [
+      0,
+      1,
+      0,
+      1,
+      1,
+      0,
+      1,
+      0
+     ],
+     [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ]
+    ],
+    "mult_minus_one": [
+     [
+      0,
+      0,
+      1,
+      1,
+      0,
+      0,
+      1,
+      1
+     ],
+     [
+      0,
+      1,
+      1,
+      0,
+      0,
+      1,
+      1,
+      0
+     ],
+     [
+      0,
+      0,
+      0,
+      0,
+      1,
+      1,
+      1,
+      1
+     ],
+     [
+      0,
+      1,
+      0,
+      1,
+      0,
+      1,
+      0,
+      1
+     ],
+     [
+      0,
+      0,
+      1,
+      1,
+      1,
+      1,
+      0,
+      0
+     ],
+     [
+      0,
+      1,
+      1,
+      0,
+      1,
+      0,
+      0,
+      1
+     ],
+     [
+      0,
+      1,
+      0,
+      1,
+      1,
+      0,
+      1,
+      0
+     ],
+     [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ]
+    ],
+    "hinweis": "numerical character table"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 33,
+   "wer": "forscher-theoretiker",
+   "op": "faithful_h",
+   "args": {
+    "group": "Z2^3",
+    "alphabet": "all"
+   },
+   "ergebnis": {
+    "h_numerical": 3,
+    "chosen_irreps": [
+     {
+      "deg": 1,
+      "fs": 1
+     },
+     {
+      "deg": 1,
+      "fs": 1
+     },
+     {
+      "deg": 1,
+      "fs": 1
+     }
+    ],
+    "hinweis": "numerical"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 34,
+   "wer": "forscher-theoretiker",
+   "op": "numeric_construction",
+   "args": {
+    "group": "Z2^3",
+    "alphabet": "all",
+    "construction": "count",
+    "twist": "none"
+   },
+   "ergebnis": {
+    "dim": 7,
+    "numerical_rank_M_minus_I_by_letter_order": {
+     "2": [
+      1
+     ]
+    },
+    "numerical_closure_size": 128,
+    "closure_capped": false,
+    "hinweis": "floating point, not a certificate"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 35,
+   "wer": "forscher-theoretiker",
+   "op": "numeric_construction",
+   "args": {
+    "group": "Z2^3",
+    "alphabet": "all",
+    "construction": "perm",
+    "twist": "none"
+   },
+   "ergebnis": {
+    "dim": 6,
+    "numerical_rank_M_minus_I_by_letter_order": {
+     "2": [
+      1,
+      2,
+      3
+     ]
+    },
+    "numerical_closure_size": 8,
+    "closure_capped": false,
+    "hinweis": "floating point, not a certificate"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 36,
+   "wer": "forscher-theoretiker",
+   "op": "train_quick",
+   "args": {
+    "arch": "diag_pm",
+    "group": "Z2^3",
+    "alphabet": "all",
+    "steps": 1000
+   },
+   "ergebnis": {
+    "acc_len32": 1.0,
+    "acc_len128_pos65-128": 1.0,
+    "steps": 1000,
+    "hinweis": "single seed, observed, noisy"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 37,
+   "wer": "forscher-theoretiker",
+   "op": "train_quick",
+   "args": {
+    "arch": "diag_pos",
+    "group": "Z2^3",
+    "alphabet": "all",
+    "steps": 1000
+   },
+   "ergebnis": {
+    "acc_len32": 0.18866,
+    "acc_len128_pos65-128": 0.12393,
+    "steps": 1000,
+    "hinweis": "single seed, observed, noisy"
+   },
+   "sek": 0.0
+  }
+ ],
+ "sek": 969.2
+}

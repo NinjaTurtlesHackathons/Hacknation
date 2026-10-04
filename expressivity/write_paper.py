@@ -28,14 +28,14 @@ SYS = ("You write precise, sober scientific English for a machine-learning theor
 
 OUTLINE = r"""Style: concise ML-theory preprint (6-8 pages), sober, no marketing. Sections:
 Abstract (<= 180 words): the question (why do architectures fail at state tracking; circuit complexity says TC0 vs NC1), our answer for one-layer linear RNNs with Householder-product transitions (DeltaNet, DeltaProduct): an exact law h*, the first lower bound on Householder factors per token, the headline instances (A5 with involution inputs needs one reflection; A5 needs two; the S4/A5 formats of the closest prior work need two), the atlas, the preregistered training grid and its outcome, and that every statement is machine-verified or certified.
-1 Introduction: architecture debate (Transformers and diagonal SSMs in TC0, non-solvable word problems NC1-complete) from literature claims; the gap (prior work gives only constructions; DeltaProduct's unexplained S4/A5 observation; Howe's representation law); contributions as a bullet list.
+1 Introduction: architecture debate (Transformers and diagonal SSMs in TC0, non-solvable word problems NC1-complete) from literature claims; the gap (constructions in DeltaProduct/Grazzi/RWKV-7; DeltaProduct's unexpected S4/A5 observation; Howe's representation law; Complex KDA's S5 lower bound under non-expansion, C-ckda-relation, C-lit-ckda-*); contributions as a bullet list, positioned honestly with C-novelty (the exact law for all groups and alphabets, the norm-free compression, the one-reflection A5 result and the atlas are new; S5 = 4 builds on Complex KDA).
 2 Setting and definitions: word problem, one-layer realisation, finite-state, transition families, h and h*.
 3 Results I (theory): Lemma L1 (machine-checked), Lemma L4 (machine-checked), Lemma L2 (hand proof), L3, Theorem 1 (state 'proof in the companion ledger' and cite C-ledger), diagonal families (L5), abelian cover (L7); explain what is proved how.
 4 Results II (certified instances): Table 1 (appended by code); A5 with involutions (H3 cover), A5/all, S4 and A5 in the generator format of prior work, S5, Z2^3; contrast with circuit complexity.
 5 Results III (atlas): coverage, own-vs-GAP agreement, non-monotonicity of h with respect to solvability; Figure 2 and Table 3 are appended by code.
 6 Results IV (preregistered experiments): (a) H-EX1 grid: protocol, predictors, cell outcomes, accuracy of each predictor, discriminating tests with BH, negative and positive controls; Figure 1 and Table 2. Report learnability failures honestly. (b) H-EX2 addendum: the prior work's own generator formats, Table 4 and Figure 3; state precisely what it supports and what not (it tests a sufficiency prediction against a necessity claim of prior work under our protocol and readout).
 7 The agentic lab and the verification pipeline: scout, integrator, cascade, verifier, red team; negative rounds; loopholes found and closed; red-team bugs fixed.
-8 Limitations and open questions (finite-state assumption, token-local transitions without short convolution, one layer, exact arithmetic vs float, open intervals such as S5/all, multi-layer, chain of thought / padding as a Householder budget as a hypothesis).
+8 Limitations and open questions (finite-state assumption, real states (C-complex), token-local transitions without short convolution, one layer, exact arithmetic vs float, open parameterisations only approximate (C-open-beta), remaining open intervals such as Q8, multi-layer, chain of thought / padding as a Householder budget as a hypothesis, device sensitivity of training (C-H-replication)).
 Refer to Tables 1-4 and Figures 1-3 by name only; do not write tables yourself.
 Mathematics: write every formula in LaTeX math, inline $...$ (for example $h^*(G,\Sigma)$, $\operatorname{rank}(\rho(t_s)-I)\le k$, $A_5$, $S_4$,
 $\mathbb{Z}_2^3$), never as plain ASCII like rank(rho(t_s) - I) <= k. Keep alphabet names (all, involutions, transpositions, tn, c3c5) and
@@ -61,9 +61,10 @@ def claims():
         "representation of a finite group H, pi: H -> G a homomorphism and pi(t) = s with s of order at least 3, then rank(rho(t) - I) > 1. "
         "Consequence: h*(G, Sigma) >= 2 whenever the alphabet contains a letter of order at least 3, even when a larger covering group is used.",
         "proved_lean")
-    add("C-L2", "Lemma L2 (compression lemma; proved by hand, not machine-checked; reviewed by an independent red-team agent, which "
-        "found it valid for finite-state realisations, including affine input terms, beta in [0, 2], matrix-valued states and singular "
-        "transitions): if a one-layer recurrence h_t = A(s_t) h_{t-1} + B(s_t) with an arbitrary readout solves the word problem of (G, Sigma) "
+    add("C-L2", "Lemma L2 (compression lemma; proved by hand, not machine-checked; reviewed by two independent red-team agents, the second of "
+        "which checked the construction exactly on adversarial instances and found it valid after wording fixes, for real states, affine input "
+        "terms, beta in [0, 2] including singular transitions, matrix-valued states and arbitrary readouts; expressivity/analysis/redteam_theory.md): "
+        "if a one-layer real recurrence h_t = A(s_t) h_{t-1} + B(s_t) with an arbitrary readout solves the word problem of (G, Sigma) "
         "for every length with finitely many reachable states, and rank(A(s) - I) <= k for every letter, then h*(G, Sigma) <= k. Proof idea: "
         "the reachable states form a finite transformation monoid mapping onto G; an idempotent e of its minimal ideal gives a group eTe mapping "
         "onto G; the compressed maps A(u)A(s) restricted to the column space of the affine span of e(Q) form a faithful representation of a "
@@ -72,21 +73,43 @@ def claims():
         "maps onto G with generating lifts t_s and a faithful real representation rho with rank(rho(t_s) - I) <= k, then an exact finite-state "
         "one-layer realisation with k Householder reflections per token (beta in {0, 2}) exists in dimension dim rho: an H-invariant inner "
         "product makes rho orthogonal, Cartan-Dieudonne factors each rho(t_s) into rank(rho(t_s) - I) reflections, a generic initial state "
-        "separates H, and the readout maps rho(x) h_0 to pi(x).", "hypothesis", "open")
+        "separates H, and the readout maps rho(x) h_0 to pi(x). It needs beta = 2 exactly with unit keys; with a zero initial state, as in DeltaNet, the "
+        "input term v = -c k supplies the offset.", "hypothesis", "open")
     add("C-thm1", "Theorem 1 (from Lemma L2, proved by hand, and Lemma L3): for every finite group G and generating alphabet Sigma, a "
         "finite-state one-layer realisation of the word problem with k Householder factors per token exists if and only if k >= h*(G, Sigma), "
         "where h*(G, Sigma) is the least k for which a finite group H, a surjection pi: H -> G, generating lifts t_s of the letters and a "
         "faithful real representation rho of H exist with rank(rho(t_s) - I) <= k for every letter; h(G, Sigma) denotes the same minimum "
-        "restricted to H = G.", "hypothesis", "open")
+        "restricted to H = G. Hypotheses: real states, finitely many reachable states, transitions depending only on the current token (no short "
+        "convolution), one layer, beta allowed to equal 2; requiring the lifts to generate H does not change h*.", "hypothesis", "open")
+    add("C-open-beta", "Corollary (proved by hand; found by the theory red team): if beta is confined to [0, 2), as with a sigmoid parameterisation, "
+        "no nontrivial group is exactly realisable for any number of factors; likewise open intervals for diagonal entries admit only the trivial "
+        "group. Trained models with open parameterisations can therefore only approximate, and the theory's predictions for them concern "
+        "approximation; our preregistered protocol uses a parameterisation that reaches beta = 0 and beta = 2 exactly.", "hypothesis", "open")
+    add("C-complex", "Remark (theory red team): the law is stated for real states; a complex realisation of complex rank k only gives h* <= 2k "
+        "(a 1x1 complex rotation tracks Z3 with complex rank 1, while h*(Z3, all) = 2).", "hypothesis", "open")
     add("C-ledger", "The definitions and the complete written proofs of Lemmas L2, L3, L4, L5, L7 and Theorem 1 are given in the companion ledger "
         "(projects/expressivity/theory_ledger.pdf, built from expressivity/theory.md); the Lean sources of L1 and L4 are in expressivity/lean.", "observed")
     add("C-L5", "Lemma L5 (proved by hand via the compression lemma, not machine-checked; consistent with prior theorems on diagonal SSMs): "
         "a finite-state one-layer realisation exists for diagonal transitions with entries in [0, 1] only for the trivial group, for real "
         "diagonal transitions with entries in [-1, 1] exactly for elementary abelian 2-groups, and for complex diagonal transitions exactly for "
-        "abelian groups.", "hypothesis", "open")
-    add("C-L7", "Lemma L7 (proved by hand; instances certified): for an abelian group h*(G, Sigma) is 1 if every letter is an involution and 2 "
-        "otherwise; the upper bound tracks each letter's count modulo its order (count cover), which needs a dimension equal to the number of "
-        "involution letters plus twice the number of other letters.", "hypothesis", "open")
+        "abelian groups (closed parameter sets; complex entries of modulus at most 1).", "hypothesis", "open")
+    add("C-L7", "Lemma L7 (proved by hand; instances certified): for a nontrivial abelian group h*(G, Sigma) is 1 if every letter is an involution and 2 "
+        "otherwise; the upper bound tracks each letter's count modulo its order (count cover), which uses a dimension equal to the number of "
+        "involution letters plus twice the number of other letters (an upper bound on the dimension, not the minimum).", "hypothesis", "open")
+    add("C-S5", "Result (lower bound by a hand step combined with a published theorem; upper bound certified): h*(S5, all) = 4 under exact finite "
+        "reachability. A cover with rank(rho(t_s) - I) <= 3 can be made orthogonal by averaging; rank at most 3 leaves at most one non-real "
+        "eigenvalue pair, so it is a single-head, orthogonal, finite-state tracker of S5 of the kind excluded by Theorem 4 of arXiv:2609.24797 "
+        "(our step, by hand); the upper bound 4 is the certified permutation construction. The argument only needs an alphabet containing a "
+        "5-cycle and a transposition.", "hypothesis", "open")
+    add("C-ckda-relation", "Relation to arXiv:2609.24797 (Complex KDA), from a full-text comparison (expressivity/ckda_comparison.md): its "
+        "compression passes from finite reachability to a finite group mapping onto S5 via a minimal-norm idempotent word and needs non-expansive "
+        "transitions; our Lemma L2 uses the minimal ideal of the transition monoid, needs no norm bound and transfers the rank bound; that paper "
+        "proves the S5 minimum of four Householder factors under its assumptions, but defines no invariant like h* and does not state the "
+        "one-reflection realisation of A5 with involution inputs.", "observed")
+    add("C-novelty", "Novelty check against the literature (expressivity/novelty.md): the exact law h* over covering groups with a fixed alphabet "
+        "and the atlas were not found in prior work; the closest notion, minimal generation in codimension k (arXiv:1804.05089), concerns faithful "
+        "representations without an alphabet; that a real reflection has order 2 is classical; the compression idea appears for S5 in "
+        "arXiv:2609.24797.", "observed")
     add("C-L6", "Computation of h (standard character theory): codim Fix rho(g) = dim rho - (1/|g|) sum_j chi_rho(g^j), codimensions add over "
         "direct sums, and a sum of real irreducible representations is faithful iff their kernels intersect trivially; h(G, Sigma) is therefore "
         "a finite optimisation over the real character table.", "observed")
@@ -138,10 +161,16 @@ def claims():
             "architectures.", "observed")
         for c in CF["cells"]:
             cid = f"C-G-{c['arch']}-{c['group']}-{c['alphabet']}".replace("^", "p")
-            add(cid, f"Grid cell {c['arch']} on {c['group']}/{c['alphabet']}: {c['succ_primary']} of {c['n']} seeds succeed at 2x-4x the longest "
-                f"training length ({c['succ_secondary']} of {c['n']} at 7x-8x); mean accuracy {c['mean_primary']:.3f} (chance {c['chance']:.3f}); "
-                f"in-distribution mean accuracy {c['mean_indist']:.3f}; cell outcome {'success' if c['outcome'] else 'failure'}; our predictor "
-                f"{ {True: 'success', False: 'failure', None: 'undetermined'}[c['pred']['ALG']] }.", "statistical")
+            if c["mean_primary"] is None:
+                txt = (f"Grid cell {c['arch']} on {c['group']}/{c['alphabet']}: {c['succ_primary']} of {c['n']} seeds succeed at 2x-4x the longest training "
+                       f"length (primary run on the MPS GPU; only the success count survives in the runner log, see prereg addendum 07:00); cell outcome "
+                       f"{'success' if c['outcome'] else 'failure'}; our predictor {({True: 'success', False: 'failure', None: 'undetermined'})[c['pred']['ALG']]}.")
+            else:
+                txt = (f"Grid cell {c['arch']} on {c['group']}/{c['alphabet']} ({c.get('device', 'cpu')}): {c['succ_primary']} of {c['n']} seeds succeed at 2x-4x the "
+                       f"longest training length ({c['succ_secondary']} of {c['n']} at 7x-8x); mean accuracy {c['mean_primary']:.3f} (chance {c['chance']:.3f}); "
+                       f"in-distribution mean accuracy {c['mean_indist']:.3f}; cell outcome {'success' if c['outcome'] else 'failure'}; our predictor "
+                       f"{({True: 'success', False: 'failure', None: 'undetermined'})[c['pred']['ALG']]}.")
+            add(cid, txt, "statistical")
         acc = CF["accuracy"]
         names = {"ALG": "our algebraic predictor", "B1_circuit": "circuit class (solvable)", "B2_abelian": "abelian", "B3_size": "group size",
                  "B4_perm_law": "representation law in the permutation representation", "B5_faithful": "faithful representations only"}
@@ -152,7 +181,9 @@ def claims():
                 f"cell {t['cell']}" + (f" vs control {t['control']}" if t.get("control") else "") + f", successful seeds {t['succ']}, p = {fp(t['p'])}, "
                 f"Benjamini-Hochberg adjusted p = {fp(t['p_bh'])} (m = {len(CF['tests'])}, q = 0.1), {'significant' if t['bh_reject'] else 'not significant'}"
                 + (f"; supplementary paired permutation test on per-seed accuracies p = {fp(t['paired_perm_p'])}, ratio of mean accuracies "
-                   f"{t['acc_ratio']:.2f} (paired bootstrap 95% CI {t['acc_ratio_ci95'][0]:.2f}-{t['acc_ratio_ci95'][1]:.2f})" if 'paired_perm_p' in t else "") + ".", "statistical")
+                   f"{t['acc_ratio']:.2f} (paired bootstrap 95% CI {t['acc_ratio_ci95'][0]:.2f}-{t['acc_ratio_ci95'][1]:.2f}); project criterion "
+                   f"(permutation p < 0.05 and CI excluding 1) {'met' if t.get('claude_md_criterion') else 'not met'}" if t.get('paired_perm_p') is not None else "")
+                + f"; BH over all 12 tests: adjusted p = {fp(t['p_bh_all'])}, {'significant' if t['bh_all_reject'] else 'not significant'}.", "statistical")
         E = CF.get("H-EX2", {})
         if E.get("cells"):
             add("C-X-protocol", "Preregistered addendum H-EX2 (committed before its runs, prereg.md 2026-10-04 05:00): the closest prior work's generator "
@@ -167,9 +198,15 @@ def claims():
             for t in E["tests"]:
                 add(f"C-X-{t['test']}", f"H-EX2 test {t['test']} (one-sided Fisher exact): {t['cell']} vs {t['control']}, successful seeds {t['succ']}, p = {fp(t['p'])}, "
                     f"BH-adjusted p = {fp(t['p_bh'])} (m = 3, q = 0.1), {'significant' if t['bh_reject'] else 'not significant'}; supplementary paired permutation "
-                    f"p = {fp(t['paired_perm_p'])}, accuracy ratio {t['acc_ratio']:.2f} (95% CI {t['acc_ratio_ci95'][0]:.2f}-{t['acc_ratio_ci95'][1]:.2f}).", "statistical")
+                    f"p = {fp(t['paired_perm_p'])}, accuracy ratio {t['acc_ratio']:.2f} (95% CI {t['acc_ratio_ci95'][0]:.2f}-{t['acc_ratio_ci95'][1]:.2f}); "
+                    f"BH over all 12 tests: adjusted p = {fp(t['p_bh_all'])}, {'significant' if t['bh_all_reject'] else 'not significant'}.", "statistical")
             add("C-X-result", f"H-EX2 outcome: our predictor matches {E['accuracy']['ALG']} of {len(E['cells'])} cells, the permutation-representation law "
                 f"matches {E['accuracy']['B4']} of {len(E['cells'])}; preregistered success criterion of H-EX2: {E['success']}.", "statistical")
+        rp = [r for r in CF.get("replication_mps_vs_cpu", []) if r.get("cpu_succ") is not None]
+        if rp:
+            add("C-H-replication", "Device replication (the same protocol and seeds run twice, once on the MPS GPU and once on the CPU, because of a runner "
+                "bug, prereg addendum 07:00): " + "; ".join(f"{r['arch']} on {r['group']}/{r['alphabet']}: MPS {r['mps_succ']} of 20, CPU {r['cpu_succ']} of 20"
+                for r in rp) + ". Training outcomes can depend strongly on floating-point details of the device.", "statistical")
         g = CF["gates"]
         add("C-H-gates", f"Preregistered success criteria: accuracy beats every baseline: {g['H-EX1.1_accuracy_beats_all_baselines']}; all six "
             f"discriminating tests significant after BH: {g['H-EX1.2_discriminating_tests_BH']}; negative control clean: {g['negative_control_clean']}; "
@@ -189,11 +226,11 @@ def claims():
                 add(f"C-{c['id']}-withdrawn", f"Lab round {c['runde']}: a claim accepted by the earlier verifier fails the hardened verifier and is withdrawn ({why[:160]}).", "observed")
                 continue
             kept += 1
-            add(f"C-{c['id']}", f"Lab round {c['runde']}. Question: {c['frage']} Verified result: {D.describe(p)}", "computed_rigorous",
+            add(f"C-{c['id']}", f"Lab round {c['runde']}. Question: {to_english(c['frage'], c['id'] + '-q')} Verified result: {D.describe(p)}", "computed_rigorous",
                 "contested by red-team counter-check" if c.get("status") == "angefochten" else "confirmed")
             add(f"C-{c['id']}-I", f"Uninspected interpretation by the agent for {c['id']} (not a result; {'consistent' if cons else 'NOT consistent'} with the "
-                f"hardened consistency rule): {c.get('interpretation_ungeprueft')}", "hypothesis", "open")
-        for j, w in enumerate(s["widerlegt"]): add(f"C-neg{j + 1}", f"Negative result of the lab (no claim passed the verifier and the consistency rule): {w}", "observed")
+                f"hardened consistency rule): {to_english(c.get('interpretation_ungeprueft'), c['id'] + '-i')}", "hypothesis", "open")
+        for j, w in enumerate(s["widerlegt"]): add(f"C-neg{j + 1}", f"Negative result of the lab (no claim passed the verifier and the consistency rule): {to_english(w, f'neg{j}')}", "observed")
         add("C-lab", f"The agentic lab (literature scout with code-checked quotes, integrator, cascade of four researcher agents, exact verifier, "
             f"red-team agent, per-round preregistration) ran {len(s['runden'])} rounds at a cost of {s['kosten_usd']:.2f} USD: {len(s['claims'])} rounds "
             f"produced an accepted claim ({kept} survive re-checking with the hardened verifier, {withdrawn} withdrawn) and {len(s['widerlegt'])} rounds "
@@ -210,6 +247,17 @@ def claims():
     lit = literature()
     for k, v in lit.items(): add(f"C-lit-{k}", v, "observed")
     return C
+
+
+GERMAN = re.compile(r"\b(und|nicht|der|die|das|wird|gilt|wenn|man|ist|eine|einer|welche|lässt|sich|über|auch|noch|statt|beliebige|Darstellung|Gruppen|Reflektion\w*|genügen|Schranke|untere|obere)\b")
+
+
+def to_english(text, salt):
+    """Lab questions/answers written by the agents in German are translated before they become claims (compliance audit, EX24)."""
+    if not GERMAN.search(str(text)): return str(text)
+    t = ask(f"Translate into English, faithfully and literally, keeping every symbol, number and group name unchanged. Return only the translation:\n\n{text}",
+            "You are a precise scientific translator.", model="sonnet", salt=f"translate-{salt}").strip()
+    return t + " (translated from the agent's German)"
 
 
 def literature():
@@ -360,7 +408,7 @@ def figures(outdir):
         fig.tight_layout(); p = f"{outdir}/fig_hex2"; fig.savefig(p + ".pdf"); fig.savefig(p + ".png"); plt.close(fig)
         figs.append(("fig_hex2", "Figure 3. Preregistered addendum H-EX2 on the generator formats of the closest prior work: successful seeds (of 20) for one, two "
                      "and three Householder factors per token; solid line: minimum predicted by our law (h* = 2, certified); dotted line: the "
-                     "permutation-representation law (3 for S4, 4 for A5); dashed line: the cell-success threshold of 10 seeds. Claims [C-X-*]."))
+                     "permutation-representation law (3 for S4, 4 for A5); dashed line: the cell-success threshold of 10 seeds. Evidence: claims C-X-hh1/hh2/hh3-<task>, C-X-E1-E3 (Appendix C)."))
     if os.path.exists(f"{R}/atlas.json"):
         rows = [r for r in json.load(open(f"{R}/atlas.json"))["rows"] if not r.get("abelian", True)]
         fig, ax = plt.subplots(figsize=(5.4, 3.2), dpi=200); fig.patch.set_facecolor(surf); ax.set_facecolor(surf)
@@ -521,6 +569,8 @@ def main():
     ap = argparse.ArgumentParser(); ap.add_argument("--authors", default="Team Ninja Turtles"); ap.add_argument("--affiliation", default="Hack-Nation 2026, Challenge 3 (Agentic Scientific Discovery)")
     ap.add_argument("--errata", default=""); ap.add_argument("--review", default=""); ap.add_argument("--claims-only", action="store_true")
     a = ap.parse_args(); C = claims(); os.makedirs(PROJ, exist_ok=True)
+    german = [c["claim_id"] for c in C if GERMAN.search(c["text"].replace("(translated from the agent's German)", ""))]
+    if german: print("WARNING: German text left in claims:", german)
     json.dump(C, open(f"{PROJ}/paper_claims.json", "w"), indent=1)
     if a.claims_only: print(len(C), "claims"); return
     review = [tuple(x) for x in json.load(open(a.review))] if a.review else []

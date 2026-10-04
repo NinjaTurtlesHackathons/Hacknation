@@ -1,0 +1,41 @@
+- 2026-10-04 02:28:56 Selbsttest des Prüfers: bestanden
+- 2026-10-04 02:29:11 Suchanfragen: ['Transformers finite automata expressiveness', 'State-space models circuit complexity bounds', 'Linear RNNs group word problems', 'Householder reflections state tracking', 'Diagonal transitions Mamba theory', 'DeltaNet DeltaProduct transformer limitations', 'Krohn-Rhodes theorem neural circuits', 'TC0 NC1 complexity transformers', 'Formal languages RNNs impossibility results', 'Reflection groups automata recognition']
+- 2026-10-04 02:29:38 203 Quellen, 0 durch Leck-Filter gesperrt
+- 2026-10-04 02:35:25 88 Befunde extrahiert, 60 Zitate per Code bestätigt, 28 verworfen
+- 2026-10-04 02:35:44 Runde 1: Is one Householder reflection per token (plain DeltaNet with beta in [0,2]) enough to track A5 exactly when the inputs are the involutions of A5? Determine h*(A5, involutions) and compare with h(A5, involutions) over faithful representations of A5 only.
+- 2026-10-04 02:41:57   geprüft (computed_rigorous): Nein | Red-Team: 2 Gegenprüfungen, 1 bestanden
+- 2026-10-04 02:49:46 Selbsttest des Prüfers: bestanden
+- 2026-10-04 02:49:46 Runde 1: Is one Householder reflection per token (plain DeltaNet with beta in [0,2]) enough to track A5 exactly when the inputs are the involutions of A5? Determine h*(A5, involutions) and compare with h(A5, involutions) over faithful representations of A5 only.
+- 2026-10-04 02:59:44   keine geprüfte Behauptung (als negatives Ergebnis protokolliert)
+- 2026-10-04 03:00:24 Runde 2: For the abelian group Z2^3 with alphabet 'all', compare h(Z2^3, all) (faithful representations only) with h*(Z2^3, all). Which one-layer diagonal families can realise it?
+- 2026-10-04 03:19:58   geprüft (computed_rigorous): h(Z2^3, all) = 3 (faithful, reell); h*(Z2^3, all) <= 3, nur diag_pm und cdiag realisieren es exakt, diag_pos nicht | Red-Team: 2 Gegenprüfungen, 0 bestanden
+- 2026-10-04 03:20:42 Runde 3: Liegt h*(A5, involutions) bei 1 oder darüber, wenn man nur ein einzelnes Householder-Produkt pro Token (HH_1) zulässt, und gilt die Antwort auch dann, wenn man die treue Darstellung von A5 durch eine beliebige endliche Gruppe H mit surjektivem Readout ersetzt?
+- 2026-10-04 03:25:17   geprüft (computed_rigorous): > 1 | Red-Team: 2 Gegenprüfungen, 0 bestanden
+- 2026-10-04 03:25:48 Runde 4: For the quaternion group Q8 with alphabet 'all', what is h(Q8, all), and how far apart are the certified bounds on h*(Q8, all)?
+- 2026-10-04 03:33:21   geprüft (computed_rigorous): h(Q8, all) = 4 | Red-Team: 2 Gegenprüfungen, 1 bestanden
+- 2026-10-04 03:33:48 Runde 5: Can a single layer with 2 Householder reflections per token track the non-solvable group A5 with alphabet 'all' exactly? Determine h*(A5, all).
+- 2026-10-04 03:48:54   geprüft (computed_rigorous): Ja, 2 Householder-Reflektionen pro Token genügen; h*(A5, all) = 2 | Red-Team: 2 Gegenprüfungen, 0 bestanden
+- 2026-10-04 03:49:52 Runde 6: Wie verhält sich h*(A5, involutions) gegenüber h*(A5, all), wenn man nur die Involutionen als Alphabet zulässt, und ist der Wert 1 (eine Reflektion pro Token) dort möglich?
+- 2026-10-04 04:12:58 Selbsttest des Prüfers: NICHT bestanden
+- 2026-10-04 04:21:21 Selbsttest des Prüfers: bestanden
+- 2026-10-04 04:21:37 Runde 6: Wie verhält sich h*(A5, involutions) gegenüber h*(A5, all), wenn man nur die Involutionen als Alphabet zulässt, und ist der Wert 1 (eine Reflektion pro Token) dort möglich?
+- 2026-10-04 04:36:11   geprüft (computed_rigorous): 2 | Red-Team: 2 Gegenprüfungen, 1 bestanden
+- 2026-10-04 04:36:39 Runde 7: For S4 with alphabet 'all', the permutation representation needs rank(P(s) - I) = 3 for 4-cycles. Is the true h*(S4, all) smaller? Certify.
+- 2026-10-04 04:40:46   geprüft (computed_rigorous): ja, h*(S4, all) = 2 | Red-Team: 2 Gegenprüfungen, 0 bestanden
+- 2026-10-04 04:41:10 Runde 8: Welche Gruppen mit Involutionen als Alphabet (z. B. S4, D4, Z2^2 oder Q8 mit geeignetem Twist) besitzen h*(G, involutions) = 1, und lässt sich das Muster an den Konjugationsklassen der Involutionen ablesen, etwa über die Codimension des Fixraums per real_irreps?
+- 2026-10-04 04:43:40   geprüft (computed_rigorous): Z2^2 | Red-Team: 2 Gegenprüfungen, 1 bestanden
+- 2026-10-04 04:44:15 Runde 9: For S5 with alphabet 'all', what are the best certified lower and upper bounds on h*(S5, all), and what is h(S5, all) over faithful representations?
+- 2026-10-04 04:53:45   geprüft (computed_rigorous): h*(S5,all): untere Schranke ≥ 2, obere Schranke ≤ 4; h(S5,all) = 4 | Red-Team: 2 Gegenprüfungen, 0 bestanden
+- 2026-10-04 04:54:17 Runde 10: Gilt die Schranke h*(S5, all) ≤ 4 auch ohne Permutationsdarstellung, d.h. kann eine HH_k-Realisierung mit k = 2 oder 3 über eine nicht-permutationale faithful Darstellung von S5 gefunden werden?
+- 2026-10-04 05:18:10   keine geprüfte Behauptung (als negatives Ergebnis protokolliert)
+- 2026-10-04 05:18:38 Runde 11: Wie verhält sich h(S4, all) und h*(S4, all) im Vergleich zu S5, und lässt sich ein Muster in der Abhängigkeit von n für S_n mit Alphabet 'all' erkennen?
+- 2026-10-04 05:24:31   keine geprüfte Behauptung (als negatives Ergebnis protokolliert)
+- 2026-10-04 05:25:05 Runde 12: Gilt h*(A5, involutions) = 2 auch dann noch, wenn man statt treuer Darstellungen von A5 beliebige endliche Gruppen H mit surjektivem Readout H -> A5 zulässt, und lässt sich die untere Schranke k >= 2 ohne Rückgriff auf numerische Charaktertafeln exakt zertifizieren?
+- 2026-10-04 05:35:08   keine geprüfte Behauptung (als negatives Ergebnis protokolliert)
+- 2026-10-04 05:35:40 Runde 13: Gilt h*(S4, all) = 2 auch dann noch, wenn man nur Involutionen als Alphabet zulässt (also S4 mit der Teilmenge der Transpositionen und Doppeltranspositionen), und wie verhält sich h*(S4, involutions) zu h(S4, involutions) über treue reelle Darstellungen?
+- 2026-10-04 05:44:59   keine geprüfte Behauptung (als negatives Ergebnis protokolliert)
+- 2026-10-04 05:45:29 Runde 14: Gilt h(Z2^3, all) = 3 auch dann noch, wenn man den Bereich treuer reeller Darstellungen auf Darstellungen mit Vorzeichen-Twist (Buchstaben mit -1 multipliziert) erweitert, also h*(Z2^3, all) gegen h(Z2^3, all) vergleicht, und wie verhält sich dabei das Minimum über alle endlichen Gruppen H mit surjektivem Readout?
+- 2026-10-04 06:10:29   keine geprüfte Behauptung (als negatives Ergebnis protokolliert)
+- 2026-10-04 06:10:59 Runde 15: Wie verhält sich h*(A5, all) = 2 gegenüber h(A5, involutions) = 2, wenn man die Involutionen-Alphabete mit der Vollständigkeit aller Buchstaben vergleicht? Gilt h*(G, Sigma) = h(G, Sigma) für alle Paare aus Gruppe und Alphabet der Testmenge, oder gibt es Fälle mit echtem Abstand zwischen beiden Werten?
+- 2026-10-04 06:18:19   geprüft (computed_rigorous): kein Abstand festgestellt (h*(A5, all) = h(A5, involutions) = 2; Gleichheit h* = h fuer alle Paare nicht bewiesen) | Red-Team: 2 Gegenprüfungen, 0 bestanden
+- 2026-10-04 06:18:32 Fertig: 9 geprüfte Aussagen, 6 negative Ergebnisse, Kosten 10.51 USD

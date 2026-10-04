@@ -1,0 +1,2950 @@
+{
+ "antwort": {
+  "antwort": "unbekannt",
+  "zahl": null,
+  "konfidenz": 0.0,
+  "stimmen": "keine Stufe geprüft"
+ },
+ "level": "keine geprüfte Behauptung",
+ "forscher": [
+  {
+   "strategie": "sparsam",
+   "runden": [
+    {
+     "ueberlegung": "Die zentrale Frage vergleicht h(Z2^3, all) = 3 (über treue reelle Darstellungen von Z2^3 selbst) mit h*(Z2^3, all) (über Liftungen zu beliebigen endlichen Gruppen H mit Vorzeichen-Twist). Z2^3 ist abelsch mit nur Involutionen außer der Identität, daher greifen Ordnungs-Lemmata (Lemma L4) nicht. Strategisch erkunden wir: (1) Struktur und reelle irreduzible Darstellungen, (2) numerische Grenzen ohne Twist, (3) numerische Konstruktionen mit Twist-Erweiterung über verschiedene Basen (count, planar), (4) empirische Trainierung mit HH_2 als Indikator, ob k reduziert werden kann.",
+     "plan": [
+      {
+       "op": "group_info",
+       "args": {
+        "group": "Z2^3"
+       }
+      },
+      {
+       "op": "alphabet_info",
+       "args": {
+        "group": "Z2^3",
+        "alphabet": "all"
+       }
+      },
+      {
+       "op": "real_irreps",
+       "args": {
+        "group": "Z2^3"
+       }
+      },
+      {
+       "op": "faithful_h",
+       "args": {
+        "group": "Z2^3",
+        "alphabet": "all"
+       }
+      },
+      {
+       "op": "numeric_construction",
+       "args": {
+        "group": "Z2^3",
+        "alphabet": "all",
+        "construction": "count",
+        "twist": "none"
+       }
+      },
+      {
+       "op": "numeric_construction",
+       "args": {
+        "group": "Z2^3",
+        "alphabet": "all",
+        "construction": "count",
+        "twist": "all"
+       }
+      },
+      {
+       "op": "numeric_construction",
+       "args": {
+        "group": "Z2^3",
+        "alphabet": "all",
+        "construction": "planar",
+        "twist": "all"
+       }
+      },
+      {
+       "op": "train_quick",
+       "args": {
+        "arch": "hh2",
+        "group": "Z2^3",
+        "alphabet": "all",
+        "steps": 1000
+       }
+      }
+     ]
+    },
+    {
+     "plan": [
+      {
+       "op": "numeric_construction",
+       "args": {
+        "group": "Z2^3",
+        "alphabet": "all",
+        "construction": "so3",
+        "twist": "all"
+       }
+      },
+      {
+       "op": "numeric_construction",
+       "args": {
+        "group": "Z2^3",
+        "alphabet": "all",
+        "construction": "perm",
+        "twist": "all"
+       }
+      },
+      {
+       "op": "train_quick",
+       "args": {
+        "arch": "hh3",
+        "group": "Z2^3",
+        "alphabet": "all",
+        "steps": 1000
+       }
+      },
+      {
+       "op": "train_quick",
+       "args": {
+        "arch": "hh4",
+        "group": "Z2^3",
+        "alphabet": "all",
+        "steps": 1000
+       }
+      },
+      {
+       "op": "numeric_construction",
+       "args": {
+        "group": "Z2^3",
+        "alphabet": "all",
+        "construction": "planar",
+        "twist": "involutions"
+       }
+      }
+     ]
+    },
+    {
+     "antwort": "unbekannt",
+     "zahl": null,
+     "konfidenz": 0.35,
+     "begruendung": "Die verfügbaren Experimente zeigen keine Verbesserung mit Vorzeichen-Twist: E5 (count + Twist) gibt numerischen Rang 6, E9 (perm + Twist) gibt Ränge bis 5. Eine exakte Realisierung mit k ≤ 3 oder eine bewiesene untere Schranke k ≥ 4 für h* mit Twist liegt nicht vor. Die Frage, ob h(Z2^3, all) = 3 unter Vorzeichen-Twist-Erweiterung erhalten bleibt, kann mit den Experimenten nicht entschieden werden.",
+     "pruefung": {
+      "typ": "erklaerung",
+      "grund": "Keine Experimente mit explizitem Lift auf H ≠ Z2^3 und Vorzeichen-Twist durchgeführt. Die numerischen Konstruktionen (E4, E5, E9) sind nicht zertifizierfähig. Eine Antwort erfordert entweder eine exakte HH_k-Realisierung mit Vorzeichen-Twist und k ≤ 3 oder einen formal verifizierten unteren-Schranken-Beweis für h* ≥ 4."
+     }
+    }
+   ],
+   "experimente": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12
+   ],
+   "final": {
+    "antwort": "unbekannt",
+    "zahl": null,
+    "konfidenz": 0.35,
+    "begruendung": "Die verfügbaren Experimente zeigen keine Verbesserung mit Vorzeichen-Twist: E5 (count + Twist) gibt numerischen Rang 6, E9 (perm + Twist) gibt Ränge bis 5. Eine exakte Realisierung mit k ≤ 3 oder eine bewiesene untere Schranke k ≥ 4 für h* mit Twist liegt nicht vor. Die Frage, ob h(Z2^3, all) = 3 unter Vorzeichen-Twist-Erweiterung erhalten bleibt, kann mit den Experimenten nicht entschieden werden.",
+    "pruefung": {
+     "typ": "erklaerung",
+     "grund": "Keine Experimente mit explizitem Lift auf H ≠ Z2^3 und Vorzeichen-Twist durchgeführt. Die numerischen Konstruktionen (E4, E5, E9) sind nicht zertifizierfähig. Eine Antwort erfordert entweder eine exakte HH_k-Realisierung mit Vorzeichen-Twist und k ≤ 3 oder einen formal verifizierten unteren-Schranken-Beweis für h* ≥ 4."
+    }
+   },
+   "modell": "haiku",
+   "pruefung": {
+    "bestanden": false,
+    "grund": "unknown check type 'erklaerung'"
+   }
+  },
+  {
+   "strategie": "numeriker",
+   "runden": [
+    {
+     "ueberlegung": "Die Frage vergleicht h(Z2^3, all) = 3 (treue reelle Darstellungen von Z2^3 selbst) mit h*(Z2^3, all) (beliebige endliche Gruppen H mit surjektivem Readout zu Z2^3). Zusätzlich wird eine Twist-Variante untersucht, bei der Buchstaben mit -1 multipliziert werden. Strategie: (1) Grundinformationen zu Z2^3 und seinen reellen irreduziblen Darstellungen sammeln. (2) Die bekannte Schranke h(Z2^3, all) = 3 numerisch verifizieren. (3) Verschiedene Konstruktionen (Permutation, SO(3), planare Darstellung) und Twist-Varianten (keine, alle Buchstaben) testen, um zu beobachten, ob der minimale Rang durch Lifting oder Twist reduziert werden kann. (4) Schnelles Training mit HH_2 durchführen, um empirische Evidenz für die Expressivität zu sammeln und zu überprüfen, ob zwei Householder-Faktoren pro Token ausreichen.",
+     "plan": [
+      {
+       "op": "group_info",
+       "args": {
+        "group": "Z2^3"
+       }
+      },
+      {
+       "op": "alphabet_info",
+       "args": {
+        "group": "Z2^3",
+        "alphabet": "all"
+       }
+      },
+      {
+       "op": "real_irreps",
+       "args": {
+        "group": "Z2^3"
+       }
+      },
+      {
+       "op": "faithful_h",
+       "args": {
+        "group": "Z2^3",
+        "alphabet": "all"
+       }
+      },
+      {
+       "op": "numeric_construction",
+       "args": {
+        "group": "Z2^3",
+        "alphabet": "all",
+        "construction": "perm",
+        "twist": "none"
+       }
+      },
+      {
+       "op": "numeric_construction",
+       "args": {
+        "group": "Z2^3",
+        "alphabet": "all",
+        "construction": "perm",
+        "twist": "all"
+       }
+      },
+      {
+       "op": "numeric_construction",
+       "args": {
+        "group": "Z2^3",
+        "alphabet": "all",
+        "construction": "so3",
+        "twist": "none"
+       }
+      },
+      {
+       "op": "train_quick",
+       "args": {
+        "arch": "hh2",
+        "group": "Z2^3",
+        "alphabet": "all",
+        "steps": 1500
+       }
+      }
+     ]
+    },
+    {
+     "plan": [
+      {
+       "op": "numeric_construction",
+       "args": {
+        "group": "Z2^3",
+        "alphabet": "all",
+        "construction": "count",
+        "twist": "none"
+       }
+      },
+      {
+       "op": "numeric_construction",
+       "args": {
+        "group": "Z2^3",
+        "alphabet": "all",
+        "construction": "count",
+        "twist": "all"
+       }
+      },
+      {
+       "op": "train_quick",
+       "args": {
+        "arch": "diag_pm",
+        "group": "Z2^3",
+        "alphabet": "all",
+        "steps": 1500
+       }
+      },
+      {
+       "op": "train_quick",
+       "args": {
+        "arch": "hh1",
+        "group": "Z2^3",
+        "alphabet": "all",
+        "steps": 1500
+       }
+      }
+     ]
+    },
+    {
+     "antwort": "h erhöht sich mit Vorzeichen-Twist",
+     "zahl": 5,
+     "konfidenz": 0.35,
+     "begruendung": "Die numerischen Daten [E18] zeigen für Z2^3 mit Vorzeichen-Twist maximale Ränge von [3, 4, 5] gegenüber [1, 2, 3] ohne Twist. Dies deutet darauf hin, dass h*(Z2^3, all) ≥ 5 wird, wenn Vorzeichen-Multiplikation erlaubt ist. Die triviale Interpretation: Der Twist hebt die Gruppe zu einer größeren effektiven Gruppe, was mehr Householder-Faktoren erfordert.",
+     "pruefungen": [
+      {
+       "typ": "realisation",
+       "group": "Z2^3",
+       "alphabet": "all",
+       "k": 5,
+       "construction": "perm",
+       "twist": "all"
+      },
+      {
+       "typ": "hstar_lower",
+       "group": "Z2^3",
+       "alphabet": "all",
+       "k": 5
+      }
+     ]
+    }
+   ],
+   "experimente": [
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    22,
+    23,
+    24
+   ],
+   "final": {
+    "antwort": "h erhöht sich mit Vorzeichen-Twist",
+    "zahl": 5,
+    "konfidenz": 0.35,
+    "begruendung": "Die numerischen Daten [E18] zeigen für Z2^3 mit Vorzeichen-Twist maximale Ränge von [3, 4, 5] gegenüber [1, 2, 3] ohne Twist. Dies deutet darauf hin, dass h*(Z2^3, all) ≥ 5 wird, wenn Vorzeichen-Multiplikation erlaubt ist. Die triviale Interpretation: Der Twist hebt die Gruppe zu einer größeren effektiven Gruppe, was mehr Householder-Faktoren erfordert.",
+    "pruefungen": [
+     {
+      "typ": "realisation",
+      "group": "Z2^3",
+      "alphabet": "all",
+      "k": 5,
+      "construction": "perm",
+      "twist": "all"
+     },
+     {
+      "typ": "hstar_lower",
+      "group": "Z2^3",
+      "alphabet": "all",
+      "k": 5
+     }
+    ]
+   },
+   "modell": "haiku",
+   "pruefung": {
+    "bestanden": false,
+    "grund": "certified: |H| = 16, pi: H -> G onto (8 elements), consistent readout, dimension 6, field K_1, max rank(R[s] - I) = 5 <= k = 5, every letter factored into <= 5 exact reflections | certified lower bound h* >= 1 (nontrivial group: k = 0 means constant state); claimed >= 5"
+   }
+  },
+  {
+   "strategie": "skeptiker",
+   "runden": [
+    {
+     "ueberlegung": "Die naheliegende Antwort ist, dass das Vorzeichen-Twist (Buchstaben mit -1 multipliziert) nichts ändert, weil -1 als zentrales Element nur eine Erweiterung um Z2 darstellt. Das ist nicht selbstverständlich: Für h* dürfen die Lifts t_s in einer beliebigen endlichen Gruppe H mit surjektivem Readout H -> G liegen, und die Twists können ein Element der Ordnung 2 in H einführen, das auf G abbildet, aber nicht treu auf G operiert. Ein Gegenbeispiel wäre also ein Twist, der rank(t_s - I) für alle Buchstaben auf 2 drückt, während eine treue Darstellung von Z2^3 mindestens 3 verlangt. Ich prüfe deshalb zuerst die Gruppen- und Alphabetdaten, dann die reellen Irreduziblen (für h(G,Sigma) mit treuen Darstellungen), danach numerische Konstruktionen mit und ohne Twist. Die Konstruktionen zeigen, ob die Rangbedingung rank(M - I) <= 2 unter Twist numerisch erfüllbar ist, und die Zählvariante vergleicht die Anzahl der Reflexionsfaktoren direkt. Ich nehme die Ergebnisse nur als Hinweis, bis der Verifizierer sie exakt bestätigt.",
+     "plan": [
+      {
+       "op": "group_info",
+       "args": {
+        "group": "Z2^3"
+       }
+      },
+      {
+       "op": "alphabet_info",
+       "args": {
+        "group": "Z2^3",
+        "alphabet": "all"
+       }
+      },
+      {
+       "op": "real_irreps",
+       "args": {
+        "group": "Z2^3"
+       }
+      },
+      {
+       "op": "faithful_h",
+       "args": {
+        "group": "Z2^3",
+        "alphabet": "all"
+       }
+      },
+      {
+       "op": "numeric_construction",
+       "args": {
+        "group": "Z2^3",
+        "alphabet": "all",
+        "construction": "count",
+        "twist": "none"
+       }
+      },
+      {
+       "op": "numeric_construction",
+       "args": {
+        "group": "Z2^3",
+        "alphabet": "all",
+        "construction": "count",
+        "twist": "all"
+       }
+      },
+      {
+       "op": "numeric_construction",
+       "args": {
+        "group": "Z2^3",
+        "alphabet": "all",
+        "construction": "planar",
+        "twist": "all"
+       }
+      },
+      {
+       "op": "numeric_construction",
+       "args": {
+        "group": "Z2^3",
+        "alphabet": "all",
+        "construction": "perm",
+        "twist": "involutions"
+       }
+      }
+     ]
+    },
+    {
+     "antwort": "unbekannt",
+     "zahl": null,
+     "konfidenz": 0.2,
+     "pruefung": {
+      "typ": "h_faithful",
+      "group": "Z2^3",
+      "alphabet": "all",
+      "value": 3
+     },
+     "begruendung": "Die numerischen Experimente E28 (h = 3 über treue reelle Darstellungen) und E32 (perm-Konstruktion mit Involutionen zeigt Rang 3 bis 5, also kein Beleg für eine kleinere Realisierung) stützen h(Z2^3, all) = 3, aber über Vorzeichen-Twist (E30: Rang 6 bei twist all, Abschluss 64) wurde h*(Z2^3, all) nicht sauber gegen h(Z2^3, all) verglichen und das Minimum über beliebige endliche H mit surjektivem Readout ist nicht experimentell bestimmt. Die Frage ist daher offen; ich antworte nur mit der verifizierten Aussage über treue reelle Darstellungen."
+    }
+   ],
+   "experimente": [
+    25,
+    26,
+    27,
+    28,
+    29,
+    30,
+    31,
+    32
+   ],
+   "final": {
+    "antwort": "unbekannt",
+    "zahl": null,
+    "konfidenz": 0.2,
+    "pruefung": {
+     "typ": "h_faithful",
+     "group": "Z2^3",
+     "alphabet": "all",
+     "value": 3
+    },
+    "begruendung": "Die numerischen Experimente E28 (h = 3 über treue reelle Darstellungen) und E32 (perm-Konstruktion mit Involutionen zeigt Rang 3 bis 5, also kein Beleg für eine kleinere Realisierung) stützen h(Z2^3, all) = 3, aber über Vorzeichen-Twist (E30: Rang 6 bei twist all, Abschluss 64) wurde h*(Z2^3, all) nicht sauber gegen h(Z2^3, all) verglichen und das Minimum über beliebige endliche H mit surjektivem Readout ist nicht experimentell bestimmt. Die Frage ist daher offen; ich antworte nur mit der verifizierten Aussage über treue reelle Darstellungen."
+   },
+   "modell": "sonnet",
+   "pruefung": {
+    "bestanden": false,
+    "grund": "h(G, Sigma) = 3 (own character table, GAP exact: 3)"
+   }
+  },
+  {
+   "strategie": "theoretiker",
+   "runden": [
+    {
+     "ueberlegung": "Die Frage ist, ob das Vorzeichen-Twisten der Buchstaben (Multiplikation mit -1) den Wert h*(Z2^3, all) unter h(Z2^3, all) = 3 drückt. Symmetrie: Z2^3 ist elementar abelsch, jede Erzeugende hat Ordnung 2. Für eine Reflexion M = I - 2uu^T gilt rank(M - I) = 1, für das getwistete -M gilt dagegen rank(-M - I) = n - 1 (bei n = Dimension), was den Rang-Vorteil zerstören kann. Grenzfall: Ist der Rang für alle 7 Nichtidentitätsbuchstaben nach Twist größer, dürfte h* nicht unter 3 fallen. Die entscheidende Vorhersage ist daher: Eine exakte HH_3-Realisierung mit Twist 'all' existiert, und das Minimum über alle H (h*) stimmt mit dem Wert über treue reelle Darstellungen (h) überein. Plan: Zuerst Gruppen- und Alphabetstruktur sichern, dann die reellen irreduziblen Darstellungen und den treuen Wert numerisch bestimmen. Danach prüfe ich numerisch Konstruktionen ohne und mit Twist, um zu sehen, ob der Twist den Rang senkt oder hebt. Die Prüfungen überprüfen exakt: eine Realisierung mit k = 3 unter Twist 'all' und den Wert h* = 3 für das Alphabet 'all'.",
+     "plan": [
+      {
+       "op": "group_info",
+       "args": {
+        "group": "Z2^3"
+       }
+      },
+      {
+       "op": "alphabet_info",
+       "args": {
+        "group": "Z2^3",
+        "alphabet": "all"
+       }
+      },
+      {
+       "op": "real_irreps",
+       "args": {
+        "group": "Z2^3"
+       }
+      },
+      {
+       "op": "faithful_h",
+       "args": {
+        "group": "Z2^3",
+        "alphabet": "all"
+       }
+      },
+      {
+       "op": "numeric_construction",
+       "args": {
+        "group": "Z2^3",
+        "alphabet": "all",
+        "construction": "count",
+        "twist": "none"
+       }
+      },
+      {
+       "op": "numeric_construction",
+       "args": {
+        "group": "Z2^3",
+        "alphabet": "all",
+        "construction": "count",
+        "twist": "all"
+       }
+      },
+      {
+       "op": "numeric_construction",
+       "args": {
+        "group": "Z2^3",
+        "alphabet": "all",
+        "construction": "perm",
+        "twist": "all"
+       }
+      },
+      {
+       "op": "numeric_construction",
+       "args": {
+        "group": "Z2^3",
+        "alphabet": "all",
+        "construction": "planar",
+        "twist": "all"
+       }
+      }
+     ],
+     "pruefung": {
+      "typ": "realisation",
+      "group": "Z2^3",
+      "alphabet": "all",
+      "k": 3,
+      "construction": "count",
+      "twist": "all"
+     }
+    },
+    {
+     "plan": [
+      {
+       "op": "numeric_construction",
+       "args": {
+        "group": "Z2^3",
+        "alphabet": "all",
+        "construction": "count",
+        "twist": "involutions"
+       }
+      },
+      {
+       "op": "numeric_construction",
+       "args": {
+        "group": "Z2^3",
+        "alphabet": "all",
+        "construction": "perm",
+        "twist": "involutions"
+       }
+      },
+      {
+       "op": "numeric_construction",
+       "args": {
+        "group": "Z2^3",
+        "alphabet": "all",
+        "construction": "so3",
+        "twist": "all"
+       }
+      },
+      {
+       "op": "group_info",
+       "args": {
+        "group": "Z2^4"
+       }
+      }
+     ]
+    },
+    {
+     "antwort": "Nein: h*(Z2^3, all) = 1 < 3 = h(Z2^3, all). Die Vorzeichen-Twist-Erweiterung ist dafür nicht nötig.",
+     "zahl": 1,
+     "konfidenz": 0.8,
+     "pruefung": {
+      "typ": "hstar_value",
+      "group": "Z2^3",
+      "alphabet": "all",
+      "value": 1
+     },
+     "begruendung": "Z2^3 wird von den sieben Buchstaben erzeugt und ist eine Quotientengruppe des freien elementar-abelschen Produkts Z2^7 (Erzeugende e_s ↦ s, eine surjektive Abbildung). Die diagonalen Vorzeichenmatrizen diag(±1) auf R^7 bilden eine treue reelle Darstellung von H = Z2^7, und jeder Buchstabe-Lift ist eine einzige Reflexion mit rank(ρ(t_s) − I) = 1, also eine HH_1-Realisierung. Damit ist h* ≤ 1, und da die Buchstaben nicht die Identität sind, gilt h* = 1. Die Schranke h = 3 gilt nur für treue Darstellungen von G selbst, weil dort die Gewichte der Basisdarstellung 3 erreichen."
+    }
+   ],
+   "experimente": [
+    33,
+    34,
+    35,
+    36,
+    37,
+    38,
+    39,
+    40,
+    41,
+    42,
+    43,
+    44
+   ],
+   "final": {
+    "antwort": "Nein: h*(Z2^3, all) = 1 < 3 = h(Z2^3, all). Die Vorzeichen-Twist-Erweiterung ist dafür nicht nötig.",
+    "zahl": 1,
+    "konfidenz": 0.8,
+    "pruefung": {
+     "typ": "hstar_value",
+     "group": "Z2^3",
+     "alphabet": "all",
+     "value": 1
+    },
+    "begruendung": "Z2^3 wird von den sieben Buchstaben erzeugt und ist eine Quotientengruppe des freien elementar-abelschen Produkts Z2^7 (Erzeugende e_s ↦ s, eine surjektive Abbildung). Die diagonalen Vorzeichenmatrizen diag(±1) auf R^7 bilden eine treue reelle Darstellung von H = Z2^7, und jeder Buchstabe-Lift ist eine einzige Reflexion mit rank(ρ(t_s) − I) = 1, also eine HH_1-Realisierung. Damit ist h* ≤ 1, und da die Buchstaben nicht die Identität sind, gilt h* = 1. Die Schranke h = 3 gilt nur für treue Darstellungen von G selbst, weil dort die Gewichte der Basisdarstellung 3 erreichen."
+   },
+   "modell": "sonnet",
+   "pruefung": {
+    "bestanden": false,
+    "grund": "lower bound 1 (nontrivial group: k = 0 means constant state); verifier's own certificate: construction count, twist none, k = 1 (|H| = 128, dim 7); exact"
+   }
+  }
+ ],
+ "experimente": [
+  {
+   "id": 0,
+   "wer": "forscher-sparsam",
+   "op": "group_info",
+   "args": {
+    "group": "Z2^3"
+   },
+   "ergebnis": {
+    "order": 8,
+    "abelian": true,
+    "solvable": true,
+    "perfect": false,
+    "derived_series_orders": [
+     8,
+     1
+    ],
+    "exponent": 2,
+    "center_size": 8,
+    "classes": [
+     {
+      "size": 1,
+      "element_order": 1,
+      "cycle_type": [
+       1,
+       1,
+       1,
+       1,
+       1,
+       1
+      ]
+     },
+     {
+      "size": 1,
+      "element_order": 2,
+      "cycle_type": [
+       2,
+       1,
+       1,
+       1,
+       1
+      ]
+     },
+     {
+      "size": 1,
+      "element_order": 2,
+      "cycle_type": [
+       2,
+       1,
+       1,
+       1,
+       1
+      ]
+     },
+     {
+      "size": 1,
+      "element_order": 2,
+      "cycle_type": [
+       2,
+       2,
+       1,
+       1
+      ]
+     },
+     {
+      "size": 1,
+      "element_order": 2,
+      "cycle_type": [
+       2,
+       1,
+       1,
+       1,
+       1
+      ]
+     },
+     {
+      "size": 1,
+      "element_order": 2,
+      "cycle_type": [
+       2,
+       2,
+       1,
+       1
+      ]
+     },
+     {
+      "size": 1,
+      "element_order": 2,
+      "cycle_type": [
+       2,
+       2,
+       1,
+       1
+      ]
+     },
+     {
+      "size": 1,
+      "element_order": 2,
+      "cycle_type": [
+       2,
+       2,
+       2
+      ]
+     }
+    ]
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 1,
+   "wer": "forscher-sparsam",
+   "op": "alphabet_info",
+   "args": {
+    "group": "Z2^3",
+    "alphabet": "all"
+   },
+   "ergebnis": {
+    "letters": 7,
+    "orders": {
+     "2": 7
+    },
+    "cycle_types": {
+     "(2, 1, 1, 1, 1)": 3,
+     "(2, 2, 1, 1)": 3,
+     "(2, 2, 2)": 1
+    }
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 2,
+   "wer": "forscher-sparsam",
+   "op": "real_irreps",
+   "args": {
+    "group": "Z2^3"
+   },
+   "ergebnis": {
+    "irreps": [
+     {
+      "deg": 1,
+      "fs": 1
+     },
+     {
+      "deg": 1,
+      "fs": 1
+     },
+     {
+      "deg": 1,
+      "fs": 1
+     },
+     {
+      "deg": 1,
+      "fs": 1
+     },
+     {
+      "deg": 1,
+      "fs": 1
+     },
+     {
+      "deg": 1,
+      "fs": 1
+     },
+     {
+      "deg": 1,
+      "fs": 1
+     },
+     {
+      "deg": 1,
+      "fs": 1
+     }
+    ],
+    "class_orders": [
+     1,
+     2,
+     2,
+     2,
+     2,
+     2,
+     2,
+     2
+    ],
+    "class_sizes": [
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1
+    ],
+    "codim_fix": [
+     [
+      0,
+      0,
+      1,
+      1,
+      0,
+      0,
+      1,
+      1
+     ],
+     [
+      0,
+      1,
+      1,
+      0,
+      0,
+      1,
+      1,
+      0
+     ],
+     [
+      0,
+      0,
+      0,
+      0,
+      1,
+      1,
+      1,
+      1
+     ],
+     [
+      0,
+      1,
+      0,
+      1,
+      0,
+      1,
+      0,
+      1
+     ],
+     [
+      0,
+      0,
+      1,
+      1,
+      1,
+      1,
+      0,
+      0
+     ],
+     [
+      0,
+      1,
+      1,
+      0,
+      1,
+      0,
+      0,
+      1
+     ],
+     [
+      0,
+      1,
+      0,
+      1,
+      1,
+      0,
+      1,
+      0
+     ],
+     [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ]
+    ],
+    "mult_minus_one": [
+     [
+      0,
+      0,
+      1,
+      1,
+      0,
+      0,
+      1,
+      1
+     ],
+     [
+      0,
+      1,
+      1,
+      0,
+      0,
+      1,
+      1,
+      0
+     ],
+     [
+      0,
+      0,
+      0,
+      0,
+      1,
+      1,
+      1,
+      1
+     ],
+     [
+      0,
+      1,
+      0,
+      1,
+      0,
+      1,
+      0,
+      1
+     ],
+     [
+      0,
+      0,
+      1,
+      1,
+      1,
+      1,
+      0,
+      0
+     ],
+     [
+      0,
+      1,
+      1,
+      0,
+      1,
+      0,
+      0,
+      1
+     ],
+     [
+      0,
+      1,
+      0,
+      1,
+      1,
+      0,
+      1,
+      0
+     ],
+     [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ]
+    ],
+    "hinweis": "numerical character table"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 3,
+   "wer": "forscher-sparsam",
+   "op": "faithful_h",
+   "args": {
+    "group": "Z2^3",
+    "alphabet": "all"
+   },
+   "ergebnis": {
+    "h_numerical": 3,
+    "chosen_irreps": [
+     {
+      "deg": 1,
+      "fs": 1
+     },
+     {
+      "deg": 1,
+      "fs": 1
+     },
+     {
+      "deg": 1,
+      "fs": 1
+     }
+    ],
+    "hinweis": "numerical"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 4,
+   "wer": "forscher-sparsam",
+   "op": "numeric_construction",
+   "args": {
+    "group": "Z2^3",
+    "alphabet": "all",
+    "construction": "count",
+    "twist": "none"
+   },
+   "ergebnis": {
+    "dim": 7,
+    "numerical_rank_M_minus_I_by_letter_order": {
+     "2": [
+      1
+     ]
+    },
+    "numerical_closure_size": 128,
+    "closure_capped": false,
+    "hinweis": "floating point, not a certificate"
+   },
+   "sek": 1.81
+  },
+  {
+   "id": 5,
+   "wer": "forscher-sparsam",
+   "op": "numeric_construction",
+   "args": {
+    "group": "Z2^3",
+    "alphabet": "all",
+    "construction": "count",
+    "twist": "all"
+   },
+   "ergebnis": {
+    "dim": 7,
+    "numerical_rank_M_minus_I_by_letter_order": {
+     "2": [
+      6
+     ]
+    },
+    "numerical_closure_size": 64,
+    "closure_capped": false,
+    "hinweis": "floating point, not a certificate"
+   },
+   "sek": 0.4
+  },
+  {
+   "id": 6,
+   "wer": "forscher-sparsam",
+   "op": "numeric_construction",
+   "args": {
+    "group": "Z2^3",
+    "alphabet": "all",
+    "construction": "planar",
+    "twist": "all"
+   },
+   "ergebnis": {
+    "fehler": "ValueError: planar model inconsistent"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 7,
+   "wer": "forscher-sparsam",
+   "op": "train_quick",
+   "args": {
+    "arch": "hh2",
+    "group": "Z2^3",
+    "alphabet": "all",
+    "steps": 1000
+   },
+   "ergebnis": {
+    "acc_len32": 1.0,
+    "acc_len128_pos65-128": 1.0,
+    "steps": 1000,
+    "hinweis": "single seed, observed, noisy"
+   },
+   "sek": 111.05
+  },
+  {
+   "id": 8,
+   "wer": "forscher-sparsam",
+   "op": "numeric_construction",
+   "args": {
+    "group": "Z2^3",
+    "alphabet": "all",
+    "construction": "so3",
+    "twist": "all"
+   },
+   "ergebnis": {
+    "fehler": "ValueError: no SO(3) model stored for Z2^3"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 9,
+   "wer": "forscher-sparsam",
+   "op": "numeric_construction",
+   "args": {
+    "group": "Z2^3",
+    "alphabet": "all",
+    "construction": "perm",
+    "twist": "all"
+   },
+   "ergebnis": {
+    "dim": 6,
+    "numerical_rank_M_minus_I_by_letter_order": {
+     "2": [
+      3,
+      4,
+      5
+     ]
+    },
+    "numerical_closure_size": 16,
+    "closure_capped": false,
+    "hinweis": "floating point, not a certificate"
+   },
+   "sek": 0.07
+  },
+  {
+   "id": 10,
+   "wer": "forscher-sparsam",
+   "op": "train_quick",
+   "args": {
+    "arch": "hh3",
+    "group": "Z2^3",
+    "alphabet": "all",
+    "steps": 1000
+   },
+   "ergebnis": {
+    "acc_len32": 1.0,
+    "acc_len128_pos65-128": 0.99988,
+    "steps": 1000,
+    "hinweis": "single seed, observed, noisy"
+   },
+   "sek": 464.23
+  },
+  {
+   "id": 11,
+   "wer": "forscher-sparsam",
+   "op": "train_quick",
+   "args": {
+    "arch": "hh4",
+    "group": "Z2^3",
+    "alphabet": "all",
+    "steps": 1000
+   },
+   "ergebnis": {
+    "acc_len32": 1.0,
+    "acc_len128_pos65-128": 1.0,
+    "steps": 1000,
+    "hinweis": "single seed, observed, noisy"
+   },
+   "sek": 248.09
+  },
+  {
+   "id": 12,
+   "wer": "forscher-sparsam",
+   "op": "numeric_construction",
+   "args": {
+    "group": "Z2^3",
+    "alphabet": "all",
+    "construction": "planar",
+    "twist": "involutions"
+   },
+   "ergebnis": {
+    "fehler": "ValueError: planar model inconsistent"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 13,
+   "wer": "forscher-numeriker",
+   "op": "group_info",
+   "args": {
+    "group": "Z2^3"
+   },
+   "ergebnis": {
+    "order": 8,
+    "abelian": true,
+    "solvable": true,
+    "perfect": false,
+    "derived_series_orders": [
+     8,
+     1
+    ],
+    "exponent": 2,
+    "center_size": 8,
+    "classes": [
+     {
+      "size": 1,
+      "element_order": 1,
+      "cycle_type": [
+       1,
+       1,
+       1,
+       1,
+       1,
+       1
+      ]
+     },
+     {
+      "size": 1,
+      "element_order": 2,
+      "cycle_type": [
+       2,
+       1,
+       1,
+       1,
+       1
+      ]
+     },
+     {
+      "size": 1,
+      "element_order": 2,
+      "cycle_type": [
+       2,
+       1,
+       1,
+       1,
+       1
+      ]
+     },
+     {
+      "size": 1,
+      "element_order": 2,
+      "cycle_type": [
+       2,
+       2,
+       1,
+       1
+      ]
+     },
+     {
+      "size": 1,
+      "element_order": 2,
+      "cycle_type": [
+       2,
+       1,
+       1,
+       1,
+       1
+      ]
+     },
+     {
+      "size": 1,
+      "element_order": 2,
+      "cycle_type": [
+       2,
+       2,
+       1,
+       1
+      ]
+     },
+     {
+      "size": 1,
+      "element_order": 2,
+      "cycle_type": [
+       2,
+       2,
+       1,
+       1
+      ]
+     },
+     {
+      "size": 1,
+      "element_order": 2,
+      "cycle_type": [
+       2,
+       2,
+       2
+      ]
+     }
+    ]
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 14,
+   "wer": "forscher-numeriker",
+   "op": "alphabet_info",
+   "args": {
+    "group": "Z2^3",
+    "alphabet": "all"
+   },
+   "ergebnis": {
+    "letters": 7,
+    "orders": {
+     "2": 7
+    },
+    "cycle_types": {
+     "(2, 1, 1, 1, 1)": 3,
+     "(2, 2, 1, 1)": 3,
+     "(2, 2, 2)": 1
+    }
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 15,
+   "wer": "forscher-numeriker",
+   "op": "real_irreps",
+   "args": {
+    "group": "Z2^3"
+   },
+   "ergebnis": {
+    "irreps": [
+     {
+      "deg": 1,
+      "fs": 1
+     },
+     {
+      "deg": 1,
+      "fs": 1
+     },
+     {
+      "deg": 1,
+      "fs": 1
+     },
+     {
+      "deg": 1,
+      "fs": 1
+     },
+     {
+      "deg": 1,
+      "fs": 1
+     },
+     {
+      "deg": 1,
+      "fs": 1
+     },
+     {
+      "deg": 1,
+      "fs": 1
+     },
+     {
+      "deg": 1,
+      "fs": 1
+     }
+    ],
+    "class_orders": [
+     1,
+     2,
+     2,
+     2,
+     2,
+     2,
+     2,
+     2
+    ],
+    "class_sizes": [
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1
+    ],
+    "codim_fix": [
+     [
+      0,
+      0,
+      1,
+      1,
+      0,
+      0,
+      1,
+      1
+     ],
+     [
+      0,
+      1,
+      1,
+      0,
+      0,
+      1,
+      1,
+      0
+     ],
+     [
+      0,
+      0,
+      0,
+      0,
+      1,
+      1,
+      1,
+      1
+     ],
+     [
+      0,
+      1,
+      0,
+      1,
+      0,
+      1,
+      0,
+      1
+     ],
+     [
+      0,
+      0,
+      1,
+      1,
+      1,
+      1,
+      0,
+      0
+     ],
+     [
+      0,
+      1,
+      1,
+      0,
+      1,
+      0,
+      0,
+      1
+     ],
+     [
+      0,
+      1,
+      0,
+      1,
+      1,
+      0,
+      1,
+      0
+     ],
+     [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ]
+    ],
+    "mult_minus_one": [
+     [
+      0,
+      0,
+      1,
+      1,
+      0,
+      0,
+      1,
+      1
+     ],
+     [
+      0,
+      1,
+      1,
+      0,
+      0,
+      1,
+      1,
+      0
+     ],
+     [
+      0,
+      0,
+      0,
+      0,
+      1,
+      1,
+      1,
+      1
+     ],
+     [
+      0,
+      1,
+      0,
+      1,
+      0,
+      1,
+      0,
+      1
+     ],
+     [
+      0,
+      0,
+      1,
+      1,
+      1,
+      1,
+      0,
+      0
+     ],
+     [
+      0,
+      1,
+      1,
+      0,
+      1,
+      0,
+      0,
+      1
+     ],
+     [
+      0,
+      1,
+      0,
+      1,
+      1,
+      0,
+      1,
+      0
+     ],
+     [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ]
+    ],
+    "hinweis": "numerical character table"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 16,
+   "wer": "forscher-numeriker",
+   "op": "faithful_h",
+   "args": {
+    "group": "Z2^3",
+    "alphabet": "all"
+   },
+   "ergebnis": {
+    "h_numerical": 3,
+    "chosen_irreps": [
+     {
+      "deg": 1,
+      "fs": 1
+     },
+     {
+      "deg": 1,
+      "fs": 1
+     },
+     {
+      "deg": 1,
+      "fs": 1
+     }
+    ],
+    "hinweis": "numerical"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 17,
+   "wer": "forscher-numeriker",
+   "op": "numeric_construction",
+   "args": {
+    "group": "Z2^3",
+    "alphabet": "all",
+    "construction": "perm",
+    "twist": "none"
+   },
+   "ergebnis": {
+    "dim": 6,
+    "numerical_rank_M_minus_I_by_letter_order": {
+     "2": [
+      1,
+      2,
+      3
+     ]
+    },
+    "numerical_closure_size": 8,
+    "closure_capped": false,
+    "hinweis": "floating point, not a certificate"
+   },
+   "sek": 0.01
+  },
+  {
+   "id": 18,
+   "wer": "forscher-numeriker",
+   "op": "numeric_construction",
+   "args": {
+    "group": "Z2^3",
+    "alphabet": "all",
+    "construction": "perm",
+    "twist": "all"
+   },
+   "ergebnis": {
+    "dim": 6,
+    "numerical_rank_M_minus_I_by_letter_order": {
+     "2": [
+      3,
+      4,
+      5
+     ]
+    },
+    "numerical_closure_size": 16,
+    "closure_capped": false,
+    "hinweis": "floating point, not a certificate"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 19,
+   "wer": "forscher-numeriker",
+   "op": "numeric_construction",
+   "args": {
+    "group": "Z2^3",
+    "alphabet": "all",
+    "construction": "so3",
+    "twist": "none"
+   },
+   "ergebnis": {
+    "fehler": "ValueError: no SO(3) model stored for Z2^3"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 20,
+   "wer": "forscher-numeriker",
+   "op": "train_quick",
+   "args": {
+    "arch": "hh2",
+    "group": "Z2^3",
+    "alphabet": "all",
+    "steps": 1500
+   },
+   "ergebnis": {
+    "acc_len32": 1.0,
+    "acc_len128_pos65-128": 0.99918,
+    "steps": 1500,
+    "hinweis": "single seed, observed, noisy"
+   },
+   "sek": 105.75
+  },
+  {
+   "id": 21,
+   "wer": "forscher-numeriker",
+   "op": "numeric_construction",
+   "args": {
+    "group": "Z2^3",
+    "alphabet": "all",
+    "construction": "count",
+    "twist": "none"
+   },
+   "ergebnis": {
+    "dim": 7,
+    "numerical_rank_M_minus_I_by_letter_order": {
+     "2": [
+      1
+     ]
+    },
+    "numerical_closure_size": 128,
+    "closure_capped": false,
+    "hinweis": "floating point, not a certificate"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 22,
+   "wer": "forscher-numeriker",
+   "op": "numeric_construction",
+   "args": {
+    "group": "Z2^3",
+    "alphabet": "all",
+    "construction": "count",
+    "twist": "all"
+   },
+   "ergebnis": {
+    "dim": 7,
+    "numerical_rank_M_minus_I_by_letter_order": {
+     "2": [
+      6
+     ]
+    },
+    "numerical_closure_size": 64,
+    "closure_capped": false,
+    "hinweis": "floating point, not a certificate"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 23,
+   "wer": "forscher-numeriker",
+   "op": "train_quick",
+   "args": {
+    "arch": "diag_pm",
+    "group": "Z2^3",
+    "alphabet": "all",
+    "steps": 1500
+   },
+   "ergebnis": {
+    "acc_len32": 1.0,
+    "acc_len128_pos65-128": 1.0,
+    "steps": 1500,
+    "hinweis": "single seed, observed, noisy"
+   },
+   "sek": 153.8
+  },
+  {
+   "id": 24,
+   "wer": "forscher-numeriker",
+   "op": "train_quick",
+   "args": {
+    "arch": "hh1",
+    "group": "Z2^3",
+    "alphabet": "all",
+    "steps": 1500
+   },
+   "ergebnis": {
+    "acc_len32": 0.99487,
+    "acc_len128_pos65-128": 0.8728,
+    "steps": 1500,
+    "hinweis": "single seed, observed, noisy"
+   },
+   "sek": 56.41
+  },
+  {
+   "id": 25,
+   "wer": "forscher-skeptiker",
+   "op": "group_info",
+   "args": {
+    "group": "Z2^3"
+   },
+   "ergebnis": {
+    "order": 8,
+    "abelian": true,
+    "solvable": true,
+    "perfect": false,
+    "derived_series_orders": [
+     8,
+     1
+    ],
+    "exponent": 2,
+    "center_size": 8,
+    "classes": [
+     {
+      "size": 1,
+      "element_order": 1,
+      "cycle_type": [
+       1,
+       1,
+       1,
+       1,
+       1,
+       1
+      ]
+     },
+     {
+      "size": 1,
+      "element_order": 2,
+      "cycle_type": [
+       2,
+       1,
+       1,
+       1,
+       1
+      ]
+     },
+     {
+      "size": 1,
+      "element_order": 2,
+      "cycle_type": [
+       2,
+       1,
+       1,
+       1,
+       1
+      ]
+     },
+     {
+      "size": 1,
+      "element_order": 2,
+      "cycle_type": [
+       2,
+       2,
+       1,
+       1
+      ]
+     },
+     {
+      "size": 1,
+      "element_order": 2,
+      "cycle_type": [
+       2,
+       1,
+       1,
+       1,
+       1
+      ]
+     },
+     {
+      "size": 1,
+      "element_order": 2,
+      "cycle_type": [
+       2,
+       2,
+       1,
+       1
+      ]
+     },
+     {
+      "size": 1,
+      "element_order": 2,
+      "cycle_type": [
+       2,
+       2,
+       1,
+       1
+      ]
+     },
+     {
+      "size": 1,
+      "element_order": 2,
+      "cycle_type": [
+       2,
+       2,
+       2
+      ]
+     }
+    ]
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 26,
+   "wer": "forscher-skeptiker",
+   "op": "alphabet_info",
+   "args": {
+    "group": "Z2^3",
+    "alphabet": "all"
+   },
+   "ergebnis": {
+    "letters": 7,
+    "orders": {
+     "2": 7
+    },
+    "cycle_types": {
+     "(2, 1, 1, 1, 1)": 3,
+     "(2, 2, 1, 1)": 3,
+     "(2, 2, 2)": 1
+    }
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 27,
+   "wer": "forscher-skeptiker",
+   "op": "real_irreps",
+   "args": {
+    "group": "Z2^3"
+   },
+   "ergebnis": {
+    "irreps": [
+     {
+      "deg": 1,
+      "fs": 1
+     },
+     {
+      "deg": 1,
+      "fs": 1
+     },
+     {
+      "deg": 1,
+      "fs": 1
+     },
+     {
+      "deg": 1,
+      "fs": 1
+     },
+     {
+      "deg": 1,
+      "fs": 1
+     },
+     {
+      "deg": 1,
+      "fs": 1
+     },
+     {
+      "deg": 1,
+      "fs": 1
+     },
+     {
+      "deg": 1,
+      "fs": 1
+     }
+    ],
+    "class_orders": [
+     1,
+     2,
+     2,
+     2,
+     2,
+     2,
+     2,
+     2
+    ],
+    "class_sizes": [
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1
+    ],
+    "codim_fix": [
+     [
+      0,
+      0,
+      1,
+      1,
+      0,
+      0,
+      1,
+      1
+     ],
+     [
+      0,
+      1,
+      1,
+      0,
+      0,
+      1,
+      1,
+      0
+     ],
+     [
+      0,
+      0,
+      0,
+      0,
+      1,
+      1,
+      1,
+      1
+     ],
+     [
+      0,
+      1,
+      0,
+      1,
+      0,
+      1,
+      0,
+      1
+     ],
+     [
+      0,
+      0,
+      1,
+      1,
+      1,
+      1,
+      0,
+      0
+     ],
+     [
+      0,
+      1,
+      1,
+      0,
+      1,
+      0,
+      0,
+      1
+     ],
+     [
+      0,
+      1,
+      0,
+      1,
+      1,
+      0,
+      1,
+      0
+     ],
+     [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ]
+    ],
+    "mult_minus_one": [
+     [
+      0,
+      0,
+      1,
+      1,
+      0,
+      0,
+      1,
+      1
+     ],
+     [
+      0,
+      1,
+      1,
+      0,
+      0,
+      1,
+      1,
+      0
+     ],
+     [
+      0,
+      0,
+      0,
+      0,
+      1,
+      1,
+      1,
+      1
+     ],
+     [
+      0,
+      1,
+      0,
+      1,
+      0,
+      1,
+      0,
+      1
+     ],
+     [
+      0,
+      0,
+      1,
+      1,
+      1,
+      1,
+      0,
+      0
+     ],
+     [
+      0,
+      1,
+      1,
+      0,
+      1,
+      0,
+      0,
+      1
+     ],
+     [
+      0,
+      1,
+      0,
+      1,
+      1,
+      0,
+      1,
+      0
+     ],
+     [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ]
+    ],
+    "hinweis": "numerical character table"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 28,
+   "wer": "forscher-skeptiker",
+   "op": "faithful_h",
+   "args": {
+    "group": "Z2^3",
+    "alphabet": "all"
+   },
+   "ergebnis": {
+    "h_numerical": 3,
+    "chosen_irreps": [
+     {
+      "deg": 1,
+      "fs": 1
+     },
+     {
+      "deg": 1,
+      "fs": 1
+     },
+     {
+      "deg": 1,
+      "fs": 1
+     }
+    ],
+    "hinweis": "numerical"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 29,
+   "wer": "forscher-skeptiker",
+   "op": "numeric_construction",
+   "args": {
+    "group": "Z2^3",
+    "alphabet": "all",
+    "construction": "count",
+    "twist": "none"
+   },
+   "ergebnis": {
+    "dim": 7,
+    "numerical_rank_M_minus_I_by_letter_order": {
+     "2": [
+      1
+     ]
+    },
+    "numerical_closure_size": 128,
+    "closure_capped": false,
+    "hinweis": "floating point, not a certificate"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 30,
+   "wer": "forscher-skeptiker",
+   "op": "numeric_construction",
+   "args": {
+    "group": "Z2^3",
+    "alphabet": "all",
+    "construction": "count",
+    "twist": "all"
+   },
+   "ergebnis": {
+    "dim": 7,
+    "numerical_rank_M_minus_I_by_letter_order": {
+     "2": [
+      6
+     ]
+    },
+    "numerical_closure_size": 64,
+    "closure_capped": false,
+    "hinweis": "floating point, not a certificate"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 31,
+   "wer": "forscher-skeptiker",
+   "op": "numeric_construction",
+   "args": {
+    "group": "Z2^3",
+    "alphabet": "all",
+    "construction": "planar",
+    "twist": "all"
+   },
+   "ergebnis": {
+    "fehler": "ValueError: planar model inconsistent"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 32,
+   "wer": "forscher-skeptiker",
+   "op": "numeric_construction",
+   "args": {
+    "group": "Z2^3",
+    "alphabet": "all",
+    "construction": "perm",
+    "twist": "involutions"
+   },
+   "ergebnis": {
+    "dim": 6,
+    "numerical_rank_M_minus_I_by_letter_order": {
+     "2": [
+      3,
+      4,
+      5
+     ]
+    },
+    "numerical_closure_size": 16,
+    "closure_capped": false,
+    "hinweis": "floating point, not a certificate"
+   },
+   "sek": 0.03
+  },
+  {
+   "id": 33,
+   "wer": "forscher-theoretiker",
+   "op": "group_info",
+   "args": {
+    "group": "Z2^3"
+   },
+   "ergebnis": {
+    "order": 8,
+    "abelian": true,
+    "solvable": true,
+    "perfect": false,
+    "derived_series_orders": [
+     8,
+     1
+    ],
+    "exponent": 2,
+    "center_size": 8,
+    "classes": [
+     {
+      "size": 1,
+      "element_order": 1,
+      "cycle_type": [
+       1,
+       1,
+       1,
+       1,
+       1,
+       1
+      ]
+     },
+     {
+      "size": 1,
+      "element_order": 2,
+      "cycle_type": [
+       2,
+       1,
+       1,
+       1,
+       1
+      ]
+     },
+     {
+      "size": 1,
+      "element_order": 2,
+      "cycle_type": [
+       2,
+       1,
+       1,
+       1,
+       1
+      ]
+     },
+     {
+      "size": 1,
+      "element_order": 2,
+      "cycle_type": [
+       2,
+       2,
+       1,
+       1
+      ]
+     },
+     {
+      "size": 1,
+      "element_order": 2,
+      "cycle_type": [
+       2,
+       1,
+       1,
+       1,
+       1
+      ]
+     },
+     {
+      "size": 1,
+      "element_order": 2,
+      "cycle_type": [
+       2,
+       2,
+       1,
+       1
+      ]
+     },
+     {
+      "size": 1,
+      "element_order": 2,
+      "cycle_type": [
+       2,
+       2,
+       1,
+       1
+      ]
+     },
+     {
+      "size": 1,
+      "element_order": 2,
+      "cycle_type": [
+       2,
+       2,
+       2
+      ]
+     }
+    ]
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 34,
+   "wer": "forscher-theoretiker",
+   "op": "alphabet_info",
+   "args": {
+    "group": "Z2^3",
+    "alphabet": "all"
+   },
+   "ergebnis": {
+    "letters": 7,
+    "orders": {
+     "2": 7
+    },
+    "cycle_types": {
+     "(2, 1, 1, 1, 1)": 3,
+     "(2, 2, 1, 1)": 3,
+     "(2, 2, 2)": 1
+    }
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 35,
+   "wer": "forscher-theoretiker",
+   "op": "real_irreps",
+   "args": {
+    "group": "Z2^3"
+   },
+   "ergebnis": {
+    "irreps": [
+     {
+      "deg": 1,
+      "fs": 1
+     },
+     {
+      "deg": 1,
+      "fs": 1
+     },
+     {
+      "deg": 1,
+      "fs": 1
+     },
+     {
+      "deg": 1,
+      "fs": 1
+     },
+     {
+      "deg": 1,
+      "fs": 1
+     },
+     {
+      "deg": 1,
+      "fs": 1
+     },
+     {
+      "deg": 1,
+      "fs": 1
+     },
+     {
+      "deg": 1,
+      "fs": 1
+     }
+    ],
+    "class_orders": [
+     1,
+     2,
+     2,
+     2,
+     2,
+     2,
+     2,
+     2
+    ],
+    "class_sizes": [
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1
+    ],
+    "codim_fix": [
+     [
+      0,
+      0,
+      1,
+      1,
+      0,
+      0,
+      1,
+      1
+     ],
+     [
+      0,
+      1,
+      1,
+      0,
+      0,
+      1,
+      1,
+      0
+     ],
+     [
+      0,
+      0,
+      0,
+      0,
+      1,
+      1,
+      1,
+      1
+     ],
+     [
+      0,
+      1,
+      0,
+      1,
+      0,
+      1,
+      0,
+      1
+     ],
+     [
+      0,
+      0,
+      1,
+      1,
+      1,
+      1,
+      0,
+      0
+     ],
+     [
+      0,
+      1,
+      1,
+      0,
+      1,
+      0,
+      0,
+      1
+     ],
+     [
+      0,
+      1,
+      0,
+      1,
+      1,
+      0,
+      1,
+      0
+     ],
+     [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ]
+    ],
+    "mult_minus_one": [
+     [
+      0,
+      0,
+      1,
+      1,
+      0,
+      0,
+      1,
+      1
+     ],
+     [
+      0,
+      1,
+      1,
+      0,
+      0,
+      1,
+      1,
+      0
+     ],
+     [
+      0,
+      0,
+      0,
+      0,
+      1,
+      1,
+      1,
+      1
+     ],
+     [
+      0,
+      1,
+      0,
+      1,
+      0,
+      1,
+      0,
+      1
+     ],
+     [
+      0,
+      0,
+      1,
+      1,
+      1,
+      1,
+      0,
+      0
+     ],
+     [
+      0,
+      1,
+      1,
+      0,
+      1,
+      0,
+      0,
+      1
+     ],
+     [
+      0,
+      1,
+      0,
+      1,
+      1,
+      0,
+      1,
+      0
+     ],
+     [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ]
+    ],
+    "hinweis": "numerical character table"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 36,
+   "wer": "forscher-theoretiker",
+   "op": "faithful_h",
+   "args": {
+    "group": "Z2^3",
+    "alphabet": "all"
+   },
+   "ergebnis": {
+    "h_numerical": 3,
+    "chosen_irreps": [
+     {
+      "deg": 1,
+      "fs": 1
+     },
+     {
+      "deg": 1,
+      "fs": 1
+     },
+     {
+      "deg": 1,
+      "fs": 1
+     }
+    ],
+    "hinweis": "numerical"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 37,
+   "wer": "forscher-theoretiker",
+   "op": "numeric_construction",
+   "args": {
+    "group": "Z2^3",
+    "alphabet": "all",
+    "construction": "count",
+    "twist": "none"
+   },
+   "ergebnis": {
+    "dim": 7,
+    "numerical_rank_M_minus_I_by_letter_order": {
+     "2": [
+      1
+     ]
+    },
+    "numerical_closure_size": 128,
+    "closure_capped": false,
+    "hinweis": "floating point, not a certificate"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 38,
+   "wer": "forscher-theoretiker",
+   "op": "numeric_construction",
+   "args": {
+    "group": "Z2^3",
+    "alphabet": "all",
+    "construction": "count",
+    "twist": "all"
+   },
+   "ergebnis": {
+    "dim": 7,
+    "numerical_rank_M_minus_I_by_letter_order": {
+     "2": [
+      6
+     ]
+    },
+    "numerical_closure_size": 64,
+    "closure_capped": false,
+    "hinweis": "floating point, not a certificate"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 39,
+   "wer": "forscher-theoretiker",
+   "op": "numeric_construction",
+   "args": {
+    "group": "Z2^3",
+    "alphabet": "all",
+    "construction": "perm",
+    "twist": "all"
+   },
+   "ergebnis": {
+    "dim": 6,
+    "numerical_rank_M_minus_I_by_letter_order": {
+     "2": [
+      3,
+      4,
+      5
+     ]
+    },
+    "numerical_closure_size": 16,
+    "closure_capped": false,
+    "hinweis": "floating point, not a certificate"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 40,
+   "wer": "forscher-theoretiker",
+   "op": "numeric_construction",
+   "args": {
+    "group": "Z2^3",
+    "alphabet": "all",
+    "construction": "planar",
+    "twist": "all"
+   },
+   "ergebnis": {
+    "fehler": "ValueError: planar model inconsistent"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 41,
+   "wer": "forscher-theoretiker",
+   "op": "numeric_construction",
+   "args": {
+    "group": "Z2^3",
+    "alphabet": "all",
+    "construction": "count",
+    "twist": "involutions"
+   },
+   "ergebnis": {
+    "dim": 7,
+    "numerical_rank_M_minus_I_by_letter_order": {
+     "2": [
+      6
+     ]
+    },
+    "numerical_closure_size": 64,
+    "closure_capped": false,
+    "hinweis": "floating point, not a certificate"
+   },
+   "sek": 0.58
+  },
+  {
+   "id": 42,
+   "wer": "forscher-theoretiker",
+   "op": "numeric_construction",
+   "args": {
+    "group": "Z2^3",
+    "alphabet": "all",
+    "construction": "perm",
+    "twist": "involutions"
+   },
+   "ergebnis": {
+    "dim": 6,
+    "numerical_rank_M_minus_I_by_letter_order": {
+     "2": [
+      3,
+      4,
+      5
+     ]
+    },
+    "numerical_closure_size": 16,
+    "closure_capped": false,
+    "hinweis": "floating point, not a certificate"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 43,
+   "wer": "forscher-theoretiker",
+   "op": "numeric_construction",
+   "args": {
+    "group": "Z2^3",
+    "alphabet": "all",
+    "construction": "so3",
+    "twist": "all"
+   },
+   "ergebnis": {
+    "fehler": "ValueError: no SO(3) model stored for Z2^3"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 44,
+   "wer": "forscher-theoretiker",
+   "op": "group_info",
+   "args": {
+    "group": "Z2^4"
+   },
+   "ergebnis": {
+    "order": 16,
+    "abelian": true,
+    "solvable": true,
+    "perfect": false,
+    "derived_series_orders": [
+     16,
+     1
+    ],
+    "exponent": 2,
+    "center_size": 16,
+    "classes": [
+     {
+      "size": 1,
+      "element_order": 1,
+      "cycle_type": [
+       1,
+       1,
+       1,
+       1,
+       1,
+       1,
+       1,
+       1
+      ]
+     },
+     {
+      "size": 1,
+      "element_order": 2,
+      "cycle_type": [
+       2,
+       1,
+       1,
+       1,
+       1,
+       1,
+       1
+      ]
+     },
+     {
+      "size": 1,
+      "element_order": 2,
+      "cycle_type": [
+       2,
+       1,
+       1,
+       1,
+       1,
+       1,
+       1
+      ]
+     },
+     {
+      "size": 1,
+      "element_order": 2,
+      "cycle_type": [
+       2,
+       2,
+       1,
+       1,
+       1,
+       1
+      ]
+     },
+     {
+      "size": 1,
+      "element_order": 2,
+      "cycle_type": [
+       2,
+       1,
+       1,
+       1,
+       1,
+       1,
+       1
+      ]
+     },
+     {
+      "size": 1,
+      "element_order": 2,
+      "cycle_type": [
+       2,
+       2,
+       1,
+       1,
+       1,
+       1
+      ]
+     },
+     {
+      "size": 1,
+      "element_order": 2,
+      "cycle_type": [
+       2,
+       2,
+       1,
+       1,
+       1,
+       1
+      ]
+     },
+     {
+      "size": 1,
+      "element_order": 2,
+      "cycle_type": [
+       2,
+       2,
+       2,
+       1,
+       1
+      ]
+     },
+     {
+      "size": 1,
+      "element_order": 2,
+      "cycle_type": [
+       2,
+       1,
+       1,
+       1,
+       1,
+       1,
+       1
+      ]
+     },
+     {
+      "size": 1,
+      "element_order": 2,
+      "cycle_type": [
+       2,
+       2,
+       1,
+       1,
+       1,
+       1
+      ]
+     },
+     {
+      "size": 1,
+      "element_order": 2,
+      "cycle_type": [
+       2,
+       2,
+       1,
+       1,
+       1,
+       1
+      ]
+     },
+     {
+      "size": 1,
+      "element_order": 2,
+      "cycle_type": [
+       2,
+       2,
+       2,
+       1,
+       1
+      ]
+     },
+     {
+      "size": 1,
+      "element_order": 2,
+      "cycle_type": [
+       2,
+       2,
+       1,
+       1,
+       1,
+       1
+      ]
+     },
+     {
+      "size": 1,
+      "element_order": 2,
+      "cycle_type": [
+       2,
+       2,
+       2,
+       1,
+       1
+      ]
+     },
+     {
+      "size": 1,
+      "element_order": 2,
+      "cycle_type": [
+       2,
+       2,
+       2,
+       1,
+       1
+      ]
+     },
+     {
+      "size": 1,
+      "element_order": 2,
+      "cycle_type": [
+       2,
+       2,
+       2,
+       2
+      ]
+     }
+    ]
+   },
+   "sek": 0.01
+  }
+ ],
+ "sek": 1499.2
+}

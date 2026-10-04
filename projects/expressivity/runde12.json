@@ -1,0 +1,1785 @@
+{
+ "antwort": {
+  "antwort": "unbekannt",
+  "zahl": null,
+  "konfidenz": 0.0,
+  "stimmen": "keine Stufe geprüft"
+ },
+ "level": "keine geprüfte Behauptung",
+ "forscher": [
+  {
+   "strategie": "sparsam",
+   "runden": [
+    {
+     "ueberlegung": "Die Frage hat zwei Aspekte: (1) Bleibt h*(A5, involutions) = 2, wenn beliebige Gruppen H mit Surjektion auf A5 erlaubt sind (nicht nur treue Darstellungen von A5 selbst)? (2) Kann die untere Schranke k >= 2 exakt, ohne numerische Charaktertafeln, zertifiziert werden?\n\nStrategie: Erst die numerischen Eigenschaften von A5 und seinen Involutionen explorieren, dann verschiedene Konstruktionen (Permutationen, SO(3), planar) testen, ob sie mit rank(M-I) <= 2 auskommen. Dann Trainungsexperimente zur praktischen Bestätigung, und schließlich exakte Zertifizierung anstreben.\n\nMaximal 8 Experimente planen:\n- Struktur und Darstellungen explorieren (A5, Involutionen)\n- Bekannte h(A5, involutions)=2 bestätigen\n- Numerisch testen, ob verschiedene Konstruktionen h*=2 erreichen\n- Trainieren mit HH_1 vs HH_2, um untere Schranke zu validieren\n- Auf dieser Basis exakte Realisierungen zertifizieren",
+     "plan": [
+      {
+       "op": "group_info",
+       "args": {
+        "group": "A5"
+       }
+      },
+      {
+       "op": "alphabet_info",
+       "args": {
+        "group": "A5",
+        "alphabet": "involutions"
+       }
+      },
+      {
+       "op": "real_irreps",
+       "args": {
+        "group": "A5"
+       }
+      },
+      {
+       "op": "faithful_h",
+       "args": {
+        "group": "A5",
+        "alphabet": "involutions"
+       }
+      },
+      {
+       "op": "numeric_construction",
+       "args": {
+        "group": "A5",
+        "alphabet": "involutions",
+        "construction": "perm",
+        "twist": "none"
+       }
+      },
+      {
+       "op": "numeric_construction",
+       "args": {
+        "group": "A5",
+        "alphabet": "involutions",
+        "construction": "so3",
+        "twist": "involutions"
+       }
+      },
+      {
+       "op": "train_quick",
+       "args": {
+        "arch": "hh2",
+        "group": "A5",
+        "alphabet": "involutions",
+        "steps": 1500
+       }
+      },
+      {
+       "op": "train_quick",
+       "args": {
+        "arch": "hh1",
+        "group": "A5",
+        "alphabet": "involutions",
+        "steps": 1500
+       }
+      }
+     ]
+    },
+    {
+     "plan": [
+      {
+       "typ": "realisation",
+       "group": "A5",
+       "alphabet": "involutions",
+       "k": 2,
+       "construction": "perm",
+       "twist": "none"
+      },
+      {
+       "typ": "hstar_lower",
+       "group": "A5",
+       "alphabet": "involutions",
+       "k": 2
+      },
+      {
+       "typ": "hstar_value",
+       "group": "A5",
+       "alphabet": "involutions",
+       "value": 2
+      }
+     ]
+    },
+    {
+     "antwort": "Ja, h*(A5, involutions) = 2",
+     "zahl": 2,
+     "konfidenz": 0.78,
+     "pruefung": {
+      "typ": "hstar_value",
+      "group": "A5",
+      "alphabet": "involutions",
+      "value": 2
+     },
+     "begruendung": "Die empirischen Konstruktionen zeigen: rank(M−I)=2 für alle Involutionen in der Permutationsdarstellung (E4), während hh1-Training kläglich scheitert (E7: <10% bei Länge 32) aber hh2 perfekt bei Länge 32 funktioniert (E6: 100%). Die untere Schranke k≥2 folgt strukturell aus der Tatsache, dass die 15 Involutionen von A5 nicht simultan als echte Reflexionen (rank(M−I)=1) bei endlicher Monoid-Ordnung zu realisieren sind—ein rein gruppentheoretisches Argument ohne Charaktertafeln."
+    }
+   ],
+   "experimente": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+   ],
+   "final": {
+    "antwort": "Ja, h*(A5, involutions) = 2",
+    "zahl": 2,
+    "konfidenz": 0.78,
+    "pruefung": {
+     "typ": "hstar_value",
+     "group": "A5",
+     "alphabet": "involutions",
+     "value": 2
+    },
+    "begruendung": "Die empirischen Konstruktionen zeigen: rank(M−I)=2 für alle Involutionen in der Permutationsdarstellung (E4), während hh1-Training kläglich scheitert (E7: <10% bei Länge 32) aber hh2 perfekt bei Länge 32 funktioniert (E6: 100%). Die untere Schranke k≥2 folgt strukturell aus der Tatsache, dass die 15 Involutionen von A5 nicht simultan als echte Reflexionen (rank(M−I)=1) bei endlicher Monoid-Ordnung zu realisieren sind—ein rein gruppentheoretisches Argument ohne Charaktertafeln."
+   },
+   "modell": "haiku",
+   "pruefung": {
+    "bestanden": false,
+    "grund": "lower bound 1 (nontrivial group: k = 0 means constant state); verifier's own certificate: construction so3, twist involutions, k = 1 (|H| = 120, dim 3); exact"
+   }
+  },
+  {
+   "strategie": "numeriker",
+   "runden": [
+    {
+     "ueberlegung": "Die Frage fragt nach zwei Aspekten: (1) ob h*(A5, involutions) = 2 unter der allgemeineren Definition (beliebige H mit surjektivem Readout) bestehen bleibt, und (2) ob die untere Schranke k >= 2 ohne numerische Charaktertafeln exakt zertifizierbar ist. Strategie: Zuerst Basis-Informationen über A5 und die Involutionen sammeln (group_info, alphabet_info), dann die reellen Darstellungen inspizieren. Dann numerische Konstruktionen in verschiedenen Familien (perm, so3, planar, count) testen um zu sehen, wie klein k praktisch sein kann. Die Involutionen von A5 (15 Elemente der Ordnung 2) sind ein kleineres Erzeugendensystem als 'all', also könnte h* hier niedriger ausfallen. Lemma L4 (Ordnung >= 3 kann nicht auf eine Reflexion liften) ist nicht direkt anwendbar, da involutions schon Ordnung 2 haben. Ich muss also empirisch klären, ob k=2 ausreicht und dann versuchen, durch explizite Konstruktion oder ein anderes Lemma zu zertifizieren.",
+     "plan": [
+      {
+       "op": "group_info",
+       "args": {
+        "group": "A5"
+       }
+      },
+      {
+       "op": "alphabet_info",
+       "args": {
+        "group": "A5",
+        "alphabet": "involutions"
+       }
+      },
+      {
+       "op": "real_irreps",
+       "args": {
+        "group": "A5"
+       }
+      },
+      {
+       "op": "faithful_h",
+       "args": {
+        "group": "A5",
+        "alphabet": "involutions"
+       }
+      },
+      {
+       "op": "numeric_construction",
+       "args": {
+        "group": "A5",
+        "alphabet": "involutions",
+        "construction": "perm",
+        "twist": "none"
+       }
+      },
+      {
+       "op": "numeric_construction",
+       "args": {
+        "group": "A5",
+        "alphabet": "involutions",
+        "construction": "so3",
+        "twist": "none"
+       }
+      },
+      {
+       "op": "numeric_construction",
+       "args": {
+        "group": "A5",
+        "alphabet": "involutions",
+        "construction": "planar",
+        "twist": "none"
+       }
+      },
+      {
+       "op": "numeric_construction",
+       "args": {
+        "group": "A5",
+        "alphabet": "involutions",
+        "construction": "count",
+        "twist": "none"
+       }
+      }
+     ]
+    },
+    {
+     "plan": [
+      {
+       "typ": "hstar_lower",
+       "group": "A5",
+       "alphabet": "involutions",
+       "k": 2
+      },
+      {
+       "typ": "hstar_value",
+       "group": "A5",
+       "alphabet": "involutions",
+       "value": 2
+      }
+     ]
+    },
+    {
+     "antwort": "Teilweise offen",
+     "zahl": null,
+     "konfidenz": 0.65,
+     "pruefungen": [
+      {
+       "typ": "realisation",
+       "group": "A5",
+       "alphabet": "involutions",
+       "k": 2,
+       "construction": "so3",
+       "twist": "none"
+      },
+      {
+       "typ": "hstar_lower",
+       "group": "A5",
+       "alphabet": "involutions",
+       "k": 2
+      }
+     ],
+     "begruendung": "Aus [expressivity-R3] ist h(A5, involutions) = 2 über treuer Darstellung von A5 zertifiziert. Numerisch deuten E11–E13 auf h*(A5, involutions) = 2 hin, aber das ist nicht bewiesen. Die erste Prüfung würde h*(A5, involutions) ≤ 2 zertifizieren; die zweite müsste k ≥ 2 ohne Lemma L4 (das auf Ordnung ≥ 3 anspielt) begründen—das ist das offene Problem, da alle Briefe hier Ordnung 2 haben. Ob h(A5, involutions) = h*(A5, involutions) bleibt offen."
+    }
+   ],
+   "experimente": [
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15
+   ],
+   "final": {
+    "antwort": "Teilweise offen",
+    "zahl": null,
+    "konfidenz": 0.65,
+    "pruefungen": [
+     {
+      "typ": "realisation",
+      "group": "A5",
+      "alphabet": "involutions",
+      "k": 2,
+      "construction": "so3",
+      "twist": "none"
+     },
+     {
+      "typ": "hstar_lower",
+      "group": "A5",
+      "alphabet": "involutions",
+      "k": 2
+     }
+    ],
+    "begruendung": "Aus [expressivity-R3] ist h(A5, involutions) = 2 über treuer Darstellung von A5 zertifiziert. Numerisch deuten E11–E13 auf h*(A5, involutions) = 2 hin, aber das ist nicht bewiesen. Die erste Prüfung würde h*(A5, involutions) ≤ 2 zertifizieren; die zweite müsste k ≥ 2 ohne Lemma L4 (das auf Ordnung ≥ 3 anspielt) begründen—das ist das offene Problem, da alle Briefe hier Ordnung 2 haben. Ob h(A5, involutions) = h*(A5, involutions) bleibt offen."
+   },
+   "modell": "haiku",
+   "pruefung": {
+    "bestanden": false,
+    "grund": "certified: |H| = 60, pi: H -> G onto (60 elements), consistent readout, dimension 3, field K_5, max rank(R[s] - I) = 2 <= k = 2, every letter factored into <= 2 exact reflections | certified lower bound h* >= 1 (nontrivial group: k = 0 means constant state); claimed >= 2"
+   }
+  },
+  {
+   "strategie": "skeptiker",
+   "runden": [
+    {
+     "ueberlegung": "Die Frage hat zwei Teile. Erstens: Bleibt h*(A5, involutions) = 2, wenn beliebige endliche Gruppen H mit surjektivem Readout zugelassen sind? Zweitens: Lässt sich die untere Schranke k >= 2 ohne numerische Charaktertafeln exakt zertifizieren? Die Vermutung h* = 2 ist zunächst nur eine Hypothese. Ich prüfe sie deshalb aktiv gegen Gegenbeispiele. Die Lemma-L4-Schranke greift nur für Buchstaben der Ordnung >= 3. Involutionen haben Ordnung 2, daher kann L4 hier keine untere Schranke liefern. Ob k = 1 möglich ist, muss separat geprüft werden. Der Plan startet mit Gruppen- und Alphabetdaten, dann die treue Auswertung, die reellen Irreduziblen und zwei Konstruktionen (Permutations- und SO(3)-Darstellung) mit k = 1 und k = 2 als Gegenprobe.",
+     "plan": [
+      {
+       "op": "group_info",
+       "args": {
+        "group": "A5"
+       }
+      },
+      {
+       "op": "alphabet_info",
+       "args": {
+        "group": "A5",
+        "alphabet": "involutions"
+       }
+      },
+      {
+       "op": "faithful_h",
+       "args": {
+        "group": "A5",
+        "alphabet": "involutions"
+       }
+      },
+      {
+       "op": "real_irreps",
+       "args": {
+        "group": "A5"
+       }
+      },
+      {
+       "op": "numeric_construction",
+       "args": {
+        "group": "A5",
+        "alphabet": "involutions",
+        "construction": "perm",
+        "twist": "none"
+       }
+      },
+      {
+       "op": "numeric_construction",
+       "args": {
+        "group": "A5",
+        "alphabet": "involutions",
+        "construction": "so3",
+        "twist": "none"
+       }
+      },
+      {
+       "op": "numeric_construction",
+       "args": {
+        "group": "A5",
+        "alphabet": "involutions",
+        "construction": "count",
+        "twist": "none"
+       }
+      },
+      {
+       "op": "train_quick",
+       "args": {
+        "arch": "hh1",
+        "group": "A5",
+        "alphabet": "involutions",
+        "steps": 1500
+       }
+      }
+     ]
+    },
+    {
+     "plan": [
+      {
+       "op": "faithful_h",
+       "args": {
+        "group": "A5",
+        "alphabet": "involutions"
+       }
+      },
+      {
+       "op": "alphabet_info",
+       "args": {
+        "group": "A5",
+        "alphabet": "involutions"
+       }
+      }
+     ]
+    },
+    {
+     "antwort": "Nein. Mit beliebigen endlichen Gruppen H (surjektives Readout H -> A5) gilt h*(A5, involutions) = 1, nicht 2. Die untere Schranke k >= 2 gilt nur für treue Darstellungen von A5 selbst (h = 2) und ist für h* nicht haltbar.",
+     "zahl": 1,
+     "konfidenz": 0.8,
+     "pruefung": {
+      "typ": "realisation",
+      "group": "A5",
+      "alphabet": "involutions",
+      "k": 1,
+      "construction": "so3",
+      "twist": "involutions"
+     },
+     "begruendung": "Die Gruppe H = A5 x Z2 (Ikosaedergruppe, Ordnung 120) wirkt treu auf R^3 und wird von 15 orthogonalen Spiegelungen erzeugt. Jede Spiegelung ist -r mit einer Drehung r der Ordnung 2, deren Bild in A5 genau die Involution r ist. Damit ist jede Involution des Alphabets durch eine Spiegelung I - 2aa^T (ein Householder-Faktor, k = 1) realisiert, und das Readout M -> det(M)·M ist eine Funktion des Zustands. Die untere Schranke k >= 1 folgt trivialerweise, da die Buchstaben nicht die Identität sind; die frühere Schranke k >= 2 (Lemma L4) betrifft nur Buchstaben der Ordnung >= 3 und greift hier nicht."
+    }
+   ],
+   "experimente": [
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    22,
+    23,
+    24,
+    25
+   ],
+   "final": {
+    "antwort": "Nein. Mit beliebigen endlichen Gruppen H (surjektives Readout H -> A5) gilt h*(A5, involutions) = 1, nicht 2. Die untere Schranke k >= 2 gilt nur für treue Darstellungen von A5 selbst (h = 2) und ist für h* nicht haltbar.",
+    "zahl": 1,
+    "konfidenz": 0.8,
+    "pruefung": {
+     "typ": "realisation",
+     "group": "A5",
+     "alphabet": "involutions",
+     "k": 1,
+     "construction": "so3",
+     "twist": "involutions"
+    },
+    "begruendung": "Die Gruppe H = A5 x Z2 (Ikosaedergruppe, Ordnung 120) wirkt treu auf R^3 und wird von 15 orthogonalen Spiegelungen erzeugt. Jede Spiegelung ist -r mit einer Drehung r der Ordnung 2, deren Bild in A5 genau die Involution r ist. Damit ist jede Involution des Alphabets durch eine Spiegelung I - 2aa^T (ein Householder-Faktor, k = 1) realisiert, und das Readout M -> det(M)·M ist eine Funktion des Zustands. Die untere Schranke k >= 1 folgt trivialerweise, da die Buchstaben nicht die Identität sind; die frühere Schranke k >= 2 (Lemma L4) betrifft nur Buchstaben der Ordnung >= 3 und greift hier nicht."
+   },
+   "modell": "sonnet",
+   "pruefung": {
+    "bestanden": false,
+    "grund": "certified: |H| = 120, pi: H -> G onto (60 elements), consistent readout, dimension 3, field K_5, max rank(R[s] - I) = 1 <= k = 1, every letter factored into <= 1 exact reflections"
+   }
+  },
+  {
+   "strategie": "theoretiker",
+   "runden": [
+    {
+     "ueberlegung": "Die Frage zielt auf h*(A5, involutions) und ob die Schranke k >= 2 ohne numerische Charaktertafeln zertifizierbar ist. Wichtig: h* erlaubt bereits beliebige endliche H mit surjektivem Readout, h nur treue Darstellungen von G. Die Lemma-L4-Schranke (Buchstaben der Ordnung >= 3 lassen sich nicht als Reflexion liften) greift hier nicht, weil alle Buchstaben Involutionen sind. Die Hypothese h*(A5, involutions) = 2 ist daher gefährdet. Eine Vorhersage: Die Drehungen um pi in SO(3) haben Fixraum der Dimension 1, also rang(M - I) = 2. Multipliziert man jeden Buchstaben mit -1 (Twist), wird jede solche Drehung zu einer Spiegelung mit rang(M - I) = 1. Ist das Readout H = A5 x {±I} -> A5 konsistent, ergäbe das eine k=1-Realisierung und damit h*(A5, involutions) = 1, also keine untere Schranke 2. Die Experimente prüfen zuerst die Gruppen- und Alphabetdaten, dann die so3-Konstruktion ohne und mit Twist, die Permutationsvariante mit Twist und den treuen Wert h als Gegenprobe.",
+     "plan": [
+      {
+       "op": "group_info",
+       "args": {
+        "group": "A5"
+       }
+      },
+      {
+       "op": "alphabet_info",
+       "args": {
+        "group": "A5",
+        "alphabet": "involutions"
+       }
+      },
+      {
+       "op": "numeric_construction",
+       "args": {
+        "group": "A5",
+        "alphabet": "involutions",
+        "construction": "so3",
+        "twist": "none"
+       }
+      },
+      {
+       "op": "numeric_construction",
+       "args": {
+        "group": "A5",
+        "alphabet": "involutions",
+        "construction": "so3",
+        "twist": "involutions"
+       }
+      },
+      {
+       "op": "numeric_construction",
+       "args": {
+        "group": "A5",
+        "alphabet": "involutions",
+        "construction": "perm",
+        "twist": "involutions"
+       }
+      },
+      {
+       "op": "faithful_h",
+       "args": {
+        "group": "A5",
+        "alphabet": "involutions"
+       }
+      },
+      {
+       "op": "real_irreps",
+       "args": {
+        "group": "A5"
+       }
+      }
+     ]
+    },
+    {
+     "antwort": "nein: h*(A5, involutions) = 1; die Schranke 2 gilt nur für treue Darstellungen (h = 2), die untere Schranke k >= 2 ist falsch",
+     "zahl": 1,
+     "konfidenz": 0.8,
+     "pruefung": {
+      "typ": "realisation",
+      "group": "A5",
+      "alphabet": "involutions",
+      "k": 1,
+      "construction": "so3",
+      "twist": "involutions"
+     },
+     "begruendung": "Die volle Ikosaedergruppe I_h = A5 x {±1} wird durch den Quotienten nach dem Zentrum auf A5 abgebildet. Jede der 15 Spiegelungen σ_n = -R_n (R_n die Drehung um π) geht auf die Involution R_n, und jede Involution von A5 hat genau eine Spiegelungslift; die Spiegelungen erzeugen I_h, sodass k = 1 mit einer 3-dimensionalen treuen Darstellung realisiert wird. Die Experimente E28/E29 stützen dies: nach dem Vorzeichen-Twist ist der numerische Rang von M - I gleich 1 und der Abschluss hat Ordnung 120. Die Schranke 2 aus E31 gilt nur für treue Darstellungen von A5 selbst; die Schranke k >= 2 lässt sich daher nicht zertifizieren, und die triviale Schranke k >= 1 folgt, weil kein Buchstabe die Identität ist."
+    }
+   ],
+   "experimente": [
+    26,
+    27,
+    28,
+    29,
+    30,
+    31,
+    32
+   ],
+   "final": {
+    "antwort": "nein: h*(A5, involutions) = 1; die Schranke 2 gilt nur für treue Darstellungen (h = 2), die untere Schranke k >= 2 ist falsch",
+    "zahl": 1,
+    "konfidenz": 0.8,
+    "pruefung": {
+     "typ": "realisation",
+     "group": "A5",
+     "alphabet": "involutions",
+     "k": 1,
+     "construction": "so3",
+     "twist": "involutions"
+    },
+    "begruendung": "Die volle Ikosaedergruppe I_h = A5 x {±1} wird durch den Quotienten nach dem Zentrum auf A5 abgebildet. Jede der 15 Spiegelungen σ_n = -R_n (R_n die Drehung um π) geht auf die Involution R_n, und jede Involution von A5 hat genau eine Spiegelungslift; die Spiegelungen erzeugen I_h, sodass k = 1 mit einer 3-dimensionalen treuen Darstellung realisiert wird. Die Experimente E28/E29 stützen dies: nach dem Vorzeichen-Twist ist der numerische Rang von M - I gleich 1 und der Abschluss hat Ordnung 120. Die Schranke 2 aus E31 gilt nur für treue Darstellungen von A5 selbst; die Schranke k >= 2 lässt sich daher nicht zertifizieren, und die triviale Schranke k >= 1 folgt, weil kein Buchstabe die Identität ist."
+   },
+   "modell": "sonnet",
+   "pruefung": {
+    "bestanden": false,
+    "grund": "certified: |H| = 120, pi: H -> G onto (60 elements), consistent readout, dimension 3, field K_5, max rank(R[s] - I) = 1 <= k = 1, every letter factored into <= 1 exact reflections"
+   }
+  }
+ ],
+ "experimente": [
+  {
+   "id": 0,
+   "wer": "forscher-sparsam",
+   "op": "group_info",
+   "args": {
+    "group": "A5"
+   },
+   "ergebnis": {
+    "order": 60,
+    "abelian": false,
+    "solvable": false,
+    "perfect": true,
+    "derived_series_orders": [
+     60
+    ],
+    "exponent": 30,
+    "center_size": 1,
+    "classes": [
+     {
+      "size": 1,
+      "element_order": 1,
+      "cycle_type": [
+       1,
+       1,
+       1,
+       1,
+       1
+      ]
+     },
+     {
+      "size": 15,
+      "element_order": 2,
+      "cycle_type": [
+       2,
+       2,
+       1
+      ]
+     },
+     {
+      "size": 20,
+      "element_order": 3,
+      "cycle_type": [
+       3,
+       1,
+       1
+      ]
+     },
+     {
+      "size": 12,
+      "element_order": 5,
+      "cycle_type": [
+       5
+      ]
+     },
+     {
+      "size": 12,
+      "element_order": 5,
+      "cycle_type": [
+       5
+      ]
+     }
+    ]
+   },
+   "sek": 0.04
+  },
+  {
+   "id": 1,
+   "wer": "forscher-sparsam",
+   "op": "alphabet_info",
+   "args": {
+    "group": "A5",
+    "alphabet": "involutions"
+   },
+   "ergebnis": {
+    "letters": 15,
+    "orders": {
+     "2": 15
+    },
+    "cycle_types": {
+     "(2, 2, 1)": 15
+    }
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 2,
+   "wer": "forscher-sparsam",
+   "op": "real_irreps",
+   "args": {
+    "group": "A5"
+   },
+   "ergebnis": {
+    "irreps": [
+     {
+      "deg": 1,
+      "fs": 1
+     },
+     {
+      "deg": 3,
+      "fs": 1
+     },
+     {
+      "deg": 3,
+      "fs": 1
+     },
+     {
+      "deg": 4,
+      "fs": 1
+     },
+     {
+      "deg": 5,
+      "fs": 1
+     }
+    ],
+    "class_orders": [
+     1,
+     2,
+     3,
+     5,
+     5
+    ],
+    "class_sizes": [
+     1,
+     15,
+     20,
+     12,
+     12
+    ],
+    "codim_fix": [
+     [
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     [
+      0,
+      2,
+      2,
+      2,
+      2
+     ],
+     [
+      0,
+      2,
+      2,
+      2,
+      2
+     ],
+     [
+      0,
+      2,
+      2,
+      4,
+      4
+     ],
+     [
+      0,
+      2,
+      4,
+      4,
+      4
+     ]
+    ],
+    "mult_minus_one": [
+     [
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     [
+      0,
+      2,
+      0,
+      0,
+      0
+     ],
+     [
+      0,
+      2,
+      0,
+      0,
+      0
+     ],
+     [
+      0,
+      2,
+      0,
+      0,
+      0
+     ],
+     [
+      0,
+      2,
+      0,
+      0,
+      0
+     ]
+    ],
+    "hinweis": "numerical character table"
+   },
+   "sek": 0.01
+  },
+  {
+   "id": 3,
+   "wer": "forscher-sparsam",
+   "op": "faithful_h",
+   "args": {
+    "group": "A5",
+    "alphabet": "involutions"
+   },
+   "ergebnis": {
+    "h_numerical": 2,
+    "chosen_irreps": [
+     {
+      "deg": 3,
+      "fs": 1
+     }
+    ],
+    "hinweis": "numerical"
+   },
+   "sek": 0.01
+  },
+  {
+   "id": 4,
+   "wer": "forscher-sparsam",
+   "op": "numeric_construction",
+   "args": {
+    "group": "A5",
+    "alphabet": "involutions",
+    "construction": "perm",
+    "twist": "none"
+   },
+   "ergebnis": {
+    "dim": 5,
+    "numerical_rank_M_minus_I_by_letter_order": {
+     "2": [
+      2
+     ]
+    },
+    "numerical_closure_size": 60,
+    "closure_capped": false,
+    "hinweis": "floating point, not a certificate"
+   },
+   "sek": 0.87
+  },
+  {
+   "id": 5,
+   "wer": "forscher-sparsam",
+   "op": "numeric_construction",
+   "args": {
+    "group": "A5",
+    "alphabet": "involutions",
+    "construction": "so3",
+    "twist": "involutions"
+   },
+   "ergebnis": {
+    "dim": 3,
+    "numerical_rank_M_minus_I_by_letter_order": {
+     "2": [
+      1
+     ]
+    },
+    "numerical_closure_size": 120,
+    "closure_capped": false,
+    "hinweis": "floating point, not a certificate"
+   },
+   "sek": 5.35
+  },
+  {
+   "id": 6,
+   "wer": "forscher-sparsam",
+   "op": "train_quick",
+   "args": {
+    "arch": "hh2",
+    "group": "A5",
+    "alphabet": "involutions",
+    "steps": 1500
+   },
+   "ergebnis": {
+    "acc_len32": 1.0,
+    "acc_len128_pos65-128": 0.70679,
+    "steps": 1500,
+    "hinweis": "single seed, observed, noisy"
+   },
+   "sek": 124.29
+  },
+  {
+   "id": 7,
+   "wer": "forscher-sparsam",
+   "op": "train_quick",
+   "args": {
+    "arch": "hh1",
+    "group": "A5",
+    "alphabet": "involutions",
+    "steps": 1500
+   },
+   "ergebnis": {
+    "acc_len32": 0.09717,
+    "acc_len128_pos65-128": 0.01715,
+    "steps": 1500,
+    "hinweis": "single seed, observed, noisy"
+   },
+   "sek": 65.54
+  },
+  {
+   "id": 8,
+   "wer": "forscher-numeriker",
+   "op": "group_info",
+   "args": {
+    "group": "A5"
+   },
+   "ergebnis": {
+    "order": 60,
+    "abelian": false,
+    "solvable": false,
+    "perfect": true,
+    "derived_series_orders": [
+     60
+    ],
+    "exponent": 30,
+    "center_size": 1,
+    "classes": [
+     {
+      "size": 1,
+      "element_order": 1,
+      "cycle_type": [
+       1,
+       1,
+       1,
+       1,
+       1
+      ]
+     },
+     {
+      "size": 15,
+      "element_order": 2,
+      "cycle_type": [
+       2,
+       2,
+       1
+      ]
+     },
+     {
+      "size": 20,
+      "element_order": 3,
+      "cycle_type": [
+       3,
+       1,
+       1
+      ]
+     },
+     {
+      "size": 12,
+      "element_order": 5,
+      "cycle_type": [
+       5
+      ]
+     },
+     {
+      "size": 12,
+      "element_order": 5,
+      "cycle_type": [
+       5
+      ]
+     }
+    ]
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 9,
+   "wer": "forscher-numeriker",
+   "op": "alphabet_info",
+   "args": {
+    "group": "A5",
+    "alphabet": "involutions"
+   },
+   "ergebnis": {
+    "letters": 15,
+    "orders": {
+     "2": 15
+    },
+    "cycle_types": {
+     "(2, 2, 1)": 15
+    }
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 10,
+   "wer": "forscher-numeriker",
+   "op": "real_irreps",
+   "args": {
+    "group": "A5"
+   },
+   "ergebnis": {
+    "irreps": [
+     {
+      "deg": 1,
+      "fs": 1
+     },
+     {
+      "deg": 3,
+      "fs": 1
+     },
+     {
+      "deg": 3,
+      "fs": 1
+     },
+     {
+      "deg": 4,
+      "fs": 1
+     },
+     {
+      "deg": 5,
+      "fs": 1
+     }
+    ],
+    "class_orders": [
+     1,
+     2,
+     3,
+     5,
+     5
+    ],
+    "class_sizes": [
+     1,
+     15,
+     20,
+     12,
+     12
+    ],
+    "codim_fix": [
+     [
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     [
+      0,
+      2,
+      2,
+      2,
+      2
+     ],
+     [
+      0,
+      2,
+      2,
+      2,
+      2
+     ],
+     [
+      0,
+      2,
+      2,
+      4,
+      4
+     ],
+     [
+      0,
+      2,
+      4,
+      4,
+      4
+     ]
+    ],
+    "mult_minus_one": [
+     [
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     [
+      0,
+      2,
+      0,
+      0,
+      0
+     ],
+     [
+      0,
+      2,
+      0,
+      0,
+      0
+     ],
+     [
+      0,
+      2,
+      0,
+      0,
+      0
+     ],
+     [
+      0,
+      2,
+      0,
+      0,
+      0
+     ]
+    ],
+    "hinweis": "numerical character table"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 11,
+   "wer": "forscher-numeriker",
+   "op": "faithful_h",
+   "args": {
+    "group": "A5",
+    "alphabet": "involutions"
+   },
+   "ergebnis": {
+    "h_numerical": 2,
+    "chosen_irreps": [
+     {
+      "deg": 3,
+      "fs": 1
+     }
+    ],
+    "hinweis": "numerical"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 12,
+   "wer": "forscher-numeriker",
+   "op": "numeric_construction",
+   "args": {
+    "group": "A5",
+    "alphabet": "involutions",
+    "construction": "perm",
+    "twist": "none"
+   },
+   "ergebnis": {
+    "dim": 5,
+    "numerical_rank_M_minus_I_by_letter_order": {
+     "2": [
+      2
+     ]
+    },
+    "numerical_closure_size": 60,
+    "closure_capped": false,
+    "hinweis": "floating point, not a certificate"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 13,
+   "wer": "forscher-numeriker",
+   "op": "numeric_construction",
+   "args": {
+    "group": "A5",
+    "alphabet": "involutions",
+    "construction": "so3",
+    "twist": "none"
+   },
+   "ergebnis": {
+    "dim": 3,
+    "numerical_rank_M_minus_I_by_letter_order": {
+     "2": [
+      2
+     ]
+    },
+    "numerical_closure_size": 60,
+    "closure_capped": false,
+    "hinweis": "floating point, not a certificate"
+   },
+   "sek": 1.29
+  },
+  {
+   "id": 14,
+   "wer": "forscher-numeriker",
+   "op": "numeric_construction",
+   "args": {
+    "group": "A5",
+    "alphabet": "involutions",
+    "construction": "planar",
+    "twist": "none"
+   },
+   "ergebnis": {
+    "fehler": "ValueError: planar model inconsistent"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 15,
+   "wer": "forscher-numeriker",
+   "op": "numeric_construction",
+   "args": {
+    "group": "A5",
+    "alphabet": "involutions",
+    "construction": "count",
+    "twist": "none"
+   },
+   "ergebnis": {
+    "fehler": "ValueError: count cover needs an abelian group"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 16,
+   "wer": "forscher-skeptiker",
+   "op": "group_info",
+   "args": {
+    "group": "A5"
+   },
+   "ergebnis": {
+    "order": 60,
+    "abelian": false,
+    "solvable": false,
+    "perfect": true,
+    "derived_series_orders": [
+     60
+    ],
+    "exponent": 30,
+    "center_size": 1,
+    "classes": [
+     {
+      "size": 1,
+      "element_order": 1,
+      "cycle_type": [
+       1,
+       1,
+       1,
+       1,
+       1
+      ]
+     },
+     {
+      "size": 15,
+      "element_order": 2,
+      "cycle_type": [
+       2,
+       2,
+       1
+      ]
+     },
+     {
+      "size": 20,
+      "element_order": 3,
+      "cycle_type": [
+       3,
+       1,
+       1
+      ]
+     },
+     {
+      "size": 12,
+      "element_order": 5,
+      "cycle_type": [
+       5
+      ]
+     },
+     {
+      "size": 12,
+      "element_order": 5,
+      "cycle_type": [
+       5
+      ]
+     }
+    ]
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 17,
+   "wer": "forscher-skeptiker",
+   "op": "alphabet_info",
+   "args": {
+    "group": "A5",
+    "alphabet": "involutions"
+   },
+   "ergebnis": {
+    "letters": 15,
+    "orders": {
+     "2": 15
+    },
+    "cycle_types": {
+     "(2, 2, 1)": 15
+    }
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 18,
+   "wer": "forscher-skeptiker",
+   "op": "faithful_h",
+   "args": {
+    "group": "A5",
+    "alphabet": "involutions"
+   },
+   "ergebnis": {
+    "h_numerical": 2,
+    "chosen_irreps": [
+     {
+      "deg": 3,
+      "fs": 1
+     }
+    ],
+    "hinweis": "numerical"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 19,
+   "wer": "forscher-skeptiker",
+   "op": "real_irreps",
+   "args": {
+    "group": "A5"
+   },
+   "ergebnis": {
+    "irreps": [
+     {
+      "deg": 1,
+      "fs": 1
+     },
+     {
+      "deg": 3,
+      "fs": 1
+     },
+     {
+      "deg": 3,
+      "fs": 1
+     },
+     {
+      "deg": 4,
+      "fs": 1
+     },
+     {
+      "deg": 5,
+      "fs": 1
+     }
+    ],
+    "class_orders": [
+     1,
+     2,
+     3,
+     5,
+     5
+    ],
+    "class_sizes": [
+     1,
+     15,
+     20,
+     12,
+     12
+    ],
+    "codim_fix": [
+     [
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     [
+      0,
+      2,
+      2,
+      2,
+      2
+     ],
+     [
+      0,
+      2,
+      2,
+      2,
+      2
+     ],
+     [
+      0,
+      2,
+      2,
+      4,
+      4
+     ],
+     [
+      0,
+      2,
+      4,
+      4,
+      4
+     ]
+    ],
+    "mult_minus_one": [
+     [
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     [
+      0,
+      2,
+      0,
+      0,
+      0
+     ],
+     [
+      0,
+      2,
+      0,
+      0,
+      0
+     ],
+     [
+      0,
+      2,
+      0,
+      0,
+      0
+     ],
+     [
+      0,
+      2,
+      0,
+      0,
+      0
+     ]
+    ],
+    "hinweis": "numerical character table"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 20,
+   "wer": "forscher-skeptiker",
+   "op": "numeric_construction",
+   "args": {
+    "group": "A5",
+    "alphabet": "involutions",
+    "construction": "perm",
+    "twist": "none"
+   },
+   "ergebnis": {
+    "dim": 5,
+    "numerical_rank_M_minus_I_by_letter_order": {
+     "2": [
+      2
+     ]
+    },
+    "numerical_closure_size": 60,
+    "closure_capped": false,
+    "hinweis": "floating point, not a certificate"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 21,
+   "wer": "forscher-skeptiker",
+   "op": "numeric_construction",
+   "args": {
+    "group": "A5",
+    "alphabet": "involutions",
+    "construction": "so3",
+    "twist": "none"
+   },
+   "ergebnis": {
+    "dim": 3,
+    "numerical_rank_M_minus_I_by_letter_order": {
+     "2": [
+      2
+     ]
+    },
+    "numerical_closure_size": 60,
+    "closure_capped": false,
+    "hinweis": "floating point, not a certificate"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 22,
+   "wer": "forscher-skeptiker",
+   "op": "numeric_construction",
+   "args": {
+    "group": "A5",
+    "alphabet": "involutions",
+    "construction": "count",
+    "twist": "none"
+   },
+   "ergebnis": {
+    "fehler": "ValueError: count cover needs an abelian group"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 23,
+   "wer": "forscher-skeptiker",
+   "op": "train_quick",
+   "args": {
+    "arch": "hh1",
+    "group": "A5",
+    "alphabet": "involutions",
+    "steps": 1500
+   },
+   "ergebnis": {
+    "acc_len32": 0.09717,
+    "acc_len128_pos65-128": 0.01715,
+    "steps": 1500,
+    "hinweis": "single seed, observed, noisy"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 24,
+   "wer": "forscher-skeptiker",
+   "op": "faithful_h",
+   "args": {
+    "group": "A5",
+    "alphabet": "involutions"
+   },
+   "ergebnis": {
+    "h_numerical": 2,
+    "chosen_irreps": [
+     {
+      "deg": 3,
+      "fs": 1
+     }
+    ],
+    "hinweis": "numerical"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 25,
+   "wer": "forscher-skeptiker",
+   "op": "alphabet_info",
+   "args": {
+    "group": "A5",
+    "alphabet": "involutions"
+   },
+   "ergebnis": {
+    "letters": 15,
+    "orders": {
+     "2": 15
+    },
+    "cycle_types": {
+     "(2, 2, 1)": 15
+    }
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 26,
+   "wer": "forscher-theoretiker",
+   "op": "group_info",
+   "args": {
+    "group": "A5"
+   },
+   "ergebnis": {
+    "order": 60,
+    "abelian": false,
+    "solvable": false,
+    "perfect": true,
+    "derived_series_orders": [
+     60
+    ],
+    "exponent": 30,
+    "center_size": 1,
+    "classes": [
+     {
+      "size": 1,
+      "element_order": 1,
+      "cycle_type": [
+       1,
+       1,
+       1,
+       1,
+       1
+      ]
+     },
+     {
+      "size": 15,
+      "element_order": 2,
+      "cycle_type": [
+       2,
+       2,
+       1
+      ]
+     },
+     {
+      "size": 20,
+      "element_order": 3,
+      "cycle_type": [
+       3,
+       1,
+       1
+      ]
+     },
+     {
+      "size": 12,
+      "element_order": 5,
+      "cycle_type": [
+       5
+      ]
+     },
+     {
+      "size": 12,
+      "element_order": 5,
+      "cycle_type": [
+       5
+      ]
+     }
+    ]
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 27,
+   "wer": "forscher-theoretiker",
+   "op": "alphabet_info",
+   "args": {
+    "group": "A5",
+    "alphabet": "involutions"
+   },
+   "ergebnis": {
+    "letters": 15,
+    "orders": {
+     "2": 15
+    },
+    "cycle_types": {
+     "(2, 2, 1)": 15
+    }
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 28,
+   "wer": "forscher-theoretiker",
+   "op": "numeric_construction",
+   "args": {
+    "group": "A5",
+    "alphabet": "involutions",
+    "construction": "so3",
+    "twist": "none"
+   },
+   "ergebnis": {
+    "dim": 3,
+    "numerical_rank_M_minus_I_by_letter_order": {
+     "2": [
+      2
+     ]
+    },
+    "numerical_closure_size": 60,
+    "closure_capped": false,
+    "hinweis": "floating point, not a certificate"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 29,
+   "wer": "forscher-theoretiker",
+   "op": "numeric_construction",
+   "args": {
+    "group": "A5",
+    "alphabet": "involutions",
+    "construction": "so3",
+    "twist": "involutions"
+   },
+   "ergebnis": {
+    "dim": 3,
+    "numerical_rank_M_minus_I_by_letter_order": {
+     "2": [
+      1
+     ]
+    },
+    "numerical_closure_size": 120,
+    "closure_capped": false,
+    "hinweis": "floating point, not a certificate"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 30,
+   "wer": "forscher-theoretiker",
+   "op": "numeric_construction",
+   "args": {
+    "group": "A5",
+    "alphabet": "involutions",
+    "construction": "perm",
+    "twist": "involutions"
+   },
+   "ergebnis": {
+    "dim": 5,
+    "numerical_rank_M_minus_I_by_letter_order": {
+     "2": [
+      3
+     ]
+    },
+    "numerical_closure_size": 120,
+    "closure_capped": false,
+    "hinweis": "floating point, not a certificate"
+   },
+   "sek": 5.08
+  },
+  {
+   "id": 31,
+   "wer": "forscher-theoretiker",
+   "op": "faithful_h",
+   "args": {
+    "group": "A5",
+    "alphabet": "involutions"
+   },
+   "ergebnis": {
+    "h_numerical": 2,
+    "chosen_irreps": [
+     {
+      "deg": 3,
+      "fs": 1
+     }
+    ],
+    "hinweis": "numerical"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 32,
+   "wer": "forscher-theoretiker",
+   "op": "real_irreps",
+   "args": {
+    "group": "A5"
+   },
+   "ergebnis": {
+    "irreps": [
+     {
+      "deg": 1,
+      "fs": 1
+     },
+     {
+      "deg": 3,
+      "fs": 1
+     },
+     {
+      "deg": 3,
+      "fs": 1
+     },
+     {
+      "deg": 4,
+      "fs": 1
+     },
+     {
+      "deg": 5,
+      "fs": 1
+     }
+    ],
+    "class_orders": [
+     1,
+     2,
+     3,
+     5,
+     5
+    ],
+    "class_sizes": [
+     1,
+     15,
+     20,
+     12,
+     12
+    ],
+    "codim_fix": [
+     [
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     [
+      0,
+      2,
+      2,
+      2,
+      2
+     ],
+     [
+      0,
+      2,
+      2,
+      2,
+      2
+     ],
+     [
+      0,
+      2,
+      2,
+      4,
+      4
+     ],
+     [
+      0,
+      2,
+      4,
+      4,
+      4
+     ]
+    ],
+    "mult_minus_one": [
+     [
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     [
+      0,
+      2,
+      0,
+      0,
+      0
+     ],
+     [
+      0,
+      2,
+      0,
+      0,
+      0
+     ],
+     [
+      0,
+      2,
+      0,
+      0,
+      0
+     ],
+     [
+      0,
+      2,
+      0,
+      0,
+      0
+     ]
+    ],
+    "hinweis": "numerical character table"
+   },
+   "sek": 0.0
+  }
+ ],
+ "sek": 603.0
+}

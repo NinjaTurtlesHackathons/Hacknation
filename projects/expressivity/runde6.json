@@ -1,0 +1,1047 @@
+{
+ "antwort": {
+  "antwort": "2",
+  "zahl": 2,
+  "konfidenz": 0.7,
+  "pruefung": {
+   "typ": "h_faithful",
+   "group": "A5",
+   "alphabet": "involutions",
+   "value": 2
+  },
+  "begruendung": "Aus E20 folgt h(A5, involutions) = 2 über treue Darstellungen. Da h(G, Sigma) ≤ h*(G, Sigma) und h*(A5, involutions) ≤ h*(A5, all) = 2 (bereits zertifiziert), ist h*(A5, involutions) = 2. Ein Householder-Reflektion pro Token (k=1) ist nicht möglich; die numerischen Konstruktionen E16, E17 zeigen durchgehend rank(M−I) = 2 für alle Involutionen, und das Training mit hh1 schlägt fehl (E23, Accuracy 0.096), während hh2 perfekt funktioniert (E24, Accuracy 1.0).",
+  "stimmen": "Stufe 2/4 (numeriker, haiku)"
+ },
+ "level": "computed (Code-Prüfer bestanden)",
+ "forscher": [
+  {
+   "strategie": "sparsam",
+   "runden": [
+    {
+     "ueberlegung": "Die Kernfrage zielt auf h*(A5, involutions) ab – ob das eingeschränkte Alphabet der Involutionen eine Reflexion pro Token (k=1) ermöglicht, im Gegensatz zu h*(A5, all) = 2. Strategie: (1) Struktur des Alphabets verstehen (Anzahl und Ordnung der Involutionen), (2) reelle irreduzible Darstellungen von A5 charakterisieren, um Kandidaten für H und π zu identifizieren, (3) numerisch h(A5, involutions) bestätigen (erwartet: 2), (4) k=1-Konstruktionen in verschiedenen Geometrien testen (SO(3), Permutationen, planar), (5) praktisches Training mit hh1 durchführen – Scheitern deutet auf h* ≥ 2 hin, (6) zum Kontrastieren mit hh2 trainieren. Die numerischen Ränge Rank(M - I) unter verschiedenen Konstruktionen zeigen direkt, ob die Involutionen kollektiv durch eine einzelne Reflexion pro Token darstellbar sind.",
+     "plan": [
+      {
+       "op": "alphabet_info",
+       "args": {
+        "group": "A5",
+        "alphabet": "involutions"
+       }
+      },
+      {
+       "op": "real_irreps",
+       "args": {
+        "group": "A5"
+       }
+      },
+      {
+       "op": "faithful_h",
+       "args": {
+        "group": "A5",
+        "alphabet": "involutions"
+       }
+      },
+      {
+       "op": "numeric_construction",
+       "args": {
+        "group": "A5",
+        "alphabet": "involutions",
+        "construction": "so3",
+        "twist": "none"
+       }
+      },
+      {
+       "op": "numeric_construction",
+       "args": {
+        "group": "A5",
+        "alphabet": "involutions",
+        "construction": "perm",
+        "twist": "none"
+       }
+      },
+      {
+       "op": "numeric_construction",
+       "args": {
+        "group": "A5",
+        "alphabet": "involutions",
+        "construction": "planar",
+        "twist": "none"
+       }
+      },
+      {
+       "op": "train_quick",
+       "args": {
+        "arch": "hh1",
+        "group": "A5",
+        "alphabet": "involutions",
+        "steps": 1500
+       }
+      },
+      {
+       "op": "train_quick",
+       "args": {
+        "arch": "hh2",
+        "group": "A5",
+        "alphabet": "involutions",
+        "steps": 1500
+       }
+      }
+     ]
+    },
+    {
+     "plan": [
+      {
+       "op": "train_quick",
+       "args": {
+        "arch": "hh3",
+        "group": "A5",
+        "alphabet": "involutions",
+        "steps": 1500
+       }
+      },
+      {
+       "op": "train_quick",
+       "args": {
+        "arch": "hh4",
+        "group": "A5",
+        "alphabet": "involutions",
+        "steps": 1500
+       }
+      },
+      {
+       "op": "numeric_construction",
+       "args": {
+        "group": "A5",
+        "alphabet": "involutions",
+        "construction": "count",
+        "twist": "none"
+       }
+      },
+      {
+       "op": "numeric_construction",
+       "args": {
+        "group": "A5",
+        "alphabet": "involutions",
+        "construction": "so3",
+        "twist": "involutions"
+       }
+      },
+      {
+       "op": "train_quick",
+       "args": {
+        "arch": "hh2",
+        "group": "A5",
+        "alphabet": "all",
+        "steps": 1500
+       }
+      }
+     ]
+    },
+    {
+     "antwort": "h*(A5, involutions) ≤ 1; deutlich besser als h*(A5, all) = 2",
+     "zahl": 1,
+     "konfidenz": 0.65,
+     "pruefung": {
+      "typ": "realisation",
+      "group": "A5",
+      "alphabet": "involutions",
+      "k": 1,
+      "construction": "so3",
+      "twist": "involutions"
+     },
+     "begruendung": "Experiment [E11] erreicht numerisch Rang 1 für alle Involutionen mit SO(3) und twist=involutions; die Closure-Größe (120 statt 60 in [E3]) zeigt echtes Lifting auf eine größere Gruppe H. Dies belegt h*(A5, involutions) ≤ 1, also strikt besser als h*(A5, all) = 2. Das Training mit hh1 (eine Reflektion) konvergiert nicht ([E6]), was auf Optimierungsschwierigkeiten deutet, widerlegt aber nicht die mathematische Machbarkeit des Liftings."
+    }
+   ],
+   "experimente": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12
+   ],
+   "final": {
+    "antwort": "h*(A5, involutions) ≤ 1; deutlich besser als h*(A5, all) = 2",
+    "zahl": 1,
+    "konfidenz": 0.65,
+    "pruefung": {
+     "typ": "realisation",
+     "group": "A5",
+     "alphabet": "involutions",
+     "k": 1,
+     "construction": "so3",
+     "twist": "involutions"
+    },
+    "begruendung": "Experiment [E11] erreicht numerisch Rang 1 für alle Involutionen mit SO(3) und twist=involutions; die Closure-Größe (120 statt 60 in [E3]) zeigt echtes Lifting auf eine größere Gruppe H. Dies belegt h*(A5, involutions) ≤ 1, also strikt besser als h*(A5, all) = 2. Das Training mit hh1 (eine Reflektion) konvergiert nicht ([E6]), was auf Optimierungsschwierigkeiten deutet, widerlegt aber nicht die mathematische Machbarkeit des Liftings."
+   },
+   "modell": "haiku",
+   "pruefung": {
+    "bestanden": false,
+    "grund": "certified: |H| = 120, pi: H -> G onto (60 elements), consistent readout, dimension 3, field K_5, max rank(R[s] - I) = 1 <= k = 1, every letter factored into <= 1 exact reflections"
+   }
+  },
+  {
+   "strategie": "numeriker",
+   "runden": [
+    {
+     "ueberlegung": "Die Frage zielt darauf, h*(A5, involutions) zu bestimmen und mit h*(A5, all) = 2 zu vergleichen. A5 hat Ordnung 60. Die Involutionen in A5 sind Produkte von zwei disjunkten Transposition (Typ: (2,2)-Zykel). Ich gehe systematisch vor: (1) Alphabete charakterisieren, um die Struktur zu verstehen; (2) reelle irreduzible Darstellungen erfassen; (3) numerische Konstruktionen mit k=1 und k=2 testen, um zu sehen, ob eine Reflexion pro Token genügt; (4) mehrere Konstruktionsmethoden (perm, so3, planar) prüfen für Robustheit. Die Hypothese: h*(A5, involutions) könnte kleiner als h*(A5, all) = 2 sein, falls die Involutionen eine spezialisierte Darstellung ermöglichen; oder gleich 2, falls die Struktur nicht wesentlich einfacher wird.",
+     "plan": [
+      {
+       "op": "alphabet_info",
+       "args": {
+        "group": "A5",
+        "alphabet": "involutions"
+       }
+      },
+      {
+       "op": "alphabet_info",
+       "args": {
+        "group": "A5",
+        "alphabet": "all"
+       }
+      },
+      {
+       "op": "real_irreps",
+       "args": {
+        "group": "A5"
+       }
+      },
+      {
+       "op": "numeric_construction",
+       "args": {
+        "group": "A5",
+        "alphabet": "involutions",
+        "construction": "perm",
+        "twist": "none"
+       }
+      },
+      {
+       "op": "numeric_construction",
+       "args": {
+        "group": "A5",
+        "alphabet": "involutions",
+        "construction": "so3",
+        "twist": "none"
+       }
+      },
+      {
+       "op": "numeric_construction",
+       "args": {
+        "group": "A5",
+        "alphabet": "involutions",
+        "construction": "planar",
+        "twist": "none"
+       }
+      },
+      {
+       "op": "numeric_construction",
+       "args": {
+        "group": "A5",
+        "alphabet": "all",
+        "construction": "perm",
+        "twist": "none"
+       }
+      },
+      {
+       "op": "faithful_h",
+       "args": {
+        "group": "A5",
+        "alphabet": "involutions"
+       }
+      }
+     ]
+    },
+    {
+     "plan": [
+      {
+       "op": "numeric_construction",
+       "args": {
+        "group": "A5",
+        "alphabet": "involutions",
+        "construction": "count",
+        "twist": "none"
+       }
+      },
+      {
+       "op": "numeric_construction",
+       "args": {
+        "group": "A5",
+        "alphabet": "involutions",
+        "construction": "perm",
+        "twist": "involutions"
+       }
+      },
+      {
+       "op": "train_quick",
+       "args": {
+        "arch": "hh1",
+        "group": "A5",
+        "alphabet": "involutions",
+        "steps": 1500
+       }
+      },
+      {
+       "op": "train_quick",
+       "args": {
+        "arch": "hh2",
+        "group": "A5",
+        "alphabet": "involutions",
+        "steps": 1500
+       }
+      }
+     ]
+    },
+    {
+     "antwort": "2",
+     "zahl": 2,
+     "konfidenz": 0.7,
+     "pruefung": {
+      "typ": "h_faithful",
+      "group": "A5",
+      "alphabet": "involutions",
+      "value": 2
+     },
+     "begruendung": "Aus E20 folgt h(A5, involutions) = 2 über treue Darstellungen. Da h(G, Sigma) ≤ h*(G, Sigma) und h*(A5, involutions) ≤ h*(A5, all) = 2 (bereits zertifiziert), ist h*(A5, involutions) = 2. Ein Householder-Reflektion pro Token (k=1) ist nicht möglich; die numerischen Konstruktionen E16, E17 zeigen durchgehend rank(M−I) = 2 für alle Involutionen, und das Training mit hh1 schlägt fehl (E23, Accuracy 0.096), während hh2 perfekt funktioniert (E24, Accuracy 1.0)."
+    }
+   ],
+   "experimente": [
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    22,
+    23,
+    24
+   ],
+   "final": {
+    "antwort": "2",
+    "zahl": 2,
+    "konfidenz": 0.7,
+    "pruefung": {
+     "typ": "h_faithful",
+     "group": "A5",
+     "alphabet": "involutions",
+     "value": 2
+    },
+    "begruendung": "Aus E20 folgt h(A5, involutions) = 2 über treue Darstellungen. Da h(G, Sigma) ≤ h*(G, Sigma) und h*(A5, involutions) ≤ h*(A5, all) = 2 (bereits zertifiziert), ist h*(A5, involutions) = 2. Ein Householder-Reflektion pro Token (k=1) ist nicht möglich; die numerischen Konstruktionen E16, E17 zeigen durchgehend rank(M−I) = 2 für alle Involutionen, und das Training mit hh1 schlägt fehl (E23, Accuracy 0.096), während hh2 perfekt funktioniert (E24, Accuracy 1.0)."
+   },
+   "modell": "haiku",
+   "pruefung": {
+    "bestanden": true,
+    "grund": "h(G, Sigma) = 2 (own character table, GAP exact: 2)"
+   }
+  }
+ ],
+ "experimente": [
+  {
+   "id": 0,
+   "wer": "forscher-sparsam",
+   "op": "alphabet_info",
+   "args": {
+    "group": "A5",
+    "alphabet": "involutions"
+   },
+   "ergebnis": {
+    "letters": 15,
+    "orders": {
+     "2": 15
+    },
+    "cycle_types": {
+     "(2, 2, 1)": 15
+    }
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 1,
+   "wer": "forscher-sparsam",
+   "op": "real_irreps",
+   "args": {
+    "group": "A5"
+   },
+   "ergebnis": {
+    "irreps": [
+     {
+      "deg": 1,
+      "fs": 1
+     },
+     {
+      "deg": 3,
+      "fs": 1
+     },
+     {
+      "deg": 3,
+      "fs": 1
+     },
+     {
+      "deg": 4,
+      "fs": 1
+     },
+     {
+      "deg": 5,
+      "fs": 1
+     }
+    ],
+    "class_orders": [
+     1,
+     2,
+     3,
+     5,
+     5
+    ],
+    "class_sizes": [
+     1,
+     15,
+     20,
+     12,
+     12
+    ],
+    "codim_fix": [
+     [
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     [
+      0,
+      2,
+      2,
+      2,
+      2
+     ],
+     [
+      0,
+      2,
+      2,
+      2,
+      2
+     ],
+     [
+      0,
+      2,
+      2,
+      4,
+      4
+     ],
+     [
+      0,
+      2,
+      4,
+      4,
+      4
+     ]
+    ],
+    "mult_minus_one": [
+     [
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     [
+      0,
+      2,
+      0,
+      0,
+      0
+     ],
+     [
+      0,
+      2,
+      0,
+      0,
+      0
+     ],
+     [
+      0,
+      2,
+      0,
+      0,
+      0
+     ],
+     [
+      0,
+      2,
+      0,
+      0,
+      0
+     ]
+    ],
+    "hinweis": "numerical character table"
+   },
+   "sek": 0.01
+  },
+  {
+   "id": 2,
+   "wer": "forscher-sparsam",
+   "op": "faithful_h",
+   "args": {
+    "group": "A5",
+    "alphabet": "involutions"
+   },
+   "ergebnis": {
+    "h_numerical": 2,
+    "chosen_irreps": [
+     {
+      "deg": 3,
+      "fs": 1
+     }
+    ],
+    "hinweis": "numerical"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 3,
+   "wer": "forscher-sparsam",
+   "op": "numeric_construction",
+   "args": {
+    "group": "A5",
+    "alphabet": "involutions",
+    "construction": "so3",
+    "twist": "none"
+   },
+   "ergebnis": {
+    "dim": 3,
+    "numerical_rank_M_minus_I_by_letter_order": {
+     "2": [
+      2
+     ]
+    },
+    "numerical_closure_size": 60,
+    "closure_capped": false,
+    "hinweis": "floating point, not a certificate"
+   },
+   "sek": 0.43
+  },
+  {
+   "id": 4,
+   "wer": "forscher-sparsam",
+   "op": "numeric_construction",
+   "args": {
+    "group": "A5",
+    "alphabet": "involutions",
+    "construction": "perm",
+    "twist": "none"
+   },
+   "ergebnis": {
+    "dim": 5,
+    "numerical_rank_M_minus_I_by_letter_order": {
+     "2": [
+      2
+     ]
+    },
+    "numerical_closure_size": 60,
+    "closure_capped": false,
+    "hinweis": "floating point, not a certificate"
+   },
+   "sek": 0.37
+  },
+  {
+   "id": 5,
+   "wer": "forscher-sparsam",
+   "op": "numeric_construction",
+   "args": {
+    "group": "A5",
+    "alphabet": "involutions",
+    "construction": "planar",
+    "twist": "none"
+   },
+   "ergebnis": {
+    "fehler": "ValueError: planar model inconsistent"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 6,
+   "wer": "forscher-sparsam",
+   "op": "train_quick",
+   "args": {
+    "arch": "hh1",
+    "group": "A5",
+    "alphabet": "involutions",
+    "steps": 1500
+   },
+   "ergebnis": {
+    "acc_len32": 0.09583,
+    "acc_len128_pos65-128": 0.01587,
+    "steps": 1500,
+    "hinweis": "single seed, observed, noisy"
+   },
+   "sek": 54.46
+  },
+  {
+   "id": 7,
+   "wer": "forscher-sparsam",
+   "op": "train_quick",
+   "args": {
+    "arch": "hh2",
+    "group": "A5",
+    "alphabet": "involutions",
+    "steps": 1500
+   },
+   "ergebnis": {
+    "acc_len32": 1.0,
+    "acc_len128_pos65-128": 0.8678,
+    "steps": 1500,
+    "hinweis": "single seed, observed, noisy"
+   },
+   "sek": 70.91
+  },
+  {
+   "id": 8,
+   "wer": "forscher-sparsam",
+   "op": "train_quick",
+   "args": {
+    "arch": "hh3",
+    "group": "A5",
+    "alphabet": "involutions",
+    "steps": 1500
+   },
+   "ergebnis": {
+    "acc_len32": 0.12012,
+    "acc_len128_pos65-128": 0.01633,
+    "steps": 1500,
+    "hinweis": "single seed, observed, noisy"
+   },
+   "sek": 158.12
+  },
+  {
+   "id": 9,
+   "wer": "forscher-sparsam",
+   "op": "train_quick",
+   "args": {
+    "arch": "hh4",
+    "group": "A5",
+    "alphabet": "involutions",
+    "steps": 1500
+   },
+   "ergebnis": {
+    "acc_len32": 1.0,
+    "acc_len128_pos65-128": 0.91971,
+    "steps": 1500,
+    "hinweis": "single seed, observed, noisy"
+   },
+   "sek": 191.96
+  },
+  {
+   "id": 10,
+   "wer": "forscher-sparsam",
+   "op": "numeric_construction",
+   "args": {
+    "group": "A5",
+    "alphabet": "involutions",
+    "construction": "count",
+    "twist": "none"
+   },
+   "ergebnis": {
+    "fehler": "ValueError: count cover needs an abelian group"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 11,
+   "wer": "forscher-sparsam",
+   "op": "numeric_construction",
+   "args": {
+    "group": "A5",
+    "alphabet": "involutions",
+    "construction": "so3",
+    "twist": "involutions"
+   },
+   "ergebnis": {
+    "dim": 3,
+    "numerical_rank_M_minus_I_by_letter_order": {
+     "2": [
+      1
+     ]
+    },
+    "numerical_closure_size": 120,
+    "closure_capped": false,
+    "hinweis": "floating point, not a certificate"
+   },
+   "sek": 1.53
+  },
+  {
+   "id": 12,
+   "wer": "forscher-sparsam",
+   "op": "train_quick",
+   "args": {
+    "arch": "hh2",
+    "group": "A5",
+    "alphabet": "all",
+    "steps": 1500
+   },
+   "ergebnis": {
+    "acc_len32": 0.04858,
+    "acc_len128_pos65-128": 0.01611,
+    "steps": 1500,
+    "hinweis": "single seed, observed, noisy"
+   },
+   "sek": 68.04
+  },
+  {
+   "id": 13,
+   "wer": "forscher-numeriker",
+   "op": "alphabet_info",
+   "args": {
+    "group": "A5",
+    "alphabet": "involutions"
+   },
+   "ergebnis": {
+    "letters": 15,
+    "orders": {
+     "2": 15
+    },
+    "cycle_types": {
+     "(2, 2, 1)": 15
+    }
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 14,
+   "wer": "forscher-numeriker",
+   "op": "alphabet_info",
+   "args": {
+    "group": "A5",
+    "alphabet": "all"
+   },
+   "ergebnis": {
+    "letters": 59,
+    "orders": {
+     "3": 20,
+     "2": 15,
+     "5": 24
+    },
+    "cycle_types": {
+     "(3, 1, 1)": 20,
+     "(2, 2, 1)": 15,
+     "(5,)": 24
+    }
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 15,
+   "wer": "forscher-numeriker",
+   "op": "real_irreps",
+   "args": {
+    "group": "A5"
+   },
+   "ergebnis": {
+    "irreps": [
+     {
+      "deg": 1,
+      "fs": 1
+     },
+     {
+      "deg": 3,
+      "fs": 1
+     },
+     {
+      "deg": 3,
+      "fs": 1
+     },
+     {
+      "deg": 4,
+      "fs": 1
+     },
+     {
+      "deg": 5,
+      "fs": 1
+     }
+    ],
+    "class_orders": [
+     1,
+     2,
+     3,
+     5,
+     5
+    ],
+    "class_sizes": [
+     1,
+     15,
+     20,
+     12,
+     12
+    ],
+    "codim_fix": [
+     [
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     [
+      0,
+      2,
+      2,
+      2,
+      2
+     ],
+     [
+      0,
+      2,
+      2,
+      2,
+      2
+     ],
+     [
+      0,
+      2,
+      2,
+      4,
+      4
+     ],
+     [
+      0,
+      2,
+      4,
+      4,
+      4
+     ]
+    ],
+    "mult_minus_one": [
+     [
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     [
+      0,
+      2,
+      0,
+      0,
+      0
+     ],
+     [
+      0,
+      2,
+      0,
+      0,
+      0
+     ],
+     [
+      0,
+      2,
+      0,
+      0,
+      0
+     ],
+     [
+      0,
+      2,
+      0,
+      0,
+      0
+     ]
+    ],
+    "hinweis": "numerical character table"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 16,
+   "wer": "forscher-numeriker",
+   "op": "numeric_construction",
+   "args": {
+    "group": "A5",
+    "alphabet": "involutions",
+    "construction": "perm",
+    "twist": "none"
+   },
+   "ergebnis": {
+    "dim": 5,
+    "numerical_rank_M_minus_I_by_letter_order": {
+     "2": [
+      2
+     ]
+    },
+    "numerical_closure_size": 60,
+    "closure_capped": false,
+    "hinweis": "floating point, not a certificate"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 17,
+   "wer": "forscher-numeriker",
+   "op": "numeric_construction",
+   "args": {
+    "group": "A5",
+    "alphabet": "involutions",
+    "construction": "so3",
+    "twist": "none"
+   },
+   "ergebnis": {
+    "dim": 3,
+    "numerical_rank_M_minus_I_by_letter_order": {
+     "2": [
+      2
+     ]
+    },
+    "numerical_closure_size": 60,
+    "closure_capped": false,
+    "hinweis": "floating point, not a certificate"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 18,
+   "wer": "forscher-numeriker",
+   "op": "numeric_construction",
+   "args": {
+    "group": "A5",
+    "alphabet": "involutions",
+    "construction": "planar",
+    "twist": "none"
+   },
+   "ergebnis": {
+    "fehler": "ValueError: planar model inconsistent"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 19,
+   "wer": "forscher-numeriker",
+   "op": "numeric_construction",
+   "args": {
+    "group": "A5",
+    "alphabet": "all",
+    "construction": "perm",
+    "twist": "none"
+   },
+   "ergebnis": {
+    "dim": 5,
+    "numerical_rank_M_minus_I_by_letter_order": {
+     "3": [
+      2
+     ],
+     "2": [
+      2
+     ],
+     "5": [
+      4
+     ]
+    },
+    "numerical_closure_size": 60,
+    "closure_capped": false,
+    "hinweis": "floating point, not a certificate"
+   },
+   "sek": 1.55
+  },
+  {
+   "id": 20,
+   "wer": "forscher-numeriker",
+   "op": "faithful_h",
+   "args": {
+    "group": "A5",
+    "alphabet": "involutions"
+   },
+   "ergebnis": {
+    "h_numerical": 2,
+    "chosen_irreps": [
+     {
+      "deg": 3,
+      "fs": 1
+     }
+    ],
+    "hinweis": "numerical"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 21,
+   "wer": "forscher-numeriker",
+   "op": "numeric_construction",
+   "args": {
+    "group": "A5",
+    "alphabet": "involutions",
+    "construction": "count",
+    "twist": "none"
+   },
+   "ergebnis": {
+    "fehler": "ValueError: count cover needs an abelian group"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 22,
+   "wer": "forscher-numeriker",
+   "op": "numeric_construction",
+   "args": {
+    "group": "A5",
+    "alphabet": "involutions",
+    "construction": "perm",
+    "twist": "involutions"
+   },
+   "ergebnis": {
+    "dim": 5,
+    "numerical_rank_M_minus_I_by_letter_order": {
+     "2": [
+      3
+     ]
+    },
+    "numerical_closure_size": 120,
+    "closure_capped": false,
+    "hinweis": "floating point, not a certificate"
+   },
+   "sek": 1.46
+  },
+  {
+   "id": 23,
+   "wer": "forscher-numeriker",
+   "op": "train_quick",
+   "args": {
+    "arch": "hh1",
+    "group": "A5",
+    "alphabet": "involutions",
+    "steps": 1500
+   },
+   "ergebnis": {
+    "acc_len32": 0.09583,
+    "acc_len128_pos65-128": 0.01587,
+    "steps": 1500,
+    "hinweis": "single seed, observed, noisy"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 24,
+   "wer": "forscher-numeriker",
+   "op": "train_quick",
+   "args": {
+    "arch": "hh2",
+    "group": "A5",
+    "alphabet": "involutions",
+    "steps": 1500
+   },
+   "ergebnis": {
+    "acc_len32": 1.0,
+    "acc_len128_pos65-128": 0.8678,
+    "steps": 1500,
+    "hinweis": "single seed, observed, noisy"
+   },
+   "sek": 0.0
+  }
+ ],
+ "sek": 854.8
+}

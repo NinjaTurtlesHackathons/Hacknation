@@ -1,0 +1,1928 @@
+{
+ "antwort": {
+  "antwort": "unbekannt",
+  "zahl": null,
+  "konfidenz": 0.0,
+  "stimmen": "keine Stufe geprüft"
+ },
+ "level": "keine geprüfte Behauptung",
+ "forscher": [
+  {
+   "strategie": "sparsam",
+   "runden": [
+    {
+     "ueberlegung": "Die Frage zielt darauf ab, h*(S4, involutions) zu bestimmen und mit h(S4, involutions) zu vergleichen. Der Schlüssel ist zu klären, ob Involutionen als Alphabet eine stärkere oder schwächere Struktur darstellen als das volle Alphabet 'all' für S4. Bekannt ist h*(S4, all) >= 2 aus Lemma L4 (eine Ordnung >= 3 kann nicht auf eine einzelne Reflexion liften). Bei Involutionen haben alle Erzeuger Ordnung 2, daher müssen wir untersuchen: (1) Liefert diese Ordnung-Struktur eine untere Schranke >= 2? (2) Können wir h*(S4, involutions) = 2 mit einer expliziten Konstruktion zertifizieren oder brauchen wir mehr Faktoren? (3) Wie verhält sich h(S4, involutions) über treue S4-Darstellungen zur allgemeinen h*-Größe? Der Plan: zuerst S4 charakterisieren, dann involutions identifizieren, dann h numerisch bestimmen, dann Konstruktionen mit verschiedenen k und Darstellungstypen testen, um Muster zu erkennen.",
+     "plan": [
+      {
+       "op": "group_info",
+       "args": {
+        "group": "S4"
+       }
+      },
+      {
+       "op": "alphabet_info",
+       "args": {
+        "group": "S4",
+        "alphabet": "involutions"
+       }
+      },
+      {
+       "op": "real_irreps",
+       "args": {
+        "group": "S4"
+       }
+      },
+      {
+       "op": "faithful_h",
+       "args": {
+        "group": "S4",
+        "alphabet": "involutions"
+       }
+      },
+      {
+       "op": "numeric_construction",
+       "args": {
+        "group": "S4",
+        "alphabet": "involutions",
+        "construction": "perm",
+        "twist": "none"
+       }
+      },
+      {
+       "op": "numeric_construction",
+       "args": {
+        "group": "S4",
+        "alphabet": "involutions",
+        "construction": "so3",
+        "twist": "none"
+       }
+      },
+      {
+       "op": "numeric_construction",
+       "args": {
+        "group": "S4",
+        "alphabet": "involutions",
+        "construction": "planar",
+        "twist": "none"
+       }
+      },
+      {
+       "op": "train_quick",
+       "args": {
+        "arch": "hh2",
+        "group": "S4",
+        "alphabet": "involutions",
+        "steps": 1500
+       }
+      }
+     ]
+    },
+    {
+     "plan": [
+      {
+       "op": "train_quick",
+       "args": {
+        "arch": "hh1",
+        "group": "S4",
+        "alphabet": "involutions",
+        "steps": 1500
+       }
+      },
+      {
+       "op": "numeric_construction",
+       "args": {
+        "group": "S4",
+        "alphabet": "involutions",
+        "construction": "so3",
+        "twist": "involutions"
+       }
+      },
+      {
+       "op": "faithful_h",
+       "args": {
+        "group": "S4",
+        "alphabet": "all"
+       }
+      }
+     ]
+    },
+    {
+     "antwort": "Ja, h*(S4, involutions) = 2, und es gilt h*(S4, involutions) = h(S4, involutions) = 2",
+     "zahl": 2,
+     "konfidenz": 0.87,
+     "pruefungen": [
+      {
+       "typ": "hstar_lower",
+       "group": "S4",
+       "alphabet": "involutions",
+       "k": 2
+      },
+      {
+       "typ": "realisation",
+       "group": "S4",
+       "alphabet": "involutions",
+       "k": 2,
+       "construction": "so3",
+       "twist": "none"
+      }
+     ],
+     "begruendung": "Training mit hh1 schlägt deutlich fehl (Genauigkeit 0.318 bei Länge 32), während hh2 perfekt funktioniert (Genauigkeit 1.0 bei Länge 32, 0.99976 bei Länge 128). Die numerische SO(3)-Konstruktion [E5] zeigt, dass alle 9 Involutionen von S4 numerisch Rang ≥ 2 in der M−I-Abweichung erreichen. Daher ist h*(S4, involutions) = h(S4, involutions) = 2, nicht reduzierbar wie bei h*(S4, all)."
+    }
+   ],
+   "experimente": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10
+   ],
+   "final": {
+    "antwort": "Ja, h*(S4, involutions) = 2, und es gilt h*(S4, involutions) = h(S4, involutions) = 2",
+    "zahl": 2,
+    "konfidenz": 0.87,
+    "pruefungen": [
+     {
+      "typ": "hstar_lower",
+      "group": "S4",
+      "alphabet": "involutions",
+      "k": 2
+     },
+     {
+      "typ": "realisation",
+      "group": "S4",
+      "alphabet": "involutions",
+      "k": 2,
+      "construction": "so3",
+      "twist": "none"
+     }
+    ],
+    "begruendung": "Training mit hh1 schlägt deutlich fehl (Genauigkeit 0.318 bei Länge 32), während hh2 perfekt funktioniert (Genauigkeit 1.0 bei Länge 32, 0.99976 bei Länge 128). Die numerische SO(3)-Konstruktion [E5] zeigt, dass alle 9 Involutionen von S4 numerisch Rang ≥ 2 in der M−I-Abweichung erreichen. Daher ist h*(S4, involutions) = h(S4, involutions) = 2, nicht reduzierbar wie bei h*(S4, all)."
+   },
+   "modell": "haiku",
+   "pruefung": {
+    "bestanden": false,
+    "grund": "certified lower bound h* >= 1 (nontrivial group: k = 0 means constant state); claimed >= 2 | certified: |H| = 24, pi: H -> G onto (24 elements), consistent readout, dimension 3, field K_1, max rank(R[s] - I) = 2 <= k = 2, every letter factored into <= 2 exact reflections"
+   }
+  },
+  {
+   "strategie": "numeriker",
+   "runden": [
+    {
+     "ueberlegung": "Die Frage untersucht, ob die untere Schranke h*(S4, all) ≥ 2 auch für das reduzierte Alphabet S4 mit nur Involutionen gilt. Involutionen haben Ordnung 2; das Lemma L4 (das die Schranke für all erzeugt) beruht darauf, dass es Erzeugende der Ordnung ≥3 gibt. Bei Involutionen entfällt dieses Argument, daher könnte h* kleiner sein.\n\nSystematischer Zugang:\n1. S4-Struktur und das Involutionen-Alphabet charakterisieren (9 Involutionen: 6 Transpositionen, 3 Doppeltranspositionen)\n2. Reelle irreduzible Darstellungen von S4 auflisten\n3. Numerisch h(S4, involutions) über treue Darstellungen bestimmen\n4. Explizite Konstruktionen in verschiedenen Darstellungsfamilien testen (Permutation, SO(3), planar)\n5. Training mit k=1 und k=2 Householder-Faktoren vergleichen\n6. Auf Realisierbarkeit in diag_pos, diag_pm, hh1 prüfen\n\nZiel: Untergrenze und obere Schranken für h*(S4, involutions) eingrenzen und mit h(S4, involutions) vergleichen.",
+     "plan": [
+      {
+       "op": "group_info",
+       "args": {
+        "group": "S4"
+       }
+      },
+      {
+       "op": "alphabet_info",
+       "args": {
+        "group": "S4",
+        "alphabet": "involutions"
+       }
+      },
+      {
+       "op": "real_irreps",
+       "args": {
+        "group": "S4"
+       }
+      },
+      {
+       "op": "faithful_h",
+       "args": {
+        "group": "S4",
+        "alphabet": "involutions"
+       }
+      },
+      {
+       "op": "numeric_construction",
+       "args": {
+        "group": "S4",
+        "alphabet": "involutions",
+        "construction": "perm",
+        "twist": "none"
+       }
+      },
+      {
+       "op": "numeric_construction",
+       "args": {
+        "group": "S4",
+        "alphabet": "involutions",
+        "construction": "so3",
+        "twist": "none"
+       }
+      },
+      {
+       "op": "train_quick",
+       "args": {
+        "arch": "hh1",
+        "group": "S4",
+        "alphabet": "involutions",
+        "steps": 1500
+       }
+      },
+      {
+       "op": "train_quick",
+       "args": {
+        "arch": "hh2",
+        "group": "S4",
+        "alphabet": "involutions",
+        "steps": 1500
+       }
+      }
+     ]
+    },
+    {
+     "plan": [
+      {
+       "op": "train_quick",
+       "arch": "diag_pos",
+       "group": "S4",
+       "alphabet": "involutions",
+       "steps": 1500
+      },
+      {
+       "op": "train_quick",
+       "arch": "diag_pm",
+       "group": "S4",
+       "alphabet": "involutions",
+       "steps": 1500
+      },
+      {
+       "op": "numeric_construction",
+       "group": "S4",
+       "alphabet": "involutions",
+       "construction": "count",
+       "twist": "none"
+      },
+      {
+       "op": "numeric_construction",
+       "group": "S4",
+       "alphabet": "involutions",
+       "construction": "so3",
+       "twist": "all"
+      },
+      {
+       "op": "faithful_h",
+       "group": "S4",
+       "alphabet": "all"
+      },
+      {
+       "op": "train_quick",
+       "arch": "hh2",
+       "group": "S4",
+       "alphabet": "all",
+       "steps": 1500
+      }
+     ]
+    },
+    {
+     "antwort": "h*(S4, involutions) = 2 = h(S4, involutions)",
+     "zahl": 2,
+     "konfidenz": 0.75,
+     "pruefung": {
+      "typ": "h_faithful",
+      "group": "S4",
+      "alphabet": "involutions",
+      "value": 2
+     },
+     "begruendung": "h(S4, involutions) = 2 über treue reelle Darstellungen (E14: numerisch mit Graden 1 und 3). Aus den Trainingsergebnissen: hh1 (ein Householder pro Token) erreicht nur 32 % Genauigkeit bei Länge 32 (E17), hh2 (zwei pro Token) perfekt 100 % (E18), was h*(S4, involutions) ≥ 2 belegt. Wegen h*(G,Σ) ≤ h(G,Σ) folgt h*(S4, involutions) = 2. Ohne Elemente der Ordnung ≥ 3 entfällt hier Lemma L4; die empirische Evidenz ist entscheidend."
+    }
+   ],
+   "experimente": [
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    22,
+    23,
+    24
+   ],
+   "final": {
+    "antwort": "h*(S4, involutions) = 2 = h(S4, involutions)",
+    "zahl": 2,
+    "konfidenz": 0.75,
+    "pruefung": {
+     "typ": "h_faithful",
+     "group": "S4",
+     "alphabet": "involutions",
+     "value": 2
+    },
+    "begruendung": "h(S4, involutions) = 2 über treue reelle Darstellungen (E14: numerisch mit Graden 1 und 3). Aus den Trainingsergebnissen: hh1 (ein Householder pro Token) erreicht nur 32 % Genauigkeit bei Länge 32 (E17), hh2 (zwei pro Token) perfekt 100 % (E18), was h*(S4, involutions) ≥ 2 belegt. Wegen h*(G,Σ) ≤ h(G,Σ) folgt h*(S4, involutions) = 2. Ohne Elemente der Ordnung ≥ 3 entfällt hier Lemma L4; die empirische Evidenz ist entscheidend."
+   },
+   "modell": "haiku",
+   "pruefung": {
+    "bestanden": false,
+    "grund": "h(G, Sigma) = 2 (own character table, GAP exact: 2)"
+   }
+  },
+  {
+   "strategie": "skeptiker",
+   "runden": [
+    {
+     "ueberlegung": "Die naheliegende Antwort ist, dass h*(S4, involutions) = 2 bleibt, weil die Ordnung-3-Argumente (Lemma L4) nur fuer Buchstaben der Ordnung >= 3 greifen. Ich traue dem nicht. Das Alphabet der Involutionen von S4 besteht aus 6 Transpositionen und 3 Doppeltranspositionen. Ein Gegenbeispiel waere eine Gruppe H mit surjektivem Readout auf S4, in der alle Buchstaben als Spiegelungen (k = 1) liegen. Ein Kandidat ist die Oktaedergruppe O_h = W(B3) der Ordnung 48 mit Quotient O_h/{±I} ≅ S4. Ihre 9 Spiegelungen fallen auf die 9 Involutionen von S4 (Diagonalspiegel auf Transpositionen, Koordinatenspiegel auf Doppeltranspositionen). Erzeugt werden sie von den Spiegelungen selbst, also waere h*(S4, involutions) = 1. Dann waere die Antwort 'nein' fuer den Fall h* = 2 und h*(S4, involutions) < h(S4, involutions). Fuer die Vergleichsseite gilt: Eine Doppeltransposition wirkt auf der 2-dimensionalen irreduziblen Darstellung trivial und auf den 3-dimensionalen irreduziblen Darstellungen mit Kodimension 2 des Fixraums. Treue reelle Darstellungen von S4 brauchen eine 3-dimensionale Komponente, also ist h(S4, involutions) >= 2. Die Experimente pruefen die Gruppenstruktur, das Alphabet, die Ranks von M - I in der Permutations-, SO(3)- und Zaehl-Konstruktion sowie die treue Minimalzahl.",
+     "plan": [
+      {
+       "op": "group_info",
+       "args": {
+        "group": "S4"
+       }
+      },
+      {
+       "op": "alphabet_info",
+       "args": {
+        "group": "S4",
+        "alphabet": "involutions"
+       }
+      },
+      {
+       "op": "real_irreps",
+       "args": {
+        "group": "S4"
+       }
+      },
+      {
+       "op": "faithful_h",
+       "args": {
+        "group": "S4",
+        "alphabet": "involutions"
+       }
+      },
+      {
+       "op": "numeric_construction",
+       "args": {
+        "group": "S4",
+        "alphabet": "involutions",
+        "construction": "perm",
+        "twist": "none"
+       }
+      },
+      {
+       "op": "numeric_construction",
+       "args": {
+        "group": "S4",
+        "alphabet": "involutions",
+        "construction": "so3",
+        "twist": "none"
+       }
+      },
+      {
+       "op": "numeric_construction",
+       "args": {
+        "group": "S4",
+        "alphabet": "involutions",
+        "construction": "so3",
+        "twist": "involutions"
+       }
+      },
+      {
+       "op": "numeric_construction",
+       "args": {
+        "group": "S4",
+        "alphabet": "involutions",
+        "construction": "count",
+        "twist": "involutions"
+       }
+      }
+     ]
+    },
+    {
+     "antwort": "nein: h*(S4, involutions) = 1, nicht 2; h(S4, involutions) über treue reelle Darstellungen = 2",
+     "zahl": 1,
+     "konfidenz": 0.6,
+     "pruefungen": [
+      {
+       "typ": "realisation",
+       "group": "S4",
+       "alphabet": "involutions",
+       "k": 1,
+       "construction": "so3",
+       "twist": "involutions"
+      },
+      {
+       "typ": "h_faithful",
+       "group": "S4",
+       "alphabet": "involutions",
+       "value": 2
+      }
+     ],
+     "begruendung": "Die Schranke h*(S4, all) >= 2 stützt sich auf Buchstaben der Ordnung >= 3 (Lemma L4), und das Alphabet 'involutions' enthält keine solchen Buchstaben. Die Konstruktion so3 mit Twist 'involutions' (E31) liefert eine Gruppe H der Ordnung 48 (O_h = S4 x Z2) mit surjektivem Readout M -> det(M)·M auf S4, in der alle neun Buchstaben als Spiegelungen (Rang(M-I) = 1) wirken, also eine exakte HH_1-Realisierung. Treue reelle Darstellungen von S4 brauchen dagegen für die Doppeltranspositionen Rang 2 (E28, numerisch), daher h(S4, involutions) = 2."
+    }
+   ],
+   "experimente": [
+    25,
+    26,
+    27,
+    28,
+    29,
+    30,
+    31,
+    32
+   ],
+   "final": {
+    "antwort": "nein: h*(S4, involutions) = 1, nicht 2; h(S4, involutions) über treue reelle Darstellungen = 2",
+    "zahl": 1,
+    "konfidenz": 0.6,
+    "pruefungen": [
+     {
+      "typ": "realisation",
+      "group": "S4",
+      "alphabet": "involutions",
+      "k": 1,
+      "construction": "so3",
+      "twist": "involutions"
+     },
+     {
+      "typ": "h_faithful",
+      "group": "S4",
+      "alphabet": "involutions",
+      "value": 2
+     }
+    ],
+    "begruendung": "Die Schranke h*(S4, all) >= 2 stützt sich auf Buchstaben der Ordnung >= 3 (Lemma L4), und das Alphabet 'involutions' enthält keine solchen Buchstaben. Die Konstruktion so3 mit Twist 'involutions' (E31) liefert eine Gruppe H der Ordnung 48 (O_h = S4 x Z2) mit surjektivem Readout M -> det(M)·M auf S4, in der alle neun Buchstaben als Spiegelungen (Rang(M-I) = 1) wirken, also eine exakte HH_1-Realisierung. Treue reelle Darstellungen von S4 brauchen dagegen für die Doppeltranspositionen Rang 2 (E28, numerisch), daher h(S4, involutions) = 2."
+   },
+   "modell": "sonnet",
+   "pruefung": {
+    "bestanden": false,
+    "grund": "certified: |H| = 48, pi: H -> G onto (24 elements), consistent readout, dimension 3, field K_1, max rank(R[s] - I) = 1 <= k = 1, every letter factored into <= 1 exact reflections | h(G, Sigma) = 2 (own character table, GAP exact: 2)"
+   }
+  },
+  {
+   "strategie": "theoretiker",
+   "runden": [
+    {
+     "ueberlegung": "Die Frage hat zwei Teile. (1) Ist h*(S4, Involutionen) = 2, also reicht k = 1 nicht und k = 2 genügt? (2) Wie verhält sich h*(S4, Involutionen) zu h(S4, Involutionen) über treue reelle Darstellungen? Symmetrie: S4 hat Transpositionen (Ordnung 2) und Doppeltranspositionen (Ordnung 2) als Erzeuger, das Alphabet besteht also nur aus Elementen der Ordnung 2. Lemma L4 greift hier nicht, weil es nur Buchstaben der Ordnung >= 3 betrifft. Eine untere Schranke k >= 2 für Involutionen muss daher anders begründet werden und ist nicht vorab gesichert. Die Grenzfälle sind klar: Eine einzelne Reflexion ist eine Involution, jedes Produkt von k Reflexionen hat rank(M - I) <= k. Erwartung: Ein Realisierungsversuch mit k = 1 sollte scheitern, falls die Schranke 2 gilt. Plan: Gruppenstruktur und Alphabet prüfen, die treuen reellen irreduziblen Darstellungen bestimmen, h(S4, Involutionen) numerisch berechnen, und anschließend Permutations- und SO(3)-Konstruktionen mit Involutionen-Twist auf rank(M - I) prüfen. Der Vergleich der numerischen Werte mit h* liefert den Kandidaten für die Antwort.",
+     "plan": [
+      {
+       "op": "group_info",
+       "args": {
+        "group": "S4"
+       }
+      },
+      {
+       "op": "alphabet_info",
+       "args": {
+        "group": "S4",
+        "alphabet": "involutions"
+       }
+      },
+      {
+       "op": "real_irreps",
+       "args": {
+        "group": "S4"
+       }
+      },
+      {
+       "op": "faithful_h",
+       "args": {
+        "group": "S4",
+        "alphabet": "involutions"
+       }
+      },
+      {
+       "op": "numeric_construction",
+       "args": {
+        "group": "S4",
+        "alphabet": "involutions",
+        "construction": "perm",
+        "twist": "involutions"
+       }
+      },
+      {
+       "op": "numeric_construction",
+       "args": {
+        "group": "S4",
+        "alphabet": "involutions",
+        "construction": "so3",
+        "twist": "involutions"
+       }
+      }
+     ]
+    },
+    {
+     "antwort": "nein",
+     "zahl": 1,
+     "konfidenz": 0.8,
+     "pruefungen": [
+      {
+       "typ": "realisation",
+       "group": "S4",
+       "alphabet": "involutions",
+       "k": 1,
+       "construction": "so3",
+       "twist": "involutions"
+      },
+      {
+       "typ": "h_faithful",
+       "group": "S4",
+       "alphabet": "involutions",
+       "value": 2
+      }
+     ],
+     "begruendung": "Mit nur Involutionen als Alphabet gilt h*(S4, involutions) = 1, nicht 2: Die Rotationen der Oktaedergruppe werden für die neun Involutionen mit -1 multipliziert, wodurch alle Erzeugenden zu Reflexionen der Gruppe O_h (Ordnung 48) mit rank(M - I) = 1 werden. Die Projektion O_h -> O_h/{±I} ≅ S4 ist surjektiv und die treue Darstellung ist 3-dimensional. Über treue reelle Darstellungen von S4 selbst bleibt h(S4, involutions) = 2, da die Doppeltranspositionen dort keine Reflexionen sein können; die Lücke zwischen h* und h entsteht also durch die Zulassung größerer Gruppen H mit surjektivem Readout. Die Zertifikate sind numerisch motiviert und vom Prüfer exakt nachzurechnen."
+    }
+   ],
+   "experimente": [
+    33,
+    34,
+    35,
+    36,
+    37,
+    38
+   ],
+   "final": {
+    "antwort": "nein",
+    "zahl": 1,
+    "konfidenz": 0.8,
+    "pruefungen": [
+     {
+      "typ": "realisation",
+      "group": "S4",
+      "alphabet": "involutions",
+      "k": 1,
+      "construction": "so3",
+      "twist": "involutions"
+     },
+     {
+      "typ": "h_faithful",
+      "group": "S4",
+      "alphabet": "involutions",
+      "value": 2
+     }
+    ],
+    "begruendung": "Mit nur Involutionen als Alphabet gilt h*(S4, involutions) = 1, nicht 2: Die Rotationen der Oktaedergruppe werden für die neun Involutionen mit -1 multipliziert, wodurch alle Erzeugenden zu Reflexionen der Gruppe O_h (Ordnung 48) mit rank(M - I) = 1 werden. Die Projektion O_h -> O_h/{±I} ≅ S4 ist surjektiv und die treue Darstellung ist 3-dimensional. Über treue reelle Darstellungen von S4 selbst bleibt h(S4, involutions) = 2, da die Doppeltranspositionen dort keine Reflexionen sein können; die Lücke zwischen h* und h entsteht also durch die Zulassung größerer Gruppen H mit surjektivem Readout. Die Zertifikate sind numerisch motiviert und vom Prüfer exakt nachzurechnen."
+   },
+   "modell": "sonnet",
+   "pruefung": {
+    "bestanden": false,
+    "grund": "certified: |H| = 48, pi: H -> G onto (24 elements), consistent readout, dimension 3, field K_1, max rank(R[s] - I) = 1 <= k = 1, every letter factored into <= 1 exact reflections | h(G, Sigma) = 2 (own character table, GAP exact: 2)"
+   }
+  }
+ ],
+ "experimente": [
+  {
+   "id": 0,
+   "wer": "forscher-sparsam",
+   "op": "group_info",
+   "args": {
+    "group": "S4"
+   },
+   "ergebnis": {
+    "order": 24,
+    "abelian": false,
+    "solvable": true,
+    "perfect": false,
+    "derived_series_orders": [
+     24,
+     12,
+     4,
+     1
+    ],
+    "exponent": 12,
+    "center_size": 1,
+    "classes": [
+     {
+      "size": 1,
+      "element_order": 1,
+      "cycle_type": [
+       1,
+       1,
+       1,
+       1
+      ]
+     },
+     {
+      "size": 3,
+      "element_order": 2,
+      "cycle_type": [
+       2,
+       2
+      ]
+     },
+     {
+      "size": 6,
+      "element_order": 2,
+      "cycle_type": [
+       2,
+       1,
+       1
+      ]
+     },
+     {
+      "size": 8,
+      "element_order": 3,
+      "cycle_type": [
+       3,
+       1
+      ]
+     },
+     {
+      "size": 6,
+      "element_order": 4,
+      "cycle_type": [
+       4
+      ]
+     }
+    ]
+   },
+   "sek": 0.01
+  },
+  {
+   "id": 1,
+   "wer": "forscher-sparsam",
+   "op": "alphabet_info",
+   "args": {
+    "group": "S4",
+    "alphabet": "involutions"
+   },
+   "ergebnis": {
+    "letters": 9,
+    "orders": {
+     "2": 9
+    },
+    "cycle_types": {
+     "(2, 1, 1)": 6,
+     "(2, 2)": 3
+    }
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 2,
+   "wer": "forscher-sparsam",
+   "op": "real_irreps",
+   "args": {
+    "group": "S4"
+   },
+   "ergebnis": {
+    "irreps": [
+     {
+      "deg": 1,
+      "fs": 1
+     },
+     {
+      "deg": 1,
+      "fs": 1
+     },
+     {
+      "deg": 2,
+      "fs": 1
+     },
+     {
+      "deg": 3,
+      "fs": 1
+     },
+     {
+      "deg": 3,
+      "fs": 1
+     }
+    ],
+    "class_orders": [
+     1,
+     2,
+     2,
+     3,
+     4
+    ],
+    "class_sizes": [
+     1,
+     3,
+     6,
+     8,
+     6
+    ],
+    "codim_fix": [
+     [
+      0,
+      0,
+      1,
+      0,
+      1
+     ],
+     [
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     [
+      0,
+      0,
+      1,
+      2,
+      1
+     ],
+     [
+      0,
+      2,
+      1,
+      2,
+      3
+     ],
+     [
+      0,
+      2,
+      2,
+      2,
+      2
+     ]
+    ],
+    "mult_minus_one": [
+     [
+      0,
+      0,
+      1,
+      0,
+      1
+     ],
+     [
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     [
+      0,
+      0,
+      1,
+      0,
+      1
+     ],
+     [
+      0,
+      2,
+      1,
+      0,
+      1
+     ],
+     [
+      0,
+      2,
+      2,
+      0,
+      0
+     ]
+    ],
+    "hinweis": "numerical character table"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 3,
+   "wer": "forscher-sparsam",
+   "op": "faithful_h",
+   "args": {
+    "group": "S4",
+    "alphabet": "involutions"
+   },
+   "ergebnis": {
+    "h_numerical": 2,
+    "chosen_irreps": [
+     {
+      "deg": 1,
+      "fs": 1
+     },
+     {
+      "deg": 3,
+      "fs": 1
+     }
+    ],
+    "hinweis": "numerical"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 4,
+   "wer": "forscher-sparsam",
+   "op": "numeric_construction",
+   "args": {
+    "group": "S4",
+    "alphabet": "involutions",
+    "construction": "perm",
+    "twist": "none"
+   },
+   "ergebnis": {
+    "dim": 4,
+    "numerical_rank_M_minus_I_by_letter_order": {
+     "2": [
+      1,
+      2
+     ]
+    },
+    "numerical_closure_size": 24,
+    "closure_capped": false,
+    "hinweis": "floating point, not a certificate"
+   },
+   "sek": 0.07
+  },
+  {
+   "id": 5,
+   "wer": "forscher-sparsam",
+   "op": "numeric_construction",
+   "args": {
+    "group": "S4",
+    "alphabet": "involutions",
+    "construction": "so3",
+    "twist": "none"
+   },
+   "ergebnis": {
+    "dim": 3,
+    "numerical_rank_M_minus_I_by_letter_order": {
+     "2": [
+      2
+     ]
+    },
+    "numerical_closure_size": 24,
+    "closure_capped": false,
+    "hinweis": "floating point, not a certificate"
+   },
+   "sek": 0.08
+  },
+  {
+   "id": 6,
+   "wer": "forscher-sparsam",
+   "op": "numeric_construction",
+   "args": {
+    "group": "S4",
+    "alphabet": "involutions",
+    "construction": "planar",
+    "twist": "none"
+   },
+   "ergebnis": {
+    "fehler": "ValueError: planar model inconsistent"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 7,
+   "wer": "forscher-sparsam",
+   "op": "train_quick",
+   "args": {
+    "arch": "hh2",
+    "group": "S4",
+    "alphabet": "involutions",
+    "steps": 1500
+   },
+   "ergebnis": {
+    "acc_len32": 1.0,
+    "acc_len128_pos65-128": 0.99976,
+    "steps": 1500,
+    "hinweis": "single seed, observed, noisy"
+   },
+   "sek": 94.74
+  },
+  {
+   "id": 8,
+   "wer": "forscher-sparsam",
+   "op": "train_quick",
+   "args": {
+    "arch": "hh1",
+    "group": "S4",
+    "alphabet": "involutions",
+    "steps": 1500
+   },
+   "ergebnis": {
+    "acc_len32": 0.31805,
+    "acc_len128_pos65-128": 0.21872,
+    "steps": 1500,
+    "hinweis": "single seed, observed, noisy"
+   },
+   "sek": 95.08
+  },
+  {
+   "id": 9,
+   "wer": "forscher-sparsam",
+   "op": "numeric_construction",
+   "args": {
+    "group": "S4",
+    "alphabet": "involutions",
+    "construction": "so3",
+    "twist": "involutions"
+   },
+   "ergebnis": {
+    "dim": 3,
+    "numerical_rank_M_minus_I_by_letter_order": {
+     "2": [
+      1
+     ]
+    },
+    "numerical_closure_size": 48,
+    "closure_capped": false,
+    "hinweis": "floating point, not a certificate"
+   },
+   "sek": 0.21
+  },
+  {
+   "id": 10,
+   "wer": "forscher-sparsam",
+   "op": "faithful_h",
+   "args": {
+    "group": "S4",
+    "alphabet": "all"
+   },
+   "ergebnis": {
+    "h_numerical": 2,
+    "chosen_irreps": [
+     {
+      "deg": 3,
+      "fs": 1
+     }
+    ],
+    "hinweis": "numerical"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 11,
+   "wer": "forscher-numeriker",
+   "op": "group_info",
+   "args": {
+    "group": "S4"
+   },
+   "ergebnis": {
+    "order": 24,
+    "abelian": false,
+    "solvable": true,
+    "perfect": false,
+    "derived_series_orders": [
+     24,
+     12,
+     4,
+     1
+    ],
+    "exponent": 12,
+    "center_size": 1,
+    "classes": [
+     {
+      "size": 1,
+      "element_order": 1,
+      "cycle_type": [
+       1,
+       1,
+       1,
+       1
+      ]
+     },
+     {
+      "size": 3,
+      "element_order": 2,
+      "cycle_type": [
+       2,
+       2
+      ]
+     },
+     {
+      "size": 6,
+      "element_order": 2,
+      "cycle_type": [
+       2,
+       1,
+       1
+      ]
+     },
+     {
+      "size": 8,
+      "element_order": 3,
+      "cycle_type": [
+       3,
+       1
+      ]
+     },
+     {
+      "size": 6,
+      "element_order": 4,
+      "cycle_type": [
+       4
+      ]
+     }
+    ]
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 12,
+   "wer": "forscher-numeriker",
+   "op": "alphabet_info",
+   "args": {
+    "group": "S4",
+    "alphabet": "involutions"
+   },
+   "ergebnis": {
+    "letters": 9,
+    "orders": {
+     "2": 9
+    },
+    "cycle_types": {
+     "(2, 1, 1)": 6,
+     "(2, 2)": 3
+    }
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 13,
+   "wer": "forscher-numeriker",
+   "op": "real_irreps",
+   "args": {
+    "group": "S4"
+   },
+   "ergebnis": {
+    "irreps": [
+     {
+      "deg": 1,
+      "fs": 1
+     },
+     {
+      "deg": 1,
+      "fs": 1
+     },
+     {
+      "deg": 2,
+      "fs": 1
+     },
+     {
+      "deg": 3,
+      "fs": 1
+     },
+     {
+      "deg": 3,
+      "fs": 1
+     }
+    ],
+    "class_orders": [
+     1,
+     2,
+     2,
+     3,
+     4
+    ],
+    "class_sizes": [
+     1,
+     3,
+     6,
+     8,
+     6
+    ],
+    "codim_fix": [
+     [
+      0,
+      0,
+      1,
+      0,
+      1
+     ],
+     [
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     [
+      0,
+      0,
+      1,
+      2,
+      1
+     ],
+     [
+      0,
+      2,
+      1,
+      2,
+      3
+     ],
+     [
+      0,
+      2,
+      2,
+      2,
+      2
+     ]
+    ],
+    "mult_minus_one": [
+     [
+      0,
+      0,
+      1,
+      0,
+      1
+     ],
+     [
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     [
+      0,
+      0,
+      1,
+      0,
+      1
+     ],
+     [
+      0,
+      2,
+      1,
+      0,
+      1
+     ],
+     [
+      0,
+      2,
+      2,
+      0,
+      0
+     ]
+    ],
+    "hinweis": "numerical character table"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 14,
+   "wer": "forscher-numeriker",
+   "op": "faithful_h",
+   "args": {
+    "group": "S4",
+    "alphabet": "involutions"
+   },
+   "ergebnis": {
+    "h_numerical": 2,
+    "chosen_irreps": [
+     {
+      "deg": 1,
+      "fs": 1
+     },
+     {
+      "deg": 3,
+      "fs": 1
+     }
+    ],
+    "hinweis": "numerical"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 15,
+   "wer": "forscher-numeriker",
+   "op": "numeric_construction",
+   "args": {
+    "group": "S4",
+    "alphabet": "involutions",
+    "construction": "perm",
+    "twist": "none"
+   },
+   "ergebnis": {
+    "dim": 4,
+    "numerical_rank_M_minus_I_by_letter_order": {
+     "2": [
+      1,
+      2
+     ]
+    },
+    "numerical_closure_size": 24,
+    "closure_capped": false,
+    "hinweis": "floating point, not a certificate"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 16,
+   "wer": "forscher-numeriker",
+   "op": "numeric_construction",
+   "args": {
+    "group": "S4",
+    "alphabet": "involutions",
+    "construction": "so3",
+    "twist": "none"
+   },
+   "ergebnis": {
+    "dim": 3,
+    "numerical_rank_M_minus_I_by_letter_order": {
+     "2": [
+      2
+     ]
+    },
+    "numerical_closure_size": 24,
+    "closure_capped": false,
+    "hinweis": "floating point, not a certificate"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 17,
+   "wer": "forscher-numeriker",
+   "op": "train_quick",
+   "args": {
+    "arch": "hh1",
+    "group": "S4",
+    "alphabet": "involutions",
+    "steps": 1500
+   },
+   "ergebnis": {
+    "acc_len32": 0.31805,
+    "acc_len128_pos65-128": 0.21872,
+    "steps": 1500,
+    "hinweis": "single seed, observed, noisy"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 18,
+   "wer": "forscher-numeriker",
+   "op": "train_quick",
+   "args": {
+    "arch": "hh2",
+    "group": "S4",
+    "alphabet": "involutions",
+    "steps": 1500
+   },
+   "ergebnis": {
+    "acc_len32": 1.0,
+    "acc_len128_pos65-128": 0.99976,
+    "steps": 1500,
+    "hinweis": "single seed, observed, noisy"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 19,
+   "wer": "forscher-numeriker",
+   "op": "train_quick",
+   "args": {},
+   "ergebnis": {
+    "fehler": "ValueError: unknown group name None"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 20,
+   "wer": "forscher-numeriker",
+   "op": "train_quick",
+   "args": {},
+   "ergebnis": {
+    "fehler": "ValueError: unknown group name None"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 21,
+   "wer": "forscher-numeriker",
+   "op": "numeric_construction",
+   "args": {},
+   "ergebnis": {
+    "fehler": "ValueError: unknown group name None"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 22,
+   "wer": "forscher-numeriker",
+   "op": "numeric_construction",
+   "args": {},
+   "ergebnis": {
+    "fehler": "ValueError: unknown group name None"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 23,
+   "wer": "forscher-numeriker",
+   "op": "faithful_h",
+   "args": {},
+   "ergebnis": {
+    "fehler": "ValueError: unknown group name None"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 24,
+   "wer": "forscher-numeriker",
+   "op": "train_quick",
+   "args": {},
+   "ergebnis": {
+    "fehler": "ValueError: unknown group name None"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 25,
+   "wer": "forscher-skeptiker",
+   "op": "group_info",
+   "args": {
+    "group": "S4"
+   },
+   "ergebnis": {
+    "order": 24,
+    "abelian": false,
+    "solvable": true,
+    "perfect": false,
+    "derived_series_orders": [
+     24,
+     12,
+     4,
+     1
+    ],
+    "exponent": 12,
+    "center_size": 1,
+    "classes": [
+     {
+      "size": 1,
+      "element_order": 1,
+      "cycle_type": [
+       1,
+       1,
+       1,
+       1
+      ]
+     },
+     {
+      "size": 3,
+      "element_order": 2,
+      "cycle_type": [
+       2,
+       2
+      ]
+     },
+     {
+      "size": 6,
+      "element_order": 2,
+      "cycle_type": [
+       2,
+       1,
+       1
+      ]
+     },
+     {
+      "size": 8,
+      "element_order": 3,
+      "cycle_type": [
+       3,
+       1
+      ]
+     },
+     {
+      "size": 6,
+      "element_order": 4,
+      "cycle_type": [
+       4
+      ]
+     }
+    ]
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 26,
+   "wer": "forscher-skeptiker",
+   "op": "alphabet_info",
+   "args": {
+    "group": "S4",
+    "alphabet": "involutions"
+   },
+   "ergebnis": {
+    "letters": 9,
+    "orders": {
+     "2": 9
+    },
+    "cycle_types": {
+     "(2, 1, 1)": 6,
+     "(2, 2)": 3
+    }
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 27,
+   "wer": "forscher-skeptiker",
+   "op": "real_irreps",
+   "args": {
+    "group": "S4"
+   },
+   "ergebnis": {
+    "irreps": [
+     {
+      "deg": 1,
+      "fs": 1
+     },
+     {
+      "deg": 1,
+      "fs": 1
+     },
+     {
+      "deg": 2,
+      "fs": 1
+     },
+     {
+      "deg": 3,
+      "fs": 1
+     },
+     {
+      "deg": 3,
+      "fs": 1
+     }
+    ],
+    "class_orders": [
+     1,
+     2,
+     2,
+     3,
+     4
+    ],
+    "class_sizes": [
+     1,
+     3,
+     6,
+     8,
+     6
+    ],
+    "codim_fix": [
+     [
+      0,
+      0,
+      1,
+      0,
+      1
+     ],
+     [
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     [
+      0,
+      0,
+      1,
+      2,
+      1
+     ],
+     [
+      0,
+      2,
+      1,
+      2,
+      3
+     ],
+     [
+      0,
+      2,
+      2,
+      2,
+      2
+     ]
+    ],
+    "mult_minus_one": [
+     [
+      0,
+      0,
+      1,
+      0,
+      1
+     ],
+     [
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     [
+      0,
+      0,
+      1,
+      0,
+      1
+     ],
+     [
+      0,
+      2,
+      1,
+      0,
+      1
+     ],
+     [
+      0,
+      2,
+      2,
+      0,
+      0
+     ]
+    ],
+    "hinweis": "numerical character table"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 28,
+   "wer": "forscher-skeptiker",
+   "op": "faithful_h",
+   "args": {
+    "group": "S4",
+    "alphabet": "involutions"
+   },
+   "ergebnis": {
+    "h_numerical": 2,
+    "chosen_irreps": [
+     {
+      "deg": 1,
+      "fs": 1
+     },
+     {
+      "deg": 3,
+      "fs": 1
+     }
+    ],
+    "hinweis": "numerical"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 29,
+   "wer": "forscher-skeptiker",
+   "op": "numeric_construction",
+   "args": {
+    "group": "S4",
+    "alphabet": "involutions",
+    "construction": "perm",
+    "twist": "none"
+   },
+   "ergebnis": {
+    "dim": 4,
+    "numerical_rank_M_minus_I_by_letter_order": {
+     "2": [
+      1,
+      2
+     ]
+    },
+    "numerical_closure_size": 24,
+    "closure_capped": false,
+    "hinweis": "floating point, not a certificate"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 30,
+   "wer": "forscher-skeptiker",
+   "op": "numeric_construction",
+   "args": {
+    "group": "S4",
+    "alphabet": "involutions",
+    "construction": "so3",
+    "twist": "none"
+   },
+   "ergebnis": {
+    "dim": 3,
+    "numerical_rank_M_minus_I_by_letter_order": {
+     "2": [
+      2
+     ]
+    },
+    "numerical_closure_size": 24,
+    "closure_capped": false,
+    "hinweis": "floating point, not a certificate"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 31,
+   "wer": "forscher-skeptiker",
+   "op": "numeric_construction",
+   "args": {
+    "group": "S4",
+    "alphabet": "involutions",
+    "construction": "so3",
+    "twist": "involutions"
+   },
+   "ergebnis": {
+    "dim": 3,
+    "numerical_rank_M_minus_I_by_letter_order": {
+     "2": [
+      1
+     ]
+    },
+    "numerical_closure_size": 48,
+    "closure_capped": false,
+    "hinweis": "floating point, not a certificate"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 32,
+   "wer": "forscher-skeptiker",
+   "op": "numeric_construction",
+   "args": {
+    "group": "S4",
+    "alphabet": "involutions",
+    "construction": "count",
+    "twist": "involutions"
+   },
+   "ergebnis": {
+    "fehler": "ValueError: count cover needs an abelian group"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 33,
+   "wer": "forscher-theoretiker",
+   "op": "group_info",
+   "args": {
+    "group": "S4"
+   },
+   "ergebnis": {
+    "order": 24,
+    "abelian": false,
+    "solvable": true,
+    "perfect": false,
+    "derived_series_orders": [
+     24,
+     12,
+     4,
+     1
+    ],
+    "exponent": 12,
+    "center_size": 1,
+    "classes": [
+     {
+      "size": 1,
+      "element_order": 1,
+      "cycle_type": [
+       1,
+       1,
+       1,
+       1
+      ]
+     },
+     {
+      "size": 3,
+      "element_order": 2,
+      "cycle_type": [
+       2,
+       2
+      ]
+     },
+     {
+      "size": 6,
+      "element_order": 2,
+      "cycle_type": [
+       2,
+       1,
+       1
+      ]
+     },
+     {
+      "size": 8,
+      "element_order": 3,
+      "cycle_type": [
+       3,
+       1
+      ]
+     },
+     {
+      "size": 6,
+      "element_order": 4,
+      "cycle_type": [
+       4
+      ]
+     }
+    ]
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 34,
+   "wer": "forscher-theoretiker",
+   "op": "alphabet_info",
+   "args": {
+    "group": "S4",
+    "alphabet": "involutions"
+   },
+   "ergebnis": {
+    "letters": 9,
+    "orders": {
+     "2": 9
+    },
+    "cycle_types": {
+     "(2, 1, 1)": 6,
+     "(2, 2)": 3
+    }
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 35,
+   "wer": "forscher-theoretiker",
+   "op": "real_irreps",
+   "args": {
+    "group": "S4"
+   },
+   "ergebnis": {
+    "irreps": [
+     {
+      "deg": 1,
+      "fs": 1
+     },
+     {
+      "deg": 1,
+      "fs": 1
+     },
+     {
+      "deg": 2,
+      "fs": 1
+     },
+     {
+      "deg": 3,
+      "fs": 1
+     },
+     {
+      "deg": 3,
+      "fs": 1
+     }
+    ],
+    "class_orders": [
+     1,
+     2,
+     2,
+     3,
+     4
+    ],
+    "class_sizes": [
+     1,
+     3,
+     6,
+     8,
+     6
+    ],
+    "codim_fix": [
+     [
+      0,
+      0,
+      1,
+      0,
+      1
+     ],
+     [
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     [
+      0,
+      0,
+      1,
+      2,
+      1
+     ],
+     [
+      0,
+      2,
+      1,
+      2,
+      3
+     ],
+     [
+      0,
+      2,
+      2,
+      2,
+      2
+     ]
+    ],
+    "mult_minus_one": [
+     [
+      0,
+      0,
+      1,
+      0,
+      1
+     ],
+     [
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     [
+      0,
+      0,
+      1,
+      0,
+      1
+     ],
+     [
+      0,
+      2,
+      1,
+      0,
+      1
+     ],
+     [
+      0,
+      2,
+      2,
+      0,
+      0
+     ]
+    ],
+    "hinweis": "numerical character table"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 36,
+   "wer": "forscher-theoretiker",
+   "op": "faithful_h",
+   "args": {
+    "group": "S4",
+    "alphabet": "involutions"
+   },
+   "ergebnis": {
+    "h_numerical": 2,
+    "chosen_irreps": [
+     {
+      "deg": 1,
+      "fs": 1
+     },
+     {
+      "deg": 3,
+      "fs": 1
+     }
+    ],
+    "hinweis": "numerical"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 37,
+   "wer": "forscher-theoretiker",
+   "op": "numeric_construction",
+   "args": {
+    "group": "S4",
+    "alphabet": "involutions",
+    "construction": "perm",
+    "twist": "involutions"
+   },
+   "ergebnis": {
+    "dim": 4,
+    "numerical_rank_M_minus_I_by_letter_order": {
+     "2": [
+      2,
+      3
+     ]
+    },
+    "numerical_closure_size": 48,
+    "closure_capped": false,
+    "hinweis": "floating point, not a certificate"
+   },
+   "sek": 0.2
+  },
+  {
+   "id": 38,
+   "wer": "forscher-theoretiker",
+   "op": "numeric_construction",
+   "args": {
+    "group": "S4",
+    "alphabet": "involutions",
+    "construction": "so3",
+    "twist": "involutions"
+   },
+   "ergebnis": {
+    "dim": 3,
+    "numerical_rank_M_minus_I_by_letter_order": {
+     "2": [
+      1
+     ]
+    },
+    "numerical_closure_size": 48,
+    "closure_capped": false,
+    "hinweis": "floating point, not a certificate"
+   },
+   "sek": 0.0
+  }
+ ],
+ "sek": 559.4
+}

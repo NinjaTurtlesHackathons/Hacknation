@@ -1,0 +1,673 @@
+{
+ "antwort": {
+  "antwort": "h*(S5,all): untere Schranke ≥ 2, obere Schranke ≤ 4; h(S5,all) = 4",
+  "zahl": 4,
+  "konfidenz": 0.65,
+  "pruefungen": [
+   {
+    "typ": "hstar_lower",
+    "group": "S5",
+    "alphabet": "all",
+    "k": 2
+   },
+   {
+    "typ": "realisation",
+    "group": "S5",
+    "alphabet": "all",
+    "k": 4,
+    "construction": "perm"
+   },
+   {
+    "typ": "h_faithful",
+    "group": "S5",
+    "alphabet": "all",
+    "value": 4
+   }
+  ],
+  "begruendung": "E4 bestätigt max rank(M−I)=4 in der 5-dimensionalen Permutationsdarstellung; 5-Zyklen erfordern Rang 4. Lemma L4 liefert h*≥2, da S5 Elemente der Ordnung≥3 enthält. Cartan–Dieudonné über invariantem inneren Produkt ermöglicht HH₄-Realisierung. E3 gibt h(S5,all)=4 numerisch über treue Darstellungen von S5.",
+  "stimmen": "Stufe 1/4 (sparsam, haiku)"
+ },
+ "level": "computed (Code-Prüfer bestanden)",
+ "forscher": [
+  {
+   "strategie": "sparsam",
+   "runden": [
+    {
+     "ueberlegung": "Für S5 mit Alphabet 'all' brauchen wir: (1) Grundinformation über S5 und seine Generatoren; (2) die treuen realen Darstellungen, um h(S5, all) zu bestimmen; (3) numerische Konstruktionen über Permutationen und SO(3), um obere Schranken auf h*(S5, all) zu finden; (4) eine systematische Überprüfung der Ränge rank(M - I) nach Buchstabenklasse, um die minimale Anzahl Householder-Faktoren zu identifizieren. Lemma L4 gibt uns direkt eine untere Schranke ≥ 2 (S5 hat Ordnung-3-Zyklen). Die Permutationsmatrix eines 5-Zyklus hat Rang 4, also h*(S5, all) ≤ 4. Wir wollen das verfeinern und h(S5, all) exakt bestimmen.",
+     "plan": [
+      {
+       "op": "group_info",
+       "args": {
+        "group": "S5"
+       }
+      },
+      {
+       "op": "alphabet_info",
+       "args": {
+        "group": "S5",
+        "alphabet": "all"
+       }
+      },
+      {
+       "op": "real_irreps",
+       "args": {
+        "group": "S5"
+       }
+      },
+      {
+       "op": "faithful_h",
+       "args": {
+        "group": "S5",
+        "alphabet": "all"
+       }
+      },
+      {
+       "op": "numeric_construction",
+       "args": {
+        "group": "S5",
+        "alphabet": "all",
+        "construction": "perm",
+        "twist": "none"
+       }
+      },
+      {
+       "op": "numeric_construction",
+       "args": {
+        "group": "S5",
+        "alphabet": "all",
+        "construction": "so3",
+        "twist": "none"
+       }
+      },
+      {
+       "op": "numeric_construction",
+       "args": {
+        "group": "S5",
+        "alphabet": "all",
+        "construction": "planar",
+        "twist": "none"
+       }
+      },
+      {
+       "op": "train_quick",
+       "args": {
+        "arch": "hh3",
+        "group": "S5",
+        "alphabet": "all",
+        "steps": 1500
+       }
+      }
+     ]
+    },
+    {
+     "plan": [
+      {
+       "op": "train_quick",
+       "args": {
+        "arch": "hh2",
+        "group": "S5",
+        "alphabet": "all",
+        "steps": 1500
+       }
+      },
+      {
+       "op": "train_quick",
+       "args": {
+        "arch": "hh4",
+        "group": "S5",
+        "alphabet": "all",
+        "steps": 1500
+       }
+      },
+      {
+       "op": "numeric_construction",
+       "args": {
+        "group": "S5",
+        "alphabet": "all",
+        "construction": "count",
+        "twist": "none"
+       }
+      }
+     ]
+    },
+    {
+     "antwort": "h*(S5,all): untere Schranke ≥ 2, obere Schranke ≤ 4; h(S5,all) = 4",
+     "zahl": 4,
+     "konfidenz": 0.65,
+     "pruefungen": [
+      {
+       "typ": "hstar_lower",
+       "group": "S5",
+       "alphabet": "all",
+       "k": 2
+      },
+      {
+       "typ": "realisation",
+       "group": "S5",
+       "alphabet": "all",
+       "k": 4,
+       "construction": "perm"
+      },
+      {
+       "typ": "h_faithful",
+       "group": "S5",
+       "alphabet": "all",
+       "value": 4
+      }
+     ],
+     "begruendung": "E4 bestätigt max rank(M−I)=4 in der 5-dimensionalen Permutationsdarstellung; 5-Zyklen erfordern Rang 4. Lemma L4 liefert h*≥2, da S5 Elemente der Ordnung≥3 enthält. Cartan–Dieudonné über invariantem inneren Produkt ermöglicht HH₄-Realisierung. E3 gibt h(S5,all)=4 numerisch über treue Darstellungen von S5."
+    }
+   ],
+   "experimente": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10
+   ],
+   "final": {
+    "antwort": "h*(S5,all): untere Schranke ≥ 2, obere Schranke ≤ 4; h(S5,all) = 4",
+    "zahl": 4,
+    "konfidenz": 0.65,
+    "pruefungen": [
+     {
+      "typ": "hstar_lower",
+      "group": "S5",
+      "alphabet": "all",
+      "k": 2
+     },
+     {
+      "typ": "realisation",
+      "group": "S5",
+      "alphabet": "all",
+      "k": 4,
+      "construction": "perm"
+     },
+     {
+      "typ": "h_faithful",
+      "group": "S5",
+      "alphabet": "all",
+      "value": 4
+     }
+    ],
+    "begruendung": "E4 bestätigt max rank(M−I)=4 in der 5-dimensionalen Permutationsdarstellung; 5-Zyklen erfordern Rang 4. Lemma L4 liefert h*≥2, da S5 Elemente der Ordnung≥3 enthält. Cartan–Dieudonné über invariantem inneren Produkt ermöglicht HH₄-Realisierung. E3 gibt h(S5,all)=4 numerisch über treue Darstellungen von S5."
+   },
+   "modell": "haiku",
+   "pruefung": {
+    "bestanden": true,
+    "grund": "certified lower bound h* >= 2 (Lemma L4: a letter of order >= 3 cannot lift to a reflection (a rank-1 finite-order real deviation from I has order 2)); claimed >= 2 | certified: |H| = 120, pi: H -> G onto (120 elements), consistent readout, dimension 5, field K_1, max rank(R[s] - I) = 4 <= k = 4, every letter factored into <= 4 exact reflections | h(G, Sigma) = 4 (own character table, GAP exact: 4)"
+   }
+  }
+ ],
+ "experimente": [
+  {
+   "id": 0,
+   "wer": "forscher-sparsam",
+   "op": "group_info",
+   "args": {
+    "group": "S5"
+   },
+   "ergebnis": {
+    "order": 120,
+    "abelian": false,
+    "solvable": false,
+    "perfect": false,
+    "derived_series_orders": [
+     120,
+     60
+    ],
+    "exponent": 60,
+    "center_size": 1,
+    "classes": [
+     {
+      "size": 1,
+      "element_order": 1,
+      "cycle_type": [
+       1,
+       1,
+       1,
+       1,
+       1
+      ]
+     },
+     {
+      "size": 10,
+      "element_order": 2,
+      "cycle_type": [
+       2,
+       1,
+       1,
+       1
+      ]
+     },
+     {
+      "size": 15,
+      "element_order": 2,
+      "cycle_type": [
+       2,
+       2,
+       1
+      ]
+     },
+     {
+      "size": 20,
+      "element_order": 3,
+      "cycle_type": [
+       3,
+       1,
+       1
+      ]
+     },
+     {
+      "size": 30,
+      "element_order": 4,
+      "cycle_type": [
+       4,
+       1
+      ]
+     },
+     {
+      "size": 24,
+      "element_order": 5,
+      "cycle_type": [
+       5
+      ]
+     },
+     {
+      "size": 20,
+      "element_order": 6,
+      "cycle_type": [
+       3,
+       2
+      ]
+     }
+    ]
+   },
+   "sek": 0.1
+  },
+  {
+   "id": 1,
+   "wer": "forscher-sparsam",
+   "op": "alphabet_info",
+   "args": {
+    "group": "S5",
+    "alphabet": "all"
+   },
+   "ergebnis": {
+    "letters": 119,
+    "orders": {
+     "2": 25,
+     "3": 20,
+     "4": 30,
+     "6": 20,
+     "5": 24
+    },
+    "cycle_types": {
+     "(2, 1, 1, 1)": 10,
+     "(3, 1, 1)": 20,
+     "(2, 2, 1)": 15,
+     "(4, 1)": 30,
+     "(3, 2)": 20,
+     "(5,)": 24
+    }
+   },
+   "sek": 0.01
+  },
+  {
+   "id": 2,
+   "wer": "forscher-sparsam",
+   "op": "real_irreps",
+   "args": {
+    "group": "S5"
+   },
+   "ergebnis": {
+    "irreps": [
+     {
+      "deg": 1,
+      "fs": 1
+     },
+     {
+      "deg": 1,
+      "fs": 1
+     },
+     {
+      "deg": 4,
+      "fs": 1
+     },
+     {
+      "deg": 4,
+      "fs": 1
+     },
+     {
+      "deg": 5,
+      "fs": 1
+     },
+     {
+      "deg": 5,
+      "fs": 1
+     },
+     {
+      "deg": 6,
+      "fs": 1
+     }
+    ],
+    "class_orders": [
+     1,
+     2,
+     2,
+     3,
+     4,
+     5,
+     6
+    ],
+    "class_sizes": [
+     1,
+     10,
+     15,
+     20,
+     30,
+     24,
+     20
+    ],
+    "codim_fix": [
+     [
+      0,
+      1,
+      0,
+      0,
+      1,
+      0,
+      1
+     ],
+     [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     [
+      0,
+      3,
+      2,
+      2,
+      3,
+      4,
+      3
+     ],
+     [
+      0,
+      1,
+      2,
+      2,
+      3,
+      4,
+      3
+     ],
+     [
+      0,
+      3,
+      2,
+      4,
+      3,
+      4,
+      5
+     ],
+     [
+      0,
+      2,
+      2,
+      4,
+      4,
+      4,
+      4
+     ],
+     [
+      0,
+      3,
+      4,
+      4,
+      5,
+      4,
+      5
+     ]
+    ],
+    "mult_minus_one": [
+     [
+      0,
+      1,
+      0,
+      0,
+      1,
+      0,
+      1
+     ],
+     [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     [
+      0,
+      3,
+      2,
+      0,
+      1,
+      0,
+      1
+     ],
+     [
+      0,
+      1,
+      2,
+      0,
+      1,
+      0,
+      1
+     ],
+     [
+      0,
+      3,
+      2,
+      0,
+      1,
+      0,
+      1
+     ],
+     [
+      0,
+      2,
+      2,
+      0,
+      2,
+      0,
+      0
+     ],
+     [
+      0,
+      3,
+      4,
+      0,
+      1,
+      0,
+      1
+     ]
+    ],
+    "hinweis": "numerical character table"
+   },
+   "sek": 0.01
+  },
+  {
+   "id": 3,
+   "wer": "forscher-sparsam",
+   "op": "faithful_h",
+   "args": {
+    "group": "S5",
+    "alphabet": "all"
+   },
+   "ergebnis": {
+    "h_numerical": 4,
+    "chosen_irreps": [
+     {
+      "deg": 1,
+      "fs": 1
+     },
+     {
+      "deg": 4,
+      "fs": 1
+     }
+    ],
+    "hinweis": "numerical"
+   },
+   "sek": 0.01
+  },
+  {
+   "id": 4,
+   "wer": "forscher-sparsam",
+   "op": "numeric_construction",
+   "args": {
+    "group": "S5",
+    "alphabet": "all",
+    "construction": "perm",
+    "twist": "none"
+   },
+   "ergebnis": {
+    "dim": 5,
+    "numerical_rank_M_minus_I_by_letter_order": {
+     "2": [
+      1,
+      2
+     ],
+     "3": [
+      2
+     ],
+     "4": [
+      3
+     ],
+     "6": [
+      3
+     ],
+     "5": [
+      4
+     ]
+    },
+    "numerical_closure_size": 120,
+    "closure_capped": false,
+    "hinweis": "floating point, not a certificate"
+   },
+   "sek": 11.99
+  },
+  {
+   "id": 5,
+   "wer": "forscher-sparsam",
+   "op": "numeric_construction",
+   "args": {
+    "group": "S5",
+    "alphabet": "all",
+    "construction": "so3",
+    "twist": "none"
+   },
+   "ergebnis": {
+    "fehler": "ValueError: no SO(3) model stored for S5"
+   },
+   "sek": 0.01
+  },
+  {
+   "id": 6,
+   "wer": "forscher-sparsam",
+   "op": "numeric_construction",
+   "args": {
+    "group": "S5",
+    "alphabet": "all",
+    "construction": "planar",
+    "twist": "none"
+   },
+   "ergebnis": {
+    "fehler": "ValueError: planar model inconsistent"
+   },
+   "sek": 0.01
+  },
+  {
+   "id": 7,
+   "wer": "forscher-sparsam",
+   "op": "train_quick",
+   "args": {
+    "arch": "hh3",
+    "group": "S5",
+    "alphabet": "all",
+    "steps": 1500
+   },
+   "ergebnis": {
+    "acc_len32": 0.0387,
+    "acc_len128_pos65-128": 0.00903,
+    "steps": 1500,
+    "hinweis": "single seed, observed, noisy"
+   },
+   "sek": 158.69
+  },
+  {
+   "id": 8,
+   "wer": "forscher-sparsam",
+   "op": "train_quick",
+   "args": {
+    "arch": "hh2",
+    "group": "S5",
+    "alphabet": "all",
+    "steps": 1500
+   },
+   "ergebnis": {
+    "acc_len32": 0.03998,
+    "acc_len128_pos65-128": 0.00839,
+    "steps": 1500,
+    "hinweis": "single seed, observed, noisy"
+   },
+   "sek": 65.93
+  },
+  {
+   "id": 9,
+   "wer": "forscher-sparsam",
+   "op": "train_quick",
+   "args": {
+    "arch": "hh4",
+    "group": "S5",
+    "alphabet": "all",
+    "steps": 1500
+   },
+   "ergebnis": {
+    "acc_len32": 0.03925,
+    "acc_len128_pos65-128": 0.00912,
+    "steps": 1500,
+    "hinweis": "single seed, observed, noisy"
+   },
+   "sek": 181.1
+  },
+  {
+   "id": 10,
+   "wer": "forscher-sparsam",
+   "op": "numeric_construction",
+   "args": {
+    "group": "S5",
+    "alphabet": "all",
+    "construction": "count",
+    "twist": "none"
+   },
+   "ergebnis": {
+    "fehler": "ValueError: count cover needs an abelian group"
+   },
+   "sek": 0.0
+  }
+ ],
+ "sek": 560.4
+}

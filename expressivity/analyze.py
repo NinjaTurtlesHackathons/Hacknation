@@ -29,8 +29,14 @@ DISC = [("D1", ("hh1", "A5", "involutions"), ("hh1", "A5", "all")),
 PREDICTORS = ["ALG", "B1_circuit", "B2_abelian", "B3_size", "B4_perm_law", "B5_faithful"]
 
 
+# Primary outcome taken from the MPS runner log because the per-seed MPS file was overwritten by the CPU pool (prereg addendum 07:00)
+LOG_PRIMARY = {("hh1", "Z2", "all"): 18, ("diag_pos", "Z2", "all"): 0}
+REPL = "expressivity/results/confirmatory_mps_replication"; DUP = "expressivity/results/confirmatory_cpu_duplicates"
+
+
 def load(arch, g, a, rnd=False):
     p = path(arch, g, a, rnd)
+    if (arch, g, a) in LOG_PRIMARY and not rnd: return None if not os.path.exists(p) else {"_log_only": True, **json.load(open(p))}
     return json.load(open(p)) if os.path.exists(p) else None
 
 
@@ -45,11 +51,18 @@ def main():
         for arch in ARCHS:
             r = load(arch, g, a)
             if r is None: missing.append((arch, g, a)); continue
+            if r.get("_log_only"):
+                s1 = LOG_PRIMARY[(arch, g, a)]
+                cells.append({"arch": arch, "group": g, "alphabet": a, "succ_primary": s1, "succ_secondary": None, "n": 20, "outcome": s1 >= MIN_SEEDS,
+                              "mean_primary": None, "median_primary": None, "mean_secondary": None, "mean_indist": None, "indist_success": None,
+                              "chance": r["chance"], "pred": pred[(arch, g, a)], "device": "mps", "source": "MPS runner log (per-seed values overwritten)"})
+                continue
             s1 = successes(r); s2 = successes(r, SECONDARY)
             cells.append({"arch": arch, "group": g, "alphabet": a, "succ_primary": s1, "succ_secondary": s2, "n": len(r[PRIMARY]),
                           "outcome": s1 >= MIN_SEEDS, "mean_primary": float(np.mean(r[PRIMARY])), "median_primary": float(np.median(r[PRIMARY])),
                           "mean_secondary": float(np.mean(r[SECONDARY])), "mean_indist": float(np.mean(r[INDIST])),
-                          "indist_success": int(sum(x >= THRESH for x in r[INDIST])), "chance": r["chance"], "pred": pred[(arch, g, a)]})
+                          "indist_success": int(sum(x >= THRESH for x in r[INDIST])), "chance": r["chance"], "pred": pred[(arch, g, a)],
+                          "device": r.get("device", "cpu"), "source": "result file"})
     acc = {}
     for P in PREDICTORS:
         det = [c for c in cells if c["pred"]["ALG"] is not None]
@@ -62,6 +75,10 @@ def main():
             table = [[ca["succ_primary"], ca["n"] - ca["succ_primary"]], [cb["succ_primary"], cb["n"] - cb["succ_primary"]]]
             p = fisher_exact(table, alternative="greater")[1]
             ra, rb = load(*A), load(*B)
+            if ra.get("_log_only") or rb.get("_log_only"):
+                tests.append({"test": name, "cell": A, "control": B, "succ": [ca["succ_primary"], cb["succ_primary"]], "p": float(p),
+                              "paired_perm_p": None, "acc_ratio": None, "acc_ratio_ci95": None, "note": "per-seed values unavailable for one cell"})
+                continue
             # project mandatory check 1 (reported, not the preregistered decision test): paired sign-flip permutation test on the
             # per-seed accuracies (same seeds 1000-1019 in both cells) and a paired bootstrap 95% CI of the ratio of mean accuracies
             pp = perm_p([-x for x in ra[PRIMARY]], [-x for x in rb[PRIMARY]])     # H1: accuracy in A > accuracy in B
@@ -106,12 +123,28 @@ def main():
     ex2["success"] = bool(len(tE) == 3 and tE["E1"]["bh_reject"] and tE["E2"]["bh_reject"] and
                           all(c2[(x, g, a)]["outcome"] for x, g, a in [("hh2", "A5", "c3c5"), ("hh2", "S4", "tn")] if (x, g, a) in c2) and
                           ("hh2", "A5", "c3c5") in c2 and ("hh2", "S4", "tn") in c2)
+    # additional reports (prereg addendum 07:00): BH over all 12 tests; CLAUDE.md criterion per comparison; device replication
+    allt = tests + ex2["tests"]
+    rj, ad = bh([t["p"] for t in allt], q=0.1)
+    for t, r_, a_ in zip(allt, rj, ad): t["bh_all_reject"] = bool(r_); t["p_bh_all"] = float(a_)
+    for t in allt:
+        if t.get("paired_perm_p") is not None:
+            t["claude_md_criterion"] = bool(t["paired_perm_p"] < 0.05 and t["acc_ratio_ci95"][0] > 1)
+    repl = []
+    for f in sorted(os.listdir(REPL)) if os.path.isdir(REPL) else []:
+        if not f.endswith(".json"): continue
+        a_, g_, al_ = f[:-5].split("__"); g_ = g_.replace("p", "^") if g_.startswith("Z2p") else g_
+        mps = json.load(open(f"{REPL}/{f}")); cpu = json.load(open(f"{DUP}/{f}")) if os.path.exists(f"{DUP}/{f}") else None
+        repl.append({"arch": a_, "group": g_, "alphabet": al_, "mps_succ": successes(mps), "cpu_succ": successes(cpu) if cpu else None})
+    for (a_, g_, al_), v in LOG_PRIMARY.items():
+        f = f"{a_}__{g_}__{al_}.json"; cpu = json.load(open(f"{DUP}/{f}")) if os.path.exists(f"{DUP}/{f}") else None
+        repl.append({"arch": a_, "group": g_, "alphabet": al_, "mps_succ": v, "cpu_succ": successes(cpu) if cpu else None, "mps_source": "runner log"})
     alg = acc["ALG"]["correct"]
     gate_acc = all(alg > acc[P]["correct"] for P in PREDICTORS[1:])
     disc_ok = all(t["bh_reject"] for t in tests if t["test"].startswith("D")) and len([t for t in tests if t["test"].startswith("D")]) == 6
     nc_ok = all(n["succ"] == 0 for n in neg) and all(not t["bh_reject"] for t in tests if t.get("negative_control"))
     out = {"criteria": {"threshold": THRESH, "min_seeds": MIN_SEEDS, "primary": PRIMARY, "secondary": SECONDARY},
-           "cells": cells, "missing": missing, "accuracy": acc, "tests": tests, "negative_control": neg, "H-EX2": ex2,
+           "cells": cells, "missing": missing, "accuracy": acc, "tests": tests, "negative_control": neg, "H-EX2": ex2, "replication_mps_vs_cpu": repl,
            "gates": {"H-EX1.1_accuracy_beats_all_baselines": gate_acc, "H-EX1.2_discriminating_tests_BH": disc_ok,
                      "negative_control_clean": nc_ok, "H-EX1_success": gate_acc and disc_ok and nc_ok}}
     json.dump(out, open("expressivity/results/confirmatory.json", "w"), indent=1, default=str)

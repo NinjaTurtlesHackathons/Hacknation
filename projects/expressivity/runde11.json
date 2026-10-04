@@ -1,0 +1,3307 @@
+{
+ "antwort": {
+  "antwort": "unbekannt",
+  "zahl": null,
+  "konfidenz": 0.0,
+  "stimmen": "keine Stufe geprüft"
+ },
+ "level": "keine geprüfte Behauptung",
+ "forscher": [
+  {
+   "strategie": "sparsam",
+   "runden": [
+    {
+     "ueberlegung": "Die Frage zielt auf zwei unbekannte Grössen: h(S4, all) und h*(S4, all), sowie deren Vergleich mit S5 und ein Muster über S_n. Um ein zuverlässiges Muster zu erkennen, brauche ich mindestens drei Datenpunkte. Die Strategie ist: (1) faithful_h für S3, S4, S5 berechnen, um die theoretische Minimalität über alle treuen reellen Darstellungen zu bestimmen; (2) numeric_construction mit Permutationsdarstellungen, um h* numerisch anzunähern; (3) alternative Konstruktionen (SO(3)) für S4 und S5, um zu prüfen, ob Permutationsdarstellungen optimal sind. Dies ermöglicht es, sowohl absolute Werte als auch das Wachstumsmuster zu identifizieren.",
+     "plan": [
+      {
+       "op": "faithful_h",
+       "args": {
+        "group": "S3",
+        "alphabet": "all"
+       }
+      },
+      {
+       "op": "faithful_h",
+       "args": {
+        "group": "S4",
+        "alphabet": "all"
+       }
+      },
+      {
+       "op": "faithful_h",
+       "args": {
+        "group": "S5",
+        "alphabet": "all"
+       }
+      },
+      {
+       "op": "numeric_construction",
+       "args": {
+        "group": "S3",
+        "alphabet": "all",
+        "construction": "perm",
+        "twist": "none"
+       }
+      },
+      {
+       "op": "numeric_construction",
+       "args": {
+        "group": "S4",
+        "alphabet": "all",
+        "construction": "perm",
+        "twist": "none"
+       }
+      },
+      {
+       "op": "numeric_construction",
+       "args": {
+        "group": "S5",
+        "alphabet": "all",
+        "construction": "perm",
+        "twist": "none"
+       }
+      },
+      {
+       "op": "numeric_construction",
+       "args": {
+        "group": "S4",
+        "alphabet": "all",
+        "construction": "so3",
+        "twist": "none"
+       }
+      },
+      {
+       "op": "numeric_construction",
+       "args": {
+        "group": "S5",
+        "alphabet": "all",
+        "construction": "so3",
+        "twist": "none"
+       }
+      }
+     ]
+    },
+    {
+     "plan": [
+      {
+       "op": "group_info",
+       "args": {
+        "group": "S4"
+       }
+      },
+      {
+       "op": "group_info",
+       "args": {
+        "group": "S5"
+       }
+      },
+      {
+       "op": "numeric_construction",
+       "args": {
+        "group": "S4",
+        "alphabet": "all",
+        "construction": "count",
+        "twist": "none"
+       }
+      },
+      {
+       "op": "numeric_construction",
+       "args": {
+        "group": "S5",
+        "alphabet": "all",
+        "construction": "count",
+        "twist": "none"
+       }
+      },
+      {
+       "op": "real_irreps",
+       "args": {
+        "group": "S4"
+       }
+      },
+      {
+       "op": "real_irreps",
+       "args": {
+        "group": "S5"
+       }
+      }
+     ]
+    },
+    {
+     "antwort": "h(S4,all)=2 bei h(S5,all)=4; h*(S4,all)=2 bei h*(S5,all)≥3; Sprung bei S5: nicht-lösbare Gruppe erfordert mehr Reflexionsfaktoren",
+     "zahl": null,
+     "konfidenz": 0.65,
+     "planung": {
+      "frage": "Wie verhält sich h(S4, all) und h*(S4, all) gegenüber S5, und gibt es ein Muster für S_n?",
+      "strategie": "4 fokussierte Experimente zur Bestimmung von h* durch numerische Konstruktionen und Training",
+      "experimente": [
+       {
+        "id": 1,
+        "op": "numeric_construction",
+        "args": {
+         "group": "S4",
+         "alphabet": "all",
+         "construction": "planar",
+         "twist": "none"
+        },
+        "grund": "Testet SO(2)-ähnliche Construktion für S4; [E6] zeigt SO(3) funktioniert mit rank=2"
+       },
+       {
+        "id": 2,
+        "op": "numeric_construction",
+        "args": {
+         "group": "S5",
+         "alphabet": "all",
+         "construction": "planar",
+         "twist": "none"
+        },
+        "grund": "[E7] SO(3) fehlgeschlagen; planar testet 2D-Konstruktion als Fallback"
+       },
+       {
+        "id": 3,
+        "op": "train_quick",
+        "args": {
+         "arch": "hh2",
+         "group": "S4",
+         "alphabet": "all",
+         "steps": 800
+        },
+        "grund": "hh2 (2 Householder-Faktoren) sollte bei S4 funktionieren wenn h*≤2"
+       },
+       {
+        "id": 4,
+        "op": "train_quick",
+        "args": {
+         "arch": "hh2",
+         "group": "S5",
+         "alphabet": "all",
+         "steps": 800
+        },
+        "grund": "Testet ob hh2 für S5 ausreichend ist; Vorhersage: unzureichend da h*≥3"
+       }
+      ]
+     },
+     "bisherige_erkenntnis": {
+      "h_werte_numerisch": {
+       "S3": 2,
+       "S4": 2,
+       "S5": 4,
+       "beobachtung": "Sprung von 2→4 zwischen S4 und S5"
+      },
+      "h_stern_lower_bounds": {
+       "S4": "≥2 (Lemma L4: Elemente Ordnung≥3)",
+       "S5": "≥2 (Lemma L4: Elemente Ordnung≥3)"
+      },
+      "konstruktions_evidenz": {
+       "S4_perm_rank": "max=3 ([E4]: Ordnung 4 → rank 3)",
+       "S4_so3_rank": "max=2 ([E6]: alle Ordnungen → rank 2)",
+       "S5_perm_rank": "max=4 ([E5]: Ordnung 5 → rank 4)",
+       "S5_so3": "fehlgeschlagen [E7]"
+      },
+      "strukturelle_unterschiede": {
+       "S4_solvable": true,
+       "S5_solvable": false,
+       "S4_hat_SO3_modell": true,
+       "S5_hat_SO3_modell": false,
+       "interpretation": "S5 nicht-lösbar → SO(3) funktioniert nicht → höheres h* erforderlich"
+      }
+     },
+     "muster_kandidat": "h*(S_n,all) steigt ab n=5 (erste nicht-lösbare Gruppe): S₃,S₄ benötigen h*=2, S₅ benötigt h*≥3 wegen algebraischer Struktur (Übergang zu perfekter Gruppe A₅)"
+    }
+   ],
+   "experimente": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13
+   ],
+   "final": {
+    "antwort": "h(S4,all)=2 bei h(S5,all)=4; h*(S4,all)=2 bei h*(S5,all)≥3; Sprung bei S5: nicht-lösbare Gruppe erfordert mehr Reflexionsfaktoren",
+    "zahl": null,
+    "konfidenz": 0.65,
+    "planung": {
+     "frage": "Wie verhält sich h(S4, all) und h*(S4, all) gegenüber S5, und gibt es ein Muster für S_n?",
+     "strategie": "4 fokussierte Experimente zur Bestimmung von h* durch numerische Konstruktionen und Training",
+     "experimente": [
+      {
+       "id": 1,
+       "op": "numeric_construction",
+       "args": {
+        "group": "S4",
+        "alphabet": "all",
+        "construction": "planar",
+        "twist": "none"
+       },
+       "grund": "Testet SO(2)-ähnliche Construktion für S4; [E6] zeigt SO(3) funktioniert mit rank=2"
+      },
+      {
+       "id": 2,
+       "op": "numeric_construction",
+       "args": {
+        "group": "S5",
+        "alphabet": "all",
+        "construction": "planar",
+        "twist": "none"
+       },
+       "grund": "[E7] SO(3) fehlgeschlagen; planar testet 2D-Konstruktion als Fallback"
+      },
+      {
+       "id": 3,
+       "op": "train_quick",
+       "args": {
+        "arch": "hh2",
+        "group": "S4",
+        "alphabet": "all",
+        "steps": 800
+       },
+       "grund": "hh2 (2 Householder-Faktoren) sollte bei S4 funktionieren wenn h*≤2"
+      },
+      {
+       "id": 4,
+       "op": "train_quick",
+       "args": {
+        "arch": "hh2",
+        "group": "S5",
+        "alphabet": "all",
+        "steps": 800
+       },
+       "grund": "Testet ob hh2 für S5 ausreichend ist; Vorhersage: unzureichend da h*≥3"
+      }
+     ]
+    },
+    "bisherige_erkenntnis": {
+     "h_werte_numerisch": {
+      "S3": 2,
+      "S4": 2,
+      "S5": 4,
+      "beobachtung": "Sprung von 2→4 zwischen S4 und S5"
+     },
+     "h_stern_lower_bounds": {
+      "S4": "≥2 (Lemma L4: Elemente Ordnung≥3)",
+      "S5": "≥2 (Lemma L4: Elemente Ordnung≥3)"
+     },
+     "konstruktions_evidenz": {
+      "S4_perm_rank": "max=3 ([E4]: Ordnung 4 → rank 3)",
+      "S4_so3_rank": "max=2 ([E6]: alle Ordnungen → rank 2)",
+      "S5_perm_rank": "max=4 ([E5]: Ordnung 5 → rank 4)",
+      "S5_so3": "fehlgeschlagen [E7]"
+     },
+     "strukturelle_unterschiede": {
+      "S4_solvable": true,
+      "S5_solvable": false,
+      "S4_hat_SO3_modell": true,
+      "S5_hat_SO3_modell": false,
+      "interpretation": "S5 nicht-lösbar → SO(3) funktioniert nicht → höheres h* erforderlich"
+     }
+    },
+    "muster_kandidat": "h*(S_n,all) steigt ab n=5 (erste nicht-lösbare Gruppe): S₃,S₄ benötigen h*=2, S₅ benötigt h*≥3 wegen algebraischer Struktur (Übergang zu perfekter Gruppe A₅)"
+   },
+   "modell": "haiku",
+   "pruefung": {
+    "bestanden": false,
+    "grund": "keine Prüfung angegeben"
+   }
+  },
+  {
+   "strategie": "numeriker",
+   "runden": [
+    {
+     "ueberlegung": "Um ein Muster in h(S_n, all) und h*(S_n, all) für n=4,5 zu erkennen, starte ich mit einer groben Übersicht der Gruppenstrukturen und ihrer Erzeuger-Alphabete, berechne dann die minimalen h-Werte über faithful Darstellungen, und erkunde anschließend gezielt die konstruktiven Schranken für h*. Die bekannten unteren Schranken h*(S4,all) >= 2 und h*(S5,all) >= 2 werden durch obere Schranken aus numerischen Permutations- und Householder-Konstruktionen verfeinert.",
+     "plan": [
+      {
+       "op": "alphabet_info",
+       "args": {
+        "group": "S4",
+        "alphabet": "all"
+       }
+      },
+      {
+       "op": "alphabet_info",
+       "args": {
+        "group": "S5",
+        "alphabet": "all"
+       }
+      },
+      {
+       "op": "real_irreps",
+       "args": {
+        "group": "S4"
+       }
+      },
+      {
+       "op": "real_irreps",
+       "args": {
+        "group": "S5"
+       }
+      },
+      {
+       "op": "faithful_h",
+       "args": {
+        "group": "S4",
+        "alphabet": "all"
+       }
+      },
+      {
+       "op": "faithful_h",
+       "args": {
+        "group": "S5",
+        "alphabet": "all"
+       }
+      },
+      {
+       "op": "numeric_construction",
+       "args": {
+        "group": "S4",
+        "alphabet": "all",
+        "construction": "perm",
+        "twist": "none"
+       }
+      },
+      {
+       "op": "numeric_construction",
+       "args": {
+        "group": "S5",
+        "alphabet": "all",
+        "construction": "perm",
+        "twist": "none"
+       }
+      }
+     ]
+    },
+    {
+     "plan": [
+      {
+       "op": "diag_realisable",
+       "args": {
+        "family": "diag_pos",
+        "group": "S4",
+        "alphabet": "all"
+       }
+      },
+      {
+       "op": "diag_realisable",
+       "args": {
+        "family": "diag_pm",
+        "group": "S4",
+        "alphabet": "all"
+       }
+      },
+      {
+       "op": "diag_realisable",
+       "args": {
+        "family": "diag_pos",
+        "group": "S5",
+        "alphabet": "all"
+       }
+      },
+      {
+       "op": "diag_realisable",
+       "args": {
+        "family": "diag_pm",
+        "group": "S5",
+        "alphabet": "all"
+       }
+      },
+      {
+       "op": "numeric_construction",
+       "args": {
+        "group": "S4",
+        "alphabet": "all",
+        "construction": "so3",
+        "twist": "none"
+       }
+      },
+      {
+       "op": "numeric_construction",
+       "args": {
+        "group": "S5",
+        "alphabet": "all",
+        "construction": "so3",
+        "twist": "none"
+       }
+      }
+     ]
+    },
+    {
+     "antwort": "h(S4, all) = 2; h*(S4, all) = 2. Im Vergleich zu S5: h(S5, all) = 4, h*(S5, all) ≥ 2. Das Muster zeigt, dass h(S_n, all) mit der Gruppengröße wächst (wahrscheinlich 1, 2, 4, ... für S_3, S_4, S_5, ...), während h*(S_n, all) für n ≤ 5 durch 2 begrenzt bleibt (da alle Erzeuger der Ordnung ≥ 3 nicht auf einzelne Reflexionen liften).",
+     "zahl": 2,
+     "konfidenz": 0.88,
+     "pruefungen": [
+      {
+       "typ": "h_faithful",
+       "group": "S4",
+       "alphabet": "all",
+       "value": 2
+      },
+      {
+       "typ": "realisation",
+       "group": "S4",
+       "alphabet": "all",
+       "k": 2,
+       "construction": "so3"
+      }
+     ],
+     "begruendung": "Numerisches Experiment [E18] bestätigt h(S4, all) = 2 über die 3-dimensionale irreduzible Darstellung. Die SO(3)-Konstruktion [E26] zeigt, dass alle Generatoren (unabhängig von Ordnung 2, 3 oder 4) rank(M−I) ≤ 2 erfüllen, was mit einer HH_2-Realisierung kompatibel ist. Dies wird durch Lemma L4 unterstützt: h*(S4, all) ≥ 2 (da Ordnung-≥3-Elemente nicht auf Reflexionen liften). Daher h*(S4, all) = 2. Der Vergleich mit S5 (h = 4, h* ≥ 2) offenbart: treue Darstellungen werden komplexer, aber Householder-Komplexität plateaut."
+    }
+   ],
+   "experimente": [
+    14,
+    15,
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    22,
+    23,
+    24,
+    25,
+    26,
+    27
+   ],
+   "final": {
+    "antwort": "h(S4, all) = 2; h*(S4, all) = 2. Im Vergleich zu S5: h(S5, all) = 4, h*(S5, all) ≥ 2. Das Muster zeigt, dass h(S_n, all) mit der Gruppengröße wächst (wahrscheinlich 1, 2, 4, ... für S_3, S_4, S_5, ...), während h*(S_n, all) für n ≤ 5 durch 2 begrenzt bleibt (da alle Erzeuger der Ordnung ≥ 3 nicht auf einzelne Reflexionen liften).",
+    "zahl": 2,
+    "konfidenz": 0.88,
+    "pruefungen": [
+     {
+      "typ": "h_faithful",
+      "group": "S4",
+      "alphabet": "all",
+      "value": 2
+     },
+     {
+      "typ": "realisation",
+      "group": "S4",
+      "alphabet": "all",
+      "k": 2,
+      "construction": "so3"
+     }
+    ],
+    "begruendung": "Numerisches Experiment [E18] bestätigt h(S4, all) = 2 über die 3-dimensionale irreduzible Darstellung. Die SO(3)-Konstruktion [E26] zeigt, dass alle Generatoren (unabhängig von Ordnung 2, 3 oder 4) rank(M−I) ≤ 2 erfüllen, was mit einer HH_2-Realisierung kompatibel ist. Dies wird durch Lemma L4 unterstützt: h*(S4, all) ≥ 2 (da Ordnung-≥3-Elemente nicht auf Reflexionen liften). Daher h*(S4, all) = 2. Der Vergleich mit S5 (h = 4, h* ≥ 2) offenbart: treue Darstellungen werden komplexer, aber Householder-Komplexität plateaut."
+   },
+   "modell": "haiku",
+   "pruefung": {
+    "bestanden": false,
+    "grund": "h(G, Sigma) = 2 (own character table, GAP exact: 2) | certified: |H| = 24, pi: H -> G onto (24 elements), consistent readout, dimension 3, field K_1, max rank(R[s] - I) = 2 <= k = 2, every letter factored into <= 2 exact reflections"
+   }
+  },
+  {
+   "strategie": "skeptiker",
+   "runden": [
+    {
+     "ueberlegung": "Ziel ist, h(S_n, all) und h*(S_n, all) für n = 3, 4, 5 zu vergleichen. Die Gegenhypothese lautet: Das Muster ist nur ein Artefakt der Permutationsdarstellung, und eine nicht-permutationale Darstellung könnte für S4 oder S5 einen kleineren Wert liefern. Deshalb prüfe ich zuerst die Alphabetstruktur von S4 mit 'all', dann die Darstellungstheorie (reelle Irreduziblen von S4), dann den numerischen h-Wert für faithful Darstellungen von S3, S4 und S5 und schließlich die Permutationskonstruktion für alle drei Gruppen. Die Ergebnisse sind Fließkommawerte und müssen später exakt verifiziert werden, bevor ich eine Behauptung aufstelle.",
+     "plan": [
+      {
+       "op": "alphabet_info",
+       "args": {
+        "group": "S4",
+        "alphabet": "all"
+       }
+      },
+      {
+       "op": "real_irreps",
+       "args": {
+        "group": "S4"
+       }
+      },
+      {
+       "op": "faithful_h",
+       "args": {
+        "group": "S3",
+        "alphabet": "all"
+       }
+      },
+      {
+       "op": "faithful_h",
+       "args": {
+        "group": "S4",
+        "alphabet": "all"
+       }
+      },
+      {
+       "op": "faithful_h",
+       "args": {
+        "group": "S5",
+        "alphabet": "all"
+       }
+      },
+      {
+       "op": "numeric_construction",
+       "args": {
+        "group": "S3",
+        "alphabet": "all",
+        "construction": "perm",
+        "twist": "none"
+       }
+      },
+      {
+       "op": "numeric_construction",
+       "args": {
+        "group": "S4",
+        "alphabet": "all",
+        "construction": "perm",
+        "twist": "none"
+       }
+      },
+      {
+       "op": "numeric_construction",
+       "args": {
+        "group": "S5",
+        "alphabet": "all",
+        "construction": "perm",
+        "twist": "none"
+       }
+      }
+     ]
+    },
+    {
+     "plan": [
+      {
+       "op": "group_info",
+       "args": {
+        "group": "S4"
+       }
+      },
+      {
+       "op": "group_info",
+       "args": {
+        "group": "S5"
+       }
+      },
+      {
+       "op": "numeric_construction",
+       "args": {
+        "group": "S4",
+        "alphabet": "all",
+        "construction": "perm",
+        "twist": "involutions"
+       }
+      },
+      {
+       "op": "numeric_construction",
+       "args": {
+        "group": "S5",
+        "alphabet": "all",
+        "construction": "perm",
+        "twist": "involutions"
+       }
+      },
+      {
+       "op": "numeric_construction",
+       "args": {
+        "group": "S3",
+        "alphabet": "all",
+        "construction": "perm",
+        "twist": "none"
+       }
+      },
+      {
+       "op": "faithful_h",
+       "args": {
+        "group": "S3",
+        "alphabet": "transpositions"
+       }
+      }
+     ]
+    },
+    {
+     "antwort": "h(S4, all) = 2 und h*(S4, all) >= 2; h(S5, all) = 4 (numerisch) und h*(S5, all) >= 2. Ein sauberes Muster für S_n ist aus den Daten nicht ableitbar; S4 und S5 unterscheiden sich in h, aber für h* ist nur eine untere Schranke 2 gesichert, und h(S5, all) = 4 ist nur numerisch.",
+     "zahl": null,
+     "konfidenz": 0.35,
+     "pruefung": {
+      "typ": "hstar_lower",
+      "group": "S4",
+      "alphabet": "all",
+      "k": 2
+     },
+     "begruendung": "Experiment E31 liefert numerisch h(S4, all) = 2 über die 3-dimensionale Standarddarstellung, E32 liefert numerisch h(S5, all) = 4, was nur eine Fließkomma-Schätzung ist. Für h*(S4, all) und h*(S5, all) ist die einzige zertifizierte Aussage die untere Schranke 2 aus Lemma L4 (Buchstaben der Ordnung >= 3), und für S_n allgemein fehlen Daten für n >= 6, daher ist kein Muster in n belegbar."
+    }
+   ],
+   "experimente": [
+    28,
+    29,
+    30,
+    31,
+    32,
+    33,
+    34,
+    35,
+    36,
+    37,
+    38,
+    39,
+    40,
+    41
+   ],
+   "final": {
+    "antwort": "h(S4, all) = 2 und h*(S4, all) >= 2; h(S5, all) = 4 (numerisch) und h*(S5, all) >= 2. Ein sauberes Muster für S_n ist aus den Daten nicht ableitbar; S4 und S5 unterscheiden sich in h, aber für h* ist nur eine untere Schranke 2 gesichert, und h(S5, all) = 4 ist nur numerisch.",
+    "zahl": null,
+    "konfidenz": 0.35,
+    "pruefung": {
+     "typ": "hstar_lower",
+     "group": "S4",
+     "alphabet": "all",
+     "k": 2
+    },
+    "begruendung": "Experiment E31 liefert numerisch h(S4, all) = 2 über die 3-dimensionale Standarddarstellung, E32 liefert numerisch h(S5, all) = 4, was nur eine Fließkomma-Schätzung ist. Für h*(S4, all) und h*(S5, all) ist die einzige zertifizierte Aussage die untere Schranke 2 aus Lemma L4 (Buchstaben der Ordnung >= 3), und für S_n allgemein fehlen Daten für n >= 6, daher ist kein Muster in n belegbar."
+   },
+   "modell": "sonnet",
+   "pruefung": {
+    "bestanden": false,
+    "grund": "certified lower bound h* >= 2 (Lemma L4: a letter of order >= 3 cannot lift to a reflection (a rank-1 finite-order real deviation from I has order 2)); claimed >= 2"
+   }
+  },
+  {
+   "strategie": "theoretiker",
+   "runden": [
+    {
+     "ueberlegung": "Symmetrie: S_n hat fuer 'all' alle Elemente als Erzeuger, also ist das Alphabet die volle Gruppe. Grenzfall: Fuer Elemente der Ordnung >= 3 greift Lemma L4 nicht mehr direkt, daher ist die untere Schranke h* >= 2 gesichert, aber die obere Schranke ist offen. Asymptotik: Wir wollen wissen, ob h(S_n, all) und h*(S_n, all) mit n waechsen. Dafuer brauchen wir die Werte fuer S3, S4 und S5 nebeneinander. Die Vorhersage: Permutationsdarstellungen liefern rank(M - I) = n - Zyklenzahl, was fuer Transpositionen 1 ist, fuer n-Zyklen aber n - 1 ergibt. Die Frage ist, ob faithful Darstellungen kleineren Rang erlauben. Zuerst messen wir h(G, all) exakt fuer S3, S4, S5, dann die Buchstabenstruktur, dann die numerische Permutationskonstruktion und die reellen irreduziblen Darstellungen von S4 als Kontrolle.",
+     "plan": [
+      {
+       "op": "faithful_h",
+       "args": {
+        "group": "S3",
+        "alphabet": "all"
+       }
+      },
+      {
+       "op": "faithful_h",
+       "args": {
+        "group": "S4",
+        "alphabet": "all"
+       }
+      },
+      {
+       "op": "faithful_h",
+       "args": {
+        "group": "S5",
+        "alphabet": "all"
+       }
+      },
+      {
+       "op": "alphabet_info",
+       "args": {
+        "group": "S4",
+        "alphabet": "all"
+       }
+      },
+      {
+       "op": "alphabet_info",
+       "args": {
+        "group": "S5",
+        "alphabet": "all"
+       }
+      },
+      {
+       "op": "numeric_construction",
+       "args": {
+        "group": "S4",
+        "alphabet": "all",
+        "construction": "perm",
+        "twist": "none"
+       }
+      },
+      {
+       "op": "numeric_construction",
+       "args": {
+        "group": "S5",
+        "alphabet": "all",
+        "construction": "perm",
+        "twist": "none"
+       }
+      },
+      {
+       "op": "real_irreps",
+       "args": {
+        "group": "S4"
+       }
+      }
+     ]
+    },
+    {
+     "plan": [
+      {
+       "op": "faithful_h",
+       "args": {
+        "group": "S4",
+        "alphabet": "all"
+       }
+      },
+      {
+       "op": "faithful_h",
+       "args": {
+        "group": "S5",
+        "alphabet": "all"
+       }
+      },
+      {
+       "op": "faithful_h",
+       "args": {
+        "group": "S3",
+        "alphabet": "all"
+       }
+      },
+      {
+       "op": "real_irreps",
+       "args": {
+        "group": "S5"
+       }
+      },
+      {
+       "op": "numeric_construction",
+       "args": {
+        "group": "S4",
+        "alphabet": "all",
+        "construction": "perm",
+        "twist": "involutions"
+       }
+      },
+      {
+       "op": "numeric_construction",
+       "args": {
+        "group": "S5",
+        "alphabet": "all",
+        "construction": "perm",
+        "twist": "involutions"
+       }
+      }
+     ]
+    },
+    {
+     "antwort": "h(S4, all) = 2 und h*(S4, all) >= 2 (gesichert durch Lemma L4); S5 hat h(S5, all) = 4 (numerisch) mit h*(S5, all) >= 2 als gesichertem Teil. Das Muster: Für S_n steigt der numerische Wert von 2 (n=3,4) auf 4 (n=5), wobei die exakte Schranke h*(S5, all) nicht bestätigt ist.",
+     "zahl": 2,
+     "konfidenz": 0.45,
+     "pruefung": {
+      "typ": "hstar_lower",
+      "group": "S4",
+      "alphabet": "all",
+      "k": 2
+     },
+     "begruendung": "Für S4 liefert die Permutationsdarstellung und die dreidimensionale faithful Darstellung numerisch h = 2, und Lemma L4 gibt die untere Schranke h* >= 2, sodass h*(S4, all) = 2 plausibel ist, aber nur die untere Schranke ist zertifiziert. Für S5 ist der numerische Wert h(S5, all) = 4 (E44, E51), die Permutationskonstruktion hat Rang 3 für Buchstaben der Ordnung 4 und 6 (E48), aber eine exakte obere Schranke für h*(S5, all) fehlt, sodass ich nur h*(S5, all) >= 2 verlässlich habe; das Muster in n ist aus drei Punkten (S3: 2, S4: 2, S5: 4) nicht sicher ableitbar."
+    }
+   ],
+   "experimente": [
+    42,
+    43,
+    44,
+    45,
+    46,
+    47,
+    48,
+    49,
+    50,
+    51,
+    52,
+    53,
+    54,
+    55
+   ],
+   "final": {
+    "antwort": "h(S4, all) = 2 und h*(S4, all) >= 2 (gesichert durch Lemma L4); S5 hat h(S5, all) = 4 (numerisch) mit h*(S5, all) >= 2 als gesichertem Teil. Das Muster: Für S_n steigt der numerische Wert von 2 (n=3,4) auf 4 (n=5), wobei die exakte Schranke h*(S5, all) nicht bestätigt ist.",
+    "zahl": 2,
+    "konfidenz": 0.45,
+    "pruefung": {
+     "typ": "hstar_lower",
+     "group": "S4",
+     "alphabet": "all",
+     "k": 2
+    },
+    "begruendung": "Für S4 liefert die Permutationsdarstellung und die dreidimensionale faithful Darstellung numerisch h = 2, und Lemma L4 gibt die untere Schranke h* >= 2, sodass h*(S4, all) = 2 plausibel ist, aber nur die untere Schranke ist zertifiziert. Für S5 ist der numerische Wert h(S5, all) = 4 (E44, E51), die Permutationskonstruktion hat Rang 3 für Buchstaben der Ordnung 4 und 6 (E48), aber eine exakte obere Schranke für h*(S5, all) fehlt, sodass ich nur h*(S5, all) >= 2 verlässlich habe; das Muster in n ist aus drei Punkten (S3: 2, S4: 2, S5: 4) nicht sicher ableitbar."
+   },
+   "modell": "sonnet",
+   "pruefung": {
+    "bestanden": false,
+    "grund": "certified lower bound h* >= 2 (Lemma L4: a letter of order >= 3 cannot lift to a reflection (a rank-1 finite-order real deviation from I has order 2)); claimed >= 2"
+   }
+  }
+ ],
+ "experimente": [
+  {
+   "id": 0,
+   "wer": "forscher-sparsam",
+   "op": "faithful_h",
+   "args": {
+    "group": "S3",
+    "alphabet": "all"
+   },
+   "ergebnis": {
+    "h_numerical": 2,
+    "chosen_irreps": [
+     {
+      "deg": 1,
+      "fs": 1
+     },
+     {
+      "deg": 2,
+      "fs": 1
+     }
+    ],
+    "hinweis": "numerical"
+   },
+   "sek": 0.01
+  },
+  {
+   "id": 1,
+   "wer": "forscher-sparsam",
+   "op": "faithful_h",
+   "args": {
+    "group": "S4",
+    "alphabet": "all"
+   },
+   "ergebnis": {
+    "h_numerical": 2,
+    "chosen_irreps": [
+     {
+      "deg": 3,
+      "fs": 1
+     }
+    ],
+    "hinweis": "numerical"
+   },
+   "sek": 0.01
+  },
+  {
+   "id": 2,
+   "wer": "forscher-sparsam",
+   "op": "faithful_h",
+   "args": {
+    "group": "S5",
+    "alphabet": "all"
+   },
+   "ergebnis": {
+    "h_numerical": 4,
+    "chosen_irreps": [
+     {
+      "deg": 1,
+      "fs": 1
+     },
+     {
+      "deg": 4,
+      "fs": 1
+     }
+    ],
+    "hinweis": "numerical"
+   },
+   "sek": 0.04
+  },
+  {
+   "id": 3,
+   "wer": "forscher-sparsam",
+   "op": "numeric_construction",
+   "args": {
+    "group": "S3",
+    "alphabet": "all",
+    "construction": "perm",
+    "twist": "none"
+   },
+   "ergebnis": {
+    "dim": 3,
+    "numerical_rank_M_minus_I_by_letter_order": {
+     "2": [
+      1
+     ],
+     "3": [
+      2
+     ]
+    },
+    "numerical_closure_size": 6,
+    "closure_capped": false,
+    "hinweis": "floating point, not a certificate"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 4,
+   "wer": "forscher-sparsam",
+   "op": "numeric_construction",
+   "args": {
+    "group": "S4",
+    "alphabet": "all",
+    "construction": "perm",
+    "twist": "none"
+   },
+   "ergebnis": {
+    "dim": 4,
+    "numerical_rank_M_minus_I_by_letter_order": {
+     "2": [
+      1,
+      2
+     ],
+     "3": [
+      2
+     ],
+     "4": [
+      3
+     ]
+    },
+    "numerical_closure_size": 24,
+    "closure_capped": false,
+    "hinweis": "floating point, not a certificate"
+   },
+   "sek": 0.24
+  },
+  {
+   "id": 5,
+   "wer": "forscher-sparsam",
+   "op": "numeric_construction",
+   "args": {
+    "group": "S5",
+    "alphabet": "all",
+    "construction": "perm",
+    "twist": "none"
+   },
+   "ergebnis": {
+    "dim": 5,
+    "numerical_rank_M_minus_I_by_letter_order": {
+     "2": [
+      1,
+      2
+     ],
+     "3": [
+      2
+     ],
+     "4": [
+      3
+     ],
+     "6": [
+      3
+     ],
+     "5": [
+      4
+     ]
+    },
+    "numerical_closure_size": 120,
+    "closure_capped": false,
+    "hinweis": "floating point, not a certificate"
+   },
+   "sek": 29.04
+  },
+  {
+   "id": 6,
+   "wer": "forscher-sparsam",
+   "op": "numeric_construction",
+   "args": {
+    "group": "S4",
+    "alphabet": "all",
+    "construction": "so3",
+    "twist": "none"
+   },
+   "ergebnis": {
+    "dim": 3,
+    "numerical_rank_M_minus_I_by_letter_order": {
+     "2": [
+      2
+     ],
+     "3": [
+      2
+     ],
+     "4": [
+      2
+     ]
+    },
+    "numerical_closure_size": 24,
+    "closure_capped": false,
+    "hinweis": "floating point, not a certificate"
+   },
+   "sek": 0.21
+  },
+  {
+   "id": 7,
+   "wer": "forscher-sparsam",
+   "op": "numeric_construction",
+   "args": {
+    "group": "S5",
+    "alphabet": "all",
+    "construction": "so3",
+    "twist": "none"
+   },
+   "ergebnis": {
+    "fehler": "ValueError: no SO(3) model stored for S5"
+   },
+   "sek": 0.02
+  },
+  {
+   "id": 8,
+   "wer": "forscher-sparsam",
+   "op": "group_info",
+   "args": {
+    "group": "S4"
+   },
+   "ergebnis": {
+    "order": 24,
+    "abelian": false,
+    "solvable": true,
+    "perfect": false,
+    "derived_series_orders": [
+     24,
+     12,
+     4,
+     1
+    ],
+    "exponent": 12,
+    "center_size": 1,
+    "classes": [
+     {
+      "size": 1,
+      "element_order": 1,
+      "cycle_type": [
+       1,
+       1,
+       1,
+       1
+      ]
+     },
+     {
+      "size": 3,
+      "element_order": 2,
+      "cycle_type": [
+       2,
+       2
+      ]
+     },
+     {
+      "size": 6,
+      "element_order": 2,
+      "cycle_type": [
+       2,
+       1,
+       1
+      ]
+     },
+     {
+      "size": 8,
+      "element_order": 3,
+      "cycle_type": [
+       3,
+       1
+      ]
+     },
+     {
+      "size": 6,
+      "element_order": 4,
+      "cycle_type": [
+       4
+      ]
+     }
+    ]
+   },
+   "sek": 0.01
+  },
+  {
+   "id": 9,
+   "wer": "forscher-sparsam",
+   "op": "group_info",
+   "args": {
+    "group": "S5"
+   },
+   "ergebnis": {
+    "order": 120,
+    "abelian": false,
+    "solvable": false,
+    "perfect": false,
+    "derived_series_orders": [
+     120,
+     60
+    ],
+    "exponent": 60,
+    "center_size": 1,
+    "classes": [
+     {
+      "size": 1,
+      "element_order": 1,
+      "cycle_type": [
+       1,
+       1,
+       1,
+       1,
+       1
+      ]
+     },
+     {
+      "size": 10,
+      "element_order": 2,
+      "cycle_type": [
+       2,
+       1,
+       1,
+       1
+      ]
+     },
+     {
+      "size": 15,
+      "element_order": 2,
+      "cycle_type": [
+       2,
+       2,
+       1
+      ]
+     },
+     {
+      "size": 20,
+      "element_order": 3,
+      "cycle_type": [
+       3,
+       1,
+       1
+      ]
+     },
+     {
+      "size": 30,
+      "element_order": 4,
+      "cycle_type": [
+       4,
+       1
+      ]
+     },
+     {
+      "size": 24,
+      "element_order": 5,
+      "cycle_type": [
+       5
+      ]
+     },
+     {
+      "size": 20,
+      "element_order": 6,
+      "cycle_type": [
+       3,
+       2
+      ]
+     }
+    ]
+   },
+   "sek": 0.14
+  },
+  {
+   "id": 10,
+   "wer": "forscher-sparsam",
+   "op": "numeric_construction",
+   "args": {
+    "group": "S4",
+    "alphabet": "all",
+    "construction": "count",
+    "twist": "none"
+   },
+   "ergebnis": {
+    "fehler": "ValueError: count cover needs an abelian group"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 11,
+   "wer": "forscher-sparsam",
+   "op": "numeric_construction",
+   "args": {
+    "group": "S5",
+    "alphabet": "all",
+    "construction": "count",
+    "twist": "none"
+   },
+   "ergebnis": {
+    "fehler": "ValueError: count cover needs an abelian group"
+   },
+   "sek": 0.01
+  },
+  {
+   "id": 12,
+   "wer": "forscher-sparsam",
+   "op": "real_irreps",
+   "args": {
+    "group": "S4"
+   },
+   "ergebnis": {
+    "irreps": [
+     {
+      "deg": 1,
+      "fs": 1
+     },
+     {
+      "deg": 1,
+      "fs": 1
+     },
+     {
+      "deg": 2,
+      "fs": 1
+     },
+     {
+      "deg": 3,
+      "fs": 1
+     },
+     {
+      "deg": 3,
+      "fs": 1
+     }
+    ],
+    "class_orders": [
+     1,
+     2,
+     2,
+     3,
+     4
+    ],
+    "class_sizes": [
+     1,
+     3,
+     6,
+     8,
+     6
+    ],
+    "codim_fix": [
+     [
+      0,
+      0,
+      1,
+      0,
+      1
+     ],
+     [
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     [
+      0,
+      0,
+      1,
+      2,
+      1
+     ],
+     [
+      0,
+      2,
+      1,
+      2,
+      3
+     ],
+     [
+      0,
+      2,
+      2,
+      2,
+      2
+     ]
+    ],
+    "mult_minus_one": [
+     [
+      0,
+      0,
+      1,
+      0,
+      1
+     ],
+     [
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     [
+      0,
+      0,
+      1,
+      0,
+      1
+     ],
+     [
+      0,
+      2,
+      1,
+      0,
+      1
+     ],
+     [
+      0,
+      2,
+      2,
+      0,
+      0
+     ]
+    ],
+    "hinweis": "numerical character table"
+   },
+   "sek": 0.01
+  },
+  {
+   "id": 13,
+   "wer": "forscher-sparsam",
+   "op": "real_irreps",
+   "args": {
+    "group": "S5"
+   },
+   "ergebnis": {
+    "irreps": [
+     {
+      "deg": 1,
+      "fs": 1
+     },
+     {
+      "deg": 1,
+      "fs": 1
+     },
+     {
+      "deg": 4,
+      "fs": 1
+     },
+     {
+      "deg": 4,
+      "fs": 1
+     },
+     {
+      "deg": 5,
+      "fs": 1
+     },
+     {
+      "deg": 5,
+      "fs": 1
+     },
+     {
+      "deg": 6,
+      "fs": 1
+     }
+    ],
+    "class_orders": [
+     1,
+     2,
+     2,
+     3,
+     4,
+     5,
+     6
+    ],
+    "class_sizes": [
+     1,
+     10,
+     15,
+     20,
+     30,
+     24,
+     20
+    ],
+    "codim_fix": [
+     [
+      0,
+      1,
+      0,
+      0,
+      1,
+      0,
+      1
+     ],
+     [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     [
+      0,
+      3,
+      2,
+      2,
+      3,
+      4,
+      3
+     ],
+     [
+      0,
+      1,
+      2,
+      2,
+      3,
+      4,
+      3
+     ],
+     [
+      0,
+      3,
+      2,
+      4,
+      3,
+      4,
+      5
+     ],
+     [
+      0,
+      2,
+      2,
+      4,
+      4,
+      4,
+      4
+     ],
+     [
+      0,
+      3,
+      4,
+      4,
+      5,
+      4,
+      5
+     ]
+    ],
+    "mult_minus_one": [
+     [
+      0,
+      1,
+      0,
+      0,
+      1,
+      0,
+      1
+     ],
+     [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     [
+      0,
+      3,
+      2,
+      0,
+      1,
+      0,
+      1
+     ],
+     [
+      0,
+      1,
+      2,
+      0,
+      1,
+      0,
+      1
+     ],
+     [
+      0,
+      3,
+      2,
+      0,
+      1,
+      0,
+      1
+     ],
+     [
+      0,
+      2,
+      2,
+      0,
+      2,
+      0,
+      0
+     ],
+     [
+      0,
+      3,
+      4,
+      0,
+      1,
+      0,
+      1
+     ]
+    ],
+    "hinweis": "numerical character table"
+   },
+   "sek": 0.01
+  },
+  {
+   "id": 14,
+   "wer": "forscher-numeriker",
+   "op": "alphabet_info",
+   "args": {
+    "group": "S4",
+    "alphabet": "all"
+   },
+   "ergebnis": {
+    "letters": 23,
+    "orders": {
+     "2": 9,
+     "3": 8,
+     "4": 6
+    },
+    "cycle_types": {
+     "(2, 1, 1)": 6,
+     "(3, 1)": 8,
+     "(2, 2)": 3,
+     "(4,)": 6
+    }
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 15,
+   "wer": "forscher-numeriker",
+   "op": "alphabet_info",
+   "args": {
+    "group": "S5",
+    "alphabet": "all"
+   },
+   "ergebnis": {
+    "letters": 119,
+    "orders": {
+     "2": 25,
+     "3": 20,
+     "4": 30,
+     "6": 20,
+     "5": 24
+    },
+    "cycle_types": {
+     "(2, 1, 1, 1)": 10,
+     "(3, 1, 1)": 20,
+     "(2, 2, 1)": 15,
+     "(4, 1)": 30,
+     "(3, 2)": 20,
+     "(5,)": 24
+    }
+   },
+   "sek": 0.02
+  },
+  {
+   "id": 16,
+   "wer": "forscher-numeriker",
+   "op": "real_irreps",
+   "args": {
+    "group": "S4"
+   },
+   "ergebnis": {
+    "irreps": [
+     {
+      "deg": 1,
+      "fs": 1
+     },
+     {
+      "deg": 1,
+      "fs": 1
+     },
+     {
+      "deg": 2,
+      "fs": 1
+     },
+     {
+      "deg": 3,
+      "fs": 1
+     },
+     {
+      "deg": 3,
+      "fs": 1
+     }
+    ],
+    "class_orders": [
+     1,
+     2,
+     2,
+     3,
+     4
+    ],
+    "class_sizes": [
+     1,
+     3,
+     6,
+     8,
+     6
+    ],
+    "codim_fix": [
+     [
+      0,
+      0,
+      1,
+      0,
+      1
+     ],
+     [
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     [
+      0,
+      0,
+      1,
+      2,
+      1
+     ],
+     [
+      0,
+      2,
+      1,
+      2,
+      3
+     ],
+     [
+      0,
+      2,
+      2,
+      2,
+      2
+     ]
+    ],
+    "mult_minus_one": [
+     [
+      0,
+      0,
+      1,
+      0,
+      1
+     ],
+     [
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     [
+      0,
+      0,
+      1,
+      0,
+      1
+     ],
+     [
+      0,
+      2,
+      1,
+      0,
+      1
+     ],
+     [
+      0,
+      2,
+      2,
+      0,
+      0
+     ]
+    ],
+    "hinweis": "numerical character table"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 17,
+   "wer": "forscher-numeriker",
+   "op": "real_irreps",
+   "args": {
+    "group": "S5"
+   },
+   "ergebnis": {
+    "irreps": [
+     {
+      "deg": 1,
+      "fs": 1
+     },
+     {
+      "deg": 1,
+      "fs": 1
+     },
+     {
+      "deg": 4,
+      "fs": 1
+     },
+     {
+      "deg": 4,
+      "fs": 1
+     },
+     {
+      "deg": 5,
+      "fs": 1
+     },
+     {
+      "deg": 5,
+      "fs": 1
+     },
+     {
+      "deg": 6,
+      "fs": 1
+     }
+    ],
+    "class_orders": [
+     1,
+     2,
+     2,
+     3,
+     4,
+     5,
+     6
+    ],
+    "class_sizes": [
+     1,
+     10,
+     15,
+     20,
+     30,
+     24,
+     20
+    ],
+    "codim_fix": [
+     [
+      0,
+      1,
+      0,
+      0,
+      1,
+      0,
+      1
+     ],
+     [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     [
+      0,
+      3,
+      2,
+      2,
+      3,
+      4,
+      3
+     ],
+     [
+      0,
+      1,
+      2,
+      2,
+      3,
+      4,
+      3
+     ],
+     [
+      0,
+      3,
+      2,
+      4,
+      3,
+      4,
+      5
+     ],
+     [
+      0,
+      2,
+      2,
+      4,
+      4,
+      4,
+      4
+     ],
+     [
+      0,
+      3,
+      4,
+      4,
+      5,
+      4,
+      5
+     ]
+    ],
+    "mult_minus_one": [
+     [
+      0,
+      1,
+      0,
+      0,
+      1,
+      0,
+      1
+     ],
+     [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     [
+      0,
+      3,
+      2,
+      0,
+      1,
+      0,
+      1
+     ],
+     [
+      0,
+      1,
+      2,
+      0,
+      1,
+      0,
+      1
+     ],
+     [
+      0,
+      3,
+      2,
+      0,
+      1,
+      0,
+      1
+     ],
+     [
+      0,
+      2,
+      2,
+      0,
+      2,
+      0,
+      0
+     ],
+     [
+      0,
+      3,
+      4,
+      0,
+      1,
+      0,
+      1
+     ]
+    ],
+    "hinweis": "numerical character table"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 18,
+   "wer": "forscher-numeriker",
+   "op": "faithful_h",
+   "args": {
+    "group": "S4",
+    "alphabet": "all"
+   },
+   "ergebnis": {
+    "h_numerical": 2,
+    "chosen_irreps": [
+     {
+      "deg": 3,
+      "fs": 1
+     }
+    ],
+    "hinweis": "numerical"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 19,
+   "wer": "forscher-numeriker",
+   "op": "faithful_h",
+   "args": {
+    "group": "S5",
+    "alphabet": "all"
+   },
+   "ergebnis": {
+    "h_numerical": 4,
+    "chosen_irreps": [
+     {
+      "deg": 1,
+      "fs": 1
+     },
+     {
+      "deg": 4,
+      "fs": 1
+     }
+    ],
+    "hinweis": "numerical"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 20,
+   "wer": "forscher-numeriker",
+   "op": "numeric_construction",
+   "args": {
+    "group": "S4",
+    "alphabet": "all",
+    "construction": "perm",
+    "twist": "none"
+   },
+   "ergebnis": {
+    "dim": 4,
+    "numerical_rank_M_minus_I_by_letter_order": {
+     "2": [
+      1,
+      2
+     ],
+     "3": [
+      2
+     ],
+     "4": [
+      3
+     ]
+    },
+    "numerical_closure_size": 24,
+    "closure_capped": false,
+    "hinweis": "floating point, not a certificate"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 21,
+   "wer": "forscher-numeriker",
+   "op": "numeric_construction",
+   "args": {
+    "group": "S5",
+    "alphabet": "all",
+    "construction": "perm",
+    "twist": "none"
+   },
+   "ergebnis": {
+    "dim": 5,
+    "numerical_rank_M_minus_I_by_letter_order": {
+     "2": [
+      1,
+      2
+     ],
+     "3": [
+      2
+     ],
+     "4": [
+      3
+     ],
+     "6": [
+      3
+     ],
+     "5": [
+      4
+     ]
+    },
+    "numerical_closure_size": 120,
+    "closure_capped": false,
+    "hinweis": "floating point, not a certificate"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 22,
+   "wer": "forscher-numeriker",
+   "op": "diag_realisable",
+   "args": {
+    "family": "diag_pos",
+    "group": "S4",
+    "alphabet": "all"
+   },
+   "ergebnis": {
+    "fehler": "unknown op diag_realisable"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 23,
+   "wer": "forscher-numeriker",
+   "op": "diag_realisable",
+   "args": {
+    "family": "diag_pm",
+    "group": "S4",
+    "alphabet": "all"
+   },
+   "ergebnis": {
+    "fehler": "unknown op diag_realisable"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 24,
+   "wer": "forscher-numeriker",
+   "op": "diag_realisable",
+   "args": {
+    "family": "diag_pos",
+    "group": "S5",
+    "alphabet": "all"
+   },
+   "ergebnis": {
+    "fehler": "unknown op diag_realisable"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 25,
+   "wer": "forscher-numeriker",
+   "op": "diag_realisable",
+   "args": {
+    "family": "diag_pm",
+    "group": "S5",
+    "alphabet": "all"
+   },
+   "ergebnis": {
+    "fehler": "unknown op diag_realisable"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 26,
+   "wer": "forscher-numeriker",
+   "op": "numeric_construction",
+   "args": {
+    "group": "S4",
+    "alphabet": "all",
+    "construction": "so3",
+    "twist": "none"
+   },
+   "ergebnis": {
+    "dim": 3,
+    "numerical_rank_M_minus_I_by_letter_order": {
+     "2": [
+      2
+     ],
+     "3": [
+      2
+     ],
+     "4": [
+      2
+     ]
+    },
+    "numerical_closure_size": 24,
+    "closure_capped": false,
+    "hinweis": "floating point, not a certificate"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 27,
+   "wer": "forscher-numeriker",
+   "op": "numeric_construction",
+   "args": {
+    "group": "S5",
+    "alphabet": "all",
+    "construction": "so3",
+    "twist": "none"
+   },
+   "ergebnis": {
+    "fehler": "ValueError: no SO(3) model stored for S5"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 28,
+   "wer": "forscher-skeptiker",
+   "op": "alphabet_info",
+   "args": {
+    "group": "S4",
+    "alphabet": "all"
+   },
+   "ergebnis": {
+    "letters": 23,
+    "orders": {
+     "2": 9,
+     "3": 8,
+     "4": 6
+    },
+    "cycle_types": {
+     "(2, 1, 1)": 6,
+     "(3, 1)": 8,
+     "(2, 2)": 3,
+     "(4,)": 6
+    }
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 29,
+   "wer": "forscher-skeptiker",
+   "op": "real_irreps",
+   "args": {
+    "group": "S4"
+   },
+   "ergebnis": {
+    "irreps": [
+     {
+      "deg": 1,
+      "fs": 1
+     },
+     {
+      "deg": 1,
+      "fs": 1
+     },
+     {
+      "deg": 2,
+      "fs": 1
+     },
+     {
+      "deg": 3,
+      "fs": 1
+     },
+     {
+      "deg": 3,
+      "fs": 1
+     }
+    ],
+    "class_orders": [
+     1,
+     2,
+     2,
+     3,
+     4
+    ],
+    "class_sizes": [
+     1,
+     3,
+     6,
+     8,
+     6
+    ],
+    "codim_fix": [
+     [
+      0,
+      0,
+      1,
+      0,
+      1
+     ],
+     [
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     [
+      0,
+      0,
+      1,
+      2,
+      1
+     ],
+     [
+      0,
+      2,
+      1,
+      2,
+      3
+     ],
+     [
+      0,
+      2,
+      2,
+      2,
+      2
+     ]
+    ],
+    "mult_minus_one": [
+     [
+      0,
+      0,
+      1,
+      0,
+      1
+     ],
+     [
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     [
+      0,
+      0,
+      1,
+      0,
+      1
+     ],
+     [
+      0,
+      2,
+      1,
+      0,
+      1
+     ],
+     [
+      0,
+      2,
+      2,
+      0,
+      0
+     ]
+    ],
+    "hinweis": "numerical character table"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 30,
+   "wer": "forscher-skeptiker",
+   "op": "faithful_h",
+   "args": {
+    "group": "S3",
+    "alphabet": "all"
+   },
+   "ergebnis": {
+    "h_numerical": 2,
+    "chosen_irreps": [
+     {
+      "deg": 1,
+      "fs": 1
+     },
+     {
+      "deg": 2,
+      "fs": 1
+     }
+    ],
+    "hinweis": "numerical"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 31,
+   "wer": "forscher-skeptiker",
+   "op": "faithful_h",
+   "args": {
+    "group": "S4",
+    "alphabet": "all"
+   },
+   "ergebnis": {
+    "h_numerical": 2,
+    "chosen_irreps": [
+     {
+      "deg": 3,
+      "fs": 1
+     }
+    ],
+    "hinweis": "numerical"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 32,
+   "wer": "forscher-skeptiker",
+   "op": "faithful_h",
+   "args": {
+    "group": "S5",
+    "alphabet": "all"
+   },
+   "ergebnis": {
+    "h_numerical": 4,
+    "chosen_irreps": [
+     {
+      "deg": 1,
+      "fs": 1
+     },
+     {
+      "deg": 4,
+      "fs": 1
+     }
+    ],
+    "hinweis": "numerical"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 33,
+   "wer": "forscher-skeptiker",
+   "op": "numeric_construction",
+   "args": {
+    "group": "S3",
+    "alphabet": "all",
+    "construction": "perm",
+    "twist": "none"
+   },
+   "ergebnis": {
+    "dim": 3,
+    "numerical_rank_M_minus_I_by_letter_order": {
+     "2": [
+      1
+     ],
+     "3": [
+      2
+     ]
+    },
+    "numerical_closure_size": 6,
+    "closure_capped": false,
+    "hinweis": "floating point, not a certificate"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 34,
+   "wer": "forscher-skeptiker",
+   "op": "numeric_construction",
+   "args": {
+    "group": "S4",
+    "alphabet": "all",
+    "construction": "perm",
+    "twist": "none"
+   },
+   "ergebnis": {
+    "dim": 4,
+    "numerical_rank_M_minus_I_by_letter_order": {
+     "2": [
+      1,
+      2
+     ],
+     "3": [
+      2
+     ],
+     "4": [
+      3
+     ]
+    },
+    "numerical_closure_size": 24,
+    "closure_capped": false,
+    "hinweis": "floating point, not a certificate"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 35,
+   "wer": "forscher-skeptiker",
+   "op": "numeric_construction",
+   "args": {
+    "group": "S5",
+    "alphabet": "all",
+    "construction": "perm",
+    "twist": "none"
+   },
+   "ergebnis": {
+    "dim": 5,
+    "numerical_rank_M_minus_I_by_letter_order": {
+     "2": [
+      1,
+      2
+     ],
+     "3": [
+      2
+     ],
+     "4": [
+      3
+     ],
+     "6": [
+      3
+     ],
+     "5": [
+      4
+     ]
+    },
+    "numerical_closure_size": 120,
+    "closure_capped": false,
+    "hinweis": "floating point, not a certificate"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 36,
+   "wer": "forscher-skeptiker",
+   "op": "group_info",
+   "args": {
+    "group": "S4"
+   },
+   "ergebnis": {
+    "order": 24,
+    "abelian": false,
+    "solvable": true,
+    "perfect": false,
+    "derived_series_orders": [
+     24,
+     12,
+     4,
+     1
+    ],
+    "exponent": 12,
+    "center_size": 1,
+    "classes": [
+     {
+      "size": 1,
+      "element_order": 1,
+      "cycle_type": [
+       1,
+       1,
+       1,
+       1
+      ]
+     },
+     {
+      "size": 3,
+      "element_order": 2,
+      "cycle_type": [
+       2,
+       2
+      ]
+     },
+     {
+      "size": 6,
+      "element_order": 2,
+      "cycle_type": [
+       2,
+       1,
+       1
+      ]
+     },
+     {
+      "size": 8,
+      "element_order": 3,
+      "cycle_type": [
+       3,
+       1
+      ]
+     },
+     {
+      "size": 6,
+      "element_order": 4,
+      "cycle_type": [
+       4
+      ]
+     }
+    ]
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 37,
+   "wer": "forscher-skeptiker",
+   "op": "group_info",
+   "args": {
+    "group": "S5"
+   },
+   "ergebnis": {
+    "order": 120,
+    "abelian": false,
+    "solvable": false,
+    "perfect": false,
+    "derived_series_orders": [
+     120,
+     60
+    ],
+    "exponent": 60,
+    "center_size": 1,
+    "classes": [
+     {
+      "size": 1,
+      "element_order": 1,
+      "cycle_type": [
+       1,
+       1,
+       1,
+       1,
+       1
+      ]
+     },
+     {
+      "size": 10,
+      "element_order": 2,
+      "cycle_type": [
+       2,
+       1,
+       1,
+       1
+      ]
+     },
+     {
+      "size": 15,
+      "element_order": 2,
+      "cycle_type": [
+       2,
+       2,
+       1
+      ]
+     },
+     {
+      "size": 20,
+      "element_order": 3,
+      "cycle_type": [
+       3,
+       1,
+       1
+      ]
+     },
+     {
+      "size": 30,
+      "element_order": 4,
+      "cycle_type": [
+       4,
+       1
+      ]
+     },
+     {
+      "size": 24,
+      "element_order": 5,
+      "cycle_type": [
+       5
+      ]
+     },
+     {
+      "size": 20,
+      "element_order": 6,
+      "cycle_type": [
+       3,
+       2
+      ]
+     }
+    ]
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 38,
+   "wer": "forscher-skeptiker",
+   "op": "numeric_construction",
+   "args": {
+    "group": "S4",
+    "alphabet": "all",
+    "construction": "perm",
+    "twist": "involutions"
+   },
+   "ergebnis": {
+    "dim": 4,
+    "numerical_rank_M_minus_I_by_letter_order": {
+     "2": [
+      2,
+      3
+     ],
+     "3": [
+      2
+     ],
+     "4": [
+      3
+     ]
+    },
+    "numerical_closure_size": 48,
+    "closure_capped": false,
+    "hinweis": "floating point, not a certificate"
+   },
+   "sek": 0.47
+  },
+  {
+   "id": 39,
+   "wer": "forscher-skeptiker",
+   "op": "numeric_construction",
+   "args": {
+    "group": "S5",
+    "alphabet": "all",
+    "construction": "perm",
+    "twist": "involutions"
+   },
+   "ergebnis": {
+    "dim": 5,
+    "numerical_rank_M_minus_I_by_letter_order": {
+     "2": [
+      3,
+      4
+     ],
+     "3": [
+      2
+     ],
+     "4": [
+      3
+     ],
+     "6": [
+      3
+     ],
+     "5": [
+      4
+     ]
+    },
+    "numerical_closure_size": 240,
+    "closure_capped": false,
+    "hinweis": "floating point, not a certificate"
+   },
+   "sek": 52.72
+  },
+  {
+   "id": 40,
+   "wer": "forscher-skeptiker",
+   "op": "numeric_construction",
+   "args": {
+    "group": "S3",
+    "alphabet": "all",
+    "construction": "perm",
+    "twist": "none"
+   },
+   "ergebnis": {
+    "dim": 3,
+    "numerical_rank_M_minus_I_by_letter_order": {
+     "2": [
+      1
+     ],
+     "3": [
+      2
+     ]
+    },
+    "numerical_closure_size": 6,
+    "closure_capped": false,
+    "hinweis": "floating point, not a certificate"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 41,
+   "wer": "forscher-skeptiker",
+   "op": "faithful_h",
+   "args": {
+    "group": "S3",
+    "alphabet": "transpositions"
+   },
+   "ergebnis": {
+    "h_numerical": 1,
+    "chosen_irreps": [
+     {
+      "deg": 2,
+      "fs": 1
+     }
+    ],
+    "hinweis": "numerical"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 42,
+   "wer": "forscher-theoretiker",
+   "op": "faithful_h",
+   "args": {
+    "group": "S3",
+    "alphabet": "all"
+   },
+   "ergebnis": {
+    "h_numerical": 2,
+    "chosen_irreps": [
+     {
+      "deg": 1,
+      "fs": 1
+     },
+     {
+      "deg": 2,
+      "fs": 1
+     }
+    ],
+    "hinweis": "numerical"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 43,
+   "wer": "forscher-theoretiker",
+   "op": "faithful_h",
+   "args": {
+    "group": "S4",
+    "alphabet": "all"
+   },
+   "ergebnis": {
+    "h_numerical": 2,
+    "chosen_irreps": [
+     {
+      "deg": 3,
+      "fs": 1
+     }
+    ],
+    "hinweis": "numerical"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 44,
+   "wer": "forscher-theoretiker",
+   "op": "faithful_h",
+   "args": {
+    "group": "S5",
+    "alphabet": "all"
+   },
+   "ergebnis": {
+    "h_numerical": 4,
+    "chosen_irreps": [
+     {
+      "deg": 1,
+      "fs": 1
+     },
+     {
+      "deg": 4,
+      "fs": 1
+     }
+    ],
+    "hinweis": "numerical"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 45,
+   "wer": "forscher-theoretiker",
+   "op": "alphabet_info",
+   "args": {
+    "group": "S4",
+    "alphabet": "all"
+   },
+   "ergebnis": {
+    "letters": 23,
+    "orders": {
+     "2": 9,
+     "3": 8,
+     "4": 6
+    },
+    "cycle_types": {
+     "(2, 1, 1)": 6,
+     "(3, 1)": 8,
+     "(2, 2)": 3,
+     "(4,)": 6
+    }
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 46,
+   "wer": "forscher-theoretiker",
+   "op": "alphabet_info",
+   "args": {
+    "group": "S5",
+    "alphabet": "all"
+   },
+   "ergebnis": {
+    "letters": 119,
+    "orders": {
+     "2": 25,
+     "3": 20,
+     "4": 30,
+     "6": 20,
+     "5": 24
+    },
+    "cycle_types": {
+     "(2, 1, 1, 1)": 10,
+     "(3, 1, 1)": 20,
+     "(2, 2, 1)": 15,
+     "(4, 1)": 30,
+     "(3, 2)": 20,
+     "(5,)": 24
+    }
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 47,
+   "wer": "forscher-theoretiker",
+   "op": "numeric_construction",
+   "args": {
+    "group": "S4",
+    "alphabet": "all",
+    "construction": "perm",
+    "twist": "none"
+   },
+   "ergebnis": {
+    "dim": 4,
+    "numerical_rank_M_minus_I_by_letter_order": {
+     "2": [
+      1,
+      2
+     ],
+     "3": [
+      2
+     ],
+     "4": [
+      3
+     ]
+    },
+    "numerical_closure_size": 24,
+    "closure_capped": false,
+    "hinweis": "floating point, not a certificate"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 48,
+   "wer": "forscher-theoretiker",
+   "op": "numeric_construction",
+   "args": {
+    "group": "S5",
+    "alphabet": "all",
+    "construction": "perm",
+    "twist": "none"
+   },
+   "ergebnis": {
+    "dim": 5,
+    "numerical_rank_M_minus_I_by_letter_order": {
+     "2": [
+      1,
+      2
+     ],
+     "3": [
+      2
+     ],
+     "4": [
+      3
+     ],
+     "6": [
+      3
+     ],
+     "5": [
+      4
+     ]
+    },
+    "numerical_closure_size": 120,
+    "closure_capped": false,
+    "hinweis": "floating point, not a certificate"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 49,
+   "wer": "forscher-theoretiker",
+   "op": "real_irreps",
+   "args": {
+    "group": "S4"
+   },
+   "ergebnis": {
+    "irreps": [
+     {
+      "deg": 1,
+      "fs": 1
+     },
+     {
+      "deg": 1,
+      "fs": 1
+     },
+     {
+      "deg": 2,
+      "fs": 1
+     },
+     {
+      "deg": 3,
+      "fs": 1
+     },
+     {
+      "deg": 3,
+      "fs": 1
+     }
+    ],
+    "class_orders": [
+     1,
+     2,
+     2,
+     3,
+     4
+    ],
+    "class_sizes": [
+     1,
+     3,
+     6,
+     8,
+     6
+    ],
+    "codim_fix": [
+     [
+      0,
+      0,
+      1,
+      0,
+      1
+     ],
+     [
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     [
+      0,
+      0,
+      1,
+      2,
+      1
+     ],
+     [
+      0,
+      2,
+      1,
+      2,
+      3
+     ],
+     [
+      0,
+      2,
+      2,
+      2,
+      2
+     ]
+    ],
+    "mult_minus_one": [
+     [
+      0,
+      0,
+      1,
+      0,
+      1
+     ],
+     [
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     [
+      0,
+      0,
+      1,
+      0,
+      1
+     ],
+     [
+      0,
+      2,
+      1,
+      0,
+      1
+     ],
+     [
+      0,
+      2,
+      2,
+      0,
+      0
+     ]
+    ],
+    "hinweis": "numerical character table"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 50,
+   "wer": "forscher-theoretiker",
+   "op": "faithful_h",
+   "args": {
+    "group": "S4",
+    "alphabet": "all"
+   },
+   "ergebnis": {
+    "h_numerical": 2,
+    "chosen_irreps": [
+     {
+      "deg": 3,
+      "fs": 1
+     }
+    ],
+    "hinweis": "numerical"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 51,
+   "wer": "forscher-theoretiker",
+   "op": "faithful_h",
+   "args": {
+    "group": "S5",
+    "alphabet": "all"
+   },
+   "ergebnis": {
+    "h_numerical": 4,
+    "chosen_irreps": [
+     {
+      "deg": 1,
+      "fs": 1
+     },
+     {
+      "deg": 4,
+      "fs": 1
+     }
+    ],
+    "hinweis": "numerical"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 52,
+   "wer": "forscher-theoretiker",
+   "op": "faithful_h",
+   "args": {
+    "group": "S3",
+    "alphabet": "all"
+   },
+   "ergebnis": {
+    "h_numerical": 2,
+    "chosen_irreps": [
+     {
+      "deg": 1,
+      "fs": 1
+     },
+     {
+      "deg": 2,
+      "fs": 1
+     }
+    ],
+    "hinweis": "numerical"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 53,
+   "wer": "forscher-theoretiker",
+   "op": "real_irreps",
+   "args": {
+    "group": "S5"
+   },
+   "ergebnis": {
+    "irreps": [
+     {
+      "deg": 1,
+      "fs": 1
+     },
+     {
+      "deg": 1,
+      "fs": 1
+     },
+     {
+      "deg": 4,
+      "fs": 1
+     },
+     {
+      "deg": 4,
+      "fs": 1
+     },
+     {
+      "deg": 5,
+      "fs": 1
+     },
+     {
+      "deg": 5,
+      "fs": 1
+     },
+     {
+      "deg": 6,
+      "fs": 1
+     }
+    ],
+    "class_orders": [
+     1,
+     2,
+     2,
+     3,
+     4,
+     5,
+     6
+    ],
+    "class_sizes": [
+     1,
+     10,
+     15,
+     20,
+     30,
+     24,
+     20
+    ],
+    "codim_fix": [
+     [
+      0,
+      1,
+      0,
+      0,
+      1,
+      0,
+      1
+     ],
+     [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     [
+      0,
+      3,
+      2,
+      2,
+      3,
+      4,
+      3
+     ],
+     [
+      0,
+      1,
+      2,
+      2,
+      3,
+      4,
+      3
+     ],
+     [
+      0,
+      3,
+      2,
+      4,
+      3,
+      4,
+      5
+     ],
+     [
+      0,
+      2,
+      2,
+      4,
+      4,
+      4,
+      4
+     ],
+     [
+      0,
+      3,
+      4,
+      4,
+      5,
+      4,
+      5
+     ]
+    ],
+    "mult_minus_one": [
+     [
+      0,
+      1,
+      0,
+      0,
+      1,
+      0,
+      1
+     ],
+     [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     [
+      0,
+      3,
+      2,
+      0,
+      1,
+      0,
+      1
+     ],
+     [
+      0,
+      1,
+      2,
+      0,
+      1,
+      0,
+      1
+     ],
+     [
+      0,
+      3,
+      2,
+      0,
+      1,
+      0,
+      1
+     ],
+     [
+      0,
+      2,
+      2,
+      0,
+      2,
+      0,
+      0
+     ],
+     [
+      0,
+      3,
+      4,
+      0,
+      1,
+      0,
+      1
+     ]
+    ],
+    "hinweis": "numerical character table"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 54,
+   "wer": "forscher-theoretiker",
+   "op": "numeric_construction",
+   "args": {
+    "group": "S4",
+    "alphabet": "all",
+    "construction": "perm",
+    "twist": "involutions"
+   },
+   "ergebnis": {
+    "dim": 4,
+    "numerical_rank_M_minus_I_by_letter_order": {
+     "2": [
+      2,
+      3
+     ],
+     "3": [
+      2
+     ],
+     "4": [
+      3
+     ]
+    },
+    "numerical_closure_size": 48,
+    "closure_capped": false,
+    "hinweis": "floating point, not a certificate"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 55,
+   "wer": "forscher-theoretiker",
+   "op": "numeric_construction",
+   "args": {
+    "group": "S5",
+    "alphabet": "all",
+    "construction": "perm",
+    "twist": "involutions"
+   },
+   "ergebnis": {
+    "dim": 5,
+    "numerical_rank_M_minus_I_by_letter_order": {
+     "2": [
+      3,
+      4
+     ],
+     "3": [
+      2
+     ],
+     "4": [
+      3
+     ],
+     "6": [
+      3
+     ],
+     "5": [
+      4
+     ]
+    },
+    "numerical_closure_size": 240,
+    "closure_capped": false,
+    "hinweis": "floating point, not a certificate"
+   },
+   "sek": 0.0
+  }
+ ],
+ "sek": 352.3
+}

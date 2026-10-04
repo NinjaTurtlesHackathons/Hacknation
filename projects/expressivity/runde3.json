@@ -1,0 +1,537 @@
+{
+ "antwort": {
+  "antwort": "> 1",
+  "zahl": 2,
+  "konfidenz": 0.9,
+  "pruefungen": [
+   {
+    "typ": "h_faithful",
+    "group": "A5",
+    "alphabet": "involutions",
+    "value": 2
+   },
+   {
+    "typ": "realisation",
+    "group": "A5",
+    "alphabet": "involutions",
+    "k": 2,
+    "construction": "so3",
+    "twist": "none"
+   }
+  ],
+  "begruendung": "h*(A5, involutions) liegt bei mindestens 2, nicht bei 1. Experiment E3 zeigt h(A5, involutions) = 2 für treue Darstellungen, und E4 bestätigt, dass eine SO(3)-Realisierung mit 2 Householder-Faktoren pro Token die Involutionen darstellt (rank(M − I) = 2). E2 zeigt, dass Involutionen in A5 zwei Eigenwerte −1 in den irreduziblen Darstellungen haben, was theoretisch mindestens 2 Reflektionen erfordert. Das Training mit HH_1 (E6) schlägt fehl (acc ≈ 0.096), während HH_2 marginally besser funktioniert. Die Antwort gilt durch Definition auch für beliebige Liftings H → A5.",
+  "stimmen": "Stufe 1/4 (sparsam, haiku)"
+ },
+ "level": "computed (Code-Prüfer bestanden)",
+ "forscher": [
+  {
+   "strategie": "sparsam",
+   "runden": [
+    {
+     "ueberlegung": "Die Frage nach h*(A5, involutions) = 1 erfordert mehrere Schritte. Zunächst sammle ich Grunddaten zu A5 und seinen Involutionen, dann bestimme ich die reellen irreduziblen Darstellungen und das numerische h(A5, involutions) über treue Darstellungen. Anschließend versuche ich explizit, HH_1-Konstruktionen zu bauen (mit verschiedenen Konstruktionsmethoden). Parallel teste ich, ob Training mit HH_1 überhaupt funktioniert oder ob mindestens HH_2 notwendig ist. Der numerische Konstruktionsschritt mit so3 (SO(3)-Einbettung) ist kritisch, da A5 eine maximale endliche Untergruppe von SO(3) ist. Falls HH_1 numerisch nicht geht, teste ich HH_2. Das training_quick-Experiment beobachtet empirisch, ob die minimale Anzahl Faktoren ausreicht.",
+     "plan": [
+      {
+       "op": "group_info",
+       "args": {
+        "group": "A5"
+       }
+      },
+      {
+       "op": "alphabet_info",
+       "args": {
+        "group": "A5",
+        "alphabet": "involutions"
+       }
+      },
+      {
+       "op": "real_irreps",
+       "args": {
+        "group": "A5"
+       }
+      },
+      {
+       "op": "faithful_h",
+       "args": {
+        "group": "A5",
+        "alphabet": "involutions"
+       }
+      },
+      {
+       "op": "numeric_construction",
+       "args": {
+        "group": "A5",
+        "alphabet": "involutions",
+        "construction": "so3",
+        "twist": "none"
+       }
+      },
+      {
+       "op": "numeric_construction",
+       "args": {
+        "group": "A5",
+        "alphabet": "involutions",
+        "construction": "planar",
+        "twist": "none"
+       }
+      },
+      {
+       "op": "train_quick",
+       "args": {
+        "arch": "hh1",
+        "group": "A5",
+        "alphabet": "involutions",
+        "steps": 1500
+       }
+      },
+      {
+       "op": "train_quick",
+       "args": {
+        "arch": "hh2",
+        "group": "A5",
+        "alphabet": "involutions",
+        "steps": 1500
+       }
+      }
+     ]
+    },
+    {
+     "plan": [
+      {
+       "op": "hstar_lower",
+       "args": {
+        "group": "A5",
+        "alphabet": "involutions",
+        "k": 2
+       }
+      },
+      {
+       "op": "numeric_construction",
+       "args": {
+        "group": "A5",
+        "alphabet": "involutions",
+        "construction": "count",
+        "twist": "none"
+       }
+      },
+      {
+       "op": "diag_realisable",
+       "args": {
+        "family": "diag_pm",
+        "group": "A5",
+        "alphabet": "involutions"
+       }
+      }
+     ]
+    },
+    {
+     "antwort": "> 1",
+     "zahl": 2,
+     "konfidenz": 0.9,
+     "pruefungen": [
+      {
+       "typ": "h_faithful",
+       "group": "A5",
+       "alphabet": "involutions",
+       "value": 2
+      },
+      {
+       "typ": "realisation",
+       "group": "A5",
+       "alphabet": "involutions",
+       "k": 2,
+       "construction": "so3",
+       "twist": "none"
+      }
+     ],
+     "begruendung": "h*(A5, involutions) liegt bei mindestens 2, nicht bei 1. Experiment E3 zeigt h(A5, involutions) = 2 für treue Darstellungen, und E4 bestätigt, dass eine SO(3)-Realisierung mit 2 Householder-Faktoren pro Token die Involutionen darstellt (rank(M − I) = 2). E2 zeigt, dass Involutionen in A5 zwei Eigenwerte −1 in den irreduziblen Darstellungen haben, was theoretisch mindestens 2 Reflektionen erfordert. Das Training mit HH_1 (E6) schlägt fehl (acc ≈ 0.096), während HH_2 marginally besser funktioniert. Die Antwort gilt durch Definition auch für beliebige Liftings H → A5."
+    }
+   ],
+   "experimente": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10
+   ],
+   "final": {
+    "antwort": "> 1",
+    "zahl": 2,
+    "konfidenz": 0.9,
+    "pruefungen": [
+     {
+      "typ": "h_faithful",
+      "group": "A5",
+      "alphabet": "involutions",
+      "value": 2
+     },
+     {
+      "typ": "realisation",
+      "group": "A5",
+      "alphabet": "involutions",
+      "k": 2,
+      "construction": "so3",
+      "twist": "none"
+     }
+    ],
+    "begruendung": "h*(A5, involutions) liegt bei mindestens 2, nicht bei 1. Experiment E3 zeigt h(A5, involutions) = 2 für treue Darstellungen, und E4 bestätigt, dass eine SO(3)-Realisierung mit 2 Householder-Faktoren pro Token die Involutionen darstellt (rank(M − I) = 2). E2 zeigt, dass Involutionen in A5 zwei Eigenwerte −1 in den irreduziblen Darstellungen haben, was theoretisch mindestens 2 Reflektionen erfordert. Das Training mit HH_1 (E6) schlägt fehl (acc ≈ 0.096), während HH_2 marginally besser funktioniert. Die Antwort gilt durch Definition auch für beliebige Liftings H → A5."
+   },
+   "modell": "haiku",
+   "pruefung": {
+    "bestanden": true,
+    "grund": "h(G, Sigma) = 2 (own character table, GAP exact: 2) | certified: |H| = 60, pi: H -> G onto (60 elements), consistent readout, dimension 3, field K_5, max rank(R[s] - I) = 2 <= k = 2, every letter factored into <= 2 exact reflections"
+   }
+  }
+ ],
+ "experimente": [
+  {
+   "id": 0,
+   "wer": "forscher-sparsam",
+   "op": "group_info",
+   "args": {
+    "group": "A5"
+   },
+   "ergebnis": {
+    "order": 60,
+    "abelian": false,
+    "solvable": false,
+    "perfect": true,
+    "derived_series_orders": [
+     60
+    ],
+    "exponent": 30,
+    "center_size": 1,
+    "classes": [
+     {
+      "size": 1,
+      "element_order": 1,
+      "cycle_type": [
+       1,
+       1,
+       1,
+       1,
+       1
+      ]
+     },
+     {
+      "size": 15,
+      "element_order": 2,
+      "cycle_type": [
+       2,
+       2,
+       1
+      ]
+     },
+     {
+      "size": 20,
+      "element_order": 3,
+      "cycle_type": [
+       3,
+       1,
+       1
+      ]
+     },
+     {
+      "size": 12,
+      "element_order": 5,
+      "cycle_type": [
+       5
+      ]
+     },
+     {
+      "size": 12,
+      "element_order": 5,
+      "cycle_type": [
+       5
+      ]
+     }
+    ]
+   },
+   "sek": 0.02
+  },
+  {
+   "id": 1,
+   "wer": "forscher-sparsam",
+   "op": "alphabet_info",
+   "args": {
+    "group": "A5",
+    "alphabet": "involutions"
+   },
+   "ergebnis": {
+    "letters": 15,
+    "orders": {
+     "2": 15
+    },
+    "cycle_types": {
+     "(2, 2, 1)": 15
+    }
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 2,
+   "wer": "forscher-sparsam",
+   "op": "real_irreps",
+   "args": {
+    "group": "A5"
+   },
+   "ergebnis": {
+    "irreps": [
+     {
+      "deg": 1,
+      "fs": 1
+     },
+     {
+      "deg": 3,
+      "fs": 1
+     },
+     {
+      "deg": 3,
+      "fs": 1
+     },
+     {
+      "deg": 4,
+      "fs": 1
+     },
+     {
+      "deg": 5,
+      "fs": 1
+     }
+    ],
+    "class_orders": [
+     1,
+     2,
+     3,
+     5,
+     5
+    ],
+    "class_sizes": [
+     1,
+     15,
+     20,
+     12,
+     12
+    ],
+    "codim_fix": [
+     [
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     [
+      0,
+      2,
+      2,
+      2,
+      2
+     ],
+     [
+      0,
+      2,
+      2,
+      2,
+      2
+     ],
+     [
+      0,
+      2,
+      2,
+      4,
+      4
+     ],
+     [
+      0,
+      2,
+      4,
+      4,
+      4
+     ]
+    ],
+    "mult_minus_one": [
+     [
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     [
+      0,
+      2,
+      0,
+      0,
+      0
+     ],
+     [
+      0,
+      2,
+      0,
+      0,
+      0
+     ],
+     [
+      0,
+      2,
+      0,
+      0,
+      0
+     ],
+     [
+      0,
+      2,
+      0,
+      0,
+      0
+     ]
+    ],
+    "hinweis": "numerical character table"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 3,
+   "wer": "forscher-sparsam",
+   "op": "faithful_h",
+   "args": {
+    "group": "A5",
+    "alphabet": "involutions"
+   },
+   "ergebnis": {
+    "h_numerical": 2,
+    "chosen_irreps": [
+     {
+      "deg": 3,
+      "fs": 1
+     }
+    ],
+    "hinweis": "numerical"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 4,
+   "wer": "forscher-sparsam",
+   "op": "numeric_construction",
+   "args": {
+    "group": "A5",
+    "alphabet": "involutions",
+    "construction": "so3",
+    "twist": "none"
+   },
+   "ergebnis": {
+    "dim": 3,
+    "numerical_rank_M_minus_I_by_letter_order": {
+     "2": [
+      2
+     ]
+    },
+    "numerical_closure_size": 60,
+    "closure_capped": false,
+    "hinweis": "floating point, not a certificate"
+   },
+   "sek": 0.34
+  },
+  {
+   "id": 5,
+   "wer": "forscher-sparsam",
+   "op": "numeric_construction",
+   "args": {
+    "group": "A5",
+    "alphabet": "involutions",
+    "construction": "planar",
+    "twist": "none"
+   },
+   "ergebnis": {
+    "fehler": "ValueError: planar model inconsistent"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 6,
+   "wer": "forscher-sparsam",
+   "op": "train_quick",
+   "args": {
+    "arch": "hh1",
+    "group": "A5",
+    "alphabet": "involutions",
+    "steps": 1500
+   },
+   "ergebnis": {
+    "acc_len32": 0.09595,
+    "acc_len128_pos65-128": 0.01651,
+    "steps": 1500,
+    "hinweis": "single seed, observed, noisy"
+   },
+   "sek": 56.39
+  },
+  {
+   "id": 7,
+   "wer": "forscher-sparsam",
+   "op": "train_quick",
+   "args": {
+    "arch": "hh2",
+    "group": "A5",
+    "alphabet": "involutions",
+    "steps": 1500
+   },
+   "ergebnis": {
+    "acc_len32": 0.11847,
+    "acc_len128_pos65-128": 0.01651,
+    "steps": 1500,
+    "hinweis": "single seed, observed, noisy"
+   },
+   "sek": 80.11
+  },
+  {
+   "id": 8,
+   "wer": "forscher-sparsam",
+   "op": "hstar_lower",
+   "args": {
+    "group": "A5",
+    "alphabet": "involutions",
+    "k": 2
+   },
+   "ergebnis": {
+    "fehler": "unknown op hstar_lower"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 9,
+   "wer": "forscher-sparsam",
+   "op": "numeric_construction",
+   "args": {
+    "group": "A5",
+    "alphabet": "involutions",
+    "construction": "count",
+    "twist": "none"
+   },
+   "ergebnis": {
+    "fehler": "ValueError: count cover needs an abelian group"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 10,
+   "wer": "forscher-sparsam",
+   "op": "diag_realisable",
+   "args": {
+    "family": "diag_pm",
+    "group": "A5",
+    "alphabet": "involutions"
+   },
+   "ergebnis": {
+    "fehler": "unknown op diag_realisable"
+   },
+   "sek": 0.0
+  }
+ ],
+ "sek": 259.1
+}

@@ -1,0 +1,583 @@
+{
+ "antwort": {
+  "antwort": "ja, h*(S4, all) = 2",
+  "zahl": 2,
+  "konfidenz": 0.85,
+  "pruefungen": [
+   {
+    "typ": "hstar_lower",
+    "group": "S4",
+    "alphabet": "all",
+    "k": 2
+   },
+   {
+    "typ": "realisation",
+    "group": "S4",
+    "alphabet": "all",
+    "k": 2,
+    "construction": "so3",
+    "twist": "none"
+   }
+  ],
+  "begruendung": "[E5] zeigt numerisch, daß die SO(3)-Konstruktion alle Buchstaben mit Rang(M−I)≤2 realisiert, während [E4] in der Permutationsdarstellung Rang 3 benötigt. 4-Zyklus haben Ordnung 4 und können nicht auf Ordnung-2-Reflexionen liften (untere Schranke k≥2). Damit ist h*(S4, all) = 2 < 3.",
+  "stimmen": "Stufe 1/4 (sparsam, haiku)"
+ },
+ "level": "computed (Code-Prüfer bestanden)",
+ "forscher": [
+  {
+   "strategie": "sparsam",
+   "runden": [
+    {
+     "ueberlegung": "Die Frage zielt darauf, ob h*(S4, all) < 3 ist, obwohl die Permutationsdarstellung Rang 3 für 4-Zyklen benötigt. Dies wäre möglich, wenn ein Lift zu einer größeren Gruppe H mit einer treuen Darstellung ρ existiert, die alle Erzeuger von S4 mit Rang(ρ(t_s) - I) ≤ 2 realisiert. Meine Strategie: (1) Grunddaten sammeln: S4-Struktur, Alphabet 'all', echte irreduzible Darstellungen; (2) Die numerische treue h(S4, all) für Vergleich berechnen; (3) Numerische Konstruktionen in verschiedenen Räumen (perm, so3, planar, count) mit verschiedenen twists erkunden, um zu sehen, ob Rang 2 möglich ist; (4) Falls ein vielversprechender Kandidat gefunden wird, explizite rationale Matrizen konstruieren für die Zertifizierung.",
+     "plan": [
+      {
+       "op": "group_info",
+       "args": {
+        "group": "S4"
+       }
+      },
+      {
+       "op": "alphabet_info",
+       "args": {
+        "group": "S4",
+        "alphabet": "all"
+       }
+      },
+      {
+       "op": "real_irreps",
+       "args": {
+        "group": "S4"
+       }
+      },
+      {
+       "op": "faithful_h",
+       "args": {
+        "group": "S4",
+        "alphabet": "all"
+       }
+      },
+      {
+       "op": "numeric_construction",
+       "args": {
+        "group": "S4",
+        "alphabet": "all",
+        "construction": "perm",
+        "twist": "none"
+       }
+      },
+      {
+       "op": "numeric_construction",
+       "args": {
+        "group": "S4",
+        "alphabet": "all",
+        "construction": "so3",
+        "twist": "none"
+       }
+      },
+      {
+       "op": "numeric_construction",
+       "args": {
+        "group": "S4",
+        "alphabet": "all",
+        "construction": "planar",
+        "twist": "none"
+       }
+      },
+      {
+       "op": "numeric_construction",
+       "args": {
+        "group": "S4",
+        "alphabet": "all",
+        "construction": "count",
+        "twist": "none"
+       }
+      }
+     ]
+    },
+    {
+     "plan": [
+      {
+       "op": "train_quick",
+       "args": {
+        "arch": "hh2",
+        "group": "S4",
+        "alphabet": "all",
+        "steps": 1500
+       }
+      },
+      {
+       "op": "numeric_construction",
+       "args": {
+        "group": "S4",
+        "alphabet": "all",
+        "construction": "so3",
+        "twist": "involutions"
+       }
+      },
+      {
+       "op": "train_quick",
+       "args": {
+        "arch": "hh1",
+        "group": "S4",
+        "alphabet": "all",
+        "steps": 1500
+       }
+      }
+     ]
+    },
+    {
+     "antwort": "ja, h*(S4, all) = 2",
+     "zahl": 2,
+     "konfidenz": 0.85,
+     "pruefungen": [
+      {
+       "typ": "hstar_lower",
+       "group": "S4",
+       "alphabet": "all",
+       "k": 2
+      },
+      {
+       "typ": "realisation",
+       "group": "S4",
+       "alphabet": "all",
+       "k": 2,
+       "construction": "so3",
+       "twist": "none"
+      }
+     ],
+     "begruendung": "[E5] zeigt numerisch, daß die SO(3)-Konstruktion alle Buchstaben mit Rang(M−I)≤2 realisiert, während [E4] in der Permutationsdarstellung Rang 3 benötigt. 4-Zyklus haben Ordnung 4 und können nicht auf Ordnung-2-Reflexionen liften (untere Schranke k≥2). Damit ist h*(S4, all) = 2 < 3."
+    }
+   ],
+   "experimente": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10
+   ],
+   "final": {
+    "antwort": "ja, h*(S4, all) = 2",
+    "zahl": 2,
+    "konfidenz": 0.85,
+    "pruefungen": [
+     {
+      "typ": "hstar_lower",
+      "group": "S4",
+      "alphabet": "all",
+      "k": 2
+     },
+     {
+      "typ": "realisation",
+      "group": "S4",
+      "alphabet": "all",
+      "k": 2,
+      "construction": "so3",
+      "twist": "none"
+     }
+    ],
+    "begruendung": "[E5] zeigt numerisch, daß die SO(3)-Konstruktion alle Buchstaben mit Rang(M−I)≤2 realisiert, während [E4] in der Permutationsdarstellung Rang 3 benötigt. 4-Zyklus haben Ordnung 4 und können nicht auf Ordnung-2-Reflexionen liften (untere Schranke k≥2). Damit ist h*(S4, all) = 2 < 3."
+   },
+   "modell": "haiku",
+   "pruefung": {
+    "bestanden": true,
+    "grund": "certified lower bound h* >= 2 (Lemma L4: a letter of order >= 3 cannot lift to a reflection (a rank-1 finite-order real deviation from I has order 2)); claimed >= 2 | certified: |H| = 24, pi: H -> G onto (24 elements), consistent readout, dimension 3, field K_1, max rank(R[s] - I) = 2 <= k = 2, every letter factored into <= 2 exact reflections"
+   }
+  }
+ ],
+ "experimente": [
+  {
+   "id": 0,
+   "wer": "forscher-sparsam",
+   "op": "group_info",
+   "args": {
+    "group": "S4"
+   },
+   "ergebnis": {
+    "order": 24,
+    "abelian": false,
+    "solvable": true,
+    "perfect": false,
+    "derived_series_orders": [
+     24,
+     12,
+     4,
+     1
+    ],
+    "exponent": 12,
+    "center_size": 1,
+    "classes": [
+     {
+      "size": 1,
+      "element_order": 1,
+      "cycle_type": [
+       1,
+       1,
+       1,
+       1
+      ]
+     },
+     {
+      "size": 3,
+      "element_order": 2,
+      "cycle_type": [
+       2,
+       2
+      ]
+     },
+     {
+      "size": 6,
+      "element_order": 2,
+      "cycle_type": [
+       2,
+       1,
+       1
+      ]
+     },
+     {
+      "size": 8,
+      "element_order": 3,
+      "cycle_type": [
+       3,
+       1
+      ]
+     },
+     {
+      "size": 6,
+      "element_order": 4,
+      "cycle_type": [
+       4
+      ]
+     }
+    ]
+   },
+   "sek": 0.01
+  },
+  {
+   "id": 1,
+   "wer": "forscher-sparsam",
+   "op": "alphabet_info",
+   "args": {
+    "group": "S4",
+    "alphabet": "all"
+   },
+   "ergebnis": {
+    "letters": 23,
+    "orders": {
+     "2": 9,
+     "3": 8,
+     "4": 6
+    },
+    "cycle_types": {
+     "(2, 1, 1)": 6,
+     "(3, 1)": 8,
+     "(2, 2)": 3,
+     "(4,)": 6
+    }
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 2,
+   "wer": "forscher-sparsam",
+   "op": "real_irreps",
+   "args": {
+    "group": "S4"
+   },
+   "ergebnis": {
+    "irreps": [
+     {
+      "deg": 1,
+      "fs": 1
+     },
+     {
+      "deg": 1,
+      "fs": 1
+     },
+     {
+      "deg": 2,
+      "fs": 1
+     },
+     {
+      "deg": 3,
+      "fs": 1
+     },
+     {
+      "deg": 3,
+      "fs": 1
+     }
+    ],
+    "class_orders": [
+     1,
+     2,
+     2,
+     3,
+     4
+    ],
+    "class_sizes": [
+     1,
+     3,
+     6,
+     8,
+     6
+    ],
+    "codim_fix": [
+     [
+      0,
+      0,
+      1,
+      0,
+      1
+     ],
+     [
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     [
+      0,
+      0,
+      1,
+      2,
+      1
+     ],
+     [
+      0,
+      2,
+      1,
+      2,
+      3
+     ],
+     [
+      0,
+      2,
+      2,
+      2,
+      2
+     ]
+    ],
+    "mult_minus_one": [
+     [
+      0,
+      0,
+      1,
+      0,
+      1
+     ],
+     [
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     [
+      0,
+      0,
+      1,
+      0,
+      1
+     ],
+     [
+      0,
+      2,
+      1,
+      0,
+      1
+     ],
+     [
+      0,
+      2,
+      2,
+      0,
+      0
+     ]
+    ],
+    "hinweis": "numerical character table"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 3,
+   "wer": "forscher-sparsam",
+   "op": "faithful_h",
+   "args": {
+    "group": "S4",
+    "alphabet": "all"
+   },
+   "ergebnis": {
+    "h_numerical": 2,
+    "chosen_irreps": [
+     {
+      "deg": 3,
+      "fs": 1
+     }
+    ],
+    "hinweis": "numerical"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 4,
+   "wer": "forscher-sparsam",
+   "op": "numeric_construction",
+   "args": {
+    "group": "S4",
+    "alphabet": "all",
+    "construction": "perm",
+    "twist": "none"
+   },
+   "ergebnis": {
+    "dim": 4,
+    "numerical_rank_M_minus_I_by_letter_order": {
+     "2": [
+      1,
+      2
+     ],
+     "3": [
+      2
+     ],
+     "4": [
+      3
+     ]
+    },
+    "numerical_closure_size": 24,
+    "closure_capped": false,
+    "hinweis": "floating point, not a certificate"
+   },
+   "sek": 0.09
+  },
+  {
+   "id": 5,
+   "wer": "forscher-sparsam",
+   "op": "numeric_construction",
+   "args": {
+    "group": "S4",
+    "alphabet": "all",
+    "construction": "so3",
+    "twist": "none"
+   },
+   "ergebnis": {
+    "dim": 3,
+    "numerical_rank_M_minus_I_by_letter_order": {
+     "2": [
+      2
+     ],
+     "3": [
+      2
+     ],
+     "4": [
+      2
+     ]
+    },
+    "numerical_closure_size": 24,
+    "closure_capped": false,
+    "hinweis": "floating point, not a certificate"
+   },
+   "sek": 0.12
+  },
+  {
+   "id": 6,
+   "wer": "forscher-sparsam",
+   "op": "numeric_construction",
+   "args": {
+    "group": "S4",
+    "alphabet": "all",
+    "construction": "planar",
+    "twist": "none"
+   },
+   "ergebnis": {
+    "fehler": "ValueError: planar model inconsistent"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 7,
+   "wer": "forscher-sparsam",
+   "op": "numeric_construction",
+   "args": {
+    "group": "S4",
+    "alphabet": "all",
+    "construction": "count",
+    "twist": "none"
+   },
+   "ergebnis": {
+    "fehler": "ValueError: count cover needs an abelian group"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 8,
+   "wer": "forscher-sparsam",
+   "op": "train_quick",
+   "args": {
+    "arch": "hh2",
+    "group": "S4",
+    "alphabet": "all",
+    "steps": 1500
+   },
+   "ergebnis": {
+    "acc_len32": 0.09192,
+    "acc_len128_pos65-128": 0.0423,
+    "steps": 1500,
+    "hinweis": "single seed, observed, noisy"
+   },
+   "sek": 65.55
+  },
+  {
+   "id": 9,
+   "wer": "forscher-sparsam",
+   "op": "numeric_construction",
+   "args": {
+    "group": "S4",
+    "alphabet": "all",
+    "construction": "so3",
+    "twist": "involutions"
+   },
+   "ergebnis": {
+    "dim": 3,
+    "numerical_rank_M_minus_I_by_letter_order": {
+     "2": [
+      1
+     ],
+     "3": [
+      2
+     ],
+     "4": [
+      2
+     ]
+    },
+    "numerical_closure_size": 48,
+    "closure_capped": false,
+    "hinweis": "floating point, not a certificate"
+   },
+   "sek": 0.36
+  },
+  {
+   "id": 10,
+   "wer": "forscher-sparsam",
+   "op": "train_quick",
+   "args": {
+    "arch": "hh1",
+    "group": "S4",
+    "alphabet": "all",
+    "steps": 1500
+   },
+   "ergebnis": {
+    "acc_len32": 0.09027,
+    "acc_len128_pos65-128": 0.04153,
+    "steps": 1500,
+    "hinweis": "single seed, observed, noisy"
+   },
+   "sek": 43.51
+  }
+ ],
+ "sek": 222.1
+}
