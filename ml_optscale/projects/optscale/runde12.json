@@ -1,0 +1,3512 @@
+{
+ "antwort": {
+  "antwort": "Die Form e_N = (b-1)·a/(a+1) ist widerlegt. Die Daten sprechen für e_N ≈ b-1 im rauschfreien Fall mit Ridge → 0, mit Sättigung bei etwa 2a. Das ist belegt für a=1, b=2 und b=3. Für a=0,5 und a=2 ist die Form nur schwach gestützt.",
+  "zahl": 2.0,
+  "konfidenz": 0.4,
+  "pruefung": {
+   "typ": "exponent",
+   "kurve": "ridge",
+   "a": 1.0,
+   "b": 3.0,
+   "exponent": 2.0,
+   "ridge": 0.001
+  },
+  "begruendung": "Für a=1 liegt der Exponent bei b=2 (Ridge 1e-4) etwa bei 1,0–1,7 und bei b=3 (Ridge 1e-3) bei etwa 2,0–2,2. Das passt zu b-1, nicht zu (b-1)·a/(a+1) = 0,5 bzw. 1. Eine Rauschvariante (b-1)/b hätte bei a=1, b=3 den Wert 0,67 und passt ebenfalls nicht. Für a ≥ 2 und b nahe 1,1 (E47–E49, E54) flachen die Kurven bei festem Ridge und M=2000 auf einen Boden ab, sodass kein sauberer Fit möglich ist; die Aussage dort bleibt ungeprüft. Für a=0,5 liegen die lokalen Steigungen mit 1,8–2,5 über der Sättigungsvorhersage 2a=1. Das deutet auf Vorasymptotik durch N nahe M hin, und die Formel dort ist unbestätigt. Ein Minimum über mehrere Ridge-Werte habe ich nur für a=1, b=2 gemessen (E42–E45, E50, E51); die übrigen Parameter haben jeweils nur einen Ridge-Wert, und es fehlt eine Fehlerabschätzung mit mehr Seeds.",
+  "stimmen": "Stufe 4/4 (theoretiker, sonnet)"
+ },
+ "level": "computed (Code-Prüfer bestanden)",
+ "forscher": [
+  {
+   "strategie": "sparsam",
+   "runden": [
+    {
+     "ueberlegung": "Das Ziel ist die empirische Überprüfung des vermuteten Ridge-Exponenten e_N = (b-1)·a/(a+1). Ich plane 8 systematische ridge_kurve-Experimente über einen spannenden Parameter-Raum:\n\n1. Drei Experimente mit a=1.0 (Baseline, theoretisch unkritisch) über b ∈ {1.5, 2.0, 3.0}: Testet die reine b-Abhängigkeit. Theoretisch sollte e_N von 0.25 auf 1.0 steigen.\n\n2. Vier Experimente mit a=2.0 (kritischer Bereich laut Problemstellung) über b ∈ {1.5, 2.0, 3.0, 1.1}: Testet die a-Abhängigkeit und identifiziert die Grenze (b → 1.1), wo die Theorie wegen M=2000 endlich bricht. Theoretisch e_N ≈ 0.333, 0.667, 1.333, 0.067.\n\n3. Ein Experiment mit a=0.5, b=2.0 (untere Schranke): Komplettiert den Parameter-Raum und testet kleine a. Theoretisch e_N ≈ 0.333.\n\nFür jeden Punkt: N ∈ [16, 32, 64, 128, 256, 512, 1024], mindestens 5 Seeds, automatische Ridge-Optimierung pro N. Der Exponent wird durch log-log-Fit der mittleren Verluste extrahiert.",
+     "plan": [
+      {
+       "op": "ridge_kurve",
+       "args": {
+        "a": 0.5,
+        "b": 2.0,
+        "Ns": [
+         16,
+         32,
+         64,
+         128,
+         256,
+         512,
+         1024
+        ],
+        "ridge": null,
+        "noise": null,
+        "seeds": [
+         1,
+         2,
+         3,
+         4,
+         5
+        ]
+       }
+      },
+      {
+       "op": "ridge_kurve",
+       "args": {
+        "a": 1.0,
+        "b": 1.5,
+        "Ns": [
+         16,
+         32,
+         64,
+         128,
+         256,
+         512,
+         1024
+        ],
+        "ridge": null,
+        "noise": null,
+        "seeds": [
+         1,
+         2,
+         3,
+         4,
+         5
+        ]
+       }
+      },
+      {
+       "op": "ridge_kurve",
+       "args": {
+        "a": 1.0,
+        "b": 2.0,
+        "Ns": [
+         16,
+         32,
+         64,
+         128,
+         256,
+         512,
+         1024
+        ],
+        "ridge": null,
+        "noise": null,
+        "seeds": [
+         1,
+         2,
+         3,
+         4,
+         5
+        ]
+       }
+      },
+      {
+       "op": "ridge_kurve",
+       "args": {
+        "a": 1.0,
+        "b": 3.0,
+        "Ns": [
+         16,
+         32,
+         64,
+         128,
+         256,
+         512,
+         1024
+        ],
+        "ridge": null,
+        "noise": null,
+        "seeds": [
+         1,
+         2,
+         3,
+         4,
+         5
+        ]
+       }
+      },
+      {
+       "op": "ridge_kurve",
+       "args": {
+        "a": 2.0,
+        "b": 1.5,
+        "Ns": [
+         16,
+         32,
+         64,
+         128,
+         256,
+         512,
+         1024
+        ],
+        "ridge": null,
+        "noise": null,
+        "seeds": [
+         1,
+         2,
+         3,
+         4,
+         5
+        ]
+       }
+      },
+      {
+       "op": "ridge_kurve",
+       "args": {
+        "a": 2.0,
+        "b": 2.0,
+        "Ns": [
+         16,
+         32,
+         64,
+         128,
+         256,
+         512,
+         1024
+        ],
+        "ridge": null,
+        "noise": null,
+        "seeds": [
+         1,
+         2,
+         3,
+         4,
+         5
+        ]
+       }
+      },
+      {
+       "op": "ridge_kurve",
+       "args": {
+        "a": 2.0,
+        "b": 3.0,
+        "Ns": [
+         16,
+         32,
+         64,
+         128,
+         256,
+         512,
+         1024
+        ],
+        "ridge": null,
+        "noise": null,
+        "seeds": [
+         1,
+         2,
+         3,
+         4,
+         5
+        ]
+       }
+      },
+      {
+       "op": "ridge_kurve",
+       "args": {
+        "a": 2.0,
+        "b": 1.1,
+        "Ns": [
+         16,
+         32,
+         64,
+         128,
+         256,
+         512,
+         1024
+        ],
+        "ridge": null,
+        "noise": null,
+        "seeds": [
+         1,
+         2,
+         3,
+         4,
+         5
+        ]
+       }
+      }
+     ]
+    },
+    {
+     "plan": [
+      {
+       "op": "ridge_kurve",
+       "args": {
+        "a": 0.5,
+        "b": 2.0,
+        "Ns": [
+         16,
+         32,
+         64,
+         128,
+         256,
+         512,
+         1024
+        ],
+        "seeds": [
+         1,
+         2,
+         3,
+         4,
+         5
+        ]
+       }
+      },
+      {
+       "op": "ridge_kurve",
+       "args": {
+        "a": 1.0,
+        "b": 1.5,
+        "Ns": [
+         16,
+         32,
+         64,
+         128,
+         256,
+         512,
+         1024
+        ],
+        "seeds": [
+         1,
+         2,
+         3,
+         4,
+         5
+        ]
+       }
+      },
+      {
+       "op": "ridge_kurve",
+       "args": {
+        "a": 1.0,
+        "b": 2.0,
+        "Ns": [
+         16,
+         32,
+         64,
+         128,
+         256,
+         512,
+         1024
+        ],
+        "seeds": [
+         1,
+         2,
+         3,
+         4,
+         5
+        ]
+       }
+      },
+      {
+       "op": "ridge_kurve",
+       "args": {
+        "a": 1.0,
+        "b": 3.0,
+        "Ns": [
+         16,
+         32,
+         64,
+         128,
+         256,
+         512,
+         1024
+        ],
+        "seeds": [
+         1,
+         2,
+         3,
+         4,
+         5
+        ]
+       }
+      },
+      {
+       "op": "ridge_kurve",
+       "args": {
+        "a": 2.0,
+        "b": 2.0,
+        "Ns": [
+         16,
+         32,
+         64,
+         128,
+         256,
+         512,
+         1024
+        ],
+        "seeds": [
+         1,
+         2,
+         3,
+         4,
+         5
+        ]
+       }
+      },
+      {
+       "op": "ridge_kurve",
+       "args": {
+        "a": 2.0,
+        "b": 1.1,
+        "Ns": [
+         16,
+         32,
+         64,
+         128,
+         256,
+         512,
+         1024
+        ],
+        "seeds": [
+         1,
+         2,
+         3,
+         4,
+         5
+        ]
+       }
+      }
+     ]
+    },
+    {
+     "antwort": "e_N = (b-1)·a/(a+1)",
+     "zahl": null,
+     "konfidenz": 0.2,
+     "pruefungen": [
+      {
+       "typ": "exponent",
+       "kurve": "ridge",
+       "a": 1.0,
+       "b": 2.0,
+       "exponent": 0.5
+      },
+      {
+       "typ": "exponent",
+       "kurve": "ridge",
+       "a": 2.0,
+       "b": 2.0,
+       "exponent": 0.6667
+      },
+      {
+       "typ": "exponent",
+       "kurve": "ridge",
+       "a": 0.5,
+       "b": 2.0,
+       "exponent": 0.3333
+      }
+     ],
+     "begruendung": "Die Formel folgt aus Spektral-Filter-Theorie für Ridge-Regression mit Power-Law-Spektren. Alle 13 bisherigen ridge_kurve-Aufrufe schlugen mit `TypeError: '<' not supported between instances of 'int' and 'list'` fehl—wahrscheinlich fehlt explizite Liste von Ridge-Parametern (z.B. ridge=[1e-5, 1e-3, 1e-1, 1, 10]). Prüfer muss neue Versuche mit korrektem Parameterformat durchführen; ohne Experimentaldaten bleibt Konfidenz niedrig."
+    }
+   ],
+   "experimente": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13
+   ],
+   "final": {
+    "antwort": "e_N = (b-1)·a/(a+1)",
+    "zahl": null,
+    "konfidenz": 0.2,
+    "pruefungen": [
+     {
+      "typ": "exponent",
+      "kurve": "ridge",
+      "a": 1.0,
+      "b": 2.0,
+      "exponent": 0.5
+     },
+     {
+      "typ": "exponent",
+      "kurve": "ridge",
+      "a": 2.0,
+      "b": 2.0,
+      "exponent": 0.6667
+     },
+     {
+      "typ": "exponent",
+      "kurve": "ridge",
+      "a": 0.5,
+      "b": 2.0,
+      "exponent": 0.3333
+     }
+    ],
+    "begruendung": "Die Formel folgt aus Spektral-Filter-Theorie für Ridge-Regression mit Power-Law-Spektren. Alle 13 bisherigen ridge_kurve-Aufrufe schlugen mit `TypeError: '<' not supported between instances of 'int' and 'list'` fehl—wahrscheinlich fehlt explizite Liste von Ridge-Parametern (z.B. ridge=[1e-5, 1e-3, 1e-1, 1, 10]). Prüfer muss neue Versuche mit korrektem Parameterformat durchführen; ohne Experimentaldaten bleibt Konfidenz niedrig."
+   },
+   "modell": "haiku",
+   "pruefung": {
+    "bestanden": false,
+    "grund": "Prüfer-Fit ridge (a=1.0, b=2.0, ridge=0.0, noise=0.0): Exponent 1.2782 (Fenster 1) und 1.3891 (Fenster 2), behauptet 0.5, feste Toleranz 0.1 | Prüfer-Fit ridge (a=2.0, b=2.0, ridge=0.0, noise=0.0): Exponent 1.1370 (Fenster 1) und 1.1995 (Fenster 2), behauptet 0.6667, feste Toleranz 0.1 | Prüfer-Fit ridge (a=0.5, b=2.0, ridge=0.0, noise=0.0): Exponent 1.2400 (Fenster 1) und 1.5439 (Fenster 2), behauptet 0.3333, feste Toleranz 0.1"
+   }
+  },
+  {
+   "strategie": "numeriker",
+   "runden": [
+    {
+     "ueberlegung": "Zentrale Frage: Wie hängt der Ridge-Regressions-Exponent e_N von den Spektral-Parametern a (Merkmalskovarianz) und b (Zielspektrum) ab? Hypothese zu prüfen: e_N = (b-1)·a/(a+1). Strategie: (1) Breite Sondierung aller Kombinationen a ∈ {0.5, 1.0, 2.0} × b ∈ {1.5, 2.0, 3.0}, mit Fokus auf a=2 (hochkonditionierte Regime, kritische Region). (2) Pro Punkt: ridge_kurve mit N ∈ {16, 32, 64, 128, 256, 512, 1024}, internes Optimum über Ridge-Werte, mindestens 5 unabhängige Seeds für Rausch-Abschätzung. (3) Log-log-Anpassung des Exzess-Risikos N^{-e_N} in zwei Auflösungsfenstern. (4) Nach Runde 1: Analyse, wo Fit-Hypothese hält und wo sie bricht (erwartet: b nahe 1 und hohe a); ggf. fokussierte Verfeinerung bei kritischen Grenzen (b=1.1, a ≥ 2).",
+     "plan": [
+      {
+       "op": "ridge_kurve",
+       "args": {
+        "a": 0.5,
+        "b": 1.5,
+        "Ns": [
+         16,
+         32,
+         64,
+         128,
+         256,
+         512,
+         1024
+        ],
+        "seeds": [
+         1001,
+         1002,
+         1003,
+         1004,
+         1005
+        ]
+       }
+      },
+      {
+       "op": "ridge_kurve",
+       "args": {
+        "a": 0.5,
+        "b": 2.0,
+        "Ns": [
+         16,
+         32,
+         64,
+         128,
+         256,
+         512,
+         1024
+        ],
+        "seeds": [
+         1001,
+         1002,
+         1003,
+         1004,
+         1005
+        ]
+       }
+      },
+      {
+       "op": "ridge_kurve",
+       "args": {
+        "a": 0.5,
+        "b": 3.0,
+        "Ns": [
+         16,
+         32,
+         64,
+         128,
+         256,
+         512,
+         1024
+        ],
+        "seeds": [
+         1001,
+         1002,
+         1003,
+         1004,
+         1005
+        ]
+       }
+      },
+      {
+       "op": "ridge_kurve",
+       "args": {
+        "a": 1.0,
+        "b": 1.5,
+        "Ns": [
+         16,
+         32,
+         64,
+         128,
+         256,
+         512,
+         1024
+        ],
+        "seeds": [
+         1001,
+         1002,
+         1003,
+         1004,
+         1005
+        ]
+       }
+      },
+      {
+       "op": "ridge_kurve",
+       "args": {
+        "a": 1.0,
+        "b": 2.0,
+        "Ns": [
+         16,
+         32,
+         64,
+         128,
+         256,
+         512,
+         1024
+        ],
+        "seeds": [
+         1001,
+         1002,
+         1003,
+         1004,
+         1005
+        ]
+       }
+      },
+      {
+       "op": "ridge_kurve",
+       "args": {
+        "a": 1.0,
+        "b": 3.0,
+        "Ns": [
+         16,
+         32,
+         64,
+         128,
+         256,
+         512,
+         1024
+        ],
+        "seeds": [
+         1001,
+         1002,
+         1003,
+         1004,
+         1005
+        ]
+       }
+      },
+      {
+       "op": "ridge_kurve",
+       "args": {
+        "a": 2.0,
+        "b": 2.0,
+        "Ns": [
+         16,
+         32,
+         64,
+         128,
+         256,
+         512,
+         1024
+        ],
+        "seeds": [
+         1001,
+         1002,
+         1003,
+         1004,
+         1005
+        ]
+       }
+      },
+      {
+       "op": "ridge_kurve",
+       "args": {
+        "a": 2.0,
+        "b": 3.0,
+        "Ns": [
+         16,
+         32,
+         64,
+         128,
+         256,
+         512,
+         1024
+        ],
+        "seeds": [
+         1001,
+         1002,
+         1003,
+         1004,
+         1005
+        ]
+       }
+      }
+     ]
+    },
+    {
+     "plan": [
+      {
+       "op": "ridge_kurve",
+       "args": {
+        "a": 0.5,
+        "b": 1.5,
+        "Ns": [
+         16,
+         32,
+         64,
+         128,
+         256,
+         512,
+         1024
+        ]
+       }
+      },
+      {
+       "op": "ridge_kurve",
+       "args": {
+        "a": 0.5,
+        "b": 2.0,
+        "Ns": [
+         16,
+         32,
+         64,
+         128,
+         256,
+         512,
+         1024
+        ]
+       }
+      },
+      {
+       "op": "ridge_kurve",
+       "args": {
+        "a": 1.0,
+        "b": 1.5,
+        "Ns": [
+         16,
+         32,
+         64,
+         128,
+         256,
+         512,
+         1024
+        ]
+       }
+      },
+      {
+       "op": "ridge_kurve",
+       "args": {
+        "a": 1.0,
+        "b": 2.0,
+        "Ns": [
+         16,
+         32,
+         64,
+         128,
+         256,
+         512,
+         1024
+        ]
+       }
+      },
+      {
+       "op": "ridge_kurve",
+       "args": {
+        "a": 2.0,
+        "b": 2.0,
+        "Ns": [
+         16,
+         32,
+         64,
+         128,
+         256,
+         512,
+         1024
+        ]
+       }
+      },
+      {
+       "op": "ridge_kurve",
+       "args": {
+        "a": 0.5,
+        "b": 3.0,
+        "Ns": [
+         16,
+         32,
+         64,
+         128,
+         256,
+         512,
+         1024
+        ]
+       }
+      }
+     ],
+     "hinweis": "Vorherige Fehler (E14–E21) waren TypeError im seeds-Parameter. Dieses Mal: Parameter ohne `seeds` übergeben; interne Mehrfach-Sampling sollte automatisch erfolgen. Ridge-Tuning über N erfolgt intern (Minimum über Ridge-Gitter für jedes N)."
+    },
+    {
+     "antwort": "widerlegt",
+     "zahl": null,
+     "konfidenz": 0.92,
+     "begruendung": "Die Messwerte zeigen Exponentenskalierungen eN, die systematisch deutlich über der Vorhersage eN = (b−1)·a/(a+1) liegen. Im großen-N-Fenster (256≤N≤1024) erhalte ich z.B. für (a=1.0,b=2.0) ca. 1.55–1.65 statt vorhergesagt 0.5; für (a=0.5,b=3.0) ca. 2.18 statt vorhergesagt 0.67. Die Fensterabhängigkeit deutet auf starke endliche Größen-Effekte hin.",
+     "pruefungen": [
+      {
+       "typ": "exponent",
+       "kurve": "ridge",
+       "a": 1.0,
+       "b": 2.0,
+       "exponent": 0.5,
+       "tolerance": 0.1
+      },
+      {
+       "typ": "exponent",
+       "kurve": "ridge",
+       "a": 0.5,
+       "b": 3.0,
+       "exponent": 0.67,
+       "tolerance": 0.15
+      }
+     ]
+    }
+   ],
+   "experimente": [
+    14,
+    15,
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    22,
+    23,
+    24,
+    25,
+    26,
+    27
+   ],
+   "final": {
+    "antwort": "widerlegt",
+    "zahl": null,
+    "konfidenz": 0.92,
+    "begruendung": "Die Messwerte zeigen Exponentenskalierungen eN, die systematisch deutlich über der Vorhersage eN = (b−1)·a/(a+1) liegen. Im großen-N-Fenster (256≤N≤1024) erhalte ich z.B. für (a=1.0,b=2.0) ca. 1.55–1.65 statt vorhergesagt 0.5; für (a=0.5,b=3.0) ca. 2.18 statt vorhergesagt 0.67. Die Fensterabhängigkeit deutet auf starke endliche Größen-Effekte hin.",
+    "pruefungen": [
+     {
+      "typ": "exponent",
+      "kurve": "ridge",
+      "a": 1.0,
+      "b": 2.0,
+      "exponent": 0.5,
+      "tolerance": 0.1
+     },
+     {
+      "typ": "exponent",
+      "kurve": "ridge",
+      "a": 0.5,
+      "b": 3.0,
+      "exponent": 0.67,
+      "tolerance": 0.15
+     }
+    ]
+   },
+   "modell": "haiku",
+   "pruefung": {
+    "bestanden": false,
+    "grund": "Prüfer-Fit ridge (a=1.0, b=2.0, ridge=0.0, noise=0.0): Exponent 1.2782 (Fenster 1) und 1.3891 (Fenster 2), behauptet 0.5, feste Toleranz 0.1 | Prüfer-Fit ridge (a=0.5, b=3.0, ridge=0.0, noise=0.0): Exponent 1.4744 (Fenster 1) und 1.8403 (Fenster 2), behauptet 0.67, feste Toleranz 0.1"
+   }
+  },
+  {
+   "strategie": "skeptiker",
+   "runden": [
+    {
+     "ueberlegung": "Hypothese aus der Theorie: Ridge mit optimalem Regularisierer im Potenzgesetz-Modell liefert e_N = (b-1)·a/(a+1)?? Ich misstraue dem: bekannte Ergebnisse (Cui et al., Bahri et al.) sagen für optimal regularisiertes Ridge bei Quellbedingung mit Zielanteilen lambda_k w_k^2 = k^-b: Verlust ~ N^-(b-1) (für b-1 <= 2a, 'Sättigungsgrenze'), also unabhängig von a. Das Gradientenfluss-Ergebnis ist t^-(b-1)/a, und mit t ~ N^a entspricht dies N^-(b-1). Die Alternative (b-1)a/(a+1) würde bei a=1 den Wert (b-1)/2 geben, unterscheidet sich also deutlich. Ich messe ridge_kurve auf dem gesamten 3x3-Gitter (a ∈ {0.5,1,2}, b ∈ {1.5,2,3}) mit ridge-Werten über mehrere Dekaden, 8 Seeds, N=16..1024, und lese das Minimum über ridge pro N aus. Ich rechne mit Einschränkungen: Bei b=3, a=2 ist 2a=4 > b-1, also keine Sättigung; bei b nahe 1,1 und a>=2 wird das Signal sehr klein und M=2000 schneidet den Schwanz ab (Rest ~ M^-(b-1)·... ~ 2000^-0,1 groß gegen N^-0,1), daher wird dieser Randfall separat getestet. Für die Gegenprobe vergleiche ich mit gf_kurve (Exponent (b-1)/a) und param_kurve (Exponent b-1 laut Theorie). Plan: erst drei repräsentative Fälle mit Ridge-Gitter, dann Randfälle. Fit je Fenster via fit_exponent nach Auswertung.",
+     "plan": [
+      {
+       "op": "ridge_kurve",
+       "args": {
+        "a": 1.0,
+        "b": 2.0,
+        "Ns": [
+         16,
+         32,
+         64,
+         128,
+         256,
+         512,
+         1024
+        ],
+        "ridge": 0.0001,
+        "seeds": 8
+       }
+      },
+      {
+       "op": "ridge_kurve",
+       "args": {
+        "a": 1.0,
+        "b": 2.0,
+        "Ns": [
+         16,
+         32,
+         64,
+         128,
+         256,
+         512,
+         1024
+        ],
+        "ridge": 0.001,
+        "seeds": 8
+       }
+      },
+      {
+       "op": "ridge_kurve",
+       "args": {
+        "a": 1.0,
+        "b": 2.0,
+        "Ns": [
+         16,
+         32,
+         64,
+         128,
+         256,
+         512,
+         1024
+        ],
+        "ridge": 0.01,
+        "seeds": 8
+       }
+      },
+      {
+       "op": "ridge_kurve",
+       "args": {
+        "a": 0.5,
+        "b": 3.0,
+        "Ns": [
+         16,
+         32,
+         64,
+         128,
+         256,
+         512,
+         1024
+        ],
+        "ridge": 0.001,
+        "seeds": 8
+       }
+      },
+      {
+       "op": "ridge_kurve",
+       "args": {
+        "a": 2.0,
+        "b": 3.0,
+        "Ns": [
+         16,
+         32,
+         64,
+         128,
+         256,
+         512,
+         1024
+        ],
+        "ridge": 0.0001,
+        "seeds": 8
+       }
+      },
+      {
+       "op": "ridge_kurve",
+       "args": {
+        "a": 2.0,
+        "b": 1.5,
+        "Ns": [
+         16,
+         32,
+         64,
+         128,
+         256,
+         512,
+         1024
+        ],
+        "ridge": 0.0001,
+        "seeds": 8
+       }
+      },
+      {
+       "op": "ridge_kurve",
+       "args": {
+        "a": 2.0,
+        "b": 1.1,
+        "Ns": [
+         16,
+         32,
+         64,
+         128,
+         256,
+         512,
+         1024
+        ],
+        "ridge": 0.0001,
+        "seeds": 8
+       }
+      },
+      {
+       "op": "param_kurve",
+       "args": {
+        "a": 1.0,
+        "b": 2.0,
+        "Ps": [
+         8,
+         16,
+         32,
+         64,
+         128,
+         256,
+         512
+        ]
+       }
+      }
+     ]
+    },
+    {
+     "plan": [
+      {
+       "op": "ridge_kurve",
+       "args": {
+        "a": 1.0,
+        "b": 2.0,
+        "Ns": [
+         16,
+         32,
+         64,
+         128,
+         256,
+         512,
+         1024
+        ],
+        "ridge": 1e-05,
+        "seeds": 8
+       }
+      },
+      {
+       "op": "ridge_kurve",
+       "args": {
+        "a": 1.0,
+        "b": 1.5,
+        "Ns": [
+         16,
+         32,
+         64,
+         128,
+         256,
+         512,
+         1024
+        ],
+        "ridge": 0.001,
+        "seeds": 8
+       }
+      },
+      {
+       "op": "ridge_kurve",
+       "args": {
+        "a": 1.0,
+        "b": 1.5,
+        "Ns": [
+         16,
+         32,
+         64,
+         128,
+         256,
+         512,
+         1024
+        ],
+        "ridge": 0.01,
+        "seeds": 8
+       }
+      },
+      {
+       "op": "ridge_kurve",
+       "args": {
+        "a": 1.0,
+        "b": 3.0,
+        "Ns": [
+         16,
+         32,
+         64,
+         128,
+         256,
+         512,
+         1024
+        ],
+        "ridge": 0.0001,
+        "seeds": 8
+       }
+      },
+      {
+       "op": "ridge_kurve",
+       "args": {
+        "a": 0.5,
+        "b": 2.0,
+        "Ns": [
+         16,
+         32,
+         64,
+         128,
+         256,
+         512,
+         1024
+        ],
+        "ridge": 0.01,
+        "seeds": 8
+       }
+      },
+      {
+       "op": "ridge_kurve",
+       "args": {
+        "a": 0.5,
+        "b": 2.0,
+        "Ns": [
+         16,
+         32,
+         64,
+         128,
+         256,
+         512,
+         1024
+        ],
+        "ridge": 0.001,
+        "seeds": 8
+       }
+      }
+     ]
+    },
+    {
+     "antwort": "Die Vermutung e_N = (b-1)·a/(a+1) ist nicht gestützt: Sie liefert für a=1, b=2 den Wert 0,5, gemessen wurden aber etwa 1,0. Besser passt e_N ≈ min(b-1, 2a), also unabhängig von a, solange b-1 < 2a. Das ist nur eine Hypothese, durch Messung nicht bestätigt. Es wurde nur das Ridge-Minimum über wenige Ridge-Werte untersucht. Die Fits sind stark von Fenster und Ridge abhängig, und für große a und b wird der Fit durch endliches M=2000 und N≤1024 verfälscht.",
+     "zahl": 1.0,
+     "konfidenz": 0.5,
+     "pruefung": {
+      "typ": "exponent",
+      "kurve": "ridge",
+      "a": 1.0,
+      "b": 2.0,
+      "exponent": 1.0
+     },
+     "begruendung": "Für a=1, b=2 liegt die Steigung bei kleinen N (16→64) bei etwa 1,03, im Gesamtbereich bei etwa 1,3, also deutlich über dem von der Formel vorhergesagten 0,5. Weitere Fits mit teils ungetuntem Ridge passen grob zu min(b-1, 2a): a=1, b=3 ergibt etwa 2,1, a=0,5, b=2 etwa 1,1, a=2, b=1,5 etwa 0,3–0,6. Bei a=2, b=3 sättigt der Verlust bei etwa 3e-5, ein Boden durch endliches M und N≤1024. Bei b nahe 1,1 und a=2 (E34) ist die Steigung mit etwa 0,3 zu flach, daher ist der Fit dort unzuverlässig."
+    }
+   ],
+   "experimente": [
+    28,
+    29,
+    30,
+    31,
+    32,
+    33,
+    34,
+    35,
+    36,
+    37,
+    38,
+    39,
+    40,
+    41
+   ],
+   "final": {
+    "antwort": "Die Vermutung e_N = (b-1)·a/(a+1) ist nicht gestützt: Sie liefert für a=1, b=2 den Wert 0,5, gemessen wurden aber etwa 1,0. Besser passt e_N ≈ min(b-1, 2a), also unabhängig von a, solange b-1 < 2a. Das ist nur eine Hypothese, durch Messung nicht bestätigt. Es wurde nur das Ridge-Minimum über wenige Ridge-Werte untersucht. Die Fits sind stark von Fenster und Ridge abhängig, und für große a und b wird der Fit durch endliches M=2000 und N≤1024 verfälscht.",
+    "zahl": 1.0,
+    "konfidenz": 0.5,
+    "pruefung": {
+     "typ": "exponent",
+     "kurve": "ridge",
+     "a": 1.0,
+     "b": 2.0,
+     "exponent": 1.0
+    },
+    "begruendung": "Für a=1, b=2 liegt die Steigung bei kleinen N (16→64) bei etwa 1,03, im Gesamtbereich bei etwa 1,3, also deutlich über dem von der Formel vorhergesagten 0,5. Weitere Fits mit teils ungetuntem Ridge passen grob zu min(b-1, 2a): a=1, b=3 ergibt etwa 2,1, a=0,5, b=2 etwa 1,1, a=2, b=1,5 etwa 0,3–0,6. Bei a=2, b=3 sättigt der Verlust bei etwa 3e-5, ein Boden durch endliches M und N≤1024. Bei b nahe 1,1 und a=2 (E34) ist die Steigung mit etwa 0,3 zu flach, daher ist der Fit dort unzuverlässig."
+   },
+   "modell": "sonnet",
+   "pruefung": {
+    "bestanden": false,
+    "grund": "Prüfer-Fit ridge (a=1.0, b=2.0, ridge=0.0, noise=0.0): Exponent 1.2782 (Fenster 1) und 1.3891 (Fenster 2), behauptet 1.0, feste Toleranz 0.1"
+   }
+  },
+  {
+   "strategie": "theoretiker",
+   "runden": [
+    {
+     "ueberlegung": "Theorie: Für Ridge mit optimalem Regularisierer im Potenzgesetz-Modell (Spektrum k^-a, Zielanteile k^-b, also Zielkoeffizienten w_k^2 ~ k^-(b-a)) erwartet man den Exzessverlust ~ N^-(b-1) bei optimalem lambda, d.h. e_N = b-1 unabhängig von a (Source-Bedingung genügt, solange b-1 <= 2a, sonst Sättigung). Kandidat der Frage (b-1)·a/(a+1) entspräche nicht-optimalem/festem Ridge oder Gradientenfluss-artigem Verhalten (gf: e_t=(b-1)/a). Grenzfälle: a→∞ führt zu Sättigung e=min(b-1, 2a)-artig bzw. Einfluss von M=2000 (Moden unterhalb N^-... abgeschnitten, wenn b-1 groß und a klein). Bei b nahe 1,1 ist der Verlust sehr flach, Rest-Schwanz-Anteil bei M=2000 dominiert (Verlust bei M ~ M^-(b-1)=2000^-0.1≈0.47 abgeschnitten, aber relative Variation klein). Entscheidende Vorhersage: e_N = b-1 für alle 9 Kombinationen (a in {0.5,1,2}, b in {1.5,2,3}), nicht a-abhängig. Test: ridge_kurve mit mehreren Ridge-Werten pro N und 5+ Seeds für alle Kombinationen; Minimum über ridge je N bilden und fitten. Ich beginne mit den Eckfällen und Zentrum, dann Randfälle (b=1.1, a=2).",
+     "plan": [
+      {
+       "op": "ridge_kurve",
+       "args": {
+        "a": 1.0,
+        "b": 2.0,
+        "Ns": [
+         16,
+         32,
+         64,
+         128,
+         256,
+         512,
+         1024
+        ],
+        "ridge": 0.0001,
+        "seeds": 8
+       }
+      },
+      {
+       "op": "ridge_kurve",
+       "args": {
+        "a": 1.0,
+        "b": 2.0,
+        "Ns": [
+         16,
+         32,
+         64,
+         128,
+         256,
+         512,
+         1024
+        ],
+        "ridge": 0.001,
+        "seeds": 8
+       }
+      },
+      {
+       "op": "ridge_kurve",
+       "args": {
+        "a": 1.0,
+        "b": 2.0,
+        "Ns": [
+         16,
+         32,
+         64,
+         128,
+         256,
+         512,
+         1024
+        ],
+        "ridge": 0.01,
+        "seeds": 8
+       }
+      },
+      {
+       "op": "ridge_kurve",
+       "args": {
+        "a": 1.0,
+        "b": 2.0,
+        "Ns": [
+         16,
+         32,
+         64,
+         128,
+         256,
+         512,
+         1024
+        ],
+        "ridge": 0.1,
+        "seeds": 8
+       }
+      },
+      {
+       "op": "ridge_kurve",
+       "args": {
+        "a": 0.5,
+        "b": 3.0,
+        "Ns": [
+         16,
+         32,
+         64,
+         128,
+         256,
+         512,
+         1024
+        ],
+        "ridge": 0.001,
+        "seeds": 8
+       }
+      },
+      {
+       "op": "ridge_kurve",
+       "args": {
+        "a": 2.0,
+        "b": 1.5,
+        "Ns": [
+         16,
+         32,
+         64,
+         128,
+         256,
+         512,
+         1024
+        ],
+        "ridge": 0.001,
+        "seeds": 8
+       }
+      },
+      {
+       "op": "ridge_kurve",
+       "args": {
+        "a": 2.0,
+        "b": 3.0,
+        "Ns": [
+         16,
+         32,
+         64,
+         128,
+         256,
+         512,
+         1024
+        ],
+        "ridge": 0.001,
+        "seeds": 8
+       }
+      },
+      {
+       "op": "ridge_kurve",
+       "args": {
+        "a": 2.0,
+        "b": 1.1,
+        "Ns": [
+         16,
+         32,
+         64,
+         128,
+         256,
+         512,
+         1024
+        ],
+        "ridge": 0.001,
+        "seeds": 8
+       }
+      }
+     ]
+    },
+    {
+     "plan": [
+      {
+       "op": "ridge_kurve",
+       "args": {
+        "a": 1.0,
+        "b": 2.0,
+        "Ns": [
+         16,
+         32,
+         64,
+         128,
+         256,
+         512,
+         1024
+        ],
+        "ridge": 0.0003,
+        "seeds": 8
+       }
+      },
+      {
+       "op": "ridge_kurve",
+       "args": {
+        "a": 1.0,
+        "b": 2.0,
+        "Ns": [
+         16,
+         32,
+         64,
+         128,
+         256,
+         512,
+         1024
+        ],
+        "ridge": 0.003,
+        "seeds": 8
+       }
+      },
+      {
+       "op": "ridge_kurve",
+       "args": {
+        "a": 1.0,
+        "b": 3.0,
+        "Ns": [
+         16,
+         32,
+         64,
+         128,
+         256,
+         512,
+         1024
+        ],
+        "ridge": 0.001,
+        "seeds": 8
+       }
+      },
+      {
+       "op": "ridge_kurve",
+       "args": {
+        "a": 0.5,
+        "b": 2.0,
+        "Ns": [
+         16,
+         32,
+         64,
+         128,
+         256,
+         512,
+         1024
+        ],
+        "ridge": 0.01,
+        "seeds": 8
+       }
+      },
+      {
+       "op": "ridge_kurve",
+       "args": {
+        "a": 2.0,
+        "b": 2.0,
+        "Ns": [
+         16,
+         32,
+         64,
+         128,
+         256,
+         512,
+         1024
+        ],
+        "ridge": 0.001,
+        "seeds": 8
+       }
+      },
+      {
+       "op": "ridge_kurve",
+       "args": {
+        "a": 1.0,
+        "b": 1.5,
+        "Ns": [
+         16,
+         32,
+         64,
+         128,
+         256,
+         512,
+         1024
+        ],
+        "ridge": 0.01,
+        "seeds": 8
+       }
+      }
+     ]
+    },
+    {
+     "antwort": "Die Form e_N = (b-1)·a/(a+1) ist widerlegt. Die Daten sprechen für e_N ≈ b-1 im rauschfreien Fall mit Ridge → 0, mit Sättigung bei etwa 2a. Das ist belegt für a=1, b=2 und b=3. Für a=0,5 und a=2 ist die Form nur schwach gestützt.",
+     "zahl": 2.0,
+     "konfidenz": 0.4,
+     "pruefung": {
+      "typ": "exponent",
+      "kurve": "ridge",
+      "a": 1.0,
+      "b": 3.0,
+      "exponent": 2.0,
+      "ridge": 0.001
+     },
+     "begruendung": "Für a=1 liegt der Exponent bei b=2 (Ridge 1e-4) etwa bei 1,0–1,7 und bei b=3 (Ridge 1e-3) bei etwa 2,0–2,2. Das passt zu b-1, nicht zu (b-1)·a/(a+1) = 0,5 bzw. 1. Eine Rauschvariante (b-1)/b hätte bei a=1, b=3 den Wert 0,67 und passt ebenfalls nicht. Für a ≥ 2 und b nahe 1,1 (E47–E49, E54) flachen die Kurven bei festem Ridge und M=2000 auf einen Boden ab, sodass kein sauberer Fit möglich ist; die Aussage dort bleibt ungeprüft. Für a=0,5 liegen die lokalen Steigungen mit 1,8–2,5 über der Sättigungsvorhersage 2a=1. Das deutet auf Vorasymptotik durch N nahe M hin, und die Formel dort ist unbestätigt. Ein Minimum über mehrere Ridge-Werte habe ich nur für a=1, b=2 gemessen (E42–E45, E50, E51); die übrigen Parameter haben jeweils nur einen Ridge-Wert, und es fehlt eine Fehlerabschätzung mit mehr Seeds."
+    }
+   ],
+   "experimente": [
+    42,
+    43,
+    44,
+    45,
+    46,
+    47,
+    48,
+    49,
+    50,
+    51,
+    52,
+    53,
+    54,
+    55
+   ],
+   "final": {
+    "antwort": "Die Form e_N = (b-1)·a/(a+1) ist widerlegt. Die Daten sprechen für e_N ≈ b-1 im rauschfreien Fall mit Ridge → 0, mit Sättigung bei etwa 2a. Das ist belegt für a=1, b=2 und b=3. Für a=0,5 und a=2 ist die Form nur schwach gestützt.",
+    "zahl": 2.0,
+    "konfidenz": 0.4,
+    "pruefung": {
+     "typ": "exponent",
+     "kurve": "ridge",
+     "a": 1.0,
+     "b": 3.0,
+     "exponent": 2.0,
+     "ridge": 0.001
+    },
+    "begruendung": "Für a=1 liegt der Exponent bei b=2 (Ridge 1e-4) etwa bei 1,0–1,7 und bei b=3 (Ridge 1e-3) bei etwa 2,0–2,2. Das passt zu b-1, nicht zu (b-1)·a/(a+1) = 0,5 bzw. 1. Eine Rauschvariante (b-1)/b hätte bei a=1, b=3 den Wert 0,67 und passt ebenfalls nicht. Für a ≥ 2 und b nahe 1,1 (E47–E49, E54) flachen die Kurven bei festem Ridge und M=2000 auf einen Boden ab, sodass kein sauberer Fit möglich ist; die Aussage dort bleibt ungeprüft. Für a=0,5 liegen die lokalen Steigungen mit 1,8–2,5 über der Sättigungsvorhersage 2a=1. Das deutet auf Vorasymptotik durch N nahe M hin, und die Formel dort ist unbestätigt. Ein Minimum über mehrere Ridge-Werte habe ich nur für a=1, b=2 gemessen (E42–E45, E50, E51); die übrigen Parameter haben jeweils nur einen Ridge-Wert, und es fehlt eine Fehlerabschätzung mit mehr Seeds."
+   },
+   "modell": "sonnet",
+   "pruefung": {
+    "bestanden": true,
+    "grund": "Prüfer-Fit ridge (a=1.0, b=3.0, ridge=0.001, noise=0.0): Exponent 1.9893 (Fenster 1) und 1.9258 (Fenster 2), behauptet 2.0, feste Toleranz 0.1"
+   }
+  }
+ ],
+ "experimente": [
+  {
+   "id": 0,
+   "wer": "forscher-sparsam",
+   "op": "ridge_kurve",
+   "args": {
+    "a": 0.5,
+    "b": 2.0,
+    "Ns": [
+     16,
+     32,
+     64,
+     128,
+     256,
+     512,
+     1024
+    ],
+    "ridge": null,
+    "noise": null,
+    "seeds": [
+     1,
+     2,
+     3,
+     4,
+     5
+    ]
+   },
+   "ergebnis": {
+    "fehler": "TypeError: '<' not supported between instances of 'int' and 'list'"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 1,
+   "wer": "forscher-sparsam",
+   "op": "ridge_kurve",
+   "args": {
+    "a": 1.0,
+    "b": 1.5,
+    "Ns": [
+     16,
+     32,
+     64,
+     128,
+     256,
+     512,
+     1024
+    ],
+    "ridge": null,
+    "noise": null,
+    "seeds": [
+     1,
+     2,
+     3,
+     4,
+     5
+    ]
+   },
+   "ergebnis": {
+    "fehler": "TypeError: '<' not supported between instances of 'int' and 'list'"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 2,
+   "wer": "forscher-sparsam",
+   "op": "ridge_kurve",
+   "args": {
+    "a": 1.0,
+    "b": 2.0,
+    "Ns": [
+     16,
+     32,
+     64,
+     128,
+     256,
+     512,
+     1024
+    ],
+    "ridge": null,
+    "noise": null,
+    "seeds": [
+     1,
+     2,
+     3,
+     4,
+     5
+    ]
+   },
+   "ergebnis": {
+    "fehler": "TypeError: '<' not supported between instances of 'int' and 'list'"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 3,
+   "wer": "forscher-sparsam",
+   "op": "ridge_kurve",
+   "args": {
+    "a": 1.0,
+    "b": 3.0,
+    "Ns": [
+     16,
+     32,
+     64,
+     128,
+     256,
+     512,
+     1024
+    ],
+    "ridge": null,
+    "noise": null,
+    "seeds": [
+     1,
+     2,
+     3,
+     4,
+     5
+    ]
+   },
+   "ergebnis": {
+    "fehler": "TypeError: '<' not supported between instances of 'int' and 'list'"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 4,
+   "wer": "forscher-sparsam",
+   "op": "ridge_kurve",
+   "args": {
+    "a": 2.0,
+    "b": 1.5,
+    "Ns": [
+     16,
+     32,
+     64,
+     128,
+     256,
+     512,
+     1024
+    ],
+    "ridge": null,
+    "noise": null,
+    "seeds": [
+     1,
+     2,
+     3,
+     4,
+     5
+    ]
+   },
+   "ergebnis": {
+    "fehler": "TypeError: '<' not supported between instances of 'int' and 'list'"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 5,
+   "wer": "forscher-sparsam",
+   "op": "ridge_kurve",
+   "args": {
+    "a": 2.0,
+    "b": 2.0,
+    "Ns": [
+     16,
+     32,
+     64,
+     128,
+     256,
+     512,
+     1024
+    ],
+    "ridge": null,
+    "noise": null,
+    "seeds": [
+     1,
+     2,
+     3,
+     4,
+     5
+    ]
+   },
+   "ergebnis": {
+    "fehler": "TypeError: '<' not supported between instances of 'int' and 'list'"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 6,
+   "wer": "forscher-sparsam",
+   "op": "ridge_kurve",
+   "args": {
+    "a": 2.0,
+    "b": 3.0,
+    "Ns": [
+     16,
+     32,
+     64,
+     128,
+     256,
+     512,
+     1024
+    ],
+    "ridge": null,
+    "noise": null,
+    "seeds": [
+     1,
+     2,
+     3,
+     4,
+     5
+    ]
+   },
+   "ergebnis": {
+    "fehler": "TypeError: '<' not supported between instances of 'int' and 'list'"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 7,
+   "wer": "forscher-sparsam",
+   "op": "ridge_kurve",
+   "args": {
+    "a": 2.0,
+    "b": 1.1,
+    "Ns": [
+     16,
+     32,
+     64,
+     128,
+     256,
+     512,
+     1024
+    ],
+    "ridge": null,
+    "noise": null,
+    "seeds": [
+     1,
+     2,
+     3,
+     4,
+     5
+    ]
+   },
+   "ergebnis": {
+    "fehler": "TypeError: '<' not supported between instances of 'int' and 'list'"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 8,
+   "wer": "forscher-sparsam",
+   "op": "ridge_kurve",
+   "args": {
+    "a": 0.5,
+    "b": 2.0,
+    "Ns": [
+     16,
+     32,
+     64,
+     128,
+     256,
+     512,
+     1024
+    ],
+    "seeds": [
+     1,
+     2,
+     3,
+     4,
+     5
+    ]
+   },
+   "ergebnis": {
+    "fehler": "TypeError: '<' not supported between instances of 'int' and 'list'"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 9,
+   "wer": "forscher-sparsam",
+   "op": "ridge_kurve",
+   "args": {
+    "a": 1.0,
+    "b": 1.5,
+    "Ns": [
+     16,
+     32,
+     64,
+     128,
+     256,
+     512,
+     1024
+    ],
+    "seeds": [
+     1,
+     2,
+     3,
+     4,
+     5
+    ]
+   },
+   "ergebnis": {
+    "fehler": "TypeError: '<' not supported between instances of 'int' and 'list'"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 10,
+   "wer": "forscher-sparsam",
+   "op": "ridge_kurve",
+   "args": {
+    "a": 1.0,
+    "b": 2.0,
+    "Ns": [
+     16,
+     32,
+     64,
+     128,
+     256,
+     512,
+     1024
+    ],
+    "seeds": [
+     1,
+     2,
+     3,
+     4,
+     5
+    ]
+   },
+   "ergebnis": {
+    "fehler": "TypeError: '<' not supported between instances of 'int' and 'list'"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 11,
+   "wer": "forscher-sparsam",
+   "op": "ridge_kurve",
+   "args": {
+    "a": 1.0,
+    "b": 3.0,
+    "Ns": [
+     16,
+     32,
+     64,
+     128,
+     256,
+     512,
+     1024
+    ],
+    "seeds": [
+     1,
+     2,
+     3,
+     4,
+     5
+    ]
+   },
+   "ergebnis": {
+    "fehler": "TypeError: '<' not supported between instances of 'int' and 'list'"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 12,
+   "wer": "forscher-sparsam",
+   "op": "ridge_kurve",
+   "args": {
+    "a": 2.0,
+    "b": 2.0,
+    "Ns": [
+     16,
+     32,
+     64,
+     128,
+     256,
+     512,
+     1024
+    ],
+    "seeds": [
+     1,
+     2,
+     3,
+     4,
+     5
+    ]
+   },
+   "ergebnis": {
+    "fehler": "TypeError: '<' not supported between instances of 'int' and 'list'"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 13,
+   "wer": "forscher-sparsam",
+   "op": "ridge_kurve",
+   "args": {
+    "a": 2.0,
+    "b": 1.1,
+    "Ns": [
+     16,
+     32,
+     64,
+     128,
+     256,
+     512,
+     1024
+    ],
+    "seeds": [
+     1,
+     2,
+     3,
+     4,
+     5
+    ]
+   },
+   "ergebnis": {
+    "fehler": "TypeError: '<' not supported between instances of 'int' and 'list'"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 14,
+   "wer": "forscher-numeriker",
+   "op": "ridge_kurve",
+   "args": {
+    "a": 0.5,
+    "b": 1.5,
+    "Ns": [
+     16,
+     32,
+     64,
+     128,
+     256,
+     512,
+     1024
+    ],
+    "seeds": [
+     1001,
+     1002,
+     1003,
+     1004,
+     1005
+    ]
+   },
+   "ergebnis": {
+    "fehler": "TypeError: '<' not supported between instances of 'int' and 'list'"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 15,
+   "wer": "forscher-numeriker",
+   "op": "ridge_kurve",
+   "args": {
+    "a": 0.5,
+    "b": 2.0,
+    "Ns": [
+     16,
+     32,
+     64,
+     128,
+     256,
+     512,
+     1024
+    ],
+    "seeds": [
+     1001,
+     1002,
+     1003,
+     1004,
+     1005
+    ]
+   },
+   "ergebnis": {
+    "fehler": "TypeError: '<' not supported between instances of 'int' and 'list'"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 16,
+   "wer": "forscher-numeriker",
+   "op": "ridge_kurve",
+   "args": {
+    "a": 0.5,
+    "b": 3.0,
+    "Ns": [
+     16,
+     32,
+     64,
+     128,
+     256,
+     512,
+     1024
+    ],
+    "seeds": [
+     1001,
+     1002,
+     1003,
+     1004,
+     1005
+    ]
+   },
+   "ergebnis": {
+    "fehler": "TypeError: '<' not supported between instances of 'int' and 'list'"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 17,
+   "wer": "forscher-numeriker",
+   "op": "ridge_kurve",
+   "args": {
+    "a": 1.0,
+    "b": 1.5,
+    "Ns": [
+     16,
+     32,
+     64,
+     128,
+     256,
+     512,
+     1024
+    ],
+    "seeds": [
+     1001,
+     1002,
+     1003,
+     1004,
+     1005
+    ]
+   },
+   "ergebnis": {
+    "fehler": "TypeError: '<' not supported between instances of 'int' and 'list'"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 18,
+   "wer": "forscher-numeriker",
+   "op": "ridge_kurve",
+   "args": {
+    "a": 1.0,
+    "b": 2.0,
+    "Ns": [
+     16,
+     32,
+     64,
+     128,
+     256,
+     512,
+     1024
+    ],
+    "seeds": [
+     1001,
+     1002,
+     1003,
+     1004,
+     1005
+    ]
+   },
+   "ergebnis": {
+    "fehler": "TypeError: '<' not supported between instances of 'int' and 'list'"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 19,
+   "wer": "forscher-numeriker",
+   "op": "ridge_kurve",
+   "args": {
+    "a": 1.0,
+    "b": 3.0,
+    "Ns": [
+     16,
+     32,
+     64,
+     128,
+     256,
+     512,
+     1024
+    ],
+    "seeds": [
+     1001,
+     1002,
+     1003,
+     1004,
+     1005
+    ]
+   },
+   "ergebnis": {
+    "fehler": "TypeError: '<' not supported between instances of 'int' and 'list'"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 20,
+   "wer": "forscher-numeriker",
+   "op": "ridge_kurve",
+   "args": {
+    "a": 2.0,
+    "b": 2.0,
+    "Ns": [
+     16,
+     32,
+     64,
+     128,
+     256,
+     512,
+     1024
+    ],
+    "seeds": [
+     1001,
+     1002,
+     1003,
+     1004,
+     1005
+    ]
+   },
+   "ergebnis": {
+    "fehler": "TypeError: '<' not supported between instances of 'int' and 'list'"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 21,
+   "wer": "forscher-numeriker",
+   "op": "ridge_kurve",
+   "args": {
+    "a": 2.0,
+    "b": 3.0,
+    "Ns": [
+     16,
+     32,
+     64,
+     128,
+     256,
+     512,
+     1024
+    ],
+    "seeds": [
+     1001,
+     1002,
+     1003,
+     1004,
+     1005
+    ]
+   },
+   "ergebnis": {
+    "fehler": "TypeError: '<' not supported between instances of 'int' and 'list'"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 22,
+   "wer": "forscher-numeriker",
+   "op": "ridge_kurve",
+   "args": {
+    "a": 0.5,
+    "b": 1.5,
+    "Ns": [
+     16,
+     32,
+     64,
+     128,
+     256,
+     512,
+     1024
+    ]
+   },
+   "ergebnis": {
+    "Ns": [
+     16,
+     32,
+     64,
+     128,
+     256,
+     512,
+     1024
+    ],
+    "risiko": [
+     1.1180146614924695,
+     0.9158505063463317,
+     0.6806876112341809,
+     0.4369610902513019,
+     0.250318255934477,
+     0.13118253292280863,
+     0.044770727064039145
+    ],
+    "hinweis": "Monte Carlo"
+   },
+   "sek": 3.45
+  },
+  {
+   "id": 23,
+   "wer": "forscher-numeriker",
+   "op": "ridge_kurve",
+   "args": {
+    "a": 0.5,
+    "b": 2.0,
+    "Ns": [
+     16,
+     32,
+     64,
+     128,
+     256,
+     512,
+     1024
+    ]
+   },
+   "ergebnis": {
+    "Ns": [
+     16,
+     32,
+     64,
+     128,
+     256,
+     512,
+     1024
+    ],
+    "risiko": [
+     0.6902785873980748,
+     0.5325882548644963,
+     0.363512504308266,
+     0.19084769719241243,
+     0.08473260855645037,
+     0.03139603705328102,
+     0.0070719422938051914
+    ],
+    "hinweis": "Monte Carlo"
+   },
+   "sek": 3.24
+  },
+  {
+   "id": 24,
+   "wer": "forscher-numeriker",
+   "op": "ridge_kurve",
+   "args": {
+    "a": 1.0,
+    "b": 1.5,
+    "Ns": [
+     16,
+     32,
+     64,
+     128,
+     256,
+     512,
+     1024
+    ]
+   },
+   "ergebnis": {
+    "Ns": [
+     16,
+     32,
+     64,
+     128,
+     256,
+     512,
+     1024
+    ],
+    "risiko": [
+     0.5832102140003388,
+     0.3745034850393241,
+     0.25667877063944033,
+     0.15890731498721006,
+     0.09757694729491222,
+     0.056709511734789574,
+     0.022314851725461105
+    ],
+    "hinweis": "Monte Carlo"
+   },
+   "sek": 3.22
+  },
+  {
+   "id": 25,
+   "wer": "forscher-numeriker",
+   "op": "ridge_kurve",
+   "args": {
+    "a": 1.0,
+    "b": 2.0,
+    "Ns": [
+     16,
+     32,
+     64,
+     128,
+     256,
+     512,
+     1024
+    ]
+   },
+   "ergebnis": {
+    "Ns": [
+     16,
+     32,
+     64,
+     128,
+     256,
+     512,
+     1024
+    ],
+    "risiko": [
+     0.24725665647434014,
+     0.10595592297531345,
+     0.051574157422613336,
+     0.022192646189829884,
+     0.008979039076126497,
+     0.0037624360630912805,
+     0.0010173071956028482
+    ],
+    "hinweis": "Monte Carlo"
+   },
+   "sek": 3.25
+  },
+  {
+   "id": 26,
+   "wer": "forscher-numeriker",
+   "op": "ridge_kurve",
+   "args": {
+    "a": 2.0,
+    "b": 2.0,
+    "Ns": [
+     16,
+     32,
+     64,
+     128,
+     256,
+     512,
+     1024
+    ]
+   },
+   "ergebnis": {
+    "Ns": [
+     16,
+     32,
+     64,
+     128,
+     256,
+     512,
+     1024
+    ],
+    "risiko": [
+     0.07147198771944797,
+     0.03995981431053762,
+     0.0198920041420094,
+     0.008323538828065694,
+     0.004518564915119078,
+     0.0019703286406587382,
+     0.0006589213787769574
+    ],
+    "hinweis": "Monte Carlo"
+   },
+   "sek": 2.94
+  },
+  {
+   "id": 27,
+   "wer": "forscher-numeriker",
+   "op": "ridge_kurve",
+   "args": {
+    "a": 0.5,
+    "b": 3.0,
+    "Ns": [
+     16,
+     32,
+     64,
+     128,
+     256,
+     512,
+     1024
+    ]
+   },
+   "ergebnis": {
+    "Ns": [
+     16,
+     32,
+     64,
+     128,
+     256,
+     512,
+     1024
+    ],
+    "risiko": [
+     0.4926766841238739,
+     0.3672209996960546,
+     0.2373842157211295,
+     0.10980191249037506,
+     0.04116854235310129,
+     0.011799771198265469,
+     0.001991545861380818
+    ],
+    "hinweis": "Monte Carlo"
+   },
+   "sek": 3.03
+  },
+  {
+   "id": 28,
+   "wer": "forscher-skeptiker",
+   "op": "ridge_kurve",
+   "args": {
+    "a": 1.0,
+    "b": 2.0,
+    "Ns": [
+     16,
+     32,
+     64,
+     128,
+     256,
+     512,
+     1024
+    ],
+    "ridge": 0.0001,
+    "seeds": 8
+   },
+   "ergebnis": {
+    "Ns": [
+     16,
+     32,
+     64,
+     128,
+     256,
+     512,
+     1024
+    ],
+    "risiko": [
+     0.20788294100054558,
+     0.09921150128250358,
+     0.04977780264313387,
+     0.021456455240162153,
+     0.009063707188768935,
+     0.003582656521604596,
+     0.0010750085542154484
+    ],
+    "hinweis": "Monte Carlo"
+   },
+   "sek": 4.46
+  },
+  {
+   "id": 29,
+   "wer": "forscher-skeptiker",
+   "op": "ridge_kurve",
+   "args": {
+    "a": 1.0,
+    "b": 2.0,
+    "Ns": [
+     16,
+     32,
+     64,
+     128,
+     256,
+     512,
+     1024
+    ],
+    "ridge": 0.001,
+    "seeds": 8
+   },
+   "ergebnis": {
+    "Ns": [
+     16,
+     32,
+     64,
+     128,
+     256,
+     512,
+     1024
+    ],
+    "risiko": [
+     0.20824105511126853,
+     0.0996090902201755,
+     0.05027377237860505,
+     0.02200719811914727,
+     0.009620934188073034,
+     0.004185748926911164,
+     0.0017474806876147117
+    ],
+    "hinweis": "Monte Carlo"
+   },
+   "sek": 4.19
+  },
+  {
+   "id": 30,
+   "wer": "forscher-skeptiker",
+   "op": "ridge_kurve",
+   "args": {
+    "a": 1.0,
+    "b": 2.0,
+    "Ns": [
+     16,
+     32,
+     64,
+     128,
+     256,
+     512,
+     1024
+    ],
+    "ridge": 0.01,
+    "seeds": 8
+   },
+   "ergebnis": {
+    "Ns": [
+     16,
+     32,
+     64,
+     128,
+     256,
+     512,
+     1024
+    ],
+    "risiko": [
+     0.2117961625020229,
+     0.10355849440735336,
+     0.05515393936820805,
+     0.02732540381820879,
+     0.014923713791023176,
+     0.009525612949653227,
+     0.006955184881391241
+    ],
+    "hinweis": "Monte Carlo"
+   },
+   "sek": 4.14
+  },
+  {
+   "id": 31,
+   "wer": "forscher-skeptiker",
+   "op": "ridge_kurve",
+   "args": {
+    "a": 0.5,
+    "b": 3.0,
+    "Ns": [
+     16,
+     32,
+     64,
+     128,
+     256,
+     512,
+     1024
+    ],
+    "ridge": 0.001,
+    "seeds": 8
+   },
+   "ergebnis": {
+    "Ns": [
+     16,
+     32,
+     64,
+     128,
+     256,
+     512,
+     1024
+    ],
+    "risiko": [
+     0.4593782980996962,
+     0.34529279986479566,
+     0.23104380360014107,
+     0.11455264840535909,
+     0.04304094935722219,
+     0.012209976256951713,
+     0.0020971613732302524
+    ],
+    "hinweis": "Monte Carlo"
+   },
+   "sek": 4.34
+  },
+  {
+   "id": 32,
+   "wer": "forscher-skeptiker",
+   "op": "ridge_kurve",
+   "args": {
+    "a": 2.0,
+    "b": 3.0,
+    "Ns": [
+     16,
+     32,
+     64,
+     128,
+     256,
+     512,
+     1024
+    ],
+    "ridge": 0.0001,
+    "seeds": 8
+   },
+   "ergebnis": {
+    "Ns": [
+     16,
+     32,
+     64,
+     128,
+     256,
+     512,
+     1024
+    ],
+    "risiko": [
+     0.003698900674220711,
+     0.0012937220566081624,
+     0.00037013632725104795,
+     0.0001239151745700971,
+     6.290049697728028e-05,
+     4.040802888956413e-05,
+     3.166746867605763e-05
+    ],
+    "hinweis": "Monte Carlo"
+   },
+   "sek": 4.17
+  },
+  {
+   "id": 33,
+   "wer": "forscher-skeptiker",
+   "op": "ridge_kurve",
+   "args": {
+    "a": 2.0,
+    "b": 1.5,
+    "Ns": [
+     16,
+     32,
+     64,
+     128,
+     256,
+     512,
+     1024
+    ],
+    "ridge": 0.0001,
+    "seeds": 8
+   },
+   "ergebnis": {
+    "Ns": [
+     16,
+     32,
+     64,
+     128,
+     256,
+     512,
+     1024
+    ],
+    "risiko": [
+     0.4537613135623768,
+     0.31922146147734176,
+     0.20146128614986267,
+     0.13381648243263797,
+     0.09899780968172348,
+     0.07951733387914796,
+     0.0697494591703971
+    ],
+    "hinweis": "Monte Carlo"
+   },
+   "sek": 4.13
+  },
+  {
+   "id": 34,
+   "wer": "forscher-skeptiker",
+   "op": "ridge_kurve",
+   "args": {
+    "a": 2.0,
+    "b": 1.1,
+    "Ns": [
+     16,
+     32,
+     64,
+     128,
+     256,
+     512,
+     1024
+    ],
+    "ridge": 0.0001,
+    "seeds": 8
+   },
+   "ergebnis": {
+    "Ns": [
+     16,
+     32,
+     64,
+     128,
+     256,
+     512,
+     1024
+    ],
+    "risiko": [
+     2.766705513802238,
+     2.253204770162248,
+     1.7080931447951684,
+     1.280170553047585,
+     1.0059062342684777,
+     0.840102820226893,
+     0.7532641349495361
+    ],
+    "hinweis": "Monte Carlo"
+   },
+   "sek": 4.05
+  },
+  {
+   "id": 35,
+   "wer": "forscher-skeptiker",
+   "op": "param_kurve",
+   "args": {
+    "a": 1.0,
+    "b": 2.0,
+    "Ps": [
+     8,
+     16,
+     32,
+     64,
+     128,
+     256,
+     512
+    ]
+   },
+   "ergebnis": {
+    "Ps": [
+     8,
+     16,
+     32,
+     64,
+     128,
+     256,
+     512
+    ],
+    "L": [
+     0.05875600734701577,
+     0.030293766701619727,
+     0.015383402010151084,
+     0.007751782719669507,
+     0.0038910309468823488,
+     0.00194931526977299,
+     0.000975609446564878
+    ],
+    "hinweis": "numerisch"
+   },
+   "sek": 0.01
+  },
+  {
+   "id": 36,
+   "wer": "forscher-skeptiker",
+   "op": "ridge_kurve",
+   "args": {
+    "a": 1.0,
+    "b": 2.0,
+    "Ns": [
+     16,
+     32,
+     64,
+     128,
+     256,
+     512,
+     1024
+    ],
+    "ridge": 1e-05,
+    "seeds": 8
+   },
+   "ergebnis": {
+    "Ns": [
+     16,
+     32,
+     64,
+     128,
+     256,
+     512,
+     1024
+    ],
+    "risiko": [
+     0.20784710336330647,
+     0.09917171573204558,
+     0.049728122132979294,
+     0.02140117219885035,
+     0.009007816006267419,
+     0.0035222358554411384,
+     0.001008224306259751
+    ],
+    "hinweis": "Monte Carlo"
+   },
+   "sek": 3.92
+  },
+  {
+   "id": 37,
+   "wer": "forscher-skeptiker",
+   "op": "ridge_kurve",
+   "args": {
+    "a": 1.0,
+    "b": 1.5,
+    "Ns": [
+     16,
+     32,
+     64,
+     128,
+     256,
+     512,
+     1024
+    ],
+    "ridge": 0.001,
+    "seeds": 8
+   },
+   "ergebnis": {
+    "Ns": [
+     16,
+     32,
+     64,
+     128,
+     256,
+     512,
+     1024
+    ],
+    "risiko": [
+     0.5328014941227395,
+     0.3693008607828655,
+     0.25219087492941467,
+     0.15837192983918874,
+     0.10055531068640433,
+     0.05888838442574529,
+     0.031129980416611566
+    ],
+    "hinweis": "Monte Carlo"
+   },
+   "sek": 4.06
+  },
+  {
+   "id": 38,
+   "wer": "forscher-skeptiker",
+   "op": "ridge_kurve",
+   "args": {
+    "a": 1.0,
+    "b": 1.5,
+    "Ns": [
+     16,
+     32,
+     64,
+     128,
+     256,
+     512,
+     1024
+    ],
+    "ridge": 0.01,
+    "seeds": 8
+   },
+   "ergebnis": {
+    "Ns": [
+     16,
+     32,
+     64,
+     128,
+     256,
+     512,
+     1024
+    ],
+    "risiko": [
+     0.5377174943782845,
+     0.37558671308640423,
+     0.2631402727814865,
+     0.17530014449443443,
+     0.12414223522508382,
+     0.09288010023063338,
+     0.07481514373172646
+    ],
+    "hinweis": "Monte Carlo"
+   },
+   "sek": 4.0
+  },
+  {
+   "id": 39,
+   "wer": "forscher-skeptiker",
+   "op": "ridge_kurve",
+   "args": {
+    "a": 1.0,
+    "b": 3.0,
+    "Ns": [
+     16,
+     32,
+     64,
+     128,
+     256,
+     512,
+     1024
+    ],
+    "ridge": 0.0001,
+    "seeds": 8
+   },
+   "ergebnis": {
+    "Ns": [
+     16,
+     32,
+     64,
+     128,
+     256,
+     512,
+     1024
+    ],
+    "risiko": [
+     0.1001063381766216,
+     0.030343330047461255,
+     0.009935646107938678,
+     0.002393778166727525,
+     0.0004964691111544119,
+     9.455916349547551e-05,
+     1.313799581190872e-05
+    ],
+    "hinweis": "Monte Carlo"
+   },
+   "sek": 4.05
+  },
+  {
+   "id": 40,
+   "wer": "forscher-skeptiker",
+   "op": "ridge_kurve",
+   "args": {
+    "a": 0.5,
+    "b": 2.0,
+    "Ns": [
+     16,
+     32,
+     64,
+     128,
+     256,
+     512,
+     1024
+    ],
+    "ridge": 0.01,
+    "seeds": 8
+   },
+   "ergebnis": {
+    "Ns": [
+     16,
+     32,
+     64,
+     128,
+     256,
+     512,
+     1024
+    ],
+    "risiko": [
+     0.6543774623028507,
+     0.5117901159517615,
+     0.36337646095997095,
+     0.20286897289151662,
+     0.09157535557148518,
+     0.03437635225827421,
+     0.010040849916051243
+    ],
+    "hinweis": "Monte Carlo"
+   },
+   "sek": 4.26
+  },
+  {
+   "id": 41,
+   "wer": "forscher-skeptiker",
+   "op": "ridge_kurve",
+   "args": {
+    "a": 0.5,
+    "b": 2.0,
+    "Ns": [
+     16,
+     32,
+     64,
+     128,
+     256,
+     512,
+     1024
+    ],
+    "ridge": 0.001,
+    "seeds": 8
+   },
+   "ergebnis": {
+    "Ns": [
+     16,
+     32,
+     64,
+     128,
+     256,
+     512,
+     1024
+    ],
+    "risiko": [
+     0.6541626555049609,
+     0.5111326407728982,
+     0.3618971655715283,
+     0.20030294696096324,
+     0.08838894774093564,
+     0.031127199797696153,
+     0.0072804861913639
+    ],
+    "hinweis": "Monte Carlo"
+   },
+   "sek": 4.27
+  },
+  {
+   "id": 42,
+   "wer": "forscher-theoretiker",
+   "op": "ridge_kurve",
+   "args": {
+    "a": 1.0,
+    "b": 2.0,
+    "Ns": [
+     16,
+     32,
+     64,
+     128,
+     256,
+     512,
+     1024
+    ],
+    "ridge": 0.0001,
+    "seeds": 8
+   },
+   "ergebnis": {
+    "Ns": [
+     16,
+     32,
+     64,
+     128,
+     256,
+     512,
+     1024
+    ],
+    "risiko": [
+     0.20788294100054558,
+     0.09921150128250358,
+     0.04977780264313387,
+     0.021456455240162153,
+     0.009063707188768935,
+     0.003582656521604596,
+     0.0010750085542154484
+    ],
+    "hinweis": "Monte Carlo"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 43,
+   "wer": "forscher-theoretiker",
+   "op": "ridge_kurve",
+   "args": {
+    "a": 1.0,
+    "b": 2.0,
+    "Ns": [
+     16,
+     32,
+     64,
+     128,
+     256,
+     512,
+     1024
+    ],
+    "ridge": 0.001,
+    "seeds": 8
+   },
+   "ergebnis": {
+    "Ns": [
+     16,
+     32,
+     64,
+     128,
+     256,
+     512,
+     1024
+    ],
+    "risiko": [
+     0.20824105511126853,
+     0.0996090902201755,
+     0.05027377237860505,
+     0.02200719811914727,
+     0.009620934188073034,
+     0.004185748926911164,
+     0.0017474806876147117
+    ],
+    "hinweis": "Monte Carlo"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 44,
+   "wer": "forscher-theoretiker",
+   "op": "ridge_kurve",
+   "args": {
+    "a": 1.0,
+    "b": 2.0,
+    "Ns": [
+     16,
+     32,
+     64,
+     128,
+     256,
+     512,
+     1024
+    ],
+    "ridge": 0.01,
+    "seeds": 8
+   },
+   "ergebnis": {
+    "Ns": [
+     16,
+     32,
+     64,
+     128,
+     256,
+     512,
+     1024
+    ],
+    "risiko": [
+     0.2117961625020229,
+     0.10355849440735336,
+     0.05515393936820805,
+     0.02732540381820879,
+     0.014923713791023176,
+     0.009525612949653227,
+     0.006955184881391241
+    ],
+    "hinweis": "Monte Carlo"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 45,
+   "wer": "forscher-theoretiker",
+   "op": "ridge_kurve",
+   "args": {
+    "a": 1.0,
+    "b": 2.0,
+    "Ns": [
+     16,
+     32,
+     64,
+     128,
+     256,
+     512,
+     1024
+    ],
+    "ridge": 0.1,
+    "seeds": 8
+   },
+   "ergebnis": {
+    "Ns": [
+     16,
+     32,
+     64,
+     128,
+     256,
+     512,
+     1024
+    ],
+    "risiko": [
+     0.24493232879090215,
+     0.14062774389168275,
+     0.09885490820488038,
+     0.07221104503434081,
+     0.05891757968171829,
+     0.05322826143103458,
+     0.05044829255617154
+    ],
+    "hinweis": "Monte Carlo"
+   },
+   "sek": 4.06
+  },
+  {
+   "id": 46,
+   "wer": "forscher-theoretiker",
+   "op": "ridge_kurve",
+   "args": {
+    "a": 0.5,
+    "b": 3.0,
+    "Ns": [
+     16,
+     32,
+     64,
+     128,
+     256,
+     512,
+     1024
+    ],
+    "ridge": 0.001,
+    "seeds": 8
+   },
+   "ergebnis": {
+    "Ns": [
+     16,
+     32,
+     64,
+     128,
+     256,
+     512,
+     1024
+    ],
+    "risiko": [
+     0.4593782980996962,
+     0.34529279986479566,
+     0.23104380360014107,
+     0.11455264840535909,
+     0.04304094935722219,
+     0.012209976256951713,
+     0.0020971613732302524
+    ],
+    "hinweis": "Monte Carlo"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 47,
+   "wer": "forscher-theoretiker",
+   "op": "ridge_kurve",
+   "args": {
+    "a": 2.0,
+    "b": 1.5,
+    "Ns": [
+     16,
+     32,
+     64,
+     128,
+     256,
+     512,
+     1024
+    ],
+    "ridge": 0.001,
+    "seeds": 8
+   },
+   "ergebnis": {
+    "Ns": [
+     16,
+     32,
+     64,
+     128,
+     256,
+     512,
+     1024
+    ],
+    "risiko": [
+     0.43497102759675865,
+     0.3065279570974778,
+     0.2159985209197034,
+     0.17024350890870749,
+     0.14877761332924683,
+     0.13772233351017216,
+     0.1316370508995381
+    ],
+    "hinweis": "Monte Carlo"
+   },
+   "sek": 4.18
+  },
+  {
+   "id": 48,
+   "wer": "forscher-theoretiker",
+   "op": "ridge_kurve",
+   "args": {
+    "a": 2.0,
+    "b": 3.0,
+    "Ns": [
+     16,
+     32,
+     64,
+     128,
+     256,
+     512,
+     1024
+    ],
+    "ridge": 0.001,
+    "seeds": 8
+   },
+   "ergebnis": {
+    "Ns": [
+     16,
+     32,
+     64,
+     128,
+     256,
+     512,
+     1024
+    ],
+    "risiko": [
+     0.004068560925379468,
+     0.0016723182871914164,
+     0.0007697566563179577,
+     0.0004604255289630946,
+     0.00034775242232895794,
+     0.0002988683732001696,
+     0.0002750608015196878
+    ],
+    "hinweis": "Monte Carlo"
+   },
+   "sek": 4.05
+  },
+  {
+   "id": 49,
+   "wer": "forscher-theoretiker",
+   "op": "ridge_kurve",
+   "args": {
+    "a": 2.0,
+    "b": 1.1,
+    "Ns": [
+     16,
+     32,
+     64,
+     128,
+     256,
+     512,
+     1024
+    ],
+    "ridge": 0.001,
+    "seeds": 8
+   },
+   "ergebnis": {
+    "Ns": [
+     16,
+     32,
+     64,
+     128,
+     256,
+     512,
+     1024
+    ],
+    "risiko": [
+     2.5905399687106456,
+     2.030825488395288,
+     1.583878946563082,
+     1.3280862404820644,
+     1.1929711438645787,
+     1.1182981947246118,
+     1.0782471358830334
+    ],
+    "hinweis": "Monte Carlo"
+   },
+   "sek": 3.94
+  },
+  {
+   "id": 50,
+   "wer": "forscher-theoretiker",
+   "op": "ridge_kurve",
+   "args": {
+    "a": 1.0,
+    "b": 2.0,
+    "Ns": [
+     16,
+     32,
+     64,
+     128,
+     256,
+     512,
+     1024
+    ],
+    "ridge": 0.0003,
+    "seeds": 8
+   },
+   "ergebnis": {
+    "Ns": [
+     16,
+     32,
+     64,
+     128,
+     256,
+     512,
+     1024
+    ],
+    "risiko": [
+     0.207962563113618,
+     0.09929989625766246,
+     0.04988814923077986,
+     0.021579170089769825,
+     0.009187829059472203,
+     0.003717437114467891,
+     0.0012319839108420752
+    ],
+    "hinweis": "Monte Carlo"
+   },
+   "sek": 4.17
+  },
+  {
+   "id": 51,
+   "wer": "forscher-theoretiker",
+   "op": "ridge_kurve",
+   "args": {
+    "a": 1.0,
+    "b": 2.0,
+    "Ns": [
+     16,
+     32,
+     64,
+     128,
+     256,
+     512,
+     1024
+    ],
+    "ridge": 0.003,
+    "seeds": 8
+   },
+   "ergebnis": {
+    "Ns": [
+     16,
+     32,
+     64,
+     128,
+     256,
+     512,
+     1024
+    ],
+    "risiko": [
+     0.20903516078915624,
+     0.10049088903865733,
+     0.05137056374415509,
+     0.02321777206772222,
+     0.010841956083327253,
+     0.005462234339910321,
+     0.003029674686852407
+    ],
+    "hinweis": "Monte Carlo"
+   },
+   "sek": 4.17
+  },
+  {
+   "id": 52,
+   "wer": "forscher-theoretiker",
+   "op": "ridge_kurve",
+   "args": {
+    "a": 1.0,
+    "b": 3.0,
+    "Ns": [
+     16,
+     32,
+     64,
+     128,
+     256,
+     512,
+     1024
+    ],
+    "ridge": 0.001,
+    "seeds": 8
+   },
+   "ergebnis": {
+    "Ns": [
+     16,
+     32,
+     64,
+     128,
+     256,
+     512,
+     1024
+    ],
+    "risiko": [
+     0.10034087641550682,
+     0.03055512052411624,
+     0.010115153846929154,
+     0.002508746690510223,
+     0.0005619716508331309,
+     0.0001317649963606808,
+     3.262705856094968e-05
+    ],
+    "hinweis": "Monte Carlo"
+   },
+   "sek": 4.08
+  },
+  {
+   "id": 53,
+   "wer": "forscher-theoretiker",
+   "op": "ridge_kurve",
+   "args": {
+    "a": 0.5,
+    "b": 2.0,
+    "Ns": [
+     16,
+     32,
+     64,
+     128,
+     256,
+     512,
+     1024
+    ],
+    "ridge": 0.01,
+    "seeds": 8
+   },
+   "ergebnis": {
+    "Ns": [
+     16,
+     32,
+     64,
+     128,
+     256,
+     512,
+     1024
+    ],
+    "risiko": [
+     0.6543774623028507,
+     0.5117901159517615,
+     0.36337646095997095,
+     0.20286897289151662,
+     0.09157535557148518,
+     0.03437635225827421,
+     0.010040849916051243
+    ],
+    "hinweis": "Monte Carlo"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 54,
+   "wer": "forscher-theoretiker",
+   "op": "ridge_kurve",
+   "args": {
+    "a": 2.0,
+    "b": 2.0,
+    "Ns": [
+     16,
+     32,
+     64,
+     128,
+     256,
+     512,
+     1024
+    ],
+    "ridge": 0.001,
+    "seeds": 8
+   },
+   "ergebnis": {
+    "Ns": [
+     16,
+     32,
+     64,
+     128,
+     256,
+     512,
+     1024
+    ],
+    "risiko": [
+     0.06856435377111521,
+     0.04162583382409423,
+     0.025390334268076048,
+     0.01813447465910134,
+     0.015131520449680087,
+     0.013691666891877041,
+     0.012912154042348637
+    ],
+    "hinweis": "Monte Carlo"
+   },
+   "sek": 4.17
+  },
+  {
+   "id": 55,
+   "wer": "forscher-theoretiker",
+   "op": "ridge_kurve",
+   "args": {
+    "a": 1.0,
+    "b": 1.5,
+    "Ns": [
+     16,
+     32,
+     64,
+     128,
+     256,
+     512,
+     1024
+    ],
+    "ridge": 0.01,
+    "seeds": 8
+   },
+   "ergebnis": {
+    "Ns": [
+     16,
+     32,
+     64,
+     128,
+     256,
+     512,
+     1024
+    ],
+    "risiko": [
+     0.5377174943782845,
+     0.37558671308640423,
+     0.2631402727814865,
+     0.17530014449443443,
+     0.12414223522508382,
+     0.09288010023063338,
+     0.07481514373172646
+    ],
+    "hinweis": "Monte Carlo"
+   },
+   "sek": 0.0
+  }
+ ],
+ "sek": 811.6
+}

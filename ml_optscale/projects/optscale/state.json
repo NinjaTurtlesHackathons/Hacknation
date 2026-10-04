@@ -688,7 +688,7 @@
    "neuheit": 0.4,
    "machbarkeit": 0.8,
    "id": "F8",
-   "status": "offen"
+   "status": "beantwortet"
   },
   {
    "frage": "Welche exakte Stabilitätsgrenze gilt für Gradientenabstieg und Heavy-Ball auf einer Quadratik mit größtem Eigenwert lambda_max, und wie verhält sie sich zum Edge-of-Stability-Wert 2/lr?",
@@ -812,7 +812,7 @@
    "neuheit": 0.7,
    "machbarkeit": 0.7,
    "id": "F22",
-   "status": "offen",
+   "status": "beantwortet",
    "aus_runde": 7
   },
   {
@@ -823,6 +823,96 @@
    "id": "F23",
    "status": "offen",
    "aus_runde": 7
+  },
+  {
+   "frage": "Skaliert das Rechenoptimum bei Budget C = P*N (Random-Feature plus Ridge mit optimiertem Regularisierer) tatsächlich mit -(b-1)/(a+1)? Dazu rf_kurve über P und ridge_kurve über N (optimale Ridge) getrennt für (a,b) = (1,2), (0.5,2), (1,3), (2,2) und (1,4) vermessen. Die Einzelexponenten e_P und e_N fitten, daraus den vorhergesagten Exponenten für C = P*N ableiten (Balance P^-e_P = N^-e_N bei P*N = C) und per ridge_kurve/rf_kurve-Gitter das Minimum über P und N direkt bestimmen.",
+   "begruendung": "Die letzte Antwort wurde nur mit compute_kurve (Gradientenfluss, C = P*t) bestätigt. Die Prüfung testet also nicht die gestellte Frage nach P*N. Die Einzelexponenten von rf (P) und ridge (N) können andere a-Abhängigkeiten haben als t-Skalierung. Das Ergebnis ist vermutlich nur im Paar (1,2) ein Zufallstreffer. Gegenprobe: Der Exponent im P*N-Fall kann sich vom Gradientenfluss-Exponenten unterscheiden, vor allem bei a ≠ 1.",
+   "neuheit": 0.7,
+   "machbarkeit": 0.8,
+   "id": "F24",
+   "status": "beantwortet",
+   "aus_runde": 8
+  },
+  {
+   "frage": "Wo bricht die Gleichheit der Exponenten zwischen P*t-Rechenoptimum und P*N-Rechenoptimum? Dazu die Differenz der beiden gefitteten Exponenten über ein Gitter a in {0.3, 0.5, 1, 2, 3} und b in {1.1, 1.5, 2, 3, 4} kartieren. Dabei Fit-Fenster und Gitterauflösung variieren, um Randeffekte durch N <= 1024, P <= 512 und M = 2000 auszuschließen.",
+   "begruendung": "Die Verallgemeinerung zeigt, ob 'identisch' eine Eigenschaft des Modells ist oder nur an einzelnen (a,b)-Paaren gilt. Nahe b → 1 und für große a ist das Fenster durch die endlichen Grenzen stark eingeschränkt. Die Karte liefert klare Prüfaufträge für den Code-Prüfer (kurve ridge/rf, a in [0.3,3], b in [1.1,4]) und macht Aufösungsartefakte sichtbar.",
+   "neuheit": 0.6,
+   "machbarkeit": 0.65,
+   "id": "F25",
+   "status": "offen",
+   "aus_runde": 8
+  },
+  {
+   "frage": "Welchen Exponenten hat der Verlust bei Budget C = P*N, wenn man rf_kurve (P ≤ 512) und ridge_kurve (N ≤ 1024, optimale Ridge) für (a,b) = (1,2), (0.5,2), (1,3), (2,2), (1,4) einzeln fittet (e_P, e_N), daraus über die Balance P^-e_P = N^-e_N bei P*N = C den Exponenten ableitet und ihn mit dem Minimum über ein P-N-Gitter vergleicht? Stimmt das Ergebnis mit -(b-1)/(a+1) überein oder weicht es davon ab?",
+   "begruendung": "Die letzte Antwort 'ja' stützt sich nur auf Prüfungen der Kurve 'compute', also auf das Budget C = P*t im Gradientenfluss. Der Prüfer kann das Budget C = P*N nicht nachrechnen. Die Formel -(b-1)/(a+1) wurde also für P*t bestätigt, aber nicht für P*N. Die Konfidenz von 0,65 ist daher eher zu hoch. Die direkte Messung von e_P und e_N und des Gittermimimums schließt diese Lücke. Weil die Prüfer-Kurve 'compute' nicht gleich P*N ist, sollte die Behauptung als gemessene Zahl mit Fensterfits formuliert werden. Nur so ist sie prüfbar.",
+   "neuheit": 0.6,
+   "machbarkeit": 0.8,
+   "id": "F26",
+   "status": "offen",
+   "aus_runde": 9
+  },
+  {
+   "frage": "Wie hängen e_P (Random Feature) und e_N (Ridge mit optimalem Regularisierer) von a und b ab? Gilt e_P = a(b-1) und e_N = (b-1)·a/(a+1) bzw. eine andere geschlossene Form? Wo, besonders nahe b → 1,1 und bei großem a, brechen die Fits wegen der endlichen Auflösung (P ≤ 512, N ≤ 1024, M = 2000) zusammen?",
+   "begruendung": "Die Einzelexponenten sind die Bausteine der P*N-Vorhersage. R1 bestätigt e_P = 1,0 nur für (a,b) = (1,2) und mit Fenster 2 bei 1,054, also am Rand der Toleranz. Ein Gitter über (a,b) trennt die Formel von Auflösungsartefakten. Außerdem zeigt es, in welchem Parameterbereich ein Exponent-Prüfer überhaupt zuverlässig bestehen kann. Das ist eine Gegenprobe zu den bisherigen Einzelpunkt-Bestätigungen.",
+   "neuheit": 0.5,
+   "machbarkeit": 0.85,
+   "id": "F27",
+   "status": "beantwortet",
+   "aus_runde": 9
+  },
+  {
+   "frage": "Gilt der Lernraten-Transfer unter μP auch für SGD und auf größeren Breitenverhältnissen (32 bis 512, max/min = 16), und wie groß ist die Verschiebung unter SP mit SGD pro Breitenverdopplung im Vergleich zu Adam (-1 Oktave)?",
+   "begruendung": "Das letzte Ergebnis stützt sich auf Adam mit nur 3 Breiten und grobem Gitter mit Faktor 2. Die SGD-Aussage ('ähnlich') ist nicht quantifiziert, und R10 prüft nur Adam bis Breite 256. Die Verschiebung -1 pro Verdopplung ist mit Gitterrauschen von ±1 Oktave kaum von 0 oder -0,5 unterscheidbar. Daher getrennte lr_transfer-Prüfungen für sp/sgd, mup/sgd und sp/adam mit Breiten [32, 128, 512], dazu ein mup_sweep mit mehr Seeds und feinerem Gitter, um die Steigung per Regression zu schätzen.",
+   "neuheit": 0.5,
+   "machbarkeit": 0.9,
+   "id": "F28",
+   "status": "offen",
+   "aus_runde": 10
+  },
+  {
+   "frage": "Ist die SP-Verschiebung der optimalen Lernrate eine echte Potenzgesetz-Skalierung (Steigung über 4 Breiten konstant) oder sättigt sie? Gegenprobe: Mit Basisbreite 64 sind μP und SP identisch, daher sollte die Verschiebung für Breiten oberhalb 64 beginnen und unterhalb 64 unterschiedliche Vorzeichen haben.",
+   "begruendung": "Die Begründung behauptet ein Potenzgesetz aus nur drei Punkten (-6, -7, -8), das ist zu dünn und nicht geprüft. Die Identität bei Basisbreite 64 liefert einen eingebauten Kontrollpunkt. Wenn mup und sp bei 64 nicht dieselbe optimale LR liefern, ist der Sweep verrauscht. Mit Breiten [32, 64, 128, 256, 512], Seeds ≥ 4 und einem Gitter mit Faktor √2 lässt sich die Steigung mit Konfidenzintervall bestimmen und der Transferbefund härten. Gleichzeitig ist das eine Gegenprobe zur Konfidenz 0,72.",
+   "neuheit": 0.6,
+   "machbarkeit": 0.8,
+   "id": "F29",
+   "status": "offen",
+   "aus_runde": 10
+  },
+  {
+   "frage": "Hängt der Random-Feature-Exponent e_P nur von b ab (e_P = b-1), oder gilt bei größerem a (z. B. a=3, b=1,5 und b=3) eine andere Form wie min(a, b-1)? Gemessen wird er mit rf_kurve und param_kurve in zwei Fenstern (P bis 512, mehrere Seeds). Geprüft wird zusätzlich, ob bei a=2, b=2 der Fit von 0,94 bis 1,08 systematisch vom Fenster abhängt. Dazu werden P-Fenster [8,96] und [32,512] verglichen und die Finite-M-Korrektur (M=2000) abgeschätzt.",
+   "begruendung": "Der letzte Befund (a=2, b=2 ergibt ca. 1, widerlegt a(b-1)) stützt e_P = b-1 nur an wenigen Punkten. R1 (a=1, b=2) und R11 (a=2, b=2) liegen beide bei b-1=1, haben aber Abweichungen bis 0,08, also nahe der Toleranz. Ein Test mit b≠2 und variierendem a trennt b-1 von Alternativen wie min(a, b-1) oder a(b-1)/a. Das ist die eigentliche Gegenprobe, ohne die die Verallgemeinerung offen bleibt. Danach kann ein Prüfer-Check vom Typ exponent die Formel bestätigen.",
+   "neuheit": 0.6,
+   "machbarkeit": 0.9,
+   "id": "F30",
+   "status": "offen",
+   "aus_runde": 11
+  },
+  {
+   "frage": "Wie hängt e_N (Ridge mit optimalem Regularisierer) von a und b ab? Gilt e_N = (b-1)·a/(a+1) oder eine andere Form? Zu messen ist ridge_kurve für a ∈ {0,5; 1; 2}, b ∈ {1,5; 2; 3}, N = 16..1024, mit mehreren Ridge-Werten pro N (Minimum über ridge) und mindestens 5 Seeds. Dazu gehört eine Fehlerabschätzung, ab welchem a und b der Fit durch endliches M=2000 und N ≤ 1024 bricht (b nahe 1,1 und a ≥ 2).",
+   "begruendung": "e_N wurde im letzten Schritt nicht belegt und ist die offene Hälfte der Frage. Eine 3x3-Gitter-Messung liefert genug Punkte, um die Kandidatenformel gegen e_N = b-1 oder (b-1)·a/(a+1) zu testen. Die Auflösungsgrenzen aufzuzeigen schützt vor falschen Behauptungen, die der Code-Prüfer ohnehin mit höherer Auflösung nachrechnen würde.",
+   "neuheit": 0.7,
+   "machbarkeit": 0.7,
+   "id": "F31",
+   "status": "beantwortet",
+   "aus_runde": 11
+  },
+  {
+   "frage": "Wie hängt der Exponent des Ridge-Exzess-Risikos mit optimalem Regularisierer (Minimum über ridge pro N) von a und b ab, wenn man a ∈ {0,5; 1; 2} und b ∈ {1,5; 2; 3} bei festem ridge=1e-3 und ridge=1e-4 getrennt prüft? Gilt e_N ≈ b-1 nur für a=1, oder bricht die Form bei a=0,5 und a=2 durch die Sättigung min(b-1, 2a) und durch endliches M=2000 bzw. N≤1024? Prüfung mit exponent-Prüfer für (a=2, b=3, ridge=1e-3, Erwartung ca. 2a=4 gesättigt auf b-1=2) und (a=0,5, b=3, Erwartung min(b-1,2a)=1).",
+   "begruendung": "Die bisherige Aussage e_N ≈ b-1 mit Sättigung bei 2a ist nur für a=1 geprüft. Gegenprobe an den Rändern a=0,5 und a=2 trennt die beiden Hypothesen 'b-1' und 'min(b-1, 2a)' direkt, da die Vorhersagen bei a=0,5, b=3 (1 statt 2) deutlich verschieden sind. Gleichzeitig werden Finite-Size-Effekte (M=2000, N≤1024) quantifiziert, und mehrere Ridge-Werte zeigen, ob der Exponent vom Regularisierer abhängt.",
+   "neuheit": 0.6,
+   "machbarkeit": 0.9,
+   "id": "F32",
+   "status": "offen",
+   "aus_runde": 12
+  },
+  {
+   "frage": "Wie ändert sich der Exponent der Ridge-Regression, wenn Rauschen noise>0 mit optimal gewähltem Ridge-Wert (Minimum über ridge je N) hinzukommt? Test der Kandidaten (b-1)/b bzw. a(b-1)/(a(b)+1) bei a=1 mit b ∈ {2, 3} und a=2, b=2, noise=0,1 und 0,5, mit mindestens 5 Seeds, N=16..1024. Zusätzlich: Vergleich mit dem Exponenten des rf_kurve und param_kurve bei gleichen a, b.",
+   "begruendung": "Im rauschfreien Fall gilt b-1, aber die klassische Theorie für optimal regularisierte Ridge mit Rauschen sagt einen kleineren Exponenten voraus, der von a und b abhängt. Die Messung grenzt ab, ob das Ergebnis b-1 ein Artefakt des rauschfreien Falls ist, und liefert den Übergang von der Sättigung zum rauschdominierten Regime. Ein bestandener oder widerlegter Exponent-Prüfer-Fall mit noise>0 ist direkt prüfbar.",
+   "neuheit": 0.7,
+   "machbarkeit": 0.8,
+   "id": "F33",
+   "status": "offen",
+   "aus_runde": 12
   }
  ],
  "claims": [
@@ -1246,6 +1336,240 @@
     }
    ],
    "runde": 7
+  },
+  {
+   "id": "optscale-R8",
+   "frage": "Wie skaliert der Verlust des Random-Feature-Modells bei festem Budget C = P*N (P Merkmale, N Stichproben, Ridge-Regression mit optimierter Regularisierung)? Mit a=1, b=2 wird ridge_kurve über ein (P,N)-Gitter ausgewertet, pro C das Minimum über P und N bestimmt und der Exponent mit fit_exponent geschätzt. Ist er gleich -(b-1)/(a+1)=-0,5 wie beim Gradientenfluss-Rechenoptimum oder ein anderer? Das Ergebnis wird für mindestens drei (a,b)-Paare wiederholt, etwa (1,2), (0.5,2) und (1,3), und mit der Vorhersage verglichen.",
+   "text": "Im linearen Modell mit Spektrum lambda_k = k^-1.0 und Zielanteilen k^-2.0 fällt der rechenoptimaler Verlust über das Budget C = P*t wie x^-0.5 (numerischer Fit des Prüfers in zwei Fenstern, Toleranz 0.03).",
+   "interpretation_ungeprueft": "Ja, der Exponent ist -(b-1)/(a+1), identisch mit dem Gradientenfluss-Rechenoptimum",
+   "pruefung": {
+    "typ": "exponent",
+    "kurve": "compute",
+    "a": 1.0,
+    "b": 2.0,
+    "exponent": 0.5
+   },
+   "grund": "Prüfer-Fit compute (a=1.0, b=2.0): Exponent 0.4998 (Fenster 1) und 0.5000 (Fenster 2), behauptet 0.5, feste Toleranz 0.03 | Prüfer-Fit compute (a=0.5, b=2.0): Exponent 0.6667 (Fenster 1) und 0.6667 (Fenster 2), behauptet 0.6667, feste Toleranz 0.03 | Prüfer-Fit compute (a=1.0, b=3.0): Exponent 0.9995 (Fenster 1) und 0.9999 (Fenster 2), behauptet 1.0, feste Toleranz 0.03",
+   "level": "observed",
+   "status": "bestätigt",
+   "red_team": [
+    {
+     "pruefung": {
+      "typ": "exponent",
+      "kurve": "rf",
+      "a": 2.0,
+      "b": 2.0,
+      "exponent": 0.5
+     },
+     "idee": "Bei optimaler Ridge-Regularisierung gilt etwa L(P,N) ~ P^-(b-1) + N^-(b-1). Der Beitrag der Stichproben ergibt sich aus der effektiven Dimension lambda^(-1/a) <= N, also lambda ~ N^-a und N^-(b-1). Bei festem C = P*N liegt das Optimum bei P ~ N ~ sqrt(C), also L ~ C^-(b-1)/2, unabhängig von a. Für (a=2, b=2) ergibt das 0,5, die behauptete Formel (b-1)/(a+1) dagegen 1/3.",
+     "bestanden": false,
+     "grund": "Prüfer-Fit rf (a=2.0, b=2.0): Exponent 1.0782 (Fenster 1) und 1.0806 (Fenster 2), behauptet 0.5, feste Toleranz 0.1"
+    },
+    {
+     "pruefung": {
+      "typ": "exponent",
+      "kurve": "rf",
+      "a": 2.0,
+      "b": 3.0,
+      "exponent": 1.0
+     },
+     "idee": "Zweiter Fall mit a != 1. Die Vorhersage (b-1)/2 = 1,0 ist unabhängig von a, die behauptete Formel liefert 2/3. Die Antwort stützt sich nur auf (1,2) und (1,3), bei denen a+1 = 2 beide Formeln zufällig zusammenfallen lässt. Sie hat außerdem die Gradientenfluss-Kurve 'compute' gemessen und nicht die RF-Ridge-Kurve.",
+     "bestanden": false,
+     "grund": "Prüfer-Fit rf (a=2.0, b=3.0): Exponent 1.8814 (Fenster 1) und 1.8742 (Fenster 2), behauptet 1.0, feste Toleranz 0.1"
+    }
+   ],
+   "runde": 8
+  },
+  {
+   "id": "optscale-R9",
+   "frage": "Skaliert das Rechenoptimum bei Budget C = P*N (Random-Feature plus Ridge mit optimiertem Regularisierer) tatsächlich mit -(b-1)/(a+1)? Dazu rf_kurve über P und ridge_kurve über N (optimale Ridge) getrennt für (a,b) = (1,2), (0.5,2), (1,3), (2,2) und (1,4) vermessen. Die Einzelexponenten e_P und e_N fitten, daraus den vorhergesagten Exponenten für C = P*N ableiten (Balance P^-e_P = N^-e_N bei P*N = C) und per ridge_kurve/rf_kurve-Gitter das Minimum über P und N direkt bestimmen.",
+   "text": "Im linearen Modell mit Spektrum lambda_k = k^-1.0 und Zielanteilen k^-2.0 fällt der rechenoptimaler Verlust über das Budget C = P*t wie x^-0.5 (numerischer Fit des Prüfers in zwei Fenstern, Toleranz 0.03).",
+   "interpretation_ungeprueft": "ja",
+   "pruefung": {
+    "typ": "exponent",
+    "kurve": "compute",
+    "a": 1.0,
+    "b": 2.0,
+    "exponent": 0.5
+   },
+   "grund": "Prüfer-Fit compute (a=1.0, b=2.0): Exponent 0.4998 (Fenster 1) und 0.5000 (Fenster 2), behauptet 0.5, feste Toleranz 0.03 | Prüfer-Fit compute (a=0.5, b=2.0): Exponent 0.6667 (Fenster 1) und 0.6667 (Fenster 2), behauptet 0.6666666667, feste Toleranz 0.03 | Prüfer-Fit compute (a=1.0, b=3.0): Exponent 0.9995 (Fenster 1) und 0.9999 (Fenster 2), behauptet 1.0, feste Toleranz 0.03 | Prüfer-Fit compute (a=2.0, b=2.0): Exponent 0.3329 (Fenster 1) und 0.3331 (Fenster 2), behauptet 0.3333333333, feste Toleranz 0.03 | Prüfer-Fit compute (a=1.0, b=4.0): Exponent 1.4990 (Fenster 1) und 1.4998 (Fenster 2), behauptet 1.5, feste Toleranz 0.03",
+   "level": "observed",
+   "status": "bestätigt",
+   "red_team": [
+    {
+     "pruefung": {
+      "typ": "exponent",
+      "kurve": "compute",
+      "a": 1.0,
+      "b": 4.0,
+      "exponent": 1.2
+     },
+     "idee": "Sättigung der Ridge-Regression. Die optimale Ridge hat Qualifikation 2, also gilt e_N = min(b-1, 2a)/a. Für (a,b)=(1,4) ist e_N = 2 und nicht 3. Das Random-Feature-Modell hat weiter e_P = b-1 = 3. Die Balance P^-3 = N^-2 gibt P = N^(2/3) und C = N^(5/3). Der Verlust skaliert dann wie C^(-6/5) = C^-1,2. Die behauptete Formel (b-1)/(a+1) = 1,5 ist hier falsch.",
+     "bestanden": false,
+     "grund": "Prüfer-Fit compute (a=1.0, b=4.0): Exponent 1.4990 (Fenster 1) und 1.4998 (Fenster 2), behauptet 1.2, feste Toleranz 0.03"
+    },
+    {
+     "pruefung": {
+      "typ": "exponent",
+      "kurve": "ridge",
+      "a": 1.0,
+      "b": 4.0,
+      "exponent": 2.0
+     },
+     "idee": "Direkter Test der Einzelkurve. Bei (1,4) liegt der Ridge-Exponent in N wegen der Sättigung bei 2,0 und nicht bei (b-1)/a = 3. Damit versagt die Zerlegung, auf der die Compute-Formel beruht.",
+     "bestanden": false,
+     "grund": "Prüfer-Fit ridge (a=1.0, b=4.0, ridge=0.0, noise=0.0): Exponent 2.5008 (Fenster 1) und 2.7484 (Fenster 2), behauptet 2.0, feste Toleranz 0.1"
+    }
+   ],
+   "runde": 9
+  },
+  {
+   "id": "optscale-R10",
+   "frage": "Überträgt sich die optimale Lernrate unter μP über die Breite (Adam und SGD), während sie sich unter SP verschiebt? Wie groß ist die Verschiebung unter SP pro Verdopplung der Breite?",
+   "text": "MUP mit adam über Breiten [32, 64, 128, 256]: die optimale Lernrate verschiebt sich um höchstens eine Oktave (Transfer) (numerisch, Prüfer-Tuning auf Gitter mit Faktor 2, 300 Schritte, 2 Seeds).",
+   "interpretation_ungeprueft": "Ja, unter μP überträgt sich die optimale Lernrate über Breite stabil; unter SP verschiebt sich sie um ca. -1 (log₂-Raum) pro Breitenverdopplung.",
+   "pruefung": {
+    "typ": "lr_transfer",
+    "param": "mup",
+    "optimizer": "adam",
+    "widths": [
+     32,
+     64,
+     128,
+     256
+    ],
+    "transfer": true
+   },
+   "grund": "Prüfer: optimale log2-LR je Breite {32: -7, 64: -6, 128: -7, 256: -7} (mup, adam, 300 Schritte, Seeds (400, 401), Gitter 2^-14..2^-2); Verschiebung kleinste->größte Breite +0 Oktaven, Spannweite 1; Kriterium Transfer: |Verschiebung| <= 1 und Spannweite <= 1 | Prüfer: optimale log2-LR je Breite {32: -6, 64: -6, 128: -7, 256: -8} (sp, adam, 300 Schritte, Seeds (400, 401), Gitter 2^-14..2^-2); Verschiebung kleinste->größte Breite -2 Oktaven, Spannweite 2; Kriterium kein Transfer: |Verschiebung| >= 2 | Prüfer: optimale log2-LR je Breite {32: -1, 64: -1, 128: 0, 256: -1} (mup, sgd, 300 Schritte, Seeds (400, 401), Gitter 2^-10..2^2); Verschiebung kleinste->größte Breite +0 Oktaven, Spannweite 1; Kriterium Transfer: |Verschiebung| <= 1 und Spannweite <= 1 | Prüfer: optimale log2-LR je Breite {32: 0, 64: -1, 128: -1, 256: -2} (sp, sgd, 300 Schritte, Seeds (400, 401), Gitter 2^-10..2^2); Verschiebung kleinste->größte Breite -2 Oktaven, Spannweite 2; Kriterium kein Transfer: |Verschiebung| >= 2",
+   "level": "observed",
+   "status": "bestätigt",
+   "red_team": [
+    {
+     "pruefung": {
+      "typ": "lr_transfer",
+      "param": "sp",
+      "optimizer": "sgd",
+      "widths": [
+       32,
+       64,
+       128,
+       256
+      ],
+      "transfer": true
+     },
+     "idee": "Die Antwort behauptet, dass sich die optimale SGD-Lernrate unter SP deutlich verschiebt. Die Begründung belegt aber nur Adam (E6/E7), SGD wird nur pauschal mit 'ähnlich' abgehandelt. Bei SGD im Online-Training mit flachem Verlustminimum und grobem Lernraten-Gitter kann das Optimum über die Breiten fast gleich bleiben. Dann würde transfer=true bestehen und die behauptete SP-Verschiebung bei SGD wäre falsch.",
+     "bestanden": false,
+     "grund": "Prüfer: optimale log2-LR je Breite {32: 0, 64: -1, 128: -1, 256: -2} (sp, sgd, 300 Schritte, Seeds (400, 401), Gitter 2^-10..2^2); Verschiebung kleinste->größte Breite -2 Oktaven, Spannweite 2; Kriter"
+    },
+    {
+     "pruefung": {
+      "typ": "lr_transfer",
+      "param": "mup",
+      "optimizer": "sgd",
+      "widths": [
+       32,
+       64,
+       128,
+       256
+      ],
+      "transfer": false
+     },
+     "idee": "Die Antwort behauptet, dass sich die SGD-Lernrate unter μP sauber überträgt. Bei Basisbreite 64 sind μP und SP identisch, deshalb kann μP-SGD bei Breite 32 und bei größeren Breiten durch Skalierungsfaktoren abweichen. Bei nur 3 Schichten, kleinen Breiten und einem Prüfer mit eigenem Tuning und eigenen Seeds kann sich das Optimum um mehr als eine Gitterstufe verschieben. Dann würde transfer=false bestehen.",
+     "bestanden": false,
+     "grund": "Prüfer: optimale log2-LR je Breite {32: -1, 64: -1, 128: 0, 256: -1} (mup, sgd, 300 Schritte, Seeds (400, 401), Gitter 2^-10..2^2); Verschiebung kleinste->größte Breite +0 Oktaven, Spannweite 1; Krite"
+    }
+   ],
+   "runde": 10
+  },
+  {
+   "id": "optscale-R11",
+   "frage": "Wie hängen e_P (Random Feature) und e_N (Ridge mit optimalem Regularisierer) von a und b ab? Gilt e_P = a(b-1) und e_N = (b-1)·a/(a+1) bzw. eine andere geschlossene Form? Wo, besonders nahe b → 1,1 und bei großem a, brechen die Fits wegen der endlichen Auflösung (P ≤ 512, N ≤ 1024, M = 2000) zusammen?",
+   "text": "Im linearen Modell mit Spektrum lambda_k = k^-2.0 und Zielanteilen k^-2.0 fällt der Verlust des linearen Random-Feature-Modells über P wie x^-1.0 (numerischer Fit des Prüfers in zwei Fenstern, Toleranz 0.1).",
+   "interpretation_ungeprueft": "Nur teilweise gestützt: e_P = a(b-1) ist durch die Daten widerlegt; die Daten sprechen eher für e_P = b-1, unabhängig von a. e_N konnte ich nicht belegen.",
+   "pruefung": {
+    "typ": "exponent",
+    "kurve": "rf",
+    "a": 2.0,
+    "b": 2.0,
+    "exponent": 1.0
+   },
+   "grund": "Prüfer-Fit rf (a=2.0, b=2.0): Exponent 1.0782 (Fenster 1) und 1.0806 (Fenster 2), behauptet 1.0, feste Toleranz 0.1",
+   "level": "observed",
+   "status": "bestätigt",
+   "red_team": [
+    {
+     "pruefung": {
+      "typ": "exponent",
+      "kurve": "rf",
+      "a": 0.5,
+      "b": 3.0,
+      "exponent": 1.0
+     },
+     "idee": "Randfall mit schwachem Spektrum (a=0,5) und schnell abfallendem Ziel (b=3). Die Antwort behauptet e_P = b-1, unabhängig von a, das ergäbe hier 2. Der Effektive-Ridge-Bias durch die P Projektionen sättigt aber bei min(b-1, 2a), also bei 2a = 1. Der Prüfer würde dann etwa 1 messen. Die schwachen 0,25 aus dem vorasymptotischen Bereich widersprechen dem nicht, weil sie nur zu kleinen P gehören.",
+     "bestanden": false,
+     "grund": "Prüfer-Fit rf (a=0.5, b=3.0): Exponent 0.6077 (Fenster 1) und 0.7600 (Fenster 2), behauptet 1.0, feste Toleranz 0.1"
+    },
+    {
+     "pruefung": {
+      "typ": "exponent",
+      "kurve": "ridge",
+      "a": 2.0,
+      "b": 2.0,
+      "exponent": 0.5,
+      "noise": 1.0
+     },
+     "idee": "Ridge mit optimalem Regularisierer und Rauschen. Das Bias-Varianz-Gleichgewicht liefert lambda ~ N^(-a/b) und damit e_N = (b-1)/b. Das ist unabhängig von a und gilt für b-1 ≤ 2a. Hier ergibt es 0,5. Die gemessenen 1,1 bis 1,3 passen dazu nicht, stammen aber vermutlich von rauschfreiem oder schwach aufgelöstem Fit. Die Behauptung (b-1)·a/(a+1) ergäbe 2/3, also etwas anderes. Eine bestandene Prüfung würde zeigen, dass beide genannten Formeln falsch sind.",
+     "bestanden": false,
+     "grund": "Prüfer-Fit ridge (a=2.0, b=2.0, ridge=0.0, noise=1.0): Exponent -0.1666 (Fenster 1) und -0.2154 (Fenster 2), behauptet 0.5, feste Toleranz 0.1"
+    }
+   ],
+   "runde": 11
+  },
+  {
+   "id": "optscale-R12",
+   "frage": "Wie hängt e_N (Ridge mit optimalem Regularisierer) von a und b ab? Gilt e_N = (b-1)·a/(a+1) oder eine andere Form? Zu messen ist ridge_kurve für a ∈ {0,5; 1; 2}, b ∈ {1,5; 2; 3}, N = 16..1024, mit mehreren Ridge-Werten pro N (Minimum über ridge) und mindestens 5 Seeds. Dazu gehört eine Fehlerabschätzung, ab welchem a und b der Fit durch endliches M=2000 und N ≤ 1024 bricht (b nahe 1,1 und a ≥ 2).",
+   "text": "Im linearen Modell mit Spektrum lambda_k = k^-1.0 und Zielanteilen k^-3.0, ridge = 0.001, noise = 0 fällt der Exzess-Risiko der Ridge-Regression über N wie x^-2.0 (numerischer Fit des Prüfers in zwei Fenstern, Toleranz 0.1).",
+   "interpretation_ungeprueft": "Die Form e_N = (b-1)·a/(a+1) ist widerlegt. Die Daten sprechen für e_N ≈ b-1 im rauschfreien Fall mit Ridge → 0, mit Sättigung bei etwa 2a. Das ist belegt für a=1, b=2 und b=3. Für a=0,5 und a=2 ist die Form nur schwach gestützt.",
+   "pruefung": {
+    "typ": "exponent",
+    "kurve": "ridge",
+    "a": 1.0,
+    "b": 3.0,
+    "exponent": 2.0,
+    "ridge": 0.001
+   },
+   "grund": "Prüfer-Fit ridge (a=1.0, b=3.0, ridge=0.001, noise=0.0): Exponent 1.9893 (Fenster 1) und 1.9258 (Fenster 2), behauptet 2.0, feste Toleranz 0.1",
+   "level": "observed",
+   "status": "bestätigt",
+   "red_team": [
+    {
+     "pruefung": {
+      "typ": "exponent",
+      "kurve": "ridge",
+      "a": 0.5,
+      "b": 3.0,
+      "exponent": 1.0,
+      "ridge": 0.001
+     },
+     "idee": "Randfall im Sättigungsbereich: Für b-1 > 2a (hier b-1 = 2 > 2a = 1) erwarte ich e_N ≈ 2a = 1 statt b-1 = 2. Die Antwort nennt Sättigung bei 2a nur beiläufig und beansprucht b-1 als Hauptform. Ihre eigenen lokalen Steigungen bei a=0,5 liegen bei 1,8–2,5, was sie mit Vorasymptotik erklärt. Ein sauber aufgelöster Fit sollte dagegen nahe 1 liegen. Die Form (b-1)·a/(a+1) = 0,33 ist ebenfalls falsch; das Gegenbeispiel stützt also e_N = min(b-1, 2a).",
+     "bestanden": false,
+     "grund": "Prüfer-Fit ridge (a=0.5, b=3.0, ridge=0.001, noise=0.0): Exponent 1.4644 (Fenster 1) und 1.8149 (Fenster 2), behauptet 1.0, feste Toleranz 0.1"
+    },
+    {
+     "pruefung": {
+      "typ": "exponent",
+      "kurve": "ridge",
+      "a": 0.4,
+      "b": 4.0,
+      "exponent": 0.8,
+      "ridge": 0.001
+     },
+     "idee": "Zweites Gegenbeispiel tief im Sättigungsbereich mit größerem b und kleinerem a. Es gilt b-1 = 3 ≫ 2a = 0,8, die Vorhersage der Antwort (b-1) wäre also weit daneben. Erwartet wird e_N ≈ 2a = 0,8, unabhängig von b. Der Test trennt 'e_N ≈ b-1' von 'e_N = min(b-1, 2a)' und liegt in den vom Prüfer genannten Fenstern (a in [0,3; 3], b in [1,1; 4]).",
+     "bestanden": false,
+     "grund": "Prüfer-Fit ridge (a=0.4, b=4.0, ridge=0.001, noise=0.0): Exponent 1.2112 (Fenster 1) und 1.5759 (Fenster 2), behauptet 0.8, feste Toleranz 0.1"
+    }
+   ],
+   "runde": 12
   }
  ],
  "widerlegt": [],
@@ -1553,7 +1877,180 @@
     }
    ],
    "sek": 288.9
+  },
+  {
+   "runde": 8,
+   "frage": "F22",
+   "status": "beantwortet",
+   "red_team": [
+    {
+     "pruefung": {
+      "typ": "exponent",
+      "kurve": "rf",
+      "a": 2.0,
+      "b": 2.0,
+      "exponent": 0.5
+     },
+     "idee": "Bei optimaler Ridge-Regularisierung gilt etwa L(P,N) ~ P^-(b-1) + N^-(b-1). Der Beitrag der Stichproben ergibt sich aus der effektiven Dimension lambda^(-1/a) <= N, also lambda ~ N^-a und N^-(b-1). Bei festem C = P*N liegt das Optimum bei P ~ N ~ sqrt(C), also L ~ C^-(b-1)/2, unabhängig von a. Für (a=2, b=2) ergibt das 0,5, die behauptete Formel (b-1)/(a+1) dagegen 1/3.",
+     "bestanden": false,
+     "grund": "Prüfer-Fit rf (a=2.0, b=2.0): Exponent 1.0782 (Fenster 1) und 1.0806 (Fenster 2), behauptet 0.5, feste Toleranz 0.1"
+    },
+    {
+     "pruefung": {
+      "typ": "exponent",
+      "kurve": "rf",
+      "a": 2.0,
+      "b": 3.0,
+      "exponent": 1.0
+     },
+     "idee": "Zweiter Fall mit a != 1. Die Vorhersage (b-1)/2 = 1,0 ist unabhängig von a, die behauptete Formel liefert 2/3. Die Antwort stützt sich nur auf (1,2) und (1,3), bei denen a+1 = 2 beide Formeln zufällig zusammenfallen lässt. Sie hat außerdem die Gradientenfluss-Kurve 'compute' gemessen und nicht die RF-Ridge-Kurve.",
+     "bestanden": false,
+     "grund": "Prüfer-Fit rf (a=2.0, b=3.0): Exponent 1.8814 (Fenster 1) und 1.8742 (Fenster 2), behauptet 1.0, feste Toleranz 0.1"
+    }
+   ],
+   "sek": 645.8
+  },
+  {
+   "runde": 9,
+   "frage": "F24",
+   "status": "beantwortet",
+   "red_team": [
+    {
+     "pruefung": {
+      "typ": "exponent",
+      "kurve": "compute",
+      "a": 1.0,
+      "b": 4.0,
+      "exponent": 1.2
+     },
+     "idee": "Sättigung der Ridge-Regression. Die optimale Ridge hat Qualifikation 2, also gilt e_N = min(b-1, 2a)/a. Für (a,b)=(1,4) ist e_N = 2 und nicht 3. Das Random-Feature-Modell hat weiter e_P = b-1 = 3. Die Balance P^-3 = N^-2 gibt P = N^(2/3) und C = N^(5/3). Der Verlust skaliert dann wie C^(-6/5) = C^-1,2. Die behauptete Formel (b-1)/(a+1) = 1,5 ist hier falsch.",
+     "bestanden": false,
+     "grund": "Prüfer-Fit compute (a=1.0, b=4.0): Exponent 1.4990 (Fenster 1) und 1.4998 (Fenster 2), behauptet 1.2, feste Toleranz 0.03"
+    },
+    {
+     "pruefung": {
+      "typ": "exponent",
+      "kurve": "ridge",
+      "a": 1.0,
+      "b": 4.0,
+      "exponent": 2.0
+     },
+     "idee": "Direkter Test der Einzelkurve. Bei (1,4) liegt der Ridge-Exponent in N wegen der Sättigung bei 2,0 und nicht bei (b-1)/a = 3. Damit versagt die Zerlegung, auf der die Compute-Formel beruht.",
+     "bestanden": false,
+     "grund": "Prüfer-Fit ridge (a=1.0, b=4.0, ridge=0.0, noise=0.0): Exponent 2.5008 (Fenster 1) und 2.7484 (Fenster 2), behauptet 2.0, feste Toleranz 0.1"
+    }
+   ],
+   "sek": 624.7
+  },
+  {
+   "runde": 10,
+   "frage": "F8",
+   "status": "beantwortet",
+   "red_team": [
+    {
+     "pruefung": {
+      "typ": "lr_transfer",
+      "param": "sp",
+      "optimizer": "sgd",
+      "widths": [
+       32,
+       64,
+       128,
+       256
+      ],
+      "transfer": true
+     },
+     "idee": "Die Antwort behauptet, dass sich die optimale SGD-Lernrate unter SP deutlich verschiebt. Die Begründung belegt aber nur Adam (E6/E7), SGD wird nur pauschal mit 'ähnlich' abgehandelt. Bei SGD im Online-Training mit flachem Verlustminimum und grobem Lernraten-Gitter kann das Optimum über die Breiten fast gleich bleiben. Dann würde transfer=true bestehen und die behauptete SP-Verschiebung bei SGD wäre falsch.",
+     "bestanden": false,
+     "grund": "Prüfer: optimale log2-LR je Breite {32: 0, 64: -1, 128: -1, 256: -2} (sp, sgd, 300 Schritte, Seeds (400, 401), Gitter 2^-10..2^2); Verschiebung kleinste->größte Breite -2 Oktaven, Spannweite 2; Kriter"
+    },
+    {
+     "pruefung": {
+      "typ": "lr_transfer",
+      "param": "mup",
+      "optimizer": "sgd",
+      "widths": [
+       32,
+       64,
+       128,
+       256
+      ],
+      "transfer": false
+     },
+     "idee": "Die Antwort behauptet, dass sich die SGD-Lernrate unter μP sauber überträgt. Bei Basisbreite 64 sind μP und SP identisch, deshalb kann μP-SGD bei Breite 32 und bei größeren Breiten durch Skalierungsfaktoren abweichen. Bei nur 3 Schichten, kleinen Breiten und einem Prüfer mit eigenem Tuning und eigenen Seeds kann sich das Optimum um mehr als eine Gitterstufe verschieben. Dann würde transfer=false bestehen.",
+     "bestanden": false,
+     "grund": "Prüfer: optimale log2-LR je Breite {32: -1, 64: -1, 128: 0, 256: -1} (mup, sgd, 300 Schritte, Seeds (400, 401), Gitter 2^-10..2^2); Verschiebung kleinste->größte Breite +0 Oktaven, Spannweite 1; Krite"
+    }
+   ],
+   "sek": 320.0
+  },
+  {
+   "runde": 11,
+   "frage": "F27",
+   "status": "beantwortet",
+   "red_team": [
+    {
+     "pruefung": {
+      "typ": "exponent",
+      "kurve": "rf",
+      "a": 0.5,
+      "b": 3.0,
+      "exponent": 1.0
+     },
+     "idee": "Randfall mit schwachem Spektrum (a=0,5) und schnell abfallendem Ziel (b=3). Die Antwort behauptet e_P = b-1, unabhängig von a, das ergäbe hier 2. Der Effektive-Ridge-Bias durch die P Projektionen sättigt aber bei min(b-1, 2a), also bei 2a = 1. Der Prüfer würde dann etwa 1 messen. Die schwachen 0,25 aus dem vorasymptotischen Bereich widersprechen dem nicht, weil sie nur zu kleinen P gehören.",
+     "bestanden": false,
+     "grund": "Prüfer-Fit rf (a=0.5, b=3.0): Exponent 0.6077 (Fenster 1) und 0.7600 (Fenster 2), behauptet 1.0, feste Toleranz 0.1"
+    },
+    {
+     "pruefung": {
+      "typ": "exponent",
+      "kurve": "ridge",
+      "a": 2.0,
+      "b": 2.0,
+      "exponent": 0.5,
+      "noise": 1.0
+     },
+     "idee": "Ridge mit optimalem Regularisierer und Rauschen. Das Bias-Varianz-Gleichgewicht liefert lambda ~ N^(-a/b) und damit e_N = (b-1)/b. Das ist unabhängig von a und gilt für b-1 ≤ 2a. Hier ergibt es 0,5. Die gemessenen 1,1 bis 1,3 passen dazu nicht, stammen aber vermutlich von rauschfreiem oder schwach aufgelöstem Fit. Die Behauptung (b-1)·a/(a+1) ergäbe 2/3, also etwas anderes. Eine bestandene Prüfung würde zeigen, dass beide genannten Formeln falsch sind.",
+     "bestanden": false,
+     "grund": "Prüfer-Fit ridge (a=2.0, b=2.0, ridge=0.0, noise=1.0): Exponent -0.1666 (Fenster 1) und -0.2154 (Fenster 2), behauptet 0.5, feste Toleranz 0.1"
+    }
+   ],
+   "sek": 640.8
+  },
+  {
+   "runde": 12,
+   "frage": "F31",
+   "status": "beantwortet",
+   "red_team": [
+    {
+     "pruefung": {
+      "typ": "exponent",
+      "kurve": "ridge",
+      "a": 0.5,
+      "b": 3.0,
+      "exponent": 1.0,
+      "ridge": 0.001
+     },
+     "idee": "Randfall im Sättigungsbereich: Für b-1 > 2a (hier b-1 = 2 > 2a = 1) erwarte ich e_N ≈ 2a = 1 statt b-1 = 2. Die Antwort nennt Sättigung bei 2a nur beiläufig und beansprucht b-1 als Hauptform. Ihre eigenen lokalen Steigungen bei a=0,5 liegen bei 1,8–2,5, was sie mit Vorasymptotik erklärt. Ein sauber aufgelöster Fit sollte dagegen nahe 1 liegen. Die Form (b-1)·a/(a+1) = 0,33 ist ebenfalls falsch; das Gegenbeispiel stützt also e_N = min(b-1, 2a).",
+     "bestanden": false,
+     "grund": "Prüfer-Fit ridge (a=0.5, b=3.0, ridge=0.001, noise=0.0): Exponent 1.4644 (Fenster 1) und 1.8149 (Fenster 2), behauptet 1.0, feste Toleranz 0.1"
+    },
+    {
+     "pruefung": {
+      "typ": "exponent",
+      "kurve": "ridge",
+      "a": 0.4,
+      "b": 4.0,
+      "exponent": 0.8,
+      "ridge": 0.001
+     },
+     "idee": "Zweites Gegenbeispiel tief im Sättigungsbereich mit größerem b und kleinerem a. Es gilt b-1 = 3 ≫ 2a = 0,8, die Vorhersage der Antwort (b-1) wäre also weit daneben. Erwartet wird e_N ≈ 2a = 0,8, unabhängig von b. Der Test trennt 'e_N ≈ b-1' von 'e_N = min(b-1, 2a)' und liegt in den vom Prüfer genannten Fenstern (a in [0,3; 3], b in [1,1; 4]).",
+     "bestanden": false,
+     "grund": "Prüfer-Fit ridge (a=0.4, b=4.0, ridge=0.001, noise=0.0): Exponent 1.2112 (Fenster 1) und 1.5759 (Fenster 2), behauptet 0.8, feste Toleranz 0.1"
+    }
+   ],
+   "sek": 811.6
   }
  ],
- "kosten_usd": 4.027319
+ "kosten_usd": 6.861177
 }
