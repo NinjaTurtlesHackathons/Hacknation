@@ -1,0 +1,273 @@
+{
+"frozen_at": "2026-10-04T04:01:08",
+"commit": "26f21a9",
+"replay": {
+"source": "results/replay_lattice.json",
+"prereg": "prereg.md, section H7",
+"budget": 30,
+"seeds": [
+1000,
+1001,
+1002,
+1003,
+1004,
+1005,
+1006,
+1007,
+1008,
+1009
+],
+"conditions": [
+{
+"key": "LAB",
+"name": "Lab (verifier feedback)",
+"N": [
+1,
+3,
+3,
+3,
+3,
+1,
+4,
+3,
+1,
+2
+],
+"mean": 2.4,
+"median": 3.0,
+"hits": 10,
+"analytic": false,
+"recall": {
+"5": 1.0,
+"10": 1.0,
+"20": 1.0,
+"30": 1.0
+}
+},
+{
+"key": "OHNE_FEEDBACK",
+"name": "Same agents, no feedback",
+"N": [
+2,
+3,
+1,
+3,
+4,
+3,
+2,
+3,
+5,
+3
+],
+"mean": 2.9,
+"median": 3.0,
+"hits": 10,
+"analytic": false,
+"recall": {
+"5": 1.0,
+"10": 1.0,
+"20": 1.0,
+"30": 1.0
+}
+},
+{
+"key": "ZUFALL",
+"name": "Random proposals",
+"N": [
+9,
+1,
+6,
+8,
+12,
+7,
+12,
+21,
+3,
+31
+],
+"mean": 11.0,
+"median": 8.5,
+"hits": 9,
+"analytic": false,
+"recall": {
+"5": 0.2,
+"10": 0.6,
+"20": 0.8,
+"30": 0.9
+}
+},
+{
+"key": "ORAKEL",
+"name": "Oracle (analytic upper bound)",
+"N": [
+1,
+1,
+1,
+1,
+1,
+1,
+1,
+1,
+1,
+1
+],
+"mean": 1.0,
+"median": 1.0,
+"hits": null,
+"analytic": true,
+"recall": null
+}
+],
+"tests": [
+{
+"id": "H8a",
+"vs": "Random proposals",
+"speedup": 4.583333333333334,
+"ci": [
+2.5997727272727276,
+7.5005434782608615
+],
+"p": 0.0029,
+"p_bh": 0.0058,
+"n": 10,
+"supported": true
+},
+{
+"id": "H8c",
+"vs": "Same agents, no feedback",
+"speedup": 1.2083333333333333,
+"ci": [
+0.8214285714285714,
+1.8503409090909042
+],
+"p": 0.2581,
+"p_bh": 0.2581,
+"n": 10,
+"supported": false
+}
+]
+},
+"trust": {
+"source": "results/trust.json",
+"question_source": "results/benchmark/score.json (preregistered H3: 12 questions from Suleman 2026, 3 runs each)",
+"conditions": [
+{
+"key": "A1",
+"name": "Claude alone",
+"n": 36,
+"right": 18,
+"wrong": 13,
+"unknown": 5,
+"wrong_pct": 36.1,
+"wrong_ci": [
+20.8,
+53.8
+],
+"right_pct": 50.0
+},
+{
+"key": "A2",
+"name": "Claude with Python",
+"n": 36,
+"right": 26,
+"wrong": 8,
+"unknown": 2,
+"wrong_pct": 22.2,
+"wrong_ci": [
+10.1,
+39.2
+],
+"right_pct": 72.2
+},
+{
+"key": "B",
+"name": "Lab (4 researchers + code verifier)",
+"n": 36,
+"right": 36,
+"wrong": 0,
+"unknown": 0,
+"wrong_pct": 0.0,
+"wrong_ci": [
+0.0,
+9.7
+],
+"right_pct": 100.0
+},
+{
+"key": "BK",
+"name": "Lab, cascade (Haiku first)",
+"n": 36,
+"right": 35,
+"wrong": 1,
+"unknown": 0,
+"wrong_pct": 2.8,
+"wrong_ci": [
+0.1,
+14.5
+],
+"right_pct": 97.2
+}
+]
+},
+"stress": {
+"blind_claims": 20,
+"blind_akzeptiert": 0,
+"redteam_fallen": 8,
+"redteam_fallen_abgelehnt": 8,
+"selbsttest_faelle": {
+"proofreading": 18,
+"lattice": 7
+},
+"source": "results/FROZEN.json"
+},
+"classification": {
+"familie": "gebunden<=2",
+"topologien": 88,
+"bewiesen": 50,
+"verletzt": 14,
+"offen": 24,
+"verletzungen": [
+"fam2_9",
+"fam2_11",
+"fam2_35",
+"fam2_39",
+"fam2_41",
+"fam2_43",
+"fam2_45",
+"fam2_58",
+"fam2_66",
+"fam2_67",
+"fam2_75",
+"fam2_82",
+"fam2_83",
+"fam2_91"
+],
+"eta_min": 1.386398e-12,
+"projekt": "omni_parallel",
+"source": "projects/omni_parallel/klassifikation.json"
+},
+"metrics": {
+"lauf": "runs/omnigent/2026-10-04",
+"latenz_median_s": 10,
+"latenz_n": 4,
+"latenz_min_s": 7,
+"latenz_max_s": 28,
+"latenz_ohne_kaltstart_median_s": 7,
+"frage_zu_zertifikat_median_s": 63,
+"frage_zu_zertifikat_n": 3,
+"zertifizierte_claims": 3,
+"abgelehnte_behauptungen": 1,
+"zertifiziert_pro_h": 16.5,
+"kosten_pro_zertifikat_usd": 0.43,
+"kosten_gesamt_usd": 1.29,
+"laufzeit_min": 19,
+"mensch_warten_min": 9,
+"zeit_agenten_llm_s": 195,
+"zeit_verifier_s": 57,
+"zeit_experimente_s": 196,
+"speedup_manuell": {
+"status": "ausstehend: mindestens 3 Stoppuhr-Messungen in baselines/manual.jsonl nötig"
+},
+"source": "results/metrics_proofreading.json"
+}
+}

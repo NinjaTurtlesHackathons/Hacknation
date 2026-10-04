@@ -1,0 +1,221 @@
+{
+"generated": "2026-10-04T05:52:06Z",
+"commit": "791f2a1",
+"repo": "https://github.com/alizema700/HackNation-Ninja-Turtles",
+"figures": [
+{
+"text": "20 of 20 random or constant claims sent blind to the verifier were rejected, and 8 of 8 red-team traps.",
+"source": "results/FROZEN.json",
+"href": "results.html#stress"
+},
+{
+"text": "Against random proposals the lab needed 4.6× fewer verifier calls to reach the target claim (95% CI 2.6 to 7.5, p = 0.003, 10 seeds).",
+"source": "results/replay_lattice.json",
+"href": "results.html#acceleration"
+},
+{
+"text": "Claude alone gave a wrong answer 36.1% of the time; behind the verifier gate, 0.0% (36 answers each).",
+"source": "results/trust.json",
+"href": "results.html#trust"
+}
+],
+"runs": [
+{
+"id": "2026-10-04",
+"project": "omni_proofreading",
+"task": "Domain proofreading, project omni_proofreading, start question F20, 3 rounds. Goal: decide more of the 35 open topologies of the two-bound-state family (exact counterexample certificate or proof), within the verifier budget of 40 calls.",
+"started": "2026-10-04T02:20:41",
+"ended": "2026-10-04T02:40:03",
+"duration_min": 19,
+"events": 113,
+"confirmed": 3,
+"rejected": 1,
+"deny": 14,
+"ask": 1,
+"ask_approved": 1,
+"handoffs": 14,
+"cost_usd": 1.29,
+"session": "69b219d241fe4bb29cd74c2385358ebf",
+"chain": {
+"links": 82,
+"head": "1fcb11696c9a9b8919a604d55b993aedfe2a214fbfded6f5aa341b7914181bf1",
+"sealed": "2026-10-04T03:47:33",
+"files": [
+"record.jsonl",
+"decisions.md",
+"prereg.md",
+"state.json",
+"sessions/lead__69b219d2.jsonl",
+"sessions/learner-learn_O14__00128eff.jsonl",
+"sessions/learner-learn_O15__8f4d3098.jsonl",
+"sessions/learner-learn_O16__dafe3493.jsonl",
+"sessions/planner-plan_F20_R1__73755de5.jsonl",
+"sessions/planner-plan_F24_R3__28c3f192.jsonl",
+"sessions/planner-reopen_A1_R1__0385cd19.jsonl",
+"sessions/redteam-redteam_O14__86675f82.jsonl",
+"sessions/redteam-redteam_O15__a3c1d11e.jsonl",
+"sessions/redteam-redteam_O16__0c16c131.jsonl",
+"sessions/researcher-research_F20_O2_R1__1e400c6d.jsonl",
+"sessions/researcher-research_F21_O2_R2__560bcade.jsonl",
+"sessions/researcher-research_F24_O2_R3__370098cf.jsonl",
+"sessions/scout-scout_R1__ce4b6c63.jsonl",
+"sessions/scribe-scribe_paper__24cfe2f3.jsonl"
+]
+},
+"trace_passed": true,
+"agents": [
+"lead",
+"scout",
+"planner",
+"researcher",
+"redteam",
+"learner",
+"scribe"
+],
+"sources": [
+"runs/omnigent/2026-10-04/record.jsonl",
+"runs/omnigent/2026-10-04/trace.json",
+"runs/omnigent/2026-10-04/CHAIN.json"
+]
+},
+{
+"id": "2026-10-04b",
+"project": "omni_parallel",
+"task": "Domain proofreading, project omni_parallel, start question F26, 2 rounds. In round 1 run the two rival experiments (broad scan and deep computation) in parallel if the planner agrees. Skip the policy check and do not dispatch the scribe at the end.",
+"started": "2026-10-04T03:51:13",
+"ended": "2026-10-04T03:57:32",
+"duration_min": 6,
+"events": 84,
+"confirmed": 3,
+"rejected": 2,
+"deny": 10,
+"ask": 0,
+"ask_approved": 0,
+"handoffs": 9,
+"cost_usd": 1.01,
+"session": "15b2a2d6b39b4e56b824bf85228601c7",
+"chain": {
+"links": 63,
+"head": "2669b734ee8668a9ed0e3c3b49740225dfb0ba1ced4ac15097d11d0b0fc8d330",
+"sealed": "2026-10-04T04:00:38",
+"files": [
+"record.jsonl",
+"decisions.md",
+"prereg.md",
+"state.json",
+"sessions/lead__15b2a2d6.jsonl",
+"sessions/learner-learner_O20__93c35055.jsonl",
+"sessions/planner-planner_r1__1b7e3257.jsonl",
+"sessions/planner-planner_reopen_A1__55baff24.jsonl",
+"sessions/redteam-redteam_O19__e700d67d.jsonl",
+"sessions/redteam-redteam_O20__ecf3a7ae.jsonl",
+"sessions/researcher-researcher_F27_O2__6c3c8084.jsonl",
+"sessions/researcher-researcher_O1__9557e7b1.jsonl",
+"sessions/researcher-researcher_O2__95cb4513.jsonl",
+"sessions/scout-scout_r1__bf56161b.jsonl"
+]
+},
+"trace_passed": true,
+"agents": [
+"lead",
+"scout",
+"planner",
+"researcher",
+"redteam",
+"learner"
+],
+"sources": [
+"runs/omnigent/2026-10-04b/record.jsonl",
+"runs/omnigent/2026-10-04b/trace.json",
+"runs/omnigent/2026-10-04b/CHAIN.json"
+]
+}
+],
+"excerpt": {
+"run": "2026-10-04b",
+"project": "omni_parallel",
+"events": [
+{
+"ts": "2026-10-04T03:54:53",
+"agent": "researcher",
+"kind": "tool",
+"text": "Runs experiment E13 (search_counterexamples) for F26, option O2",
+"cmd": "python -m asd.cli experiment --frage F26 --option O2",
+"frage": "F26",
+"line": 16,
+"dauer_s": 15.8,
+"round": "F26",
+"t": "03:54:53",
+"s": 220.0
+},
+{
+"ts": "2026-10-04T03:55:17",
+"agent": "researcher",
+"kind": "no",
+"text": "Verifier rejects the claim: Certificate (a) passed for 13 of 15 cases; failed: fam2_13: rate outside [e^-10, e^10] (|log k| = 10.06, derived reverse rates included); fam2_90: rate outside [e^-10, e^10] (|log k| = 10.03, derived reverse rates included)",
+"cmd": "python -m asd.cli pruefe --frage F26 --option O2",
+"frage": "F26",
+"line": 18,
+"dauer_s": 0.61,
+"claim": null,
+"verdict": false,
+"round": "F26",
+"t": "03:55:17",
+"s": 244.0,
+"claim_ref": "rejected-2"
+},
+{
+"ts": "2026-10-04T03:55:23",
+"agent": "researcher",
+"kind": "ok",
+"text": "Verifier confirms proofreading-O19 (computed_rigorous): Certificate (a) passed for 10 of 10 cases",
+"cmd": "python -m asd.cli pruefe --frage F26 --option O1",
+"frage": "F26",
+"line": 19,
+"dauer_s": 0.53,
+"claim": "proofreading-O19",
+"verdict": true,
+"round": "F26",
+"t": "03:55:23",
+"s": 250.0,
+"claim_ref": "proofreading-O19"
+}
+],
+"claims": [
+{
+"id": "rejected-2",
+"verdict": false,
+"level": "hypothesis",
+"text": "Exact reachability certificate for 15 topologies, submitted by the researcher",
+"reason": "Certificate (a) passed for 13 of 15 cases; failed: fam2_13: rate outside [e^-10, e^10] (|log k| = 10.06, derived reverse rates included); fam2_90: rate outside [e^-10, e^10] (|log k| = 10.03, derived reverse rates included)",
+"event_s": 244.0,
+"t": "03:55:17"
+},
+{
+"id": "proofreading-O19",
+"verdict": true,
+"level": "computed_rigorous",
+"text": "For each of 10 topologies (fam2_11, fam2_35, fam2_39, fam2_41, fam2_43, fam2_45, fam2_58, fam2_67, fam2_75, fam2_9) there exist rational rates in [e^-10, e^10] satisfying local detailed balance with eta <= 0.0001 (certificate (a), exact for each case).",
+"reason": "Certificate (a) passed for 10 of 10 cases",
+"event_s": 250.0,
+"t": "03:55:23",
+"red_team": [
+{
+"text": "Certificate (b), family with at most two bound states: bound eta >= 1/D**2 proved for 0 of 11 members; not proved: fam2_9, fam2_11, fam2_35, fam2_39, fam2_41, fam2_43, fam2_45, fam2_58 …",
+"passed": false,
+"contradiction": false
+},
+{
+"text": "Check could not be run: IndexError: list index out of range",
+"passed": false,
+"contradiction": false
+}
+],
+"surprise": null,
+"certificate": "proofreading-O19",
+"standalone_note": null
+}
+],
+"source": "runs/omnigent/2026-10-04b/record.jsonl"
+}
+}

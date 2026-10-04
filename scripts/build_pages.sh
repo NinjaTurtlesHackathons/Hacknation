@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Statische Replay-Seite für GitHub Pages: web/tour.html + die versiegelten Laufprotokolle (ohne Session-Rohdaten).
+# Statische Seite für GitHub Pages: Probatum Lab (frontend/) als Startseite, dazu web/tour.html und die versiegelten Laufprotokolle.
 #   scripts/build_pages.sh [--push]     -> _site/ ; mit --push auf den Branch gh-pages
 set -euo pipefail
 ROOT=$(git rev-parse --show-toplevel); S="$ROOT/_site"; rm -rf "$S"; mkdir -p "$S/web"
@@ -9,11 +9,8 @@ for r in "$ROOT"/runs/omnigent/*/; do
   for f in record.jsonl state.json decisions.md prereg.md HIGHLIGHTS.md README.md trace.json beats.json CHAIN.json origin.json; do
     [[ -f "$r/$f" ]] && cp "$r/$f" "$S/$rel/"; done
 done
-cat > "$S/index.html" <<'HTML'
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Verifier-gated lab</title><meta http-equiv="refresh" content="0; url=web/tour.html"></head>
-<body><p><a href="web/tour.html">Guided tour of the recorded Omnigent run</a></p></body></html>
-HTML
+python "$ROOT/frontend/build_data.py"                                   # Probatum Lab (frontend/) ist die Startseite
+cp "$ROOT"/frontend/*.html "$S/"; cp -r "$ROOT/frontend/assets" "$ROOT/frontend/data" "$S/"
 touch "$S/.nojekyll"; echo "built $S"
 if [[ "${1:-}" == "--push" ]]; then
   W=$(mktemp -d); git -C "$ROOT" worktree add -q --detach "$W"; cd "$W"

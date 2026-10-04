@@ -50,6 +50,26 @@ Metric N = verifier calls to the first hit (31 = failed within budget 30). 10 se
   question, not from verifier feedback between attempts; the task is too easy (N ≤ 5 without feedback) to measure the feedback effect.
 - No human baseline was measured. "One paper in one night, about 12–14 h" for the authors' manual work is an estimate, not a measurement.
 
+## Probatum Lab (web frontend)
+
+`frontend/` is a static site that replays the logged runs and lets anyone re-check them in the browser. Nothing on it is typed by hand: `frontend/build_data.py` turns `runs/omnigent/*/` (record, trace, hash chain, sessions), `results/*.json` and the exported certificates into `frontend/data/`.
+
+```bash
+python frontend/build_data.py               # logs -> frontend/data/
+python -m http.server -d frontend 8000      # open http://localhost:8000
+python frontend/screenshots.py              # Playwright: start, pipeline, results; light, dark, mobile -> frontend/screenshots/
+scripts/build_pages.sh --push               # publishes the same site on the gh-pages branch
+```
+
+- **Start page:** an excerpt of a real run plays back: a claim is rejected with the verifier's reason, the next one is confirmed, and ∎ appears. Below it are three key figures with their source files, then the list of runs.
+- **Run page** (`run.html?run=<id>`) has three columns:
+  - rounds in order;
+  - the event stream, with one lane per agent (harness calls, handoffs, policy DENY/ASK, verdicts);
+  - evidence and the claim register.
+- **Re-verify:** for certificates, the unmodified standalone `check.py` runs in Pyodide, which loads only on click. For the run, the hash chain is recomputed with WebCrypto, exactly like `asd/chain.py`.
+- **Tamper and re-verify** changes one rate by a factor of 1.001, or one character of a record line, and shows FAIL or the broken link.
+- **Results page:** replay benchmark, wrong-answer rates with and without the gate, stress tests, the certified classification, and run metrics. Each section names its source file and the command that regenerates it.
+
 ## Use it in your own Claude (MCP server `probatum`)
 
 **Your Claude is the researcher; probatum is the only one that accepts claims.** `probatum` exposes the lab as a local stdio MCP server:

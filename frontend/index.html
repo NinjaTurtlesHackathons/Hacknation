@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Probatum Lab</title>
+<meta name="description" content="AI agents propose claims; only code verifiers accept them. Logged runs you can replay and re-verify in your browser.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400&display=swap">
+<link rel="stylesheet" href="assets/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="assets/app.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect x='3' y='3' width='10' height='10' fill='%2323408E'/%3E%3C/svg%3E">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<div class="wrap">
+  <header class="top" id="top"></header>
+  <main id="main">
+    <p class="lede">AI agents propose claims. Only code verifiers accept them, and every accepted claim can be checked again in your browser.</p>
+
+    <section class="excerpt" aria-labelledby="ex-title">
+      <div>
+        <div class="excerpt-head">
+          <h2 id="ex-title">A real run, replayed</h2>
+          <button class="primary" id="replay" type="button">Replay run</button>
+        </div>
+        <p class="muted small" id="ex-src"></p>
+        <ol class="events" id="ex-events" aria-live="polite" style="margin-top:16px"></ol>
+      </div>
+      <div id="ex-claims" aria-live="polite"></div>
+    </section>
+
+    <section aria-labelledby="fig-title">
+      <h2 id="fig-title">Measured, not claimed</h2>
+      <ul class="figs" id="figs"></ul>
+    </section>
+
+    <section aria-labelledby="runs-title">
+      <h2 id="runs-title">Runs</h2>
+      <p class="muted measure">Each run is an Omnigent session in which a lead agent dispatches scout, planner, researcher, red team, learner and scribe. Policies decide what each agent may call; the verifier decides what becomes a claim.</p>
+      <div class="tablewrap" style="margin-top:16px"><table id="runs">
+        <thead><tr><th scope="col">Run</th><th scope="col">Project</th><th scope="col" class="num">Duration</th><th scope="col" class="num">Confirmed</th><th scope="col" class="num">Rejected</th><th scope="col" class="num">Policy denials</th><th scope="col">Hash chain</th></tr></thead>
+        <tbody></tbody>
+      </table></div>
+    </section>
+  </main>
+  <footer class="foot" id="foot"></footer>
+</div>
+<script defer src="assets/vendor/katex/katex.min.js"></script>
+<script defer src="assets/vendor/katex/contrib/auto-render.min.js" onload="document.dispatchEvent(new Event('katex-ready'))"></script>
+<script src="assets/app.js"></script>
+<script src="assets/home.js"></script>
+</body>
+</html>
