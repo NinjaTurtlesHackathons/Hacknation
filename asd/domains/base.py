@@ -80,6 +80,10 @@ class Domain:
         umfang = len(p.get("mitglieder") or p.get("faelle") or [])
         return r + alle + (math.log10(1 + umfang) if umfang else 0)
 
+    def angriffe(self, p, n=3, seed=0):
+        """Automatisches Red Team: Liste von {"idee", "pruefung"}, die nur bestehen können, wenn der Claim p falsch ist. Standard: keine."""
+        return []
+
     def widerspricht(self, p, q):
         """True, wenn die bestandenen Prüfungen p und q logisch nicht beide wahr sein können (Red-Team-Kriterium).
         Standard: kein bekannter Widerspruch. Domänen sollten das für ihre Prüfungstypen definieren."""

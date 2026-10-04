@@ -1,6 +1,6 @@
 """Kinetic-Proofreading-Domäne als Domain-Implementierung. Referenzbeispiel für EXAKTE Zertifikate
 (rationale Arithmetik + rigorose arb-Einschlüsse) statt numerischer Nachrechnung."""
-import json, math
+import json, math, re
 import numpy as np
 from scipy.optimize import minimize
 from .base import Domain
@@ -119,9 +119,13 @@ def check_schranke_familie(p, timeout=1800):
 def check_untere_schranke(p, timeout=600):
     """Zertifikat (b) symbolisch, in eigenem Prozess mit Zeitlimit (große Netzwerke können lange dauern)."""
     import subprocess, sys
+    m = re.match(r"fam(\d+)_\d+$", str(p.get("topologie", "")))
+    if m and not p.get("ausdruck"):                   # Familienmitglied: c*e^(-k Delta) = c/D**k über den Familienbeweis (der Einzelprozess kennt fam*_ nicht)
+        return check_schranke_familie({"familie": f"gebunden<={m.group(1)}", "ausdruck": f"({p.get('c', 1)})/D**{int(p.get('k', 0))}", "mitglieder": [p["topologie"]]}, timeout=timeout)
     arg = json.dumps({"topologie": p["topologie"], "c": str(p.get("c", "1")), "k": int(p.get("k", 0)), "ausdruck": p.get("ausdruck")})
     try:
         r = subprocess.run([sys.executable, "-m", "asd.domains.proofreading_symbolic", arg], capture_output=True, text=True, timeout=timeout)
+        if not r.stdout.strip(): return False, f"Prüfung nicht ausführbar: symbolischer Prozess ohne Ausgabe ({(r.stderr or '').strip()[-160:]})", {}
         out = json.loads(r.stdout.strip().splitlines()[-1])
     except subprocess.TimeoutExpired:
         return False, f"nicht zertifiziert: symbolische Rechnung > {timeout} s", {}
@@ -372,6 +376,41 @@ class ProofreadingDomain(Domain):
 
     def figures(self, state, outdir, lang="en"): return pareto_figure(state, outdir, lang) + klassifikation_figure(state, outdir, lang)
 
+    def angriffe(self, p, n=3, seed=0):
+        """Automatisches Red Team: gezielte Gegenprüfungen, die nur BESTEHEN können, wenn der Claim falsch ist (widerspricht(p, q) gilt strukturell).
+        - Erreichbarkeit (eta <= a): für bis zu n Topologien die Gegenbehauptung 'eta >= 1.01 a für alle Raten' symbolisch beweisen lassen.
+        - Schranke (eta >= b für alle Raten): CEGIS-Suche nach einem Punkt unter b auf bis zu n Mitgliedern; der beste Punkt wird als exakte
+          Erreichbarkeits-Behauptung eingereicht (besteht nur, wenn er wirklich unter der Schranke liegt)."""
+        import random as _r
+        from fractions import Fraction as _F
+        rng = _r.Random(seed); t = p.get("typ"); out = []
+        if t in ("erreichbar", "erreichbar_liste"):
+            faelle = p.get("faelle") if t == "erreichbar_liste" else [p]
+            for f in rng.sample(faelle, min(n, len(faelle))):
+                topo = f.get("topologie")
+                if not isinstance(topo, str) or f.get("eta_max") is None: continue
+                c = _F(str(f["eta_max"])) * _F(101, 100) / (_F(1, 100) ** 2)          # eta >= 1.01*eta_max = c * e^(-2 Delta)
+                out.append({"idee": f"opposite claim: {topo} cannot go below 1.01 x the claimed eta (symbolic proof for all rates)",
+                            "pruefung": {"typ": "untere_schranke", "topologie": topo, "c": f"{c.numerator}/{c.denominator}", "k": 2}})
+        elif t in ("schranke_familie", "untere_schranke"):
+            from .proofreading_symbolic import parse_bound
+            if t == "schranke_familie":
+                k = int(str(p["familie"]).split("<=")[-1]); mem = p.get("mitglieder")
+                if not mem:
+                    from .proofreading_family import family
+                    mem = [x["name"] for x in family(k)]
+                e, loc = parse_bound(p["ausdruck"]); b = float(e.subs(loc["D"], 100)) if not e.free_symbols - {loc["D"]} else None
+            else:
+                mem = [p["topologie"]] if isinstance(p.get("topologie"), str) else []
+                b = float(_F(str(p.get("c", 1)))) * math.exp(-int(p.get("k", 0)) * P.DELTA) if not p.get("ausdruck") else None
+            if b is None: return out
+            for topo in rng.sample(mem, min(n, len(mem))):
+                r = optimize(topo, starts=6, seed=seed + 7)
+                if not r.get("feasible"): continue
+                out.append({"idee": f"CEGIS counterexample search on {topo}: best point found has eta = {r['eta']:.3e}, bound {b:.3e}",
+                            "pruefung": {"typ": "erreichbar", "topologie": topo, "params": r["params"], "eta_max": b * (1 - 1e-9)}})
+        return out
+
     def widerspricht(self, p, q):
         """Erreichbar(eta <= a) und Schranke(eta >= b) auf derselben Topologie (oder Familie mit dieser Topologie) widersprechen sich, wenn a < b."""
         for x, y in ((p, q), (q, p)):
@@ -385,7 +424,8 @@ class ProofreadingDomain(Domain):
                     if not e.free_symbols - {loc["D"]}: return float(x["eta_max"]) < float(e.subs(loc["D"], 100))
             if x.get("typ") == "erreichbar" and y.get("typ") == "untere_schranke" and str(x.get("topologie")) == str(y.get("topologie")) \
                     and x.get("eta_max") is not None:
-                return float(x["eta_max"]) < float(y.get("c", 1)) * math.exp(-int(y["k"]) * P.DELTA)
+                from fractions import Fraction as _F
+                return float(x["eta_max"]) < float(_F(str(y.get("c", 1)))) * math.exp(-int(y["k"]) * P.DELTA)
         return False
 
     def describe(self, p, lang="de"):

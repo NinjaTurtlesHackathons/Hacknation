@@ -4,7 +4,7 @@
 
 Befehle: selftest | wissen | fragen [--add-json f] | plan | options --frage <id> | waehle (wähle) --option <id> --grund "..."
          | experiment --spec-json <datei|json> (oder --op/--args) | pruefe (prüfe) --claim-json <datei|json>
-         | redteam --claim <id> --gegen-json <datei|json> | folgefragen --aus <runde|claim|frage> --json <datei|json>
+         | redteam --claim <id> [--auto] [--gegen-json <datei|json>] | folgefragen --aus <runde|claim|frage> --json <datei|json>
          | reopen --annahme <id> --claim <id> --grund "..." | doku | status
 
 Nur `prüfe` schreibt bestätigte Claims in state.json. Jede Aktion wird nach projects/<p>/record.jsonl angehängt.
@@ -256,22 +256,32 @@ class CLI:
     def redteam(self):
         c0 = next((x for x in self.P.s["claims"] if x["id"] == self.a.claim), None)
         if not c0: raise SystemExit(f"Claim {self.a.claim} nicht gefunden")
-        g = lade_json(self.a.gegen_json); gs = g.get("gegenpruefungen", [g]) if isinstance(g, dict) else g; erg = []
-        for x in gs[:3]:
+        gs = []
+        if self.a.auto: gs += [dict(x, quelle="auto") for x in self.D.angriffe(c0["pruefung"])]        # domänen-generierte, gezielte Angriffe
+        if self.a.gegen_json:
+            g = lade_json(self.a.gegen_json); gs += (g.get("gegenpruefungen", [g]) if isinstance(g, dict) else g)[:3]
+        if not gs: raise SystemExit("redteam braucht --auto und/oder --gegen-json")
+        erg = []
+        for x in gs[:6]:
             p = x.get("pruefung", x) if isinstance(x, dict) else None
-            if not isinstance(p, dict): continue
-            ok, why = self.D.check(p)[:2]; wid = bool(ok and self.D.widerspricht(c0["pruefung"], p))
-            erg.append({"pruefung": p, "idee": (x.get("idee") if isinstance(x, dict) else "") or "", "bestanden": bool(ok), "widerspruch": wid, "grund": why[:200], "agent": self.agent})
+            if not isinstance(p, dict) or not p: continue
+            ok, why = self.D.check(p)[:2]
+            relevant = bool(self.D.widerspricht(c0["pruefung"], p))                # könnte der Claim fallen, wenn diese Prüfung besteht?
+            gueltig = not str(why).startswith(("Prüfung nicht ausführbar", "unbekannter Prüfungstyp"))
+            erg.append({"pruefung": p, "idee": (x.get("idee") if isinstance(x, dict) else "") or "", "quelle": x.get("quelle", "agent") if isinstance(x, dict) else "agent",
+                        "bestanden": bool(ok), "relevant": relevant, "gueltig": gueltig, "widerspruch": bool(ok and relevant), "grund": why[:200], "agent": self.agent})
         self.sperre(); c = next(x for x in self.P.s["claims"] if x["id"] == self.a.claim)
         self.P.s["verifier_aufrufe"] = self.P.s.get("verifier_aufrufe", 0) + len(erg); out = []
         for e in erg:
-            c["red_team"].append(e); out.append({k: e[k] for k in ("bestanden", "widerspruch", "grund")})
+            c["red_team"].append(e); out.append({k: e[k] for k in ("bestanden", "relevant", "gueltig", "widerspruch", "grund")})
             if e["widerspruch"] and c["status"] != "angefochten":
                 from . import tms
                 betroffen = tms.widerrufen(self.P.s, c["id"], f"Red-Team-Widerspruch: {e['grund'][:120]}", status="angefochten")
                 if betroffen: self.P.append("decisions.md", f"| {now()} | TMS | {c['id']} angefochten -> abhängig ungültig: {betroffen} | Wahrheitspflege (asd/tms.py) |")
+        c["red_team_wirksam"] = sum(1 for v in c["red_team"] if v.get("gueltig") and v.get("relevant"))
         self.P.save()
-        print("REDTEAM " + json.dumps({"claim": c["id"], "status": c["status"], "gegenpruefungen": out}, ensure_ascii=False))
+        hinweis = "" if any(e["gueltig"] and e["relevant"] for e in erg) else " HINWEIS: keine Gegenprüfung war gültig UND relevant; das zählt nicht als Votum (redteam --auto nutzen)"
+        print("REDTEAM " + json.dumps({"claim": c["id"], "status": c["status"], "wirksame_gegenpruefungen": c["red_team_wirksam"], "gegenpruefungen": out}, ensure_ascii=False) + hinweis)
         self.record("redteam", ein={"claim": c["id"]}, aus={"gegenpruefungen": [f"{c['id']}-RT{i + 1}" for i in range(len(c["red_team"]) - len(out), len(c["red_team"]))]},
                     ergebnis={"status": c["status"], "n": len(out)}); return 0
 
@@ -320,7 +330,7 @@ def main(argv=None):
     ap.add_argument("--agent", default=""); ap.add_argument("--frage", default=""); ap.add_argument("--option", default="")
     ap.add_argument("--grund", default=""); ap.add_argument("--erzwinge", action="store_true"); ap.add_argument("--add-json", default="")
     ap.add_argument("--op", default=""); ap.add_argument("--args", default="{}"); ap.add_argument("--claim-json", default="")
-    ap.add_argument("--claim", default=""); ap.add_argument("--gegen-json", default="")
+    ap.add_argument("--claim", default=""); ap.add_argument("--gegen-json", default=""); ap.add_argument("--auto", action="store_true", help="redteam: domänen-generierte Angriffe")
     ap.add_argument("--spec-json", default=""); ap.add_argument("--aus", default=""); ap.add_argument("--json", default=""); ap.add_argument("--annahme", default=""); ap.add_argument("--text", default=""); ap.add_argument("--kriterium-json", default="")
     a = ap.parse_args(argv)
     cmd = {"wähle": "waehle", "prüfe": "pruefe"}.get(a.befehl, a.befehl)

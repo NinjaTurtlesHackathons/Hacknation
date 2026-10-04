@@ -2870,6 +2870,54 @@
      "widerspruch": false,
      "grund": "Prüfung nicht ausführbar: IndexError: list index out of range",
      "agent": "redteam"
+    },
+    {
+     "pruefung": {
+      "typ": "untere_schranke",
+      "topologie": "fam2_45",
+      "c": "101/100",
+      "k": 2
+     },
+     "idee": "opposite claim: fam2_45 cannot go below 1.01 x the claimed eta (symbolic proof for all rates)",
+     "quelle": "auto",
+     "bestanden": false,
+     "relevant": true,
+     "gueltig": true,
+     "widerspruch": false,
+     "grund": "Zertifikat (b) Familie gebunden<=2: Schranke eta >= (101/100)/D**2 für 0/1 Mitglieder bewiesen; nicht bewiesen: ['fam2_45']",
+     "agent": "redteam"
+    },
+    {
+     "pruefung": {
+      "typ": "untere_schranke",
+      "topologie": "fam2_75",
+      "c": "101/100",
+      "k": 2
+     },
+     "idee": "opposite claim: fam2_75 cannot go below 1.01 x the claimed eta (symbolic proof for all rates)",
+     "quelle": "auto",
+     "bestanden": false,
+     "relevant": true,
+     "gueltig": true,
+     "widerspruch": false,
+     "grund": "Zertifikat (b) Familie gebunden<=2: Schranke eta >= (101/100)/D**2 für 0/1 Mitglieder bewiesen; nicht bewiesen: ['fam2_75']",
+     "agent": "redteam"
+    },
+    {
+     "pruefung": {
+      "typ": "untere_schranke",
+      "topologie": "fam2_9",
+      "c": "101/100",
+      "k": 2
+     },
+     "idee": "opposite claim: fam2_9 cannot go below 1.01 x the claimed eta (symbolic proof for all rates)",
+     "quelle": "auto",
+     "bestanden": false,
+     "relevant": true,
+     "gueltig": true,
+     "widerspruch": false,
+     "grund": "Zertifikat (b) Familie gebunden<=2: Schranke eta >= (101/100)/D**2 für 0/1 Mitglieder bewiesen; nicht bewiesen: ['fam2_9']",
+     "agent": "redteam"
     }
    ],
    "runde": 14,
@@ -2881,7 +2929,8 @@
     "grund": "neue zertifizierte Verletzung(en) ['fam2_35', 'fam2_39', 'fam2_41', 'fam2_43', 'fam2_45', 'fam2_58', 'fam2_67', 'fam2_75'] ausserhalb der angenommenen Menge ['fam2_11', 'fam2_66', 'fam2_9']: Klassifikation 50 / 3 / 35: genau ['fam2_11', 'fam2_66', 'fam2_9'] verletzen eta >= e^(-2 Delta) unter den 88 Topologien"
    },
    "origin": "AGENT:researcher",
-   "akzeptiert_durch": "code verifier (Domain.check)"
+   "akzeptiert_durch": "code verifier (Domain.check)",
+   "red_team_wirksam": 3
   },
   {
    "id": "proofreading-O15",
@@ -3062,6 +3111,82 @@
      "widerspruch": false,
      "grund": "Zertifikat (a): eta = 4.879638e-06 (exakt rational); sigma in [172.281249, 172.281249] kT; v = 2.0236e-02",
      "agent": "redteam"
+    },
+    {
+     "pruefung": {
+      "typ": "erreichbar",
+      "topologie": "fam2_42",
+      "params": {
+       "bind_C0_E+": -3.874360910571158,
+       "bind_C0_E-": 9.054725566059991,
+       "verw_C0_E+": 5.183598523176599,
+       "bind_C1_E+": -5.5229110337496605,
+       "bind_C1_E-": -3.9975867031080545,
+       "verw_C1_E+": 4.982687000844237,
+       "prod_C0+": -5.243829491784942,
+       "mu": 16.399374363940428,
+       "muP": 9.094779957337103
+      },
+      "eta_max": 9.999999990000001e-05
+     },
+     "idee": "CEGIS counterexample search on fam2_42: best point found has eta = 1.000e-02, bound 1.000e-04",
+     "quelle": "auto",
+     "bestanden": false,
+     "relevant": true,
+     "gueltig": true,
+     "widerspruch": false,
+     "grund": "Zertifikat (a): eta = 1.000029e-02 (exakt rational); sigma in [29896086.595458, 29896086.595458] kT; v = 1.8779e-04",
+     "agent": "redteam"
+    },
+    {
+     "pruefung": {
+      "typ": "erreichbar",
+      "topologie": "fam2_86",
+      "params": {
+       "bind_C0_E+": 2.5286048440725883,
+       "bind_C0_E-": 7.307498989509615,
+       "verw_C0_E+": 0.29166833604699516,
+       "bind_C1_E+": 0.87569134808592,
+       "bind_C1_E-": -3.2308719784256743,
+       "umw1_C0_C1+": -3.9362640400927043,
+       "prod_C1+": -1.2382664353076487,
+       "mu": 8.118080729950645,
+       "muP": 0.0
+      },
+      "eta_max": 9.999999990000001e-05
+     },
+     "idee": "CEGIS counterexample search on fam2_86: best point found has eta = 1.138e-04, bound 1.000e-04",
+     "quelle": "auto",
+     "bestanden": false,
+     "relevant": true,
+     "gueltig": true,
+     "widerspruch": false,
+     "grund": "Zertifikat (a): eta = 1.138263e-04 (exakt rational); sigma in [10577.015582, 10577.015582] kT; v = 2.0166e-03",
+     "agent": "redteam"
+    },
+    {
+     "pruefung": {
+      "typ": "erreichbar",
+      "topologie": "fam2_47",
+      "params": {
+       "bind_C1_E+": 4.945850772741991,
+       "bind_C1_E-": 7.634625101737956,
+       "umw1_C0_C1+": 5.397007298047487,
+       "umw1_C0_C1-": -5.40071450277627,
+       "prod_C1+": -6.70677585616551,
+       "mu": 17.471068907925236,
+       "muP": 0.14363368125611192
+      },
+      "eta_max": 9.999999990000001e-05
+     },
+     "idee": "CEGIS counterexample search on fam2_47: best point found has eta = 1.000e-02, bound 1.000e-04",
+     "quelle": "auto",
+     "bestanden": false,
+     "relevant": true,
+     "gueltig": true,
+     "widerspruch": false,
+     "grund": "Zertifikat (a): eta = 1.000009e-02 (exakt rational); sigma in [0.143634, 0.143634] kT; v = 1.5174e-04",
+     "agent": "redteam"
     }
    ],
    "runde": 15,
@@ -3069,7 +3194,8 @@
    "quelle": "omnigent:researcher",
    "option": "O2",
    "origin": "AGENT:researcher",
-   "akzeptiert_durch": "code verifier (Domain.check)"
+   "akzeptiert_durch": "code verifier (Domain.check)",
+   "red_team_wirksam": 3
   },
   {
    "id": "proofreading-O16",
@@ -3151,6 +3277,22 @@
      "widerspruch": false,
      "grund": "Prüfer-Suche (24 Starts, Seed 4711): eta_min = 1.5147e-04 bei sigma = 0.357, v = 1.833e-05; behauptet 1.8230e-04 (Toleranz 2 %, fest)",
      "agent": "redteam"
+    },
+    {
+     "pruefung": {
+      "typ": "untere_schranke",
+      "topologie": "hopfield_n1",
+      "c": "101/1",
+      "k": 2
+     },
+     "idee": "opposite claim: hopfield_n1 cannot go below 1.01 x the claimed eta (symbolic proof for all rates)",
+     "quelle": "auto",
+     "bestanden": false,
+     "relevant": true,
+     "gueltig": true,
+     "widerspruch": false,
+     "grund": "Zertifikat (b) symbolisch: eta - (101/1*e^(-2*Delta)) = N/D mit 137 bzw. 167 Termen, alle Koeffizienten nichtnegativ: False (0.5 s)",
+     "agent": "redteam"
     }
    ],
    "runde": 16,
@@ -3158,7 +3300,8 @@
    "quelle": "omnigent:researcher",
    "option": "O2",
    "origin": "AGENT:researcher",
-   "akzeptiert_durch": "code verifier (Domain.check)"
+   "akzeptiert_durch": "code verifier (Domain.check)",
+   "red_team_wirksam": 1
   }
  ],
  "widerlegt": [
@@ -3796,7 +3939,7 @@
  ],
  "runden_vor_omnigent": 12,
  "budget_verifier": 40,
- "verifier_aufrufe": 11,
+ "verifier_aufrufe": 18,
  "letzte_optionen": {
   "frage": "F24",
   "optionen": [

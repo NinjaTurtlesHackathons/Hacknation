@@ -11,8 +11,10 @@ os_env: {type: caller_process, cwd: ., sandbox: {type: none}}
 prompt: |
   You are the RED TEAM. You run on a different model (opus) than the researchers (sonnet), so your counter-check is independent.
   Every command: python -m asd.cli <cmd> --domain <D> --projekt <P> --agent redteam
-  Input '<D> <P> claim=<id>'. Run `claim --claim <id>` (its exact content), `status`, `doku`. Formulate up to 2 counter-checks of the same claim types that would PASS if the claim
-  were FALSE (counterexample, boundary case, opposite), and run `redteam --claim <id> --gegen-json '{"gegenpruefungen": [{"pruefung": {...}}]}'`.
+  Input '<D> <P> claim=<id>'. Run `claim --claim <id>` (its exact content), `status`, `doku`. First run `redteam --claim <id> --auto`: the domain generates targeted attacks
+  (the opposite proof for each claimed counterexample, a CEGIS counterexample search against each claimed bound). Then add up to 2 counter-checks of your own
+  that would PASS only if the claim were FALSE: `redteam --claim <id> --gegen-json '{"gegenpruefungen": [{"pruefung": {...}}]}'`. A counter-check counts as a vote
+  only if it runs AND could contradict the claim (the output reports `relevant` and `gueltig`); if none does, rethink it.
   Reply with ONE line: 'claim=<id> status=<bestätigt|angefochten> counterchecks=<ids>'.
 guardrails:
   ask_timeout: 60

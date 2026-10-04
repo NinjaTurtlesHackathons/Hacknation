@@ -4,7 +4,7 @@ Voraussetzung: das Paket ist in der Omnigent-Umgebung installiert (`uv pip insta
 
 - loop_guard: eigener Schleifenschutz; ignoriert sys_read_inbox (der eingebaute detect_loop blockiert Headless-Läufe beim dritten leeren Inbox-Abruf)
 - allowlist: pro Agent erlaubte asd.cli-Befehle (Rollentrennung); alles andere DENY
-- publish_requires_votes: DENY für asd.paper, solange nicht jeder bestätigte Claim ein Verifier-PASS UND ein Red-Team-Votum hat
+- publish_requires_votes: DENY für asd.paper, solange nicht jeder bestätigte Claim ein WIRKSAMES Red-Team-Votum hat (Gegenprüfung lief und hätte den Claim widerlegen können)
 - no_resubmission: DENY für asd.cli pruefe mit einer Behauptung, die der Verifier schon abgelehnt hat (gleicher Claim-Hash)
 - claim_phrases_ask: ASK bei Formulierungen mit Geltungsanspruch ("proved for all", "novel", "first", ...) in Texten, die das Labor schreibt"""
 import hashlib, json, os, re, shlex
@@ -73,9 +73,10 @@ def publish_requires_votes():
         if st is None: return {"result": "DENY", "reason": "publish_requires_votes: project state not found (pass --projekt)"}
         vorher = st.get("runden_vor_omnigent", 0)                  # nur Claims, die in DIESEM Lauf entstanden sind
         neu = [c for c in st.get("claims", []) if str(c.get("quelle", "")).startswith("omnigent:") and (c.get("runde") or 0) > vorher]
-        fehlt = [c["id"] for c in neu if c.get("status") == "bestätigt" and not c.get("red_team")]
+        wirksam = lambda c: any(v.get("gueltig", True) and v.get("relevant") for v in c.get("red_team") or [])
+        fehlt = [c["id"] for c in neu if c.get("status") == "bestätigt" and not wirksam(c)]
         if fehlt:
-            return {"result": "DENY", "reason": f"publish_requires_votes: claims without red-team vote: {fehlt}; run the red team first"}
+            return {"result": "DENY", "reason": f"publish_requires_votes: claims without an effective red-team vote (a counter-check that ran and could contradict the claim): {fehlt}; run `asd.cli redteam --auto` first"}
         return None
     return pol
 
