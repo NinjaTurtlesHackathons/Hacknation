@@ -1,10 +1,12 @@
 """Labor-Schleife (domänenunabhängig): Selbsttest -> Scout -> [Integrator plant -> Präregistrierung -> Forscher-Kaskade ->
 Prüfer -> Red-Team -> Lernen] x Runden -> Tabellen, Laborbericht.
 
-  python -m asd.lab_loop --domain proofreading --runden 4 --budget-usd 3
+  python -m asd.lab_loop --domain proofreading --runden 4                  # Abbruch nach 3 Runden ohne Fortschritt
   python -m asd.lab_loop --domain proofreading --recherche      # mit Scout (arXiv + Europe PMC + eigene Dateien in literature/)
 
 Alles landet unter projects/<domain>/: state.json, prereg.md, decisions.md, lab_report.md, claims.csv.
+Abbruch: nach --stopp-ohne-fortschritt (Standard 3) Runden in Folge ohne neuen bestätigten Claim (Grund in lab_report.md
+und decisions.md). Kein Kostenlimit.
 Regeln: Der Selbsttest des Prüfers muss bestehen. Jede Runde wird vor dem Experiment präregistriert. Nur der Code-Prüfer
 entscheidet über Wahrheit; das Red-Team versucht, jede geprüfte Aussage mit Gegen-Prüfungen zu brechen.
 """
@@ -145,10 +147,12 @@ def lernen(P, D, frage, res, runde, parent=None):
 
 def main():
     ap = argparse.ArgumentParser(); ap.add_argument("--domain", required=True); ap.add_argument("--runden", type=int, default=4)
-    ap.add_argument("--budget-usd", type=float, default=3.0); ap.add_argument("--recherche", action="store_true"); ap.add_argument("--recherche-neu", action="store_true", help="Scout erneut ausführen")
+    ap.add_argument("--recherche", action="store_true"); ap.add_argument("--recherche-neu", action="store_true", help="Scout erneut ausführen")
     ap.add_argument("--fragen", default="", help="JSON-Datei mit Startfragen [{frage: ...}]")
-    ap.add_argument("--gezielt", action="store_true", help="keine frei erzeugten Folgefragen (Workflow Phase 5)"); a = ap.parse_args()
-    D = get_domain(a.domain); P = Project(a.domain); log = lambda m: (print(m, flush=True), P.append("lab_report.md", f"- {now()} {m}"))
+    ap.add_argument("--gezielt", action="store_true", help="keine frei erzeugten Folgefragen (Workflow Phase 5)")
+    ap.add_argument("--stopp-ohne-fortschritt", type=int, default=3, help="Abbruch nach so vielen Runden in Folge ohne neuen bestätigten Claim")
+    ap.add_argument("--projekt", default="", help="Projektverzeichnis-Name (Standard: Domänenname)"); a = ap.parse_args()
+    D = get_domain(a.domain); P = Project(a.projekt or a.domain); log = lambda m: (print(m, flush=True), P.append("lab_report.md", f"- {now()} {m}"))
     if not P.s["runden"]: P.append("decisions.md", "| Zeit | Agent | Entscheidung | Beleg |\n|---|---|---|---|")
     ok, _ = selftest.run(a.domain, log=lambda m: None)
     log(f"Selbsttest des Prüfers: {'bestanden' if ok else 'NICHT bestanden'}")
@@ -161,13 +165,24 @@ def main():
             qid = f"F{len(P.s['fragen']) + 1}"; q.update(id=qid, status="offen", quelle="lueckenkarte", faden_id=q.get("faden_id") or qid); P.s["fragen"].append(q)
         P.append("decisions.md", f"| {now()} | INTEGRATOR | Startfragen aus {a.fragen} geladen, übrige offene Fragen zurückgestellt | Workflow Phase 5 |")
     if not P.s["fragen"]: integrator_fragen(P, D, salt=str(len(P.s["runden"])))
-    P.save()
+    P.save(); ohne = 0
     for _ in range(a.runden):
-        runde = len(P.s["runden"]) + 1; spent = P.s["kosten_usd"] + sum(COST_LOG)
-        if spent > a.budget_usd: log(f"Budget erreicht ({spent:.2f} USD)"); break
+        runde = len(P.s["runden"]) + 1
+        if ohne >= a.stopp_ohne_fortschritt:
+            msg = f"Abbruch: {ohne} Runden in Folge ohne neuen bestätigten Claim (--stopp-ohne-fortschritt {a.stopp_ohne_fortschritt})"
+            log(msg); P.append("decisions.md", f"| {now()} | INTEGRATOR | {msg} | inhaltliches Abbruchkriterium |"); break
+        n_vorher = sum(c["status"] == "bestätigt" for c in P.s["claims"])
+        weiter = runde_ausfuehren(P, D, a, runde, log)
+        ohne = 0 if sum(c["status"] == "bestätigt" for c in P.s["claims"]) > n_vorher else ohne + 1
+        if not weiter: break
+    log(f"Fertig: {len(P.s['claims'])} geprüfte Aussagen, {len(P.s['widerlegt'])} negative Ergebnisse")
+
+
+def runde_ausfuehren(P, D, a, runde, log):
+    if True:
         try: plan = integrator_plan(P, D, runde)
-        except LLMError as e: log(f"Integrator-Fehler: {e}"); break
-        if not plan: log("Keine offenen Fragen mehr."); break
+        except LLMError as e: log(f"Integrator-Fehler: {e}"); return False
+        if not plan: log("Keine offenen Fragen mehr."); return False
         q, pr = plan
         P.append("prereg.md", f"\n## Runde {runde} ({now()}), vor dem Experiment\n- Frage [{q['id']}]: {q['frage']}\n- Begründung: {pr.get('begruendung')}\n"
                               f"- Erfolg: {pr.get('erfolg')}\n- Abbruch: {pr.get('abbruch')}\n- Erwartung: {pr.get('erwartung')}")
@@ -199,9 +214,9 @@ def main():
             log("  keine geprüfte Behauptung: " + "; ".join(f"{x['stufe']}: {x['grund'][:80]}" for x in gruende)[:400])
         json.dump(res, open(f"{P.dir}/runde{runde}.json", "w"), ensure_ascii=False, indent=1, default=str)
         if not (a.fragen or a.gezielt): lernen(P, D, q["frage"], res, runde, parent=q)   # gezielter Lauf: keine frei erzeugten Folgefragen
-        P.s["runden"].append({"runde": runde, "frage": q["id"], "status": q["status"], "red_team": rt, "sek": res["sek"]})
-        P.s["kosten_usd"] += sum(COST_LOG); COST_LOG.clear(); P.save()
-    log(f"Fertig: {len(P.s['claims'])} geprüfte Aussagen, {len(P.s['widerlegt'])} negative Ergebnisse, Kosten {P.s['kosten_usd']:.2f} USD")
+        P.s["runden"].append({"runde": runde, "frage": q["id"], "status": q["status"], "red_team": rt, "sek": res["sek"], "faden_id": q.get("faden_id")})
+        COST_LOG.clear(); P.save()
+        return True
 
 
 if __name__ == "__main__":

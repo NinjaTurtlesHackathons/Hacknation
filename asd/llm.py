@@ -9,9 +9,19 @@ import hashlib, json, os, re, shutil, subprocess, tempfile, time
 CACHE = os.environ.get("ASD_LLM_CACHE", "cache/llm")
 MODEL = os.environ.get("ASD_MODEL", "sonnet")
 COST_LOG = []
+SPENT = [0.0]            # laufende Summe dieses Prozesses (USD)
+BUDGET = [None]          # Limit in USD oder None
 
 
 class LLMError(RuntimeError): pass
+
+
+class BudgetErreicht(Exception):
+    """Budget überschritten. Bewusst KEINE Unterklasse von LLMError, damit generische Fehlerbehandlung sie nicht schluckt."""
+
+
+def set_budget(usd):
+    BUDGET[0] = usd; SPENT[0] = 0.0
 
 
 def _key(system, prompt, model, salt):
@@ -45,6 +55,7 @@ def ask(prompt, system="Du bist ein sorgfältiger Wissenschaftler.", model=None,
     k = _key(system, prompt, model, salt); path = f"{CACHE}/{k}.json"
     if os.path.exists(path): return json.load(open(path))["response"]
     if os.environ.get("ASD_LLM") == "replay": raise LLMError(f"nicht im Cache: {k}")
+    if BUDGET[0] is not None and SPENT[0] >= BUDGET[0]: raise BudgetErreicht(f"Budget {BUDGET[0]:.2f} USD erreicht ({SPENT[0]:.2f} USD)")
     backend = _api if os.environ.get("ASD_LLM") == "api" else _cli
     for attempt in range(retries + 1):
         try:
@@ -52,10 +63,11 @@ def ask(prompt, system="Du bist ein sorgfältiger Wissenschaftler.", model=None,
         except (LLMError, subprocess.TimeoutExpired, json.JSONDecodeError) as e:
             if attempt == retries: raise LLMError(str(e))
             time.sleep(2 * (attempt + 1))
-    COST_LOG.append(cost)
+    COST_LOG.append(cost); SPENT[0] += cost
     json.dump({"key": k, "model": used, "salt": salt, "system": system, "prompt": prompt, "response": text,
                "cost_usd": cost, "sek": round(time.time() - t0, 1), "ts": time.strftime("%Y-%m-%dT%H:%M:%S")},
               open(path, "w"), ensure_ascii=False, indent=1)
+    if BUDGET[0] is not None and SPENT[0] > BUDGET[0]: raise BudgetErreicht(f"Budget {BUDGET[0]:.2f} USD überschritten ({SPENT[0]:.2f} USD)")
     return text
 
 

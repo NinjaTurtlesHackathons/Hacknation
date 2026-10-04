@@ -26,7 +26,7 @@ What was attempted and failed, with the reason for each failure.
 AI usage (the results were produced and checked by an automated laboratory; every statement was verified by code), code and data availability
 (use the repository/branch/command from the availability claim), competing interests (none).
 ## Appendix A: Agentic laboratory
-Only here: the agents and roles, the workflow, preregistration, red-team statistics, computing costs.
+Only here: the agents and roles, the workflow, preregistration, red-team statistics. Never mention costs or money anywhere in the article.
 ## Appendix B: Provenance
 One sentence: the provenance table mapping every statement to its evidence follows (it is generated automatically; do not write it yourself).
 ## Appendix C: Verifier self-test
@@ -53,14 +53,15 @@ def main_text(md):
 
 
 def rule_issues(md):
-    """Code-Regeln für den Haupttext: keine Agentennamen, keine Kosten, keine internen Fehlertexte."""
+    """Code-Regeln: keine Agentennamen im Haupttext, keine Kosten im ganzen Paper, keine internen Fehlertexte."""
     issues = []; main = main_text(md)
+    for para in [p for p in md.split("\n") if p.strip()]:
+        if re.search(COST_PAT, para, re.I) or re.search(r"\b(USD|cost|costs|Kosten)\b", para): issues.append((para[:200], "Kostenangabe; Kosten gehören nicht ins Paper"))
     for para in [p for p in main.split("\n") if p.strip()]:
         low = para.lower()
         for n in AGENT_NAMES:
             if re.search(r"(?<![a-z])" + re.escape(n) + r"(?![a-z])", low):
                 issues.append((para[:200], f"Agentenname „{n}“ steht im Haupttext; nur in Appendix A erlaubt")); break
-        if re.search(COST_PAT, para, re.I): issues.append((para[:200], "Kostenangabe im Haupttext; nur in Appendix A erlaubt"))
     for bad in ("TypeError", "NaN", "IndexError", "Traceback", "Exception"):
         if re.search(r"(?<![A-Za-z])" + bad + r"(?![A-Za-z])", md): issues.append((bad, f"interner Fehlertext „{bad}“ darf nicht im Paper stehen"))
     return issues
@@ -154,8 +155,8 @@ def claims_of(domain, lang="en"):
         for f in json.load(open(fp)): C.append({"claim_id": f"C-{f['id']}", "text": f["text"], "level": f.get("level", "observed"), "status": "bestätigt"})
     C.append({"claim_id": "C-redteam", "text": f"Counter-checks (adversarial tests) in total: {sum(RT_STAT.values())}; passed: {RT_STAT.get('bestanden', 0)}, "
               f"did not pass: {RT_STAT.get('nicht_bestanden', 0)}, not executable: {RT_STAT.get('nicht_ausfuehrbar', 0)}.", "level": "observed", "status": "bestätigt", "anhang": True})
-    C.append({"claim_id": "C-methode", "text": f"Das Labor lief {len(s['runden'])} Runden, {len(s['claims'])} geprüfte Aussagen, {len(s['widerlegt'])} negative Ergebnisse, "
-              f"Kosten {s['kosten_usd']:.2f} USD; jede Runde vor dem Experiment präregistriert (prereg.md).", "level": "observed", "status": "bestätigt"})
+    C.append({"claim_id": "C-methode", "text": f"The laboratory ran {len(s['runden'])} rounds with {len(s['claims'])} verified statements and {len(s['widerlegt'])} negative results; "
+              f"every round preregistered before the experiment (prereg.md).", "level": "observed", "status": "bestätigt", "anhang": True})
     return C
 
 
