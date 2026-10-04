@@ -159,7 +159,7 @@ class CLI:
             self.P.append("prereg.md", f"\n## {now()}, vor dem Experiment (Omnigent, {self.agent})\n- Frage [{q['id']}]: {q['frage']}\n- Option {o['id']} ({o['art']}): {o['beschreibung']}\n"
                           f"- Erwartete Verifier-Aufrufe: {o['kosten']}\n- Verworfen: {', '.join(x['id'] + ' ' + x['art'] for x in verw)}\n- Begründung: {a.grund}")
         self.P.save(); print("OK " + json.dumps({"aktive_frage": self.P.s.get("aktive_frage"), "option": (self.P.s.get("aktive_option") or {}).get("id")}))
-        self.record("wähle", {"frage": self.P.s.get("aktive_frage"), "option": a.option}, a.grund); return 0
+        self.record("waehle", {"frage": self.P.s.get("aktive_frage"), "option": a.option}, a.grund); return 0
 
     def experiment(self):
         if self.a.spec_json:

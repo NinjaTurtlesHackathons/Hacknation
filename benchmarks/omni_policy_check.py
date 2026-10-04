@@ -34,6 +34,8 @@ F = [
  ("grep im Antwortschlüssel", lead, ev("sys_os_shell", command="grep -r y_inf benchmarks/suleman2026.json"), "DENY"),
  ("beliebiger Shell-Befehl", lead, ev("sys_os_shell", command="ls -la"), "DENY"),
  ("Paper bauen", lead, ev("sys_os_shell", command="python -m asd.paper --domain lattice --autoren X --ohne-gates"), "ASK"),
+ ("Hold-out lesen (Leck)", lead, ev("sys_os_shell", command="cat projects/proofreading_test/lab_report.md"), "DENY"),
+ ("scout ASCII pruefe", {**lead, **policies("omni/agents/scout/config.yaml")}, ev("sys_os_shell", command=f"python -m asd.cli pruefe {P} --claim-json x"), "DENY"),
  ("wissen", lead, ev("sys_os_shell", command=f"python -m asd.cli wissen {P} --agent scout"), "ALLOW"),
 ]
 for a in ("scout", "planner", "redteam", "learner", "scribe"):
