@@ -71,7 +71,8 @@ def publish_requires_votes():
         if not cmd or "asd.paper" not in cmd: return None
         pj = _projekt(cmd); st = _state(pj) if pj else None
         if st is None: return {"result": "DENY", "reason": "publish_requires_votes: project state not found (pass --projekt)"}
-        neu = [c for c in st.get("claims", []) if str(c.get("quelle", "")).startswith("omnigent:")]
+        vorher = st.get("runden_vor_omnigent", 0)                  # nur Claims, die in DIESEM Lauf entstanden sind
+        neu = [c for c in st.get("claims", []) if str(c.get("quelle", "")).startswith("omnigent:") and (c.get("runde") or 0) > vorher]
         fehlt = [c["id"] for c in neu if c.get("status") == "bestätigt" and not c.get("red_team")]
         if fehlt:
             return {"result": "DENY", "reason": f"publish_requires_votes: claims without red-team vote: {fehlt}; run the red team first"}

@@ -291,6 +291,13 @@ class CLI:
                                    f"- Erfolgskriterium (maschinell geprüft): {json.dumps(kr, ensure_ascii=False)}\n- sha256: {h}")
         self.P.save(); print("HYPOTHESE " + json.dumps({"id": hid, "sha256": h[:16]})); self.record("hypothese", ein={"frage": kr["frage"]}, aus={"hypothese": hid, "sha256": h[:16]}, ergebnis=self.a.text); return 0
 
+    def claim(self):
+        """Inhalt eines Claims lesen (Typ, Prüfung, Stufe, Status, Red-Team-Voten) -- nur lesen."""
+        c = next((x for x in self.P.s["claims"] if x["id"] == self.a.claim), None)
+        if not c: raise SystemExit(f"Claim {self.a.claim} nicht gefunden")
+        out = {k: c.get(k) for k in ("id", "text", "level", "status", "pruefung", "benutzt", "origin")} | {"red_team_voten": len(c.get("red_team") or [])}
+        print("CLAIM " + json.dumps(out, ensure_ascii=False, default=str)[:6000]); self.record("claim", ein={"claim": c["id"]}); return 0
+
     def doku(self):
         """Experimente (run_op) und Prüfungstypen (check) der Domäne, direkt aus dem Code."""
         print(self.D.primitive_doc + "\n\n" + self.D.claim_doc); self.record("doku"); return 0
@@ -308,7 +315,7 @@ class CLI:
 
 def main(argv=None):
     ap = argparse.ArgumentParser(prog="python -m asd.cli", description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("befehl", choices=["selftest", "wissen", "fragen", "plan", "options", "wähle", "waehle", "experiment", "prüfe", "pruefe", "redteam", "folgefragen", "reopen", "doku", "hypothese", "status"])
+    ap.add_argument("befehl", choices=["selftest", "wissen", "fragen", "plan", "options", "wähle", "waehle", "experiment", "prüfe", "pruefe", "redteam", "folgefragen", "reopen", "doku", "hypothese", "claim", "status"])
     ap.add_argument("--domain", default=os.environ.get("ASD_DOMAIN", "lattice")); ap.add_argument("--projekt", default=os.environ.get("ASD_PROJEKT", ""))
     ap.add_argument("--agent", default=""); ap.add_argument("--frage", default=""); ap.add_argument("--option", default="")
     ap.add_argument("--grund", default=""); ap.add_argument("--erzwinge", action="store_true"); ap.add_argument("--add-json", default="")

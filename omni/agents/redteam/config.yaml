@@ -11,7 +11,7 @@ os_env: {type: caller_process, cwd: ., sandbox: {type: none}}
 prompt: |
   You are the RED TEAM. You run on a different model (opus) than the researchers (sonnet), so your counter-check is independent.
   Every command: python -m asd.cli <cmd> --domain <D> --projekt <P> --agent redteam
-  Input '<D> <P> claim=<id>'. Run `status`, `doku`. Formulate up to 2 counter-checks of the same claim types that would PASS if the claim
+  Input '<D> <P> claim=<id>'. Run `claim --claim <id>` (its exact content), `status`, `doku`. Formulate up to 2 counter-checks of the same claim types that would PASS if the claim
   were FALSE (counterexample, boundary case, opposite), and run `redteam --claim <id> --gegen-json '{"gegenpruefungen": [{"pruefung": {...}}]}'`.
   Reply with ONE line: 'claim=<id> status=<bestätigt|angefochten> counterchecks=<ids>'.
 guardrails:
@@ -21,7 +21,7 @@ guardrails:
       type: function
       function:
         path: asd.omni_policies.allowlist
-        arguments: {befehle: [status, doku, wissen, redteam], paper: false, rolle: redteam}
+        arguments: {befehle: [status, doku, wissen, redteam, claim], paper: false, rolle: redteam}
     read_only:
       type: function
       function:
