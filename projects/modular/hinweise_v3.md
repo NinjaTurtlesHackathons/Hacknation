@@ -3,7 +3,7 @@ Fokussierte Gliederung für Version 3 (Form: A. Suleman, „Optimal lattices for
 KERNAUSSAGE (Titel und Abstract daran ausrichten, nichts darüber hinaus behaupten):
 Für jedes ungerade Gewicht 3 <= w <= 25 gilt für die Kombination X_w dihedraler Modulgraphfunktionen aus D'Hoker-Green-Vanhove (DGV,
 Gl. 3.57) exakt X_w = f_w E_w + g_w zeta(w) mit f_w = 3((w-1)/2)!/w und g_w = 6|B_{w-1}|/((w-1)/2)! (B = Bernoulli-Zahlen).
-DGV geben die Kombinationen an; f_w steht dort bis w = 9 (Gl. 3.34), g_w nur für w = 3, 5 (g_7, g_9 als unbestimmte Integrationskonstanten). Titelvorschlag in dieser
+DGV geben die Kombinationen an; f_w steht dort bis w = 9 (Gl. 3.34), g_w nur für w = 3, 5 (g_7, g_9 als unbestimmte Integrationskonstanten); g_7 später bei arXiv:2109.05017. Titelvorschlag in dieser
 Richtung: „Closed forms for the constants in the odd-weight identities between dihedral modular graph functions“.
 
 Theoreme (Reihenfolge):
@@ -20,8 +20,10 @@ Theoreme (Reihenfolge):
    offen berichtet, Kriterium 2 vorab nachregistriert und bestanden). Härtung (fakt-haertung) einschließlich der dabei gefundenen
    und behobenen Fehler im Auswerter. Abbildung der Konstanten.
 
-Neuheit ehrlich: Die Kombinationen X_w, f_w für w <= 9 und g_w für w = 3, 5 sind bekannt (DGV Gl. 3.34); das Laurent-Polynom jeder
-einzelnen C_{u,v;w} ist bekannt (D'Hoker-Kaidi Thm. 5.1). Neu ist die Auswertung für diese Identitäten: die geschlossenen Formen f_w, g_w
+Neuheit ehrlich: Die Kombinationen X_w, f_w für w <= 9 und g_w für w = 3, 5 sind bekannt (DGV Gl. 3.34); g_7 steht bei
+Dorigoni-Kleinschmidt-Schlotterer (arXiv:2109.05017, Gl. 3.77: C(3,3,1)+C(3,2,2) = 3/7 E7 + zeta(7)/252, mit unserem Ergebnis identisch), dort mit
+einem allgemeinen Verfahren über Laurent-Polynome, aber ohne Werte für w > 7; das Laurent-Polynom jeder einzelnen C_{u,v;w} ist bekannt
+(D'Hoker-Kaidi Thm. 5.1). In 12 durchsuchten Volltexten steht keine geschlossene Form für allgemeines w. Neu ist die Auswertung für diese Identitäten: die geschlossenen Formen f_w, g_w
 und ihr Nachweis für w <= 25. Nichts als „first“ oder „novel“ bezeichnen; Neuheitsstatus exakt wie in den Claims.
 
 Validierung/Anhang (kurz): bekannte Identitäten und Laplace-Gleichungen (w = 3, 5, 7), holomorphe Sturm-zertifizierte Identitäten und die

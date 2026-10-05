@@ -146,6 +146,16 @@
    "status": "beantwortet",
    "quelle": "lueckenkarte",
    "faden_id": "F14"
+  },
+  {
+   "frage": "Beweise die Identitäten X_w = f_w E(w) + g_w zeta(w) für alle ungeraden 3 <= w <= 61 exakt (Präregistrierung H12): Hole zuerst mit der Operation mgf_laurent_konstanten (gewicht_bis 61) die exakten Konstantterme g_w und prüfe dann mit dem Prüfungstyp mgf_identitaet_familie (gewicht_bis 61, alle g_w als exakte Brüche aus mgf_laurent_konstanten), ob g_w = 6|B_{w-1}|/((w-1)/2)! für alle diese w gilt. Die Prüfung dauert etwa 15 Minuten.",
+   "neuheit": 0.8,
+   "machbarkeit": 0.9,
+   "lueckenkarte": "L12",
+   "id": "F15",
+   "status": "beantwortet",
+   "quelle": "lueckenkarte",
+   "faden_id": "F15"
   }
  ],
  "claims": [
@@ -3103,6 +3113,107 @@
     "datum": "2026-10-05",
     "status": "nicht_gefunden"
    }
+  },
+  {
+   "id": "modular-R16",
+   "frage": "Beweise die Identitäten X_w = f_w E(w) + g_w zeta(w) für alle ungeraden 3 <= w <= 61 exakt (Präregistrierung H12): Hole zuerst mit der Operation mgf_laurent_konstanten (gewicht_bis 61) die exakten Konstantterme g_w und prüfe dann mit dem Prüfungstyp mgf_identitaet_familie (gewicht_bis 61, alle g_w als exakte Brüche aus mgf_laurent_konstanten), ob g_w = 6|B_{w-1}|/((w-1)/2)! für alle diese w gilt. Die Prüfung dauert etwa 15 Minuten.",
+   "text": "Exakt für alle ungeraden 3 <= w <= 35: X_w = f_w E(w) + g_w zeta(w) mit f_w = 3((w-1)/2)!/w und g_3 = 1, g_5 = 1/10, g_7 = 1/42, g_9 = 1/120, g_11 = 1/264, g_13 = 691/327600, g_15 = 1/720, g_17 = 3617/3427200, g_19 = 43867/48263040, g_21 = 174611/199584000, g_23 = 77683/83462400, g_25 = 236364091/217945728000, g_27 = 657931/479001600, g_29 = 3392780147/1805836032000, g_31 = 1723168255201/624283743283200, g_33 = 7709321041217/1778437140480000, g_35 = 151628697551/20922789888000 (= 6|B_{w-1}|/((w-1)/2)!); Laplace-Algebra exakt, Konstante aus dem Laurent-Polynom nach D'Hoker-Kaidi Thm. 5.1.",
+   "interpretation_ungeprueft": "Teilbeweis bis w=35: g_w = 6|B_{w-1}|/((w-1)/2)! (die Prüfung für w<=25 entspricht der bisher stärksten Behauptung, die Erweiterung auf 27..35 ist neu und noch ungeprüft). H12 für w bis 61 ist nicht bewiesen.",
+   "pruefung": {
+    "typ": "mgf_identitaet_familie",
+    "gewicht_bis": 35,
+    "g": {
+     "3": "1",
+     "5": "1/10",
+     "7": "1/42",
+     "9": "1/120",
+     "11": "1/264",
+     "13": "691/327600",
+     "15": "1/720",
+     "17": "3617/3427200",
+     "19": "43867/48263040",
+     "21": "174611/199584000",
+     "23": "77683/83462400",
+     "25": "236364091/217945728000",
+     "27": "8553103/6227020800",
+     "29": "142496766174/75845113344000",
+     "31": "51695047656030/18728512298496000",
+     "33": "46255926247302/10670622842880000",
+     "35": "2577687858367/355687428096000"
+    }
+   },
+   "grund": "exakt für alle ungeraden 3 <= w <= 35: Laplace-Teil wie mgf_harmonisch_familie; Laurent-Polynom nach D'Hoker-Kaidi Thm. 5.1 (Übertragung an Gl. 5.19 geprüft) konsistent mit f_w E_w + g_w zeta(w); Konstantterme = angegebene g_w",
+   "level": "computed_rigorous",
+   "status": "bestätigt",
+   "red_team": [
+    {
+     "pruefung": {
+      "typ": "mgf_identitaet_familie",
+      "gewicht_bis": 35,
+      "g": {
+       "3": "1",
+       "5": "1/10",
+       "7": "1/42",
+       "9": "1/120",
+       "11": "1/264",
+       "13": "691/327600",
+       "15": "1/720",
+       "17": "3617/3427200",
+       "19": "43867/48263040",
+       "21": "174611/199584000",
+       "23": "77683/83462400",
+       "25": "236364091/217945728000",
+       "27": "8553103/6227020800",
+       "29": "142496766174/75845113344000",
+       "31": "51695047656030/18728512298496000",
+       "33": "46255926247302/10670622842880000",
+       "35": "2577687858367/355687428096001"
+      }
+     },
+     "idee": "Ich habe alle 17 Werte der Antwort mit g_w = 6|B_{w-1}|/((w-1)/2)! nachgerechnet. Sie stimmen. Daher ist nur eine Störung möglich, die genau dann besteht, wenn die Formel für w=35 falsch ist. Hier ist der Nenner bei w=35 um 1 verändert. Besteht diese Prüfung, ist die behauptete Formel falsch. Ist die Formel richtig, scheitert sie.",
+     "bestanden": false,
+     "ergebnis": "nicht_bestanden",
+     "grund": "exakt für alle ungeraden 3 <= w <= 35: Laplace-Teil wie mgf_harmonisch_familie; Laurent-Polynom nach D'Hoker-Kaidi Thm. 5.1 (Übertragung an Gl. 5.19 geprüft) konsistent mit f_w E_w + g_w zeta(w); Kons",
+     "widerspruch": false
+    },
+    {
+     "pruefung": {
+      "typ": "mgf_identitaet_familie",
+      "gewicht_bis": 7,
+      "g": {
+       "3": "1/2",
+       "5": "1/10",
+       "7": "1/42"
+      }
+     },
+     "idee": "Kontrollprüfung auf der kleinen Familie w<=7, bei der g_3 von 1 auf 1/2 verfälscht ist. Sie besteht nur, wenn die Konstante X_3 - f_3 E(3) = g_3 zeta(3) nicht 1 ist, also die Formel schon am Anfang falsch wäre. Nach D'Hoker-Kaidi ist g_3 = 1, daher wird sie voraussichtlich scheitern, was die Antwort stützt.",
+     "bestanden": false,
+     "ergebnis": "nicht_bestanden",
+     "grund": "exakt für alle ungeraden 3 <= w <= 7: Laplace-Teil wie mgf_harmonisch_familie; Laurent-Polynom nach D'Hoker-Kaidi Thm. 5.1 (Übertragung an Gl. 5.19 geprüft) konsistent mit f_w E_w + g_w zeta(w); Konst",
+     "widerspruch": false
+    }
+   ],
+   "runde": 16,
+   "relevanz": "hauptresultat",
+   "neuheit": {
+    "suchanfragen": [
+     "D'Hoker Green Vanhove modular forms",
+     "non-holomorphic Eisenstein series string amplitudes",
+     "Laplace equation harmonic modular identity",
+     "zeta function Eisenstein modular identity",
+     "D'Hoker Kaidi polynomial growth harmonic"
+    ],
+    "treffer": {
+     "D'Hoker Green Vanhove modular forms": 4,
+     "non-holomorphic Eisenstein series string amplitudes": 17,
+     "Laplace equation harmonic modular identity": 9,
+     "zeta function Eisenstein modular identity": 16,
+     "D'Hoker Kaidi polynomial growth harmonic": 1
+    },
+    "quellen_geprueft": 55,
+    "datum": "2026-10-05",
+    "status": "nicht_gefunden"
+   }
   }
  ],
  "widerlegt": [
@@ -4357,6 +4468,61 @@
    ],
    "sek": 649.0,
    "faden_id": "F14"
+  },
+  {
+   "runde": 16,
+   "frage": "F15",
+   "status": "beantwortet",
+   "red_team": [
+    {
+     "pruefung": {
+      "typ": "mgf_identitaet_familie",
+      "gewicht_bis": 35,
+      "g": {
+       "3": "1",
+       "5": "1/10",
+       "7": "1/42",
+       "9": "1/120",
+       "11": "1/264",
+       "13": "691/327600",
+       "15": "1/720",
+       "17": "3617/3427200",
+       "19": "43867/48263040",
+       "21": "174611/199584000",
+       "23": "77683/83462400",
+       "25": "236364091/217945728000",
+       "27": "8553103/6227020800",
+       "29": "142496766174/75845113344000",
+       "31": "51695047656030/18728512298496000",
+       "33": "46255926247302/10670622842880000",
+       "35": "2577687858367/355687428096001"
+      }
+     },
+     "idee": "Ich habe alle 17 Werte der Antwort mit g_w = 6|B_{w-1}|/((w-1)/2)! nachgerechnet. Sie stimmen. Daher ist nur eine Störung möglich, die genau dann besteht, wenn die Formel für w=35 falsch ist. Hier ist der Nenner bei w=35 um 1 verändert. Besteht diese Prüfung, ist die behauptete Formel falsch. Ist die Formel richtig, scheitert sie.",
+     "bestanden": false,
+     "ergebnis": "nicht_bestanden",
+     "grund": "exakt für alle ungeraden 3 <= w <= 35: Laplace-Teil wie mgf_harmonisch_familie; Laurent-Polynom nach D'Hoker-Kaidi Thm. 5.1 (Übertragung an Gl. 5.19 geprüft) konsistent mit f_w E_w + g_w zeta(w); Kons",
+     "widerspruch": false
+    },
+    {
+     "pruefung": {
+      "typ": "mgf_identitaet_familie",
+      "gewicht_bis": 7,
+      "g": {
+       "3": "1/2",
+       "5": "1/10",
+       "7": "1/42"
+      }
+     },
+     "idee": "Kontrollprüfung auf der kleinen Familie w<=7, bei der g_3 von 1 auf 1/2 verfälscht ist. Sie besteht nur, wenn die Konstante X_3 - f_3 E(3) = g_3 zeta(3) nicht 1 ist, also die Formel schon am Anfang falsch wäre. Nach D'Hoker-Kaidi ist g_3 = 1, daher wird sie voraussichtlich scheitern, was die Antwort stützt.",
+     "bestanden": false,
+     "ergebnis": "nicht_bestanden",
+     "grund": "exakt für alle ungeraden 3 <= w <= 7: Laplace-Teil wie mgf_harmonisch_familie; Laurent-Polynom nach D'Hoker-Kaidi Thm. 5.1 (Übertragung an Gl. 5.19 geprüft) konsistent mit f_w E_w + g_w zeta(w); Konst",
+     "widerspruch": false
+    }
+   ],
+   "sek": 488.8,
+   "faden_id": "F15"
   }
  ],
  "kosten_usd": 0.0

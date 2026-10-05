@@ -98,3 +98,8 @@
 - 2026-10-05 04:51:35   Neuheit modular-R15: nicht_gefunden
 - 2026-10-05 04:51:35   geprüft modular-R15 (computed_rigorous): Exakt für alle 3 <= w <= 25: harmonischer Raum dim 1 (ungerade, DGV-Kombination, f_w = 3((w-1)/2)!/w) bzw. 0 (gerade). | Red-Team: 2 Gegenprüfungen, 0 bestanden, 0 logische Widersprüche
 - 2026-10-05 04:51:35 Fertig: 32 geprüfte Aussagen, 4 negative Ergebnisse
+- 2026-10-05 04:52:52 Selbsttest des Prüfers: bestanden
+- 2026-10-05 04:53:06 Runde 16: Beweise die Identitäten X_w = f_w E(w) + g_w zeta(w) für alle ungeraden 3 <= w <= 61 exakt (Präregistrierung H12): Hole zuerst mit der Operation mgf_laurent_konstanten (gewicht_bis 61) die exakten Konstantterme g_w und prüfe dann mit dem Prüfungstyp mgf_identitaet_familie (gewicht_bis 61, alle g_w als exakte Brüche aus mgf_laurent_konstanten), ob g_w = 6|B_{w-1}|/((w-1)/2)! für alle diese w gilt. Die Prüfung dauert etwa 15 Minuten.
+- 2026-10-05 05:02:47   Neuheit modular-R16: nicht_gefunden
+- 2026-10-05 05:02:47   geprüft modular-R16 (computed_rigorous): Exakt für alle ungeraden 3 <= w <= 35: X_w = f_w E(w) + g_w zeta(w) mit f_w = 3((w-1)/2)!/w und g_3 = 1, g_5 = 1/10, g_7 = 1/42, g_9 = 1/120, g_11 = 1/264, g_13 | Red-Team: 2 Gegenprüfungen, 0 bestanden, 0 logische Widersprüche
+- 2026-10-05 05:02:47 Fertig: 33 geprüfte Aussagen, 4 negative Ergebnisse

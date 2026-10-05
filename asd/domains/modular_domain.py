@@ -239,8 +239,12 @@ def check_mgf_identitaet_familie(p):
     Der Term l_{2-w} (dort nur unter einer Vermutung bestimmt) wird nicht benutzt."""
     from math import factorial as fa
     from .mgf_laurent import ell_C
-    W = int(p["gewicht_bis"]); g = {int(k): _fr(v) for k, v in (p.get("g") or {}).items()}
+    W = int(p["gewicht_bis"])
     if not 3 <= W <= 61: return False, "gewicht_bis muss in 3..61 liegen", {}      # Kapazität (Laurent-Teil ~80 s bei w = 61)
+    if p.get("g_formel") is not None:                                               # Eingabeform: Formel statt Wertetabelle (Prüfer rechnet die Werte)
+        if p["g_formel"] != G_FORMEL or p.get("g"): return False, f"g_formel muss genau '{G_FORMEL}' sein (und ohne g)", {}
+        g = {w: _g_bernoulli(w) for w in range(3, W + 1, 2)}
+    else: g = {int(k): _fr(v) for k, v in (p.get("g") or {}).items()}
     if sorted(g) != list(range(3, W + 1, 2)): return False, "g muss für jedes ungerade 3 <= w <= gewicht_bis angegeben sein", {}
     if [ell_C((2, 1, 1), k) for k in range(3)] != [36, Fr(5, 3), Fr(1, 180)]: return False, "Übertragung von Thm. 5.1 reproduziert Gl. (5.19) nicht", {}
     fa_ = _harmonisch_fehler(W)
@@ -256,6 +260,9 @@ def check_mgf_identitaet_familie(p):
     return (not fehler), ("exakt für alle ungeraden 3 <= w <= %d: Laplace-Teil wie mgf_harmonisch_familie; Laurent-Polynom nach D'Hoker-Kaidi Thm. 5.1 "
                           "(Übertragung an Gl. 5.19 geprüft) konsistent mit f_w E_w + g_w zeta(w); Konstantterme = angegebene g_w" % W
                           + (f"; Abweichungen: {fehler}" if fehler else "")), {"fehler": fehler}
+
+
+G_FORMEL = "6|B_{w-1}|/((w-1)/2)!"
 
 
 def _g_bernoulli(w):
@@ -336,7 +343,8 @@ class ModularDomain(Domain):
 - {"typ": "mgf_harmonisch", "gewicht": w, "kombination": {"C(a,b,c)": c, ...}, "lambda": λ}: EXAKT in rationaler Arithmetik über die
   algebraische Laplace-Darstellung: Delta(sum c C) = λ E(w) ohne weitere Terme.
 - {"typ": "mgf_harmonisch_familie", "gewicht_bis": W}: exakt für alle 3 <= w <= W (<= 25): harmonischer Raum dim 1/0, DGV-Kombination, f_w.
-- {"typ": "mgf_identitaet_familie", "gewicht_bis": W, "g": {"3": "1", "5": "1/10", ...}}: exakt für alle ungeraden 3 <= w <= W (<= 61):
+- {"typ": "mgf_identitaet_familie", "gewicht_bis": W, "g": {"3": "1", "5": "1/10", ...}} oder statt "g" die Formel
+  "g_formel": "6|B_{w-1}|/((w-1)/2)!" (der Prüfer rechnet die Werte selbst; empfohlen für große W): exakt für alle ungeraden 3 <= w <= W (<= 61):
   harmonischer Raum wie mgf_harmonisch_familie (für alle 3 <= w <= W) plus Laurent-Polynom der DGV-Kombination X_w nach D'Hoker-Kaidi (arXiv:1902.04180, Thm. 5.1) in rationaler
   Arithmetik; prüft, dass X_w - f_w E_w als Laurent-Polynom genau g_w zeta(w) ist (g_w für jedes ungerade w angeben).
 - {"typ": "mgf_relationsraum_v2", ...}: wie mgf_relationsraum, Kriterium 2: n+8 eigene Punkte (Seed 4713, 0.9 <= tau2 <= 3), übrige Singulärwerte > 1e-16.
@@ -508,9 +516,10 @@ class ModularDomain(Domain):
                         f"D'Hoker-Green-Vanhove (eq. 3.57 of arXiv:1502.06698), and Delta X = w(w-1) f_w E(w) with f_w = 3((w-1)/2)!/w in that normalisation." if en else
                         f"Exakt für alle 3 <= w <= {p['gewicht_bis']}: harmonischer Raum dim 1 (ungerade, DGV-Kombination, f_w = 3((w-1)/2)!/w) bzw. 0 (gerade).")
             if t == "mgf_identitaet_familie":
-                W = int(p["gewicht_bis"]); gs = {int(k): _fr(v) for k, v in p["g"].items()}
+                W = int(p["gewicht_bis"])
+                gs = {w: _g_bernoulli(w) for w in range(3, W + 1, 2)} if p.get("g_formel") else {int(k): _fr(v) for k, v in p["g"].items()}
                 bern = all(gs[w] == _g_bernoulli(w) for w in gs)
-                gtxt = ", ".join(f"g_{w} = {gs[w]}" for w in sorted(gs))
+                gtxt = (", ".join(f"g_{w} = {gs[w]}" for w in sorted(gs) if w <= 17) + (", ..." if W > 17 else "")) if p.get("g_formel") else ", ".join(f"g_{w} = {gs[w]}" for w in sorted(gs))
                 return (f"Exactly, for every odd weight 3 <= w <= {W}, with X_w the combination of D'Hoker-Green-Vanhove (eq. 3.57 of arXiv:1502.06698): "
                         f"Delta X_w = w(w-1) f_w E(w) with f_w = 3((w-1)/2)!/w (exact Laplace algebra), and the Laurent polynomial of X_w, computed in "
                         f"rational arithmetic from Proposition 2.1 and Theorem 5.1 of D'Hoker-Kaidi (arXiv:1902.04180; transcription checked against their eq. 5.19), "
@@ -624,7 +633,9 @@ class ModularDomain(Domain):
             ({"typ": "mgf_identitaet_familie", "gewicht_bis": 9, "g": {"3": "1", "5": "1/10", "7": "1/42", "9": "1/120"}}, True),
             ({"typ": "mgf_identitaet_familie", "gewicht_bis": 9, "g": {"3": "1", "5": "1/10", "7": "1/42", "9": "1/121"}}, False),  # falsche Konstante
             ({"typ": "mgf_identitaet_familie", "gewicht_bis": 9, "g": {"3": "1", "5": "1/10", "7": "1/42"}}, False),                # unvollständig
-            ({"typ": "mgf_identitaet_familie", "gewicht_bis": 63, "g": {}}, False),                                                  # über der Kapazitätsgrenze
+            ({"typ": "mgf_identitaet_familie", "gewicht_bis": 63, "g": {}}, False),
+            ({"typ": "mgf_identitaet_familie", "gewicht_bis": 11, "g_formel": "6|B_{w-1}|/((w-1)/2)!"}, True),
+            ({"typ": "mgf_identitaet_familie", "gewicht_bis": 11, "g_formel": "6|B_{w-1}|/(w-1)!"}, False),               # andere Formel nicht zugelassen                                                  # über der Kapazitätsgrenze
             ({"typ": "mgf_relationsraum", "basis": ["C(1,1,1)", "E(3)", "zeta(3)", "E(2)"], "dim": 0, "relationen": []}, False),  # verschweigt eine Relation
         ]
 
