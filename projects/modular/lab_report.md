@@ -103,3 +103,14 @@
 - 2026-10-05 05:02:47   Neuheit modular-R16: nicht_gefunden
 - 2026-10-05 05:02:47   geprüft modular-R16 (computed_rigorous): Exakt für alle ungeraden 3 <= w <= 35: X_w = f_w E(w) + g_w zeta(w) mit f_w = 3((w-1)/2)!/w und g_3 = 1, g_5 = 1/10, g_7 = 1/42, g_9 = 1/120, g_11 = 1/264, g_13 | Red-Team: 2 Gegenprüfungen, 0 bestanden, 0 logische Widersprüche
 - 2026-10-05 05:02:47 Fertig: 33 geprüfte Aussagen, 4 negative Ergebnisse
+- 2026-10-05 05:03:50 Selbsttest des Prüfers: bestanden
+- 2026-10-05 05:04:02 Runde 17: Beweise die Identitäten X_w = f_w E(w) + g_w zeta(w) für alle ungeraden 3 <= w <= 61 exakt (Präregistrierung H12): Prüfungstyp mgf_identitaet_familie mit gewicht_bis 61 und "g_formel": "6|B_{w-1}|/((w-1)/2)!" (der Prüfer rechnet die g_w selbst; keine Wertetabelle abschreiben). Die Prüfung dauert etwa 15 Minuten.
+- 2026-10-05 05:20:48   Neuheit modular-R17a: nicht_gefunden
+- 2026-10-05 05:20:48   geprüft modular-R17a (computed_rigorous): Exakt für alle ungeraden 3 <= w <= 61: X_w = f_w E(w) + g_w zeta(w) mit f_w = 3((w-1)/2)!/w und g_3 = 1, g_5 = 1/10, g_7 = 1/42, g_9 = 1/120, g_11 = 1/264, g_13 | Red-Team: 2 Gegenprüfungen, 0 bestanden, 0 logische Widersprüche
+- 2026-10-05 05:21:26   Neuheit modular-R17b: nicht_gefunden
+- 2026-10-05 05:21:26   geprüft modular-R17b (computed_rigorous): Exakt für alle 3 <= w <= 25: harmonischer Raum dim 1 (ungerade, DGV-Kombination, f_w = 3((w-1)/2)!/w) bzw. 0 (gerade). | Red-Team: 2 Gegenprüfungen, 0 bestanden, 0 logische Widersprüche
+- 2026-10-05 05:22:22   Neuheit modular-R17c: nicht_gefunden
+- 2026-10-05 05:22:22   geprüft modular-R17c (observed): Numerisch (32 Stellen, 4 Prüfer-Punkte, rel. Residuum <= 1e-24): 19008·C(5,5,1) + 38016·C(5,4,2) + 19008·C(5,3,3) + 28512·C(4,4,3) - 8640·E(11) - zeta(11) = 0 a | Red-Team: 2 Gegenprüfungen, 0 bestanden, 0 logische Widersprüche
+- 2026-10-05 05:23:30   Neuheit modular-R17d: nicht_gefunden
+- 2026-10-05 05:23:30   geprüft modular-R17d (observed): Numerisch (32 Stellen, 4 Prüfer-Punkte, rel. Residuum <= 1e-24): 51819264000·C(8,8,1) + 103638528000·C(8,7,2) + 103638528000·C(8,6,3) + 103638528000·C(8,5,4) +  | Red-Team: 2 Gegenprüfungen, 0 bestanden, 0 logische Widersprüche
+- 2026-10-05 05:23:30 Fertig: 37 geprüfte Aussagen, 4 negative Ergebnisse

@@ -156,6 +156,16 @@
    "status": "beantwortet",
    "quelle": "lueckenkarte",
    "faden_id": "F15"
+  },
+  {
+   "frage": "Beweise die Identitäten X_w = f_w E(w) + g_w zeta(w) für alle ungeraden 3 <= w <= 61 exakt (Präregistrierung H12): Prüfungstyp mgf_identitaet_familie mit gewicht_bis 61 und \"g_formel\": \"6|B_{w-1}|/((w-1)/2)!\" (der Prüfer rechnet die g_w selbst; keine Wertetabelle abschreiben). Die Prüfung dauert etwa 15 Minuten.",
+   "neuheit": 0.8,
+   "machbarkeit": 0.95,
+   "lueckenkarte": "L12",
+   "id": "F16",
+   "status": "beantwortet",
+   "quelle": "lueckenkarte",
+   "faden_id": "F16"
   }
  ],
  "claims": [
@@ -468,11 +478,11 @@
     "quellen_geprueft": 101,
     "datum": "2026-10-04",
     "status": "bekannt",
-    "quelle": "arXiv:1608.04393",
-    "zitat": "At weight 7, we find that the following dihedral combinations are independent of",
+    "quelle": "arXiv:2109.05017",
+    "zitat": "where the coefficients of ζ7 are based on the results of [37]",
     "titel": "Hierarchy of Modular Graph Identities",
     "roh_status": "bekannt",
-    "was_bekannt": "7C(3,2,2) + 7C(3,3,1) - 3E(7) ist konstant (D'Hoker-Kaidi Gl. 3.17)",
+    "was_bekannt": "C(3,3,1) + C(3,2,2) = 3/7 E(7) + zeta(7)/252 explizit (Dorigoni-Kleinschmidt-Schlotterer Gl. 3.77), d. h. f_7 und g_7",
     "was_offen": "",
     "beleg": "Volltext (Zitat per Code geprüft)"
    }
@@ -1809,11 +1819,11 @@
     "quellen_geprueft": 109,
     "datum": "2026-10-04",
     "status": "bekannt",
-    "quelle": "arXiv:1608.04393",
-    "zitat": "At weight 7, we find that the following dihedral combinations are independent of",
+    "quelle": "arXiv:2109.05017",
+    "zitat": "where the coefficients of ζ7 are based on the results of [37]",
     "titel": "Basis Decompositions and a Mathematica Package for Modular Graph Forms",
     "roh_status": "bekannt",
-    "was_bekannt": "7C(3,2,2) + 7C(3,3,1) - 3E(7) ist konstant (D'Hoker-Kaidi Gl. 3.17)",
+    "was_bekannt": "C(3,3,1) + C(3,2,2) = 3/7 E(7) + zeta(7)/252 explizit (Dorigoni-Kleinschmidt-Schlotterer Gl. 3.77), d. h. f_7 und g_7",
     "was_offen": "",
     "beleg": "Volltext (Zitat per Code geprüft)"
    }
@@ -2972,7 +2982,9 @@
     "was_bekannt": "Existenz und Kombination der Identität für jedes ungerade w (DGV Gl. 3.57)",
     "was_offen": "Konstanten f_w und g_w für w >= 11",
     "beleg": "Volltext (Zitat per Code geprüft)",
-    "hinweis": "arXiv:1902.04180: Laurent-Polynom aller zweischleifigen Modulgraphfunktionen (Theorem 5.1); die Konstanten g_w folgen daraus im Prinzip, wurden aber dort nicht für die Identitäten ausgewertet"
+    "hinweis": "arXiv:1902.04180: Laurent-Polynom aller zweischleifigen Modulgraphfunktionen (Theorem 5.1); die Konstanten g_w folgen daraus im Prinzip, wurden aber dort nicht für die Identitäten ausgewertet",
+    "fehlsuchen": 1,
+    "abgleich": "2 gleichwertige Prüfungen; 1 mit Literaturtreffer, 1 ohne"
    }
   },
   {
@@ -3111,7 +3123,13 @@
     },
     "quellen_geprueft": 89,
     "datum": "2026-10-05",
-    "status": "nicht_gefunden"
+    "status": "teilweise_bekannt",
+    "roh_status": "nicht_gefunden",
+    "quelle": "arXiv:1502.06698",
+    "zitat": "For eigenvalue 0, namely s = 1, the multiplicity is one for each odd weight (and zero for each",
+    "was_bekannt": "Eindimensionalität des Eigenraums zum Eigenwert 0 für jedes ungerade, Null für jedes gerade Gewicht; Kombination X_w (Gl. 3.57)",
+    "was_offen": "geschlossene Form f_w = 3((w-1)/2)!/w; unsere exakte Bestätigung bis w = 25 ist eine unabhängige Nachrechnung",
+    "beleg": "Volltext (Zitat per Code geprüft)"
    }
   },
   {
@@ -3212,7 +3230,394 @@
     },
     "quellen_geprueft": 55,
     "datum": "2026-10-05",
-    "status": "nicht_gefunden"
+    "status": "teilweise_bekannt",
+    "roh_status": "nicht_gefunden",
+    "quelle": "arXiv:1502.06698",
+    "zitat": "and may be determined from the asymptotic behavior near the cusp; their values for weight up to 9 are given in (3.34)",
+    "was_bekannt": "die Kombinationen X_w für alle ungeraden w (DGV Gl. 3.57), f_w für w <= 9 und g_w für w = 3, 5 (Gl. 3.34; g_7, g_9 dort unbestimmt); g_7 steht zudem explizit bei arXiv:2109.05017, Gl. 3.77 (Volltext-Beleg zu relation:7)",
+    "was_offen": "geschlossene Formen von f_w und g_w für allgemeines ungerades w und ihr Nachweis für w >= 9",
+    "beleg": "Volltext (Zitat per Code geprüft)",
+    "hinweis": "arXiv:1902.04180: Laurent-Polynom jeder einzelnen C_{u,v;w} (Thm. 5.1), hier als Werkzeug benutzt; die Konstanten der DGV-Identitäten werden dort nicht ausgewertet"
+   }
+  },
+  {
+   "id": "modular-R17a",
+   "frage": "Beweise die Identitäten X_w = f_w E(w) + g_w zeta(w) für alle ungeraden 3 <= w <= 61 exakt (Präregistrierung H12): Prüfungstyp mgf_identitaet_familie mit gewicht_bis 61 und \"g_formel\": \"6|B_{w-1}|/((w-1)/2)!\" (der Prüfer rechnet die g_w selbst; keine Wertetabelle abschreiben). Die Prüfung dauert etwa 15 Minuten.",
+   "text": "Exakt für alle ungeraden 3 <= w <= 61: X_w = f_w E(w) + g_w zeta(w) mit f_w = 3((w-1)/2)!/w und g_3 = 1, g_5 = 1/10, g_7 = 1/42, g_9 = 1/120, g_11 = 1/264, g_13 = 691/327600, g_15 = 1/720, g_17 = 3617/3427200, ... (= 6|B_{w-1}|/((w-1)/2)!); Laplace-Algebra exakt, Konstante aus dem Laurent-Polynom nach D'Hoker-Kaidi Thm. 5.1.",
+   "interpretation_ungeprueft": "Für jedes ungerade 3 <= w <= 61 gilt X_w = f_w E(w) + g_w zeta(w) exakt, mit f_w = 3((w-1)/2)!/w und g_w = 6|B_{w-1}|/((w-1)/2)!. Die Aussage ist hier zur Allaussage geschärft: Der harmonische Raum hat Dimension 1 für ungerades w und 0 für gerades w, und X_w ist darin die einzige Kombination bis auf Skalierung. Die Identität ist außerdem an ausgewählten Gewichten (11, 17) direkt als numerische Funktionsrelation bestätigt.",
+   "pruefung": {
+    "typ": "mgf_identitaet_familie",
+    "gewicht_bis": 61,
+    "g_formel": "6|B_{w-1}|/((w-1)/2)!"
+   },
+   "grund": "exakt für alle ungeraden 3 <= w <= 61: Laplace-Teil wie mgf_harmonisch_familie; Laurent-Polynom nach D'Hoker-Kaidi Thm. 5.1 (Übertragung an Gl. 5.19 geprüft) konsistent mit f_w E_w + g_w zeta(w); Konstantterme = angegebene g_w",
+   "level": "computed_rigorous",
+   "status": "bestätigt",
+   "red_team": [
+    {
+     "pruefung": {
+      "typ": "mgf_identitaet_familie",
+      "gewicht_bis": 5,
+      "g": {
+       "3": "1",
+       "5": "1/5"
+      }
+     },
+     "idee": "Randfall w=5 mit falschem Konstantenterm. Die Antwort sagt g_5 = 6|B_4|/2! = 1/10, hier steht 1/5. Die Prüfung besteht nur, wenn X_5 - f_5 E(5) tatsächlich 1/5 zeta(5) ist, die behauptete Formel also falsch wäre. Gilt w=3 mit g=1, ist die Formel dort konsistent.",
+     "bestanden": false,
+     "ergebnis": "nicht_bestanden",
+     "grund": "exakt für alle ungeraden 3 <= w <= 5: Laplace-Teil wie mgf_harmonisch_familie; Laurent-Polynom nach D'Hoker-Kaidi Thm. 5.1 (Übertragung an Gl. 5.19 geprüft) konsistent mit f_w E_w + g_w zeta(w); Konst",
+     "widerspruch": false
+    },
+    {
+     "pruefung": {
+      "typ": "mgf_identitaet_familie",
+      "gewicht_bis": 61,
+      "g_formel": "6|B_{w-1}|/(w-1)!"
+     },
+     "idee": "Abgewandelte Formel mit (w-1)! statt ((w-1)/2)! im Nenner. Sie stimmt für w=3 überein (g=1) und weicht ab w=5 ab. Die Prüfung besteht nur, wenn die behauptete Familie g_w = 6|B_{w-1}|/((w-1)/2)! für große w nicht stimmt, die Laurent-Konstante also anders wächst.",
+     "bestanden": false,
+     "ergebnis": "nicht_bestanden",
+     "grund": "g_formel muss genau '6|B_{w-1}|/((w-1)/2)!' sein (und ohne g)",
+     "widerspruch": false
+    }
+   ],
+   "runde": 17,
+   "relevanz": "hauptresultat",
+   "neuheit": {
+    "suchanfragen": [
+     "D'Hoker Kaidi Laurent polynomial Eisenstein",
+     "harmonic modular forms polynomial growth",
+     "non-holomorphic Eisenstein zeta values constant",
+     "Laplace equation Eisenstein series harmonic",
+     "two-loop string amplitude Eisenstein modular"
+    ],
+    "treffer": {
+     "D'Hoker Kaidi Laurent polynomial Eisenstein": 1,
+     "harmonic modular forms polynomial growth": 11,
+     "non-holomorphic Eisenstein zeta values constant": 5,
+     "Laplace equation Eisenstein series harmonic": 8,
+     "two-loop string amplitude Eisenstein modular": 9
+    },
+    "quellen_geprueft": 45,
+    "datum": "2026-10-05",
+    "status": "teilweise_bekannt",
+    "roh_status": "nicht_gefunden",
+    "quelle": "arXiv:1502.06698",
+    "zitat": "and may be determined from the asymptotic behavior near the cusp; their values for weight up to 9 are given in (3.34)",
+    "was_bekannt": "die Kombinationen X_w für alle ungeraden w (DGV Gl. 3.57), f_w für w <= 9 und g_w für w = 3, 5 (Gl. 3.34; g_7, g_9 dort unbestimmt); g_7 steht zudem explizit bei arXiv:2109.05017, Gl. 3.77 (Volltext-Beleg zu relation:7)",
+    "was_offen": "geschlossene Formen von f_w und g_w für allgemeines ungerades w und ihr Nachweis für w >= 9",
+    "beleg": "Volltext (Zitat per Code geprüft)",
+    "hinweis": "arXiv:1902.04180: Laurent-Polynom jeder einzelnen C_{u,v;w} (Thm. 5.1), hier als Werkzeug benutzt; die Konstanten der DGV-Identitäten werden dort nicht ausgewertet"
+   }
+  },
+  {
+   "id": "modular-R17b",
+   "frage": "Beweise die Identitäten X_w = f_w E(w) + g_w zeta(w) für alle ungeraden 3 <= w <= 61 exakt (Präregistrierung H12): Prüfungstyp mgf_identitaet_familie mit gewicht_bis 61 und \"g_formel\": \"6|B_{w-1}|/((w-1)/2)!\" (der Prüfer rechnet die g_w selbst; keine Wertetabelle abschreiben). Die Prüfung dauert etwa 15 Minuten.",
+   "text": "Exakt für alle 3 <= w <= 25: harmonischer Raum dim 1 (ungerade, DGV-Kombination, f_w = 3((w-1)/2)!/w) bzw. 0 (gerade).",
+   "interpretation_ungeprueft": "Für jedes ungerade 3 <= w <= 61 gilt X_w = f_w E(w) + g_w zeta(w) exakt, mit f_w = 3((w-1)/2)!/w und g_w = 6|B_{w-1}|/((w-1)/2)!. Die Aussage ist hier zur Allaussage geschärft: Der harmonische Raum hat Dimension 1 für ungerades w und 0 für gerades w, und X_w ist darin die einzige Kombination bis auf Skalierung. Die Identität ist außerdem an ausgewählten Gewichten (11, 17) direkt als numerische Funktionsrelation bestätigt.",
+   "pruefung": {
+    "typ": "mgf_harmonisch_familie",
+    "gewicht_bis": 25
+   },
+   "grund": "exakt für alle 3 <= w <= 25: harmonischer Raum dim 1 (ungerade, DGV-Kombination, f_w = 3((w-1)/2)!/w) bzw. 0 (gerade)",
+   "level": "computed_rigorous",
+   "status": "bestätigt",
+   "red_team": [
+    {
+     "pruefung": {
+      "typ": "mgf_identitaet_familie",
+      "gewicht_bis": 61,
+      "g_formel": "12|B_{w-1}|/((w-1)/2)!"
+     },
+     "idee": "Dieselbe Familie wie in der Antwort, aber mit der Konstante g_w um den Faktor 2 verfälscht. Die Prüfung besteht nur, wenn X_w - f_w E_w als Laurent-Polynom 2*g_w*zeta(w) statt g_w*zeta(w) ergibt. Dann wäre die behauptete Formel für g_w falsch (zum Beispiel wäre g_3 = 2 statt 1). Ist die Antwort richtig, schlägt sie fehl.",
+     "bestanden": false,
+     "ergebnis": "nicht_bestanden",
+     "grund": "g_formel muss genau '6|B_{w-1}|/((w-1)/2)!' sein (und ohne g)",
+     "widerspruch": false
+    },
+    {
+     "pruefung": {
+      "typ": "mgf_identitaet_familie",
+      "gewicht_bis": 9,
+      "g": {
+       "3": "2",
+       "5": "1/10",
+       "7": "1/7",
+       "9": "1/3"
+      }
+     },
+     "idee": "Explizite Wertetabelle, die nur bei w=3 abweicht (2 statt 1); die übrigen Werte sind bewusst beliebig gewählt. Die Prüfung besteht, wenn die Konstante schon im Randfall w=3 nicht 6|B_2|/1! = 1 ist. Sie besteht nicht, wenn die Familie und die Formel der Antwort stimmen.",
+     "bestanden": false,
+     "ergebnis": "nicht_bestanden",
+     "grund": "exakt für alle ungeraden 3 <= w <= 9: Laplace-Teil wie mgf_harmonisch_familie; Laurent-Polynom nach D'Hoker-Kaidi Thm. 5.1 (Übertragung an Gl. 5.19 geprüft) konsistent mit f_w E_w + g_w zeta(w); Konst",
+     "widerspruch": false
+    }
+   ],
+   "runde": 17,
+   "relevanz": "hauptresultat",
+   "neuheit": {
+    "suchanfragen": [
+     "modular graph functions rational combinations weight",
+     "dihedral modular graph Laplace operator relation",
+     "D'Hoker Green Vanhove two-loop amplitude",
+     "two-loop string Eisenstein modular graph",
+     "modular graph weight space dimension odd"
+    ],
+    "treffer": {
+     "modular graph functions rational combinations weight": 11,
+     "dihedral modular graph Laplace operator relation": 1,
+     "D'Hoker Green Vanhove two-loop amplitude": 2,
+     "two-loop string Eisenstein modular graph": 12,
+     "modular graph weight space dimension odd": 11
+    },
+    "quellen_geprueft": 48,
+    "datum": "2026-10-05",
+    "status": "teilweise_bekannt",
+    "roh_status": "nicht_gefunden",
+    "quelle": "arXiv:1502.06698",
+    "zitat": "For eigenvalue 0, namely s = 1, the multiplicity is one for each odd weight (and zero for each",
+    "was_bekannt": "Eindimensionalität des Eigenraums zum Eigenwert 0 für jedes ungerade, Null für jedes gerade Gewicht; Kombination X_w (Gl. 3.57)",
+    "was_offen": "geschlossene Form f_w = 3((w-1)/2)!/w; unsere exakte Bestätigung bis w = 25 ist eine unabhängige Nachrechnung",
+    "beleg": "Volltext (Zitat per Code geprüft)"
+   }
+  },
+  {
+   "id": "modular-R17c",
+   "frage": "Beweise die Identitäten X_w = f_w E(w) + g_w zeta(w) für alle ungeraden 3 <= w <= 61 exakt (Präregistrierung H12): Prüfungstyp mgf_identitaet_familie mit gewicht_bis 61 und \"g_formel\": \"6|B_{w-1}|/((w-1)/2)!\" (der Prüfer rechnet die g_w selbst; keine Wertetabelle abschreiben). Die Prüfung dauert etwa 15 Minuten.",
+   "text": "Numerisch (32 Stellen, 4 Prüfer-Punkte, rel. Residuum <= 1e-24): 19008·C(5,5,1) + 38016·C(5,4,2) + 19008·C(5,3,3) + 28512·C(4,4,3) - 8640·E(11) - zeta(11) = 0 als Funktionen von tau.",
+   "interpretation_ungeprueft": "Für jedes ungerade 3 <= w <= 61 gilt X_w = f_w E(w) + g_w zeta(w) exakt, mit f_w = 3((w-1)/2)!/w und g_w = 6|B_{w-1}|/((w-1)/2)!. Die Aussage ist hier zur Allaussage geschärft: Der harmonische Raum hat Dimension 1 für ungerades w und 0 für gerades w, und X_w ist darin die einzige Kombination bis auf Skalierung. Die Identität ist außerdem an ausgewählten Gewichten (11, 17) direkt als numerische Funktionsrelation bestätigt.",
+   "pruefung": {
+    "typ": "mgf_relation",
+    "terme": [
+     [
+      "19008",
+      "C(5,5,1)"
+     ],
+     [
+      "38016",
+      "C(5,4,2)"
+     ],
+     [
+      "19008",
+      "C(5,3,3)"
+     ],
+     [
+      "28512",
+      "C(4,4,3)"
+     ],
+     [
+      "-8640",
+      "E(11)"
+     ],
+     [
+      "-1",
+      "zeta(11)"
+     ]
+    ]
+   },
+   "grund": "exakter Leitkoeffizient von y^11: 0; numerisch an 4 Prüfer-Punkten (Seed 4711, 32 Stellen): max. relatives Residuum 1.21e-43 (Schranke 1e-24)",
+   "level": "observed",
+   "status": "bestätigt",
+   "red_team": [
+    {
+     "pruefung": {
+      "typ": "mgf_identitaet_familie",
+      "gewicht_bis": 61,
+      "g_formel": "12|B_{w-1}|/((w-1)/2)!"
+     },
+     "idee": "Gleiche Familie mit verdoppeltem g_w. Das D'Hoker-Kaidi-Laurent-Polynom von X_w - f_w E(w) ist eindeutig, deshalb besteht diese Prüfung nur, wenn die behauptete Konstante 6|B_{w-1}|/((w-1)/2)! falsch ist.",
+     "bestanden": false,
+     "ergebnis": "nicht_bestanden",
+     "grund": "g_formel muss genau '6|B_{w-1}|/((w-1)/2)!' sein (und ohne g)",
+     "widerspruch": false
+    },
+    {
+     "pruefung": {
+      "typ": "mgf_relation",
+      "terme": [
+       [
+        "19008",
+        "C(5,5,1)"
+       ],
+       [
+        "38016",
+        "C(5,4,2)"
+       ],
+       [
+        "19008",
+        "C(5,3,3)"
+       ],
+       [
+        "28512",
+        "C(4,4,3)"
+       ],
+       [
+        "-8640",
+        "E(11)"
+       ],
+       [
+        "-2",
+        "zeta(11)"
+       ]
+      ]
+     },
+     "idee": "Die konkrete w=11-Relation mit verdoppeltem zeta(11)-Koeffizienten. Sie besteht nur, wenn die angegebene Relation mit -1 falsch ist und die Konstante tatsächlich bei -2 liegt.",
+     "bestanden": false,
+     "ergebnis": "nicht_bestanden",
+     "grund": "exakter Leitkoeffizient von y^11: 0; numerisch an 4 Prüfer-Punkten (Seed 4711, 32 Stellen): max. relatives Residuum 2.85e-01 (Schranke 1e-24)",
+     "widerspruch": false
+    }
+   ],
+   "runde": 17,
+   "relevanz": "hauptresultat",
+   "neuheit": {
+    "suchanfragen": [
+     "modular graph functions Eisenstein series",
+     "modular graph functions string amplitudes",
+     "non-holomorphic modular forms string theory",
+     "closed string amplitude modular forms",
+     "two-loop modular graph identities"
+    ],
+    "treffer": {
+     "modular graph functions Eisenstein series": 25,
+     "modular graph functions string amplitudes": 27,
+     "non-holomorphic modular forms string theory": 24,
+     "closed string amplitude modular forms": 24,
+     "two-loop modular graph identities": 19
+    },
+    "quellen_geprueft": 110,
+    "datum": "2026-10-05",
+    "status": "teilweise_bekannt",
+    "roh_status": "nicht_gefunden",
+    "quelle": "arXiv:1502.06698",
+    "zitat": "and may be determined from the asymptotic behavior near the cusp; their values for weight up to 9 are given in",
+    "was_bekannt": "Existenz und Kombination der Identität für jedes ungerade w (DGV Gl. 3.57)",
+    "was_offen": "Konstanten f_w und g_w für w >= 11",
+    "beleg": "Volltext (Zitat per Code geprüft)",
+    "hinweis": "arXiv:1902.04180: Laurent-Polynom aller zweischleifigen Modulgraphfunktionen (Theorem 5.1); die Konstanten g_w folgen daraus im Prinzip, wurden aber dort nicht für die Identitäten ausgewertet"
+   }
+  },
+  {
+   "id": "modular-R17d",
+   "frage": "Beweise die Identitäten X_w = f_w E(w) + g_w zeta(w) für alle ungeraden 3 <= w <= 61 exakt (Präregistrierung H12): Prüfungstyp mgf_identitaet_familie mit gewicht_bis 61 und \"g_formel\": \"6|B_{w-1}|/((w-1)/2)!\" (der Prüfer rechnet die g_w selbst; keine Wertetabelle abschreiben). Die Prüfung dauert etwa 15 Minuten.",
+   "text": "Numerisch (32 Stellen, 4 Prüfer-Punkte, rel. Residuum <= 1e-24): 51819264000·C(8,8,1) + 103638528000·C(8,7,2) + 103638528000·C(8,6,3) + 103638528000·C(8,5,4) + 88833024000·C(7,7,3) + 222082560000·C(7,6,4) + 118444032000·C(7,5,5) + 148055040000·C(6,6,5) - 24385536000·E(17) - 3617·zeta(17) = 0 als Funktionen von tau.",
+   "interpretation_ungeprueft": "Für jedes ungerade 3 <= w <= 61 gilt X_w = f_w E(w) + g_w zeta(w) exakt, mit f_w = 3((w-1)/2)!/w und g_w = 6|B_{w-1}|/((w-1)/2)!. Die Aussage ist hier zur Allaussage geschärft: Der harmonische Raum hat Dimension 1 für ungerades w und 0 für gerades w, und X_w ist darin die einzige Kombination bis auf Skalierung. Die Identität ist außerdem an ausgewählten Gewichten (11, 17) direkt als numerische Funktionsrelation bestätigt.",
+   "pruefung": {
+    "typ": "mgf_relation",
+    "terme": [
+     [
+      "51819264000",
+      "C(8,8,1)"
+     ],
+     [
+      "103638528000",
+      "C(8,7,2)"
+     ],
+     [
+      "103638528000",
+      "C(8,6,3)"
+     ],
+     [
+      "103638528000",
+      "C(8,5,4)"
+     ],
+     [
+      "88833024000",
+      "C(7,7,3)"
+     ],
+     [
+      "222082560000",
+      "C(7,6,4)"
+     ],
+     [
+      "118444032000",
+      "C(7,5,5)"
+     ],
+     [
+      "148055040000",
+      "C(6,6,5)"
+     ],
+     [
+      "-24385536000",
+      "E(17)"
+     ],
+     [
+      "-3617",
+      "zeta(17)"
+     ]
+    ]
+   },
+   "grund": "exakter Leitkoeffizient von y^17: 0; numerisch an 4 Prüfer-Punkten (Seed 4711, 32 Stellen): max. relatives Residuum 5.49e-44 (Schranke 1e-24)",
+   "level": "observed",
+   "status": "bestätigt",
+   "red_team": [
+    {
+     "pruefung": {
+      "typ": "mgf_identitaet_familie",
+      "gewicht_bis": 61,
+      "g_formel": "12|B_{w-1}|/((w-1)/2)!"
+     },
+     "idee": "Verdoppelte Konstante g_w. Die Prüfung kann nur bestehen, wenn die behauptete Formel g_w = 6|B_{w-1}|/((w-1)/2)! falsch ist und tatsächlich das Doppelte gilt.",
+     "bestanden": false,
+     "ergebnis": "nicht_bestanden",
+     "grund": "g_formel muss genau '6|B_{w-1}|/((w-1)/2)!' sein (und ohne g)",
+     "widerspruch": false
+    },
+    {
+     "pruefung": {
+      "typ": "mgf_relation",
+      "terme": [
+       [
+        "1",
+        "C(1,1,1)"
+       ],
+       [
+        "-1",
+        "E(3)"
+       ],
+       [
+        "-2",
+        "zeta(3)"
+       ]
+      ]
+     },
+     "idee": "Randfall w=3, wo X_3 = C(1,1,1) ist. Bekannt ist C(1,1,1) = E(3) + zeta(3), also f_3 = 1 und g_3 = 1. Die Variante mit 2 zeta(3) besteht nur, wenn die Behauptung für w=3 falsch ist.",
+     "bestanden": false,
+     "ergebnis": "nicht_bestanden",
+     "grund": "exakter Leitkoeffizient von y^3: 0; numerisch an 4 Prüfer-Punkten (Seed 4711, 32 Stellen): max. relatives Residuum 5.00e-01 (Schranke 1e-24)",
+     "widerspruch": false
+    }
+   ],
+   "runde": 17,
+   "relevanz": "hauptresultat",
+   "neuheit": {
+    "suchanfragen": [
+     "modular graph functions Eisenstein series",
+     "string worldsheet modular graph functions",
+     "modular graph functions zeta function",
+     "modular graph identities closed string",
+     "heterotic string modular graph worldsheet"
+    ],
+    "treffer": {
+     "modular graph functions Eisenstein series": 25,
+     "string worldsheet modular graph functions": 10,
+     "modular graph functions zeta function": 23,
+     "modular graph identities closed string": 13,
+     "heterotic string modular graph worldsheet": 4
+    },
+    "quellen_geprueft": 77,
+    "datum": "2026-10-05",
+    "status": "teilweise_bekannt",
+    "roh_status": "nicht_gefunden",
+    "quelle": "arXiv:1502.06698",
+    "zitat": "and may be determined from the asymptotic behavior near the cusp; their values for weight up to 9 are given in",
+    "fehlsuchen": 1,
+    "abgleich": "2 gleichwertige Prüfungen; 1 mit Literaturtreffer, 1 ohne",
+    "was_bekannt": "Existenz und Kombination der Identität für jedes ungerade w (DGV Gl. 3.57)",
+    "was_offen": "Konstanten f_w und g_w für w >= 11",
+    "beleg": "Volltext (Zitat per Code geprüft)",
+    "hinweis": "arXiv:1902.04180: Laurent-Polynom aller zweischleifigen Modulgraphfunktionen (Theorem 5.1); die Konstanten g_w folgen daraus im Prinzip, wurden aber dort nicht für die Identitäten ausgewertet"
    }
   }
  ],
@@ -4523,6 +4928,155 @@
    ],
    "sek": 488.8,
    "faden_id": "F15"
+  },
+  {
+   "runde": 17,
+   "frage": "F16",
+   "status": "beantwortet",
+   "red_team": [
+    {
+     "pruefung": {
+      "typ": "mgf_identitaet_familie",
+      "gewicht_bis": 5,
+      "g": {
+       "3": "1",
+       "5": "1/5"
+      }
+     },
+     "idee": "Randfall w=5 mit falschem Konstantenterm. Die Antwort sagt g_5 = 6|B_4|/2! = 1/10, hier steht 1/5. Die Prüfung besteht nur, wenn X_5 - f_5 E(5) tatsächlich 1/5 zeta(5) ist, die behauptete Formel also falsch wäre. Gilt w=3 mit g=1, ist die Formel dort konsistent.",
+     "bestanden": false,
+     "ergebnis": "nicht_bestanden",
+     "grund": "exakt für alle ungeraden 3 <= w <= 5: Laplace-Teil wie mgf_harmonisch_familie; Laurent-Polynom nach D'Hoker-Kaidi Thm. 5.1 (Übertragung an Gl. 5.19 geprüft) konsistent mit f_w E_w + g_w zeta(w); Konst",
+     "widerspruch": false
+    },
+    {
+     "pruefung": {
+      "typ": "mgf_identitaet_familie",
+      "gewicht_bis": 61,
+      "g_formel": "6|B_{w-1}|/(w-1)!"
+     },
+     "idee": "Abgewandelte Formel mit (w-1)! statt ((w-1)/2)! im Nenner. Sie stimmt für w=3 überein (g=1) und weicht ab w=5 ab. Die Prüfung besteht nur, wenn die behauptete Familie g_w = 6|B_{w-1}|/((w-1)/2)! für große w nicht stimmt, die Laurent-Konstante also anders wächst.",
+     "bestanden": false,
+     "ergebnis": "nicht_bestanden",
+     "grund": "g_formel muss genau '6|B_{w-1}|/((w-1)/2)!' sein (und ohne g)",
+     "widerspruch": false
+    },
+    {
+     "pruefung": {
+      "typ": "mgf_identitaet_familie",
+      "gewicht_bis": 61,
+      "g_formel": "12|B_{w-1}|/((w-1)/2)!"
+     },
+     "idee": "Dieselbe Familie wie in der Antwort, aber mit der Konstante g_w um den Faktor 2 verfälscht. Die Prüfung besteht nur, wenn X_w - f_w E_w als Laurent-Polynom 2*g_w*zeta(w) statt g_w*zeta(w) ergibt. Dann wäre die behauptete Formel für g_w falsch (zum Beispiel wäre g_3 = 2 statt 1). Ist die Antwort richtig, schlägt sie fehl.",
+     "bestanden": false,
+     "ergebnis": "nicht_bestanden",
+     "grund": "g_formel muss genau '6|B_{w-1}|/((w-1)/2)!' sein (und ohne g)",
+     "widerspruch": false
+    },
+    {
+     "pruefung": {
+      "typ": "mgf_identitaet_familie",
+      "gewicht_bis": 9,
+      "g": {
+       "3": "2",
+       "5": "1/10",
+       "7": "1/7",
+       "9": "1/3"
+      }
+     },
+     "idee": "Explizite Wertetabelle, die nur bei w=3 abweicht (2 statt 1); die übrigen Werte sind bewusst beliebig gewählt. Die Prüfung besteht, wenn die Konstante schon im Randfall w=3 nicht 6|B_2|/1! = 1 ist. Sie besteht nicht, wenn die Familie und die Formel der Antwort stimmen.",
+     "bestanden": false,
+     "ergebnis": "nicht_bestanden",
+     "grund": "exakt für alle ungeraden 3 <= w <= 9: Laplace-Teil wie mgf_harmonisch_familie; Laurent-Polynom nach D'Hoker-Kaidi Thm. 5.1 (Übertragung an Gl. 5.19 geprüft) konsistent mit f_w E_w + g_w zeta(w); Konst",
+     "widerspruch": false
+    },
+    {
+     "pruefung": {
+      "typ": "mgf_identitaet_familie",
+      "gewicht_bis": 61,
+      "g_formel": "12|B_{w-1}|/((w-1)/2)!"
+     },
+     "idee": "Gleiche Familie mit verdoppeltem g_w. Das D'Hoker-Kaidi-Laurent-Polynom von X_w - f_w E(w) ist eindeutig, deshalb besteht diese Prüfung nur, wenn die behauptete Konstante 6|B_{w-1}|/((w-1)/2)! falsch ist.",
+     "bestanden": false,
+     "ergebnis": "nicht_bestanden",
+     "grund": "g_formel muss genau '6|B_{w-1}|/((w-1)/2)!' sein (und ohne g)",
+     "widerspruch": false
+    },
+    {
+     "pruefung": {
+      "typ": "mgf_relation",
+      "terme": [
+       [
+        "19008",
+        "C(5,5,1)"
+       ],
+       [
+        "38016",
+        "C(5,4,2)"
+       ],
+       [
+        "19008",
+        "C(5,3,3)"
+       ],
+       [
+        "28512",
+        "C(4,4,3)"
+       ],
+       [
+        "-8640",
+        "E(11)"
+       ],
+       [
+        "-2",
+        "zeta(11)"
+       ]
+      ]
+     },
+     "idee": "Die konkrete w=11-Relation mit verdoppeltem zeta(11)-Koeffizienten. Sie besteht nur, wenn die angegebene Relation mit -1 falsch ist und die Konstante tatsächlich bei -2 liegt.",
+     "bestanden": false,
+     "ergebnis": "nicht_bestanden",
+     "grund": "exakter Leitkoeffizient von y^11: 0; numerisch an 4 Prüfer-Punkten (Seed 4711, 32 Stellen): max. relatives Residuum 2.85e-01 (Schranke 1e-24)",
+     "widerspruch": false
+    },
+    {
+     "pruefung": {
+      "typ": "mgf_identitaet_familie",
+      "gewicht_bis": 61,
+      "g_formel": "12|B_{w-1}|/((w-1)/2)!"
+     },
+     "idee": "Verdoppelte Konstante g_w. Die Prüfung kann nur bestehen, wenn die behauptete Formel g_w = 6|B_{w-1}|/((w-1)/2)! falsch ist und tatsächlich das Doppelte gilt.",
+     "bestanden": false,
+     "ergebnis": "nicht_bestanden",
+     "grund": "g_formel muss genau '6|B_{w-1}|/((w-1)/2)!' sein (und ohne g)",
+     "widerspruch": false
+    },
+    {
+     "pruefung": {
+      "typ": "mgf_relation",
+      "terme": [
+       [
+        "1",
+        "C(1,1,1)"
+       ],
+       [
+        "-1",
+        "E(3)"
+       ],
+       [
+        "-2",
+        "zeta(3)"
+       ]
+      ]
+     },
+     "idee": "Randfall w=3, wo X_3 = C(1,1,1) ist. Bekannt ist C(1,1,1) = E(3) + zeta(3), also f_3 = 1 und g_3 = 1. Die Variante mit 2 zeta(3) besteht nur, wenn die Behauptung für w=3 falsch ist.",
+     "bestanden": false,
+     "ergebnis": "nicht_bestanden",
+     "grund": "exakter Leitkoeffizient von y^3: 0; numerisch an 4 Prüfer-Punkten (Seed 4711, 32 Stellen): max. relatives Residuum 5.00e-01 (Schranke 1e-24)",
+     "widerspruch": false
+    }
+   ],
+   "sek": 923.4,
+   "faden_id": "F16"
   }
  ],
  "kosten_usd": 0.0
