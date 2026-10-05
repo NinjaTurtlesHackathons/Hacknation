@@ -58,3 +58,4 @@
 | 2026-10-05 04:39:23 | INTEGRATOR | Startfragen aus projects/modular/fragen_runde3.json geladen, übrige offene Fragen zurückgestellt | Workflow Phase 5 |
 | 2026-10-05 04:39:23 | INTEGRATOR | Runde 15: Fadenwechsel weg von F13 | keine offenen Folgefragen im Faden |
 | 2026-10-05 04:39:37 | INTEGRATOR | Runde 15: [F14] Beweise die Konstanten der ungeraden Identitäten exakt: Prüfe mit mgf_identitaet_familie (gewicht_bis 25), dass für alle | F14 ist die einzige offene Frage und zugleich die einzige Kandidatin mit Literaturbezug (D'Hoker-Kaidi arXiv:1902.04180, Thm. 5.1; DGV-Kombination). Sie verallg |
+| 2026-10-05 04:49:39 | PRÜFER | mgf_identitaet_familie: Kapazitätsgrenze 25 -> 61 (Laplace-Teil 5 min, Laurent-Teil ~10 min bei w <= 61); mgf_harmonisch_familie unverändert (<= 25). Keine Lockerung eines Kriteriums. | Kapazität |

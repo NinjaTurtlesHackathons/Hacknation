@@ -210,6 +210,14 @@ def check_mgf_harmonisch_familie(p):
     from .mgf_laplace import harmonic_space
     W = int(p["gewicht_bis"])
     if not 3 <= W <= 25: return False, "gewicht_bis muss in 3..25 liegen", {}
+    fehler = _harmonisch_fehler(W)
+    return (not fehler), ("exakt für alle 3 <= w <= %d: harmonischer Raum dim 1 (ungerade, DGV-Kombination, f_w = 3((w-1)/2)!/w) bzw. 0 (gerade)" % W
+                          + (f"; Abweichungen: {fehler}" if fehler else "")), {"fehler": fehler}
+
+
+def _harmonisch_fehler(W):
+    from math import factorial as fa
+    from .mgf_laplace import harmonic_space
     fehler = []
     for w in range(3, W + 1):
         H = harmonic_space(w)
@@ -220,8 +228,7 @@ def check_mgf_harmonisch_familie(p):
         (vec, lam), = H; d = _dgv_combo(w); k0 = next(iter(vec)); sc = d[k0] / vec[k0]
         if set(d) != set(vec) or any(d[k] != sc * vec[k] for k in vec): fehler.append(f"w={w}: nicht die DGV-Kombination"); continue
         if sc * lam / (w * (w - 1)) != Fr(3 * fa((w - 1) // 2), w): fehler.append(f"w={w}: f_w = {sc * lam / (w * (w - 1))}")
-    return (not fehler), ("exakt für alle 3 <= w <= %d: harmonischer Raum dim 1 (ungerade, DGV-Kombination, f_w = 3((w-1)/2)!/w) bzw. 0 (gerade)" % W
-                          + (f"; Abweichungen: {fehler}" if fehler else "")), {"fehler": fehler}
+    return fehler
 
 
 def check_mgf_identitaet_familie(p):
@@ -233,11 +240,11 @@ def check_mgf_identitaet_familie(p):
     from math import factorial as fa
     from .mgf_laurent import ell_C
     W = int(p["gewicht_bis"]); g = {int(k): _fr(v) for k, v in (p.get("g") or {}).items()}
-    if not 3 <= W <= 25: return False, "gewicht_bis muss in 3..25 liegen", {}
+    if not 3 <= W <= 61: return False, "gewicht_bis muss in 3..61 liegen", {}      # Kapazität (Laurent-Teil ~80 s bei w = 61)
     if sorted(g) != list(range(3, W + 1, 2)): return False, "g muss für jedes ungerade 3 <= w <= gewicht_bis angegeben sein", {}
     if [ell_C((2, 1, 1), k) for k in range(3)] != [36, Fr(5, 3), Fr(1, 180)]: return False, "Übertragung von Thm. 5.1 reproduziert Gl. (5.19) nicht", {}
-    ok, why, _ = check_mgf_harmonisch_familie({"gewicht_bis": W})
-    if not ok: return False, "Teil (a): " + why, {}
+    fa_ = _harmonisch_fehler(W)
+    if fa_: return False, f"Teil (a), harmonischer Raum: {fa_}", {}
     fehler = []
     for w in range(3, W + 1, 2):
         X = _dgv_combo(w); f = Fr(3 * fa((w - 1) // 2), w)
@@ -326,8 +333,8 @@ class ModularDomain(Domain):
 - {"typ": "mgf_harmonisch", "gewicht": w, "kombination": {"C(a,b,c)": c, ...}, "lambda": λ}: EXAKT in rationaler Arithmetik über die
   algebraische Laplace-Darstellung: Delta(sum c C) = λ E(w) ohne weitere Terme.
 - {"typ": "mgf_harmonisch_familie", "gewicht_bis": W}: exakt für alle 3 <= w <= W (<= 25): harmonischer Raum dim 1/0, DGV-Kombination, f_w.
-- {"typ": "mgf_identitaet_familie", "gewicht_bis": W, "g": {"3": "1", "5": "1/10", ...}}: exakt für alle ungeraden 3 <= w <= W (<= 25):
-  mgf_harmonisch_familie plus Laurent-Polynom der DGV-Kombination X_w nach D'Hoker-Kaidi (arXiv:1902.04180, Thm. 5.1) in rationaler
+- {"typ": "mgf_identitaet_familie", "gewicht_bis": W, "g": {"3": "1", "5": "1/10", ...}}: exakt für alle ungeraden 3 <= w <= W (<= 61):
+  harmonischer Raum wie mgf_harmonisch_familie (für alle 3 <= w <= W) plus Laurent-Polynom der DGV-Kombination X_w nach D'Hoker-Kaidi (arXiv:1902.04180, Thm. 5.1) in rationaler
   Arithmetik; prüft, dass X_w - f_w E_w als Laurent-Polynom genau g_w zeta(w) ist (g_w für jedes ungerade w angeben).
 - {"typ": "mgf_relationsraum_v2", ...}: wie mgf_relationsraum, Kriterium 2: n+8 eigene Punkte (Seed 4713, 0.9 <= tau2 <= 3), übrige Singulärwerte > 1e-16.
 - {"typ": "mgf_relationsraum", "basis": ["...", ...], "dim": r, "relationen": [[c_1, ..., c_n], ...]}: die rationalen linearen
@@ -595,6 +602,7 @@ class ModularDomain(Domain):
             ({"typ": "mgf_identitaet_familie", "gewicht_bis": 9, "g": {"3": "1", "5": "1/10", "7": "1/42", "9": "1/120"}}, True),
             ({"typ": "mgf_identitaet_familie", "gewicht_bis": 9, "g": {"3": "1", "5": "1/10", "7": "1/42", "9": "1/121"}}, False),  # falsche Konstante
             ({"typ": "mgf_identitaet_familie", "gewicht_bis": 9, "g": {"3": "1", "5": "1/10", "7": "1/42"}}, False),                # unvollständig
+            ({"typ": "mgf_identitaet_familie", "gewicht_bis": 63, "g": {}}, False),                                                  # über der Kapazitätsgrenze
             ({"typ": "mgf_relationsraum", "basis": ["C(1,1,1)", "E(3)", "zeta(3)", "E(2)"], "dim": 0, "relationen": []}, False),  # verschweigt eine Relation
         ]
 
