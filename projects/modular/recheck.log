@@ -20,9 +20,56 @@
 [OK ] erwartet True  bekommen True  {"typ": "mgf_relation", "terme": [[1, "L[C(2,1,1)]"], [-2, "C(2,1,1)"], [-9, "E(4)"], [1, 
 [OK ] erwartet False bekommen False {"typ": "mgf_relation", "terme": [[1, "L[C(2,1,1)]"], [-2, "C(2,1,1)"], [-8, "E(4)"], [1, 
 [OK ] erwartet True  bekommen True  {"typ": "mgf_relationsraum", "basis": ["C(2,2,1)", "E(5)", "zeta(5)"], "dim": 1, "relation
+[OK ] erwartet True  bekommen True  {"typ": "mgf_harmonisch", "gewicht": 3, "kombination": {"C(1,1,1)": 1}, "lambda": 6}
+[OK ] erwartet True  bekommen True  {"typ": "mgf_harmonisch", "gewicht": 9, "kombination": {"C(4,4,1)": 9, "C(4,3,2)": 18, "C(
+[OK ] erwartet False bekommen False {"typ": "mgf_harmonisch", "gewicht": 9, "kombination": {"C(4,4,1)": 9, "C(4,3,2)": 18, "C(
+[OK ] erwartet False bekommen False {"typ": "mgf_harmonisch", "gewicht": 5, "kombination": {"C(3,1,1)": 1}, "lambda": 16}
+[OK ] erwartet False bekommen False {"typ": "mgf_harmonisch", "gewicht": 5, "kombination": {"C(2,2,2)": 1}, "lambda": 8}
+[OK ] erwartet True  bekommen True  {"typ": "mgf_harmonisch_familie", "gewicht_bis": 15}
+[OK ] erwartet False bekommen False {"typ": "mgf_harmonisch_familie", "gewicht_bis": 99}
+[OK ] erwartet True  bekommen True  {"typ": "mgf_identitaet_familie", "gewicht_bis": 9, "g": {"3": "1", "5": "1/10", "7": "1/4
+[OK ] erwartet False bekommen False {"typ": "mgf_identitaet_familie", "gewicht_bis": 9, "g": {"3": "1", "5": "1/10", "7": "1/4
+[OK ] erwartet False bekommen False {"typ": "mgf_identitaet_familie", "gewicht_bis": 9, "g": {"3": "1", "5": "1/10", "7": "1/4
+[OK ] erwartet False bekommen False {"typ": "mgf_identitaet_familie", "gewicht_bis": 63, "g": {}}
+[OK ] erwartet True  bekommen True  {"typ": "mgf_identitaet_familie", "gewicht_bis": 11, "g_formel": "6|B_{w-1}|/((w-1)/2)!"}
+[OK ] erwartet False bekommen False {"typ": "mgf_identitaet_familie", "gewicht_bis": 11, "g_formel": "6|B_{w-1}|/(w-1)!"}
 [OK ] erwartet False bekommen False {"typ": "mgf_relationsraum", "basis": ["C(1,1,1)", "E(3)", "zeta(3)", "E(2)"], "dim": 0, "
-Selbsttest modular: BESTANDEN (23/23)
+Selbsttest modular: BESTANDEN (36/36)
 [OK ] modular-R1 (observed, bestätigt): Numerisch bilden die rationalen linearen Relationen zwischen C(1,1,1), E(3), zeta(3) (Gewicht 3) einen Raum der Dimension genau 1, aufgespan
 [OK ] modular-R1b (observed, bestätigt): Numerisch bilden die rationalen linearen Relationen zwischen C(3,1,1), C(2,2,1), E(5), zeta(5) (Gewicht 5) einen Raum der Dimension genau 1,
 [OK ] modular-R1c (observed, bestätigt): Numerisch bilden die rationalen linearen Relationen zwischen C(5,1,1), C(4,2,1), C(3,3,1), C(3,2,2), E(7), zeta(7) (Gewicht 7) einen Raum de
 [OK ] modular-R1d (observed, bestätigt): Numerisch bilden die rationalen linearen Relationen zwischen C(7,1,1), C(6,2,1), C(5,3,1), C(5,2,2), C(4,4,1), C(4,3,2), C(3,3,3), E(9), zet
+[OK ] modular-R4a (observed, bestätigt): Numerisch (32 Stellen, 4 Prüfer-Punkte, rel. Residuum <= 1e-14): L[C(3,1,1)] - 6·C(3,1,1) - 86/5·E(5) + 4·E(2)*E(3) - 1/10·zeta(5) = 0 als F
+[OK ] modular-R4b (observed, bestätigt): Numerisch (32 Stellen, 4 Prüfer-Punkte, rel. Residuum <= 1e-14): L[C(2,1,1)] - 2·C(2,1,1) - 9·E(4) + E(2)*E(2) = 0 als Funktionen von tau.
+[OK ] modular-R4c (observed, bestätigt): Numerisch (32 Stellen, 4 Prüfer-Punkte, rel. Residuum <= 1e-14): L[C(2,2,1)] - 8·E(5) = 0 als Funktionen von tau.
+[OK ] modular-R4d (observed, bestätigt): Numerisch (32 Stellen, 4 Prüfer-Punkte, rel. Residuum <= 1e-14): L[C(2,2,1)] - 20·C(2,2,1) + 2/3·zeta(5) = 0 als Funktionen von tau.
+[OK ] modular-R5a (computed_rigorous, bestätigt): Auf Gamma_0(4) gilt theta(1)^4 - eta(2)^20*eta(1)^-8*eta(4)^-8 = 0 (exakt; Sturm-Zertifikat).
+[OK ] modular-R5b (computed_rigorous, bestätigt): Auf Gamma_0(4) gilt theta(1)^2 - eta(2)^10*eta(1)^-4*eta(4)^-4 = 0 (exakt; Sturm-Zertifikat).
+[OK ] modular-R5c (computed_rigorous, bestätigt): Auf Gamma_0(1) gilt thetaE8 - E4 = 0 (exakt; Sturm-Zertifikat).
+[OK ] modular-R5d (computed_rigorous, bestätigt): Auf Gamma_0(1) gilt thetaE8^2 - thetaD16 = 0 (exakt; Sturm-Zertifikat).
+[OK ] modular-R5e (computed_rigorous, bestätigt): Auf Gamma_0(1) gilt thetaE8^2 - E4^2 = 0 (exakt; Sturm-Zertifikat).
+[OK ] modular-R5f (computed_rigorous, bestätigt): Auf Gamma_0(1) gilt thetaE8^2 - E8 = 0 (exakt; Sturm-Zertifikat).
+[OK ] modular-R5g (computed_rigorous, bestätigt): Auf Gamma_0(1) gilt 1728·Delta(1) - E4^3 + E6^2 = 0 (exakt; Sturm-Zertifikat).
+[OK ] modular-R5h (computed_rigorous, bestätigt): Auf Gamma_0(1) gilt j*Delta(1) - E4^3 = 0 (exakt; Sturm-Zertifikat).
+[OK ] modular-R6a (observed, bestätigt): Numerisch (32 Stellen, 4 Prüfer-Punkte, rel. Residuum <= 1e-24): 960·E(9) + zeta(9) - 2160·C(4,4,1) - 4320·C(4,3,2) - 960·C(3,3,3) = 0 als F
+[OK ] modular-R6b (observed, bestätigt): Numerisch (32 Stellen, 4 Prüfer-Punkte, rel. Residuum <= 1e-24): C(1,1,1) - E(3) - zeta(3) = 0 als Funktionen von tau.
+[OK ] modular-R6c (observed, bestätigt): Numerisch (32 Stellen, 4 Prüfer-Punkte, rel. Residuum <= 1e-24): 30·C(2,2,1) - 12·E(5) - zeta(5) = 0 als Funktionen von tau.
+[OK ] modular-R6d (observed, bestätigt): Numerisch (32 Stellen, 4 Prüfer-Punkte, rel. Residuum <= 1e-24): 252·C(3,3,1) + 252·C(3,2,2) - 108·E(7) - zeta(7) = 0 als Funktionen von tau
+[OK ] modular-R6e (observed, bestätigt): Numerisch bilden die rationalen linearen Relationen zwischen C(7,1,1), C(6,2,1), C(5,3,1), C(5,2,2), C(4,4,1), C(4,3,2), C(3,3,3), E(9), zet
+[OK ] modular-R7a (observed, bestätigt): Numerisch (32 Stellen, 4 Prüfer-Punkte, rel. Residuum <= 1e-24): 19008·C(5,5,1) + 38016·C(5,4,2) + 19008·C(5,3,3) + 28512·C(4,4,3) - 8640·E(
+[OK ] modular-R7b (observed, bestätigt): Numerisch bilden die rationalen linearen Relationen zwischen C(5,5,1), C(5,4,2), C(5,3,3), C(4,4,3), E(11), zeta(11) (Gewicht 11) einen Raum
+[OK ] modular-R8 (computed_rigorous, bestätigt): Für alle N <= 30: holomorphe Eta-Quotienten mit trivialem Charakter spannen M_4(Gamma_0(N)) genau für N in [2, 4, 5, 6, 8, 9, 10, 12, 14, 15
+[OK ] modular-R9a (computed_rigorous, bestätigt): Exakt (algebraische Laplace-Darstellung nach D'Hoker-Green-Vanhove, nachgerechnet in rationaler Arithmetik): Delta(9·C(4,4,1) + 18·C(4,3,2) 
+[OK ] modular-R9b (computed_rigorous, bestätigt): Exakt (algebraische Laplace-Darstellung nach D'Hoker-Green-Vanhove, nachgerechnet in rationaler Arithmetik): Delta(2·C(5,5,1) + 4·C(5,4,2) +
+[OK ] modular-R11a (observed, bestätigt): Numerisch (32 Stellen, 4 Prüfer-Punkte, rel. Residuum <= 1e-24): 117936000·C(6,6,1) + 235872000·C(6,5,2) + 235872000·C(6,4,3) + 188697600·C(
+[OK ] modular-R11b (observed, bestätigt): Numerisch (32 Stellen, 4 Prüfer-Punkte, rel. Residuum <= 1e-24): 1555200·C(7,7,1) + 3110400·C(7,6,2) + 3110400·C(7,5,3) + 1555200·C(7,4,4) +
+[OK ] modular-R12 (observed, bestätigt): Numerisch bilden die rationalen linearen Relationen zwischen C(9,1,1), C(8,2,1), C(7,3,1), C(7,2,2), C(6,4,1), C(6,3,2), C(5,5,1), C(5,4,2),
+[OK ] modular-R13 (observed, bestätigt): Numerisch (32 Stellen, 4 Prüfer-Punkte, rel. Residuum <= 1e-24): 51819264000·C(8,8,1) + 103638528000·C(8,7,2) + 103638528000·C(8,6,3) + 1036
+[OK ] modular-R14 (computed_rigorous, bestätigt): Exakt für alle 3 <= w <= 25: harmonischer Raum dim 1 (ungerade, DGV-Kombination, f_w = 3((w-1)/2)!/w) bzw. 0 (gerade).
+[OK ] modular-R15 (computed_rigorous, bestätigt): Exakt für alle 3 <= w <= 25: harmonischer Raum dim 1 (ungerade, DGV-Kombination, f_w = 3((w-1)/2)!/w) bzw. 0 (gerade).
+[OK ] modular-R16 (computed_rigorous, bestätigt): Exakt für alle ungeraden 3 <= w <= 35: X_w = f_w E(w) + g_w zeta(w) mit f_w = 3((w-1)/2)!/w und g_3 = 1, g_5 = 1/10, g_7 = 1/42, g_9 = 1/120
+[OK ] modular-R17a (computed_rigorous, bestätigt): Exakt für alle ungeraden 3 <= w <= 61: X_w = f_w E(w) + g_w zeta(w) mit f_w = 3((w-1)/2)!/w und g_3 = 1, g_5 = 1/10, g_7 = 1/42, g_9 = 1/120
+[OK ] modular-R17b (computed_rigorous, bestätigt): Exakt für alle 3 <= w <= 25: harmonischer Raum dim 1 (ungerade, DGV-Kombination, f_w = 3((w-1)/2)!/w) bzw. 0 (gerade).
+[OK ] modular-R17c (observed, bestätigt): Numerisch (32 Stellen, 4 Prüfer-Punkte, rel. Residuum <= 1e-24): 19008·C(5,5,1) + 38016·C(5,4,2) + 19008·C(5,3,3) + 28512·C(4,4,3) - 8640·E(
+[OK ] modular-R17d (observed, bestätigt): Numerisch (32 Stellen, 4 Prüfer-Punkte, rel. Residuum <= 1e-24): 51819264000·C(8,8,1) + 103638528000·C(8,7,2) + 103638528000·C(8,6,3) + 1036
+Selbsttest: bestanden; Aussagen erneut geprüft: 37/37 bestehen
