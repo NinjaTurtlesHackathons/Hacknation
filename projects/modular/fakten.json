@@ -13,5 +13,10 @@
   "id": "fakt-kriterium1",
   "level": "observed",
   "text": "Full weight-11 basis (ten C(a,b,c), E(11), zeta(11)) with the originally preregistered criterion 1 (15 points, seed 4712, other singular values must exceed 1e-8): FAILED; singular values 5.175, 2.785, 0.04862, 0.003131, 0.0001604, 6.701e-5, 9.579e-6, 2.823e-6, 1.981e-7, 5.754e-8, 4.149e-9, 7.591e-44. Criterion 2 (preregistered afterwards, new data: 20 points, seed 4713, threshold 1e-16) passed (claim modular-R12)."
+ },
+ {
+  "id": "fakt-haertung",
+  "level": "observed",
+  "text": "Hardening of the weight-11 identity (preregistered H10, 8 points planned, 2 completed): relative residual at points not used before (seed 9001, including tau near rho and tau2 up to 3) for several working precisions, and an independent check by direct lattice summation in double precision. Operationalising the preregistered expectation 'residual decreases with precision' as 'residual at most 10^-d at every working precision d' (an exact 0 means below rounding resolution), it holds at 2 of 2 points; the independent double-precision check agrees to at most 1e-12 relative at 2 of 2 points. Details: tau=(0.500000, 0.866026): residual 30 digits 2.15e-42, 45 digits 7.01e-57, 60 digits 1.3e-71; independent double-precision lattice sum 4.372e-14; tau=(-0.250000, 0.968246): residual 30 digits 0.0, 45 digits 1.27e-56, 60 digits 1.13e-71; independent double-precision lattice sum 3.396e-14. The hardening run exposed and fixed an evaluator bug: the Fourier sum for E_s stopped when a term vanished, which happens at tau1 = 1/4 where cos(2 pi N tau1) = 0 for odd N; before the fix that point showed a precision-independent residual of 3.5e-10. All points listed were computed with the corrected code; no earlier test point was affected."
  }
 ]

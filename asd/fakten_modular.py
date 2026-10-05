@@ -43,9 +43,17 @@ def main():
         for row in h["punkte"]:
             zeilen.append(f"tau=({row['tau'][0]}, {row['tau'][1]}): residual " + ", ".join(f"{k} digits {v}" for k, v in row["residuum"].items())
                           + f"; independent double-precision lattice sum {row['brute_residuum_rel']}")
+        def faellt(r):
+            return all(float(v) <= 10.0 ** (-int(d)) for d, v in r["residuum"].items())        # Residuum unter der Aufloesung jeder Arbeitspraezision d
+        n = len(h["punkte"]); ok_p = sum(faellt(r) for r in h["punkte"]); ok_b = sum(float(r["brute_residuum_rel"]) <= 1e-12 for r in h["punkte"])
         fakten.append({"id": "fakt-haertung", "level": "observed", "text":
-            "Hardening of the weight-11 identity (preregistered H10): relative residual at points not used before (seed 9001, including tau near rho and "
-            "tau2 up to 3) for several working precisions, and an independent check by direct lattice summation in double precision: " + "; ".join(zeilen) + "."})
+            f"Hardening of the weight-11 identity (preregistered H10, 8 points planned, {n} completed): relative residual at points not used before "
+            "(seed 9001, including tau near rho and tau2 up to 3) for several working precisions, and an independent check by direct lattice summation "
+            f"in double precision. Operationalising the preregistered expectation 'residual decreases with precision' as 'residual at most 10^-d at every working precision d' (an exact 0 means below rounding resolution), it holds at {ok_p} of {n} points; the independent "
+            f"double-precision check agrees to at most 1e-12 relative at {ok_b} of {n} points. Details: " + "; ".join(zeilen) + ". "
+            "The hardening run exposed and fixed an evaluator bug: the Fourier sum for E_s stopped when a term vanished, which happens at tau1 = 1/4 "
+            "where cos(2 pi N tau1) = 0 for odd N; before the fix that point showed a precision-independent residual of 3.5e-10. All points listed "
+            "were computed with the corrected code; no earlier test point was affected."})
     json.dump(fakten, open(f"{d}/fakten.json", "w"), ensure_ascii=False, indent=1)
     print(json.dumps(fakten, ensure_ascii=False, indent=1)[:3000])
 
