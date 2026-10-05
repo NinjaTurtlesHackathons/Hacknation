@@ -4,181 +4,216 @@ Noah Schittenhelm, Hack-Nation 2026, Team Ninja Turtles
 
 # Closed forms for the constants in the odd-weight identities between dihedral modular graph functions
 
+**Noah Schittenhelm** (Hack-Nation, Team Ninja Turtles)
+
 ## Abstract
 
-We study the combinations $X_w$ of dihedral modular graph functions $C(a,b,c)$ of odd weight $w$ introduced by D'Hoker, Green and Vanhove, whose Laplacian is proportional to the Eisenstein series $E(w)$. For the odd weights $3\le w\le 61$ we show $X_w=f_wE(w)+g_w\zeta(w)$ with $f_w=3((w-1)/2)!/w$ and $g_w=6|B_{w-1}|/((w-1)/2)!$ [C-modular-R17a]. The proof has three steps. The Laplace equation is derived in exact rational algebra. Harmonicity, invariance and polynomial growth force $X_w-f_wE(w)$ to be constant. The constant is read off from a Laurent polynomial evaluated in rational arithmetic [C-fakt-beweis]. The space of combinations with $\Delta X\in\mathbb{Q}E(w)$ is shown exactly to be one-dimensional for odd $w$ and zero for even $w$, for $3\le w\le 25$ [C-modular-R14]. Independently of the proof, the verifier confirmed the constants numerically at $w=3,\dots,17$ [C-fakt-konstanten]. The full weight-11 basis carries exactly one relation [C-modular-R12]. The statement for all odd $w$ is a conjecture. The proof rests on two assumptions not checked by code, a published theorem and a standard lemma [C-fakt-beweis].
+Dihedral modular graph functions $C(a,b,c)$ of weight $w=a+b+c$ are the coefficients of the low-energy expansion of the one-loop closed-string amplitude. For each odd weight there is a combination $X_w$ whose Laplacian is a multiple of $E(w)$ [C-fakt-beweis]. We determine the constants in $X_w = f_w E(w) + g_w \zeta(w)$. Theorem 1 gives $f_w = 3((w-1)/2)!/w$ and $g_w = 6|B_{w-1}|/((w-1)/2)!$ for the odd weights $3 \le w \le 61$ examined [C-modular-R17a]. The proof combines exact rational Laplace algebra, a harmonicity argument and the Laurent constant term evaluated in rational arithmetic. It rests on two assumptions that were not machine-checked: a published theorem on Laurent polynomials and a standard lemma [C-fakt-beweis]. Theorem 2 shows exactly, for the weights $3 \le w \le 25$ examined, that the space of combinations with $\Delta X \in \mathbb{Q}\,E(w)$ has dimension 1 for odd $w$ and 0 for even $w$ [C-modular-R14]. Independent numerical confirmation at 32 digits [C-modell] covers $w = 3, 5, 7, 9, 11, 13, 15, 17$, with $w = 15$ a prediction and $w = 17$ a preregistered blind test [C-fakt-konstanten]. The full weight-11 basis has exactly one relation numerically [C-modular-R12]. A proof beyond the examined range is stated as a conjecture and remains open.
 
 ## Introduction
 
-Dihedral modular graph functions $C(a,b,c)$ arise as coefficients in the low-energy expansion of the one-loop closed-string amplitude. They satisfy Laplace eigenvalue equations with inhomogeneous terms that are polynomial in non-holomorphic Eisenstein series [C-litn1]. At each odd weight there is a combination $X_w$ with Laplace eigenvalue zero, up to a term proportional to $E(w)$. Its multiplicity is one for each odd weight and zero for each even weight [C-litn1].
+Two-loop modular graph functions $C(a,b,c)$ satisfy Laplace eigenvalue equations with inhomogeneous terms that are polynomial in non-holomorphic Eisenstein series [C-litn1]. D'Hoker, Green and Vanhove (DGV) obtained, for each odd weight, a combination $X_w$ that is annihilated by the Laplacian after subtracting a multiple of $E(w)$. The remaining additive constant of integration is fixed by the asymptotics at the cusp [C-litn1]. DGV give $f_w$ for $w\le 9$ and $g_w$ for $w=3$ and $w=5$, while $g_7$ and $g_9$ remain undetermined there [C-modular-R17a]. The value of $g_7$ appears explicitly in later work [C-litn2].
 
-D'Hoker, Green and Vanhove determine such identities up to additive constants of integration, which are fixed by the behaviour near the cusp [C-litn1]. The constants $g_7,g_9$ are left undetermined there, while $g_7$ appears explicitly in a later work [C-modular-R17a, C-litn2]. The Laurent polynomial of each $C(a,b,c)$ is known in closed form from D'Hoker and Kaidi [C-fakt-beweis]. The open question is the value of $f_w$ and $g_w$ at larger odd $w$.
+**Open question.** What are the exact closed forms of $f_w$ and $g_w$ for general odd $w$?
 
-This is hard because the number of functions $C(a,b,c)$ grows with $w$, and the constant is a Laurent term of a long combination. At $w=17$ the identity involves eight functions, with a leading integer coefficient $51819264000$ [C-modular-R13]. Numerical identification of the constants by integer-relation search is therefore fragile [C-neg3].
+**Why it is hard.** The constant is the $\tau_2^0$ term of a Laurent polynomial [C-fakt-beweis]. That polynomial is known for each single $C_{u,v;w}$ [C-modular-R17a], but evaluating it for the DGV combination requires exact bookkeeping of growing coefficient lists. Numerical relation searches are limited by the coefficient height; for the full weight-11 basis the originally preregistered completeness criterion was failed [C-fakt-kriterium1].
 
-We prove closed forms for $f_w$ and $g_w$ by an exact route, and confirm them by independent numerics.
+**Contribution.** We evaluate the Laurent constant of $X_w$ exactly for the odd weights $3 \le w \le 61$ examined, obtain closed forms, and confirm them independently by numerics [C-modular-R17a].
 
 **Summary of results.**
 
-- Theorem 1 shows $X_w=f_wE(w)+g_w\zeta(w)$ with closed forms for $f_w,g_w$, for the odd weights $3\le w\le 61$ (exact Laplace algebra plus a rational Laurent computation) [C-modular-R17a].
-- Theorem 2 shows that the space of combinations $X$ with $\Delta X\in\mathbb{Q}E(w)$ is one-dimensional for odd $w$ and zero for even $w$, for $3\le w\le 25$ (exact) [C-modular-R14].
-- Conjecture 1 extends the closed forms beyond the proved range $w\le 61$; it was read off from $w=3,\dots,13$ before the proof [C-fakt-konstanten].
-- The supporting propositions and numerical observations record independent confirmation at $w=3,\dots,17$, the full weight-11 relation space, and a hardening run [C-fakt-konstanten, C-modular-R12, C-fakt-haertung].
+- Theorem 1 shows $X_w = f_w E(w) + g_w \zeta(w)$ with $f_w = 3((w-1)/2)!/w$ and $g_w = 6|B_{w-1}|/((w-1)/2)!$ for the odd weights $3 \le w \le 61$ examined (exact Laplace algebra plus Laurent constant in rational arithmetic) [C-modular-R17a].
+- Theorem 2 shows that the space $\{X : \Delta X \in \mathbb{Q}E(w)\}$ has dimension 1 for odd $w$ and 0 for even $w$, for the weights $3\le w\le 25$ examined [C-modular-R14].
+
+- Numerical results, independent of the proof, confirm the constants at $w = 3, 5, 7, 9, 11, 13, 15, 17$ and show that the full weight-11 basis has exactly one relation [C-fakt-konstanten, C-modular-R12].
 
 ## Setting
 
-Let $\tau=\tau_1+i\tau_2$ and $p=m\tau+n$. The expansion variable of holomorphic forms is $q=e^{2\pi i\tau}$ [C-modell]. The lattice sums are normalised as in D'Hoker–Green–Vanhove [C-modell]. $E(s)$ is the sum over nonvanishing lattice vectors $p$ of $\big(\tau_2/(\pi|p|^2)\big)^{s}$. $C(a,b,c)$ is the sum over triples of nonvanishing lattice vectors $p_1,p_2,p_3$ that add up to zero, of the product $\prod_i\big(\tau_2/(\pi|p_i|^2)\big)^{a_i}$ with $(a_1,a_2,a_3)=(a,b,c)$ [C-modell]. The weight is $w=a+b+c$. We write $E_w=E(w)$. $\zeta$ is the Riemann zeta function and $B_n$ are Bernoulli numbers. The hyperbolic Laplacian is $\Delta=\tau_2^2(\partial_{\tau_1}^2+\partial_{\tau_2}^2)$, acting as $\Delta E(s)=s(s-1)E(s)$ [C-fakt-beweis]. For odd $w$, $X_w$ is the rational combination of $C(a,b,c)$ of weight $w$ of D'Hoker–Green–Vanhove [C-modular-R17a]. The constants are
-$$f_w=\frac{3\,((w-1)/2)!}{w},\qquad g_w=\frac{6\,|B_{w-1}|}{((w-1)/2)!}\quad\text{[C-fakt-konstanten].}$$
+Let $\tau=\tau_1+i\tau_2$, $q=e^{2\pi i\tau}$ and $p=m\tau+n$ [C-modell]. The lattice sums use the normalisation $(\tau_2/(\pi|p|^2))^a$ [C-modell]:
 
-Numerical parameters of the verifier [C-modell]: working precision 32 digits; tolerance 1e-24 for relations (1e-14 with a Laplacian); fourth-order finite-difference Laplacian with step h = 1e-6; 4 random evaluation points (seed 4711) with $|\tau_1|\le 1/2$ and $1\le\tau_2\le 2.5$. Exact criteria use the leading Laurent coefficient in $y=\pi\tau_2$ [C-modular-R6a].
+Here $(a_1,a_2,a_3)=(a,b,c)$ and $w=a+b+c$ [C-modell]. $\zeta(k)$ is the Riemann zeta value and $B_n$ are Bernoulli numbers. The Laplacian is $\Delta=\tau_2^2(\partial_{\tau_1}^2+\partial_{\tau_2}^2)$. $E(w)$ is an eigenfunction, $\Delta E(w)=w(w-1)E(w)$ [C-fakt-beweis]. For odd $w$, $X_w$ is the DGV combination (eq. 3.57), normalised so that $\Delta X_w=w(w-1)f_wE(w)$ [C-modular-R14].
 
-Statements are labelled as proved (exact arithmetic), computer-assisted, or numerical (point evaluations).
+Numerical parameters of the verifier [C-modell]:
 
-## Main results
+- four random points, seed 4711, with $|\tau_1|\le 1/2$ and $1\le\tau_2\le 2.5$ [C-modell];
+- working precision of 32 digits [C-modell];
+- tolerance 1e-24 for relative residuals, and 1e-14 when a Laplacian is involved [C-modell];
+- fourth-order finite-difference Laplacian with step $h=$ 1e-6 [C-modell].
+
+## Closed forms for odd weight
 
 ::: theorem [Closed forms, $w\le 61$]
-For the odd weights $3\le w\le 61$, $X_w=f_w\,E(w)+g_w\,\zeta(w)$, with $f_w$ and $g_w$ as in the Setting [C-modular-R17a].
+For the odd weights $3\le w\le 61$ examined [C-modular-R17a],
+$$X_w=f_wE(w)+g_w\zeta(w),\quad f_w=\frac{3((w-1)/2)!}{w},\quad g_w=\frac{6|B_{w-1}|}{((w-1)/2)!}\quad\text{[C-modular-R17a]}$$
 :::
 
-*Proof.* The argument has three steps, following [C-fakt-beweis].
+*Proof.* The proof has three steps and a fourth that supplies the constant [C-fakt-beweis].
 
-1. Exact rational computation in the algebraic Laplace representation gives $\Delta X_w=w(w-1)f_wE(w)$ with no other terms [C-modular-R17a]. Since $\Delta E(w)=w(w-1)E(w)$, it follows that $\Delta(X_w-f_wE(w))=0$ [C-fakt-beweis].
-2. $X_w-f_wE(w)$ is harmonic, modular invariant and of polynomial growth at the cusp, hence constant [C-modular-R17a].
-3. The constant equals the $\tau_2^0$ term of its Laurent polynomial [C-fakt-beweis]. This polynomial was computed in rational arithmetic from Proposition 2.1 and Theorem 5.1 of D'Hoker–Kaidi, with the transcription checked against their eq. 5.19 [C-modular-R17a]. The terms not involving products of zeta values agree with those of $f_wE(w)+g_w\zeta(w)$, which serves as a consistency check, and the constant term equals $g_w\zeta(w)$ [C-modular-R17a].
+1. Exact rational computation in the algebraic Laplace representation gives $\Delta X_w=w(w-1)f_wE(w)$ with no other terms. Since $\Delta E(w)=w(w-1)E(w)$, it follows that $\Delta(X_w-f_wE(w))=0$ [C-fakt-beweis].
+2. $X_w-f_wE(w)$ is $SL(2,\mathbb{Z})$-invariant and of polynomial growth at the cusp. By the standard argument used by DGV it is therefore constant [C-fakt-beweis].
+3. The constant is the $\tau_2^0$ term of the Laurent polynomial of $X_w$ [C-fakt-beweis]. It was computed in rational arithmetic from Proposition 2.1 and Theorem 5.1 of D'Hoker-Kaidi, with the transcription checked against their eq. 5.19 [C-modular-R17a]. All Laurent terms not involving products of zeta values agree with those of $f_wE(w)+g_w\zeta(w)$ (consistency check) [C-modular-R17a]. The constant equals $g_w\zeta(w)$ with $g_w=6|B_{w-1}|/((w-1)/2)!$ for the odd weights $3\le w\le 61$ examined [C-modular-R17a].
 
-The verifier computed exactly at the odd weights $3\le w\le 61$ [C-modular-R17a]. Two assumptions are not checked by code: the correctness of Theorem 5.1 of D'Hoker–Kaidi (proved there; its conjectural part concerns only the coefficient of $\tau_2^{2-w}$ and is not used) and the standard lemma in step 2 [C-fakt-beweis]. $\square$
+Assumptions not checked by code are the correctness of Theorem 5.1 of D'Hoker-Kaidi and the standard lemma in step 2 [C-fakt-beweis]. Theorem 5.1 is proved there in its Appendix A; its conjectural part concerns only the coefficient of $\tau_2^{2-w}$ and is not used [C-fakt-beweis]. Examples are $g_3=1$, $g_5=1/10$, $g_7=1/42$, $g_9=1/120$ [C-modular-R17a].
 
-Novelty status: partly known. The combinations $X_w$ for odd $w$ are given in D'Hoker–Green–Vanhove (eq. 3.57), $f_w$ for $w\le 9$ and $g_w$ for $w=3$ and $w=5$ in their eq. 3.34, with $g_7,g_9$ left undetermined [C-modular-R17a]. $g_7$ also appears explicitly in a later work [C-modular-R17a, C-litn2]. Closed forms of $f_w$ and $g_w$ at larger odd $w$ and their proof for $w\ge 9$ are not given there [C-modular-R17a].
+Novelty status: partly known.  Closed forms of $f_w$ and $g_w$ for general odd $w$ and their proof for $w\ge 9$ are not given there [C-modular-R17a].
 
-Table: constants $f_w$ and $g_w$ in $X_w=f_wE(w)+g_w\zeta(w)$ (exact) [C-fakt-konstanten].
+Table: Constants $f_w$ and $g_w$ in $X_w=f_wE(w)+g_w\zeta(w)$ (DGV normalisation of $X_w$), exact for odd $3\le w\le 25$ [C-fakt-konstanten].
 
 | $w$ | $f_w$ | $g_w$ |
 |---|---|---|
-| 3 | $1$ | $1$ |
+| 3 | 1 | 1 |
+| 5 | 6/5 | 1/10 |
+| 7 | 18/7 | 1/42 |
+| 9 | 8 | 1/120 |
+| 11 | 360/11 | 1/264 |
+| 13 | 2160/13 | 691/327600 |
+| 15 | 1008 | 1/720 |
+| 17 | 120960/17 | 3617/3427200 |
+| 19 | 1088640/19 | 43867/48263040 |
+| 21 | 518400 | 174611/199584000 |
+| 23 | 119750400/23 | 77683/83462400 |
+| 25 | 57480192 | 236364091/217945728000 |
 
+## Uniqueness of the harmonic combination
 
-
-
-
-
-
-
-
-
-
-
-::: theorem [Uniqueness of the harmonic combination, $w\le 25$]
-For the weights $3\le w\le 25$, the rational combinations $X$ of dihedral $C(a,b,c)$ of weight $w$ with $\Delta X\in\mathbb{Q}E(w)$ form a space of dimension $1$ for odd $w$ and $0$ for even $w$ [C-modular-R14]. For odd $w$ it is spanned by the combination of D'Hoker–Green–Vanhove (eq. 3.57), and $\Delta X=w(w-1)f_wE(w)$ in that normalisation [C-modular-R14].
+::: theorem [Dimension of the harmonic space]
+ For odd $w$ it is spanned by the DGV combination, with $\Delta X=w(w-1)f_wE(w)$ and $f_w=3((w-1)/2)!/w$ [C-modular-R14].
 :::
 
-*Proof.* The space was determined exactly in the algebraic Laplace representation, in rational arithmetic, for the weights $3\le w\le 25$ [C-modular-R14]. $\square$
-
-Novelty status: partly known. The dimensions are stated in D'Hoker–Green–Vanhove [C-modular-R14]. The closed form $f_w=3((w-1)/2)!/w$ is not given there, and our exact confirmation for $3\le w\le 25$ is an independent recomputation [C-modular-R14].
-
-::: conjecture [Odd weights]
-For odd $w\ge 3$, $X_w=f_wE(w)+g_w\zeta(w)$ with $f_w,g_w$ as in the Setting.
-:::
-
-*Status.* This is a conjecture. It was read off from $w=3,\dots,13$ before the proof [C-fakt-konstanten]. It is proved for the odd weights $w\le 61$ (Theorem 1) [C-modular-R17a]. Beyond $w=61$ it is not covered by the proof [C-modular-R17a].
-
-## Supporting computations
+*Certificate.* The statement was verified exactly for the weights $3\le w\le 25$ examined, with the algebraic Laplace representation of DGV, re-derived and evaluated in rational arithmetic [C-modular-R14]. Novelty status: partly known. The one-dimensionality of the eigenspace for odd weight, its vanishing for even weight and the combination $X_w$ are known. 
 
 ::: proposition [Laplace equations at $w=9$ and $w=11$]
-Exactly, $\Delta\big(9C(4,4,1)+18C(4,3,2)+4C(3,3,3)\big)=288\,E(9)$ [C-modular-R9a] and $\Delta\big(2C(5,5,1)+4C(5,4,2)+2C(5,3,3)+3C(4,4,3)\big)=100\,E(11)$ [C-modular-R9b].
+$\Delta\big(9C(4,4,1)+18C(4,3,2)+4C(3,3,3)\big)=288\,E(9)$ and $\Delta\big(2C(5,5,1)+4C(5,4,2)+2C(5,3,3)+3C(4,4,3)\big)=100\,E(11)$ [C-modular-R9a, C-modular-R9b].
 :::
 
-*Certificate.* The algebraic Laplace representation of D'Hoker–Green–Vanhove was re-derived and checked in rational arithmetic; the verifier returned $\lambda=288$ and $\lambda=100$ respectively [C-modular-R9a, C-modular-R9b].
+*Certificate.* Both equations were obtained in the algebraic Laplace representation and checked in exact rational arithmetic. The verifier returns a single value of $\lambda$ in $\Delta X=\lambda E(w)$ [C-modular-R9a, C-modular-R9b]. Novelty status: the $w=9$ equation is already known [C-modular-R9a]. For $w=11$ the combination is known, but $f_w$ and $g_w$ are not given there [C-modular-R9b].
 
-Novelty status: already known for $w\le 9$ (D'Hoker–Green–Vanhove, eq. 3.33) [C-modular-R9a]. The $w=11$ combination is the formula of eq. 3.57; $f_w,g_w$ are not given there [C-modular-R9b].
-
-::: observation [Relations at $w=3,5,7$]
-Numerically, as functions of $\tau$: $C(1,1,1)-E(3)-\zeta(3)=0$ [C-modular-R6b]; $30\,C(2,2,1)-12\,E(5)-\zeta(5)=0$ [C-modular-R6c]; $252\,C(3,3,1)+252\,C(3,2,2)-108\,E(7)-\zeta(7)=0$ [C-modular-R6d].
+::: conjecture [Beyond the examined range]
+The identity $X_w=f_wE(w)+g_w\zeta(w)$ with the closed forms of Theorem 1 holds beyond the examined range of odd weights [C-fakt-konstanten].
 :::
 
-*Certificate.* The exact leading Laurent coefficient vanishes, and the maximal relative residual at 4 verifier points (seed 4711, 32 digits) is 5.13e-44, 1.57e-43 and 1.59e-43 respectively, against the bound 1e-24 [C-modular-R6b, C-modular-R6c, C-modular-R6d].
+Before the proof, this was a conjecture read off from $w = 3..13$ [C-fakt-konstanten]. 
 
-Novelty status: already known for $w=3$ and $w=5$ [C-modular-R6b, C-modular-R6c, C-litn1] and for $w=7$ [C-modular-R6d, C-litn2].
+## Numerical confirmation, independent of the proof
 
-::: observation [Relation at $w=9$]
-Numerically, $960\,E(9)+\zeta(9)-2160\,C(4,4,1)-4320\,C(4,3,2)-960\,C(3,3,3)=0$ as functions of $\tau$ [C-modular-R6a].
+The statements in this section are numerical (32 digits, four verifier-chosen points) combined with the exact vanishing of the leading Laurent coefficient [C-modular-R6b]. They do not use the proof of Theorem 1.
+
+::: example [Weight 3]
+$C(1,1,1)-E(3)-\zeta(3)=0$ as functions of $\tau$ [C-modular-R6b].
 :::
 
-*Certificate.* The exact leading Laurent coefficient in $y^9$ vanishes; the maximal relative residual at 4 verifier points is 8.33e-44, against the bound 1e-24 [C-modular-R6a].
+*Certificate.* The exact leading Laurent coefficient in $y^3$ vanishes, and at the four verifier points the maximal relative residual is 5.13e-44 against the bound 1e-24 [C-modular-R6b]. This identity is already known [C-litn1].
 
-Novelty status: partly known. The identity with an undetermined constant $g_9$ is in D'Hoker–Green–Vanhove (eq. 3.34); the value of $g_9$ is not given there [C-modular-R6a].
-
-::: observation [Relations at $w=11,13,15,17$]
-Numerically, as functions of $\tau$, the weight-11 combination $19008\,C(5,5,1)+38016\,C(5,4,2)+19008\,C(5,3,3)+28512\,C(4,4,3)-8640\,E(11)-\zeta(11)$ vanishes [C-modular-R7a]. The weight-13 identity has zeta term $-691\,\zeta(13)$ [C-modular-R11a]. The weight-15 identity has zeta term $-\zeta(15)$ [C-modular-R11b]. The weight-17 identity has zeta term $-3617\,\zeta(17)$ [C-modular-R13].
+::: example [Weight 5]
+$30\,C(2,2,1)-12\,E(5)-\zeta(5)=0$ as functions of $\tau$ [C-modular-R6c].
 :::
 
-*Certificate.* Each relation passed the exact leading-coefficient test and the point test at 4 verifier points. The maximal relative residuals are 1.21e-43 ($w=11$), 5.67e-44 ($w=13$), 6.46e-44 ($w=15$) and 5.49e-44 ($w=17$), against the bound 1e-24 [C-modular-R7a, C-modular-R11a, C-modular-R11b, C-modular-R13]. The relation at $w=15$ was a prediction made before its value was read, and the one at $w=17$ a preregistered blind test [C-fakt-konstanten].
+*Certificate.* The leading coefficient in $y^5$ vanishes exactly, and the maximal relative residual is 1.57e-43 [C-modular-R6c]. This identity is already known [C-litn1].
 
-Novelty status: partly known: existence and combination of the identity for odd $w$ (eq. 3.57); $f_w,g_w$ for $w\ge 11$ are not given there [C-modular-R7a, C-modular-R13].
+::: example [Weight 7]
+$252\,C(3,3,1)+252\,C(3,2,2)-108\,E(7)-\zeta(7)=0$ as functions of $\tau$ [C-modular-R6d].
+:::
+
+*Certificate.* The leading coefficient in $y^7$ vanishes exactly, and the maximal relative residual is 1.59e-43 [C-modular-R6d]. This is $f_7$ and $g_7$ in the notation above, already known [C-litn2].
+
+::: observation [Weight 9]
+$960\,E(9)+\zeta(9)-2160\,C(4,4,1)-4320\,C(4,3,2)-960\,C(3,3,3)=0$ as functions of $\tau$ [C-modular-R6a].
+:::
+
+*Certificate.* The leading coefficient in $y^9$ vanishes exactly, and the maximal relative residual is 8.33e-44 [C-modular-R6a]. Novelty status: partly known. DGV give the identity with an undetermined constant $g_9$, whose value is not given there [C-modular-R6a].
+
+Here $E(w)$ is the lattice sum of the Setting and $\zeta(w)$ the Riemann zeta value at $w$.
+
+Table: Numerical checks of the integer-normalised relations at weights 11, 13, 15, 17; the third column is the maximal relative residual at the four verifier points (bound 1e-24) [C-modular-R7a, C-modular-R11a, C-modular-R11b, C-modular-R13].
+
+| $w$ | coefficients of $E(w)$ and $\zeta(w)$ | residual | claim |
+|---|---|---|---|
+| 11 | $-8640\,E(11)$, $-\zeta(11)$ | 1.21e-43 | [C-modular-R7a] |
+| 13 | $-54432000\,E(13)$, $-691\,\zeta(13)$ | 5.67e-44 | [C-modular-R11a] |
+| 15 | $-725760\,E(15)$, $-\zeta(15)$ | 6.46e-44 | [C-modular-R11b] |
+| 17 | $-24385536000\,E(17)$, $-3617\,\zeta(17)$ | 5.49e-44 | [C-modular-R13] |
+
+Each of the four relations has vanishing exact leading Laurent coefficient (in $y^{11}$, $y^{13}$, $y^{15}$, $y^{17}$) [C-modular-R7a, C-modular-R11a, C-modular-R11b, C-modular-R13]. The value at $w = 15$ was a prediction made before its value was read, and $w = 17$ was a preregistered blind test [C-fakt-konstanten]. Novelty status: partly known. Existence and combination for each odd $w$ are known, but $f_w$ and $g_w$ for $w\ge 11$ are not given there [C-modular-R7a].
 
 ::: observation [Full weight-11 basis]
-Among the ten functions $C(a,b,c)$ of weight 11, $E(11)$ and $\zeta(11)$, the rational linear relations form a space of dimension exactly $1$, spanned by the weight-11 identity above [C-modular-R12].
+The rational linear relations among $C(9,1,1)$, $C(8,2,1)$, $C(7,3,1)$, $C(7,2,2)$, $C(6,4,1)$, $C(6,3,2)$, $C(5,5,1)$, $C(5,4,2)$, $C(5,3,3)$, $C(4,4,3)$, $E(11)$, $\zeta(11)$ form a space of dimension exactly 1 (weight 11), spanned by the weight-11 relation of the table [C-modular-R12].
 :::
 
-*Certificate.* Completeness was certified by criterion 2: at 20 verifier points (seed 4713, $\tau_2\in[0.9,3]$) one singular value is below 1e-24 (the largest small one is 1.11e-43), and the other 11 exceed 1e-16, the smallest being 3.69e-9 [C-modular-R12]. The originally preregistered criterion 1 (15 points, seed 4712, the other singular values must exceed 1e-8) failed: the smallest large singular value was 4.149e-9 [C-fakt-kriterium1]. We report this openly. Criterion 2 was preregistered afterwards on new data (20 points, seed 4713) with threshold 1e-16, which lies far above the kernel value 1.11e-43 and below the smallest large singular value 3.69e-9, so that it separates kernel from non-kernel on this matrix; it was passed [C-fakt-kriterium1, C-modular-R12].
-
-Novelty status: partly known, as for the previous observation [C-modular-R12].
+ The threshold was chosen so as to separate the null value 1.11e-43 from the smallest large singular value 3.69e-9 [C-modular-R12]. One singular value is below 1e-24 and 11 are above 1e-16 [C-modular-R12].  Novelty status: partly known; see the weight-11 entry above [C-modular-R12].
 
 ::: observation [Hardening of the weight-11 identity]
  An independent direct lattice summation in double precision agrees to at most 1e-12 relative at 8 of 8 points [C-fakt-haertung].
 :::
 
-*Certificate.* At $\tau=(0.500000, 0.866026)$ the residual is 2.15e-42 at 30 digits, 7.01e-57 at 45 digits and 1.3e-71 at 60 digits, and the independent lattice sum differs by 4.372e-14 [C-fakt-haertung]. The run exposed an evaluator bug: the Fourier sum for $E_s$ stopped when a term vanished, which happens at $\tau_1=1/4$ [C-fakt-haertung]. Before the fix that point showed a precision-independent residual of 3.5e-10 [C-fakt-haertung]. All points reported were computed with the corrected code, and no earlier test point was affected [C-fakt-haertung].
+*Certificate.* The criterion operationalises the preregistered expectation that the residual decreases with precision; an exact 0 counts as below rounding resolution [C-fakt-haertung]. The run exposed and fixed an evaluator bug [C-fakt-haertung]. The Fourier sum for $E_s$ stopped when a term vanished, which happens at $\tau_1=1/4$ where $\cos(2\pi N\tau_1)=0$ for odd $N$ [C-fakt-haertung]. Before the fix that point showed a precision-independent residual of 3.5e-10 [C-fakt-haertung]. All listed points were computed with the corrected code, and no earlier test point was affected [C-fakt-haertung].
 
 ::: remark [Status of the computer-assisted parts]
-The proofs of Theorems 1 and 2 rely on exact rational arithmetic (Laplace algebra and Laurent polynomial) executed by the verifier. They are not re-derived by hand [C-fakt-beweis]. The trusted base is the Python implementation, including its rational arithmetic and its transcription of Theorem 5.1 of D'Hoker–Kaidi checked against their eq. 5.19 [C-modular-R17a], together with the two assumptions named in [C-fakt-beweis]. The numerical observations additionally rely on 32-digit floating arithmetic at verifier-chosen points [C-modell]. A third party re-runs every certificate with `python -m asd.recheck modular` from the repository named under Declarations [C-verfuegbarkeit].
+The trusted base consists of the following.
+
+- **Exact rational arithmetic.** It covers the Laplace algebra of Theorems 1 and 2 and the Laurent constants [C-fakt-beweis].
+- **The 32-digit evaluator.** It covers the numerical observations, with the tolerances of the Setting [C-modell].
+
+Not machine-checked are Theorem 5.1 of D'Hoker-Kaidi and the harmonic-implies-constant lemma [C-fakt-beweis]. A third party re-runs all certificates with the commands in the Declarations [C-verfuegbarkeit]. Statements marked numerical are not proofs.
 :::
 
 ## Discussion
 
-The identities express, for odd $w$, the combination $X_w$ of two-loop graphs through a single Eisenstein series plus a single zeta value, with rational constants of closed form. The exact route avoids numerical integer-relation searches, whose coefficient height is the main obstruction at large $w$ (cf. [C-neg3]). The numerical observations are independent confirmation, not part of the proof.
+ 
 
-Limitations. Theorem 1 is conditional on the correctness of Theorem 5.1 of D'Hoker–Kaidi and on the standard lemma used in step 2 [C-fakt-beweis]. Both are cited, not checked by code. The proved range is $w\le 61$ [C-modular-R17a]. The uniqueness statement of Theorem 2 is checked for $w\le 25$ [C-modular-R14].
+**Limitations.** The proof depends on two external ingredients, listed in the status remark [C-fakt-beweis]. The range $w\le 61$ is a computational bound, not a theorem beyond it [C-modular-R17a]. Numerical confirmation certifies values at sampled points together with exact leading coefficients, for the weights $w = 3, 5, 7, 9, 11, 13, 15, 17$ examined [C-fakt-konstanten].
 
-**What did not work.** (a) A search for relations at weight 6 among $C(4,1,1)$, $C(3,2,1)$, $C(2,2,2)$ and products of Eisenstein series and zeta values produced no verified claim [C-neg1]. (b) An exact table of levels for which eta quotients span $M_4(\Gamma_0(N))$ was not obtained in the logged attempts [C-neg2]; it was obtained separately (Appendix A). (c) A direct integer-relation search over the weight-11 basis did not find the relation and was aborted; the likely reason is too low a precision relative to the coefficient height [C-neg3]. The relation was later certified by singular values (criterion 2) [C-modular-R12]. (d) The attempts at the weight-13 and weight-15 constant formula produced no verified claim [C-neg4]; the relations were verified directly later [C-modular-R11a, C-modular-R11b]. (e) The first preregistered completeness criterion at weight 11 failed [C-fakt-kriterium1].
+**What did not work.**
 
-Open questions.
+ It was reported openly, and criterion 2, preregistered afterwards on new data, passed [C-fakt-kriterium1, C-modular-R12].
+- The hardening run found an evaluator bug at $\tau_1=1/4$ (early termination of the Fourier sum when a term vanished). It was fixed, and all listed points use the corrected code [C-fakt-haertung].
 
-(i) A proof for all odd $w$, presumably reducing to an identity between binomial sums.
-(ii) The constants in the non-harmonic eigenvalue equations, i.e. the zeta terms in the equations for $C(a,b,c)$ with eigenvalue $s(s-1)$, $s\ne1$.
-(iii) The analogous statements at higher loop order.
+Further negative results are collected in Appendix A.
+
+**Open questions.**
+
+(i) Is there a proof of $X_w=f_wE(w)+g_w\zeta(w)$ beyond the examined range, i.e. of Conjecture 1, presumably via a binomial-sum identity for the Laurent constant?
+
+(ii) What are the constants in the non-harmonic Laplace eigenvalue equations for $C(a,b,c)$?
+
+(iii) Do analogous closed forms exist at higher loop order?
 
 ## Declarations
 
-**Affiliation** Not stated in the author line supplied with this manuscript.
+**Affiliation** Noah Schittenhelm, Hack-Nation, Team Ninja Turtles.
 
-**Acknowledgements** Computations, literature searches and parts of the manuscript were prepared with an automated verifier-gated laboratory built on the AI system Claude (Anthropic); every statement was accepted only after verification by code; the authors are responsible for the content.
+**Acknowledgements** Computations, literature searches and parts of the manuscript were prepared with an automated verifier-gated laboratory built on the AI system Claude (Anthropic). Every statement was accepted only after verification by code. The authors are responsible for the content.
 
-**Code and data availability** Repository https://github.com/NinjaTurtlesHackathons/Hacknation, branch `claude/modulformen-paper`, directory `projects/modular`. Reproduce all certificates with `python -m asd.recheck modular` and rebuild the paper with `python -m asd.paper --domain modular` [C-verfuegbarkeit].
+**Code and data availability** Repository https://github.com/NinjaTurtlesHackathons/Hacknation, branch `claude/modulformen-paper`, directory `projects/modular`. All certificates are reproduced with `python -m asd.recheck modular`, and the paper is rebuilt with `python -m asd.paper --domain modular` [C-verfuegbarkeit].
 
 **Competing interests** None.
 
 ## Appendix A: Numerical methods and error control
 
-*Certificate types.* An exact certificate computes the Laplace algebra and Laurent polynomials in rational arithmetic. A relation certificate (`mgf_relation`) first tests the exact leading Laurent coefficient in $y=\pi\tau_2$ and then the relative residual at verifier points (32 digits, seed 4711, tolerance 1e-24, or 1e-14 with a finite-difference Laplacian of step 1e-6) [C-modell]. Completeness of a relation space is certified by a singular-value gap of the normalised value matrix (seed 4712): one singular value below 1e-24 and the others above 1e-8 [C-modular-R1, C-modular-R1b, C-modular-R1c, C-modular-R1d].
+**Certificate types.**
 
-*Relation spaces at $w = 3, 5, 7, 9$.* Numerically each has dimension exactly 1, spanned by the identities of the observations above [C-modular-R1, C-modular-R1b, C-modular-R1c, C-modular-R1d]. For weight 9 the smallest large singular value of the $12\times 9$ matrix is 8.6e-7 [C-modular-R1d].
+1. *Exact Laplace algebra and Laurent constants:* rational arithmetic, no floating point [C-fakt-beweis].
+2. *Function relations:* the leading Laurent coefficient is checked exactly, then numerically at four verifier points (seed 4711, 32 digits, tolerance 1e-24, or 1e-14 with the finite-difference Laplacian of step 1e-6) [C-modell].
+3. *Relation spaces:* completeness is shown by a singular-value gap of the normalised value matrix at independent points (seed 4712) [C-modular-R1].
 
-*Laplace equations.* The finite-difference checks give $L[C(3,1,1)]-6\,C(3,1,1)-\tfrac{86}{5}E(5)+4\,E(2)E(3)-\tfrac1{10}\zeta(5)=0$ [C-modular-R4a], $L[C(2,1,1)]-2\,C(2,1,1)-9\,E(4)+E(2)^2=0$ [C-modular-R4b], $L[C(2,2,1)]-8\,E(5)=0$ [C-modular-R4c] and $L[C(2,2,1)]-20\,C(2,2,1)+\tfrac23\zeta(5)=0$ [C-modular-R4d], with maximal relative residuals 1.63e-25, 2.39e-25, 6.99e-26 and 6.74e-26 respectively.
 
-*Verifier self-test (holomorphic identities).* Each identity was proved with a Sturm certificate: the terms lie in the same space of weakly holomorphic forms, and the coefficients up to the stated order vanish exactly. The following identities passed.
+**Validation of the verifier on known results.**
 
-- $\theta(1)^4=\eta(2)^{20}\eta(1)^{-8}\eta(4)^{-8}$ on $\Gamma_0(4)$ [C-modular-R5a].
-- $\theta(1)^2=\eta(2)^{10}\eta(1)^{-4}\eta(4)^{-4}$ on $\Gamma_0(4)$ [C-modular-R5b].
-- thetaE8 $=E_4$ [C-modular-R5c].
-- thetaE8$^2=$ thetaD16, thetaE8$^2=E_4^2$ and thetaE8$^2=E_8$ [C-modular-R5d, C-modular-R5e, C-modular-R5f].
-- $1728\,\Delta=E_4^3-E_6^2$ [C-modular-R5g].
-- $j\Delta=E_4^3$ [C-modular-R5h].
+ The singular values of the normalised matrices show one value below 1e-24; for $w = 3$ the matrix is 6x3 with smallest large value 0.731 [C-modular-R1, C-modular-R1b, C-modular-R1c, C-modular-R1d].
+- Laplace equations: $\Delta C(3,1,1)-6C(3,1,1)-\tfrac{86}{5}E(5)+4E(2)E(3)-\tfrac1{10}\zeta(5)=0$ with residual 1.63e-25 [C-modular-R4a]. $\Delta C(2,1,1)-2C(2,1,1)-9E(4)+E(2)^2=0$ with 2.39e-25 [C-modular-R4b]. $\Delta C(2,2,1)-8E(5)=0$ with 6.99e-26 [C-modular-R4c]. $\Delta C(2,2,1)-20C(2,2,1)+\tfrac23\zeta(5)=0$ with 6.74e-26 [C-modular-R4d].
+- Holomorphic identities (exact, Sturm certificates):
+  - $\theta(1)^4=\eta(2)^{20}\eta(1)^{-8}\eta(4)^{-8}$ on $\Gamma_0(4)$, with coefficients $q^0..q^{11}$ vanishing and Sturm bound 1 [C-modular-R5a]. The weight-1 version $\theta(1)^2=\eta(2)^{10}\eta(1)^{-4}\eta(4)^{-4}$ also holds [C-modular-R5b]. The relation of eta quotients to theta functions is stated in [C-litn5].
+  - $\theta_{\mathrm{E8}}=E_4$ [C-modular-R5c], $\theta_{\mathrm{E8}}^2=\theta_{\mathrm{D16}}$ [C-modular-R5d], $\theta_{\mathrm{E8}}^2=E_4^2$ [C-modular-R5e] and $\theta_{\mathrm{E8}}^2=E_8$ [C-modular-R5f].
+  - $1728\,\Delta=E_4^3-E_6^2$ [C-modular-R5g], a classical fact stated in [C-litn6], and $j\Delta=E_4^3$ [C-modular-R5h].
+- Eta quotients with trivial character span $M_4(\Gamma_0(N))$ exactly for $N\in\{2, 4, 5, 6, 8, 9, 10, 12, 14, 15, 16, 18, 20, 22, 24, 25, 26, 27, 28, 30\}$ and not for $N\in\{1, 3, 7, 11, 13, 17, 19, 21, 23, 29\}$ (exact, exhaustive, $N\le 30$) [C-modular-R8].
 
-Falsified variants (the factors 1727 and 1729 in place of 1728, and the $q^1$-coefficient 481 of thetaD16 in place of 480) were rejected [C-modular-R5a-RT1, C-modular-R5b-RT1, C-modular-R5b-RT2]. Eta quotients with trivial character span $M_4(\Gamma_0(N))$ exactly for $N$ in [2, 4, 5, 6, 8, 9, 10, 12, 14, 15, 16, 18, 20, 22, 24, 25, 26, 27, 28, 30] and not for $N$ in [1, 3, 7, 11, 13, 17, 19, 21, 23, 29] (exact, exhaustive for $N\le 30$) [C-modular-R8]. The novelty status of the last result is "not found in a targeted search of 33 abstracts on 2026-10-04" [C-modular-R8].
+**Negative results.**
 
-*Exact family checks.* A weaker earlier run of the exact family check covered the odd weights examined, $3\le w\le 35$ [C-modular-R16]. It is subsumed by Theorem 1.
+- At weight 6, no claim passed for the relation space of $C(4,1,1)$, $C(3,2,1)$, $C(2,2,2)$ and products of Eisenstein series and zeta values; the 12x9 matrix showed 8 singular values above 1e-8 and none below 1e-24 [C-neg1].
+- No claim passed for the eta-span table in the first attempts [C-neg2].
+ The run was aborted, and the presumed cause is precision too low relative to the coefficient height [C-neg3].
+- No claim passed in the first attempt at the weight-13 and weight-15 constants [C-neg4]. Both relations were later confirmed [C-modular-R11a, C-modular-R11b].
 
-*Laboratory workflow.* The laboratory ran 17 rounds with 37 verified statements and 4 negative results; every round was preregistered before the experiment [C-methode]. Attempts were made by agents named in the logs as `sparsam`, `numeriker`, `skeptiker` and `theoretiker`, plus a cascade run [C-neg1, C-neg3]. Each claim was passed to an independent verifier. A red-team phase produced 53 adversarial counter-checks in total: 4 passed (none contradicting the statement), 48 did not pass (the altered claims were refuted), and 1 was not executable [C-redteam]. Examples of refuted alterations are a doubled $\zeta(17)$ coefficient [C-modular-R13-RT1] and $g_5=1/5$ in place of $1/10$ [C-modular-R17a-RT1].
+**Laboratory workflow.** The laboratory ran 17 rounds with 37 verified statements and 4 negative results [C-methode]. Every round was preregistered before the experiment [C-methode]. Statements were proposed by agents in the roles *sparsam*, *numeriker*, *skeptiker* and *theoretiker* [C-neg1], and accepted only if the verifier passed them. Adversarial counter-checks (red team) numbered 53 in total; 4 passed without contradicting the statement, 48 did not pass, and 1 was not executable [C-redteam]. The verifier rejected falsified variants, such as a doubled $\zeta(17)$ coefficient [C-modular-R13] or a wrong $\zeta(5)$ source term [C-modular-R4d].
 
 ## Appendix B: Provenance of the statements
 

@@ -34,4 +34,4 @@ Eigenwertgleichungen, (iii) höhere Schleifenordnung.
 Regeln: keine E-Mail-Adressen; zertifizierte Resultate und Negativergebnisse nicht streichen, aber in Validierung/Anhang verschieben.
 
 Layout (zweispaltig): keine langen Wertelisten in Formeln oder Theoremen (sie laufen über den Spaltenrand); die Werte f_w, g_w stehen nur in
-EINER Tabelle mit den Spalten w, f_w, g_w (keine Spalte mit Claim-IDs). Theoreme kurz, Formeln höchstens eine Spaltenbreite.
+EINER Tabelle mit den Spalten w, f_w, g_w (keine Spalte mit Claim-IDs). Theoreme kurz, Formeln höchstens eine Spaltenbreite: in Theorem 1 f_w und g_w in zwei getrennten Displays.

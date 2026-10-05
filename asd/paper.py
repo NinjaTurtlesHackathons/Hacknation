@@ -56,7 +56,8 @@ How each certificate type is computed and checked, the trusted base, the verifie
 ## Appendix B: Provenance of the statements
 One sentence: the provenance table mapping every statement to its evidence follows (it is generated automatically; do not write it yourself).
 
-Formatting rules: mathematics as LaTeX in $...$ or $$...$$ (e.g. $e^{-2\\Delta}$, $\\eta \\geq e^{-3\\Delta}$), never Unicode math symbols and never
+Formatting rules: two-column layout, so every display formula must fit ONE column (about 45 characters): one equation per display,
+split long definitions into several displays, never list many values inside a formula. Mathematics as LaTeX in $...$ or $$...$$ (e.g. $e^{-2\\Delta}$, $\\eta \\geq e^{-3\\Delta}$), never Unicode math symbols and never
 forms like "1 * e^-3Delta". Formal statements as fenced blocks:
 ::: theorem [short title]
 statement
@@ -561,6 +562,7 @@ def main():
     branch = sp.run(["git", "branch", "--show-current"], capture_output=True, text=True).stdout.strip()
     C.append({"claim_id": "C-verfuegbarkeit", "text": f"Code and data: repository {a.repo}, branch {branch}, directory {d}; reproduce all certificates with "
               f"'python -m asd.recheck {a.domain}' and rebuild the paper with 'python -m asd.paper --domain {a.domain}'.", "level": "observed", "status": "bestätigt"})
+    C.append({"claim_id": "C-autor", "text": f"Author line of this manuscript: {a.autoren}; affiliation: {a.affiliation or 'none given'}.", "level": "observed", "status": "bestätigt", "anhang": True})
     for c in C: c.setdefault("relevanz", None)
     from .tms import reihenfolge
     C = reihenfolge(C, key="claim_id")                                 # Abhängigkeiten zuerst (Lemma vor Theorem)
@@ -572,7 +574,7 @@ def main():
              "appear only in the appendices; claims not listed must not be used. Use for each formal statement exactly the allowed environment of its claim.")
     extra = open(a.hinweise).read() if a.hinweise and os.path.exists(a.hinweise) else a.hinweise
     outline = (OUTLINE_EN if a.sprache == "en" else OUTLINE_DE) + "\n\n" + SULEMAN_FORM + "\n\n" + story + ("\n\n" + extra if extra else "")
-    outline += f"\n\nAUTHOR LINE (for the Affiliation paragraph): {a.autoren}; affiliation: {a.affiliation or 'none given'}."
+    outline += "\n\nThe author line is in claim [C-autor]; use it ONLY in the Affiliation paragraph of the Declarations (cite [C-autor]), nowhere else."
     for c in C: c["env"] = env_name(c) if c["claim_id"].startswith("C-" + a.domain) and not c["claim_id"].endswith("-I") and "-RT" not in c["claim_id"] else None
     gate = lambda m: rule_issues(m) + env_issues(m, C) + scope_issues(m, C)
     md, log = write(a.titel, f"Research field: {D.kontext}\n\n{outline}", C, salt=f"paper2-{a.domain}-{a.sprache}", lang=a.sprache, extra_check=gate)

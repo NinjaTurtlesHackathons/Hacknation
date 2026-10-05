@@ -1,65 +1,77 @@
 {
- "claims_zitiert": 54,
+ "claims_zitiert": 50,
  "korrekturrunden": [
   {
    "runde": 0,
-   "verstoesse": 78
+   "verstoesse": 79
   },
   {
    "runde": 1,
-   "verstoesse": 8
+   "verstoesse": 46
   },
   {
-   "final_verstoesse_entfernt": 12
+   "final_verstoesse_entfernt": 15
   }
  ],
  "entfernt": [
   {
-   "satz": "| 5 | $6/5$ | $1/10$ |",
+   "satz": "$$E(s)=\\sum_{p\\neq 0}\\Big(\\frac{\\tau_2}{\\pi|p|^2}\\Big)^{s},\\qquad C(a,b,c)=\\sum_{\\substack{p_1+p_2+p_3=0\\\\ p_i\\ne 0}}\\prod_{i}\\Big(\\frac{\\tau_2}{\\pi|p_i|^2}\\Big)^{a_i}\\quad\\text{[C-modell]}$$",
+   "grund": "Zahl(en) [0.0] stehen in keiner zitierten Claim"
+  },
+  {
+   "satz": "The combinations $X_w$ are given by DGV (eq. 3.57), together with $f_w$ for $w\\le 9$ and $g_w$ for $w=3$ and $w=5$; $g_7$ and $g_9$ are left undetermined there, and $g_7$ is also given explicitly in later work.",
    "grund": "Zahl ohne Beleg"
   },
   {
-   "satz": "| 7 | $18/7$ | $1/42$ |",
+   "satz": "For the weights $3\\le w\\le 25$ examined, the space of rational combinations $X$ of dihedral $C(a,b,c)$ of weight $w$ with $\\Delta X\\in\\mathbb{Q}E(w)$ has dimension 1 for odd $w$ and 0 for even $w$.",
    "grund": "Zahl ohne Beleg"
   },
   {
-   "satz": "| 9 | $8$ | $1/120$ |",
+   "satz": "At 8 points not used before (seed 9001, including $\\tau$ near $\\rho$ and $\\tau_2$ up to 3), the relative residual of the weight-11 identity is at most $10^{-d}$ at the working precisions $d$ = 30, 45 and 60 digits, at 8 of 8 points.",
    "grund": "Zahl ohne Beleg"
   },
   {
-   "satz": "| 11 | $360/11$ | $1/264$ |",
+   "satz": "- The originally preregistered criterion 1 for the full weight-11 basis failed, because the singular value 4.149e-9 fell below its threshold of 1e-8.",
    "grund": "Zahl ohne Beleg"
   },
   {
-   "satz": "| 13 | $2160/13$ | $691/327600$ |",
+   "satz": "- At $w = 3, 5, 7, 9$ the relation space found has dimension 1.",
    "grund": "Zahl ohne Beleg"
   },
   {
-   "satz": "| 15 | $1008$ | $1/720$ |",
-   "grund": "Zahl ohne Beleg"
+   "satz": "- Conjecture 1 states the closed forms beyond the examined range; the proof covers only the weights up to $w = 61$ examined [C-fakt-konstanten].",
+   "grund": "Quantor/Verallgemeinerung ohne Allaussage im zitierten Claim; sage „at the points examined (...)“ oder streiche den Quantor"
   },
   {
-   "satz": "| 17 | $120960/17$ | $3617/3427200$ |",
-   "grund": "Zahl ohne Beleg"
+   "satz": "The closed form $f_w=3((w-1)/2)!/w$ is not given there, and the exact confirmation for the weights examined up to $w=25$ is an independent recomputation [C-modular-R14].",
+   "grund": "Quantor/Verallgemeinerung ohne Allaussage im zitierten Claim; sage „at the points examined (...)“ oder streiche den Quantor"
   },
   {
-   "satz": "| 19 | $1088640/19$ | $43867/48263040$ |",
-   "grund": "Zahl ohne Beleg"
+   "satz": "The proof covers the odd weights up to $w=61$ examined [C-modular-R17a]; beyond that range the statement is open.",
+   "grund": "Quantor/Verallgemeinerung ohne Allaussage im zitierten Claim; sage „at the points examined (...)“ oder streiche den Quantor"
   },
   {
-   "satz": "| 21 | $518400$ | $174611/199584000$ |",
-   "grund": "Zahl ohne Beleg"
+   "satz": "*Certificate.* Completeness uses criterion 2, preregistered afterwards on new data (20 points, seed 4713, threshold 1e-16) [C-modular-R12].",
+   "grund": "Schwelle ohne Begründungs-Halbsatz"
   },
   {
-   "satz": "| 23 | $119750400/23$ | $77683/83462400$ |",
-   "grund": "Zahl ohne Beleg"
+   "satz": "The originally preregistered criterion 1 (15 points, seed 4712, other singular values required to exceed 1e-8, a threshold fixed in advance to separate null from non-null values) was **failed**: the singular value 4.149e-9 lies below that threshold, and the null value is 7.591e-44 [C-fakt-kriterium1].",
+   "grund": "Schwelle ohne Begründungs-Halbsatz"
   },
   {
-   "satz": "| 25 | $57480192$ | $236364091/217945728000$ |",
-   "grund": "Zahl ohne Beleg"
+   "satz": "**Interpretation.** For odd weight the harmonic space in the dihedral sector has dimension 1 for the weights examined in Theorem 2 [C-modular-R14], so $X_w$ is fixed up to scale and the remaining freedom is one rational number $g_w$.",
+   "grund": "Quantor/Verallgemeinerung ohne Allaussage im zitierten Claim; sage „at the points examined (...)“ oder streiche den Quantor"
   },
   {
-   "satz": "At 8 of 8 preregistered points not used before (seed 9001, including $\\tau$ near $\\rho$ and $\\tau_2$ up to 3), the relative residual of the weight-11 relation is at most $10^{-d}$ at every working precision of $d$ digits tested [C-fakt-haertung].",
+   "satz": "Its closed form $6|B_{w-1}|/((w-1)/2)!$ was established for the odd weights up to $w=61$ examined [C-modular-R17a].",
+   "grund": "Quantor/Verallgemeinerung ohne Allaussage im zitierten Claim; sage „at the points examined (...)“ oder streiche den Quantor"
+  },
+  {
+   "satz": "4. *Holomorphic identities:* Sturm-bound certificates, in which the coefficients $q^0..q^{11}$ vanish exactly up to the Sturm bound, as in [C-modular-R5a].",
+   "grund": "Quantor/Verallgemeinerung ohne Allaussage im zitierten Claim; sage „at the points examined (...)“ oder streiche den Quantor"
+  },
+  {
+   "satz": "- A PSLQ search over the full 12-element weight-11 basis with 6-8 points and up to 64 digits yielded no verified relation [C-neg3].",
    "grund": "Quantor/Verallgemeinerung ohne Allaussage im zitierten Claim; sage „at the points examined (...)“ oder streiche den Quantor"
   }
  ],
@@ -68,7 +80,7 @@
  },
  "referee": {
   "referee_schwaechen": 5,
-  "behoben_versucht": 3,
+  "behoben_versucht": 4,
   "revision_uebernommen": false
  },
  "verbleibende_verstoesse": [],
@@ -121,5 +133,5 @@
    "C-verfuegbarkeit": "anhang"
   }
  },
- "provenance_zeilen": 16
+ "provenance_zeilen": 19
 }

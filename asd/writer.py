@@ -40,14 +40,25 @@ def check(md, claims):
                     if re.match(r"^(Table|Tabelle)\s*:", t): cap += re.findall(r"C-[\w\-*.]+", t)
                     break
             erbt[k] = cap
+    k = 0                                                               # Sätze in ::: Blöcken erben die Belege des Blocks und des folgenden Beweis-/Zertifikatsabsatzes
+    while k < len(lines):
+        if re.match(r"^:::\s*\S", lines[k].strip()):
+            e = k + 1
+            while e < len(lines) and lines[e].strip() != ":::": e += 1
+            nxt = next((lines[j] for j in range(e + 1, len(lines)) if lines[j].strip()), "")
+            ids_b = re.findall(r"C-[\w\-*.]+", " ".join(lines[k:e])) + (re.findall(r"C-[\w\-*.]+", nxt) if re.match(r"^\*?(Proof|Certificate|Beweis|Zertifikat)", nxt.strip()) else [])
+            for j in range(k, e): erbt.setdefault(j, []); erbt[j] = erbt[j] + ids_b
+            k = e
+        k += 1
+    blk = {j for j in erbt if not lines[j].lstrip().startswith("|")}
     for k, para in enumerate(lines):
         if not para.strip() or para.lstrip().startswith("#"): continue
         if re.match(r"^\s*\|[\s:|-]+\|\s*$", para): continue
-        for s in ([para] if k in erbt else re.split(r"(?<=[.!?])\s+(?=[A-ZÄÖÜ\[])", para)):
+        for s in ([para] if k in erbt and k not in blk else re.split(r"(?<=[.!?])\s+(?=[A-ZÄÖÜ\[])", para)):
             ids = [i for m in re.finditer(r"\[([^\]]+)\]", s) for i in re.findall(r"C-[\w\-*.]+", m.group(1))] + erbt.get(k, [])
             bad = [i for i in ids if i not in C]
             if bad: issues.append((s, f"unbekannte claim_id {bad}")); continue
-            body = re.sub(r"\[[^\]]*\]", "", s); nums = _nums(body) - {1.0, 2.0, 3.0, 4.0}   # Aufzählungen/Dimensionen zulassen
+            body = re.sub(r"\[[^\]]*\]", "", s); nums = _nums(body) - {0.0, 1.0, 2.0, 3.0, 4.0}   # Aufzählungen/Dimensionen/Indizes zulassen
             if nums and not ids: issues.append((s, "Zahl ohne Beleg")); continue
             allowed = set().union(*[_nums(C[i]["text"]) | _nums(C[i]["claim_id"]) for i in ids]) if ids else set()
             miss = [n for n in nums if not any(abs(abs(n) - abs(a)) <= 1e-9 * max(1, abs(a)) for a in allowed)]   # Betrag: Vorzeichen hängt an Schreibweise ('- 12' vs '-12')
