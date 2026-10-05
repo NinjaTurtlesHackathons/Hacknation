@@ -123,7 +123,7 @@
    "machbarkeit": 0.6,
    "lueckenkarte": "L11",
    "id": "F12",
-   "status": "offen",
+   "status": "beantwortet",
    "quelle": "lueckenkarte",
    "faden_id": "F12"
   },
@@ -2607,6 +2607,97 @@
     "datum": "2026-10-04",
     "status": "nicht_gefunden"
    }
+  },
+  {
+   "id": "modular-R12",
+   "frage": "Bestimme den Relationsraum der VOLLEN Basis vom Gewicht 11: C(9,1,1), C(8,2,1), C(7,3,1), C(7,2,2), C(6,4,1), C(6,3,2), C(5,5,1), C(5,4,2), C(5,3,3), C(4,4,3), E(11), zeta(11) (mgf_relationsraum_v2, Kriterium 2 laut Präregistrierungs-Nachtrag 2). Bekannte Relation: 19008*C(5,5,1)+38016*C(5,4,2)+19008*C(5,3,3)+28512*C(4,4,3)-8640*E(11)-zeta(11)=0.",
+   "text": "Numerisch bilden die rationalen linearen Relationen zwischen C(9,1,1), C(8,2,1), C(7,3,1), C(7,2,2), C(6,4,1), C(6,3,2), C(5,5,1), C(5,4,2), C(5,3,3), C(4,4,3), E(11), zeta(11) (Gewicht 11) einen Raum der Dimension genau 1, aufgespannt von der Identität 19008·C(5,5,1) + 38016·C(5,4,2) + 19008·C(5,3,3) + 28512·C(4,4,3) - 8640·E(11) - zeta(11) = 0 (jede Relation auf 1e-24 an Prüfer-Punkten geprüft, exakter Laurent-Leitkoeffizient; Vollständigkeit nach Kriterium 2 (übrige Singulärwerte > 1e-16)).",
+   "interpretation_ungeprueft": "Dimension 1",
+   "pruefung": {
+    "typ": "mgf_relationsraum_v2",
+    "basis": [
+     "C(9,1,1)",
+     "C(8,2,1)",
+     "C(7,3,1)",
+     "C(7,2,2)",
+     "C(6,4,1)",
+     "C(6,3,2)",
+     "C(5,5,1)",
+     "C(5,4,2)",
+     "C(5,3,3)",
+     "C(4,4,3)",
+     "E(11)",
+     "zeta(11)"
+    ],
+    "dim": 1,
+    "relationen": [
+     [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      19008,
+      38016,
+      19008,
+      28512,
+      -8640,
+      -1
+     ]
+    ],
+    "lesart": "Einzige rationale Relation (primitiv, normalisiert auf zeta(11)-Koeffizient = -1): 19008·C(5,5,1) + 38016·C(5,4,2) + 19008·C(5,3,3) + 28512·C(4,4,3) - 8640·E(11) - zeta(11) = 0; Vollständigkeit durch Nichtauffindbarkeit neuer Kandidaten bei Kriterium 2 mit hoher Präzision (dps=48)"
+   },
+   "grund": "Kriterium 2: Singulärwerte der normierten 20x12-Matrix (Seed 4713, tau2 in [0.9, 3]): 1 < 1e-24, 11 > 1e-16, kleinster großer 3.69e-9, größter kleiner 1.11e-43",
+   "level": "observed",
+   "status": "bestätigt",
+   "red_team": [
+    {
+     "pruefung": {
+      "typ": "mgf_relationsraum_v2",
+      "basis": [
+       "C(9,1,1)",
+       "C(8,2,1)",
+       "C(7,3,1)",
+       "C(7,2,2)",
+       "C(6,4,1)",
+       "C(6,3,2)",
+       "C(5,5,1)",
+       "C(5,4,2)",
+       "C(5,3,3)",
+       "C(4,4,3)",
+       "E(11)",
+       "zeta(11)"
+      ],
+      "dim": 0,
+      "relationen": []
+     },
+     "idee": "Gegenteil der Antwort: Die Prüfung besteht nur, wenn die 12 Funktionen rational linear unabhängig sind, also auch die als bekannt angegebene Relation nicht gilt (falsche Koeffizienten oder falsche Relation). Dann wäre 'Dimension 1' falsch.",
+     "bestanden": false,
+     "ergebnis": "nicht_bestanden",
+     "grund": "Kriterium 2: Singulärwerte der normierten 20x12-Matrix (Seed 4713, tau2 in [0.9, 3]): 1 < 1e-24, 11 > 1e-16, kleinster großer 3.69e-9, größter kleiner 1.11e-43",
+     "widerspruch": false
+    }
+   ],
+   "runde": 12,
+   "relevanz": "hauptresultat",
+   "neuheit": {
+    "suchanfragen": [
+     "modular graph functions rational relations",
+     "weight 11 modular graph functions",
+     "closed string amplitude modular graph",
+     "Eisenstein series modular graph constraint"
+    ],
+    "treffer": {
+     "modular graph functions rational relations": 20,
+     "weight 11 modular graph functions": 24,
+     "closed string amplitude modular graph": 25,
+     "Eisenstein series modular graph constraint": 4
+    },
+    "quellen_geprueft": 82,
+    "datum": "2026-10-05",
+    "status": "nicht_gefunden"
+   }
   }
  ],
  "widerlegt": [
@@ -3639,6 +3730,41 @@
    ],
    "sek": 7453.2,
    "faden_id": "F11"
+  },
+  {
+   "runde": 12,
+   "frage": "F12",
+   "status": "beantwortet",
+   "red_team": [
+    {
+     "pruefung": {
+      "typ": "mgf_relationsraum_v2",
+      "basis": [
+       "C(9,1,1)",
+       "C(8,2,1)",
+       "C(7,3,1)",
+       "C(7,2,2)",
+       "C(6,4,1)",
+       "C(6,3,2)",
+       "C(5,5,1)",
+       "C(5,4,2)",
+       "C(5,3,3)",
+       "C(4,4,3)",
+       "E(11)",
+       "zeta(11)"
+      ],
+      "dim": 0,
+      "relationen": []
+     },
+     "idee": "Gegenteil der Antwort: Die Prüfung besteht nur, wenn die 12 Funktionen rational linear unabhängig sind, also auch die als bekannt angegebene Relation nicht gilt (falsche Koeffizienten oder falsche Relation). Dann wäre 'Dimension 1' falsch.",
+     "bestanden": false,
+     "ergebnis": "nicht_bestanden",
+     "grund": "Kriterium 2: Singulärwerte der normierten 20x12-Matrix (Seed 4713, tau2 in [0.9, 3]): 1 < 1e-24, 11 > 1e-16, kleinster großer 3.69e-9, größter kleiner 1.11e-43",
+     "widerspruch": false
+    }
+   ],
+   "sek": 5238.2,
+   "faden_id": "F12"
   }
  ],
  "kosten_usd": 0.0

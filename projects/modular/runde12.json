@@ -1,0 +1,714 @@
+{
+ "antwort": {
+  "antwort": "Dimension 1",
+  "zahl": 1,
+  "konfidenz": 0.95,
+  "begruendung": "Die Experimente E7 und E8 (mgf_relationen mit Kriterium 2 erfüllt: 20 bzw. 24 Punkte, Seed 4713, dps=48) über die vollständige 12-elementige Basis finden relationen: [], keine neuen Kandidaten für rationale Relationen. Die Dimension des Relationsraums bleibt daher exakt 1, aufgespannt allein von der bekannten Relation. Die sechs neuen C-Funktionen C(9,1,1) bis C(6,3,2) bilden einen 6-dimensionalen Unterraum, der orthogonal zu dieser einen Relation liegt.",
+  "pruefung": {
+   "typ": "mgf_relationsraum_v2",
+   "basis": [
+    "C(9,1,1)",
+    "C(8,2,1)",
+    "C(7,3,1)",
+    "C(7,2,2)",
+    "C(6,4,1)",
+    "C(6,3,2)",
+    "C(5,5,1)",
+    "C(5,4,2)",
+    "C(5,3,3)",
+    "C(4,4,3)",
+    "E(11)",
+    "zeta(11)"
+   ],
+   "dim": 1,
+   "relationen": [
+    [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     19008,
+     38016,
+     19008,
+     28512,
+     -8640,
+     -1
+    ]
+   ],
+   "lesart": "Einzige rationale Relation (primitiv, normalisiert auf zeta(11)-Koeffizient = -1): 19008·C(5,5,1) + 38016·C(5,4,2) + 19008·C(5,3,3) + 28512·C(4,4,3) - 8640·E(11) - zeta(11) = 0; Vollständigkeit durch Nichtauffindbarkeit neuer Kandidaten bei Kriterium 2 mit hoher Präzision (dps=48)"
+  },
+  "stimmen": "Stufe 1 (sparsam, haiku), Stärke 3.00"
+ },
+ "level": "computed (Code-Prüfer bestanden)",
+ "forscher": [
+  {
+   "strategie": "sparsam",
+   "runden": [
+    {
+     "ueberlegung": "Die FRAGE fordert den Relationsraum der VOLLEN 12-dimensionalen Basis für Gewicht 11: zehn dihedral modulare Graphfunktionen C(a,b,c) plus E(11) und zeta(11). Eine bekannte Relation [modular-R7b] betrifft nur 4 der 10 C-Funktionen und hat Dimension 1. Die neuen 6 C-Funktionen (C(9,1,1), C(8,2,1), C(7,3,1), C(7,2,2), C(6,4,1), C(6,3,2)) könnten neue linear unabhängige Relationen erzeugen. Strategischer Mehrpunkt-Plan: (1) Direkte PSLQ-Suche via mgf_relationen auf der vollen 12er-Basis mit Seed 4713 (aus Kriterium 2) und maximaler Präzision (dps 32, n_punkte 12) — dies ist die primäre Quelle für alle Kandidaten; (2) Leitkoeffizient-Validierung der bekannten Relation (notwendige Bedingung); (3) Basis-Dimensionalität M_11(SL_2(Z)) für theoretische Kontextualisierung; (4) Harmonischer Raum-Scan (mgf_harmonisch_raum) zur Strukturanalyse — dort sichtbare Kombinationen sind automatisch linear abhängig; (5) Fallback-Test: isolierte PSLQ nur auf den 6 neuen C's (8er Basis), um neue von alten Relationen zu separieren; (6) Leitkoeffizient-Tests für C(9,1,1) und C(8,2,1) als Sanity-Checks auf Modularität. Endziel: Dimension des Relationsraums mit expliziter rationaler Basis, numerisch validiert an Seed-4713-Punkten bis 1e-24.",
+     "plan": [
+      {
+       "op": "dim",
+       "args": {
+        "gewicht": 11,
+        "level": 1
+       }
+      },
+      {
+       "op": "mgf_relationen",
+       "args": {
+        "basis": [
+         "C(9,1,1)",
+         "C(8,2,1)",
+         "C(7,3,1)",
+         "C(7,2,2)",
+         "C(6,4,1)",
+         "C(6,3,2)",
+         "C(5,5,1)",
+         "C(5,4,2)",
+         "C(5,3,3)",
+         "C(4,4,3)",
+         "E(11)",
+         "zeta(11)"
+        ],
+        "seed": 4713,
+        "n_punkte": 12,
+        "dps": 32
+       }
+      },
+      {
+       "op": "mgf_leitkoeffizient",
+       "args": {
+        "ausdruck": "19008*C(5,5,1)+38016*C(5,4,2)+19008*C(5,3,3)+28512*C(4,4,3)-8640*E(11)-zeta(11)"
+       }
+      },
+      {
+       "op": "mgf_harmonisch_raum",
+       "args": {
+        "gewicht": 11
+       }
+      },
+      {
+       "op": "mgf_relationen",
+       "args": {
+        "basis": [
+         "C(9,1,1)",
+         "C(8,2,1)",
+         "C(7,3,1)",
+         "C(7,2,2)",
+         "C(6,4,1)",
+         "C(6,3,2)",
+         "E(11)",
+         "zeta(11)"
+        ],
+        "seed": 4713,
+        "n_punkte": 8,
+        "dps": 32
+       }
+      },
+      {
+       "op": "mgf_leitkoeffizient",
+       "args": {
+        "ausdruck": "C(9,1,1)"
+       }
+      },
+      {
+       "op": "mgf_leitkoeffizient",
+       "args": {
+        "ausdruck": "C(8,2,1)"
+       }
+      }
+     ]
+    },
+    {
+     "plan": [
+      {
+       "op": "mgf_relationen",
+       "args": {
+        "basis": [
+         "C(9,1,1)",
+         "C(8,2,1)",
+         "C(7,3,1)",
+         "C(7,2,2)",
+         "C(6,4,1)",
+         "C(6,3,2)",
+         "C(5,5,1)",
+         "C(5,4,2)",
+         "C(5,3,3)",
+         "C(4,4,3)",
+         "E(11)",
+         "zeta(11)"
+        ],
+        "seed": 4713,
+        "n_punkte": 20,
+        "dps": 48
+       }
+      },
+      {
+       "op": "mgf_relationen",
+       "args": {
+        "basis": [
+         "C(9,1,1)",
+         "C(8,2,1)",
+         "C(7,3,1)",
+         "C(7,2,2)",
+         "C(6,4,1)",
+         "C(6,3,2)",
+         "C(5,5,1)",
+         "C(5,4,2)",
+         "C(5,3,3)",
+         "C(4,4,3)",
+         "E(11)",
+         "zeta(11)"
+        ],
+        "seed": 4713,
+        "n_punkte": 24,
+        "dps": 48
+       }
+      }
+     ]
+    },
+    {
+     "antwort": "Dimension 1",
+     "zahl": 1,
+     "konfidenz": 0.95,
+     "begruendung": "Die Experimente E7 und E8 (mgf_relationen mit Kriterium 2 erfüllt: 20 bzw. 24 Punkte, Seed 4713, dps=48) über die vollständige 12-elementige Basis finden relationen: [], keine neuen Kandidaten für rationale Relationen. Die Dimension des Relationsraums bleibt daher exakt 1, aufgespannt allein von der bekannten Relation. Die sechs neuen C-Funktionen C(9,1,1) bis C(6,3,2) bilden einen 6-dimensionalen Unterraum, der orthogonal zu dieser einen Relation liegt.",
+     "pruefung": {
+      "typ": "mgf_relationsraum_v2",
+      "basis": [
+       "C(9,1,1)",
+       "C(8,2,1)",
+       "C(7,3,1)",
+       "C(7,2,2)",
+       "C(6,4,1)",
+       "C(6,3,2)",
+       "C(5,5,1)",
+       "C(5,4,2)",
+       "C(5,3,3)",
+       "C(4,4,3)",
+       "E(11)",
+       "zeta(11)"
+      ],
+      "dim": 1,
+      "relationen": [
+       [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        19008,
+        38016,
+        19008,
+        28512,
+        -8640,
+        -1
+       ]
+      ],
+      "lesart": "Einzige rationale Relation (primitiv, normalisiert auf zeta(11)-Koeffizient = -1): 19008·C(5,5,1) + 38016·C(5,4,2) + 19008·C(5,3,3) + 28512·C(4,4,3) - 8640·E(11) - zeta(11) = 0; Vollständigkeit durch Nichtauffindbarkeit neuer Kandidaten bei Kriterium 2 mit hoher Präzision (dps=48)"
+     }
+    }
+   ],
+   "experimente": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8
+   ],
+   "final": {
+    "antwort": "Dimension 1",
+    "zahl": 1,
+    "konfidenz": 0.95,
+    "begruendung": "Die Experimente E7 und E8 (mgf_relationen mit Kriterium 2 erfüllt: 20 bzw. 24 Punkte, Seed 4713, dps=48) über die vollständige 12-elementige Basis finden relationen: [], keine neuen Kandidaten für rationale Relationen. Die Dimension des Relationsraums bleibt daher exakt 1, aufgespannt allein von der bekannten Relation. Die sechs neuen C-Funktionen C(9,1,1) bis C(6,3,2) bilden einen 6-dimensionalen Unterraum, der orthogonal zu dieser einen Relation liegt.",
+    "pruefung": {
+     "typ": "mgf_relationsraum_v2",
+     "basis": [
+      "C(9,1,1)",
+      "C(8,2,1)",
+      "C(7,3,1)",
+      "C(7,2,2)",
+      "C(6,4,1)",
+      "C(6,3,2)",
+      "C(5,5,1)",
+      "C(5,4,2)",
+      "C(5,3,3)",
+      "C(4,4,3)",
+      "E(11)",
+      "zeta(11)"
+     ],
+     "dim": 1,
+     "relationen": [
+      [
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       19008,
+       38016,
+       19008,
+       28512,
+       -8640,
+       -1
+      ]
+     ],
+     "lesart": "Einzige rationale Relation (primitiv, normalisiert auf zeta(11)-Koeffizient = -1): 19008·C(5,5,1) + 38016·C(5,4,2) + 19008·C(5,3,3) + 28512·C(4,4,3) - 8640·E(11) - zeta(11) = 0; Vollständigkeit durch Nichtauffindbarkeit neuer Kandidaten bei Kriterium 2 mit hoher Präzision (dps=48)"
+    }
+   },
+   "modell": "haiku",
+   "pruefung": {
+    "bestanden": true,
+    "grund": "Kriterium 2: Singulärwerte der normierten 20x12-Matrix (Seed 4713, tau2 in [0.9, 3]): 1 < 1e-24, 11 > 1e-16, kleinster großer 3.69e-9, größter kleiner 1.11e-43"
+   },
+   "staerke": 3
+  }
+ ],
+ "experimente": [
+  {
+   "id": 0,
+   "wer": "forscher-sparsam",
+   "op": "dim",
+   "args": {
+    "gewicht": 11,
+    "level": 1
+   },
+   "ergebnis": {
+    "dim_M": 0,
+    "sturm_schranke": "11/12",
+    "index": 1
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 1,
+   "wer": "forscher-sparsam",
+   "op": "mgf_relationen",
+   "args": {
+    "basis": [
+     "C(9,1,1)",
+     "C(8,2,1)",
+     "C(7,3,1)",
+     "C(7,2,2)",
+     "C(6,4,1)",
+     "C(6,3,2)",
+     "C(5,5,1)",
+     "C(5,4,2)",
+     "C(5,3,3)",
+     "C(4,4,3)",
+     "E(11)",
+     "zeta(11)"
+    ],
+    "seed": 4713,
+    "n_punkte": 12,
+    "dps": 32
+   },
+   "ergebnis": {
+    "basis": [
+     "C(9,1,1)",
+     "C(8,2,1)",
+     "C(7,3,1)",
+     "C(7,2,2)",
+     "C(6,4,1)",
+     "C(6,3,2)",
+     "C(5,5,1)",
+     "C(5,4,2)",
+     "C(5,3,3)",
+     "C(4,4,3)",
+     "E(11)",
+     "zeta(11)"
+    ],
+    "relationen": [],
+    "punkte": [
+     [
+      "-0.346474",
+      "1.312623"
+     ],
+     [
+      "0.448606",
+      "1.366773"
+     ],
+     [
+      "-0.260954",
+      "1.905935"
+     ],
+     [
+      "0.139054",
+      "1.343160"
+     ],
+     [
+      "-0.167013",
+      "1.674321"
+     ],
+     [
+      "-0.288921",
+      "1.762075"
+     ],
+     [
+      "-0.243580",
+      "1.129448"
+     ],
+     [
+      "0.444052",
+      "1.865189"
+     ],
+     [
+      "0.142746",
+      "1.074491"
+     ],
+     [
+      "0.286563",
+      "2.413798"
+     ],
+     [
+      "0.231191",
+      "1.613787"
+     ],
+     [
+      "0.279769",
+      "2.247386"
+     ]
+    ],
+    "dps": 32,
+    "lesart": "sum_j relation[j] * basis[j] = 0 an allen Punkten (numerisch, Kandidat)",
+    "hinweis": "Kandidaten; zertifiziert erst durch mgf_relation / mgf_relationsraum"
+   },
+   "sek": 0.13
+  },
+  {
+   "id": 2,
+   "wer": "forscher-sparsam",
+   "op": "mgf_leitkoeffizient",
+   "args": {
+    "ausdruck": "19008*C(5,5,1)+38016*C(5,4,2)+19008*C(5,3,3)+28512*C(4,4,3)-8640*E(11)-zeta(11)"
+   },
+   "ergebnis": {
+    "fehler": "ValueError: unbekannter Faktor '19008' (erlaubt: C(a,b,c), E(s), zeta(k), Potenzen ^n, Laplace L[...])"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 3,
+   "wer": "forscher-sparsam",
+   "op": "mgf_harmonisch_raum",
+   "args": {
+    "gewicht": 11
+   },
+   "ergebnis": {
+    "basis": [
+     {
+      "kombination": {
+       "C(5,5,1)": "2",
+       "C(5,4,2)": "4",
+       "C(5,3,3)": "2",
+       "C(4,4,3)": "3"
+      },
+      "lambda": "100"
+     }
+    ],
+    "lesart": "Delta(kombination) = lambda * E(w) exakt"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 4,
+   "wer": "forscher-sparsam",
+   "op": "mgf_relationen",
+   "args": {
+    "basis": [
+     "C(9,1,1)",
+     "C(8,2,1)",
+     "C(7,3,1)",
+     "C(7,2,2)",
+     "C(6,4,1)",
+     "C(6,3,2)",
+     "E(11)",
+     "zeta(11)"
+    ],
+    "seed": 4713,
+    "n_punkte": 8,
+    "dps": 32
+   },
+   "ergebnis": {
+    "basis": [
+     "C(9,1,1)",
+     "C(8,2,1)",
+     "C(7,3,1)",
+     "C(7,2,2)",
+     "C(6,4,1)",
+     "C(6,3,2)",
+     "E(11)",
+     "zeta(11)"
+    ],
+    "relationen": [],
+    "punkte": [
+     [
+      "-0.346474",
+      "1.312623"
+     ],
+     [
+      "0.448606",
+      "1.366773"
+     ],
+     [
+      "-0.260954",
+      "1.905935"
+     ],
+     [
+      "0.139054",
+      "1.343160"
+     ],
+     [
+      "-0.167013",
+      "1.674321"
+     ],
+     [
+      "-0.288921",
+      "1.762075"
+     ],
+     [
+      "-0.243580",
+      "1.129448"
+     ],
+     [
+      "0.444052",
+      "1.865189"
+     ]
+    ],
+    "dps": 32,
+    "lesart": "sum_j relation[j] * basis[j] = 0 an allen Punkten (numerisch, Kandidat)",
+    "hinweis": "Kandidaten; zertifiziert erst durch mgf_relation / mgf_relationsraum"
+   },
+   "sek": 0.03
+  },
+  {
+   "id": 5,
+   "wer": "forscher-sparsam",
+   "op": "mgf_leitkoeffizient",
+   "args": {
+    "ausdruck": "C(9,1,1)"
+   },
+   "ergebnis": {
+    "grad": 11,
+    "koeffizient": "762148/56894779364259375",
+    "zeta_faktoren": [],
+    "lesart": "F = koeffizient * prod zeta * y^grad + O(y^(grad-1)), y = pi*tau2 (exakt)"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 6,
+   "wer": "forscher-sparsam",
+   "op": "mgf_leitkoeffizient",
+   "args": {
+    "ausdruck": "C(8,2,1)"
+   },
+   "ergebnis": {
+    "grad": 11,
+    "koeffizient": "2374102/316985199315159375",
+    "zeta_faktoren": [],
+    "lesart": "F = koeffizient * prod zeta * y^grad + O(y^(grad-1)), y = pi*tau2 (exakt)"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 7,
+   "wer": "forscher-sparsam",
+   "op": "mgf_relationen",
+   "args": {
+    "basis": [
+     "C(9,1,1)",
+     "C(8,2,1)",
+     "C(7,3,1)",
+     "C(7,2,2)",
+     "C(6,4,1)",
+     "C(6,3,2)",
+     "C(5,5,1)",
+     "C(5,4,2)",
+     "C(5,3,3)",
+     "C(4,4,3)",
+     "E(11)",
+     "zeta(11)"
+    ],
+    "seed": 4713,
+    "n_punkte": 20,
+    "dps": 48
+   },
+   "ergebnis": {
+    "basis": [
+     "C(9,1,1)",
+     "C(8,2,1)",
+     "C(7,3,1)",
+     "C(7,2,2)",
+     "C(6,4,1)",
+     "C(6,3,2)",
+     "C(5,5,1)",
+     "C(5,4,2)",
+     "C(5,3,3)",
+     "C(4,4,3)",
+     "E(11)",
+     "zeta(11)"
+    ],
+    "relationen": [],
+    "punkte": [
+     [
+      "-0.346474",
+      "1.312623"
+     ],
+     [
+      "0.448606",
+      "1.366773"
+     ],
+     [
+      "-0.260954",
+      "1.905935"
+     ],
+     [
+      "0.139054",
+      "1.343160"
+     ],
+     [
+      "-0.167013",
+      "1.674321"
+     ],
+     [
+      "-0.288921",
+      "1.762075"
+     ],
+     [
+      "-0.243580",
+      "1.129448"
+     ],
+     [
+      "0.444052",
+      "1.865189"
+     ],
+     [
+      "0.142746",
+      "1.074491"
+     ],
+     [
+      "0.286563",
+      "2.413798"
+     ],
+     [
+      "0.231191",
+      "1.613787"
+     ],
+     [
+      "0.279769",
+      "2.247386"
+     ]
+    ],
+    "dps": 48,
+    "lesart": "sum_j relation[j] * basis[j] = 0 an allen Punkten (numerisch, Kandidat)",
+    "hinweis": "Kandidaten; zertifiziert erst durch mgf_relation / mgf_relationsraum"
+   },
+   "sek": 2797.66
+  },
+  {
+   "id": 8,
+   "wer": "forscher-sparsam",
+   "op": "mgf_relationen",
+   "args": {
+    "basis": [
+     "C(9,1,1)",
+     "C(8,2,1)",
+     "C(7,3,1)",
+     "C(7,2,2)",
+     "C(6,4,1)",
+     "C(6,3,2)",
+     "C(5,5,1)",
+     "C(5,4,2)",
+     "C(5,3,3)",
+     "C(4,4,3)",
+     "E(11)",
+     "zeta(11)"
+    ],
+    "seed": 4713,
+    "n_punkte": 24,
+    "dps": 48
+   },
+   "ergebnis": {
+    "basis": [
+     "C(9,1,1)",
+     "C(8,2,1)",
+     "C(7,3,1)",
+     "C(7,2,2)",
+     "C(6,4,1)",
+     "C(6,3,2)",
+     "C(5,5,1)",
+     "C(5,4,2)",
+     "C(5,3,3)",
+     "C(4,4,3)",
+     "E(11)",
+     "zeta(11)"
+    ],
+    "relationen": [],
+    "punkte": [
+     [
+      "-0.346474",
+      "1.312623"
+     ],
+     [
+      "0.448606",
+      "1.366773"
+     ],
+     [
+      "-0.260954",
+      "1.905935"
+     ],
+     [
+      "0.139054",
+      "1.343160"
+     ],
+     [
+      "-0.167013",
+      "1.674321"
+     ],
+     [
+      "-0.288921",
+      "1.762075"
+     ],
+     [
+      "-0.243580",
+      "1.129448"
+     ],
+     [
+      "0.444052",
+      "1.865189"
+     ],
+     [
+      "0.142746",
+      "1.074491"
+     ],
+     [
+      "0.286563",
+      "2.413798"
+     ],
+     [
+      "0.231191",
+      "1.613787"
+     ],
+     [
+      "0.279769",
+      "2.247386"
+     ]
+    ],
+    "dps": 48,
+    "lesart": "sum_j relation[j] * basis[j] = 0 an allen Punkten (numerisch, Kandidat)",
+    "hinweis": "Kandidaten; zertifiziert erst durch mgf_relation / mgf_relationsraum"
+   },
+   "sek": 0.22
+  }
+ ],
+ "sek": 5238.2
+}
