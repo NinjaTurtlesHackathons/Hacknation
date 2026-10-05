@@ -102,7 +102,7 @@
    "lueckenkarte": "L10",
    "hypothese_herkunft": "Formel g_w = 6|B_(w-1)| zeta(w)/((w-1)/2)! aus Exploration w = 3..13, vorab präregistriert",
    "id": "F10",
-   "status": "offen",
+   "status": "beantwortet",
    "quelle": "lueckenkarte",
    "faden_id": "F10"
   },
@@ -132,7 +132,7 @@
    "frage": "Bestätige exakt mit mgf_harmonisch_familie (gewicht_bis 25): für alle 3 <= w <= 25 ist der Raum der C-Kombinationen mit Delta X in Q*E(w) eindimensional (ungerade w, DGV-Kombination, f_w = 3((w-1)/2)!/w) bzw. null (gerade w).",
    "neuheit": 0.4,
    "machbarkeit": 0.95,
-   "status": "offen",
+   "status": "beantwortet",
    "quelle": "lueckenkarte",
    "lueckenkarte": "L9",
    "faden_id": "F13"
@@ -2698,6 +2698,252 @@
     "datum": "2026-10-05",
     "status": "nicht_gefunden"
    }
+  },
+  {
+   "id": "modular-R13",
+   "frage": "Blindtest der Konstantenformel bei Gewicht 17: Prüfe die Relation 51819264000*C(8,8,1) + 103638528000*C(8,7,2) + 103638528000*C(8,6,3) + 103638528000*C(8,5,4) + 88833024000*C(7,7,3) + 222082560000*C(7,6,4) + 118444032000*C(7,5,5) + 148055040000*C(6,6,5) + -24385536000*E(17) + -3617*zeta(17) = 0 (mgf_relation).",
+   "text": "Numerisch (32 Stellen, 4 Prüfer-Punkte, rel. Residuum <= 1e-24): 51819264000·C(8,8,1) + 103638528000·C(8,7,2) + 103638528000·C(8,6,3) + 103638528000·C(8,5,4) + 88833024000·C(7,7,3) + 222082560000·C(7,6,4) + 118444032000·C(7,5,5) + 148055040000·C(6,6,5) - 24385536000·E(17) - 3617·zeta(17) = 0 als Funktionen von tau.",
+   "interpretation_ungeprueft": "Relation zu prüfen (Blindtest Gewicht 17)",
+   "pruefung": {
+    "typ": "mgf_relation",
+    "terme": [
+     [
+      "51819264000",
+      "C(8,8,1)"
+     ],
+     [
+      "103638528000",
+      "C(8,7,2)"
+     ],
+     [
+      "103638528000",
+      "C(8,6,3)"
+     ],
+     [
+      "103638528000",
+      "C(8,5,4)"
+     ],
+     [
+      "88833024000",
+      "C(7,7,3)"
+     ],
+     [
+      "222082560000",
+      "C(7,6,4)"
+     ],
+     [
+      "118444032000",
+      "C(7,5,5)"
+     ],
+     [
+      "148055040000",
+      "C(6,6,5)"
+     ],
+     [
+      "-24385536000",
+      "E(17)"
+     ],
+     [
+      "-3617",
+      "zeta(17)"
+     ]
+    ]
+   },
+   "grund": "exakter Leitkoeffizient von y^17: 0; numerisch an 4 Prüfer-Punkten (Seed 4711, 32 Stellen): max. relatives Residuum 5.49e-44 (Schranke 1e-24)",
+   "level": "observed",
+   "status": "bestätigt",
+   "red_team": [
+    {
+     "pruefung": {
+      "typ": "mgf_relation",
+      "terme": [
+       [
+        "51819264000",
+        "C(8,8,1)"
+       ],
+       [
+        "103638528000",
+        "C(8,7,2)"
+       ],
+       [
+        "103638528000",
+        "C(8,6,3)"
+       ],
+       [
+        "103638528000",
+        "C(8,5,4)"
+       ],
+       [
+        "88833024000",
+        "C(7,7,3)"
+       ],
+       [
+        "222082560000",
+        "C(7,6,4)"
+       ],
+       [
+        "118444032000",
+        "C(7,5,5)"
+       ],
+       [
+        "148055040000",
+        "C(6,6,5)"
+       ],
+       [
+        "-24385536000",
+        "E(17)"
+       ],
+       [
+        "-7234",
+        "zeta(17)"
+       ]
+      ]
+     },
+     "idee": "Gleiche Relation, aber mit verdoppelter zeta(17)-Konstante. Sie besteht nur, wenn die behauptete Relation falsch ist, weil sich beide nur um die Konstante -3617*zeta(17) ungleich 0 unterscheiden. Ist die Originalrelation exakt wahr, scheitert diese Prüfung. Der Wert 3617 ist der Zähler von B16 und könnte aus einem fehlerhaften Muster stammen.",
+     "bestanden": false,
+     "ergebnis": "nicht_bestanden",
+     "grund": "exakter Leitkoeffizient von y^17: 0; numerisch an 4 Prüfer-Punkten (Seed 4711, 32 Stellen): max. relatives Residuum 3.78e-02 (Schranke 1e-24)",
+     "widerspruch": false
+    },
+    {
+     "pruefung": {
+      "typ": "mgf_relation",
+      "terme": [
+       [
+        "51819264000",
+        "C(8,8,1)"
+       ],
+       [
+        "103638528000",
+        "C(8,7,2)"
+       ],
+       [
+        "103638528000",
+        "C(8,6,3)"
+       ],
+       [
+        "103638528000",
+        "C(8,5,4)"
+       ],
+       [
+        "88833024000",
+        "C(7,7,3)"
+       ],
+       [
+        "222082560000",
+        "C(7,6,4)"
+       ],
+       [
+        "118444032000",
+        "C(7,5,5)"
+       ],
+       [
+        "148055040000",
+        "C(6,6,5)"
+       ],
+       [
+        "-24385536000",
+        "E(17)"
+       ]
+      ]
+     },
+     "idee": "Gleiche Relation ohne den zeta(17)-Term. Sie besteht nur, wenn die Konstante tatsächlich 0 ist und die behauptete Relation mit -3617*zeta(17) damit falsch ist. Stimmt die Originalrelation, scheitert diese Prüfung, weil zeta(17) nicht 0 ist.",
+     "bestanden": false,
+     "ergebnis": "nicht_bestanden",
+     "grund": "exakter Leitkoeffizient von y^17: 0; numerisch an 4 Prüfer-Punkten (Seed 4711, 32 Stellen): max. relatives Residuum 3.78e-02 (Schranke 1e-24)",
+     "widerspruch": false
+    }
+   ],
+   "runde": 13,
+   "relevanz": "hauptresultat",
+   "neuheit": {
+    "suchanfragen": [
+     "modular graph functions identities",
+     "string amplitude modular graph functions",
+     "non-holomorphic modular forms relations",
+     "two-loop amplitude low-energy expansion",
+     "Eisenstein series modular graph function"
+    ],
+    "treffer": {
+     "modular graph functions identities": 16,
+     "string amplitude modular graph functions": 18,
+     "non-holomorphic modular forms relations": 16,
+     "two-loop amplitude low-energy expansion": 18,
+     "Eisenstein series modular graph function": 15
+    },
+    "quellen_geprueft": 92,
+    "datum": "2026-10-05",
+    "status": "bekannt",
+    "quelle": "arXiv:1608.04393",
+    "zitat": "In earlier work, surprising identities between two-loop graphs at all weights, and between higher-loop graphs of weights four and five were constructed.",
+    "titel": "Hierarchy of Modular Graph Identities"
+   }
+  },
+  {
+   "id": "modular-R14",
+   "frage": "Bestätige exakt mit mgf_harmonisch_familie (gewicht_bis 25): für alle 3 <= w <= 25 ist der Raum der C-Kombinationen mit Delta X in Q*E(w) eindimensional (ungerade w, DGV-Kombination, f_w = 3((w-1)/2)!/w) bzw. null (gerade w).",
+   "text": "Exakt für alle 3 <= w <= 25: harmonischer Raum dim 1 (ungerade, DGV-Kombination, f_w = 3((w-1)/2)!/w) bzw. 0 (gerade).",
+   "interpretation_ungeprueft": "Ja, für alle 3 ≤ w ≤ 25",
+   "pruefung": {
+    "typ": "mgf_harmonisch_familie",
+    "gewicht_bis": 25
+   },
+   "grund": "exakt für alle 3 <= w <= 25: harmonischer Raum dim 1 (ungerade, DGV-Kombination, f_w = 3((w-1)/2)!/w) bzw. 0 (gerade)",
+   "level": "computed_rigorous",
+   "status": "bestätigt",
+   "red_team": [
+    {
+     "pruefung": {
+      "typ": "mgf_harmonisch",
+      "gewicht": 4,
+      "kombination": {
+       "C(2,1,1)": "1"
+      },
+      "lambda": "9"
+     },
+     "idee": "Gegenbeispiel für gerades Gewicht: Wäre der harmonische Raum bei w=4 nicht null, dann gäbe es eine Kombination mit Delta X = λ E(4). Der Test nimmt C(2,1,1) mit λ=9. Bekannt ist (Δ-2)C(2,1,1) = 9E(4) - E(2)^2, also ist das Ergebnis nicht rein E(4). Der Test besteht nur, wenn die Behauptung 'null bei geradem w' falsch ist.",
+     "bestanden": false,
+     "ergebnis": "nicht_bestanden",
+     "grund": "exakte Laplace-Algebra: Delta X = 9*E(4) + Reste {'C(2,1,1)': '2', 'E(2)*E(2)': '-1'}; behauptet lambda = 9",
+     "widerspruch": false
+    },
+    {
+     "pruefung": {
+      "typ": "mgf_harmonisch",
+      "gewicht": 6,
+      "kombination": {
+       "C(2,2,2)": "1"
+      },
+      "lambda": "1"
+     },
+     "idee": "Zweiter Randfall bei geradem Gewicht (w=6): C(2,2,2) mit λ=1. Das besteht nur, wenn es bei geradem w doch eine nichttriviale harmonische C-Kombination gibt, also nur wenn die Antwort falsch ist.",
+     "bestanden": false,
+     "ergebnis": "nicht_bestanden",
+     "grund": "exakte Laplace-Algebra: Delta X = -12*E(6) + Reste {'C(2,2,2)': '6', 'C(3,2,1)': '-24', 'E(3)*E(3)': '12'}; behauptet lambda = 1",
+     "widerspruch": false
+    }
+   ],
+   "runde": 14,
+   "relevanz": "hauptresultat",
+   "neuheit": {
+    "suchanfragen": [
+     "modular graph functions Laplacian Eisenstein",
+     "D'Hoker Green Vanhove string amplitude",
+     "dihedral modular graphs closed strings",
+     "two-loop closed string amplitudes modular",
+     "Eisenstein series modular graph functions"
+    ],
+    "treffer": {
+     "modular graph functions Laplacian Eisenstein": 0,
+     "D'Hoker Green Vanhove string amplitude": 0,
+     "dihedral modular graphs closed strings": 6,
+     "two-loop closed string amplitudes modular": 17,
+     "Eisenstein series modular graph functions": 17
+    },
+    "quellen_geprueft": 53,
+    "datum": "2026-10-05",
+    "status": "nicht_gefunden"
+   }
   }
  ],
  "widerlegt": [
@@ -3765,6 +4011,154 @@
    ],
    "sek": 5238.2,
    "faden_id": "F12"
+  },
+  {
+   "runde": 13,
+   "frage": "F10",
+   "status": "beantwortet",
+   "red_team": [
+    {
+     "pruefung": {
+      "typ": "mgf_relation",
+      "terme": [
+       [
+        "51819264000",
+        "C(8,8,1)"
+       ],
+       [
+        "103638528000",
+        "C(8,7,2)"
+       ],
+       [
+        "103638528000",
+        "C(8,6,3)"
+       ],
+       [
+        "103638528000",
+        "C(8,5,4)"
+       ],
+       [
+        "88833024000",
+        "C(7,7,3)"
+       ],
+       [
+        "222082560000",
+        "C(7,6,4)"
+       ],
+       [
+        "118444032000",
+        "C(7,5,5)"
+       ],
+       [
+        "148055040000",
+        "C(6,6,5)"
+       ],
+       [
+        "-24385536000",
+        "E(17)"
+       ],
+       [
+        "-7234",
+        "zeta(17)"
+       ]
+      ]
+     },
+     "idee": "Gleiche Relation, aber mit verdoppelter zeta(17)-Konstante. Sie besteht nur, wenn die behauptete Relation falsch ist, weil sich beide nur um die Konstante -3617*zeta(17) ungleich 0 unterscheiden. Ist die Originalrelation exakt wahr, scheitert diese Prüfung. Der Wert 3617 ist der Zähler von B16 und könnte aus einem fehlerhaften Muster stammen.",
+     "bestanden": false,
+     "ergebnis": "nicht_bestanden",
+     "grund": "exakter Leitkoeffizient von y^17: 0; numerisch an 4 Prüfer-Punkten (Seed 4711, 32 Stellen): max. relatives Residuum 3.78e-02 (Schranke 1e-24)",
+     "widerspruch": false
+    },
+    {
+     "pruefung": {
+      "typ": "mgf_relation",
+      "terme": [
+       [
+        "51819264000",
+        "C(8,8,1)"
+       ],
+       [
+        "103638528000",
+        "C(8,7,2)"
+       ],
+       [
+        "103638528000",
+        "C(8,6,3)"
+       ],
+       [
+        "103638528000",
+        "C(8,5,4)"
+       ],
+       [
+        "88833024000",
+        "C(7,7,3)"
+       ],
+       [
+        "222082560000",
+        "C(7,6,4)"
+       ],
+       [
+        "118444032000",
+        "C(7,5,5)"
+       ],
+       [
+        "148055040000",
+        "C(6,6,5)"
+       ],
+       [
+        "-24385536000",
+        "E(17)"
+       ]
+      ]
+     },
+     "idee": "Gleiche Relation ohne den zeta(17)-Term. Sie besteht nur, wenn die Konstante tatsächlich 0 ist und die behauptete Relation mit -3617*zeta(17) damit falsch ist. Stimmt die Originalrelation, scheitert diese Prüfung, weil zeta(17) nicht 0 ist.",
+     "bestanden": false,
+     "ergebnis": "nicht_bestanden",
+     "grund": "exakter Leitkoeffizient von y^17: 0; numerisch an 4 Prüfer-Punkten (Seed 4711, 32 Stellen): max. relatives Residuum 3.78e-02 (Schranke 1e-24)",
+     "widerspruch": false
+    }
+   ],
+   "sek": 4770.5,
+   "faden_id": "F10"
+  },
+  {
+   "runde": 14,
+   "frage": "F13",
+   "status": "beantwortet",
+   "red_team": [
+    {
+     "pruefung": {
+      "typ": "mgf_harmonisch",
+      "gewicht": 4,
+      "kombination": {
+       "C(2,1,1)": "1"
+      },
+      "lambda": "9"
+     },
+     "idee": "Gegenbeispiel für gerades Gewicht: Wäre der harmonische Raum bei w=4 nicht null, dann gäbe es eine Kombination mit Delta X = λ E(4). Der Test nimmt C(2,1,1) mit λ=9. Bekannt ist (Δ-2)C(2,1,1) = 9E(4) - E(2)^2, also ist das Ergebnis nicht rein E(4). Der Test besteht nur, wenn die Behauptung 'null bei geradem w' falsch ist.",
+     "bestanden": false,
+     "ergebnis": "nicht_bestanden",
+     "grund": "exakte Laplace-Algebra: Delta X = 9*E(4) + Reste {'C(2,1,1)': '2', 'E(2)*E(2)': '-1'}; behauptet lambda = 9",
+     "widerspruch": false
+    },
+    {
+     "pruefung": {
+      "typ": "mgf_harmonisch",
+      "gewicht": 6,
+      "kombination": {
+       "C(2,2,2)": "1"
+      },
+      "lambda": "1"
+     },
+     "idee": "Zweiter Randfall bei geradem Gewicht (w=6): C(2,2,2) mit λ=1. Das besteht nur, wenn es bei geradem w doch eine nichttriviale harmonische C-Kombination gibt, also nur wenn die Antwort falsch ist.",
+     "bestanden": false,
+     "ergebnis": "nicht_bestanden",
+     "grund": "exakte Laplace-Algebra: Delta X = -12*E(6) + Reste {'C(2,2,2)': '6', 'C(3,2,1)': '-24', 'E(3)*E(3)': '12'}; behauptet lambda = 1",
+     "widerspruch": false
+    }
+   ],
+   "sek": 113.0,
+   "faden_id": "F13"
   }
  ],
  "kosten_usd": 0.0

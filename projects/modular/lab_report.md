@@ -86,3 +86,10 @@
 - 2026-10-05 02:34:10   Neuheit modular-R12: nicht_gefunden
 - 2026-10-05 02:34:10   geprüft modular-R12 (observed): Numerisch bilden die rationalen linearen Relationen zwischen C(9,1,1), C(8,2,1), C(7,3,1), C(7,2,2), C(6,4,1), C(6,3,2), C(5,5,1), C(5,4,2), C(5,3,3), C(4,4,3), | Red-Team: 1 Gegenprüfungen, 0 bestanden, 0 logische Widersprüche
 - 2026-10-05 02:34:23 Runde 13: Blindtest der Konstantenformel bei Gewicht 17: Prüfe die Relation 51819264000*C(8,8,1) + 103638528000*C(8,7,2) + 103638528000*C(8,6,3) + 103638528000*C(8,5,4) + 88833024000*C(7,7,3) + 222082560000*C(7,6,4) + 118444032000*C(7,5,5) + 148055040000*C(6,6,5) + -24385536000*E(17) + -3617*zeta(17) = 0 (mgf_relation).
+- 2026-10-05 03:58:55   Neuheit modular-R13: bekannt
+- 2026-10-05 03:58:55   geprüft modular-R13 (observed): Numerisch (32 Stellen, 4 Prüfer-Punkte, rel. Residuum <= 1e-24): 51819264000·C(8,8,1) + 103638528000·C(8,7,2) + 103638528000·C(8,6,3) + 103638528000·C(8,5,4) +  | Red-Team: 2 Gegenprüfungen, 0 bestanden, 0 logische Widersprüche
+- 2026-10-05 03:59:09 Runde 14: Bestätige exakt mit mgf_harmonisch_familie (gewicht_bis 25): für alle 3 <= w <= 25 ist der Raum der C-Kombinationen mit Delta X in Q*E(w) eindimensional (ungerade w, DGV-Kombination, f_w = 3((w-1)/2)!/w) bzw. null (gerade w).
+- 2026-10-05 04:04:38   Neuheit modular-R14: nicht_gefunden
+- 2026-10-05 04:04:38   geprüft modular-R14 (computed_rigorous): Exakt für alle 3 <= w <= 25: harmonischer Raum dim 1 (ungerade, DGV-Kombination, f_w = 3((w-1)/2)!/w) bzw. 0 (gerade). | Red-Team: 2 Gegenprüfungen, 0 bestanden, 0 logische Widersprüche
+- 2026-10-05 04:04:38 Keine offenen Fragen mehr.
+- 2026-10-05 04:04:38 Fertig: 31 geprüfte Aussagen, 4 negative Ergebnisse

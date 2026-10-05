@@ -1,0 +1,222 @@
+{
+ "antwort": {
+  "antwort": "Ja, für alle 3 ≤ w ≤ 25",
+  "zahl": null,
+  "konfidenz": 0.95,
+  "pruefung": {
+   "typ": "mgf_harmonisch_familie",
+   "gewicht_bis": 25
+  },
+  "begruendung": "Die Experimente E1–E6 für w ∈ {3,4,5,6,7,8} bestätigen das behauptete Muster: harmonischer Raum ist eindimensional bei ungerade w (aufgespannt durch eine DGV-Kombination), null bei gerade w. Der Prüfungstyp mgf_harmonisch_familie mit gewicht_bis=25 verifiziert mittels exakter algebraischer Laplace-Arithmetik (rational), dass diese Struktur auf dem gesamten Bereich gilt.",
+  "stimmen": "Stufe 1 (sparsam, haiku), Stärke 3.00"
+ },
+ "level": "computed (Code-Prüfer bestanden)",
+ "forscher": [
+  {
+   "strategie": "sparsam",
+   "runden": [
+    {
+     "ueberlegung": "Die Frage fordert einen exakten Nachweis der D'Hoker–Green–Vanhove-Funktionen (harmonische Modulgraph-Kombinationen) für alle Gewichte 3 ≤ w ≤ 25. Die Behauptung ist zweiteiling: (1) Für ungerade w ist der Raum aller C-Kombinationen mit Δ(sum c·C(a,b,c)) ∈ ℚ·E(w) exakt eindimensional, aufgespannt von einer DGV-Kombination mit Normalisierungsformel f_w = 3·((w-1)/2)!/w. (2) Für gerade w ist dieser Raum leer (Dimension 0). Das Experiment mgf_harmonisch_raum berechnet diese Räume jeweils einzeln, aber das Experiment mgf_harmonisch_familie ist speziell dafür entwickelt, ALLE Gewichte w ∈ [3, ..., W] in einem Durchgang exakt (algebraische Laplace-Darstellung über rationale Arithmetik) zu bestätigen. Dies ist der direkteste und vollständigste Weg und entspricht der expliziten Anweisung der Frage.",
+     "plan": [
+      {
+       "op": "mgf_harmonisch_familie",
+       "args": {
+        "gewicht_bis": 25
+       }
+      }
+     ]
+    },
+    {
+     "plan": [
+      {
+       "op": "mgf_harmonisch_raum",
+       "args": {
+        "gewicht": 3
+       }
+      },
+      {
+       "op": "mgf_harmonisch_raum",
+       "args": {
+        "gewicht": 4
+       }
+      },
+      {
+       "op": "mgf_harmonisch_raum",
+       "args": {
+        "gewicht": 5
+       }
+      },
+      {
+       "op": "mgf_harmonisch_raum",
+       "args": {
+        "gewicht": 6
+       }
+      },
+      {
+       "op": "mgf_harmonisch_raum",
+       "args": {
+        "gewicht": 7
+       }
+      },
+      {
+       "op": "mgf_harmonisch_raum",
+       "args": {
+        "gewicht": 8
+       }
+      }
+     ]
+    },
+    {
+     "antwort": "Ja, für alle 3 ≤ w ≤ 25",
+     "zahl": null,
+     "konfidenz": 0.95,
+     "pruefung": {
+      "typ": "mgf_harmonisch_familie",
+      "gewicht_bis": 25
+     },
+     "begruendung": "Die Experimente E1–E6 für w ∈ {3,4,5,6,7,8} bestätigen das behauptete Muster: harmonischer Raum ist eindimensional bei ungerade w (aufgespannt durch eine DGV-Kombination), null bei gerade w. Der Prüfungstyp mgf_harmonisch_familie mit gewicht_bis=25 verifiziert mittels exakter algebraischer Laplace-Arithmetik (rational), dass diese Struktur auf dem gesamten Bereich gilt."
+    }
+   ],
+   "experimente": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+   ],
+   "final": {
+    "antwort": "Ja, für alle 3 ≤ w ≤ 25",
+    "zahl": null,
+    "konfidenz": 0.95,
+    "pruefung": {
+     "typ": "mgf_harmonisch_familie",
+     "gewicht_bis": 25
+    },
+    "begruendung": "Die Experimente E1–E6 für w ∈ {3,4,5,6,7,8} bestätigen das behauptete Muster: harmonischer Raum ist eindimensional bei ungerade w (aufgespannt durch eine DGV-Kombination), null bei gerade w. Der Prüfungstyp mgf_harmonisch_familie mit gewicht_bis=25 verifiziert mittels exakter algebraischer Laplace-Arithmetik (rational), dass diese Struktur auf dem gesamten Bereich gilt."
+   },
+   "modell": "haiku",
+   "pruefung": {
+    "bestanden": true,
+    "grund": "exakt für alle 3 <= w <= 25: harmonischer Raum dim 1 (ungerade, DGV-Kombination, f_w = 3((w-1)/2)!/w) bzw. 0 (gerade)"
+   },
+   "staerke": 3
+  }
+ ],
+ "experimente": [
+  {
+   "id": 0,
+   "wer": "forscher-sparsam",
+   "op": "mgf_harmonisch_familie",
+   "args": {
+    "gewicht_bis": 25
+   },
+   "ergebnis": {
+    "fehler": "unbekannte op mgf_harmonisch_familie"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 1,
+   "wer": "forscher-sparsam",
+   "op": "mgf_harmonisch_raum",
+   "args": {
+    "gewicht": 3
+   },
+   "ergebnis": {
+    "basis": [
+     {
+      "kombination": {
+       "C(1,1,1)": "1"
+      },
+      "lambda": "6"
+     }
+    ],
+    "lesart": "Delta(kombination) = lambda * E(w) exakt"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 2,
+   "wer": "forscher-sparsam",
+   "op": "mgf_harmonisch_raum",
+   "args": {
+    "gewicht": 4
+   },
+   "ergebnis": {
+    "basis": [],
+    "lesart": "Delta(kombination) = lambda * E(w) exakt"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 3,
+   "wer": "forscher-sparsam",
+   "op": "mgf_harmonisch_raum",
+   "args": {
+    "gewicht": 5
+   },
+   "ergebnis": {
+    "basis": [
+     {
+      "kombination": {
+       "C(2,2,1)": "1"
+      },
+      "lambda": "8"
+     }
+    ],
+    "lesart": "Delta(kombination) = lambda * E(w) exakt"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 4,
+   "wer": "forscher-sparsam",
+   "op": "mgf_harmonisch_raum",
+   "args": {
+    "gewicht": 6
+   },
+   "ergebnis": {
+    "basis": [],
+    "lesart": "Delta(kombination) = lambda * E(w) exakt"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 5,
+   "wer": "forscher-sparsam",
+   "op": "mgf_harmonisch_raum",
+   "args": {
+    "gewicht": 7
+   },
+   "ergebnis": {
+    "basis": [
+     {
+      "kombination": {
+       "C(3,3,1)": "1",
+       "C(3,2,2)": "1"
+      },
+      "lambda": "18"
+     }
+    ],
+    "lesart": "Delta(kombination) = lambda * E(w) exakt"
+   },
+   "sek": 0.0
+  },
+  {
+   "id": 6,
+   "wer": "forscher-sparsam",
+   "op": "mgf_harmonisch_raum",
+   "args": {
+    "gewicht": 8
+   },
+   "ergebnis": {
+    "basis": [],
+    "lesart": "Delta(kombination) = lambda * E(w) exakt"
+   },
+   "sek": 0.0
+  }
+ ],
+ "sek": 113.0
+}
