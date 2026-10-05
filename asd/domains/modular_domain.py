@@ -399,7 +399,7 @@ class ModularDomain(Domain):
 
     def figures(self, state, outdir, lang="en"):
         out = []
-        for f in (_margins_figure, _eta_figure):
+        for f in (_konstanten_figure, _margins_figure, _eta_figure):
             try: out += f(state, outdir, lang)
             except Exception as e: print(f"Abbildung {f.__name__} fehlgeschlagen: {e}")
         return out
@@ -567,6 +567,36 @@ def _margins_figure(state, outdir, lang="en"):
            f"verifier's own random points ({DPS} digits). Dashed: acceptance threshold $10^{{-{TOL}}}$; dotted: threshold $10^{{-{TOL_LAP}}}$ for "
            f"relations containing a Laplacian (orange)." if lang == "en" else "Numerische Prüfmargen der bestätigten Relationen.")
     return [("margins.pdf", cap, [f"C-{r[0]}" for r in rows])]
+
+
+def _konstanten_figure(state, outdir, lang="en"):
+    """g_w/zeta(w) nach der Vermutung (Linie) und die vom Prüfer bestätigten Gewichte (Punkte)."""
+    from fractions import Fraction as F
+    from math import factorial as fa, comb, log10
+    def bern(n):
+        B = [F(1)]
+        for m in range(1, n + 1): B.append(-sum(comb(m + 1, j) * B[j] for j in range(m)) / (m + 1))
+        return B[n]
+    ws = list(range(3, 26, 2)); g = {w: 6 * abs(bern(w - 1)) / fa((w - 1) // 2) for w in ws}
+    best, ids = set(), []
+    for c in state["claims"]:
+        if c.get("status") != "bestätigt": continue
+        k = ModularDomain.inhaltsklasse(None, c["pruefung"])
+        if k.startswith("relation:"): best.add(int(k.split(":")[1])); ids.append(c["id"])
+    if not best: return []
+    import matplotlib; matplotlib.use("Agg"); import matplotlib.pyplot as plt
+    from ..figstyle import apply_style; apply_style()
+    fig, ax = plt.subplots(figsize=(4.8, 2.8))
+    ax.plot(ws, [log10(float(g[w])) for w in ws], "-", color="#8a8f98", lw=1, label="conjectured $6|B_{w-1}|/((w-1)/2)!$")
+    bw = sorted(w for w in best if w in g)
+    ax.plot(bw, [log10(float(g[w])) for w in bw], "o", color="#2f6fdf", label="confirmed by the verifier")
+    if 17 in best: ax.plot([17], [log10(float(g[17]))], "s", ms=7, mfc="none", color="#d9480f", label="preregistered blind test")
+    ax.set_xlabel("weight $w$"); ax.set_ylabel(r"$\log_{10}(g_w/\zeta(w))$"); ax.legend(fontsize=7)
+    fig.tight_layout(); fig.savefig(f"{outdir}/konstanten.pdf"); fig.savefig(f"{outdir}/konstanten.png", dpi=200); plt.close(fig)
+    cap = ("Integration constants $g_w$ of the odd-weight identities in the normalisation of eq. (3.57) of D'Hoker-Green-Vanhove: conjectured closed form "
+           "(line) and the weights at which the verifier confirmed the identity numerically (dots, 32 digits, 4 verifier points); the square marks the "
+           "preregistered blind test at $w = 17$.")
+    return [("konstanten.pdf", cap, [f"C-{i}" for i in ids])]
 
 
 def _eta_figure(state, outdir, lang="en"):

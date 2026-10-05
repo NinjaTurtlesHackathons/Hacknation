@@ -229,9 +229,10 @@ def E(s, t1, t2, dps=30):
         pref = 8 * mp.pi ** s * mp.sqrt(y2) / mp.gamma(s); N = 1
         while True:
             sig = mp.fsum(mp.mpf(d) ** (1 - 2 * s) for d in range(1, N + 1) if N % d == 0)
-            term = pref * mp.mpf(N) ** (s - mp.mpf(1) / 2) * sig * mp.besselk(s - mp.mpf(1) / 2, 2 * mp.pi * N * y2) * mp.cos(2 * mp.pi * N * x)
-            val += term
-            if N > 3 and abs(term) < mp.mpf(10) ** (-(dps + 10)) * abs(val): break
+            amp = pref * mp.mpf(N) ** (s - mp.mpf(1) / 2) * sig * mp.besselk(s - mp.mpf(1) / 2, 2 * mp.pi * N * y2)
+            val += amp * mp.cos(2 * mp.pi * N * x)
+            # Abbruch an der Amplitude, nicht am Term: cos(2 pi N x) verschwindet z. B. fuer x = 1/4 bei ungeradem N
+            if N > 3 and abs(amp) < mp.mpf(10) ** (-(dps + 10)) * abs(val): break
             N += 1
         return +(val / mp.pi ** s)
 
@@ -288,7 +289,10 @@ _DISK = os.environ.get("ASD_MGF_CACHE", "cache/mgf/werte.jsonl")     # persisten
 def _disk_load():
     if not _DISK or not os.path.exists(_DISK) or _VCACHE.get("_geladen"): return
     for line in open(_DISK):
-        try: d = json.loads(line); _VCACHE[(d["t"], tuple(d["a"]) if isinstance(d["a"], list) else d["a"], d["t1"], d["t2"], d["dps"])] = mp.mpf(d["v"])
+        try:
+            d = json.loads(line)
+            with mp.workdps(d["dps"] + 15):                  # in der Praezision des Eintrags einlesen, nicht in der des ersten Aufrufs
+                _VCACHE[(d["t"], tuple(d["a"]) if isinstance(d["a"], list) else d["a"], d["t1"], d["t2"], d["dps"])] = mp.mpf(d["v"])
         except Exception: pass
     _VCACHE["_geladen"] = True
 

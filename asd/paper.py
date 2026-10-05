@@ -205,13 +205,13 @@ def claims_of(domain, lang="en"):
     return C
 
 
-def story_plan(C, D, lang="en", salt=""):
+def story_plan(C, D, lang="en", salt="", hinweise=""):
     sprache = "English" if lang == "en" else "German"
     """Story vor dem Schreiben: EINE Kernfrage, EINE Kernaussage, informativer Titel, Rolle jedes Claims."""
     from .llm import ask_json
     rel = [c for c in C if not c.get("anhang") and c["level"] != "hypothesis" and not c["claim_id"].startswith("C-lit")]
     liste = "\n".join(f"- [{c['claim_id']}] ({c['level']}, relevance={c.get('relevanz', '?')}) {c['text'][:400]}" for c in rel)
-    r = ask_json(f"Research field: {D.kontext}\n\nVerified claims:\n{liste}\n\nPlan the article BEFORE it is written. Choose ONE core question and ONE core "
+    r = ask_json(f"Research field: {D.kontext}\n\nVerified claims:\n{liste}\n\n" + (f"AUTHOR GUIDANCE (focus, binding where consistent with the claims):\n{hinweise}\n\n" if hinweise else "") + "Plan the article BEFORE it is written. Choose ONE core question and ONE core "
                  "statement (a single sentence) that the main results support. Assign every claim a role: hauptresultat (supports the core statement directly), "
                  "stuetze (needed for a main result), beispiel (illustration), anhang (only in the appendix), weglassen (unrelated to the core statement). "
                  "Propose an informative title that states the core result (no marketing words such as 'beyond', 'towards', 'novel', 'revisited'). "
@@ -467,7 +467,8 @@ def main():
     C.append({"claim_id": "C-verfuegbarkeit", "text": f"Code and data: repository {a.repo}, branch {branch}, directory {d}; reproduce all certificates with "
               f"'python -m asd.recheck {a.domain}' and rebuild the paper with 'python -m asd.paper --domain {a.domain}'.", "level": "observed", "status": "bestätigt"})
     for c in C: c.setdefault("relevanz", None)
-    plan = story_plan(C, D, a.sprache, salt=a.domain); C = apply_story(C, plan); a.titel = a.titel or plan.get("titel", a.domain)
+    extra = open(a.hinweise).read() if a.hinweise and os.path.exists(a.hinweise) else a.hinweise
+    plan = story_plan(C, D, a.sprache, salt=a.domain, hinweise=extra); C = apply_story(C, plan); a.titel = a.titel or plan.get("titel", a.domain)
     rollen = "\n".join(f"- {cid}: {rolle}" for cid, rolle in plan["zuordnung"].items() if rolle != "weglassen")
     story = (f"STORY PLAN (binding): core question: {plan.get('kernfrage')}\ncore statement: {plan.get('kernaussage')}\nclaim roles:\n{rollen}\n"
              "Main results (hauptresultat) come first in Results; stuetze become propositions/lemmas, beispiel become examples; claims marked APPENDIX ONLY "

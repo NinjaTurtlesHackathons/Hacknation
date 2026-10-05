@@ -1,0 +1,17 @@
+[
+ {
+  "id": "fakt-konstanten",
+  "level": "observed",
+  "text": "Table of the constants in X_w = f_w E(w) + g_w (DGV normalisation of X_w, eq. 3.57 of arXiv:1502.06698): f_w = 3((w-1)/2)!/w is exact (algebraic Laplace computation, all odd w <= 25, claim modular-R14); g_w = 6|B_{w-1}| zeta(w)/((w-1)/2)! is a conjecture read off from w = 3..13 and confirmed numerically by the verifier at w = 3, 5, 7, 9, 11, 13, 15, 17 (claims modular-R1..R1d, R6a..R6d, R7a, R11a, R11b, R13); w = 15 was a prediction made before its value was read and w = 17 a preregistered blind test. Values: w=3: f_w=1, g_w/zeta(w)=1; w=5: f_w=6/5, g_w/zeta(w)=1/10; w=7: f_w=18/7, g_w/zeta(w)=1/42; w=9: f_w=8, g_w/zeta(w)=1/120; w=11: f_w=360/11, g_w/zeta(w)=1/264; w=13: f_w=2160/13, g_w/zeta(w)=691/327600; w=15: f_w=1008, g_w/zeta(w)=1/720; w=17: f_w=120960/17, g_w/zeta(w)=3617/3427200; w=19: f_w=1088640/19, g_w/zeta(w)=43867/48263040; w=21: f_w=518400, g_w/zeta(w)=174611/199584000; w=23: f_w=119750400/23, g_w/zeta(w)=77683/83462400; w=25: f_w=57480192, g_w/zeta(w)=236364091/217945728000."
+ },
+ {
+  "id": "fakt-beweis",
+  "level": "computed_rigorous",
+  "text": "Proof structure for the odd-weight identities: (1) exact rational computation in the algebraic Laplace representation gives Delta X_w = w(w-1) f_w E(w) with no other terms (claims modular-R9a, modular-R9b, family claim modular-R14 for all odd w <= 25); (2) E(w) is an eigenfunction, Delta E(w) = w(w-1) E(w); hence Delta(X_w - f_w E(w)) = 0; (3) X_w - f_w E(w) is SL(2,Z)-invariant and of polynomial growth at the cusp, so it is constant by the standard argument used by D'Hoker-Green-Vanhove (arXiv:1502.06698); (4) only the value g_w of the constant is numerical."
+ },
+ {
+  "id": "fakt-kriterium1",
+  "level": "observed",
+  "text": "Full weight-11 basis (ten C(a,b,c), E(11), zeta(11)) with the originally preregistered criterion 1 (15 points, seed 4712, other singular values must exceed 1e-8): FAILED; singular values 5.175, 2.785, 0.04862, 0.003131, 0.0001604, 6.701e-5, 9.579e-6, 2.823e-6, 1.981e-7, 5.754e-8, 4.149e-9, 7.591e-44. Criterion 2 (preregistered afterwards, new data: 20 points, seed 4713, threshold 1e-16) passed (claim modular-R12)."
+ }
+]
