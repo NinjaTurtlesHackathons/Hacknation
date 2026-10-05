@@ -2,43 +2,43 @@
  "revision_uebernommen": false,
  "weaknesses": [
   {
-   "title": "Theorem 1 is only a finite computation, yet is presented as a closed-form theorem for general odd w",
-   "detail": "The 'proof' is a case-by-case exact computation for 3 ≤ w ≤ 61. No general argument establishes the closed forms f_w = 3((w-1)/2)!/w and g_w = 6|B_{w-1}|/((w-1)/2)!. The general statement is relegated to Conjecture 1. The title, abstract and the phrase 'closed forms' therefore overstate what is shown. The paper itself lists a binomial-sum proof as an open question. The formula is essentially a pattern fit to computed data, with additional dependence on unverified inputs.",
-   "severity": "major",
-   "fixable_by_rewriting": true,
-   "suggestion": "Retitle and reframe as a computer-assisted verification of a conjectured closed form for 3 ≤ w ≤ 61. State the general-w result explicitly as a conjecture in the abstract and title. Say clearly that Theorem 1 is a finite verification, not a derivation.",
-   "status": "open"
-  },
-  {
-   "title": "Proof rests on two unchecked and insufficiently specified external ingredients",
-   "detail": "Step 3 depends on Theorem 5.1 of D'Hoker-Kaidi, which is not machine-checked. The 'transcription' check against their eq. 5.19 is only a consistency check. Step 2 relies on a 'standard lemma' (harmonic + SL(2,Z)-invariant + polynomial growth implies constant) that is never stated precisely. The relevant hypotheses are the exact growth condition and the behaviour of the Laplace kernel, since the Laplacian kernel on the fundamental domain also contains non-constant solutions unless growth is controlled. The Laurent-polynomial statement is used for a combination built from several C(a,b,c), and it is unclear how the DGV combination's Laurent expansion is assembled. This is the load-bearing part of the argument and it is not reproducible from the text.",
+   "title": "Central proof is a black-box computation resting on unverified assumptions",
+   "detail": "Theorem 1 rests on Theorem 5.1 of D'Hoker–Kaidi and on 'the standard lemma' (a harmonic, SL(2,Z)-invariant function of polynomial growth is constant), and neither is checked or re-proved. The decisive step 3 is only described: the Laurent polynomials of the individual C(a,b,c) and their rational-arithmetic combination are not shown, even for one weight such as w=9 or 11. The only cross-check mentioned, against eq. (5.19), covers the terms that carry no zeta products. That is a consistency check on the other terms, not on the τ2^0 coefficient that carries the claim. The reader cannot verify that this coefficient equals g_w ζ(w) without re-running the repository. Calling this a 'proof' is therefore weak for a mathematical-physics journal.",
    "severity": "major",
    "fixable_by_rewriting": false,
-   "suggestion": "State the lemma and the D'Hoker-Kaidi theorem precisely, with hypotheses, and show that they apply to X_w. Give a worked Laurent-constant computation (e.g. w = 5 or 7) in the text. A fully independent check of the constant, such as the exact values of g_w against the numerics for all w ≤ 17, would also help. Machine-checking the lemma is optional but desirable.",
+   "suggestion": "Write out the Laurent computation explicitly for at least w=9 and w=11, including the contribution of each C(a,b,c) to the τ2^0 term. State the lemma and the exact hypotheses of D'Hoker–Kaidi Thm 5.1 as used. Justify the polynomial-growth and invariance claims for the combination, and give an independent check of the τ2^0 coefficient.",
    "status": "open"
   },
   {
-   "title": "Theorem 2 (uniqueness) is under-specified and the exact verification is not shown",
-   "detail": "The space {X : ΔX ∈ Q E(w)} is never defined: the ambient basis (all C(a,b,c) of weight w? with products of Eisenstein series?) is not specified. The claim of dimension 1 for odd w and 0 for even w, for 3 ≤ w ≤ 25, is supported only by the assertion that exact computation was done. The Certificate also says the statement and the combination X_w are 'known', so the novelty is unclear. The statement of Theorem 2 as written ('For odd w it is spanned by the DGV combination') omits the even case and the range. In addition, dimension 0 for even w is stated while the constant-term (ζ) bookkeeping for the relation space is not discussed.",
+   "title": "Overclaim in the title and abstract relative to what is established, and unclear novelty",
+   "detail": "The title promises 'closed forms for the constants', but the formula is proved only for odd 3≤w≤61. It is checked numerically only up to w=17, and a general proof is declared open (Remark 1, open question (i)). The 'Conjecture 1' label inside a Remark is confusing, and Fig. 2 still calls the formula 'conjectured'. Novelty is muddled. The w=3, 5, 7 cases and the combinations are known, and g7 appears in the literature. The text says DGV eq. 3.34 'writes' g9 but then says g9 is not given there. Because the contribution is a finite-range computation of known objects, the claimed advance is unclear.",
    "severity": "major",
    "fixable_by_rewriting": true,
-   "suggestion": "Define the ambient space and basis precisely, state the full theorem including range and the even case, and give the rank computation data (matrix sizes, ranks) in an appendix. Clarify what is new relative to DGV.",
+   "suggestion": "Retitle and reword the abstract to say 'a closed form conjectured from data and proved for odd w≤61'. Move Conjecture 1 into a proper statement. Fix the contradictory sentence about g9. Add a table separating known results (w=3, 5, 7, and g9 if applicable) from new ones (w≥9 or 11).",
    "status": "open"
   },
   {
-   "title": "Inconsistencies and errors in the presentation of results and numerics",
-   "detail": "Several statements are inconsistent or unclear. Theorem 1 is stated with the normalisation ΔX_w = w(w−1) f_w E(w), but Table 1 and Examples use different normalisations: Example 2 writes 30C(2,2,1) − 12E(5) − ζ(5) = 0, which is X/(g_w) scaling, and Table 2 gives integer-normalised coefficients with no mapping back to f_w, g_w. Weight 9 is called a 'Numerical observation' although the paper claims it exactly. Table 1 values (e.g. f_w, g_w at w = 13: g = 691/327600) are not obviously consistent with the closed form displayed (a sample check is needed, e.g. |B_12| = 691/2730 gives 6·691/(2730·720)=691/327600, which is consistent, but this is never shown). Remark 1 and the abstract disagree on which weights are covered by exact versus numerical evidence. The text also claims 'no earlier test point was affected' by a bug while a residual of 3.5e-10 was seen at τ1 = 1/4. The statement of the Laplace equation at w = 11 has a coefficient 100 E(11) whereas the formula with f_11 = 360/11 would give a different normalisation, which is unexplained. Fig. 1 refers to a 'conjectured' line and 'blind test' while the text calls w ≤ 61 proved.",
-   "severity": "minor",
+   "title": "X_w and the normalisations are not explicitly defined; Theorem 2 lacks supporting detail",
+   "detail": "X_w is defined only as 'the DGV combination', and its coefficients are never given for general w. Propositions 1 and 2 use differently scaled combinations. For w=9 the combination has Δ = 288E(9), whereas Theorem 2 with f9=8 would give 576. For w=11 the Prop. 2 combination (Δ = 100E(11)) and Observation 1 (coefficients 19008 and so on) differ from X11 by unstated factors (about 36 for w=11 and 2 for w=9). Theorem 2 claims dimension 1 or 0 for w≤25. The paper does not say which basis of C(a,b,c) is used, nor how the linear conditions or the 'algebraic Laplace representation' are set up, nor whether linear independence of the C(a,b,c) is assumed. The reader cannot reproduce the statements from the text.",
+   "severity": "major",
    "fixable_by_rewriting": true,
-   "suggestion": "Provide one explicit conversion from the integer-normalised relations to (f_w, g_w), show the check of Table 1 against the closed form, and unify the use of 'theorem', 'observation' and 'conjecture'. Resolve the bug-report wording and the w = 11 normalisation.",
+   "suggestion": "Give the explicit formula or coefficients of X_w and the scale factor relative to the Prop./Obs. combinations (a table for w≤13 suffices). Describe the Laplace-algebra setup and the basis used for Theorem 2. State the normalisation consistently so that ΔX_w = w(w−1)f_w E(w) can be checked directly against Props 1 and 2.",
    "status": "open"
   },
   {
-   "title": "Novelty, attribution and exposition are weak; document reads as auto-generated",
-   "detail": "The key identities for w = 3, 5, 7, 9 are known, and for w = 11 the combination is known; the genuinely new content is the constants for w ≥ 11 and the closed-form guess. The 'novelty status' entries and the laboratory-workflow material (agent roles, red-team counts, provenance tables, 'preregistered' tests with n = 1) take space but add little scientific value. The Introduction and Setting are fragmentary (the lattice-sum definition of C(a,b,c) and E(w) is missing, 'Setting' refers to a normalisation that is not shown, and DGV eq. 3.57 is not reproduced), so the paper is not self-contained. The appendix contains unrelated material (eta quotients, theta/E8 identities, M4(Γ0(N)) tables, Figs. 3) that is irrelevant to the main claim. Claims such as 'preregistered blind test' for a pattern that is then verified by the same pipeline overstate the independence of the check, and the verifier uses its own code with a known bug history. Acknowledging AI-assisted generation is good, but authorship and responsibility ('the authors') are inconsistent with a single listed author.",
+   "title": "Numerical evidence is thin and has unexplained or weakened elements",
+   "detail": "Table 2 reports maximal residuals around 1e-43, yet the working precision is 32 digits. Residuals below the precision floor are unexplained, since the Fourier sums are truncated. Only 4 points are used. The Laplace-type checks rely on finite differences (h=1e-6) with a weak 1e-14 tolerance. The completeness claim for the weight-11 basis (Observation 2) failed its preregistered criterion, because the smallest other singular value, 4.1e-9, was below 1e-8. It was rescued by a second criterion set after the data were seen. The singular-value gaps shrink quickly with weight (0.73 → 8.6e-7 at w=9), so rank decisions are fragile. A precision-independent bug was found at τ1=1/4, which raises doubts about the evaluator beyond the 8 hardening points. The adversarial counter-check count (4 passed, 48 failed, 1 not executable) is confusing.",
+   "severity": "major",
+   "fixable_by_rewriting": false,
+   "suggestion": "Explain how residuals of 1e-43 are possible at 32 digits, or re-run with higher precision and more points, including points off τ1=1/4. Tone down the completeness claim for Observation 2, state clearly that the criterion was changed post hoc, and say that this is numerical evidence only. Clarify how the counter-checks were scored.",
+   "status": "open"
+  },
+  {
+   "title": "Unfocused scope, off-topic material and weakly supported process claims",
+   "detail": "The paper includes content unrelated to the main result: Theorem 3 on eta-quotient spans for M4(Γ0(N)), Sturm-certified theta/j identities, weight-6 negative results, and a list of Laplace equations for C(2,1,1), C(2,2,1) and C(3,1,1) cited as already known. Process narration (17 rounds, agent roles, preregistration, a 'novelty search of 33 abstracts') takes the place of mathematical content. Claims such as 'not found in a targeted search of 33 abstracts' are not meaningful novelty evidence. Reference [5] is cited for Γ0(4) identities that have nothing to do with the main result. The automatically generated provenance appendix (the table with 'computed_rigorous/observed' levels) is not interpretable as printed. This dilutes the contribution and makes it hard to see which claims are essential.",
    "severity": "minor",
    "fixable_by_rewriting": true,
-   "suggestion": "Make the paper self-contained by defining C(a,b,c), E(w), X_w explicitly, and state clearly what is new. Remove or move the unrelated eta-quotient/theta material and the lab-process statistics. Temper the 'blind test' language, and cite the literature more carefully for the w = 11 and w = 13 cases.",
+   "suggestion": "Cut the eta-quotient and Sturm material and the workflow narrative, or move them to supplementary material. Keep the appendix to the numerical methods and error control that support Theorems 1 and 2. Replace the novelty-search remarks with a proper comparison to the literature, and explain the provenance levels or drop that table.",
    "status": "open"
   }
  ]

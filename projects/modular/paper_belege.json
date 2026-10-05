@@ -586,7 +586,7 @@
    "relevanz": "hauptresultat",
    "scope": "punkte",
    "benutzt": [],
-   "rolle": "beispiel",
+   "rolle": "stuetze",
    "env": "observation"
   },
   {
@@ -691,7 +691,7 @@
    "relevanz": "hauptresultat",
    "scope": "punkte",
    "benutzt": [],
-   "anhang": true,
+   "rolle": "stuetze",
    "env": "observation"
   },
   {
@@ -1322,7 +1322,7 @@
    "level": "computed_rigorous",
    "status": "bestätigt",
    "relevanz": null,
-   "rolle": "stuetze",
+   "rolle": "hauptresultat",
    "env": null
   },
   {
@@ -1378,13 +1378,22 @@
    "relevanz": null,
    "anhang": true,
    "env": null
+  },
+  {
+   "claim_id": "C-autor",
+   "text": "Author line of this manuscript: Noah Schittenhelm; affiliation: Hack-Nation 2026, Team Ninja Turtles.",
+   "level": "observed",
+   "status": "bestätigt",
+   "anhang": true,
+   "relevanz": null,
+   "env": null
   }
  ],
  "story": {
-  "kernfrage": "For odd weight w, which exact closed-form constants f_w and g_w make the DGV combination X_w of dihedral modular graph functions equal to f_w E(w) + g_w zeta(w)?",
-  "kernaussage": "For every odd weight 3 <= w <= 61, the DGV combination X_w of dihedral modular graph functions satisfies X_w = f_w E(w) + g_w zeta(w) exactly, with f_w = 3((w-1)/2)!/w and g_w = 6|B_{w-1}|/((w-1)/2)!, where B_n are Bernoulli numbers.",
+  "kernfrage": "What are the closed forms of the constants f_w and g_w in the identities X_w = f_w E(w) + g_w zeta(w) between the DGV combinations X_w of dihedral modular graph functions and E(w), for odd weight w?",
+  "kernaussage": "For every odd weight 3 <= w <= 61, the D'Hoker-Green-Vanhove combination X_w of dihedral modular graph functions satisfies X_w = f_w E(w) + g_w zeta(w) exactly, with f_w = 3((w-1)/2)!/w and g_w = 6|B_{w-1}|/((w-1)/2)!.",
   "titel": "Closed forms for the constants in the odd-weight identities between dihedral modular graph functions",
-  "keywords": "modular graph functions, dihedral graphs, Laplace equation, Eisenstein series, Bernoulli numbers, closed-string amplitudes",
+  "keywords": "modular graph functions, dihedral graphs, non-holomorphic Eisenstein series, Laplace equation, Bernoulli numbers, closed-string one-loop amplitude",
   "zuordnung": {
    "C-modell": "stuetze",
    "C-modular-R1": "anhang",
@@ -1406,9 +1415,9 @@
    "C-modular-R6a": "stuetze",
    "C-modular-R6b": "beispiel",
    "C-modular-R6c": "beispiel",
-   "C-modular-R6d": "beispiel",
+   "C-modular-R6d": "stuetze",
    "C-modular-R7a": "stuetze",
-   "C-modular-R7b": "anhang",
+   "C-modular-R7b": "stuetze",
    "C-modular-R8": "anhang",
    "C-modular-R9a": "stuetze",
    "C-modular-R9b": "stuetze",
@@ -1423,7 +1432,7 @@
    "C-neg3": "anhang",
    "C-neg4": "anhang",
    "C-fakt-konstanten": "hauptresultat",
-   "C-fakt-beweis": "stuetze",
+   "C-fakt-beweis": "hauptresultat",
    "C-fakt-kriterium1": "stuetze",
    "C-fakt-haertung": "stuetze",
    "C-verfuegbarkeit": "anhang"

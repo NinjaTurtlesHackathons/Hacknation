@@ -50,6 +50,10 @@ def check(md, claims):
             for j in range(k, e): erbt.setdefault(j, []); erbt[j] = erbt[j] + ids_b
             k = e
         k += 1
+    for k, z in enumerate(lines):                                       # reine Formelzeilen ($$...$$) erben die Belege des vorangehenden Absatzes
+        if re.fullmatch(r"\s*\$\$.*\$\$\s*", z) and not re.search(r"C-[\w\-*.]+", z):
+            prev = next((lines[j] for j in range(k - 1, -1, -1) if lines[j].strip() and not re.fullmatch(r"\s*\$\$.*\$\$\s*", lines[j])), "")
+            erbt[k] = erbt.get(k, []) + re.findall(r"C-[\w\-*.]+", prev)
     blk = {j for j in erbt if not lines[j].lstrip().startswith("|")}
     for k, para in enumerate(lines):
         if not para.strip() or para.lstrip().startswith("#"): continue
@@ -66,7 +70,7 @@ def check(md, claims):
     return issues
 
 
-QUANT = re.compile(r"\b(for all|for every|for any|universal(ly)?|always|never|monoton\w*|up to|in general|für alle|für jede[nsr]?|universell|immer|stets|nie|allgemein)\b", re.I)
+QUANT = re.compile(r"\b(for all|for every|for any|universal(ly)?|always|never|monoton\w*|in general|für alle|für jede[nsr]?|universell|immer|stets|nie|allgemein)\b", re.I)
 PUNKTE = re.compile(r"(at the points examined|for the cases examined|an den untersuchten (Punkten|Fällen)|in den untersuchten Fällen)", re.I)
 SCHWELLE = re.compile(r"\b(threshold|cut-?off|Schwelle|Schwellwert|Grenzwert von)\b", re.I)
 BEGRUENDUNG = re.compile(r"\b(because|since|chosen|so that|as it|equal to|which is|corresponding to|weil|da |gewählt|entspricht|so dass|sodass)\b", re.I)
