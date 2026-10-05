@@ -274,7 +274,7 @@ class ModularDomain(Domain):
 - mgf_laplace_exakt {kombination: {"C(a,b,c)": c, ...}}: Delta der Kombination EXAKT als Summe von C's und Eisenstein-Produkten (schnell).
 - mgf_harmonisch_raum {gewicht}: exakt alle C-Kombinationen vom Gewicht w mit Delta X in Q*E(w) (schnell, w <= 25).
 - mgf_leitkoeffizient {ausdruck}: exakter rationaler Leitkoeffizient der Laurent-Entwicklung in y = pi*tau2 (schnell).
-- mgf_relationen {basis: [...], seed?, n_punkte?, dps?}: Kandidaten für alle ganzzahligen linearen Relationen zwischen den Basis-Funktionen
+- mgf_relationen {basis: [...], seed?, n_punkte? (<= 12), dps? (<= 60)}: Kandidaten für alle ganzzahligen linearen Relationen zwischen den Basis-Funktionen
   (PSLQ über mehrere Zufallspunkte). Basis-Elemente sind Monome, z. B. "C(3,1,1)", "E(2)*E(3)", "zeta(3)*E(2)", "L[C(2,1,1)]". Teuer
   (Minuten; Laplace-Terme besonders). Das Ergebnis ist ein Kandidat, kein Beweis."""
     claim_doc = """Prüfungstypen (Koeffizienten immer als exakte rationale Zahl, z. B. "7/30" oder -276; nie Gleitkomma):
@@ -352,7 +352,8 @@ class ModularDomain(Domain):
                 b = list(args["basis"])
                 if len(b) > 12: return {"fehler": "höchstens 12 Basis-Elemente"}
                 dps = min(int(args.get("dps", 32 if len(b) <= 6 else 45)), 60)      # große Basen brauchen mehr Stellen für PSLQ
-                r = mgf.find_relations(b, seed=int(args.get("seed", 1)), n_punkte=args.get("n_punkte"), dps=dps, maxcoeff=10 ** 9)
+                npk = min(int(args["n_punkte"]), 12) if args.get("n_punkte") else None          # Ressourcengrenze für Agenten-Experimente
+                r = mgf.find_relations(b, seed=int(args.get("seed", 1)), n_punkte=npk, dps=dps, maxcoeff=10 ** 9)
                 return r | {"hinweis": "Kandidaten; zertifiziert erst durch mgf_relation / mgf_relationsraum"}
             return {"fehler": f"unbekannte op {op}"}
         except Exception as e:
