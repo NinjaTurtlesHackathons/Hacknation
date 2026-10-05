@@ -314,6 +314,9 @@ class ModularDomain(Domain):
 - mgf_wert {ausdruck, tau1, tau2, dps?}: numerischer Wert eines Monoms aus C(a,b,c), E(s), zeta(k) (auch L[...]) an einem Punkt (~5-60 s).
 - mgf_laplace_exakt {kombination: {"C(a,b,c)": c, ...}}: Delta der Kombination EXAKT als Summe von C's und Eisenstein-Produkten (schnell).
 - mgf_harmonisch_raum {gewicht}: exakt alle C-Kombinationen vom Gewicht w mit Delta X in Q*E(w) (schnell, w <= 25).
+- mgf_laurent_konstanten {gewicht_bis}: für jedes ungerade w <= W (<= 61) der exakte tau2^0-Term (Koeffizient von zeta(w)) und der
+  zeta(2w-1)/y^(w-1)-Term des Laurent-Polynoms der DGV-Kombination X_w (D'Hoker-Kaidi Thm. 5.1), dazu f_w; liefert die exakten Brüche
+  für die Prüfung mgf_identitaet_familie (nicht von Hand rechnen).
 - mgf_leitkoeffizient {ausdruck}: exakter rationaler Leitkoeffizient der Laurent-Entwicklung in y = pi*tau2 (schnell).
 - mgf_relationen {basis: [...], seed?, n_punkte? (<= 12), dps? (<= 60)}: Kandidaten für alle ganzzahligen linearen Relationen zwischen den Basis-Funktionen
   (PSLQ über mehrere Zufallspunkte). Basis-Elemente sind Monome, z. B. "C(3,1,1)", "E(2)*E(3)", "zeta(3)*E(2)", "L[C(2,1,1)]". Teuer
@@ -385,6 +388,17 @@ class ModularDomain(Domain):
                 for k, c in args["kombination"].items():
                     pa = mgf.parse(k); vec[pa[1][0][1]] = vec.get(pa[1][0][1], 0) + Fr(str(c))
                 return {"laplace": {fmt(k): str(v) for k, v in laplace_combo(vec).items()}, "hinweis": "exakt (algebraische Laplace-Darstellung)"}
+            if op == "mgf_laurent_konstanten":
+                from math import factorial as fa
+                from .mgf_laurent import ell_C
+                W = int(args.get("gewicht_bis", 25))
+                if not 3 <= W <= 61: return {"fehler": "gewicht_bis in 3..61"}
+                out = {}
+                for w in range(3, W + 1, 2):
+                    X = _dgv_combo(w)
+                    out[str(w)] = {"konstante_g_w": str(sum(Fr(c) * ell_C(abc, (w - 1) // 2) for abc, c in X.items())),
+                                   "f_w": str(Fr(3 * fa((w - 1) // 2), w)), "formel_6B_durch_fak": str(_g_bernoulli(w))}
+                return {"werte": out, "lesart": "X_w (DGV-Kombination) hat Laurent-Konstantterm konstante_g_w * zeta(w); formel_6B_durch_fak = 6|B_{w-1}|/((w-1)/2)!"}
             if op == "mgf_harmonisch_raum":
                 from .mgf_laplace import harmonic_space
                 w = int(args["gewicht"])
@@ -423,6 +437,14 @@ class ModularDomain(Domain):
     def level(self, p):
         if p.get("typ") in ("mgf_harmonisch", "mgf_harmonisch_familie", "mgf_identitaet_familie"): return "computed_rigorous"
         return "observed" if str(p.get("typ", "")).startswith("mgf") else "computed_rigorous"
+
+    def staerke(self, p):
+        """Ordnung für die Stärke-Maximierung: Identität mit Konstante > harmonischer Raum > Einzelaussagen; größere Reichweite zählt mehr."""
+        t = p.get("typ")
+        if t == "mgf_identitaet_familie": return 10 + int(p.get("gewicht_bis", 0)) / 100
+        if t == "mgf_harmonisch_familie": return 5 + int(p.get("gewicht_bis", 0)) / 100
+        if t in ("mgf_relationsraum", "mgf_relationsraum_v2", "eta_span_tabelle"): return 3
+        return 1
 
     def relevanz(self, p):
         t = p.get("typ")

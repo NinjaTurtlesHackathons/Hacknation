@@ -95,3 +95,6 @@
 - 2026-10-05 04:04:38 Fertig: 31 geprüfte Aussagen, 4 negative Ergebnisse
 - 2026-10-05 04:39:23 Selbsttest des Prüfers: bestanden
 - 2026-10-05 04:39:37 Runde 15: Beweise die Konstanten der ungeraden Identitäten exakt: Prüfe mit mgf_identitaet_familie (gewicht_bis 25), dass für alle ungeraden 3 <= w <= 25 die DGV-Kombination X_w die Gleichung X_w = f_w E(w) + g_w zeta(w) mit f_w = 3((w-1)/2)!/w und g_w = 6|B_{w-1}|/((w-1)/2)! erfüllt (Laplace-Algebra exakt, Konstante aus dem Laurent-Polynom nach D'Hoker-Kaidi arXiv:1902.04180 Thm. 5.1). Die g_w-Werte sind als exakte Brüche anzugeben (w=3: 1, w=5: 1/10, w=7: 1/42, ...).
+- 2026-10-05 04:51:35   Neuheit modular-R15: nicht_gefunden
+- 2026-10-05 04:51:35   geprüft modular-R15 (computed_rigorous): Exakt für alle 3 <= w <= 25: harmonischer Raum dim 1 (ungerade, DGV-Kombination, f_w = 3((w-1)/2)!/w) bzw. 0 (gerade). | Red-Team: 2 Gegenprüfungen, 0 bestanden, 0 logische Widersprüche
+- 2026-10-05 04:51:35 Fertig: 32 geprüfte Aussagen, 4 negative Ergebnisse

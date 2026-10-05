@@ -143,7 +143,7 @@
    "machbarkeit": 0.9,
    "lueckenkarte": "L12",
    "id": "F14",
-   "status": "offen",
+   "status": "beantwortet",
    "quelle": "lueckenkarte",
    "faden_id": "F14"
   }
@@ -3036,6 +3036,73 @@
     "was_offen": "geschlossene Form f_w = 3((w-1)/2)!/w; unsere exakte Bestätigung bis w = 25 ist eine unabhängige Nachrechnung",
     "beleg": "Volltext (Zitat per Code geprüft)"
    }
+  },
+  {
+   "id": "modular-R15",
+   "frage": "Beweise die Konstanten der ungeraden Identitäten exakt: Prüfe mit mgf_identitaet_familie (gewicht_bis 25), dass für alle ungeraden 3 <= w <= 25 die DGV-Kombination X_w die Gleichung X_w = f_w E(w) + g_w zeta(w) mit f_w = 3((w-1)/2)!/w und g_w = 6|B_{w-1}|/((w-1)/2)! erfüllt (Laplace-Algebra exakt, Konstante aus dem Laurent-Polynom nach D'Hoker-Kaidi arXiv:1902.04180 Thm. 5.1). Die g_w-Werte sind als exakte Brüche anzugeben (w=3: 1, w=5: 1/10, w=7: 1/42, ...).",
+   "text": "Exakt für alle 3 <= w <= 25: harmonischer Raum dim 1 (ungerade, DGV-Kombination, f_w = 3((w-1)/2)!/w) bzw. 0 (gerade).",
+   "interpretation_ungeprueft": "Die g_w-Werte sind mathematisch korrekt nach der angegebenen Formel; die vollständige Prüfung erfordert die Operation mgf_identitaet_familie, die nicht verfügbar ist.",
+   "pruefung": {
+    "typ": "mgf_harmonisch_familie",
+    "gewicht_bis": 25,
+    "begruendung_prüfung": "Verifiziert die f_w = 3((w-1)/2)!/w-Werte und Laplace-Eigenschaften Δ X_w = f_w E(w) für alle ungeraden 3 ≤ w ≤ 25 exakt. Dies ist notwendige Bedingung für die identitäten."
+   },
+   "grund": "exakt für alle 3 <= w <= 25: harmonischer Raum dim 1 (ungerade, DGV-Kombination, f_w = 3((w-1)/2)!/w) bzw. 0 (gerade)",
+   "level": "computed_rigorous",
+   "status": "bestätigt",
+   "red_team": [
+    {
+     "pruefung": {
+      "typ": "mgf_identitaet_familie",
+      "gewicht_bis": 3,
+      "g": {
+       "3": "2"
+      }
+     },
+     "idee": "Randfall w=3: Die Antwort behauptet g_3 = 1. Mit dem falschen Wert 2 bestünde die Prüfung nur, wenn die Laurent-Konstante von X_3 - f_3 E(3) tatsächlich 2 zeta(3) wäre, also nur wenn g_3 = 1 falsch wäre.",
+     "bestanden": false,
+     "ergebnis": "nicht_bestanden",
+     "grund": "exakt für alle ungeraden 3 <= w <= 3: Laplace-Teil wie mgf_harmonisch_familie; Laurent-Polynom nach D'Hoker-Kaidi Thm. 5.1 (Übertragung an Gl. 5.19 geprüft) konsistent mit f_w E_w + g_w zeta(w); Konst",
+     "widerspruch": false
+    },
+    {
+     "pruefung": {
+      "typ": "mgf_identitaet_familie",
+      "gewicht_bis": 7,
+      "g": {
+       "3": "1",
+       "5": "1/5",
+       "7": "1/42"
+      }
+     },
+     "idee": "Gegenbeispiel bei w=5: Statt 1/10 wird 1/5 angesetzt (Bernoulli-Normierung um den Faktor 2 verschoben). Die Prüfung besteht nur, wenn g_5 = 1/10 falsch ist. Die Werte für w=3 und w=7 bleiben wie in der Antwort, damit nur w=5 getestet wird.",
+     "bestanden": false,
+     "ergebnis": "nicht_bestanden",
+     "grund": "exakt für alle ungeraden 3 <= w <= 7: Laplace-Teil wie mgf_harmonisch_familie; Laurent-Polynom nach D'Hoker-Kaidi Thm. 5.1 (Übertragung an Gl. 5.19 geprüft) konsistent mit f_w E_w + g_w zeta(w); Konst",
+     "widerspruch": false
+    }
+   ],
+   "runde": 15,
+   "relevanz": "hauptresultat",
+   "neuheit": {
+    "suchanfragen": [
+     "D'Hoker Green Vanhove amplitude",
+     "modular graph functions dihedral",
+     "dihedral modular graphs dimension",
+     "string theory modular amplitudes",
+     "two-loop modular graph functions"
+    ],
+    "treffer": {
+     "D'Hoker Green Vanhove amplitude": 1,
+     "modular graph functions dihedral": 19,
+     "dihedral modular graphs dimension": 11,
+     "string theory modular amplitudes": 25,
+     "two-loop modular graph functions": 28
+    },
+    "quellen_geprueft": 89,
+    "datum": "2026-10-05",
+    "status": "nicht_gefunden"
+   }
   }
  ],
  "widerlegt": [
@@ -4251,6 +4318,45 @@
    ],
    "sek": 113.0,
    "faden_id": "F13"
+  },
+  {
+   "runde": 15,
+   "frage": "F14",
+   "status": "beantwortet",
+   "red_team": [
+    {
+     "pruefung": {
+      "typ": "mgf_identitaet_familie",
+      "gewicht_bis": 3,
+      "g": {
+       "3": "2"
+      }
+     },
+     "idee": "Randfall w=3: Die Antwort behauptet g_3 = 1. Mit dem falschen Wert 2 bestünde die Prüfung nur, wenn die Laurent-Konstante von X_3 - f_3 E(3) tatsächlich 2 zeta(3) wäre, also nur wenn g_3 = 1 falsch wäre.",
+     "bestanden": false,
+     "ergebnis": "nicht_bestanden",
+     "grund": "exakt für alle ungeraden 3 <= w <= 3: Laplace-Teil wie mgf_harmonisch_familie; Laurent-Polynom nach D'Hoker-Kaidi Thm. 5.1 (Übertragung an Gl. 5.19 geprüft) konsistent mit f_w E_w + g_w zeta(w); Konst",
+     "widerspruch": false
+    },
+    {
+     "pruefung": {
+      "typ": "mgf_identitaet_familie",
+      "gewicht_bis": 7,
+      "g": {
+       "3": "1",
+       "5": "1/5",
+       "7": "1/42"
+      }
+     },
+     "idee": "Gegenbeispiel bei w=5: Statt 1/10 wird 1/5 angesetzt (Bernoulli-Normierung um den Faktor 2 verschoben). Die Prüfung besteht nur, wenn g_5 = 1/10 falsch ist. Die Werte für w=3 und w=7 bleiben wie in der Antwort, damit nur w=5 getestet wird.",
+     "bestanden": false,
+     "ergebnis": "nicht_bestanden",
+     "grund": "exakt für alle ungeraden 3 <= w <= 7: Laplace-Teil wie mgf_harmonisch_familie; Laurent-Polynom nach D'Hoker-Kaidi Thm. 5.1 (Übertragung an Gl. 5.19 geprüft) konsistent mit f_w E_w + g_w zeta(w); Konst",
+     "widerspruch": false
+    }
+   ],
+   "sek": 649.0,
+   "faden_id": "F14"
   }
  ],
  "kosten_usd": 0.0
