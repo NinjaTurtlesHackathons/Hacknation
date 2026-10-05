@@ -19,3 +19,8 @@ Grundlage: `research/kb/modular/known_results.md` (Recherche vom 2026-10-04, 329
 | L9 | Exakte Bestimmung des harmonischen Raums (Delta X in Q*E(w)) für alle w <= 25 und geschlossene Form von f_w | arXiv:1502.06698 (Gl. 3.33, 3.57): Kombinationen angegeben, f_w, g_w „may be determined from the asymptotic behavior“, Werte nur bis w = 9 | (d) geschlossene Form / (a) Erweiterung | mgf_harmonisch_familie (exakt) | 0,5 × 0,9 |
 | L10 | Integrationskonstanten g_w der ungeraden Identitäten (geschlossene Form) | arXiv:1502.06698 Gl. 3.34: „g7, g9 are integration constants“; Gl. 3.57 ohne Werte | (d) geschlossene Form (Vermutung) | mgf_relation (Blindtest w = 17) | 0,7 × 0,7 |
 | L11 | Vollständiger Relationsraum der zehn C(a,b,c) vom Gewicht 11 mit E(11), zeta(11) | Paper v2: nur Teilbasis bestimmt | (a) | mgf_relationsraum | 0,6 × 0,6 |
+
+## Nachtrag 2 (2026-10-05, vor dem Laborlauf zu F14)
+| ID | Lücke | Warum offen (Beleg) | Neuheitstyp | Prüfbarkeit | VoI |
+|---|---|---|---|---|---|
+| L12 | Beweis der Konstanten g_w (nicht nur numerisch) für alle ungeraden w <= 25 | arXiv:1502.06698 Gl. 3.57: „f_w and g_w … may be determined from the asymptotic behavior near the cusp; their values for weight up to 9 are given in (3.34)“, dort g7, g9 aber unbestimmt; arXiv:1902.04180 Thm. 5.1 gibt das Laurent-Polynom aller C_{u,v;w}, wertet es für diese Identitäten aber nicht aus | (d) geschlossene Form, bewiesen | mgf_identitaet_familie (exakt) | 0,8 × 0,9 |

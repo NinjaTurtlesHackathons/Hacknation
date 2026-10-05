@@ -224,6 +224,39 @@ def check_mgf_harmonisch_familie(p):
                           + (f"; Abweichungen: {fehler}" if fehler else "")), {"fehler": fehler}
 
 
+def check_mgf_identitaet_familie(p):
+    """Exakt für alle ungeraden 3 <= w <= W: (a) wie mgf_harmonisch_familie (harmonischer Raum, DGV-Kombination X_w, f_w);
+    (b) Laurent-Polynom von X_w nach D'Hoker-Kaidi (arXiv:1902.04180, Prop. 2.1 und Thm. 5.1, Gl. 5.4/5.5) in rationaler Arithmetik:
+    der zeta(2w-1)-Term stimmt mit f_w E_w überein, alle Zwischenterme zeta(2w-2k-1) mit 0 < k < w-1, k != (w-1)/2 verschwinden;
+    (c) der Konstantterm ist g_w zeta(w) mit dem angegebenen g_w. Vorab: Übertragung von Thm. 5.1 gegen deren Gl. (5.19) (C(2,1,1)) geprüft.
+    Der Term l_{2-w} (dort nur unter einer Vermutung bestimmt) wird nicht benutzt."""
+    from math import factorial as fa
+    from .mgf_laurent import ell_C
+    W = int(p["gewicht_bis"]); g = {int(k): _fr(v) for k, v in (p.get("g") or {}).items()}
+    if not 3 <= W <= 25: return False, "gewicht_bis muss in 3..25 liegen", {}
+    if sorted(g) != list(range(3, W + 1, 2)): return False, "g muss für jedes ungerade 3 <= w <= gewicht_bis angegeben sein", {}
+    if [ell_C((2, 1, 1), k) for k in range(3)] != [36, Fr(5, 3), Fr(1, 180)]: return False, "Übertragung von Thm. 5.1 reproduziert Gl. (5.19) nicht", {}
+    ok, why, _ = check_mgf_harmonisch_familie({"gewicht_bis": W})
+    if not ok: return False, "Teil (a): " + why, {}
+    fehler = []
+    for w in range(3, W + 1, 2):
+        X = _dgv_combo(w); f = Fr(3 * fa((w - 1) // 2), w)
+        L = {k: sum(Fr(c) * ell_C(abc, k) for abc, c in X.items()) for k in range(w - 1)}
+        if L[0] != f * Fr(4 * fa(2 * w - 3), fa(w - 2) * fa(w - 1)): fehler.append(f"w={w}: zeta({2 * w - 1})-Term passt nicht zu f_w E_w")
+        zw = [k for k in range(1, w - 1) if k != (w - 1) // 2 and L[k] != 0]
+        if zw: fehler.append(f"w={w}: Zwischenterme k={zw} verschwinden nicht")
+        if L[(w - 1) // 2] != g[w]: fehler.append(f"w={w}: Konstantterm {L[(w - 1) // 2]} zeta(w), angegeben {g[w]}")
+    return (not fehler), ("exakt für alle ungeraden 3 <= w <= %d: Laplace-Teil wie mgf_harmonisch_familie; Laurent-Polynom nach D'Hoker-Kaidi Thm. 5.1 "
+                          "(Übertragung an Gl. 5.19 geprüft) konsistent mit f_w E_w + g_w zeta(w); Konstantterme = angegebene g_w" % W
+                          + (f"; Abweichungen: {fehler}" if fehler else "")), {"fehler": fehler}
+
+
+def _g_bernoulli(w):
+    from math import factorial as fa
+    from .mgf_laurent import B
+    return 6 * abs(B(w - 1)) / fa((w - 1) // 2)
+
+
 class ModularDomain(Domain):
     name = "modular"
     recherche_ziel = ("Modular graph functions in the low-energy expansion of genus-one closed-string amplitudes: algebraic and "
@@ -250,6 +283,7 @@ class ModularDomain(Domain):
     ]
     recherche_crossref = True
     recherche_inspire = True       # INSPIRE-HEP: Hauptquelle für Stringtheorie (arXiv-IDs, Abstracts)
+    fachgebiet = "Mathematical Physics"
     kontext = (
         "Thema: Modulformen und Identitäten aus der Stringtheorie.\n"
         "(A) Holomorph: q = e^{2 pi i tau}. Bausteine: E<k> bzw. E<k>(d) (Eisenstein E_k(d tau), k >= 4 gerade, a_0 = 1), F2(d) = E_2(tau) - d E_2(d tau), "
@@ -292,6 +326,9 @@ class ModularDomain(Domain):
 - {"typ": "mgf_harmonisch", "gewicht": w, "kombination": {"C(a,b,c)": c, ...}, "lambda": λ}: EXAKT in rationaler Arithmetik über die
   algebraische Laplace-Darstellung: Delta(sum c C) = λ E(w) ohne weitere Terme.
 - {"typ": "mgf_harmonisch_familie", "gewicht_bis": W}: exakt für alle 3 <= w <= W (<= 25): harmonischer Raum dim 1/0, DGV-Kombination, f_w.
+- {"typ": "mgf_identitaet_familie", "gewicht_bis": W, "g": {"3": "1", "5": "1/10", ...}}: exakt für alle ungeraden 3 <= w <= W (<= 25):
+  mgf_harmonisch_familie plus Laurent-Polynom der DGV-Kombination X_w nach D'Hoker-Kaidi (arXiv:1902.04180, Thm. 5.1) in rationaler
+  Arithmetik; prüft, dass X_w - f_w E_w als Laurent-Polynom genau g_w zeta(w) ist (g_w für jedes ungerade w angeben).
 - {"typ": "mgf_relationsraum_v2", ...}: wie mgf_relationsraum, Kriterium 2: n+8 eigene Punkte (Seed 4713, 0.9 <= tau2 <= 3), übrige Singulärwerte > 1e-16.
 - {"typ": "mgf_relationsraum", "basis": ["...", ...], "dim": r, "relationen": [[c_1, ..., c_n], ...]}: die rationalen linearen
   Relationen zwischen den Basis-Funktionen bilden GENAU einen r-dimensionalen Raum, aufgespannt von den angegebenen Vektoren
@@ -371,17 +408,18 @@ class ModularDomain(Domain):
             if t == "mgf_harmonisch": return check_mgf_harmonisch(p)
             if t == "mgf_relationsraum_v2": return check_mgf_relationsraum_v2(p)
             if t == "mgf_harmonisch_familie": return check_mgf_harmonisch_familie(p)
+            if t == "mgf_identitaet_familie": return check_mgf_identitaet_familie(p)
             return False, f"unbekannter Prüfungstyp {t}", {}
         except Exception as e:
             return False, f"Prüfung nicht ausführbar: {type(e).__name__}: {e}"[:300], {}
 
     def level(self, p):
-        if p.get("typ") in ("mgf_harmonisch", "mgf_harmonisch_familie"): return "computed_rigorous"
+        if p.get("typ") in ("mgf_harmonisch", "mgf_harmonisch_familie", "mgf_identitaet_familie"): return "computed_rigorous"
         return "observed" if str(p.get("typ", "")).startswith("mgf") else "computed_rigorous"
 
     def relevanz(self, p):
         t = p.get("typ")
-        if t in ("eta_span_tabelle", "mgf_relationsraum", "mgf_relationsraum_v2", "mgf_harmonisch_familie"): return "hauptresultat"
+        if t in ("eta_span_tabelle", "mgf_relationsraum", "mgf_relationsraum_v2", "mgf_harmonisch_familie", "mgf_identitaet_familie"): return "hauptresultat"
         if t == "mgf_harmonisch": return "stuetze"
         if t == "mgf_relation":
             return "hauptresultat" if any("L[" in str(m) for _, m in p.get("terme", [])) or max(_w(m) for _, m in p.get("terme", [])) >= 6 else "stuetze"
@@ -440,6 +478,19 @@ class ModularDomain(Domain):
                         f"Delta X in Q*E(w) form a space of dimension 1 for odd w and 0 for even w; for odd w = 2mu+3 it is spanned by the combination of "
                         f"D'Hoker-Green-Vanhove (eq. 3.57 of arXiv:1502.06698), and Delta X = w(w-1) f_w E(w) with f_w = 3((w-1)/2)!/w in that normalisation." if en else
                         f"Exakt für alle 3 <= w <= {p['gewicht_bis']}: harmonischer Raum dim 1 (ungerade, DGV-Kombination, f_w = 3((w-1)/2)!/w) bzw. 0 (gerade).")
+            if t == "mgf_identitaet_familie":
+                W = int(p["gewicht_bis"]); gs = {int(k): _fr(v) for k, v in p["g"].items()}
+                bern = all(gs[w] == _g_bernoulli(w) for w in gs)
+                gtxt = ", ".join(f"g_{w} = {gs[w]}" for w in sorted(gs))
+                return (f"Exactly, for every odd weight 3 <= w <= {W}, with X_w the combination of D'Hoker-Green-Vanhove (eq. 3.57 of arXiv:1502.06698): "
+                        f"Delta X_w = w(w-1) f_w E(w) with f_w = 3((w-1)/2)!/w (exact Laplace algebra), and the Laurent polynomial of X_w, computed in "
+                        f"rational arithmetic from Proposition 2.1 and Theorem 5.1 of D'Hoker-Kaidi (arXiv:1902.04180; transcription checked against their eq. 5.19), "
+                        f"equals that of f_w E(w) + g_w zeta(w) in every term not involving products of zeta values, with {gtxt}"
+                        + (" (all equal to 6|B_{w-1}|/((w-1)/2)!)" if bern else "") +
+                        ". Since X_w - f_w E(w) is harmonic, modular invariant and of polynomial growth, it is constant, and the constant is its Laurent "
+                        f"constant term; hence X_w = f_w E(w) + g_w zeta(w) holds identically for these w." if en else
+                        f"Exakt für alle ungeraden 3 <= w <= {W}: X_w = f_w E(w) + g_w zeta(w) mit f_w = 3((w-1)/2)!/w und {gtxt}"
+                        + (" (= 6|B_{w-1}|/((w-1)/2)!)" if bern else "") + "; Laplace-Algebra exakt, Konstante aus dem Laurent-Polynom nach D'Hoker-Kaidi Thm. 5.1.")
             if t == "mgf_relationsraum_v2":
                 return self.describe(dict(p, typ="mgf_relationsraum"), lang).replace("completeness by a singular-value gap", "completeness by criterion 2: all other singular values above 1e-16 at 20 verifier points").replace("Vollständigkeit über Singulärwertabstand", "Vollständigkeit nach Kriterium 2 (übrige Singulärwerte > 1e-16)")
             if t == "mgf_relationsraum":
@@ -541,6 +592,9 @@ class ModularDomain(Domain):
             ({"typ": "mgf_harmonisch", "gewicht": 5, "kombination": {"C(2,2,2)": 1}, "lambda": 8}, False),           # falsches Gewicht
             ({"typ": "mgf_harmonisch_familie", "gewicht_bis": 15}, True),
             ({"typ": "mgf_harmonisch_familie", "gewicht_bis": 99}, False),                                            # Regelverletzung
+            ({"typ": "mgf_identitaet_familie", "gewicht_bis": 9, "g": {"3": "1", "5": "1/10", "7": "1/42", "9": "1/120"}}, True),
+            ({"typ": "mgf_identitaet_familie", "gewicht_bis": 9, "g": {"3": "1", "5": "1/10", "7": "1/42", "9": "1/121"}}, False),  # falsche Konstante
+            ({"typ": "mgf_identitaet_familie", "gewicht_bis": 9, "g": {"3": "1", "5": "1/10", "7": "1/42"}}, False),                # unvollständig
             ({"typ": "mgf_relationsraum", "basis": ["C(1,1,1)", "E(3)", "zeta(3)", "E(2)"], "dim": 0, "relationen": []}, False),  # verschweigt eine Relation
         ]
 

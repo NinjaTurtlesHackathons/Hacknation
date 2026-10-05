@@ -93,3 +93,4 @@
 - 2026-10-05 04:04:38   geprüft modular-R14 (computed_rigorous): Exakt für alle 3 <= w <= 25: harmonischer Raum dim 1 (ungerade, DGV-Kombination, f_w = 3((w-1)/2)!/w) bzw. 0 (gerade). | Red-Team: 2 Gegenprüfungen, 0 bestanden, 0 logische Widersprüche
 - 2026-10-05 04:04:38 Keine offenen Fragen mehr.
 - 2026-10-05 04:04:38 Fertig: 31 geprüfte Aussagen, 4 negative Ergebnisse
+- 2026-10-05 04:39:23 Selbsttest des Prüfers: bestanden

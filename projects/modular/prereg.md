@@ -208,3 +208,14 @@ H9' : volle Gewicht-11-Basis, dim 1, Kriterium 2.
 - Erfolg: mgf_harmonisch_familie (gewicht_bis 25) liefert für jedes ungerade w in {3,5,...,25} exakt einen eindimensionalen Lösungsraum {X : Delta X in Q*E(w)}, dessen Erzeuger mit den bekannten Fällen übereinstimmt (w=9: 9,18,4 mit lambda=288; w=11: 2,4,2,3 mit lambda=100) und für den das Verhältnis lambda_w dem Muster f_w = 3((w-1)/2)!/w entspricht; für jedes gerade w ist der Raum exakt null (Rang-Nachweis in rationaler Arithmetik, keine Gleitkomma-Toleranzen). Zusätzlich werden aus den Erzeugern die Konstantenrelationen (E(w)- und zeta(w)-Koeffizienten) für w = 19..25 als Vorhersage abgeleitet und die bereits bekannten bei w = 13, 15, 17 reproduziert.
 - Abbruch: Abbruch, wenn die Rechnung für w <= 15 nicht in rationaler Arithmetik reproduzierbar ist (z. B. wenn w=9 und w=11 nicht die Werte 288 bzw. 100 ergeben) oder wenn die Dimension für ein w von 1 (ungerade) bzw. 0 (gerade) abweicht und sich dies nicht durch einen Basis- oder Indexfehler erklären lässt. Dann Ergebnis als widerlegt/teilweise bestätigt dokumentieren, das kleinste abweichende w angeben und keine Vorhersagen für höhere Gewichte ableiten. Zeitlimit: etwa 1 h Rechenzeit; bei Überschreitung bis w=17 abbrechen und den Teilbefund melden.
 - Erwartung: Hohe Wahrscheinlichkeit (~90 %), dass die Aussage für alle 3 <= w <= 25 exakt bestätigt wird: eindimensional für ungerades w, null für gerades w. Das Verhältnis lambda_w stimmt mit f_w überein, und die Konstantenrelationen für w = 19..25 ergeben sich als konsistente Vorhersagen. Restrisiko liegt in Normierungskonventionen von f_w und in Rechenaufwand bei w nahe 25.
+
+## Nachtrag 3 (2026-10-05, vor dem Laborlauf zu F14)
+Offenlegung: Die exakte Rechnung (asd/domains/mgf_laurent.py, Prop. 2.1 und Thm. 5.1 aus arXiv:1902.04180) wurde explorativ bereits
+vor diesem Eintrag ausgeführt; sie ergab für alle ungeraden 3 <= w <= 25 Konstantterme gleich 6|B_{w-1}|/((w-1)/2)!. Die Prüfung ist
+deterministisch und exakt (rationale Arithmetik), es gibt keine Schranke oder Stichprobe, die nachträglich gewählt werden könnte.
+- H11 (exakt): mgf_identitaet_familie mit gewicht_bis 25 und g_w = 6|B_{w-1}|/((w-1)/2)! besteht. Zusätzliche Bedingungen, die die Prüfung
+  selbst erzwingt: Übertragung von Thm. 5.1 reproduziert Gl. (5.19) für C(2,1,1); alle Zwischenterme des Laurent-Polynoms verschwinden;
+  der zeta(2w-1)-Term stimmt mit f_w E_w überein. Widerlegt, wenn eine dieser Bedingungen für ein w verletzt ist.
+- Unabhängige Gegenprobe (bereits vorhanden, nicht nachträglich gewählt): die numerisch bestätigten Konstanten für w = 3..17 (R6, R7, R11, R13).
+- Annahmen, die NICHT vom Prüfer geprüft werden und im Paper zu nennen sind: Richtigkeit von Thm. 5.1 in arXiv:1902.04180 (dort bewiesen,
+  Anhang A); das Lemma, dass eine harmonische, modular invariante Funktion polynomialen Wachstums konstant ist (Standard, Maass-Formen).

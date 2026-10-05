@@ -40,9 +40,9 @@ def _cli(system, prompt, model, timeout):
     exe = shutil.which("claude")
     if not exe: raise LLMError("claude CLI nicht gefunden")
     with tempfile.TemporaryDirectory() as cwd:          # leeres Verzeichnis: kein Zugriff auf Daten oder CLAUDE.md
-        cmd = [exe, "-p", prompt, "--output-format", "json", "--tools", "", "--model", model,
+        cmd = [exe, "-p", "--output-format", "json", "--tools", "", "--model", model,
                "--no-session-persistence", "--system-prompt", system]
-        p = subprocess.run(cmd, capture_output=True, text=True, timeout=timeout, cwd=cwd)
+        p = subprocess.run(cmd, input=prompt, capture_output=True, text=True, timeout=timeout, cwd=cwd)   # Prompt über stdin (ARG_MAX)
     if p.returncode != 0: raise LLMError(p.stderr[-500:] or p.stdout[-500:])
     d = json.loads(p.stdout)
     if d.get("is_error"): raise LLMError(str(d.get("result"))[:500])
