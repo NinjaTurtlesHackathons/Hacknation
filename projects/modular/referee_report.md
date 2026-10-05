@@ -2,47 +2,47 @@
 
 Fixable points addressed in a revision: no (revision failed the checks or nothing fixable)
 
-## 1. Central claim is a finite check (3 ≤ w ≤ 61), not a general theorem, yet framed as 'closed forms'
+## 1. Central 'closed form' claim is only verified at finitely many weights and rests on unproved pattern
 
-The title and abstract promise closed forms for odd-weight constants, but the result is only verified case by case up to w = 61. The Bernoulli/factorial formula is a conjecture (Conjecture 1) read off from small weights and checked by computer. No general argument shows that the Laurent constant equals 6|B_{w-1}|/((w-1)/2)!. Theorem 1 is therefore a finite computer-assisted verification, and the 'Theorem' label and the word 'prove' overstate it. The paper also gives no reason why w = 61 is the stopping point.
-
-- Severity: major
-- Fixable by rewriting: True
-- Suggestion: Retitle and reframe Theorem 1 as a verified statement for 3 ≤ w ≤ 61 plus a conjecture. Replace 'closed forms proved' with 'conjectured closed forms verified up to 61', and say why the range ends at 61. Alternatively supply a general proof, for example by reducing the Laurent constant to a binomial-sum identity, as the open question (i) suggests.
-- Status: open
-
-## 2. Proof depends on unchecked external results and is not reproducible from the text
-
-The proof rests on Theorem 5.1 of D'Hoker–Kaidi and on an unnamed 'standard lemma' (harmonic, SL(2,Z)-invariant, polynomial growth implies constant). Neither is proved or even stated precisely. The lemma needs exact growth hypotheses, such as the absence of exponentially growing terms and the behaviour at the cusp, and these are not verified for X_w − f_w E(w). Step 3 depends on a 'transcription' of the Laurent polynomial that was checked only against one equation (eq. 5.19) and only for the terms without zeta-value products, which are not the terms that fix g_w. The paper never shows the actual computation of the τ2^0 term at any single weight, for example w = 7, so a reader cannot follow it. The reference to 'following,' is a dangling citation. The text does not make clear how the certificate's reproducibility claim, which points to a repository, is supported inside the paper.
+Theorem 1 is proved only case by case for odd w ≤ 61 by computer. The general formulas f_w = 3((w-1)/2)!/w and g_w = 6|B_{w-1}|/((w-1)/2)! are therefore a conjecture supported by evidence, not a theorem for general odd w. The title and abstract ('Closed forms for the constants') overstate the result. Conjecture 1 is also internally muddled: it is called a conjecture beyond w = 61, but Remark 1 says it was read off from w = 3..13. Theorem 2 (uniqueness) is only up to w = 25.
 
 - Severity: major
 - Fixable by rewriting: True
-- Suggestion: State the lemma precisely and cite it. Include a fully worked example (w = 7 or 9) of the Laurent-polynomial evaluation, listing every contribution to the τ2^0 term. State exactly which hypotheses of Theorem 5.1 are used. Fix the dangling references and give the DGV eq. 3.57 coefficients explicitly, or in a table, for general w.
+- Suggestion: Retitle and reframe as a verified conjecture/computer-assisted result for 3 ≤ w ≤ 61. State clearly that the all-weight statement is a conjecture. Separate what is proved (finite range) from what is conjectured. Align abstract, title and Remark 1.
 - Status: open
 
-## 3. Novelty is limited and overclaimed relative to prior literature
+## 2. Proof depends on unverified external theorem and lemma, and the key step is not reproducible from the text
 
-By the paper's own novelty statements, X_w (DGV eq. 3.57), f_w up to w = 9, g_3, g_5, g_7 and the one-dimensionality of the harmonic eigenspace are all already known. The method (Laurent polynomial of C_{u,v;w} from D'Hoker–Kaidi) was already given in the literature for g_7. The new content is the evaluation of a known formula at more weights. Theorem 2 (dimension 1 or 0 for w ≤ 25) is called an 'independent recomputation' of a DGV statement. Theorem 3 on eta quotients and the Sturm-certified identities in Table 4 are unrelated to the topic, are classical, and distract from the contribution. The Sturm table and Theorem 3 sit in an appendix and the discussion, apparently as artifacts of the automated workflow.
+Step 3 (the constant term) rests on Theorem 5.1 of D'Hoker–Kaidi and an unspecified 'standard lemma' (harmonic + SL(2,Z)-invariant + polynomial growth implies constant). Neither is checked. The paper does not state that the lemma needs growth control at the cusp, nor that the Laurent polynomial's non-polynomial remainder (exponentially suppressed terms) is accounted for. The transcription check is only a 'consistency check' on terms that do not involve zeta products, which are exactly the terms that determine g_w. No explicit intermediate data (e.g. the Laurent polynomial at one weight such as w = 11) is shown, and the 'proof' is a certificate sentence referring to code. The statement that the conjectural part of Theorem 5.1 (the τ2^{2-w} coefficient) is unused is asserted without justification.
+
+- Severity: major
+- Fixable by rewriting: False
+- Suggestion: Give the lemma with a precise statement and reference, and show the full Laurent computation explicitly for at least one weight (e.g. w = 7 and 11). Justify why the conjectural coefficient does not enter g_w. Ideally provide an independent derivation of g_w, or reduce the constant to a binomial-sum identity.
+- Status: open
+
+## 3. Numerical evidence is weak, partly circular, and inconsistently reported
+
+Verification uses only 4 points (seed 4711) in a narrow region |τ1| ≤ 1/2, 1 ≤ τ2 ≤ 2.5. The tolerance for Laplacian relations (1e-14) is loose. Table 2 residuals (~1e-43) are far below the stated 32-digit working precision, which is not explained. Appendix A says the checks use 32 digits, while the observation claims are stated at a 1e-24 bound. The preregistered numerical 'blind test' at w = 17 is one weight. The Laplacian relations listed (e.g. L[C(2,2,1)] - 20C(2,2,1) + 2/3 ζ(5)) are presented with no evaluation details. Numerical confirmation covers w ≤ 17 only, so it is not an independent check of the larger weights (up to 61) where the proof claims apply, and the Fourier-sum bug found in the hardening run (stopping when a term vanishes) casts doubt on the evaluator's reliability for earlier results.
+
+- Severity: major
+- Fixable by rewriting: False
+- Suggestion: Add more evaluation points, including near the cusp and near τ = ρ. Re-run with independent code. Explain the precision/residual discrepancy. Add a numerical check at some higher weight (e.g. w = 19–25) to cover the range where the proof is used.
+- Status: open
+
+## 4. Inconsistencies and errors in the manuscript's numbers and statements
+
+Several internal inconsistencies undermine trust. (a) The weight-11 completeness criterion: the Certificate says the smallest other singular value is 4.149e9, the text 'What did not work' says 4.149e-9, and the later text says 3.69e-9. (b) The Proposition 2 subtraction term (10/11)E(11) disagrees with f_11 = 360/11 for the stated normalisation: 100/(11·10) = 10/11 does match Δ = 100 for λ, but Observation 1 gives 8640 E(11)/19008 = 5/11, and the weight-9 term 4E(9) differs from the numerically stated f_9-based value (960/2160 = 4/9). The relation between the normalisations of X_w, Table 1, and the explicit combinations is never made explicit. (c) The Proposition 1 combination has ∆ = 288 E(9), but the claimed f_9 = 8 gives w(w-1)f_w = 576, and the displayed coefficient normalisation is not that of Theorem 2's ∆X_w = w(w-1)f_w E(w). (d) The Observation 1 weight-9 identity has a 4/9 ratio relative to Proposition 1 but this is not stated. (e) The self-test summary '53 counterchecks: 4 passed, 48 did not pass, 1 not executable' is confusing, and passing counterchecks are described as 'consistency checks'. (f) Observation 1 for w = 7 writes 252 C(3,3,1) + 252 C(3,2,2) = 108 E(7) + ζ(7), versus the literature statement of 3/7 E(7) + ζ(7)/252 in the Novelty note; these agree (108/252 = 3/7) but g_9 etc. are quoted without reconciling normalisations.
 
 - Severity: major
 - Fixable by rewriting: True
-- Suggestion: State the contribution honestly: a computer-assisted evaluation of known formulas that produces the pattern for f_w and g_w. Remove the eta-quotient theorem and the holomorphic Sturm validation, or move them to supplementary material. Make clear which parts of Theorems 1 and 2 go beyond DGV.
+- Suggestion: Audit every number. State once and clearly the normalisation of X_w, f_w, g_w and the explicit weight-9/11 combinations, and give a table converting between the Proposition/Observation forms and Theorem 1. Fix the 4.149e9 vs 4.149e-9 vs 3.69e-9 typo. Clarify the counterchecks summary.
 - Status: open
 
-## 4. Numerical evidence is inconsistently reported and partly post hoc
+## 5. Completeness claim for the weight-11 relation space and a post-hoc criterion; overstated novelty and scope
 
-Several points undermine the numerical sections. (a) Preregistered criterion 1 for the weight-11 basis failed, and criterion 2 was then defined on new data with a threshold chosen after seeing the singular values ('chosen to lie well above the kernel value and well below the smallest non-kernel value'). That is post hoc by construction, and the paper itself says it is not a proof. (b) The text contradicts itself on the smallest non-kernel singular value: 4.149e9 in one place and 4.149e-9 in another, and 3.69e-9 elsewhere, with a 1e-8 threshold. (c) Table 2 residuals of about 1e-43 at 32 digits are very small compared with the stated 1e-24 tolerance. They are consistent with the claim but not explained, and the 1e-14 tolerance for the Laplacian is a fixed value with h = 1e-6 and no error analysis. (d) The Laplace-equation list (observations) and Table 3 use unexplained notation, with trailing commas and a spurious '≥' in 'smallest large s.v.'. Only 4 points are used for most checks. (e) The adversarial self-test count (4 + 48 + 1 = 53) is odd, and it is unclear how a 'consistency check that passes' counts as a counter-check. (f) The statement that 'no earlier test point was affected' by the τ1 = 1/4 bug is asserted without evidence.
+Criterion 1 for the full weight-11 basis was preregistered and failed. A second criterion was then preregistered after seeing the data, with a threshold chosen to separate the observed groups. This is a post-hoc fit presented as confirmation, and a gap in a numerical singular-value spectrum with entries ranging from 1e-43 to 1e-9 is only weak evidence of completeness, especially with a numerical matrix whose smallest non-kernel value is 3.69e-9 (a 'large' singular value this small is ambiguous, cf. the weight-6 and weight-9 cases where large values 2.44e-8 and 8.6e-7 appear). Also, much of the content is known (weights 3–9, DGV eq. 3.57 combinations, DKS g_7), the paper includes off-topic material (Theorem 3 on eta quotients, Sturm certificates for theta/E8 identities, workflow and agent-role descriptions) unrelated to the title, and novelty is judged by a search of 'abstracts', which is not a rigorous literature check.
 
 - Severity: minor
 - Fixable by rewriting: True
-- Suggestion: Fix the numerical typos and the contradictory singular values. Present the weight-11 relation-space result honestly as a numerical gap rather than a certification, and describe criterion 2 as exploratory. Add error analysis for the finite-difference Laplacian. Explain the 1e-43 residuals and say whether the tolerance is meaningful. Clarify the counter-check taxonomy and justify the claim about earlier test points.
-- Status: open
-
-## 5. Internal inconsistencies, scope creep and weak presentation
-
-There are consistency problems in the formulas and constants. Weight 9 (Prop. 1) gives ∆(…) = 288 E(9) with X_9 apparently normalised as 9C(4,4,1)+18C(4,3,2)+4C(3,3,3), and the stated combination minus 4E(9) is harmonic. With f_9 = 3·4!/9 = 8 and w(w−1)f_w = 72·8 = 576, this does not match λ = 288 unless X_w differs from the DGV normalisation by a factor of 2. The normalisation of X_w is never given explicitly for general w, so the closed forms cannot be checked independently. The relation listed at w = 9 (with ζ(9) and coefficient 960) does not obviously match g_9 = 8 (for example, 960·8 ≠ ... ). The section numbering and claim labels (Theorem vs Remark for Conjecture 1) are muddled. The 'Novelty status' remarks, the lab workflow description ('sparsam, numeriker, skeptiker…'), the provenance table and the automated-verifier narrative are not appropriate content for a mathematical physics paper. The paper also leans heavily on 'preregistration', which has little meaning for a deterministic proof. Corrupted text such as 'twoloop', 'Q E(w),' and 'computerassisted' suggests the manuscript was not proofread. The Table 1 values and Figure 1 add little.
-
-- Severity: minor
-- Fixable by rewriting: True
-- Suggestion: Define X_w explicitly for all odd w, including the normalisation and the relation between ∆X_w and w(w−1)f_w, and reconcile the weight-9 and weight-11 examples with the general formula. Remove the lab-workflow and provenance material or move it to supplementary material. Proofread the whole manuscript and fix the corrupted text and dangling punctuation.
+- Suggestion: Report the weight-11 completeness as numerical evidence only, with the failed criterion 1 stated clearly, and avoid language implying proof ('exactly one relation'). Prove completeness exactly via the exact harmonic-space computation (as in Theorem 2) if possible. Remove or move the unrelated eta-quotient and theta material, drop the laboratory-process narrative, and cite related literature properly rather than relying on an abstract search.
 - Status: open
