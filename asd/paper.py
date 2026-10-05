@@ -340,6 +340,7 @@ def md_to_latex_body(md, keys, C, lang):
     """Markdown (mit IDs) -> LaTeX-Rumpf: Umgebungen, Zitate (\cite), IDs entfernt, Mathematik und Tabellen über pandoc."""
     import pypandoc
     md = _ohne_id_spalten(md)
+    md = re.sub(r"^!\[[^\]]*\]\(([^)]*)\)\s*$", lambda m: m.group(0) if os.path.exists(m.group(1)) else "", md, flags=re.M)   # Abbildungen setzt der Build
     by = {c["claim_id"]: c for c in C}
     body = md.replace("–", "--").replace("—", "---").replace("’", "'").replace("“", '"').replace("”", '"').replace("„", '"')
     def outside_math(t, fn):
@@ -352,6 +353,7 @@ def md_to_latex_body(md, keys, C, lang):
         return (" \\cite{" + ",".join(ks) + "}") if ks else ""
     body = re.sub(r"\s*\[(?:C-[\w\-*.]+(?:\s*[,;]\s*)?)+\]", cite, body)               # Claim-IDs raus, Literatur als \cite
     body = re.sub(r"\s*\((?:cf\.|see|vgl\.|siehe)\s*\)", "", body)                              # leere Verweise nach dem Entfernen
+    body = re.sub(r"[ \t]*,(\s*,)*\s*(?=[.;:,])", "", body); body = re.sub(r"(?<![.\d])\.\.(?!\.)", ".", body)       # ',.' ',,:' '..' nach entfernten IDs
     conv0 = lambda t: pypandoc.convert_text(t, "latex", format="markdown+raw_tex+tex_math_dollars", extra_args=["--wrap=preserve"]).strip()
     out, buf, env, title = [], None, None, None
     for line in body.split("\n"):
@@ -390,6 +392,10 @@ TEMPLATE = r"""\documentclass[10pt,twocolumn]{article}
 \titlespacing*{\section}{0pt}{1.6ex plus .5ex}{0.9ex}\titlespacing*{\subsection}{0pt}{1.2ex plus .4ex}{0.6ex}
 %(unicode)s
 \sloppy\emergencystretch=1.5em
+\usepackage{adjustbox}
+\mathchardef\mathcomma=\mathcode`\,
+\mathcode`\,="8000
+{\catcode`\,=\active\gdef,{\mathcomma\discretionary{}{}{}}}
 \providecommand{\tightlist}{\setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
 \newtheorem{theorem}{Theorem}\newtheorem{conjecture}{Conjecture}\newtheorem{proposition}{Proposition}\newtheorem{lemma}{Lemma}\newtheorem{corollary}{Corollary}
 \theoremstyle{definition}\newtheorem{definition}{Definition}\newtheorem{example}{Example}
@@ -494,6 +500,7 @@ def build_latex(md, title, authors, aff, C, d, lang, figs, keywords, fach="Prepr
                       "year": str(heute.year), "running": tex_text(f"{kurz}: {titel_kurz}"), "fach": tex_text(fach),
                       "abstract": abstract, "kwlabel": "Keywords" if lang == "en" else "Schlüsselwörter", "keywords": r" $\cdot$ ".join(tex_text(k.strip()) for k in re.split(r"[;,]", keywords) if k.strip()),
                       "body": body, "figures": fig_tex, "obs": "Numerical observation" if lang == "en" else "Numerische Beobachtung"}
+    tex = re.sub(r"(?<!\\)\\\[(.+?)(?<!\\)\\\]", lambda m: "\\[\\adjustbox{max width=\\columnwidth}{$\\displaystyle " + m.group(1) + "$}\\]", tex, flags=re.S)   # zu breite Displays auf Spaltenbreite
     open(f"{d}/paper.tex", "w").write(tex)
     for cmd in (["pdflatex", "-interaction=nonstopmode", "paper.tex"], ["bibtex", "paper"], ["pdflatex", "-interaction=nonstopmode", "paper.tex"],
                 ["pdflatex", "-interaction=nonstopmode", "paper.tex"]):
