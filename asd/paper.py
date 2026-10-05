@@ -155,6 +155,13 @@ def modell_claim(D):
 def claims_of(domain, lang="en", projekt=None):
     RT_STAT.clear(); projekt = projekt or domain
     s = json.load(open(f"projects/{projekt}/state.json")); D = get_domain(domain); C = modell_claim(D)
+    subs = {}                                                           # überholte Claims (gleiche oder schwächere Prüfung eines anderen Claims) nur im Anhang
+    if hasattr(D, "subsumiert"):
+        ok = [c for c in s["claims"] if c.get("status") == "bestätigt" and c.get("pruefung")]
+        for i, c in enumerate(ok):
+            for j, d in enumerate(ok):
+                if i != j and D.subsumiert(c["pruefung"], d["pruefung"]) and (not D.subsumiert(d["pruefung"], c["pruefung"]) or j < i):
+                    subs[c["id"]] = d["id"]; break
     for c in s["claims"]:
         try: text = D.describe(c["pruefung"], lang=lang) if c.get("pruefung") else c["text"]   # nur was die Prüfung beweist
         except TypeError: text = D.describe(c["pruefung"])
@@ -168,9 +175,10 @@ def claims_of(domain, lang="en", projekt=None):
                 "teilweise_bekannt": f" Novelty status: partly known. Known ({nv.get('quelle')}, full text, verbatim: \"{nv.get('zitat', '')[:140]}\"): {nv.get('was_bekannt', '')}. Not given there: {nv.get('was_offen', '')}."}.get(nv.get("status"), " Novelty status: not checked.")
         if nv.get("hinweis"): ntxt += f" Related exact result: {nv['hinweis']}."
         if nv.get("beleg") and nv.get("status") == "bekannt": ntxt = f" Novelty status: already known ({nv.get('quelle')}, full text, verbatim: \"{nv.get('zitat', '')[:140]}\"): {nv.get('was_bekannt', '')}."
+        if c["id"] in subs: ntxt += f" Subsumed by C-{subs[c['id']]} (same or weaker check); appendix only."
         C.append({"claim_id": f"C-{c['id']}", "text": f"Question studied: {c['frage']} Verified result: {text} Verifier: {sanitize(c['grund'])}.{ntxt}",
                   "level": c["level"], "status": c["status"], "relevanz": rel, "scope": scope_of(text, c.get("pruefung")),
-                  "benutzt": [f"C-{b}" for b in c.get("benutzt") or []]})
+                  "benutzt": [f"C-{b}" for b in c.get("benutzt") or []], **({"anhang": True} if c["id"] in subs else {})})
         interp = c.get("interpretation_ungeprueft") or c["text"].split("->")[-1]
         C.append({"claim_id": f"C-{c['id']}-I", "text": f"Unverified interpretation of {c['id']} (never use as a result): {interp}",
                   "level": "hypothesis", "status": "offen", "anhang": True})
@@ -310,9 +318,27 @@ def provenance(md, C):
     return [(k, sorted(v), sorted({by[i]["level"] for i in v})) for k, v in merged.items()]
 
 
+def _ohne_id_spalten(md):
+    """Pipe-Tabellen: Spalten, deren Zellen nur Claim-IDs enthalten, entfernen (die IDs werden später gestrichen; Herkunft steht in Anhang B)."""
+    zeilen = md.split("\n"); out = []; i = 0
+    while i < len(zeilen):
+        if zeilen[i].lstrip().startswith("|") and i + 1 < len(zeilen) and re.match(r"^\s*\|[\s:|-]+\|\s*$", zeilen[i + 1]):
+            j = i
+            while j < len(zeilen) and zeilen[j].lstrip().startswith("|"): j += 1
+            tab = [[x.strip() for x in z.strip().strip("|").split("|")] for z in zeilen[i:j]]
+            n = max(len(r) for r in tab); tab = [r + [""] * (n - len(r)) for r in tab]
+            weg = {k for k in range(n) if all(re.fullmatch(r"(\[?C-[\w\-*.]+\]?[\s,;]*)*", r[k]) for r in tab[2:])}
+            if weg and len(weg) < n:
+                tab = [[x for k, x in enumerate(r) if k not in weg] for r in tab]
+            out += ["| " + " | ".join(r) + " |" for r in tab]; i = j; continue
+        out.append(zeilen[i]); i += 1
+    return "\n".join(out)
+
+
 def md_to_latex_body(md, keys, C, lang):
     """Markdown (mit IDs) -> LaTeX-Rumpf: Umgebungen, Zitate (\cite), IDs entfernt, Mathematik und Tabellen über pandoc."""
     import pypandoc
+    md = _ohne_id_spalten(md)
     by = {c["claim_id"]: c for c in C}
     body = md.replace("–", "--").replace("—", "---").replace("’", "'").replace("“", '"').replace("”", '"').replace("„", '"')
     def outside_math(t, fn):
@@ -361,6 +387,7 @@ TEMPLATE = r"""\documentclass[10pt,twocolumn]{article}
 \titleformat{\section}{\normalfont\large\bfseries}{\thesection}{0.6em}{}\titleformat{\subsection}{\normalfont\bfseries}{\thesubsection}{0.6em}{}
 \titlespacing*{\section}{0pt}{1.6ex plus .5ex}{0.9ex}\titlespacing*{\subsection}{0pt}{1.2ex plus .4ex}{0.6ex}
 %(unicode)s
+\sloppy\emergencystretch=1.5em
 \providecommand{\tightlist}{\setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
 \newtheorem{theorem}{Theorem}\newtheorem{proposition}{Proposition}\newtheorem{lemma}{Lemma}\newtheorem{corollary}{Corollary}
 \theoremstyle{definition}\newtheorem{definition}{Definition}\newtheorem{example}{Example}

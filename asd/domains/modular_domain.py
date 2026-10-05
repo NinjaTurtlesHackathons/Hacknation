@@ -265,6 +265,13 @@ def check_mgf_identitaet_familie(p):
 G_FORMEL = "6|B_{w-1}|/((w-1)/2)!"
 
 
+def check_g(p):
+    """g_w-Tabelle einer mgf_identitaet_familie-Prüfung (aus g oder g_formel)."""
+    W = int(p["gewicht_bis"])
+    if p.get("g_formel"): return {w: _g_bernoulli(w) for w in range(3, W + 1, 2)}
+    return {int(k): _fr(v) for k, v in (p.get("g") or {}).items()}
+
+
 def _g_bernoulli(w):
     from math import factorial as fa
     from .mgf_laurent import B
@@ -445,6 +452,19 @@ class ModularDomain(Domain):
     def level(self, p):
         if p.get("typ") in ("mgf_harmonisch", "mgf_harmonisch_familie", "mgf_identitaet_familie"): return "computed_rigorous"
         return "observed" if str(p.get("typ", "")).startswith("mgf") else "computed_rigorous"
+
+    def subsumiert(self, p, q):
+        """True, wenn die Prüfung p inhaltlich in q enthalten ist (gleiche oder schwächere Familienaussage mit kleinerer Reichweite)."""
+        tp, tq = p.get("typ"), q.get("typ")
+        try:
+            if tp == tq and tp not in ("mgf_harmonisch_familie", "mgf_identitaet_familie") and self.inhalt(p) == self.inhalt(q): return True   # wörtliche Wiederholung
+        except Exception: pass
+        if tp in ("mgf_harmonisch_familie", "mgf_identitaet_familie") and tq == tp:     # nur gleicher Typ: R14 trägt die Eindeutigkeit, die Identitätsprüfung nicht
+            if tp == "mgf_identitaet_familie":                                     # gleiche Konstanten auf dem gemeinsamen Bereich
+                gp = check_g(p); gq = check_g(q)
+                if any(gp[w] != gq.get(w) for w in gp): return False
+            return int(q.get("gewicht_bis", 0)) >= int(p.get("gewicht_bis", 0))
+        return False
 
     def staerke(self, p):
         """Ordnung für die Stärke-Maximierung: Identität mit Konstante > harmonischer Raum > Einzelaussagen; größere Reichweite zählt mehr."""
