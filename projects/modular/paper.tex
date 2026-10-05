@@ -42,6 +42,7 @@
 \newunicodechar{ρ}{\ensuremath{\rho}}
 \newunicodechar{θ}{\ensuremath{\theta}}
 
+\sloppy\emergencystretch=1.5em
 \providecommand{\tightlist}{\setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
 \newtheorem{theorem}{Theorem}\newtheorem{proposition}{Proposition}\newtheorem{lemma}{Lemma}\newtheorem{corollary}{Corollary}
 \theoremstyle{definition}\newtheorem{definition}{Definition}\newtheorem{example}{Example}
@@ -58,266 +59,171 @@
 \noindent{\small Preprint, October 2026}\par\vspace{16pt}
 }]
 \thispagestyle{plain}
-\noindent\textbf{Abstract} We study the combinations \(X_w\) of dihedral two-loop modular graph functions \(C(a,b,c)\) of odd weight \(w\) whose Laplacian is proportional to the Eisenstein series \(E_w\). We establish \(X_w = f_w E_w + g_w\zeta(w)\) with \(f_w = 3\,((w-1)/2)!/w\) and \(g_w = 6|B_{w-1}|/((w-1)/2)!\) at the odd weights \(3 \le w \le 61\). The argument combines exact rational Laplace algebra with the Laurent constant term evaluated in rational arithmetic from a published theorem. That theorem and the standard lemma on harmonic invariant functions of polynomial growth are assumed and not machine-checked. The harmonic space is exactly one-dimensional for odd \(w\) and zero for even \(w\) at the weights \(3 \le w \le 25\). Independently of the proof, the identities at \(w = 3,\dots,17\) were confirmed numerically at 32 digits at verifier-chosen points; \(w=15\) was a prediction and \(w=17\) a preregistered blind test. The full weight-11 basis has exactly one relation. A hardening run exposed and fixed an evaluator bug. A proof beyond the weights examined remains open and is stated as a conjecture.
+\noindent\textbf{Abstract} We study the combinations \(X_w\) of dihedral modular graph functions \(C(a,b,c)\) of odd weight \(w\) introduced by D'Hoker, Green and Vanhove, whose Laplacian is proportional to the Eisenstein series \(E(w)\). For the odd weights \(3\le w\le 61\) we show \(X_w=f_wE(w)+g_w\zeta(w)\) with \(f_w=3((w-1)/2)!/w\) and \(g_w=6|B_{w-1}|/((w-1)/2)!\). The proof has three steps. The Laplace equation is derived in exact rational algebra. Harmonicity, invariance and polynomial growth force \(X_w-f_wE(w)\) to be constant. The constant is read off from a Laurent polynomial evaluated in rational arithmetic. The space of combinations with \(\Delta X\in\mathbb{Q}E(w)\) is shown exactly to be one-dimensional for odd \(w\) and zero for even \(w\), for \(3\le w\le 25\). Independently of the proof, the verifier confirmed the constants numerically at \(w=3,\dots,17\). The full weight-11 basis carries exactly one relation. The statement for all odd \(w\) is a conjecture. The proof rests on two assumptions not checked by code, a published theorem and a standard lemma.
 \par\medskip
 \noindent\textbf{Keywords} Modular graph functions $\cdot$ Laplace eigenvalue equations $\cdot$ Eisenstein series $\cdot$ Bernoulli numbers $\cdot$ Genus-one string amplitudes $\cdot$ Computer-assisted proof\par\medskip
 \section{Introduction}\label{introduction}
 
-Dihedral modular graph functions \(C(a,b,c)\) arise as coefficients in the low-energy expansion of the one-loop closed-string amplitude. D'Hoker, Green and Vanhove showed that they satisfy Laplace eigenvalue equations with inhomogeneous terms polynomial in non-holomorphic Eisenstein series, and they exhibited exact differential and algebraic relations for an infinite class of such functions \cite{DHoker20156698}. The Laplace equation fixes an algebraic relation only up to an additive constant of integration, which is obtained from the asymptotics at the cusp \cite{DHoker20156698}. In the simplest cases this gives \(C(1,1,1) = E_3 + \zeta(3)\) and \(C(2,2,1) = \tfrac25 E_5 + \zeta(5)/30\). At weight 7 the identity \(C(3,3,1)+C(3,2,2) = \tfrac37 E_7 + \zeta(7)/252\) appears in a later hierarchy of modular graph identities \cite{Dorigoni20215017}. Related relations between graphs with four and five links, and between higher-loop graphs, were also treated in the literature \cite{Basu20165011,DHoker201693v3}.
+Dihedral modular graph functions \(C(a,b,c)\) arise as coefficients in the low-energy expansion of the one-loop closed-string amplitude. They satisfy Laplace eigenvalue equations with inhomogeneous terms that are polynomial in non-holomorphic Eisenstein series \cite{DHoker20156698}. At each odd weight there is a combination \(X_w\) with Laplace eigenvalue zero, up to a term proportional to \(E(w)\). Its multiplicity is one for each odd weight and zero for each even weight \cite{DHoker20156698}.
 
-\emph{Open question.} For odd \(w\) there is a combination \(X_w\) of \(C(a,b,c)\) (eq. 3.57 of arXiv:1502.06698) whose Laplacian is proportional to \(E_w\). The constants \(f_w\) and \(g_w\) in \(X_w = f_wE_w + g_w\zeta(w)\) were given in the literature only for small weights, with \(g_7\) and \(g_9\) left as undetermined integration constants. Do the constants have closed forms, and can these be established?
+D'Hoker, Green and Vanhove determine such identities up to additive constants of integration, which are fixed by the behaviour near the cusp \cite{DHoker20156698}. The constants \(g_7,g_9\) are left undetermined there, while \(g_7\) appears explicitly in a later work \cite{Dorigoni20215017}. The Laurent polynomial of each \(C(a,b,c)\) is known in closed form from D'Hoker and Kaidi. The open question is the value of \(f_w\) and \(g_w\) at larger odd \(w\).
 
-\emph{Why it is hard.} The constant of integration requires the Laurent polynomial of each \(C(a,b,c)\), and both the number of graphs and the size of the coefficients grow with \(w\). Numerical determination by integer-relation searches is limited by working precision relative to coefficient height. An exact route is available through the Laurent polynomial of the two-loop modular graph functions (Theorem 5.1 of arXiv:1902.04180). That theorem was not evaluated for these identities there.
+This is hard because the number of functions \(C(a,b,c)\) grows with \(w\), and the constant is a Laurent term of a long combination. At \(w=17\) the identity involves eight functions, with a leading integer coefficient \(51819264000\). Numerical identification of the constants by integer-relation search is therefore fragile.
 
-\emph{Contribution.} We evaluate it in rational arithmetic and obtain closed forms for \(f_w\) and \(g_w\) at the odd weights \(3\le w\le 61\) examined. We also give an exact uniqueness statement and independent numerical confirmations.
+We prove closed forms for \(f_w\) and \(g_w\) by an exact route, and confirm them by independent numerics.
 
 \textbf{Summary of results.}
 
 \begin{itemize}
 \tightlist
 \item
-  Theorem 1 shows \(X_w = f_wE_w + g_w\zeta(w)\) with \(f_w = 3((w-1)/2)!/w\) and \(g_w = 6|B_{w-1}|/((w-1)/2)!\) at the odd weights \(3 \le w \le 61\) (exact; proof in three steps with two stated assumptions).
+  Theorem 1 shows \(X_w=f_wE(w)+g_w\zeta(w)\) with closed forms for \(f_w,g_w\), for the odd weights \(3\le w\le 61\) (exact Laplace algebra plus a rational Laurent computation).
 \item
-  Theorem 2 shows that the space \(\{X : \Delta X \in \mathbb{Q}E_w\}\) is one-dimensional for odd \(w\) and zero for even \(w\) at the weights \(3 \le w \le 25\) (exact).
+  Theorem 2 shows that the space of combinations \(X\) with \(\Delta X\in\mathbb{Q}E(w)\) is one-dimensional for odd \(w\) and zero for even \(w\), for \(3\le w\le 25\) (exact).
 \item
-  Conjecture 1 states the closed forms beyond the examined range; they are established only for \(3\le w\le 61\).
+  Conjecture 1 extends the closed forms beyond the proved range \(w\le 61\); it was read off from \(w=3,\dots,13\) before the proof.
 \item
-  The numerical observations confirm the identities independently of the proof at \(w = 3,\dots,17\). The full weight-11 basis has exactly one relation, and a hardening run is reported.
+  The supporting propositions and numerical observations record independent confirmation at \(w=3,\dots,17\), the full weight-11 relation space, and a hardening run.
 \end{itemize}
 
 \section{Setting}\label{setting}
 
-Let \(\tau = \tau_1 + i\tau_2\), \(q = e^{2\pi i\tau}\) and \(p = m\tau + n\). The lattice-sum normalisation is \(\big(\tau_2/(\pi|m\tau+n|^2)\big)^a\). Primed sums exclude vanishing lattice vectors:
+Let \(\tau=\tau_1+i\tau_2\) and \(p=m\tau+n\). The expansion variable of holomorphic forms is \(q=e^{2\pi i\tau}\). The lattice sums are normalised as in D'Hoker--Green--Vanhove. \(E(s)\) is the sum over nonvanishing lattice vectors \(p\) of \(\big(\tau_2/(\pi|p|^2)\big)^{s}\). \(C(a,b,c)\) is the sum over triples of nonvanishing lattice vectors \(p_1,p_2,p_3\) that add up to zero, of the product \(\prod_i\big(\tau_2/(\pi|p_i|^2)\big)^{a_i}\) with \((a_1,a_2,a_3)=(a,b,c)\). The weight is \(w=a+b+c\). We write \(E_w=E(w)\). \(\zeta\) is the Riemann zeta function and \(B_n\) are Bernoulli numbers. The hyperbolic Laplacian is \(\Delta=\tau_2^2(\partial_{\tau_1}^2+\partial_{\tau_2}^2)\), acting as \(\Delta E(s)=s(s-1)E(s)\). For odd \(w\), \(X_w\) is the rational combination of \(C(a,b,c)\) of weight \(w\) of D'Hoker--Green--Vanhove. The constants are
+\[f_w=\frac{3\,((w-1)/2)!}{w},\qquad g_w=\frac{6\,|B_{w-1}|}{((w-1)/2)!}\quad\text{.}\]
 
-Both definitions follow. The hyperbolic Laplacian is \(\Delta = \tau_2^2(\partial_{\tau_1}^2+\partial_{\tau_2}^2)\), and \(E_w\) satisfies \(\Delta E_w = w(w-1)E_w\). Holomorphic Eisenstein series are normalised by \(a_0=1\), \(E_k = 1-(2k/B_k)\sum\sigma_{k-1}(n)q^n\); they enter only in Appendix A. \(X_w\) denotes the combination of dihedral \(C(a,b,c)\) of weight \(w\) of D'Hoker--Green--Vanhove (eq. 3.57 of arXiv:1502.06698). The constants are
-\[f_w=\frac{3\,((w-1)/2)!}{w},\qquad g_w=\frac{6\,|B_{w-1}|}{((w-1)/2)!}\quad\text{},\]
-with \(B_n\) the Bernoulli numbers.
+Numerical parameters of the verifier: working precision 32 digits; tolerance 1e-24 for relations (1e-14 with a Laplacian); fourth-order finite-difference Laplacian with step h = 1e-6; 4 random evaluation points (seed 4711) with \(|\tau_1|\le 1/2\) and \(1\le\tau_2\le 2.5\). Exact criteria use the leading Laurent coefficient in \(y=\pi\tau_2\).
 
-Numerical checks use these parameters: 4 verifier-chosen points (seed 4711, \(|\tau_1|\le 1/2\), \(1\le\tau_2\le 2.5\)), working precision 32 digits, a maximal accepted relative residual of 1e-24 for relations without Laplacian (1e-14 with Laplacian), and a fourth-order finite-difference Laplacian with step \(h=\) 1e-6.
+Statements are labelled as proved (exact arithmetic), computer-assisted, or numerical (point evaluations).
 
-Statements are labelled by their status: \emph{exact} (rational arithmetic), \emph{numerical} (verifier points), and \emph{conjecture}.
+\section{Main results}\label{main-results}
 
-\section{Exact identities for odd weight}\label{exact-identities-for-odd-weight}
-
-\begin{theorem}[Closed forms of the constants, $3\le w\le 61$]
-At every odd weight \(3 \le w \le 61\), \(X_w = f_w E_w + g_w\zeta(w)\) holds identically in \(\tau\), with \(f_w = 3((w-1)/2)!/w\) and \(g_w = 6|B_{w-1}|/((w-1)/2)!\). In particular \(g_w = 1, 1/10, 1/42, 1/120, 1/264, 691/327600, 1/720, 3617/3427200\) at \(w = 3, 5, 7, 9, 11, 13, 15, 17\) respectively.
+\begin{theorem}[Closed forms, $w\le 61$]
+For the odd weights \(3\le w\le 61\), \(X_w=f_w\,E(w)+g_w\,\zeta(w)\), with \(f_w\) and \(g_w\) as in the Setting.
 \end{theorem}
 
-\emph{Proof.} The proof has three steps.
-(i) Exact rational computation in the algebraic Laplace representation gives \(\Delta X_w = w(w-1)f_wE_w\) with no other terms, at the odd weights \(w\le 61\).
-(ii) Since \(\Delta E_w = w(w-1)E_w\), the function \(X_w - f_wE_w\) is harmonic. It is \(SL(2,\mathbb Z)\)-invariant and of polynomial growth at the cusp, hence constant by the standard argument of D'Hoker--Green--Vanhove.
-(iii) The constant equals the \(\tau_2^0\) term of the Laurent polynomial of \(X_w\), which Proposition 2.1 and Theorem 5.1 of D'Hoker--Kaidi (arXiv:1902.04180) give in closed form. Evaluated in rational arithmetic it equals \(g_w\zeta(w)\). The transcription was checked against their eq. (5.19). In every term not involving products of zeta values, the Laurent polynomial of \(X_w\) agrees with that of \(f_wE_w + g_w\zeta(w)\), which is a consistency check.
-\emph{Assumptions not checked by code:} correctness of Theorem 5.1 of arXiv:1902.04180, which is proved there in an appendix and whose conjectural part is not used, and the standard lemma in step (ii).
+\emph{Proof.} The argument has three steps, following.
 
-\emph{Status:} partly known. The combinations \(X_w\) for odd \(w\) (DGV eq. 3.57) are known, as are \(f_w\) for \(w\le9\) and \(g_w\) for \(w=3\) and \(w=5\) (eq. 3.34, with \(g_7\) and \(g_9\) undetermined there), and \(g_7\) is also explicit in eq. 3.77 of arXiv:2109.05017. Not given there are closed forms of \(f_w,g_w\) at odd \(w\) and their proof for \(w\ge 9\).
-
-The constants at the lower weights are tabulated below.
-
-Here \(g_w\) is the coefficient of \(\zeta(w)\).
-
-{\def\LTcaptype{none} % do not increment counter
-\begin{table}[t]\centering\footnotesize
-\begin{tabular}{@{}llll@{}}
-\toprule
-\(w\) & \(f_w\) & \(g_w\) & claim \\
-\midrule
-3 & 1 & 1 & \\
-5 & 6/5 & 1/10 & \\
-7 & 18/7 & 1/42 & \\
-9 & 8 & 1/120 & \\
-11 & 360/11 & 1/264 & \\
-13 & 2160/13 & 691/327600 & \\
-15 & 1008 & 1/720 & \\
-17 & 120960/17 & 3617/3427200 & \\
-19 & 1088640/19 & 43867/48263040 & \\
-21 & 518400 & 174611/199584000 & \\
-23 & 119750400/23 & 77683/83462400 & \\
-25 & 57480192 & 236364091/217945728000 & \\
-\bottomrule
-\end{tabular}
-\end{table}
-
-}
-
-\begin{proposition}[Constants for $27\le w\le35$]
-At the odd weights \(3\le w\le 35\) one has \(\Delta X_w=w(w-1)f_wE_w\) and the Laurent constant \(g_w = 6|B_{w-1}|/((w-1)/2)!\).
-\end{proposition}
-
-\emph{Certificate.} Exact Laplace algebra and rational evaluation of the Laurent polynomial of Theorem 5.1 of arXiv:1902.04180, with the stated values equal to \(6|B_{w-1}|/((w-1)/2)!\). This is the intermediate certificate run before Theorem 1. \emph{Status:} partly known, with the same literature status as Theorem 1.
-
-\begin{remark}[Status of the computer-assisted parts]
-Trusted base: the rational (exact fraction) arithmetic of the checker; the Laplace representation of D'Hoker--Green--Vanhove, re-derived and checked in rational arithmetic; and, as mathematical inputs not verified by code, Theorem 5.1 of arXiv:1902.04180 and the standard lemma of step (ii) of Theorem 1. The numerical statements below use 32-digit arithmetic with an exact leading-coefficient test in \(y=\pi\tau_2\) plus residuals at verifier-chosen points. A third party re-runs every certificate with the commands listed under Code and data availability and in Appendix A.
-\end{remark}
-
-\section{Uniqueness and Laplace algebra}\label{uniqueness-and-laplace-algebra}
-
-\begin{theorem}[Uniqueness of the harmonic combination, $3\le w\le25$]
-At every weight \(3\le w\le25\), the rational combinations \(X\) of dihedral \(C(a,b,c)\) of weight \(w\) with \(\Delta X\in\mathbb{Q}E_w\) form a space of dimension 1 for odd \(w\) and 0 for even \(w\). For odd \(w=2\mu+3\) it is spanned by the DGV combination \(X_w\), and \(\Delta X_w = w(w-1)f_wE_w\) with \(f_w = 3((w-1)/2)!/w\).
-\end{theorem}
-
-\emph{Proof.} Exact rational linear algebra in the algebraic Laplace representation, carried out at the weights \(3\le w\le 25\). \emph{Status:} partly known. The one-dimensionality of the eigenspace at odd weight and its vanishing at even weight, together with \(X_w\), are in the literature \cite{DHoker20156698}. The closed form \(f_w=3((w-1)/2)!/w\) is not given there, and the exact confirmation is an independent recomputation.
-
-\begin{proposition}[Laplace equations at $w=9$ and $w=11$]
-\(\Delta\big(9C(4,4,1)+18C(4,3,2)+4C(3,3,3)\big)=288E_9\), and \(\Delta\big(2C(5,5,1)+4C(5,4,2)+2C(5,3,3)+3C(4,4,3)\big)=100E_{11}\). Hence \(9C(4,4,1)+18C(4,3,2)+4C(3,3,3)-4E_9\) and \(2C(5,5,1)+4C(5,4,2)+2C(5,3,3)+3C(4,4,3)-\tfrac{10}{11}E_{11}\) are annihilated by \(\Delta\).
-\end{proposition}
-
-Known as well is \(X_w\) for odd \(w\) (eq. 3.57), with \(f_w,g_w\) not given there.
-
-\begin{remark}[Conjecture 1: beyond the examined range]
-For odd \(w\ge3\), \(X_w=f_wE_w+g_w\zeta(w)\) with \(f_w=3((w-1)/2)!/w\) and \(g_w=6|B_{w-1}|/((w-1)/2)!\). We expect that a proof beyond the examined range reduces to a binomial-sum identity for the Laurent constant term; this is not carried out here.
-\end{remark}
-
-\section{Independent numerical confirmation}\label{independent-numerical-confirmation}
-
-The following statements are numerical. They do not use Theorem 1, and each passes the exact leading-coefficient test in \(y=\pi\tau_2\) and residuals at 4 verifier points.
-
-\begin{example}[Weights 3 and 5]
-\(C(1,1,1)-E_3-\zeta(3)=0\) and \(30\,C(2,2,1)-12E_5-\zeta(5)=0\), as functions of \(\tau\). Maximal relative residuals are \(5.13\times10^{-44}\) and \(1.57\times10^{-43}\).
-\end{example}
-
-\emph{Certificate.} The exact leading coefficient in \(y^3\) resp. \(y^5\) vanishes; numerical residuals at 4 verifier points, seed 4711, 32 digits. \emph{Status:} already known (DGV eq. 1.7).
-
-\begin{observation}[Weight 7]
-\(252\,C(3,3,1)+252\,C(3,2,2)-108E_7-\zeta(7)=0\), i.e.~\(C(3,3,1)+C(3,2,2)=\tfrac37E_7+\zeta(7)/252\), with maximal relative residual \(1.59\times10^{-43}\).
-\end{observation}
-
-\emph{Certificate.} The exact leading coefficient in \(y^7\) vanishes; 4 points, 32 digits. \emph{Status:} already known (eq. 3.77 of arXiv:2109.05017), i.e.~\(f_7\) and \(g_7\).
-
-\begin{observation}[Weight 9]
-\(960E_9+\zeta(9)-2160\,C(4,4,1)-4320\,C(4,3,2)-960\,C(3,3,3)=0\), with maximal relative residual \(8.33\times10^{-44}\).
-\end{observation}
-
-\emph{Certificate.} The exact leading coefficient in \(y^9\) vanishes; 4 points, 32 digits. \emph{Status:} partly known. The identity \(9C(4,4,1)+18C(4,3,2)+4C(3,3,3)=4E_9+g_9\) is in DGV eq. 3.34, but the value of \(g_9\) is not given there.
-
-\begin{observation}[Weights 11, 13, 15, 17]
-Each of the following holds as a function of \(\tau\).
-
-\begin{itemize}
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
 \tightlist
 \item
-  \(w=11\): \(19008\,C(5,5,1)+38016\,C(5,4,2)+19008\,C(5,3,3)+28512\,C(4,4,3)-8640E_{11}-\zeta(11)=0\).
+  Exact rational computation in the algebraic Laplace representation gives \(\Delta X_w=w(w-1)f_wE(w)\) with no other terms. Since \(\Delta E(w)=w(w-1)E(w)\), it follows that \(\Delta(X_w-f_wE(w))=0\).
 \item
-  \(w=13\): \(117936000\,C(6,6,1)+235872000\,C(6,5,2)+235872000\,C(6,4,3)+188697600\,C(5,5,3)+212284800\,C(5,4,4)-54432000E_{13}-691\zeta(13)=0\).
+  \(X_w-f_wE(w)\) is harmonic, modular invariant and of polynomial growth at the cusp, hence constant.
 \item
-  \(w=15\): \(1555200\,C(7,7,1)+3110400\,C(7,6,2)+3110400\,C(7,5,3)+1555200\,C(7,4,4)+2592000\,C(6,6,3)+6220800\,C(6,5,4)+1244160\,C(5,5,5)-725760E_{15}-\zeta(15)=0\).
-\item
-  \(w=17\): \(51819264000\,C(8,8,1)+103638528000\,C(8,7,2)+103638528000\,C(8,6,3)+103638528000\,C(8,5,4)+88833024000\,C(7,7,3)+222082560000\,C(7,6,4)+118444032000\,C(7,5,5)+148055040000\,C(6,6,5)-24385536000E_{17}-3617\zeta(17)=0\).
-\end{itemize}
-\end{observation}
+  The constant equals the \(\tau_2^0\) term of its Laurent polynomial. This polynomial was computed in rational arithmetic from Proposition 2.1 and Theorem 5.1 of D'Hoker--Kaidi, with the transcription checked against their eq. 5.19. The terms not involving products of zeta values agree with those of \(f_wE(w)+g_w\zeta(w)\), which serves as a consistency check, and the constant term equals \(g_w\zeta(w)\).
+\end{enumerate}
 
-\emph{Certificate.} The exact leading coefficients in \(y^{11}\), \(y^{13}\), \(y^{15}\), \(y^{17}\) vanish; 4 verifier points, 32 digits, with the residuals listed in the table below. Weight 15 was a prediction made before its value was read; weight 17 was a preregistered blind test. \emph{Status:} partly known. Existence and combination of the identity for odd \(w\) (DGV eq. 3.57) are known, while \(f_w,g_w\) for \(w\ge11\) are not given there.
+The verifier computed exactly at the odd weights \(3\le w\le 61\). Two assumptions are not checked by code: the correctness of Theorem 5.1 of D'Hoker--Kaidi (proved there; its conjectural part concerns only the coefficient of \(\tau_2^{2-w}\) and is not used) and the standard lemma in step 2. \(\square\)
 
-Here \(\zeta(w)\) denotes the Riemann zeta value at \(w\).
+Novelty status: partly known. The combinations \(X_w\) for odd \(w\) are given in D'Hoker--Green--Vanhove (eq. 3.57), \(f_w\) for \(w\le 9\) and \(g_w\) for \(w=3\) and \(w=5\) in their eq. 3.34, with \(g_7,g_9\) left undetermined. \(g_7\) also appears explicitly in a later work \cite{Dorigoni20215017}. Closed forms of \(f_w\) and \(g_w\) at larger odd \(w\) and their proof for \(w\ge 9\) are not given there.
 
 \begin{table}[t]\centering\footnotesize
-\caption{Maximal relative residuals of the numerical relations (4 verifier points, seed 4711, 32 digits; residual bound 1e-24).}
-\begin{tabular}{@{}llll@{}}
+\caption{constants \(f_w\) and \(g_w\) in \(X_w=f_wE(w)+g_w\zeta(w)\) (exact).}
+\begin{tabular}{@{}lll@{}}
 \toprule
-\(w\) & \(\zeta(w)\) coefficient in the relation & residual & claim \\
+\(w\) & \(f_w\) & \(g_w\) \\
 \midrule
-3 & \(-1\) & \(5.13\times10^{-44}\) & \\
-5 & \(-1\) & \(1.57\times10^{-43}\) & \\
-7 & \(-1\) & \(1.59\times10^{-43}\) & \\
-9 & \(+1\) & \(8.33\times10^{-44}\) & \\
-11 & \(-1\) & \(1.21\times10^{-43}\) & \\
-13 & \(-691\) & \(5.67\times10^{-44}\) & \\
-15 & \(-1\) & \(6.46\times10^{-44}\) & \\
-17 & \(-3617\) & \(5.49\times10^{-44}\) & \\
+3 & \(1\) & \(1\) \\
 \bottomrule
 \end{tabular}
 \end{table}
 
 
-Figure 1 (to be generated from the table of \(f_w\) and \(g_w\) above): \(\log|g_w|\) and \(\log f_w\) against odd \(w\), to show the growth of the constants; the plotted data are exactly the tabulated rational values.
+\begin{theorem}[Uniqueness of the harmonic combination, $w\le 25$]
+For the weights \(3\le w\le 25\), the rational combinations \(X\) of dihedral \(C(a,b,c)\) of weight \(w\) with \(\Delta X\in\mathbb{Q}E(w)\) form a space of dimension \(1\) for odd \(w\) and \(0\) for even \(w\). For odd \(w\) it is spanned by the combination of D'Hoker--Green--Vanhove (eq. 3.57), and \(\Delta X=w(w-1)f_wE(w)\) in that normalisation.
+\end{theorem}
+
+\emph{Proof.} The space was determined exactly in the algebraic Laplace representation, in rational arithmetic, for the weights \(3\le w\le 25\). \(\square\)
+
+Novelty status: partly known. The dimensions are stated in D'Hoker--Green--Vanhove. The closed form \(f_w=3((w-1)/2)!/w\) is not given there, and our exact confirmation for \(3\le w\le 25\) is an independent recomputation.
+
+::: conjecture {[}Odd weights{]}
+For odd \(w\ge 3\), \(X_w=f_wE(w)+g_w\zeta(w)\) with \(f_w,g_w\) as in the Setting.
+
+\emph{Status.} This is a conjecture. It was read off from \(w=3,\dots,13\) before the proof. It is proved for the odd weights \(w\le 61\) (Theorem 1). Beyond \(w=61\) it is not covered by the proof.
+
+\section{Supporting computations}\label{supporting-computations}
+
+\begin{proposition}[Laplace equations at $w=9$ and $w=11$]
+Exactly, \(\Delta\big(9C(4,4,1)+18C(4,3,2)+4C(3,3,3)\big)=288\,E(9)\) and \(\Delta\big(2C(5,5,1)+4C(5,4,2)+2C(5,3,3)+3C(4,4,3)\big)=100\,E(11)\).
+\end{proposition}
+
+\emph{Certificate.} The algebraic Laplace representation of D'Hoker--Green--Vanhove was re-derived and checked in rational arithmetic; the verifier returned \(\lambda=288\) and \(\lambda=100\) respectively.
+
+Novelty status: already known for \(w\le 9\) (D'Hoker--Green--Vanhove, eq. 3.33). The \(w=11\) combination is the formula of eq. 3.57; \(f_w,g_w\) are not given there.
+
+\begin{observation}[Relations at $w=3,5,7$]
+Numerically, as functions of \(\tau\): \(C(1,1,1)-E(3)-\zeta(3)=0\); \(30\,C(2,2,1)-12\,E(5)-\zeta(5)=0\); \(252\,C(3,3,1)+252\,C(3,2,2)-108\,E(7)-\zeta(7)=0\).
+\end{observation}
+
+\emph{Certificate.} The exact leading Laurent coefficient vanishes, and the maximal relative residual at 4 verifier points (seed 4711, 32 digits) is 5.13e-44, 1.57e-43 and 1.59e-43 respectively, against the bound 1e-24.
+
+Novelty status: already known for \(w=3\) and \(w=5\) \cite{DHoker20156698} and for \(w=7\) \cite{Dorigoni20215017}.
+
+\begin{observation}[Relation at $w=9$]
+Numerically, \(960\,E(9)+\zeta(9)-2160\,C(4,4,1)-4320\,C(4,3,2)-960\,C(3,3,3)=0\) as functions of \(\tau\).
+\end{observation}
+
+\emph{Certificate.} The exact leading Laurent coefficient in \(y^9\) vanishes; the maximal relative residual at 4 verifier points is 8.33e-44, against the bound 1e-24.
+
+Novelty status: partly known. The identity with an undetermined constant \(g_9\) is in D'Hoker--Green--Vanhove (eq. 3.34); the value of \(g_9\) is not given there.
+
+\begin{observation}[Relations at $w=11,13,15,17$]
+Numerically, as functions of \(\tau\), the weight-11 combination \(19008\,C(5,5,1)+38016\,C(5,4,2)+19008\,C(5,3,3)+28512\,C(4,4,3)-8640\,E(11)-\zeta(11)\) vanishes. The weight-13 identity has zeta term \(-691\,\zeta(13)\). The weight-15 identity has zeta term \(-\zeta(15)\). The weight-17 identity has zeta term \(-3617\,\zeta(17)\).
+\end{observation}
+
+\emph{Certificate.} Each relation passed the exact leading-coefficient test and the point test at 4 verifier points. The maximal relative residuals are 1.21e-43 (\(w=11\)), 5.67e-44 (\(w=13\)), 6.46e-44 (\(w=15\)) and 5.49e-44 (\(w=17\)), against the bound 1e-24. The relation at \(w=15\) was a prediction made before its value was read, and the one at \(w=17\) a preregistered blind test.
+
+Novelty status: partly known: existence and combination of the identity for odd \(w\) (eq. 3.57); \(f_w,g_w\) for \(w\ge 11\) are not given there.
 
 \begin{observation}[Full weight-11 basis]
-The rational linear relations among \(C(9,1,1)\), \(C(8,2,1)\), \(C(7,3,1)\), \(C(7,2,2)\), \(C(6,4,1)\), \(C(6,3,2)\), \(C(5,5,1)\), \(C(5,4,2)\), \(C(5,3,3)\), \(C(4,4,3)\), \(E_{11}\), \(\zeta(11)\) form a space of dimension exactly 1, spanned by the weight-11 relation above.
+Among the ten functions \(C(a,b,c)\) of weight 11, \(E(11)\) and \(\zeta(11)\), the rational linear relations form a space of dimension exactly \(1\), spanned by the weight-11 identity above.
 \end{observation}
 
-On the normalised \(20\times12\) matrix one singular value lies below 1e-24 (the largest small one is \(1.11\times10^{-43}\)) and 11 lie above 1e-16 (the smallest large one is \(3.69\times10^{-9}\)). \emph{Status:} partly known, as for the weight-11 relation.
+\emph{Certificate.} Completeness was certified by criterion 2: at 20 verifier points (seed 4713, \(\tau_2\in[0.9,3]\)) one singular value is below 1e-24 (the largest small one is 1.11e-43), and the other 11 exceed 1e-16, the smallest being 3.69e-9. The originally preregistered criterion 1 (15 points, seed 4712, the other singular values must exceed 1e-8) failed: the smallest large singular value was 4.149e-9. We report this openly. Criterion 2 was preregistered afterwards on new data (20 points, seed 4713) with threshold 1e-16, which lies far above the kernel value 1.11e-43 and below the smallest large singular value 3.69e-9, so that it separates kernel from non-kernel on this matrix; it was passed.
 
-\begin{observation}[Criterion 1 failed, reported openly]
-For the full weight-11 basis, the originally preregistered criterion 1 (15 points, seed 4712, other singular values required above 1e-8) failed. The singular values were \(5.175\), \(2.785\), \(0.04862\), \(0.003131\), \(0.0001604\), \(6.701\times10^{-5}\), \(9.579\times10^{-6}\), \(2.823\times10^{-6}\), \(1.981\times10^{-7}\), \(5.754\times10^{-8}\), \(4.149\times10^{-9}\), \(7.591\times10^{-44}\).
+Novelty status: partly known, as for the previous observation.
+
+\begin{observation}[Hardening of the weight-11 identity]
+An independent direct lattice summation in double precision agrees to at most 1e-12 relative at 8 of 8 points.
 \end{observation}
 
-\emph{Certificate.} Singular values of the normalised value matrix as stated. Criterion 2, preregistered afterwards on new data, passed.
+\emph{Certificate.} At \(\tau=(0.500000, 0.866026)\) the residual is 2.15e-42 at 30 digits, 7.01e-57 at 45 digits and 1.3e-71 at 60 digits, and the independent lattice sum differs by 4.372e-14. The run exposed an evaluator bug: the Fourier sum for \(E_s\) stopped when a term vanished, which happens at \(\tau_1=1/4\). Before the fix that point showed a precision-independent residual of 3.5e-10. All points reported were computed with the corrected code, and no earlier test point was affected.
 
-\begin{observation}[Hardening of the weight-11 identity (numerical)]
-An independent double-precision direct lattice summation agrees to at most 1e-12 relative at 8 of 8 points.
-\end{observation}
-
-\emph{Certificate.} Preregistered H10, 8 points planned and 8 completed; the expectation ``residual decreases with precision'' was operationalised as ``residual at most \(10^{-d}\) at every working precision \(d\)'', an exact 0 being read as below rounding resolution.
-
-The columns \(d_1,d_2,d_3\) are the residuals at the working precisions of 30, 45 and 60 digits; the last column is the independent double-precision lattice sum.
-
-{\def\LTcaptype{none} % do not increment counter
-\begin{table*}[t]\centering\footnotesize
-\begin{tabular}{@{}
-  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.1667}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.1667}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.1667}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.1667}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.1667}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.1667}}@{}}
-\toprule
-\begin{minipage}[b]{\linewidth}\raggedright
-\(\tau\)
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-\(d_1\)
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-\(d_2\)
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-\(d_3\)
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-lattice sum
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-claim
-\end{minipage} \\
-\midrule
-(0.500000, 0.866026) & \(2.15\times10^{-42}\) & \(7.01\times10^{-57}\) & \(1.3\times10^{-71}\) & \(4.372\times10^{-14}\) & \\
-(-0.250000, 0.968246) & 0.0 & \(1.27\times10^{-56}\) & \(1.13\times10^{-71}\) & \(3.396\times10^{-14}\) & \\
-(-0.462905, 1.431467) & \(9.45\times10^{-42}\) & \(6.71\times10^{-57}\) & \(1.49\times10^{-72}\) & \(1.615\times10^{-13}\) & \\
-(0.064009, 2.095482) & \(4.0\times10^{-42}\) & \(6.5\times10^{-57}\) & \(7.21\times10^{-73}\) & \(6.527\times10^{-14}\) & \\
-(0.106134, 1.977393) & \(1.95\times10^{-42}\) & \(1.08\times10^{-56}\) & \(8.19\times10^{-72}\) & \(6.972\times10^{-14}\) & \\
-(0.212603, 2.774679) & \(7.06\times10^{-42}\) & \(4.89\times10^{-57}\) & \(1.58\times10^{-71}\) & \(5.108\times10^{-14}\) & \\
-(0.115505, 2.030193) & \(7.28\times10^{-42}\) & 0.0 & \(1.74\times10^{-71}\) & \(6.941\times10^{-14}\) & \\
-(0.258526, 2.959735) & \(3.09\times10^{-42}\) & \(2.44\times10^{-56}\) & \(6.19\times10^{-72}\) & \(4.772\times10^{-14}\) & \\
-\bottomrule
-\end{tabular}
-\end{table*}
-
-}
-
-The run exposed an evaluator bug: the Fourier sum for \(E_s\) stopped when a term vanished, which happens at \(\tau_1=1/4\) where \(\cos(2\pi N\tau_1)=0\) for odd \(N\). Before the fix that point showed a precision-independent residual of \(3.5\times10^{-10}\). All points listed were computed with the corrected code, and no earlier test point was affected.
+\begin{remark}[Status of the computer-assisted parts]
+The proofs of Theorems 1 and 2 rely on exact rational arithmetic (Laplace algebra and Laurent polynomial) executed by the verifier. They are not re-derived by hand. The trusted base is the Python implementation, including its rational arithmetic and its transcription of Theorem 5.1 of D'Hoker--Kaidi checked against their eq. 5.19, together with the two assumptions named in. The numerical observations additionally rely on 32-digit floating arithmetic at verifier-chosen points. A third party re-runs every certificate with \texttt{python\ -m\ asd.recheck\ modular} from the repository named under Declarations.
+\end{remark}
 
 \section{Discussion}\label{discussion}
 
-The identities \(X_w=f_wE_w+g_w\zeta(w)\) are fixed by two independent facts: a Laplace equation with the single source \(E_w\), and a constant determined at the cusp. The factorial in \(f_w\) comes from the exact Laplace algebra (Theorem 2). The Bernoulli number in \(g_w\) comes from the Laurent constant term (Theorem 1). The numerical confirmations at \(w=3,\dots,17\) test the result independently, because they use only the relations themselves and not the Laurent polynomial of Theorem 5.1.
+The identities express, for odd \(w\), the combination \(X_w\) of two-loop graphs through a single Eisenstein series plus a single zeta value, with rational constants of closed form. The exact route avoids numerical integer-relation searches, whose coefficient height is the main obstruction at large \(w\) (cf.). The numerical observations are independent confirmation, not part of the proof.
 
-\emph{Limitations.} The result at the weights examined rests on Theorem 5.1 of arXiv:1902.04180 and on the standard lemma of step (ii), neither of which is checked by code. The numerical statements concern the verifier points only.
+Limitations. Theorem 1 is conditional on the correctness of Theorem 5.1 of D'Hoker--Kaidi and on the standard lemma used in step 2. Both are cited, not checked by code. The proved range is \(w\le 61\). The uniqueness statement of Theorem 2 is checked for \(w\le 25\).
 
-\textbf{What did not work.} The originally preregistered criterion 1 for the full weight-11 basis failed, because one singular value lies below its threshold; it was reported openly and the afterwards-preregistered criterion 2 passed. The hardening run found a precision-independent residual at \(\tau_1=1/4\), caused by an early-stopping bug in the Fourier sum for \(E_s\); it was fixed and all reported points use the corrected code. A direct integer-relation search over the full weight-11 basis found no relation and was aborted, presumably because the working precision was too low relative to the coefficient height. Further negative results are collected in Appendix A.
+\textbf{What did not work.} (a) A search for relations at weight 6 among \(C(4,1,1)\), \(C(3,2,1)\), \(C(2,2,2)\) and products of Eisenstein series and zeta values produced no verified claim. (b) An exact table of levels for which eta quotients span \(M_4(\Gamma_0(N))\) was not obtained in the logged attempts; it was obtained separately (Appendix A). (c) A direct integer-relation search over the weight-11 basis did not find the relation and was aborted; the likely reason is too low a precision relative to the coefficient height. The relation was later certified by singular values (criterion 2). (d) The attempts at the weight-13 and weight-15 constant formula produced no verified claim; the relations were verified directly later. (e) The first preregistered completeness criterion at weight 11 failed.
 
-\emph{Open questions.}
+Open questions.
 
 \begin{enumerate}
 \def\labelenumi{(\roman{enumi})}
+\tightlist
 \item
-  Is there a proof beyond the examined range, presumably reducing to a binomial-sum identity for the Laurent constant term (Conjecture 1)?
+  A proof for all odd \(w\), presumably reducing to an identity between binomial sums.
 \item
-  What are the constants in the non-harmonic eigenvalue equations for the other combinations of \(C(a,b,c)\), whose Laplace equations have product sources?
+  The constants in the non-harmonic eigenvalue equations, i.e.~the zeta terms in the equations for \(C(a,b,c)\) with eigenvalue \(s(s-1)\), \(s\ne1\).
 \item
-  Do analogous closed forms exist at higher loop order?
+  The analogous statements at higher loop order.
 \end{enumerate}
 
 \section*{Declarations}\label{declarations}
 \addcontentsline{toc}{section}{Declarations}
 
-\textbf{Affiliation} The author line supplied for this preprint carries no institutional affiliation.
+\textbf{Affiliation} Not stated in the author line supplied with this manuscript.
 
 \textbf{Acknowledgements} Computations, literature searches and parts of the manuscript were prepared with an automated verifier-gated laboratory built on the AI system Claude (Anthropic); every statement was accepted only after verification by code; the authors are responsible for the content.
 
-\textbf{Code and data availability} Repository https://github.com/NinjaTurtlesHackathons/Hacknation, branch \texttt{claude/modulformen-paper}, directory \texttt{projects/modular}. All certificates are reproduced with \texttt{python\ -m\ asd.recheck\ modular}, and the paper is rebuilt with \texttt{python\ -m\ asd.paper\ -\/-domain\ modular}.
+\textbf{Code and data availability} Repository https://github.com/NinjaTurtlesHackathons/Hacknation, branch \texttt{claude/modulformen-paper}, directory \texttt{projects/modular}. Reproduce all certificates with \texttt{python\ -m\ asd.recheck\ modular} and rebuild the paper with \texttt{python\ -m\ asd.paper\ -\/-domain\ modular}.
 
 \textbf{Competing interests} None.
 
@@ -325,135 +231,35 @@ The identities \(X_w=f_wE_w+g_w\zeta(w)\) are fixed by two independent facts: a 
 
 \section{Numerical methods and error control}\label{numerical-methods-and-error-control}
 
-\emph{Certificate types.}
+\emph{Certificate types.} An exact certificate computes the Laplace algebra and Laurent polynomials in rational arithmetic. A relation certificate (\texttt{mgf\_relation}) first tests the exact leading Laurent coefficient in \(y=\pi\tau_2\) and then the relative residual at verifier points (32 digits, seed 4711, tolerance 1e-24, or 1e-14 with a finite-difference Laplacian of step 1e-6). Completeness of a relation space is certified by a singular-value gap of the normalised value matrix (seed 4712): one singular value below 1e-24 and the others above 1e-8.
+
+\emph{Relation spaces at \(w = 3, 5, 7, 9\).} Numerically each has dimension exactly 1, spanned by the identities of the observations above. For weight 9 the smallest large singular value of the \(12\times 9\) matrix is 8.6e-7.
+
+\emph{Laplace equations.} The finite-difference checks give \(L[C(3,1,1)]-6\,C(3,1,1)-\tfrac{86}{5}E(5)+4\,E(2)E(3)-\tfrac1{10}\zeta(5)=0\), \(L[C(2,1,1)]-2\,C(2,1,1)-9\,E(4)+E(2)^2=0\), \(L[C(2,2,1)]-8\,E(5)=0\) and \(L[C(2,2,1)]-20\,C(2,2,1)+\tfrac23\zeta(5)=0\), with maximal relative residuals 1.63e-25, 2.39e-25, 6.99e-26 and 6.74e-26 respectively.
+
+\emph{Verifier self-test (holomorphic identities).} Each identity was proved with a Sturm certificate: the terms lie in the same space of weakly holomorphic forms, and the coefficients up to the stated order vanish exactly. The following identities passed.
 
 \begin{itemize}
 \tightlist
 \item
-  \textbf{Exact Laplace algebra.} The action of \(\Delta\) on \(C(a,b,c)\) is applied in the algebraic representation of D'Hoker--Green--Vanhove in rational arithmetic; the result is \(\Delta X=\lambda E_w\) with \(\lambda\) an exact rational.
+  \(\theta(1)^4=\eta(2)^{20}\eta(1)^{-8}\eta(4)^{-8}\) on \(\Gamma_0(4)\).
 \item
-  \textbf{Laurent constants.} The Laurent polynomial of \(X_w\) is computed in rational arithmetic from Proposition 2.1 and Theorem 5.1 of arXiv:1902.04180, transcription checked against eq. (5.19).
+  \(\theta(1)^2=\eta(2)^{10}\eta(1)^{-4}\eta(4)^{-4}\) on \(\Gamma_0(4)\).
 \item
-  \textbf{Numerical relation.} An exact leading-coefficient test in \(y=\pi\tau_2\) is followed by residuals at 4 verifier points (seed 4711) at 32 digits, with a tolerance of 1e-24 for relations and 1e-14 with the finite-difference Laplacian of step 1e-6.
+  thetaE8 \(=E_4\).
 \item
-  \textbf{Relation space.} Each relation is checked individually; completeness follows from a gap in the singular values of the normalised value matrix, evaluated at verifier points with seed 4712.
+  thetaE8\(^2=\) thetaD16, thetaE8\(^2=E_4^2\) and thetaE8\(^2=E_8\).
+\item
+  \(1728\,\Delta=E_4^3-E_6^2\).
+\item
+  \(j\Delta=E_4^3\).
 \end{itemize}
 
-\emph{Trusted base.} Exact rational arithmetic, the Laplace representation, and the two unchecked inputs named in Theorem 1. Numerical statements additionally depend on the working precision.
+Falsified variants (the factors 1727 and 1729 in place of 1728, and the \(q^1\)-coefficient 481 of thetaD16 in place of 480) were rejected. Eta quotients with trivial character span \(M_4(\Gamma_0(N))\) exactly for \(N\) in {[}2, 4, 5, 6, 8, 9, 10, 12, 14, 15, 16, 18, 20, 22, 24, 25, 26, 27, 28, 30{]} and not for \(N\) in {[}1, 3, 7, 11, 13, 17, 19, 21, 23, 29{]} (exact, exhaustive for \(N\le 30\)). The novelty status of the last result is ``not found in a targeted search of 33 abstracts on 2026-10-04''.
 
-\emph{Verifier self-test (validation anchors).} Classical and known identities were preregistered as system tests; all passed.
+\emph{Exact family checks.} A weaker earlier run of the exact family check covered the odd weights examined, \(3\le w\le 35\). It is subsumed by Theorem 1.
 
-\begin{table*}[t]\centering\footnotesize
-\caption{Sturm-certified holomorphic identities.}
-\begin{tabular}{@{}
-  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.1667}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.1667}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.1667}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.1667}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.1667}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.1667}}@{}}
-\toprule
-\begin{minipage}[b]{\linewidth}\raggedright
-identity
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-group
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-weight
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Sturm bound
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-coefficients vanishing
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-claim
-\end{minipage} \\
-\midrule
-\(\theta(1)^4-\eta(2)^{20}\eta(1)^{-8}\eta(4)^{-8}=0\) & \(\Gamma_0(4)\) & 2 & 1 (index 6) & \(q^0\) to \(q^{11}\) & \\
-\(\theta(1)^2-\eta(2)^{10}\eta(1)^{-4}\eta(4)^{-4}=0\) & \(\Gamma_0(4)\) & 1 & 1/2 (index 6) & \(q^0\) to \(q^{10}\) & \\
-\(\theta_{E8}-E_4=0\) & \(\Gamma_0(1)\) & 4 & 1/3 (index 1) & \(q^0\) to \(q^{10}\) & \\
-\(\theta_{E8}^2-\theta_{D16}=0\) & \(\Gamma_0(1)\) & 8 & 2/3 (index 1) & \(q^0\) to \(q^{10}\) & \\
-\(\theta_{E8}^2-E_4^2=0\) & \(\Gamma_0(1)\) & 8 & 2/3 (index 1) & \(q^0\) to \(q^{10}\) & \\
-\(\theta_{E8}^2-E_8=0\) & \(\Gamma_0(1)\) & 8 & 2/3 (index 1) & \(q^0\) to \(q^{10}\) & \\
-\(1728\,\Delta(1)-E_4^3+E_6^2=0\) & \(\Gamma_0(1)\) & 12 & 1 (index 1) & \(q^0\) to \(q^{11}\) & \\
-\(j\,\Delta(1)-E_4^3=0\) & \(\Gamma_0(1)\) & 12 & 1 (index 1) & \(q^0\) to \(q^{11}\) & \\
-\bottomrule
-\end{tabular}
-\end{table*}
-
-
-The first two identities concern theta functions as eta quotients, a classical subject \cite{Vasuki202671v1}. The identity \(1728\,\Delta(1)=E_4^3-E_6^2\) expresses the cusp form \(\Delta\) as a polynomial in \(E_4\) and \(E_6\) \cite{Jorgenson201542v1}. The identities for \(\theta_{E8}\) and \(\theta_{D16}\) and the identity \(j\Delta=E_4^3\) are reproductions of classical results (no claim of novelty).
-
-\begin{table*}[t]\centering\footnotesize
-\caption{Eta-quotient span of \(M_4(\Gamma_0(N))\) for \(N\le30\) (exact, exhaustive).}
-\begin{tabular}{@{}
-  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3333}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3333}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3333}}@{}}
-\toprule
-\begin{minipage}[b]{\linewidth}\raggedright
-spans \(M_4(\Gamma_0(N))\)
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-does not span
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-claim
-\end{minipage} \\
-\midrule
-2, 4, 5, 6, 8, 9, 10, 12, 14, 15, 16, 18, 20, 22, 24, 25, 26, 27, 28, 30 & 1, 3, 7, 11, 13, 17, 19, 21, 23, 29 & \\
-\bottomrule
-\end{tabular}
-\end{table*}
-
-
-The eta-span table was not found in a targeted search of 33 abstracts on 2026-10-04.
-
-\begin{table}[t]\centering\footnotesize
-\caption{Relation spaces at the weights 3, 5, 7, 9 (numerical; each relation checked individually with the exact leading Laurent coefficient; seed 4712).}
-\begin{tabular}{@{}llllll@{}}
-\toprule
-\(w\) & matrix & null & large & smallest large & claim \\
-\midrule
-3 & \(6\times3\) & 1 & 2 & 0.731 & \\
-5 & \(7\times4\) & 1 & 3 & 0.0372 & \\
-7 & \(9\times6\) & 1 & 5 & 0.000127 & \\
-9 & \(12\times9\) & 1 & 8 & \(8.6\times10^{-7}\) & \\
-\bottomrule
-\end{tabular}
-\end{table}
-
-
-The relation spaces are one-dimensional in each case.
-
-\emph{Further numerical Laplace equations.} At 4 verifier points, with a maximal relative residual below the Laplacian tolerance of:
-
-\begin{itemize}
-\tightlist
-\item
-  \(\Delta C(3,1,1)-6C(3,1,1)-\tfrac{86}{5}E_5+4E_2E_3-\tfrac1{10}\zeta(5)=0\), with maximal residual \(1.63\times10^{-25}\);
-\item
-  \(\Delta C(2,1,1)-2C(2,1,1)-9E_4+E_2E_2=0\), with \(2.39\times10^{-25}\);
-\item
-  \(\Delta C(2,2,1)-8E_5=0\), with \(6.99\times10^{-26}\);
-\item
-  \(\Delta C(2,2,1)-20C(2,2,1)+\tfrac23\zeta(5)=0\), with \(6.74\times10^{-26}\).
-\end{itemize}
-
-Such equations with sources polynomial in Eisenstein series are described in the literature \cite{Basu20165011,DHoker20156698,DHoker201693v3}.
-
-\emph{Negative results.} Four questions produced no verified claim on some attempts.
-
-\begin{itemize}
-\tightlist
-\item
-  \textbf{Weight-6 relations.} For rational relations among \(C(4,1,1)\), \(C(3,2,1)\), \(C(2,2,2)\), \(E_6\), \(E_2E_4\), \(E_3^2\), \(E_2^3\), \(\zeta(3)E_3\), \(\zeta(3)^2\), no claim passed. The \(12\times9\) value matrix has no singular value below 1e-24, 8 above 1e-8, and the smallest large one is \(2.44\times10^{-8}\).
-\item
-  \textbf{First eta-span attempts.} The first attempts at the eta-span table produced no verified claim; the table above was obtained later.
-  The presumed cause is working precision that is too low relative to the coefficient height.
-\item
-  \textbf{Weights 13 and 15, first attempts.} The first attempts on the constant formula produced no verified claim; the relations were later tested directly (see the observation above).
-\end{itemize}
-
-\emph{Counter-checks.} In total 53 adversarial counter-checks were run: 4 passed (none contradicting the statement tested), 48 did not pass and 1 was not executable. The perturbations that were refuted include altered \(\zeta(w)\) coefficients and altered Laplace eigenvalues.
-
-\emph{Laboratory workflow.} The laboratory ran 17 rounds with 37 verified statements and 4 negative results; every round was preregistered before the experiment (\texttt{prereg.md}). Statements were produced by agents in different roles (proposer, numerical checker, sceptic, theorist, a cheap baseline), and each was accepted only after verification by the code of the verifier. The sceptic role wrote the adversarial counter-checks counted above. Literature searches per result are recorded in the repository; for the blind test of the search used 92 abstracts.
+\emph{Laboratory workflow.} The laboratory ran 17 rounds with 37 verified statements and 4 negative results; every round was preregistered before the experiment. Attempts were made by agents named in the logs as \texttt{sparsam}, \texttt{numeriker}, \texttt{skeptiker} and \texttt{theoretiker}, plus a cascade run. Each claim was passed to an independent verifier. A red-team phase produced 53 adversarial counter-checks in total: 4 passed (none contradicting the statement), 48 did not pass (the altered claims were refuted), and 1 was not executable. Examples of refuted alterations are a doubled \(\zeta(17)\) coefficient and \(g_5=1/5\) in place of \(1/10\).
 
 \section{Provenance of the statements}\label{provenance-of-the-statements}
 
@@ -462,39 +268,31 @@ The provenance table mapping every statement to its evidence follows (it is gene
 {\def\LTcaptype{none} % do not increment counter
 \begin{table*}[t]\centering\footnotesize
 \begin{tabular}{@{}
-  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3333}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3333}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3333}}@{}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.5000}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.5000}}@{}}
 \toprule
 \begin{minipage}[b]{\linewidth}\raggedright
 Statement
 \end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Evidence (claim ids)
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
 Level
 \end{minipage} \\
 \midrule
-Section: Introduction & C-fakt-beweis, C-fakt-haertung, C-fakt-konstanten, C-modular-R12, C-modular-R14, C-modular-R17a, C-modular-R6b, C-modular-R6c, C-modular-R6d, C-neg3 & computed\_rigorous, observed \\
-Section: Setting & C-fakt-beweis, C-modell, C-modular-R14, C-modular-R17a & computed\_rigorous \\
-Theorem 1 (Closed forms of the constants, \(3\le w\le 61\)) & C-fakt-konstanten, C-modular-R17a & computed\_rigorous \\
-Section: Exact identities for odd weight & C-fakt-beweis, C-fakt-konstanten, C-modular-R16, C-modular-R17a & computed\_rigorous \\
-Proposition 1 (Constants for \(27\le w\le35\)) & C-modular-R16 & computed\_rigorous \\
-Remark 1 (Status of the computer-assisted parts) & C-fakt-beweis, C-modell, C-modular-R9a, C-verfuegbarkeit & computed\_rigorous, observed \\
-Theorem 2 (Uniqueness of the harmonic combination, \(3\le w\le25\)) & C-modular-R14 & computed\_rigorous \\
-Section: Uniqueness and Laplace algebra & C-modular-R14, C-modular-R17b, C-modular-R9b & computed\_rigorous \\
-Proposition 2 (Laplace equations at \(w=9\) and \(w=11\)) & C-modular-R9a, C-modular-R9b & computed\_rigorous \\
-Remark 2 (Conjecture 1: beyond the examined range) & C-fakt-konstanten & computed\_rigorous \\
-Section: Independent numerical confirmation & C-fakt-haertung, C-fakt-konstanten, C-fakt-kriterium1, C-modell, C-modular-R11a, C-modular-R11b, C-modular-R12, C-modular-R13, C-modular-R17c, C-modular-R17d, C-modular-R6a, C-modular-R6b, C-modular-R6c, C-modular-R6d, C-modular-R7a & computed\_rigorous, observed \\
-Example 1 (Weights 3 and 5) & C-modular-R6b, C-modular-R6c & observed \\
-Observation 1 (Weight 7) & C-modular-R6d & observed \\
-Observation 2 (Weight 9) & C-modular-R6a & observed \\
-Observation 3 (Weights 11, 13, 15, 17) & C-modular-R11a, C-modular-R11b, C-modular-R13, C-modular-R7a & observed \\
-Observation 4 (Full weight-11 basis) & C-modular-R12 & observed \\
-Observation 5 (Criterion 1 failed, reported openly) & C-fakt-kriterium1 & observed \\
-Observation 6 (Hardening of the weight-11 identity (numerical)) & C-fakt-haertung & observed \\
-Section: Discussion & C-fakt-beweis, C-fakt-haertung, C-fakt-konstanten, C-fakt-kriterium1, C-modell, C-modular-R12, C-modular-R14, C-modular-R17a, C-neg1, C-neg2, C-neg3, C-neg4 & computed\_rigorous, observed \\
-Section: Declarations & C-verfuegbarkeit & observed \\
-Section: Appendix A: Numerical methods and error control & C-fakt-beweis, C-methode, C-modell, C-modular-R1, C-modular-R11a, C-modular-R11b, C-modular-R13, C-modular-R17a, C-modular-R1b, C-modular-R1c, C-modular-R1d, C-modular-R4a, C-modular-R4b, C-modular-R4c, C-modular-R4d, C-modular-R5a, C-modular-R5b, C-modular-R5c, C-modular-R5d, C-modular-R5e, C-modular-R5f, C-modular-R5g, C-modular-R5h, C-modular-R8, C-modular-R9a, C-modular-R9b, C-neg1, C-neg2, C-neg3, C-neg4, C-neuheit-suche, C-redteam & computed\_rigorous, observed \\
+Section: Introduction & computed\_rigorous, observed \\
+Section: Setting & computed\_rigorous, observed \\
+Theorem 1 (Closed forms, \(w\le 61\)) & computed\_rigorous \\
+Section: Main results & computed\_rigorous \\
+Theorem 2 (Uniqueness of the harmonic combination, \(w\le 25\)) & computed\_rigorous \\
+Proposition 1 (Laplace equations at \(w=9\) and \(w=11\)) & computed\_rigorous \\
+Section: Supporting computations & computed\_rigorous, observed \\
+Observation 1 (Relations at \(w=3,5,7\)) & observed \\
+Observation 2 (Relation at \(w=9\)) & observed \\
+Observation 3 (Relations at \(w=11,13,15,17\)) & observed \\
+Observation 4 (Full weight-11 basis) & observed \\
+Observation 5 (Hardening of the weight-11 identity) & observed \\
+Remark 1 (Status of the computer-assisted parts) & computed\_rigorous, observed \\
+Section: Discussion & computed\_rigorous, observed \\
+Section: Declarations & observed \\
+Section: Appendix A: Numerical methods and error control & computed\_rigorous, observed \\
 \bottomrule
 \end{tabular}
 \end{table*}

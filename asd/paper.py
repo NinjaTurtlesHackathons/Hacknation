@@ -258,7 +258,7 @@ UNI = {"η": r"\eta", "Δ": r"\Delta", "σ": r"\sigma", "μ": r"\mu", "≥": r"\
        "≈": r"\approx", "−": "-", "·": r"\cdot", "∈": r"\in", "…": r"\ldots", "²": r"^{2}", "³": r"^{3}", "√": r"\surd", "±": r"\pm",
        "⁻": r"^{-}", "¹": r"^{1}", "₀": r"_{0}", "₁": r"_{1}", "₂": r"_{2}", "α": r"\alpha", "β": r"\beta", "γ": r"\gamma",
        "ε": r"\varepsilon", "τ": r"\tau", "ν": r"\nu", "∞": r"\infty", "≠": r"\neq", "π": r"\pi", "λ": r"\lambda", "ρ": r"\rho", "θ": r"\theta"}
-ENVS = ["theorem", "proposition", "lemma", "example", "observation", "remark", "corollary", "definition"]
+ENVS = ["theorem", "proposition", "lemma", "example", "observation", "remark", "corollary", "definition", "conjecture"]
 
 
 def bib_entries(C, d):
@@ -350,6 +350,7 @@ def md_to_latex_body(md, keys, C, lang):
         ids = re.findall(r"C-[\w\-*.]+", m.group(0)); ks = sorted({keys[by[i]["quelle"]] for i in ids if i in by and by[i].get("quelle") in keys})
         return (" \\cite{" + ",".join(ks) + "}") if ks else ""
     body = re.sub(r"\s*\[(?:C-[\w\-*.]+(?:\s*[,;]\s*)?)+\]", cite, body)               # Claim-IDs raus, Literatur als \cite
+    body = re.sub(r"\s*\((?:cf\.|see|vgl\.|siehe)\s*\)", "", body)                              # leere Verweise nach dem Entfernen
     conv0 = lambda t: pypandoc.convert_text(t, "latex", format="markdown+raw_tex+tex_math_dollars", extra_args=["--wrap=preserve"]).strip()
     out, buf, env, title = [], None, None, None
     for line in body.split("\n"):
@@ -389,7 +390,7 @@ TEMPLATE = r"""\documentclass[10pt,twocolumn]{article}
 %(unicode)s
 \sloppy\emergencystretch=1.5em
 \providecommand{\tightlist}{\setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
-\newtheorem{theorem}{Theorem}\newtheorem{proposition}{Proposition}\newtheorem{lemma}{Lemma}\newtheorem{corollary}{Corollary}
+\newtheorem{theorem}{Theorem}\newtheorem{conjecture}{Conjecture}\newtheorem{proposition}{Proposition}\newtheorem{lemma}{Lemma}\newtheorem{corollary}{Corollary}
 \theoremstyle{definition}\newtheorem{definition}{Definition}\newtheorem{example}{Example}
 \newtheorem{observation}{%(obs)s}\theoremstyle{remark}\newtheorem{remark}{Remark}
 \pagestyle{fancy}\fancyhf{}\renewcommand{\headrulewidth}{0pt}
@@ -571,6 +572,7 @@ def main():
              "appear only in the appendices; claims not listed must not be used. Use for each formal statement exactly the allowed environment of its claim.")
     extra = open(a.hinweise).read() if a.hinweise and os.path.exists(a.hinweise) else a.hinweise
     outline = (OUTLINE_EN if a.sprache == "en" else OUTLINE_DE) + "\n\n" + SULEMAN_FORM + "\n\n" + story + ("\n\n" + extra if extra else "")
+    outline += f"\n\nAUTHOR LINE (for the Affiliation paragraph): {a.autoren}; affiliation: {a.affiliation or 'none given'}."
     for c in C: c["env"] = env_name(c) if c["claim_id"].startswith("C-" + a.domain) and not c["claim_id"].endswith("-I") and "-RT" not in c["claim_id"] else None
     gate = lambda m: rule_issues(m) + env_issues(m, C) + scope_issues(m, C)
     md, log = write(a.titel, f"Research field: {D.kontext}\n\n{outline}", C, salt=f"paper2-{a.domain}-{a.sprache}", lang=a.sprache, extra_check=gate)

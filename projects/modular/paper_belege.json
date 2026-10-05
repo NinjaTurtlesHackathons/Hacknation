@@ -499,7 +499,7 @@
    "relevanz": "hauptresultat",
    "scope": "punkte",
    "benutzt": [],
-   "rolle": "hauptresultat",
+   "rolle": "stuetze",
    "env": "observation"
   },
   {
@@ -586,7 +586,7 @@
    "relevanz": "hauptresultat",
    "scope": "punkte",
    "benutzt": [],
-   "rolle": "hauptresultat",
+   "rolle": "beispiel",
    "env": "observation"
   },
   {
@@ -618,13 +618,13 @@
   },
   {
    "claim_id": "C-modular-R6e",
-   "text": "Question studied: Gibt es eine rationale lineare Relation zwischen den sieben dihedralen Modulgraphfunktionen vom Gewicht 9 (C(7,1,1), C(6,2,1), C(5,3,1), C(5,2,2), C(4,4,1), C(4,3,2), C(3,3,3)), E(9) und zeta(9)? Finde sie explizit und lasse sie als mgf_relation prüfen. Verified result: Numerically, the rational linear relations among the modular graph functions C(7,1,1), C(6,2,1), C(5,3,1), C(5,2,2), C(4,4,1), C(4,3,2), C(3,3,3), E(9), zeta(9) (weight 9) form a space of dimension exactly 1, spanned by the identity -2160·C(4,4,1) - 4320·C(4,3,2) - 960·C(3,3,3) + 960·E(9) + zeta(9) = 0 (each relation checked to 1e-24 at verifier points with exact leading Laurent coefficient; completeness by a singular-value gap). Verifier: 1 Relationen einzeln bestätigt; Singulärwerte der normierten 12x9-Wertematrix (Seed 4712): 1 < 1e-24, 8 > 1e-8, kleinster großer 8.6e-7. Novelty status: partly known. Known (arXiv:1502.06698, full text, verbatim: \"where g7 , g9 are integration constants which are determined by matching the asymptotic\"): Identität 9C(4,4,1)+18C(4,3,2)+4C(3,3,3) = 4E(9) + g9 (DGV Gl. 3.34). Not given there: Wert der Integrationskonstanten g9. Related exact result: arXiv:1902.04180: Laurent-Polynom aller zweischleifigen Modulgraphfunktionen (Theorem 5.1); die Konstanten g_w folgen daraus im Prinzip, wurden aber dort nicht für die Identitäten ausgewertet. (Literature claim for this source: [C-litn1].)",
+   "text": "Question studied: Gibt es eine rationale lineare Relation zwischen den sieben dihedralen Modulgraphfunktionen vom Gewicht 9 (C(7,1,1), C(6,2,1), C(5,3,1), C(5,2,2), C(4,4,1), C(4,3,2), C(3,3,3)), E(9) und zeta(9)? Finde sie explizit und lasse sie als mgf_relation prüfen. Verified result: Numerically, the rational linear relations among the modular graph functions C(7,1,1), C(6,2,1), C(5,3,1), C(5,2,2), C(4,4,1), C(4,3,2), C(3,3,3), E(9), zeta(9) (weight 9) form a space of dimension exactly 1, spanned by the identity -2160·C(4,4,1) - 4320·C(4,3,2) - 960·C(3,3,3) + 960·E(9) + zeta(9) = 0 (each relation checked to 1e-24 at verifier points with exact leading Laurent coefficient; completeness by a singular-value gap). Verifier: 1 Relationen einzeln bestätigt; Singulärwerte der normierten 12x9-Wertematrix (Seed 4712): 1 < 1e-24, 8 > 1e-8, kleinster großer 8.6e-7. Novelty status: partly known. Known (arXiv:1502.06698, full text, verbatim: \"where g7 , g9 are integration constants which are determined by matching the asymptotic\"): Identität 9C(4,4,1)+18C(4,3,2)+4C(3,3,3) = 4E(9) + g9 (DGV Gl. 3.34). Not given there: Wert der Integrationskonstanten g9. Related exact result: arXiv:1902.04180: Laurent-Polynom aller zweischleifigen Modulgraphfunktionen (Theorem 5.1); die Konstanten g_w folgen daraus im Prinzip, wurden aber dort nicht für die Identitäten ausgewertet. Subsumed by C-modular-R1d (same or weaker check); appendix only. (Literature claim for this source: [C-litn1].)",
    "level": "observed",
    "status": "bestätigt",
    "relevanz": "hauptresultat",
    "scope": "punkte",
    "benutzt": [],
-   "rolle": "stuetze",
+   "anhang": true,
    "env": "observation"
   },
   {
@@ -653,7 +653,7 @@
    "relevanz": "hauptresultat",
    "scope": "punkte",
    "benutzt": [],
-   "rolle": "hauptresultat",
+   "rolle": "stuetze",
    "env": "observation"
   },
   {
@@ -691,7 +691,7 @@
    "relevanz": "hauptresultat",
    "scope": "punkte",
    "benutzt": [],
-   "rolle": "stuetze",
+   "anhang": true,
    "env": "observation"
   },
   {
@@ -834,7 +834,7 @@
    "relevanz": "hauptresultat",
    "scope": "punkte",
    "benutzt": [],
-   "rolle": "hauptresultat",
+   "rolle": "stuetze",
    "env": "observation"
   },
   {
@@ -863,7 +863,7 @@
    "relevanz": "hauptresultat",
    "scope": "punkte",
    "benutzt": [],
-   "rolle": "hauptresultat",
+   "rolle": "stuetze",
    "env": "observation"
   },
   {
@@ -921,7 +921,7 @@
    "relevanz": "hauptresultat",
    "scope": "punkte",
    "benutzt": [],
-   "rolle": "hauptresultat",
+   "rolle": "stuetze",
    "env": "observation"
   },
   {
@@ -991,14 +991,14 @@
   },
   {
    "claim_id": "C-modular-R15",
-   "text": "Question studied: Beweise die Konstanten der ungeraden Identitäten exakt: Prüfe mit mgf_identitaet_familie (gewicht_bis 25), dass für alle ungeraden 3 <= w <= 25 die DGV-Kombination X_w die Gleichung X_w = f_w E(w) + g_w zeta(w) mit f_w = 3((w-1)/2)!/w und g_w = 6|B_{w-1}|/((w-1)/2)! erfüllt (Laplace-Algebra exakt, Konstante aus dem Laurent-Polynom nach D'Hoker-Kaidi arXiv:1902.04180 Thm. 5.1). Die g_w-Werte sind als exakte Brüche anzugeben (w=3: 1, w=5: 1/10, w=7: 1/42, ...). Verified result: Exactly, for every weight 3 <= w <= 25: the rational combinations X of dihedral C(a,b,c) of weight w with Delta X in Q*E(w) form a space of dimension 1 for odd w and 0 for even w; for odd w = 2mu+3 it is spanned by the combination of D'Hoker-Green-Vanhove (eq. 3.57 of arXiv:1502.06698), and Delta X = w(w-1) f_w E(w) with f_w = 3((w-1)/2)!/w in that normalisation. Verifier: exakt für alle 3 <= w <= 25: harmonischer Raum dim 1 (ungerade, DGV-Kombination, f_w = 3((w-1)/2)!/w) bzw. 0 (gerade). Novelty status: partly known. Known (arXiv:1502.06698, full text, verbatim: \"For eigenvalue 0, namely s = 1, the multiplicity is one for each odd weight (and zero for each\"): Eindimensionalität des Eigenraums zum Eigenwert 0 für jedes ungerade, Null für jedes gerade Gewicht; Kombination X_w (Gl. 3.57). Not given there: geschlossene Form f_w = 3((w-1)/2)!/w; unsere exakte Bestätigung bis w = 25 ist eine unabhängige Nachrechnung. (Literature claim for this source: [C-litn1].)",
+   "text": "Question studied: Beweise die Konstanten der ungeraden Identitäten exakt: Prüfe mit mgf_identitaet_familie (gewicht_bis 25), dass für alle ungeraden 3 <= w <= 25 die DGV-Kombination X_w die Gleichung X_w = f_w E(w) + g_w zeta(w) mit f_w = 3((w-1)/2)!/w und g_w = 6|B_{w-1}|/((w-1)/2)! erfüllt (Laplace-Algebra exakt, Konstante aus dem Laurent-Polynom nach D'Hoker-Kaidi arXiv:1902.04180 Thm. 5.1). Die g_w-Werte sind als exakte Brüche anzugeben (w=3: 1, w=5: 1/10, w=7: 1/42, ...). Verified result: Exactly, for every weight 3 <= w <= 25: the rational combinations X of dihedral C(a,b,c) of weight w with Delta X in Q*E(w) form a space of dimension 1 for odd w and 0 for even w; for odd w = 2mu+3 it is spanned by the combination of D'Hoker-Green-Vanhove (eq. 3.57 of arXiv:1502.06698), and Delta X = w(w-1) f_w E(w) with f_w = 3((w-1)/2)!/w in that normalisation. Verifier: exakt für alle 3 <= w <= 25: harmonischer Raum dim 1 (ungerade, DGV-Kombination, f_w = 3((w-1)/2)!/w) bzw. 0 (gerade). Novelty status: partly known. Known (arXiv:1502.06698, full text, verbatim: \"For eigenvalue 0, namely s = 1, the multiplicity is one for each odd weight (and zero for each\"): Eindimensionalität des Eigenraums zum Eigenwert 0 für jedes ungerade, Null für jedes gerade Gewicht; Kombination X_w (Gl. 3.57). Not given there: geschlossene Form f_w = 3((w-1)/2)!/w; unsere exakte Bestätigung bis w = 25 ist eine unabhängige Nachrechnung. Subsumed by C-modular-R14 (same or weaker check); appendix only. (Literature claim for this source: [C-litn1].)",
    "level": "computed_rigorous",
    "status": "bestätigt",
    "relevanz": "hauptresultat",
    "scope": "punkte",
    "benutzt": [],
-   "rolle": "stuetze",
-   "env": "proposition"
+   "anhang": true,
+   "env": "theorem"
   },
   {
    "claim_id": "C-modular-R15-I",
@@ -1029,14 +1029,14 @@
   },
   {
    "claim_id": "C-modular-R16",
-   "text": "Question studied: Beweise die Identitäten X_w = f_w E(w) + g_w zeta(w) für alle ungeraden 3 <= w <= 61 exakt (Präregistrierung H12): Hole zuerst mit der Operation mgf_laurent_konstanten (gewicht_bis 61) die exakten Konstantterme g_w und prüfe dann mit dem Prüfungstyp mgf_identitaet_familie (gewicht_bis 61, alle g_w als exakte Brüche aus mgf_laurent_konstanten), ob g_w = 6|B_{w-1}|/((w-1)/2)! für alle diese w gilt. Die Prüfung dauert etwa 15 Minuten. Verified result: Exactly, for every odd weight 3 <= w <= 35, with X_w the combination of D'Hoker-Green-Vanhove (eq. 3.57 of arXiv:1502.06698): Delta X_w = w(w-1) f_w E(w) with f_w = 3((w-1)/2)!/w (exact Laplace algebra), and the Laurent polynomial of X_w, computed in rational arithmetic from Proposition 2.1 and Theorem 5.1 of D'Hoker-Kaidi (arXiv:1902.04180; transcription checked against their eq. 5.19), equals that of f_w E(w) + g_w zeta(w) in every term not involving products of zeta values, with g_3 = 1, g_5 = 1/10, g_7 = 1/42, g_9 = 1/120, g_11 = 1/264, g_13 = 691/327600, g_15 = 1/720, g_17 = 3617/3427200, g_19 = 43867/48263040, g_21 = 174611/199584000, g_23 = 77683/83462400, g_25 = 236364091/217945728000, g_27 = 657931/479001600, g_29 = 3392780147/1805836032000, g_31 = 1723168255201/624283743283200, g_33 = 7709321041217/1778437140480000, g_35 = 151628697551/20922789888000 (all equal to 6|B_{w-1}|/((w-1)/2)!). Since X_w - f_w E(w) is harmonic, modular invariant and of polynomial growth, it is constant, and the constant is its Laurent constant term; hence X_w = f_w E(w) + g_w zeta(w) holds identically for these w. Verifier: exakt für alle ungeraden 3 <= w <= 35: Laplace-Teil wie mgf_harmonisch_familie; Laurent-Polynom nach D'Hoker-Kaidi Thm. 5.1 (Übertragung an Gl. 5.19 geprüft) konsistent mit f_w E_w + g_w zeta(w); Konstantterme = angegebene g_w. Novelty status: partly known. Known (arXiv:1502.06698, full text, verbatim: \"and may be determined from the asymptotic behavior near the cusp; their values for weight up to 9 are given in (3.34)\"): die Kombinationen X_w für alle ungeraden w (DGV Gl. 3.57), f_w für w <= 9 und g_w für w = 3, 5 (Gl. 3.34; g_7, g_9 dort unbestimmt); g_7 steht zudem explizit bei arXiv:2109.05017, Gl. 3.77 (Volltext-Beleg zu relation:7). Not given there: geschlossene Formen von f_w und g_w für allgemeines ungerades w und ihr Nachweis für w >= 9. Related exact result: arXiv:1902.04180: Laurent-Polynom jeder einzelnen C_{u,v;w} (Thm. 5.1), hier als Werkzeug benutzt; die Konstanten der DGV-Identitäten werden dort nicht ausgewertet. (Literature claim for this source: [C-litn1].)",
+   "text": "Question studied: Beweise die Identitäten X_w = f_w E(w) + g_w zeta(w) für alle ungeraden 3 <= w <= 61 exakt (Präregistrierung H12): Hole zuerst mit der Operation mgf_laurent_konstanten (gewicht_bis 61) die exakten Konstantterme g_w und prüfe dann mit dem Prüfungstyp mgf_identitaet_familie (gewicht_bis 61, alle g_w als exakte Brüche aus mgf_laurent_konstanten), ob g_w = 6|B_{w-1}|/((w-1)/2)! für alle diese w gilt. Die Prüfung dauert etwa 15 Minuten. Verified result: Exactly, for every odd weight 3 <= w <= 35, with X_w the combination of D'Hoker-Green-Vanhove (eq. 3.57 of arXiv:1502.06698): Delta X_w = w(w-1) f_w E(w) with f_w = 3((w-1)/2)!/w (exact Laplace algebra), and the Laurent polynomial of X_w, computed in rational arithmetic from Proposition 2.1 and Theorem 5.1 of D'Hoker-Kaidi (arXiv:1902.04180; transcription checked against their eq. 5.19), equals that of f_w E(w) + g_w zeta(w) in every term not involving products of zeta values, with g_3 = 1, g_5 = 1/10, g_7 = 1/42, g_9 = 1/120, g_11 = 1/264, g_13 = 691/327600, g_15 = 1/720, g_17 = 3617/3427200, g_19 = 43867/48263040, g_21 = 174611/199584000, g_23 = 77683/83462400, g_25 = 236364091/217945728000, g_27 = 657931/479001600, g_29 = 3392780147/1805836032000, g_31 = 1723168255201/624283743283200, g_33 = 7709321041217/1778437140480000, g_35 = 151628697551/20922789888000 (all equal to 6|B_{w-1}|/((w-1)/2)!). Since X_w - f_w E(w) is harmonic, modular invariant and of polynomial growth, it is constant, and the constant is its Laurent constant term; hence X_w = f_w E(w) + g_w zeta(w) holds identically for these w. Verifier: exakt für alle ungeraden 3 <= w <= 35: Laplace-Teil wie mgf_harmonisch_familie; Laurent-Polynom nach D'Hoker-Kaidi Thm. 5.1 (Übertragung an Gl. 5.19 geprüft) konsistent mit f_w E_w + g_w zeta(w); Konstantterme = angegebene g_w. Novelty status: partly known. Known (arXiv:1502.06698, full text, verbatim: \"and may be determined from the asymptotic behavior near the cusp; their values for weight up to 9 are given in (3.34)\"): die Kombinationen X_w für alle ungeraden w (DGV Gl. 3.57), f_w für w <= 9 und g_w für w = 3, 5 (Gl. 3.34; g_7, g_9 dort unbestimmt); g_7 steht zudem explizit bei arXiv:2109.05017, Gl. 3.77 (Volltext-Beleg zu relation:7). Not given there: geschlossene Formen von f_w und g_w für allgemeines ungerades w und ihr Nachweis für w >= 9. Related exact result: arXiv:1902.04180: Laurent-Polynom jeder einzelnen C_{u,v;w} (Thm. 5.1), hier als Werkzeug benutzt; die Konstanten der DGV-Identitäten werden dort nicht ausgewertet. Subsumed by C-modular-R17a (same or weaker check); appendix only. (Literature claim for this source: [C-litn1].)",
    "level": "computed_rigorous",
    "status": "bestätigt",
    "relevanz": "hauptresultat",
    "scope": "punkte",
    "benutzt": [],
-   "rolle": "stuetze",
-   "env": "proposition"
+   "anhang": true,
+   "env": "theorem"
   },
   {
    "claim_id": "C-modular-R16-I",
@@ -1105,14 +1105,14 @@
   },
   {
    "claim_id": "C-modular-R17b",
-   "text": "Question studied: Beweise die Identitäten X_w = f_w E(w) + g_w zeta(w) für alle ungeraden 3 <= w <= 61 exakt (Präregistrierung H12): Prüfungstyp mgf_identitaet_familie mit gewicht_bis 61 und \"g_formel\": \"6|B_{w-1}|/((w-1)/2)!\" (der Prüfer rechnet die g_w selbst; keine Wertetabelle abschreiben). Die Prüfung dauert etwa 15 Minuten. Verified result: Exactly, for every weight 3 <= w <= 25: the rational combinations X of dihedral C(a,b,c) of weight w with Delta X in Q*E(w) form a space of dimension 1 for odd w and 0 for even w; for odd w = 2mu+3 it is spanned by the combination of D'Hoker-Green-Vanhove (eq. 3.57 of arXiv:1502.06698), and Delta X = w(w-1) f_w E(w) with f_w = 3((w-1)/2)!/w in that normalisation. Verifier: exakt für alle 3 <= w <= 25: harmonischer Raum dim 1 (ungerade, DGV-Kombination, f_w = 3((w-1)/2)!/w) bzw. 0 (gerade). Novelty status: partly known. Known (arXiv:1502.06698, full text, verbatim: \"For eigenvalue 0, namely s = 1, the multiplicity is one for each odd weight (and zero for each\"): Eindimensionalität des Eigenraums zum Eigenwert 0 für jedes ungerade, Null für jedes gerade Gewicht; Kombination X_w (Gl. 3.57). Not given there: geschlossene Form f_w = 3((w-1)/2)!/w; unsere exakte Bestätigung bis w = 25 ist eine unabhängige Nachrechnung. (Literature claim for this source: [C-litn1].)",
+   "text": "Question studied: Beweise die Identitäten X_w = f_w E(w) + g_w zeta(w) für alle ungeraden 3 <= w <= 61 exakt (Präregistrierung H12): Prüfungstyp mgf_identitaet_familie mit gewicht_bis 61 und \"g_formel\": \"6|B_{w-1}|/((w-1)/2)!\" (der Prüfer rechnet die g_w selbst; keine Wertetabelle abschreiben). Die Prüfung dauert etwa 15 Minuten. Verified result: Exactly, for every weight 3 <= w <= 25: the rational combinations X of dihedral C(a,b,c) of weight w with Delta X in Q*E(w) form a space of dimension 1 for odd w and 0 for even w; for odd w = 2mu+3 it is spanned by the combination of D'Hoker-Green-Vanhove (eq. 3.57 of arXiv:1502.06698), and Delta X = w(w-1) f_w E(w) with f_w = 3((w-1)/2)!/w in that normalisation. Verifier: exakt für alle 3 <= w <= 25: harmonischer Raum dim 1 (ungerade, DGV-Kombination, f_w = 3((w-1)/2)!/w) bzw. 0 (gerade). Novelty status: partly known. Known (arXiv:1502.06698, full text, verbatim: \"For eigenvalue 0, namely s = 1, the multiplicity is one for each odd weight (and zero for each\"): Eindimensionalität des Eigenraums zum Eigenwert 0 für jedes ungerade, Null für jedes gerade Gewicht; Kombination X_w (Gl. 3.57). Not given there: geschlossene Form f_w = 3((w-1)/2)!/w; unsere exakte Bestätigung bis w = 25 ist eine unabhängige Nachrechnung. Subsumed by C-modular-R14 (same or weaker check); appendix only. (Literature claim for this source: [C-litn1].)",
    "level": "computed_rigorous",
    "status": "bestätigt",
    "relevanz": "hauptresultat",
    "scope": "punkte",
    "benutzt": [],
-   "rolle": "stuetze",
-   "env": "proposition"
+   "anhang": true,
+   "env": "theorem"
   },
   {
    "claim_id": "C-modular-R17b-I",
@@ -1143,13 +1143,13 @@
   },
   {
    "claim_id": "C-modular-R17c",
-   "text": "Question studied: Beweise die Identitäten X_w = f_w E(w) + g_w zeta(w) für alle ungeraden 3 <= w <= 61 exakt (Präregistrierung H12): Prüfungstyp mgf_identitaet_familie mit gewicht_bis 61 und \"g_formel\": \"6|B_{w-1}|/((w-1)/2)!\" (der Prüfer rechnet die g_w selbst; keine Wertetabelle abschreiben). Die Prüfung dauert etwa 15 Minuten. Verified result: Numerically (32 digits, 4 verifier-chosen points, relative residual <= 1e-24): 19008·C(5,5,1) + 38016·C(5,4,2) + 19008·C(5,3,3) + 28512·C(4,4,3) - 8640·E(11) - zeta(11) = 0 as functions of tau. Verifier: exakter Leitkoeffizient von y^11: 0; numerisch an 4 Prüfer-Punkten (Seed 4711, 32 Stellen): max. relatives Residuum 1.21e-43 (Schranke 1e-24). Novelty status: partly known. Known (arXiv:1502.06698, full text, verbatim: \"and may be determined from the asymptotic behavior near the cusp; their values for weight up to 9 are given in\"): Existenz und Kombination der Identität für jedes ungerade w (DGV Gl. 3.57). Not given there: Konstanten f_w und g_w für w >= 11. Related exact result: arXiv:1902.04180: Laurent-Polynom aller zweischleifigen Modulgraphfunktionen (Theorem 5.1); die Konstanten g_w folgen daraus im Prinzip, wurden aber dort nicht für die Identitäten ausgewertet. (Literature claim for this source: [C-litn1].)",
+   "text": "Question studied: Beweise die Identitäten X_w = f_w E(w) + g_w zeta(w) für alle ungeraden 3 <= w <= 61 exakt (Präregistrierung H12): Prüfungstyp mgf_identitaet_familie mit gewicht_bis 61 und \"g_formel\": \"6|B_{w-1}|/((w-1)/2)!\" (der Prüfer rechnet die g_w selbst; keine Wertetabelle abschreiben). Die Prüfung dauert etwa 15 Minuten. Verified result: Numerically (32 digits, 4 verifier-chosen points, relative residual <= 1e-24): 19008·C(5,5,1) + 38016·C(5,4,2) + 19008·C(5,3,3) + 28512·C(4,4,3) - 8640·E(11) - zeta(11) = 0 as functions of tau. Verifier: exakter Leitkoeffizient von y^11: 0; numerisch an 4 Prüfer-Punkten (Seed 4711, 32 Stellen): max. relatives Residuum 1.21e-43 (Schranke 1e-24). Novelty status: partly known. Known (arXiv:1502.06698, full text, verbatim: \"and may be determined from the asymptotic behavior near the cusp; their values for weight up to 9 are given in\"): Existenz und Kombination der Identität für jedes ungerade w (DGV Gl. 3.57). Not given there: Konstanten f_w und g_w für w >= 11. Related exact result: arXiv:1902.04180: Laurent-Polynom aller zweischleifigen Modulgraphfunktionen (Theorem 5.1); die Konstanten g_w folgen daraus im Prinzip, wurden aber dort nicht für die Identitäten ausgewertet. Subsumed by C-modular-R7a (same or weaker check); appendix only. (Literature claim for this source: [C-litn1].)",
    "level": "observed",
    "status": "bestätigt",
    "relevanz": "hauptresultat",
    "scope": "punkte",
    "benutzt": [],
-   "rolle": "stuetze",
+   "anhang": true,
    "env": "observation"
   },
   {
@@ -1181,13 +1181,13 @@
   },
   {
    "claim_id": "C-modular-R17d",
-   "text": "Question studied: Beweise die Identitäten X_w = f_w E(w) + g_w zeta(w) für alle ungeraden 3 <= w <= 61 exakt (Präregistrierung H12): Prüfungstyp mgf_identitaet_familie mit gewicht_bis 61 und \"g_formel\": \"6|B_{w-1}|/((w-1)/2)!\" (der Prüfer rechnet die g_w selbst; keine Wertetabelle abschreiben). Die Prüfung dauert etwa 15 Minuten. Verified result: Numerically (32 digits, 4 verifier-chosen points, relative residual <= 1e-24): 51819264000·C(8,8,1) + 103638528000·C(8,7,2) + 103638528000·C(8,6,3) + 103638528000·C(8,5,4) + 88833024000·C(7,7,3) + 222082560000·C(7,6,4) + 118444032000·C(7,5,5) + 148055040000·C(6,6,5) - 24385536000·E(17) - 3617·zeta(17) = 0 as functions of tau. Verifier: exakter Leitkoeffizient von y^17: 0; numerisch an 4 Prüfer-Punkten (Seed 4711, 32 Stellen): max. relatives Residuum 5.49e-44 (Schranke 1e-24). Novelty status: partly known. Known (arXiv:1502.06698, full text, verbatim: \"and may be determined from the asymptotic behavior near the cusp; their values for weight up to 9 are given in\"): Existenz und Kombination der Identität für jedes ungerade w (DGV Gl. 3.57). Not given there: Konstanten f_w und g_w für w >= 11. Related exact result: arXiv:1902.04180: Laurent-Polynom aller zweischleifigen Modulgraphfunktionen (Theorem 5.1); die Konstanten g_w folgen daraus im Prinzip, wurden aber dort nicht für die Identitäten ausgewertet. (Literature claim for this source: [C-litn1].)",
+   "text": "Question studied: Beweise die Identitäten X_w = f_w E(w) + g_w zeta(w) für alle ungeraden 3 <= w <= 61 exakt (Präregistrierung H12): Prüfungstyp mgf_identitaet_familie mit gewicht_bis 61 und \"g_formel\": \"6|B_{w-1}|/((w-1)/2)!\" (der Prüfer rechnet die g_w selbst; keine Wertetabelle abschreiben). Die Prüfung dauert etwa 15 Minuten. Verified result: Numerically (32 digits, 4 verifier-chosen points, relative residual <= 1e-24): 51819264000·C(8,8,1) + 103638528000·C(8,7,2) + 103638528000·C(8,6,3) + 103638528000·C(8,5,4) + 88833024000·C(7,7,3) + 222082560000·C(7,6,4) + 118444032000·C(7,5,5) + 148055040000·C(6,6,5) - 24385536000·E(17) - 3617·zeta(17) = 0 as functions of tau. Verifier: exakter Leitkoeffizient von y^17: 0; numerisch an 4 Prüfer-Punkten (Seed 4711, 32 Stellen): max. relatives Residuum 5.49e-44 (Schranke 1e-24). Novelty status: partly known. Known (arXiv:1502.06698, full text, verbatim: \"and may be determined from the asymptotic behavior near the cusp; their values for weight up to 9 are given in\"): Existenz und Kombination der Identität für jedes ungerade w (DGV Gl. 3.57). Not given there: Konstanten f_w und g_w für w >= 11. Related exact result: arXiv:1902.04180: Laurent-Polynom aller zweischleifigen Modulgraphfunktionen (Theorem 5.1); die Konstanten g_w folgen daraus im Prinzip, wurden aber dort nicht für die Identitäten ausgewertet. Subsumed by C-modular-R13 (same or weaker check); appendix only. (Literature claim for this source: [C-litn1].)",
    "level": "observed",
    "status": "bestätigt",
    "relevanz": "hauptresultat",
    "scope": "punkte",
    "benutzt": [],
-   "rolle": "stuetze",
+   "anhang": true,
    "env": "observation"
   },
   {
@@ -1381,10 +1381,10 @@
   }
  ],
  "story": {
-  "kernfrage": "What are the exact constants in the identities X_w = f_w E(w) + g_w zeta(w) between the combination X_w of dihedral modular graph functions and the Eisenstein series E(w) at odd weight w, and can closed forms for them be proved?",
-  "kernaussage": "For every odd weight 3 <= w <= 61, the D'Hoker-Green-Vanhove combination X_w of dihedral modular graph functions satisfies X_w = f_w E(w) + g_w zeta(w) exactly, with f_w = 3((w-1)/2)!/w and g_w = 6|B_{w-1}|/((w-1)/2)!.",
+  "kernfrage": "For odd weight w, which exact closed-form constants f_w and g_w make the DGV combination X_w of dihedral modular graph functions equal to f_w E(w) + g_w zeta(w)?",
+  "kernaussage": "For every odd weight 3 <= w <= 61, the DGV combination X_w of dihedral modular graph functions satisfies X_w = f_w E(w) + g_w zeta(w) exactly, with f_w = 3((w-1)/2)!/w and g_w = 6|B_{w-1}|/((w-1)/2)!, where B_n are Bernoulli numbers.",
   "titel": "Closed forms for the constants in the odd-weight identities between dihedral modular graph functions",
-  "keywords": "modular graph functions, Eisenstein series, Laplace equation, Bernoulli numbers, closed-string one-loop amplitude, Laurent polynomial",
+  "keywords": "modular graph functions, dihedral graphs, Laplace equation, Eisenstein series, Bernoulli numbers, closed-string amplitudes",
   "zuordnung": {
    "C-modell": "stuetze",
    "C-modular-R1": "anhang",
@@ -1403,27 +1403,21 @@
    "C-modular-R5f": "anhang",
    "C-modular-R5g": "anhang",
    "C-modular-R5h": "anhang",
-   "C-modular-R6a": "hauptresultat",
+   "C-modular-R6a": "stuetze",
    "C-modular-R6b": "beispiel",
    "C-modular-R6c": "beispiel",
-   "C-modular-R6d": "hauptresultat",
-   "C-modular-R6e": "stuetze",
-   "C-modular-R7a": "hauptresultat",
-   "C-modular-R7b": "stuetze",
+   "C-modular-R6d": "beispiel",
+   "C-modular-R7a": "stuetze",
+   "C-modular-R7b": "anhang",
    "C-modular-R8": "anhang",
    "C-modular-R9a": "stuetze",
    "C-modular-R9b": "stuetze",
-   "C-modular-R11a": "hauptresultat",
-   "C-modular-R11b": "hauptresultat",
+   "C-modular-R11a": "stuetze",
+   "C-modular-R11b": "stuetze",
    "C-modular-R12": "stuetze",
-   "C-modular-R13": "hauptresultat",
+   "C-modular-R13": "stuetze",
    "C-modular-R14": "hauptresultat",
-   "C-modular-R15": "stuetze",
-   "C-modular-R16": "stuetze",
    "C-modular-R17a": "hauptresultat",
-   "C-modular-R17b": "stuetze",
-   "C-modular-R17c": "stuetze",
-   "C-modular-R17d": "stuetze",
    "C-neg1": "anhang",
    "C-neg2": "anhang",
    "C-neg3": "anhang",

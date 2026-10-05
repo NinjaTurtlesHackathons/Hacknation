@@ -29,10 +29,22 @@ def _nums(text):
 def check(md, claims):
     """Gibt Liste von Verstößen zurück: (satz, grund)."""
     C = {c["claim_id"]: c for c in claims}; issues = []
-    for para in md.split("\n"):
+    lines = md.split("\n"); erbt = {}                                    # Tabellenzeilen erben die Belege ihrer Überschrift ("Table: ... [C-...]")
+    for k, z in enumerate(lines):
+        if z.lstrip().startswith("|"):
+            cap = []
+            for r in (range(k - 1, -1, -1), range(k + 1, len(lines))):
+                for j in r:
+                    t = lines[j].strip()
+                    if not t or t.startswith("|"): continue
+                    if re.match(r"^(Table|Tabelle)\s*:", t): cap += re.findall(r"C-[\w\-*.]+", t)
+                    break
+            erbt[k] = cap
+    for k, para in enumerate(lines):
         if not para.strip() or para.lstrip().startswith("#"): continue
-        for s in re.split(r"(?<=[.!?])\s+(?=[A-ZÄÖÜ\[])", para):
-            ids = [i for m in re.finditer(r"\[([^\]]+)\]", s) for i in re.findall(r"C-[\w\-*.]+", m.group(1))]
+        if re.match(r"^\s*\|[\s:|-]+\|\s*$", para): continue
+        for s in ([para] if k in erbt else re.split(r"(?<=[.!?])\s+(?=[A-ZÄÖÜ\[])", para)):
+            ids = [i for m in re.finditer(r"\[([^\]]+)\]", s) for i in re.findall(r"C-[\w\-*.]+", m.group(1))] + erbt.get(k, [])
             bad = [i for i in ids if i not in C]
             if bad: issues.append((s, f"unbekannte claim_id {bad}")); continue
             body = re.sub(r"\[[^\]]*\]", "", s); nums = _nums(body) - {1.0, 2.0, 3.0, 4.0}   # Aufzählungen/Dimensionen zulassen

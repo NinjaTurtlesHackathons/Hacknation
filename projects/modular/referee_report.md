@@ -2,47 +2,47 @@
 
 Fixable points addressed in a revision: no (revision failed the checks or nothing fixable)
 
-## 1. Main result is only verified for finitely many weights; the general statement remains a conjecture
+## 1. The headline closed forms are proved only for 3 ≤ w ≤ 61; the all-odd-w statement remains a conjecture
 
-The title and abstract promise closed forms for the constants in the odd-weight identities. What is established is a finite check at 3 ≤ w ≤ 61, by exact evaluation of a published Laurent formula. The all-weight statement is Conjecture 1, with only a hope that it reduces to a binomial-sum identity. The Bernoulli/factorial pattern was found from small cases and then checked, not derived. Without an induction or generating-function argument, the contribution is a computational table plus a conjecture. A reader cannot tell whether the pattern persists, for instance whether it keeps its form once large Bernoulli numerators appear.
-
-- Severity: major
-- Fixable by rewriting: False
-- Suggestion: Prove the binomial-sum identity for the Laurent constant term, or evaluate it symbolically for general w. Otherwise retitle and reframe the paper honestly as 'verified closed forms up to w = 61 and a conjecture'.
-- Status: open
-
-## 2. Central proof depends on two unchecked inputs, and the Laurent evaluation is only partly cross-checked
-
-Theorem 1 relies on Theorem 5.1 of arXiv:1902.04180 and on the 'standard lemma' that a harmonic, SL(2,Z)-invariant function of polynomial growth is constant. Neither is machine-checked, and the lemma is not stated or proved. The consistency check is only that terms without zeta products agree with fw Ew + gw ζ(w). The terms that fix gw (the zeta-product terms and the τ2^0 coefficient) are not independently validated beyond a transcription check against eq. (5.19). The independent numerical confirmation covers only w ≤ 17, while Theorem 1 claims w ≤ 61. For 19 ≤ w ≤ 61 the result therefore rests entirely on the unchecked transcription.
+The title and abstract promise closed forms for the constants in the odd-weight identities. Theorem 1 is a finite case-by-case computer verification for w ≤ 61, and Conjecture 1 was extrapolated from w = 3..13. No argument explains why |B_{w-1}| and ((w-1)/2)! should appear, or why the constants should follow this pattern for all w. Open question (i) concedes that a proof, presumably an identity between binomial sums, is missing. The result is therefore a verified pattern with a finite range, not a theorem about the family. The choice of 61 as a cutoff is not justified, and the paper does not say whether it comes from compute limits or from something structural.
 
 - Severity: major
 - Fixable by rewriting: False
-- Suggestion: State the lemma precisely with growth hypotheses and a short proof or exact citation. Add independent numerical or exact checks of the constant at some w > 17, for example w = 19 and 21. Describe the Laurent-polynomial check at the τ2^0 term explicitly.
+- Suggestion: Either supply a general proof, for example by reducing the Laurent constant to a binomial-sum identity and proving that identity. Or retitle and reframe the paper as a computer-verified result for w ≤ 61 plus a conjecture. Justify the cutoff and state the claim's scope explicitly in the abstract and title.
 - Status: open
 
-## 3. Inconsistent normalisation of Xw across theorem, table, proposition and numerical relations
+## 2. The proof is not verifiable from the paper: undefined X_w, unspecified lemma, and no explicit intermediate data
 
-Xw is never defined explicitly; it is only referenced to DGV eq. 3.57. The paper's own data then disagree on its normalisation. For w = 9, Proposition 2 gives Δ(9C(4,4,1)+18C(4,3,2)+4C(3,3,3)) = 288E9, which implies f = 4 and g = 1/240 (Observation 2 divided by 240). The table and Theorem 2 give f9 = 8 and g9 = 1/120. At w = 11 Proposition 2 gives f = 10/11, while the table gives 360/11 and Observation 3 gives 8640/19008 = 5/11. The statement 'ΔXw = w(w−1) fw Ew' is therefore not verifiable from the text. The factors 2 and 36 are unexplained, and in the Laplace statement for w = 9 the constant that Proposition 2 leaves unspecified is only recovered via Observation 2.
+X_w is defined only as the combination of D'Hoker–Green–Vanhove, with no explicit coefficients for general w, so f_w cannot be checked against the text. Normalisations also differ between Proposition 1 (λ = 288, 100) and Observation 3 (e.g. 19008·C(5,5,1)...). Step 1 asserts that exact algebra gives ΔX_w = w(w−1) f_w E(w) with no other terms, but shows no algebra. Step 2 relies on an unnamed 'standard lemma' about harmonic, modular-invariant functions of polynomial growth. Step 3 relies on D'Hoker–Kaidi Theorem 5.1 transcribed into code, and says that terms without zeta-value products 'agree' with f_w E(w) + g_w ζ(w). It never shows how the zeta-product terms cancel or why the constant is exactly g_w ζ(w). The trusted base is an unreviewed Python implementation, and the paper itself notes that an evaluator bug was found. The identities for w = 13, 15 and 17 are given only by their zeta terms, with no coefficients (the w = 17 identity involves eight functions).
+
+- Severity: major
+- Fixable by rewriting: False
+- Suggestion: State and cite the lemma precisely. Give X_w's coefficients explicitly, or a general formula for them. Show the Laplace algebra and Laurent-polynomial computation for at least one non-trivial weight, such as w = 7 or 9. Show how the zeta-product terms cancel. List the full identities for w = 13, 15 and 17, and use one consistent normalisation throughout.
+- Status: open
+
+## 3. Limited novelty, with a Theorem 2 that mostly re-confirms known results
+
+The paper itself says the identities, their existence and the multiplicity-one result are already in DGV, and w ≤ 9 plus g7 are known from [1] and [2]. Theorem 2 re-derives the known dimension statement for w ≤ 25. The genuinely new content is the closed form for f_w and g_w at w ≥ 11, which is a conjecture beyond w = 61. Much of the material is unrelated to the main claim: the eta-quotient levels for M4(Γ0(N)) with Fig. 3, the theta-function and E8 identities, and the 'laboratory workflow' statistics. The bibliography has only two references, and the related literature on modular graph function Laplace systems and Poincaré series is hardly engaged.
 
 - Severity: major
 - Fixable by rewriting: True
-- Suggestion: Write out Xw explicitly for each w with its integer coefficients, or give the general rule for the normalisation. Reconcile Proposition 2, the table and Observations 2–3 (for example by stating the overall factor relating them). Show Δ Xw = w(w−1) fw Ew for each tabulated w.
+- Suggestion: State the new contribution precisely and shorten the claims of novelty. Remove or move to a separate note the unrelated eta-quotient, theta and workflow material. Add a literature comparison of the constants with existing results, such as those of Dorigoni–Kleinschmidt–Schlotterer, and explain what the closed forms add.
 - Status: open
 
-## 4. Inconsistent ranges and mislabelled statements, with unfinished and off-topic material
+## 4. The numerical certification protocol is partly post hoc and adds little independent evidence
 
-Theorem 1 claims 3 ≤ w ≤ 61. Proposition 1 is titled '27 ≤ w ≤ 35' but states 3 ≤ w ≤ 35 and is described as an 'intermediate certificate'. Theorem 2 covers w ≤ 25, the table lists w ≤ 25, and the numerical checks cover w ≤ 17. Values for 27 ≤ w ≤ 61 are not shown anywhere. Figure 1 is described as 'to be generated' in the text, while the figure caption describes different content. The 'Remark 2' environment holds Conjecture 1. The eta-quotient, Sturm-bound and θE8 tables, and the weight-4 eta span of Γ0(N) (Tables 2–3, Fig. 3), are unrelated to the modular graph results and appear to be verifier self-tests padded into the paper. The counter-check count ('4 passed, 48 did not pass, 1 not executable') is confusing. The provenance table and the German claim IDs/pruefprotokoll.json cannot be audited from the manuscript. The question of whether g7 and g9 are really open is muddied, since g7 is given in 2109.05017 eq. 3.77.
+For the full weight-11 basis the originally preregistered criterion failed (smallest large singular value 4.149e-9 against a bound of 1e-8). It was replaced by a new criterion with a threshold of 1e-16, chosen after seeing the singular values, so the success is not a clean preregistered pass. The appendix still describes the old criterion as the protocol, and the weight-9 gap is similarly marginal (8.6e-7). The paper also describes the w = 15 relation as a prediction and w = 17 as a blind test, but the bases for these claims are not shown. Without exact data, the numerical observations are only point-evaluation checks at 4 points, with a modest dynamic range between kernel and non-kernel values, so they cannot substitute for proof of the constants.
 
 - Severity: minor
 - Fixable by rewriting: True
-- Suggestion: Make the ranges consistent and put the verified values, or at least gw and fw up to w = 61, in a table or appendix. Fix the Proposition 1 title. Generate the figure and align its caption. Move the eta/Sturm self-tests to a supplement or drop them. Clarify the counter-check statistics. Sharpen the novelty claim relative to 2109.05017.
+- Suggestion: Report the failure of criterion 1 and the revised criterion consistently in the appendix and the main text. Present Observation 4 as exploratory, not preregistered. Say clearly that the numerics are consistency checks that do not enter the proof. Give the evidence for the 'prediction' and 'blind test' labels, or drop them.
 - Status: open
 
-## 5. Numerical evidence is weaker than presented, and its reporting needs tightening
+## 5. Editorial and presentation defects, with dangling references and inconsistent labelling
 
-Residuals of order 1e-44 to 1e-43 at '32-digit' working precision, and hardening residuals of 1e-42 at 30 digits, lie far below the working precision. Either the precision claims are mis-stated or the residual is not the one that is claimed. In Observation 6, exact zeros are reinterpreted as 'below rounding resolution' to pass the criterion. The independent lattice sum agrees only to about 1e-13, so it confirms the weight-11 identity far less strongly than the headline 1e-24. The full weight-11 basis claim has a smallest 'large' singular value of 3.69e-9 against a 1e-16 cut-off. The preregistered criterion 1 failed and was replaced by a criterion 2 'preregistered afterwards on new data', which weakens the preregistration claim. The weight-6 negative result has a smallest singular value of 2.44e-8, so absence of relations is also not sharply separated. Only 4 points were used per relation. The Laplacian tolerance is printed as '1e14' (probably 1e-14). The weight-17 'blind test' is a single preregistered check.
+The abstract contains an orphan sentence, 'Numerical identification of the constants by integer-relation search is therefore fragile', that follows from nothing. It also mixes 'conjecture', 'proof' and 'verifier confirmed' language. References are dangling: '(cf.)', 'the two assumptions named in.', and 'the observations above'. Fig. 1 is captioned as showing g_w but plots log10(g_w/ζ(w)), and the 'conjectured vs confirmed' dots mix proved and numerical status. The paper uses 'the authors' although the author line has one name, lacks an affiliation, and attributes parts of the manuscript to an AI system without clearly delimiting its role. The provenance table in Appendix B is auto-generated and its levels ('computed_rigorous, observed') are not explained. Also, the 'Status' text for Conjecture 1 sits oddly beside Theorem 1, which proves it for w ≤ 61.
 
 - Severity: minor
 - Fixable by rewriting: True
-- Suggestion: Explain how residuals can be below working precision, for example by stating the precision in which residuals were computed. Report singular-value gaps honestly and drop or temper the 'exactly one relation' claim, or show a larger gap. Fix the typo. Describe the post-hoc criterion 2 as exploratory. Moderate the language about the blind test.
+- Suggestion: Rewrite the abstract and summary to be consistent and self-contained. Fix all dangling cross-references. Correct the figure captions and axis labels. Explain the provenance levels. Fix the author, affiliation and authorship statements, and describe the AI tool's role in the standard way for the journal.
 - Status: open
